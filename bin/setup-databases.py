@@ -1,33 +1,56 @@
 #! /usr/bin/env python3
 """
-Dependencies
-pip install executor
-pip install lxml
-pip install ncbi-genome-download
-usage: setup-organism-databases.py [-h] [--ariba ARIBA] [--mlst MLST]
-                                   [--cgmlst CGMLST]
-                                   [--outdir OUTPUT_DIRECTORY]
-                                   [--list_databases] [--verbose] [--silent]
-                                   [--force]
+usage: setup-organism-databases.py [-h] [--mlst MLST] [--cgmlst CGMLST]
+                                   [--ariba ARIBA] [--skip_prokka]
+                                   [--include_genus] [--identity FLOAT]
+                                   [--overlap FLOAT] [--max_memory INT]
+                                   [--fast_cluster] [--delete_files]
+                                   [--cpus INT] [--clear_cache] [--force]
+                                   [--list_databases] [--depends] [--verbose]
+                                   [--silent]
+                                   OUTPUT_DIRECTORY
 
-Setup default databases (MLST, resistance, virulence, annotation) for a given
+Setup default databases (MLST, resitance, virulence, annotation) for a given
 organism.
 
+positional arguments:
+  OUTPUT_DIRECTORY  Directory to write output.
+
 optional arguments:
-  -h, --help            show this help message and exit
-  --ariba ARIBA         Setup Ariba database for a given database or a list of
-                        databases in a text file.
-  --mlst MLST           Download MLST schema for a given species or a list of
-                        species in a text file.
-  --cgmlst CGMLST       Download cgMLST schema for a given species or a list
-                        of species in a text file.
-  --outdir OUTPUT_DIRECTORY
-                        Directory to write output. (Default: ./)
-  --list_databases      List resistance/virulence Ariba databases and (cg)MLST
-                        schemas available for setup.
-  --verbose             Print debug related text.
-  --silent              Only critical errors will be printed.
-  --force               Forcibly overwrite existing databases.
+  -h, --help        show this help message and exit
+
+Sequence Typing:
+  --mlst MLST       Download MLST schema for a given species or a list of
+                    species in a text file.
+  --cgmlst CGMLST   Download cgMLST schema for a given species or a list of
+                    species in a text file.
+
+Resistance/Virulence (Ariba):
+  --ariba ARIBA     Setup Ariba database for a given database or a list of
+                    databases in a text file. (Default: card,vfdb_core)
+
+Custom Prokka Protein Database:
+  --skip_prokka     Skip creation of a Prokka formatted fasta for each
+                    organism
+  --include_genus   Include all genus members in the Prokka database
+  --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
+  --overlap FLOAT   CD-HIT (-s) length difference cutoff. (Default: 0.8)
+  --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
+  --fast_cluster    Use CD-HIT's (-g 0) fast clustering algorithm, instead of
+                    the accurate but slow algorithm.
+  --delete_files    Delete all downloaded and intermediate files.
+
+Helpful Options:
+  --cpus INT        Number of cpus to use. (Default: 1)
+  --clear_cache     Remove any existing cache.
+  --force           Forcibly overwrite existing databases.
+  --list_databases  List resistance/virulence Ariba databases and (cg)MLST
+                    schemas available for setup.
+  --depends         Verify dependencies are installed.
+
+Adjust Verbosity:
+  --verbose         Print debug related text.
+  --silent          Only critical errors will be printed.
 """
 import glob
 import json
