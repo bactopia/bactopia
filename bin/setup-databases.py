@@ -203,7 +203,8 @@ def setup_requests(request, available_databases, title, skip_check=False):
     return databases
 
 
-def setup_ariba(request, available_databases, outdir, force=False):
+def setup_ariba(request, available_databases, outdir, force=False,
+                keep_files=False):
     """Setup each of the requested databases using Ariba."""
     requests = setup_requests(request, available_databases, 'ariba')
     if requests:
@@ -222,11 +223,20 @@ def setup_ariba(request, available_databases, outdir, force=False):
             fa = f'{prefix}.fa'
             tsv = f'{prefix}.tsv'
             execute(f'mkdir -p {ariba_dir}')
-            execute(f'ariba getref {request} {prefix}')
+            with open(f'{prefix}-log.txt', 'w') as ariba_log:
+                execute(
+                    f'ariba getref {request} {request}',
+                    stdout_file=ariba_log, stderr_file=ariba_log,
+                    directory=ariba_dir
+                )
             execute(f'ariba prepareref -f {fa} -m {tsv} {prefix}')
-            execute(f'gzip -c {prefix}.fa > {prefix}/{request}.fa.gz')
-            execute(f'gzip -c {prefix}.tsv > {prefix}/{request}.tsv.gz')
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {prefix}/{request}-updated.txt')
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {request}-updated.txt',
+                    directory=prefix)
+
+            # Clean up
+            if not keep_files:
+                execute(f'rm {fa} {tsv}')
+            execute(f'mv {request}*.* {request}/', directory=ariba_dir)
     else:
         logging.info("No valid Ariba databases to setup, skipping")
 
@@ -257,7 +267,6 @@ def setup_mlst(request, available_databases, outdir, force=False):
             logging.info(f'Creating Ariba MLST database')
             ariba_dir = f'{mlst_dir}/ariba'
             execute(f'ariba pubmlstget "{request}" {ariba_dir}')
-            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > ariba-updated.txt', directory=ariba_dir)
 
             # BLAST
             logging.info(f'Creating BLAST MLST database')
@@ -266,7 +275,6 @@ def setup_mlst(request, available_databases, outdir, force=False):
                 output = os.path.splitext(fasta)[0]
                 execute(f'makeblastdb -in {fasta} -dbtype nucl -out {output}')
             execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
-            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > blast-updated.txt', directory=blast_dir)
 
             # MentaLiST
             """
@@ -275,11 +283,11 @@ def setup_mlst(request, available_databases, outdir, force=False):
             execute(f'mkdir -p {mentalist_dir}')
             execute((f'mentalist download_pubmlst -o mlst -k 31 -s "{request}"'
                      ' --db mlst.db'), directory=mentalist_dir)
-            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > mentalist-updated.txt', directory=mentalist_dir)
             """
 
             # Finish up
-            execute(f'date > {species}-updated.txt', directory=mlst_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > mlst-updated.txt',
+                    directory=mlst_dir)
     else:
         logging.info("No valid MLST schemas to setup, skipping")
 
@@ -289,8 +297,6 @@ def process_cds(cds):
     header = None
     seq = None
     qualifiers = cds.keys()
-
-
     ec_number = ''
     gene = ''
     product = cds['product'][0]
@@ -315,7 +321,7 @@ def process_cds(cds):
 
 def setup_prokka(request, available_databases, outdir, force=False,
                  include_genus=False, identity=0.9, overlap=0.8, max_memory=0,
-                 fast_cluster=False, delete_files=False, cpus=1):
+                 fast_cluster=False, keep_files=False, cpus=1):
     """
     Setup a Prokka compatible protein fasta file based on completed genomes.
 
@@ -324,17 +330,23 @@ def setup_prokka(request, available_databases, outdir, force=False,
     Github Repo: https://github.com/thanhleviet/make_prokka_db
     """
     from Bio import SeqIO
-    import glob
     import gzip
     import re
     requests = setup_requests(request, available_databases, 'pubMLST.org',
                               skip_check=True)
-    bad_chars = [' ', '#', '/', '(', ')']
     if requests:
         for request in requests:
             species = re.sub(r'[ /()]', "-", request.lower())
             species = species.replace('--', '-').strip('-')
             prokka_dir = f'{outdir}/{species}/prokka'
+
+            if os.path.exists(prokka_dir):
+                if force:
+                    logging.info(f'--force, delete existing {prokka_dir}')
+                    execute(f'rm -rf {prokka_dir}')
+                else:
+                    logging.info((f'{prokka_dir} exists, skipping'))
+                    continue
 
             # Setup Prokka proteins file
             logging.info(f'Setting up custom Prokka proteins for {request}')
@@ -349,7 +361,6 @@ def setup_prokka(request, available_databases, outdir, force=False,
             execute((f'ncbi-genome-download bacteria --genus "{genus}" '
                      f'-l complete -o {prokka_dir}/genomes -F genbank '
                      f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
-            execute('date > genomes-updated.txt', directory=prokka_dir)
 
             # Extract information from Genbank files
             genbank_files = execute(
@@ -357,14 +368,6 @@ def setup_prokka(request, available_databases, outdir, force=False,
             ).split('\n')
             count = 0
             passing_cds = f'{prokka_dir}/passing-cds.faa'
-            if os.path.exists(passing_cds):
-                if force:
-                    logging.info(f'--force, delete existing {passing_cds}')
-                    execute(f'rm -rf {passing_cds}')
-                else:
-                    logging.info((f'{passing_cds} exists, skipping'))
-                    continue
-
             logging.info(f'Processing {len(genbank_files)-1} Genbank files')
             with open(passing_cds, 'w') as fasta_fh:
                 for genbank in genbank_files:
@@ -383,22 +386,25 @@ def setup_prokka(request, available_databases, outdir, force=False,
                                             fasta_fh.write(f'{header}\n')
                                             fasta_fh.write(f'{seq}\n')
 
-
-            cdhit_cds = f'{prokka_dir}/{species}.faa'
-            if os.path.exists(cdhit_cds):
-                if force:
-                    logging.info(f'--force, delete existing {cdhit_cds}')
-                    execute(f'rm -rf {cdhit_cds}')
-                else:
-                    logging.info((f'{cdhit_cds} exists, skipping'))
-                    continue
+            cdhit_cds = f'{prokka_dir}/proteins.faa'
             logging.info(f'Running CD-HIT on {count} proteins')
             g = 0 if fast_cluster else 1
             execute((f'cd-hit -i {passing_cds} -o {cdhit_cds} -s {overlap} '
                      f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
 
             # Finish up
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt', directory=prokka_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
+                    directory=prokka_dir)
+            execute(f'grep -H -c "^>" *.faa > cdhit-stats.txt',
+                    directory=prokka_dir)
+            execute(f'sed -i "s=passing-cds.faa:=original\t=" cdhit-stats.txt',
+                    directory=prokka_dir)
+            execute(f'sed -i "s=proteins.faa:=after_cd-hit\t=" cdhit-stats.txt',
+                    directory=prokka_dir)
+
+            # Clean up
+            if not keep_files:
+                execute(f'rm -rf {passing_cds} {genome_dir}/')
     else:
         logging.info("No valid organism to setup, skipping")
 
@@ -431,10 +437,10 @@ def setup_cgmlst(request, available_databases, outdir, force=False):
             ), directory=mentalist_dir)
 
             # Finish up
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt', directory=cgmlst_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt',
+                    directory=cgmlst_dir)
     else:
         logging.info("No valid cgMLST schemas to setup, skipping")
-
 
 
 def set_log_level(error, debug):
@@ -447,11 +453,16 @@ def get_log_level():
     return logging.getLevelName(logging.getLogger().getEffectiveLevel())
 
 
-def execute(cmd, directory=os.getcwd(), capture=False):
-    """ """
+def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
+            stderr_file=None):
+    """A simple wrapper around executor."""
     from executor import ExternalCommand
-    command = ExternalCommand(cmd, directory=directory, capture=True,
-                              capture_stderr=True)
+
+    command = ExternalCommand(
+        cmd, directory=directory, capture=True, capture_stderr=True,
+        stdout_file=stdout_file, stderr_file=stderr_file
+    )
+
     command.start()
     if get_log_level() == 'DEBUG':
         logging.log(STDOUT, command.decoded_stdout)
@@ -519,10 +530,6 @@ if __name__ == '__main__':
         help=("Use CD-HIT's (-g 0) fast clustering algorithm, instead of the "
               "accurate but slow algorithm.")
     )
-    group3.add_argument(
-        '--delete_files', action='store_true',
-        help=('Delete all downloaded and intermediate files.')
-    )
 
     group4 = parser.add_argument_group('Helpful Options')
     group4.add_argument(
@@ -531,8 +538,19 @@ if __name__ == '__main__':
     )
     group4.add_argument('--clear_cache', action='store_true',
                         help='Remove any existing cache.')
+
     group4.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing databases.')
+    group4.add_argument('--force_ariba', action='store_true',
+                        help='Forcibly overwrite existing Ariba databases.')
+    group4.add_argument('--force_mlst', action='store_true',
+                        help='Forcibly overwrite existing Ariba databases.')
+    group4.add_argument('--force_prokka', action='store_true',
+                        help='Forcibly overwrite existing Prokka databases.')
+    group4.add_argument(
+        '--keep_files', action='store_true',
+        help=('Keep all downloaded and intermediate files.')
+    )
     group4.add_argument(
         '--list_databases', action='store_true',
         help=('List resistance/virulence Ariba databases and (cg)MLST schemas '
@@ -569,25 +587,29 @@ if __name__ == '__main__':
 
     if args.mlst:
         logging.info('Setting up MLST databases')
-        setup_mlst(args.mlst, PUBMLST, args.outdir, force=args.force)
+        setup_mlst(args.mlst, PUBMLST, args.outdir,
+                   force=(args.force or args.force_mlst))
     else:
         logging.info('No requests for an MLST schema, skipping')
 
     if args.ariba:
         logging.info('Setting up Ariba databases')
         for database in args.ariba.split(','):
-            setup_ariba(database, ARIBA, args.outdir, force=args.force)
+            setup_ariba(
+                database, ARIBA, args.outdir, keep_files=args.keep_files,
+                force=(args.force or args.force_ariba)
+            )
     else:
         logging.info('No requests for an Ariba database, skipping')
 
     if not args.skip_prokka:
         logging.info('Setting up custom Prokka proteins')
         setup_prokka(
-            args.mlst, PUBMLST, args.outdir, force=args.force,
+            args.mlst, PUBMLST, args.outdir, cpus=args.cpus,
             include_genus=args.include_genus, identity=args.identity,
             overlap=args.overlap, max_memory=args.max_memory,
-            fast_cluster=args.fast_cluster, delete_files=args.delete_files,
-            cpus=args.cpus
+            fast_cluster=args.fast_cluster, keep_files=args.keep_files,
+            force=(args.force or args.force_prokka)
         )
     else:
         logging.info('No requests for custom Prokka database, skipping')
