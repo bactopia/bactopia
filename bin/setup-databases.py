@@ -226,7 +226,7 @@ def setup_ariba(request, available_databases, outdir, force=False):
             execute(f'ariba prepareref -f {fa} -m {tsv} {prefix}')
             execute(f'gzip -c {prefix}.fa > {prefix}/{request}.fa.gz')
             execute(f'gzip -c {prefix}.tsv > {prefix}/{request}.tsv.gz')
-            execute(f'date > {prefix}/{request}-updated.txt')
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {prefix}/{request}-updated.txt')
     else:
         logging.info("No valid Ariba databases to setup, skipping")
 
@@ -257,7 +257,7 @@ def setup_mlst(request, available_databases, outdir, force=False):
             logging.info(f'Creating Ariba MLST database')
             ariba_dir = f'{mlst_dir}/ariba'
             execute(f'ariba pubmlstget "{request}" {ariba_dir}')
-            execute('date > ariba-updated.txt', directory=ariba_dir)
+            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > ariba-updated.txt', directory=ariba_dir)
 
             # BLAST
             logging.info(f'Creating BLAST MLST database')
@@ -266,7 +266,7 @@ def setup_mlst(request, available_databases, outdir, force=False):
                 output = os.path.splitext(fasta)[0]
                 execute(f'makeblastdb -in {fasta} -dbtype nucl -out {output}')
             execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
-            execute('date > blast-updated.txt', directory=blast_dir)
+            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > blast-updated.txt', directory=blast_dir)
 
             # MentaLiST
             """
@@ -275,7 +275,7 @@ def setup_mlst(request, available_databases, outdir, force=False):
             execute(f'mkdir -p {mentalist_dir}')
             execute((f'mentalist download_pubmlst -o mlst -k 31 -s "{request}"'
                      ' --db mlst.db'), directory=mentalist_dir)
-            execute('date > mentalist-updated.txt', directory=mentalist_dir)
+            execute('date -u +"%Y-%m-%dT%H:%M:%SZ" > mentalist-updated.txt', directory=mentalist_dir)
             """
 
             # Finish up
@@ -398,7 +398,7 @@ def setup_prokka(request, available_databases, outdir, force=False,
                      f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
 
             # Finish up
-            execute(f'date > {species}-updated.txt', directory=prokka_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt', directory=prokka_dir)
     else:
         logging.info("No valid organism to setup, skipping")
 
@@ -431,7 +431,7 @@ def setup_cgmlst(request, available_databases, outdir, force=False):
             ), directory=mentalist_dir)
 
             # Finish up
-            execute(f'date > {species}-updated.txt', directory=cgmlst_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt', directory=cgmlst_dir)
     else:
         logging.info("No valid cgMLST schemas to setup, skipping")
 
