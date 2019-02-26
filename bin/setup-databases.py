@@ -4,10 +4,11 @@ usage: setup-organism-databases.py [-h] [--mlst MLST] [--cgmlst CGMLST]
                                    [--ariba ARIBA] [--skip_prokka]
                                    [--include_genus] [--identity FLOAT]
                                    [--overlap FLOAT] [--max_memory INT]
-                                   [--fast_cluster] [--delete_files]
-                                   [--cpus INT] [--clear_cache] [--force]
-                                   [--list_databases] [--depends] [--verbose]
-                                   [--silent]
+                                   [--fast_cluster] [--cpus INT]
+                                   [--clear_cache] [--force] [--force_ariba]
+                                   [--force_mlst] [--force_prokka]
+                                   [--keep_files] [--list_databases]
+                                   [--depends] [--verbose] [--silent]
                                    OUTPUT_DIRECTORY
 
 Setup default databases (MLST, resitance, virulence, annotation) for a given
@@ -38,12 +39,15 @@ Custom Prokka Protein Database:
   --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
   --fast_cluster    Use CD-HIT's (-g 0) fast clustering algorithm, instead of
                     the accurate but slow algorithm.
-  --delete_files    Delete all downloaded and intermediate files.
 
 Helpful Options:
   --cpus INT        Number of cpus to use. (Default: 1)
   --clear_cache     Remove any existing cache.
   --force           Forcibly overwrite existing databases.
+  --force_ariba     Forcibly overwrite existing Ariba databases.
+  --force_mlst      Forcibly overwrite existing MLST databases.
+  --force_prokka    Forcibly overwrite existing Prokka databases.
+  --keep_files      Keep all downloaded and intermediate files.
   --list_databases  List resistance/virulence Ariba databases and (cg)MLST
                     schemas available for setup.
   --depends         Verify dependencies are installed.
@@ -544,7 +548,7 @@ if __name__ == '__main__':
     group4.add_argument('--force_ariba', action='store_true',
                         help='Forcibly overwrite existing Ariba databases.')
     group4.add_argument('--force_mlst', action='store_true',
-                        help='Forcibly overwrite existing Ariba databases.')
+                        help='Forcibly overwrite existing MLST databases.')
     group4.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka databases.')
     group4.add_argument(
