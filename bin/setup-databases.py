@@ -61,6 +61,11 @@ import json
 import logging
 import os
 import sys
+
+from Bio import SeqIO
+from bs4 import BeautifulSoup
+from executor import ExternalCommand
+
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
@@ -85,7 +90,7 @@ def check_cache(clear_cache=False):
         days_old = (time.time() - os.path.getctime(CACHE_JSON)) // (24 * 3600)
         if days_old >= EXPIRATION or clear_cache:
             logging.debug((f'Deleting {CACHE_JSON}, Reason: older than '
-                          f'{EXPIRATION} days or "--clear_cache" used'))
+                           f'{EXPIRATION} days or "--clear_cache" used'))
             execute(f'rm {CACHE_JSON}')
         else:
             with open(CACHE_JSON, 'r') as cache_fh:
@@ -139,7 +144,6 @@ def validate_requirements():
 def cgmlst_schemas():
     """For MentaLiST: Schemas available from www.cgmlst.org"""
     from urllib.request import urlopen
-    from bs4 import BeautifulSoup
     soup = BeautifulSoup(urlopen('https://www.cgmlst.org/ncs'), "lxml")
     schemas = {}
     for link in soup.find_all('a'):
@@ -333,7 +337,6 @@ def setup_prokka(request, available_databases, outdir, force=False,
     his version for a standalone implementation!
     Github Repo: https://github.com/thanhleviet/make_prokka_db
     """
-    from Bio import SeqIO
     import gzip
     import re
     requests = setup_requests(request, available_databases, 'pubMLST.org',
@@ -460,8 +463,6 @@ def get_log_level():
 def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
             stderr_file=None):
     """A simple wrapper around executor."""
-    from executor import ExternalCommand
-
     command = ExternalCommand(
         cmd, directory=directory, capture=True, capture_stderr=True,
         stdout_file=stdout_file, stderr_file=stderr_file
