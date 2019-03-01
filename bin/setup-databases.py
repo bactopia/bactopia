@@ -124,7 +124,7 @@ def validate_requirements():
     from shutil import which
     programs = {
         'ariba': which('ariba'), 'makeblastdb': which('makeblastdb'),
-        'cd-hit': which('cd-hit'), 'rsync': which('rsync')
+        'cd-hit': which('cd-hit')
         # 'mentalist': which('mentalist')
     }
 
