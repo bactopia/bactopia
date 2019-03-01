@@ -140,6 +140,8 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
         pattern = ';'.join(sorted(perfect_matches))
         if pattern in profile:
             results['ST']['st'] = profile[pattern]
+        else:
+            results['ST']['st'] = 'Novel'
 
     with open(blastn_results, 'w') as json_fh:
         json.dump(results, json_fh, indent=4, separators=(',', ': '))
