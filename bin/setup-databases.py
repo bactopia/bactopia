@@ -124,7 +124,7 @@ def validate_requirements():
     from shutil import which
     programs = {
         'ariba': which('ariba'), 'makeblastdb': which('makeblastdb'),
-        'cd-hit': which('cd-hit')
+        'cd-hit': which('cd-hit'), 'wget': which('wget')
         # 'mentalist': which('mentalist')
     }
 
@@ -416,6 +416,37 @@ def setup_prokka(request, available_databases, outdir, force=False,
         logging.info("No valid organism to setup, skipping")
 
 
+def wget(url, output):
+    """Wrapper for wget."""
+    execute(f'wget -O {output} {url}')
+
+
+def setup_minmer(outdir, force=False):
+    """Download precomputed Refseq (Mash) and Genbank (Sourmash) databases."""
+    databases = {
+        # Last updated: 2019-03-04
+        'genbank-k21.json.gz': 'https://osf.io/d7rv8/download',
+        'genbank-k31.json.gz': 'https://osf.io/4f8n3/download',
+        'genbank-k51.json.gz': 'https://osf.io/nemkw/download',
+        'refseq-k21-s1000.msh': (
+            'https://gembox.cbcb.umd.edu/mash/refseq.genomes.k21s1000.msh'
+        )
+    }
+
+    minmer_dir = f'{outdir}/minmer'
+    execute(f'mkdir -p {minmer_dir}')
+    for filename, url in databases.items():
+        filepath = f'{minmer_dir}/{filename}'
+        if os.path.exists(filepath):
+            if force:
+                logging.info(f'--force, removing existing {filepath} setup')
+                execute(f'rm -rf {filepath}')
+            else:
+                logging.info(f'{filepath} exists, skipping')
+                continue
+        execute(f'wget --quiet -O {filename} {url}', directory=minmer_dir)
+
+
 def setup_cgmlst(request, available_databases, outdir, force=False):
     """Setup cgMLST databases for each requested schema."""
     requests = setup_requests(request, available_databases, 'cgmlst.org')
@@ -536,38 +567,46 @@ if __name__ == '__main__':
               "accurate but slow algorithm.")
     )
 
-    group4 = parser.add_argument_group('Helpful Options')
-    group4.add_argument(
+    group5 = parser.add_argument_group('Minmer Databases/Sketches')
+    group5.add_argument(
+        '--skip_minmer', action='store_true',
+        help='Skip download of pre-computed minmer datbases (mash, sourmash)'
+    )
+
+    group5 = parser.add_argument_group('Helpful Options')
+    group5.add_argument(
         '--cpus', metavar="INT", type=int, default=1,
         help=('Number of cpus to use. (Default: 1)')
     )
-    group4.add_argument('--clear_cache', action='store_true',
+    group5.add_argument('--clear_cache', action='store_true',
                         help='Remove any existing cache.')
 
-    group4.add_argument('--force', action='store_true',
+    group5.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing databases.')
-    group4.add_argument('--force_ariba', action='store_true',
+    group5.add_argument('--force_ariba', action='store_true',
                         help='Forcibly overwrite existing Ariba databases.')
-    group4.add_argument('--force_mlst', action='store_true',
+    group5.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST databases.')
-    group4.add_argument('--force_prokka', action='store_true',
+    group5.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka databases.')
-    group4.add_argument(
+    group5.add_argument('--force_minmer', action='store_true',
+                        help='Forcibly overwrite existing minmer databases.')
+    group5.add_argument(
         '--keep_files', action='store_true',
         help=('Keep all downloaded and intermediate files.')
     )
-    group4.add_argument(
+    group5.add_argument(
         '--list_databases', action='store_true',
         help=('List resistance/virulence Ariba databases and (cg)MLST schemas '
               'available for setup.')
     )
-    group4.add_argument('--depends', action='store_true',
+    group5.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
 
-    group5 = parser.add_argument_group('Adjust Verbosity')
-    group5.add_argument('--verbose', action='store_true',
+    group6 = parser.add_argument_group('Adjust Verbosity')
+    group6.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
-    group5.add_argument('--silent', action='store_true',
+    group6.add_argument('--silent', action='store_true',
                         help='Only critical errors will be printed.')
 
     if len(sys.argv) == 1:
@@ -617,7 +656,13 @@ if __name__ == '__main__':
             force=(args.force or args.force_prokka)
         )
     else:
-        logging.info('No requests for custom Prokka database, skipping')
+        logging.info('Skipping custom Prokka database step')
+
+    if not args.skip_minmer:
+        logging.info('Setting up pre-computed Genbank/Refseq minmer databases')
+        setup_minmer(args.outdir, force=(args.force or args.force_minmer))
+    else:
+        logging.info('Skipping minmer database step')
 
     if args.cgmlst:
         logging.info('Setting up cgMLST databases')

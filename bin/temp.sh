@@ -8,11 +8,6 @@ source activate illumina-cleanup_env
 illumina-cleanup --fastqs fastqs.txt --outdir temp/ --coverage 100 --genome_size 1800000 --max_cpus 22 --cpus 7
 source deactivate
 
-
-# Contamination
-mash
-    - run mash screen on refseq
-
 # Assembly
 conda create -y -n assembly_env -c conda-forge -c bioconda shovill assembly-scan
 conda activate assembly_env
@@ -26,10 +21,9 @@ source deactivate
 conda create -y -n mlst_env -c conda-forge -c bioconda ariba blast
 conda activate mlst_env
 ariba run !{ariba_mlst_ref} !{fq[0]} !{fq[1]} ariba --threads !{cpus} --verbose
+mlst-blast !{assembly} !{database}/mlst/blast !{output} (--compressed)
 
 
-mlst-blast
-    - Add step to output ST as well
 
 # kmers
 conda create -y -n mccortex_env -c conda-forge -c bioconda mccortex
@@ -47,6 +41,16 @@ mash sketch -o !{sample}-31 -k 31 -s 10000 -r -I !{sample} -p !{cpus} !{fq[0]} !
 sourmash compute --scaled 10000 -o !{sample}.sig -p !{cpus} --merge !{sample} -k 21,31,51 !{fq[0]} !{fq[1]}
 # dashing currently has no conda setup
 # https://github.com/dnbaker/dashing
+
+# Classification (after cleanup)
+sourmash lca gather !{sourmash} !{databases}/minmers/genbank-k21.json.gz
+sourmash lca gather !{sourmash} !{databases}/minmers/genbank-k31.json.gz
+sourmash lca gather !{sourmash} !{databases}/minmers/genbank-k51.json.gz
+zcat !{fq[0]} !{fq[1]} | \
+    mash screen !{screen_w} -i 0.9 -p !{cpus} !{databases}/minmers/refseq-k21-s1000.msh  - | \
+    sort -k1,1 -rn
+
+
 source deactivate
 
 
@@ -66,3 +70,4 @@ ariba
 # ISMapper
 ismapper
     - loop through directory to determine available FASTA files, run all
+ismap --reads fastq-public/{}_R*.fastq.gz --queries IS1016.fasta --reference  annotations-public/{}/{}.gbk --output_dir results-public/{} --t 4
