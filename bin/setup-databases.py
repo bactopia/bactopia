@@ -429,7 +429,7 @@ def setup_minmer(outdir, force=False):
         'genbank-k31.json.gz': 'https://osf.io/4f8n3/download',
         'genbank-k51.json.gz': 'https://osf.io/nemkw/download',
         'refseq-k21-s1000.msh': (
-            'https://gembox.cbcb.umd.edu/mash/refseq.genomes.k21s1000.msh'
+            'https://obj.umiacs.umd.edu/mash/screen/RefSeq88n.msh.gz'
         )
     }
 
