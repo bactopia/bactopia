@@ -1,0 +1,37 @@
+name: bactopia-qc_reads
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bbmap=38.22=h14c3975_1
+  - fastq-scan=0.3=h2d50403_0
+  - fastqc=0.11.8=1
+  - illumina-cleanup=1.0.0=0
+  - lighter=1.1.2=he941832_0
+  - nextflow=19.01.0=ha4d7672_4
+  - ca-certificates=2018.11.29=ha4d7672_0
+  - coreutils=8.30=h14c3975_1000
+  - curl=7.64.0=h646f8bb_2
+  - fontconfig=2.13.1=h2176d3f_1000
+  - freetype=2.9.1=h94bbf69_1005
+  - icu=58.2=hf484d3e_1000
+  - krb5=1.16.3=h05b26f9_1001
+  - libcurl=7.64.0=h541490c_2
+  - libedit=3.1.20170329=hf8c457e_1001
+  - libgcc-ng=7.3.0=hdf63c60_0
+  - libiconv=1.15=h14c3975_1004
+  - libpng=1.6.36=h84994c4_1000
+  - libssh2=1.8.0=h90d6eec_1004
+  - libstdcxx-ng=7.3.0=hdf63c60_0
+  - libuuid=2.32.1=h14c3975_1000
+  - libxml2=2.9.8=h143f9aa_1005
+  - ncurses=6.1=hf484d3e_1002
+  - openjdk=10.0.2=h14c3975_1015
+  - openssl=1.1.1b=h14c3975_0
+  - perl=5.26.2=h14c3975_1002
+  - pigz=2.3.4=0
+  - tk=8.6.9=h84994c4_1000
+  - xz=5.2.4=h14c3975_1001
+  - zlib=1.2.11=h14c3975_1004
+  - font-ttf-dejavu-sans-mono=2.37=h6964260_0

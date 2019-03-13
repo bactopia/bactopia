@@ -1,0 +1,10 @@
+ariba
+blast
+cd-hit
+#mentalist
+illumina-cleanup
+skesa
+spades
+pilon - assembly correction
+bwa
+flash -- stitch reads togenther
