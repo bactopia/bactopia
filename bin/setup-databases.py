@@ -406,8 +406,10 @@ def setup_prokka(request, available_databases, outdir, force=False,
                     directory=prokka_dir)
             execute(f'sed -i "s=passing-cds.faa:=original\t=" cdhit-stats.txt',
                     directory=prokka_dir)
-            execute(f'sed -i "s=proteins.faa:=after_cd-hit\t=" cdhit-stats.txt',
-                    directory=prokka_dir)
+            execute(
+                f'sed -i "s=proteins.faa:=after_cd-hit\t=" cdhit-stats.txt',
+                directory=prokka_dir
+            )
 
             # Clean up
             if not keep_files:
@@ -434,6 +436,7 @@ def setup_minmer(outdir, force=False):
     }
 
     minmer_dir = f'{outdir}/minmer'
+    update_timestamp = False
     execute(f'mkdir -p {minmer_dir}')
     for filename, url in databases.items():
         filepath = f'{minmer_dir}/{filename}'
@@ -441,10 +444,15 @@ def setup_minmer(outdir, force=False):
             if force:
                 logging.info(f'--force, removing existing {filepath} setup')
                 execute(f'rm -rf {filepath}')
+                update_timestamp = True
             else:
                 logging.info(f'{filepath} exists, skipping')
                 continue
         execute(f'wget --quiet -O {filename} {url}', directory=minmer_dir)
+    # Finish up
+    if update_timestamp:
+        execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
+                directory=minmer_dir)
 
 
 def setup_cgmlst(request, available_databases, outdir, force=False):
@@ -479,6 +487,72 @@ def setup_cgmlst(request, available_databases, outdir, force=False):
                     directory=cgmlst_dir)
     else:
         logging.info("No valid cgMLST schemas to setup, skipping")
+
+
+def create_summary(outdir):
+    """Create a summary of available databases in JSON format."""
+    from collections import OrderedDict
+    available_databases = OrderedDict()
+
+    # Ariba
+    available_databases['ariba'] = []
+    for db in sorted(os.listdir(f'{outdir}/ariba')):
+        available_databases['ariba'].append({
+            'name': db,
+            'last_update': execute(
+                f'head -n 1 {outdir}/ariba/{db}/{db}-updated.txt', capture=True
+            )
+        })
+
+    # Minmers
+    available_databases['minmer'] = {
+        'sketches': [],
+        'last_update': execute(
+            f'head -n 1 {outdir}/minmer/minmer-updated.txt', capture=True
+        )
+    }
+    for sketch in sorted(os.listdir(f'{outdir}/minmer')):
+        if sketch != 'minmer-updated.txt':
+            available_databases['minmer']['sketches'].append(sketch)
+
+    # Organisms
+    for organism in sorted(os.listdir(f'{outdir}')):
+        if organism not in ['ariba', 'minmer', 'summary.json']:
+            new_organism = OrderedDict()
+            new_organism['mlst'] = []
+            mlst = f'{outdir}/{organism}/mlst'
+            if os.path.exists(f'{mlst}/ariba/ref_db/00.auto_metadata.tsv'):
+                new_organism['mlst'] = {
+                    'ariba': f'{organism}/mlst/ariba/ref_db',
+                    'blast': f'{organism}/mlst/blast',
+                    'last_updated': execute(
+                        f'head -n 1 {mlst}/mlst-updated.txt', capture=True
+                    )
+                }
+
+            prokka = f'{outdir}/{organism}/prokka'
+            if os.path.exists(f'{prokka}/proteins.faa'):
+                new_organism['prokka'] = {
+                    'proteins': f'{prokka}/proteins.faa',
+                    'last_updated': execute(
+                        f'head -n 1 {prokka}/proteins-updated.txt',
+                        capture=True
+                    )
+                }
+
+            optionals = ['is_mapper', 'reference']
+            for optional in optionals:
+                # These are optional directories users can add data to
+                optional_dir = f'{outdir}/{organism}/{optional}'
+                if not os.path.exists(f'{outdir}/{organism}/{optional}'):
+                    execute(f'mkdir -p {optional_dir}')
+                new_organism[optional] = f'{organism}/{optional}'
+
+            available_databases[organism] = new_organism
+
+    with open(f'{outdir}/summary.json', 'w') as json_handle:
+        logging.debug(f'Writing summary of available databases')
+        json.dump(available_databases, json_handle, indent=4)
 
 
 def set_log_level(error, debug):
@@ -616,7 +690,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Setup logs
-    FORMAT='%(asctime)s:%(name)s:%(levelname)s - %(message)s'
+    FORMAT = '%(asctime)s:%(name)s:%(levelname)s - %(message)s'
     logging.basicConfig(format=FORMAT, datefmt='%Y-%m-%d %H:%M:%S',)
     logging.getLogger().setLevel(set_log_level(args.silent, args.verbose))
     if args.depends:
@@ -670,3 +744,5 @@ if __name__ == '__main__':
         # setup_cgmlst(args.cgmlst, CGMLST, args.outdir, force=args.force)
     else:
         logging.info('No requests for an cgMLST schema, skipping')
+
+    create_summary(args.outdir)

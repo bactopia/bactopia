@@ -22,6 +22,7 @@ if (cpus > params.max_cpus) {
 outdir = params.outdir ? params.outdir : './'
 
 process qc_reads {
+    /* Cleanup the reads using Illumina-Cleanup */
     cpus cpus
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
@@ -37,7 +38,8 @@ process qc_reads {
     template(task.ext.template)
 }
 
-process assembly {
+process assemble_genome {
+    /* Assemble the genome using Shovill, SKESA is used by default */
     cpus cpus
     tag "${sample}"
     publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
@@ -47,12 +49,67 @@ process assembly {
 
     output:
     file "shovill*"
-    file "${sample}.fna.gz" into ANNOTATION
+    file "${sample}.fna.gz"
     file "${sample}.fna.json"
+    set val(sample), file("${sample}.fna.gz") into ANNOTATION
 
     shell:
     template(task.ext.template)
 }
+
+process annotate_genome {
+    /* Annotate the assembly using Prokka, use a proteins fasta if available */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(fasta) from ANNOTATION
+
+    output:
+    file 'annotation/*'
+
+    shell:
+    gunzip_fasta = fasta.getName().replace('.gz', '')
+    proteins = prokka_proteins ? "--proteins !{prokka_proteins}" : ""
+    template(task.ext.template)
+}
+
+
+process count_31mers {
+    /* Count 31mers in the reads using McCortex */
+    cpus cpus
+    tag "${sample} - ${database}"
+    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from COUNT_31MERS
+
+    output:
+    file "${sample}.ctx"
+
+    shell:
+    template(task.ext.template)
+
+}
+
+process ariba_databases {
+    /* Run reads against all available (if any) Ariba databases */
+    cpus cpus
+    tag "${sample} - ${database}"
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from ARIBA_DATABASES
+    each database from available_ariba_databases
+
+    output:
+    file "${database}/*"
+
+    shell:
+    template(task.ext.template)
+}
+
 
 workflow.onComplete {
     if (workflow.success == true && params.keep_cache == false) {
