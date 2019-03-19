@@ -1,4 +1,4 @@
-name: bactopia-annotation
+name: bactopia-annotate_genome
 channels:
   - conda-forge
   - bioconda
@@ -147,7 +147,7 @@ dependencies:
   - perl-mozilla-ca=20180117=pl526_0
   - perl-mro-compat=0.13=pl526_0
   - perl-net-http=6.18=pl526_0
-  - perl-net-ssleay=1.85=pl526h9dad42d_0
+  - perl-net-ssleay=1.74=0
   - perl-ntlm=1.09=pl526_3
   - perl-ole-storage_lite=0.19=pl526_2
   - perl-package-deprecationmanager=0.17=pl526_0
@@ -197,6 +197,7 @@ dependencies:
   - perl-test-warn=0.36=pl526_0
   - perl-test2-suite=0.000117=pl526_0
   - perl-text-diff=1.45=pl526_0
+  - perl-threaded=5.22.0=13
   - perl-tie-ixhash=1.23=pl526_2
   - perl-time-hires=1.9758=pl526_0
   - perl-time-local=1.28=pl526_1
@@ -228,16 +229,16 @@ dependencies:
   - perl-yaml=1.27=pl526_0
   - prodigal=2.6.3=1
   - prokka=1.13.4=pl526_0
-  - t_coffee=11.0.8=py36h075ee95_7
+  - t_coffee=11.0.8=py36_2
   - tbl2asn=25.6=3
   - tidyp=1.04=1
   - boost=1.67.0=py36h3e44d54_0
   - boost-cpp=1.67.0=h3a22d5f_0
   - bzip2=1.0.6=h14c3975_1002
-  - ca-certificates=2018.11.29=ha4d7672_0
+  - ca-certificates=2019.3.9=hecc5488_0
   - cairo=1.16.0=ha4e643d_1000
-  - certifi=2018.11.29=py36_1000
-  - curl=7.64.0=h646f8bb_0
+  - certifi=2019.3.9=py36_0
+  - curl=7.64.0=h646f8bb_2
   - expat=2.2.5=hf484d3e_1002
   - fontconfig=2.13.1=h2176d3f_1000
   - freetype=2.9.1=h94bbf69_1005
@@ -251,18 +252,19 @@ dependencies:
   - harfbuzz=2.3.1=h6824563_0
   - icu=58.2=hf484d3e_1000
   - jpeg=9c=h14c3975_1001
-  - krb5=1.16.3=hc83ff2d_1000
-  - libcurl=7.64.0=h01ee5af_0
+  - krb5=1.16.3=h05b26f9_1001
+  - libcurl=7.64.0=h541490c_2
   - libdb=6.1.26=hf484d3e_2000
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=hf484d3e_1005
+  - libgcc=7.2.0=h69d50b8_2
   - libgcc-ng=7.3.0=hdf63c60_0
   - libgd=2.2.5=h0d07dcb_1005
   - libgfortran-ng=7.2.0=hdf63c60_3
   - libiconv=1.15=h14c3975_1004
   - libidn11=1.33=0
   - libpng=1.6.36=h84994c4_1000
-  - libssh2=1.8.0=h1ad7b7a_1003
+  - libssh2=1.8.0=h90d6eec_1004
   - libstdcxx-ng=7.3.0=hdf63c60_0
   - libtiff=4.0.10=h648cc4a_1001
   - libtool=2.4.6=h14c3975_1002
@@ -276,16 +278,17 @@ dependencies:
   - ncurses=6.1=hf484d3e_1002
   - nettle=3.3=0
   - openjdk=11.0.1=h14c3975_1014
-  - openssl=1.0.2r=h14c3975_0
+  - openssl=1.1.1b=h14c3975_1
   - pango=1.40.14=h4ea9474_1004
   - parallel=20190122=0
   - pcre=8.41=hf484d3e_1003
   - perl=5.26.2=h14c3975_1002
   - perl-xml-parser=2.44_01=pl526h3a4f0e9_1
+  - pigz=2.3.4=0
   - pip=19.0.3=py36_0
   - pixman=0.34.0=h14c3975_1003
   - pthread-stubs=0.4=h14c3975_1001
-  - python=3.6.7=hd21baee_1002
+  - python=3.6.7=h381d211_1004
   - readline=7.0=hf8c457e_1001
   - setuptools=40.8.0=py36_0
   - sqlite=3.26.0=h67949de_1000

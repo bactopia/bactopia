@@ -1,4 +1,5 @@
 #! /usr/bin/env nextflow
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 PROGRAM_NAME = 'bactopia'
 VERSION = '0.0.1'
@@ -9,6 +10,7 @@ if (params.version) print_version();
 check_input_params()
 check_input_fastqs(params.fastqs)
 if (params.check_fastqs) print_check_fastqs(params.fastqs);
+if (params.available_databases) print_available_databases(params.database)
 
 // Set the maximum number of cpus to use
 config.poolSize = params.max_cpus.toInteger()
@@ -18,8 +20,30 @@ if (cpus > params.max_cpus) {
     log.info "--cpus ${params.cpus} exceeded --max_cpus ${params.max_cpus}, changed ${params.cpus} to ${cpus}"
 }
 
+median_genome_size = 1000
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
+
+process estimate_genome_size {
+    /* Estimate the input genome size if not given. */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
+
+    output:
+    file "genome-size.txt" into GENOME_SIZE
+
+    shell:
+    template(task.ext.template)
+}
+
+genome_size = file(GENOME_SIZE.getVal()).text
+println "Genome Size: " + genome_size
+exit(0)
+
 
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
@@ -37,6 +61,7 @@ process qc_reads {
     shell:
     template(task.ext.template)
 }
+
 
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
@@ -56,6 +81,7 @@ process assemble_genome {
     shell:
     template(task.ext.template)
 }
+
 
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins fasta if available */
@@ -79,7 +105,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     cpus cpus
-    tag "${sample} - ${database}"
+    tag "${sample}}"
     publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
 
     input:
@@ -93,18 +119,19 @@ process count_31mers {
 
 }
 
+
 process ariba_databases {
     /* Run reads against all available (if any) Ariba databases */
     cpus cpus
-    tag "${sample} - ${database}"
+    tag "${sample} - ${database_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_DATABASES
-    each database from available_ariba_databases
+    each database_name from available_ariba_databases
 
     output:
-    file "${database}/*"
+    file "${database_name}/*"
 
     shell:
     template(task.ext.template)
@@ -175,11 +202,109 @@ def print_check_fastqs(fastq_input) {
     exit 0
 }
 
+def print_available_databases(database) {
+    exit_code = 0
+    if (database) {
+        if (file("${database}/summary.json").exists()) {
+            available_databases = read_database_summary(database)
+            log.info 'Printing the available pre-configured databases.'
+            log.info "Database Location (--database): ${database}"
+            log.info ''
+            if (available_databases.size() > 0) {
+                available_databases.each { key, value ->
+                    if (key == 'ariba') {
+                        log.info "${key.capitalize()}"
+                        value.each {
+                            log.info "\tFound ${it}"
+                        }
+                    } else if (key == 'minmer') {
+                        log.info "Minmer Sketches"
+                        value.each {
+                            log.info "\tFound ${it})"
+                        }
+                    } else {
+                        log.info "${key.capitalize().replace('-', ' ')} (use --organism \"${key}\")"
+                        value.each {
+                            log.info "\tFound ${it}"
+                        }
+                    }
+                    log.info ''
+                }
+            }
+        } else {
+            log.info "Please verify the PATH is correct and ${database}/summary.json" +
+                     " exists, if not try rerunning 'setup-databases.py'."
+            exit_code = 1
+        }
+    } else {
+        log.info "Please use '--database' to specify the path to pre-built databases."
+        exit_code = 1
+    }
+    clean_cache()
+    exit exit_code
+}
+
+def read_database_summary(database) {
+    slurp = new JsonSlurper()
+    return slurp.parseText(file("${database}/summary.json").text)
+}
+
+def check_organism_databases(database, organism) {
+    /* Check for available organism specific databases */
+    organism_databases = []
+    files = [
+        // MLST
+        "${database}/${organism}/mlst/ariba/ref_db/00.auto_metadata.tsv",
+        "${database}/${organism}/mlst/blast/profile.txt",
+
+        // Prokka
+        "${database}/${organism}/prokka/proteins.faa"
+    ]
+    files.each {
+        if (file(it).exists()) {
+            organism_databases << it
+        }
+    }
+    return organism_databases
+}
+
+
+def check_ariba_databases(database) {
+    /* Check for available Ariba databases */
+    ariba_directory = new File("${database}/ariba/")
+    ariba_databases = []
+    ariba_directory.eachFile(FileType.DIRECTORIES) {
+        ariba_databases << it.name
+    }
+    return ariba_databases
+}
+
+
+def check_minmers(database) {
+    /* Check for available minmer sketches */
+    minmers = []
+    sketches = [
+        // Mash
+        'refseq-k21-s1000.msh',
+        // Sourmash
+        'genbank-k21.json.gz', 'genbank-k31.json.gz', 'genbank-k51.json.gz'
+    ]
+    sketches.each {
+        if (file("${database}/minmer/${it}").exists()) {
+            minmers << "${database}/minmer/${it}"
+        }
+    }
+
+    return minmers
+}
+
 def clean_cache() {
     // No need to resume completed run so remove cache.
-    file('./work/').deleteDir()
-    file('./.nextflow/').deleteDir()
-    file('.nextflow.log').delete()
+    if (params.keep_cache == false) {
+        file('./work/').deleteDir()
+        file('./.nextflow/').deleteDir()
+        file('.nextflow.log').delete()
+    }
 }
 
 def is_positive_integer(value, name) {
@@ -220,8 +345,12 @@ def check_input_params() {
         error = true
     }
 
-    if (!is_positive_integer(params.genome_size, 'genome_size')) {
-        error = true
+    if (params.genome_size) {
+        if (params.genome_size != "median") {
+            if (!is_positive_integer(params.genome_size, 'genome_size')) {
+                error = true
+            }
+        }
     }
 
     if (params.adapters) {

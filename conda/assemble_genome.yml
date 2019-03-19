@@ -1,4 +1,4 @@
-name: bactopia-assembly
+name: bactopia-assemble_genome
 channels:
   - conda-forge
   - bioconda
@@ -25,9 +25,9 @@ dependencies:
   - boost=1.67.0=py36h3e44d54_0
   - boost-cpp=1.67.0=h3a22d5f_0
   - bzip2=1.0.6=h14c3975_1002
-  - ca-certificates=2018.11.29=ha4d7672_0
+  - ca-certificates=2019.3.9=hecc5488_0
   - capnproto=0.6.1=hfc679d8_1
-  - certifi=2018.11.29=py36_1000
+  - certifi=2019.3.9=py36_0
   - curl=7.64.0=h646f8bb_2
   - icu=58.2=hf484d3e_1000
   - krb5=1.16.3=h05b26f9_1001
@@ -44,7 +44,7 @@ dependencies:
   - ncurses=6.1=hf484d3e_1002
   - openblas=0.3.3=h9ac9557_1001
   - openjdk=11.0.1=h14c3975_1014
-  - openssl=1.1.1b=h14c3975_0
+  - openssl=1.1.1b=h14c3975_1
   - perl=5.26.2=h14c3975_1002
   - pigz=2.3.4=0
   - pip=19.0.3=py36_0
@@ -62,5 +62,3 @@ dependencies:
   - mkl=2019.1=144
   - numpy=1.16.0=py36h7e9f1db_0
   - numpy-base=1.16.0=py36hde5b4d6_0
-prefix: /home/rpetit/miniconda3/envs/bactopia-assembly
-

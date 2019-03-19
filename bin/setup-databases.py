@@ -109,7 +109,7 @@ def get_available_databases(clear_cache):
         data = {
             'ariba': sorted(ariba_databases()),
             'cgmlst': sorted(cgmlst_schemas()),
-            'pubmlst': sorted(pubmlst_schemas())
+            'pubmlst': pubmlst_schemas()
         }
 
         with open(CACHE_JSON, 'w') as cache_fh:
@@ -163,7 +163,54 @@ def cgmlst_schemas():
 
 def pubmlst_schemas():
     """Use Ariba to pull available MLST schemas from pubmlst.org"""
-    return execute('ariba pubmlstspecies', capture=True).rstrip().split('\n')
+    schemas = {}
+    query = execute('ariba pubmlstspecies', capture=True).rstrip().split('\n')
+    for schema in query:
+        schemas[schema] = schema
+
+    # Map Mycobacterium species to 'Mycobacteria spp.'
+    mycobacterium = [
+        'Mycobacterium abscessus',
+        'Mycobacterium africanum',
+        'Mycobacterium avium',
+        'Mycobacterium bovis',
+        'Mycobacterium canettii',
+        'Mycobacterium caprae',
+        'Mycobacterium chubuense',
+        'Mycobacterium colombiense',
+        'Mycobacterium fortuitum',
+        'Mycobacterium gilvum',
+        'Mycobacterium hassiacum',
+        'Mycobacterium indicus',
+        'Mycobacterium intracellulare',
+        'Mycobacterium kansasii',
+        'Mycobacterium leprae',
+        'Mycobacterium liflandii',
+        'Mycobacterium mageritense',
+        'Mycobacterium marinum',
+        'Mycobacterium microti',
+        'Mycobacterium orygis',
+        'Mycobacterium parascrofulaceum',
+        'Mycobacterium phlei',
+        'Mycobacterium pinnipedii',
+        'Mycobacterium rhodesiae',
+        'Mycobacterium septicum',
+        'Mycobacterium simiae',
+        'Mycobacterium smegmatis',
+        'Mycobacterium sp.',
+        'Mycobacterium thermoresistibile',
+        'Mycobacterium tuberculosis',
+        'Mycobacterium tusciae',
+        'Mycobacterium ulcerans',
+        'Mycobacterium vaccae',
+        'Mycobacterium vanbaalenii',
+        'Mycobacterium xenopi',
+        'Mycobacterium yongonense'
+    ]
+    for species in mycobacterium:
+        schemas[species] = 'Mycobacteria spp.'
+
+    return schemas
 
 
 def ariba_databases():
@@ -183,7 +230,7 @@ def list_databases(ariba, pubmlst, missing=False):
     print("\n".join(sorted(ariba)), file=print_to)
 
     print("\nMLST schemas available from pubMLST.org:", file=print_to)
-    print("\n".join(sorted(pubmlst)), file=print_to)
+    print("\n".join(sorted(pubmlst.keys())), file=print_to)
     """
     Disabled until MentaLiST conda install is fixed
     print("\ncgMLST schemas available from cgMLST.org:", file=print_to)
@@ -259,7 +306,7 @@ def setup_mlst(request, available_databases, outdir, force=False):
             species = re.sub(r'[ /()]', "-", request.lower())
             species = species.replace('--', '-').strip('-')
             mlst_dir = f'{outdir}/{species}/mlst'
-            if os.path.exists(mlst_dir):
+            if os.path.exists(f'{mlst_dir}/mlst-updated.txt'):
                 if force:
                     logging.info(f'--force, removing existing {request} setup')
                     execute(f'rm -rf {mlst_dir}')
@@ -272,9 +319,10 @@ def setup_mlst(request, available_databases, outdir, force=False):
             execute(f'mkdir -p {mlst_dir}')
 
             # Ariba
+            organism_request = available_databases[request]
             logging.info(f'Creating Ariba MLST database')
             ariba_dir = f'{mlst_dir}/ariba'
-            execute(f'ariba pubmlstget "{request}" {ariba_dir}')
+            execute(f'ariba pubmlstget "{organism_request}" {ariba_dir}')
 
             # BLAST
             logging.info(f'Creating BLAST MLST database')
@@ -333,12 +381,13 @@ def setup_prokka(request, available_databases, outdir, force=False,
     """
     Setup a Prokka compatible protein fasta file based on completed genomes.
 
-    Reimplemented similar approach as Thanh Lê's "make_prokka_db". Check out
+    Implemented similar approach as Thanh Lê's "make_prokka_db". Check out
     his version for a standalone implementation!
     Github Repo: https://github.com/thanhleviet/make_prokka_db
     """
     import gzip
     import re
+    from statistics import median
     requests = setup_requests(request, available_databases, 'pubMLST.org',
                               skip_check=True)
     if requests:
@@ -346,8 +395,9 @@ def setup_prokka(request, available_databases, outdir, force=False,
             species = re.sub(r'[ /()]', "-", request.lower())
             species = species.replace('--', '-').strip('-')
             prokka_dir = f'{outdir}/{species}/prokka'
+            genome_sizes = []
 
-            if os.path.exists(prokka_dir):
+            if os.path.exists(f'{prokka_dir}/proteins.faa'):
                 if force:
                     logging.info(f'--force, delete existing {prokka_dir}')
                     execute(f'rm -rf {prokka_dir}')
@@ -379,9 +429,12 @@ def setup_prokka(request, available_databases, outdir, force=False,
             with open(passing_cds, 'w') as fasta_fh:
                 for genbank in genbank_files:
                     if genbank:
+                        sizes = []
                         genbank = genbank.replace('./', f'{prokka_dir}/')
                         with gzip.open(genbank, 'rt') as genbank_fh:
                             for record in SeqIO.parse(genbank_fh, 'genbank'):
+                                # Aggregate chromosome and plasmids
+                                sizes.append(len(record.seq))
                                 for feature in record.features:
                                     if feature.type == 'CDS':
                                         header, seq = process_cds(
@@ -393,6 +446,27 @@ def setup_prokka(request, available_databases, outdir, force=False,
                                             fasta_fh.write(f'{header}\n')
                                             fasta_fh.write(f'{seq}\n')
 
+                        # Only add genome sizes for the species, incase the
+                        # option '--inlude_genus' was used.
+                        if record.annotations["organism"].startswith(request):
+                            logging.debug(
+                                f'Added {record.annotations["organism"]} '
+                                f'({sum(sizes)}) to median genome size '
+                                'calculation.'
+                            )
+                            genome_sizes.append(sum(sizes))
+                        else:
+                            logging.debug(
+                                f'Skip adding {record.annotations["organism"]} '
+                                f'({sum(sizes)}) to median genome size '
+                                f'calculation (not {request}).'
+                            )
+
+            total_genome = len(genome_sizes)
+            median_genome = int(median(genome_sizes))
+            logging.info(
+                f'Median genome size: {median_genome} (n={total_genome})'
+            )
             cdhit_cds = f'{prokka_dir}/proteins.faa'
             logging.info(f'Running CD-HIT on {count} proteins')
             g = 0 if fast_cluster else 1
@@ -400,6 +474,9 @@ def setup_prokka(request, available_databases, outdir, force=False,
                      f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
 
             # Finish up
+
+            execute(f'echo "{total_genome}:{median_genome}" > genome_size.txt',
+                    directory=prokka_dir)
             execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
                     directory=prokka_dir)
             execute(f'grep -H -c "^>" *.faa > cdhit-stats.txt',
@@ -501,7 +578,7 @@ def create_summary(outdir):
             'name': db,
             'last_update': execute(
                 f'head -n 1 {outdir}/ariba/{db}/{db}-updated.txt', capture=True
-            )
+            ).rstrip()
         })
 
     # Minmers
@@ -509,7 +586,7 @@ def create_summary(outdir):
         'sketches': [],
         'last_update': execute(
             f'head -n 1 {outdir}/minmer/minmer-updated.txt', capture=True
-        )
+        ).rstrip()
     }
     for sketch in sorted(os.listdir(f'{outdir}/minmer')):
         if sketch != 'minmer-updated.txt':
@@ -527,18 +604,28 @@ def create_summary(outdir):
                     'blast': f'{organism}/mlst/blast',
                     'last_updated': execute(
                         f'head -n 1 {mlst}/mlst-updated.txt', capture=True
-                    )
+                    ).rstrip()
                 }
 
             prokka = f'{outdir}/{organism}/prokka'
             if os.path.exists(f'{prokka}/proteins.faa'):
                 new_organism['prokka'] = {
-                    'proteins': f'{prokka}/proteins.faa',
+                    'proteins': f'{organism}/prokka/proteins.faa',
                     'last_updated': execute(
                         f'head -n 1 {prokka}/proteins-updated.txt',
                         capture=True
-                    )
+                    ).rstrip()
                 }
+            if os.path.exists(f'{prokka}/genome_size.txt'):
+                total_genomes, genome_size = execute(
+                    f'head -n 1 {prokka}/genome_size.txt',
+                    capture=True
+                ).rstrip().split(':')
+                new_organism['median_genome_size'] = genome_size
+                new_organism['median_genome_size_description'] = (
+                    f'Median genome size based of {total_genomes} completed '
+                    'genomes.'
+                )
 
             optionals = ['is_mapper', 'reference']
             for optional in optionals:
@@ -551,8 +638,9 @@ def create_summary(outdir):
             available_databases[organism] = new_organism
 
     with open(f'{outdir}/summary.json', 'w') as json_handle:
-        logging.debug(f'Writing summary of available databases')
+        logging.info(f'Writing summary of available databases')
         json.dump(available_databases, json_handle, indent=4)
+        logging.debug(json.dumps(available_databases, indent=4))
 
 
 def set_log_level(error, debug):
@@ -595,23 +683,18 @@ if __name__ == '__main__':
         help='Directory to write output.'
     )
 
-    group1 = parser.add_argument_group('Sequence Typing')
+    group1 = parser.add_argument_group('Resistance/Virulence (Ariba)')
     group1.add_argument(
-        '--mlst', metavar="MLST", type=str,
-        help=('Download MLST schema for a given species or a list of species '
-              'in a text file.')
-    )
-    group1.add_argument(
-        '--cgmlst', metavar="CGMLST", type=str,
-        help=('Download cgMLST schema for a given species or a list of '
-              'species in a text file.')
-    )
-
-    group2 = parser.add_argument_group('Resistance/Virulence (Ariba)')
-    group2.add_argument(
         '--ariba', metavar="ARIBA", type=str, default='card,vfdb_core',
         help=('Setup Ariba database for a given database or a list of '
               'databases in a text file. (Default: card,vfdb_core)')
+    )
+
+    group2 = parser.add_argument_group('Organisms')
+    group2.add_argument(
+        '--organism', metavar="MLST", type=str,
+        help=('Download available (cg)MLST schemas and completed genomes for '
+              'a given species or a list of species in a text file.')
     )
 
     group3 = parser.add_argument_group('Custom Prokka Protein Database')
@@ -641,8 +724,9 @@ if __name__ == '__main__':
               "accurate but slow algorithm.")
     )
 
-    group5 = parser.add_argument_group('Minmer Databases/Sketches')
-    group5.add_argument(
+
+    group4 = parser.add_argument_group('Minmer Databases/Sketches')
+    group4.add_argument(
         '--skip_minmer', action='store_true',
         help='Skip download of pre-computed minmer datbases (mash, sourmash)'
     )
@@ -703,13 +787,6 @@ if __name__ == '__main__':
     if args.list_databases:
         list_databases(ARIBA, PUBMLST, CGMLST)
 
-    if args.mlst:
-        logging.info('Setting up MLST databases')
-        setup_mlst(args.mlst, PUBMLST, args.outdir,
-                   force=(args.force or args.force_mlst))
-    else:
-        logging.info('No requests for an MLST schema, skipping')
-
     if args.ariba:
         logging.info('Setting up Ariba databases')
         for database in args.ariba.split(','):
@@ -720,29 +797,33 @@ if __name__ == '__main__':
     else:
         logging.info('No requests for an Ariba database, skipping')
 
-    if not args.skip_prokka:
-        logging.info('Setting up custom Prokka proteins')
-        setup_prokka(
-            args.mlst, PUBMLST, args.outdir, cpus=args.cpus,
-            include_genus=args.include_genus, identity=args.identity,
-            overlap=args.overlap, max_memory=args.max_memory,
-            fast_cluster=args.fast_cluster, keep_files=args.keep_files,
-            force=(args.force or args.force_prokka)
-        )
+    # Organism databases
+    if args.organism:
+        logging.info('Setting up MLST databases')
+        setup_mlst(args.organism, PUBMLST, args.outdir,
+                   force=(args.force or args.force_mlst))
+
+        if not args.skip_prokka:
+            logging.info('Setting up custom Prokka proteins')
+            setup_prokka(
+                args.organism, PUBMLST, args.outdir, cpus=args.cpus,
+                include_genus=args.include_genus, identity=args.identity,
+                overlap=args.overlap, max_memory=args.max_memory,
+                fast_cluster=args.fast_cluster, keep_files=args.keep_files,
+                force=(args.force or args.force_prokka)
+            )
+        else:
+            logging.info('Skipping custom Prokka database step')
+        # logging.info('Setting up cgMLST databases')
+        # Need mentalist conda install to be fixed
+        # setup_cgmlst(args.organism, CGMLST, args.outdir, force=args.force)
     else:
-        logging.info('Skipping custom Prokka database step')
+        logging.info('No requests for an organism, skipping')
 
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer databases')
         setup_minmer(args.outdir, force=(args.force or args.force_minmer))
     else:
         logging.info('Skipping minmer database step')
-
-    if args.cgmlst:
-        logging.info('Setting up cgMLST databases')
-        # Need mentalist conda install to be fixed
-        # setup_cgmlst(args.cgmlst, CGMLST, args.outdir, force=args.force)
-    else:
-        logging.info('No requests for an cgMLST schema, skipping')
 
     create_summary(args.outdir)
