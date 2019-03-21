@@ -4,7 +4,7 @@ set -u
 
 gunzip -f !{fasta}
 prokka --cpus !{cpus} --outdir annotation --force !{proteins} \
-    --prefix !{sample} --locustag !{sample} --centre !{centre} \
+    --prefix !{sample} --locustag !{sample} --centre !{params.centre} \
     --addgenes --mincontiglen 500 !{gunzip_fasta}
 
 find annotation/ -type f -not -name "*.txt" -and -not -name "*.log*" | \

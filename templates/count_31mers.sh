@@ -10,7 +10,7 @@ else
     mccortex31 build -k 31 -s !{sample} -1 !{fq[0]} -t 10 -m 2000mb -q temp_counts
 fi
 
-if [ "!{keep_singletops}" == "false" ]; then
+if [ "!{params.keep_singletons}" == "false" ]; then
     # Clean up Cortex file (mostly remove singletons)
     mccortex31 clean -q -B 2 -U2 -T2 -m 2000mb -o !{sample}.ctx temp_counts
 else

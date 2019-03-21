@@ -1,5 +1,4 @@
 #! /usr/bin/env nextflow
-import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 PROGRAM_NAME = 'bactopia'
 VERSION = '0.0.1'
@@ -20,9 +19,80 @@ if (cpus > params.max_cpus) {
     log.info "--cpus ${params.cpus} exceeded --max_cpus ${params.max_cpus}, changed ${params.cpus} to ${cpus}"
 }
 
-median_genome_size = 1000
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
+
+// Setup some defaults
+ARIBA_DATABASES = []
+MINMER_DATABASES = []
+MLST_DATABASES = []
+REFERENCES = []
+INSERTIONS = []
+PRIMERS = []
+PROKKA_PROTEINS = null
+organism_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+if (params.database) {
+    available_databases = read_database_summary(params.database)
+    available_databases['ariba'].each {
+        ARIBA_DATABASES << it.name
+    }
+    log.info "Found ${ARIBA_DATABASES.size()} ARIBA databases (${ARIBA_DATABASES})"
+
+    MINMER_DATABASES = available_databases['minmer']['sketches']
+    log.info "Found ${MINMER_DATABASES.size()} minmer sketches databases (${MINMER_DATABASES})"
+
+    if (params.organism) {
+        if (available_databases.containsKey(params.organism)) {
+            organism_genome_size = available_databases[params.organism]['genome_size']
+            prokka = params.database + "/" + available_databases[params.organism]['prokka']['proteins']
+            println prokka
+            if (file(prokka).exists()) {
+                PROKKA_PROTEINS = get_absolute_path(prokka)
+                log.info "Found Prokka proteins files (${PROKKA_PROTEINS})"
+
+            }
+            available_databases[params.organism]['mlst'].each { key, val ->
+                if (key != "last_updated") {
+                    if (file("${params.database}/${val}").exists()) {
+                        MLST_DATABASES << val
+                    }
+                }
+            }
+            log.info "Found ${MLST_DATABASES.size()} MLST databases (${MLST_DATABASES})"
+            REFERENCES =  file("${params.database}/${available_databases[params.organism]['reference']}").list()
+            log.info "Found ${REFERENCES.size()} reference genomes (${REFERENCES})"
+            INSERTIONS = file("${params.database}/${available_databases[params.organism]['is_mapper']}").list()
+            log.info "Found ${INSERTIONS.size()} insertion sequence FASTAs (${INSERTIONS})"
+            PRIMERS = file("${params.database}/${available_databases[params.organism]['primer']}").list()
+            log.info "Found ${PRIMERS.size()} primer sequence FASTAs (${PRIMERS})"
+        } else {
+            log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
+                     "to verify the database has been set up. Exiting"
+            exit 1
+        }
+    } else {
+        log.info "--organism not given, skipping the following processes (analyses):"
+        log.info "\tsequence_type"
+        log.info "\tcall_variants"
+        log.info "\tinsertion_sequence_query"
+        log.info "\tprimer_query"
+        if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
+            log.info "Asked for genome size '${params.genome_size}' which requires an " +
+                     "organism to be given. Please give an organism or specify " +
+                     "a valid genome size. Exiting"
+            exit 1
+        }
+    }
+} else {
+    log.info "--database not given, skipping the following processes (analyses):"
+    log.info "\tsequence_type"
+    log.info "\tariba_databases"
+    log.info "\tminmer_query"
+    log.info "\tcall_variants"
+    log.info "\tinsertion_sequence_query"
+    log.info "\tprimer_query"
+}
+
 
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
@@ -40,11 +110,9 @@ process estimate_genome_size {
     template(task.ext.template)
 }
 
-genome_size = file(GENOME_SIZE.getVal()).text
-println "Genome Size: " + genome_size
-exit(0)
-
-
+// Set the genome size based on 'estimate_genome_size' for remaining analyses
+genome_size = file(GENOME_SIZE.getVal()).text.trim()
+log.info "Using the value '${genome_size}' for genome size"
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     cpus cpus
@@ -53,10 +121,11 @@ process qc_reads {
 
     input:
     set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
+    val genome_size
 
     output:
     file "quality-control/*"
-    set val(sample), val(single_end), file("quality-control/${sample}*.fastq.gz") into ASSEMBLY
+    set val(sample), val(single_end), file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS
 
     shell:
     template(task.ext.template)
@@ -74,7 +143,7 @@ process assemble_genome {
 
     output:
     file "shovill*"
-    file "${sample}.fna.gz"
+    file "${sample}.fna.gz" into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json"
     set val(sample), file("${sample}.fna.gz") into ANNOTATION
 
@@ -84,7 +153,7 @@ process assemble_genome {
 
 
 process annotate_genome {
-    /* Annotate the assembly using Prokka, use a proteins fasta if available */
+    /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     cpus cpus
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
@@ -97,7 +166,7 @@ process annotate_genome {
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
-    proteins = prokka_proteins ? "--proteins !{prokka_proteins}" : ""
+    proteins = PROKKA_PROTEINS ? "--proteins ${PROKKA_PROTEINS}" : ""
     template(task.ext.template)
 }
 
@@ -119,16 +188,17 @@ process count_31mers {
 
 }
 
-
-process ariba_databases {
-    /* Run reads against all available (if any) Ariba databases */
+/*
+process sequence_type {
+    /* Determine MLST types using ARIBA and BLAST /
     cpus cpus
     tag "${sample} - ${database_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from ARIBA_DATABASES
-    each database_name from available_ariba_databases
+    set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
+    set file(assembly) from SEQUENCE_TYPE_ASSEMBLY
+    each method from MLST_DATABASES
 
     output:
     file "${database_name}/*"
@@ -136,7 +206,135 @@ process ariba_databases {
     shell:
     template(task.ext.template)
 }
+*/
 
+/*
+process ariba_databases {
+    /* Run reads against all available (if any) ARIBA databases /
+    cpus cpus
+    tag "${sample} - ${database_name}"
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from ARIBA_DATABASES
+    each database_name from ARIBA_DATABASES
+
+    output:
+    file "${database_name}/*"
+
+    shell:
+    template(task.ext.template)
+}
+*/
+
+/*
+process minmer_sketch {
+    /*
+    Create minmer sketches of the input FASTQs using Mash (k=21,31) and
+    Sourmash (k=21,31,51)
+    /
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from MINMER_SKETCH
+
+    output:
+    set val(sample), file("${sample}.{msh,sig}") into MINMER_QUERY
+
+    shell:
+    template(task.ext.template)
+}
+*/
+
+/*
+process minmer_query {
+    /*
+    Query minmer sketches against pre-computed RefSeq (Mash, k=21) and
+    GenBank (Sourmash, k=21,31,51)
+    /
+    cpus cpus
+    tag "${sample} - {database_name}"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(sketch) from MINMER_QUERY
+    each database_name from MINMER_DATABASES
+
+    output:
+    file("${sample}*.txt")
+
+    shell:
+    template(task.ext.template)
+}
+*/
+
+/*
+process call_variants {
+    /*
+    Identify variants (SNPs/InDels) against a set of reference genomes
+    using Snippy.
+    /
+    cpus cpus
+    tag "${sample} - {reference}"
+    publishDir "${outdir}/${sample}/variants", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from CALL_VARIANTS
+    each reference from REFERENCES
+
+    output:
+    file("${sample}*.txt"
+
+    shell:
+    template(task.ext.template)
+}
+*/
+
+/*
+process insertion_sequence_query {
+    /*
+    Query a set of insertion sequences (FASTA) against annotated GenBank file
+    using ISMapper.
+    /
+    cpus cpus
+    tag "${sample} - {reference}"
+    publishDir "${outdir}/${sample}/insertion-sequences", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from CALL_VARIANTS
+    each insertion_fasta from INSERTIONS
+
+    output:
+    file("${sample}*.txt"
+
+    shell:
+    template(task.ext.template)
+}
+*/
+
+/*
+process primer_query {
+    /*
+    Query a set of PCR primers (FASTA) against annotated assembly using BLAST
+    /
+
+    cpus cpus
+    tag "${sample} - {reference}"
+    publishDir "${outdir}/${sample}/primers", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(blast_db) from PRIMER_QUERY
+    each primer from PRIMERS
+
+    output:
+    file("${sample}*.txt"
+
+    shell:
+    template(task.ext.template)
+}
+*/
 
 workflow.onComplete {
     if (workflow.success == true && params.keep_cache == false) {
@@ -346,7 +544,7 @@ def check_input_params() {
     }
 
     if (params.genome_size) {
-        if (params.genome_size != "median") {
+        if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
             if (!is_positive_integer(params.genome_size, 'genome_size')) {
                 error = true
             }
@@ -441,4 +639,13 @@ def check_input_fastqs(fastq_input) {
         log.info 'Exiting'
         exit 1
     }
+}
+
+def get_absolute_path(file_path) {
+    // Thanks Fabian Steeg
+    // https://stackoverflow.com/questions/3204955/converting-relative-paths-to-absolute-paths
+    File file_obj = new File("${workflow.launchDir}/${file_path}");
+    String absolute_path = file_obj.getCanonicalPath(); // may throw IOException
+
+    return absolute_path
 }

@@ -387,7 +387,7 @@ def setup_prokka(request, available_databases, outdir, force=False,
     """
     import gzip
     import re
-    from statistics import median
+    from statistics import median, mean
     requests = setup_requests(request, available_databases, 'pubMLST.org',
                               skip_check=True)
     if requests:
@@ -474,9 +474,19 @@ def setup_prokka(request, available_databases, outdir, force=False,
                      f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
 
             # Finish up
-
-            execute(f'echo "{total_genome}:{median_genome}" > genome_size.txt',
-                    directory=prokka_dir)
+            with open(f'{prokka_dir}/genome_size.json', 'w') as genome_size_fh:
+                gs_dict = {
+                    'min': min(genome_sizes),
+                    'median': int(median(genome_sizes)),
+                    'mean': int(median(genome_sizes)),
+                    'max': max(genome_sizes),
+                    'total': total_genome,
+                    'description': (
+                        f'Genome size values are based on {total_genome} '
+                        'completed genomes (RefSeq).'
+                    )
+                }
+                json.dump(gs_dict, genome_size_fh, indent=4)
             execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
                     directory=prokka_dir)
             execute(f'grep -H -c "^>" *.faa > cdhit-stats.txt',
@@ -616,18 +626,13 @@ def create_summary(outdir):
                         capture=True
                     ).rstrip()
                 }
-            if os.path.exists(f'{prokka}/genome_size.txt'):
-                total_genomes, genome_size = execute(
-                    f'head -n 1 {prokka}/genome_size.txt',
-                    capture=True
-                ).rstrip().split(':')
-                new_organism['median_genome_size'] = genome_size
-                new_organism['median_genome_size_description'] = (
-                    f'Median genome size based of {total_genomes} completed '
-                    'genomes.'
-                )
+            if os.path.exists(f'{prokka}/genome_size.json'):
+                with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
+                    json_data = json.load(gs_fh)
+                    print(json_data)
+                    new_organism['genome_size'] = json_data
 
-            optionals = ['is_mapper', 'reference']
+            optionals = ['is_mapper', 'reference', 'primer']
             for optional in optionals:
                 # These are optional directories users can add data to
                 optional_dir = f'{outdir}/{organism}/{optional}'

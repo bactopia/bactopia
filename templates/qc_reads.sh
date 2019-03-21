@@ -18,7 +18,7 @@ printf "sample\tr1\tr2\n!{sample}\t!{fq[0]}\t!{fq[1]}\n" > temp-fastqs.txt
 
 illumina-cleanup --fastqs temp-fastqs.txt \
     --coverage !{params.coverage} \
-    --genome_size !{params.genome_size} \
+    --genome_size !{genome_size} \
     --max_cpus !{params.max_cpus} \
     --cpus !{cpus} \
     --adapter_k !{params.adapter_k} \
