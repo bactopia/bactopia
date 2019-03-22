@@ -133,7 +133,7 @@ process qc_reads {
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
-                                                         MINMER_SKETCH, MINMER_QUERY
+                                                         ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY
 
     shell:
     template(task.ext.template)
@@ -216,24 +216,25 @@ process sequence_type {
 }
 */
 
-/*
-process ariba_databases {
-    /* Run reads against all available (if any) ARIBA databases /
+
+process ariba_analysis {
+    /* Run reads against all available (if any) ARIBA databases */
     cpus cpus
     tag "${sample} - ${database_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from ARIBA_DATABASES
-    each database_name from ARIBA_DATABASES
+    set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
+    each database from ARIBA_DATABASES
 
     output:
     file "${database_name}/*"
 
     shell:
+    database_name = file(database).getName()
     template(task.ext.template)
 }
-*/
+
 
 
 process minmer_sketch {
