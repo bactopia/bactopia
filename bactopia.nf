@@ -32,39 +32,45 @@ PRIMERS = []
 PROKKA_PROTEINS = null
 organism_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.database) {
-    available_databases = read_database_summary(params.database)
-    available_databases['ariba'].each {
-        ARIBA_DATABASES << it.name
-    }
-    log.info "Found ${ARIBA_DATABASES.size()} ARIBA databases (${ARIBA_DATABASES})"
+    database_path = get_absolute_path(params.database)
+    available_databases = read_database_summary(database_path)
 
-    MINMER_DATABASES = available_databases['minmer']['sketches']
-    log.info "Found ${MINMER_DATABASES.size()} minmer sketches databases (${MINMER_DATABASES})"
+    available_databases['ariba'].each {
+        ARIBA_DATABASES << "${database_path}/ariba/${it.name}"
+    }
+    print_database_info(ARIBA_DATABASES, "ARIBA databases")
+
+    available_databases['minmer']['sketches'].each {
+        MINMER_DATABASES << "${database_path}/minmer/${it}"
+    }
+    print_database_info(MINMER_DATABASES, "minmer sketches databases")
 
     if (params.organism) {
         if (available_databases.containsKey(params.organism)) {
             organism_genome_size = available_databases[params.organism]['genome_size']
-            prokka = params.database + "/" + available_databases[params.organism]['prokka']['proteins']
-            println prokka
+            prokka = "${database_path}/${available_databases[params.organism]['prokka']['proteins']}"
             if (file(prokka).exists()) {
-                PROKKA_PROTEINS = get_absolute_path(prokka)
+                PROKKA_PROTEINS = prokka
                 log.info "Found Prokka proteins files (${PROKKA_PROTEINS})"
 
             }
             available_databases[params.organism]['mlst'].each { key, val ->
                 if (key != "last_updated") {
-                    if (file("${params.database}/${val}").exists()) {
-                        MLST_DATABASES << val
+                    if (file("${database_path}/${val}").exists()) {
+                        MLST_DATABASES << "${database_path}/${val}"
                     }
                 }
             }
-            log.info "Found ${MLST_DATABASES.size()} MLST databases (${MLST_DATABASES})"
-            REFERENCES =  file("${params.database}/${available_databases[params.organism]['reference']}").list()
-            log.info "Found ${REFERENCES.size()} reference genomes (${REFERENCES})"
-            INSERTIONS = file("${params.database}/${available_databases[params.organism]['is_mapper']}").list()
-            log.info "Found ${INSERTIONS.size()} insertion sequence FASTAs (${INSERTIONS})"
-            PRIMERS = file("${params.database}/${available_databases[params.organism]['primer']}").list()
-            log.info "Found ${PRIMERS.size()} primer sequence FASTAs (${PRIMERS})"
+            print_database_info(MLST_DATABASES, "MLST databases")
+
+            REFERENCES =  file("${database_path}/${available_databases[params.organism]['reference']}").list()
+            print_database_info(REFERENCES, "reference genomes")
+
+            INSERTIONS = file("${database_path}/${available_databases[params.organism]['is_mapper']}").list()
+            print_database_info(INSERTIONS, "insertion sequence FASTAs")
+
+            PRIMERS = file("${database_path}/${available_databases[params.organism]['primer']}").list()
+            print_database_info(PRIMERS, "primer sequence FASTAs")
         } else {
             log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
                      "to verify the database has been set up. Exiting"
@@ -125,7 +131,9 @@ process qc_reads {
 
     output:
     file "quality-control/*"
-    set val(sample), val(single_end), file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS
+    set val(sample), val(single_end),
+        file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
+                                                         MINMER_SKETCH, MINMER_QUERY
 
     shell:
     template(task.ext.template)
@@ -227,12 +235,12 @@ process ariba_databases {
 }
 */
 
-/*
+
 process minmer_sketch {
     /*
     Create minmer sketches of the input FASTQs using Mash (k=21,31) and
     Sourmash (k=21,31,51)
-    /
+    */
     cpus cpus
     tag "${sample}"
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
@@ -241,34 +249,40 @@ process minmer_sketch {
     set val(sample), val(single_end), file(fq) from MINMER_SKETCH
 
     output:
-    set val(sample), file("${sample}.{msh,sig}") into MINMER_QUERY
+    file("${sample}*.{msh,sig}")
+    file("${sample}.sig") into QUERY_SOURMASH
 
     shell:
+    fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     template(task.ext.template)
 }
-*/
 
-/*
+
+
 process minmer_query {
     /*
     Query minmer sketches against pre-computed RefSeq (Mash, k=21) and
     GenBank (Sourmash, k=21,31,51)
-    /
+    */
     cpus cpus
-    tag "${sample} - {database_name}"
+    tag "${sample} - ${minmer_database}"
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), file(sketch) from MINMER_QUERY
-    each database_name from MINMER_DATABASES
+    set val(sample), val(single_end), file(fq) from MINMER_QUERY
+    file(sourmash) from QUERY_SOURMASH
+    each database from MINMER_DATABASES
 
     output:
     file("${sample}*.txt")
 
     shell:
+    minmer_database = file(database).getName()
+    mash_w = params.screen_w ? "-w" : ""
+    fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     template(task.ext.template)
 }
-*/
+
 
 /*
 process call_variants {
@@ -277,7 +291,7 @@ process call_variants {
     using Snippy.
     /
     cpus cpus
-    tag "${sample} - {reference}"
+    tag "${sample} - ${reference}"
     publishDir "${outdir}/${sample}/variants", mode: 'copy', overwrite: true
 
     input:
@@ -299,7 +313,7 @@ process insertion_sequence_query {
     using ISMapper.
     /
     cpus cpus
-    tag "${sample} - {reference}"
+    tag "${sample} - ${reference}"
     publishDir "${outdir}/${sample}/insertion-sequences", mode: 'copy', overwrite: true
 
     input:
@@ -321,7 +335,7 @@ process primer_query {
     /
 
     cpus cpus
-    tag "${sample} - {reference}"
+    tag "${sample} - ${reference}"
     publishDir "${outdir}/${sample}/primers", mode: 'copy', overwrite: true
 
     input:
@@ -648,4 +662,11 @@ def get_absolute_path(file_path) {
     String absolute_path = file_obj.getCanonicalPath(); // may throw IOException
 
     return absolute_path
+}
+
+def print_database_info(database_list, database_info) {
+    log.info "Found ${database_list.size()} ${database_info}"
+    database_list.each {
+        log.info "\t${it}"
+    }
 }
