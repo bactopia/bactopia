@@ -1,4 +1,4 @@
-name: ariba_env
+name: bactopia-ariba_analysis
 channels:
   - conda-forge
   - bioconda
@@ -100,5 +100,3 @@ dependencies:
   - xorg-xproto=7.0.31=h14c3975_1007
   - xz=5.2.4=h14c3975_1001
   - zlib=1.2.11=h14c3975_1004
-prefix: /home/rpetit/miniconda3/envs/ariba_env
-
