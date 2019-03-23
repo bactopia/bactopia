@@ -9,7 +9,7 @@ if [ "!{single_end}" == "false" ]; then
 else
     # Single-End Reads
     shovill-se --se !{fq[0]} --depth 0 --gsize !{genome_size} --outdir . \
-        --minlen 500 --cpus !{cpus} --assembler !{params.assembler} --noreadcorr --force
+        --minlen 500 --cpus !{cpus} --assembler !{params.assembler} --force
 fi
 
 mv contigs.fa !{sample}.fna

@@ -139,6 +139,7 @@ process qc_reads {
                                                          INSERTION_SEQUENCES
 
     shell:
+    fq2 = single_end ? "" : fq[1]
     template(task.ext.template)
 }
 
@@ -186,7 +187,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     cpus cpus
-    tag "${sample}}"
+    tag "${sample}"
     publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
 
     input:
@@ -200,25 +201,28 @@ process count_31mers {
 
 }
 
-/*
+
 process sequence_type {
-    /* Determine MLST types using ARIBA and BLAST /
+    /* Determine MLST types using ARIBA and BLAST */
     cpus cpus
-    tag "${sample} - ${database_name}"
-    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
+    tag "${sample} - ${method}"
+    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
-    set file(assembly) from SEQUENCE_TYPE_ASSEMBLY
-    each method from MLST_DATABASES
+    file(assembly) from SEQUENCE_TYPE_ASSEMBLY
+    each database from MLST_DATABASES
+
+    when:
+    database.contains('blast') || (database.contains('ariba') && single_end == false)
 
     output:
-    file "${database_name}/*"
+    file "${method}/*"
 
     shell:
+    method = database.contains('blast') ? 'blast' : 'ariba'
     template(task.ext.template)
 }
-*/
 
 
 process ariba_analysis {

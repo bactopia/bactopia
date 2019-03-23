@@ -14,7 +14,7 @@ OUTDIR=$(parse_params "--outdir" !{params.outdir})
 ADAPTERS=$(parse_params "--adapters" !{params.adapters})
 PHIX=$(parse_params "--phix" !{params.phix})
 
-printf "sample\tr1\tr2\n!{sample}\t!{fq[0]}\t!{fq[1]}\n" > temp-fastqs.txt
+printf "sample\tr1\tr2\n!{sample}\t!{fq[0]}\t!{fq2}\n" > temp-fastqs.txt
 
 illumina-cleanup --fastqs temp-fastqs.txt \
     --coverage !{params.coverage} \
