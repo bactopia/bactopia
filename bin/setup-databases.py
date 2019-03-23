@@ -632,7 +632,8 @@ def create_summary(outdir):
                     print(json_data)
                     new_organism['genome_size'] = json_data
 
-            optionals = ['is_mapper', 'reference', 'primer']
+            optionals = ['insertion-sequences', 'reference-genomes',
+                         'primer-sequences']
             for optional in optionals:
                 # These are optional directories users can add data to
                 optional_dir = f'{outdir}/{organism}/{optional}'

@@ -63,13 +63,15 @@ if (params.database) {
             }
             print_database_info(MLST_DATABASES, "MLST databases")
 
-            REFERENCES =  file("${database_path}/${available_databases[params.organism]['reference']}").list()
+            REFERENCES =  file("${database_path}/${available_databases[params.organism]['reference-genomes']}").list()
             print_database_info(REFERENCES, "reference genomes")
 
-            INSERTIONS = file("${database_path}/${available_databases[params.organism]['is_mapper']}").list()
+            file("${database_path}/${available_databases[params.organism]['insertion-sequences']}").list().each() {
+                INSERTIONS << "${database_path}/${params.organism}/insertion-sequences/${it}"
+            }
             print_database_info(INSERTIONS, "insertion sequence FASTAs")
 
-            PRIMERS = file("${database_path}/${available_databases[params.organism]['primer']}").list()
+            PRIMERS = file("${database_path}/${available_databases[params.organism]['primer-sequences']}").list()
             print_database_info(PRIMERS, "primer sequence FASTAs")
         } else {
             log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
@@ -133,7 +135,8 @@ process qc_reads {
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
-                                                         ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY
+                                                         ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
+                                                         INSERTION_SEQUENCES
 
     shell:
     template(task.ext.template)
@@ -171,6 +174,7 @@ process annotate_genome {
 
     output:
     file 'annotation/*'
+    file 'annotation/*.gbk.gz' into INSERTION_GENBANK
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -229,6 +233,9 @@ process ariba_analysis {
 
     output:
     file "${database_name}/*"
+
+    when:
+    single_end == false
 
     shell:
     database_name = file(database).getName()
@@ -307,27 +314,33 @@ process call_variants {
 }
 */
 
-/*
-process insertion_sequence_query {
+
+process insertion_sequences {
     /*
     Query a set of insertion sequences (FASTA) against annotated GenBank file
     using ISMapper.
-    /
+    */
     cpus cpus
-    tag "${sample} - ${reference}"
-    publishDir "${outdir}/${sample}/insertion-sequences", mode: 'copy', overwrite: true
+    tag "${sample} - ${insertion_name}"
+    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from CALL_VARIANTS
+    set val(sample), val(single_end), file(fq) from INSERTION_SEQUENCES
+    file(genbank) from INSERTION_GENBANK
     each insertion_fasta from INSERTIONS
 
     output:
-    file("${sample}*.txt"
+    file("insertion-sequences/*")
+
+    when:
+    single_end == false
 
     shell:
+    insertion_name = file(insertion_fasta).getSimpleName()
+    gunzip_genbank = genbank.getName().replace('.gz', '')
     template(task.ext.template)
 }
-*/
+
 
 /*
 process primer_query {
