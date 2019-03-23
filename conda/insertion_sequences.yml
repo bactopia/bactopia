@@ -1,4 +1,4 @@
-name: bactopia-ismapper
+name: bactopia-insertion_sequences
 channels:
   - rpetit3
   - conda-forge
