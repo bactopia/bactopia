@@ -63,7 +63,9 @@ if (params.database) {
             }
             print_database_info(MLST_DATABASES, "MLST databases")
 
-            REFERENCES =  file("${database_path}/${available_databases[params.organism]['reference-genomes']}").list()
+            file("${database_path}/${available_databases[params.organism]['reference-genomes']}").list().each() {
+                REFERENCES << "${database_path}/${params.organism}/reference-genomes/${it}"
+            }
             print_database_info(REFERENCES, "reference genomes")
 
             file("${database_path}/${available_databases[params.organism]['insertion-sequences']}").list().each() {
@@ -112,15 +114,13 @@ process estimate_genome_size {
     set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
 
     output:
-    file "genome-size.txt" into GENOME_SIZE
+    file "genome-size.txt" into GS_QC_READS, GS_ASSEMBLY
 
     shell:
     template(task.ext.template)
 }
 
-// Set the genome size based on 'estimate_genome_size' for remaining analyses
-genome_size = file(GENOME_SIZE.getVal()).text.trim()
-log.info "Using the value '${genome_size}' for genome size"
+
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     cpus cpus
@@ -129,14 +129,14 @@ process qc_reads {
 
     input:
     set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
-    val genome_size
+    file(genome_size_file) from GS_QC_READS
 
     output:
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
                                                          ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
-                                                         INSERTION_SEQUENCES
+                                                         INSERTION_SEQUENCES, CALL_VARIANTS
 
     shell:
     fq2 = single_end ? "" : fq[1]
@@ -152,6 +152,7 @@ process assemble_genome {
 
     input:
     set val(sample), val(single_end), file(fq) from ASSEMBLY
+    file(genome_size_file) from GS_ASSEMBLY
 
     output:
     file "shovill*"
@@ -204,7 +205,9 @@ process count_31mers {
 
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
-    cpus cpus
+    cpus 1
+    errorStrategy 'retry'
+    maxRetries 5
     tag "${sample} - ${method}"
     publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
 
@@ -227,7 +230,9 @@ process sequence_type {
 
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA databases */
-    cpus cpus
+    cpus 1
+    errorStrategy 'retry'
+    maxRetries 5
     tag "${sample} - ${database_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
@@ -253,7 +258,7 @@ process minmer_sketch {
     Create minmer sketches of the input FASTQs using Mash (k=21,31) and
     Sourmash (k=21,31,51)
     */
-    cpus cpus
+    cpus 1
     tag "${sample}"
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
 
@@ -276,7 +281,7 @@ process minmer_query {
     Query minmer sketches against pre-computed RefSeq (Mash, k=21) and
     GenBank (Sourmash, k=21,31,51)
     */
-    cpus cpus
+    cpus 1
     tag "${sample} - ${minmer_database}"
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
 
@@ -296,14 +301,13 @@ process minmer_query {
 }
 
 
-/*
 process call_variants {
     /*
     Identify variants (SNPs/InDels) against a set of reference genomes
     using Snippy.
-    /
+    */
     cpus cpus
-    tag "${sample} - ${reference}"
+    tag "${sample} - ${reference_name}"
     publishDir "${outdir}/${sample}/variants", mode: 'copy', overwrite: true
 
     input:
@@ -311,12 +315,13 @@ process call_variants {
     each reference from REFERENCES
 
     output:
-    file("${sample}*.txt"
+    file("${reference_name}/*")
 
     shell:
+    reference_name = file(reference).getSimpleName()
+    fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     template(task.ext.template)
 }
-*/
 
 
 process insertion_sequences {
