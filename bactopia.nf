@@ -139,7 +139,7 @@ process qc_reads {
                                                          INSERTION_SEQUENCES, CALL_VARIANTS
 
     shell:
-    fq2 = single_end ? "" : fq[1]
+    fq2 = single_end == true ? "" : fq[1]
     template(task.ext.template)
 }
 

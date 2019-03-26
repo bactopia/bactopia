@@ -11,7 +11,7 @@ usage: setup-organism-databases.py [-h] [--mlst MLST] [--cgmlst CGMLST]
                                    [--depends] [--verbose] [--silent]
                                    OUTPUT_DIRECTORY
 
-Setup default databases (MLST, resitance, virulence, annotation) for a given
+Setup default databases (MLST, resistance, virulence, annotation) for a given
 organism.
 
 positional arguments:
@@ -124,7 +124,8 @@ def validate_requirements():
     from shutil import which
     programs = {
         'ariba': which('ariba'), 'makeblastdb': which('makeblastdb'),
-        'cd-hit': which('cd-hit'), 'wget': which('wget')
+        'cd-hit': which('cd-hit'), 'wget': which('wget'),
+        'unzip': which('unzip'), 'gzip': which('gzip')
         # 'mentalist': which('mentalist')
     }
 
@@ -505,11 +506,6 @@ def setup_prokka(request, available_databases, outdir, force=False,
         logging.info("No valid organism to setup, skipping")
 
 
-def wget(url, output):
-    """Wrapper for wget."""
-    execute(f'wget -O {output} {url}')
-
-
 def setup_minmer(outdir, force=False):
     """Download precomputed Refseq (Mash) and Genbank (Sourmash) databases."""
     databases = {
@@ -540,6 +536,40 @@ def setup_minmer(outdir, force=False):
     if update_timestamp:
         execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
                 directory=minmer_dir)
+
+
+def setup_plsdb(outdir, keep_files=False, force=False):
+    """Download precomputed PLSDB databases."""
+    url = 'https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/?zip'
+    plsdb_dir = f'{outdir}/plasmid'
+    if os.path.exists(plsdb_dir):
+        if force:
+            logging.info(f'--force, removing existing {plsdb_dir} setup')
+            execute(f'rm -rf {plsdb_dir}')
+        else:
+            logging.info(f'{plsdb_dir} exists, skipping')
+            return None
+
+    execute(f'mkdir -p {plsdb_dir}')
+    execute(f'wget --quiet -O plsdb.zip {url}', directory=plsdb_dir)
+    execute('unzip plsdb.zip', directory=plsdb_dir)
+    execute('ls > plsdb-orginal-names.txt', directory=plsdb_dir)
+
+    # Rename files to generic prefix
+    mash_file = os.path.basename(glob.glob(f'{plsdb_dir}/*.msh')[0])
+    prefix = mash_file.replace('.msh', '')
+    for plsdb_file in os.listdir(plsdb_dir):
+        if plsdb_file.startswith(prefix):
+            new_name = plsdb_file.replace(prefix, 'plsdb')
+            execute(f'mv {plsdb_file} {new_name}', directory=plsdb_dir)
+
+    # Clean up
+    if not keep_files:
+        execute('rm plsdb.zip', directory=plsdb_dir)
+
+    # Finish up
+    execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > plsdb-updated.txt',
+            directory=plsdb_dir)
 
 
 def setup_cgmlst(request, available_databases, outdir, force=False):
@@ -602,9 +632,19 @@ def create_summary(outdir):
         if sketch != 'minmer-updated.txt':
             available_databases['minmer']['sketches'].append(sketch)
 
+    # PLSDB (plasmids)
+    if os.path.exists(f'{outdir}/plasmid/plsdb-updated.txt'):
+        available_databases['plasmid'] = {
+            'sketches': 'plsdb.msh',
+            'blastdb': 'plsdb.fna',
+            'last_update': execute(
+                f'head -n 1 {outdir}/plasmid/plsdb-updated.txt', capture=True
+            ).rstrip()
+        }
+
     # Organisms
     for organism in sorted(os.listdir(f'{outdir}')):
-        if organism not in ['ariba', 'minmer', 'summary.json']:
+        if organism not in ['ariba', 'minmer', 'plasmid', 'summary.json']:
             new_organism = OrderedDict()
             new_organism['mlst'] = []
             mlst = f'{outdir}/{organism}/mlst'
@@ -681,7 +721,7 @@ if __name__ == '__main__':
     parser = ap.ArgumentParser(
         prog='setup-organism-databases.py',
         conflict_handler='resolve',
-        description=('Setup default databases (MLST, resitance, virulence, '
+        description=('Setup default databases (MLST, resistance, virulence, '
                      'annotation) for a given organism.'))
 
     parser.add_argument(
@@ -737,40 +777,48 @@ if __name__ == '__main__':
         help='Skip download of pre-computed minmer datbases (mash, sourmash)'
     )
 
-    group5 = parser.add_argument_group('Helpful Options')
+    group5 = parser.add_argument_group('PLSDB (Plasmid) Database/Sketch')
     group5.add_argument(
+        '--skip_plsdb', action='store_true',
+        help='Skip download of pre-computed PLSDB datbases (blast, mash)'
+    )
+
+    group6 = parser.add_argument_group('Helpful Options')
+    group6.add_argument(
         '--cpus', metavar="INT", type=int, default=1,
         help=('Number of cpus to use. (Default: 1)')
     )
-    group5.add_argument('--clear_cache', action='store_true',
+    group6.add_argument('--clear_cache', action='store_true',
                         help='Remove any existing cache.')
 
-    group5.add_argument('--force', action='store_true',
+    group6.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing databases.')
-    group5.add_argument('--force_ariba', action='store_true',
+    group6.add_argument('--force_ariba', action='store_true',
                         help='Forcibly overwrite existing Ariba databases.')
-    group5.add_argument('--force_mlst', action='store_true',
+    group6.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST databases.')
-    group5.add_argument('--force_prokka', action='store_true',
+    group6.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka databases.')
-    group5.add_argument('--force_minmer', action='store_true',
+    group6.add_argument('--force_minmer', action='store_true',
                         help='Forcibly overwrite existing minmer databases.')
-    group5.add_argument(
+    group6.add_argument('--force_plsdb', action='store_true',
+                        help='Forcibly overwrite existing PLSDB databases.')
+    group6.add_argument(
         '--keep_files', action='store_true',
         help=('Keep all downloaded and intermediate files.')
     )
-    group5.add_argument(
+    group6.add_argument(
         '--list_databases', action='store_true',
         help=('List resistance/virulence Ariba databases and (cg)MLST schemas '
               'available for setup.')
     )
-    group5.add_argument('--depends', action='store_true',
+    group6.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
 
-    group6 = parser.add_argument_group('Adjust Verbosity')
-    group6.add_argument('--verbose', action='store_true',
+    group7 = parser.add_argument_group('Adjust Verbosity')
+    group7.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
-    group6.add_argument('--silent', action='store_true',
+    group7.add_argument('--silent', action='store_true',
                         help='Only critical errors will be printed.')
 
     if len(sys.argv) == 1:
@@ -831,5 +879,13 @@ if __name__ == '__main__':
         setup_minmer(args.outdir, force=(args.force or args.force_minmer))
     else:
         logging.info('Skipping minmer database step')
+
+    if not args.skip_plsdb:
+        logging.info('Setting up pre-computed PLSDB (plasmids) databases')
+        setup_plsdb(args.outdir, keep_files=args.keep_files,
+                    force=(args.force or args.force_plsdb))
+    else:
+        logging.info('Skipping PLSDB (plasmids) database step')
+
 
     create_summary(args.outdir)

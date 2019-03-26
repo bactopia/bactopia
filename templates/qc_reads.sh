@@ -21,7 +21,7 @@ illumina-cleanup --fastqs temp-fastqs.txt \
     --coverage !{params.coverage} \
     --genome_size ${GENOME_SIZE} \
     --max_cpus !{params.max_cpus} \
-    --cpus !{cpus} \
+    --cpus !{task.cpus} \
     --adapter_k !{params.adapter_k} \
     --phix_k !{params.phix_k} \
     --ktrim !{params.ktrim} \
