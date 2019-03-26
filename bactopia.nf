@@ -29,6 +29,7 @@ MLST_DATABASES = []
 REFERENCES = []
 INSERTIONS = []
 PRIMERS = []
+PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
 organism_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.database) {
@@ -36,44 +37,51 @@ if (params.database) {
     available_databases = read_database_summary(database_path)
 
     available_databases['ariba'].each {
-        ARIBA_DATABASES << "${database_path}/ariba/${it.name}"
+        ARIBA_DATABASES << file("${database_path}/ariba/${it.name}")
     }
     print_database_info(ARIBA_DATABASES, "ARIBA databases")
 
     available_databases['minmer']['sketches'].each {
-        MINMER_DATABASES << "${database_path}/minmer/${it}"
+        MINMER_DATABASES << file("${database_path}/minmer/${it}")
     }
+    MINMER_DATABASES << file("${database_path}/plasmid/${available_databases['plasmid']['sketches']}")
     print_database_info(MINMER_DATABASES, "minmer sketches databases")
+
+    PLASMID_BLASTDB = tuple(file("${database_path}/plasmid/${available_databases['plasmid']['blastdb']}*"))
+    print_database_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
 
     if (params.organism) {
         if (available_databases.containsKey(params.organism)) {
             organism_genome_size = available_databases[params.organism]['genome_size']
             prokka = "${database_path}/${available_databases[params.organism]['prokka']['proteins']}"
             if (file(prokka).exists()) {
-                PROKKA_PROTEINS = prokka
-                log.info "Found Prokka proteins files (${PROKKA_PROTEINS})"
+                PROKKA_PROTEINS = file(prokka)
+                log.info "Found Prokka proteins file"
+                log.info "\t${PROKKA_PROTEINS}"
 
             }
             available_databases[params.organism]['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${database_path}/${val}").exists()) {
-                        MLST_DATABASES << "${database_path}/${val}"
+                        MLST_DATABASES << file("${database_path}/${val}")
                     }
                 }
             }
             print_database_info(MLST_DATABASES, "MLST databases")
 
             file("${database_path}/${available_databases[params.organism]['reference-genomes']}").list().each() {
-                REFERENCES << "${database_path}/${params.organism}/reference-genomes/${it}"
+                REFERENCES << file("${database_path}/${params.organism}/reference-genomes/${it}")
             }
             print_database_info(REFERENCES, "reference genomes")
 
             file("${database_path}/${available_databases[params.organism]['insertion-sequences']}").list().each() {
-                INSERTIONS << "${database_path}/${params.organism}/insertion-sequences/${it}"
+                INSERTIONS << file("${database_path}/${params.organism}/insertion-sequences/${it}")
             }
             print_database_info(INSERTIONS, "insertion sequence FASTAs")
 
-            PRIMERS = file("${database_path}/${available_databases[params.organism]['primer-sequences']}").list()
+            file("${database_path}/${params.organism}/primer-sequences").list().each() {
+                PRIMERS << file("${database_path}/${params.organism}/primer-sequences/${it}")
+            }
             print_database_info(PRIMERS, "primer sequence FASTAs")
         } else {
             log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
@@ -177,6 +185,7 @@ process annotate_genome {
     output:
     file 'annotation/*'
     file 'annotation/*.gbk.gz' into INSERTION_GENBANK
+    set val(sample), file("annotation/*.ffn.gz") into PLASMID_BLAST
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -347,6 +356,27 @@ process insertion_sequences {
     shell:
     insertion_name = file(insertion_fasta).getSimpleName()
     gunzip_genbank = genbank.getName().replace('.gz', '')
+    template(task.ext.template)
+}
+
+
+process plasmid_blast {
+    /*
+    BLAST a set of predicted genes against the PLSDB BALST database.
+    */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/plasmid", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(genes) from PLASMID_BLAST
+    file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
+
+    output:
+    file("${sample}-plsdb.json.gz")
+
+    shell:
+    blastdb = blastdb_files[0].getBaseName()
     template(task.ext.template)
 }
 
