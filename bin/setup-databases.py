@@ -395,7 +395,7 @@ def setup_prokka(request, available_databases, outdir, force=False,
         for request in requests:
             species = re.sub(r'[ /()]', "-", request.lower())
             species = species.replace('--', '-').strip('-')
-            prokka_dir = f'{outdir}/{species}/prokka'
+            prokka_dir = f'{outdir}/{species}/annotation'
             genome_sizes = []
 
             if os.path.exists(f'{prokka_dir}/proteins.faa'):
@@ -643,45 +643,59 @@ def create_summary(outdir):
         }
 
     # Organisms
-    for organism in sorted(os.listdir(f'{outdir}')):
-        if organism not in ['ariba', 'minmer', 'plasmid', 'summary.json']:
-            new_organism = OrderedDict()
-            new_organism['mlst'] = []
-            mlst = f'{outdir}/{organism}/mlst'
-            if os.path.exists(f'{mlst}/ariba/ref_db/00.auto_metadata.tsv'):
-                new_organism['mlst'] = {
-                    'ariba': f'{organism}/mlst/ariba/ref_db',
-                    'blast': f'{organism}/mlst/blast',
-                    'last_updated': execute(
-                        f'head -n 1 {mlst}/mlst-updated.txt', capture=True
-                    ).rstrip()
-                }
+    for organism in sorted(os.listdir(f'{outdir}/organism-specific')):
+        new_organism = OrderedDict()
+        new_organism['mlst'] = []
+        organism_dir = f'{outdir}/organism-specific/{organism}'
 
-            prokka = f'{outdir}/{organism}/prokka'
-            if os.path.exists(f'{prokka}/proteins.faa'):
-                new_organism['prokka'] = {
-                    'proteins': f'{organism}/prokka/proteins.faa',
-                    'last_updated': execute(
-                        f'head -n 1 {prokka}/proteins-updated.txt',
-                        capture=True
-                    ).rstrip()
-                }
-            if os.path.exists(f'{prokka}/genome_size.json'):
-                with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
-                    json_data = json.load(gs_fh)
-                    print(json_data)
-                    new_organism['genome_size'] = json_data
+        prokka = f'{organism_dir}/annotation'
+        if os.path.exists(f'{prokka}/proteins.faa'):
+            new_organism['annotation'] = {
+                'proteins': f'organism-specific/{organism}/annotation/proteins.faa',
+                'last_updated': execute(
+                    f'head -n 1 {prokka}/proteins-updated.txt',
+                    capture=True
+                ).rstrip()
+            }
 
-            optionals = ['insertion-sequences', 'reference-genomes',
-                         'primer-sequences']
-            for optional in optionals:
-                # These are optional directories users can add data to
-                optional_dir = f'{outdir}/{organism}/{optional}'
-                if not os.path.exists(f'{outdir}/{organism}/{optional}'):
-                    execute(f'mkdir -p {optional_dir}')
-                new_organism[optional] = f'{organism}/{optional}'
+        if os.path.exists(f'{prokka}/genome_size.json'):
+            with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
+                json_data = json.load(gs_fh)
+                print(json_data)
+                new_organism['genome_size'] = json_data
 
-            available_databases[organism] = new_organism
+        mlst = f'{organism_dir}/mlst'
+        if os.path.exists(f'{mlst}/ariba/ref_db/00.auto_metadata.tsv'):
+            new_organism['mlst'] = {
+                'ariba': f'organism-specific/{organism}/mlst/ariba/ref_db',
+                'blast': f'organism-specific/{organism}/mlst/blast',
+                'last_updated': execute(
+                    f'head -n 1 {mlst}/mlst-updated.txt', capture=True
+                ).rstrip()
+            }
+
+        optionals = sorted([
+            'insertion-sequences', 'reference-genomes', 'mapping-sequences',
+            'blast'
+        ])
+        new_organism['optional'] = OrderedDict()
+        for optional in optionals:
+            # These are optional directories users can add data to
+            optional_dir = f'{organism_dir}/optional/{optional}'
+            if not os.path.exists(optional_dir):
+                execute(f'mkdir -p {optional_dir}')
+            if optional == 'blast':
+                new_organism['optional'][optional] = [
+                    f'{optional_dir}/genes',
+                    f'{optional_dir}/primers',
+                    f'{optional_dir}/proteins',
+                ]
+                for blast_dir in new_organism['optional'][optional]:
+                    execute(f'mkdir -p {blast_dir}')
+            else:
+                new_organism['optional'][optional] = f'{optional_dir}'
+
+        available_databases[organism] = new_organism
 
     with open(f'{outdir}/summary.json', 'w') as json_handle:
         logging.info(f'Writing summary of available databases')
@@ -851,29 +865,6 @@ if __name__ == '__main__':
     else:
         logging.info('No requests for an Ariba database, skipping')
 
-    # Organism databases
-    if args.organism:
-        logging.info('Setting up MLST databases')
-        setup_mlst(args.organism, PUBMLST, args.outdir,
-                   force=(args.force or args.force_mlst))
-
-        if not args.skip_prokka:
-            logging.info('Setting up custom Prokka proteins')
-            setup_prokka(
-                args.organism, PUBMLST, args.outdir, cpus=args.cpus,
-                include_genus=args.include_genus, identity=args.identity,
-                overlap=args.overlap, max_memory=args.max_memory,
-                fast_cluster=args.fast_cluster, keep_files=args.keep_files,
-                force=(args.force or args.force_prokka)
-            )
-        else:
-            logging.info('Skipping custom Prokka database step')
-        # logging.info('Setting up cgMLST databases')
-        # Need mentalist conda install to be fixed
-        # setup_cgmlst(args.organism, CGMLST, args.outdir, force=args.force)
-    else:
-        logging.info('No requests for an organism, skipping')
-
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer databases')
         setup_minmer(args.outdir, force=(args.force or args.force_minmer))
@@ -887,5 +878,28 @@ if __name__ == '__main__':
     else:
         logging.info('Skipping PLSDB (plasmids) database step')
 
+    # Organism databases
+    if args.organism:
+        organism_dir = f'{args.outdir}/organism-specific'
+        logging.info('Setting up MLST databases')
+        setup_mlst(args.organism, PUBMLST, organism_dir,
+                   force=(args.force or args.force_mlst))
+
+        if not args.skip_prokka:
+            logging.info('Setting up custom Prokka proteins')
+            setup_prokka(
+                args.organism, PUBMLST, organism_dir, cpus=args.cpus,
+                include_genus=args.include_genus, identity=args.identity,
+                overlap=args.overlap, max_memory=args.max_memory,
+                fast_cluster=args.fast_cluster, keep_files=args.keep_files,
+                force=(args.force or args.force_prokka)
+            )
+        else:
+            logging.info('Skipping custom Prokka database step')
+        # logging.info('Setting up cgMLST databases')
+        # Need mentalist conda install to be fixed
+        # setup_cgmlst(args.organism, CGMLST, args.outdir, force=args.force)
+    else:
+        logging.info('No requests for an organism, skipping')
 
     create_summary(args.outdir)
