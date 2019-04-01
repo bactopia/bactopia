@@ -1,5 +1,7 @@
 #! /usr/bin/env nextflow
 import groovy.json.JsonSlurper
+import java.nio.file.Path
+import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
 VERSION = '0.0.1'
 if (params.help || params.full_usage) print_usage();
@@ -29,11 +31,13 @@ MLST_DATABASES = []
 REFERENCES = []
 INSERTIONS = []
 PRIMERS = []
+BLAST_FASTAS = []
+MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
 organism_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.database) {
-    database_path = get_absolute_path(params.database)
+    database_path = get_canonical_path(params.database)
     available_databases = read_database_summary(database_path)
 
     available_databases['ariba'].each {
@@ -51,16 +55,18 @@ if (params.database) {
     print_database_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
 
     if (params.organism) {
-        if (available_databases.containsKey(params.organism)) {
-            organism_genome_size = available_databases[params.organism]['genome_size']
-            prokka = "${database_path}/${available_databases[params.organism]['prokka']['proteins']}"
+        if (available_databases['organism-specific'].containsKey(params.organism)) {
+            organism_db = available_databases['organism-specific'][params.organism]
+            organism_genome_size = organism_db['genome_size']
+
+            prokka = "${database_path}/${organism_db['annotation']['proteins']}"
             if (file(prokka).exists()) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
                 log.info "\t${PROKKA_PROTEINS}"
 
             }
-            available_databases[params.organism]['mlst'].each { key, val ->
+            organism_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${database_path}/${val}").exists()) {
                         MLST_DATABASES << file("${database_path}/${val}")
@@ -69,20 +75,29 @@ if (params.database) {
             }
             print_database_info(MLST_DATABASES, "MLST databases")
 
-            file("${database_path}/${available_databases[params.organism]['reference-genomes']}").list().each() {
-                REFERENCES << file("${database_path}/${params.organism}/reference-genomes/${it}")
+            file("${database_path}/${organism_db['optional']['reference-genomes']}").list().each() {
+                REFERENCES << file("${database_path}/${organism_db['optional']['reference-genomes']}/${it}")
             }
             print_database_info(REFERENCES, "reference genomes")
 
-            file("${database_path}/${available_databases[params.organism]['insertion-sequences']}").list().each() {
-                INSERTIONS << file("${database_path}/${params.organism}/insertion-sequences/${it}")
+            file("${database_path}/${organism_db['optional']['insertion-sequences']}").list().each() {
+                INSERTIONS << file("${database_path}/${organism_db['optional']['insertion-sequences']}/${it}")
             }
             print_database_info(INSERTIONS, "insertion sequence FASTAs")
 
-            file("${database_path}/${params.organism}/primer-sequences").list().each() {
-                PRIMERS << file("${database_path}/${params.organism}/primer-sequences/${it}")
+            file("${database_path}/${organism_db['optional']['mapping-sequences']}").list().each() {
+                MAPPING_FASTAS << file("${database_path}/${organism_db['optional']['mapping-sequences']}/${it}")
             }
-            print_database_info(PRIMERS, "primer sequence FASTAs")
+            print_database_info(MAPPING_FASTAS, "FASTAs to align reads against")
+
+            // BLAST Related
+            organism_db['optional']['blast'].each() {
+                temp_path = "${database_path}/${it}"
+                file(temp_path).list().each() {
+                    BLAST_FASTAS << file("${temp_path}/${it}")
+                }
+            }
+            print_database_info(BLAST_FASTAS, "FASTAs to query with BLAST")
         } else {
             log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
                      "to verify the database has been set up. Exiting"
@@ -144,7 +159,7 @@ process qc_reads {
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
                                                          ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
-                                                         INSERTION_SEQUENCES, CALL_VARIANTS
+                                                         INSERTION_SEQUENCES, CALL_VARIANTS, MAPPING_QUERY
 
     shell:
     fq2 = single_end == true ? "" : fq[1]
@@ -166,7 +181,24 @@ process assemble_genome {
     file "shovill*"
     file "${sample}.fna.gz" into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json"
-    set val(sample), file("${sample}.fna.gz") into ANNOTATION
+    set val(sample), file("${sample}.fna.gz") into ANNOTATION, MAKE_BLASTDB
+
+    shell:
+    template(task.ext.template)
+}
+
+
+process make_blastdb {
+    /* Create a BLAST database of the assembly using BLAST */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(fasta) from MAKE_BLASTDB
+
+    output:
+    set val(sample), file("blastdb/*") into BLAST_QUERY
 
     shell:
     template(task.ext.template)
@@ -297,13 +329,13 @@ process minmer_query {
     input:
     set val(sample), val(single_end), file(fq) from MINMER_QUERY
     file(sourmash) from QUERY_SOURMASH
-    each database from MINMER_DATABASES
+    each file(database) from MINMER_DATABASES
 
     output:
     file("${sample}*.txt")
 
     shell:
-    minmer_database = file(database).getName()
+    minmer_database = database.getName()
     mash_w = params.screen_w ? "-w" : ""
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     template(task.ext.template)
@@ -321,13 +353,13 @@ process call_variants {
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
-    each reference from REFERENCES
+    each file(reference) from REFERENCES
 
     output:
     file("${reference_name}/*")
 
     shell:
-    reference_name = file(reference).getSimpleName()
+    reference_name = reference.getSimpleName()
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     template(task.ext.template)
 }
@@ -345,7 +377,7 @@ process insertion_sequences {
     input:
     set val(sample), val(single_end), file(fq) from INSERTION_SEQUENCES
     file(genbank) from INSERTION_GENBANK
-    each insertion_fasta from INSERTIONS
+    each file(insertion_fasta) from INSERTIONS
 
     output:
     file("insertion-sequences/*")
@@ -354,7 +386,7 @@ process insertion_sequences {
     single_end == false
 
     shell:
-    insertion_name = file(insertion_fasta).getSimpleName()
+    insertion_name = insertion_fasta.getSimpleName()
     gunzip_genbank = genbank.getName().replace('.gz', '')
     template(task.ext.template)
 }
@@ -381,27 +413,49 @@ process plasmid_blast {
 }
 
 
-/*
-process primer_query {
+process blast_query {
     /*
-    Query a set of PCR primers (FASTA) against annotated assembly using BLAST
-    /
+    Query a FASTA files against annotated assembly using BLAST
+    */
 
     cpus cpus
-    tag "${sample} - ${reference}"
-    publishDir "${outdir}/${sample}/primers", mode: 'copy', overwrite: true
+    tag "${sample} - ${query.getName()}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), file(blast_db) from PRIMER_QUERY
-    each primer from PRIMERS
+    set val(sample), file(blastdb) from BLAST_QUERY
+    each file(query) from BLAST_FASTAS
 
     output:
-    file("${sample}*.txt"
+    file("blast/*")
 
     shell:
+    query_name = query.getSimpleName()
     template(task.ext.template)
 }
-*/
+
+
+process mapping_query {
+    /*
+    Map FASTQ reads against a given set of FASTA files using BWA.
+    */
+
+    cpus cpus
+    tag "${sample} - ${query.getName()}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from MAPPING_QUERY
+    each file(query) from MAPPING_FASTAS
+
+    output:
+    file("mapping/*")
+
+    shell:
+    query_name = query.getSimpleName()
+    template(task.ext.template)
+}
+
 
 workflow.onComplete {
     if (workflow.success == true && params.keep_cache == false) {
@@ -637,7 +691,8 @@ def check_input_params() {
     }
 }
 
-def process_tsv(line) {
+
+def process_csv(line) {
     /* Parse line and determine if single end or paired reads*/
     if (line.r2) {
         // Paired
@@ -650,8 +705,8 @@ def process_tsv(line) {
 
 def create_fastq_channel(fastq_input) {
     return Channel.fromPath( file(fastq_input) )
-            .splitCsv(header: true, sep: '\t')
-            .map { row -> process_tsv(row) }
+        .splitCsv(header: true, sep: '\t')
+        .map { row -> process_csv(row) }
 }
 
 def check_input_fastqs(fastq_input) {
@@ -712,10 +767,26 @@ def get_absolute_path(file_path) {
     // Thanks Fabian Steeg
     // https://stackoverflow.com/questions/3204955/converting-relative-paths-to-absolute-paths
     File file_obj = new File("${workflow.launchDir}/${file_path}");
-    String absolute_path = file_obj.getCanonicalPath(); // may throw IOException
+    String absolute_path = file_obj.getAbsolutePath(); // may throw IOException
 
     return absolute_path
 }
+
+def get_canonical_path(file_path) {
+    // Thanks Fabian Steeg
+    // https://stackoverflow.com/questions/3204955/converting-relative-paths-to-absolute-paths
+    File file_obj = new File("${workflow.launchDir}/${file_path}");
+    String canonical_path = file_obj.getCanonicalPath(); // may throw IOException
+
+    return canonical_path
+}
+
+def get_real_path(file_path) {
+    Path real_path = Paths.get(file_path)
+    println real_path.toRealPath()
+    return real_path.toRealPath()
+}
+
 
 def print_database_info(database_list, database_info) {
     log.info "Found ${database_list.size()} ${database_info}"

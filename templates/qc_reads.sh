@@ -39,6 +39,7 @@ illumina-cleanup --fastqs temp-fastqs.txt \
     --xmx !{params.xmx} \
     --maxcor !{params.maxcor} \
     --sampleseed !{params.sampleseed} \
+    --keep_cache \
     $OUTDIR \
     $ADAPTERS \
     $PHIX

@@ -643,6 +643,7 @@ def create_summary(outdir):
         }
 
     # Organisms
+    available_databases['organism-specific'] = OrderedDict()
     for organism in sorted(os.listdir(f'{outdir}/organism-specific')):
         new_organism = OrderedDict()
         new_organism['mlst'] = []
@@ -681,9 +682,9 @@ def create_summary(outdir):
         new_organism['optional'] = OrderedDict()
         for optional in optionals:
             # These are optional directories users can add data to
-            optional_dir = f'{organism_dir}/optional/{optional}'
+            optional_dir = f'organism-specific/{organism}/optional/{optional}'
             if not os.path.exists(optional_dir):
-                execute(f'mkdir -p {optional_dir}')
+                execute(f'mkdir -p {optional_dir}', directory=outdir)
             if optional == 'blast':
                 new_organism['optional'][optional] = [
                     f'{optional_dir}/genes',
@@ -691,11 +692,11 @@ def create_summary(outdir):
                     f'{optional_dir}/proteins',
                 ]
                 for blast_dir in new_organism['optional'][optional]:
-                    execute(f'mkdir -p {blast_dir}')
+                    execute(f'mkdir -p {blast_dir}', directory=outdir)
             else:
                 new_organism['optional'][optional] = f'{optional_dir}'
 
-        available_databases[organism] = new_organism
+        available_databases['organism-specific'][organism] = new_organism
 
     with open(f'{outdir}/summary.json', 'w') as json_handle:
         logging.info(f'Writing summary of available databases')
