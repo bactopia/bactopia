@@ -532,8 +532,9 @@ def setup_minmer(outdir, force=False):
                 logging.info(f'{filepath} exists, skipping')
                 continue
         execute(f'wget --quiet -O {filename} {url}', directory=minmer_dir)
+
     # Finish up
-    if update_timestamp:
+    if update_timestamp or not os.path.exists(f'{minmer_dir}/minmer-updated.txt'):
         execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
                 directory=minmer_dir)
 
