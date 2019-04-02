@@ -1,3 +1,4 @@
+# pip install pygments mkdocs-material pymdown-extensions
 site_name: Bactopia
 site_author: Robert A. Petit III
 site_description: A generic pipeline for the analysis of short-read bacterial sequences.
@@ -9,7 +10,8 @@ google_analytics: ['UA-104199698-2', 'staphopia.github.io']
 dev_addr: 0.0.0.0:8000
 
 nav:
-    - 'Get Started': 'index.md'
+    - 'About Bactopia': 'index.md'
+    - 'Installation': 'installation.md'
     - 'Configuration': 'configuration.md'
     - 'Runtime Parameters': 'parameters.md'
     - 'Examples': 'examples.md'
@@ -18,6 +20,9 @@ nav:
 
 theme:
     name: 'material'
+    font:
+      text: 'Ubuntu'
+      code: 'Ubuntu Mono'
 
 markdown_extensions:
   - pymdownx.arithmatex
@@ -36,4 +41,5 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - admonition
 
