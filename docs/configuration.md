@@ -1,4 +1,0 @@
-# Configuration
-
-## Setup Databases
-

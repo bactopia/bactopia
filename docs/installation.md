@@ -27,7 +27,7 @@ installed.
 #### Download *bactopia.yml*
 First you will want to download the `bactopia.yml` file.
 
-```bash
+``` bash
 wget https://raw.githubusercontent.com/staphopia/bactopia-ap/master/conda/bactopia.yml
 
 - or -
@@ -39,11 +39,11 @@ Or, feel free to "Right-click Save As" [**bactopia.yml**](https://raw.githubuser
 
 #### Create A Bactopia Environment
 
-```bash
+``` bash
 conda env create -n bactopia -f bactopia.yml
 ```
 
-!!! warning "Possible warning message, you can disregard it!"
+!!! warning "Possible warning message, you can ignore it!"
 
     Warning: you have pip-installed dependencies in your environment file, but
     you do not list pip itself as one of your conda dependencies. Conda may
@@ -55,12 +55,23 @@ Pip is in the `bactopia.yml`, but for some reason its not recoginzed! Again, it
 is safe to disregard this warning, as the additional Python packages should still
 be installed correctly.
 
+#### Clone Bactopia
+Now that a Bactopia environment has been created. You can activate it and clone the Bactopia repo.
 
-```bash
+``` bash
+conda activate bactopia  # or, source activate bactopia
 git clone git@github.com:staphopia/bactopia-ap.git
+cd bactopia-ap
+
+./bactopia.nf --version
+N E X T F L O W  ~  version 19.01.0
+Launching `./bactopia.nf` [cheesy_carson] - revision: 97a14660a2
+bactopia 0.0.1
 ```
 
+Everything *should* be all set! (Is it ever?) When you execute Bactopia, seperate conda environments will be created for each process automatically by Nextflow.
 
+The nextstep is to [Setup Databases](database-setup.md) for usage by Bactopia.
 
 ## Coming Soon
 As the analysis pipeline for Bactopia is finalized there are plans to also

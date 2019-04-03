@@ -12,7 +12,7 @@ dev_addr: 0.0.0.0:8000
 nav:
     - 'About Bactopia': 'index.md'
     - 'Installation': 'installation.md'
-    - 'Configuration': 'configuration.md'
+    - 'Setup Public Datasets': 'public-datasets.md'
     - 'Runtime Parameters': 'parameters.md'
     - 'Examples': 'examples.md'
     # - 'FAQ': 'faq.md'
