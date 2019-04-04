@@ -11,7 +11,7 @@ if (params.version) print_version();
 check_input_params()
 check_input_fastqs(params.fastqs)
 if (params.check_fastqs) print_check_fastqs(params.fastqs);
-if (params.available_databases) print_available_databases(params.database)
+if (params.available_datasets) print_available_datasets(params.dataset)
 
 // Set the maximum number of cpus to use
 config.poolSize = params.max_cpus.toInteger()
@@ -36,30 +36,30 @@ MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
-if (params.database) {
-    database_path = get_canonical_path(params.database)
-    available_databases = read_database_summary(database_path)
+if (params.dataset) {
+    dataset_path = get_canonical_path(params.dataset)
+    available_datasets = read_dataset_summary(dataset_path)
 
-    available_databases['ariba'].each {
-        ARIBA_DATABASES << file("${database_path}/ariba/${it.name}")
+    available_datasets['ariba'].each {
+        ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
     }
-    print_database_info(ARIBA_DATABASES, "ARIBA databases")
+    print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
 
-    available_databases['minmer']['sketches'].each {
-        MINMER_DATABASES << file("${database_path}/minmer/${it}")
+    available_datasets['minmer']['sketches'].each {
+        MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
     }
-    MINMER_DATABASES << file("${database_path}/plasmid/${available_databases['plasmid']['sketches']}")
-    print_database_info(MINMER_DATABASES, "minmer sketches databases")
+    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
+    print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
 
-    PLASMID_BLASTDB = tuple(file("${database_path}/plasmid/${available_databases['plasmid']['blastdb']}*"))
-    print_database_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
+    PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
+    print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
 
     if (params.species) {
-        if (available_databases['species-specific'].containsKey(params.species)) {
-            species_db = available_databases['species-specific'][params.species]
+        if (available_datasets['species-specific'].containsKey(params.species)) {
+            species_db = available_datasets['species-specific'][params.species]
             species_genome_size = species_db['genome_size']
 
-            prokka = "${database_path}/${species_db['annotation']['proteins']}"
+            prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
             if (file(prokka).exists()) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
@@ -68,39 +68,39 @@ if (params.database) {
             }
             species_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
-                    if (file("${database_path}/${val}").exists()) {
-                        MLST_DATABASES << file("${database_path}/${val}")
+                    if (file("${dataset_path}/${val}").exists()) {
+                        MLST_DATABASES << file("${dataset_path}/${val}")
                     }
                 }
             }
-            print_database_info(MLST_DATABASES, "MLST databases")
+            print_dataset_info(MLST_DATABASES, "MLST datasets")
 
-            file("${database_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                REFERENCES << file("${database_path}/${species_db['optional']['reference-genomes']}/${it}")
+            file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
+                REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
             }
-            print_database_info(REFERENCES, "reference genomes")
+            print_dataset_info(REFERENCES, "reference genomes")
 
-            file("${database_path}/${species_db['optional']['insertion-sequences']}").list().each() {
-                INSERTIONS << file("${database_path}/${species_db['optional']['insertion-sequences']}/${it}")
+            file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
+                INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
             }
-            print_database_info(INSERTIONS, "insertion sequence FASTAs")
+            print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
 
-            file("${database_path}/${species_db['optional']['mapping-sequences']}").list().each() {
-                MAPPING_FASTAS << file("${database_path}/${species_db['optional']['mapping-sequences']}/${it}")
+            file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
+                MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
             }
-            print_database_info(MAPPING_FASTAS, "FASTAs to align reads against")
+            print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
 
             // BLAST Related
             species_db['optional']['blast'].each() {
-                temp_path = "${database_path}/${it}"
+                temp_path = "${dataset_path}/${it}"
                 file(temp_path).list().each() {
                     BLAST_FASTAS << file("${temp_path}/${it}")
                 }
             }
-            print_database_info(BLAST_FASTAS, "FASTAs to query with BLAST")
+            print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
         } else {
-            log.info "Species '${params.species}' not available, please check spelling or use '--available_databases' " +
-                     "to verify the database has been set up. Exiting"
+            log.info "Species '${params.species}' not available, please check spelling or use '--available_datasets' " +
+                     "to verify the dataset has been set up. Exiting"
             exit 1
         }
     } else {
@@ -117,9 +117,9 @@ if (params.database) {
         }
     }
 } else {
-    log.info "--database not given, skipping the following processes (analyses):"
+    log.info "--dataset not given, skipping the following processes (analyses):"
     log.info "\tsequence_type"
-    log.info "\tariba_databases"
+    log.info "\tariba_analysis"
     log.info "\tminmer_query"
     log.info "\tcall_variants"
     log.info "\tinsertion_sequence_query"
@@ -184,6 +184,10 @@ process assemble_genome {
     set val(sample), file("${sample}.fna.gz") into ANNOTATION, MAKE_BLASTDB
 
     shell:
+    opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
+    kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
+    nostitch = params.nostitch ? "--nostitch" : ""
+    nocorr = params.nocorr ? "--nocorr" : ""
     template(task.ext.template)
 }
 
@@ -222,6 +226,15 @@ process annotate_genome {
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
     proteins = PROKKA_PROTEINS ? "--proteins ${PROKKA_PROTEINS}" : ""
+    genus = PROKKA_PROTEINS ? params.species.split('-')[0].capitalize() : "Genus"
+    species = PROKKA_PROTEINS ? params.species.split('-')[1] : "species"
+    addgenes = params.addgenes ? "--addgenes" : ""
+    addmrna = params.addmrna ? "--addmrna" : ""
+    rawproduct = params.rawproduct ? "--rawproduct" : ""
+    cdsrnaolap = params.cdsrnaolap ? "--cdsrnaolap" : ""
+    norrna = params.norrna ? "--norrna" : ""
+    notrna = params.notrna ? "--notrna" : ""
+    rnammer = params.rnammer ? "--rnammer" : ""
     template(task.ext.template)
 }
 
@@ -240,13 +253,12 @@ process count_31mers {
 
     shell:
     template(task.ext.template)
-
 }
 
 
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
-    cpus 1
+    cpus { task.attempt > 1 ? 1 : cpus }
     errorStrategy 'retry'
     maxRetries 5
     tag "${sample} - ${method}"
@@ -255,43 +267,44 @@ process sequence_type {
     input:
     set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
     file(assembly) from SEQUENCE_TYPE_ASSEMBLY
-    each database from MLST_DATABASES
+    each dataset from MLST_DATABASES
 
     when:
-    database.contains('blast') || (database.contains('ariba') && single_end == false)
+    dataset.contains('blast') || (dataset.contains('ariba') && single_end == false)
 
     output:
     file "${method}/*"
 
     shell:
-    method = database.contains('blast') ? 'blast' : 'ariba'
+    method = dataset.contains('blast') ? 'blast' : 'ariba'
+    spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
 
 
 process ariba_analysis {
-    /* Run reads against all available (if any) ARIBA databases */
-    cpus 1
+    /* Run reads against all available (if any) ARIBA datasets */
+    cpus { task.attempt > 1 ? 1 : cpus }
     errorStrategy 'retry'
     maxRetries 5
-    tag "${sample} - ${database_name}"
+    tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
-    each database from ARIBA_DATABASES
+    each dataset from ARIBA_DATABASES
 
     output:
-    file "${database_name}/*"
+    file "${dataset_name}/*"
 
     when:
     single_end == false
 
     shell:
-    database_name = file(database).getName()
+    dataset_name = file(dataset).getName()
+    spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
-
 
 
 process minmer_sketch {
@@ -323,19 +336,19 @@ process minmer_query {
     GenBank (Sourmash, k=21,31,51)
     */
     cpus 1
-    tag "${sample} - ${minmer_database}"
+    tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_QUERY
     file(sourmash) from QUERY_SOURMASH
-    each file(database) from MINMER_DATABASES
+    each file(dataset) from MINMER_DATABASES
 
     output:
     file("${sample}*.txt")
 
     shell:
-    minmer_database = database.getName()
+    dataset_name = dataset.getName()
     mash_w = params.screen_w ? "-w" : ""
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     template(task.ext.template)
@@ -361,6 +374,8 @@ process call_variants {
     shell:
     reference_name = reference.getSimpleName()
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
+    bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
+    fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
     template(task.ext.template)
 }
 
@@ -388,6 +403,7 @@ process insertion_sequences {
     shell:
     insertion_name = insertion_fasta.getSimpleName()
     gunzip_genbank = genbank.getName().replace('.gz', '')
+    all = params.ismap_all ? "--a" : ""
     template(task.ext.template)
 }
 
@@ -405,7 +421,7 @@ process plasmid_blast {
     file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
 
     output:
-    file("${sample}-plsdb.json.gz")
+    file("${sample}-plsdb.txt")
 
     shell:
     blastdb = blastdb_files[0].getBaseName()
@@ -453,6 +469,10 @@ process mapping_query {
 
     shell:
     query_name = query.getSimpleName()
+    bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
+    bwa_aln_opts = params.bwa_aln_opts ? params.bwa_aln_opts : ""
+    bwa_samse_opts = params.bwa_samse_opts ? params.bwa_samse_opts : ""
+    bwa_sampe_opts = params.bwa_sampe_opts ? params.bwa_sampe_opts : ""
     template(task.ext.template)
 }
 
@@ -521,16 +541,16 @@ def print_check_fastqs(fastq_input) {
     exit 0
 }
 
-def print_available_databases(database) {
+def print_available_datasets(dataset) {
     exit_code = 0
-    if (database) {
-        if (file("${database}/summary.json").exists()) {
-            available_databases = read_database_summary(database)
-            log.info 'Printing the available pre-configured databases.'
-            log.info "Database Location (--database): ${database}"
+    if (dataset) {
+        if (file("${dataset}/summary.json").exists()) {
+            available_datasets = read_dataset_summary(dataset)
+            log.info 'Printing the available pre-configured dataset.'
+            log.info "Database Location (--dataset): ${dataset}"
             log.info ''
-            if (available_databases.size() > 0) {
-                available_databases.each { key, value ->
+            if (available_datasets.size() > 0) {
+                available_datasets.each { key, value ->
                     if (key == 'ariba') {
                         log.info "${key.capitalize()}"
                         value.each {
@@ -551,55 +571,55 @@ def print_available_databases(database) {
                 }
             }
         } else {
-            log.info "Please verify the PATH is correct and ${database}/summary.json" +
-                     " exists, if not try rerunning 'setup-databases.py'."
+            log.info "Please verify the PATH is correct and ${dataset}/summary.json" +
+                     " exists, if not try rerunning 'setup-public-datasets.py'."
             exit_code = 1
         }
     } else {
-        log.info "Please use '--database' to specify the path to pre-built databases."
+        log.info "Please use '--dataset' to specify the path to pre-built datasets."
         exit_code = 1
     }
     clean_cache()
     exit exit_code
 }
 
-def read_database_summary(database) {
+def read_dataset_summary(dataset) {
     slurp = new JsonSlurper()
-    return slurp.parseText(file("${database}/summary.json").text)
+    return slurp.parseText(file("${dataset}/summary.json").text)
 }
 
-def check_species_datasets(database, species) {
-    /* Check for available species specific databases */
-    species_databases = []
+def check_species_datasets(dataset, species) {
+    /* Check for available species specific datasets */
+    species_datasets = []
     files = [
         // MLST
-        "${database}/${species}/mlst/ariba/ref_db/00.auto_metadata.tsv",
-        "${database}/${species}/mlst/blast/profile.txt",
+        "${dataset}/${species}/mlst/ariba/ref_db/00.auto_metadata.tsv",
+        "${dataset}/${species}/mlst/blast/profile.txt",
 
         // Prokka
-        "${database}/${species}/prokka/proteins.faa"
+        "${dataset}/${species}/prokka/proteins.faa"
     ]
     files.each {
         if (file(it).exists()) {
-            species_databases << it
+            species_datasets << it
         }
     }
-    return species_databases
+    return species_datasets
 }
 
 
-def check_ariba_databases(database) {
-    /* Check for available Ariba databases */
-    ariba_directory = new File("${database}/ariba/")
-    ariba_databases = []
+def check_ariba_datasets(dataset) {
+    /* Check for available Ariba datasets */
+    ariba_directory = new File("${dataset}/ariba/")
+    ariba_datasets = []
     ariba_directory.eachFile(FileType.DIRECTORIES) {
-        ariba_databases << it.name
+        ariba_datasets << it.name
     }
-    return ariba_databases
+    return ariba_datasets
 }
 
 
-def check_minmers(database) {
+def check_minmers(dataset) {
     /* Check for available minmer sketches */
     minmers = []
     sketches = [
@@ -609,8 +629,8 @@ def check_minmers(database) {
         'genbank-k21.json.gz', 'genbank-k31.json.gz', 'genbank-k51.json.gz'
     ]
     sketches.each {
-        if (file("${database}/minmer/${it}").exists()) {
-            minmers << "${database}/minmer/${it}"
+        if (file("${dataset}/minmer/${it}").exists()) {
+            minmers << "${dataset}/minmer/${it}"
         }
     }
 
@@ -788,9 +808,9 @@ def get_real_path(file_path) {
 }
 
 
-def print_database_info(database_list, database_info) {
-    log.info "Found ${database_list.size()} ${database_info}"
-    database_list.each {
+def print_dataset_info(dataset_list, dataset_info) {
+    log.info "Found ${dataset_list.size()} ${dataset_info}"
+    dataset_list.each {
         log.info "\t${it}"
     }
 }

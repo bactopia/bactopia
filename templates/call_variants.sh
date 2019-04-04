@@ -2,8 +2,19 @@
 set -e
 set -u
 
-snippy !{fastq} --ref !{reference} --prefix !{sample} \
-    --outdir !{reference_name} --cpus !{task.cpus}
+snippy !{fastq} \
+     --ref !{reference} \
+    --cpus !{task.cpus} \
+    --ram !{params.snippy_ram} \
+    --outdir !{reference_name} \
+    --prefix !{sample} \
+    --mapqual !{params.mapqual} \
+    --basequal !{params.basequal} \
+    --mincov !{params.mincov} \
+    --minfrac !{params.minfrac} \
+    --minqual !{params.minqual} \
+    --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt}
+
 vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}-final.vcf
 
 # Clean Up

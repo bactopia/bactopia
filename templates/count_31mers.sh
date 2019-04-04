@@ -4,10 +4,10 @@ set -u
 
 if [ "!{single_end}" == "false" ]; then
     # Paired-End Reads
-    mccortex31 build -k 31 -s !{sample} -2 !{fq[0]}:!{fq[1]} -t !{cpus} -m 2000mb -q temp_counts
+    mccortex31 build -k 31 -s !{sample} -2 !{fq[0]}:!{fq[1]} -t !{task.cpus} -m 2000mb -q temp_counts
 else
     # Single-End Reads
-    mccortex31 build -k 31 -s !{sample} -1 !{fq[0]} -t 10 -m 2000mb -q temp_counts
+    mccortex31 build -k 31 -s !{sample} -1 !{fq[0]} -t !{task.cpus} -m 2000mb -q temp_counts
 fi
 
 if [ "!{params.keep_singletons}" == "false" ]; then
