@@ -35,7 +35,7 @@ BLAST_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
-organism_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.database) {
     database_path = get_canonical_path(params.database)
     available_databases = read_database_summary(database_path)
@@ -54,19 +54,19 @@ if (params.database) {
     PLASMID_BLASTDB = tuple(file("${database_path}/plasmid/${available_databases['plasmid']['blastdb']}*"))
     print_database_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
 
-    if (params.organism) {
-        if (available_databases['organism-specific'].containsKey(params.organism)) {
-            organism_db = available_databases['organism-specific'][params.organism]
-            organism_genome_size = organism_db['genome_size']
+    if (params.species) {
+        if (available_databases['species-specific'].containsKey(params.species)) {
+            species_db = available_databases['species-specific'][params.species]
+            species_genome_size = species_db['genome_size']
 
-            prokka = "${database_path}/${organism_db['annotation']['proteins']}"
+            prokka = "${database_path}/${species_db['annotation']['proteins']}"
             if (file(prokka).exists()) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
                 log.info "\t${PROKKA_PROTEINS}"
 
             }
-            organism_db['mlst'].each { key, val ->
+            species_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${database_path}/${val}").exists()) {
                         MLST_DATABASES << file("${database_path}/${val}")
@@ -75,23 +75,23 @@ if (params.database) {
             }
             print_database_info(MLST_DATABASES, "MLST databases")
 
-            file("${database_path}/${organism_db['optional']['reference-genomes']}").list().each() {
-                REFERENCES << file("${database_path}/${organism_db['optional']['reference-genomes']}/${it}")
+            file("${database_path}/${species_db['optional']['reference-genomes']}").list().each() {
+                REFERENCES << file("${database_path}/${species_db['optional']['reference-genomes']}/${it}")
             }
             print_database_info(REFERENCES, "reference genomes")
 
-            file("${database_path}/${organism_db['optional']['insertion-sequences']}").list().each() {
-                INSERTIONS << file("${database_path}/${organism_db['optional']['insertion-sequences']}/${it}")
+            file("${database_path}/${species_db['optional']['insertion-sequences']}").list().each() {
+                INSERTIONS << file("${database_path}/${species_db['optional']['insertion-sequences']}/${it}")
             }
             print_database_info(INSERTIONS, "insertion sequence FASTAs")
 
-            file("${database_path}/${organism_db['optional']['mapping-sequences']}").list().each() {
-                MAPPING_FASTAS << file("${database_path}/${organism_db['optional']['mapping-sequences']}/${it}")
+            file("${database_path}/${species_db['optional']['mapping-sequences']}").list().each() {
+                MAPPING_FASTAS << file("${database_path}/${species_db['optional']['mapping-sequences']}/${it}")
             }
             print_database_info(MAPPING_FASTAS, "FASTAs to align reads against")
 
             // BLAST Related
-            organism_db['optional']['blast'].each() {
+            species_db['optional']['blast'].each() {
                 temp_path = "${database_path}/${it}"
                 file(temp_path).list().each() {
                     BLAST_FASTAS << file("${temp_path}/${it}")
@@ -99,19 +99,19 @@ if (params.database) {
             }
             print_database_info(BLAST_FASTAS, "FASTAs to query with BLAST")
         } else {
-            log.info "Organism '${params.organism}' not available, please check spelling or use '--available_databases' " +
+            log.info "Species '${params.species}' not available, please check spelling or use '--available_databases' " +
                      "to verify the database has been set up. Exiting"
             exit 1
         }
     } else {
-        log.info "--organism not given, skipping the following processes (analyses):"
+        log.info "--species not given, skipping the following processes (analyses):"
         log.info "\tsequence_type"
         log.info "\tcall_variants"
         log.info "\tinsertion_sequence_query"
         log.info "\tprimer_query"
         if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-            log.info "Asked for genome size '${params.genome_size}' which requires an " +
-                     "organism to be given. Please give an organism or specify " +
+            log.info "Asked for genome size '${params.genome_size}' which requires a " +
+                     "species to be given. Please give a species or specify " +
                      "a valid genome size. Exiting"
             exit 1
         }
@@ -542,7 +542,7 @@ def print_available_databases(database) {
                             log.info "\tFound ${it})"
                         }
                     } else {
-                        log.info "${key.capitalize().replace('-', ' ')} (use --organism \"${key}\")"
+                        log.info "${key.capitalize().replace('-', ' ')} (use --species \"${key}\")"
                         value.each {
                             log.info "\tFound ${it}"
                         }
@@ -568,23 +568,23 @@ def read_database_summary(database) {
     return slurp.parseText(file("${database}/summary.json").text)
 }
 
-def check_organism_databases(database, organism) {
-    /* Check for available organism specific databases */
-    organism_databases = []
+def check_species_datasets(database, species) {
+    /* Check for available species specific databases */
+    species_databases = []
     files = [
         // MLST
-        "${database}/${organism}/mlst/ariba/ref_db/00.auto_metadata.tsv",
-        "${database}/${organism}/mlst/blast/profile.txt",
+        "${database}/${species}/mlst/ariba/ref_db/00.auto_metadata.tsv",
+        "${database}/${species}/mlst/blast/profile.txt",
 
         // Prokka
-        "${database}/${organism}/prokka/proteins.faa"
+        "${database}/${species}/prokka/proteins.faa"
     ]
     files.each {
         if (file(it).exists()) {
-            organism_databases << it
+            species_databases << it
         }
     }
-    return organism_databases
+    return species_databases
 }
 
 

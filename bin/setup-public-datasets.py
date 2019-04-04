@@ -1,18 +1,18 @@
 #! /usr/bin/env python3
 """
-usage: setup-datasets.py [-h] [--mlst MLST] [--cgmlst CGMLST]
-                               [--ariba ARIBA] [--skip_prokka]
-                               [--include_genus] [--identity FLOAT]
-                               [--overlap FLOAT] [--max_memory INT]
-                               [--fast_cluster] [--cpus INT]
-                               [--clear_cache] [--force] [--force_ariba]
-                               [--force_mlst] [--force_prokka]
-                               [--keep_files] [--list_datasets]
-                               [--depends] [--verbose] [--silent]
-                               OUTPUT_DIRECTORY
+usage: setup-public-datasets.py [-h] [--ariba STR] [--species STR]
+                                [--skip_prokka] [--include_genus]
+                                [--identity FLOAT] [--overlap FLOAT]
+                                [--max_memory INT] [--fast_cluster]
+                                [--skip_minmer] [--skip_plsdb] [--cpus INT]
+                                [--clear_cache] [--force] [--force_ariba]
+                                [--force_mlst] [--force_prokka]
+                                [--force_minmer] [--force_plsdb]
+                                [--keep_files] [--list_datasets] [--depends]
+                                [--version] [--verbose] [--silent]
+                                OUTPUT_DIRECTORY
 
-Setup default datasets (MLST, resistance, virulence, annotation) for a given
-organism.
+setup-public-datasets.py (v1.0.0) - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -20,25 +20,29 @@ positional arguments:
 optional arguments:
   -h, --help        show this help message and exit
 
-Sequence Typing:
-  --mlst MLST       Download MLST schema for a given species or a list of
-                    species in a text file.
-  --cgmlst CGMLST   Download cgMLST schema for a given species or a list of
-                    species in a text file.
+Ariba Reference Datasets:
+  --ariba STR       Setup Ariba datasets for a given reference or a list of
+                    references in a text file. (Default: card,vfdb_core)
 
-Resistance/Virulence (Ariba):
-  --ariba ARIBA     Setup Ariba dataset for a given dataset or a list of
-                    datasets in a text file. (Default: card,vfdb_core)
+Bacterial Species:
+  --species STR     Download available (cg)MLST schemas and completed genomes
+                    for a given species or a list of species in a text file.
 
-Custom Prokka Protein Database:
-  --skip_prokka     Skip creation of a Prokka formatted fasta for each
-                    organism
-  --include_genus   Include all genus members in the Prokka dataset
+Custom Prokka Protein FASTA:
+  --skip_prokka     Skip creation of a Prokka formatted fasta for each species
+  --include_genus   Include all genus members in the Prokka proteins FASTA
   --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
   --overlap FLOAT   CD-HIT (-s) length difference cutoff. (Default: 0.8)
   --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
   --fast_cluster    Use CD-HIT's (-g 0) fast clustering algorithm, instead of
                     the accurate but slow algorithm.
+
+Minmer Datasets:
+  --skip_minmer     Skip download of pre-computed minmer datasets (mash,
+                    sourmash)
+
+PLSDB (Plasmid) BLAST/Sketch:
+  --skip_plsdb      Skip download of pre-computed PLSDB datbases (blast, mash)
 
 Helpful Options:
   --cpus INT        Number of cpus to use. (Default: 1)
@@ -47,14 +51,22 @@ Helpful Options:
   --force_ariba     Forcibly overwrite existing Ariba datasets.
   --force_mlst      Forcibly overwrite existing MLST datasets.
   --force_prokka    Forcibly overwrite existing Prokka datasets.
+  --force_minmer    Forcibly overwrite existing minmer datasets.
+  --force_plsdb     Forcibly overwrite existing PLSDB datasets.
   --keep_files      Keep all downloaded and intermediate files.
-  --list_datasets  List resistance/virulence Ariba datasets and (cg)MLST
-                    schemas available for setup.
+  --list_datasets   List Ariba reference datasets and (cg)MLST schemas
+                    available for setup.
   --depends         Verify dependencies are installed.
 
 Adjust Verbosity:
+  --version         show program's version number and exit
   --verbose         Print debug related text.
   --silent          Only critical errors will be printed.
+
+example usage:
+  setup-public-datasets.py outdir
+  setup-public-datasets.py outdir --ariba 'card'
+  setup-public-datasets.py outdir --species 'Staphylococcus aureus' --include_genus
 """
 import glob
 import json
@@ -66,6 +78,8 @@ from Bio import SeqIO
 from bs4 import BeautifulSoup
 from executor import ExternalCommand
 
+PROGRAM = os.path.basename(sys.argv[0])
+VERSION = "1.0.0"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
@@ -250,12 +264,19 @@ def setup_requests(request, available_datasets, title, skip_check=False):
                 if dataset in available_datasets or skip_check:
                     datasets.append(dataset)
                 else:
-                    logging.error(f'{data} is not available from {title}')
-        return datasets
+                    logging.error(f'{dataset} is not available from {title}')
+    elif "," in request:
+        for dataset in request.split(','):
+            dataset = dataset.strip()
+            if dataset in available_datasets or skip_check:
+                datasets.append(dataset)
+            else:
+                logging.error(f'{dataset} is not available from {title}')
     elif request in available_datasets or skip_check:
         datasets.append(request)
     else:
         logging.error(f'{request} is not available from {title}')
+
     return datasets
 
 
@@ -327,10 +348,10 @@ def setup_mlst(request, available_datasets, outdir, force=False):
             execute(f'mkdir -p {mlst_dir}')
 
             # Ariba
-            organism_request = available_datasets[request]
+            species_request = available_datasets[request]
             logging.info(f'Creating Ariba MLST dataset')
             ariba_dir = f'{mlst_dir}/ariba'
-            execute(f'ariba pubmlstget "{organism_request}" {ariba_dir}')
+            execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
 
             # BLAST
             logging.info(f'Creating BLAST MLST dataset')
@@ -513,7 +534,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             if not keep_files:
                 execute(f'rm -rf {passing_cds} {genome_dir}/')
     else:
-        logging.info("No valid organism to setup, skipping")
+        logging.info("No valid species to setup, skipping")
 
 
 def setup_minmer(outdir, force=False):
@@ -659,17 +680,17 @@ def create_summary(outdir):
         }
 
     # Organism Specific
-    if os.path.exists(f'{outdir}/organism-specific'):
-        available_datasets['organism-specific'] = OrderedDict()
-        for organism in sorted(os.listdir(f'{outdir}/organism-specific')):
-            new_organism = OrderedDict()
-            new_organism['mlst'] = []
-            organism_dir = f'{outdir}/organism-specific/{organism}'
+    if os.path.exists(f'{outdir}/species-specific'):
+        available_datasets['species-specific'] = OrderedDict()
+        for species in sorted(os.listdir(f'{outdir}/species-specific')):
+            new_species = OrderedDict()
+            new_species['mlst'] = []
+            species_dir = f'{outdir}/species-specific/{species}'
 
-            prokka = f'{organism_dir}/annotation'
+            prokka = f'{species_dir}/annotation'
             if os.path.exists(f'{prokka}/proteins.faa'):
-                new_organism['annotation'] = {
-                    'proteins': f'organism-specific/{organism}/annotation/proteins.faa',
+                new_species['annotation'] = {
+                    'proteins': f'species-specific/{species}/annotation/proteins.faa',
                     'last_updated': execute(
                         f'head -n 1 {prokka}/proteins-updated.txt',
                         capture=True
@@ -679,13 +700,13 @@ def create_summary(outdir):
             if os.path.exists(f'{prokka}/genome_size.json'):
                 with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
                     json_data = json.load(gs_fh)
-                    new_organism['genome_size'] = json_data
+                    new_species['genome_size'] = json_data
 
-            mlst = f'{organism_dir}/mlst'
+            mlst = f'{species_dir}/mlst'
             if os.path.exists(f'{mlst}/ariba/ref_db/00.auto_metadata.tsv'):
-                new_organism['mlst'] = {
-                    'ariba': f'organism-specific/{organism}/mlst/ariba/ref_db',
-                    'blast': f'organism-specific/{organism}/mlst/blast',
+                new_species['mlst'] = {
+                    'ariba': f'species-specific/{species}/mlst/ariba/ref_db',
+                    'blast': f'species-specific/{species}/mlst/blast',
                     'last_updated': execute(
                         f'head -n 1 {mlst}/mlst-updated.txt', capture=True
                     ).rstrip()
@@ -695,24 +716,24 @@ def create_summary(outdir):
                 'insertion-sequences', 'reference-genomes', 'mapping-sequences',
                 'blast'
             ])
-            new_organism['optional'] = OrderedDict()
+            new_species['optional'] = OrderedDict()
             for optional in optionals:
                 # These are optional directories users can add data to
-                optional_dir = f'organism-specific/{organism}/optional/{optional}'
+                optional_dir = f'species-specific/{species}/optional/{optional}'
                 if not os.path.exists(optional_dir):
                     execute(f'mkdir -p {optional_dir}', directory=outdir)
                 if optional == 'blast':
-                    new_organism['optional'][optional] = [
+                    new_species['optional'][optional] = [
                         f'{optional_dir}/genes',
                         f'{optional_dir}/primers',
                         f'{optional_dir}/proteins',
                     ]
-                    for blast_dir in new_organism['optional'][optional]:
+                    for blast_dir in new_species['optional'][optional]:
                         execute(f'mkdir -p {blast_dir}', directory=outdir)
                 else:
-                    new_organism['optional'][optional] = f'{optional_dir}'
+                    new_species['optional'][optional] = f'{optional_dir}'
 
-            available_datasets['organism-specific'][organism] = new_organism
+            available_datasets['species-specific'][species] = new_species
 
     with open(f'{outdir}/summary.json', 'w') as json_handle:
         logging.info(f'Writing summary of available datasets')
@@ -749,11 +770,21 @@ def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
 
 if __name__ == '__main__':
     import argparse as ap
+    import textwrap
     parser = ap.ArgumentParser(
-        prog='setup-public-datasets.py',
+        prog=PROGRAM,
         conflict_handler='resolve',
-        description=('Setup default datasets (MLST, resistance, virulence, '
-                     'annotation) for a given organism.'))
+        description=(
+            f'{PROGRAM} (v{VERSION}) - Setup public datasets for Bactopia'
+        ),
+        formatter_class=ap.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent(f'''
+            example usage:
+              {PROGRAM} outdir
+              {PROGRAM} outdir --ariba 'card'
+              {PROGRAM} outdir --species 'Staphylococcus aureus' --include_genus
+        ''')
+    )
 
     parser.add_argument(
         'outdir', metavar="OUTPUT_DIRECTORY", type=str,
@@ -767,9 +798,9 @@ if __name__ == '__main__':
               'references in a text file. (Default: card,vfdb_core)')
     )
 
-    group2 = parser.add_argument_group('Organisms')
+    group2 = parser.add_argument_group('Bacterial Species')
     group2.add_argument(
-        '--organism', metavar="STR", type=str,
+        '--species', metavar="STR", type=str,
         help=('Download available (cg)MLST schemas and completed genomes for '
               'a given species or a list of species in a text file.')
     )
@@ -777,7 +808,7 @@ if __name__ == '__main__':
     group3 = parser.add_argument_group('Custom Prokka Protein FASTA')
     group3.add_argument(
         '--skip_prokka', action='store_true',
-        help=('Skip creation of a Prokka formatted fasta for each organism')
+        help=('Skip creation of a Prokka formatted fasta for each species')
     )
     group3.add_argument(
         '--include_genus', action='store_true',
@@ -847,6 +878,8 @@ if __name__ == '__main__':
                         help='Verify dependencies are installed.')
 
     group7 = parser.add_argument_group('Adjust Verbosity')
+    group7.add_argument('--version', action='version',
+                        version=f'{PROGRAM} {VERSION}')
     group7.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
     group7.add_argument('--silent', action='store_true',
@@ -874,11 +907,10 @@ if __name__ == '__main__':
 
     if args.ariba:
         logging.info('Setting up Ariba datasets')
-        for dataset in args.ariba.split(','):
-            setup_ariba(
-                dataset, ARIBA, args.outdir, keep_files=args.keep_files,
-                force=(args.force or args.force_ariba)
-            )
+        setup_ariba(
+            args.ariba, ARIBA, args.outdir, keep_files=args.keep_files,
+            force=(args.force or args.force_ariba)
+        )
     else:
         logging.info('No requests for an Ariba dataset, skipping')
 
@@ -896,16 +928,16 @@ if __name__ == '__main__':
         logging.info('Skipping PLSDB (plasmids) dataset step')
 
     # Organism datasets
-    if args.organism:
-        organism_dir = f'{args.outdir}/organism-specific'
+    if args.species:
+        species_dir = f'{args.outdir}/species-specific'
         logging.info('Setting up MLST datasets')
-        setup_mlst(args.organism, PUBMLST, organism_dir,
+        setup_mlst(args.species, PUBMLST, species_dir,
                    force=(args.force or args.force_mlst))
 
         if not args.skip_prokka:
             logging.info('Setting up custom Prokka proteins')
             setup_prokka(
-                args.organism, PUBMLST, organism_dir, cpus=args.cpus,
+                args.species, PUBMLST, species_dir, cpus=args.cpus,
                 include_genus=args.include_genus, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,
                 fast_cluster=args.fast_cluster, keep_files=args.keep_files,
@@ -915,8 +947,8 @@ if __name__ == '__main__':
             logging.info('Skipping custom Prokka dataset step')
         # logging.info('Setting up cgMLST datasets')
         # Need mentalist conda install to be fixed
-        # setup_cgmlst(args.organism, CGMLST, args.outdir, force=args.force)
+        # setup_cgmlst(args.species, CGMLST, args.outdir, force=args.force)
     else:
-        logging.info('No requests for an organism, skipping')
+        logging.info('No requests for an species, skipping')
 
     create_summary(args.outdir)

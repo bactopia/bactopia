@@ -1,12 +1,12 @@
-# Public Datasets
-Bactopia can make use of many existing public datasets. The process for downloading these datasets and configuring them for Bactopia has been automated for the user.
+# Build Public Datasets
+Bactopia can make use of many existing public datasets. The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated for the user.
 
 !!! info "Highly recommended to complete this step!"
 
     This step is completely optional, but it is highly recommended that you do not. By skipping this step of setting up public datasets, Bactopia will be limited to analyses like quality control, assembly, and 31-mer counting. 
 
 ## Included Datasets
-These datasets include some that are applicable to all bacterial species and some that are specific to an organism. If they are available, Bactopia will recognize them and execute the appropriate analyses.
+Some datasets included are applicable to all bacterial species and some are specific to a bacterial species. If specified at runtime, Bactopia will recognize the datasets and execute the appropriate analyses.
 
 ### General
 **[Ariba's `getref` Reference Datasets](https://github.com/sanger-pathogens/ariba/wiki/Task:-getref)**  
@@ -21,7 +21,7 @@ Allows reference datasets (resistance, virulence, and plamids) to be automatical
 **[PLSDB Mash Sketch & BLAST](https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/)**  
 Includes meta data/annotations, Mash sketches, and BLAST database files of all plasmids stored in PLSDB.  
 
-### Organism Specific
+### Species Specific
 
 **[PubMLST.org MLST Schemas](https://pubmlst.org/datasets/)**  
 Multi-locus sequence typing (MLST) allelic profiles and seqeunces for a many different bacterial species (and even a few eukaryotes!).  
@@ -45,11 +45,22 @@ This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, Ge
 
 ### A Single Bacterial Species
 ``` bash
-setup-public-datasets.py datasets --organism "Haemophilus influenzae" --include_genus
+setup-public-datasets.py datasets --species "Haemophilus influenzae" --include_genus
 ```
 
+
+
 ### Multiple Bacterial Species
-You can also set up datasets for multiple bacterial species at a time. In order to do so, you will need to create a text file where each line is the name of a species to set up.
+You can also set up datasets for multiple bacterial species at a time. There are two options to do so.
+
+#### Comma-Separated 
+At runtime, you can separate the the different species
+``` bash
+setup-public-datasets.py datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
+```
+#### Text File
+
+In order to do so, you will need to create a text file where each line is the name of a species to set up.
 
 For example, you could create a `species.txt` file and include the following species in it.
 ``` bash
@@ -61,14 +72,14 @@ Mycobacterium tuberculosis
 The new command becomes:
 
 ``` bash
-setup-public-datasets.py datasets --organism species.txt --include_genus
+setup-public-datasets.py datasets --species species.txt --include_genus
 ```
 
 This will setup the MLST schema (if available) and a protein cluster FASTA file for each species in `species.txt`. 
 
 ## Usage
 ``` 
-usage: setup-public-datasets.py [-h] [--ariba STR] [--organism STR]
+usage: setup-public-datasets.py [-h] [--ariba STR] [--species STR]
                                 [--skip_prokka] [--include_genus]
                                 [--identity FLOAT] [--overlap FLOAT]
                                 [--max_memory INT] [--fast_cluster]
@@ -77,11 +88,10 @@ usage: setup-public-datasets.py [-h] [--ariba STR] [--organism STR]
                                 [--force_mlst] [--force_prokka]
                                 [--force_minmer] [--force_plsdb]
                                 [--keep_files] [--list_datasets] [--depends]
-                                [--verbose] [--silent]
+                                [--version] [--verbose] [--silent]
                                 OUTPUT_DIRECTORY
 
-Setup default datasets (MLST, resistance, virulence, annotation) for a given
-organism.
+setup-public-datasets.py (v1.0.0) - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -93,13 +103,12 @@ Ariba Reference Datasets:
   --ariba STR       Setup Ariba datasets for a given reference or a list of
                     references in a text file. (Default: card,vfdb_core)
 
-Organisms:
-  --organism STR    Download available (cg)MLST schemas and completed genomes
+Bacterial Species:
+  --species STR     Download available (cg)MLST schemas and completed genomes
                     for a given species or a list of species in a text file.
 
 Custom Prokka Protein FASTA:
-  --skip_prokka     Skip creation of a Prokka formatted fasta for each
-                    organism
+  --skip_prokka     Skip creation of a Prokka formatted fasta for each species
   --include_genus   Include all genus members in the Prokka proteins FASTA
   --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
   --overlap FLOAT   CD-HIT (-s) length difference cutoff. (Default: 0.8)
@@ -129,8 +138,14 @@ Helpful Options:
   --depends         Verify dependencies are installed.
 
 Adjust Verbosity:
+  --version         show program's version number and exit
   --verbose         Print debug related text.
   --silent          Only critical errors will be printed.
+
+example usage:
+  setup-public-datasets.py outdir
+  setup-public-datasets.py outdir --ariba 'card'
+  setup-public-datasets.py outdir --species 'Staphylococcus aureus' --include_genus
 ```
 
 ### Useful Parameters
