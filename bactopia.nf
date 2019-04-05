@@ -1,10 +1,11 @@
 #! /usr/bin/env nextflow
 import groovy.json.JsonSlurper
+import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
 VERSION = '0.0.1'
-if (params.help || params.full_usage) print_usage();
+if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
@@ -497,18 +498,18 @@ workflow.onComplete {
 }
 
 // Utility functions
-def print_usage(full_usage) {
+def print_usage() {
     usage_text = ""
-    if (params.full_usage) {
+    if (params.help_all) {
         // Print Full Usage
-        usage_text = new File("$baseDir/configs/usage_full.txt").text
+        usage_text = basic_help()
     } else {
         // Print basic usage
-        usage_text = new File("$baseDir/configs/usage_basic.txt").text
+        usage_text = basic_help()
     }
     log.info"""
-        ${PROGRAM_NAME} v${VERSION}
-        ${usage_text}
+    ${PROGRAM_NAME} v${VERSION}
+    ${usage_text}
     """.stripIndent()
     clean_cache()
     exit 0
@@ -813,4 +814,52 @@ def print_dataset_info(dataset_list, dataset_info) {
     dataset_list.each {
         log.info "\t${it}"
     }
+}
+
+def basic_help() {
+    genome_size = params.genome_size ? params.genome_size : "Mash Estimate"
+    return """
+    Required Parameters:
+        --fastqs STR            An input file containing the sample name and
+                                    absolute paths to FASTQs to process
+
+    Public Dataset Parameters:
+        --datasets DIR          The path to available public datasets that have
+                                    already been set up
+        --species STR           Determines which species-specific dataset to use
+                                    for the input sequencing
+
+    Optional Parameters:
+        --coverage INT          Reduce samples to a given coverage
+                                    (Default: ${params.coverage}x)
+
+        --genome_size INT       Expected genome size (bp) for all samples
+                                    (Default: ${genome_size})
+
+        --outdir DIR            Directory to write results to (Default ${params.outdir})
+
+        --max_cpus INT          The maximum number of processors this workflow
+                                    should have access to at any given moment
+                                    (Default: ${params.max_cpus})
+
+        --cpus INT              Number of processors made available to a single
+                                    process. If greater than "--max_cpus" it will
+                                    be set equal to "--max_cpus"
+                                    (Default: ${params.cpus})
+
+    Useful Parameters:
+        --available_datasets    Print a list of available datasets found based
+                                    on location given by "--datasets"
+        --example_fastqs        Print example of expected input for FASTQs file
+
+        --check_fastqs          Verify "--fastqs" produces the expected inputs
+
+        --keep_cache            Keeps 'work' and '.nextflow' logs, default is
+                                    to delete on successful completion
+
+        --version               Print workflow version information
+        --help                  Show this message and exit
+        --help_all              Show a complete list of adjustable parameters
+    """
+
 }

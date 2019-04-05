@@ -1,1 +1,39 @@
-basic usage
+Required Parameters:
+    --fastqs STR            An input file containing the sample name and absolute
+                                paths to FASTQs to process.
+
+Public Dataset Parameters:
+    --datasets DIR          The path to available public datasets that have
+                                already been set up.
+    --species STR           Determines which species-specific dataset to use
+                                for the input sequencing.
+
+Optional Parameters:
+    --coverage INT          Reduce samples to a given coverage. (Default: ${params.coverage}x)
+
+    --genome_size INT       Expected genome size (bp) for all samples.
+                                (Default: ${params.genome_size})
+
+    --outdir DIR            Directory to write results to. (Default ${params.outdir})
+
+    --max_cpus INT          The maximum number of processors this workflow
+                                should have access to at any given moment.
+                                (Default: ${params.max_cpus})
+
+    --cpus INT              Number of processors made available to a single process.
+                                If greater than "--max_cpus" it will be set equal to
+                                "--max_cpus" (Default: ${params.cpus})
+
+Useful Parameters:
+    --available_datasets    Print a list of available datasets found based on
+                                location given by "--datasets"
+    --example_fastqs        Print an example of expected input for FASTQs file.
+
+    --check_fastqs          Verify "--fastqs" produces the expected inputs.
+
+    --keep_cache            Keeps 'work' and '.nextflow' logs, default is to
+                                delete on successful completion.
+
+    --version               Print workflow version information
+    --help                  Show this message and exit
+    --help_all              Show a complete list of adjustable parameters
