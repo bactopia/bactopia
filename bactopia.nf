@@ -831,21 +831,22 @@ def basic_help() {
 
     Optional Parameters:
         --coverage INT          Reduce samples to a given coverage
-                                    (Default: ${params.coverage}x)
+                                    Default: ${params.coverage}x
 
         --genome_size INT       Expected genome size (bp) for all samples
-                                    (Default: ${genome_size})
+                                    Default: ${genome_size}
 
-        --outdir DIR            Directory to write results to (Default ${params.outdir})
+        --outdir DIR            Directory to write results to
+                                    Default ${params.outdir}
 
         --max_cpus INT          The maximum number of processors this workflow
                                     should have access to at any given moment
-                                    (Default: ${params.max_cpus})
+                                    Default: ${params.max_cpus}
 
         --cpus INT              Number of processors made available to a single
                                     process. If greater than "--max_cpus" it will
                                     be set equal to "--max_cpus"
-                                    (Default: ${params.cpus})
+                                    Default: ${params.cpus}
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based
@@ -854,8 +855,8 @@ def basic_help() {
 
         --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-        --keep_cache            Keeps 'work' and '.nextflow' logs, default is
-                                    to delete on successful completion
+        --keep_cache            Keeps 'work' and '.nextflow' logs.
+                                    Default: Delete on successful completion
 
         --version               Print workflow version information
         --help                  Show this message and exit
