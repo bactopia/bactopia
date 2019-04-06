@@ -291,13 +291,13 @@ def setup_ariba(request, available_datasets, outdir, force=False,
             if os.path.exists(prefix):
                 if force:
                     logging.info(f'--force, removing existing {request} setup')
-                    execute(f'rm -rf {prefix}')
+                    execute(f'rm -rf {prefix}*')
                 else:
                     logging.info(f'{request} ({prefix}) exists, skipping')
                     continue
             elif force:
                 logging.info(f'--force, removing existing {request} setup')
-                execute(f'rm -rf {prefix}')
+                execute(f'rm -rf {prefix}*')
 
             # Setup Ariba dataset
             logging.info(f'Setting up {request} Ariba dataset')
