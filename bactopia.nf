@@ -497,30 +497,14 @@ workflow.onComplete {
     """
 }
 
+
 // Utility functions
-def print_usage() {
-    usage_text = ""
-    if (params.help_all) {
-        // Print Full Usage
-        usage_text = basic_help()
-    } else {
-        // Print basic usage
-        usage_text = basic_help()
-    }
-    log.info"""
-    ${PROGRAM_NAME} v${VERSION}
-    ${usage_text}
-    """.stripIndent()
-    clean_cache()
-    exit 0
-}
-
-
 def print_version() {
     println(PROGRAM_NAME + ' ' + VERSION)
     clean_cache()
     exit 0
 }
+
 
 def print_example_fastqs() {
     log.info 'Printing example input for "--fastqs"'
@@ -532,6 +516,7 @@ def print_example_fastqs() {
     exit 0
 }
 
+
 def print_check_fastqs(fastq_input) {
     log.info 'Printing what would have been processed. Each line consists of an array of'
     log.info 'three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]'
@@ -541,6 +526,7 @@ def print_check_fastqs(fastq_input) {
     clean_cache()
     exit 0
 }
+
 
 def print_available_datasets(dataset) {
     exit_code = 0
@@ -584,10 +570,12 @@ def print_available_datasets(dataset) {
     exit exit_code
 }
 
+
 def read_dataset_summary(dataset) {
     slurp = new JsonSlurper()
     return slurp.parseText(file("${dataset}/summary.json").text)
 }
+
 
 def check_species_datasets(dataset, species) {
     /* Check for available species specific datasets */
@@ -638,14 +626,15 @@ def check_minmers(dataset) {
     return minmers
 }
 
+
 def clean_cache() {
     // No need to resume completed run so remove cache.
     if (params.keep_cache == false) {
         file('./work/').deleteDir()
         file('./.nextflow/').deleteDir()
-        file('.nextflow.log').delete()
     }
 }
+
 
 def is_positive_integer(value, name) {
     is_positive = true
@@ -665,6 +654,7 @@ def is_positive_integer(value, name) {
     }
     return is_positive
 }
+
 
 def check_input_params() {
     error = false
@@ -724,11 +714,13 @@ def process_csv(line) {
     }
 }
 
+
 def create_fastq_channel(fastq_input) {
     return Channel.fromPath( file(fastq_input) )
         .splitCsv(header: true, sep: '\t')
         .map { row -> process_csv(row) }
 }
+
 
 def check_input_fastqs(fastq_input) {
     /* Read through --fastqs and verify each input exists. */
@@ -784,6 +776,7 @@ def check_input_fastqs(fastq_input) {
     }
 }
 
+
 def get_absolute_path(file_path) {
     // Thanks Fabian Steeg
     // https://stackoverflow.com/questions/3204955/converting-relative-paths-to-absolute-paths
@@ -792,6 +785,7 @@ def get_absolute_path(file_path) {
 
     return absolute_path
 }
+
 
 def get_canonical_path(file_path) {
     // Thanks Fabian Steeg
@@ -802,12 +796,6 @@ def get_canonical_path(file_path) {
     return canonical_path
 }
 
-def get_real_path(file_path) {
-    Path real_path = Paths.get(file_path)
-    println real_path.toRealPath()
-    return real_path.toRealPath()
-}
-
 
 def print_dataset_info(dataset_list, dataset_info) {
     log.info "Found ${dataset_list.size()} ${dataset_info}"
@@ -815,6 +803,19 @@ def print_dataset_info(dataset_list, dataset_info) {
         log.info "\t${it}"
     }
 }
+
+
+def print_usage() {
+    usage_text = params.help_all ? full_help() : basic_help()
+    log.info"""
+    ${PROGRAM_NAME} v${VERSION}
+    ${basic_help()}
+    ${params.help_all ? full_help() : ""}
+    """.stripIndent()
+    clean_cache()
+    exit 0
+}
+
 
 def basic_help() {
     genome_size = params.genome_size ? params.genome_size : "Mash Estimate"
@@ -826,8 +827,9 @@ def basic_help() {
     Public Dataset Parameters:
         --datasets DIR          The path to available public datasets that have
                                     already been set up
-        --species STR           Determines which species-specific dataset to use
-                                    for the input sequencing
+
+        --species STR           Determines which species-specific dataset to
+                                    use for the input sequencing
 
     Optional Parameters:
         --coverage INT          Reduce samples to a given coverage
@@ -844,13 +846,14 @@ def basic_help() {
                                     Default: ${params.max_cpus}
 
         --cpus INT              Number of processors made available to a single
-                                    process. If greater than "--max_cpus" it will
-                                    be set equal to "--max_cpus"
+                                    process. If greater than "--max_cpus" it
+                                    will be set equal to "--max_cpus"
                                     Default: ${params.cpus}
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based
                                     on location given by "--datasets"
+
         --example_fastqs        Print example of expected input for FASTQs file
 
         --check_fastqs          Verify "--fastqs" produces the expected inputs
@@ -861,6 +864,335 @@ def basic_help() {
         --version               Print workflow version information
         --help                  Show this message and exit
         --help_all              Show a complete list of adjustable parameters
+    """
+}
+
+
+def full_help() {
+    return """
+    Additional Parameters:
+    The description of the following parameters were taken from the program for
+    which they apply to.
+
+    Many of the default values were also taken from the program for which they
+    apply to.
+
+    QC Reads Parameters:
+        --adapters FASTA        Illumina adapters to remove
+                                    Default: BBmap adapters
+
+        --adapter_k INT         Kmer length used for finding adapters. Adapters
+                                    shorter than k will not be found
+                                    Default: ${params.adapter_k}
+
+        --phix FASTA            phiX174 reference genome to remove
+                                    Default: NC_001422
+
+        --phix_k INT            Kmer length used for finding phiX174.
+                                    Contaminants shorter than k will not be
+                                    found
+                                    Default: ${params.phix_k}
+
+        --ktrim STR             Trim reads to remove bases matching reference
+                                    kmers
+                                    Values:
+                                        f (do not trim)
+                                        r (trim to the right, Default)
+                                        l (trim to the left)
+
+        --mink INT              Look for shorter kmers at read tips down to this
+                                    length, when k-trimming or masking. 0 means
+                                    disabled. Enabling this will disable
+                                    maskmiddle
+                                    Default: ${params.mink}
+
+        --hdist INT             Maximum Hamming distance for ref kmers (subs only)
+                                    Memory use is proportional to (3*K)^hdist
+                                    Default: ${params.hdist}
+
+        --tpe BOOL              When kmer right-trimming, trim both reads to the
+                                    minimum length of either
+                                    Values:
+                                        f (do not equally trim)
+                                        t (equally trim to the right, Default)
+
+        --tbo BOOL              Trim adapters based on where paired reads overlap
+                                    Values:
+                                        f (do not trim by overlap)
+                                        t (trim by overlap, Default)
+
+        --qtrim STR             Trim read ends to remove bases with quality
+                                    below trimq. Performed AFTER looking for
+                                    kmers
+                                    Values:
+                                        rl (trim both ends, Default)
+                                        f (neither end)
+                                        r (right end only)
+                                        l (left end only)
+                                        w (sliding window)
+
+        --trimq FLOAT           Regions with average quality BELOW this will be
+                                    trimmed if qtrim is set to something other
+                                    than f
+                                    Default: ${params.trimq}
+
+        --maq INT               Reads with average quality (after trimming)
+                                    below this will be discarded
+                                    Default: ${params.maq}
+
+        --minlength INT         Reads shorter than this after trimming will be
+                                    discarded. Pairs will be discarded if both
+                                    are shorter
+                                    Default: ${params.minlength}
+
+        --ftm INT               If positive, right-trim length to be equal to
+                                    zero, modulo this number
+                                    Default: ${params.ftm}
+
+        --tossjunk              Discard reads with invalid characters as bases
+                                    Values:
+                                        f (keep all reads)
+                                        t (toss reads with ambiguous bases, Default)
+
+        --qout STR              Output quality offset
+                                    Values:
+                                        33 (PHRED33 offset quality scores, Default)
+                                        64 (PHRED64 offset quality scores)
+                                        auto (keeps the current input offset)
+
+        --xmx STR               This will be passed to Java to set memory usage
+                                    Examples:
+                                        '8g' will specify 8 gigs of RAM (Default)
+                                        '20g' will specify 20 gigs of RAM
+                                        '200m' will specify 200 megs of RAM
+
+        --maxcor INT            Max number of corrections within a 20bp window
+                                    Default: ${params.maxcor}
+
+        --sampleseed INT        Set to a positive number to use as the rng seed
+                                    for sampling
+                                    Default: ${params.sampleseed}
+
+
+    Assembly Parameters:
+        --shovill_ram INT       Try to keep RAM usage below this many GB
+                                    Default: ${params.shovill_ram}
+
+        --assembler STR         Assembler: megahit velvet skesa spades
+                                    Default: ${params.assembler}
+
+        --min_contig_len INT    Minimum contig length <0=AUTO>
+                                    Default: ${params.min_contig_len}
+
+        --min_contig_cov INT    Minimum contig coverage <0=AUTO>
+                                    Default: ${params.min_contig_cov}
+
+        --contig_namefmt STR    Format of contig FASTA IDs in 'printf' style
+                                    Default: ${params.contig_namefmt}
+
+        --shovill_opts STR      Extra assembler options in quotes eg.
+                                    spades: "--untrusted-contigs locus.fna" ...
+                                    Default: ''
+
+        --shovill_kmers STR     K-mers to use <blank=AUTO>
+                                    Default: ''
+
+        --trim                  Enable adaptor trimming
+
+        --nostitch              Disable read stitching
+
+        --nocorr                Disable post-assembly correction
+
+
+    Count 31mers Parameters:
+        --keep_singletons       Keep all 31-mers only counted a single time
+
+    Annotation Parameters:
+        --centre STR            Sequencing centre ID
+                                    Default: ''
+
+        --addgenes              Add 'gene' features for each 'CDS' feature
+
+        --addmrna               Add 'mRNA' features for each 'CDS' feature
+
+        --rawproduct            Do not clean up /product annotation
+
+        --cdsrnaolap            Allow [tr]RNA to overlap CDS
+
+        --prokka_evalue STR     Similarity e-value cut-off
+                                    Default: ${params.prokka_evalue}
+
+        --prokka_coverage INT   Minimum coverage on query protein
+                                     Default: ${params.prokka_coverage}
+
+        --norrna                Don't run rRNA search
+
+        --notrna                Don't run tRNA search
+
+        --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
+
+    Minmer Sketch Parameters:
+        --mash_sketch INT       Sketch size. Each sketch will have at most this
+                                    many non-redundant min-hashes.
+                                    Default: ${params.mash_sketch}
+
+        --sourmash_scale INT    Choose number of hashes as 1 in FRACTION of
+                                    input k-mers
+                                    Default: ${params.sourmash_scale}
+
+
+    Minmer Query Parameters:
+        --screen_w              Winner-takes-all strategy for identity estimates.
+                                    After counting hashes for each query, hashes
+                                    that appear in multiple queries will be
+                                    removed from all except the one with the best
+                                    identity (ties broken by larger query), and
+                                    other identities will be reduced. This
+                                    removes output redundancy, providing a rough
+                                    compositional outline.
+                                    Default: True
+
+        --screen_i FLOAT        Minimum identity to report. Inclusive unless set
+                                    to zero, in which case only identities greater
+                                    than zero (i.e. with at least one shared hash)
+                                    will be reported. Set to -1 to output
+                                    everything.
+                                    Default: ${params.screen_i}
+
+    Ariba Parameters:
+        --nucmer_min_id INT     Minimum alignment identity (delta-filter -i)
+                                    Default: ${params.nucmer_min_id}
+
+        --nucmer_min_len INT    Minimum alignment length (delta-filter -i)
+                                    Default: ${params.nucmer_min_len}
+
+        --nucmer_breaklen INT   Value to use for -breaklen when running nucmer
+                                    Default: ${params.nucmer_breaklen}
+
+        --assembly_cov INT      Target read coverage when sampling reads for
+                                    assembly
+                                    Default: ${params.assembly_cov}
+
+        --min_scaff_depth INT   Minimum number of read pairs needed as evidence
+                                    for scaffold link between two contigs
+                                    Default: ${params.min_scaff_depth}
+
+        --spades_options STR    Extra options to pass to Spades assembler
+                                    Default: ${params.spades_options}
+
+        --assembled_threshold FLOAT (between 0 and 1)
+                                If proportion of gene assembled (regardless of
+                                    into how many contigs) is at least this
+                                    value then the flag gene_assembled is set
+                                    Default: ${params.assembled_threshold}
+
+        --gene_nt_extend INT    Max number of nucleotides to extend ends of gene
+                                    matches to look for start/stop codons
+                                    Default: ${params.gene_nt_extend}
+
+        --unique_threshold FLOAT (between 0 and 1)
+                                If proportion of bases in gene assembled more
+                                    than once is <= this value, then the flag
+                                    unique_contig is set
+                                    Default: ${params.unique_threshold}
+
+    Call Variant Parameters:
+        --snippy_ram INT        Try and keep RAM under this many GB
+                                    Default: ${params.snippy_ram}
+
+        --mapqual INT           Minimum read mapping quality to consider
+                                    Default: ${params.mapqual}
+
+        --basequal INT          Minimum base quality to consider
+                                    Default: ${params.basequal}
+
+        --mincov INT            Minimum site depth to for calling alleles
+                                    Default: ${params.mincov}
+
+        --minfrac FLOAT         Minimum proportion for variant evidence (0=AUTO)
+                                    Default: ${params.minfrac}
+
+        --minqual INT           Minimum QUALITY in VCF column 6
+                                    Default: ${params.minqual}
+
+        --maxsoft INT           Maximum soft clipping to allow
+                                    Default: ${params.maxsoft}
+
+        --bwaopt STR            Extra BWA MEM options, eg. -x pacbio
+                                    Default: ''
+
+        --fbopt STR             Extra Freebayes options,
+                                    eg. --theta 1E-6 --read-snp-limit 2
+                                    Default: ''
+
+    Insertion Sequence Parameters:
+        --min_clip INT          Minimum size for softclipped region to be
+                                    extracted from initial mapping
+                                    Default: ${params.min_clip}
+
+        --max_clip INT          Maximum size for softclipped regions to be
+                                    included
+                                    Default: ${params.max_clip}
+
+        --cutoff INT            Minimum depth for mapped region to be kept in
+                                    bed file
+                                    Default: ${params.cutoff}
+
+        --novel_gap_size INT    Distance in base pairs between left and right
+                                    flanks to be called a novel hit
+                                    Default: ${params.novel_gap_size}
+
+        --min_range FLOAT       Minimum percent size of the gap to be called a
+                                    known hit
+                                    Default: ${params.min_range}
+
+        --max_range FLOAT       Maximum percent size of the gap to be called a
+                                    known hit
+                                    Default: ${params.max_range}
+
+        --merging INT           Value for merging left and right hits in bed
+                                    files together to simply calculation of
+                                    closest and intersecting regions
+                                    Default: ${params.merging}
+
+        --ismap_all             Switch on all alignment reporting for bwa
+
+        --ismap_minqual INT     Mapping quality score for bwa
+                                    Default: ${params.ismap_minqual}
+
+    BLAST Parameters:
+        --perc_identity INT     Percent identity
+                                    Default: ${params.perc_identity}
+
+        --qcov_hsp_perc INT     Percent query coverage per hsp
+                                    Default: ${params.qcov_hsp_perc}
+
+        --max_target_seqs INT   Maximum number of aligned sequences to
+                                    keep
+                                    Default: ${params.max_target_seqs}
+
+        --outfmt STR            BLAST alignment view options
+                                    Default: '${params.outfmt}'
+
+
+    Mapping Parameters:
+        --bwa_mem_opts STR      Extra BWA MEM options
+                                    Default: ''
+
+        --bwa_aln_opts STR      Extra BWA ALN options
+                                    Default: ''
+
+        --bwa_samse_opts STR    Extra BWA SAMSE options
+                                    Default: ''
+
+        --bwa_sampe_opts STR    Extra BWA SAMPE options
+                                    Default: ''
+
+        --bwa_n INT             Maximum number of alignments to output in the XA
+                                    tag for reads paired properly. If a read has
+                                    more than INT hits, the XA tag will not be
+                                    written.
+                                    Default: ${params.bwa_n}
     """
 
 }
