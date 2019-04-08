@@ -13,9 +13,10 @@ nav:
     - 'About Bactopia': 'index.md'
     - 'Installation': 'installation.md'
     - 'Build Public Datasets': 'public-datasets.md'
+    - 'Using Bactopia': 'using-bactopia.md'
     - 'Runtime Parameters': 'parameters.md'
     - 'Examples': 'examples.md'
-    # - 'FAQ': 'faq.md'
+    - 'FAQ': 'faq.md'
     - 'Acknowledgements': 'acknowledgements.md'
 
 theme:
