@@ -38,7 +38,10 @@ PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.dataset) {
-    dataset_path = get_canonical_path(params.dataset)
+    dataset_path = params.dataset
+    if (file("/${dataset_path}/summary.json").exists() == false) {
+        dataset_path = get_canonical_path(params.dataset)
+    }
     available_datasets = read_dataset_summary(dataset_path)
 
     available_datasets['ariba'].each {
