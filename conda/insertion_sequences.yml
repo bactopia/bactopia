@@ -5,7 +5,7 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - bedtools=2.28.0=hdf88d34_0
+  - bedtools=2.27.1=he860b03_3
   - biopython=1.73=py37h14c3975_0
   - blast=2.5.0=hc0b0e79_3
   - boost=1.69.0=py37h8619c78_1001
