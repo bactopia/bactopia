@@ -1,4 +1,4 @@
-name: bactopia-mlst
+name: bactopia-sequence_type
 channels:
   - conda-forge
   - bioconda

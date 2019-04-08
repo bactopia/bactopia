@@ -5,7 +5,7 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - bedtools=2.27.1=he860b03_3
+  - bedtools=2.28.0=hdf88d34_0
   - biopython=1.73=py37h14c3975_0
   - blast=2.5.0=hc0b0e79_3
   - boost=1.69.0=py37h8619c78_1001
@@ -14,33 +14,32 @@ dependencies:
   - bzip2=1.0.6=h14c3975_1002
   - ca-certificates=2019.3.9=hecc5488_0
   - certifi=2019.3.9=py37_0
-  - curl=7.64.0=h646f8bb_2
+  - curl=7.64.1=hf8cf82a_0
   - icu=58.2=hf484d3e_1000
-  - ismapper=2.0=py37_0
+  - ismapper=2.0.a=py37_0
   - krb5=1.16.3=h05b26f9_1001
   - libblas=3.8.0=4_openblas
   - libcblas=3.8.0=4_openblas
-  - libcurl=7.64.0=h541490c_2
+  - libcurl=7.64.1=hda55be3_0
   - libdeflate=1.0=h14c3975_1
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=he1b5a44_1006
   - libgcc-ng=8.2.0=hdf63c60_1
   - libgfortran=3.0.0=1
-  - liblapack=3.8.0=4_openblas
-  - libssh2=1.8.1=h22169c7_0
+  - libssh2=1.8.2=h22169c7_2
   - libstdcxx-ng=8.2.0=hdf63c60_1
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.16.2=py37h8b7e671_1
+  - numpy=1.16.2=py37h7fc5cc3_0
   - openblas=0.3.5=ha44fe06_0
   - openssl=1.1.1b=h14c3975_1
   - perl=5.26.2=h14c3975_1002
   - pip=19.0.3=py37_0
-  - python=3.7.2=h381d211_0
+  - python=3.7.3=h5b0a415_0
   - readline=7.0=hf8c457e_1001
   - samtools=1.9=h8571acd_11
-  - setuptools=40.8.0=py37_0
+  - setuptools=41.0.0=py37_0
   - sqlite=3.26.0=h67949de_1001
-  - tk=8.6.9=h84994c4_1000
+  - tk=8.6.9=h84994c4_1001
   - wheel=0.33.1=py37_0
   - xz=5.2.4=h14c3975_1001
   - zlib=1.2.11=h14c3975_1004

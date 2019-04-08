@@ -1,4 +1,4 @@
-name: bactopia-kmers
+name: bactopia-count_31mers
 channels:
   - conda-forge
   - bioconda
