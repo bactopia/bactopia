@@ -274,13 +274,13 @@ process sequence_type {
     each dataset from MLST_DATABASES
 
     when:
-    dataset.contains('blast') || (dataset.contains('ariba') && single_end == false)
+    dataset =~ /.*blast.*/ || (dataset =~ /.*ariba.*/ && single_end == false)
 
     output:
     file "${method}/*"
 
     shell:
-    method = dataset.contains('blast') ? 'blast' : 'ariba'
+    method = dataset =~ /.*blast.*/ ? 'blast' : 'ariba'
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
