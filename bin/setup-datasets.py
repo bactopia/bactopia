@@ -1,18 +1,18 @@
 #! /usr/bin/env python3
 """
-usage: setup-public-datasets.py [-h] [--ariba STR] [--species STR]
-                                [--skip_prokka] [--include_genus]
-                                [--identity FLOAT] [--overlap FLOAT]
-                                [--max_memory INT] [--fast_cluster]
-                                [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                                [--clear_cache] [--force] [--force_ariba]
-                                [--force_mlst] [--force_prokka]
-                                [--force_minmer] [--force_plsdb]
-                                [--keep_files] [--list_datasets] [--depends]
-                                [--version] [--verbose] [--silent]
-                                OUTPUT_DIRECTORY
+usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
+                              [--skip_prokka] [--include_genus]
+                              [--identity FLOAT] [--overlap FLOAT]
+                              [--max_memory INT] [--fast_cluster]
+                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
+                              [--clear_cache] [--force] [--force_ariba]
+                              [--force_mlst] [--force_prokka]
+                              [--force_minmer] [--force_plsdb]
+                              [--keep_files] [--list_datasets] [--depends]
+                              [--version] [--verbose] [--silent]
+                              OUTPUT_DIRECTORY
 
-setup-public-datasets.py (v1.0.0) - Setup public datasets for Bactopia
+setup-datasets.py (v1.0.0) - Setup datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -28,7 +28,7 @@ Bacterial Species:
   --species STR     Download available (cg)MLST schemas and completed genomes
                     for a given species or a list of species in a text file.
 
-Custom Prokka Protein FASTA:
+Custom Prokka Protein FASTA & Minmer Sketch of Completed Genomes:
   --skip_prokka     Skip creation of a Prokka formatted fasta for each species
   --include_genus   Include all genus members in the Prokka proteins FASTA
   --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
@@ -424,22 +424,26 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             species = re.sub(r'[ /()]', "-", request.lower())
             species = species.replace('--', '-').strip('-')
             prokka_dir = f'{outdir}/{species}/annotation'
+            minmer_dir = f'{outdir}/{species}/minmer'
             genome_sizes = []
 
             if os.path.exists(f'{prokka_dir}/proteins.faa'):
                 if force:
                     logging.info(f'--force, delete existing {prokka_dir}')
                     execute(f'rm -rf {prokka_dir}')
+                    execute(f'rm -rf {minmer_dir}')
                 else:
                     logging.info((f'{prokka_dir} exists, skipping'))
                     continue
             elif force:
                 logging.info(f'--force, delete existing {prokka_dir}')
                 execute(f'rm -rf {prokka_dir}')
+                execute(f'rm -rf {minmer_dir}')
 
             # Setup Prokka proteins file
             logging.info(f'Setting up custom Prokka proteins for {request}')
             execute(f'mkdir -p {prokka_dir}')
+            execute(f'mkdir -p {minmer_dir}')
 
             # Download completed genomes
             logging.info(f'Downloading completed genomes')
@@ -457,8 +461,9 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             ).split('\n')
             count = 0
             passing_cds = f'{prokka_dir}/passing-cds.faa'
+            minmer = f'{minmer_dir}/minmer.ffn'
             logging.info(f'Processing {len(genbank_files)-1} Genbank files')
-            with open(passing_cds, 'w') as fasta_fh:
+            with open(passing_cds, 'w') as cds_fh, open(minmer, 'w') as ffn_fh:
                 for genbank in genbank_files:
                     if genbank:
                         sizes = []
@@ -467,6 +472,12 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                             for record in SeqIO.parse(genbank_fh, 'genbank'):
                                 # Aggregate chromosome and plasmids
                                 sizes.append(len(record.seq))
+                                for dbxref in record.dbxrefs:
+                                    if dbxref.startswith('Assembly'):
+                                        assembly = dbxref.split(':')[1]
+                                        ffn_fh.write(f'>{assembly}\n')
+                                        ffn_fh.write(f'{record.seq}\n')
+
                                 for feature in record.features:
                                     if feature.type == 'CDS':
                                         header, seq = process_cds(
@@ -475,8 +486,8 @@ def setup_prokka(request, available_datasets, outdir, force=False,
 
                                         if header and seq:
                                             count += 1
-                                            fasta_fh.write(f'{header}\n')
-                                            fasta_fh.write(f'{seq}\n')
+                                            cds_fh.write(f'{header}\n')
+                                            cds_fh.write(f'{seq}\n')
 
                         # Only add genome sizes for the species, incase the
                         # option '--inlude_genus' was used.
@@ -505,6 +516,18 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             execute((f'cd-hit -i {passing_cds} -o {cdhit_cds} -s {overlap} '
                      f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
 
+            # Make sketch/signatures
+            execute(
+                f'mash sketch -i -k 31 -s 10000 -o refseq-genomes minmer.ffn',
+                directory=minmer_dir
+            )
+            execute(
+                ('sourmash compute --scaled 10000 -o refseq-genomes.sig '
+                 f'-p {cpus} --track-abundance --merge refseq-genomes '
+                 '-k 21,31,51 minmer.ffn'),
+                directory=minmer_dir
+            )
+
             # Finish up
             with open(f'{prokka_dir}/genome_size.json', 'w') as genome_size_fh:
                 gs_dict = {
@@ -529,10 +552,13 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                 f'sed -i "s=proteins.faa:=after_cd-hit\t=" cdhit-stats.txt',
                 directory=prokka_dir
             )
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
+                    directory=minmer_dir)
 
             # Clean up
             if not keep_files:
-                execute(f'rm -rf {passing_cds} {genome_dir}/')
+                execute(f'rm -rf {minmer} {passing_cds} {genome_dir}/')
+
     else:
         logging.info("No valid species to setup, skipping")
 
@@ -686,6 +712,17 @@ def create_summary(outdir):
             new_species = OrderedDict()
             new_species['mlst'] = []
             species_dir = f'{outdir}/species-specific/{species}'
+
+            minmer = f'{species_dir}/minmer'
+            if os.path.exists(f'{minmer}/refseq-genomes.msh'):
+                new_species['minmer'] = {
+                    'mash': f'species-specific/{species}/minmer/refseq-genomes.msh',
+                    'sourmash': f'species-specific/{species}/minmer/refseq-genomes.sig',
+                    'last_updated': execute(
+                        f'head -n 1 {minmer}/minmer-updated.txt',
+                        capture=True
+                    ).rstrip()
+                }
 
             prokka = f'{species_dir}/annotation'
             if os.path.exists(f'{prokka}/proteins.faa'):
