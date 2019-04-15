@@ -477,6 +477,7 @@ process mapping_query {
     bwa_aln_opts = params.bwa_aln_opts ? params.bwa_aln_opts : ""
     bwa_samse_opts = params.bwa_samse_opts ? params.bwa_samse_opts : ""
     bwa_sampe_opts = params.bwa_sampe_opts ? params.bwa_sampe_opts : ""
+    f_value = params.keep_unmapped_reads ? '-F 0' : '-F 4'
     template(task.ext.template)
 }
 
@@ -1177,8 +1178,9 @@ def full_help() {
         --outfmt STR            BLAST alignment view options
                                     Default: '${params.outfmt}'
 
-
     Mapping Parameters:
+        --keep_unmapped_reads   Keep unmapped reads, this does not affect variant
+                                    calling.
         --bwa_mem_opts STR      Extra BWA MEM options
                                     Default: ''
 

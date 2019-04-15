@@ -16,7 +16,7 @@ else
         bwa sampe -n !{params.bwa_n} !{bwa_sampe_opts} !{query} r1.sai r2.sai !{fq[0]} !{fq[1]} > bwa.sam
     fi
 fi
-samtools view -bS bwa.sam | samtools sort -o !{query_name}.bam -
+samtools view !{f_value} -bS bwa.sam | samtools sort -o !{query_name}.bam -
 
 # Write per-base coverage
 genomeCoverageBed -ibam !{query_name}.bam -d | \
