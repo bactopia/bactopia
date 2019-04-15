@@ -563,7 +563,7 @@ def print_available_datasets(dataset) {
             }
         } else {
             log.info "Please verify the PATH is correct and ${dataset}/summary.json" +
-                     " exists, if not try rerunning 'setup-public-datasets.py'."
+                     " exists, if not try rerunning 'setup-datasets.py'."
             exit_code = 1
         }
     } else {
@@ -828,8 +828,8 @@ def basic_help() {
         --fastqs STR            An input file containing the sample name and
                                     absolute paths to FASTQs to process
 
-    Public Dataset Parameters:
-        --datasets DIR          The path to available public datasets that have
+    Dataset Parameters:
+        --datasets DIR          The path to available datasets that have
                                     already been set up
 
         --species STR           Determines which species-specific dataset to
@@ -1009,7 +1009,8 @@ def full_help() {
 
 
     Count 31mers Parameters:
-        --keep_singletons       Keep all 31-mers only counted a single time
+        --keep_singletons       Keep all counted 31-mers
+                                    Default: Filter out singletons
 
     Annotation Parameters:
         --centre STR            Sequencing centre ID
@@ -1181,6 +1182,7 @@ def full_help() {
     Mapping Parameters:
         --keep_unmapped_reads   Keep unmapped reads, this does not affect variant
                                     calling.
+
         --bwa_mem_opts STR      Extra BWA MEM options
                                     Default: ''
 

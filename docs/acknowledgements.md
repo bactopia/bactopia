@@ -1,20 +1,19 @@
 # Acknowledgements
 
-Bactopia is truely a case of *"standing upon the shoulders of giants"*. Nearly
-every component of the Bactopia analysis pipeline was created by others and
-made freely available to the public.
+Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly 
+every component of Bactopia was created by others and made freely available to the public.
 
 I would like to personally extend my many thanks and gratitude to the authors
 of these software packages and public datasets. If you've made it this far, I 
 owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. 
 Really, thank you very much!
 
+!!! info "Please Cite Datasets and Tools"
+    If you have used Bactopia in your work, please cite any datasets or tools you may have used. A citation link for each dataset/tool has been made available.
+
 ## Public Datasets
 Below is a list of public datasets (alphabetical) that could have potentially 
-been included during the *[Build Public Datasets](public-datasets.md)* step.
-
-!!! info "Please Cite Public Datasets"
-    If you have used any of these public datasets during your usage of Bactopia, please cite them.
+been included during the *[Build Datasets](datasets.md)* step.
 
 ### Ariba Reference Datasets
 These would have been setup using Ariba's `getref` function. You can learn 
@@ -84,7 +83,7 @@ software, the PubMLST.org website and their applications](http://dx.doi.org/10.1
 Wellcome Open Res 3, 124 (2018)._  
 
 ## Programs Included In Bactopia
-Below is a list of tools (alphabetical) *directly* called by Bactopia. 
+Below is a list of tools (alphabetical) *directly* called by Bactopia. A link to software page as well as the citation (if available) has been included.
 
 * __[Ariba](https://github.com/sanger-pathogens/ariba)__  
 Antimicrobial Resistance Identification By Assembly  
