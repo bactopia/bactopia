@@ -10,14 +10,16 @@ google_analytics: ['UA-104199698-2', 'staphopia.github.io']
 dev_addr: 0.0.0.0:8000
 
 nav:
-    - 'About Bactopia': 'index.md'
+    - 'Introduction': 'index.md'
+    - 'Quick Start': 'quick-start.md'
     - 'Installation': 'installation.md'
     - 'Build Datasets': 'datasets.md'
     - 'Basic Usage': 'usage-basic.md'
     - 'Complete Usage': 'usage-complete.md'
     - 'Tutorial': 'tutorial.md'
-    - 'Examples': 'examples.md'
-    - 'FAQ': 'faq.md'
+#    - 'Examples': 'examples.md'
+#    - 'FAQ': 'faq.md'
+    - 'About': 'about.md'
     - 'Acknowledgements': 'acknowledgements.md'
 
 theme:
@@ -44,4 +46,5 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
   - admonition
-
+  - toc:
+      permalink: true

@@ -1,30 +1,68 @@
-# About Bactopia
-We initially released [Staphopia](https://staphopia.emory.edu/) in the summer
-of 2018, for the analysis of *Staphylococcus aureus* genomes. At conferences,
-or via email, the most common question about Staphopia that we received was:
+# Overview
 
-*"How can I use Staphopia for my bacteria of interest?"*.
+Bactopia is a generic workflow to process Illumina seqeuncing for bacterial genomes. It prioritizes software available from [Bioconda](https://bioconda.github.io/) (or other
+[Anaconda channels](https://anaconda.org/)) and makes encapsultes the workflow with [Nextflow](https://www.nextflow.io/).
 
-We too, have always been interested in this, because we also work with other
-bacteria and would like a standard pipeline for incoming sequencing. Given the
-self-interest and community interest, we developed Bactopia, *a generic pipeline
-for the analysis of short-read bacterial sequences*! Side-note... we
-kept the *"-opia"* in the name to pay homage to Staphopia!
-
-While the philosophy behind Staphopia and Bactopia is mostly the same. The
-development of Bactopia from scratch has really allowed us to take what we
-learned from Staphopia and use it to our advantage. Bactopia has been developed
-with usability, portability, and speed in mind.
-
-Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow. We
-have also prioritized software packages available from
-[Bioconda](https://bioconda.github.io/) (or other
-[Anaconda channels](https://anaconda.org/)) to make installation
-as simple as possible for users. Finally, we have updated our workflow to
-include the latest methods.
-
-## Workflow Overview
-
-**INSERT IMAGE OF WORKFLOW**
+## Documentation Overview
 
 
+[Quick Start](quick-start.md)  
+Very concise and to straight the point details (unlike this!) for using Bactopia.  
+
+[Installation](installation.md)  
+More detailed information for getting Bactopia set up on your system.
+
+[Build Datasets](datasets.md)  
+A description on how to make use of datasets (public or private) with Bactopia.
+
+[Basic Usage](usage-basic.md)  
+A subset of parameters users may commonly adjust.
+
+[Complete Usage](usage-complete.md)  
+The full set of parameters that users can tweak in Bactopia.
+
+[Tutorial](tutorial.md)  
+A brief tutorial on how to replicate the [Staphopia Analyis Pipeline](https://staphopia.emory.edu) using Bactopia.
+
+<!--
+TODO 
+[Examples](examples.md)  
+A few examples of things to do with Bactopia.
+
+[FAQ](faq.md)  
+A list of common questions we've been asked.
+-->
+
+[Acknowledgements](acknowledgements.md)  
+See this page for a list of datasets and software (and many thanks!) used by Bactopia.
+
+[About](about.md)  
+Learn more about the history of Bactopia.
+
+
+## Documentation Structure
+### TODO
+- [Quick Start](quick-start.md)  
+    - [Installation](quick-start.md#installation)
+    - [Build Dataset](quick-start.md#build-dataset)
+    - [Make FOFN](quick-start.md#make-fofn)
+    - [Run Bactopia!](quick-start.md#run-bactopia)
+- [Installation](installation.md)  
+- [Build Datasets](datasets.md)  
+- [Basic Usage](usage-basic.md)  
+
+[Complete Usage](usage-complete.md)  
+  
+[Tutorial](tutorial.md)  
+
+<!--
+TODO
+[Examples](examples.md)  
+  
+[FAQ](faq.md)  
+  
+-->
+[About](about.md)  
+  
+[Acknowledgements](acknowledgements.md)  
+  

@@ -9,7 +9,7 @@ owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person.
 Really, thank you very much!
 
 !!! info "Please Cite Datasets and Tools"
-    If you have used Bactopia in your work, please cite any datasets or tools you may have used. A citation link for each dataset/tool has been made available.
+    If you have used Bactopia in your work, please be sure to cite any datasets or tools you may have used. A citation link for each dataset/tool has been made available.
 
 ## Public Datasets
 Below is a list of public datasets (alphabetical) that could have potentially 
