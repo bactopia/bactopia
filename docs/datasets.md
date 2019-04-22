@@ -1,5 +1,5 @@
-# Build Public Datasets
-Bactopia can make use of many existing public datasets. The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated for the user.
+# Build Datasets
+Bactopia can make use of many existing public datasets, as well as private datasets. The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated for the user.
 
 !!! info "Highly recommended to complete this step!"
 
@@ -28,6 +28,9 @@ Multi-locus sequence typing (MLST) allelic profiles and seqeunces for a many dif
 
 **Clustered RefSeq Proteins**  
 For the given bacterial species, completed RefSeq genomes are downloaded and then the proteins are clustered and formatted for usage with Prokka.  
+
+**Minmer Sketch of RefSeq Genomes**  
+Using the completed genomes downloaded for clustering proteins a Mash sketch and Sourmash signature is created for these genomes. These sketches can then be used for automatic selection of reference genomes for variant calling.
 
 **Optional User Populated Folders**  
 A few folders for things such as calling variants, insertion sequences and primers are created that the user can manually populate. 

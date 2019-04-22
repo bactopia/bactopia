@@ -71,7 +71,7 @@ bactopia 0.0.1
 
 Everything *should* be all set! (Is it ever?) When you execute Bactopia, seperate conda environments will be created for each process automatically by Nextflow.
 
-The nextstep is to [Setup Databases](database-setup.md) for usage by Bactopia.
+The nextstep is to [Build Datasets](datasets.md) for usage by Bactopia.
 
 ## Coming Soon
 As the analysis pipeline for Bactopia is finalized there are plans to also

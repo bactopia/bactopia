@@ -2,19 +2,24 @@
 """
 Read a directory and prepare a FOFN of FASTQs
 """
+import os
+import sys
+PROGRAM = os.path.basename(sys.argv[0])
+VERSION = "1.0.0"
 
 if __name__ == '__main__':
     import argparse as ap
     from collections import defaultdict
     import glob
-    import os
     import sys
 
 
     parser = ap.ArgumentParser(
         prog='prepare-fofn.py',
         conflict_handler='resolve',
-        description='Read a directory and prepare a FOFN of FASTQs'
+        description=(
+            f'{PROGRAM} (v{VERSION}) - Read a directory and prepare a FOFN of FASTQs'
+        )
     )
     parser.add_argument('path', metavar="STR", type=str,
                         help='Directory where FASTQ files are stored')
@@ -31,9 +36,11 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--pattern', metavar='STR', type=str,
-        default="*_[rR][12].[fastq].gz",
-        help='Glob pattern to match FASTQs. Default: *_[rR][12].[fastq].gz'
+        default="*.fastq.gz",
+        help='Glob pattern to match FASTQs. Default: *.fastq.gz'
     )
+    parser.add_argument('--version', action='version',
+                        version=f'{PROGRAM} {VERSION}')
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -44,7 +51,7 @@ if __name__ == '__main__':
     # https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
     abspath = os.path.abspath(args.path)
     FASTQS = {}
-    for fastq in glob.glob(f'{abspath}/*{args.ext}'):
+    for fastq in glob.glob(f'{abspath}/*{args.pattern}'):
         fastq_name = os.path.basename(fastq).replace(args.ext, "")
 
         # Split the fastq file name on separator

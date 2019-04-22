@@ -9,15 +9,25 @@ conda activate bactopia
 
 ## Build Dataset
 ```
-setup-datasets.py datasets
+setup-datasets datasets
 ```
 
-## Make FOFN
-```
-fastqs-fofn.py fastqs/ > fastqs.txt
-```
 
 ## Run Bactopia!
+### Single Sample
+#### Paired-End
 ```
-bactopia.nf --fastqs fastqs.txt --outdir processed
+bactopia --R1 ${SAMPLE}_R1.fastq.gz --R2 ${SAMPLE}_R2.fastq.gz --sample ${SAMPLE} \
+         --dataset datasets/ --outdir ${OUTDIR}
+```
+
+#### Single-End
+```
+bactopia --SE ${SAMPLE}.fastq.gz --sample ${SAMPLE} --dataset datasets/ --outdir ${OUTDIR}
+```
+
+### Multiple Samples
+```
+fastqs-fofn directory-of-fastqs/ > fastqs.txt
+bactopia --fastqs fastqs.txt --dataset datasets --outdir ${OUTDIR}
 ```

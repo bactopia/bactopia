@@ -3,10 +3,22 @@
 Bactopia includes numerous configurable parameters. Currently 103 to be exact! Basically for each step of the pipeline, you can modify the default parameters of a specific tool.
 
 ## Required
-Bactopia has only one truely 'required' parameter.
+The required parameters depends on how many samples are to be proccessed. You can learn more about which approach to take at [Specifying Input FASTQs](usage-basic.md#specifying-input-fastqs).
 ```
+    ### For Procesessing Multiple Samples
     --fastqs STR            An input file containing the sample name and
                                 absolute paths to FASTQs to process
+
+    ### For Processing A Single Sample
+    --R1 STR                First set of reads for paired end in compressed (gzip)
+                                FASTQ format
+
+    --R2 STR                Second set of reads for paired end in compressed (gzip)
+                                FASTQ format
+
+    --SE STR                Single end set of reads in compressed (gzip) FASTQ format
+
+    --sample STR            The name of the input sequences
 ```
 
 ## Dataset
@@ -56,7 +68,6 @@ By default `--max_cpus` is set to 1 and if `--cpus` is set to a value greater th
 
 ## Helpers
 The following parameters are useful to test to test input parameters.
-
 ```
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
@@ -65,20 +76,20 @@ The following parameters are useful to test to test input parameters.
 
     --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-    --keep_cache            Keeps 'work' and '.nextflow' logs.
-                                Default: Delete on successful completion
+    --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
+                                the Nextflow run cannot be resumed.
 
     --version               Print workflow version information
     --help                  Show this message and exit
     --help_all              Show a complete list of adjustable parameters
 ```
 
-### `--keep_cache`
-Bactopia's default behavior is to remove the Nextflow cache on successful completions. This is beneficial for cleaning up a lot of intermediate files. An important consequence of this action is you can no longer resume (via `-resume`) the workflow.
+### `--clean_cache`
+By default, *Bactopia* will keep all intermediate files even after successfully completing all steps. While the cache is maintained Bactopia is resumable using the `-resume` parameter. This does however introduce a potentential storage overhead. The cache will contain multiple intermediate files (e.g. uncompressed FASTQs, BAMs, etc...) for each sample that was processed. In other words, it can get pretty large!
 
-This should be ok, since the cache is removed only on a *successful completion*. If the workflow were to start mid-way through, you could still resume the workflow.
+If you would like to clean up the cache you can use `--clean_cache`. This will remove the cache **only** after a successful execution (e.g. everything thing finished without errors). This is accomplished by removing the `work` directory created by Nextflow. As you might have guessed, by using removing the cache, Bactopia will no longer be resumeable.
 
-You can use `--keep_cache` to disable this feature all together! This is useful to use when you are still working out which data you want to include in your datasets. For example, if you are still deciding on which reference genome(s) to call variants against.
+At the end of the day, you can always decide to not use `--clean_cache` and manually remove the `work` directory when you feel it is safe!
 
 ## Program Specific
 The remaining parameters are associated with specific programs. In the following sectionsm, these parameters are grouped by which Nextflow process they are applicable to.
