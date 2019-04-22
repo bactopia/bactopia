@@ -40,7 +40,7 @@ Included in Bactopia is the `setup-datasets.py` script (located in the `bin` fol
 
 ### Quick Start
 ``` bash
-setup-public-datasets.py datasets
+setup-datasets.py datasets
 ```
 
 This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, GenBank Sourmash Signatures, and PLSDB in the newly created `datasets` folder.
@@ -48,7 +48,7 @@ This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, Ge
 
 ### A Single Bacterial Species
 ``` bash
-setup-public-datasets.py datasets --species "Haemophilus influenzae" --include_genus
+setup-datasets.py datasets --species "Haemophilus influenzae" --include_genus
 ```
 
 
@@ -59,7 +59,7 @@ You can also set up datasets for multiple bacterial species at a time. There are
 #### Comma-Separated 
 At runtime, you can separate the the different species
 ``` bash
-setup-public-datasets.py datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
+setup-datasets.py datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
 ```
 #### Text File
 
@@ -75,26 +75,26 @@ Mycobacterium tuberculosis
 The new command becomes:
 
 ``` bash
-setup-public-datasets.py datasets --species species.txt --include_genus
+setup-datasets.py datasets --species species.txt --include_genus
 ```
 
 This will setup the MLST schema (if available) and a protein cluster FASTA file for each species in `species.txt`. 
 
 ## Usage
 ``` 
-usage: setup-public-datasets.py [-h] [--ariba STR] [--species STR]
-                                [--skip_prokka] [--include_genus]
-                                [--identity FLOAT] [--overlap FLOAT]
-                                [--max_memory INT] [--fast_cluster]
-                                [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                                [--clear_cache] [--force] [--force_ariba]
-                                [--force_mlst] [--force_prokka]
-                                [--force_minmer] [--force_plsdb]
-                                [--keep_files] [--list_datasets] [--depends]
-                                [--version] [--verbose] [--silent]
-                                OUTPUT_DIRECTORY
+usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
+                              [--skip_prokka] [--include_genus]
+                              [--identity FLOAT] [--overlap FLOAT]
+                              [--max_memory INT] [--fast_cluster]
+                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
+                              [--clear_cache] [--force] [--force_ariba]
+                              [--force_mlst] [--force_prokka]
+                              [--force_minmer] [--force_plsdb]
+                              [--keep_files] [--list_datasets] [--depends]
+                              [--version] [--verbose] [--silent]
+                              OUTPUT_DIRECTORY
 
-setup-public-datasets.py (v1.0.0) - Setup public datasets for Bactopia
+setup-datasets.py (v1.0.0) - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
