@@ -9,9 +9,9 @@ if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
-check_input_params()
-check_input_fastqs(params.fastqs)
-if (params.check_fastqs) print_check_fastqs(params.fastqs);
+fastq_type = check_input_params()
+check_input_fastqs(params.fastqs, fastq_type)
+if (params.check_fastqs) print_check_fastqs(params.fastqs, fastq_type);
 if (params.available_datasets) print_available_datasets(params.dataset)
 
 // Set the maximum number of cpus to use
@@ -103,8 +103,8 @@ if (params.dataset) {
             }
             print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
         } else {
-            log.info "Species '${params.species}' not available, please check spelling or use '--available_datasets' " +
-                     "to verify the dataset has been set up. Exiting"
+            log.error "Species '${params.species}' not available, please check spelling or use '--available_datasets' " +
+                      "to verify the dataset has been set up. Exiting"
             exit 1
         }
     } else {
@@ -114,9 +114,9 @@ if (params.dataset) {
         log.info "\tinsertion_sequence_query"
         log.info "\tprimer_query"
         if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-            log.info "Asked for genome size '${params.genome_size}' which requires a " +
-                     "species to be given. Please give a species or specify " +
-                     "a valid genome size. Exiting"
+            log.error "Asked for genome size '${params.genome_size}' which requires a " +
+                      "species to be given. Please give a species or specify " +
+                      "a valid genome size. Exiting"
             exit 1
         }
     }
@@ -125,6 +125,7 @@ if (params.dataset) {
     log.info "\tsequence_type"
     log.info "\tariba_analysis"
     log.info "\tminmer_query"
+    log.info "\tplasmid_blast"
     log.info "\tcall_variants"
     log.info "\tinsertion_sequence_query"
     log.info "\tprimer_query"
@@ -138,7 +139,7 @@ process estimate_genome_size {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
 
     output:
     file "genome-size.txt" into GS_QC_READS, GS_ASSEMBLY
@@ -155,7 +156,7 @@ process qc_reads {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs)
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
     file(genome_size_file) from GS_QC_READS
 
     output:
@@ -427,6 +428,9 @@ process plasmid_blast {
     output:
     file("${sample}-plsdb.txt")
 
+    when:
+    PLASMID_BLASTDB.isEmpty() == false
+
     shell:
     blastdb = blastdb_files[0].getBaseName()
     template(task.ext.template)
@@ -483,7 +487,7 @@ process mapping_query {
 
 
 workflow.onComplete {
-    if (workflow.success == true && params.keep_cache == false) {
+    if (workflow.success == true && params.clean_cache == true) {
         clean_cache()
     }
     println """
@@ -521,14 +525,19 @@ def print_example_fastqs() {
 }
 
 
-def print_check_fastqs(fastq_input) {
-    log.info 'Printing what would have been processed. Each line consists of an array of'
-    log.info 'three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]'
-    log.info ''
-    log.info 'Found:'
-    create_fastq_channel(fastq_input).println()
-    clean_cache()
-    exit 0
+def print_check_fastqs(fastq_input, fastq_type) {
+    if (fastq_type == "fastqs") {
+        log.info 'Printing what would have been processed. Each line consists of an array of'
+        log.info 'three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]'
+        log.info ''
+        log.info 'Found:'
+        create_fastq_channel(fastq_input).println()
+        clean_cache()
+        exit 0
+    } else {
+        log.error '"--check_fastqs" requires "--fastqs" to be set.'
+        exit 1
+    }
 }
 
 
@@ -562,12 +571,12 @@ def print_available_datasets(dataset) {
                 }
             }
         } else {
-            log.info "Please verify the PATH is correct and ${dataset}/summary.json" +
+            log.error "Please verify the PATH is correct and ${dataset}/summary.json" +
                      " exists, if not try rerunning 'setup-datasets.py'."
             exit_code = 1
         }
     } else {
-        log.info "Please use '--dataset' to specify the path to pre-built datasets."
+        log.error "Please use '--dataset' to specify the path to pre-built datasets."
         exit_code = 1
     }
     clean_cache()
@@ -633,7 +642,7 @@ def check_minmers(dataset) {
 
 def clean_cache() {
     // No need to resume completed run so remove cache.
-    if (params.keep_cache == false) {
+    if (params.clean_cache == true) {
         file('./work/').deleteDir()
         file('./.nextflow/').deleteDir()
     }
@@ -641,69 +650,94 @@ def clean_cache() {
 
 
 def is_positive_integer(value, name) {
-    is_positive = true
+    error = 0
     if (value.getClass() == Integer) {
         if (value < 0) {
-            log.info('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
-            is_positive = false
+            log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
+            error = 1
         }
     } else {
         if (!value.isInteger()) {
-            log.info('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
-            is_positive = false
+            log.error('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
+            error = 1
         } else if (value.toInteger() < 0) {
-            log.info('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
-            is_positive = false
+            log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
+            error = 1
         }
     }
-    return is_positive
+    return error
+}
+
+
+def file_exists(file_name, parameter) {
+    if (!file(file_name).exists()) {
+        log.error('Invalid input ('+ parameter +'), please verify "' + file_name + '" exists.')
+        return 1
+    }
+    return 0
 }
 
 
 def check_input_params() {
-    error = false
-    missing_requirement = false
-    if (!params.fastqs) {
-        log.info('Missing required "--fastqs" input')
-        error = true
-    } else if (!file(params.fastqs).exists()) {
-        log.info('Invalid input (--fastqs), please verify "' + params.fastqs + '"" exists.')
-        error = true
+    error = 0
+    fastq_type = null
+
+    if (params.fastqs) {
+        error += file_exists(params.fastqs, '--fastqs')
+        fastq_type = "fastqs"
+    } else if  (params.R1 && params.R2 && params.sample) {
+        error += file_exists(params.R1, '--R1')
+        error += file_exists(params.R2, '--R2')
+        fastq_type = "paired"
+    } else if (params.SE && params.sample) {
+        error += file_exists(params.SE, '--SE')
+        fastq_type = "single"
+    } else {
+        log.error """
+        One or more required parameters are missing, please check and try again.
+
+        Required Parameters:
+            ### For Procesessing Multiple Samples
+            --fastqs STR            An input file containing the sample name and
+                                        absolute paths to FASTQs to process
+
+            ### For Processing A Single Sample
+            --R1 STR                First set of reads for paired end in compressed (gzip)
+                                        FASTQ format
+
+            --R2 STR                Second set of reads for paired end in compressed (gzip)
+                                        FASTQ format
+
+            --SE STR                Single end set of reads in compressed (gzip) FASTQ format
+
+            --sample STR            The name of the input sequences
+        """.stripIndent()
+        error += 1
     }
 
-    if (!is_positive_integer(params.max_cpus, 'max_cpus')) {
-        error = true
-    }
 
-    if (!is_positive_integer(params.cpus, 'cpus')) {
-        error = true
-    }
+    error += is_positive_integer(params.max_cpus, 'max_cpus')
+    error += is_positive_integer(params.cpus, 'cpus')
 
     if (params.genome_size) {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-            if (!is_positive_integer(params.genome_size, 'genome_size')) {
-                error = true
-            }
+            error += is_positive_integer(params.genome_size, 'genome_size')
         }
     }
 
     if (params.adapters) {
-        if (!file(params.adapters).exists()) {
-            log.info('Invalid input (--adapters), please verify "' + params.adapters + '"" exists.')
-            error = true
-        }
+        error += file_exists(params.adapters, '--adapters')
     }
     if (params.phix) {
-        if (!file(params.phix).exists()) {
-            log.info('Invalid input (--phix), please verify "' + params.phix + '"" exists.')
-            error = true
-        }
+        error += file_exists(params.phix, '--phix')
     }
 
-    if (error) {
-        log.info('See --help for more information')
+    if (error > 0) {
+        log.error('Cannot continue, please see --help for more information')
         exit 1
     }
+
+    return fastq_type
 }
 
 
@@ -719,64 +753,72 @@ def process_csv(line) {
 }
 
 
-def create_fastq_channel(fastq_input) {
-    return Channel.fromPath( file(fastq_input) )
-        .splitCsv(header: true, sep: '\t')
-        .map { row -> process_csv(row) }
+def create_fastq_channel(fastq_input, fastq_type) {
+    if (fastq_type == "fastqs") {
+        return Channel.fromPath( file(fastq_input) )
+            .splitCsv(header: true, sep: '\t')
+            .map { row -> process_csv(row) }
+    } else if (fastq_type == "paired") {
+        return [tuple(params.sample, false, [file(params.R1), file(params.R2)])]
+    } else {
+        return [tuple(params.sample, true, [file(params.SE)])]
+    }
 }
 
 
-def check_input_fastqs(fastq_input) {
+def check_input_fastqs(fastq_input, fastq_type) {
     /* Read through --fastqs and verify each input exists. */
-    samples = [:]
-    error = false
-    has_valid_header = false
-    line = 1
-    file(fastq_input).splitEachLine('\t') { cols ->
-        if (line == 1) {
-            if (cols[0] == 'sample' && cols[1] == 'r1' && cols[2] == 'r2') {
-                has_valid_header = true
-            }
-        } else {
-            if (samples.containsKey(cols[0])) {
-                samples[cols[0]] = samples[cols[0]] + 1
+    if (fastq_type == "fastqs") {
+        samples = [:]
+        error = false
+        has_valid_header = false
+        line = 1
+        file(fastq_input).splitEachLine('\t') { cols ->
+            if (line == 1) {
+                if (cols[0] == 'sample' && cols[1] == 'r1' && cols[2] == 'r2') {
+                    has_valid_header = true
+                }
             } else {
-                samples[cols[0]] = 1
-            }
-            if (cols[1]) {
-                if (!file(cols[1]).exists()) {
-                    log.info "LINE " + line + ':ERROR: Please verify ' + cols[1]+ ' exists, and try again'
-                    error = true
+                if (samples.containsKey(cols[0])) {
+                    samples[cols[0]] = samples[cols[0]] + 1
+                } else {
+                    samples[cols[0]] = 1
+                }
+                if (cols[1]) {
+                    if (!file(cols[1]).exists()) {
+                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[1]+ ' exists, and try again'
+                        error = true
+                    }
+                }
+                if (cols[2]) {
+                    if (!file(cols[2]).exists()) {
+                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[2]+ ' exists, and try again'
+                        error = true
+                    }
                 }
             }
-            if (cols[2]) {
-                if (!file(cols[2]).exists()) {
-                    log.info "LINE " + line + ':ERROR: Please verify ' + cols[2]+ ' exists, and try again'
-                    error = true
-                }
+
+            line = line + 1
+        }
+
+        samples.each{ sample, count ->
+            if (count > 1) {
+                error = true
+                log.error 'Sample name "'+ sample +'" is not unique, please revise sample names'
             }
         }
 
-        line = line + 1
-    }
-
-    samples.each{ sample, count ->
-        if (count > 1) {
+        if (!has_valid_header) {
             error = true
-            log.info 'Sample name "'+ sample +'" is not unique, please revise sample names'
+            log.error 'The header line (line 1) does not follow expected structure.'
         }
-    }
 
-    if (!has_valid_header) {
-        error = true
-        log.info 'The header line (line 1) does not follow expected structure.'
-    }
-
-    if (error) {
-        log.info 'Verify sample names are unique and/or FASTQ paths are correct'
-        log.info 'See "--example_fastqs" for an example'
-        log.info 'Exiting'
-        exit 1
+        if (error) {
+            log.error 'Verify sample names are unique and/or FASTQ paths are correct'
+            log.error 'See "--example_fastqs" for an example'
+            log.error 'Exiting'
+            exit 1
+        }
     }
 }
 
@@ -825,8 +867,20 @@ def basic_help() {
     genome_size = params.genome_size ? params.genome_size : "Mash Estimate"
     return """
     Required Parameters:
+        ### For Procesessing Multiple Samples
         --fastqs STR            An input file containing the sample name and
                                     absolute paths to FASTQs to process
+
+        ### For Processing A Single Sample
+        --R1 STR                First set of reads for paired end in compressed (gzip)
+                                    FASTQ format
+
+        --R2 STR                Second set of reads for paired end in compressed (gzip)
+                                    FASTQ format
+
+        --SE STR                Single end set of reads in compressed (gzip) FASTQ format
+
+        --sample STR            The name of the input sequences
 
     Dataset Parameters:
         --datasets DIR          The path to available datasets that have
@@ -862,8 +916,8 @@ def basic_help() {
 
         --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-        --keep_cache            Keeps 'work' and '.nextflow' logs.
-                                    Default: Delete on successful completion
+        --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
+                                    the Nextflow run cannot be resumed.
 
         --version               Print workflow version information
         --help                  Show this message and exit
