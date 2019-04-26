@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -29,6 +29,7 @@ outdir = params.outdir ? params.outdir : './'
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
+REFSEQ_SKETCH = false
 REFERENCES = []
 INSERTIONS = []
 PRIMERS = []
@@ -68,8 +69,15 @@ if (params.dataset) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
                 log.info "\t${PROKKA_PROTEINS}"
-
             }
+
+            refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
+            if (file(refseq_minmer).exists()) {
+                REFSEQ_SKETCH = file(refseq_minmer)
+                log.info "Found Mash Sketch of RefSeq genomes"
+                log.info "\t${REFSEQ_SKETCH}"
+            }
+
             species_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${dataset_path}/${val}").exists()) {
@@ -164,7 +172,7 @@ process qc_reads {
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
                                                          ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
-                                                         INSERTION_SEQUENCES, CALL_VARIANTS, MAPPING_QUERY
+                                                         INSERTION_SEQUENCES, CALL_VARIANTS, CALL_VARIANTS_AUTO, MAPPING_QUERY
 
     shell:
     fq2 = single_end == true ? "" : fq[1]
@@ -327,12 +335,12 @@ process minmer_sketch {
     output:
     file("${sample}*.{msh,sig}")
     file("${sample}.sig") into QUERY_SOURMASH
+    set val(sample), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
 
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     template(task.ext.template)
 }
-
 
 
 process minmer_query {
@@ -360,6 +368,29 @@ process minmer_query {
 }
 
 
+process download_references {
+    /*
+    Download the nearest RefSeq genomes (based on Mash) to have variants called against.
+    */
+    cpus cpus
+    tag "${sample}"
+
+    input:
+    set val(sample), file(sample_sketch) from DOWNLOAD_REFERENCES
+    file(refseq_sketch) from REFSEQ_SKETCH
+
+    output:
+    file("genbank/*.gbk") into REFERENCES_AUTO
+
+    when:
+    REFSEQ_SKETCH != false && disable_auto_variants == false
+
+    shell:
+    tie_break = random_tie_break ? "--random_tie_break" : ""
+    template(task.ext.template)
+}
+
+
 process call_variants {
     /*
     Identify variants (SNPs/InDels) against a set of reference genomes
@@ -367,11 +398,36 @@ process call_variants {
     */
     cpus cpus
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
     each file(reference) from REFERENCES
+
+    output:
+    file("${reference_name}/*")
+
+    shell:
+    reference_name = reference.getSimpleName()
+    fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
+    bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
+    fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
+    template(task.ext.template)
+}
+
+
+process call_variants_auto {
+    /*
+    Identify variants (SNPs/InDels) against one or more reference genomes selected based
+    on their Mash distance from the input.
+    */
+    cpus cpus
+    tag "${sample} - ${reference_name}"
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from CALL_VARIANTS_AUTO
+    each file(reference) from REFERENCES_AUTO
 
     output:
     file("${reference_name}/*")
@@ -1183,6 +1239,17 @@ def full_help() {
         --fbopt STR             Extra Freebayes options,
                                     eg. --theta 1E-6 --read-snp-limit 2
                                     Default: ''
+
+    Nearest Neighbor Reference Genomes:
+        --max_references INT    Maximum number of nearest neighbor reference genomes to
+                                    download for variant calling.
+                                    Default: 1
+
+        --random_tie_break      On references with matching distances, randomly select one.
+                                    Default: Pick earliest accession number
+
+        --disable_auto_variants Disable automatic selection of reference genome based on
+                                    Mash distances.
 
     Insertion Sequence Parameters:
         --min_clip INT          Minimum size for softclipped region to be

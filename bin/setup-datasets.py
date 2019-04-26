@@ -468,15 +468,18 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                     if genbank:
                         sizes = []
                         genbank = genbank.replace('./', f'{prokka_dir}/')
+                        seq_name = None
+                        seqs = []
+                        gap = "N" * 102
                         with gzip.open(genbank, 'rt') as genbank_fh:
                             for record in SeqIO.parse(genbank_fh, 'genbank'):
                                 # Aggregate chromosome and plasmids
                                 sizes.append(len(record.seq))
                                 for dbxref in record.dbxrefs:
                                     if dbxref.startswith('Assembly'):
-                                        assembly = dbxref.split(':')[1]
-                                        ffn_fh.write(f'>{assembly}\n')
-                                        ffn_fh.write(f'{record.seq}\n')
+                                        seq_name = dbxref.split(':')[1]
+                                        seqs.append(str(record.seq))
+                                        seqs.append(gap)
 
                                 for feature in record.features:
                                     if feature.type == 'CDS':
@@ -488,6 +491,11 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                                             count += 1
                                             cds_fh.write(f'{header}\n')
                                             cds_fh.write(f'{seq}\n')
+                            # Write sequence
+                            ffn_fh.write(f'>{seq_name}\n')
+                            gap = "N" * 102
+                            sequence = "".join(seqs)
+                            ffn_fh.write(f'{sequence}\n')
 
                         # Only add genome sizes for the species, incase the
                         # option '--inlude_genus' was used.
@@ -519,12 +527,6 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             # Make sketch/signatures
             execute(
                 f'mash sketch -i -k 31 -s 10000 -o refseq-genomes minmer.ffn',
-                directory=minmer_dir
-            )
-            execute(
-                ('sourmash compute --scaled 10000 -o refseq-genomes.sig '
-                 f'-p {cpus} --track-abundance --merge refseq-genomes '
-                 '-k 21,31,51 minmer.ffn'),
                 directory=minmer_dir
             )
 
@@ -717,7 +719,6 @@ def create_summary(outdir):
             if os.path.exists(f'{minmer}/refseq-genomes.msh'):
                 new_species['minmer'] = {
                     'mash': f'species-specific/{species}/minmer/refseq-genomes.msh',
-                    'sourmash': f'species-specific/{species}/minmer/refseq-genomes.sig',
                     'last_updated': execute(
                         f'head -n 1 {minmer}/minmer-updated.txt',
                         capture=True

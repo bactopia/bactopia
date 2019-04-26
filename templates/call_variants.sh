@@ -3,7 +3,7 @@ set -e
 set -u
 
 snippy !{fastq} \
-     --ref !{reference} \
+    --ref !{reference} \
     --cpus !{task.cpus} \
     --ram !{params.snippy_ram} \
     --outdir !{reference_name} \
