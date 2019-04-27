@@ -29,7 +29,6 @@ outdir = params.outdir ? params.outdir : './'
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
-REFSEQ_SKETCH = false
 REFERENCES = []
 INSERTIONS = []
 PRIMERS = []
@@ -37,6 +36,8 @@ BLAST_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
+REFSEQ_SKETCH = null
+REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.dataset) {
     dataset_path = params.dataset
@@ -74,6 +75,7 @@ if (params.dataset) {
             refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
             if (file(refseq_minmer).exists()) {
                 REFSEQ_SKETCH = file(refseq_minmer)
+                REFSEQ_SKETCH_FOUND = true
                 log.info "Found Mash Sketch of RefSeq genomes"
                 log.info "\t${REFSEQ_SKETCH}"
             }
@@ -373,7 +375,8 @@ process download_references {
     Download the nearest RefSeq genomes (based on Mash) to have variants called against.
     */
     cpus cpus
-    tag "${sample}"
+    tag "${sample} - ${params.max_references} reference(s)"
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
 
     input:
     set val(sample), file(sample_sketch) from DOWNLOAD_REFERENCES
@@ -381,12 +384,14 @@ process download_references {
 
     output:
     file("genbank/*.gbk") into REFERENCES_AUTO
+    file("mash-dist.txt")
 
     when:
-    REFSEQ_SKETCH != false && disable_auto_variants == false
+    REFSEQ_SKETCH_FOUND == true && params.disable_auto_variants == false
 
     shell:
-    tie_break = random_tie_break ? "--random_tie_break" : ""
+    tie_break = params.random_tie_break ? "--random_tie_break" : ""
+    total = params.max_references
     template(task.ext.template)
 }
 
@@ -427,10 +432,13 @@ process call_variants_auto {
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS_AUTO
-    each file(reference) from REFERENCES_AUTO
+    each file(reference) from REFERENCES_AUTO.flatten()
 
     output:
     file("${reference_name}/*")
+
+    when:
+    REFSEQ_SKETCH_FOUND == true && params.disable_auto_variants == false
 
     shell:
     reference_name = reference.getSimpleName()

@@ -3,7 +3,7 @@ set -e
 set -u
 
 if [ "!{method}" == "blast" ]; then
-    mkdir blast
+    mkdir -p blast
     !{baseDir}/bin/mlst-blast.py !{assembly} !{dataset} blast/!{sample}-blast.json \
         --cpu !{task.cpus} --compressed
 elif [ "!{method}" == "ariba" ]; then

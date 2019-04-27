@@ -43,7 +43,7 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
     from collections import OrderedDict
     import glob
     import json
-    from os.path import basename
+    from os.path import basename, splitext
 
     outfmt = "6 sseqid bitscore slen length nident mismatch pident evalue"
     results = {}
@@ -68,8 +68,8 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
     total_loci = 0
     for tfa in sorted(glob.glob(f'{blast}/*.tfa')):
         total_loci += 1
-        allele = basename(tfa).rstrip(".tfa")
-        blastdb = tfa.rstrip(".tfa")
+        blastdb = splitext(tfa)[0]
+        allele = basename(blastdb)
         blastn = pipe_command(
             ['zcat' if compressed else 'cat', input_file],
             ['blastn', '-db', blastdb, '-query', '-', '-outfmt', outfmt,
