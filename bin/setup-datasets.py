@@ -452,7 +452,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             if include_genus:
                 genus = genus.split()[0]
             execute((f'ncbi-genome-download bacteria --genus "{genus}" '
-                     f'-l complete -o {prokka_dir}/genomes -F genbank '
+                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 20'
                      f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
 
             # Extract information from Genbank files

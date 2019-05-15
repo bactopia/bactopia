@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# bactopia -
+#
+# This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
+# been inspired by a similar wrapper in Will Rowe's DRAX pipeline
+# (https://github.com/will-rowe/drax).
+#
+# By default `bactopia` will attmept to execute the main Nextflow pipeline.
+# There are additional sub-commands available to help make Bactopia easier to
+# use. They are:
+#
+#   pull - Pull (via Nextflow) the bactopia-ap GitHub repo
+#
+#   datasets - Download and setup useful datasets to supplement Bactopia
+#
+#   fofn - Create a FOFN of the input FASTQ files
+#
+#   version - Print Bactopia version and exit
+#
+# Examples:
+#
+# bactopia pull
+# bactopia datasets --help
+# bactopia fofn --help
+# bactopia version
+# bactopia --help
+
+# If no user input, print usage
+if [[ $# == 0 ]]; then
+
+    echo "${PROGRAM} - v${VERSION}"
+    echo ""
+    echo "Available Commands"
+    echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia-ap GitHub repo"
+    echo ""
+    echo "\`bactopia datasets\` - Download/setup useful datasets for Bactopia"
+    echo ""
+    echo "\`bactopia prepare\` - Create a 'file of filenames' for input FASTQ files"
+    echo ""
+    echo "\`bactopia version\` - Print Bactopia version and exit"
+    echo ""
+    echo "\`bactopia\` - Execute the Bactopia Nextflow pipeline"
+    echo ""
+    echo "Print Usages:"
+    echo "\`bactopia --help\`"
+    echo "\`bactopia datasets --help\`"
+    echo "\`bactopia prepare --help\`"
+    echo ""
+    echo "Example Commands"
+    echo "bactopia --fastqs my-fastqs.txt"
+    echo "bactopia datasets dataset-dir --species 'Staphylococcus aureus'"
+    echo "bactopia prepare my-fastq-dir"
+    echo ""
+    exit
+fi
+
+if [[ "$1" == "pull" ]]; then
+    # Use Nextflow to pull Bactopia
+    nextflow pull bactopia/bactopia-ap
+elif [[ "$1" == "datasets" ]]; then
+    # Run setup-datasets
+    echo "setup-datasets ${@:3}"
+elif [[ "$1" == "prepare" ]]; then
+    # Run prepare-fofn
+    echo "prepare-fofn ${@:3}"
+elif [[ "$1" == "version" ]]; then
+    nextflow run bactopia/bactopia-ap --version
+else
+    # Execute Bactopia Nextflow pipeline
+    nextflow run bactopia/bactopia-ap
+fi

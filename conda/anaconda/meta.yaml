@@ -1,0 +1,46 @@
+{% set name = "bactopia" %}
+{% set version = "0.0.2" %}
+{% set sha256 = "f9458a1611bdf416bcd96a81abd1442a0be703c903bedbe5346e882c17555926" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+build:
+  number: 0
+
+source:
+  url: https://github.com/bactopia/bactopia-ap/archive/v{{version}}.tar.gz
+  sha256: {{ sha256 }}
+
+requirements:
+  run:
+    - appdirs >=1.4.3
+    - ariba 2.13.5 py36hf484d3e_0
+    - beautifulsoup4 4.7.1 py36_1001
+    - biopython 1.73 py36h14c3975_0
+    - blast 2.7.1 h4422958_6
+    - cd-hit 4.8.1 hdbcaa40_0
+    - executor >=21.3
+    - lxml >=4.3.3
+    - mash 2.1 hf69f6b5_1
+    - ncbi-genome-download >=0.2.9
+    - nextflow 19.04.0 hecc5488_0
+    - python 3.6.7 h381d211_1004
+    - unzip 6.0 0
+    - urllib3 >=1.25.2
+    - wget 1.20.1 h90d6eec_0
+
+
+test:
+  commands:
+    - "bactopia --help"
+    - "bactopia --version"
+    - "setup-datasets --version"
+    - "setup-datasets . --depends"
+
+about:
+  home: https://github.com/bactopia/bactopia-ap
+  license: MIT
+  license_file: LICENSE
+  summary: A generic pipeline for the analysis of short-read bacterial sequences.
