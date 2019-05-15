@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -241,8 +241,17 @@ process annotate_genome {
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
     proteins = PROKKA_PROTEINS ? "--proteins ${PROKKA_PROTEINS}" : ""
-    genus = PROKKA_PROTEINS ? params.species.split('-')[0].capitalize() : "Genus"
-    species = PROKKA_PROTEINS ? params.species.split('-')[1] : "species"
+    genus = "Genus"
+    species = "species"
+    if (PROKKA_PROTEINS) {
+        if (params.species.contains("-")) {
+            genus = params.species.split('-')[0].capitalize()
+            species = params.species.split('-')[1]
+        } else {
+            genus = params.species.capitalize()
+            species = "spp."
+        }
+    }
     addgenes = params.addgenes ? "--addgenes" : ""
     addmrna = params.addmrna ? "--addmrna" : ""
     rawproduct = params.rawproduct ? "--rawproduct" : ""
