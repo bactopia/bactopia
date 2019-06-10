@@ -241,8 +241,17 @@ process annotate_genome {
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
     proteins = PROKKA_PROTEINS ? "--proteins ${PROKKA_PROTEINS}" : ""
-    genus = PROKKA_PROTEINS ? params.species.split('-')[0].capitalize() : "Genus"
-    species = PROKKA_PROTEINS ? params.species.split('-')[1] : "species"
+    genus = "Genus"
+    species = "species"
+    if (PROKKA_PROTEINS) {
+        if (params.species.contains("-")) {
+            genus = params.species.split('-')[0].capitalize()
+            species = params.species.split('-')[1]
+        } else {
+            genus = params.species.capitalize()
+            species = "spp."
+        }
+    }
     addgenes = params.addgenes ? "--addgenes" : ""
     addmrna = params.addmrna ? "--addmrna" : ""
     rawproduct = params.rawproduct ? "--rawproduct" : ""
