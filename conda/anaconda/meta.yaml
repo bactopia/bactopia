@@ -1,6 +1,6 @@
 {% set name = "bactopia" %}
-{% set version = "0.0.2" %}
-{% set sha256 = "f9458a1611bdf416bcd96a81abd1442a0be703c903bedbe5346e882c17555926" %}
+{% set version = "0.0.4" %}
+{% set sha256 = "4a9f46d8957605162175f433a7e05643daf0a8822a0daad1442ac07473cda9f2" %}
 
 package:
   name: {{ name }}
