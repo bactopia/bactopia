@@ -59,10 +59,10 @@ if [[ "$1" == "pull" ]]; then
     nextflow pull bactopia/bactopia-ap
 elif [[ "$1" == "datasets" ]]; then
     # Run setup-datasets
-    bin/setup-datasets.py "${@:2}"
+    setup-datasets "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
     # Run prepare-fofn
-    bin/prepare-fofn.py "${@:2}"
+    prepare-fofn "${@:2}"
 elif [[ "$1" == "version" ]]; then
     nextflow run bactopia/bactopia-ap --version
 else
