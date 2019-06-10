@@ -452,7 +452,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             if include_genus:
                 genus = genus.split()[0]
             execute((f'ncbi-genome-download bacteria --genus "{genus}" '
-                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 20'
+                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
                      f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
 
             # Extract information from Genbank files
@@ -624,7 +624,7 @@ def setup_plsdb(outdir, keep_files=False, force=False):
     mash_file = os.path.basename(glob.glob(f'{plsdb_dir}/*.msh')[0])
     prefix = mash_file.replace('.msh', '')
     for plsdb_file in os.listdir(plsdb_dir):
-        if plsdb_file.startswith(prefix):
+        if plsdb_file.startswith(prefix) and prefix != 'plsdb':
             new_name = plsdb_file.replace(prefix, 'plsdb')
             execute(f'mv {plsdb_file} {new_name}', directory=plsdb_dir)
 

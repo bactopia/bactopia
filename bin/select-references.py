@@ -2,7 +2,8 @@
 """
 """
 PROGRAM = "select-references"
-VERSION = "0.0.1"
+VERSION = "1.0.0"
+
 if __name__ == '__main__':
     import argparse as ap
     from collections import defaultdict

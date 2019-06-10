@@ -21,6 +21,7 @@ requirements:
     - biopython 1.73 py36h14c3975_0
     - blast 2.7.1 h4422958_6
     - cd-hit 4.8.1 hdbcaa40_0
+    - conda >=4.5.12
     - executor >=21.3
     - lxml >=4.3.3
     - mash 2.1 hf69f6b5_1

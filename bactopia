@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# bactopia -
+# bactopia
 #
 # This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
 # been inspired by a similar wrapper in Will Rowe's DRAX pipeline
@@ -24,11 +24,11 @@
 # bactopia fofn --help
 # bactopia version
 # bactopia --help
+VERSION=0.0.4
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
-
-    echo "${PROGRAM} - v${VERSION}"
+    echo "bactopia - v${VERSION}"
     echo ""
     echo "Available Commands"
     echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia-ap GitHub repo"
@@ -59,13 +59,13 @@ if [[ "$1" == "pull" ]]; then
     nextflow pull bactopia/bactopia-ap
 elif [[ "$1" == "datasets" ]]; then
     # Run setup-datasets
-    echo "setup-datasets ${@:3}"
+    bin/setup-datasets.py "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
     # Run prepare-fofn
-    echo "prepare-fofn ${@:3}"
+    bin/prepare-fofn.py "${@:2}"
 elif [[ "$1" == "version" ]]; then
     nextflow run bactopia/bactopia-ap --version
 else
     # Execute Bactopia Nextflow pipeline
-    nextflow run bactopia/bactopia-ap
+    nextflow run bactopia/bactopia-ap "${@:1}"
 fi
