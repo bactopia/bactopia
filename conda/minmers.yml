@@ -1,4 +1,4 @@
-name: minmers_env
+name: bactopia-minmers
 channels:
   - conda-forge
   - bioconda

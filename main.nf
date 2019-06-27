@@ -36,7 +36,7 @@ BLAST_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = null
-REFSEQ_SKETCH = null
+REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.dataset) {
@@ -44,8 +44,8 @@ if (params.dataset) {
     if (file("/${dataset_path}/summary.json").exists() == false) {
         dataset_path = get_canonical_path(params.dataset)
     }
-    available_datasets = read_dataset_summary(dataset_path)
 
+    available_datasets = read_dataset_summary(dataset_path)
     available_datasets['ariba'].each {
         ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
     }
@@ -70,6 +70,7 @@ if (params.dataset) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
                 log.info "\t${PROKKA_PROTEINS}"
+                println file(prokka).getParent()
             }
 
             refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
@@ -139,6 +140,10 @@ if (params.dataset) {
     log.info "\tcall_variants"
     log.info "\tinsertion_sequence_query"
     log.info "\tprimer_query"
+}
+
+if (params.disable_auto_variants) {
+    REFSEQ_SKETCH_FOUND = false
 }
 
 
@@ -396,7 +401,7 @@ process download_references {
     file("mash-dist.txt")
 
     when:
-    REFSEQ_SKETCH_FOUND == true && params.disable_auto_variants == false
+    REFSEQ_SKETCH_FOUND == true
 
     shell:
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
@@ -447,7 +452,7 @@ process call_variants_auto {
     file("${reference_name}/*")
 
     when:
-    REFSEQ_SKETCH_FOUND == true && params.disable_auto_variants == false
+    REFSEQ_SKETCH_FOUND == true
 
     shell:
     reference_name = reference.getSimpleName()

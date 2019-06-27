@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 set -u
+
 OUTPUT="genome-size.txt"
 
 if [ "!{params.genome_size}" == "null" ]; then
