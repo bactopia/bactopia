@@ -35,7 +35,7 @@ PRIMERS = []
 BLAST_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
-PROKKA_PROTEINS = null
+PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
@@ -47,10 +47,12 @@ if (params.dataset) {
     }
     */
     available_datasets = read_dataset_summary(dataset_path)
+    /*
     available_datasets['ariba'].each {
         ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
     }
     print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
+    */
 
     available_datasets['minmer']['sketches'].each {
         MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
@@ -71,7 +73,6 @@ if (params.dataset) {
                 PROKKA_PROTEINS = file(prokka)
                 log.info "Found Prokka proteins file"
                 log.info "\t${PROKKA_PROTEINS}"
-                println file(prokka).getParent()
             }
 
             refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
@@ -82,6 +83,7 @@ if (params.dataset) {
                 log.info "\t${REFSEQ_SKETCH}"
             }
 
+            /*
             species_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${dataset_path}/${val}").exists()) {
@@ -90,6 +92,7 @@ if (params.dataset) {
                 }
             }
             print_dataset_info(MLST_DATABASES, "MLST datasets")
+            */
 
             file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
                 REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
@@ -164,25 +167,6 @@ process estimate_genome_size {
     template(task.ext.template)
 }
 
-process qc_original_summary {
-    /* Run FASTQC on the input FASTQ files. */
-    cpus cpus
-    tag "${sample}"
-    publishDir "${outdir}/${sample}/quality-control/summary", mode: 'copy', overwrite: true, pattern: '*.{html,json,zip}'
-
-    input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
-    file(genome_size_file) from GS_QC_ORIGINAL
-
-    output:
-    file '*.json'
-    file '*fastqc.html'
-    file '*fastqc.zip'
-
-    shell:
-    template(task.ext.template)
-}
-
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     cpus cpus
@@ -207,20 +191,36 @@ process qc_reads {
     template(task.ext.template)
 }
 
+
+process qc_original_summary {
+    /* Run FASTQC on the input FASTQ files. */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    file(genome_size_file) from GS_QC_ORIGINAL
+
+    output:
+    file "quality-control/*"
+
+    shell:
+    template(task.ext.template)
+}
+
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     cpus cpus
     tag "${sample}"
-    publishDir "${outdir}/${sample}/quality-control/summary", mode: 'copy', overwrite: true, pattern: '*.{html,json,zip}'
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from QC_FINAL_SUMMARY
     file(genome_size_file) from GS_QC_FINAL
 
     output:
-    file '*.json'
-    file '*fastqc.html'
-    file '*fastqc.zip'
+    file "quality-control/*"
 
     shell:
     template(task.ext.template)
@@ -277,6 +277,7 @@ process annotate_genome {
 
     input:
     set val(sample), file(fasta) from ANNOTATION
+    file prokka_proteins from PROKKA_PROTEINS
 
     output:
     file 'annotation/*'
@@ -285,7 +286,7 @@ process annotate_genome {
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
-    proteins = PROKKA_PROTEINS ? "--proteins ${PROKKA_PROTEINS}" : ""
+    proteins = prokka_proteins != 'EMPTY' ? "--proteins ${prokka_proteins}" : ""
     genus = "Genus"
     species = "species"
     if (PROKKA_PROTEINS) {
@@ -336,7 +337,7 @@ process sequence_type {
     input:
     set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
     file(assembly) from SEQUENCE_TYPE_ASSEMBLY
-    each dataset from MLST_DATABASES
+    each file(dataset) from MLST_DATABASES
 
     when:
     dataset =~ /.*blast.*/ || (dataset =~ /.*ariba.*/ && single_end == false)
@@ -355,13 +356,13 @@ process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     cpus { task.attempt > 1 ? 1 : cpus }
     errorStrategy 'retry'
-    maxRetries 5
+    maxRetries 1
     tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
-    each dataset from ARIBA_DATABASES
+    each file(dataset) from ARIBA_DATABASES
 
     output:
     file "${dataset_name}/*"

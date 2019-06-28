@@ -104,7 +104,6 @@ else
         ordered=t \
         stats=quality-control/logs/bbduk-phix.log
 
-
     # Error Correction
     if [ "!{params.skip_error_correction}" == "false" ]; then
         lighter -od . -r phix-r1.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}

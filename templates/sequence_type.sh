@@ -4,7 +4,7 @@ set -u
 
 if [ "!{method}" == "blast" ]; then
     mkdir -p blast
-    !{baseDir}/bin/mlst-blast.py !{assembly} !{dataset} blast/!{sample}-blast.json \
+    mlst-blast.py !{assembly} !{dataset} blast/!{sample}-blast.json \
         --cpu !{task.cpus} --compressed
 elif [ "!{method}" == "ariba" ]; then
     ariba run !{dataset} !{fq[0]} !{fq[1]} ariba \

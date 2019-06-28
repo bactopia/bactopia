@@ -1,5 +1,6 @@
 /datasets/
 /conda/cache
+/configs/aws.config
 
 
 # Byte-compiled / optimized / DLL files

@@ -6,7 +6,7 @@ set -u
 mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 3,3 > mash-dist.txt
 
 # Pick genomes to download
-!{baseDir}/bin/select-references.py mash-dist.txt !{total} !{tie_break} > accession-list.txt
+select-references.py mash-dist.txt !{total} !{tie_break} > accession-list.txt
 
 # Download genomes
 ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A accession-list.txt -r 20
