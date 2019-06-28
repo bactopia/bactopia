@@ -41,10 +41,11 @@ REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
 if (params.dataset) {
     dataset_path = params.dataset
+    /*
     if (file("/${dataset_path}/summary.json").exists() == false) {
         dataset_path = get_canonical_path(params.dataset)
     }
-
+    */
     available_datasets = read_dataset_summary(dataset_path)
     available_datasets['ariba'].each {
         ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
@@ -157,12 +158,30 @@ process estimate_genome_size {
     set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
 
     output:
-    file "genome-size.txt" into GS_QC_READS, GS_ASSEMBLY
+    file "genome-size.txt" into GS_QC_READS, GS_QC_ORIGINAL, GS_QC_FINAL, GS_ASSEMBLY
 
     shell:
     template(task.ext.template)
 }
 
+process qc_original_summary {
+    /* Run FASTQC on the input FASTQ files. */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/quality-control/summary", mode: 'copy', overwrite: true, pattern: '*.{html,json,zip}'
+
+    input:
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    file(genome_size_file) from GS_QC_ORIGINAL
+
+    output:
+    file '*.json'
+    file '*fastqc.html'
+    file '*fastqc.zip'
+
+    shell:
+    template(task.ext.template)
+}
 
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
@@ -179,10 +198,31 @@ process qc_reads {
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
                                                          ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
-                                                         INSERTION_SEQUENCES, CALL_VARIANTS, CALL_VARIANTS_AUTO, MAPPING_QUERY
+                                                         INSERTION_SEQUENCES, CALL_VARIANTS, CALL_VARIANTS_AUTO,
+                                                         MAPPING_QUERY, QC_FINAL_SUMMARY
 
     shell:
-    fq2 = single_end == true ? "" : fq[1]
+    adapters = params.adapters ? file(params.adapters) : 'adapters'
+    phix = params.phix ? file(params.phix) : 'phix'
+    template(task.ext.template)
+}
+
+process qc_final_summary {
+    /* Run FASTQC on the cleaned up FASTQ files. */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/quality-control/summary", mode: 'copy', overwrite: true, pattern: '*.{html,json,zip}'
+
+    input:
+    set val(sample), val(single_end), file(fq) from QC_FINAL_SUMMARY
+    file(genome_size_file) from GS_QC_FINAL
+
+    output:
+    file '*.json'
+    file '*fastqc.html'
+    file '*fastqc.zip'
+
+    shell:
     template(task.ext.template)
 }
 
