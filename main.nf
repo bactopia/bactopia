@@ -272,9 +272,9 @@ process assemble_genome {
 
     output:
     file "shovill*"
-    file "${sample}.fna.gz" into SEQUENCE_TYPE_ASSEMBLY
-    file "${sample}.fna.json"
-    set val(sample), file("${sample}.fna.gz") into ANNOTATION, MAKE_BLASTDB
+    file "${sample}.fna.gz" optional true into SEQUENCE_TYPE_ASSEMBLY
+    file "${sample}.fna.json" optional true
+    set val(sample), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
 
     shell:
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
@@ -314,8 +314,8 @@ process annotate_genome {
 
     output:
     file 'annotation/*'
-    file 'annotation/*.gbk.gz' into INSERTION_GENBANK
-    set val(sample), file("annotation/*.ffn.gz") into PLASMID_BLAST
+    file 'annotation/*.gbk.gz' optional true into INSERTION_GENBANK
+    set val(sample), file("annotation/*.ffn.gz") optional true into PLASMID_BLAST
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')

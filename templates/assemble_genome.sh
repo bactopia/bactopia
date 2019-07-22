@@ -31,6 +31,11 @@ else
         --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
 fi
 
-mv contigs.fa !{sample}.fna
-assembly-scan !{sample}.fna > !{sample}.fna.json
-gzip !{sample}.fna
+TOTAL_CONTIGS=`grep -c "^>" contigs.fa || true`
+if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
+    mv contigs.fa !{sample}.fna
+    assembly-scan !{sample}.fna > !{sample}.fna.json
+    gzip !{sample}.fna
+else
+    echo "Assembly was successful, but 0 contigs were formed." > shovill-zero-contigs.txt
+fi
