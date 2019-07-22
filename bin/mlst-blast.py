@@ -81,23 +81,25 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
         top_hits = []
         not_first = False
         for hit in blastn[0].decode("utf-8").split('\n'):
-            cols = hit.split('\t')
-            if int(cols[1]) > max_bitscore and not_first:
-                max_bitscore = int(cols[1])
+            if hit:
+                cols = hit.split('\t')
+                if len(cols) > 1:
+                    if float(cols[1]) > max_bitscore and not_first:
+                        max_bitscore = float(cols[1])
 
-            if cols[2] == cols[3] and cols[2] == cols[4]:
-                # perfect match
-                cols.append('perfect_match')
-                top_hits.append(cols)
-                break
-            else:
-                if int(cols[1]) == max_bitscore:
-                    cols.append(
-                        'has_snps' if cols[2] == cols[3] else 'partial'
-                    )
-                    top_hits.append(cols)
-                else:
-                    break
+                    if cols[2] == cols[3] and cols[2] == cols[4]:
+                        # perfect match
+                        cols.append('perfect_match')
+                        top_hits.append(cols)
+                        break
+                    else:
+                        if float(cols[1]) == max_bitscore:
+                            cols.append(
+                                'has_snps' if cols[2] == cols[3] else 'partial'
+                            )
+                            top_hits.append(cols)
+                        else:
+                            break
 
         top_hit = []
         if not top_hits:

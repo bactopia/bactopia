@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -47,12 +47,12 @@ if (params.dataset) {
     }
     */
     available_datasets = read_dataset_summary(dataset_path)
-    /*
+
     available_datasets['ariba'].each {
         ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
     }
     print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
-    */
+
 
     available_datasets['minmer']['sketches'].each {
         MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
@@ -83,7 +83,6 @@ if (params.dataset) {
                 log.info "\t${REFSEQ_SKETCH}"
             }
 
-            /*
             species_db['mlst'].each { key, val ->
                 if (key != "last_updated") {
                     if (file("${dataset_path}/${val}").exists()) {
@@ -92,7 +91,6 @@ if (params.dataset) {
                 }
             }
             print_dataset_info(MLST_DATABASES, "MLST datasets")
-            */
 
             file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
                 REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
@@ -151,6 +149,41 @@ if (params.disable_auto_variants) {
 }
 
 
+process gather_fastqs {
+    /* Gather up input FASTQs for analysis. */
+    cpus 1
+    errorStrategy 'retry'
+    maxRetries 20
+    maxForks 1
+
+    input:
+    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+
+    output:
+    set val(sample), val(single_end),
+        file("fastqs/${sample}*.fastq.gz") into FASTQ_PE_STATUS
+
+    shell:
+    template(task.ext.template)
+}
+
+process fastq_pe_status {
+    /* Determine if FASTQs are paired or single-end. */
+    cpus 1
+
+    input:
+    set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
+
+    output:
+    set val(sample), val(single_end), file(fq) into ESTIMATE_GENOME_SIZE, QC_READS, QC_ORIGINAL_SUMMARY
+
+    shell:
+    single_end = fq.size() == 1 ? true : false
+    """
+    true
+    """
+}
+
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     cpus cpus
@@ -158,7 +191,7 @@ process estimate_genome_size {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
     file "genome-size.txt" into GS_QC_READS, GS_QC_ORIGINAL, GS_QC_FINAL, GS_ASSEMBLY
@@ -174,7 +207,7 @@ process qc_reads {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    set val(sample), val(single_end), file(fq) from QC_READS
     file(genome_size_file) from GS_QC_READS
 
     output:
@@ -199,7 +232,7 @@ process qc_original_summary {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    set val(sample), val(single_end), file(fq) from QC_ORIGINAL_SUMMARY
     file(genome_size_file) from GS_QC_ORIGINAL
 
     output:
@@ -346,7 +379,9 @@ process sequence_type {
     file "${method}/*"
 
     shell:
-    method = dataset =~ /.*blast.*/ ? 'blast' : 'ariba'
+    method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
+    dataset_tarball = file(dataset).getName()
+    dataset_name = dataset_tarball.replace('.tar.gz', '')
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
@@ -356,7 +391,7 @@ process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     cpus { task.attempt > 1 ? 1 : cpus }
     errorStrategy 'retry'
-    maxRetries 1
+    maxRetries 5
     tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
@@ -371,7 +406,8 @@ process ariba_analysis {
     single_end == false
 
     shell:
-    dataset_name = file(dataset).getName()
+    dataset_tarball = file(dataset).getName()
+    dataset_name = dataset_tarball.replace('.tar.gz', '')
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
@@ -425,32 +461,6 @@ process minmer_query {
 }
 
 
-process download_references {
-    /*
-    Download the nearest RefSeq genomes (based on Mash) to have variants called against.
-    */
-    cpus cpus
-    tag "${sample} - ${params.max_references} reference(s)"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
-
-    input:
-    set val(sample), file(sample_sketch) from DOWNLOAD_REFERENCES
-    file(refseq_sketch) from REFSEQ_SKETCH
-
-    output:
-    file("genbank/*.gbk") into REFERENCES_AUTO
-    file("mash-dist.txt")
-
-    when:
-    REFSEQ_SKETCH_FOUND == true
-
-    shell:
-    tie_break = params.random_tie_break ? "--random_tie_break" : ""
-    total = params.max_references
-    template(task.ext.template)
-}
-
-
 process call_variants {
     /*
     Identify variants (SNPs/InDels) against a set of reference genomes
@@ -476,6 +486,32 @@ process call_variants {
 }
 
 
+process download_references {
+    /*
+    Download the nearest RefSeq genomes (based on Mash) to have variants called against.
+    */
+    cpus cpus
+    tag "${sample} - ${params.max_references} reference(s)"
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
+
+    input:
+    set val(sample), file(sample_sketch) from DOWNLOAD_REFERENCES
+    file(refseq_sketch) from REFSEQ_SKETCH
+
+    output:
+    set val(sample), file("genbank/*.gbk") into REFERENCES_AUTO
+    file("mash-dist.txt")
+
+    when:
+    REFSEQ_SKETCH_FOUND == true
+
+    shell:
+    tie_break = params.random_tie_break ? "--random_tie_break" : ""
+    total = params.max_references
+    template(task.ext.template)
+}
+
+
 process call_variants_auto {
     /*
     Identify variants (SNPs/InDels) against one or more reference genomes selected based
@@ -493,7 +529,7 @@ process call_variants_auto {
     file("${reference_name}/*")
 
     when:
-    REFSEQ_SKETCH_FOUND == true
+    REFSEQ_SKETCH_FOUND == true && reference.getSimpleName().contains(sample)
 
     shell:
     reference_name = reference.getSimpleName()
@@ -811,6 +847,11 @@ def check_input_params() {
     } else if (params.SE && params.sample) {
         error += file_exists(params.SE, '--SE')
         fastq_type = "single"
+    } else if (params.accessions) {
+        error += file_exists(params.accessions, '--accessions')
+        fastq_type = "ena_accessions"
+    }else if (params.accession) {
+        fastq_type = "ena_accession"
     } else {
         log.error """
         One or more required parameters are missing, please check and try again.
@@ -833,7 +874,6 @@ def check_input_params() {
         """.stripIndent()
         error += 1
     }
-
 
     error += is_positive_integer(params.max_cpus, 'max_cpus')
     error += is_positive_integer(params.cpus, 'cpus')
@@ -871,12 +911,23 @@ def process_csv(line) {
     }
 }
 
+def process_accessions(accession) {
+    /* Parse line and determine if single end or paired reads*/
+    return tuple(accession.trim(), "is_accession", [null, null])
+}
+
 
 def create_fastq_channel(fastq_input, fastq_type) {
     if (fastq_type == "fastqs") {
         return Channel.fromPath( file(fastq_input) )
             .splitCsv(header: true, sep: '\t')
             .map { row -> process_csv(row) }
+    } else if (fastq_type == "ena_accessions") {
+        return Channel.fromPath( file(params.accessions) )
+            .splitText()
+            .map { line -> process_accessions(line) }
+    } else if (fastq_type == "ena_accession") {
+        return [tuple(params.accession, "is_accession", [null, null])]
     } else if (fastq_type == "paired") {
         return [tuple(params.sample, false, [file(params.R1), file(params.R2)])]
     } else {
@@ -1000,6 +1051,13 @@ def basic_help() {
         --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
         --sample STR            The name of the input sequences
+
+        ### For Downloading from ENA
+        --accessions            An input file containing ENA/SRA experiement accessions to
+                                    be processed
+
+        --accession             A single ENA/SRA Experiment accession to be processed
+
 
     Dataset Parameters:
         --datasets DIR          The path to available datasets that have

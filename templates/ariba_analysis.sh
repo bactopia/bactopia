@@ -2,7 +2,10 @@
 set -e
 set -u
 
-ariba run !{dataset} !{fq} !{dataset_name} \
+tar -xzvf !{dataset_tarball}
+mv !{dataset_name} !{dataset_name}db
+
+ariba run !{dataset_name}db !{fq} !{dataset_name} \
         --nucmer_min_id !{params.nucmer_min_id} \
         --nucmer_min_len !{params.nucmer_min_len} \
         --nucmer_breaklen !{params.nucmer_breaklen} \
@@ -19,4 +22,6 @@ ariba run !{dataset} !{fq} !{dataset_name} \
 ariba summary !{dataset_name}/summary !{dataset_name}/report.tsv \
       --cluster_cols assembled,match,known_var,pct_id,ctg_cov,novel_var \
       --col_filter n --row_filter n
+
 rm -rf ariba.tmp*
+

@@ -19,5 +19,5 @@ ls refseq/bacteria/ | \
 # Copy the largest segment for each split Genbank (assumes completed genomes)
 mkdir genbank
 ls refseq/bacteria/ | \
-    xargs -I {} sh -c 'ls -l -S refseq/split/{}-* | head -n 1 | awk "{print \$9\" genbank/{}.gbk\"}"' | \
+    xargs -I {} sh -c 'ls -l -S refseq/split/{}-* | head -n 1 | awk "{print \$9\" genbank/!{sample}-{}.gbk\"}"' | \
     xargs -I {} sh -c 'cp {}'

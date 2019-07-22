@@ -288,7 +288,7 @@ def setup_ariba(request, available_datasets, outdir, force=False,
         ariba_dir = f'{outdir}/ariba'
         for request in requests:
             prefix = f'{ariba_dir}/{request}'
-            if os.path.exists(prefix):
+            if os.path.exists(f'{prefix}-updated.txt'):
                 if force:
                     logging.info(f'--force, removing existing {request} setup')
                     execute(f'rm -rf {prefix}*')
@@ -311,13 +311,16 @@ def setup_ariba(request, available_datasets, outdir, force=False,
                     directory=ariba_dir
                 )
             execute(f'ariba prepareref -f {fa} -m {tsv} {prefix}')
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {request}-updated.txt',
-                    directory=prefix)
 
             # Clean up
             if not keep_files:
                 execute(f'rm {fa} {tsv}')
             execute(f'mv {request}*.* {request}/', directory=ariba_dir)
+            execute(f'tar -zcvf {request}.tar.gz {request}/',
+                    directory=ariba_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {request}-updated.txt',
+                    directory=ariba_dir)
+            execute(f'rm -rf {request}', directory=ariba_dir)
     else:
         logging.info("No valid Ariba datasets to setup, skipping")
 
@@ -355,11 +358,17 @@ def setup_mlst(request, available_datasets, outdir, force=False):
 
             # BLAST
             logging.info(f'Creating BLAST MLST dataset')
-            blast_dir = f'{mlst_dir}/blast'
+            blast_dir = f'{mlst_dir}/blastdb'
             for fasta in glob.glob(f'{ariba_dir}/pubmlst_download/*.tfa'):
                 output = os.path.splitext(fasta)[0]
                 execute(f'makeblastdb -in {fasta} -dbtype nucl -out {output}')
             execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
+
+            # Tarball directories
+            execute(f'tar -zcvf ariba.tar.gz ariba/', directory=mlst_dir)
+            execute(f'rm -rf {ariba_dir}')
+            execute(f'tar -zcvf blastdb.tar.gz blastdb/', directory=mlst_dir)
+            execute(f'rm -rf {blast_dir}')
 
             # MentaLiST
             """
@@ -384,15 +393,16 @@ def process_cds(cds):
     qualifiers = cds.keys()
     ec_number = ''
     gene = ''
-    product = cds['product'][0]
-    is_pseudo = ('pseudo' in qualifiers)
+    product = ''
+    is_pseudo = ('pseudo' in qualifiers or 'pseudogene' in qualifiers)
     is_hypothetical = (product.lower() == "hypothetical protein")
     if not is_pseudo and not is_hypothetical:
         if 'ec_number' in qualifiers:
             ec_number = cds['ec_number'][0]
         if 'gene' in qualifiers:
             gene = cds['gene'][0]
-
+        if 'product' in qualifiers:
+            product = cds['product'][0]
         if 'protein_id' in qualifiers:
             protein_id = cds['protein_id'][0]
         elif 'locus_tag' in qualifiers:
@@ -400,6 +410,7 @@ def process_cds(cds):
 
         header = f'>{protein_id} {ec_number}~~~{gene}~~~{product}'
         seq = cds['translation'][0]
+
 
     return [header, seq]
 
@@ -677,25 +688,29 @@ def create_summary(outdir):
     available_datasets = OrderedDict()
 
     # Ariba
-    available_datasets['ariba'] = []
-    for db in sorted(os.listdir(f'{outdir}/ariba')):
-        available_datasets['ariba'].append({
-            'name': db,
-            'last_update': execute(
-                f'head -n 1 {outdir}/ariba/{db}/{db}-updated.txt', capture=True
-            ).rstrip()
-        })
+    if os.path.exists(f'{outdir}/ariba'):
+        available_datasets['ariba'] = []
+        for db in sorted(os.listdir(f'{outdir}/ariba')):
+            if db.endswith(".tar.gz"):
+                name = db.replace(".tar.gz", "")
+                available_datasets['ariba'].append({
+                    'name': db,
+                    'last_update': execute(
+                        f'head -n 1 {outdir}/ariba/{name}-updated.txt', capture=True
+                    ).rstrip()
+                })
 
     # Minmers
-    available_datasets['minmer'] = {
-        'sketches': [],
-        'last_update': execute(
-            f'head -n 1 {outdir}/minmer/minmer-updated.txt', capture=True
-        ).rstrip()
-    }
-    for sketch in sorted(os.listdir(f'{outdir}/minmer')):
-        if sketch != 'minmer-updated.txt':
-            available_datasets['minmer']['sketches'].append(sketch)
+    if os.path.exists(f'{outdir}/minmer/minmer-updated.txt'):
+        available_datasets['minmer'] = {
+            'sketches': [],
+            'last_update': execute(
+                f'head -n 1 {outdir}/minmer/minmer-updated.txt', capture=True
+            ).rstrip()
+        }
+        for sketch in sorted(os.listdir(f'{outdir}/minmer')):
+            if sketch != 'minmer-updated.txt':
+                available_datasets['minmer']['sketches'].append(sketch)
 
     # PLSDB (plasmids)
     if os.path.exists(f'{outdir}/plasmid/plsdb-updated.txt'):
@@ -741,10 +756,10 @@ def create_summary(outdir):
                     new_species['genome_size'] = json_data
 
             mlst = f'{species_dir}/mlst'
-            if os.path.exists(f'{mlst}/ariba/ref_db/00.auto_metadata.tsv'):
+            if os.path.exists(f'{mlst}/ariba.tar.gz'):
                 new_species['mlst'] = {
-                    'ariba': f'species-specific/{species}/mlst/ariba/ref_db',
-                    'blast': f'species-specific/{species}/mlst/blast',
+                    'ariba': f'species-specific/{species}/mlst/ariba.tar.gz',
+                    'blast': f'species-specific/{species}/mlst/blastdb.tar.gz',
                     'last_updated': execute(
                         f'head -n 1 {mlst}/mlst-updated.txt', capture=True
                     ).rstrip()

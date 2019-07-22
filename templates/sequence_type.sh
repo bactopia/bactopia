@@ -2,12 +2,15 @@
 set -e
 set -u
 
+tar -xzvf !{dataset_tarball}
+
 if [ "!{method}" == "blast" ]; then
     mkdir -p blast
-    mlst-blast.py !{assembly} !{dataset} blast/!{sample}-blast.json \
+    mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
         --cpu !{task.cpus} --compressed
 elif [ "!{method}" == "ariba" ]; then
-    ariba run !{dataset} !{fq[0]} !{fq[1]} ariba \
+    mv !{dataset_name}/ref_db ./
+    ariba run ref_db !{fq[0]} !{fq[1]} ariba \
         --nucmer_min_id !{params.nucmer_min_id} \
         --nucmer_min_len !{params.nucmer_min_len} \
         --nucmer_breaklen !{params.nucmer_breaklen} \
