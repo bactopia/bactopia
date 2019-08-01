@@ -391,7 +391,8 @@ process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     cpus { task.attempt > 1 ? 1 : cpus }
     errorStrategy 'retry'
-    maxRetries 5
+    maxRetries 20
+    validExitStatus 0,1
     tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
 
@@ -596,7 +597,7 @@ process blast_query {
     /*
     Query a FASTA files against annotated assembly using BLAST
     */
-
+    maxRetries 5
     cpus cpus
     tag "${sample} - ${query.getName()}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true

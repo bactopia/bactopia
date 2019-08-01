@@ -8,7 +8,7 @@ RUN conda env create -f annotate_genome.yml && conda clean -a
 ENV PATH /opt/conda/envs/bactopia-annotate_genome/bin:$PATH
 
 RUN cd /tmp/ && \
-    wget --quiet ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/linux64.tbl2asn.gz && \
+    curl -s -o linux64.tbl2asn.gz ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/linux64.tbl2asn.gz && \
     gunzip linux64.tbl2asn.gz && \
     chmod 775 linux64.tbl2asn && \
     mv linux64.tbl2asn /opt/conda/envs/bactopia-annotate_genome/bin/tbl2asn
