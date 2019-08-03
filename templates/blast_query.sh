@@ -3,38 +3,37 @@ set -e
 set -u
 
 type=`readlink -f !{query}`
+file_size=`stat --printf="%s" !{query}`
+block_size=$(( file_size / !{task.cpus} / 2 ))
 if [[ ${type} == *"blast/primers"* ]]; then
     mkdir -p blast/primers
-    echo "#outfmt:!{params.outfmt}" > blast/primers/!{query_name}.txt
+    cat !{query} |
+    parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
     blastn -db !{sample} \
-           -query !{query} \
+           -outfmt 15 \
            -dust no \
            -word_size 7 \
-           -perc_identity 100 \
+           -perc_identity !{params.perc_identity} \
            -evalue 1 \
-           -num_threads !{task.cpus} \
-           -outfmt '!{params.outfmt}' >> blast/primers/!{query_name}.txt
-    #pigz --best -n -p !{task.cpus} blast/primers/!{query_name}.txt
+           -query - > blast/primers/!{query_name}.json
 elif [[ ${type} == *"blast/proteins"* ]]; then
     mkdir -p blast/proteins
-    echo "#outfmt:!{params.outfmt}" > blast/proteins/!{query_name}.txt
+    cat !{query} |
+    parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
     tblastn -db !{sample} \
-            -query !{query} \
+            -outfmt 15 \
             -evalue 0.0001 \
-            -num_threads !{task.cpus} \
-            -outfmt '!{params.outfmt}' \
-            -qcov_hsp_perc !{params.qcov_hsp_perc} >> blast/proteins/!{query_name}.txt
-    #pigz --best -n -p !{task.cpus} blast/proteins/!{query_name}.txt
+            -qcov_hsp_perc !{params.qcov_hsp_perc} \
+            -query - > blast/proteins/!{query_name}.json
 else
     mkdir -p blast/genes
-    echo "#outfmt:!{params.outfmt}" > blast/genes/!{query_name}.txt
+    cat !{query} |
+    parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
     blastn -db !{sample} \
-           -query !{query} \
+           -outfmt 15 \
            -task blastn \
-           -num_threads !{task.cpus} \
            -evalue 1 \
            -perc_identity !{params.perc_identity} \
            -qcov_hsp_perc !{params.qcov_hsp_perc} \
-           -outfmt '!{params.outfmt}' >> blast/genes/!{query_name}.txt
-    #pigz --best -n -p !{task.cpus} blast/genes/!{query_name}.txt
+           -query - > blast/genes/!{query_name}.json
 fi

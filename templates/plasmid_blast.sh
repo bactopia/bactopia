@@ -2,14 +2,15 @@
 set -e
 set -u
 
-echo "#outfmt:!{params.outfmt}" > !{sample}-plsdb.txt
+file_size=`gzip -dc !{genes} | wc -c`
+block_size=$(( file_size / !{task.cpus} / 2 ))
 zcat !{genes} | \
+parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
 blastn -db !{blastdb} \
-       -outfmt '!{params.outfmt}' \
+       -outfmt 15 \
        -task blastn \
        -evalue 1 \
-       -num_threads !{task.cpus} \
        -max_target_seqs !{params.max_target_seqs} \
        -perc_identity !{params.perc_identity} \
-       -qcov_hsp_perc !{params.qcov_hsp_perc} >> !{sample}-plsdb.txt \
-#pigz --best -n -p !{task.cpus} !{sample}-plsdb.txt
+       -qcov_hsp_perc !{params.qcov_hsp_perc} \
+       -query - > !{sample}-plsdb.json

@@ -582,7 +582,7 @@ process plasmid_blast {
     file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
 
     output:
-    file("${sample}-plsdb.txt")
+    file("${sample}-plsdb.json")
 
     when:
     PLASMID_BLASTDB.isEmpty() == false
