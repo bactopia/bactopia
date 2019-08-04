@@ -186,7 +186,7 @@ process fastq_pe_status {
 
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
-    cpus cpus
+    cpus 1
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
@@ -227,7 +227,7 @@ process qc_reads {
 
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
-    cpus cpus
+    cpus Math.round(cpus * 0.5)
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
@@ -244,7 +244,7 @@ process qc_original_summary {
 
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
-    cpus cpus
+    cpus Math.round(cpus * 0.5)
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
@@ -262,7 +262,7 @@ process qc_final_summary {
 
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
-    cpus cpus
+    cpus Math.round(cpus * 0.75)
     tag "${sample}"
     publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
 
@@ -287,7 +287,7 @@ process assemble_genome {
 
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
-    cpus cpus
+    cpus 1
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
@@ -346,6 +346,8 @@ process count_31mers {
     /* Count 31mers in the reads using McCortex */
     cpus cpus
     tag "${sample}"
+    maxRetries 2
+    errorStrategy 'retry'
     publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
 
     input:
@@ -355,13 +357,14 @@ process count_31mers {
     file "${sample}.ctx"
 
     shell:
+    max_memory = 4000 * task.attempt
     template(task.ext.template)
 }
 
 
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
-    cpus { task.attempt > 1 ? 1 : cpus }
+    cpus 1
     errorStrategy 'retry'
     maxRetries 5
     tag "${sample} - ${method}"
@@ -389,7 +392,7 @@ process sequence_type {
 
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
-    cpus { task.attempt > 1 ? 1 : cpus }
+    cpus { task.attempt > 1 ? 1 : Math.round(cpus * 0.75) }
     errorStrategy 'retry'
     maxRetries 20
     validExitStatus 0,1
@@ -467,7 +470,7 @@ process call_variants {
     Identify variants (SNPs/InDels) against a set of reference genomes
     using Snippy.
     */
-    cpus cpus
+    cpus Math.round(cpus * 0.75)
     tag "${sample} - ${reference_name}"
     publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: true
 
@@ -491,7 +494,7 @@ process download_references {
     /*
     Download the nearest RefSeq genomes (based on Mash) to have variants called against.
     */
-    cpus cpus
+    cpus 1
     tag "${sample} - ${params.max_references} reference(s)"
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
 
@@ -518,7 +521,7 @@ process call_variants_auto {
     Identify variants (SNPs/InDels) against one or more reference genomes selected based
     on their Mash distance from the input.
     */
-    cpus cpus
+    cpus Math.round(cpus * 0.75)
     tag "${sample} - ${reference_name}"
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
 
@@ -546,7 +549,7 @@ process insertion_sequences {
     Query a set of insertion sequences (FASTA) against annotated GenBank file
     using ISMapper.
     */
-    cpus cpus
+    cpus Math.round(cpus * 0.5)
     tag "${sample} - ${insertion_name}"
     publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: true
 
@@ -598,7 +601,7 @@ process blast_query {
     Query a FASTA files against annotated assembly using BLAST
     */
     maxRetries 5
-    cpus cpus
+    cpus Math.round(cpus * 0.75)
     tag "${sample} - ${query.getName()}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 

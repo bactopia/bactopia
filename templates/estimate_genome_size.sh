@@ -7,9 +7,15 @@ OUTPUT="genome-size.txt"
 if [ "!{params.genome_size}" == "null" ]; then
     # Use mash to estimate the genome size, if a genome size cannot be
     # estimated set the genome size to 0
-    mash sketch -o test -k 31 -m 3 !{fq[0]} 2>&1 | \
-        grep "Estimated genome size:" | \
-        awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+    if [ "!{single_end}" == "false" ]; then
+        mash sketch -o test -k 31 -m 3 -r !{fq[0]} !{fq[1]} 2>&1 | \
+            grep "Estimated genome size:" | \
+            awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+    else
+        mash sketch -o test -k 31 -m 3 !{fq[0]} 2>&1 | \
+            grep "Estimated genome size:" | \
+            awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+    fi
     rm test.msh
 elif [ "!{params.genome_size}" == "min" ]; then
     # Use the minimum genome size based on completed RefSeq genomes
