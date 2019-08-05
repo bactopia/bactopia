@@ -128,3 +128,8 @@ else
     # Compress
     pigz -p !{task.cpus} -c -n subsample-r1.fq > quality-control/!{sample}.fastq.gz
 fi
+
+if [ "!{params.keep_all_files}" == "false" ]; then
+    # Remove intermediate FASTQ files
+    rm *.fq
+fi

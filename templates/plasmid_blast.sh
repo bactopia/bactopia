@@ -13,4 +13,6 @@ blastn -db !{blastdb} \
        -max_target_seqs !{params.max_target_seqs} \
        -perc_identity !{params.perc_identity} \
        -qcov_hsp_perc !{params.qcov_hsp_perc} \
-       -query - > !{sample}-plsdb.json
+       -query - > !{sample}-plsdb.txt
+
+pigz --best -p !{task.cpus} !{sample}-plsdb.txt

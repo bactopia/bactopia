@@ -39,3 +39,8 @@ if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
 else
     echo "Assembly was successful, but 0 contigs were formed." > shovill-zero-contigs.txt
 fi
+
+if [ "!{params.keep_all_files}" == "false" ]; then
+    # Remove intermediate files
+    rm -fv shovill.bam* flash.extendedFrags* flash.notCombined* skesa.fasta.*
+fi

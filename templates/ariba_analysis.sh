@@ -16,8 +16,7 @@ ariba run !{dataset_name}db !{fq} !{dataset_name} \
         --unique_threshold !{params.unique_threshold} \
         --threads !{task.cpus} \
         --force \
-        --noclean \
-        --verbose !{spades_options}
+        --verbose !{noclean} !{spades_options}
 
 ariba summary !{dataset_name}/summary !{dataset_name}/report.tsv \
       --cluster_cols assembled,match,known_var,pct_id,ctg_cov,novel_var \
@@ -25,3 +24,7 @@ ariba summary !{dataset_name}/summary !{dataset_name}/report.tsv \
 
 rm -rf ariba.tmp*
 
+if [ "!{params.keep_all_files}" == "false" ]; then
+    # Remove Ariba DB that was untarred
+    rm -rf !{dataset_name}db
+fi

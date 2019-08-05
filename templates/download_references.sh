@@ -21,3 +21,8 @@ mkdir genbank
 ls refseq/bacteria/ | \
     xargs -I {} sh -c 'ls -l -S refseq/split/{}-* | head -n 1 | awk "{print \$9\" genbank/!{sample}-{}.gbk\"}"' | \
     xargs -I {} sh -c 'cp {}'
+
+if [ "!{params.keep_all_files}" == "false" ]; then
+    # Remove intermediate GenBank files
+    rm -rf refseq/
+fi

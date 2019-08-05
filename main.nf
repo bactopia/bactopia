@@ -272,6 +272,7 @@ process assemble_genome {
 
     output:
     file "shovill*"
+    file "flash*" optional true
     file "${sample}.fna.gz" optional true into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json" optional true
     set val(sample), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
@@ -413,6 +414,7 @@ process ariba_analysis {
     dataset_tarball = file(dataset).getName()
     dataset_name = dataset_tarball.replace('.tar.gz', '')
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
+    noclean = params.ariba_no_clean ? "--noclean" : ""
     template(task.ext.template)
 }
 
@@ -585,7 +587,7 @@ process plasmid_blast {
     file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
 
     output:
-    file("${sample}-plsdb.json")
+    file("${sample}-plsdb.txt.gz")
 
     when:
     PLASMID_BLASTDB.isEmpty() == false
@@ -1100,8 +1102,15 @@ def basic_help() {
         --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
                                     the Nextflow run cannot be resumed.
 
+        --keep_all_files        Keeps all analysis files created. By default, intermediate
+                                    files are removed. This will not affect the ability
+                                    to resume Nextflow runs, and only occurs at the end
+                                    of the process.
+
         --version               Print workflow version information
+
         --help                  Show this message and exit
+
         --help_all              Show a complete list of adjustable parameters
     """
 }
@@ -1335,6 +1344,10 @@ def full_help() {
                                     than once is <= this value, then the flag
                                     unique_contig is set
                                     Default: ${params.unique_threshold}
+
+        --ariba_no_clean        Do not clean up intermediate files created by
+                                    Ariba. By default, the local assemblies are
+                                    deleted.
 
     Call Variant Parameters:
         --snippy_ram INT        Try and keep RAM under this many GB
