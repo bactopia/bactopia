@@ -213,7 +213,7 @@ process qc_reads {
     output:
     file "quality-control/*"
     set val(sample), val(single_end),
-        file("quality-control/${sample}*.fastq.gz") into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
+        file("quality-control/${sample}*.fastq.gz") optional true into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
                                                          ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
                                                          INSERTION_SEQUENCES, CALL_VARIANTS, CALL_VARIANTS_AUTO,
                                                          MAPPING_QUERY, QC_FINAL_SUMMARY
@@ -495,7 +495,14 @@ process call_variants {
 process download_references {
     /*
     Download the nearest RefSeq genomes (based on Mash) to have variants called against.
+
+    Exitcode 75 is due to being unable to download from NCBI (e.g. FTP down at the time)
+    Downloads will be attempted 300 times total before giving up. On failure to download
+    variants will not be called against the nearest completed genome.
     */
+    errorStrategy 'retry'
+    maxRetries 6
+    validExitStatus 0,75
     cpus 1
     tag "${sample} - ${params.max_references} reference(s)"
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
@@ -505,7 +512,7 @@ process download_references {
     file(refseq_sketch) from REFSEQ_SKETCH
 
     output:
-    set val(sample), file("genbank/*.gbk") into REFERENCES_AUTO
+    set val(sample), file("genbank/*.gbk") optional true into REFERENCES_AUTO
     file("mash-dist.txt")
 
     when:
@@ -514,6 +521,7 @@ process download_references {
     shell:
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
     total = params.max_references
+
     template(task.ext.template)
 }
 
@@ -1126,6 +1134,10 @@ def full_help() {
     apply to.
 
     QC Reads Parameters:
+        --min_basepairs INT     The minimum amount of input sequenced basepairs required
+                                    to continue downstream analyses.
+                                    Default: ${params.min_basepairs}
+
         --adapters FASTA        Illumina adapters to remove
                                     Default: BBmap adapters
 
