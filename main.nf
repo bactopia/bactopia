@@ -178,9 +178,9 @@ process fastq_pe_status {
     set val(sample), val(single_end), file(fq) into ESTIMATE_GENOME_SIZE, QC_READS, QC_ORIGINAL_SUMMARY
 
     shell:
-    single_end = fq.size() == 1 ? true : false
+    single_end = fq[1] == null ? true : false
     """
-    true
+    echo ${single_end}
     """
 }
 
