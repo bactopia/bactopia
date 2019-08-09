@@ -2,7 +2,7 @@
 set -e
 set -u
 
-GENOME_SIZE=`head -n 1 !{genome_size_file}`
+GENOME_SIZE=`head -n 1 !{genome_size}`
 
 if [ "!{single_end}" == "false" ]; then
     # Paired-End Reads

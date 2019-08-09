@@ -175,7 +175,7 @@ process fastq_pe_status {
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
 
     output:
-    set val(sample), val(single_end), file(fq) into ESTIMATE_GENOME_SIZE, QC_READS, QC_ORIGINAL_SUMMARY
+    set val(sample), val(single_end), file(fq) into ESTIMATE_GENOME_SIZE
 
     shell:
     single_end = fq[1] == null ? true : false
@@ -194,7 +194,7 @@ process estimate_genome_size {
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
-    file "genome-size.txt" into GS_QC_READS, GS_QC_ORIGINAL, GS_QC_FINAL, GS_ASSEMBLY
+    set val(sample), val(single_end), file(fq), file("genome-size.txt") into QC_READS, QC_ORIGINAL_SUMMARY
 
     shell:
     template(task.ext.template)
@@ -207,16 +207,17 @@ process qc_reads {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from QC_READS
-    file(genome_size_file) from GS_QC_READS
+    set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
 
     output:
     file "quality-control/*"
     set val(sample), val(single_end),
-        file("quality-control/${sample}*.fastq.gz") optional true into ASSEMBLY, SEQUENCE_TYPE, COUNT_31MERS,
-                                                         ARIBA_ANALYSIS, MINMER_SKETCH, MINMER_QUERY,
-                                                         INSERTION_SEQUENCES, CALL_VARIANTS, CALL_VARIANTS_AUTO,
-                                                         MAPPING_QUERY, QC_FINAL_SUMMARY
+        file("quality-control/${sample}*.fastq.gz") optional true into SEQUENCE_TYPE, COUNT_31MERS, ARIBA_ANALYSIS,
+                                                                       MINMER_SKETCH, MINMER_QUERY, INSERTION_SEQUENCES,
+                                                                       CALL_VARIANTS, CALL_VARIANTS_AUTO, MAPPING_QUERY
+    set val(sample), val(single_end),
+        file("quality-control/${sample}*.fastq.gz"),
+        file(genome_size) optional true into ASSEMBLY, QC_FINAL_SUMMARY
 
     shell:
     adapters = params.adapters ? file(params.adapters) : 'adapters'
@@ -232,8 +233,7 @@ process qc_original_summary {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from QC_ORIGINAL_SUMMARY
-    file(genome_size_file) from GS_QC_ORIGINAL
+    set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
 
     output:
     file "quality-control/*"
@@ -249,8 +249,7 @@ process qc_final_summary {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from QC_FINAL_SUMMARY
-    file(genome_size_file) from GS_QC_FINAL
+    set val(sample), val(single_end), file(fq), file(genome_size) from QC_FINAL_SUMMARY
 
     output:
     file "quality-control/*"
@@ -267,8 +266,7 @@ process assemble_genome {
     publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from ASSEMBLY
-    file(genome_size_file) from GS_ASSEMBLY
+    set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
 
     output:
     file "shovill*"

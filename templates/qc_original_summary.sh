@@ -2,7 +2,7 @@
 set -e
 set -u
 
-GENOME_SIZE=`head -n 1 !{genome_size_file}`
+GENOME_SIZE=`head -n 1 !{genome_size}`
 if [ "!{single_end}" == "false" ]; then
     # Paired-End Reads
     zcat !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > !{sample}_R1-original.json

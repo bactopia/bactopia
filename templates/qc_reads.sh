@@ -5,7 +5,7 @@ set -u
 SEQUENCED_BP=`zcat *.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:([0-9]+),/\1/'`
 
 if [ ${SEQUENCED_BP} -gt "!{params.min_basepairs}" ]; then
-    GENOME_SIZE=`head -n 1 !{genome_size_file}`
+    GENOME_SIZE=`head -n 1 !{genome_size}`
     TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
     if [ "!{single_end}" == "false" ]; then
         # Paired-End Reads
@@ -142,4 +142,13 @@ else
           exceed the required minimum !{params.min_basepairs} bp. Further analysis is
           discontinued." | \
     sed 's/^\s*//' > quality-control/low-sequence-depth-error.txt
+fi
+
+FINAL_BP=`zcat quality-control/*.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:([0-9]+),/\1/'`
+if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
+    rm quality-control/*.fastq.gz
+    echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
+          not exceed the required minimum !{params.min_basepairs} bp. Further analysis
+          is discontinued." | \
+    sed 's/^\s*//' > quality-control/low-sequence-depth-after-qc-error.txt
 fi
