@@ -2,7 +2,7 @@
 set -e
 set -u
 
-OUTPUT="genome-size.txt"
+OUTPUT="!{sample}-genome-size.txt"
 
 if [ "!{params.genome_size}" == "null" ]; then
     # Use mash to estimate the genome size, if a genome size cannot be

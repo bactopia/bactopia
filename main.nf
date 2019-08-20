@@ -167,34 +167,35 @@ process gather_fastqs {
     template(task.ext.template)
 }
 
-process fastq_pe_status {
-    /* Determine if FASTQs are paired or single-end. */
+process fastq_status {
+    /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
     cpus 1
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
 
     output:
-    set val(sample), val(single_end), file(fq) into ESTIMATE_GENOME_SIZE
+    file "*-error.txt" optional true
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz") optional true into ESTIMATE_GENOME_SIZE
 
     shell:
     single_end = fq[1] == null ? true : false
-    """
-    echo ${single_end}
-    """
+    template(task.ext.template)
 }
 
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: "${sample}-genome-size.txt"
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
-    set val(sample), val(single_end), file(fq), file("genome-size.txt") into QC_READS, QC_ORIGINAL_SUMMARY
+    file("${sample}-genome-size.txt")
+    set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") into QC_READS, QC_ORIGINAL_SUMMARY
 
     shell:
     template(task.ext.template)

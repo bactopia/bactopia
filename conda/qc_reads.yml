@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - bbmap=38.22=h14c3975_1
-  - fastq-scan=0.3=h2d50403_0
+  - fastq-scan=0.4.0=hc9558a2_0
   - fastqc=0.11.8=1
   - illumina-cleanup=1.0.0=0
   - lighter=1.1.2=he941832_0
