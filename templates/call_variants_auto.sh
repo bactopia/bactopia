@@ -5,7 +5,7 @@ set -u
 snippy !{fastq} \
     --ref !{reference} \
     --cpus !{task.cpus} \
-    --ram !{params.snippy_ram} \
+    --ram !{snippy_ram} \
     --outdir !{reference_name} \
     --prefix !{sample} \
     --mapqual !{params.mapqual} \

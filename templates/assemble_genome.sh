@@ -14,7 +14,7 @@ if [ "!{single_end}" == "false" ]; then
         --namefmt "!{params.contig_namefmt}" \
         --keepfiles \
         --cpus !{task.cpus} \
-        --ram !{params.shovill_ram} \
+        --ram !{shovill_ram} \
         --assembler !{params.assembler} \
         --noreadcorr !{opts} !{kmers} !{nostitch} !{nocorr}
 else
@@ -27,7 +27,7 @@ else
         --namefmt "!{params.contig_namefmt}" \
         --keepfiles \
         --cpus !{task.cpus} \
-        --ram !{params.shovill_ram} \
+        --ram !{shovill_ram} \
         --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
 fi
 

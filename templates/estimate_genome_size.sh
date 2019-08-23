@@ -17,6 +17,17 @@ if [ "!{params.genome_size}" == "null" ]; then
             awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
     fi
     rm test.msh
+
+    ESTIMATED_GENOME_SIZE=`head -n1 ${OUTPUT}`
+    if [ ${ESTIMATED_GENOME_SIZE} -gt "!{params.max_genome_size}" ]; then
+        rm ${OUTPUT}
+        echo "!{sample} estimated genome size (${ESTIMATED_GENOME_SIZE} bp) exceeds the maximum allowed
+              genome size (!{params.max_genome_size} bp). If this is unexpected, please investigate
+              !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...).
+              Otherwise, adjust the --max_genome_size parameter to fit your need. Further
+              analysis of !{sample} will be discontinued." | \
+        sed 's/^\s*//' > max-genome-size-depth-error.txt
+    fi
 elif [ "!{params.genome_size}" == "min" ]; then
     # Use the minimum genome size based on completed RefSeq genomes
     echo "!{species_genome_size.min}" > ${OUTPUT}

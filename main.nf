@@ -21,6 +21,7 @@ if (cpus > params.max_cpus) {
     cpus = params.max_cpus
     log.info "--cpus ${params.cpus} exceeded --max_cpus ${params.max_cpus}, changed ${params.cpus} to ${cpus}"
 }
+max_memory = (params.max_memory).GB
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
@@ -188,14 +189,15 @@ process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: "${sample}-genome-size.txt"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
-    file("${sample}-genome-size.txt")
-    set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") into QC_READS, QC_ORIGINAL_SUMMARY
+    file "max-genome-size-depth-error.txt" optional true
+    file("${sample}-genome-size.txt") optional true
+    set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
 
     shell:
     template(task.ext.template)
@@ -262,9 +264,12 @@ process qc_final_summary {
 
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
-    cpus Math.round(cpus * 0.75)
     tag "${sample}"
     publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
+    cpus Math.round(cpus * 0.75)
+    memory { ((params.shovill_ram).GB * task.attempt) < max_memory ? (params.shovill_ram).GB * task.attempt : max_memory }
+    maxRetries Math.round(params.max_memory / params.shovill_ram)
+    errorStrategy 'retry'
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
@@ -277,6 +282,7 @@ process assemble_genome {
     set val(sample), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
 
     shell:
+    shovill_ram = task.memory.toString().split(' ')[0]
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.nostitch ? "--nostitch" : ""
@@ -345,8 +351,9 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     cpus cpus
+    memory { ((params.cortex_ram).GB * task.attempt) < max_memory ? ((params.cortex_ram).GB * task.attempt) : max_memory }
     tag "${sample}"
-    maxRetries 2
+    maxRetries 3
     errorStrategy 'retry'
     publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
 
@@ -357,7 +364,7 @@ process count_31mers {
     file "${sample}.ctx"
 
     shell:
-    max_memory = 4000 * task.attempt
+    m = task.memory.toString().split(' ')[0].toInteger() * 1000
     template(task.ext.template)
 }
 
@@ -472,6 +479,9 @@ process call_variants {
     using Snippy.
     */
     cpus Math.round(cpus * 0.75)
+    memory { ((params.snippy_ram).GB * task.attempt) < max_memory ? (params.snippy_ram).GB * task.attempt : max_memory }
+    errorStrategy 'retry'
+    maxRetries 3
     tag "${sample} - ${reference_name}"
     publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: true
 
@@ -483,6 +493,7 @@ process call_variants {
     file("${reference_name}/*")
 
     shell:
+    snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName()
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
@@ -531,6 +542,9 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     cpus Math.round(cpus * 0.75)
+    memory { ((params.snippy_ram).GB * task.attempt) < max_memory ? (params.snippy_ram).GB * task.attempt : max_memory }
+    errorStrategy 'retry'
+    maxRetries 3
     tag "${sample} - ${reference_name}"
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
 
@@ -545,6 +559,7 @@ process call_variants_auto {
     REFSEQ_SKETCH_FOUND == true && reference.getSimpleName().contains(sample)
 
     shell:
+    snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName()
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
@@ -884,6 +899,11 @@ def check_input_params() {
             --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
             --sample STR            The name of the input sequences
+            ### For Downloading from ENA
+            --accessions            An input file containing ENA/SRA experiement accessions to
+                                        be processed
+
+            --accession             A single ENA/SRA Experiment accession to be processed
         """.stripIndent()
         error += 1
     }
@@ -1089,6 +1109,9 @@ def basic_help() {
         --outdir DIR            Directory to write results to
                                     Default ${params.outdir}
 
+        --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
+                                    Default: ${params.max_memory} Gb
+
         --max_cpus INT          The maximum number of processors this workflow
                                     should have access to at any given moment
                                     Default: ${params.max_cpus}
@@ -1264,6 +1287,8 @@ def full_help() {
 
 
     Count 31mers Parameters:
+        --cortex_ram INT        Try to keep RAM usage below this many GB
+                                    Default: ${params.cortex_ram}
         --keep_singletons       Keep all counted 31-mers
                                     Default: Filter out singletons
 
