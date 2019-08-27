@@ -3,7 +3,7 @@ MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
 LABEL version="0.0.5"
 LABEL authors="robert.petit@emory.edu"
-LEBEL description="Container image containing requirements for the Bactopia-AP annotate_genome"
+LABEL description="Container image containing requirements for the Bactopia-AP annotate_genome"
 
 COPY conda/annotate_genome.yml /
 RUN conda env create -f annotate_genome.yml && conda clean -a
