@@ -1,7 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-LABEL authors="robert.petit@emory.edu" \
-    description="Container image containing requirements for the Bactopia-AP call_variants"
+
+LABEL version="0.0.5"
+LABEL authors="robert.petit@emory.edu"
+LABEL description="Container image containing requirements for the Bactopia-AP call_variants"
 
 COPY conda/call_variants.yml /
 RUN conda env create -f call_variants.yml && conda clean -a

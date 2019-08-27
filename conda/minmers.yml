@@ -4,89 +4,67 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - atk=2.25.90=hb9dd440_1002
-  - blas=1.0=mkl
+  - _libgcc_mutex=0.1=main
   - bz2file=0.98=py_0
-  - bzip2=1.0.6=h14c3975_1002
-  - ca-certificates=2019.3.9=hecc5488_0
-  - cairo=1.16.0=ha4e643d_1000
+  - bzip2=1.0.8=h516909a_0
+  - ca-certificates=2019.6.16=hecc5488_0
   - capnproto=0.6.1=hfc679d8_1
-  - certifi=2019.3.9=py37_0
+  - certifi=2019.6.16=py37_1
   - cycler=0.10.0=py_1
-  - dbus=1.13.0=h4e0c4b3_1000
-  - expat=2.2.5=hf484d3e_1002
-  - fontconfig=2.13.1=he4413a7_1000
-  - freetype=2.10.0=he983fc9_0
-  - gdk-pixbuf=2.36.12=h49783d7_1002
+  - dbus=1.13.6=he372182_0
+  - expat=2.2.5=he1b5a44_1003
+  - fontconfig=2.13.1=h86ecdb6_1001
+  - freetype=2.10.0=he983fc9_1
   - gettext=0.19.8.1=hc5be6a0_1002
-  - glib=2.58.3=hf63aee3_1001
-  - gobject-introspection=1.58.2=py37h2da5eee_1000
-  - graphite2=1.3.13=hf484d3e_1000
-  - gsl=2.4=h14c3975_4
-  - gstreamer=1.14.4=h66beb1c_1001
-  - gtk2=2.24.31=hb68c50a_1001
-  - harfbuzz=2.3.1=h6824563_0
-  - icu=58.2=hf484d3e_1000
-  - ijson=2.3=py_1
-  - intel-openmp=2019.3=199
+  - glib=2.58.3=h6f030ca_1002
+  - gsl=2.5=h294904e_0
+  - gst-plugins-base=1.14.5=h0935bb2_0
+  - gstreamer=1.14.5=h36ae1b5_0
+  - icu=64.2=he1b5a44_1
+  - ijson=2.4=py_0
   - jpeg=9c=h14c3975_1001
   - khmer=3.0.0a3=py37hf484d3e_0
-  - kiwisolver=1.0.1=py37h6bb024c_1002
+  - kiwisolver=1.1.0=py37hc9558a2_0
+  - libblas=3.8.0=12_openblas
+  - libcblas=3.8.0=12_openblas
   - libffi=3.2.1=he1b5a44_1006
-  - libgcc-ng=8.2.0=hdf63c60_1
+  - libgcc-ng=9.1.0=hdf63c60_0
   - libgfortran-ng=7.3.0=hdf63c60_0
   - libiconv=1.15=h516909a_1005
-  - libpng=1.6.36=h84994c4_1000
-  - libstdcxx-ng=8.2.0=hdf63c60_1
-  - libtiff=4.0.10=h648cc4a_1001
+  - liblapack=3.8.0=12_openblas
+  - libopenblas=0.3.7=h6e990d7_1
+  - libpng=1.6.37=hed695b0_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
   - libuuid=2.32.1=h14c3975_1000
   - libxcb=1.13=h14c3975_1002
-  - libxml2=2.9.8=h143f9aa_1005
-  - mash=2.1=hf69f6b5_1
-  - matplotlib=3.0.3=py37_0
-  - matplotlib-base=3.0.3=py37h167e16e_0
-  - mkl=2019.3=199
-  - mkl_fft=1.0.11=py37h14c3975_0
-  - mkl_random=1.0.2=py37h637b7d7_2
+  - libxml2=2.9.9=hee79883_5
+  - mash=2.2=h3d38be6_0
+  - matplotlib=3.1.1=py37_1
+  - matplotlib-base=3.1.1=py37he7580a8_1
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.16.2=py37h7e9f1db_0
-  - numpy-base=1.16.2=py37hde5b4d6_0
-  - openblas=0.3.3=h9ac9557_1001
-  - openssl=1.0.2r=h14c3975_0
-  - pango=1.40.14=h4ea9474_1004
+  - numpy=1.17.1=py37h95a1406_0
+  - openssl=1.1.1c=h516909a_0
   - pcre=8.41=hf484d3e_1003
-  - pip=19.0.3=py37_0
-  - pixman=0.34.0=h14c3975_1003
+  - pip=19.2.3=py37_0
   - pthread-stubs=0.4=h14c3975_1001
-  - pyparsing=2.4.0=py_0
-  - pyqt=5.6.0=py37h13b7fb3_1008
-  - python=3.7.1=hd21baee_1001
+  - pyparsing=2.4.2=py_0
+  - pyqt=5.9.2=py37hcca6a23_2
+  - python=3.7.3=h33d41f4_1
   - python-dateutil=2.8.0=py_0
-  - qt=5.6.2=hce4f676_1013
-  - readline=7.0=hf8c457e_1001
-  - scipy=1.2.1=py37h7c811a0_0
+  - qt=5.9.7=h0c104cb_3
+  - readline=8.0=hf8c457e_0
+  - scipy=1.3.1=py37h921218d_2
   - screed=1.0=py_1
-  - setuptools=41.0.0=py37_0
-  - sip=4.18.1=py37hf484d3e_1000
+  - setuptools=41.2.0=py37_0
+  - sip=4.19.8=py37hf484d3e_1000
   - six=1.12.0=py37_1000
-  - sourmash=2.0.0=py37hf484d3e_0
-  - sqlite=3.26.0=h67949de_1001
-  - tk=8.6.9=h84994c4_1001
-  - tornado=6.0.2=py37h516909a_0
-  - wheel=0.33.1=py37_0
-  - xorg-kbproto=1.0.7=h14c3975_1002
-  - xorg-libice=1.0.9=h516909a_1004
-  - xorg-libsm=1.2.3=h84519dc_1000
-  - xorg-libx11=1.6.7=h14c3975_1000
+  - sourmash=2.1.0=py37he1b5a44_0
+  - sqlite=3.29.0=hcee41ef_0
+  - tk=8.6.9=hed695b0_1002
+  - tornado=6.0.3=py37h516909a_0
+  - wheel=0.33.6=py37_0
   - xorg-libxau=1.0.9=h14c3975_0
   - xorg-libxdmcp=1.1.3=h516909a_0
-  - xorg-libxext=1.3.4=h516909a_0
-  - xorg-libxrender=0.9.10=h516909a_1002
-  - xorg-libxt=1.1.5=h14c3975_1002
-  - xorg-renderproto=0.11.1=h14c3975_1002
-  - xorg-xextproto=7.3.0=h14c3975_1002
-  - xorg-xproto=7.0.31=h14c3975_1007
   - xz=5.2.4=h14c3975_1001
-  - zlib=1.2.11=h14c3975_1004
-prefix: /home/rpetit/miniconda3/envs/minmers_env
-
+  - yajl=2.1.0=0
+  - zlib=1.2.11=h516909a_1005

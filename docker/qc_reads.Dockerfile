@@ -1,7 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-LABEL authors="robert.petit@emory.edu" \
-    description="Container image containing requirements for the Bactopia-AP qc_reads"
+
+LABEL version="0.0.5"
+LABEL authors="robert.petit@emory.edu"
+LABEL description="Container image containing requirements for the Bactopia-AP qc_reads"
 
 COPY conda/qc_reads.yml /
 RUN conda env create -f qc_reads.yml && conda clean -a

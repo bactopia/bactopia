@@ -2,20 +2,28 @@
 Below is a list of the commands used to create each enviroment.
 
 ```
+# bactopia.yml
+conda create -y -n bactopia-bactopia -c rpetit3 -c conda-forge -c bioconda \
+    appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash \
+    ncbi-genome-download nextflow python=3.6.7 unzip urllib3 wget
+
 # annotate_genome.yml
-conda create -y -n bactopia-annotate_genome -c conda-forge -c bioconda prokka
+conda create -y -n bactopia-annotate_genome -c conda-forge -c bioconda prokka pigz
 
 # ariba_analysis.yml
 conda create -y -n bactopia-ariba_analysis -c conda-forge -c bioconda ariba
 
 # assemble_genome.yml
-conda create -y -n bactopia-assemble_genome -c rpetit3 -c conda-forge -c bioconda shovill assembly-scan
+conda create -y -n bactopia-assemble_genome -c rpetit3 -c conda-forge -c bioconda shovill assembly-scan pigz
 
 # call_variants.yml
-conda create -y -n bactopia-call_variants -c conda-forge -c snippy vcf-annotator
+conda create -y -n bactopia-call_variants -c conda-forge -c bioconda snippy vcf-annotator pigz
 
 # count_31mers.yml
 conda create -y -n bactopia-count_31mers -c conda-forge -c bioconda mccortex
+
+# download_references.yml
+conda create -y -n bactopia-download_references -c conda-forge -c bioconda ncbi-genome-download mash
 
 # insertion_sequences.yml
 conda create -y -n bactopia-insertion_sequences -c rpetit3 -c conda-forge -c bioconda ismapper=2.0.a
@@ -24,10 +32,13 @@ conda create -y -n bactopia-insertion_sequences -c rpetit3 -c conda-forge -c bio
 conda create -y -n bactopia-minmers -c conda-forge -c bioconda mash sourmash
 
 # qc_reads.yml
-conda create -y -n bactopia-qc_reads -c conda-forge -c bioconda illumina-cleanup
+conda create -y -n bactopia-qc_reads -c conda-forge -c bioconda bbmap fastqc fastq-scan lighter pigz
 
 # sequence_type.yml
 conda create -y -n bactopia-sequence_type -c conda-forge -c bioconda ariba blast
 ```
 
 Environments were exported using `conda env export`
+
+
+appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash ncbi-genome-download nextflow python=3.6.7 unzip urllib3 wget

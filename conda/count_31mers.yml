@@ -4,7 +4,8 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - mccortex=1.0=he941832_1
-  - libgcc-ng=7.3.0=hdf63c60_0
-  - libstdcxx-ng=7.3.0=hdf63c60_0
-  - zlib=1.2.11=h14c3975_1004
+  - _libgcc_mutex=0.1=main
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - mccortex=1.0=he860b03_2
+  - zlib=1.2.11=h516909a_1005

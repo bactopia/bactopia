@@ -5,61 +5,90 @@ channels:
   - bioconda
   - defaults
 dependencies:
+  - _libgcc_mutex=0.1=main
+  - alsa-lib=1.1.5=h516909a_1001
   - assembly-scan=0.3.0=py_0
-  - blas=1.0=mkl
-  - boost=1.67.0=py36h3e44d54_0
-  - boost-cpp=1.67.0=h3a22d5f_0
-  - bwa=0.7.17=h84994c4_5
-  - bzip2=1.0.6=h14c3975_1002
-  - ca-certificates=2019.3.9=hecc5488_0
+  - boost=1.70.0=py37h9de70de_1
+  - boost-cpp=1.70.0=h8e57a91_2
+  - bwa=0.7.17=hed695b0_6
+  - bzip2=1.0.8=h516909a_0
+  - ca-certificates=2019.6.16=hecc5488_0
   - capnproto=0.6.1=hfc679d8_1
-  - certifi=2019.3.9=py36_0
-  - curl=7.64.0=h646f8bb_2
-  - flash=1.2.11=h84994c4_3
-  - gsl=2.4=h14c3975_4
-  - icu=58.2=hf484d3e_1000
-  - intel-openmp=2019.3=199
+  - certifi=2019.6.16=py37_1
+  - curl=7.65.3=hf8cf82a_0
+  - flash=1.2.11=hed695b0_4
+  - fontconfig=2.13.1=h86ecdb6_1001
+  - freetype=2.10.0=he983fc9_1
+  - giflib=5.1.7=h516909a_1
+  - gsl=2.5=h294904e_0
+  - icu=64.2=he1b5a44_1
+  - jpeg=9c=h14c3975_1001
   - krb5=1.16.3=h05b26f9_1001
-  - libcurl=7.64.0=h541490c_2
+  - lcms2=2.9=h2e4bb80_0
+  - libblas=3.8.0=12_openblas
+  - libcblas=3.8.0=12_openblas
+  - libcurl=7.65.3=hda55be3_0
   - libdeflate=1.0=h14c3975_1
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=he1b5a44_1006
-  - libgcc=7.2.0=h69d50b8_2
-  - libgcc-ng=8.2.0=hdf63c60_1
+  - libgcc-ng=9.1.0=hdf63c60_0
   - libgfortran-ng=7.3.0=hdf63c60_0
-  - libssh2=1.8.1=h22169c7_0
-  - libstdcxx-ng=8.2.0=hdf63c60_1
-  - lighter=1.1.2=he860b03_1
-  - mash=2.1=hf69f6b5_1
-  - megahit=1.1.3=py36_0
-  - mkl=2019.3=199
-  - mkl_fft=1.0.11=py36h14c3975_0
-  - mkl_random=1.0.2=py36h637b7d7_2
+  - libiconv=1.15=h516909a_1005
+  - liblapack=3.8.0=12_openblas
+  - libopenblas=0.3.7=h6e990d7_1
+  - libpng=1.6.37=hed695b0_0
+  - libssh2=1.8.2=h22169c7_2
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - libtiff=4.0.10=h57b8799_1003
+  - libuuid=2.32.1=h14c3975_1000
+  - libxcb=1.13=h14c3975_1002
+  - libxml2=2.9.9=hee79883_5
+  - lighter=1.1.2=he513fc3_2
+  - llvm-openmp=8.0.1=hc9558a2_0
+  - lz4-c=1.8.3=he1b5a44_1001
+  - mash=2.2=h3d38be6_0
+  - megahit=1.2.8=h8b12597_0
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.16.2=py36h7e9f1db_0
-  - numpy-base=1.16.2=py36hde5b4d6_0
-  - openblas=0.3.3=h9ac9557_1001
-  - openjdk=11.0.1=h516909a_1015
-  - openssl=1.1.1b=h14c3975_1
-  - perl=5.26.2=h14c3975_1002
+  - numpy=1.17.1=py37h95a1406_0
+  - openjdk=11.0.1=h46a85a0_1017
+  - openmp=8.0.1=0
+  - openssl=1.1.1c=h516909a_0
+  - perl=5.26.2=h516909a_1006
   - perl-file-spec=3.48_01=pl526_1
-  - perl-findbin=1.51=pl526_1
+  - perl-findbin=1.51=pl526_2
   - pigz=2.3.4=0
-  - pilon=1.23=0
-  - pip=19.0.3=py36_0
-  - python=3.6.7=h381d211_1004
-  - readline=7.0=hf8c457e_1001
+  - pilon=1.23=1
+  - pip=19.2.3=py37_0
+  - pthread-stubs=0.4=h14c3975_1001
+  - python=3.7.3=h33d41f4_1
+  - readline=8.0=hf8c457e_0
   - samclip=0.2=1
   - samtools=1.9=h8571acd_11
-  - seqtk=1.3=h84994c4_1
-  - setuptools=40.8.0=py36_0
-  - shovill=1.0.4se=0
-  - skesa=2.3.0=h4ef8376_0
-  - spades=3.13.0=0
-  - sqlite=3.26.0=h67949de_1001
-  - tk=8.6.9=h84994c4_1000
-  - trimmomatic=0.38=1
-  - velvet=1.2.10=h470a237_2
-  - wheel=0.33.1=py36_0
+  - seqtk=1.3=hed695b0_2
+  - setuptools=41.2.0=py37_0
+  - shovill=1.0.7se=0
+  - skesa=2.3.0=he1c1bb9_2
+  - spades=3.13.1=h2d02072_2
+  - sqlite=3.29.0=hcee41ef_0
+  - tk=8.6.9=hed695b0_1002
+  - trimmomatic=0.39=1
+  - velvet=1.2.10=hed695b0_3
+  - wheel=0.33.6=py37_0
+  - xorg-fixesproto=5.0=h14c3975_1002
+  - xorg-inputproto=2.3.2=h14c3975_1002
+  - xorg-kbproto=1.0.7=h14c3975_1002
+  - xorg-libx11=1.6.8=h516909a_0
+  - xorg-libxau=1.0.9=h14c3975_0
+  - xorg-libxdmcp=1.1.3=h516909a_0
+  - xorg-libxext=1.3.4=h516909a_0
+  - xorg-libxfixes=5.0.3=h516909a_1004
+  - xorg-libxi=1.7.10=h516909a_0
+  - xorg-libxrender=0.9.10=h516909a_1002
+  - xorg-libxtst=1.2.3=h14c3975_1002
+  - xorg-recordproto=1.14.2=h14c3975_1002
+  - xorg-renderproto=0.11.1=h14c3975_1002
+  - xorg-xextproto=7.3.0=h14c3975_1002
+  - xorg-xproto=7.0.31=h14c3975_1007
   - xz=5.2.4=h14c3975_1001
-  - zlib=1.2.11=h14c3975_1004
+  - zlib=1.2.11=h516909a_1005
+  - zstd=1.4.0=h3b9ef0a_0

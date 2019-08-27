@@ -1,7 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-LABEL authors="robert.petit@emory.edu" \
-    description="Container image containing requirements for the Bactopia-AP environment"
+
+LABEL version=BACTOPIA_VERSION
+LABEL authors="robert.petit@emory.edu"
+LABEL description="Container image containing requirements for the Bactopia-AP environment"
 
 COPY conda/environment.yml /
 RUN conda env create -f environment.yml && conda clean -a

@@ -1,7 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-LABEL authors="robert.petit@emory.edu" \
-    description="Container image containing requirements for the Bactopia-AP sequence_type"
+
+LABEL version="0.0.5"
+LABEL authors="robert.petit@emory.edu"
+LABEL description="Container image containing requirements for the Bactopia-AP sequence_type"
 
 COPY conda/sequence_type.yml /
 RUN conda env create -f sequence_type.yml && conda clean -a
