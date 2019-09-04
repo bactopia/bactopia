@@ -1,4 +1,4 @@
-name: bactopia-download_references
+name: bactopia-download_references-1.0.0
 channels:
   - conda-forge
   - bioconda

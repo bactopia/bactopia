@@ -1,4 +1,4 @@
-name: bactopia
+name: bactopia-1.0.0
 channels:
   - rpetit3
   - conda-forge

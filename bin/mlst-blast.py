@@ -16,7 +16,8 @@ optional arguments:
   --quiet       Do not output each command.
   --compressed  Input FASTA is Gzipped.
 """
-
+PROGRAM = "mlst-blast"
+VERSION = "1.0.0"
 
 def pipe_command(cmd_1, cmd_2, stdout=False, stderr=False, verbose=True,
                  shell=False):
@@ -153,9 +154,11 @@ if __name__ == '__main__':
     import argparse as ap
     import sys
 
-    parser = ap.ArgumentParser(prog='mlst-blast.py',
-                               conflict_handler='resolve',
-                               description='Determine MLST via BLAST')
+    parser = ap.ArgumentParser(
+        prog='mlst-blast.py',
+        conflict_handler='resolve',
+        description=f'{PROGRAM} (v{VERSION}) - Determine MLST via BLAST'
+    )
     parser.add_argument('fasta', metavar="FASTA", type=str,
                         help='Input FASTA file to determine MLST')
     parser.add_argument('blast', metavar="BLAST_DIR", type=str,
@@ -168,6 +171,8 @@ if __name__ == '__main__':
                         help='Do not output each command.')
     parser.add_argument('--compressed', action='store_true',
                         help='Input FASTA is Gzipped.')
+    parser.add_argument('--version', action='version',
+                        version=f'{PROGRAM} {VERSION}')
 
     if len(sys.argv) == 1:
         parser.print_help()

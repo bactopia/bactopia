@@ -1,4 +1,4 @@
-name: bactopia-insertion_sequences
+name: bactopia-insertion_sequences-1.0.0
 channels:
   - rpetit3
   - conda-forge

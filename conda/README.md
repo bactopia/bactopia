@@ -2,6 +2,7 @@
 Below is a list of the commands used to create each enviroment.
 
 ```
+VERSION=1.0.0
 # bactopia.yml
 conda create -y -n bactopia-bactopia -c rpetit3 -c conda-forge -c bioconda \
     appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash \
@@ -39,6 +40,3 @@ conda create -y -n bactopia-sequence_type -c conda-forge -c bioconda ariba blast
 ```
 
 Environments were exported using `conda env export`
-
-
-appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash ncbi-genome-download nextflow python=3.6.7 unzip urllib3 wget

@@ -1,4 +1,4 @@
-name: bactopia-qc_reads
+name: bactopia-qc_reads-1.0.0
 channels:
   - conda-forge
   - bioconda

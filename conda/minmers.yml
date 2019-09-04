@@ -1,4 +1,4 @@
-name: bactopia-minmers
+name: bactopia-minmers-1.0.0
 channels:
   - conda-forge
   - bioconda
