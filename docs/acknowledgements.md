@@ -93,8 +93,12 @@ Microb Genom 3, e000131 (2017)._
 
 * __[Assembly-Scan](https://github.com/rpetit3/assembly-scan)__  
 Generate basic stats for an assembly.  
-_Petit III, R.A. [Assembly-Scan: generatinge basic stats for an 
+_Petit III, R.A. [assembly-scan: generate basic stats for an 
 assembly](https://github.com/rpetit3/assembly-scan)._  
+
+* __[BBTools](https://jgi.doe.gov/data-and-tools/bbtools/)__  
+BBTools is a suite of fast, multithreaded bioinformatics tools designed for analysis of DNA and RNA sequence data.  
+_Bushnell B. [BBMap short read aligner, and other bioinformatic tools.](http://sourceforge.net/projects/bbmap/)_  
 
 * __[Bedtools](https://github.com/arq5x/bedtools2)__  
 A powerful toolset for genome arithmetic.  
@@ -121,16 +125,28 @@ _Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. [CD-HIT: accelerated for clustering t
 sequencing data](http://dx.doi.org/10.1093/bioinformatics/bts565). 
 Bioinformatics 28, 3150–3152 (2012)._  
 
-* __[Illumina-Cleanup](https://github.com/rpetit3/illumina-cleanup)__  
-A simple pipeline for pre-processing Illumina FASTQ files.  
-_Petit III, R.A. [Illumina-Cleanup: A simple pipeline for pre-processing Illumina 
-FASTQ files](https://github.com/rpetit3/illumina-cleanup)._  
+* __[FastQC](https://github.com/s-andrews/FastQC)__  
+A quality control analysis tool for high throughput sequencing data.  
+_Andrews, S. FastQC: a quality control tool for high throughput sequence data.
+(http://www.bioinformatics.babraham.ac.uk/projects/fastqc)._  
+
+* __[Fastq-Scan](https://github.com/rpetit3/fastq-scan)__  
+Output FASTQ summary statistics in JSON format  
+_Petit III, R.A. [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan)_  
+
+* __[GNU Parallel](https://www.gnu.org/software/parallel/)__  
+GNU parallel is a shell tool for executing jobs in parallel using one or more computers.  
+_Tange, O. [GNU Parallel](https://doi.org/10.5281/zenodo.1146014) 2018, March 2018_  
 
 * __[ISMapper](https://github.com/jhawkey/IS_mapper)__  
 IS mapping software  
 _Hawkey, J. et al. [ISMapper: identifying transposase insertion sites in 
 bacterial genomes from short read sequence data](http://dx.doi.org/10.1186/s12864-015-1860-2). 
 BMC Genomics 16, 667 (2015)._  
+
+* __[Lighter](https://github.com/mourisl/Lighter)__  
+Fast and memory-efficient sequencing error corrector  
+_Song, L., Florea, L. and Langmead, B., [Lighter: Fast and Memory-efficient Sequencing Error Correction without Counting](http://genomebiology.com/2014/15/11/509/). Genome Biol. 2014 Nov 15;15(11):509._
 
 * __[Mash](https://github.com/marbl/Mash)__  
 Fast genome and metagenome distance estimation using MinHash  
@@ -152,6 +168,14 @@ Scripts to download genomes from the NCBI FTP servers
 _Blin, K. [NCBI Genome Download: Scripts to download genomes from the NCBI FTP 
 servers](https://github.com/kblin/ncbi-genome-download)_  
 
+* __[Nextflow](https://github.com/nextflow-io/nextflow)__  
+A DSL for data-driven computational pipelines.  
+_Di Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., Notredame, C., 2017. [Nextflow enables reproducible computational workflows.](https://www.nature.com/articles/nbt.3820.pdf?origin=ppub) Nat. Biotechnol. 35, 316–319._
+
+* __[Pigz](https://zlib.net/pigz/)__  
+A parallel implementation of gzip for modern multi-processor, multi-core machines.  
+_Adler, Mark. [pigz: A parallel implementation of gzip for modern multi-processor, multi-core machines.](https://zlib.net/pigz/) Jet Propulsion Laboratory (2015)._  
+
 * __[Prokka](https://github.com/tseemann/prokka)__  
 Rapid prokaryotic genome annotation  
 _Seemann, T. [Prokka: rapid prokaryotic genome annotation](http://dx.doi.org/10.1093/bioinformatics/btu153). 
@@ -166,7 +190,7 @@ Bioinformatics 25, 2078–2079 (2009)._
 A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.  
 _Li, H. [Toolkit for processing sequences in FASTA/Q formats](https://github.com/lh3/seqtk)_  
 
-* __[Shovill]()__  
+* __[Shovill](https://github.com/tseemann/shovill)__  
 Faster assembly of Illumina reads  
 _Seemann, T. [De novo assembly pipeline for Illumina paired reads](https://github.com/tseemann/shovill)_  
 
