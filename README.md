@@ -1,3 +1,5 @@
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://conda.anaconda.org/bioconda) [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
+
 # Bactopia
 Bactopia is an extensive workflow to process Illumina sequencing for bacterial genomes. The goal of Bactopia is process your data with a broad set of tools, so that you can get to the fun part of analyses quicker! Bactopia prioritizes software available from [Bioconda](https://bioconda.github.io/) (or other
 [Anaconda channels](https://anaconda.org/)) to make installation and setup easier. The Bactopia workflow is also encapsulated as a [Nextflow](https://www.nextflow.io/) workflow to allow support for many types of environments (e.g. cluster or cloud).
