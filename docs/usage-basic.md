@@ -3,7 +3,7 @@ Bactopia is a wrapper around many different tools. Each of these tools may (or m
 
 ## Usage
 ```
-bactopia v0.0.1
+bactopia
 
 Required Parameters:
     ### For Procesessing Multiple Samples
@@ -126,7 +126,7 @@ A script named `prepare-fofn` has been included to help (hopefully!) make the pr
 ```
 prepare-fofn [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
 
-prepare-fofn (v1.0.0) - Read a directory and prepare a FOFN of FASTQs
+prepare-fofn - Read a directory and prepare a FOFN of FASTQs
 
 positional arguments:
   STR                Directory where FASTQ files are stored

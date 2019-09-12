@@ -1,4 +1,5 @@
-name: bactopia-assemble_genome-1.0.0
+name: bactopia-assemble_genome
+version: 1.0.1
 channels:
   - rpetit3
   - conda-forge

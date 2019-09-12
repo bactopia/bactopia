@@ -1,4 +1,5 @@
-name: bactopia-count_31mers-1.0.0
+name: bactopia-count_31mers
+version: 1.0.1
 channels:
   - conda-forge
   - bioconda

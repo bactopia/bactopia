@@ -1,9 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="0.0.5"
+LABEL version="1.0.1"
 LABEL authors="robert.petit@emory.edu"
-LABEL description="Container image containing requirements for the Bactopia-AP assemble_genome"
+LABEL description="Container image containing requirements for the Bactopia assemble_genome process"
 
 COPY conda/assemble_genome.yml /
 RUN conda env create -f assemble_genome.yml && conda clean -a

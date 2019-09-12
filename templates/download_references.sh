@@ -3,7 +3,7 @@ set -e
 set -u
 
 # Get Mash distance
-mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 3,3 > mash-dist.txt
+mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 2,2 > mash-dist.txt
 
 # Pick genomes to download
 select-references.py mash-dist.txt !{total} !{tie_break} > accession-list.txt

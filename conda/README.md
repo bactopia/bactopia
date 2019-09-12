@@ -2,7 +2,7 @@
 Below is a list of the commands used to create each enviroment.
 
 ```
-VERSION=1.0.0
+VERSION=1.0.1
 # bactopia.yml
 conda create -y -n bactopia-bactopia -c rpetit3 -c conda-forge -c bioconda \
     appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash \
@@ -28,6 +28,9 @@ conda create -y -n bactopia-download_references -c conda-forge -c bioconda ncbi-
 
 # insertion_sequences.yml
 conda create -y -n bactopia-insertion_sequences -c rpetit3 -c conda-forge -c bioconda ismapper=2.0.a
+
+# gather_fastqs.yml
+conda create -y -n bactopia-gather_fastqs -c rpetit3 -c conda-forge -c bioconda aspera-connect ena-dl
 
 # minmers.yml
 conda create -y -n bactopia-minmers -c conda-forge -c bioconda mash sourmash

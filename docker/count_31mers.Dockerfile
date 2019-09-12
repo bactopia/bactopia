@@ -1,9 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="0.0.5"
+LABEL version="1.0.1"
 LABEL authors="robert.petit@emory.edu"
-LABEL description="Container image containing requirements for the Bactopia-AP count_31mers"
+LABEL description="Container image containing requirements for the Bactopia count_31mers process"
 
 COPY conda/count_31mers.yml /
 RUN conda env create -f count_31mers.yml && conda clean -a

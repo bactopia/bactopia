@@ -94,7 +94,7 @@ usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
                               [--version] [--verbose] [--silent]
                               OUTPUT_DIRECTORY
 
-setup-datasets.py (v1.0.0) - Setup public datasets for Bactopia
+setup-datasets.py - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.

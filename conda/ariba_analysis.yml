@@ -1,4 +1,5 @@
-name: bactopia-ariba_analysis-1.0.0
+name: bactopia-ariba_analysis
+version: 1.0.1
 channels:
   - conda-forge
   - bioconda

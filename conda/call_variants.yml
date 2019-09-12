@@ -1,4 +1,5 @@
-name: bactopia-call_variants-1.0.0
+name: bactopia-call_variants
+version: 1.0.1
 channels:
   - conda-forge
   - bioconda

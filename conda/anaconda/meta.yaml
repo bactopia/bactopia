@@ -1,6 +1,5 @@
 {% set name = "bactopia" %}
-{% set version = "1.0.0" %}
-{% set sha256 = "2abb91fa4e1000ad04b2c0b7dc12b46023df714a06e13f8e5b5712cd390e92be" %}
+{% set version = "1.0.1" %}
 
 package:
   name: {{ name }}
@@ -10,28 +9,27 @@ build:
   number: 0
 
 source:
-  url: https://github.com/bactopia/bactopia/archive/v{{version}}.tar.gz
-  sha256: {{ sha256 }}
+  #url: https://github.com/bactopia/bactopia/archive/v{{version}}.tar.gz
+  url: http://staphopia.emory.edu/static/v1.0.1.tar.gz
+  sha256: 77ccd496dfe016096f270bd696aa7f9a340743ed5a8b96c82e4b4fbb641c5fd3
 
 requirements:
   run:
-    - appdirs >=1.4.3
-    - ariba 2.14.1 py36hf484d3e_0
-    - beautifulsoup4 4.8.0 py36_0
-    - biopython 1.74 py36h516909a_0
-    - blast 2.9.0 pl526h979a64d_3
-    - cd-hit 4.8.1 hdbcaa40_2
-    - conda >=4.5.12
-    - executor >=21.3
-    - lxml >=4.3.3
-    - mash 2.2 h3d38be6_0
-    - ncbi-genome-download >=0.2.9
-    - nextflow 19.07.0 hecc5488_0
-    - python 3.6.7 h381d211_1004
-    - unzip 6.0 0
-    - urllib3 >=1.25.2
-    - wget 1.20.1 h90d6eec_0
-
+    - ariba
+    - beautifulsoup4
+    - biopython
+    - blast
+    - cd-hit
+    - conda
+    - executor
+    - lxml
+    - mash
+    - ncbi-genome-download
+    - nextflow
+    - python >3.6
+    - unzip
+    - urllib3
+    - wget
 
 test:
   commands:

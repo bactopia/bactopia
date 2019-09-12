@@ -12,7 +12,7 @@ usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
                               [--version] [--verbose] [--silent]
                               OUTPUT_DIRECTORY
 
-setup-datasets.py (v1.0.0) - Setup datasets for Bactopia
+setup-datasets.py - Setup datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -79,7 +79,7 @@ from bs4 import BeautifulSoup
 from executor import ExternalCommand
 
 PROGRAM = os.path.basename(sys.argv[0])
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'

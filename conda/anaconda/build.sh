@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e -x
 
+# Move programs
 mkdir -p ${PREFIX}/bin
 
 chmod 777 bactopia

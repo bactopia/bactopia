@@ -1,9 +1,9 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="0.0.5"
+LABEL version="1.0.1"
 LABEL authors="robert.petit@emory.edu"
-LABEL description="Container image containing requirements for the Bactopia-AP download_references"
+LABEL description="Container image containing requirements for the Bactopia download_references process"
 
 COPY conda/download_references.yml /
 RUN conda env create -f download_references.yml && conda clean -a

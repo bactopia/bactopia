@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -217,7 +217,7 @@ process qc_reads {
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") optional true into SEQUENCE_TYPE, COUNT_31MERS, ARIBA_ANALYSIS,
                                                                        MINMER_SKETCH, MINMER_QUERY, INSERTION_SEQUENCES,
-                                                                       CALL_VARIANTS, CALL_VARIANTS_AUTO, MAPPING_QUERY
+                                                                       CALL_VARIANTS, MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
         file(genome_size) optional true into ASSEMBLY, QC_FINAL_SUMMARY
@@ -440,7 +440,7 @@ process minmer_sketch {
     output:
     file("${sample}*.{msh,sig}")
     file("${sample}.sig") into QUERY_SOURMASH
-    set val(sample), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
+    set val(sample), val(single_end), file(fq), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
 
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
@@ -518,11 +518,11 @@ process download_references {
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
 
     input:
-    set val(sample), file(sample_sketch) from DOWNLOAD_REFERENCES
+    set val(sample), val(single_end), file(fq), file(sample_sketch) from DOWNLOAD_REFERENCES
     file(refseq_sketch) from REFSEQ_SKETCH
 
     output:
-    set val(sample), file("genbank/*.gbk") optional true into REFERENCES_AUTO
+    set val(sample), val(single_end), file(fq), file("genbank/*.gbk") optional true into CALL_VARIANTS_AUTO
     file("mash-dist.txt")
 
     when:
@@ -549,18 +549,14 @@ process call_variants_auto {
     publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from CALL_VARIANTS_AUTO
-    each file(reference) from REFERENCES_AUTO.flatten()
+    set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
 
     output:
     file("${reference_name}/*")
 
-    when:
-    REFSEQ_SKETCH_FOUND == true && reference.getSimpleName().contains(sample)
-
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
-    reference_name = reference.getSimpleName()
+    reference_name = reference.getBaseName().split('-')[1].split(/\./)[0]
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
@@ -968,6 +964,22 @@ def create_fastq_channel(fastq_input, fastq_type) {
     }
 }
 
+def create_reference_channel(channel_input) {
+    return channel_input.map { it ->
+        def split_references = []
+        def sample = it[0]
+        def single_end = it[1]
+        def fastq = it[2]
+        if (it[3] instanceof List) {
+            it[3].each {
+                split_references.add(tuple(sample, single_end, fastq, it))
+            }
+        } else {
+            split_references.add(tuple(sample, single_end, fastq, it[3]))
+        }
+        return split_references
+     }.flatMap { it -> L:{ it.collect { it } } }
+}
 
 def check_input_fastqs(fastq_input, fastq_type) {
     /* Read through --fastqs and verify each input exists. */
@@ -1154,6 +1166,15 @@ def full_help() {
 
     Many of the default values were also taken from the program for which they
     apply to.
+
+    ENA Download Parameters:
+        --aspera_speed STR      Speed at which Aspera Connect will download.
+                                    Default: ${params.aspera_speed}
+
+        --max_retry INT         Maximum times to retry downloads
+                                    Default: ${params.max_retry}
+
+        --use_ftp               Only use FTP to download FASTQs from ENA
 
     QC Reads Parameters:
         --min_basepairs INT     The minimum amount of input sequenced basepairs required
