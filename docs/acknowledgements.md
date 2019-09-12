@@ -16,7 +16,7 @@ Below is a list of public datasets (alphabetical) that could have potentially
 been included during the *[Build Datasets](datasets.md)* step.
 
 ### Ariba Reference Datasets
-These would have been setup using Ariba's `getref` function. You can learn 
+These datasets are available using Ariba's `getref` function. You can learn 
 more about this function at [Ariba's Wiki](https://github.com/sanger-pathogens/ariba/wiki/Task:-getref).
 
 * __[ARG-ANNOT](http://en.mediterranee-infection.com/article.php?laref=283%26titre=arg-annot)__  

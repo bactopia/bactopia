@@ -18,7 +18,7 @@ Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow. We
 have also prioritized software packages available from
 [Bioconda](https://bioconda.github.io/) (or other
 [Anaconda channels](https://anaconda.org/)) to make installation
-as simple as possible for *all* users. This has also given us the opportunity to update out workflow with the latest methods.
+as simple as possible for *all* users. This has also given us the opportunity to update our workflow with the latest methods.
 
 ## Workflow Overview
 

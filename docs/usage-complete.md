@@ -3,7 +3,7 @@
 Bactopia includes numerous configurable parameters. Currently 103 to be exact! Basically for each step of the pipeline, you can modify the default parameters of a specific tool.
 
 ## Required
-The required parameters depends on how many samples are to be proccessed. You can learn more about which approach to take at [Specifying Input FASTQs](usage-basic.md#specifying-input-fastqs).
+The required parameters depends on how many samples are to be proccessed. You can learn more about which approach to take at [Specifying Input FASTQs](usage-basic.md#fastq-inputs).
 ```
     ### For Procesessing Multiple Samples
     --fastqs STR            An input file containing the sample name and
@@ -19,6 +19,12 @@ The required parameters depends on how many samples are to be proccessed. You ca
     --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
     --sample STR            The name of the input sequences
+
+    ### For Downloading from ENA
+    --accessions            An input file containing ENA/SRA experiement accessions to
+                                be processed
+
+    --accession             A single ENA/SRA Experiment accession to be processed
 ```
 
 ## Dataset
@@ -44,6 +50,9 @@ These optional parameters, while not required, will be quite useful (especially 
 
     --outdir DIR            Directory to write results to
                                 Default .
+
+    --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
+                                Default: 32 Gb
 ```
 
 
@@ -79,20 +88,30 @@ The following parameters are useful to test to test input parameters.
     --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
                                 the Nextflow run cannot be resumed.
 
+    --keep_all_files        Keeps all analysis files created. By default, intermediate
+                                files are removed. This will not affect the ability
+                                to resume Nextflow runs, and only occurs at the end
+                                of the process.
+
     --version               Print workflow version information
+
     --help                  Show this message and exit
+
     --help_all              Show a complete list of adjustable parameters
 ```
 
 ### `--clean_cache`
-By default, *Bactopia* will keep all intermediate files even after successfully completing all steps. While the cache is maintained Bactopia is resumable using the `-resume` parameter. This does however introduce a potentential storage overhead. The cache will contain multiple intermediate files (e.g. uncompressed FASTQs, BAMs, etc...) for each sample that was processed. In other words, it can get pretty large!
+Bactopia will keep Nextflow's *work* cache even after successfully completing. While the cache is maintained Bactopia is resumable using the `-resume` parameter. This does however introduce a potentential storage overhead. The cache will contain multiple intermediate files (e.g. uncompressed FASTQs, BAMs, etc...) for each sample that was processed. In other words, it can get pretty large!
 
 If you would like to clean up the cache you can use `--clean_cache`. This will remove the cache **only** after a successful execution (e.g. everything thing finished without errors). This is accomplished by removing the `work` directory created by Nextflow. As you might have guessed, by using removing the cache, Bactopia will no longer be resumeable.
 
 At the end of the day, you can always decide to not use `--clean_cache` and manually remove the `work` directory when you feel it is safe!
 
+### `--keep_all_files`
+In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.
+
 ## Program Specific
-The remaining parameters are associated with specific programs. In the following sectionsm, these parameters are grouped by which Nextflow process they are applicable to.
+The remaining parameters are associated with specific programs. In the following sections, these parameters are grouped by which Nextflow process they are applicable to.
 
 The description and default values for these parameters were taken from the program to which they apply.
 
@@ -220,6 +239,17 @@ It is important to note, not all of the available parameters for each and every 
                                 Default: Filter out singletons
 ```
 
+
+### Download FASTQ
+```
+    --aspera_speed STR      Speed at which Aspera Connect will download.
+                                Default: 100M
+
+    --max_retry INT         Maximum times to retry downloads
+                                Default: 10
+
+    --use_ftp               Only use FTP to download FASTQs from ENA
+```
 
 ### Insertion Mapping
 ```

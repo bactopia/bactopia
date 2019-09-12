@@ -1,9 +1,9 @@
 # Quick Start
-Here we go! No time to waste, let's get the ball rolling! Why are you still reading this?!?
+Here we go! No time to waste, let's get the ball rolling! Why are you still reading this?!? Go! Go! Go!
 
 ## Installation
 ```
-conda create -n bactopia -c rpetit3 bactopia
+conda create -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
 ```
 
