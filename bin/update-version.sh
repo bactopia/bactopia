@@ -40,9 +40,6 @@ if [ $? -eq 0 ]; then
     done
     ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/conda/README.md
 
-    # Conda Recipe
-    ${SED_CMD} 's/version = "'"${OLD_VERSION}"'"/version = "'"${NEW_VERSION}"'"/' ${DIRECTORY}/conda/anaconda/meta.yaml
-
     # Python Scripts
     for file in $(ls ${DIRECTORY}/bin/*.py); do
         ${SED_CMD} -r 's/VERSION = "'"${OLD_VERSION}"'"/VERSION = "'"${NEW_VERSION}"'"/' ${file}

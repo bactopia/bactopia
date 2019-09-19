@@ -1,14 +1,13 @@
 name: bactopia
-version: 1.0.1
+version: 1.1.0
 channels:
-  - rpetit3
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
   - appdirs=1.4.3=py_1
-  - ariba=2.14.1=py36hf484d3e_0
+  - ariba=2.14.3=py36he1b5a44_1
   - asn1crypto=0.24.0=py36_1003
   - bcftools=1.9=h5c2b69b_5
   - beautifulsoup4=4.8.0=py36_0

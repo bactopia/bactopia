@@ -79,7 +79,7 @@ from bs4 import BeautifulSoup
 from executor import ExternalCommand
 
 PROGRAM = "bactopia datasets"
-VERSION = "1.0.1"
+VERSION = "1.1.0"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'

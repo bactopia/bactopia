@@ -2,7 +2,7 @@
 Below is a list of the commands used to create each enviroment.
 
 ```
-VERSION=1.0.1
+VERSION=1.1.0
 # bactopia.yml
 conda create -y -n bactopia-bactopia -c rpetit3 -c conda-forge -c bioconda \
     appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash \
