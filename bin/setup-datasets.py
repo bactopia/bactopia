@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """
-usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
+usage: bactopia datasets [-h] [--ariba STR] [--species STR]
                               [--skip_prokka] [--include_genus]
                               [--identity FLOAT] [--overlap FLOAT]
                               [--max_memory INT] [--fast_cluster]
@@ -12,7 +12,7 @@ usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
                               [--version] [--verbose] [--silent]
                               OUTPUT_DIRECTORY
 
-setup-datasets.py - Setup datasets for Bactopia
+bactopia datasets - Setup datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -64,9 +64,9 @@ Adjust Verbosity:
   --silent          Only critical errors will be printed.
 
 example usage:
-  setup-public-datasets.py outdir
-  setup-public-datasets.py outdir --ariba 'card'
-  setup-public-datasets.py outdir --species 'Staphylococcus aureus' --include_genus
+  bactopia datasets outdir
+  bactopia datasets outdir --ariba 'card'
+  bactopia datasets outdir --species 'Staphylococcus aureus' --include_genus
 """
 import glob
 import json
@@ -78,7 +78,7 @@ from Bio import SeqIO
 from bs4 import BeautifulSoup
 from executor import ExternalCommand
 
-PROGRAM = os.path.basename(sys.argv[0])
+PROGRAM = "bactopia datasets"
 VERSION = "1.0.1"
 STDOUT = 11
 STDERR = 12

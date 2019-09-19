@@ -3,6 +3,7 @@
 Read a directory and prepare a FOFN of FASTQs
 """
 VERSION = "1.0.1"
+PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':
     import argparse as ap
@@ -10,10 +11,9 @@ if __name__ == '__main__':
     import glob
     import os
     import sys
-    PROGRAM = os.path.basename(sys.argv[0])
 
     parser = ap.ArgumentParser(
-        prog='prepare-fofn.py',
+        prog='bactopia prepare',
         conflict_handler='resolve',
         description=(
             f'{PROGRAM} (v{VERSION}) - Read a directory and prepare a FOFN of FASTQs'

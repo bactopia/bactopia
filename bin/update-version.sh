@@ -49,6 +49,7 @@ if [ $? -eq 0 ]; then
     done
 
     # Docker/Singularity
+    ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${DIRECTORY}/Dockerfile
     for file in $(ls ${DIRECTORY}/docker/*.Dockerfile); do
         ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${file}
     done

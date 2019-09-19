@@ -171,7 +171,7 @@ process gather_fastqs {
 process fastq_status {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
     cpus 1
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
@@ -189,7 +189,7 @@ process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
@@ -435,7 +435,7 @@ process minmer_sketch {
     */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.{msh,sig}"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_SKETCH
@@ -458,7 +458,7 @@ process minmer_query {
     */
     cpus 1
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_QUERY
@@ -466,7 +466,7 @@ process minmer_query {
     each file(dataset) from MINMER_DATABASES
 
     output:
-    file("${sample}*.txt")
+    file "*.txt"
 
     shell:
     dataset_name = dataset.getName()
