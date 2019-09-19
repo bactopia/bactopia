@@ -9,7 +9,7 @@ conda activate bactopia
 
 ## Build Dataset
 ```
-setup-datasets datasets
+bactopia datasets datasets/
 ```
 
 

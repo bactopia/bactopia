@@ -140,9 +140,9 @@ A script named `prepare-fofn` has been included to help aid (hopefully!) the pro
 
 ###### Usage
 ```
-prepare-fofn [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
+bactopia prepare [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
 
-prepare-fofn - Read a directory and prepare a FOFN of FASTQs
+bactopia prepare - Read a directory and prepare a FOFN of FASTQs
 
 positional arguments:
   STR                Directory where FASTQ files are stored
@@ -160,7 +160,7 @@ optional arguments:
 Here is an example using the default parameters. In the example, sample *SRR00000* has more than 2 FASTQs matched to it, which is recognized as an error.
 
 ```
-prepare-fofn  tests/dummy-fastqs/
+bactopia prepare  tests/dummy-fastqs/
 sample  r1      r2
 SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000.fastq.gz /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
 ERROR: "SRR00000" has more than two different FASTQ files, please check.
@@ -169,7 +169,7 @@ ERROR: "SRR00000" has more than two different FASTQ files, please check.
 After tweaking the `--pattern` parameter a little bit. The error is corrected and sample *SRR00000* is properly recognized as a paired-end read set.
 
 ```
-prepare-fofn  tests/dummy-fastqs/ --pattern *_[12].fastq.gz
+bactopia prepare  tests/dummy-fastqs/ --pattern *_[12].fastq.gz
 sample  r1      r2
 SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
 ```
