@@ -6,7 +6,7 @@ Conda is an open source package management system and environment management sys
 but the [Anaconda installer](https://www.anaconda.com/distribution/) should
 work the same.
 
-A Docker/Singularity container based on the Bioconda install is also available.
+A Docker container based on the Bioconda install is also available.
 
 ## Bioconda
 Once you have Conda all set up, you are ready to create an environment for
@@ -27,7 +27,7 @@ And voilà, you are all set to get started processing your data!
 
 But first, it is highly recommended that you take the time to [Build Datasets](datasets.md) that Bactopia can take advantage of.
 
-## TODO - Docker/Singularity Container
+## Docker
 A Docker container, that is also Singularity compatible, has been created that is based off the Conda install.
 
 ```

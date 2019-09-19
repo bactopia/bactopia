@@ -1,63 +1,259 @@
-# TODO Tutorial
-For this tutorial, we will attempt to replicate the [Staphopia](https://staphopia.emory.edu) analysis pipeline as best we can in Bactopia. This will involve:
+You should now have a directory named `datasets` that has all the available datasets to be used by Bactopia.# Tutorial
+For this tutorial, we will attempt to replicate the [Staphopia](https://staphopia.emory.edu) analysis pipeline with Bactopia. 
 
-- Building datasets
-- Acquiring Staphopia datasets
-- Downloading *Staphylococcus aureus* genomes from ENA
-- Single sample processing
-- Multiple sample processing using FOFN
+We will use *S. aureus* samples associated with cystic fibrosis lung infections that were recently published (details below, shameless self plug!) and are available from BioProject accession [PRJNA480016](https://www.ebi.ac.uk/ena/data/view/PRJNA480016).
+
+* *Bernardy, Eryn E., et al. ["Whole-Genome Sequences of Staphylococcus aureus Isolates from Cystic Fibrosis Lung Infections."](https://doi.org/10.1128/MRA.01564-18) Microbiol Resour Announc 8.3 (2019): e01564-18.*
+
+Overall the goal of the tutorial is to:
+
+- Build datasets
+- Acquire Staphopia datasets
+- Use Bactopia to process:
+    - A sample from ENA
+    - Multiple samples from ENA
+    - Single local sample
+    - Multiple local samples using FOFN
 
 !!! error "Bactopia Should Be Installed"
     This tutorial assumes you have already installed Bactopia. If you have not, please check out how to at [Installation](installation.md).
 
-## Getting Started
-For starters, we'll create a empty directory to conduct this tutorial in.
+## Build Datasets
+First let's create a directory to work in and activate our Bactopia environment.
+```
+mkdir bactopia-tutorial
+cd bactopia-tutorial
+conda activate bactopia
+```
+
+Now we are ready to build our datasets!
 
 ```
-mkdir ~/bactopia-tutorial
-cd ~/bactopia-tutorial
+bactopia datasets datasets/ --ariba "vfdb_core,card" \
+                            --species "Staphylococcus aureus" \
+                            --include_genus
+                            --cpus 4
 ```
 
-## Building Datasets
-The first thing we'll want to do is build our datasets!
-```
-setup-datasets.py datasets --ariba "vfdb_core,card" --species "Staphylococcus aureus" --include_genus
-```
+Let's review what is happening here.
+
+`datasets/` is where our datasets will be downloaded, processed and stored.
+
+`--ariba "vfdb_core,card"` says to download and setup the [VFDB Core](http://www.mgc.ac.cn/VFs/) and the [CARD](https://card.mcmaster.ca/) databases to be used by Ariba.
+
+`--species "Staphylococcus aureus"` will download MLST schemas associated with *S. aureus* it will also download completed *S. aureus* genomes (RefSeq only) that are used to create a set of protein set for annotation, a Mash sketch for automatic variant calling to the nearest neighbor, and calulate genome size statistics.
+
+`--include_genus` will also download completed genomes from the *Staphylococcus* genus that will be used for the protein set. These completed genomes **are not** used for the sketch creation or genome size calculation.
+
+`--cpus 4` use 4 cpus for downloading and the clustering step. Adjust this number according to your setup!
 
 !!! info "Use CARD over MEGARes"
-    Staphopia v1 made use of MEGAres, for the purposes of this tutorial we are going to use the CARD database instead.
+    Staphopia v1 made use of MEGARes, for the purposes of this tutorial we are going to use the CARD database instead.
 
-You should now have a directory named `datasets` that has all the available datasets to be used by Bactopia.
+If all goes well, the newly created datasets are now available in the folder `datasets/`.
 
-## Staphopia Datasets
-Staphopia includes a few *optional* datasets that we'll want to also include. These datasets include those related to variant calling and SCCmec typing.
+We have now completed the dataset creation step! Pat yourself on the back! Next we'll supplement these datasets with some optional *S. aureus* specific datasets.
 
-We can acquire these files using the [Bactopia Datasets](https://github.com/bactopia/bactopia-datasets) GitHub repository. For this tutorial a [Staphopia v1](https://github.com/bactopia/bactopia-datasets/tree/staphopia-v1) branch has been created, which includes this optional datasets.
+## Acquire Staphopia Datasets
+Staphopia includes a few *optional* datasets such as *S. aureus* N315 reference genome and SCCmec sequences (primers, proteins, full cassettes).
 
-First let's clone the repository, then we'll move the files into our recently built datasets folder.
+We will acquire these files using the [Bactopia Datasets](https://github.com/bactopia/bactopia-datasets) GitHub repository. For this tutorial a [Staphopia v1](https://github.com/bactopia/bactopia-datasets/tree/staphopia-v1) branch has been created, which includes this optional dataset. Now let's clone the repository.
 
 ```
-git clone https://github.com/bactopia/bactopia-datasets.git
-cd bactopia-datasets
-mv species-specific/ ~/bactopia-tutorial/datasets
+git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
 ```
 
-~Voila! That should be it. You should not have the Staphopia v1 datasets included with your recentely built datasets (e.g. *S. aureus* protein clusters, RefSeq sketch, etc...)
-## Example Dataset
-For this tutorial, we will be using a few sequenced samples availble from the European Nucleotide Archive.
+Next we'll copy the files into our recently built datasets folder and delete the `bactopia-datasets` repository since we no longer need it.
 
-## Download Genomes
-We will now use the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena) to download a few *S. aureus* genomes.
+```
+cp -r bactopia-datasets/species-specific/ datasets/
+rm -rf bactopia-datasets/
+```
 
+~Voilà! 
+
+That should be it. You should now have the Staphopia v1 datasets included with your recentely built datasets (e.g. *S. aureus* protein clusters, RefSeq sketch, etc...)
 
 ## Running Bactopia
+OK! Get your servers started up! It is time to get processing!
 
-### Single Sample
+### Samples on ENA
+#### Single Sample
+Let's start this by downloading a single sample from ENA, and processing it through Bactopia.
 
-### Multiple Samples (FOFN)
+```
+bactopia --accession SRX4563634 \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir ena-single-sample
+```
 
+So, what's happening here?
 
+`--accession SRX4563634` is telling Bactopia to download FASTQs associated with Exeriment accession SRX4563634.
 
+`--dataset datasets/` tells Bactopia your pre-built datasets are in the folder `datasets`.
 
+`--species staphylococcus-aureus` tells Bactopia, within the datasets folder, use the species specific dataset for *S. aureus*.
 
+`--coverage 100` will limit the cleaned up FASTQ file to an estimated 100x coverage based on the genome size.
 
+`--genome_size median` tells Bactopia to use the median genome size of completed *S. aureus* genomes. The minimum, maximum, median, and mean genome sizes were calculated during the dataset building step. If a genome size was not given, it would have been estimated by Mash.
+
+`--max_cpus 8` and `--cpus 2` tells Bactopia to use a maximum of 8 cpus (`--max_cpus`) and each job within the workflow can use a maximum of 2 cpus (`--cpus`). So at most 8 jobs (using 1 cpu each) can run at a time, and a minimum of 4 jobs (using 2 cpus each). Adjust these parameters to fit your setup!
+
+`--outdir ena-single-sample` tells Bactopia to dump the results into the `ena-single-sample` folder. Please keep in mind, this will not stop Nextflow from creating files (.nextflow, trace.txt, etc...) and directories (work and .nextflow/) within your current directory.
+
+Once you launch this command, sit back, relax and watch the Nextflow give realtime updates for SRX4563634's analysis! 
+
+The **approximate completion time is ~15-30 minutes** depending on the number of cpus given and download times from ENA.
+
+Once complete, the results from numerous tools available to you in `ena-single-sample/SRX4563634/`. 
+
+#### Multiple Samples
+Now we are going to have Bactopia download and process 5 samples from ENA. To do this we will need to create a text file with a list of Experiment accessions we want to process.
+
+```
+printf "SRX4563678\nSRX4563679\nSRX4563680\nSRX4563681\nSRX4563682\n" > accessions.txt
+```
+
+**accessions.txt** will now have five Experiment accessions, a single one per line. Just like this:
+```
+SRX4563678
+SRX4563679
+SRX4563680
+SRX4563681
+SRX4563682
+```
+
+To process these 5 samples, we will adjust our command used previously.
+
+```
+bactopia --accessions accessions.txt \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir ena-multiple-samples
+```
+
+Instead of `--accession` we are now using `--accessions accession.txt` which tells Bactopia to read `accessions.txt`, and for each Experiment accession download in from ENA and then process it.
+
+At this point, you might want to go for a walk or make yourself a coffee! This step has an **approximate completion time of ~45-120 minutes**, which again is fully dependent on the cpus used and the download times from ENA.
+
+Once this is complete, the results for all five samples will be found in the `ena-multiple-samples` directory. Each sample will have there own folder of results.
+
+### Local Samples
+So for the local samples, we're going to recycle some of the samples we downloaded from ENA.
+
+First let's make a directory to put the FASTQs into:
+```
+mkdir fastqs
+```
+
+Now let's move some of the FASTQs from our ENA samples into this folder.
+```
+cp ena-single-sample/SRX4563634/quality-control/SRX4563634*.fastq.gz fastqs/
+cp ena-multiple-samples/SRX4563680/quality-control/SRX4563680*.fastq.gz fastqs/
+cp ena-multiple-samples/SRX4563682/quality-control/SRX4563682*.fastq.gz fastqs/
+```
+
+Finally let's make one of these paired-end reads into a single-end read (don't tell on me!).
+```
+cat fastqs/SRX4563634*.fastq.gz > fastqs/SRX4563634-SE.fastq.gz
+```
+
+OK! Now we are ready to continue the tutorial!
+
+#### Single Sample
+Again we'll mostly be using the same parameters as previous, but with a few new ones. To process a single sample you can use the `--R1`/`--R2` (paired-end), `--SE` (single-end), and `--sample` parameters.
+
+##### Paired-End
+For paired-end reads you will want to use `--R1`, `--R2`, and `--sample`. For this paired-end example we'll use SRX4563634 again which we've copied to the `fastqs` folder.
+
+```
+bactopia --R1 fastqs/SRX4563634_R1.fastq.gz \
+         --R2 fastqs/SRX4563634_R2.fastq.gz \
+         --sample SRX4563634 \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir local-single-sample
+```
+
+Now Bactopia will recognize the `--R1` and `--R2` parameters as paired-end reads and process. The `--sample` is required and will be used for naming the output.
+
+Similar to the single ENA sample, the **approximate completion time is ~15-30 minutes** depending on the number of cpus given.
+
+Once complete, results can be found in `local-single-sample/SRX4563634/`. 
+
+##### Single-End
+In the case of Illumina reads, you're very unlikely to produce single-end reads, but they do exist in the wild (early days of Illumina!). Nevertheless, because single-end reads do exist, single-end support was built into Bactopia.
+
+To analyze single-end reads, the `--SE` parameter will replace `--R1` and `--R2`. 
+```
+bactopia --SE fastqs/SRX4563634-SE.fastq.gz \
+         --sample SRX4563634-SE \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir local-single-sample
+```
+
+Now SRX4563634-SE will be processed as a single-end sample. For single-end processing there are some paired-end only analyses (e.g. error correction, insertion sequences) that will be skipped. This leads to single-end samples being processed a little bit faster than pair-end samples. But, the **approximate completion time is still ~15-30 minutes**.
+
+Once complete, you'll the results from numerous tools available to you in `local-single-sample/SRX4563634-SE/`. 
+
+If you made it this far, you're almost done!
+
+#### Multiple Samples (FOFN)
+Here we go! The final way you can process samples in Bactopia!
+
+Bactopia allows you to give a text file describing the input samples. This file of file names (FOFN), contains sample names and location to associated FASTQs. The Bactopia FOFN format is described in detail at [Basic Usage -> Multiple Samples](/usage-basic/#multiple-samples).
+
+First we'll need to prepare a FOFN describing the FASTQ files in our `fastqs` folder. We can use `bactopia prepare` to do so:
+
+```
+bactopia prepare fastqs/ > fastqs.txt
+```
+
+This command will try to create a FOFN for you. For this turorial, the FASTQ names are pretty straight forward and should produce a correct FOFN (or at least it should! ... hopefully!). If that wasn't the case for you, there are ways to [tweak `bactopia prepare`](/usage-basic/#generating-a-fofn).
+
+Now we can use the `--fastqs` parameters to process samples in the FOFN.
+
+```
+bactopia --fastqs fastqs.txt \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir local-multiple-samples
+```
+
+We no longer need `--R1`, `--R2`, `--SE`, or `--sample` as the values for these parameters can be determined from the FOFN. 
+
+Here it is, the final wait! This step has an **approximate completion time of ~45-120 minutes**. So, you will definitely want to go for a walk or make yourself a coffee! You've earned it! 
+
+Once this is complete, the results for each sample (within their own folder) will be found in the `local-multiple-samples` directory.
+
+!!! info "FOFN is more cpu efficient, making it faster"
+    The real benefit of using the FOFN method to process multiple samples is Nextflow's queue system will make better use of cpus. Processing multiple samples one at a time (via `--R1`/`--R2` or `--SE`) will lead more instances of jobs waiting on other jobs to finish, during which cpus aren't being used.
+
+## What's next?
+That should do it! Hopefully you have succeeded (yay! 🎉) and would like to use Bactopia on your own data! 
+
+If your ran into any issues, please let me know by submitting a [GitHub Issue](https://github.com/bactopia/bactopia/issues).

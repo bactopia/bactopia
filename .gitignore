@@ -1,6 +1,9 @@
 /datasets/
 /conda/cache
 /configs/aws.config
+.nextflow*
+/work/
+trace.txt*
 
 
 # Byte-compiled / optimized / DLL files

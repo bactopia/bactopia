@@ -1,5 +1,5 @@
 # Build Datasets
-Bactopia can make use of many existing public datasets, as well as private datasets. The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated for the user.
+Bactopia can make use of many existing public datasets, as well as private datasets. The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated.
 
 !!! info "Highly recommended to complete this step!"
 
@@ -33,14 +33,14 @@ For the given bacterial species, completed RefSeq genomes are downloaded and the
 Using the completed genomes downloaded for clustering proteins a Mash sketch and Sourmash signature is created for these genomes. These sketches can then be used for automatic selection of reference genomes for variant calling.
 
 **Optional User Populated Folders**  
-A few folders for things such as calling variants, insertion sequences and primers are created that the user can manually populate. 
+A few folders for things such as calling variants, insertion sequences and primers are created that the user can manually populate. More information is available below!
 
 ## Setting Up
 Included in Bactopia is the `setup-datasets.py` script (located in the `bin` folder) to automate the process of downloading and/or building these datasets.
 
 ### Quick Start
 ``` bash
-setup-datasets.py datasets
+bactopia datasets datasets/
 ```
 
 This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, GenBank Sourmash Signatures, and PLSDB in the newly created `datasets` folder.
@@ -48,7 +48,7 @@ This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, Ge
 
 ### A Single Bacterial Species
 ``` bash
-setup-datasets.py datasets --species "Haemophilus influenzae" --include_genus
+bactopia datasets datasets/ --species "Haemophilus influenzae" --include_genus
 ```
 
 
@@ -59,7 +59,7 @@ You can also set up datasets for multiple bacterial species at a time. There are
 #### Comma-Separated 
 At runtime, you can separate the the different species
 ``` bash
-setup-datasets.py datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
+bactopia datasets datasets/ --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
 ```
 #### Text File
 
@@ -75,26 +75,26 @@ Mycobacterium tuberculosis
 The new command becomes:
 
 ``` bash
-setup-datasets.py datasets --species species.txt --include_genus
+bactopia datasets datasets/ --species species.txt --include_genus
 ```
 
 This will setup the MLST schema (if available) and a protein cluster FASTA file for each species in `species.txt`. 
 
 ## Usage
 ``` 
-usage: setup-datasets.py [-h] [--ariba STR] [--species STR]
-                              [--skip_prokka] [--include_genus]
-                              [--identity FLOAT] [--overlap FLOAT]
-                              [--max_memory INT] [--fast_cluster]
-                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                              [--clear_cache] [--force] [--force_ariba]
-                              [--force_mlst] [--force_prokka]
-                              [--force_minmer] [--force_plsdb]
-                              [--keep_files] [--list_datasets] [--depends]
-                              [--version] [--verbose] [--silent]
-                              OUTPUT_DIRECTORY
+usage: setup-datasets [-h] [--ariba STR] [--species STR]
+                           [--skip_prokka] [--include_genus]
+                           [--identity FLOAT] [--overlap FLOAT]
+                           [--max_memory INT] [--fast_cluster]
+                           [--skip_minmer] [--skip_plsdb] [--cpus INT]
+                           [--clear_cache] [--force] [--force_ariba]
+                           [--force_mlst] [--force_prokka]
+                           [--force_minmer] [--force_plsdb]
+                           [--keep_files] [--list_datasets] [--depends]
+                           [--version] [--verbose] [--silent]
+                           OUTPUT_DIRECTORY
 
-setup-datasets.py - Setup public datasets for Bactopia
+setup-datasets - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -169,3 +169,71 @@ Many intermediate files are downloaded/created (e.g. completed genomes) and dele
 
 #### Tweaking CD-HIT
 There are parameters (`--identity`, `--overlap`, `--max_memory`, and `--fast_cluster`) to tweak CD-HIT if you find it necessary. Please keep in mind, the only goal of the protein clustering step is to help speed up Prokka, by providing a decent set of proteins to annotate against first.
+
+## User Populated Folders
+Built into the Bactopia dataset structure are folders that you, the user, can populate for species specific analysis. These could include specific genes you want BLASTed against your samples or a specific reference you want all your samples mapped to and variants called.
+
+### Directory Structure
+When a species specific dataset is created, a folder named `optional` is also created. For example, a *S. aureus* specific dataset will have the following directory structure:
+
+```
+datasets/species-specific/staphylococcus-aureus/
+├── annotation
+├── minmer
+├── mlst
+└── optional
+    ├── blast
+    │   ├── genes
+    │   ├── primers
+    │   └── proteins
+    ├── insertion-sequences
+    ├── mapping-sequences
+    └── reference-genomes
+```
+
+Within the `optional` folder are folders that you can added your own data up interest to. 
+
+#### BLAST
+```
+datasets/species-specific/staphylococcus-aureus/
+└── optional
+    └── blast
+        ├── genes
+        ├── primers
+        └── proteins
+```
+
+In the `blast` directory there are three more directories! 
+
+The `genes` folder is where you can place gene seqeunces (nucleotides) in FASTA format to query against assemblies using `blastn`.
+
+The `primers` folder is where you can place primer sequences (nucleotides) in FASTA format to query against assemblies using `blastn`, but with primer-specific parameters and cut-offs.
+
+Finally, the `proteins` (as you probably guessed!) is where you can place protein sequnces (amino acids) in FASTA format to query against assemblies using `blastp`.
+
+#### Insertion Sequences
+```
+datasets/species-specific/staphylococcus-aureus/
+└── optional
+    └── insertion-sequences
+```
+
+In the `insertion-sequences` directory you can place FASTA files of insertion seqeunces you would like searched for using [ISMapper](https://github.com/jhawkey/IS_mapper).
+
+### Mapping
+```
+datasets/species-specific/staphylococcus-aureus/
+└── optional
+    └── mapping-sequences
+```
+
+In the `mapping-sequences` directory you can place FASTA files of any nucleotide sequence you would like FASTQ reads to be mapped against using [BWA](https://github.com/lh3/bwa). This can be useful if you are interested if whether a certain region or gene is covered or not.
+
+### Reference Genomes
+```
+datasets/species-specific/staphylococcus-aureus/
+└── optional
+    └── reference-genomes
+```
+
+In the `reference-genomes` directory you can put a GenBank (preferred!) or FASTA file of a reference genome you would like variants to be called against using [Snippy](https://github.com/tseemann/snippy).

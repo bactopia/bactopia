@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '1.0.1'
+VERSION = '1.1.0'
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -171,7 +171,7 @@ process gather_fastqs {
 process fastq_status {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
     cpus 1
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
@@ -189,7 +189,7 @@ process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
@@ -216,8 +216,8 @@ process qc_reads {
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") optional true into SEQUENCE_TYPE, COUNT_31MERS, ARIBA_ANALYSIS,
-                                                                       MINMER_SKETCH, MINMER_QUERY, INSERTION_SEQUENCES,
-                                                                       CALL_VARIANTS, MAPPING_QUERY
+                                                                       MINMER_SKETCH, MINMER_QUERY, CALL_VARIANTS,
+                                                                       MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
         file(genome_size) optional true into ASSEMBLY, QC_FINAL_SUMMARY
@@ -279,7 +279,7 @@ process assemble_genome {
     file "flash*" optional true
     file "${sample}.fna.gz" optional true into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json" optional true
-    set val(sample), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
+    set val(sample), val(single_end), file(fq), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -298,7 +298,7 @@ process make_blastdb {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), file(fasta) from MAKE_BLASTDB
+    set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
 
     output:
     set val(sample), file("blastdb/*") into BLAST_QUERY
@@ -315,13 +315,16 @@ process annotate_genome {
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), file(fasta) from ANNOTATION
+    set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
     file prokka_proteins from PROKKA_PROTEINS
 
     output:
     file 'annotation/*'
-    file 'annotation/*.gbk.gz' optional true into INSERTION_GENBANK
     set val(sample), file("annotation/*.ffn.gz") optional true into PLASMID_BLAST
+    set val(sample), val(single_end), file(fq), file('annotation/*.gbk.gz') optional true into INSERTION_SEQUENCES
+    set val(sample),
+        file("annotation/*.ffn.gz"),
+        file("annotation/*.faa.gz") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -432,7 +435,7 @@ process minmer_sketch {
     */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.{msh,sig}"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_SKETCH
@@ -455,7 +458,7 @@ process minmer_query {
     */
     cpus 1
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_QUERY
@@ -463,7 +466,7 @@ process minmer_query {
     each file(dataset) from MINMER_DATABASES
 
     output:
-    file("${sample}*.txt")
+    file "*.txt"
 
     shell:
     dataset_name = dataset.getName()
@@ -564,6 +567,54 @@ process call_variants_auto {
 }
 
 
+process update_antimicrobial_resistance {
+    /*
+    Update amrfinders database a single time.
+    */
+    cpus 1
+
+    input:
+    val x from Channel.from(1)
+
+    output:
+    val(updated) into AMR_UPDATED
+
+    shell:
+    updated = true
+    template(task.ext.template)
+}
+
+
+process antimicrobial_resistance {
+    /*
+    Query nucleotides and proteins (SNPs/InDels) against one or more reference genomes selected based
+    on their Mash distance from the input.
+    */
+    cpus cpus
+    tag "${sample}"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+
+    input:
+    set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
+    val updated from AMR_UPDATED
+
+    output:
+    file("${amrdir}/*")
+
+    shell:
+    amrdir = "antimicrobial_resistance"
+    plus = params.amr_plus ? "--plus" : ""
+    report_common = params.amr_report_common ? "--report_common" : ""
+    organism_gene = ""
+    organism_protein = ""
+    if (params.amr_organism) {
+        organism_gene = "-O ${params.amr_organism} --point_mut_all ${amrdir}/${sample}-gene-point-mutations.txt"
+        organism_protein = "-O ${params.amr_organism} --point_mut_all ${amrdir}/${sample}-protein-point-mutations.txt"
+    }
+    template(task.ext.template)
+}
+
+
 process insertion_sequences {
     /*
     Query a set of insertion sequences (FASTA) against annotated GenBank file
@@ -574,8 +625,7 @@ process insertion_sequences {
     publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from INSERTION_SEQUENCES
-    file(genbank) from INSERTION_GENBANK
+    set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
     each file(insertion_fasta) from INSERTIONS
 
     output:
@@ -1516,6 +1566,28 @@ def full_help() {
                                     more than INT hits, the XA tag will not be
                                     written.
                                     Default: ${params.bwa_n}
+
+    Antimicrobial Resistance Parameters:
+        --update_amr            Force amrfinder to update its database.
+
+        --amr_ident_min         Minimum identity for nucleotide hit (0..1). -1
+                                    means use a curated threshold if it exists and
+                                    0.9 otherwise
+                                    Default: ${params.amr_ident_min}
+
+        --amr_coverage_min      Minimum coverage of the reference protein (0..1)
+                                    Default: ${params.amr_coverage_min}
+
+        --amr_organism          Taxonomy group: Campylobacter, Escherichia, Klebsiella
+                                    Salmonella, Staphylococcus, Vibrio
+                                    Default: ''
+
+        --amr_translation_table NCBI genetic code for translated BLAST
+                                    Default: ${params.amr_translation_table}
+
+        --amr_plus              Add the plus genes to the report
+
+        --amr_report_common     Suppress proteins common to a taxonomy group
     """
 
 }

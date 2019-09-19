@@ -1,20 +1,20 @@
 name: bactopia-ariba_analysis
-version: 1.0.1
+version: 1.1.0
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
-  - ariba=2.14.1=py36hf484d3e_0
-  - bcftools=1.9=h5c2b69b_5
+  - ariba=2.14.3=py36he1b5a44_1
+  - bcftools=1.9=h68d8f2e_7
   - beautifulsoup4=4.8.0=py36_0
   - biopython=1.74=py36h516909a_0
   - bowtie2=2.3.5=py36he860b03_0
-  - bzip2=1.0.8=h516909a_0
-  - ca-certificates=2019.6.16=hecc5488_0
+  - bzip2=1.0.8=h516909a_1
+  - ca-certificates=2019.9.11=hecc5488_0
   - cd-hit=4.8.1=hdbcaa40_2
-  - certifi=2019.6.16=py36_1
+  - certifi=2019.9.11=py36_0
   - curl=7.65.3=hf8cf82a_0
   - cycler=0.10.0=py_1
   - dbus=1.13.6=he372182_0
@@ -24,9 +24,10 @@ dependencies:
   - freetype=2.10.0=he983fc9_1
   - gettext=0.19.8.1=hc5be6a0_1002
   - glib=2.58.3=h6f030ca_1002
-  - gsl=2.5=h294904e_0
+  - gsl=2.5=h294904e_1
   - gst-plugins-base=1.14.5=h0935bb2_0
   - gstreamer=1.14.5=h36ae1b5_0
+  - htslib=1.9=ha228f0b_7
   - icu=64.2=he1b5a44_1
   - jpeg=9c=h14c3975_1001
   - kiwisolver=1.1.0=py36hc9558a2_0
@@ -55,7 +56,7 @@ dependencies:
   - matplotlib-base=3.1.1=py36he7580a8_1
   - mummer=3.23=pl526_8
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.17.1=py36h95a1406_0
+  - numpy=1.17.2=py36h95a1406_0
   - openmp=8.0.1=0
   - openssl=1.1.1c=h516909a_0
   - pcre=8.41=hf484d3e_1003
@@ -65,25 +66,27 @@ dependencies:
   - pyfastaq=3.17.0=py_2
   - pymummer=0.10.3=py36_1
   - pyparsing=2.4.2=py_0
-  - pyqt=5.9.2=py36hcca6a23_2
+  - pyqt=5.9.2=py36hcca6a23_4
   - pysam=0.15.3=py36hda2845c_1
   - python=3.6.7=h357f687_1005
   - python-dateutil=2.8.0=py_0
   - qt=5.9.7=h0c104cb_3
   - readline=8.0=hf8c457e_0
-  - samtools=1.9=h8571acd_11
+  - samtools=1.9=h10a08f8_12
   - setuptools=41.2.0=py36_0
   - sip=4.19.8=py36hf484d3e_1000
   - six=1.12.0=py36_1000
   - soupsieve=1.9.3=py36_0
   - spades=3.13.1=h2d02072_2
-  - sqlite=3.29.0=hcee41ef_0
-  - tbb=2019.7=hc9558a2_0
-  - tk=8.6.9=hed695b0_1002
+  - sqlite=3.29.0=hcee41ef_1
+  - tbb=2019.8=hc9558a2_0
+  - tk=8.6.9=hed695b0_1003
   - tornado=6.0.3=py36h516909a_0
   - wget=1.20.1=h90d6eec_0
   - wheel=0.33.6=py36_0
   - xorg-libxau=1.0.9=h14c3975_0
   - xorg-libxdmcp=1.1.3=h516909a_0
   - xz=5.2.4=h14c3975_1001
-  - zlib=1.2.11=h516909a_1005
+  - zlib=1.2.11=h516909a_1006
+prefix: /home/rpetit/miniconda3/envs/ariba
+

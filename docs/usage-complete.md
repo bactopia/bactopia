@@ -1,6 +1,6 @@
 # Runtime Parameters
 
-Bactopia includes numerous configurable parameters. Currently 103 to be exact! Basically for each step of the pipeline, you can modify the default parameters of a specific tool.
+Bactopia includes numerous (100+) configurable parameters. Basically for each step of the pipeline, you can modify the default parameters of a specific tool.
 
 ## Required
 The required parameters depends on how many samples are to be proccessed. You can learn more about which approach to take at [Specifying Input FASTQs](usage-basic.md#fastq-inputs).
@@ -143,6 +143,29 @@ It is important to note, not all of the available parameters for each and every 
     --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
 ```
 
+### Antimicrobial Resistance
+```
+    --update_amr            Force amrfinder to update its database.
+
+    --amr_ident_min         Minimum identity for nucleotide hit (0..1). -1
+                                means use a curated threshold if it exists and
+                                0.9 otherwise
+                                Default: -1
+
+    --amr_coverage_min      Minimum coverage of the reference protein (0..1)
+                                Default: 0.5
+
+    --amr_organism          Taxonomy group: Campylobacter, Escherichia, Klebsiella
+                                Salmonella, Staphylococcus, Vibrio
+                                Default: ''
+
+    --amr_translation_table NCBI genetic code for translated BLAST
+                                Default: 11
+
+    --amr_plus              Add the plus genes to the report
+
+    --amr_report_common     Suppress proteins common to a taxonomy group
+```
 
 ### Ariba
 ```

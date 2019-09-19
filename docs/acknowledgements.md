@@ -85,6 +85,10 @@ Wellcome Open Res 3, 124 (2018)._
 ## Programs Included In Bactopia
 Below is a list of tools (alphabetical) *directly* called by Bactopia. A link to software page as well as the citation (if available) has been included.
 
+* __[AMRFinderPlus](https://github.com/ncbi/amr)__  
+Find acquired antimicrobial resistance genes and some point mutations in protein or assembled nucleotide sequences.  
+_Feldgarden, M. et al. [Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates](https://doi.org/10.1128/AAC.00483-19). Antimicrob. Agents Chemother. (2019)_  
+
 * __[Ariba](https://github.com/sanger-pathogens/ariba)__  
 Antimicrobial Resistance Identification By Assembly  
 _Hunt, M. et al. [ARIBA: rapid antimicrobial resistance genotyping directly from 
