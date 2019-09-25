@@ -85,7 +85,7 @@ def parse_accessions(results):
                 c = dict(zip(FIELDS, col_vals))
                 if c['instrument_platform'] == "ILLUMINA":
                     accessions.append(c['experiment_accession'])
-    return accessions
+    return list(set(accessions))
 
 
 def parse_query(query, exact_taxon=False):
