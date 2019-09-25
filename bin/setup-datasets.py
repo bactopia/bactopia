@@ -157,12 +157,11 @@ def validate_requirements():
 
 def validate_species(species):
     """Query input species against ENA to determine if it exists."""
-    import urllib
+    import requests
     ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/scientific-name'
-    url = f'{ENDPOINT}/{species}?limit=1'.replace(" ", "%20")
-    try:
-        response = urllib.request.urlopen(url).read().decode("utf-8")
-        json_data = json.loads(response)
+    r = requests.get(f'{ENDPOINT}/{species}?limit=1')
+    if r.status_code == requests.codes.ok:
+        json_data = r.json()
         if json_data[0]['scientificName'].lower() != species.lower():
             # Error! Species/Organism found, but doesn't match input. This shouldn't
             # (query is case-insensitive exact match) happen, but my grandma could "
@@ -171,7 +170,7 @@ def validate_species(species):
                            f'({json_data[0]["scientificName"]}), please check spelling.'))
             sys.exit(1)
         logging.info(f'{species} verified in ENA Taxonomy database')
-    except urllib.error.HTTPError as e:
+    else:
         # Error! Species/Organism not found. Check spelling?
         # TODO: Implement"Did you mean?" function
         logging.error(f'Input species ({species}) not found, please check spelling.')
@@ -353,7 +352,7 @@ def setup_ariba(request, available_datasets, outdir, force=False,
 def setup_mlst(request, available_datasets, outdir, force=False):
     """Setup MLST datasets for each requested schema."""
     import re
-    requests = setup_requests(request, available_datasets, 'pubMLST.org')
+    requests = setup_requests(request.capitalize(), available_datasets, 'pubMLST.org')
     bad_chars = [' ', '#', '/', '(', ')']
     if requests:
         for request in requests:

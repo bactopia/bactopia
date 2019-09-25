@@ -31,25 +31,35 @@ if [[ $# == 0 ]]; then
     echo "bactopia - v${VERSION}"
     echo ""
     echo "Available Commands"
+    echo "\`bactopia\` - Execute the Bactopia Nextflow pipeline"
+    echo ""
     echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia-ap GitHub repo"
     echo ""
     echo "\`bactopia datasets\` - Download/setup useful datasets for Bactopia"
     echo ""
     echo "\`bactopia prepare\` - Create a 'file of filenames' for input FASTQ files"
     echo ""
-    echo "\`bactopia version\` - Print Bactopia version and exit"
+    echo "\`bactopia search\` - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
-    echo "\`bactopia\` - Execute the Bactopia Nextflow pipeline"
+    echo "\`bactopia version\` - Print Bactopia version and exit"
     echo ""
     echo "Print Usages:"
     echo "\`bactopia --help\`"
     echo "\`bactopia datasets --help\`"
     echo "\`bactopia prepare --help\`"
+    echo "\`bactopia search --help\`"
     echo ""
     echo "Example Commands"
-    echo "bactopia --fastqs my-fastqs.txt"
+    echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
+    echo ""
     echo "bactopia datasets dataset-dir --species 'Staphylococcus aureus'"
-    echo "bactopia prepare my-fastq-dir"
+    echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
+    echo ""
+    echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
+    echo "bactopia --fastqs my-fastqs.txt"
+    echo ""
+    echo "bactopia search PRJNA480016 --limit 20"
+    echo "bactopia --accessions ena-accessions.txt"
     echo ""
     exit
 fi
@@ -63,8 +73,11 @@ elif [[ "$1" == "datasets" ]]; then
 elif [[ "$1" == "prepare" ]]; then
     # Run prepare-fofn
     prepare-fofn "${@:2}"
-elif [[ "$1" == "version" ]]; then
-    nextflow run bactopia/bactopia --version
+elif [[ "$1" == "search" ]]; then
+    # Run ena-search
+    ena-search "${@:2}"
+elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
+    echo "bactopia ${VERSION}"
 else
     # Execute Bactopia Nextflow pipeline
     nextflow run bactopia/bactopia "${@:1}"
