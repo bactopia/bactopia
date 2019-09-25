@@ -3,7 +3,7 @@ Here we go! No time to waste, let's get the ball rolling! Why are you still read
 
 ## Installation
 ```
-conda create -n bactopia -c conda-forge -c bioconda bactopia
+conda create -y -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
 ```
 
@@ -12,6 +12,15 @@ conda activate bactopia
 bactopia datasets datasets/
 ```
 
+This will build the following datasets:
+
+- [CARD](https://card.mcmaster.ca/)
+- [VFDB](http://www.mgc.ac.cn/VFs/)
+- [RefSeq Mash Sketch](https://mash.readthedocs.io/en/latest/data.html)
+- [GenBank Sourmash Signatures](https://sourmash.readthedocs.io/en/latest/datasets.html?highlight=--track-abundance#genbank-lca-dataset)
+- [PLSDB Mash Sketch & BLAST](https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/)
+
+More information about these datasets is available at [Build Datasets](/datasets/).
 
 ## Run Bactopia!
 ### Single Sample
@@ -28,6 +37,6 @@ bactopia --SE ${SAMPLE}.fastq.gz --sample ${SAMPLE} --dataset datasets/ --outdir
 
 ### Multiple Samples
 ```
-fastqs-fofn directory-of-fastqs/ > fastqs.txt
+bactopia prepare directory-of-fastqs/ > fastqs.txt
 bactopia --fastqs fastqs.txt --dataset datasets --outdir ${OUTDIR}
 ```

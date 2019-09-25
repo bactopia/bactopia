@@ -9,7 +9,7 @@ Documentation for Bactopia is available at https://bactopia.github.io/bactopia/.
 
 # Quick Start
 ```
-conda create -n bactopia -c conda-forge -c bioconda bactopia
+conda create -y -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
 bactopia datasets datasets
 

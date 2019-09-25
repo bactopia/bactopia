@@ -31,7 +31,7 @@ Now we are ready to build our datasets!
 ```
 bactopia datasets datasets/ --ariba "vfdb_core,card" \
                             --species "Staphylococcus aureus" \
-                            --include_genus
+                            --include_genus \
                             --cpus 4
 ```
 
