@@ -220,7 +220,7 @@ datasets/species-specific/staphylococcus-aureus/
 
 In the `insertion-sequences` directory you can place FASTA files of insertion seqeunces you would like searched for using [ISMapper](https://github.com/jhawkey/IS_mapper).
 
-### Mapping
+#### Mapping
 ```
 datasets/species-specific/staphylococcus-aureus/
 └── optional
@@ -229,7 +229,7 @@ datasets/species-specific/staphylococcus-aureus/
 
 In the `mapping-sequences` directory you can place FASTA files of any nucleotide sequence you would like FASTQ reads to be mapped against using [BWA](https://github.com/lh3/bwa). This can be useful if you are interested if whether a certain region or gene is covered or not.
 
-### Reference Genomes
+#### Reference Genomes
 ```
 datasets/species-specific/staphylococcus-aureus/
 └── optional

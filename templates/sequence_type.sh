@@ -6,8 +6,13 @@ tar -xzvf !{dataset_tarball}
 
 if [ "!{method}" == "blast" ]; then
     mkdir -p blast
-    mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
-        --cpu !{task.cpus} --compressed
+    if [[ !{params.compress} == "true" ]]; then
+        mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
+            --cpu !{task.cpus} --compressed
+    else
+        mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
+            --cpu !{task.cpus}
+    fi
 elif [ "!{method}" == "ariba" ]; then
     mv !{dataset_name}/ref_db ./
     ariba run ref_db !{fq[0]} !{fq[1]} ariba \
@@ -21,6 +26,5 @@ elif [ "!{method}" == "ariba" ]; then
         --unique_threshold !{params.unique_threshold} \
         --threads !{task.cpus} \
         --force \
-        --noclean \
-        --verbose !{spades_options}
+        --verbose !{noclean} !{spades_options}
 fi

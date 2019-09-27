@@ -215,7 +215,7 @@ process qc_reads {
     output:
     file "quality-control/*"
     set val(sample), val(single_end),
-        file("quality-control/${sample}*.fastq.gz") optional true into SEQUENCE_TYPE, COUNT_31MERS, ARIBA_ANALYSIS,
+        file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
                                                                        MINMER_SKETCH, MINMER_QUERY, CALL_VARIANTS,
                                                                        MAPPING_QUERY
     set val(sample), val(single_end),
@@ -277,9 +277,9 @@ process assemble_genome {
     output:
     file "shovill*"
     file "flash*" optional true
-    file "${sample}.fna.gz" optional true into SEQUENCE_TYPE_ASSEMBLY
+    file "${sample}.{fna,fna.gz}" optional true into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json" optional true
-    set val(sample), val(single_end), file(fq), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
+    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}")  optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -295,7 +295,7 @@ process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
@@ -320,11 +320,11 @@ process annotate_genome {
 
     output:
     file 'annotation/*'
-    set val(sample), file("annotation/*.ffn.gz") optional true into PLASMID_BLAST
-    set val(sample), val(single_end), file(fq), file('annotation/*.gbk.gz') optional true into INSERTION_SEQUENCES
+    set val(sample), file("annotation/*.{ffn,ffn.gz}") optional true into PLASMID_BLAST
+    set val(sample), val(single_end), file(fq), file('annotation/*.{gbk,gbk.gz}') optional true into INSERTION_SEQUENCES
     set val(sample),
-        file("annotation/*.ffn.gz"),
-        file("annotation/*.faa.gz") optional true into ANTIMICROBIAL_RESISTANCE
+        file("annotation/*.{ffn,ffn.gz}"),
+        file("annotation/*.{ffa,ffa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -381,8 +381,7 @@ process sequence_type {
     publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
-    file(assembly) from SEQUENCE_TYPE_ASSEMBLY
+    set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
     each file(dataset) from MLST_DATABASES
 
     when:
@@ -395,6 +394,7 @@ process sequence_type {
     method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
     dataset_tarball = file(dataset).getName()
     dataset_name = dataset_tarball.replace('.tar.gz', '')
+    noclean = params.ariba_no_clean ? "--noclean" : ""
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
@@ -648,14 +648,14 @@ process plasmid_blast {
     */
     cpus cpus
     tag "${sample}"
-    publishDir "${outdir}/${sample}/plasmid", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true, pattern: "*.{txt,txt.gz}"
 
     input:
     set val(sample), file(genes) from PLASMID_BLAST
     file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
 
     output:
-    file("${sample}-plsdb.txt.gz")
+    file("${sample}-plsdb.{txt,txt.gz}")
 
     when:
     PLASMID_BLASTDB.isEmpty() == false
@@ -716,9 +716,6 @@ process mapping_query {
 
 
 workflow.onComplete {
-    if (workflow.success == true && params.clean_cache == true) {
-        clean_cache()
-    }
     println """
     Pipeline execution summary
     ---------------------------
@@ -738,7 +735,6 @@ workflow.onComplete {
 // Utility functions
 def print_version() {
     println(PROGRAM_NAME + ' ' + VERSION)
-    clean_cache()
     exit 0
 }
 
@@ -749,7 +745,6 @@ def print_example_fastqs() {
     log.info 'sample\tr1\tr2'
     log.info 'test001\t/path/to/fastqs/test_R1.fastq.gz\t/path/to/fastqs/test_R2.fastq.gz'
     log.info 'test002\t/path/to/fastqs/test.fastq.gz\t'
-    clean_cache()
     exit 0
 }
 
@@ -761,7 +756,6 @@ def print_check_fastqs(fastq_input, fastq_type) {
         log.info ''
         log.info 'Found:'
         create_fastq_channel(fastq_input).println()
-        clean_cache()
         exit 0
     } else {
         log.error '"--check_fastqs" requires "--fastqs" to be set.'
@@ -808,7 +802,6 @@ def print_available_datasets(dataset) {
         log.error "Please use '--dataset' to specify the path to pre-built datasets."
         exit_code = 1
     }
-    clean_cache()
     exit exit_code
 }
 
@@ -866,15 +859,6 @@ def check_minmers(dataset) {
     }
 
     return minmers
-}
-
-
-def clean_cache() {
-    // No need to resume completed run so remove cache.
-    if (params.clean_cache == true) {
-        file('./work/').deleteDir()
-        file('./.nextflow/').deleteDir()
-    }
 }
 
 
@@ -1123,7 +1107,6 @@ def print_usage() {
     ${basic_help()}
     ${params.help_all ? full_help() : ""}
     """.stripIndent()
-    clean_cache()
     exit 0
 }
 
@@ -1165,8 +1148,14 @@ def basic_help() {
         --coverage INT          Reduce samples to a given coverage
                                     Default: ${params.coverage}x
 
-        --genome_size INT       Expected genome size (bp) for all samples
-                                    Default: ${genome_size}
+        --genome_size INT       Expected genome size (bp) for all samples, a value of '0'
+                                    will disable read error correction and read subsampling.
+                                    Special values (requires --species):
+                                        'min': uses minimum completed genome size of species
+                                        'median': uses median completed genome size of species
+                                        'mean': uses mean completed genome size of species
+                                        'max': uses max completed genome size of species
+                                    Default: Mash estimate
 
         --outdir DIR            Directory to write results to
                                     Default ${params.outdir}
@@ -1191,8 +1180,8 @@ def basic_help() {
 
         --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-        --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
-                                    the Nextflow run cannot be resumed.
+        --compress              Compress (gzip) select outputs (e.g. annotation, variant calls)
+                                    to reduce overall storage footprint.
 
         --keep_all_files        Keeps all analysis files created. By default, intermediate
                                     files are removed. This will not affect the ability

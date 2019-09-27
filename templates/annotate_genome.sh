@@ -2,7 +2,10 @@
 set -e
 set -u
 
-gunzip -f !{fasta}
+if [[ !{params.compress} == "true" ]]; then
+    gunzip -f !{fasta}
+fi
+
 prokka --outdir annotation \
     --force \
     --prefix !{sample} \
@@ -24,5 +27,7 @@ prokka --outdir annotation \
     !{rnammer} \
     !{gunzip_fasta}
 
-find annotation/ -type f -not -name "*.txt" -and -not -name "*.log*" | \
-    xargs -I {} pigz -n -p !{task.cpus} {}
+if [[ !{params.compress} == "true" ]]; then
+    find annotation/ -type f -not -name "*.txt" -and -not -name "*.log*" | \
+        xargs -I {} pigz -n --best -p !{task.cpus} {}
+fi

@@ -2,7 +2,10 @@
 set -e
 set -u
 
-gunzip -f !{genbank}
+if [[ !{params.compress} == "true" ]]; then
+    gunzip -f !{genbank}
+fi
+
 ismap --reads !{sample}_R*.fastq.gz \
       --queries !{insertion_fasta} \
       --reference !{gunzip_genbank} \

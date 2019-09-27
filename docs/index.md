@@ -22,6 +22,9 @@ A subset of parameters users may commonly adjust.
 [Complete Usage](usage-complete.md)  
 The full set of parameters that users can tweak in Bactopia.
 
+[Output Overview](output-overview.md)  
+A description of Bactopia output directories and files.
+
 <!--
 TODO 
 [Examples](examples.md)  

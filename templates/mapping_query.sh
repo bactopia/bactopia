@@ -19,8 +19,10 @@ fi
 samtools view !{f_value} -bS bwa.sam | samtools sort -o !{query_name}.bam -
 
 # Write per-base coverage
-genomeCoverageBed -ibam !{query_name}.bam -d | \
-    pigz --best -n -c -p !{task.cpus} - > !{query_name}.cov.gz
+genomeCoverageBed -ibam !{query_name}.bam -d > !{query_name}.coverage.txt
+if [[ !{params.compress} == "true" ]]; then
+    pigz --best -n -p !{task.cpus} !{query_name}.coverage.txt
+fi
 
 mkdir -p mapping/!{query_name}
 mv !{query_name}.bam !{query_name}.cov.gz mapping/!{query_name}

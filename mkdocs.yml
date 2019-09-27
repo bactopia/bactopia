@@ -17,6 +17,7 @@ nav:
     - 'Build Datasets': 'datasets.md'
     - 'Basic Usage': 'usage-basic.md'
     - 'Complete Usage': 'usage-complete.md'
+    - 'Output Overview': 'output-overview.md'
 #    - 'Examples': 'examples.md'
 #    - 'FAQ': 'faq.md'
     - 'About': 'about.md'
