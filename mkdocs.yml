@@ -18,6 +18,7 @@ nav:
     - 'Basic Usage': 'usage-basic.md'
     - 'Complete Usage': 'usage-complete.md'
     - 'Output Overview': 'output-overview.md'
+    - 'Troubleshooting': 'troubleshooting.md'
 #    - 'Examples': 'examples.md'
 #    - 'FAQ': 'faq.md'
     - 'About': 'about.md'
