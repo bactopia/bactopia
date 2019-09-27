@@ -3,13 +3,12 @@ Below is a list of the commands used to create each enviroment.
 
 ```
 VERSION=1.1.0
-# bactopia.yml
-conda create -y -n bactopia-bactopia -c rpetit3 -c conda-forge -c bioconda \
-    appdirs ariba beautifulsoup4 biopython blast cd-hit conda executor lxml mash \
-    ncbi-genome-download nextflow python=3.6.7 unzip urllib3 wget
 
 # annotate_genome.yml
 conda create -y -n bactopia-annotate_genome -c conda-forge -c bioconda prokka pigz
+
+# antimicrobial_resistance.yml
+conda create -y -n bactopia-annotate_genome -c conda-forge -c bioconda ncbi-amrfinderplus
 
 # ariba_analysis.yml
 conda create -y -n bactopia-ariba_analysis -c conda-forge -c bioconda ariba
