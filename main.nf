@@ -324,7 +324,7 @@ process annotate_genome {
     set val(sample), val(single_end), file(fq), file('annotation/*.{gbk,gbk.gz}') optional true into INSERTION_SEQUENCES
     set val(sample),
         file("annotation/*.{ffn,ffn.gz}"),
-        file("annotation/*.{ffa,ffa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
+        file("annotation/*.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')

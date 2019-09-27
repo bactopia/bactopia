@@ -11,6 +11,7 @@
     - Feedback edits
     - Output overview
     - Additional program acknowledgements
+    - Added bibtex of citations
     - Added missing parameters to usage
     - Added info for `--genome_size` parameter
 
@@ -21,6 +22,7 @@
 - Removed `--clean_cache` function
 - SEQUENCE_TYPE channel groups FASTQ and assembly
 - Ariba MLST always running with `--noclean`
+- Bugs related `--compress`
 
 ## v1.1.0 bactopia/bactopia "Wooden Sword +1" - 2019/09/19
 

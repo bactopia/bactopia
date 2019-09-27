@@ -25,5 +25,5 @@ if [[ !{params.compress} == "true" ]]; then
 fi
 
 mkdir -p mapping/!{query_name}
-mv !{query_name}.bam !{query_name}.cov.gz mapping/!{query_name}
+mv !{query_name}.bam !{query_name}.coverage.txt* mapping/!{query_name}
 rm bwa.sam
