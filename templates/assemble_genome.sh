@@ -33,6 +33,7 @@ fi
 
 TOTAL_CONTIGS=`grep -c "^>" contigs.fa || true`
 if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
+    sed -i -r  's/^>(contig[0-9]+)(.*)/>gnl|\1|!{sample}\2/' contigs.fa
     mv contigs.fa !{sample}.fna
     assembly-scan !{sample}.fna > !{sample}.fna.json
     if [[ !{params.compress} == "true" ]]; then

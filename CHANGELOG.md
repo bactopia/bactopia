@@ -14,15 +14,20 @@
     - Added bibtex of citations
     - Added missing parameters to usage
     - Added info for `--genome_size` parameter
+- blastdbcmd compatible seqid to assembly fasta
+    - allows search for entries with sample name
+- Mask low coverage regions in consensus (subs only) fasta
 
 ### `Fixed`
 - Neverending typos
-- `bactopia datasets` lowercase species names not for in MLST schemas
+- `bactopia datasets` lowercase species names not found in MLST schemas
 - `bactopia version` no longer calls nextflow
-- Removed `--clean_cache` function
 - SEQUENCE_TYPE channel groups FASTQ and assembly
 - Ariba MLST always running with `--noclean`
 - Bugs related `--compress`
+
+### `Removed`
+- `--clean_cache` function
 
 ## v1.1.0 bactopia/bactopia "Wooden Sword +1" - 2019/09/19
 
