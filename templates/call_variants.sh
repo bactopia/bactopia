@@ -26,7 +26,8 @@ genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d | cut -f3 >> !{refere
 mask-consensus.py !{sample} !{reference_name} \
                   !{reference_name}/!{sample}.consensus.subs.fa \
                   !{reference_name}/!{sample}.subs.vcf \
-                  !{reference_name}/!{sample}.coverage.txt > !{reference_name}/!{sample}.masked-consensus.subs.fa
+                  !{reference_name}/!{sample}.coverage.txt \
+                  --mincov !{params.mincov} > !{reference_name}/!{sample}.consensus.subs.masked.fa
 
 # Clean Up
 rm -rf !{reference_name}/reference !{reference_name}/ref.fa* !{reference_name}/!{sample}.vcf.gz*

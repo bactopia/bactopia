@@ -325,6 +325,7 @@ ${SAMPLE_NAME}/
             ├── ${SAMPLE_NAME}.bed
             ├── ${SAMPLE_NAME}.consensus.fa
             ├── ${SAMPLE_NAME}.consensus.subs.fa
+            ├── ${SAMPLE_NAME}.consensus.subs.masked.fa
             ├── ${SAMPLE_NAME}.coverage.txt
             ├── ${SAMPLE_NAME}.csv
             ├── ${SAMPLE_NAME}.filt.vcf
@@ -347,6 +348,7 @@ ${SAMPLE_NAME}/
 | .bed | The variants in [BED](http://genome.ucsc.edu/FAQ/FAQformat.html#format1) format |
 | .consensus.fa | A version of the reference genome with *all* variants instantiated |
 | .consensus.subs.fa | A version of the reference genome with *only substitution* variants instantiated |
+| .consensus.subs.masked.fa | A version of the reference genome with *only substitution* variants instantiated and low-coverage regions masked |
 | .coverage.txt | The per-base coverage of each position in the reference genome |
 | .csv | A [comma-separated](http://en.wikipedia.org/wiki/Comma-separated_values) version of the .tab file |
 | .filt.vcf | The filtered variant calls from Freebayes |

@@ -1,14 +1,15 @@
 #! /usr/bin/env python3
 """
 usage: mask-consensus [-h] [--mincov INT] [--version]
-                      SAMPLE REFERENCE FASTA COVERAGE
+                      SAMPLE REFERENCE SUBS_FASTA SUBS_VCF COVERAGE
 
 mask-consensus - Snippy consensus (subs) with coverage masking.
 
 positional arguments:
   SAMPLE        Sample name
   REFERENCE     Reference name
-  FASTA         Input "consensus.subs.fa" FASTA file
+  SUBS_FASTA    Input "consensus.subs.fa" FASTA file
+  SUBS_VCF      Input ".subs.vcf" VCF file
   COVERAGE      Directory where BLAST databases are stored
 
 optional arguments:
@@ -97,7 +98,7 @@ def mask_sequence(sequence, coverages, subs, mincov):
 
 def format_header(sample, reference, accession, length):
     """Return a newly formatted header."""
-    title = f'Pseudo-seq with substitutions replace and low coverage maksked'
+    title = f'Pseudo-seq with called substitutions and low coverage masked'
     return f'>gnl|{sample}|{accession} {title} assembly_accession={reference} length={length}'
 
 
