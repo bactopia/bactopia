@@ -19,7 +19,11 @@ fi
 samtools view !{f_value} -bS bwa.sam | samtools sort -o !{query_name}.bam -
 
 # Write per-base coverage
-genomeCoverageBed -ibam !{query_name}.bam -d > !{query_name}.coverage.txt
+genomeCoverageBed -ibam !{query_name}.bam -d > cov.txt
+echo "##contig=<ID=$(head -n1 cov.txt|cut -f1),length=$(wc -l cov.txt|cut -f1 -d' ')>" > !{query_name}.coverage.txt
+cut -f3 cov.txt >> !{query_name}.coverage.txt
+rm cov.txt
+
 if [[ !{params.compress} == "true" ]]; then
     pigz --best -n -p !{task.cpus} !{query_name}.coverage.txt
 fi
