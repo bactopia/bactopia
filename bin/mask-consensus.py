@@ -86,7 +86,7 @@ def mask_sequence(sequence, coverages, subs, mincov):
             bases.append("N")
         else:
             # 0 coverage
-            bases.append('-')
+            bases.append('n')
 
     if len(bases) != len(sequence):
         print(f'Masked sequence ({len(bases)} not expected length ({len(sequence)}).',

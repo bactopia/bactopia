@@ -5,6 +5,8 @@ import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
 VERSION = '1.1.0'
+
+// Validate parameters
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -134,6 +136,13 @@ if (params.dataset) {
             exit 1
         }
     }
+} else if (params.dry_run) {
+    log.info "--dry_run found, creating dummy data to be 'processed'."
+    ARIBA_DATABASES << file('EMPTY.tar.gz')
+    INSERTIONS << file('EMPTY.fasta')
+    MAPPING_FASTAS << file('EMPTY.fasta')
+    MLST_DATABASES << file('EMPTY_DB')
+    REFSEQ_SKETCH = file('EMPTY.msh')
 } else {
     log.info "--dataset not given, skipping the following processes (analyses):"
     log.info "\tsequence_type"
@@ -216,7 +225,7 @@ process qc_reads {
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
-                                                                       MINMER_SKETCH, MINMER_QUERY, CALL_VARIANTS,
+                                                                       MINMER_SKETCH, CALL_VARIANTS,
                                                                        MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
@@ -241,6 +250,9 @@ process qc_original_summary {
     output:
     file "quality-control/*"
 
+    when:
+    params.dry_run == false
+
     shell:
     template(task.ext.template)
 }
@@ -256,6 +268,9 @@ process qc_final_summary {
 
     output:
     file "quality-control/*"
+
+    when:
+    params.dry_run == false
 
     shell:
     template(task.ext.template)
@@ -311,7 +326,7 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     cpus cpus
-    tag "${sample}"
+    tag "${sample} ${single_end} ${fq} ${fasta}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
@@ -328,10 +343,11 @@ process annotate_genome {
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
-    proteins = prokka_proteins != 'EMPTY' ? "--proteins ${prokka_proteins}" : ""
     genus = "Genus"
     species = "species"
-    if (PROKKA_PROTEINS) {
+    proteins = ""
+    if (prokka_proteins.getName() != 'EMPTY') {
+        proteins = "--proteins ${prokka_proteins}"
         if (params.species.contains("-")) {
             genus = params.species.split('-')[0].capitalize()
             species = params.species.split('-')[1]
@@ -404,7 +420,7 @@ process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     cpus { task.attempt > 1 ? 1 : Math.round(cpus * 0.75) }
     errorStrategy 'retry'
-    maxRetries 20
+    maxRetries 1
     validExitStatus 0,1
     tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
@@ -417,7 +433,7 @@ process ariba_analysis {
     file "${dataset_name}/*"
 
     when:
-    single_end == false
+    single_end == false || params.dry_run == true
 
     shell:
     dataset_tarball = file(dataset).getName()
@@ -442,7 +458,7 @@ process minmer_sketch {
 
     output:
     file("${sample}*.{msh,sig}")
-    file("${sample}.sig") into QUERY_SOURMASH
+    set val(sample), val(single_end), file(fq), file("${sample}.sig") into MINMER_QUERY
     set val(sample), val(single_end), file(fq), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
 
     shell:
@@ -461,8 +477,7 @@ process minmer_query {
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
 
     input:
-    set val(sample), val(single_end), file(fq) from MINMER_QUERY
-    file(sourmash) from QUERY_SOURMASH
+    set val(sample), val(single_end), file(fq), file(sourmash) from MINMER_QUERY
     each file(dataset) from MINMER_DATABASES
 
     output:
@@ -529,12 +544,11 @@ process download_references {
     file("mash-dist.txt")
 
     when:
-    REFSEQ_SKETCH_FOUND == true
+    REFSEQ_SKETCH_FOUND == true || params.dry_run == true
 
     shell:
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
     total = params.max_references
-
     template(task.ext.template)
 }
 
@@ -632,7 +646,7 @@ process insertion_sequences {
     file("insertion-sequences/*")
 
     when:
-    single_end == false
+    single_end == false || params.dry_run == true
 
     shell:
     insertion_name = insertion_fasta.getSimpleName()
@@ -908,7 +922,7 @@ def check_input_params() {
     } else if (params.accessions) {
         error += file_exists(params.accessions, '--accessions')
         fastq_type = "ena_accessions"
-    }else if (params.accession) {
+    }else if (params.accession || params.dry_run) {
         fastq_type = "ena_accession"
     } else {
         log.error """
@@ -990,7 +1004,11 @@ def create_fastq_channel(fastq_input, fastq_type) {
             .splitText()
             .map { line -> process_accessions(line) }
     } else if (fastq_type == "ena_accession") {
-        return [tuple(params.accession, "is_accession", [null, null])]
+        if (params.dry_run) {
+            return [tuple("BACTOPIA_DRY_RUN", "is_accession", [null, null])]
+        } else {
+            return [tuple(params.accession, "is_accession", [null, null])]
+        }
     } else if (fastq_type == "paired") {
         return [tuple(params.sample, false, [file(params.R1), file(params.R2)])]
     } else {

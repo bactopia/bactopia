@@ -17,14 +17,17 @@
 - blastdbcmd compatible seqid to assembly fasta
     - allows search for entries with sample name
 - Mask low coverage regions in consensus (subs only) fasta
+- Added --dry_run to build conda envs one at a time (prevent parallel issues)
 
 ### `Fixed`
 - Neverending typos
 - `bactopia datasets` lowercase species names not found in MLST schemas
 - `bactopia version` no longer calls nextflow
 - SEQUENCE_TYPE channel groups FASTQ and assembly
+- MINMER_QUERY now groups FASTQs and Sourmash signature
 - Ariba MLST always running with `--noclean`
 - Bugs related `--compress`
+- Recuced size of per-base coverage outputs
 
 ### `Removed`
 - `--clean_cache` function
