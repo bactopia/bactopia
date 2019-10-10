@@ -288,7 +288,7 @@ It is important to note, not all of the available parameters for each and every 
     --max_retry INT         Maximum times to retry downloads
                                 Default: 10
 
-    --use_ftp               Only use FTP to download FASTQs from ENA
+    --ftp_only              Only use FTP to download FASTQs from ENA
 ```
 
 ### Download Reference Genome

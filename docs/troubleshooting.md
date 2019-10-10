@@ -17,6 +17,8 @@ Caused by:
 
 While it may look like this is related to Nextflow, it is actually a Conda error that occurs when installing multiple environments at once which Nextflow likes to do. This can also occur from a timeout or loss of internet connectivity (under a different error name).
 
-Unfortunately, the solution currently is just to try launching Bactopia again with the `-resume` parameter.
+**Recommended Solution**  
+Using `--dry_run` at runtime will run Bactopia with dummy data on a single core to prevent parallel creation of conda environments. This process will take only as long as it takes to create the environments.
 
 If you have suggestions for how to better handle this, check out the submitted [Better handling of conda environments?](https://github.com/bactopia/bactopia/issues/13) issue. Your feedback would be greatly appreciated!
+

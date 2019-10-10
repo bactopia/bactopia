@@ -6,6 +6,7 @@ Here is the complete directory structure that is possible (using all available d
 ```
 ${SAMPLE_NAME}/
 ├── annotation
+├── antimicrobial_resistance
 ├── ariba
 ├── assembly
 ├── blast
@@ -66,6 +67,21 @@ ${SAMPLE_NAME}/
 | .tbl | Feature Table file, used by "tbl2asn" to create the .sqn file. |
 | .tsv | Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product |
 | .txt | Statistics relating to the annotated features found. |
+
+### `antimicrobial_resistance`
+The `antimicrobial_resistance` directory will contain the output from [NCBI's AMRFinderPlus](https://github.com/ncbi/amr). The results of AMRFinderPlus using genes as and input, and proteins as an input are available. More information about the output format is available from the [AMRFinderPlus Wiki](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#output-format).
+
+```
+${SAMPLE_NAME}/
+└── antimicrobial_resistance/
+    ├── ${SAMPLE_NAME}-gene-report.txt
+    └── ${SAMPLE_NAME}-protein-report.txt
+```
+
+| Extension | Description |
+|----------|-------------|
+| -gene-report.txt | Results of using gene sequences as an input |
+| -protein-report.txt | Results of using protein sequences as an input |
 
 ### `ariba`
 The `ariba` directory will contain the results of any [Ariba](https://github.com/sanger-pathogens/ariba/) analysis (excluding MLST). Only the [Ariba databases](/datasets/#general) created during the dataset setup are used for analysis. For each Ariba database (e.g. `card` or `vfdb`), a separate folder with the name of the database is included in the `ariba` folder.

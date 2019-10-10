@@ -11,9 +11,7 @@ Really, thank you very much!
 !!! info "Please Cite Datasets and Tools"
     If you have used Bactopia in your work, please be sure to cite any datasets or software you may have used. A citation link for each dataset/software has been made available.
 
-    A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](https://github.com/bactopia/bactopia/tree/master/docs/bactopia-datasets-software.bib)
-
-
+    A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](https://github.com/bactopia/bactopia/blob/master/docs/data/bactopia-datasets-software.bib)
 
 ## Public Datasets
 Below is a list of public datasets (alphabetical) that could have potentially 

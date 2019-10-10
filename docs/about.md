@@ -20,8 +20,5 @@ have also prioritized software packages available from
 [Anaconda channels](https://anaconda.org/)) to make installation
 as simple as possible for *all* users. This has also given us the opportunity to update our workflow with the latest methods.
 
-## Workflow Overview
-
-**INSERT IMAGE OF WORKFLOW**
 
 

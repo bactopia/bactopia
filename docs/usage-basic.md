@@ -139,7 +139,7 @@ All lines after the header line, contain unique sample names and location(s) to 
 In the example above, two samples would be processed by Bactopia. Sample `test001` has two FASTQs and would be processed as pair-end reads. While sample `test002` only has a single FASTQ and would be processed as single-end reads.
 
 ##### Generating A FOFN
-A script named `prepare-fofn` has been included to help aid (hopefully!) the process of creating a FOFN for your samples. This script will attempt to find FASTQ files in a given directory and output the expected FOFN format. It will also output any potential issues associated with the pattern matching.
+`bactopia prepare` has been included to help aid (hopefully!) the process of creating a FOFN for your samples. This script will attempt to find FASTQ files in a given directory and output the expected FOFN format. It will also output any potential issues associated with the pattern matching.
 
 !!! error "Verify accuracy of FOFN"
     This is currently an experimental function. There are likely bugs to be ironed out. Please be sure to give the resulting FOFN a quick look over.
@@ -232,6 +232,67 @@ There are a lot of publicly avilable sequences, and you might want to include so
 
 !!! info "Use --accessions for Multiple Experiment Accessions"
     `bactopia --accessions my-accessions.txt`
+
+#### Generating Accession List
+`bactopia search` has been made to help assist in generating a list of Experiment accessions to be procesed by Bactopia (via `--accessions`). Users can provide a Taxon ID (e.g. 1280), a binary name (e.g. Staphylococcus aureus), or Study accessions (e.g. PRJNA480016). This value is then queried against ENA's [Data Warehouse API](https://www.ebi.ac.uk/ena/browse/search-rest)), and a list of all Experiment accessions associated with the query is returned.
+
+##### Usage
+```
+usage: bactopia search [-h] [--exact_taxon] [--outdir OUTPUT_DIRECTORY]
+                       [--prefix PREFIX] [--limit INT] [--version]
+                       STR
+
+bactopia search - Search ENA for associated WGS samples
+
+positional arguments:
+  STR                   Taxon ID or Study accession
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --exact_taxon         Exclude Taxon ID descendents.
+  --outdir OUTPUT_DIRECTORY
+                        Directory to write output. (Default: .)
+  --prefix PREFIX       Prefix to use for output file names. (Default: ena)
+  --limit INT           Maximum number of results to return. (Default:
+                        1000000)
+  --version             show program's version number and exit
+
+example usage:
+  bactopia search PRJNA480016 --limit 20
+  bactopia search 1280 --exact_taxon --limit 20'
+  bactopia search "staphylococcus aureus" --limit 20
+```
+
+##### Example
+```
+bactopia search PRJNA480016 --limit 5
+```
+
+When completed three files are produced:
+
+1. `ena-accessions.txt` - Contains a list of Experiment accessions to be processed.
+   ```
+   SRX4563686
+   SRX4563689
+   SRX4563687
+   SRX4563690
+   SRX4563688
+   ```
+
+!!! info "Input for Bactopia"
+    This file can be used in conjunction with the `--accessions` parameter for Bactopia processing.
+
+
+2. `ena-results.txt` - Contains the full results of the API query. This includes multiples fields (sample_accession, tax_id, sample_alias, center_name, etc...)
+
+3. `ena-summary.txt` - Contains a small summary of the completed request
+    ```
+    QUERY: (study_accession=PRJNA480016 OR secondary_study_accession=PRJNA480016)
+    LIMIT: 5
+    RESULTS: 5 (./ena-results.txt)
+    ILLUMINA ACCESSIONS: 5 (./ena-accessions.txt)
+    ```
+
 
 ## `--genome_size`
 Throughout the Bactopia workflow a genome size is used for various tasks. By default, a genome size is estimated using Mash. However, users can provide their own value for genome size, use values based on [Species Specific Datasets](/datasets/#species-specific), or completely disable it.
