@@ -19,7 +19,7 @@ snippy !{fastq} \
 vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}.annotated.vcf
 
 # Get per-base coverage
-grep "^##contig" !{reference_name}/!{sample}.vcf > !{sample}.coverage.txt
+grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.coverage.txt
 genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d | cut -f3 >> !{reference_name}/!{sample}.coverage.txt
 
 # Mask low coverage regions

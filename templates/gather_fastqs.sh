@@ -8,10 +8,10 @@ else
     ASPERA=""
     ASPERA_KEY=""
     ASPERA_SPEED="--aspera_speed !{params.aspera_speed}"
-    USE_FTP=""
+    FTP_ONLY=""
 
     # Check if ascp is available
-    if [ "!{params.use_ftp}" == "false" ]; then
+    if [ "!{params.ftp_only}" == "false" ]; then
         if which ascp; then
             # ascp found
             ASCP=`which ascp`
@@ -22,14 +22,14 @@ else
             fi
         fi
     else
-        USE_FTP="--use_ftp"
+        FTP_ONLY="--ftp_only"
     fi
 
     mkdir -p fastqs
     if [ "!{single_end}" == "is_accession" ]; then
         # Download accession from ENA
         ena-dl !{sample} --outdir fastqs/ --group_by_experiment --is_experiment \
-            $ASPERA $ASPERA_KEY $ASPERA_SPEED $USE_FTP
+            $ASPERA $ASPERA_KEY $ASPERA_SPEED $FTP_ONLY
     else
         if [ "!{single_end}" == "false" ]; then
             # Paired-End Reads

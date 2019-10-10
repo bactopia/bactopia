@@ -99,7 +99,7 @@ def mask_sequence(sequence, coverages, subs, mincov):
 def format_header(sample, reference, accession, length):
     """Return a newly formatted header."""
     title = f'Pseudo-seq with called substitutions and low coverage masked'
-    return f'>gnl|{sample}|{accession} {title} assembly_accession={reference} length={length}'
+    return f'>gnl|{accession}|{sample} {title} assembly_accession={reference} length={length}'
 
 
 def chunks(s, n):

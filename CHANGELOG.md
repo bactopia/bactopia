@@ -11,9 +11,10 @@
     - Feedback edits
     - Output overview
     - Additional program acknowledgements
-    - Added bibtex of citations
-    - Added missing parameters to usage
-    - Added info for `--genome_size` parameter
+    - bibtex of citations
+    - missing parameters to usage
+    - info for `--genome_size` parameter
+    - `bactopia seach` usage
 - blastdbcmd compatible seqid to assembly fasta
     - allows search for entries with sample name
 - Mask low coverage regions in consensus (subs only) fasta
@@ -24,10 +25,12 @@
 - `bactopia datasets` lowercase species names not found in MLST schemas
 - `bactopia version` no longer calls nextflow
 - SEQUENCE_TYPE channel groups FASTQ and assembly
-- MINMER_QUERY now groups FASTQs and Sourmash signature
+- MINMER_QUERY channel groups FASTQ and signature
 - Ariba MLST always running with `--noclean`
 - Bugs related `--compress`
-- Recuced size of per-base coverage outputs
+- Reduced size of per-base coverage outputs
+- Removed `-parse_seqids` from makeblastdb command, caused blast queries to fail
+- genomeCoverageBed failing on empty BAM files
 
 ### `Removed`
 - `--clean_cache` function

@@ -42,6 +42,7 @@ PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+log.info "${PROGRAM_NAME} - ${VERSION}"
 if (params.dataset) {
     dataset_path = params.dataset
     /*
@@ -326,7 +327,7 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     cpus cpus
-    tag "${sample} ${single_end} ${fq} ${fasta}"
+    tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
 
     input:
@@ -610,7 +611,6 @@ process antimicrobial_resistance {
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
-    val updated from AMR_UPDATED
 
     output:
     file("${amrdir}/*")
@@ -1206,6 +1206,10 @@ def basic_help() {
                                     to resume Nextflow runs, and only occurs at the end
                                     of the process.
 
+        --dry_run               Mimics workflow execution, to help prevent errors realated to
+                                    conda envs being built in parallel. Only useful on new
+                                    installs of Bactopia.
+
         --version               Print workflow version information
 
         --help                  Show this message and exit
@@ -1231,7 +1235,7 @@ def full_help() {
         --max_retry INT         Maximum times to retry downloads
                                     Default: ${params.max_retry}
 
-        --use_ftp               Only use FTP to download FASTQs from ENA
+        --ftp_only              Only use FTP to download FASTQs from ENA
 
     QC Reads Parameters:
         --min_basepairs INT     The minimum amount of input sequenced basepairs required
