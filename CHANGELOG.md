@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.1.???? bactopia/bactopia "Beestinger" - 2019/??/??
+## v1.2.0 bactopia/bactopia "Beestinger" - 2019/10/16
 
 ### `Added`
 - `--compress` to compress certain outputs, default uncompressed
@@ -14,11 +14,14 @@
     - bibtex of citations
     - missing parameters to usage
     - info for `--genome_size` parameter
-    - `bactopia seach` usage
+    - `bactopia search` usage
+    - Workflow overview
 - blastdbcmd compatible seqid to assembly fasta
     - allows search for entries with sample name
 - Mask low coverage regions in consensus (subs only) fasta
 - Added --dry_run to build conda envs one at a time (prevent parallel issues)
+- Added Singularity recipes
+- Added SLURM config
 
 ### `Fixed`
 - Neverending typos

@@ -4,7 +4,7 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();

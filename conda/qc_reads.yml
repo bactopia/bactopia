@@ -1,5 +1,5 @@
 name: bactopia-qc_reads
-version: 1.1.0
+version: 1.2.0
 channels:
   - conda-forge
   - bioconda

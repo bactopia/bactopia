@@ -1,8 +1,16 @@
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://conda.anaconda.org/bioconda) [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
 
-# Bactopia
-Bactopia is an extensive workflow to process Illumina sequencing for bacterial genomes. The goal of Bactopia is process your data with a broad set of tools, so that you can get to the fun part of analyses quicker! Bactopia prioritizes software available from [Bioconda](https://bioconda.github.io/) (or other
-[Anaconda channels](https://anaconda.org/)) to make installation and setup easier. The Bactopia workflow is also encapsulated as a [Nextflow](https://www.nextflow.io/) workflow to allow support for many types of environments (e.g. cluster or cloud).
+# Overview
+
+Bactopia is an extensive workflow for processing Illumina sequencing of bacterial genomes. The goal of Bactopia is process your data with a broad set of tools, so that you can get to the fun part of analyses quicker! 
+
+Bactopia was inspired by [Staphopia](https://staphopia.emory.edu/), a workflow we (Tim Read and myself) released that targets *Staphylococcus aureus* genomes.
+Using what we learned from Staphopia and user feedback, Bactopia was developed from scratch with usability, portability, and speed in mind from the start.
+
+Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow, allowing for support of many types of environments (e.g. cluster or cloud). Bactopia allows for the usage of many public datasets as well as your own datasets to further enhance the analysis of your seqeuncing. Bactopia only uses software packages available from
+[Bioconda](https://bioconda.github.io/) (or other
+[Anaconda channels](https://anaconda.org/)) to make installation
+as simple as possible for *all* users.
 
 # Documentation
 Documentation for Bactopia is available at https://bactopia.github.io/bactopia/. The documentation includes much of the information here, but also a tutorial replicating [Staphopia](https://staphopia.emory.edu) and a complete overview of the usage.
@@ -280,7 +288,17 @@ There are a lot of publicly avilable sequences, and you might want to include so
 `bactopia --accession SRX476958`
 
 ##### Use --accessions for Multiple Experiment Accessions
-`bactopia --accessions my-accessions.txt`
+```
+bactopia search PRJNA480016 --limit 5
+bactopia --accessions ena-accessions.txt \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir ena-multiple-samples
+```
 
 ## `--max_cpus` & `--cpus`
 When Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.

@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: nfcore/base
+
+%labels
+    MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
+    DESCRIPTION Singularity image containing requirements for the Bactopia CONDA_ENV process
+    VERSION 1.1.0
+
+%environment
+    PATH=/opt/conda/envs/bactopia-CONDA_ENV/bin:$PATH
+    export PATH
+
+%files
+    conda/CONDA_ENV.yml /
+
+%post
+    /opt/conda/bin/conda env create -f /CONDA_ENV.yml
+    /opt/conda/bin/conda clean -a

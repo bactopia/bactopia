@@ -2,7 +2,7 @@
 """
 Read a directory and prepare a FOFN of FASTQs
 """
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':
