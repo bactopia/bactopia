@@ -16,13 +16,12 @@ nav:
     - 'Tutorial': 'tutorial.md'
     - 'Build Datasets': 'datasets.md'
     - 'Basic Usage': 'usage-basic.md'
-    - 'Complete Usage': 'usage-complete.md'
-    - 'Output Overview': 'output-overview.md'
     - 'Workflow Overview': 'workflow-overview.md'
+    - 'Output Overview': 'output-overview.md'
+    - 'Complete Usage': 'usage-complete.md'
     - 'Troubleshooting': 'troubleshooting.md'
 #    - 'Examples': 'examples.md'
 #    - 'FAQ': 'faq.md'
-    - 'About': 'about.md'
     - 'Acknowledgements': 'acknowledgements.md'
 
 theme:

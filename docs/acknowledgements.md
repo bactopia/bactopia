@@ -104,7 +104,7 @@ _Hunt, M. et al. [ARIBA: rapid antimicrobial resistance genotyping directly from
 sequencing reads](http://dx.doi.org/10.1099/mgen.0.000131). 
 Microb Genom 3, e000131 (2017)._  
 
-* __[Assembly-Scan](https://github.com/rpetit3/assembly-scan)__  
+* __[assembly-scan](https://github.com/rpetit3/assembly-scan)__  
 Generate basic stats for an assembly.  
 _Petit III, R. A. [assembly-scan: generate basic stats for an 
 assembly](https://github.com/rpetit3/assembly-scan)._  
@@ -146,11 +146,15 @@ _Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. [CD-HIT: accelerated for clustering t
 sequencing data](http://dx.doi.org/10.1093/bioinformatics/bts565). 
 Bioinformatics 28, 3150–3152 (2012)._  
 
+* __[ena-dl](https://github.com/rpetit3/ena-dl)__  
+Download FASTQ files from ENA and group runs by Experiment accession.  
+_Petit III, R. A. [ena-dl: download FASTQs from the European Nucleotide Archive.](https://github.com/rpetit3/ena-dl)_  
+
 * __[FastQC](https://github.com/s-andrews/FastQC)__  
 A quality control analysis tool for high throughput sequencing data.  
 _Andrews, S. [FastQC: a quality control tool for high throughput sequence data.](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)._  
 
-* __[Fastq-Scan](https://github.com/rpetit3/fastq-scan)__  
+* __[fastq-scan](https://github.com/rpetit3/fastq-scan)__  
 Output FASTQ summary statistics in JSON format  
 _Petit III, R. A. [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan)_  
 

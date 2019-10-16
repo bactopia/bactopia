@@ -1,5 +1,5 @@
 # Overview of Bactopia Output
-After a successful run Bactopia will have produced a lot of output files. Just how many output files depends on the input datasets used (e.g. none, general datasets, species specific datasets, user populated datasets).
+After a successful run, Bactopia will have produced numerous output files. Just how many output files depends on the input datasets used (e.g. none, general datasets, species specific datasets, user populated datasets).
 
 Here is the complete directory structure that is possible (using all available dataset options) with Bactopia. 
 
@@ -29,7 +29,7 @@ There are instances where additional files (e.g. `--keep_all_files` and `--ariba
 
 
 !!! info "Developer Descriptions Take Priority"
-    If a developer described their tool's outputs, their description was used with a link back to the tool's documentation (major thanks for taking the time to do that!). In some cases there may have been slight formatting modifications made. In any case, if descriptions are not original credit will be properly given to the source.
+    If a developer described their software's outputs, their description was used with a link back to the software's documentation (major thanks for taking the time to do that!). In some cases there may have been slight formatting modifications made. In any case, if descriptions are not original credit will be properly given to the source.
 
 ### `annotation`
 The `annotation` directory will contain the outputs from [Prokka](https://github.com/tseemann/prokka) annotation. These outputs include FASTA (proteins and genes), GFF3, GenBank, and many more. By default the included Prokka databases are used for annotation. However, if a [Species Specific Dataset](/datasets/#species-specific) was a created the RefSeq clustered proteins are used first for annotation.
