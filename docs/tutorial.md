@@ -115,25 +115,29 @@ The **approximate completion time is ~15-30 minutes** depending on the number of
 Once complete, the results from numerous tools available to you in `ena-single-sample/SRX4563634/`. 
 
 #### Multiple Samples
-Now we are going to have Bactopia download and process 5 samples from ENA. To do this we will need to create a text file with a list of Experiment accessions we want to process.
+Now we are going to have Bactopia download and process 5 samples from ENA. To do this we can use the `bactopia search` function.
 
 ```
-printf "SRX4563678\nSRX4563679\nSRX4563680\nSRX4563681\nSRX4563682\n" > accessions.txt
+bactopia search PRJNA480016 --limit 5
 ```
 
-**accessions.txt** will now have five Experiment accessions, a single one per line. Just like this:
+This will produce three files: `ena-accessions.txt`, `ena-results.txt` and `ena-summary.txt`. To learn more about these files see [Generating Accession List](/usage-basic/#generating-accession-list).
+
+For this tutorial, `ena-accessions.txt` is the file we need. It contains five Experiment accessions, a single one per line. Just like this:
 ```
-SRX4563678
-SRX4563679
-SRX4563680
-SRX4563681
-SRX4563682
+SRX4563688
+SRX4563687
+SRX4563686
+SRX4563689
+SRX4563690
 ```
 
-To process these 5 samples, we will adjust our command used previously.
+*Note: you may have 5 different accessions from the PRJNA480016 project.*
+
+To process these samples, we will adjust our command used previously.
 
 ```
-bactopia --accessions accessions.txt \
+bactopia --accessions ena-accessions.txt \
          --dataset datasets/ \
          --species staphylococcus-aureus \
          --coverage 100 \
@@ -143,7 +147,7 @@ bactopia --accessions accessions.txt \
          --outdir ena-multiple-samples
 ```
 
-Instead of `--accession` we are now using `--accessions accession.txt` which tells Bactopia to read `accessions.txt`, and for each Experiment accession download in from ENA and then process it.
+Instead of `--accession` we are now using `--accessions ena-accessions.txt` which tells Bactopia to read `ena-accessions.txt`, and download each Experiment accession from ENA and then process it.
 
 At this point, you might want to go for a walk or make yourself a coffee! This step has an **approximate completion time of ~45-120 minutes**, which again is fully dependent on the cpus used and the download times from ENA.
 
@@ -157,14 +161,12 @@ First let's make a directory to put the FASTQs into:
 mkdir fastqs
 ```
 
-Now let's move some of the FASTQs from our ENA samples into this folder.
+Now let's move some the FASTQs from our SRX4563634 sample into this folder.
 ```
 cp ena-single-sample/SRX4563634/quality-control/SRX4563634*.fastq.gz fastqs/
-cp ena-multiple-samples/SRX4563680/quality-control/SRX4563680*.fastq.gz fastqs/
-cp ena-multiple-samples/SRX4563682/quality-control/SRX4563682*.fastq.gz fastqs/
 ```
 
-Finally let's make one of these paired-end reads into a single-end read (don't tell on me!).
+Finally let's also make a single-end version of SRX4563634.
 ```
 cat fastqs/SRX4563634*.fastq.gz > fastqs/SRX4563634-SE.fastq.gz
 ```
