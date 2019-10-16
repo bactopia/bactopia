@@ -255,7 +255,10 @@ Once this is complete, the results for each sample (within their own folder) wil
 !!! info "FOFN is more cpu efficient, making it faster"
     The real benefit of using the FOFN method to process multiple samples is Nextflow's queue system will make better use of cpus. Processing multiple samples one at a time (via `--R1`/`--R2` or `--SE`) will lead more instances of jobs waiting on other jobs to finish, during which cpus aren't being used.
 
+
 ## What's next?
 That should do it! Hopefully you have succeeded (yay! 🎉) and would like to use Bactopia on your own data! 
+
+In this tutorial we covered how to build datasets (`bactopia datasets`) and how process samples. We also covered the `bactopia search` and `bactopia prepare` to prepare file for multiple sample processing.
 
 If your ran into any issues, please let me know by submitting a [GitHub Issue](https://github.com/bactopia/bactopia/issues).
