@@ -4,7 +4,9 @@ import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = 'bactopia'
-VERSION = '1.1.0'
+VERSION = '1.2.0'
+
+// Validate parameters
 if (params.help || params.help_all) print_usage();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -40,6 +42,7 @@ PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+log.info "${PROGRAM_NAME} - ${VERSION}"
 if (params.dataset) {
     dataset_path = params.dataset
     /*
@@ -134,6 +137,13 @@ if (params.dataset) {
             exit 1
         }
     }
+} else if (params.dry_run) {
+    log.info "--dry_run found, creating dummy data to be 'processed'."
+    ARIBA_DATABASES << file('EMPTY.tar.gz')
+    INSERTIONS << file('EMPTY.fasta')
+    MAPPING_FASTAS << file('EMPTY.fasta')
+    MLST_DATABASES << file('EMPTY_DB')
+    REFSEQ_SKETCH = file('EMPTY.msh')
 } else {
     log.info "--dataset not given, skipping the following processes (analyses):"
     log.info "\tsequence_type"
@@ -215,8 +225,8 @@ process qc_reads {
     output:
     file "quality-control/*"
     set val(sample), val(single_end),
-        file("quality-control/${sample}*.fastq.gz") optional true into SEQUENCE_TYPE, COUNT_31MERS, ARIBA_ANALYSIS,
-                                                                       MINMER_SKETCH, MINMER_QUERY, CALL_VARIANTS,
+        file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
+                                                                       MINMER_SKETCH, CALL_VARIANTS,
                                                                        MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
@@ -241,6 +251,9 @@ process qc_original_summary {
     output:
     file "quality-control/*"
 
+    when:
+    params.dry_run == false
+
     shell:
     template(task.ext.template)
 }
@@ -256,6 +269,9 @@ process qc_final_summary {
 
     output:
     file "quality-control/*"
+
+    when:
+    params.dry_run == false
 
     shell:
     template(task.ext.template)
@@ -277,9 +293,9 @@ process assemble_genome {
     output:
     file "shovill*"
     file "flash*" optional true
-    file "${sample}.fna.gz" optional true into SEQUENCE_TYPE_ASSEMBLY
+    file "${sample}.{fna,fna.gz}" optional true into SEQUENCE_TYPE_ASSEMBLY
     file "${sample}.fna.json" optional true
-    set val(sample), val(single_end), file(fq), file("${sample}.fna.gz")  optional true into ANNOTATION, MAKE_BLASTDB
+    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}")  optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -295,7 +311,7 @@ process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     cpus 1
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
@@ -320,18 +336,19 @@ process annotate_genome {
 
     output:
     file 'annotation/*'
-    set val(sample), file("annotation/*.ffn.gz") optional true into PLASMID_BLAST
-    set val(sample), val(single_end), file(fq), file('annotation/*.gbk.gz') optional true into INSERTION_SEQUENCES
+    set val(sample), file("annotation/*.{ffn,ffn.gz}") optional true into PLASMID_BLAST
+    set val(sample), val(single_end), file(fq), file('annotation/*.{gbk,gbk.gz}') optional true into INSERTION_SEQUENCES
     set val(sample),
-        file("annotation/*.ffn.gz"),
-        file("annotation/*.faa.gz") optional true into ANTIMICROBIAL_RESISTANCE
+        file("annotation/*.{ffn,ffn.gz}"),
+        file("annotation/*.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
-    proteins = prokka_proteins != 'EMPTY' ? "--proteins ${prokka_proteins}" : ""
     genus = "Genus"
     species = "species"
-    if (PROKKA_PROTEINS) {
+    proteins = ""
+    if (prokka_proteins.getName() != 'EMPTY') {
+        proteins = "--proteins ${prokka_proteins}"
         if (params.species.contains("-")) {
             genus = params.species.split('-')[0].capitalize()
             species = params.species.split('-')[1]
@@ -381,8 +398,7 @@ process sequence_type {
     publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
 
     input:
-    set val(sample), val(single_end), file(fq) from SEQUENCE_TYPE
-    file(assembly) from SEQUENCE_TYPE_ASSEMBLY
+    set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
     each file(dataset) from MLST_DATABASES
 
     when:
@@ -395,6 +411,7 @@ process sequence_type {
     method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
     dataset_tarball = file(dataset).getName()
     dataset_name = dataset_tarball.replace('.tar.gz', '')
+    noclean = params.ariba_no_clean ? "--noclean" : ""
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
 }
@@ -404,7 +421,7 @@ process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     cpus { task.attempt > 1 ? 1 : Math.round(cpus * 0.75) }
     errorStrategy 'retry'
-    maxRetries 20
+    maxRetries 1
     validExitStatus 0,1
     tag "${sample} - ${dataset_name}"
     publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
@@ -417,7 +434,7 @@ process ariba_analysis {
     file "${dataset_name}/*"
 
     when:
-    single_end == false
+    single_end == false || params.dry_run == true
 
     shell:
     dataset_tarball = file(dataset).getName()
@@ -442,7 +459,7 @@ process minmer_sketch {
 
     output:
     file("${sample}*.{msh,sig}")
-    file("${sample}.sig") into QUERY_SOURMASH
+    set val(sample), val(single_end), file(fq), file("${sample}.sig") into MINMER_QUERY
     set val(sample), val(single_end), file(fq), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
 
     shell:
@@ -461,8 +478,7 @@ process minmer_query {
     publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
 
     input:
-    set val(sample), val(single_end), file(fq) from MINMER_QUERY
-    file(sourmash) from QUERY_SOURMASH
+    set val(sample), val(single_end), file(fq), file(sourmash) from MINMER_QUERY
     each file(dataset) from MINMER_DATABASES
 
     output:
@@ -529,12 +545,11 @@ process download_references {
     file("mash-dist.txt")
 
     when:
-    REFSEQ_SKETCH_FOUND == true
+    REFSEQ_SKETCH_FOUND == true || params.dry_run == true
 
     shell:
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
     total = params.max_references
-
     template(task.ext.template)
 }
 
@@ -596,7 +611,6 @@ process antimicrobial_resistance {
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
-    val updated from AMR_UPDATED
 
     output:
     file("${amrdir}/*")
@@ -632,7 +646,7 @@ process insertion_sequences {
     file("insertion-sequences/*")
 
     when:
-    single_end == false
+    single_end == false || params.dry_run == true
 
     shell:
     insertion_name = insertion_fasta.getSimpleName()
@@ -648,14 +662,14 @@ process plasmid_blast {
     */
     cpus cpus
     tag "${sample}"
-    publishDir "${outdir}/${sample}/plasmid", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true, pattern: "*.{txt,txt.gz}"
 
     input:
     set val(sample), file(genes) from PLASMID_BLAST
     file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
 
     output:
-    file("${sample}-plsdb.txt.gz")
+    file("${sample}-plsdb.{txt,txt.gz}")
 
     when:
     PLASMID_BLASTDB.isEmpty() == false
@@ -716,9 +730,6 @@ process mapping_query {
 
 
 workflow.onComplete {
-    if (workflow.success == true && params.clean_cache == true) {
-        clean_cache()
-    }
     println """
     Pipeline execution summary
     ---------------------------
@@ -738,7 +749,6 @@ workflow.onComplete {
 // Utility functions
 def print_version() {
     println(PROGRAM_NAME + ' ' + VERSION)
-    clean_cache()
     exit 0
 }
 
@@ -749,7 +759,6 @@ def print_example_fastqs() {
     log.info 'sample\tr1\tr2'
     log.info 'test001\t/path/to/fastqs/test_R1.fastq.gz\t/path/to/fastqs/test_R2.fastq.gz'
     log.info 'test002\t/path/to/fastqs/test.fastq.gz\t'
-    clean_cache()
     exit 0
 }
 
@@ -761,7 +770,6 @@ def print_check_fastqs(fastq_input, fastq_type) {
         log.info ''
         log.info 'Found:'
         create_fastq_channel(fastq_input).println()
-        clean_cache()
         exit 0
     } else {
         log.error '"--check_fastqs" requires "--fastqs" to be set.'
@@ -808,7 +816,6 @@ def print_available_datasets(dataset) {
         log.error "Please use '--dataset' to specify the path to pre-built datasets."
         exit_code = 1
     }
-    clean_cache()
     exit exit_code
 }
 
@@ -869,15 +876,6 @@ def check_minmers(dataset) {
 }
 
 
-def clean_cache() {
-    // No need to resume completed run so remove cache.
-    if (params.clean_cache == true) {
-        file('./work/').deleteDir()
-        file('./.nextflow/').deleteDir()
-    }
-}
-
-
 def is_positive_integer(value, name) {
     error = 0
     if (value.getClass() == Integer) {
@@ -924,7 +922,7 @@ def check_input_params() {
     } else if (params.accessions) {
         error += file_exists(params.accessions, '--accessions')
         fastq_type = "ena_accessions"
-    }else if (params.accession) {
+    }else if (params.accession || params.dry_run) {
         fastq_type = "ena_accession"
     } else {
         log.error """
@@ -1006,7 +1004,11 @@ def create_fastq_channel(fastq_input, fastq_type) {
             .splitText()
             .map { line -> process_accessions(line) }
     } else if (fastq_type == "ena_accession") {
-        return [tuple(params.accession, "is_accession", [null, null])]
+        if (params.dry_run) {
+            return [tuple("BACTOPIA_DRY_RUN", "is_accession", [null, null])]
+        } else {
+            return [tuple(params.accession, "is_accession", [null, null])]
+        }
     } else if (fastq_type == "paired") {
         return [tuple(params.sample, false, [file(params.R1), file(params.R2)])]
     } else {
@@ -1123,7 +1125,6 @@ def print_usage() {
     ${basic_help()}
     ${params.help_all ? full_help() : ""}
     """.stripIndent()
-    clean_cache()
     exit 0
 }
 
@@ -1165,8 +1166,14 @@ def basic_help() {
         --coverage INT          Reduce samples to a given coverage
                                     Default: ${params.coverage}x
 
-        --genome_size INT       Expected genome size (bp) for all samples
-                                    Default: ${genome_size}
+        --genome_size INT       Expected genome size (bp) for all samples, a value of '0'
+                                    will disable read error correction and read subsampling.
+                                    Special values (requires --species):
+                                        'min': uses minimum completed genome size of species
+                                        'median': uses median completed genome size of species
+                                        'mean': uses mean completed genome size of species
+                                        'max': uses max completed genome size of species
+                                    Default: Mash estimate
 
         --outdir DIR            Directory to write results to
                                     Default ${params.outdir}
@@ -1191,13 +1198,17 @@ def basic_help() {
 
         --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-        --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
-                                    the Nextflow run cannot be resumed.
+        --compress              Compress (gzip) select outputs (e.g. annotation, variant calls)
+                                    to reduce overall storage footprint.
 
         --keep_all_files        Keeps all analysis files created. By default, intermediate
                                     files are removed. This will not affect the ability
                                     to resume Nextflow runs, and only occurs at the end
                                     of the process.
+
+        --dry_run               Mimics workflow execution, to help prevent errors realated to
+                                    conda envs being built in parallel. Only useful on new
+                                    installs of Bactopia.
 
         --version               Print workflow version information
 
@@ -1224,7 +1235,7 @@ def full_help() {
         --max_retry INT         Maximum times to retry downloads
                                     Default: ${params.max_retry}
 
-        --use_ftp               Only use FTP to download FASTQs from ENA
+        --ftp_only              Only use FTP to download FASTQs from ENA
 
     QC Reads Parameters:
         --min_basepairs INT     The minimum amount of input sequenced basepairs required

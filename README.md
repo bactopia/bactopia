@@ -1,14 +1,25 @@
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://conda.anaconda.org/bioconda) [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
 
-# Bactopia
-Bactopia is an extensive workflow to process Illumina sequencing for bacterial genomes. The goal of Bactopia is process your data with a broad set of tools, so that you can get to the fun part of analyses quicker! Bactopia prioritizes software available from [Bioconda](https://bioconda.github.io/) (or other
-[Anaconda channels](https://anaconda.org/)) to make installation and setup easier. The Bactopia workflow is also encapsulated as a [Nextflow](https://www.nextflow.io/) workflow to allow support for many types of environments (e.g. cluster or cloud).
+# Overview
+
+Bactopia is an extensive workflow for processing Illumina sequencing of bacterial genomes. The goal of Bactopia is process your data with a broad set of tools, so that you can get to the fun part of analyses quicker! 
+
+Bactopia was inspired by [Staphopia](https://staphopia.emory.edu/), a workflow we (Tim Read and myself) released that targets *Staphylococcus aureus* genomes.
+Using what we learned from Staphopia and user feedback, Bactopia was developed from scratch with usability, portability, and speed in mind from the start.
+
+Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow, allowing for support of many types of environments (e.g. cluster or cloud). Bactopia allows for the usage of many public datasets as well as your own datasets to further enhance the analysis of your seqeuncing. Bactopia only uses software packages available from
+[Bioconda](https://bioconda.github.io/) (or other
+[Anaconda channels](https://anaconda.org/)) to make installation
+as simple as possible for *all* users.
+
+# Documentation
+Documentation for Bactopia is available at https://bactopia.github.io/bactopia/. The documentation includes much of the information here, but also a tutorial replicating [Staphopia](https://staphopia.emory.edu) and a complete overview of the usage.
 
 # Quick Start
 ```
-conda create -n bactopia -c conda-forge -c bioconda bactopia
+conda create -y -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
-setup-datasets datasets
+bactopia datasets datasets
 
 # Paired-end
 bactopia --R1 ${SAMPLE}_R1.fastq.gz --R2 ${SAMPLE}_R2.fastq.gz --sample ${SAMPLE} \
@@ -18,7 +29,7 @@ bactopia --R1 ${SAMPLE}_R1.fastq.gz --R2 ${SAMPLE}_R2.fastq.gz --sample ${SAMPLE
 bactopia --SE ${SAMPLE}.fastq.gz --sample ${SAMPLE} --dataset datasets/ --outdir ${OUTDIR}
 
 # Multiple Samples
-fastqs-fofn directory-of-fastqs/ > fastqs.txt
+bactopia prepare directory-of-fastqs/ > fastqs.txt
 bactopia --fastqs fastqs.txt --dataset datasets --outdir ${OUTDIR}
 
 # Single ENA/SRA Experiment
@@ -192,9 +203,9 @@ This is currently an experimental function. There are likely bugs to be ironed o
 
 ###### Usage
 ```
-prepare-fofn [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
+bactopia prepare [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
 
-prepare-fofn - Read a directory and prepare a FOFN of FASTQs
+bactopia prepare - Read a directory and prepare a FOFN of FASTQs
 
 positional arguments:
   STR                Directory where FASTQ files are stored
@@ -212,7 +223,7 @@ optional arguments:
 Here is an example using the default parameters. In the example, sample *SRR00000* has more than 2 FASTQs matched to it, which is recognized as an error.
 
 ```
-prepare-fofn  tests/dummy-fastqs/
+bactopia prepare tests/dummy-fastqs/
 sample  r1      r2
 SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000.fastq.gz /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
 ERROR: "SRR00000" has more than two different FASTQ files, please check.
@@ -221,7 +232,7 @@ ERROR: "SRR00000" has more than two different FASTQ files, please check.
 After tweaking the `--pattern` parameter a little bit. The error is corrected and sample *SRR00000* is properly recognized as a paired-end read set.
 
 ```
-prepare-fofn  tests/dummy-fastqs/ --pattern *_[12].fastq.gz
+bactopia prepare tests/dummy-fastqs/ --pattern *_[12].fastq.gz
 sample  r1      r2
 SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
 ```
@@ -277,7 +288,17 @@ There are a lot of publicly avilable sequences, and you might want to include so
 `bactopia --accession SRX476958`
 
 ##### Use --accessions for Multiple Experiment Accessions
-`bactopia --accessions my-accessions.txt`
+```
+bactopia search PRJNA480016 --limit 5
+bactopia --accessions ena-accessions.txt \
+         --dataset datasets/ \
+         --species staphylococcus-aureus \
+         --coverage 100 \
+         --genome_size median \
+         --max_cpus 8 \
+         --cpus 2 \
+         --outdir ena-multiple-samples
+```
 
 ## `--max_cpus` & `--cpus`
 When Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.
@@ -345,11 +366,11 @@ Using the completed genomes downloaded for clustering proteins a Mash sketch and
 A few folders for things such as calling variants, insertion sequences and primers are created that the user can manually populate. 
 
 ## Setting Up
-Included in Bactopia is the `setup-datasets` script (located in the `bin` folder) to automate the process of downloading and/or building these datasets.
+Included in Bactopia is the `bactopia datasets` command to automate the process of downloading and/or building these datasets.
 
 ### Quick Start
 ``` bash
-setup-datasets datasets
+bactopia datasets datasets
 ```
 
 This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, GenBank Sourmash Signatures, and PLSDB in the newly created `datasets` folder.
@@ -357,7 +378,7 @@ This will set up Ariba datasets (`card` and `vfdb_core`), RefSeq Mash sketch, Ge
 
 ### A Single Bacterial Species
 ``` bash
-setup-datasets datasets --species "Haemophilus influenzae" --include_genus
+bactopia datasets datasets --species "Haemophilus influenzae" --include_genus
 ```
 
 ### Multiple Bacterial Species
@@ -366,7 +387,7 @@ You can also set up datasets for multiple bacterial species at a time. There are
 #### Comma-Separated 
 At runtime, you can separate the the different species
 ``` bash
-setup-datasets datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
+bactopia datasets datasets --species "Haemophilus influenzae,Staphylococcus aureus" --include_genus
 ```
 #### Text File
 
@@ -382,14 +403,14 @@ Mycobacterium tuberculosis
 The new command becomes:
 
 ``` bash
-setup-datasets datasets --species species.txt --include_genus
+bactopia datasets datasets --species species.txt --include_genus
 ```
 
 This will setup the MLST schema (if available) and a protein cluster FASTA file for each species in `species.txt`. 
 
 ## Usage
 ``` 
-usage: setup-datasets [-h] [--ariba STR] [--species STR]
+usage: bactopia datasets [-h] [--ariba STR] [--species STR]
                               [--skip_prokka] [--include_genus]
                               [--identity FLOAT] [--overlap FLOAT]
                               [--max_memory INT] [--fast_cluster]
@@ -401,7 +422,7 @@ usage: setup-datasets [-h] [--ariba STR] [--species STR]
                               [--version] [--verbose] [--silent]
                               OUTPUT_DIRECTORY
 
-setup-datasets - Setup public datasets for Bactopia
+bactopia datasets - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.
@@ -453,9 +474,9 @@ Adjust Verbosity:
   --silent          Only critical errors will be printed.
 
 example usage:
-  setup-datasets outdir
-  setup-datasets outdir --ariba 'card'
-  setup-datasets outdir --species 'Staphylococcus aureus' --include_genus
+  bactopia datasets outdir
+  bactopia datasets outdir --ariba 'card'
+  bactopia datasets outdir --species 'Staphylococcus aureus' --include_genus
 ```
 
 ### Useful Parameters
@@ -495,6 +516,9 @@ Antimicrob. Agents Chemother. 57, 3348–3357 (2013)._
 _Lakin, S. M. et al. [MEGARes: an antimicrobial resistance database for high 
 throughput sequencing](http://www.ncbi.nlm.nih.gov/pubmed/27899569). 
 Nucleic Acids Res. 45, D574–D580 (2017)._  
+
+* __[NCBI Reference Gene Catalog](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)__  
+_Feldgarden, M. et al. [Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates](https://doi.org/10.1128/AAC.00483-19). Antimicrob. Agents Chemother. (2019)_ 
 
 * __[plasmidfinder](https://cge.cbs.dtu.dk/services/PlasmidFinder/)__  
 _Carattoli, A. et al. [In silico detection and typing of plasmids using 
@@ -545,8 +569,16 @@ _Jolley, K. A., Bray, J. E. & Maiden, M. C. J. [Open-access bacterial population
 software, the PubMLST.org website and their applications](http://dx.doi.org/10.12688/wellcomeopenres.14826.1). 
 Wellcome Open Res 3, 124 (2018)._  
 
-# Programs Included In Bactopia
-Below is a list of tools (alphabetical) *directly* called by Bactopia. A link to software page as well as the citation (if available) has been included.
+# Software Included In Bactopia
+Below is a list of software (alphabetical) used (directly and indirectly) by Bactopia. A link to the software page as well as the citation (if available) have been included.
+
+* __[AMRFinderPlus](https://github.com/ncbi/amr)__  
+Find acquired antimicrobial resistance genes and some point mutations in protein or assembled nucleotide sequences.  
+_Feldgarden, M. et al. [Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates](https://doi.org/10.1128/AAC.00483-19). Antimicrob. Agents Chemother. (2019)_  
+
+* __[Aragorn](http://130.235.244.92/ARAGORN/Downloads/)__  
+Finds transfer RNA features (tRNA)  
+_Laslett D. and B. Canback, [ARAGORN, a program to detect tRNA genes and tmRNA genes in nucleotide sequences.](https://doi.org/10.1093/nar/gkh152) Nucleic Acids Res. 32(1):11-6. (2004)_  
 
 * __[Ariba](https://github.com/sanger-pathogens/ariba)__  
 Antimicrobial Resistance Identification By Assembly  
@@ -556,12 +588,20 @@ Microb Genom 3, e000131 (2017)._
 
 * __[Assembly-Scan](https://github.com/rpetit3/assembly-scan)__  
 Generate basic stats for an assembly.  
-_Petit III, R.A. [assembly-scan: generate basic stats for an 
+_Petit III, R. A. [assembly-scan: generate basic stats for an 
 assembly](https://github.com/rpetit3/assembly-scan)._  
+
+* __[Barrnap](https://github.com/tseemann/barrnap)__  
+Bacterial ribosomal RNA predictor  
+_Seemann, T. [Barrnap: Bacterial ribosomal RNA predictor](https://github.com/tseemann/barrnap)_  
 
 * __[BBTools](https://jgi.doe.gov/data-and-tools/bbtools/)__  
 BBTools is a suite of fast, multithreaded bioinformatics tools designed for analysis of DNA and RNA sequence data.  
-_Bushnell B. [BBMap short read aligner, and other bioinformatic tools.](http://sourceforge.net/projects/bbmap/)_  
+_Bushnell, B. [BBMap short read aligner, and other bioinformatic tools.](http://sourceforge.net/projects/bbmap/)_  
+
+* __[BCFtools](https://github.com/samtools/bcftools)__  
+Utilities for variant calling and manipulating VCFs and BCFs.  
+_Danecek, P. et al. [BCFtools - Utilities for variant calling and manipulating VCFs and BCFs.](http://github.com/samtools/bcftools)_  
 
 * __[Bedtools](https://github.com/arq5x/bedtools2)__  
 A powerful toolset for genome arithmetic.  
@@ -590,16 +630,31 @@ Bioinformatics 28, 3150–3152 (2012)._
 
 * __[FastQC](https://github.com/s-andrews/FastQC)__  
 A quality control analysis tool for high throughput sequencing data.  
-_Andrews, S. FastQC: a quality control tool for high throughput sequence data.
-(http://www.bioinformatics.babraham.ac.uk/projects/fastqc)._  
+_Andrews, S. [FastQC: a quality control tool for high throughput sequence data.](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)._  
 
 * __[Fastq-Scan](https://github.com/rpetit3/fastq-scan)__  
 Output FASTQ summary statistics in JSON format  
-_Petit III, R.A. [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan)_  
+_Petit III, R. A. [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan)_  
+
+* __[FLASH](https://ccb.jhu.edu/software/FLASH/)__  
+A fast and accurate tool to merge paired-end reads.  
+_Magoč, T., and S. L. Salzberg, [FLASH: fast length adjustment of short reads to improve genome assemblies.](https://doi.org/10.1093/bioinformatics/btr507) Bioinformatics 27.21 (2011): 2957-2963._  
+
+* __[freebayes](https://github.com/ekg/freebayes)__  
+Bayesian haplotype-based genetic polymorphism discovery and genotyping  
+_Garrison E., and G. Marth, [Haplotype-based variant detection from short-read sequencing.](https://arxiv.org/abs/1207.3907) arXiv preprint arXiv:1207.3907 [q-bio.GN] (2012)_  
 
 * __[GNU Parallel](https://www.gnu.org/software/parallel/)__  
-GNU parallel is a shell tool for executing jobs in parallel using one or more computers.  
+A shell tool for executing jobs in parallel  
 _Tange, O. [GNU Parallel](https://doi.org/10.5281/zenodo.1146014) 2018, March 2018_  
+
+* __[HMMER](http://hmmer.org/)__  
+Biosequence analysis using profile hidden Markov models  
+_Finn R. D. et al. [HMMER web server: interactive sequence similarity searching.](https://doi.org/10.1093/nar/gkr367) Nucleic Acids Res. ;39:W29-37. (2011)_  
+
+* __[Infernal](http://eddylab.org/infernal/)__  
+Searches DNA sequence databases for RNA structure and sequence similarities  
+_Nawrocki, E. P., and S. R. Eddy, [Infernal 1.1: 100-fold faster RNA homology searches.](https://doi.org/10.1093/bioinformatics/btt509) Bioinformatics, 29(22), 2933-2935. (2013)_  
 
 * __[ISMapper](https://github.com/jhawkey/IS_mapper)__  
 IS mapping software  
@@ -609,7 +664,7 @@ BMC Genomics 16, 667 (2015)._
 
 * __[Lighter](https://github.com/mourisl/Lighter)__  
 Fast and memory-efficient sequencing error corrector  
-_Song, L., Florea, L. and Langmead, B., [Lighter: Fast and Memory-efficient Sequencing Error Correction without Counting](http://genomebiology.com/2014/15/11/509/). Genome Biol. 2014 Nov 15;15(11):509._
+_Song, L., Florea, L. and B. Langmead, [Lighter: Fast and Memory-efficient Sequencing Error Correction without Counting](http://genomebiology.com/2014/15/11/509/). Genome Biol. 2014 Nov 15;15(11):509._
 
 * __[Mash](https://github.com/marbl/Mash)__  
 Fast genome and metagenome distance estimation using MinHash  
@@ -618,13 +673,25 @@ estimation using MinHash](http://dx.doi.org/10.1186/s13059-016-0997-x).
 Genome Biol. 17, 132 (2016)._  
 _Ondov, B. D. et al. [Mash Screen: High-throughput sequence 
 containment estimation for genome discovery](http://dx.doi.org/10.1101/557314). 
-bioRxiv 557314 (2019). doi:10.1101/557314_  
+bioRxiv 557314 (2019)._  
 
 * __[McCortex](https://github.com/mcveanlab/mccortex)__  
 De novo genome assembly and multisample variant calling  
-_Turner, I., Garimella, K. V., Iqbal, Z. & McVean, G. [Integrating long-range 
+_Turner, I., Garimella, K. V., Iqbal, Z. and G. McVean, [Integrating long-range 
 connectivity information into de Bruijn graphs.](http://dx.doi.org/10.1093/bioinformatics/bty157) 
 Bioinformatics 34, 2556–2565 (2018)._  
+
+* __[MEGAHIT](https://github.com/voutcn/megahit)__  
+Ultra-fast and memory-efficient (meta-)genome assembler  
+_Li, D., et al. [MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.](https://doi.org/10.1093/bioinformatics/btv033) Bioinformatics 31.10 (2015): 1674-1676._  
+
+* __[MinCED](https://github.com/ctSkennerton/minced)__  
+Mining CRISPRs in Environmental Datasets  
+_Skennerton, C. [MinCED: Mining CRISPRs in Environmental Datasets](https://github.com/ctSkennerton/minced)_  
+
+* __[Minimap2](https://github.com/lh3/minimap2)__
+A versatile pairwise aligner for genomic and spliced nucleotide sequences  
+_Li, H. [Minimap2: pairwise alignment for nucleotide sequences.](https://doi.org/10.1093/bioinformatics/bty191) Bioinformatics, 34:3094-3100. (2018)_  
 
 * __[NCBI Genome Download](https://github.com/kblin/ncbi-genome-download)__  
 Scripts to download genomes from the NCBI FTP servers  
@@ -633,19 +700,35 @@ servers](https://github.com/kblin/ncbi-genome-download)_
 
 * __[Nextflow](https://github.com/nextflow-io/nextflow)__  
 A DSL for data-driven computational pipelines.  
-_Di Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., Notredame, C., 2017. [Nextflow enables reproducible computational workflows.](https://www.nature.com/articles/nbt.3820.pdf?origin=ppub) Nat. Biotechnol. 35, 316–319._
+_Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P.P., Palumbo, E., Notredame, C., 2017. [Nextflow enables reproducible computational workflows.](https://www.nature.com/articles/nbt.3820.pdf?origin=ppub) Nat. Biotechnol. 35, 316–319._
 
 * __[Pigz](https://zlib.net/pigz/)__  
 A parallel implementation of gzip for modern multi-processor, multi-core machines.  
-_Adler, Mark. [pigz: A parallel implementation of gzip for modern multi-processor, multi-core machines.](https://zlib.net/pigz/) Jet Propulsion Laboratory (2015)._  
+_Adler, M. [pigz: A parallel implementation of gzip for modern multi-processor, multi-core machines.](https://zlib.net/pigz/) Jet Propulsion Laboratory (2015)._  
+
+* __[Pilon](https://github.com/broadinstitute/pilon/)__  
+An automated genome assembly improvement and variant detection tool  
+_Walker, B. J., et al. [Pilon: an integrated tool for comprehensive microbial variant detection and genome assembly improvement.](https://doi.org/10.1371/journal.pone.0112963) PloS one 9.11 (2014): e112963._  
+
+* __[Prodigal](https://github.com/hyattpd/Prodigal)__  
+Fast, reliable protein-coding gene prediction for prokaryotic genomes.  
+_Hyatt, D., et al. [Prodigal: prokaryotic gene recognition and translation initiation site identification.](https://doi.org/10.1186/1471-2105-11-119) BMC Bioinformatics 11.1 (2010): 119._  
 
 * __[Prokka](https://github.com/tseemann/prokka)__  
 Rapid prokaryotic genome annotation  
 _Seemann, T. [Prokka: rapid prokaryotic genome annotation](http://dx.doi.org/10.1093/bioinformatics/btu153). 
 Bioinformatics 30, 2068–2069 (2014)._  
 
+* __[RNAmmer](http://www.cbs.dtu.dk/services/RNAmmer/)__  
+Consistent and rapid annotation of ribosomal RNA genes  
+_Lagesen, K., et al. [RNAmmer: consistent annotation of rRNA genes in genomic sequences.](https://dx.doi.org/10.1093%2Fnar%2Fgkm160) Nucleic Acids Res 35.9: 3100-3108. (2007)_  
+
+* __[samclip](https://github.com/tseemann/samclip)__  
+Filter SAM file for soft and hard clipped alignments  
+_Seemann, T. [Samclip: Filter SAM file for soft and hard clipped alignments](https://github.com/tseemann/samclip)_  
+
 * __[Samtools](https://github.com/samtools/samtools)__  
-Tools (written in C using htslib) for manipulating next-generation sequencing data  
+Tools for manipulating next-generation sequencing data  
 _Li, H. et al. [The Sequence Alignment/Map format and SAMtools](http://dx.doi.org/10.1093/bioinformatics/btp352). 
 Bioinformatics 25, 2078–2079 (2009)._
 
@@ -655,29 +738,66 @@ _Li, H. [Toolkit for processing sequences in FASTA/Q formats](https://github.com
 
 * __[Shovill](https://github.com/tseemann/shovill)__  
 Faster assembly of Illumina reads  
-_Seemann, T. [De novo assembly pipeline for Illumina paired reads](https://github.com/tseemann/shovill)_  
+_Seemann, T. [Shovill: De novo assembly pipeline for Illumina paired reads](https://github.com/tseemann/shovill)_  
+
+* __[SignalP](http://www.cbs.dtu.dk/services/SignalP-4.0/)__  
+Finds signal peptide features in CDS  
+_Petersen, T. N., et al. [SignalP 4.0: discriminating signal peptides from transmembrane regions.](https://doi.org/10.1038/nmeth.1701) Nature methods 8.10: 785.(2011)_  
+
+* __[SKESA](https://github.com/ncbi/SKESA)__  
+Strategic Kmer Extension for Scrupulous Assemblies  
+_Souvorov, A., Agarwala, R. and D. J. Lipman. [SKESA: strategic k-mer extension for scrupulous assemblies.](https://doi.org/10.1186/s13059-018-1540-z) Genome Biology 19:153 (2018).__  
 
 * __[Snippy](https://github.com/tseemann/snippy)__  
 Rapid haploid variant calling and core genome alignment  
-_Seemann, T. [snippy: fast bacterial variant calling from NGS reads](https://github.com/tseemann/snippy)
+_Seemann, T. [Snippy: fast bacterial variant calling from NGS reads](https://github.com/tseemann/snippy)
 (2015)_  
+
+* __[SnpEff](http://snpeff.sourceforge.net/)__  
+Genomic variant annotations and functional effect prediction toolbox.  
+_Cingolani, P., et al. [A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3.](https://doi.org/10.4161/fly.19695) Fly, 6(2), 80-92 (2012)_  
+
+* __[SNP-sites](https://github.com/sanger-pathogens/snp-sites)__  
+Rapidly extracts SNPs from a multi-FASTA alignment.  
+_Page, A. J., et al. [SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments.](https://dx.doi.org/10.1099%2Fmgen.0.000056) Microbial Genomics 2.4 (2016)._  
 
 * __[Sourmash](https://github.com/dib-lab/sourmash)__  
 Compute and compare MinHash signatures for DNA data sets.  
-_Titus Brown, C. & Irber, L. [sourmash: a library for MinHash sketching 
+_Titus Brown, C. and L. Irber [sourmash: a library for MinHash sketching 
 of DNA](http://dx.doi.org/10.21105/joss.00027). JOSS 1, 27 (2016)._  
 
+* __[SPAdes](https://github.com/ablab/spades)__  
+An assembly toolkit containing various assembly pipelines.  
+_Bankevich, A., et al. [SPAdes: a new genome assembly algorithm and its applications to single-cell sequencing.](https://doi.org/10.1089/cmb.2012.0021) Journal of computational biology 19.5 (2012): 455-477._  
+
+* __[Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic)__  
+A flexible read trimming tool for Illumina NGS data  
+_Bolger, A. M., Lohse, M., and B. Usadel. [Trimmomatic: a flexible trimmer for Illumina sequence data.](https://doi.org/10.1093/bioinformatics/btu170) Bioinformatics 30.15 (2014): 2114-2120._  
+
 * __[VCF-Annotator](https://github.com/rpetit3/vcf-annotator)__  
-Add biological annotations to variants in a given VCF file.  
-_Petit III, R.A. [VCF-Annotator: Add biological annotations to variants 
-in a given VCF file.](https://github.com/rpetit3/vcf-annotator)._  
+Add biological annotations to variants in a VCF file.  
+_Petit III, R. A. [VCF-Annotator: Add biological annotations to variants 
+in a VCF file.](https://github.com/rpetit3/vcf-annotator)._  
+
+* __[Vcflib]()__  
+a simple C++ library for parsing and manipulating VCF files  
+_Garrison, E. [Vcflib: A C++ library for parsing and manipulating VCF files](https://github.com/vcflib/vcflib)_  
+
+* __[Velvet](https://github.com/dzerbino/velvet)__  
+Short read de novo assembler using de Bruijn graphs  
+_Zerbino, D. R., and E. Birney. [Velvet: algorithms for de novo short read assembly using de Bruijn graphs.](http://www.genome.org/cgi/doi/10.1101/gr.074492.107) Genome research 18.5 (2008): 821-829._  
+
+* __[vt](https://github.com/atks/vt)__  
+A tool set for short variant discovery in genetic sequence data.  
+_Tan, A., Abecasis, G. R., and H. M. Kang, [Unified representation of genetic variants.](https://doi.org/10.1093/bioinformatics/btv112) Bioinformatics, 31(13), 2202-2204. (2015)_  
 
 ## Please Cite Datasets and Tools
 If you have used Bactopia in your work, please be sure to cite any datasets or tools you may have used. A citation link for each dataset/tool has been made available. If a citation needs to updated please let me know!
 
+A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](docs/bactopia-datasets-software.bib)
+
 # Acknowledgements
-Bactopia is truly a case of *"standing upon the shoulders of giants"*. As seen above, nearly 
-every component of Bactopia was created by others and made freely available to the public.
+Bactopia is truly a case of *"standing upon the shoulders of giants"*. As seen above, nearly every component of Bactopia was created by others and made freely available to the public.
 
 I would like to personally extend my many thanks and gratitude to the authors
 of these software packages and public datasets. If you've made it this far, I 

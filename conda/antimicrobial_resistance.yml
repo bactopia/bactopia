@@ -1,12 +1,12 @@
 name: bactopia-antimicrobial_resistance
-version: 1.1.0
+version: 1.2.0
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
-  - blast=2.9.0=h20b68b9_1
+  - blast=2.9.0=pl526h979a64d_3
   - boost=1.68.0=py37h8619c78_1001
   - boost-cpp=1.68.0=h11c811c_1000
   - bzip2=1.0.8=h516909a_1

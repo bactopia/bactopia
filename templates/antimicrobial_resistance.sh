@@ -2,8 +2,12 @@
 set -e
 set -u
 
+if [[ !{params.compress} == "true" ]]; then
+    zcat !{genes} > !{sample}.ffn
+    zcat !{proteins} > !{sample}.faa
+fi
+
 mkdir antimicrobial_resistance
-zcat !{genes} > !{sample}.ffn
 amrfinder -n !{sample}.ffn \
           -o antimicrobial_resistance/!{sample}-gene-report.txt \
           --ident_min !{params.amr_ident_min} \
@@ -11,7 +15,6 @@ amrfinder -n !{sample}.ffn \
           --translation_table !{params.amr_translation_table} \
           --threads !{cpus} !{organism_gene} !{plus} !{report_common}
 
-zcat !{proteins} > !{sample}.faa
 amrfinder -p !{sample}.faa \
           -o antimicrobial_resistance/!{sample}-protein-report.txt \
           --ident_min !{params.amr_ident_min} \
@@ -19,4 +22,7 @@ amrfinder -p !{sample}.faa \
           --translation_table !{params.amr_translation_table} \
           --threads !{cpus} !{organism_protein} !{plus} !{report_common}
 
-rm !{sample}.faa !{sample}.ffn
+if [[ !{params.compress} == "true" ]]; then
+    rm !{sample}.faa !{sample}.ffn
+fi
+

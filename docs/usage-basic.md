@@ -39,8 +39,14 @@ Optional Parameters:
     --coverage INT          Reduce samples to a given coverage
                                 Default: 100x
 
-    --genome_size INT       Expected genome size (bp) for all samples
-                                Default: Mash Estimate
+    --genome_size INT       Expected genome size (bp) for all samples, a value of '0'
+                                will disable read error correction and read subsampling.
+                                Special values (requires --species):
+                                    'min': uses minimum completed genome size of species
+                                    'median': uses median completed genome size of species
+                                    'mean': uses mean completed genome size of species
+                                    'max': uses max completed genome size of species
+                                Default: Mash estimate
 
     --outdir DIR            Directory to write results to
                                 Default .
@@ -65,8 +71,8 @@ Useful Parameters:
 
     --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-    --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
-                                the Nextflow run cannot be resumed.
+    --compress              Compress (gzip) select outputs (e.g. annotation, variant calls)
+                                to reduce overall storage footprint.
 
     --keep_all_files        Keeps all analysis files created. By default, intermediate
                                 files are removed. This will not affect the ability
@@ -133,7 +139,7 @@ All lines after the header line, contain unique sample names and location(s) to 
 In the example above, two samples would be processed by Bactopia. Sample `test001` has two FASTQs and would be processed as pair-end reads. While sample `test002` only has a single FASTQ and would be processed as single-end reads.
 
 ##### Generating A FOFN
-A script named `prepare-fofn` has been included to help aid (hopefully!) the process of creating a FOFN for your samples. This script will attempt to find FASTQ files in a given directory and output the expected FOFN format. It will also output any potential issues associated with the pattern matching.
+`bactopia prepare` has been included to help aid (hopefully!) the process of creating a FOFN for your samples. This script will attempt to find FASTQ files in a given directory and output the expected FOFN format. It will also output any potential issues associated with the pattern matching.
 
 !!! error "Verify accuracy of FOFN"
     This is currently an experimental function. There are likely bugs to be ironed out. Please be sure to give the resulting FOFN a quick look over.
@@ -227,6 +233,83 @@ There are a lot of publicly avilable sequences, and you might want to include so
 !!! info "Use --accessions for Multiple Experiment Accessions"
     `bactopia --accessions my-accessions.txt`
 
+#### Generating Accession List
+`bactopia search` has been made to help assist in generating a list of Experiment accessions to be procesed by Bactopia (via `--accessions`). Users can provide a Taxon ID (e.g. 1280), a binary name (e.g. Staphylococcus aureus), or Study accessions (e.g. PRJNA480016). This value is then queried against ENA's [Data Warehouse API](https://www.ebi.ac.uk/ena/browse/search-rest)), and a list of all Experiment accessions associated with the query is returned.
+
+##### Usage
+```
+usage: bactopia search [-h] [--exact_taxon] [--outdir OUTPUT_DIRECTORY]
+                       [--prefix PREFIX] [--limit INT] [--version]
+                       STR
+
+bactopia search - Search ENA for associated WGS samples
+
+positional arguments:
+  STR                   Taxon ID or Study accession
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --exact_taxon         Exclude Taxon ID descendents.
+  --outdir OUTPUT_DIRECTORY
+                        Directory to write output. (Default: .)
+  --prefix PREFIX       Prefix to use for output file names. (Default: ena)
+  --limit INT           Maximum number of results to return. (Default:
+                        1000000)
+  --version             show program's version number and exit
+
+example usage:
+  bactopia search PRJNA480016 --limit 20
+  bactopia search 1280 --exact_taxon --limit 20'
+  bactopia search "staphylococcus aureus" --limit 20
+```
+
+##### Example
+```
+bactopia search PRJNA480016 --limit 5
+```
+
+When completed three files are produced:
+
+1. `ena-accessions.txt` - Contains a list of Experiment accessions to be processed.
+   ```
+   SRX4563686
+   SRX4563689
+   SRX4563687
+   SRX4563690
+   SRX4563688
+   ```
+
+!!! info "Input for Bactopia"
+    This file can be used in conjunction with the `--accessions` parameter for Bactopia processing.
+
+
+2. `ena-results.txt` - Contains the full results of the API query. This includes multiples fields (sample_accession, tax_id, sample_alias, center_name, etc...)
+
+3. `ena-summary.txt` - Contains a small summary of the completed request
+    ```
+    QUERY: (study_accession=PRJNA480016 OR secondary_study_accession=PRJNA480016)
+    LIMIT: 5
+    RESULTS: 5 (./ena-results.txt)
+    ILLUMINA ACCESSIONS: 5 (./ena-accessions.txt)
+    ```
+
+
+## `--genome_size`
+Throughout the Bactopia workflow a genome size is used for various tasks. By default, a genome size is estimated using Mash. However, users can provide their own value for genome size, use values based on [Species Specific Datasets](/datasets/#species-specific), or completely disable it.
+
+| Value | Result |
+|-------|--------|
+| *empty*  | Mash is used to estimate the genome size |
+| integer | Uses the genome size (e.g. `--genome_size 2800000`) provided by the user |
+| 0 | Read error correct and read subsampling will be disabled. |
+| min | Requires `--species`, the minimum completed genome size for a species is used |
+| median | Requires `--species`, the median completed genome size for a species is used | 
+| mean |  Requires `--species`, the mean completed genome size for a species is used | 
+| max | Requires `--species`, the maximum completed genome size for a species is used | 
+
+!!! error "Mash may not be the most accurate estimate"
+    Mash is very convenient to quickly estimate a genome size, but it may not be the most accurate in all cases and will differ between samples. It is recommended that when possible a known genome size or one based off completed genomes should be used. 
+
 ## `--max_cpus` & `--cpus`
 When Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.
 
@@ -244,13 +327,6 @@ When Nextflow executes, it uses all available cpus to queue up processes. As you
 What `--max_cpus` does is specify to Nextflow the maximum number of cpus it is allowed to occupy at any given time. `--cpus` on the other hand, specifies how many cpus any given step (qc, assembly, annotation, etc...) can occupy. 
 
 By default `--max_cpus` is set to 1 and if `--cpus` is set to a value greater than `--max_cpus` it will be set equal to `--max_cpus`. This appoach errs on the side of caution, by not occupying all cpus on the server without the user's consent!
-
-## `--clean_cache`
-Bactopia will keep Nextflow's *work* cache even after successfully completing. While the cache is maintained Bactopia is resumable using the `-resume` parameter. This does however introduce a potentential storage overhead. The cache will contain multiple intermediate files (e.g. uncompressed FASTQs, BAMs, etc...) for each sample that was processed. In other words, it can get pretty large!
-
-If you would like to clean up the cache you can use `--clean_cache`. This will remove the cache **only** after a successful execution (e.g. everything thing finished without errors). This is accomplished by removing the `work` directory created by Nextflow. As you might have guessed, by using removing the cache, Bactopia will no longer be resumeable.
-
-At the end of the day, you can always decide to not use `--clean_cache` and manually remove the `work` directory when you feel it is safe!
 
 ## `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.

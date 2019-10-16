@@ -16,7 +16,10 @@ if [[ ${type} == *"blast/primers"* ]]; then
            -perc_identity !{params.perc_identity} \
            -evalue 1 \
            -query - > blast/primers/!{query_name}.txt
-    pigz --best -p !{task.cpus} blast/primers/!{query_name}.txt
+
+    if [[ !{params.compress} == "true" ]]; then
+        pigz -n --best -p !{task.cpus} blast/primers/!{query_name}.txt
+    fi
 elif [[ ${type} == *"blast/proteins"* ]]; then
     mkdir -p blast/proteins
     cat !{query} |
@@ -26,7 +29,10 @@ elif [[ ${type} == *"blast/proteins"* ]]; then
             -evalue 0.0001 \
             -qcov_hsp_perc !{params.qcov_hsp_perc} \
             -query - > blast/proteins/!{query_name}.txt
-    pigz --best -p !{task.cpus} blast/proteins/!{query_name}.txt
+
+    if [[ !{params.compress} == "true" ]]; then
+        pigz -n --best -p !{task.cpus} blast/proteins/!{query_name}.txt
+    fi
 else
     mkdir -p blast/genes
     cat !{query} |
@@ -38,5 +44,8 @@ else
            -perc_identity !{params.perc_identity} \
            -qcov_hsp_perc !{params.qcov_hsp_perc} \
            -query - > blast/genes/!{query_name}.txt
-    pigz --best -p !{task.cpus} blast/genes/!{query_name}.txt
+
+    if [[ !{params.compress} == "true" ]]; then
+        pigz -n --best -p !{task.cpus} blast/genes/!{query_name}.txt
+    fi
 fi

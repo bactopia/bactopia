@@ -27,9 +27,13 @@ And voilà, you are all set to get started processing your data!
 
 But first, it is highly recommended that you take the time to [Build Datasets](datasets.md) that Bactopia can take advantage of.
 
-## Docker
-A Docker container, that is also Singularity compatible, has been created that is based off the Conda install.
+## Container
+A Docker and Singularity container has been created that is based off the Conda install.
 
 ```
+# Docker 
 docker pull bactopia/bactopia
+
+# Singularity
+singularity pull library://rpetit3/bactopia/bactopia
 ```

@@ -15,4 +15,6 @@ blastn -db !{blastdb} \
        -qcov_hsp_perc !{params.qcov_hsp_perc} \
        -query - > !{sample}-plsdb.txt
 
-pigz --best -p !{task.cpus} !{sample}-plsdb.txt
+if [[ !{params.compress} == "true" ]]; then
+    pigz --best -n -p !{task.cpus} !{sample}-plsdb.txt
+fi

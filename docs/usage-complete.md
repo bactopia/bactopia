@@ -45,8 +45,14 @@ These optional parameters, while not required, will be quite useful (especially 
     --coverage INT          Reduce samples to a given coverage
                                 Default: 100x
 
-    --genome_size INT       Expected genome size (bp) for all samples
-                                Default: Mash Estimate
+    --genome_size INT       Expected genome size (bp) for all samples, a value of '0'
+                                will disable read error correction and read subsampling.
+                                Special values (requires --species):
+                                    'min': uses minimum completed genome size of species
+                                    'median': uses median completed genome size of species
+                                    'mean': uses mean completed genome size of species
+                                    'max': uses max completed genome size of species
+                                Default: Mash estimate
 
     --outdir DIR            Directory to write results to
                                 Default .
@@ -55,6 +61,21 @@ These optional parameters, while not required, will be quite useful (especially 
                                 Default: 32 Gb
 ```
 
+### `--genome_size`
+Throughout the Bactopia workflow a genome size is used for various tasks. By default, a genome size is estimated using Mash. However, users can provide their own value for genome size, use values based on [Species Specific Datasets](/datasets/#species-specific), or completely disable it.
+
+| Value | Result |
+|-------|--------|
+| *empty*  | Mash is used to estimate the genome size |
+| integer | Uses the genome size (e.g. `--genome_size 2800000`) provided by the user |
+| 0 | Read error correct and read subsampling will be disabled. |
+| min | Requires `--species`, the minimum completed genome size for a species is used |
+| median | Requires `--species`, the median completed genome size for a species is used | 
+| mean |  Requires `--species`, the mean completed genome size for a species is used | 
+| max | Requires `--species`, the maximum completed genome size for a species is used | 
+
+!!! error "Mash may not be the most accurate estimate"
+    Mash is very convenient to quickly estimate a genome size, but it may not be the most accurate in all cases and will differ between samples. It is recommended that when possible a known genome size or one based off completed genomes should be used. 
 
 ### `--max_cpus` vs `--cpus`
 By default when Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.
@@ -85,8 +106,8 @@ The following parameters are useful to test to test input parameters.
 
     --check_fastqs          Verify "--fastqs" produces the expected inputs
 
-    --clean_cache           Removes 'work' and '.nextflow' logs. Caution, if used,
-                                the Nextflow run cannot be resumed.
+    --compress              Compress (gzip) select outputs (e.g. annotation, variant calls)
+                                to reduce overall storage footprint.
 
     --keep_all_files        Keeps all analysis files created. By default, intermediate
                                 files are removed. This will not affect the ability
@@ -99,13 +120,6 @@ The following parameters are useful to test to test input parameters.
 
     --help_all              Show a complete list of adjustable parameters
 ```
-
-### `--clean_cache`
-Bactopia will keep Nextflow's *work* cache even after successfully completing. While the cache is maintained Bactopia is resumable using the `-resume` parameter. This does however introduce a potentential storage overhead. The cache will contain multiple intermediate files (e.g. uncompressed FASTQs, BAMs, etc...) for each sample that was processed. In other words, it can get pretty large!
-
-If you would like to clean up the cache you can use `--clean_cache`. This will remove the cache **only** after a successful execution (e.g. everything thing finished without errors). This is accomplished by removing the `work` directory created by Nextflow. As you might have guessed, by using removing the cache, Bactopia will no longer be resumeable.
-
-At the end of the day, you can always decide to not use `--clean_cache` and manually remove the `work` directory when you feel it is safe!
 
 ### `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.
@@ -204,6 +218,10 @@ It is important to note, not all of the available parameters for each and every 
                                 than once is <= this value, then the flag
                                 unique_contig is set
                                 Default: 0.03
+
+    --ariba_no_clean        Do not clean up intermediate files created by
+                                Ariba. By default, the local assemblies are
+                                deleted.
 ```
 
 
@@ -262,7 +280,6 @@ It is important to note, not all of the available parameters for each and every 
                                 Default: Filter out singletons
 ```
 
-
 ### Download FASTQ
 ```
     --aspera_speed STR      Speed at which Aspera Connect will download.
@@ -271,7 +288,20 @@ It is important to note, not all of the available parameters for each and every 
     --max_retry INT         Maximum times to retry downloads
                                 Default: 10
 
-    --use_ftp               Only use FTP to download FASTQs from ENA
+    --ftp_only              Only use FTP to download FASTQs from ENA
+```
+
+### Download Reference Genome
+```
+    --max_references INT    Maximum number of nearest neighbor reference genomes to
+                                download for variant calling.
+                                Default: 1
+
+    --random_tie_break      On references with matching distances, randomly select one.
+                                Default: Pick earliest accession number
+
+    --disable_auto_variants Disable automatic selection of reference genome based on
+                                Mash distances.
 ```
 
 ### Insertion Mapping

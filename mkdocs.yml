@@ -1,7 +1,7 @@
 # pip install pygments mkdocs-material pymdown-extensions
 site_name: Bactopia
 site_author: Robert A. Petit III
-site_description: A generic pipeline for the analysis of short-read bacterial sequences.
+site_description: An extensive workflow to process Illumina sequencing for bacterial genomes.
 copyright: "Copyright © 2019 Robert A. Petit III. All rights reserved."
 
 site_url: https://bactopia.github.io/bactopia
@@ -16,10 +16,12 @@ nav:
     - 'Tutorial': 'tutorial.md'
     - 'Build Datasets': 'datasets.md'
     - 'Basic Usage': 'usage-basic.md'
+    - 'Workflow Overview': 'workflow-overview.md'
+    - 'Output Overview': 'output-overview.md'
     - 'Complete Usage': 'usage-complete.md'
+    - 'Troubleshooting': 'troubleshooting.md'
 #    - 'Examples': 'examples.md'
 #    - 'FAQ': 'faq.md'
-    - 'About': 'about.md'
     - 'Acknowledgements': 'acknowledgements.md'
 
 theme:
