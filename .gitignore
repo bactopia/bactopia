@@ -1,5 +1,5 @@
 /datasets/
-/conda/cache
+/conda/envs
 /configs/aws.config
 .nextflow*
 /work/

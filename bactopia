@@ -76,9 +76,34 @@ elif [[ "$1" == "prepare" ]]; then
 elif [[ "$1" == "search" ]]; then
     # Run ena-search
     ena-search.py "${@:2}"
+elif [[ "$1" == "build" ]]; then
+    # Run build-conda-envs
+    build-conda-envs.py "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
+    # Check if Conda environments need to be built
+    BUILD_CONDA=1
+    CHECKS=("condadir" "docker" "singularity" "slurm")
+    for check in  "${CHECKS[@]}"; do
+        if [[ "$*" == *"${check}"* ]]; then
+            BUILD_CONDA=0
+        fi
+            TMP=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+    fi
+
+    if [[ "${BUILD_CONDA}" -eq 1 ]]; then
+        # Figure out where Bactopia is setup
+        TMPDIR=".bactopia."$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+        mkdir ${TMPDIR}
+        NF_DIR=$(cd ${TMPDIR} && nextflow run bactopia/bactopia --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " " && cd ..)
+        rm -rf ${TMPDIR}
+
+        if [[ ! -f "${NF_DIR}/conda/envs/envs-built.txt" ]]; then
+            build-conda-envs.py ${NF_DIR}/conda ${NF_DIR}/conda/envs
+        fi
+    fi
+
     # Execute Bactopia Nextflow pipeline
     nextflow run bactopia/bactopia "${@:1}"
 fi
