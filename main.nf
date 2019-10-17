@@ -3,8 +3,8 @@ import groovy.json.JsonSlurper
 import groovy.text.SimpleTemplateEngine
 import java.nio.file.Path
 import java.nio.file.Paths
-PROGRAM_NAME = manifest.name
-VERSION = manifest.version
+PROGRAM_NAME = workflow.manifest.name
+VERSION = workflow.manifest.version
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();
@@ -1153,7 +1153,7 @@ def basic_help() {
                                     Default: Mash estimate
 
         --outdir DIR            Directory to write results to
-                                    Default ${params.outdir}
+                                    Default: ${params.outdir}
 
         --max_time INT          The maximum number of minutes a job should run before being halted.
                                     Default: ${params.max_time} minutes
@@ -1161,21 +1161,16 @@ def basic_help() {
         --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
                                     Default: ${params.max_memory} Gb
 
-        --max_cpus INT          The maximum number of processors this workflow
-                                    should have access to at any given moment
-                                    Default: ${params.max_cpus}
-
         --cpus INT              Number of processors made available to a single
-                                    process. If greater than "--max_cpus" it
-                                    will be set equal to "--max_cpus"
+                                    process.
                                     Default: ${params.cpus}
 
     Nextflow Related Parameters:
         --infodir DIR           Directory to write Nextflow summary files to
-                                    Default ${params.infodir}
+                                    Default: ${params.infodir}
 
         --condadir DIR          Directory to Nextflow should use for Conda environments
-                                    Default ${params.infodir}
+                                    Default: Bactopia's Nextflow directory
 
         --nfdir                 Print directory Nextflow has pulled Bactopia to
 
@@ -1228,7 +1223,7 @@ def full_help() {
 
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB
-                                    Default: ${params.qc_ram}
+                                    Default: ${params.qc_ram} GB
 
         --min_basepairs INT     The minimum amount of input sequenced basepairs required
                                     to continue downstream analyses.
@@ -1332,7 +1327,7 @@ def full_help() {
 
     Assembly Parameters:
         --shovill_ram INT       Try to keep RAM usage below this many GB
-                                    Default: ${params.shovill_ram}
+                                    Default: ${params.shovill_ram} GB
 
         --assembler STR         Assembler: megahit velvet skesa spades
                                     Default: ${params.assembler}
@@ -1362,7 +1357,8 @@ def full_help() {
 
     Count 31mers Parameters:
         --cortex_ram INT        Try to keep RAM usage below this many GB
-                                    Default: ${params.cortex_ram}
+                                    Default: ${params.cortex_ram} GB
+
         --keep_singletons       Keep all counted 31-mers
                                     Default: Filter out singletons
 
@@ -1402,7 +1398,8 @@ def full_help() {
 
     Minmer Query Parameters:
         --minmer_ram INT        Try to keep RAM usage below this many GB
-                                    Default: ${params.qc_ram}
+                                    Default: ${params.minmer_ram} GB
+
         --screen_w              Winner-takes-all strategy for identity estimates.
                                     After counting hashes for each query, hashes
                                     that appear in multiple queries will be
@@ -1463,7 +1460,7 @@ def full_help() {
 
     Call Variant Parameters:
         --snippy_ram INT        Try and keep RAM under this many GB
-                                    Default: ${params.snippy_ram}
+                                    Default: ${params.snippy_ram} GB
 
         --mapqual INT           Minimum read mapping quality to consider
                                     Default: ${params.mapqual}

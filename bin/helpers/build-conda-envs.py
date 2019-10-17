@@ -76,7 +76,7 @@ if __name__ == '__main__':
                         help='Directory to install Conda environments to.')
     parser.add_argument(
         '-e', '--ext', metavar='STR', type=str,
-        default=".yml",
+        default="yml",
         help='Extension of the Conda environment files. Default: .yml'
     )
     parser.add_argument('--force', action='store_true',
@@ -109,10 +109,17 @@ if __name__ == '__main__':
         )
         sys.exit(1)
 
-    for env_file in glob.glob(f'{env_path}/*{args.ext}'):
-        envname = os.path.splitext(os.path.basename(env_file))[0]
-        prefix = f'{install_path}/{envname}-{VERSION}'
-        logging.info(f'Found {env_file}, begin build to {prefix}')
-        force = '--force' if args.force else ''
-        execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
-    execute(f'touch {install_path}/envs-build-{VERSION}.txt')
+    env_files = sorted(glob.glob(f'{env_path}/*.{args.ext}'))
+    if env_files:
+        for i, env_file in enumerate(env_files):
+            envname = os.path.splitext(os.path.basename(env_file))[0]
+            prefix = f'{install_path}/{envname}-{VERSION}'
+            logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
+            force = '--force' if args.force else ''
+            execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
+        execute(f'touch {install_path}/envs-build-{VERSION}.txt')
+    else:
+        logging.error(
+            f'Unable to find Conda *.{args.ext} files in {env_path}, please verify'
+        )
+        sys.exit(1)

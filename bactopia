@@ -35,6 +35,8 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia-ap GitHub repo"
     echo ""
+    echo "\`bactopia build\` - Build Bactopia Conda environments"
+    echo ""
     echo "\`bactopia datasets\` - Download/setup useful datasets for Bactopia"
     echo ""
     echo "\`bactopia prepare\` - Create a 'file of filenames' for input FASTQ files"
@@ -51,6 +53,8 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "Example Commands"
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
+    echo ""
+    echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
     echo ""
     echo "bactopia datasets dataset-dir --species 'Staphylococcus aureus'"
     echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
@@ -84,26 +88,27 @@ elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
-    CHECKS=("condadir" "docker" "singularity" "slurm")
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all")
     for check in  "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
         fi
             TMP=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-    fi
+    done
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
         # Figure out where Bactopia is setup
         TMPDIR=".bactopia."$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
         mkdir ${TMPDIR}
-        NF_DIR=$(cd ${TMPDIR} && nextflow run bactopia/bactopia --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " " && cd ..)
+        NF_DIR=$(cd $TMPDIR && sh -c 'nextflow run /data/apps/bactopia/main.nf --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " "' && cd ..)
         rm -rf ${TMPDIR}
-
-        if [[ ! -f "${NF_DIR}/conda/envs/envs-built.txt" ]]; then
-            build-conda-envs.py ${NF_DIR}/conda ${NF_DIR}/conda/envs
+        if [[ ! -f "${NF_DIR}/conda/envs/envs-built-${VERSION}.txt" ]]; then
+            echo "Unable to locate required Conda environments."
+            echo "Building to ${NF_DIR}/conda/envs ... This might take a while"
+            build-conda-envs.py ${NF_DIR}/conda ${NF_DIR}/conda/envs --force
         fi
     fi
 
     # Execute Bactopia Nextflow pipeline
-    nextflow run bactopia/bactopia "${@:1}"
+    nextflow run /data/apps/bactopia/main.nf "${@:1}"
 fi

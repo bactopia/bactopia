@@ -1,5 +1,29 @@
 # bactopia/bactopia: Changelog
 
+## v1.2.1 bactopia/bactopia "Fruit Punches" - 2019/10/17
+
+### `Added`
+- `bactopia build` to build Conda environments
+- Version info pulled from nextflow.config
+- Set default values resource allocations
+- Documentation on new changes
+- Automatic building of Conda environments, if none exist
+- `--nfdir` to determine where bactopia is being run from
+
+### `Fixed`
+- Neverending typos
+- `--datasets` now, not `--dataset` <-(Typo)
+- path for outputing Nextflow reports
+- Typo in antimicrobial_resistance.sh (task.cpus not cpus)
+- `--species` is now consistent between `bactopia` and `bactopia datasets`
+- Bug when checking if specific species dataset exists, but no species datasets exist
+- Cleaned up version update script
+- Cleaned up usage
+
+### `Removed`
+- `--max_cpus` ability to limit total cores used, access to config is being deprecated in Nextflow
+- `--max_cpus` since it is redudant to `--cpus` now
+
 ## v1.2.0 bactopia/bactopia "Beestinger" - 2019/10/16
 
 ### `Added`
