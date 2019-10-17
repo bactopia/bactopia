@@ -922,7 +922,6 @@ def check_input_params() {
         error += 1
     }
 
-    error += is_positive_integer(params.max_cpus, 'max_cpus')
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')

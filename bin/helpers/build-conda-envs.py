@@ -117,7 +117,7 @@ if __name__ == '__main__':
             logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
             force = '--force' if args.force else ''
             execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
-        execute(f'touch {install_path}/envs-build-{VERSION}.txt')
+        execute(f'touch {install_path}/envs-built-{VERSION}.txt')
     else:
         logging.error(
             f'Unable to find Conda *.{args.ext} files in {env_path}, please verify'

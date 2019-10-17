@@ -100,7 +100,7 @@ else
         # Figure out where Bactopia is setup
         TMPDIR=".bactopia."$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
         mkdir ${TMPDIR}
-        NF_DIR=$(cd $TMPDIR && sh -c 'nextflow run /data/apps/bactopia/main.nf --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " "' && cd ..)
+        NF_DIR=$(cd $TMPDIR && sh -c 'nextflow run bactopia/bactopia --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " "' && cd ..)
         rm -rf ${TMPDIR}
         if [[ ! -f "${NF_DIR}/conda/envs/envs-built-${VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
@@ -110,5 +110,5 @@ else
     fi
 
     # Execute Bactopia Nextflow pipeline
-    nextflow run /data/apps/bactopia/main.nf "${@:1}"
+    nextflow run bactopia/bactopia "${@:1}"
 fi
