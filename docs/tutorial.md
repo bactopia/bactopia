@@ -45,7 +45,7 @@ Let's review what is happening here.
 
 `--include_genus` will also download completed genomes from the *Staphylococcus* genus that will be used for the protein set. These completed genomes **are not** used for the sketch creation or genome size calculation.
 
-`--cpus 4` use 4 cpus for downloading and the clustering step. Adjust this number according to your setup!
+`--cpus 4` will use 4 cpus for downloading and the clustering step. Adjust this number according to your setup!
 
 !!! info "Use CARD over MEGARes"
     Staphopia v1 made use of MEGARes, for the purposes of this tutorial we are going to use the CARD database instead.
@@ -83,11 +83,10 @@ Let's start this by downloading a single sample from ENA, and processing it thro
 
 ```
 bactopia --accession SRX4563634 \
-         --dataset datasets/ \
-         --species staphylococcus-aureus \
+         --datasets datasets/ \
+         --species "Staphylococcus aureus" \
          --coverage 100 \
          --genome_size median \
-         --max_cpus 8 \
          --cpus 2 \
          --outdir ena-single-sample
 ```
@@ -96,15 +95,15 @@ So, what's happening here?
 
 `--accession SRX4563634` is telling Bactopia to download FASTQs associated with Exeriment accession SRX4563634.
 
-`--dataset datasets/` tells Bactopia your pre-built datasets are in the folder `datasets`.
+`--datasets datasets/` tells Bactopia your pre-built datasets are in the folder `datasets`.
 
-`--species staphylococcus-aureus` tells Bactopia, within the datasets folder, use the species specific dataset for *S. aureus*.
+`--species "Staphylococcus aureus"` tells Bactopia, within the datasets folder, use the species specific dataset for *S. aureus*.
 
 `--coverage 100` will limit the cleaned up FASTQ file to an estimated 100x coverage based on the genome size.
 
 `--genome_size median` tells Bactopia to use the median genome size of completed *S. aureus* genomes. The minimum, maximum, median, and mean genome sizes were calculated during the dataset building step. If a genome size was not given, it would have been estimated by Mash.
 
-`--max_cpus 8` and `--cpus 2` tells Bactopia to use a maximum of 8 cpus (`--max_cpus`) and each job within the workflow can use a maximum of 2 cpus (`--cpus`). So at most 8 jobs (using 1 cpu each) can run at a time, and a minimum of 4 jobs (using 2 cpus each). Adjust these parameters to fit your setup!
+`--cpus 2` tells Bactopia to use a maximum of 2 cpus per process. Adjust this parameter to fit your setup!
 
 `--outdir ena-single-sample` tells Bactopia to dump the results into the `ena-single-sample` folder. Please keep in mind, this will not stop Nextflow from creating files (.nextflow, trace.txt, etc...) and directories (work and .nextflow/) within your current directory.
 
@@ -138,11 +137,10 @@ To process these samples, we will adjust our command used previously.
 
 ```
 bactopia --accessions ena-accessions.txt \
-         --dataset datasets/ \
-         --species staphylococcus-aureus \
+         --datasets datasets/ \
+         --species "Staphylococcus aureus" \
          --coverage 100 \
          --genome_size median \
-         --max_cpus 8 \
          --cpus 2 \
          --outdir ena-multiple-samples
 ```
@@ -183,11 +181,10 @@ For paired-end reads you will want to use `--R1`, `--R2`, and `--sample`. For th
 bactopia --R1 fastqs/SRX4563634_R1.fastq.gz \
          --R2 fastqs/SRX4563634_R2.fastq.gz \
          --sample SRX4563634 \
-         --dataset datasets/ \
-         --species staphylococcus-aureus \
+         --datasets datasets/ \
+         --species "Staphylococcus aureus" \
          --coverage 100 \
          --genome_size median \
-         --max_cpus 8 \
          --cpus 2 \
          --outdir local-single-sample
 ```
@@ -205,11 +202,10 @@ To analyze single-end reads, the `--SE` parameter will replace `--R1` and `--R2`
 ```
 bactopia --SE fastqs/SRX4563634-SE.fastq.gz \
          --sample SRX4563634-SE \
-         --dataset datasets/ \
-         --species staphylococcus-aureus \
+         --datasets datasets/ \
+         --species "Staphylococcus aureus" \
          --coverage 100 \
          --genome_size median \
-         --max_cpus 8 \
          --cpus 2 \
          --outdir local-single-sample
 ```
@@ -237,11 +233,10 @@ Now we can use the `--fastqs` parameters to process samples in the FOFN.
 
 ```
 bactopia --fastqs fastqs.txt \
-         --dataset datasets/ \
-         --species staphylococcus-aureus \
+         --datasets datasets/ \
+         --species "Staphylococcus aureus" \
          --coverage 100 \
          --genome_size median \
-         --max_cpus 8 \
          --cpus 2 \
          --outdir local-multiple-samples
 ```
@@ -254,7 +249,6 @@ Once this is complete, the results for each sample (within their own folder) wil
 
 !!! info "FOFN is more cpu efficient, making it faster"
     The real benefit of using the FOFN method to process multiple samples is Nextflow's queue system will make better use of cpus. Processing multiple samples one at a time (via `--R1`/`--R2` or `--SE`) will lead more instances of jobs waiting on other jobs to finish, during which cpus aren't being used.
-
 
 ## What's next?
 That should do it! Hopefully you have succeeded (yay! 🎉) and would like to use Bactopia on your own data! 

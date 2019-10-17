@@ -24,7 +24,6 @@ conda activate bactopia
 
 And voilà, you are all set to get started processing your data!
 
-
 But first, it is highly recommended that you take the time to [Build Datasets](datasets.md) that Bactopia can take advantage of.
 
 ## Container

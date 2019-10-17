@@ -39,7 +39,7 @@ If you followed the steps in [Build Datasets](datasets.md), you can use the foll
 ```
 
 ## Optional
-These optional parameters, while not required, will be quite useful (especially `--max_cpus` and `--cpus`!) to tweak.
+These optional parameters, while not required, will be quite useful to tweak.
 
 ```
     --coverage INT          Reduce samples to a given coverage
@@ -55,10 +55,17 @@ These optional parameters, while not required, will be quite useful (especially 
                                 Default: Mash estimate
 
     --outdir DIR            Directory to write results to
-                                Default .
+                                Default: .
+
+    --max_time INT          The maximum number of minutes a job should run before being halted.
+                                Default: 120 minutes
 
     --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
                                 Default: 32 Gb
+
+    --cpus INT              Number of processors made available to a single
+                                process. 
+                                Default: 4
 ```
 
 ### `--genome_size`
@@ -77,28 +84,18 @@ Throughout the Bactopia workflow a genome size is used for various tasks. By def
 !!! error "Mash may not be the most accurate estimate"
     Mash is very convenient to quickly estimate a genome size, but it may not be the most accurate in all cases and will differ between samples. It is recommended that when possible a known genome size or one based off completed genomes should be used. 
 
-### `--max_cpus` vs `--cpus`
-By default when Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.
-
-```
-    --max_cpus INT          The maximum number of processors this workflow
-                                should have access to at any given moment
-                                Default: 1
-
-    --cpus INT              Number of processors made available to a single
-                                process. If greater than "--max_cpus" it
-                                will be set equal to "--max_cpus"
-                                Default: 1
-```
-
-What `--max_cpus` does is specify to Nextflow the maximum number of cpus it is allowed to occupy at any given time. `--cpus` on the other hand, specifies how many cpus any given step (qc, assembly, annotation, etc...) can occupy. 
-
-By default `--max_cpus` is set to 1 and if `--cpus` is set to a value greater than `--max_cpus` it will be set equal to `--max_cpus`. This appoach errs on the side of caution, by not occupying all cpus on the server without the users consent!
-
 
 ## Helpers
 The following parameters are useful to test to test input parameters.
 ```
+    --infodir DIR           Directory to write Nextflow summary files to
+                                Default: ./bactopia-info
+
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+
+    --nfdir                 Print directory Nextflow has pulled Bactopia to
+
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
 
@@ -228,7 +225,7 @@ It is important to note, not all of the available parameters for each and every 
 ### Assembly
 ```
     --shovill_ram INT       Try to keep RAM usage below this many GB
-                                Default: 32
+                                Default: 6 GB
 
     --assembler STR         Assembler: megahit velvet skesa spades
                                 Default: skesa
@@ -276,6 +273,9 @@ It is important to note, not all of the available parameters for each and every 
 
 ### Counting 31mers
 ```
+    --cortex_ram INT        Try to keep RAM usage below this many GB
+                                Default: 8 GB
+
     --keep_singletons       Keep all counted 31-mers
                                 Default: Filter out singletons
 ```
@@ -390,6 +390,9 @@ It is important to note, not all of the available parameters for each and every 
 
 ### Minmer Sketch
 ```
+    --minmer_ram INT        Try to keep RAM usage below this many GB
+                                Default: 5 GB
+
     --mash_sketch INT       Sketch size. Each sketch will have at most this
                                 many non-redundant min-hashes.
                                 Default: 10000
@@ -402,6 +405,9 @@ It is important to note, not all of the available parameters for each and every 
 
 ### Quality Control 
 ```
+    --qc_ram INT            Try to keep RAM usage below this many GB
+                                Default: 3 GB
+
     --adapters FASTA        Illumina adapters to remove
                                 Default: BBmap adapters
 
@@ -502,7 +508,7 @@ It is important to note, not all of the available parameters for each and every 
 ### Variant Calling
 ```
     --snippy_ram INT        Try and keep RAM under this many GB
-                                Default: 8
+                                Default: 8 GB
 
     --mapqual INT           Minimum read mapping quality to consider
                                 Default: 60
