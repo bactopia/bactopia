@@ -2,7 +2,7 @@
 Below is a list of the commands used to create each enviroment.
 
 ```
-VERSION=1.2.0
+VERSION=1.2.1
 
 # annotate_genome.yml
 conda create -y -n bactopia-annotate_genome -c conda-forge -c bioconda prokka pigz

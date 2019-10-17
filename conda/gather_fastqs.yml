@@ -1,5 +1,5 @@
 name: bactopia-gather_fastqs
-version: 1.2.0
+version: 1.2.1
 channels:
   - bioconda
   - rpetit3

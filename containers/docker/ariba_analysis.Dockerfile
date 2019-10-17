@@ -1,7 +1,7 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="1.2.0"
+LABEL version="1.2.1"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia ariba_analysis process"
 

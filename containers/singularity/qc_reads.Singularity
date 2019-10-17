@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image containing requirements for the Bactopia qc_reads process
-    VERSION 1.2.0
+    VERSION 1.2.1
 
 %environment
     PATH=/opt/conda/envs/bactopia-qc_reads/bin:$PATH

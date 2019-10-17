@@ -24,7 +24,7 @@
 # bactopia fofn --help
 # bactopia version
 # bactopia --help
-VERSION=1.2.0
+VERSION=1.2.1
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
