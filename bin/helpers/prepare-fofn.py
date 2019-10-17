@@ -1,8 +1,21 @@
 #! /usr/bin/env python3
 """
-Read a directory and prepare a FOFN of FASTQs
+usage: bactopia prepare [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
+
+bactopia prepare - Read a directory and prepare a FOFN of FASTQs
+
+positional arguments:
+  STR                Directory where FASTQ files are stored
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -e STR, --ext STR  Extension of the FASTQs. Default: .fastq.gz
+  -s STR, --sep STR  Split FASTQ name on the last occurrence of the separator.
+                     Default: _
+  --pattern STR      Glob pattern to match FASTQs. Default: *.fastq.gz
+  --version          show program's version number and exit
 """
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':

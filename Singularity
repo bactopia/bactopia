@@ -11,5 +11,5 @@ From: nfcore/base
     export PATH
 
 %post
-    /opt/conda/bin/conda create -n bactopia -c conda-forge -c bioconda bactopia
+    /opt/conda/bin/conda create -n bactopia -c conda-forge -c bioconda bactopia=1.2.0
     /opt/conda/bin/conda clean -a

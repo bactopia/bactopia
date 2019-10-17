@@ -49,26 +49,18 @@ if [ $? -eq 0 ]; then
         ${SED_CMD} -r 's/VERSION = "'"${OLD_VERSION}"'"/VERSION = "'"${NEW_VERSION}"'"/' ${file}
     done
 
-
     # Docker/Singularity
     ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${DIRECTORY}/Dockerfile
     for file in $(ls ${DIRECTORY}/containers/docker/*.Dockerfile); do
         ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${file}
     done
-    ${SED_CMD} -r 's=container(.*):'"${OLD_VERSION}"'=container\1:'"${NEW_VERSION}"'=' ${DIRECTORY}/conf/docker.config
-
     for file in $(ls ${DIRECTORY}/containers/singularity/*.Singularity); do
         ${SED_CMD} -r 's/VERSION '"${OLD_VERSION}"'/VERSION '"${NEW_VERSION}"'/' ${file}
     done
-    ${SED_CMD} -r 's=container(.*):'"${OLD_VERSION}"'=container\1:'"${NEW_VERSION}"'=' ${DIRECTORY}/conf/singularity.config
-
-    # SLURM config
-    ${SED_CMD} -r 's/containerVersion = "'"${OLD_VERSION}"'"/containerVersion = "'"${NEW_VERSION}"'"/' ${DIRECTORY}/conf/slurm.config
 
     # Bactopia/Nextflow
     ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bactopia
     ${SED_CMD} -r "s/version = '${OLD_VERSION}'/version = '${NEW_VERSION}'/" ${DIRECTORY}/nextflow.config
-    ${SED_CMD} "s/VERSION = '${OLD_VERSION}'/VERSION = '${NEW_VERSION}'/" ${DIRECTORY}/main.nf
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"
     echo "Please verify '${DIRECTORY}' points to the bactopia repo."

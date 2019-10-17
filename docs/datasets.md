@@ -82,19 +82,19 @@ This will setup the MLST schema (if available) and a protein cluster FASTA file 
 
 ## Usage
 ``` 
-usage: setup-datasets [-h] [--ariba STR] [--species STR]
-                           [--skip_prokka] [--include_genus]
-                           [--identity FLOAT] [--overlap FLOAT]
-                           [--max_memory INT] [--fast_cluster]
-                           [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                           [--clear_cache] [--force] [--force_ariba]
-                           [--force_mlst] [--force_prokka]
-                           [--force_minmer] [--force_plsdb]
-                           [--keep_files] [--list_datasets] [--depends]
-                           [--version] [--verbose] [--silent]
-                           OUTPUT_DIRECTORY
+usage: bactopia datasets [-h] [--ariba STR] [--species STR]
+                              [--skip_prokka] [--include_genus]
+                              [--identity FLOAT] [--overlap FLOAT]
+                              [--max_memory INT] [--fast_cluster]
+                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
+                              [--clear_cache] [--force] [--force_ariba]
+                              [--force_mlst] [--force_prokka]
+                              [--force_minmer] [--force_plsdb]
+                              [--keep_files] [--list_datasets] [--depends]
+                              [--version] [--verbose] [--silent]
+                              OUTPUT_DIRECTORY
 
-setup-datasets - Setup public datasets for Bactopia
+bactopia datasets - Setup public datasets for Bactopia
 
 positional arguments:
   OUTPUT_DIRECTORY  Directory to write output.

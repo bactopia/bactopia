@@ -49,19 +49,26 @@ Optional Parameters:
                                 Default: Mash estimate
 
     --outdir DIR            Directory to write results to
-                                Default .
+                                Default: .
+
+    --max_time INT          The maximum number of minutes a job should run before being halted.
+                                Default: 120 minutes
 
     --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
                                 Default: 32 Gb
 
-    --max_cpus INT          The maximum number of processors this workflow
-                                should have access to at any given moment
-                                Default: 1
-
     --cpus INT              Number of processors made available to a single
-                                process. If greater than "--max_cpus" it
-                                will be set equal to "--max_cpus"
-                                Default: 1
+                                process.
+                                Default: 4
+
+Nextflow Related Parameters:
+    --infodir DIR           Directory to write Nextflow summary files to
+                                Default: ./bactopia-info
+
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+
+    --nfdir                 Print directory Nextflow has pulled Bactopia to
 
 Useful Parameters:
     --available_datasets    Print a list of available datasets found based
@@ -78,6 +85,10 @@ Useful Parameters:
                                 files are removed. This will not affect the ability
                                 to resume Nextflow runs, and only occurs at the end
                                 of the process.
+
+    --dry_run               Mimics workflow execution, to help prevent errors realated to
+                                conda envs being built in parallel. Only useful on new
+                                installs of Bactopia.
 
     --version               Print workflow version information
 
@@ -309,24 +320,6 @@ Throughout the Bactopia workflow a genome size is used for various tasks. By def
 
 !!! error "Mash may not be the most accurate estimate"
     Mash is very convenient to quickly estimate a genome size, but it may not be the most accurate in all cases and will differ between samples. It is recommended that when possible a known genome size or one based off completed genomes should be used. 
-
-## `--max_cpus` & `--cpus`
-When Nextflow executes, it uses all available cpus to queue up processes. As you might imagine, if you are on a single server with multiple users, this approach of using all cpus might annoy other users! (Whoops sorry!) To circumvent this feature, two parmeters have been included `--max_cpus` and `--cpus`.
-
-```
-    --max_cpus INT          The maximum number of processors this workflow
-                                should have access to at any given moment
-                                Default: 1
-
-    --cpus INT              Number of processors made available to a single
-                                process. If greater than "--max_cpus" it
-                                will be set equal to "--max_cpus"
-                                Default: 1
-```
-
-What `--max_cpus` does is specify to Nextflow the maximum number of cpus it is allowed to occupy at any given time. `--cpus` on the other hand, specifies how many cpus any given step (qc, assembly, annotation, etc...) can occupy. 
-
-By default `--max_cpus` is set to 1 and if `--cpus` is set to a value greater than `--max_cpus` it will be set equal to `--max_cpus`. This appoach errs on the side of caution, by not occupying all cpus on the server without the user's consent!
 
 ## `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.

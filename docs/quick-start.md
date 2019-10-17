@@ -23,6 +23,8 @@ This will build the following datasets:
 More information about these datasets is available at [Build Datasets](/datasets/).
 
 ## Run Bactopia!
+On the first launch of Bactopia it will install the Conda environments, so expect some delays in doing so!
+
 ### Single Sample
 #### Paired-End
 ```
