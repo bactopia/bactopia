@@ -1,5 +1,19 @@
 # bactopia/bactopia: Changelog
 
+## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/17
+
+### `Added`
+
+
+### `Fixed`
+- `bactopia` command now explicitly states which tag to use for Nextflow run
+- Version info not updated in Dockerfile and Singularity
+- Duplicated QC'd FASTQs
+
+### `Removed`
+- cgmlst support in `bactopia datasets`
+
+
 ## v1.2.1 bactopia/bactopia "Fruit Punches" - 2019/10/17
 
 ### `Added`

@@ -271,7 +271,9 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "*.fna*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "shovill*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "flash*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
@@ -312,7 +314,7 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: "annotation/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
