@@ -70,6 +70,9 @@ Nextflow Related Parameters:
 
     --nfdir                 Print directory Nextflow has pulled Bactopia to
 
+    --overwrite             Nextflow will overwrite existing output files.
+                                Default: false
+
 Useful Parameters:
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"

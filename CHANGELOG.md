@@ -3,7 +3,8 @@
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/17
 
 ### `Added`
-
+- Size of "work" directory to the execution summary
+- User controlled overwrites of existing output files
 
 ### `Fixed`
 - `bactopia` command now explicitly states which tag to use for Nextflow run

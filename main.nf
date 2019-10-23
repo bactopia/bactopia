@@ -175,7 +175,7 @@ process gather_fastqs {
 
 process fastq_status {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
@@ -192,7 +192,7 @@ process fastq_status {
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
@@ -209,7 +209,7 @@ process estimate_genome_size {
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
@@ -234,7 +234,7 @@ process qc_reads {
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
@@ -252,7 +252,7 @@ process qc_original_summary {
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_FINAL_SUMMARY
@@ -271,9 +271,9 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "*.fna*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "shovill*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true, pattern: "flash*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "*.fna*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "shovill*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "flash*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
@@ -298,7 +298,7 @@ process assemble_genome {
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
@@ -314,7 +314,7 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: "annotation/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
@@ -357,7 +357,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from COUNT_31MERS
@@ -374,7 +374,7 @@ process count_31mers {
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${sample} - ${method}"
-    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
@@ -399,7 +399,7 @@ process sequence_type {
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
@@ -426,7 +426,7 @@ process minmer_sketch {
     Sourmash (k=21,31,51)
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.{msh,sig}"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.{msh,sig}"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_SKETCH
@@ -448,7 +448,7 @@ process minmer_query {
     GenBank (Sourmash, k=21,31,51)
     */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(sourmash) from MINMER_QUERY
@@ -471,7 +471,7 @@ process call_variants {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
@@ -499,7 +499,7 @@ process download_references {
     variants will not be called against the nearest completed genome.
     */
     tag "${sample} - ${params.max_references} reference(s)"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite, pattern: 'mash-dist.txt'
 
     input:
     set val(sample), val(single_end), file(fq), file(sample_sketch) from DOWNLOAD_REFERENCES
@@ -525,7 +525,7 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
@@ -566,7 +566,7 @@ process antimicrobial_resistance {
     on their Mash distance from the input.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
@@ -594,7 +594,7 @@ process insertion_sequences {
     using ISMapper.
     */
     tag "${sample} - ${insertion_name}"
-    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
@@ -619,7 +619,7 @@ process plasmid_blast {
     BLAST a set of predicted genes against the PLSDB BALST database.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true, pattern: "*.{txt,txt.gz}"
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite, pattern: "*.{txt,txt.gz}"
 
     input:
     set val(sample), file(genes) from PLASMID_BLAST
@@ -642,7 +642,7 @@ process blast_query {
     Query a FASTA files against annotated assembly using BLAST
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), file(blastdb) from BLAST_QUERY
@@ -662,7 +662,7 @@ process mapping_query {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from MAPPING_QUERY
@@ -683,30 +683,48 @@ process mapping_query {
 
 
 workflow.onComplete {
+    workDir = new File("${workflow.workDir}")
+    workDirSize = toHumanString(workDir.directorySize())
+
     println """
-    Pipeline execution summary
+
+    Bactopia Execution Summary
     ---------------------------
-    Completed at: ${workflow.complete}
-    Duration    : ${workflow.duration}
-    Success     : ${workflow.success}
-    Launch Dir  : ${workflow.launchDir}
-    Working Dir : ${workflow.workDir}
-    exit status : ${workflow.exitStatus}
-    Command line: ${workflow.commandLine}
-    Resumed?    : ${workflow.resume}
-    Error report: ${workflow.errorReport ?: '-'}
+    Command Line    : ${workflow.commandLine}
+    Resumed         : ${workflow.resume}
+
+    Completed At    : ${workflow.complete}
+    Duration        : ${workflow.duration}
+    Success         : ${workflow.success}
+    Exit Code       : ${workflow.exitStatus}
+    Error Report    : ${workflow.errorReport ?: '-'}
+
+    Launch Dir      : ${workflow.launchDir}
+    Working Dir     : ${workflow.workDir} (Total Size: ${workDirSize})
+    Working Dir Size: ${workDirSize}
+
     """
 }
 
 
 // Utility functions
+// https://gist.github.com/nikbucher/9687112
+def toHumanString(bytes) {
+    base = 1024L
+    decimals = 3
+    prefix = ['', 'K', 'M', 'G', 'T']
+    int i = Math.log(bytes)/Math.log(base) as Integer
+    i = (i >= prefix.size() ? prefix.size()-1 : i)
+    return Math.round((bytes / base**i) * 10**decimals) / 10**decimals + prefix[i]
+}
+
 def print_version() {
     println(PROGRAM_NAME + ' ' + VERSION)
     exit 0
 }
 
 
-def print_basedir(){
+def print_basedir() {
     println("BACTOPIA_DIR = ${baseDir}")
     exit 0
 }
@@ -1174,6 +1192,9 @@ def basic_help() {
                                     Default: Bactopia's Nextflow directory
 
         --nfdir                 Print directory Nextflow has pulled Bactopia to
+
+        --overwrite             Nextflow will overwrite existing output files.
+                                    Default: ${params.overwrite}
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based

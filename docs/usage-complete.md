@@ -96,6 +96,9 @@ The following parameters are useful to test to test input parameters.
 
     --nfdir                 Print directory Nextflow has pulled Bactopia to
 
+    --overwrite             Nextflow will overwrite existing output files.
+                                Default: false
+
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
 
