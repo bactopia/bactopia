@@ -5,6 +5,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
+log.info "${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();
@@ -34,129 +35,7 @@ PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
-species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
-log.info "${PROGRAM_NAME} - ${VERSION}"
-if (params.datasets) {
-    dataset_path = params.datasets
-    /*
-    if (file("/${dataset_path}/summary.json").exists() == false) {
-        dataset_path = get_canonical_path(params.dataset)
-    }
-    */
-    available_datasets = read_dataset_summary(dataset_path)
-
-    available_datasets['ariba'].each {
-        ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
-    }
-    print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
-
-    available_datasets['minmer']['sketches'].each {
-        MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
-    }
-    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
-    print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
-
-    PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
-    print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
-
-    if (SPECIES) {
-        if (available_datasets.containsKey('species-specific')) {
-            if (available_datasets['species-specific'].containsKey(SPECIES)) {
-                species_db = available_datasets['species-specific'][SPECIES]
-                species_genome_size = species_db['genome_size']
-
-                prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                if (file(prokka).exists()) {
-                    PROKKA_PROTEINS = file(prokka)
-                    log.info "Found Prokka proteins file"
-                    log.info "\t${PROKKA_PROTEINS}"
-                }
-
-                refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
-                if (file(refseq_minmer).exists()) {
-                    REFSEQ_SKETCH = file(refseq_minmer)
-                    REFSEQ_SKETCH_FOUND = true
-                    log.info "Found Mash Sketch of RefSeq genomes"
-                    log.info "\t${REFSEQ_SKETCH}"
-                }
-
-                species_db['mlst'].each { key, val ->
-                    if (key != "last_updated") {
-                        if (file("${dataset_path}/${val}").exists()) {
-                            MLST_DATABASES << file("${dataset_path}/${val}")
-                        }
-                    }
-                }
-                print_dataset_info(MLST_DATABASES, "MLST datasets")
-
-                file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                    REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
-                }
-                print_dataset_info(REFERENCES, "reference genomes")
-
-                file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
-                    INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
-                }
-                print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
-
-                file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
-                    MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
-                }
-                print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
-
-                // BLAST Related
-                species_db['optional']['blast'].each() {
-                    temp_path = "${dataset_path}/${it}"
-                    file(temp_path).list().each() {
-                        BLAST_FASTAS << file("${temp_path}/${it}")
-                    }
-                }
-                print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
-            } else {
-                log.error "Species '${params.species}' not available, please check spelling " +
-                          "or use '--available_datasets' to verify the dataset has been set " +
-                          "up. Exiting"
-                exit 1
-            }
-        } else {
-            log.error "Species '${params.species}' not available, please check spelling or " +
-                      "use '--available_datasets' to verify the dataset has been set up. Exiting"
-            exit 1
-        }
-    } else {
-        log.info "--species not given, skipping the following processes (analyses):"
-        log.info "\tsequence_type"
-        log.info "\tcall_variants"
-        log.info "\tinsertion_sequence_query"
-        log.info "\tprimer_query"
-        if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-            log.error "Asked for genome size '${params.genome_size}' which requires a " +
-                      "species to be given. Please give a species or specify " +
-                      "a valid genome size. Exiting"
-            exit 1
-        }
-    }
-} else if (params.dry_run) {
-    log.info "--dry_run found, creating dummy data to be 'processed'."
-    ARIBA_DATABASES << file('EMPTY.tar.gz')
-    INSERTIONS << file('EMPTY.fasta')
-    MAPPING_FASTAS << file('EMPTY.fasta')
-    MLST_DATABASES << file('EMPTY_DB')
-    REFSEQ_SKETCH = file('EMPTY.msh')
-} else {
-    log.info "--datasets not given, skipping the following processes (analyses):"
-    log.info "\tsequence_type"
-    log.info "\tariba_analysis"
-    log.info "\tminmer_query"
-    log.info "\tplasmid_blast"
-    log.info "\tcall_variants"
-    log.info "\tinsertion_sequence_query"
-    log.info "\tprimer_query"
-}
-
-if (params.disable_auto_variants) {
-    REFSEQ_SKETCH_FOUND = false
-}
+setup_datasets()
 
 
 process gather_fastqs {
@@ -866,6 +745,132 @@ def check_minmers(dataset) {
 }
 
 
+def setup_datasets() {
+    species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+    if (params.datasets) {
+        dataset_path = params.datasets
+        available_datasets = read_dataset_summary(dataset_path)
+
+        available_datasets['ariba'].each {
+            ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
+        }
+        print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
+
+        available_datasets['minmer']['sketches'].each {
+            MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
+        }
+        MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
+        print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
+
+        PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
+        print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
+
+        if (SPECIES) {
+            if (available_datasets.containsKey('species-specific')) {
+                if (available_datasets['species-specific'].containsKey(SPECIES)) {
+                    species_db = available_datasets['species-specific'][SPECIES]
+                    species_genome_size = species_db['genome_size']
+
+                    prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
+                    if (file(prokka).exists()) {
+                        PROKKA_PROTEINS = file(prokka)
+                        log.info "Found Prokka proteins file"
+                        log.info "\t${PROKKA_PROTEINS}"
+                    }
+
+                    refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
+                    if (file(refseq_minmer).exists()) {
+                        REFSEQ_SKETCH = file(refseq_minmer)
+                        REFSEQ_SKETCH_FOUND = true
+                        log.info "Found Mash Sketch of RefSeq genomes"
+                        log.info "\t${REFSEQ_SKETCH}"
+                    }
+
+                    species_db['mlst'].each { key, val ->
+                        if (key != "last_updated") {
+                            if (file("${dataset_path}/${val}").exists()) {
+                                MLST_DATABASES << file("${dataset_path}/${val}")
+                            }
+                        }
+                    }
+                    print_dataset_info(MLST_DATABASES, "MLST datasets")
+
+                    file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
+                        REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
+                    }
+                    print_dataset_info(REFERENCES, "reference genomes")
+
+                    file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
+                        INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
+                    }
+                    print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
+
+                    file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
+                        MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
+                    }
+                    print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
+
+                    // BLAST Related
+                    species_db['optional']['blast'].each() {
+                        temp_path = "${dataset_path}/${it}"
+                        file(temp_path).list().each() {
+                            BLAST_FASTAS << file("${temp_path}/${it}")
+                        }
+                    }
+                    print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
+                } else {
+                    log.error "Species '${params.species}' not available, please check spelling " +
+                              "or use '--available_datasets' to verify the dataset has been set " +
+                              "up. Exiting"
+                    exit 1
+                }
+            } else {
+                log.error "Species '${params.species}' not available, please check spelling or " +
+                          "use '--available_datasets' to verify the dataset has been set up. Exiting"
+                exit 1
+            }
+        } else {
+            log.info "--species not given, skipping the following processes (analyses):"
+            log.info "\tsequence_type"
+            log.info "\tcall_variants"
+            log.info "\tinsertion_sequence_query"
+            log.info "\tprimer_query"
+            if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
+                log.error "Asked for genome size '${params.genome_size}' which requires a " +
+                          "species to be given. Please give a species or specify " +
+                          "a valid genome size. Exiting"
+                exit 1
+            }
+        }
+    } else if (params.dry_run) {
+        log.info "--dry_run found, creating dummy data to be 'processed'."
+        ARIBA_DATABASES << file('EMPTY.tar.gz')
+        INSERTIONS << file('EMPTY.fasta')
+        MAPPING_FASTAS << file('EMPTY.fasta')
+        MLST_DATABASES << file('EMPTY_DB')
+        REFSEQ_SKETCH = file('EMPTY.msh')
+    } else {
+        log.info "--datasets not given, skipping the following processes (analyses):"
+        log.info "\tsequence_type"
+        log.info "\tariba_analysis"
+        log.info "\tminmer_query"
+        log.info "\tplasmid_blast"
+        log.info "\tcall_variants"
+        log.info "\tinsertion_sequence_query"
+        log.info "\tprimer_query"
+    }
+
+    if (params.disable_auto_variants) {
+        REFSEQ_SKETCH_FOUND = false
+    }
+
+
+    log.info "\nIf something looks wrong, now's your chance to back out (CTRL+C 3 times). "
+    log.info "Sleeping for ${params.sleep_time} seconds..."
+    sleep(params.sleep_time * 1000)
+}
+
+
 def is_positive_integer(value, name) {
     error = 0
     if (value.getClass() == Integer) {
@@ -894,6 +899,7 @@ def file_exists(file_name, parameter) {
     return 0
 }
 
+
 def check_unknown_params() {
     valid_params = []
     error = 0
@@ -905,9 +911,10 @@ def check_unknown_params() {
 
     params.each { k,v ->
         if (!valid_params.contains(k)) {
-            if (k != "container-path")
+            if (k != "container-path") {
                 log.error("'--${k}' is not a known parameter")
                 error = 1
+            }
         }
     }
 
@@ -1222,6 +1229,10 @@ def basic_help() {
         --conatainerPath        Path to Singularity containers to be used by the 'slurm'
                                     profile.
                                     Default: ${params.containerPath}
+
+        --sleep_time            After reading datases, the amount of time (seconds) Nextflow
+                                    will wait before execution.
+                                    Default: ${params.sleep_time} seconds
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based

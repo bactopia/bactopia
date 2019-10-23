@@ -100,8 +100,12 @@ The following parameters are useful to test to test input parameters.
                                 Default: false
 
     --conatainerPath        Path to Singularity containers to be used by the 'slurm'
-                                    profile.
-                                    Default: ${params.containerPath}
+                                profile.
+                                Default: /opt/bactopia/singularity
+
+    --sleep_time            After reading datases, the amount of time (seconds) Nextflow
+                                will wait before execution.
+                                Default: 5 seconds
 
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
