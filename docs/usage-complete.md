@@ -99,6 +99,10 @@ The following parameters are useful to test to test input parameters.
     --overwrite             Nextflow will overwrite existing output files.
                                 Default: false
 
+    --conatainerPath        Path to Singularity containers to be used by the 'slurm'
+                                    profile.
+                                    Default: ${params.containerPath}
+
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
 

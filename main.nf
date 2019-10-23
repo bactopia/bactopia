@@ -894,10 +894,33 @@ def file_exists(file_name, parameter) {
     return 0
 }
 
+def check_unknown_params() {
+    valid_params = []
+    error = 0
+    new File("${baseDir}/conf/params.config").eachLine { line ->
+        if (line.contains("=")) {
+            valid_params << line.trim().split(" ")[0]
+        }
+    }
+
+    params.each { k,v ->
+        if (!valid_params.contains(k)) {
+            if (k != "container-path")
+                log.error("'--${k}' is not a known parameter")
+                error = 1
+        }
+    }
+
+    return error
+}
+
 
 def check_input_params() {
     error = 0
     fastq_type = null
+
+    // Check for unexpected paramaters
+    error += check_unknown_params()
 
     if (params.fastqs) {
         error += file_exists(params.fastqs, '--fastqs')
@@ -1195,6 +1218,10 @@ def basic_help() {
 
         --overwrite             Nextflow will overwrite existing output files.
                                     Default: ${params.overwrite}
+
+        --conatainerPath        Path to Singularity containers to be used by the 'slurm'
+                                    profile.
+                                    Default: ${params.containerPath}
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based
@@ -1613,5 +1640,4 @@ def full_help() {
 
         --amr_report_common     Suppress proteins common to a taxonomy group
     """
-
 }
