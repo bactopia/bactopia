@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/??
+## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
 ### `Added`
 - Size of "work" directory to the execution summary
