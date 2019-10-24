@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image containing requirements for the Bactopia assemble_genome process
-    VERSION 1.2.1
+    VERSION 1.2.2
 
 %environment
     PATH=/opt/conda/envs/bactopia-assemble_genome/bin:$PATH

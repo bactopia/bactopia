@@ -28,7 +28,7 @@ example usage:
 
 """
 import sys
-VERSION = "1.2.1"
+VERSION = "1.2.2"
 PROGRAM = "bactopia search"
 ENA_URL = ('https://www.ebi.ac.uk/ena/data/warehouse/search?result=read_run&'
            'display=report')
