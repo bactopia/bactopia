@@ -10,8 +10,8 @@ Overall the goal of the tutorial is to:
 - Build datasets
 - Acquire Staphopia datasets
 - Use Bactopia to process:
-    - A sample from ENA
-    - Multiple samples from ENA
+    - A sample from SRA/ENA
+    - Multiple samples from SRA/ENA
     - Single local sample
     - Multiple local samples using FOFN
 
@@ -77,9 +77,9 @@ That should be it. You should now have the Staphopia v1 datasets included with y
 ## Running Bactopia
 OK! Get your servers started up! It is time to get processing!
 
-### Samples on ENA
+### Samples on SRA
 #### Single Sample
-Let's start this by downloading a single sample from ENA, and processing it through Bactopia.
+Let's start this by downloading a single sample from the [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) (SRA), and processing it through Bactopia.
 
 ```
 bactopia --accession SRX4563634 \
@@ -106,6 +106,9 @@ So, what's happening here?
 `--cpus 2` tells Bactopia to use a maximum of 2 cpus per process. Adjust this parameter to fit your setup!
 
 `--outdir ena-single-sample` tells Bactopia to dump the results into the `ena-single-sample` folder. Please keep in mind, this will not stop Nextflow from creating files (.nextflow, trace.txt, etc...) and directories (work and .nextflow/) within your current directory.
+
+!!! info "Use --use_ena to download from ENA"
+    If you append `--use_ena` to the command above the FASTQ files for SRX4563634 will be downloaded from the [European Nucleotide Archive](https://www.ebi.ac.uk/ena) (ENA) instead of SRA.
 
 Once you launch this command, sit back, relax and watch the Nextflow give realtime updates for SRX4563634's analysis! 
 
@@ -145,14 +148,14 @@ bactopia --accessions ena-accessions.txt \
          --outdir ena-multiple-samples
 ```
 
-Instead of `--accession` we are now using `--accessions ena-accessions.txt` which tells Bactopia to read `ena-accessions.txt`, and download each Experiment accession from ENA and then process it.
+Instead of `--accession` we are now using `--accessions ena-accessions.txt` which tells Bactopia to read `ena-accessions.txt`, and download each Experiment accession from SRA (for ENA add `--use_ena`) and then process it.
 
-At this point, you might want to go for a walk or make yourself a coffee! This step has an **approximate completion time of ~45-120 minutes**, which again is fully dependent on the cpus used and the download times from ENA.
+At this point, you might want to go for a walk or make yourself a coffee! This step has an **approximate completion time of ~45-120 minutes**, which again is fully dependent on the cpus used and the download times from SRA (or ENA).
 
 Once this is complete, the results for all five samples will be found in the `ena-multiple-samples` directory. Each sample will have there own folder of results.
 
 ### Local Samples
-So for the local samples, we're going to recycle some of the samples we downloaded from ENA.
+So for the local samples, we're going to recycle some of the samples we downloaded from SRA/ENA.
 
 First let's make a directory to put the FASTQs into:
 ```
@@ -191,7 +194,7 @@ bactopia --R1 fastqs/SRX4563634_R1.fastq.gz \
 
 Now Bactopia will recognize the `--R1` and `--R2` parameters as paired-end reads and process. The `--sample` is required and will be used for naming the output.
 
-Similar to the single ENA sample, the **approximate completion time is ~15-30 minutes** depending on the number of cpus given.
+Similar to the single SRA/ENA sample, the **approximate completion time is ~15-30 minutes** depending on the number of cpus given.
 
 Once complete, results can be found in `local-single-sample/SRX4563634/`. 
 

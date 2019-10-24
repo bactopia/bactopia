@@ -78,7 +78,7 @@ from Bio import SeqIO
 from executor import ExternalCommand
 
 PROGRAM = "bactopia datasets"
-VERSION = "1.2.1"
+VERSION = "1.2.2"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
@@ -121,7 +121,6 @@ def get_available_datasets(clear_cache):
                        'expected fields, refreshing.'))
         data = {
             'ariba': sorted(ariba_datasets()),
-            'cgmlst': sorted(cgmlst_schemas()),
             'pubmlst': pubmlst_schemas()
         }
 
@@ -177,27 +176,6 @@ def validate_species(species):
         sys.exit(1)
 
     return True
-
-
-def cgmlst_schemas():
-    """For MentaLiST: Schemas available from www.cgmlst.org"""
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    soup = BeautifulSoup(urlopen('https://www.cgmlst.org/ncs'))
-    schemas = {}
-    for link in soup.find_all('a'):
-        address = link.get('href')
-        # Example: https://www.cgmlst.org/ncs/schema/3956907/
-        if 'schema' in address:
-            schema_id = address.split('/')[-2]
-            name = link.get_text().rstrip(" cgMLST")
-            if "/" in name:
-                genus, species = name.split()
-                for s in species.split('/'):
-                    schemas[f'{genus} {s}'] = schema_id
-            else:
-                schemas[name] = schema_id
-    return schemas
 
 
 def pubmlst_schemas():
@@ -672,40 +650,6 @@ def setup_plsdb(outdir, keep_files=False, force=False):
             directory=plsdb_dir)
 
 
-def setup_cgmlst(request, available_datasets, outdir, force=False):
-    """Setup cgMLST datasets for each requested schema."""
-    requests = setup_requests(request, available_datasets, 'cgmlst.org')
-    if requests:
-        for request in requests:
-            species = request.lower().replace(' ', '_')
-            cgmlst_dir = f'{outdir}/{species}/cgmlst'
-            if os.path.exists(cgmlst_dir):
-                if force:
-                    logging.info(f'--force, removing existing {request} setup')
-                    execute(f'rm -rf {cgmlst_dir}')
-                else:
-                    logging.info(f'{request} ({cgmlst_dir}) exists, skipping')
-                    continue
-            # Setup MLST dataset
-            logging.info(f'Setting up xgMLST for {request}')
-            execute(f'mkdir -p {cgmlst_dir}')
-
-            # MentaLiST
-            logging.info(f'Creating MentaLiST MLST dataset')
-            mentalist_dir = f'{cgmlst_dir}/mentalist'
-            execute(f'mkdir -p {mentalist_dir}')
-            execute((
-                f'mentalist download_cgmlst -o cgmlst -k 31 -s "{request}" '
-                '--db cgmlst.db'
-            ), directory=mentalist_dir)
-
-            # Finish up
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {species}-updated.txt',
-                    directory=cgmlst_dir)
-    else:
-        logging.info("No valid cgMLST schemas to setup, skipping")
-
-
 def create_summary(outdir):
     """Create a summary of available datasets in JSON format."""
     from collections import OrderedDict
@@ -1025,9 +969,6 @@ if __name__ == '__main__':
             )
         else:
             logging.info('Skipping custom Prokka dataset step')
-        # logging.info('Setting up cgMLST datasets')
-        # Need mentalist conda install to be fixed
-        # setup_cgmlst(args.species, CGMLST, args.outdir, force=args.force)
     else:
         logging.info('No requests for an species, skipping')
 

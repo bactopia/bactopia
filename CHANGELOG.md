@@ -1,5 +1,25 @@
 # bactopia/bactopia: Changelog
 
+## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
+
+### `Added`
+- Size of "work" directory to the execution summary
+- User controlled overwrites of existing output files
+- Check for unknown parameters at runtime
+- FASTQ downloads from SRA (via fastq-dl and fasterq-dump) 
+- Documentation updates
+- Script for building containers
+
+### `Fixed`
+- `bactopia` command now explicitly states which tag to use for Nextflow run
+- Version info not updated in Dockerfile and Singularity
+- Duplicated QC'd FASTQs
+- nextflow: docker "Memory limited without swap" error
+
+### `Removed`
+- cgmlst support in `bactopia datasets`
+- setup.py left over from pre-conda config
+
 ## v1.2.1 bactopia/bactopia "Fruit Punches" - 2019/10/17
 
 ### `Added`

@@ -4,7 +4,7 @@
 .nextflow*
 /work/
 trace.txt*
-
+*.simg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

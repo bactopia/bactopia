@@ -50,7 +50,9 @@ if [ $? -eq 0 ]; then
     done
 
     # Docker/Singularity
-    ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${DIRECTORY}/Dockerfile
+    ${SED_CMD} -r 's/'"${OLD_VERSION}"'/'"${NEW_VERSION}"'/' ${DIRECTORY}/Dockerfile
+    ${SED_CMD} -r 's/'"${OLD_VERSION}"'/'"${NEW_VERSION}"'/' ${DIRECTORY}/Singularity
+
     for file in $(ls ${DIRECTORY}/containers/docker/*.Dockerfile); do
         ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${file}
     done
@@ -60,6 +62,7 @@ if [ $? -eq 0 ]; then
 
     # Bactopia/Nextflow
     ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bactopia
+    ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bin/build-containers.sh
     ${SED_CMD} -r "s/version = '${OLD_VERSION}'/version = '${NEW_VERSION}'/" ${DIRECTORY}/nextflow.config
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"

@@ -70,6 +70,17 @@ Nextflow Related Parameters:
 
     --nfdir                 Print directory Nextflow has pulled Bactopia to
 
+    --overwrite             Nextflow will overwrite existing output files.
+                                Default: false
+
+    --conatainerPath        Path to Singularity containers to be used by the 'slurm'
+                                profile.
+                                Default: /opt/bactopia/singularity
+
+    --sleep_time            After reading datases, the amount of time (seconds) Nextflow
+                                will wait before execution.
+                                Default: 5 seconds
+
 Useful Parameters:
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
@@ -235,14 +246,16 @@ Exiting
 
 In the above example, there are mulitple errors. Lines 4 and 5 (`LINE 4:ERROR` or `LINE 5:ERROR`) suggest that based on the given paths the FASTQs do not exist. The sample name `test002` has been used multiple times, and must be corrected. There is also an issue with the header line that must be looked into.
 
-### European Nucleotide Archive
-There are a lot of publicly avilable sequences, and you might want to include some of those in your analysis! If that sounds like you, Bactopia has that built in for you! You can give a single *Experiment* accession (`--accession`) or a file where each line is a single *Experiment* accession (`--accessions`). Bactopia will then query ENA to determine *Run* accession(s) associated with the given Experiment accession and proceed download (from ENA) corresponding FASTQ files. After the download is completed, it will be processed through Bactopia.
+### ENA & SRA
+There are a lot of publicly avilable sequences available from the [European Nucleotide Archive](https://www.ebi.ac.uk/ena) (ENA) and the [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) (SRA). There's a good chance you might want to include some of those sequences in your analysis! If that sounds like you, Bactopia has that built in for you! You can give a single *Experiment* accession (`--accession`) or a file where each line is a single *Experiment* accession (`--accessions`). Bactopia will then query ENA to determine *Run* accession(s) associated with the given Experiment accession and proceed download the corresponding FASTQ files from either the SRA (default) or ENA (`--use_ena`). After the download is completed, it will be processed through Bactopia.
 
 !!! info "Use --accession for a Single Experiment Accession"
-    `bactopia --accession SRX476958`
+    SRA: `bactopia --accession SRX476958`
+    ENA: `bactopia --accession SRX476958 --use_ena`
 
 !!! info "Use --accessions for Multiple Experiment Accessions"
-    `bactopia --accessions my-accessions.txt`
+    SRA: `bactopia --accessions my-accessions.txt`
+    ENA: `bactopia --accessions my-accessions.txt --use_ena`
 
 #### Generating Accession List
 `bactopia search` has been made to help assist in generating a list of Experiment accessions to be procesed by Bactopia (via `--accessions`). Users can provide a Taxon ID (e.g. 1280), a binary name (e.g. Staphylococcus aureus), or Study accessions (e.g. PRJNA480016). This value is then queried against ENA's [Data Warehouse API](https://www.ebi.ac.uk/ena/browse/search-rest)), and a list of all Experiment accessions associated with the query is returned.

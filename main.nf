@@ -5,6 +5,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
+log.info "${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();
@@ -34,129 +35,7 @@ PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
-species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
-log.info "${PROGRAM_NAME} - ${VERSION}"
-if (params.datasets) {
-    dataset_path = params.datasets
-    /*
-    if (file("/${dataset_path}/summary.json").exists() == false) {
-        dataset_path = get_canonical_path(params.dataset)
-    }
-    */
-    available_datasets = read_dataset_summary(dataset_path)
-
-    available_datasets['ariba'].each {
-        ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
-    }
-    print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
-
-    available_datasets['minmer']['sketches'].each {
-        MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
-    }
-    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
-    print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
-
-    PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
-    print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
-
-    if (SPECIES) {
-        if (available_datasets.containsKey('species-specific')) {
-            if (available_datasets['species-specific'].containsKey(SPECIES)) {
-                species_db = available_datasets['species-specific'][SPECIES]
-                species_genome_size = species_db['genome_size']
-
-                prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                if (file(prokka).exists()) {
-                    PROKKA_PROTEINS = file(prokka)
-                    log.info "Found Prokka proteins file"
-                    log.info "\t${PROKKA_PROTEINS}"
-                }
-
-                refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
-                if (file(refseq_minmer).exists()) {
-                    REFSEQ_SKETCH = file(refseq_minmer)
-                    REFSEQ_SKETCH_FOUND = true
-                    log.info "Found Mash Sketch of RefSeq genomes"
-                    log.info "\t${REFSEQ_SKETCH}"
-                }
-
-                species_db['mlst'].each { key, val ->
-                    if (key != "last_updated") {
-                        if (file("${dataset_path}/${val}").exists()) {
-                            MLST_DATABASES << file("${dataset_path}/${val}")
-                        }
-                    }
-                }
-                print_dataset_info(MLST_DATABASES, "MLST datasets")
-
-                file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                    REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
-                }
-                print_dataset_info(REFERENCES, "reference genomes")
-
-                file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
-                    INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
-                }
-                print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
-
-                file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
-                    MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
-                }
-                print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
-
-                // BLAST Related
-                species_db['optional']['blast'].each() {
-                    temp_path = "${dataset_path}/${it}"
-                    file(temp_path).list().each() {
-                        BLAST_FASTAS << file("${temp_path}/${it}")
-                    }
-                }
-                print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
-            } else {
-                log.error "Species '${params.species}' not available, please check spelling " +
-                          "or use '--available_datasets' to verify the dataset has been set " +
-                          "up. Exiting"
-                exit 1
-            }
-        } else {
-            log.error "Species '${params.species}' not available, please check spelling or " +
-                      "use '--available_datasets' to verify the dataset has been set up. Exiting"
-            exit 1
-        }
-    } else {
-        log.info "--species not given, skipping the following processes (analyses):"
-        log.info "\tsequence_type"
-        log.info "\tcall_variants"
-        log.info "\tinsertion_sequence_query"
-        log.info "\tprimer_query"
-        if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-            log.error "Asked for genome size '${params.genome_size}' which requires a " +
-                      "species to be given. Please give a species or specify " +
-                      "a valid genome size. Exiting"
-            exit 1
-        }
-    }
-} else if (params.dry_run) {
-    log.info "--dry_run found, creating dummy data to be 'processed'."
-    ARIBA_DATABASES << file('EMPTY.tar.gz')
-    INSERTIONS << file('EMPTY.fasta')
-    MAPPING_FASTAS << file('EMPTY.fasta')
-    MLST_DATABASES << file('EMPTY_DB')
-    REFSEQ_SKETCH = file('EMPTY.msh')
-} else {
-    log.info "--datasets not given, skipping the following processes (analyses):"
-    log.info "\tsequence_type"
-    log.info "\tariba_analysis"
-    log.info "\tminmer_query"
-    log.info "\tplasmid_blast"
-    log.info "\tcall_variants"
-    log.info "\tinsertion_sequence_query"
-    log.info "\tprimer_query"
-}
-
-if (params.disable_auto_variants) {
-    REFSEQ_SKETCH_FOUND = false
-}
+setup_datasets()
 
 
 process gather_fastqs {
@@ -175,7 +54,7 @@ process gather_fastqs {
 
 process fastq_status {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
@@ -192,7 +71,7 @@ process fastq_status {
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true, pattern: '*.txt'
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: '*.txt'
 
     input:
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
@@ -209,7 +88,7 @@ process estimate_genome_size {
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
@@ -234,7 +113,7 @@ process qc_reads {
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
@@ -252,7 +131,7 @@ process qc_original_summary {
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_FINAL_SUMMARY
@@ -271,7 +150,9 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "*.fna*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "shovill*"
+    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "flash*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
@@ -296,7 +177,7 @@ process assemble_genome {
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
@@ -312,7 +193,7 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
@@ -355,7 +236,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from COUNT_31MERS
@@ -372,7 +253,7 @@ process count_31mers {
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${sample} - ${method}"
-    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
@@ -397,7 +278,7 @@ process sequence_type {
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
@@ -424,7 +305,7 @@ process minmer_sketch {
     Sourmash (k=21,31,51)
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.{msh,sig}"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.{msh,sig}"
 
     input:
     set val(sample), val(single_end), file(fq) from MINMER_SKETCH
@@ -446,7 +327,7 @@ process minmer_query {
     GenBank (Sourmash, k=21,31,51)
     */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: true, pattern: "*.txt"
+    publishDir "${outdir}/${sample}/minmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(sourmash) from MINMER_QUERY
@@ -469,7 +350,7 @@ process call_variants {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
@@ -497,7 +378,7 @@ process download_references {
     variants will not be called against the nearest completed genome.
     */
     tag "${sample} - ${params.max_references} reference(s)"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true, pattern: 'mash-dist.txt'
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite, pattern: 'mash-dist.txt'
 
     input:
     set val(sample), val(single_end), file(fq), file(sample_sketch) from DOWNLOAD_REFERENCES
@@ -523,7 +404,7 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
@@ -564,7 +445,7 @@ process antimicrobial_resistance {
     on their Mash distance from the input.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
@@ -592,7 +473,7 @@ process insertion_sequences {
     using ISMapper.
     */
     tag "${sample} - ${insertion_name}"
-    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
@@ -617,7 +498,7 @@ process plasmid_blast {
     BLAST a set of predicted genes against the PLSDB BALST database.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: true, pattern: "*.{txt,txt.gz}"
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite, pattern: "*.{txt,txt.gz}"
 
     input:
     set val(sample), file(genes) from PLASMID_BLAST
@@ -640,7 +521,7 @@ process blast_query {
     Query a FASTA files against annotated assembly using BLAST
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), file(blastdb) from BLAST_QUERY
@@ -660,7 +541,7 @@ process mapping_query {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: true
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
 
     input:
     set val(sample), val(single_end), file(fq) from MAPPING_QUERY
@@ -681,30 +562,49 @@ process mapping_query {
 
 
 workflow.onComplete {
+    workDir = new File("${workflow.workDir}")
+    workDirSize = toHumanString(workDir.directorySize())
+
     println """
-    Pipeline execution summary
+
+    Bactopia Execution Summary
     ---------------------------
-    Completed at: ${workflow.complete}
-    Duration    : ${workflow.duration}
-    Success     : ${workflow.success}
-    Launch Dir  : ${workflow.launchDir}
-    Working Dir : ${workflow.workDir}
-    exit status : ${workflow.exitStatus}
-    Command line: ${workflow.commandLine}
-    Resumed?    : ${workflow.resume}
-    Error report: ${workflow.errorReport ?: '-'}
+    Command Line    : ${workflow.commandLine}
+    Resumed         : ${workflow.resume}
+
+    Completed At    : ${workflow.complete}
+    Duration        : ${workflow.duration}
+    Success         : ${workflow.success}
+    Exit Code       : ${workflow.exitStatus}
+    Error Report    : ${workflow.errorReport ?: '-'}
+
+    Launch Dir      : ${workflow.launchDir}
+    Working Dir     : ${workflow.workDir} (Total Size: ${workDirSize})
+    Working Dir Size: ${workDirSize}
+
     """
 }
 
 
 // Utility functions
+def toHumanString(bytes) {
+    // Thanks Niklaus 
+    // https://gist.github.com/nikbucher/9687112
+    base = 1024L
+    decimals = 3
+    prefix = ['', 'K', 'M', 'G', 'T']
+    int i = Math.log(bytes)/Math.log(base) as Integer
+    i = (i >= prefix.size() ? prefix.size()-1 : i)
+    return Math.round((bytes / base**i) * 10**decimals) / 10**decimals + prefix[i]
+}
+
 def print_version() {
     println(PROGRAM_NAME + ' ' + VERSION)
     exit 0
 }
 
 
-def print_basedir(){
+def print_basedir() {
     println("BACTOPIA_DIR = ${baseDir}")
     exit 0
 }
@@ -846,6 +746,132 @@ def check_minmers(dataset) {
 }
 
 
+def setup_datasets() {
+    species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+    if (params.datasets) {
+        dataset_path = params.datasets
+        available_datasets = read_dataset_summary(dataset_path)
+
+        available_datasets['ariba'].each {
+            ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
+        }
+        print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
+
+        available_datasets['minmer']['sketches'].each {
+            MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
+        }
+        MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
+        print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
+
+        PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
+        print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
+
+        if (SPECIES) {
+            if (available_datasets.containsKey('species-specific')) {
+                if (available_datasets['species-specific'].containsKey(SPECIES)) {
+                    species_db = available_datasets['species-specific'][SPECIES]
+                    species_genome_size = species_db['genome_size']
+
+                    prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
+                    if (file(prokka).exists()) {
+                        PROKKA_PROTEINS = file(prokka)
+                        log.info "Found Prokka proteins file"
+                        log.info "\t${PROKKA_PROTEINS}"
+                    }
+
+                    refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
+                    if (file(refseq_minmer).exists()) {
+                        REFSEQ_SKETCH = file(refseq_minmer)
+                        REFSEQ_SKETCH_FOUND = true
+                        log.info "Found Mash Sketch of RefSeq genomes"
+                        log.info "\t${REFSEQ_SKETCH}"
+                    }
+
+                    species_db['mlst'].each { key, val ->
+                        if (key != "last_updated") {
+                            if (file("${dataset_path}/${val}").exists()) {
+                                MLST_DATABASES << file("${dataset_path}/${val}")
+                            }
+                        }
+                    }
+                    print_dataset_info(MLST_DATABASES, "MLST datasets")
+
+                    file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
+                        REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
+                    }
+                    print_dataset_info(REFERENCES, "reference genomes")
+
+                    file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
+                        INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
+                    }
+                    print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
+
+                    file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
+                        MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
+                    }
+                    print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
+
+                    // BLAST Related
+                    species_db['optional']['blast'].each() {
+                        temp_path = "${dataset_path}/${it}"
+                        file(temp_path).list().each() {
+                            BLAST_FASTAS << file("${temp_path}/${it}")
+                        }
+                    }
+                    print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
+                } else {
+                    log.error "Species '${params.species}' not available, please check spelling " +
+                              "or use '--available_datasets' to verify the dataset has been set " +
+                              "up. Exiting"
+                    exit 1
+                }
+            } else {
+                log.error "Species '${params.species}' not available, please check spelling or " +
+                          "use '--available_datasets' to verify the dataset has been set up. Exiting"
+                exit 1
+            }
+        } else {
+            log.info "--species not given, skipping the following processes (analyses):"
+            log.info "\tsequence_type"
+            log.info "\tcall_variants"
+            log.info "\tinsertion_sequence_query"
+            log.info "\tprimer_query"
+            if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
+                log.error "Asked for genome size '${params.genome_size}' which requires a " +
+                          "species to be given. Please give a species or specify " +
+                          "a valid genome size. Exiting"
+                exit 1
+            }
+        }
+    } else if (params.dry_run) {
+        log.info "--dry_run found, creating dummy data to be 'processed'."
+        ARIBA_DATABASES << file('EMPTY.tar.gz')
+        INSERTIONS << file('EMPTY.fasta')
+        MAPPING_FASTAS << file('EMPTY.fasta')
+        MLST_DATABASES << file('EMPTY_DB')
+        REFSEQ_SKETCH = file('EMPTY.msh')
+    } else {
+        log.info "--datasets not given, skipping the following processes (analyses):"
+        log.info "\tsequence_type"
+        log.info "\tariba_analysis"
+        log.info "\tminmer_query"
+        log.info "\tplasmid_blast"
+        log.info "\tcall_variants"
+        log.info "\tinsertion_sequence_query"
+        log.info "\tprimer_query"
+    }
+
+    if (params.disable_auto_variants) {
+        REFSEQ_SKETCH_FOUND = false
+    }
+
+
+    log.info "\nIf something looks wrong, now's your chance to back out (CTRL+C 3 times). "
+    log.info "Sleeping for ${params.sleep_time} seconds..."
+    sleep(params.sleep_time * 1000)
+}
+
+
 def is_positive_integer(value, name) {
     error = 0
     if (value.getClass() == Integer) {
@@ -875,9 +901,34 @@ def file_exists(file_name, parameter) {
 }
 
 
+def check_unknown_params() {
+    valid_params = []
+    error = 0
+    new File("${baseDir}/conf/params.config").eachLine { line ->
+        if (line.contains("=")) {
+            valid_params << line.trim().split(" ")[0]
+        }
+    }
+
+    params.each { k,v ->
+        if (!valid_params.contains(k)) {
+            if (k != "container-path") {
+                log.error("'--${k}' is not a known parameter")
+                error = 1
+            }
+        }
+    }
+
+    return error
+}
+
+
 def check_input_params() {
     error = 0
     fastq_type = null
+
+    // Check for unexpected paramaters
+    error += check_unknown_params()
 
     if (params.fastqs) {
         error += file_exists(params.fastqs, '--fastqs')
@@ -935,6 +986,11 @@ def check_input_params() {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
             error += is_positive_integer(params.genome_size, 'genome_size')
         }
+    }
+
+    if (params.ftp_only && !params.use_ena) {
+        log.error "'--ftp_only' must be used along side '--use_ena'"
+        error += 1
     }
 
     if (params.adapters) {
@@ -1173,6 +1229,17 @@ def basic_help() {
 
         --nfdir                 Print directory Nextflow has pulled Bactopia to
 
+        --overwrite             Nextflow will overwrite existing output files.
+                                    Default: ${params.overwrite}
+
+        --conatainerPath        Path to Singularity containers to be used by the 'slurm'
+                                    profile.
+                                    Default: ${params.containerPath}
+
+        --sleep_time            After reading datases, the amount of time (seconds) Nextflow
+                                    will wait before execution.
+                                    Default: ${params.sleep_time} seconds
+
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based
                                     on location given by "--datasets"
@@ -1212,13 +1279,17 @@ def full_help() {
     apply to.
 
     ENA Download Parameters:
-        --aspera_speed STR      Speed at which Aspera Connect will download.
-                                    Default: ${params.aspera_speed}
-
         --max_retry INT         Maximum times to retry downloads
                                     Default: ${params.max_retry}
 
-        --ftp_only              Only use FTP to download FASTQs from ENA
+        --use_ena               Download FASTQs from ENA with Aspera Connect.
+                                    Default: Download from SRA
+
+        --ftp_only              If "--use_ena" is enabled, FTP will be used to 
+                                    download FASTQs from ENA.
+
+        --aspera_speed STR      Speed at which Aspera Connect will download.
+                                    Default: ${params.aspera_speed}
 
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB
@@ -1590,5 +1661,4 @@ def full_help() {
 
         --amr_report_common     Suppress proteins common to a taxonomy group
     """
-
 }
