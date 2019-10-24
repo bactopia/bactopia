@@ -1,5 +1,11 @@
 # bactopia/bactopia: Changelog
 
+## v1.3.0 bactopia/bactopia "" - 2019/10/??
+
+### `Added`
+- bactopia tools framework
+- cgtree tool (pangenome, core genome phylogeny)
+
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
 ### `Added`
