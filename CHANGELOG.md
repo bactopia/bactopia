@@ -8,6 +8,7 @@
 - Check for unknown parameters at runtime
 - FASTQ downloads from SRA (via fastq-dl and fasterq-dump) 
 - Documentation updates
+- Script for building containers
 
 ### `Fixed`
 - `bactopia` command now explicitly states which tag to use for Nextflow run

@@ -1,2 +1,4 @@
-conda/cache
-datasets/
+.git
+conda/envs
+containers/singularity/images
+datasets

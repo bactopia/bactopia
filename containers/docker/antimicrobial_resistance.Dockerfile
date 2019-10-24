@@ -9,6 +9,4 @@ COPY conda/antimicrobial_resistance.yml /
 RUN conda env create -f antimicrobial_resistance.yml && conda clean -a
 ENV PATH /opt/conda/envs/bactopia-antimicrobial_resistance/bin:$PATH
 
-RUN makeblastdb
 RUN amrfinder -u
-

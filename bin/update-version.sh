@@ -62,6 +62,7 @@ if [ $? -eq 0 ]; then
 
     # Bactopia/Nextflow
     ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bactopia
+    ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bin/build-containers.sh
     ${SED_CMD} -r "s/version = '${OLD_VERSION}'/version = '${NEW_VERSION}'/" ${DIRECTORY}/nextflow.config
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"
