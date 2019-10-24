@@ -587,8 +587,9 @@ workflow.onComplete {
 
 
 // Utility functions
-// https://gist.github.com/nikbucher/9687112
 def toHumanString(bytes) {
+    // Thanks Niklaus 
+    // https://gist.github.com/nikbucher/9687112
     base = 1024L
     decimals = 3
     prefix = ['', 'K', 'M', 'G', 'T']
@@ -987,6 +988,11 @@ def check_input_params() {
         }
     }
 
+    if (params.ftp_only && !params.use_ena) {
+        log.error "'--ftp_only' must be used along side '--use_ena'"
+        error += 1
+    }
+
     if (params.adapters) {
         error += file_exists(params.adapters, '--adapters')
     }
@@ -1273,13 +1279,17 @@ def full_help() {
     apply to.
 
     ENA Download Parameters:
-        --aspera_speed STR      Speed at which Aspera Connect will download.
-                                    Default: ${params.aspera_speed}
-
         --max_retry INT         Maximum times to retry downloads
                                     Default: ${params.max_retry}
 
-        --ftp_only              Only use FTP to download FASTQs from ENA
+        --use_ena               Download FASTQs from ENA with Aspera Connect.
+                                    Default: Download from SRA
+
+        --ftp_only              If "--use_ena" is enabled, FTP will be used to 
+                                    download FASTQs from ENA.
+
+        --aspera_speed STR      Speed at which Aspera Connect will download.
+                                    Default: ${params.aspera_speed}
 
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB

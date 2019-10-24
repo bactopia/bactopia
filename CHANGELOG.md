@@ -6,6 +6,8 @@
 - Size of "work" directory to the execution summary
 - User controlled overwrites of existing output files
 - Check for unknown parameters at runtime
+- FASTQ downloads from SRA (via fastq-dl) 
+- Documentation updates
 
 ### `Fixed`
 - `bactopia` command now explicitly states which tag to use for Nextflow run
@@ -14,7 +16,7 @@
 
 ### `Removed`
 - cgmlst support in `bactopia datasets`
-
+- setup.py left over from pre-conda config
 
 ## v1.2.1 bactopia/bactopia "Fruit Punches" - 2019/10/17
 
