@@ -110,5 +110,5 @@ else
     fi
 
     # Execute Bactopia Nextflow pipeline
-    nextflow run bactopia/bactopia -r "v${VERSION} "${@:1}"
+    nextflow run bactopia/bactopia -r "v${VERSION}" "${@:1}"
 fi
