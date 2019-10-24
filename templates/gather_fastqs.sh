@@ -34,8 +34,11 @@ else
     mkdir -p fastqs
     if [ "!{single_end}" == "is_accession" ]; then
         # Download accession from ENA/SRA
-        fastq-dl !{sample} $ARCHIVE --outdir fastqs/ --group_by_experiment --is_experiment \
-            $ASPERA $ASPERA_KEY $ASPERA_SPEED $FTP_ONLY
+        fastq-dl !{sample} $ARCHIVE \
+            --cpus !{task.cpus} \
+            --outdir fastqs/ \
+            --group_by_experiment \
+            --is_experiment $ASPERA $ASPERA_KEY $ASPERA_SPEED $FTP_ONLY
     else
         if [ "!{single_end}" == "false" ]; then
             # Paired-End Reads

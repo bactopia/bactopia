@@ -18,7 +18,7 @@ dependencies:
   - cryptography=2.7=py37h72c5cf5_0
   - executor=21.3=py_0
   - fasteners=0.14.1=py_3
-  - fastq-dl=1.0.0=0
+  - fastq-dl=1.0.1=0
   - gettext=0.19.8.1=hc5be6a0_1002
   - humanfriendly=4.18=py37_0
   - icu=64.2=he1b5a44_1
