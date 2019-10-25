@@ -1,4 +1,4 @@
-name: cgtree3
+name: cgtree
 channels:
   - bioconda
   - conda-forge

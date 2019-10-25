@@ -8,123 +8,112 @@ VERSION = workflow.manifest.version
 log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
-if (params.help) print_usage();
-if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
+if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 if (params.version) print_version();
 check_input_params()
+is_compressed = check_gffs_exist(params.bactopia, params.sleep_time)
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
-Channel
-    .fromPath("${params.bactopia}/**/annotation/*.gff*")
-    .count()
-    .subscribe { println "Found ${it} GFF files for analyis" }
-sleep(2000)
-log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
-log.info "Sleeping for ${params.sleep_time} seconds..."
-sleep(params.sleep_time * 1000)
 
-process pangenome {
+process build_pangenome {
     cpus !{params.cpus}
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "roary/*"
 
     input:
-    file(gff) from Channel.fromPath("${params.bactopia}/**/annotation/*.gff*").collect()
+    file(gff) from create_gff_channel(params.bactopia, true).collect()
+    val(is_compressed) from is_compressed
 
     output:
     file 'roary/*'
-    file 'roary/core_gene_alignment.aln' into START_TREE
+    file 'alignment.fa' into RECOMBINATION
 
     shell:
     n = params.n ? "-n" : ""
     s = params.s ? "-s" : ""
     ap = params.ap ? "-ap" : ""
-    compressed = params.compressed ? "gunzip -f *.gff.gz" : "echo uncompressed"
+    gunzip = is_compressed ? "gunzip -f *.gff.gz" : "echo uncompressed"
     """
-    !{compressed}
+    !{gunzip}
     roary -f roary -e !{n} -v -p !{task.cpus} !{s} !{ap} -g !{params.g} \
           -i !{params.i} -cd !{params.cd} -iv !{params.iv} -r *.gff
+    cp roary/core_gene_alignment.aln alignment.fa
+    pigz -n --best -p !{task.cpus} roary/core_gene_alignment.aln
     """
 }
 
-process start_tree {
-    cpus !{params.cpus}
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "start-tree/*"
-
-    input:
-    file fasta from START_TREE
-
-    output:
-    file 'start-tree/*'
-    set file('start-tree/start-tree.treefile'), file(fasta) into RECOMBINATION
-
-    shell:
-    """
-    mkdir start-tree
-    iqtree -s !{fasta} -m !{params.m} -nt !{task.cpus} -fast -pre start-tree/start-tree
-    """
-}
-
-process recombination {
+process identify_recombination {
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "clonalframe/*"
+    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.aligned.fa.gz"
 
     input:
-    set file(start_tree), file(fasta) from RECOMBINATION
+    file fasta from RECOMBINATION
 
     output:
-    file 'clonalframe/*'
-    file 'clonalframe/core_gene_alignment-cfmasked.aln' into FINAL_TREE, SNP_DISTS
+    file 'clonalframe/*' optional true
+    file "${params.prefix}.aligned.fa.gz"
+    file 'alignment-masked.fa' into FINAL_TREE, SNP_DISTS
 
     shell:
     if (params.skip_clonalframe)
     """
-    mkdir clonalframe
-    cp !{fasta} clonalframe/core_gene_alignment-cfmasked.aln
-    touch clonalframe/clonalframe-was-skipped.txt
+    cp !{fasta} alignment-masked.fa
+    pigz -c -n --best -p !{task.cpus} !{fasta} > !{params.prefix}.aligned.fa.gz
     """
     else
     """
     mkdir clonalframe
-    ClonalFrameML !{start_tree} !{fasta} clonalframe/clonalframe \
+
+    iqtree -s !{fasta} -m !{params.m} -nt !{task.cpus} -fast -pre clonalframe/start-tree
+
+    ClonalFrameML clonalframe/start-tree.treefile !{fasta} clonalframe/clonalframe \
         -emsim !{params.emsim} !{params.clonal_opts}
 
     maskrc-svg.py clonalframe/clonalframe --aln !{fasta} --symbol '-' \
-        --out clonalframe/core_gene_alignment-cfmasked.aln
+        --out clonalframe/core_gene_alignment-masked.aln
+
+    cp clonalframe/core_gene_alignment-masked.aln alignment-masked.fa
+    pigz -c -n --best -p !{task.cpus} alignment-masked.fa > !{params.prefix}.aligned.fa.gz
+
+    pigz -n --best -p !{task.cpus} clonalframe/core_gene_alignment-masked.aln
     """
 }
 
-process final_tree {
+process create_phylogeny {
     cpus !{params.cpus}
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "final-tree/*"
+    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "iqtree/*"
+    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.iqtree"
 
     input:
     file fasta from FINAL_TREE
 
     output:
-    file 'final-tree/*'
+    file 'iqtree/*'
+    file "${params.prefix}.iqtree"
 
     shell:
     """
-    mkdir final-tree
-    iqtree -s !{fasta} -m !{params.m} -nt !{task.cpus} -pre final-tree/final-tree \
+    mkdir iqtree
+    iqtree -s !{fasta} -m !{params.m} -nt !{task.cpus} -pre iqtree/core-genome \
            -bb !{params.bb} -alrt !{params.alrt} -wbt -wbtl \
            -alninfo !{params.iqtree_opts}
+    cp iqtree/core-genome.iqtree !{params.prefix}.iqtree
     """
 }
 
-process snp_dists {
+process pairwise_snp_distance {
     publishDir outdir, mode: 'copy', overwrite: params.overwrite
 
     input:
     file fasta from SNP_DISTS
 
     output:
-    file 'pairwise-snp-distance.txt'
+    file "${params.prefix}.distance.txt"
 
     shell:
     b = params.b ? "" : "-b"
     """
-    snp-dists !{b} !{fasta} > pairwise-snp-distance.txt
+    snp-dists !{b} !{fasta} > !{params.prefix}.distance.txt
     """
 }
 
@@ -134,7 +123,7 @@ workflow.onComplete {
     workDirSize = toHumanString(workDir.directorySize())
 
     println """
-    Bactopia Execution Summary
+    Bactopia Tool 'cgtree' - Execution Summary
     ---------------------------
     Command Line    : ${workflow.commandLine}
     Resumed         : ${workflow.resume}
@@ -251,12 +240,48 @@ def is_positive_integer(value, name) {
     return error
 }
 
-def help() {
-    return """
+
+def check_gffs_exist(bactopia_path, sleep_time) {
+    compressed = create_gff_channel(bactopia_path, false)
+    log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
+    log.info "Sleeping for ${sleep_time} seconds..."
+    sleep(sleep_time * 1000)
+    return compressed
+}
+
+
+def create_gff_channel(bactopia_path, is_process) {
+    if (is_process) {
+        return Channel.fromPath("${bactopia_path}/**/annotation/*.gff*")
+    } else {
+        gffs = Channel.fromPath("${bactopia_path}/**/annotation/*.gff*").toList()
+        count = gffs.val.size()
+        if (count > 0) {
+            compressed = gffs.val[0].toString().endsWith("gz") ? true : false
+
+            if (compressed) {
+                log.info "Found ${count} compressed GFF files for analyis"
+            } else {
+                log.info "Found ${count} GFF files for analyis"
+            }
+            return compressed
+        } else {
+            log.error("Failed to find any GFF files. Please verify ${bactopia_path} contains Bactopia outputs.")
+            exit 1
+        }
+    }
+}
+
+
+def print_help() {
+    log.info"""
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
     Optional Parameters:
+        --prefix DIR            Prefix to use for final output files
+                                    Default: ${params.prefix}
+
         --outdir DIR            Directory to write results to
                                     Default: ${params.outdir}
 
@@ -269,9 +294,6 @@ def help() {
         --cpus INT              Number of processors made available to a single
                                     process.
                                     Default: ${params.cpus}
-
-        --compressed            Input GFFs are compressed (gzip)
-                                    Default: ${params.compressed}
 
     Roary Related Parameters:
         --o STR                 Clusters output filename
@@ -355,5 +377,6 @@ def help() {
     Useful Parameters:
         --version               Print workflow version information
         --help                  Show this message and exit
-    """
+    """.stripIndent()
+    exit 0
 }
