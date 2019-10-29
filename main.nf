@@ -588,7 +588,7 @@ workflow.onComplete {
 
 // Utility functions
 def toHumanString(bytes) {
-    // Thanks Niklaus 
+    // Thanks Niklaus
     // https://gist.github.com/nikbucher/9687112
     base = 1024L
     decimals = 3
@@ -1285,7 +1285,7 @@ def full_help() {
         --use_ena               Download FASTQs from ENA with Aspera Connect.
                                     Default: Download from SRA
 
-        --ftp_only              If "--use_ena" is enabled, FTP will be used to 
+        --ftp_only              If "--use_ena" is enabled, FTP will be used to
                                     download FASTQs from ENA.
 
         --aspera_speed STR      Speed at which Aspera Connect will download.

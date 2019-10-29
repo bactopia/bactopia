@@ -4,6 +4,21 @@
 PROGRAM = "select-references"
 VERSION = "1.2.2"
 
+def check_assembly_version(accession):
+    from Bio import Entrez
+    import time
+    Entrez.email = "robert.petit@emory.edu"
+    Entrez.tool = "BactopiaSelectReferences"
+
+    handle = Entrez.esearch(db="assembly", term=accession.split(".")[0], retmax="50")
+    record = Entrez.read(handle)
+    handle = Entrez.esummary(db="assembly", id=sorted(record["IdList"], reverse=True, key=int)[0])
+    record = Entrez.read(handle)
+    time.sleep(1)
+
+    return record['DocumentSummarySet']["DocumentSummary"][0]["AssemblyAccession"]
+
+
 if __name__ == '__main__':
     import argparse as ap
     from collections import defaultdict
@@ -47,16 +62,20 @@ if __name__ == '__main__':
             reference, distance = line.rstrip().split('\t')
             mash_distances[distance].append(reference)
 
-    count = 0
+    remaining = args.total
     for distance, references in sorted(mash_distances.items()):
-        count += 1
-        if len(references) > 1:
-            if args.random_tie_break:
-                print(f'{random.choice(references)}')
-            else:
-                print(f'{sorted(references)[0]}')
+        if args.random_tie_break:
+            random.shuffle(references)
         else:
-            print(references[0])
+            references = sorted(references)
 
-        if count == args.total:
+        for reference in references:
+            current_accession = check_assembly_version(reference)
+            difference = False if reference == current_accession else True
+            print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
+            remaining -= 1
+            if not remaining:
+                break
+
+        if not remaining:
             break

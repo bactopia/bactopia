@@ -14,7 +14,7 @@ Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow, allow
 as simple as possible for *all* users.
 
 # Documentation
-Documentation for Bactopia is available at https://bactopia.github.io/bactopia/. The documentation includes much of the information here, but also a tutorial replicating [Staphopia](https://staphopia.emory.edu) and a complete overview of the usage.
+Documentation for Bactopia is available at https://bactopia.github.io/. The documentation includes much of the information here, but also a tutorial replicating [Staphopia](https://staphopia.emory.edu) and a complete overview of the usage.
 
 # Quick Start
 ```

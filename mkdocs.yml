@@ -10,25 +10,29 @@ google_analytics: ['UA-104199698-2', 'bactopia.github.io']
 dev_addr: 0.0.0.0:8000
 
 nav:
-    - 'Introduction': 'index.md'
-    - 'Quick Start': 'quick-start.md'
-    - 'Installation': 'installation.md'
-    - 'Tutorial': 'tutorial.md'
-    - 'Build Datasets': 'datasets.md'
-    - 'Basic Usage': 'usage-basic.md'
-    - 'Workflow Overview': 'workflow-overview.md'
-    - 'Output Overview': 'output-overview.md'
-    - 'Complete Usage': 'usage-complete.md'
-    - 'Troubleshooting': 'troubleshooting.md'
-#    - 'Examples': 'examples.md'
-#    - 'FAQ': 'faq.md'
-    - 'Acknowledgements': 'acknowledgements.md'
+    - 'Bactopia':
+      - 'Introduction': 'index.md'
+      - 'Quick Start': 'quick-start.md'
+      - 'Installation': 'installation.md'
+      - 'Tutorial': 'tutorial.md'
+      - 'Build Datasets': 'datasets.md'
+      - 'Basic Usage': 'usage-basic.md'
+      - 'Workflow Overview': 'workflow-overview.md'
+      - 'Output Overview': 'output-overview.md'
+      - 'Complete Usage': 'usage-complete.md'
+      - 'Troubleshooting': 'troubleshooting.md'
+      - 'Acknowledgements': 'acknowledgements.md'
+    - 'Bactopia Tools':
+      - 'Introduction': tools/bactopia-tools.md
+      - 'Core-Genome Phylogeny': tools/cgtree.md
 
 theme:
     name: 'material'
     font:
       text: 'Ubuntu'
       code: 'Ubuntu Mono'
+    feature:
+      tabs: true
 
 markdown_extensions:
   - pymdownx.arithmatex

@@ -6,13 +6,17 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch mash-dist.txt
 else
     # Get Mash distance
-    mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 2,2 > mash-dist.txt
+    mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 2,2 > distances.txt
 
     # Pick genomes to download
-    select-references.py mash-dist.txt !{total} !{tie_break} > accession-list.txt
+    printf "accession\tdistance\tlatest_accession\tupdated\n" > mash-dist.txt
+    select-references.py distances.txt !{total} !{tie_break} >> mash-dist.txt
+
+    # Pick only latest accessions
+    grep -v distance mash-dist.txt | cut -f3 > download-list.txt
 
     # Download genomes
-    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A accession-list.txt -r 50
+    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50
 
     # Split Genbank files containing plasmids
     mkdir -p refseq/split
