@@ -23,7 +23,7 @@ conda create -y -n bactopia-call_variants -c conda-forge -c bioconda snippy vcf-
 conda create -y -n bactopia-count_31mers -c conda-forge -c bioconda mccortex
 
 # download_references.yml
-conda create -y -n bactopia-download_references -c conda-forge -c bioconda ncbi-genome-download mash biopython
+conda create -y -n bactopia-download_references -c conda-forge -c bioconda ncbi-genome-download mash biopython python>3.6
 
 # insertion_sequences.yml
 conda create -y -n bactopia-insertion_sequences -c rpetit3 -c conda-forge -c bioconda ismapper=2.0.a
