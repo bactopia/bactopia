@@ -5,6 +5,11 @@
 ### `Added`
 - bactopia tools framework
 - cgtree tool (pangenome, core genome phylogeny)
+- select-references checks if assembly accession version (biopython/entrez)
+
+### `Fixed`
+- `--random_tie_break` always true
+- not using latest assembly accession for ncbi-genome-download
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 

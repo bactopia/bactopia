@@ -10,13 +10,19 @@ def check_assembly_version(accession):
     Entrez.email = "robert.petit@emory.edu"
     Entrez.tool = "BactopiaSelectReferences"
 
-    handle = Entrez.esearch(db="assembly", term=accession.split(".")[0], retmax="50")
+    handle = Entrez.esearch(db="assembly", term=accession.split(".")[0], retmax="500")
     record = Entrez.read(handle)
-    handle = Entrez.esummary(db="assembly", id=sorted(record["IdList"], reverse=True, key=int)[0])
-    record = Entrez.read(handle)
-    time.sleep(1)
+    time.sleep(1) # Be kind to NCBI
 
-    return record['DocumentSummarySet']["DocumentSummary"][0]["AssemblyAccession"]
+    handle = Entrez.esummary(db="assembly", id=",".join(record["IdList"]))
+    record = Entrez.read(handle)
+    time.sleep(1) # Be kind to NCBI
+
+    records = []
+    for assembly in record['DocumentSummarySet']["DocumentSummary"]:
+        records.append(assembly["AssemblyAccession"])
+
+    return sorted(records, reverse=True)[0]
 
 
 if __name__ == '__main__':
@@ -70,12 +76,13 @@ if __name__ == '__main__':
             references = sorted(references)
 
         for reference in references:
-            current_accession = check_assembly_version(reference)
-            difference = False if reference == current_accession else True
-            print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
-            remaining -= 1
-            if not remaining:
-                break
+            if reference:
+                current_accession = check_assembly_version(reference)
+                difference = False if reference == current_accession else True
+                print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
+                remaining -= 1
+                if not remaining:
+                    break
 
         if not remaining:
             break

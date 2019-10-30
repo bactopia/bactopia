@@ -6,7 +6,7 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch mash-dist.txt
 else
     # Get Mash distance
-    mash dist -t !{sample_sketch} !{refseq_sketch} | sort -k 2,2 > distances.txt
+    mash dist -t !{sample_sketch} !{refseq_sketch} | grep -v "query" | sort -k 2,2 > distances.txt
 
     # Pick genomes to download
     printf "accession\tdistance\tlatest_accession\tupdated\n" > mash-dist.txt
