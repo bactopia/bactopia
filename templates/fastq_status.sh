@@ -7,18 +7,20 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch fastqs/!{sample}.fastq.gz
 else
     ERROR=0
-    SEQUENCED_BP=`zcat *.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:([0-9]+),/\1/'`
-    TOTAL_READS=`zcat *.gz | fastq-scan | grep "read_total" | sed -r 's/.*:([0-9]+),/\1/'`
+    zcat *.gz | fastq-scan > info.txt
+    SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
+    TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
+    rm info.txt
 
     # Check paired-end reads have same read counts
     if [ "!{single_end}" == "false" ]; then
-        R1_COUNT=`zcat !{fq[0]} | wc -l`
-        R2_COUNT=`zcat !{fq[1]} | wc -l`
-        if [ "${R1_COUNT}" != "${R2_COUNT}" ]; then
+        if ! reformat.sh in1=!{fq[0]} in2=!{fq[1]} out=/dev/null 2> paired-end-error.txt; then
             ERROR=1
-            echo "!{sample} FASTQs contain different read counts. Please check the input FASTQs.
+            echo "!{sample} FASTQs contains an error. Please check the input FASTQs.
                   Further analysis is discontinued." | \
-            sed 's/^\s*//' > different-read-counts-error.txt
+            sed 's/^\s*//' >> paired-end-error.txt
+        else
+            rm -f paired-end-error.txt
         fi
     fi
 
@@ -37,7 +39,7 @@ else
         sed 's/^\s*//' > low-read-count-error.txt
     fi
 
-    if [ "${ERROR}" == "0" ]; then
+    if [ "${ERROR}" -eq "0" ]; then
         mkdir -p fastqs
         if [ "!{single_end}" == "false" ]; then
             # Paired-End Reads
