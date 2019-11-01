@@ -29,7 +29,7 @@ conda create -y -n bactopia-download_references -c conda-forge -c bioconda ncbi-
 conda create -y -n bactopia-insertion_sequences -c rpetit3 -c conda-forge -c bioconda ismapper=2.0.a
 
 # gather_fastqs.yml
-conda create -y -n bactopia-gather_fastqs -c rpetit3 -c conda-forge -c bioconda aspera-connect ena-dl
+conda create -y -n bactopia-gather_fastqs -c rpetit3 -c conda-forge -c bioconda aspera-connect fastq-dl
 
 # minmers.yml
 conda create -y -n bactopia-minmers -c conda-forge -c bioconda mash sourmash

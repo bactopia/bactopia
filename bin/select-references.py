@@ -7,6 +7,7 @@ VERSION = "1.2.2"
 def check_assembly_version(accession):
     from Bio import Entrez
     import time
+    import json
     Entrez.email = "robert.petit@emory.edu"
     Entrez.tool = "BactopiaSelectReferences"
 
@@ -19,10 +20,20 @@ def check_assembly_version(accession):
     time.sleep(1) # Be kind to NCBI
 
     records = []
+    excluded = set()
     for assembly in record['DocumentSummarySet']["DocumentSummary"]:
-        records.append(assembly["AssemblyAccession"])
+        if assembly["ExclFromRefSeq"]:
+            # PGAP can cause some Assemblies to eventually become excluded from RefSeq
+            # https://www.ncbi.nlm.nih.gov/assembly/help/anomnotrefseq/
+            for reason in assembly["ExclFromRefSeq"]:
+                excluded.add(reason)
+        else:
+            records.append(assembly["AssemblyAccession"])
 
-    return sorted(records, reverse=True)[0]
+    if excluded:
+        return [','.join(list(excluded)), True]
+    else:
+        return [sorted(records, reverse=True)[0], False]
 
 
 if __name__ == '__main__':
@@ -77,12 +88,18 @@ if __name__ == '__main__':
 
         for reference in references:
             if reference:
-                current_accession = check_assembly_version(reference)
-                difference = False if reference == current_accession else True
-                print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
-                remaining -= 1
-                if not remaining:
-                    break
+                current_accession, excluded = check_assembly_version(reference)
+                if excluded:
+                    print(
+                        f'Skipping {reference}, it no longer in RefSeq. Reason: {current_accession}',
+                        file=sys.stderr
+                    )
+                else:
+                    difference = False if reference == current_accession else True
+                    print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
+                    remaining -= 1
+                    if not remaining:
+                        break
 
         if not remaining:
             break
