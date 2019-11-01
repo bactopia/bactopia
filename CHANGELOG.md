@@ -5,11 +5,15 @@
 ### `Added`
 - bactopia tools framework
 - cgtree tool (pangenome, core genome phylogeny)
-- select-references checks if assembly accession version (biopython/entrez)
+- select-references selects latest assembly accession version (biopython/entrez)
+- select-references skips assemblys that have been excluded from refseq
+- test to for paired-end related errors (e.g. different read counts)
 
 ### `Fixed`
 - `--random_tie_break` always true
 - not using latest assembly accession for ncbi-genome-download
+- usage of assemblies that have been excluded from RefSeq
+- allowing PE reads with different read counts to be processed (hint... they fail pretty quickly)
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
