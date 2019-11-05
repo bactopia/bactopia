@@ -14,13 +14,13 @@ else
 
     # Check paired-end reads have same read counts
     if [ "!{single_end}" == "false" ]; then
-        if ! reformat.sh in1=!{fq[0]} in2=!{fq[1]} out=/dev/null 2> paired-end-error.txt; then
+        if ! reformat.sh in1=!{fq[0]} in2=!{fq[1]} out=/dev/null 2> !{sample}-paired-end-error.txt; then
             ERROR=1
             echo "!{sample} FASTQs contains an error. Please check the input FASTQs.
                   Further analysis is discontinued." | \
-            sed 's/^\s*//' >> paired-end-error.txt
+            sed 's/^\s*//' >> !{sample}-paired-end-error.txt
         else
-            rm -f paired-end-error.txt
+            rm -f !{sample}-paired-end-error.txt
         fi
     fi
 
@@ -29,14 +29,15 @@ else
         echo "!{sample} FASTQ(s) contain ${SEQUENCED_BP} total basepairs. This does not
               exceed the required minimum !{params.min_basepairs} bp. Further analysis is
               discontinued." | \
-        sed 's/^\s*//' > low-sequence-depth-error.txt
+        sed 's/^\s*//' > !{sample}-low-sequence-depth-error.txt
     fi
 
     if [ ${TOTAL_READS} -lt "!{params.min_reads}" ]; then
-        echo "!{sample} FASTQ(s) contain ${TOTOAL_READS} total basepairs. This does not
+        ERROR=1
+        echo "!{sample} FASTQ(s) contain ${TOTAL_READS} total reads. This does not
               exceed the required minimum !{params.min_reads} read count. Further analysis is
               discontinued." | \
-        sed 's/^\s*//' > low-read-count-error.txt
+        sed 's/^\s*//' > !{sample}-low-read-count-error.txt
     fi
 
     if [ "${ERROR}" -eq "0" ]; then

@@ -77,7 +77,7 @@ process estimate_genome_size {
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
-    file "max-genome-size-depth-error.txt" optional true
+    file "${sample}-genome-size-error.txt" optional true
     file("${sample}-genome-size.txt") optional true
     set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
 
