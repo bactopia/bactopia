@@ -16,12 +16,55 @@ is_compressed = check_gffs_exist(params.bactopia, params.sleep_time)
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
 
+process download_references {
+
+    input:
+    file(gff) from create_gff_channel(params.bactopia, true).collect()
+    val(is_compressed) from is_compressed
+
+    output:
+    file 'roary/*'
+    file '*.fna' into ANNOTATE
+
+    when:
+    species != null
+
+    shell:
+    """
+    ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                  --genus "!{params.species}" -r 50
+    mkdir references
+    find -name "*.fna.gz" | xargs -I {} mv {} references
+    rename 's/(GCF_\d+).*/$1.fna.gz/' fastas/*
+    gunzip fastas/*
+    """
+
+}
+
+process annotate_references {
+    input:
+    file fasta from ANNOTATE
+
+    output:
+    file '*.gff' into REFERENCE_GFF
+
+    shell:
+    """
+    prokka !{fasta} --cpus !{task.cpus} \
+        --evalue '!{params.prokka_evalue}' \
+        --coverage !{params.prokka_coverage}
+    """
+
+}
+
 process build_pangenome {
     cpus !{params.cpus}
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "roary/*"
 
     input:
-    file(gff) from create_gff_channel(params.bactopia, true).collect()
+    file(sample_gff) from create_gff_channel(params.bactopia, true).collect()
+    file(reference_gff) from REFERENCE_GFF.collect()
+    file(exclude) from params.exclude
     val(is_compressed) from is_compressed
 
     output:
@@ -33,8 +76,11 @@ process build_pangenome {
     s = params.s ? "-s" : ""
     ap = params.ap ? "-ap" : ""
     gunzip = is_compressed ? "gunzip -f *.gff.gz" : "echo uncompressed"
+    filter = exclude.name != 'NO_FILE' ? "${exclude.name}" : '/dev/null'
     """
     !{gunzip}
+    mkdir excluded_gff
+    ls *.gff | grep -f !{filter} | xargs -I {} mv {} excluded_gff
     roary -f roary -e !{n} -v -p !{task.cpus} !{s} !{ap} -g !{params.g} \
           -i !{params.i} -cd !{params.cd} -iv !{params.iv} -r *.gff
     cp roary/core_gene_alignment.aln alignment.fa
@@ -53,6 +99,9 @@ process identify_recombination {
     file 'clonalframe/*' optional true
     file "${params.prefix}.aligned.fa.gz"
     file 'alignment-masked.fa' into FINAL_TREE, SNP_DISTS
+
+    when:
+    params.skip_phylogeny == false
 
     shell:
     if (params.skip_clonalframe)
@@ -207,12 +256,13 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
-    error += is_positive_integer(params.i, 'snippy_ram')
-    error += is_positive_integer(params.cd, 'cortex_ram')
-    error += is_positive_integer(params.g, 'qc_ram')
-    error += is_positive_integer(params.emsim, 'minmer_ram')
-    error += is_positive_integer(params.bb, 'snippy_ram')
-    error += is_positive_integer(params.alrt, 'cortex_ram')
+    error += is_positive_integer(params.i, 'i')
+    error += is_positive_integer(params.cd, 'cd')
+    error += is_positive_integer(params.g, 'g')
+    error += is_positive_integer(params.emsim, 'emsim')
+    error += is_positive_integer(params.bb, 'bb')
+    error += is_positive_integer(params.alrt, 'alrt')
+    error += is_positive_integer(params.prokka_coverage, 'prokka_coverage')
 
     if (error > 0) {
         log.error('Cannot continue, please see --help for more information')
@@ -279,6 +329,9 @@ def print_help() {
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
     Optional Parameters:
+        --exclude STR           A text file containing sample names to exclude from the
+                                    pangenome. The expected format is a single sample per line.
+
         --prefix DIR            Prefix to use for final output files
                                     Default: ${params.prefix}
 
@@ -294,6 +347,17 @@ def print_help() {
         --cpus INT              Number of processors made available to a single
                                     process.
                                     Default: ${params.cpus}
+
+    RefSeq Assemblies Related Parameters:
+        --species STR           The name of the species to download RefSeq assemblies for. This
+                                    is a completely optional step and is meant to supplement
+                                    your dataset with high-quality completed genomes.
+
+        --prokka_evalue STR     Similarity e-value cut-off
+                                    Default: ${params.prokka_evalue}
+
+        --prokka_coverage INT   Minimum coverage on query protein
+                                     Default: ${params.prokka_coverage}
 
     Roary Related Parameters:
         --o STR                 Clusters output filename
@@ -321,6 +385,8 @@ def print_help() {
                                     Default: ${params.iv}
 
     IQ-TREE Related Parameters:
+        --skip_phylogeny        Skip the creation a core-genome based phylogeny
+
         --m STR                 Substitution model name
                                     Default: ${params.m}
 
@@ -339,7 +405,6 @@ def print_help() {
     ClonalFrameML Related Parameters:
         --skip_clonalframe      Skip the ClonalFrameML and use the original core-genome
                                     alignment for the final tree.
-                                    Default: ${params.skip_clonalframe}
 
         --emsim INT             Number of simulations to estimate uncertainty in the EM results.
                                     Default: ${params.emsim}

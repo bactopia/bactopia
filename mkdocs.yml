@@ -24,7 +24,9 @@ nav:
       - 'Acknowledgements': 'acknowledgements.md'
     - 'Bactopia Tools':
       - 'Introduction': tools/bactopia-tools.md
-      - 'Core-Genome Phylogeny': tools/cgtree.md
+      - 'ani': tools/ani.md
+      - 'pangenome': tools/pangenome.md
+      - 'summary': tools/summary.md
 
 theme:
     name: 'material'

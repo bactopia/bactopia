@@ -13,14 +13,14 @@ optional arguments:
   --version   show program's version number and exit
 
 Available Tools:
-  cgtree      Produce pan-genome and core-genome phylogeny for a set of samples.
+  pangenome      Create a pan-genome with optional core-genome phylogeny.
 """
 import sys
 VERSION = "1.2.2"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of compartive analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
-    'cgtree': 'Produce pan-genome and core-genome phylogeny for a set of samples.'
+    'pangenome': 'Create a pan-genome with optional core-genome phylogeny.'
 }
 
 

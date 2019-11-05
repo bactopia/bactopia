@@ -9,7 +9,7 @@ if [[ $# == 0 ]]; then
     echo "create-tool.sh BACTOPIA_DIR TOOL_NAME TOOL_DESCRIPTION"
     echo ""
     echo "Example Command"
-    echo "create-tool.sh /home/bactopia/bactopia cgtree 'Produce pan-genome and core-genome phylogeny for a set of samples.' "
+    echo "create-tool.sh /home/bactopia/bactopia pangenome 'Create a pan-genome with optional core-genome phylogeny.' "
     echo ""
     exit
 fi

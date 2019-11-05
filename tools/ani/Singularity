@@ -3,15 +3,15 @@ From: nfcore/base
 
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-    DESCRIPTION Singularity image for Bactopia Tool cgtree
+    DESCRIPTION Singularity image for Bactopia Tool ani
     VERSION 1.2.2
 
 %environment
-    PATH=/opt/conda/envs/cgtree/bin:$PATH
+    PATH=/opt/conda/envs/ani/bin:$PATH
     export PATH
 
 %files
-    environment.yml /
+    ./environment.yml /
 
 %post
     /opt/conda/bin/conda env create -f /environment.yml

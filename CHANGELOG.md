@@ -4,7 +4,10 @@
 
 ### `Added`
 - bactopia tools framework
-- cgtree tool (pangenome, core genome phylogeny)
+    - docs for each tool
+    - `ani` - pairwise average nucleotide identity
+    - `pangenome` - pangenome and core genome phylogeny
+    - `summary` - summary of results
 - select-references selects latest assembly accession version (biopython/entrez)
 - select-references skips assemblys that have been excluded from refseq
 - test to for paired-end related errors (e.g. different read counts)
