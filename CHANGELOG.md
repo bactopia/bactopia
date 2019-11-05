@@ -9,6 +9,7 @@
 - select-references skips assemblys that have been excluded from refseq
 - test to for paired-end related errors (e.g. different read counts)
 - `--min_genome_size` parameter for estimated genome sizes
+- `update-version.sh` improvements
 
 ### `Fixed`
 - `--random_tie_break` always true

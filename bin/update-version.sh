@@ -2,6 +2,22 @@
 # Updates the version numbers across the Bactopia project.
 # If no user input, print usage
 
+function generic_update {
+    ${1} -r 's/'"${2}"'/'"${3}"'/' ${4}
+}
+
+function python_update {
+    ${1} -r 's/VERSION = "'"${2}"'"/VERSION = "'"${3}"'"/' ${4}
+}
+
+function yaml_update {
+    ${1} -r 's=version: '"${2}"'$=version: '"${3}"'=' ${4}
+}
+
+function shell_update {
+    ${1} 's/VERSION='"${2}"'/VERSION='"${3}"'/' ${4}
+}
+
 if [[ $# == 0 ]]; then
     echo ""
     echo "update-version.sh BACTOPIA_DIRECTORY OLD_VERSION NEW_VERSION"
@@ -35,35 +51,24 @@ fi
 if [ $? -eq 0 ]; then
     # It is! Now update versions
     # Conda Files
-    for file in $(ls ${DIRECTORY}/conda/*.yml); do
-        ${SED_CMD} -r 's=version: '"${OLD_VERSION}"'$=version: '"${NEW_VERSION}"'=' ${file}
+    for file in $(find -name "*.yml" -not -name "mkdocs.yml"); do
+        yaml_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
-    ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/conda/README.md
 
     # Python Scripts
-    for file in $(ls ${DIRECTORY}/bin/*.py); do
-        ${SED_CMD} -r 's/VERSION = "'"${OLD_VERSION}"'"/VERSION = "'"${NEW_VERSION}"'"/' ${file}
+    for file in $(find -name "*.py"); do
+        python_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
 
-    for file in $(ls ${DIRECTORY}/bin/helpers/*.py); do
-        ${SED_CMD} -r 's/VERSION = "'"${OLD_VERSION}"'"/VERSION = "'"${NEW_VERSION}"'"/' ${file}
-    done
-
-    # Docker/Singularity
-    ${SED_CMD} -r 's/'"${OLD_VERSION}"'/'"${NEW_VERSION}"'/' ${DIRECTORY}/Dockerfile
-    ${SED_CMD} -r 's/'"${OLD_VERSION}"'/'"${NEW_VERSION}"'/' ${DIRECTORY}/Singularity
-
-    for file in $(ls ${DIRECTORY}/containers/docker/*.Dockerfile); do
-        ${SED_CMD} -r 's/version="'"${OLD_VERSION}"'"/version="'"${NEW_VERSION}"'"/' ${file}
-    done
-    for file in $(ls ${DIRECTORY}/containers/singularity/*.Singularity); do
-        ${SED_CMD} -r 's/VERSION '"${OLD_VERSION}"'/VERSION '"${NEW_VERSION}"'/' ${file}
+    # Docker/Singularity/Nextflow Configs
+    for file in $(find -name "*Dockerfile" -or -name "*Singularity" -or -name "nextflow.config"); do
+        generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
 
     # Bactopia/Nextflow
-    ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bactopia
-    ${SED_CMD} 's/VERSION='"${OLD_VERSION}"'/VERSION='"${NEW_VERSION}"'/' ${DIRECTORY}/bin/build-containers.sh
-    ${SED_CMD} -r "s/version = '${OLD_VERSION}'/version = '${NEW_VERSION}'/" ${DIRECTORY}/nextflow.config
+    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bactopia
+    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bin/build-containers.sh
+    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/conda/README.md
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"
     echo "Please verify '${DIRECTORY}' points to the bactopia repo."
