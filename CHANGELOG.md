@@ -22,6 +22,7 @@
 - usage of assemblies that have been excluded from RefSeq
 - allowing PE reads with different read counts to be processed (hint... they fail pretty quickly)
 - failure to stop analysis of sample with low read counts
+- coverage reported as 'inf'
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
