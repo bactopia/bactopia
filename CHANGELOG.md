@@ -1,25 +1,27 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.0 bactopia/bactopia "" - 2019/10/??
+## v1.3.0 bactopia/bactopia "" - 2019/12/??
 
 ### `Added`
 - bactopia tools framework
     - docs for each tool
     - `ani` - pairwise average nucleotide identity
-    - `pangenome` - pangenome and core genome phylogeny
+    - `pangenome` - pan-genome and core genome phylogeny
     - `summary` - summary of results
-- select-references selects latest assembly accession version (biopython/entrez)
-- select-references skips assemblys that have been excluded from refseq
+- select-references selects latest assembly accession version (BioPython/Entrez)
+- select-references skips assemblies that have been excluded from RefSeq
 - test to for paired-end related errors (e.g. different read counts)
-- `--min_genome_size` parameter for estimated genome sizes
+- `--min_genome_size` and `--max_genome_size` parameter for estimated genome sizes
+    - Check is also made after assembly
 - `update-version.sh` improvements
+- Better genome size estimates using Mash for high and low coverage sequences
 
 ### `Fixed`
 - `--random_tie_break` always true
 - not using latest assembly accession for ncbi-genome-download
 - usage of assemblies that have been excluded from RefSeq
 - allowing PE reads with different read counts to be processed (hint... they fail pretty quickly)
-- failure to stop analysis of sampel with low read counts
+- failure to stop analysis of sample with low read counts
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 

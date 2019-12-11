@@ -150,19 +150,16 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "*.fna*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "shovill*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "flash*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
 
     output:
-    file "shovill*"
-    file "flash*" optional true
-    file "${sample}.{fna,fna.gz}" optional true into SEQUENCE_TYPE_ASSEMBLY
-    file "${sample}.fna.json" optional true
-    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}")  optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
+    file "assembly/*"
+    file "${sample}-assembly-error.txt" optional true
+    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -193,19 +190,19 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/${sample}*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
     file prokka_proteins from PROKKA_PROTEINS
 
     output:
-    file 'annotation/*'
-    set val(sample), file("annotation/*.{ffn,ffn.gz}") optional true into PLASMID_BLAST
-    set val(sample), val(single_end), file(fq), file('annotation/*.{gbk,gbk.gz}') optional true into INSERTION_SEQUENCES
+    file "annotation/${sample}*"
+    set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
+    set val(sample), val(single_end), file(fq), file("annotation/${sample}.{gbk,gbk.gz}") optional true into INSERTION_SEQUENCES
     set val(sample),
-        file("annotation/*.{ffn,ffn.gz}"),
-        file("annotation/*.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
+        file("annotation/${sample}.{ffn,ffn.gz}"),
+        file("annotation/${sample}.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -1291,6 +1288,17 @@ def full_help() {
         --aspera_speed STR      Speed at which Aspera Connect will download.
                                     Default: ${params.aspera_speed}
 
+    Estimate Genome Size Parameters:
+        Only applied if the genome size is estimated.
+
+        --min_genome_size INT   The minimum estimated genome size allowed for the input sequence
+                                to continue downstream analyses.
+                                Default: ${params.min_genome_size}
+
+        --max_genome_size INT   The maximum estimated genome size allowed for the input sequence
+                                to continue downstream analyses.
+                                Default: ${params.max_genome_size}
+
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB
                                     Default: ${params.qc_ram} GB
@@ -1660,5 +1668,6 @@ def full_help() {
         --amr_plus              Add the plus genes to the report
 
         --amr_report_common     Suppress proteins common to a taxonomy group
+        
     """
 }
