@@ -25,7 +25,7 @@ Ariba Reference Datasets:
                     references in a text file. (Default: card,vfdb_core)
 
 Bacterial Species:
-  --species STR     Download available (cg)MLST schemas and completed genomes
+  --species STR     Download available MLST schemas and completed genomes
                     for a given species or a list of species in a text file.
 
 Custom Prokka Protein FASTA & Minmer Sketch of Completed Genomes:
@@ -54,7 +54,7 @@ Helpful Options:
   --force_minmer    Forcibly overwrite existing minmer datasets.
   --force_plsdb     Forcibly overwrite existing PLSDB datasets.
   --keep_files      Keep all downloaded and intermediate files.
-  --list_datasets   List Ariba reference datasets and (cg)MLST schemas
+  --list_datasets   List Ariba reference datasets and MLST schemas
                     available for setup.
   --depends         Verify dependencies are installed.
 
@@ -115,7 +115,7 @@ def check_cache(clear_cache=False):
 def get_available_datasets(clear_cache):
     """Get a list of available datasets to be set up."""
     data = check_cache(clear_cache=clear_cache)
-    expected = ['ariba', 'cgmlst', 'pubmlst']
+    expected = ['ariba', 'pubmlst']
     if sum([k in data for k in expected]) != len(expected):
         logging.debug((f'Existing dataset cache ({CACHE_JSON}) is missing '
                        'expected fields, refreshing.'))
@@ -128,7 +128,7 @@ def get_available_datasets(clear_cache):
             logging.debug(f'Created dataset cache ({CACHE_JSON})')
             json.dump(data, cache_fh, indent=4, sort_keys=True)
 
-    return [data['ariba'], data['pubmlst'], data['cgmlst']]
+    return [data['ariba'], data['pubmlst']]
 
 
 def validate_requirements():
@@ -241,18 +241,14 @@ def ariba_datasets():
 
 
 def list_datasets(ariba, pubmlst, missing=False):
-    """Print available MLST and cgMLST schemas, and exit."""
+    """Print available Ariba references, MLST schemas, and exit."""
     print_to = sys.stderr if missing else sys.stdout
     print("Ariba reference datasets available:", file=print_to)
     print("\n".join(sorted(ariba)), file=print_to)
 
     print("\nMLST schemas available from pubMLST.org:", file=print_to)
     print("\n".join(sorted(pubmlst.keys())), file=print_to)
-    """
-    Disabled until MentaLiST conda install is fixed
-    print("\ncgMLST schemas available from cgMLST.org:", file=print_to)
-    print("\n".join(sorted(cgmlst.keys())), file=print_to)
-    """
+
     sys.exit(1 if missing else 0)
 
 
@@ -822,7 +818,7 @@ if __name__ == '__main__':
     group2 = parser.add_argument_group('Bacterial Species')
     group2.add_argument(
         '--species', metavar="STR", type=str,
-        help=('Download available (cg)MLST schemas and completed genomes for '
+        help=('Download available MLST schemas and completed genomes for '
               'a given species or a list of species in a text file.')
     )
 
@@ -892,7 +888,7 @@ if __name__ == '__main__':
     )
     group6.add_argument(
         '--list_datasets', action='store_true',
-        help=('List Ariba reference datasets and (cg)MLST schemas '
+        help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
     group6.add_argument('--depends', action='store_true',
@@ -925,9 +921,9 @@ if __name__ == '__main__':
     if args.species:
         validate_species(args.species)
 
-    ARIBA, PUBMLST, CGMLST = get_available_datasets(args.clear_cache)
+    ARIBA, PUBMLST = get_available_datasets(args.clear_cache)
     if args.list_datasets:
-        list_datasets(ARIBA, PUBMLST, CGMLST)
+        list_datasets(ARIBA, PUBMLST)
 
     if args.ariba:
         logging.info('Setting up Ariba datasets')
