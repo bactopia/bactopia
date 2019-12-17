@@ -15,6 +15,7 @@
     - Check is also made after assembly
 - `update-version.sh` improvements
 - Better genome size estimates using Mash for high and low coverage sequences
+- Script to update conda environments
 
 ### `Fixed`
 - `--random_tie_break` always true

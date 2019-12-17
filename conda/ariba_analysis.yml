@@ -1,92 +1,98 @@
 name: bactopia-ariba_analysis
-version: 1.2.2
+version: 1.3.0
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
-  - ariba=2.14.3=py36he1b5a44_1
-  - bcftools=1.9=h68d8f2e_7
-  - beautifulsoup4=4.8.0=py36_0
+  - ariba=2.14.4=py36he1b5a44_0
+  - bcftools=1.10.1=hd2cd319_0
+  - beautifulsoup4=4.8.1=py36_0
   - biopython=1.74=py36h516909a_0
   - bowtie2=2.3.5=py36he860b03_0
-  - bzip2=1.0.8=h516909a_1
-  - ca-certificates=2019.9.11=hecc5488_0
-  - cd-hit=4.8.1=hdbcaa40_2
-  - certifi=2019.9.11=py36_0
+  - bzip2=1.0.8=h516909a_2
+  - ca-certificates=2019.11.28=hecc5488_0
+  - cd-hit=4.8.1=h8b12597_3
+  - certifi=2019.11.28=py36_0
   - curl=7.65.3=hf8cf82a_0
-  - cycler=0.10.0=py_1
+  - cycler=0.10.0=py_2
   - dbus=1.13.6=he372182_0
   - dendropy=4.4.0=py_1
-  - expat=2.2.5=he1b5a44_1003
+  - expat=2.2.5=he1b5a44_1004
   - fontconfig=2.13.1=h86ecdb6_1001
   - freetype=2.10.0=he983fc9_1
   - gettext=0.19.8.1=hc5be6a0_1002
-  - glib=2.58.3=h6f030ca_1002
+  - glib=2.58.3=py36h6f030ca_1002
   - gsl=2.5=h294904e_1
   - gst-plugins-base=1.14.5=h0935bb2_0
   - gstreamer=1.14.5=h36ae1b5_0
-  - htslib=1.9=ha228f0b_7
+  - htslib=1.10.1=h78d89cc_0
   - icu=64.2=he1b5a44_1
   - jpeg=9c=h14c3975_1001
   - kiwisolver=1.1.0=py36hc9558a2_0
-  - krb5=1.16.3=h05b26f9_1001
-  - libblas=3.8.0=12_openblas
-  - libcblas=3.8.0=12_openblas
+  - krb5=1.16.4=h2fd8d38_0
+  - libblas=3.8.0=14_openblas
+  - libcblas=3.8.0=14_openblas
+  - libclang=9.0.0=default_hde54327_4
   - libcurl=7.65.3=hda55be3_0
-  - libdeflate=1.0=h14c3975_1
+  - libdeflate=1.3=h516909a_0
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=he1b5a44_1006
-  - libgcc-ng=9.1.0=hdf63c60_0
-  - libgfortran-ng=7.3.0=hdf63c60_0
+  - libgcc-ng=9.2.0=hdf63c60_0
+  - libgfortran-ng=7.3.0=hdf63c60_2
   - libiconv=1.15=h516909a_1005
-  - libidn2=2.1.1=h14c3975_0
-  - liblapack=3.8.0=12_openblas
-  - libopenblas=0.3.7=h6e990d7_1
+  - libidn2=2.3.0=h516909a_0
+  - liblapack=3.8.0=14_openblas
+  - libllvm9=9.0.0=hc9558a2_3
+  - libopenblas=0.3.7=h5ec1e0e_5
   - libpng=1.6.37=hed695b0_0
   - libssh2=1.8.2=h22169c7_2
-  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.2.0=hdf63c60_0
   - libunistring=0.9.10=h14c3975_0
   - libuuid=2.32.1=h14c3975_1000
   - libxcb=1.13=h14c3975_1002
-  - libxml2=2.9.9=hee79883_5
+  - libxkbcommon=0.9.1=hebb1f50_0
+  - libxml2=2.9.10=hee79883_0
   - llvm-openmp=8.0.1=hc9558a2_0
-  - matplotlib=3.1.1=py36_1
-  - matplotlib-base=3.1.1=py36he7580a8_1
-  - mummer=3.23=pl526_8
+  - matplotlib=3.1.2=py36_1
+  - matplotlib-base=3.1.2=py36h250f245_1
+  - mummer=3.23=pl526he1b5a44_10
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.17.2=py36h95a1406_0
+  - nspr=4.24=he1b5a44_0
+  - nss=3.47=he751ad9_0
+  - numpy=1.17.3=py36h95a1406_0
   - openmp=8.0.1=0
-  - openssl=1.1.1c=h516909a_0
-  - pcre=8.41=hf484d3e_1003
+  - openssl=1.1.1d=h516909a_0
+  - pcre=8.43=he1b5a44_0
   - perl=5.26.2=h516909a_1006
-  - pip=19.2.3=py36_0
+  - pip=19.3.1=py36_0
   - pthread-stubs=0.4=h14c3975_1001
   - pyfastaq=3.17.0=py_2
-  - pymummer=0.10.3=py36_1
-  - pyparsing=2.4.2=py_0
-  - pyqt=5.9.2=py36hcca6a23_4
-  - pysam=0.15.3=py36hda2845c_1
-  - python=3.6.7=h357f687_1005
-  - python-dateutil=2.8.0=py_0
-  - qt=5.9.7=h0c104cb_3
+  - pymummer=0.10.3=py_2
+  - pyparsing=2.4.5=py_0
+  - pyqt=5.12.3=py36hcca6a23_1
+  - pysam=0.15.3=py36hbcae180_3
+  - python=3.6.7=h357f687_1006
+  - python-dateutil=2.8.1=py_0
+  - qt=5.12.5=hd8c4c69_1
   - readline=8.0=hf8c457e_0
-  - samtools=1.9=h10a08f8_12
-  - setuptools=41.2.0=py36_0
-  - sip=4.19.8=py36hf484d3e_1000
-  - six=1.12.0=py36_1000
-  - soupsieve=1.9.3=py36_0
-  - spades=3.13.1=h2d02072_2
-  - sqlite=3.29.0=hcee41ef_1
-  - tbb=2019.8=hc9558a2_0
-  - tk=8.6.9=hed695b0_1003
+  - samtools=1.10=h9402c20_1
+  - setuptools=42.0.2=py36_0
+  - six=1.13.0=py36_0
+  - soupsieve=1.9.4=py36_0
+  - spades=3.13.2=h2d02072_0
+  - sqlite=3.30.1=hcee41ef_0
+  - tbb=2019.9=hc9558a2_1
+  - tk=8.6.10=hed695b0_0
   - tornado=6.0.3=py36h516909a_0
-  - wget=1.20.1=h90d6eec_0
+  - wget=1.20.1=h22169c7_0
   - wheel=0.33.6=py36_0
   - xorg-libxau=1.0.9=h14c3975_0
   - xorg-libxdmcp=1.1.3=h516909a_0
   - xz=5.2.4=h14c3975_1001
   - zlib=1.2.11=h516909a_1006
-prefix: /home/rpetit/miniconda3/envs/ariba
+  - pip:
+    - pyqt5-sip==4.19.18
+    - pyqtwebengine==5.12.1
 
