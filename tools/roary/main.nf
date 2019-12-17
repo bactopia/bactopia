@@ -14,17 +14,17 @@ check_input_params()
 is_compressed = check_gffs_exist(params.bactopia, params.sleep_time)
 
 // Setup output directories
-outdir = params.outdir ? params.outdir : './'
+outdir = "${params.outdir}/bactopia-tool/roary"
 
 process download_references {
-
+    publishDir "${outdir}/refseq", mode: 'copy', overwrite: params.overwrite, pattern: "fasta/*.fna"
+    
     input:
     file(gff) from create_gff_channel(params.bactopia, true).collect()
     val(is_compressed) from is_compressed
 
     output:
-    file 'roary/*'
-    file '*.fna' into ANNOTATE
+    file 'fasta/*.fna' into ANNOTATE
 
     when:
     species != null
@@ -33,15 +33,17 @@ process download_references {
     """
     ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                   --genus "!{params.species}" -r 50
-    mkdir references
-    find -name "*.fna.gz" | xargs -I {} mv {} references
-    rename 's/(GCF_\d+).*/$1.fna.gz/' fastas/*
-    gunzip fastas/*
+    mkdir fasta
+    find -name "*.fna.gz" | xargs -I {} mv {} fasta/
+    rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
+    gunzip fasta/*
     """
 
 }
 
 process annotate_references {
+    publishDir "${outdir}/refseq/gff", mode: 'copy', overwrite: params.overwrite, pattern: "*.gff"
+
     input:
     file fasta from ANNOTATE
 
@@ -58,8 +60,8 @@ process annotate_references {
 }
 
 process build_pangenome {
-    cpus !{params.cpus}
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "roary/*"
+    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "excluded_gff/*"
 
     input:
     file(sample_gff) from create_gff_channel(params.bactopia, true).collect()
@@ -69,6 +71,7 @@ process build_pangenome {
 
     output:
     file 'roary/*'
+    file 'excluded_gff/*'
     file 'alignment.fa' into RECOMBINATION
 
     shell:
@@ -129,7 +132,6 @@ process identify_recombination {
 }
 
 process create_phylogeny {
-    cpus !{params.cpus}
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "iqtree/*"
     publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.iqtree"
 

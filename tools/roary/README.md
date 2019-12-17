@@ -1,6 +1,8 @@
-# `pangenome`
+# `roary`
 
-conda create -y -n bactopia-pangenome -c r -c conda-forge -c bioconda \
+```
+# Last updated Tue 17 Dec 2019 12:39:19 PM EST
+conda create -y -n bactopia-roary -c r -c conda-forge -c bioconda \
     clonalframeml \
     iqtree \
     maskrc-svg \
@@ -10,3 +12,4 @@ conda create -y -n bactopia-pangenome -c r -c conda-forge -c bioconda \
     r-ggplot2 \
     roary \
     snp-dists
+```
