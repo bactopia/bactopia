@@ -25,7 +25,7 @@ Ariba Reference Datasets:
                     references in a text file. (Default: card,vfdb_core)
 
 Bacterial Species:
-  --species STR     Download available (cg)MLST schemas and completed genomes
+  --species STR     Download available MLST schemas and completed genomes
                     for a given species or a list of species in a text file.
 
 Custom Prokka Protein FASTA & Minmer Sketch of Completed Genomes:
@@ -54,7 +54,7 @@ Helpful Options:
   --force_minmer    Forcibly overwrite existing minmer datasets.
   --force_plsdb     Forcibly overwrite existing PLSDB datasets.
   --keep_files      Keep all downloaded and intermediate files.
-  --list_datasets   List Ariba reference datasets and (cg)MLST schemas
+  --list_datasets   List Ariba reference datasets and MLST schemas
                     available for setup.
   --depends         Verify dependencies are installed.
 
@@ -818,7 +818,7 @@ if __name__ == '__main__':
     group2 = parser.add_argument_group('Bacterial Species')
     group2.add_argument(
         '--species', metavar="STR", type=str,
-        help=('Download available (cg)MLST schemas and completed genomes for '
+        help=('Download available MLST schemas and completed genomes for '
               'a given species or a list of species in a text file.')
     )
 
@@ -888,7 +888,7 @@ if __name__ == '__main__':
     )
     group6.add_argument(
         '--list_datasets', action='store_true',
-        help=('List Ariba reference datasets and (cg)MLST schemas '
+        help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
     group6.add_argument('--depends', action='store_true',
