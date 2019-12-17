@@ -115,7 +115,7 @@ def check_cache(clear_cache=False):
 def get_available_datasets(clear_cache):
     """Get a list of available datasets to be set up."""
     data = check_cache(clear_cache=clear_cache)
-    expected = ['ariba', 'cgmlst', 'pubmlst']
+    expected = ['ariba', 'pubmlst']
     if sum([k in data for k in expected]) != len(expected):
         logging.debug((f'Existing dataset cache ({CACHE_JSON}) is missing '
                        'expected fields, refreshing.'))
@@ -128,7 +128,7 @@ def get_available_datasets(clear_cache):
             logging.debug(f'Created dataset cache ({CACHE_JSON})')
             json.dump(data, cache_fh, indent=4, sort_keys=True)
 
-    return [data['ariba'], data['pubmlst'], data['cgmlst']]
+    return [data['ariba'], data['pubmlst']]
 
 
 def validate_requirements():
@@ -241,18 +241,14 @@ def ariba_datasets():
 
 
 def list_datasets(ariba, pubmlst, missing=False):
-    """Print available MLST and cgMLST schemas, and exit."""
+    """Print available Ariba references, MLST schemas, and exit."""
     print_to = sys.stderr if missing else sys.stdout
     print("Ariba reference datasets available:", file=print_to)
     print("\n".join(sorted(ariba)), file=print_to)
 
     print("\nMLST schemas available from pubMLST.org:", file=print_to)
     print("\n".join(sorted(pubmlst.keys())), file=print_to)
-    """
-    Disabled until MentaLiST conda install is fixed
-    print("\ncgMLST schemas available from cgMLST.org:", file=print_to)
-    print("\n".join(sorted(cgmlst.keys())), file=print_to)
-    """
+
     sys.exit(1 if missing else 0)
 
 
@@ -925,9 +921,9 @@ if __name__ == '__main__':
     if args.species:
         validate_species(args.species)
 
-    ARIBA, PUBMLST, CGMLST = get_available_datasets(args.clear_cache)
+    ARIBA, PUBMLST = get_available_datasets(args.clear_cache)
     if args.list_datasets:
-        list_datasets(ARIBA, PUBMLST, CGMLST)
+        list_datasets(ARIBA, PUBMLST)
 
     if args.ariba:
         logging.info('Setting up Ariba datasets')
