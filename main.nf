@@ -106,8 +106,9 @@ process qc_reads {
         file(genome_size) optional true into ASSEMBLY
 
     set val(sample), val(single_end),
-        file("{quality-control,failed-qc}/${sample}*.fastq.gz"),
+        file("quality-control/${sample}*.{fastq,error-fq}.gz"),
         file(genome_size) optional true into QC_FINAL_SUMMARY
+
     shell:
     adapters = params.adapters ? file(params.adapters) : 'adapters'
     phix = params.phix ? file(params.phix) : 'phix'
