@@ -113,7 +113,7 @@ process qc_reads {
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
@@ -131,7 +131,7 @@ process qc_original_summary {
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_FINAL_SUMMARY
@@ -150,7 +150,7 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "assembly/*"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
     input:
@@ -159,7 +159,7 @@ process assemble_genome {
     output:
     file "assembly/*"
     file "${sample}-assembly-error.txt" optional true
-    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
+    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -174,12 +174,13 @@ process assemble_genome {
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite, pattern: "blastdb/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
 
     output:
+    file("blastdb/*")
     set val(sample), file("blastdb/*") into BLAST_QUERY
 
     shell:
@@ -233,7 +234,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.ctx"
 
     input:
     set val(sample), val(single_end), file(fq) from COUNT_31MERS
@@ -250,7 +251,7 @@ process count_31mers {
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${sample} - ${method}"
-    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
@@ -275,7 +276,7 @@ process sequence_type {
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite, pattern: "${dataset_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
@@ -347,7 +348,7 @@ process call_variants {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
@@ -401,7 +402,7 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
@@ -442,7 +443,7 @@ process antimicrobial_resistance {
     on their Mash distance from the input.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "${amrdir}/*"
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
@@ -470,7 +471,7 @@ process insertion_sequences {
     using ISMapper.
     */
     tag "${sample} - ${insertion_name}"
-    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite, pattern: "insertion-sequences/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
@@ -518,7 +519,7 @@ process blast_query {
     Query a FASTA files against annotated assembly using BLAST
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "blast/*"
 
     input:
     set val(sample), file(blastdb) from BLAST_QUERY
@@ -538,7 +539,7 @@ process mapping_query {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "mapping/*"
 
     input:
     set val(sample), val(single_end), file(fq) from MAPPING_QUERY

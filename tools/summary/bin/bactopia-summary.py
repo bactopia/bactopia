@@ -96,6 +96,7 @@ def parse_annotation(txt_file):
 def get_files(path, sample):
     "Return a list of files to read."
     files = None
+    assemblies = []
     missing = []
     end_type = 'paired-end'
 
@@ -119,11 +120,11 @@ def get_files(path, sample):
             'final-r2': f"{path}/{sample}/quality-control/summary-final/{sample}_R2-final.json"
         }
 
-    for key,val in files.items():
+    for key, val in files.items():
         if not os.path.exists(val):
             missing.append(val)
 
-    return [files, missing, end_type]
+    return {'files': files, 'missing': missing, 'end_type': end_type, 'has_error': False}
 
 def get_rank(cutoff, coverage, quality, length, contigs, is_paired):
     """Return the rank (gold, silver, bronze, fail) of the sample."""
@@ -155,6 +156,12 @@ def add_to_counts(dictionary, rank):
     for key, val in dictionary.items():
         COUNTS_BY_RANK[rank][key].append(val)
         COUNTS_BY_RANK['total'][key].append(val)
+
+def fastani(samples):
+    for key, val in samples.items():
+        if val['has_error'] or len(val['missing']):
+            #
+        else:
 
 if __name__ == '__main__':
     import argparse as ap
@@ -244,16 +251,33 @@ if __name__ == '__main__':
         help='Maximum contig count required to pass (Default: 500)'
     )
 
-    group4 = parser.add_argument_group('Helpers')
-    group4.add_argument('--depends', action='store_true',
-                        help='Verify dependencies are installed.')
-    group4.add_argument('--version', action='version',
-                        version=f'{PROGRAM} {VERSION}')
-    group4.add_argument('--verbose', action='store_true',
-                        help='Increase the verbosity of output.')
-    group4.add_argument('--silent', action='store_true',
-                        help='Only critical errors will be printed.')
+    group4 = parser.add_argument_group('Taxon Check')
+    group4.add_argument(
+        '--fastani', action='store_true',
+        help='Determine the pairwise ANI of each sample using FastANI.')
+    )
 
+    group4.add_argument(
+        '--ani_threshold', metavar="FLOAT", type=float, default=0.8
+        help='Exclude samples with a mean ANI less than the threshold. (Default: 0.80).'
+    )
+
+    group4.add_argument(
+        '--min_sourmash', metavar="FLOAT", type=float, default=0.5
+        help='Minimum percentage of k-mers that must have matched (Default: 50%).'
+    )
+    group5.add_argument('--cpus', metavar="INT", type=int, default=1,
+                        help='Number of CPUs available for FastANI. (Default: 1)')
+
+    group5 = parser.add_argument_group('Helpers')
+    group5.add_argument('--depends', action='store_true',
+                        help='Verify dependencies are installed.')
+    group5.add_argument('--version', action='version',
+                        version=f'{PROGRAM} {VERSION}')
+    group5.add_argument('--verbose', action='store_true',
+                        help='Increase the verbosity of output.')
+    group5.add_argument('--silent', action='store_true',
+                        help='Only critical errors will be printed.')
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(0)
@@ -285,7 +309,7 @@ if __name__ == '__main__':
         }
     }
 
-
+    samples = {}
     with os.scandir(args.bactopia) as dirs:
         for directory in dirs:
             if directory.name in IGNORE_LIST:
@@ -309,55 +333,67 @@ if __name__ == '__main__':
                             COUNTS['exclude'] += 1
                             FAILED[error_msg].append(directory.name)
                             CATEGORIES['exclude'].append([directory.name, f"Not processed due to '{error_msg}' error"])
+                            samples[directory.name] = {'has_error': True, 'missing': []}
                     else:
                         logging.debug(f"{directory.name} found ")
                         COUNTS['processed'] += 1
                         CATEGORIES['processed'].append(directory.name)
-                        files, missing, end_type = get_files(args.bactopia, directory.name)
+                        samples[direcotry.name] = get_files(args.bactopia, directory.name)
 
-                        COUNTS[end_type] += 1
-                        if missing:
-                            COUNTS['missing'] += 1
-                            CATEGORIES['exclude'].append([directory.name, 'Missing expected files'])
-                            logging.debug(f"{directory.name} missing files ")
-                            logging.debug(f"{missing}")
-                        else:
-                            COUNTS['found'] += 1
-                            original_r1 = None
-                            original_r2 = None
-                            final_r1 = None
-                            final_r2 = None
-                            rank = None
-                            assembly = parse_json(files['assembly'])
-                            annotation = parse_annotation(files['annotation'])
-                            if end_type == 'single-end':
-                                original_r1 = parse_json(files['original'])
-                                final_r1 = parse_json(files['final'])
-                                coverage = final_r1['qc_stats']['coverage']
-                            else:
-                                original_r1 = parse_json(files['original-r1'])
-                                original_r2 = parse_json(files['original-r2'])
-                                final_r1 = parse_json(files['final-r1'])
-                                final_r2 = parse_json(files['final-r2'])
-                                coverage = final_r1['qc_stats']['coverage'] * 2
-                            read_length = round(final_r1['qc_stats']['read_mean'])
-                            quality = final_r1['qc_stats']['qual_mean']
-                            contigs = assembly['total_contig']
-                            is_paired = True if end_type == 'paired-end' else False
-                            rank = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
+    if args.fastani:
+        # Use FastANI to flag samples that may be another organism
+        pairwise_ani = fastani(samples)
 
-                            print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
-                            COUNTS[rank] += 1
-                            CATEGORIES[rank].append(directory.name)
-                            add_to_counts(assembly, rank)
-                            add_to_counts(annotation, rank)
-                            add_to_counts(merge_stats(final_r1, final_r2), rank)
-                            if rank == 'fail':
-                                FAILED['failed-cutoff'].append(directory.name)
-                                CATEGORIES['exclude'].append([directory.name, 'Failed to pass minimum cutoffs'])
-                                COUNTS['exclude'] += 1
-                            else:
-                                COUNTS['pass'] += 1
+    for key, val in samples.items():
+        if not val['has_error']:
+            end_type = val['end_type']
+            files = val['files']
+            missing = val['missing']
+
+            COUNTS[end_type] += 1
+            if missing:
+                COUNTS['missing'] += 1
+                CATEGORIES['exclude'].append([directory.name, 'Missing expected files'])
+                logging.debug(f"{directory.name} missing files ")
+                logging.debug(f"{missing}")
+            else:
+                COUNTS['found'] += 1
+                original_r1 = None
+                original_r2 = None
+                final_r1 = None
+                final_r2 = None
+                rank = None
+                assembly = parse_json(files['assembly'])
+                annotation = parse_annotation(files['annotation'])
+                if end_type == 'single-end':
+                    original_r1 = parse_json(files['original'])
+                    final_r1 = parse_json(files['final'])
+                    coverage = final_r1['qc_stats']['coverage']
+                else:
+                    original_r1 = parse_json(files['original-r1'])
+                    original_r2 = parse_json(files['original-r2'])
+                    final_r1 = parse_json(files['final-r1'])
+                    final_r2 = parse_json(files['final-r2'])
+                    coverage = final_r1['qc_stats']['coverage'] * 2
+                read_length = round(final_r1['qc_stats']['read_mean'])
+                quality = final_r1['qc_stats']['qual_mean']
+                contigs = assembly['total_contig']
+                is_paired = True if end_type == 'paired-end' else False
+                rank = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
+
+                print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
+                COUNTS[rank] += 1
+                CATEGORIES[rank].append(directory.name)
+                add_to_counts(assembly, rank)
+                add_to_counts(annotation, rank)
+                add_to_counts(merge_stats(final_r1, final_r2), rank)
+                if rank == 'fail':
+                    FAILED['failed-cutoff'].append(directory.name)
+                    CATEGORIES['exclude'].append([directory.name, 'Failed to pass minimum cutoffs'])
+                    COUNTS['exclude'] += 1
+                else:
+                    COUNTS['pass'] += 1
+
 
     #print("rank\tcount\tcoverage\tlength\tquality\tcontigs\tn50")
     for key, val in COUNTS_BY_RANK.items():
