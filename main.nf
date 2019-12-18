@@ -89,11 +89,13 @@ process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "*error.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
 
     output:
+    file "*-error.txt" optional true
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
@@ -101,8 +103,11 @@ process qc_reads {
                                                                        MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
-        file(genome_size) optional true into ASSEMBLY, QC_FINAL_SUMMARY
+        file(genome_size) optional true into ASSEMBLY
 
+    set val(sample), val(single_end),
+        file("{quality-control,failed-qc}/${sample}*.fastq.gz"),
+        file(genome_size) optional true into QC_FINAL_SUMMARY
     shell:
     adapters = params.adapters ? file(params.adapters) : 'adapters'
     phix = params.phix ? file(params.phix) : 'phix'

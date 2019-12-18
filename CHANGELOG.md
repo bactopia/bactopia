@@ -5,8 +5,8 @@
 ### `Added`
 - bactopia tools framework
     - docs for each tool
-    - `ani` - pairwise average nucleotide identity
-    - `pangenome` - pan-genome and core genome phylogeny
+    - `fastani` - pairwise average nucleotide identity
+    - `roary` - pan-genome and core genome phylogeny
     - `summary` - summary of results
 - select-references selects latest assembly accession version (BioPython/Entrez)
 - select-references skips assemblies that have been excluded from RefSeq
@@ -24,6 +24,9 @@
 - allowing PE reads with different read counts to be processed (hint... they fail pretty quickly)
 - failure to stop analysis of sample with low read counts
 - coverage reported as 'inf'
+- references to cgmlst in the setup datasets
+- non-explicit patterns in publishDir
+- low coverage/read errors after QC were not put in root dir
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
@@ -56,9 +59,9 @@
 - `--nfdir` to determine where bactopia is being run from
 
 ### `Fixed`
-- Neverending typos
+- Never ending typos
 - `--datasets` now, not `--dataset` <-(Typo)
-- path for outputing Nextflow reports
+- path for outputting Nextflow reports
 - Typo in antimicrobial_resistance.sh (task.cpus not cpus)
 - `--species` is now consistent between `bactopia` and `bactopia datasets`
 - Bug when checking if specific species dataset exists, but no species datasets exist
@@ -93,7 +96,7 @@
 - Added SLURM config
 
 ### `Fixed`
-- Neverending typos
+- Never ending typos
 - `bactopia datasets` lowercase species names not found in MLST schemas
 - `bactopia version` no longer calls nextflow
 - SEQUENCE_TYPE channel groups FASTQ and assembly
