@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image containing requirements for the Bactopia annotate_genome process
-    VERSION 1.2.2
+    VERSION 1.2.3
 
 %environment
     PATH=/opt/conda/envs/bactopia-annotate_genome/bin:$PATH

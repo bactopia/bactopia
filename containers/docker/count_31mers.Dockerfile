@@ -1,7 +1,7 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="1.2.2"
+LABEL version="1.2.3"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia count_31mers process"
 

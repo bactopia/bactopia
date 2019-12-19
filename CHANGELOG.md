@@ -1,13 +1,8 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.0 bactopia/bactopia "" - 2019/12/??
+## v1.2.3 bactopia/bactopia "Tropical Punches +1" - 2019/12/19
 
 ### `Added`
-- bactopia tools framework
-    - docs for each tool
-    - `fastani` - pairwise average nucleotide identity
-    - `roary` - pan-genome and core genome phylogeny
-    - `summary` - summary of results
 - select-references selects latest assembly accession version (BioPython/Entrez)
 - select-references skips assemblies that have been excluded from RefSeq
 - test to for paired-end related errors (e.g. different read counts)

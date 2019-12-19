@@ -19,7 +19,7 @@ else
                 grep "Estimated genome size:" | \
                 awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
         fi
-        rm test.msh
+        rm -rf test.msh
         ESTIMATED_GENOME_SIZE=`head -n1 ${OUTPUT}`
 
         if [ ${ESTIMATED_GENOME_SIZE} -gt "!{params.max_genome_size}" ]; then
@@ -33,7 +33,7 @@ else
                     grep "Estimated genome size:" | \
                     awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             fi
-            rm test.msh
+            rm -rf test.msh
         elif [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
             # Probably low coverage, try decreasing the number of kmer copies to 1
             if [ "!{single_end}" == "false" ]; then
@@ -45,7 +45,7 @@ else
                     grep "Estimated genome size:" | \
                     awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             fi
-            rm test.msh
+            rm -rf test.msh
         fi
 
         ESTIMATED_GENOME_SIZE=`head -n1 ${OUTPUT}`
