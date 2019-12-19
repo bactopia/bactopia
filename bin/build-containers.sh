@@ -2,7 +2,7 @@
 # build-containers
 #
 # Automate the building of Bactopia related containers
-VERSION=1.2.2
+VERSION=1.2.3
 
 function singularity_build {
     recipe=$1

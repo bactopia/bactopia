@@ -6,6 +6,7 @@ if [ "!{params.dry_run}" == "true" ]; then
     mkdir -p quality-control
     touch quality-control/!{sample}.fastq.gz
 else
+    ERROR=0
     GENOME_SIZE=`head -n 1 !{genome_size}`
     TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
     if [ "!{single_end}" == "false" ]; then
@@ -140,19 +141,28 @@ else
 
     FINAL_BP=`zcat quality-control/*.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:([0-9]+),/\1/'`
     if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
-        rm -f quality-control/*.fastq.gz
+        ERROR=1
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
               not exceed the required minimum !{params.min_basepairs} bp. Further analysis
               is discontinued." | \
-        sed 's/^\s*//' > quality-control/low-sequence-depth-after-qc-error.txt
+        sed 's/^\s*//' > !{sample}-low-sequence-depth-error.txt
     fi
 
     FINAL_READS=`zcat quality-control/*.gz | fastq-scan | grep "read_total" | sed -r 's/.*:([0-9]+),/\1/'`
     if [ ${FINAL_READS} -lt "!{params.min_reads}" ]; then
-        rm -f quality-control/*.fastq.gz
+        ERROR=1
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_READS} total reads. This does
               not exceed the required minimum !{params.min_reads} reads count. Further analysis
               is discontinued." | \
-        sed 's/^\s*//' > quality-control/low-read-count-after-qc-error.txt
+        sed 's/^\s*//' > !{sample}-low-read-count-error.txt
+    fi
+
+    if [ "${ERROR}" -eq "1" ]; then
+        if [ "!{single_end}" == "false" ]; then
+            mv quality-control/!{sample}_R1.fastq.gz quality-control/!{sample}_R1.error-fq.gz
+            mv quality-control/!{sample}_R2.fastq.gz quality-control/!{sample}_R2.error-fq.gz
+        else
+            mv quality-control/!{sample}.fastq.gz quality-control/!{sample}.error-fq.gz
+        fi
     fi
 fi

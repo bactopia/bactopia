@@ -1,3 +1,0 @@
-# FAQ
-
-How do I ...

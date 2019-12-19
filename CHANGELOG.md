@@ -1,5 +1,28 @@
 # bactopia/bactopia: Changelog
 
+## v1.2.3 bactopia/bactopia "Tropical Punches +1" - 2019/12/19
+
+### `Added`
+- select-references selects latest assembly accession version (BioPython/Entrez)
+- select-references skips assemblies that have been excluded from RefSeq
+- test to for paired-end related errors (e.g. different read counts)
+- `--min_genome_size` and `--max_genome_size` parameter for estimated genome sizes
+    - Check is also made after assembly
+- `update-version.sh` improvements
+- Better genome size estimates using Mash for high and low coverage sequences
+- Script to update conda environments
+
+### `Fixed`
+- `--random_tie_break` always true
+- not using latest assembly accession for ncbi-genome-download
+- usage of assemblies that have been excluded from RefSeq
+- allowing PE reads with different read counts to be processed (hint... they fail pretty quickly)
+- failure to stop analysis of sample with low read counts
+- coverage reported as 'inf'
+- references to cgmlst in the setup datasets
+- non-explicit patterns in publishDir
+- low coverage/read errors after QC were not put in root dir
+
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 
 ### `Added`
@@ -31,9 +54,9 @@
 - `--nfdir` to determine where bactopia is being run from
 
 ### `Fixed`
-- Neverending typos
+- Never ending typos
 - `--datasets` now, not `--dataset` <-(Typo)
-- path for outputing Nextflow reports
+- path for outputting Nextflow reports
 - Typo in antimicrobial_resistance.sh (task.cpus not cpus)
 - `--species` is now consistent between `bactopia` and `bactopia datasets`
 - Bug when checking if specific species dataset exists, but no species datasets exist
@@ -68,7 +91,7 @@
 - Added SLURM config
 
 ### `Fixed`
-- Neverending typos
+- Never ending typos
 - `bactopia datasets` lowercase species names not found in MLST schemas
 - `bactopia version` no longer calls nextflow
 - SEQUENCE_TYPE channel groups FASTQ and assembly

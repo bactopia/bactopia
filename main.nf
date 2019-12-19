@@ -5,7 +5,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-log.info "${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();
@@ -22,6 +21,7 @@ if (params.available_datasets) print_available_datasets(params.dataset)
 outdir = params.outdir ? params.outdir : './'
 
 // Setup some defaults
+log.info "${PROGRAM_NAME} - ${VERSION}"
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
@@ -77,7 +77,7 @@ process estimate_genome_size {
     set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
 
     output:
-    file "max-genome-size-depth-error.txt" optional true
+    file "${sample}-genome-size-error.txt" optional true
     file("${sample}-genome-size.txt") optional true
     set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
 
@@ -89,11 +89,13 @@ process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
     publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "*error.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
 
     output:
+    file "*-error.txt" optional true
     file "quality-control/*"
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
@@ -101,7 +103,11 @@ process qc_reads {
                                                                        MAPPING_QUERY
     set val(sample), val(single_end),
         file("quality-control/${sample}*.fastq.gz"),
-        file(genome_size) optional true into ASSEMBLY, QC_FINAL_SUMMARY
+        file(genome_size) optional true into ASSEMBLY
+
+    set val(sample), val(single_end),
+        file("quality-control/${sample}*.{fastq,error-fq}.gz"),
+        file(genome_size) optional true into QC_FINAL_SUMMARY
 
     shell:
     adapters = params.adapters ? file(params.adapters) : 'adapters'
@@ -113,7 +119,7 @@ process qc_reads {
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
@@ -131,7 +137,7 @@ process qc_original_summary {
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from QC_FINAL_SUMMARY
@@ -150,19 +156,16 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "*.fna*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "shovill*"
-    publishDir "${outdir}/${sample}/assembly", mode: 'copy', overwrite: params.overwrite, pattern: "flash*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "assembly/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
     input:
     set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
 
     output:
-    file "shovill*"
-    file "flash*" optional true
-    file "${sample}.{fna,fna.gz}" optional true into SEQUENCE_TYPE_ASSEMBLY
-    file "${sample}.fna.json" optional true
-    set val(sample), val(single_end), file(fq), file("${sample}.{fna,fna.gz}")  optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
+    file "assembly/*"
+    file "${sample}-assembly-error.txt" optional true
+    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -177,12 +180,13 @@ process assemble_genome {
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/blast", mode: 'copy', overwrite: params.overwrite, pattern: "blastdb/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
 
     output:
+    file("blastdb/*")
     set val(sample), file("blastdb/*") into BLAST_QUERY
 
     shell:
@@ -193,19 +197,19 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/*"
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "annotation/${sample}*"
 
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
     file prokka_proteins from PROKKA_PROTEINS
 
     output:
-    file 'annotation/*'
-    set val(sample), file("annotation/*.{ffn,ffn.gz}") optional true into PLASMID_BLAST
-    set val(sample), val(single_end), file(fq), file('annotation/*.{gbk,gbk.gz}') optional true into INSERTION_SEQUENCES
+    file "annotation/${sample}*"
+    set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
+    set val(sample), val(single_end), file(fq), file("annotation/${sample}.{gbk,gbk.gz}") optional true into INSERTION_SEQUENCES
     set val(sample),
-        file("annotation/*.{ffn,ffn.gz}"),
-        file("annotation/*.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
+        file("annotation/${sample}.{ffn,ffn.gz}"),
+        file("annotation/${sample}.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -236,7 +240,7 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/kmers", mode: 'copy', overwrite: params.overwrite, pattern: "*.ctx"
 
     input:
     set val(sample), val(single_end), file(fq) from COUNT_31MERS
@@ -253,7 +257,7 @@ process count_31mers {
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${sample} - ${method}"
-    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/mlst", mode: 'copy', overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
@@ -278,7 +282,7 @@ process sequence_type {
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
-    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/ariba", mode: 'copy', overwrite: params.overwrite, pattern: "${dataset_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq) from ARIBA_ANALYSIS
@@ -350,7 +354,7 @@ process call_variants {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/variants/user", mode: 'copy', overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq) from CALL_VARIANTS
@@ -404,7 +408,7 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
-    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/variants/auto", mode: 'copy', overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
@@ -445,7 +449,7 @@ process antimicrobial_resistance {
     on their Mash distance from the input.
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "${amrdir}/*"
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
@@ -473,7 +477,7 @@ process insertion_sequences {
     using ISMapper.
     */
     tag "${sample} - ${insertion_name}"
-    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}/", mode: 'copy', overwrite: params.overwrite, pattern: "insertion-sequences/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
@@ -521,7 +525,7 @@ process blast_query {
     Query a FASTA files against annotated assembly using BLAST
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "blast/*"
 
     input:
     set val(sample), file(blastdb) from BLAST_QUERY
@@ -541,7 +545,7 @@ process mapping_query {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite
+    publishDir "${outdir}/${sample}", mode: 'copy', overwrite: params.overwrite, pattern: "mapping/*"
 
     input:
     set val(sample), val(single_end), file(fq) from MAPPING_QUERY
@@ -588,7 +592,7 @@ workflow.onComplete {
 
 // Utility functions
 def toHumanString(bytes) {
-    // Thanks Niklaus 
+    // Thanks Niklaus
     // https://gist.github.com/nikbucher/9687112
     base = 1024L
     decimals = 3
@@ -1285,11 +1289,22 @@ def full_help() {
         --use_ena               Download FASTQs from ENA with Aspera Connect.
                                     Default: Download from SRA
 
-        --ftp_only              If "--use_ena" is enabled, FTP will be used to 
+        --ftp_only              If "--use_ena" is enabled, FTP will be used to
                                     download FASTQs from ENA.
 
         --aspera_speed STR      Speed at which Aspera Connect will download.
                                     Default: ${params.aspera_speed}
+
+    Estimate Genome Size Parameters:
+        Only applied if the genome size is estimated.
+
+        --min_genome_size INT   The minimum estimated genome size allowed for the input sequence
+                                to continue downstream analyses.
+                                Default: ${params.min_genome_size}
+
+        --max_genome_size INT   The maximum estimated genome size allowed for the input sequence
+                                to continue downstream analyses.
+                                Default: ${params.max_genome_size}
 
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB
@@ -1660,5 +1675,6 @@ def full_help() {
         --amr_plus              Add the plus genes to the report
 
         --amr_report_common     Suppress proteins common to a taxonomy group
+        
     """
 }
