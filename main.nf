@@ -5,7 +5,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-log.info "${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
 if (params.help || params.help_all) print_usage();
@@ -22,6 +21,7 @@ if (params.available_datasets) print_available_datasets(params.dataset)
 outdir = params.outdir ? params.outdir : './'
 
 // Setup some defaults
+log.info "${PROGRAM_NAME} - ${VERSION}"
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
