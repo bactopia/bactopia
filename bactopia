@@ -24,7 +24,7 @@
 # bactopia fofn --help
 # bactopia version
 # bactopia --help
-VERSION=1.2.3
+VERSION=1.2.4
 NXF_HOME=${NXF_HOME:-`which bactopia | sed 's=bin/bactopia=.nextflow='`}
 BACTOPIA_NF="${NXF_HOME}/assets/bactopia/bactopia"
 export NXF_HOME=${NXF_HOME}

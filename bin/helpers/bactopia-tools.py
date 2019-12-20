@@ -16,7 +16,7 @@ Available Tools:
   pangenome      Create a pan-genome with optional core-genome phylogeny.
 """
 import sys
-VERSION = "1.2.3"
+VERSION = "1.2.4"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of compartive analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {

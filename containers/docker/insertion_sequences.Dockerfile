@@ -1,7 +1,7 @@
 FROM nfcore/base
 MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
-LABEL version="1.2.3"
+LABEL version="1.2.4"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia insertion_sequences process"
 

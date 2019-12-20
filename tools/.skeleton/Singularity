@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image for Bactopia Tool TOOL_NAME
-    VERSION 1.2.3
+    VERSION 1.2.4
 
 %environment
     PATH=/opt/conda/envs/TOOL_NAME/bin:$PATH

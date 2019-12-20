@@ -15,7 +15,7 @@ optional arguments:
   --pattern STR      Glob pattern to match FASTQs. Default: *.fastq.gz
   --version          show program's version number and exit
 """
-VERSION = "1.2.3"
+VERSION = "1.2.4"
 PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':
