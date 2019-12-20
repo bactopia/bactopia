@@ -2,7 +2,7 @@
 
 ## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
 ### `Added`
-- `--conda_test` to be used for conda build test
+- `--conda_help` to be used for conda build test
 - `--skip_fastq_check` to skip check that input FASTQs meet minimum requirements
 - Undocumented parameters to the usage
 

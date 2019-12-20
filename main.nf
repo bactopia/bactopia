@@ -8,7 +8,7 @@ PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 
 // Validate parameters
-if (params.help || params.help_all || params.conda_test) print_usage();
+if (params.help || params.help_all || params.conda_help) print_usage();
 if (params.nfdir) print_basedir();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -1163,7 +1163,7 @@ def print_usage() {
     ${params.help_all ? full_help() : ""}
     """.stripIndent()
 
-    if (params.conda_test) {
+    if (params.conda_help) {
         // Cleanup up the directory
         // This is only meant to be used with tests for conda build
         file("./work/").deleteDir()

@@ -91,7 +91,7 @@ elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
-    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all")
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
     for check in  "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
@@ -103,6 +103,7 @@ else
         if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
             echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
+            nextflow pull bactopia/bactopia -r "v${VERSION}"
             build-conda-envs.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
         fi
     fi
