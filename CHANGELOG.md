@@ -11,6 +11,7 @@
 - `update-version.sh` improvements
 - Better genome size estimates using Mash for high and low coverage sequences
 - Script to update conda environments
+- added `--conda_help` to be used for conda build test
 
 ### `Fixed`
 - `--random_tie_break` always true
@@ -22,6 +23,7 @@
 - references to cgmlst in the setup datasets
 - non-explicit patterns in publishDir
 - low coverage/read errors after QC were not put in root dir
+- snippy not working with samtools 1.10
 
 ## v1.2.2 bactopia/bactopia "Tropical Punches" - 2019/10/22
 

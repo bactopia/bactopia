@@ -1,13 +1,14 @@
 #! /usr/bin/env nextflow
 import groovy.json.JsonSlurper
 import groovy.text.SimpleTemplateEngine
+import groovy.util.FileNameByRegexFinder
 import java.nio.file.Path
 import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 
 // Validate parameters
-if (params.help || params.help_all) print_usage();
+if (params.help || params.help_all || params.conda_help) print_usage();
 if (params.nfdir) print_basedir();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -1161,6 +1162,15 @@ def print_usage() {
     ${basic_help()}
     ${params.help_all ? full_help() : ""}
     """.stripIndent()
+
+    if (params.conda_help) {
+        // Cleanup up the directory
+        // This is only meant to be used with tests for conda build
+        file("./work/").deleteDir()
+        file("./.nextflow/").deleteDir()
+        def files = new FileNameByRegexFinder().getFileNames('./', '.nextflow.log*')
+        files.each { new File(it).delete()}
+    }
     exit 0
 }
 
