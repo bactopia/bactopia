@@ -1,5 +1,16 @@
 # bactopia/bactopia: Changelog
 
+## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
+### `Added`
+- `--conda_test` to be used for conda build test
+- `--skip_fastq_check` to skip check that input FASTQs meet minimum requirements
+- Undocumented parameters to the usage
+
+### `Fixed`
+- snippy not working with samtools 1.10
+- NXF_HOME variable is exported to the conda env location
+- speed of checking if conda environments are built
+
 ## v1.2.3 bactopia/bactopia "Tropical Punches +1" - 2019/12/19
 
 ### `Added`

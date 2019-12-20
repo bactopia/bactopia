@@ -25,6 +25,9 @@
 # bactopia version
 # bactopia --help
 VERSION=1.2.3
+NXF_HOME=${NXF_HOME:-`which bactopia | sed 's=bin/bactopia=.nextflow='`}
+BACTOPIA_NF="${NXF_HOME}/assets/bactopia/bactopia"
+export NXF_HOME=${NXF_HOME}
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
@@ -33,7 +36,7 @@ if [[ $# == 0 ]]; then
     echo "Available Commands"
     echo "\`bactopia\` - Execute the Bactopia Nextflow pipeline"
     echo ""
-    echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia-ap GitHub repo"
+    echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia GitHub repo"
     echo ""
     echo "\`bactopia build\` - Build Bactopia Conda environments"
     echo ""
@@ -93,22 +96,16 @@ else
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
         fi
-            TMP=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
     done
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
         # Figure out where Bactopia is setup
-        TMPDIR=".bactopia."$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-        mkdir ${TMPDIR}
-        NF_DIR=$(cd $TMPDIR && sh -c 'nextflow run bactopia/bactopia --nfdir | grep "BACTOPIA_DIR" | cut -f 3 -d " "' && cd ..)
-        rm -rf ${TMPDIR}
-        if [[ ! -f "${NF_DIR}/conda/envs/envs-built-${VERSION}.txt" ]]; then
+        if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
-            echo "Building to ${NF_DIR}/conda/envs ... This might take a while"
-            build-conda-envs.py ${NF_DIR}/conda ${NF_DIR}/conda/envs --force
+            echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
+            build-conda-envs.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
         fi
     fi
-
     # Execute Bactopia Nextflow pipeline
     nextflow run bactopia/bactopia -r "v${VERSION}" "${@:1}"
 fi

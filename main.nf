@@ -8,7 +8,7 @@ PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 
 // Validate parameters
-if (params.help || params.help_all || params.conda_help) print_usage();
+if (params.help || params.help_all || params.conda_test) print_usage();
 if (params.nfdir) print_basedir();
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
@@ -20,7 +20,7 @@ if (params.available_datasets) print_available_datasets(params.dataset)
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
-
+log.info "${params.skip_fastq_check}"
 // Setup some defaults
 log.info "${PROGRAM_NAME} - ${VERSION}"
 ARIBA_DATABASES = []
@@ -1163,7 +1163,7 @@ def print_usage() {
     ${params.help_all ? full_help() : ""}
     """.stripIndent()
 
-    if (params.conda_help) {
+    if (params.conda_test) {
         // Cleanup up the directory
         // This is only meant to be used with tests for conda build
         file("./work/").deleteDir()
@@ -1305,6 +1305,20 @@ def full_help() {
         --aspera_speed STR      Speed at which Aspera Connect will download.
                                     Default: ${params.aspera_speed}
 
+    FASTQ Minimum Requirements Parameters:
+        --min_basepairs INT     The minimum amount of input sequenced basepairs required
+                                    to continue downstream analyses.
+                                    Default: ${params.min_basepairs}
+
+        --min_reads INT         The minimum amount of input sequenced reads required
+                                    to continue downstream analyses.
+                                    Default: ${params.min_reads}
+
+        --skip_fastq_check      The input FASTQs will not be check to verify they meet the
+                                    minimum requirements to be processed. This parameter 
+                                    is useful if you are confident your sequences will 
+                                    pass the minimum requirements.                
+
     Estimate Genome Size Parameters:
         Only applied if the genome size is estimated.
 
@@ -1319,10 +1333,6 @@ def full_help() {
     QC Reads Parameters:
         --qc_ram INT            Try to keep RAM usage below this many GB
                                     Default: ${params.qc_ram} GB
-
-        --min_basepairs INT     The minimum amount of input sequenced basepairs required
-                                    to continue downstream analyses.
-                                    Default: ${params.min_basepairs}
 
         --adapters FASTA        Illumina adapters to remove
                                     Default: BBmap adapters
