@@ -158,10 +158,7 @@ def add_to_counts(dictionary, rank):
         COUNTS_BY_RANK['total'][key].append(val)
 
 def fastani(samples):
-    for key, val in samples.items():
-        if val['has_error'] or len(val['missing']):
-            #
-        else:
+    return None
 
 if __name__ == '__main__':
     import argparse as ap
@@ -171,9 +168,7 @@ if __name__ == '__main__':
     parser = ap.ArgumentParser(
         prog=PROGRAM,
         conflict_handler='resolve',
-        description=(
-            f'{PROGRAM} (v{VERSION}) - Create a summary of Bacopia outputs'
-        ),
+        description=f'{PROGRAM} (v{VERSION}) - Create a summary of Bactopia outputs',
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(f'''
             example usage:
@@ -254,19 +249,19 @@ if __name__ == '__main__':
     group4 = parser.add_argument_group('Taxon Check')
     group4.add_argument(
         '--fastani', action='store_true',
-        help='Determine the pairwise ANI of each sample using FastANI.')
+        help='Determine the pairwise ANI of each sample using FastANI.'
     )
 
     group4.add_argument(
-        '--ani_threshold', metavar="FLOAT", type=float, default=0.8
+        '--ani_threshold', metavar="FLOAT", type=float, default=0.8,
         help='Exclude samples with a mean ANI less than the threshold. (Default: 0.80).'
     )
 
     group4.add_argument(
-        '--min_sourmash', metavar="FLOAT", type=float, default=0.5
-        help='Minimum percentage of k-mers that must have matched (Default: 50%).'
+        '--min_sourmash', metavar="FLOAT", type=float, default=0.5,
+        help='Minimum percentage of k-mers that must have matched (Default: 0.5).'
     )
-    group5.add_argument('--cpus', metavar="INT", type=int, default=1,
+    group4.add_argument('--cpus', metavar="INT", type=int, default=1,
                         help='Number of CPUs available for FastANI. (Default: 1)')
 
     group5 = parser.add_argument_group('Helpers')
@@ -338,7 +333,7 @@ if __name__ == '__main__':
                         logging.debug(f"{directory.name} found ")
                         COUNTS['processed'] += 1
                         CATEGORIES['processed'].append(directory.name)
-                        samples[direcotry.name] = get_files(args.bactopia, directory.name)
+                        samples[directory.name] = get_files(args.bactopia, directory.name)
 
     if args.fastani:
         # Use FastANI to flag samples that may be another organism
@@ -381,7 +376,7 @@ if __name__ == '__main__':
                 is_paired = True if end_type == 'paired-end' else False
                 rank = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
 
-                print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
+                #print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
                 COUNTS[rank] += 1
                 CATEGORIES[rank].append(directory.name)
                 add_to_counts(assembly, rank)
@@ -417,4 +412,4 @@ if __name__ == '__main__':
             'rank_counts': COUNTS_BY_RANK
         }
     )
-    #print(outputText)
+    print(outputText)
