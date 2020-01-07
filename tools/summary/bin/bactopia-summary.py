@@ -64,14 +64,14 @@ def check_bactopia(path, name):
 def parse_error(error):
     """Return the error name."""
     if error.endswith("genome-size-error.txt"):
-        return "genome-size-error"
+        return ["genome-size-error", "Poor estimate of genome size"]
     elif error.endswith("low-read-count-error.txt"):
-        return "low-read-count-error"
+        return ["low-read-count-error", "Low number of reads"]
     elif error.endswith("low-sequence-depth-error.txt"):
-        return "low-sequence-depth-error"
+        return ["low-sequence-depth-error", "Low depth of sequencing"]
     elif  error.endswith("paired-end-error.txt"):
-        return "paired-end-error"
-    return "unknown-error"
+        return ["paired-end-error", "Paired-end read count mismatch"]
+    return ["unknown-error", "Unknown Error"]
 
 def parse_read_stats(json_file, ):
     """ """
@@ -132,13 +132,22 @@ def get_rank(cutoff, coverage, quality, length, contigs, is_paired):
     silver = cutoff['silver']
     bronze = cutoff['bronze']
     if coverage >= gold['coverage'] and quality >= gold['quality'] and length >= gold['length'] and contigs <= gold['contigs'] and is_paired:
-        return 'gold'
+        return ['gold', 'pass']
     elif coverage >= silver['coverage'] and quality >= silver['quality'] and length >= silver['length'] and contigs <= silver['contigs'] and is_paired:
-        return 'silver'
+        return ['silver', 'pass']
     elif coverage >= bronze['coverage'] and quality >= bronze['quality'] and length >= bronze['length'] and contigs <= bronze['contigs']:
-        return 'bronze'
+        return ['bronze', 'pass']
     else:
-        return 'fail'
+        reason = []
+        if coverage < bronze['coverage']:
+            reason.append(f"Low coverage ({coverage:.2f}x, expect >= {bronze['coverage']}x)")
+        if quality < bronze['quality']:
+            reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{bronze['quality']})")
+        if length < bronze['length']:
+            reason.append(f"Short read length ({length:.2f}bp, expect >= {bronze['length']} bp)")
+        if contigs > bronze['contigs']:
+            reason.append(f"Too many contigs ({contigs}, expect <= {bronze['contigs']})")
+        return ['fail', ';'.join(reason)]
 
 def merge_stats(r1, r2):
     if r2:
@@ -265,6 +274,10 @@ if __name__ == '__main__':
                         help='Number of CPUs available for FastANI. (Default: 1)')
 
     group5 = parser.add_argument_group('Helpers')
+    group5.add_argument(
+        '--prefix', metavar="STR", type=str, default="bactopia",
+        help='Prefix to use for output files. (Default: bactopia)'
+    )
     group5.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
     group5.add_argument('--version', action='version',
@@ -321,14 +334,16 @@ if __name__ == '__main__':
                     COUNTS['total'] += 1
                     if has_error:
                         logging.debug(f"{directory.name} {has_error} ")
+                        error_msg = []
                         for error in has_error:
-                            error_msg = parse_error(error)
-                            COUNTS[error_msg] += 1
+                            error_type, error_name = parse_error(error)
+                            error_msg.append(error_name)
+                            COUNTS[error_type] += 1
                             COUNTS['error'] += 1
                             COUNTS['exclude'] += 1
-                            FAILED[error_msg].append(directory.name)
-                            CATEGORIES['exclude'].append([directory.name, f"Not processed due to '{error_msg}' error"])
-                            samples[directory.name] = {'has_error': True, 'missing': []}
+                            FAILED[error_type].append(directory.name)
+                        CATEGORIES['exclude'].append([directory.name, f"Not processed, reason: {';'.join(error_msg)}"])
+                        samples[directory.name] = {'has_error': True, 'missing': []}
                     else:
                         logging.debug(f"{directory.name} found ")
                         COUNTS['processed'] += 1
@@ -339,7 +354,7 @@ if __name__ == '__main__':
         # Use FastANI to flag samples that may be another organism
         pairwise_ani = fastani(samples)
 
-    for key, val in samples.items():
+    for sample, val in samples.items():
         if not val['has_error']:
             end_type = val['end_type']
             files = val['files']
@@ -348,8 +363,8 @@ if __name__ == '__main__':
             COUNTS[end_type] += 1
             if missing:
                 COUNTS['missing'] += 1
-                CATEGORIES['exclude'].append([directory.name, 'Missing expected files'])
-                logging.debug(f"{directory.name} missing files ")
+                CATEGORIES['exclude'].append([sample, 'Missing expected files'])
+                logging.debug(f"{sample} missing files ")
                 logging.debug(f"{missing}")
             else:
                 COUNTS['found'] += 1
@@ -374,30 +389,25 @@ if __name__ == '__main__':
                 quality = final_r1['qc_stats']['qual_mean']
                 contigs = assembly['total_contig']
                 is_paired = True if end_type == 'paired-end' else False
-                rank = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
-
-                #print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
+                rank, reason = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
                 COUNTS[rank] += 1
-                CATEGORIES[rank].append(directory.name)
+                CATEGORIES[rank].append(sample)
                 add_to_counts(assembly, rank)
                 add_to_counts(annotation, rank)
                 add_to_counts(merge_stats(final_r1, final_r2), rank)
                 if rank == 'fail':
-                    FAILED['failed-cutoff'].append(directory.name)
-                    CATEGORIES['exclude'].append([directory.name, 'Failed to pass minimum cutoffs'])
+                    FAILED['failed-cutoff'].append(sample)
+                    CATEGORIES['exclude'].append([sample, f'Failed to pass minimum cutoffs, reason: {reason}'])
                     COUNTS['exclude'] += 1
                 else:
                     COUNTS['pass'] += 1
-
-
-    #print("rank\tcount\tcoverage\tlength\tquality\tcontigs\tn50")
+               
     for key, val in COUNTS_BY_RANK.items():
         coverage = int(mean(val['coverage'])) if val['coverage'] else 0
         read_length = int(mean(val['read_mean'])) if val['read_mean'] else 0
         quality = int(mean(val['qual_mean'])) if val['qual_mean'] else 0
         contigs = int(mean(val['total_contig'])) if val['total_contig'] else 0
         n50 = int(mean(val['n50_contig_length'])) if val['n50_contig_length'] else 0
-        #print(f'{key}\t{COUNTS[key]}\t{coverage}\t{read_length}\t{quality}\t{contigs}\t{n50}')
 
     templateLoader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
     templateEnv = jinja2.Environment(
@@ -412,4 +422,9 @@ if __name__ == '__main__':
             'rank_counts': COUNTS_BY_RANK
         }
     )
-    print(outputText)
+
+    with open(f'{args.prefix}-summary.html', 'w') as html_fh:
+        html_fh.write(outputText)
+
+    for name, reason in CATEGORIES['exclude']:
+        print(f'{name}\t{reason}')
