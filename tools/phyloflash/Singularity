@@ -3,15 +3,15 @@ From: nfcore/base
 
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-    DESCRIPTION Singularity image for Bactopia Tool: roary
+    DESCRIPTION Singularity image for Bactopia Tool phyloflash
     VERSION 1.2.4
 
 %environment
-    PATH=/opt/conda/envs/bactopia-roary/bin:$PATH
+    PATH=/opt/conda/envs/bactopia-phyloflash/bin:$PATH
     export PATH
 
 %files
-    environment.yml /
+    ./environment.yml /
 
 %post
     /opt/conda/bin/conda env create -f /environment.yml

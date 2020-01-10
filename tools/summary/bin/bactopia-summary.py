@@ -2,12 +2,9 @@
 """
 
 """
-import glob
-import jinja2
 import json
 import logging
 import os
-import sys
 
 from collections import defaultdict
 from statistics import mean
@@ -21,7 +18,7 @@ STDERR = 12
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
 
-IGNORE_LIST = ['.nextflow', '.nextflow.log', 'bactopia-info', 'work']
+IGNORE_LIST = ['.nextflow', '.nextflow.log', 'bactopia-info', 'work', 'bactopia-tools']
 COUNTS = defaultdict(int)
 FAILED = defaultdict(list)
 CATEGORIES = defaultdict(list)
@@ -169,10 +166,30 @@ def add_to_counts(dictionary, rank):
 def fastani(samples):
     return None
 
+def generate_html_report():
+    """Generate a HTML report using Jinja2."""
+    import jinja2
+    templateEnv = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR),
+        autoescape=True
+    )
+    template = templateEnv.get_template('summary.j2')
+    return template.render(
+        data={
+            'counts': COUNTS,
+            'failed': FAILED,
+            'rank_counts': COUNTS_BY_RANK
+        }
+    )
+
+def print_failed(failed):
+    """Return list of strings for printing failed counts."""
+    for key, val in failed.items():
+        print(f'    {key}: {len(val)}')
+
 if __name__ == '__main__':
     import argparse as ap
-    from collections import defaultdict
-    from statistics import mean
+    import sys
     import textwrap
     parser = ap.ArgumentParser(
         prog=PROGRAM,
@@ -188,11 +205,6 @@ if __name__ == '__main__':
     parser.add_argument(
         'bactopia', metavar="BACTOPIA_DIRECTORY", type=str,
         help='Directory containing Bactopia output.'
-    )
-
-    parser.add_argument(
-        'outdir', metavar="OUTPUT_DIRECTORY", type=str,
-        help='Directory to write output.'
     )
 
     group1 = parser.add_argument_group('Gold Cutoffs')
@@ -274,6 +286,11 @@ if __name__ == '__main__':
                         help='Number of CPUs available for FastANI. (Default: 1)')
 
     group5 = parser.add_argument_group('Helpers')
+    group5.add_argument(
+        '--outdir', metavar="OUTPUT_DIRECTORY", type=str, default="bactopia-tools",
+        help='Directory to write output. (Default: BACTOPIA_DIR/bactopia-tools)'
+    )
+
     group5.add_argument(
         '--prefix', metavar="STR", type=str, default="bactopia",
         help='Prefix to use for output files. (Default: bactopia)'
@@ -409,22 +426,35 @@ if __name__ == '__main__':
         contigs = int(mean(val['total_contig'])) if val['total_contig'] else 0
         n50 = int(mean(val['n50_contig_length'])) if val['n50_contig_length'] else 0
 
-    templateLoader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
-    templateEnv = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR),
-        autoescape=True
-    )
-    template = templateEnv.get_template('summary.j2')
-    outputText = template.render(
-        data={
-            'counts': COUNTS,
-            'failed': FAILED,
-            'rank_counts': COUNTS_BY_RANK
-        }
-    )
+    # Write outputs
+    outdir = args.outdir if args.outdir else f'{args.bactopia}/bactopia-tools'
+    os.makedirs(outdir, exist_ok=True)
 
-    with open(f'{args.prefix}-summary.html', 'w') as html_fh:
-        html_fh.write(outputText)
+    # HTML report
+    html_report = f'{outdir}/{args.prefix}-summary.html'
+    with open(html_report, 'w') as html_fh:
+        html_fh.write(generate_html_report())
 
-    for name, reason in CATEGORIES['exclude']:
-        print(f'{name}\t{reason}')
+    # Exclusion report
+    exclusion_report = f'{outdir}/{args.prefix}-exclude.txt'
+    with open(exclusion_report, 'w') as exclude_fh:
+        for name, reason in CATEGORIES['exclude']:
+            exclude_fh.write(f'{name}\t{reason}\n')
+
+    # Screen report
+    print("Bactopia Summary Report")
+    print(textwrap.dedent(f'''
+        Total Samples: {len(samples)}
+        
+        Passed: {COUNTS["pass"]}
+            Gold: {COUNTS["gold"]}
+            Silver: {COUNTS["silver"]}
+            Bronze: {COUNTS["bronze"]}
+
+        Excluded: {COUNTS["exclude"]}'''))
+    print_failed(FAILED)
+    print(textwrap.dedent(f'''
+        Reports:
+            HTML: {html_report}
+            Exclusion: {exclusion_report}
+    '''))
