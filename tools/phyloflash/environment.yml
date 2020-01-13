@@ -65,17 +65,19 @@ dependencies:
   - libuuid=2.32.1=h14c3975_1000
   - libxcb=1.13=h14c3975_1002
   - libxml2=2.9.10=hee79883_0
+  - llvm-openmp=8.0.1=hc9558a2_0
   - lz4-c=1.8.3=he1b5a44_1001
   - mafft=7.455=h516909a_0
   - make=4.2.1=h14c3975_2004
   - ncurses=6.1=hf484d3e_1002
   - numpy=1.16.5=py27h95a1406_0
   - openjdk=11.0.1=h600c080_1018
+  - openmp=8.0.1=0
   - openssl=1.1.1d=h516909a_0
   - pango=1.42.4=ha030887_1
   - pcre=8.43=he1b5a44_0
   - perl=5.26.2=h516909a_1006
-  - phyloflash=3.3b2=0
+  - phyloflash=3.3b3=0
   - pigz=2.3.4=0
   - pip=19.3.1=py27_0
   - pixman=0.38.0=h516909a_1003
@@ -117,7 +119,7 @@ dependencies:
   - r-reshape2=1.4.3=r36h0357c0b_1004
   - r-rlang=0.4.2=r36hcdcec82_0
   - r-scales=1.1.0=r36h6115d3f_0
-  - r-stringi=1.4.4=r36h0e574ca_0
+  - r-stringi=1.4.5=r36h0e574ca_0
   - r-stringr=1.4.0=r36h6115d3f_1
   - r-tibble=2.1.3=r36hcdcec82_1
   - r-utf8=1.1.4=r36hcdcec82_1001
@@ -129,8 +131,8 @@ dependencies:
   - samtools=1.6=h244ad75_5
   - scipy=1.2.1=py27h921218d_2
   - sed=4.7=h1bed415_1000
-  - setuptools=44.0.0=py27_0
-  - spades=3.13.0=0
+  - setuptools=45.0.0=py27_0
+  - spades=3.14.0=h2d02072_0
   - sqlite=3.30.1=hcee41ef_0
   - tbb=2019.9=hc9558a2_1
   - tk=8.6.10=hed695b0_0

@@ -11,16 +11,17 @@ log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 if (params.version) print_version();
 check_input_params()
-samples = gather_sample_set(params.bactopia, params.exclude, params.sleep_time)
+samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 // Setup output directories
 outdir = "${params.outdir}/bactopia-tool/phyloflash"
 
 process reconstruct_16s {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${sample}/*"
-    
+    publishDir "${outdir}/samples", mode: 'copy', overwrite: params.overwrite, pattern: "${sample}/*"
+    tag "${sample} - ${readlength}"
+
     input:
-    set val(sample), val(single_end), file(fq) from Channel.fromList(samples)
+    set val(sample), val(single_end), file(fq), val(readlength) from Channel.fromList(samples)
 
     output:
     file "${sample}/*" 
@@ -29,33 +30,35 @@ process reconstruct_16s {
     shell:
     if (single_end)
     """
-    phyloFlash.pl -dbhome "!{params.phyloflash_db}" -read1 !{fq[0]} -read2 !{fq[1]} \
-                  -lib !{sample} -CPUs !{task.cpus} -taxlevel !{params.taxlevel}
+    phyloFlash.pl -dbhome "!{params.phyloflash_db}" -read1 !{fq[0]} \
+                  -lib !{sample} -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
     mkdir !{sample}
     mv !{sample}.* !{sample}
     """
     else 
     """
     phyloFlash.pl -dbhome "!{params.phyloflash_db}" -read1 !{fq[0]} -read2 !{fq[1]} \
-                  -lib !{sample} -CPUs !{task.cpus} -taxlevel !{params.taxlevel}
+                  -lib !{sample} -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
     mkdir !{sample}
     mv !{sample}.* !{sample}
     """
 }
 
 process align_16s {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "16s-alignment.fasta"
+    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "16s-alignment.fasta"
+    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "16s-matches.txt"
     
     input:
     file(fasta) from ALIGNMENT.collect()
 
     output:
-    file "16s-alignment.fa" into TREE
+    file "16s-alignment.fasta" into TREE
+    file "16s-matches.txt"
 
     shell:
     """
-    cat *.fasta > 16s-merged.fa
-    mafft --thread !{task.cpus} !{params.mafft_opts} 16s-merged.fa > 16s-alignment.fa
+    format-16s-fasta.py ./ 
+    mafft --thread !{task.cpus} !{params.mafft_opts} 16s-merged.fasta > 16s-alignment.fasta
     """
 }
 
@@ -85,7 +88,7 @@ workflow.onComplete {
     workDirSize = toHumanString(workDir.directorySize())
 
     println """
-    Bactopia Tool 'cgtree' - Execution Summary
+    Bactopia Tool 'phyloflash' - Execution Summary
     ---------------------------
     Command Line    : ${workflow.commandLine}
     Resumed         : ${workflow.resume}
@@ -207,46 +210,71 @@ def is_sample_dir(sample, dir){
 }
 
 def build_fastq_tuple(sample, dir) {
+    def jsonSlurper = new JsonSlurper()
     se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
     pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
     pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
+    single_end = false
+    files = null
+    json_stats = null
     if (file(se).exists()) {
-        return tuple(sample, true, [file(se)])
+        single_end = true
+        json_stats = "${dir}/${sample}/quality-control/summary-final/${sample}-final.json"
+        files = [file(se)]
     } else if (file(pe1).exists() && file(pe2).exists()) {
-        return tuple(sample, false, [file(pe1), file(pe2)])
+        json_stats = "${dir}/${sample}/quality-control/summary-final/${sample}_R1-final.json"
+        files = [file(pe1), file(pe2)]
     } else {
         log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
         exit 1
-    }    
+    }
+    json_data = jsonSlurper.parse(new File(json_stats))
+    readlength =  Math.round(json_data['qc_stats']['read_mean'] - (1.5 * json_data['qc_stats']['read_std']))
+    return [tuple(sample, true, files, readlength), readlength]
 }
 
-def gather_sample_set(bactopia_dir, exclude_list, sleep_time) {
+def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
+    include_all = true
+    inclusions = []
     exclusions = []
-    if (exclude_list) {
-        new File(exclude_list).eachLine { line ->
-            exclusions << line.trim()
+    if (include_list) {
+        new File(include_list).eachLine { line -> 
+            inclusions << line.trim()
         }
-        log.info "Excluding ${exclusions.size} samples from the analysis"
+        include_all = false
     }
-
+    else if (exclude_list) {
+        new File(exclude_list).eachLine { line -> 
+            exclusions << line.trim() 
+        }
+    }
 
     sample_list = []
     file(bactopia_dir).eachFile { item ->
-        
         if( item.isDirectory() ) {
             sample = item.getName()
-            if (!exclusions.contains(sample)) {
-                if (is_sample_dir(sample, bactopia_dir)) {
-                    sample_list << build_fastq_tuple(sample, bactopia_dir)
+            if (inclusions.contains(sample) || include_all) {
+                if (!exclusions.contains(sample)) {
+                    if (is_sample_dir(sample, bactopia_dir)) {
+                        results = build_fastq_tuple(sample, bactopia_dir)
+                        if (results[1] >= 50) {
+                            sample_list << results[0]
+                        } else {
+                            log.info "Excluding ${sample}, mean read length < 50bp (phyloFlash requirement)"
+                            exclusions << sample
+                        }
+                    }
                 }
             }
         }
     }
+
+    log.info "Excluding ${exclusions.size} samples from the analysis"
     log.info "Found ${sample_list.size} samples to process"
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for ${sleep_time} seconds..."
     sleep(sleep_time * 1000)
-    return sample_list[1..5]
+    return sample_list
 }
 
 
@@ -258,8 +286,11 @@ def print_help() {
         --phyloflash_db STR     Directory containing a pre-built phyloFlash database.
 
     Optional Parameters:
+        --include STR           A text file containing sample names to include in the
+                                    analysis. The expected format is a single sample per line.
+
         --exclude STR           A text file containing sample names to exclude from the
-                                    pangenome. The expected format is a single sample per line.
+                                    analysis. The expected format is a single sample per line.
 
         --prefix DIR            Prefix to use for final output files
                                     Default: ${params.prefix}

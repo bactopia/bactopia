@@ -238,8 +238,8 @@ if __name__ == '__main__':
     )
 
     group2.add_argument(
-        '--silver_read_length', metavar="INT", type=int, default=45,
-        help='Minimum mean read length required for Silver status (Default: 45bp)'
+        '--silver_read_length', metavar="INT", type=int, default=75,
+        help='Minimum mean read length required for Silver status (Default: 75bp)'
     )
 
     group2.add_argument(
@@ -258,8 +258,8 @@ if __name__ == '__main__':
     )
 
     group3.add_argument(
-        '--min_read_length', metavar="INT", type=int, default=30,
-        help='Minimum mean read length required to pass (Default: 30bp)'
+        '--min_read_length', metavar="INT", type=int, default=50,
+        help='Minimum mean read length required to pass (Default: 50bp)'
     )
 
     group3.add_argument(
