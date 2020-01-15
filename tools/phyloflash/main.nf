@@ -21,44 +21,48 @@ process reconstruct_16s {
     tag "${sample} - ${readlength}"
 
     input:
-    set val(sample), val(single_end), file(fq), val(readlength) from Channel.fromList(samples)
+    set val(sample), val(single_end), file(fq), val(readlength), val(readlength_mod) from Channel.fromList(samples)
 
     output:
     file "${sample}/*" 
-    file "${sample}/${sample}.SSU.collection.fasta" into ALIGNMENT
+    file "${sample}/${sample}.SSU.collection.fasta" optional true into ALIGNMENT
+    file "${sample}/${sample}.phyloFlash.json" optional true into SUMMARY
 
     shell:
-    if (single_end)
-    """
-    phyloFlash.pl -dbhome "!{params.phyloflash_db}" -read1 !{fq[0]} \
-                  -lib !{sample} -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
+    read = single_end ? "-read1 ${fq[0]}" : "-read1 ${fq[0]} -read2 ${fq[1]}"
+    readlength = task.attempt > 1 ? readlength - (task.attempt * readlength_mod) : readlength
+    """        
     mkdir !{sample}
-    mv !{sample}.* !{sample}
-    """
-    else 
-    """
-    phyloFlash.pl -dbhome "!{params.phyloflash_db}" -read1 !{fq[0]} -read2 !{fq[1]} \
-                  -lib !{sample} -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
-    mkdir !{sample}
-    mv !{sample}.* !{sample}
+    if [ "!{readlength}" -ge "50" ]; then 
+        phyloFlash.pl -dbhome "!{params.phyloflash_db}" !{read} -lib !{sample} \
+                    -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
+        jsonify-phyloflash.py !{sample}.phyloFlash > !{sample}.phyloFlash.json
+        mv !{sample}.* !{sample}
+
+        if [ ! -f "${sample}/${sample}.SSU.collection.fasta" ]; then 
+            echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+        fi
+    else
+        echo "${sample} not processed. Mean read length (${readlength}bp) must be greater than 50bp for phyloFlash analysis." > ${sample}/${sample}-unprocessed.txt
+    fi
     """
 }
 
 process align_16s {
-    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "16s-alignment.fasta"
-    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "16s-matches.txt"
+    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-alignment.fasta"
+    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-matches.txt"
     
     input:
     file(fasta) from ALIGNMENT.collect()
 
     output:
-    file "16s-alignment.fasta" into TREE
-    file "16s-matches.txt"
+    file "${params.prefix}-alignment.fasta" into TREE
+    file "${params.prefix}-matches.txt"
 
     shell:
     """
-    format-16s-fasta.py ./ 
-    mafft --thread !{task.cpus} !{params.mafft_opts} 16s-merged.fasta > 16s-alignment.fasta
+    format-16s-fasta.py ./ --prefix !{params.prefix}
+    mafft --thread !{task.cpus} !{params.mafft_opts} !{params.prefix}-merged.fasta > !{params.prefix}-alignment.fasta
     """
 }
 
@@ -80,6 +84,21 @@ process create_phylogeny {
            -bb !{params.bb} -alrt !{params.alrt} -wbt -wbtl \
            -alninfo !{params.iqtree_opts}
     cp iqtree/16s.iqtree !{params.prefix}.iqtree
+    """
+}
+
+process phyloflash_summary {
+    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-summary.txt"
+
+    input:
+    file(json) from SUMMARY.collect()
+
+    output:
+    file "${params.prefix}-summary.txt"
+
+    shell:
+    """
+    phyloflash-summary.py ./ > !{params.prefix}-summary.txt
     """
 }
 
@@ -229,14 +248,17 @@ def build_fastq_tuple(sample, dir) {
         exit 1
     }
     json_data = jsonSlurper.parse(new File(json_stats))
-    readlength =  Math.round(json_data['qc_stats']['read_mean'] - (1.5 * json_data['qc_stats']['read_std']))
-    return [tuple(sample, true, files, readlength), readlength]
+    // PhyloFlash using the same kmers for any read lengths > 134bp
+    readlength = Math.min(134, Math.round(json_data['qc_stats']['read_mean'] - json_data['qc_stats']['read_std']))
+    readlength_mod = Math.round(json_data['qc_stats']['read_mean']  * 0.10)
+    return tuple(sample, single_end, files, readlength, readlength_mod)
 }
 
 def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     include_all = true
     inclusions = []
     exclusions = []
+    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
     if (include_list) {
         new File(include_list).eachLine { line -> 
             inclusions << line.trim()
@@ -248,20 +270,18 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
             exclusions << line.trim() 
         }
     }
-
+    log.info "Including ${inclusions.size} samples for analysis"
     sample_list = []
     file(bactopia_dir).eachFile { item ->
         if( item.isDirectory() ) {
             sample = item.getName()
-            if (inclusions.contains(sample) || include_all) {
-                if (!exclusions.contains(sample)) {
-                    if (is_sample_dir(sample, bactopia_dir)) {
-                        results = build_fastq_tuple(sample, bactopia_dir)
-                        if (results[1] >= 50) {
-                            sample_list << results[0]
+            if (!IGNORE_LIST.contains(sample)) {
+                if (inclusions.contains(sample) || include_all) {
+                    if (!exclusions.contains(sample)) {
+                        if (is_sample_dir(sample, bactopia_dir)) {
+                            sample_list << build_fastq_tuple(sample, bactopia_dir)
                         } else {
-                            log.info "Excluding ${sample}, mean read length < 50bp (phyloFlash requirement)"
-                            exclusions << sample
+                            log.info "${sample} is missing genome size estimate file"
                         }
                     }
                 }
@@ -340,9 +360,6 @@ def print_help() {
                                     Default: ''
 
     Nextflow Related Parameters:
-        --infodir DIR           Directory to write Nextflow summary files to
-                                    Default: ${params.infodir}
-
         --overwrite             Nextflow will overwrite existing output files.
                                     Default: ${params.overwrite}
 

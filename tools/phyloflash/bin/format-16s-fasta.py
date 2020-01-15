@@ -1,8 +1,28 @@
 #! /usr/bin/env python3
 """
+usage: format-16s-fasta [-h] [--outdir OUTPUT_DIRECTORY] [--extension STR]
+                        [--prefix STR] [--version]
+                        DIR
 
+format-16s-fasta (v1.2.4) - Remove duplicates from input FASTAs
+
+positional arguments:
+  DIR                   Directory containing 16s FASTAs
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Helpers:
+  --outdir OUTPUT_DIRECTORY
+                        Directory to write output. (Default: ./)
+  --extension STR       Extension to glob inputs on. (Default: fasta)
+  --prefix STR          Prefix to use for output files. (Default: 16s)
+  --version             show program's version number and exit
+
+example usage:
+  format-16s-fasta ./
 """
-PROGRAM = "bactopia tools phyloflash"
+PROGRAM = "format-16s-fasta"
 VERSION = "1.2.4"
 
 def read_fasta(fasta):
@@ -67,9 +87,15 @@ if __name__ == '__main__':
         match = None
         taxon = None
         fasta_seqs = read_fasta(fasta)
+        i = 1
         for header, seq in read_fasta(fasta):
             if header.startswith(sample):
-                seqs[sample] = seq
+                if sample in seqs:
+                    # Capture multiple copies
+                    seqs[f'{sample}_{i}'] = seq
+                    i += 1
+                else:
+                    seqs[sample] = seq
             else:
                 taxon = header.split(';')[-1]
                 match = header.split()[0]

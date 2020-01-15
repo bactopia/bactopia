@@ -88,6 +88,7 @@ elif [[ "$1" == "build" ]]; then
     build-conda-envs.py "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
+
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
@@ -108,5 +109,5 @@ else
         fi
     fi
     # Execute Bactopia Nextflow pipeline
-    nextflow run bactopia/bactopia -r "v${VERSION}" "${@:1}"
+    nextflow run ${BACTOPIA_NF}/main.nf "${@:1}"
 fi

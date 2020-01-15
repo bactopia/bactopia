@@ -18,15 +18,19 @@ Available Tools:
 import sys
 VERSION = "1.2.4"
 PROGRAM = "bactopia tools"
-DESCRIPTION = 'A suite of compartive analyses for Bactopia outputs'
+DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
-    'pangenome': 'Create a pan-genome with optional core-genome phylogeny.'
+    'fastani': 'Pairwise average nucleotide identity',
+    'mashtree': 'Mash distance based tree',
+    'phyloflash': '16s assembly, alignment and tree',
+    'roary': 'Pan-genome with optional core-genome tree.',
+    'summary': 'HTML report summarizing Bactopia project',
 }
 
 
 def available_tools():
     """Return a string of available tools."""
-    usage = []
+    usage = ['Available Tools:']
     for k,v in sorted(AVAILABLE_TOOLS.items()):
         usage.append(f'  {k: <12}{v}')
     return '\n'.join(usage)
@@ -52,7 +56,6 @@ def validate_args(tool, bactopia_repo):
 
 if __name__ == '__main__':
     import argparse as ap
-
     import textwrap
 
     parser = ap.ArgumentParser(
@@ -62,10 +65,7 @@ if __name__ == '__main__':
             f'{PROGRAM} (v{VERSION}) - {DESCRIPTION}'
         ),
         formatter_class=ap.RawDescriptionHelpFormatter,
-        epilog=textwrap.dedent(f'''
-            Available Tools:
-            {available_tools()}
-        ''')
+        epilog=available_tools()
     )
     parser.add_argument('tool', metavar="STR", type=str,
                         help='Name of the Bactopia tool to execute.')
