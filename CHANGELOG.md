@@ -5,15 +5,18 @@
 - bactopia tools (BT) framework
     - docs for each tool
     - `fastani` - pairwise average nucleotide identity
+    - `gtdb` - assigning objective taxonomic classifications
     - `mashtree` - mash distance based tree
     - `phyloflash` - 16s assembly, alignment and tree
     - `roary` - pan-genome and core genome tree
     - `summary` - summary of results
 - `--include` and `--exclude` to modify which samples used in BT analysis
 - `update-version.sh` improvements
+- can now set how Nextflow publishes outputs (copy, symlink, etc...)
 
 ### `Fixed`
 - nextflow.config version out of sync
+- Containers now retrieve latest tbl2asn version
 
 ## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
 ### `Added`

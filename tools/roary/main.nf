@@ -1,89 +1,71 @@
 #! /usr/bin/env nextflow
-import groovy.json.JsonSlurper
-import groovy.text.SimpleTemplateEngine
-import java.nio.file.Path
-import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
+OUTDIR = "${params.outdir}/bactopia-tool/${PROGRAM_NAME}"
 log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 if (params.version) print_version();
 check_input_params()
-is_compressed = check_gffs_exist(params.bactopia, params.sleep_time)
-
-// Setup output directories
-outdir = "${params.outdir}/bactopia-tool/roary"
+samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 process download_references {
-    publishDir "${outdir}/refseq", mode: 'copy', overwrite: params.overwrite, pattern: "fasta/*.fna"
-    
-    input:
-    file(gff) from create_gff_channel(params.bactopia, true).collect()
-    val(is_compressed) from is_compressed
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: params.force, pattern: "fasta/*.fna"
 
     output:
-    file 'fasta/*.fna' into ANNOTATE
+    file("fasta/*.fna") into ANNOTATE
 
     when:
-    species != null
+    params.species != null || params.accession != null
 
     shell:
+    opt = params.species ? "--genus '${params.species}'" : "-A '${params.accession}'"
     """
-    ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                  --genus "!{params.species}" -r 50
     mkdir fasta
-    find -name "*.fna.gz" | xargs -I {} mv {} fasta/
-    rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
+    ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+    find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+    rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
     gunzip fasta/*
     """
-
 }
 
 process annotate_references {
-    publishDir "${outdir}/refseq/gff", mode: 'copy', overwrite: params.overwrite, pattern: "*.gff"
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: params.force, pattern: "gff/${name}.gff"
+    tag "${name}"
 
     input:
-    file fasta from ANNOTATE
+    file(fasta) from ANNOTATE.flatten()
 
     output:
-    file '*.gff' into REFERENCE_GFF
+    file "gff/${name}.gff" into REFERENCE_GFF
 
     shell:
+    name = fasta.getSimpleName()
     """
-    prokka !{fasta} --cpus !{task.cpus} \
-        --evalue '!{params.prokka_evalue}' \
-        --coverage !{params.prokka_coverage}
+    prokka !{fasta} --cpus !{task.cpus} --evalue '!{params.prokka_evalue}' \
+                    --outdir gff --prefix !{name} --coverage !{params.prokka_coverage}
     """
 
 }
 
 process build_pangenome {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "roary/*"
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "excluded_gff/*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "roary/*"
 
     input:
-    file(sample_gff) from create_gff_channel(params.bactopia, true).collect()
+    file(sample_gff) from Channel.fromList(samples).collect()
     file(reference_gff) from REFERENCE_GFF.collect()
-    file(exclude) from params.exclude
-    val(is_compressed) from is_compressed
 
     output:
     file 'roary/*'
-    file 'excluded_gff/*'
     file 'alignment.fa' into RECOMBINATION
 
     shell:
     n = params.n ? "-n" : ""
     s = params.s ? "-s" : ""
     ap = params.ap ? "-ap" : ""
-    gunzip = is_compressed ? "gunzip -f *.gff.gz" : "echo uncompressed"
-    filter = exclude.name != 'NO_FILE' ? "${exclude.name}" : '/dev/null'
     """
-    !{gunzip}
-    mkdir excluded_gff
-    ls *.gff | grep -f !{filter} | xargs -I {} mv {} excluded_gff
+    find -name "*.gff.gz" | xargs -I {} gunzip {}
     roary -f roary -e !{n} -v -p !{task.cpus} !{s} !{ap} -g !{params.g} \
           -i !{params.i} -cd !{params.cd} -iv !{params.iv} -r *.gff
     cp roary/core_gene_alignment.aln alignment.fa
@@ -92,8 +74,8 @@ process build_pangenome {
 }
 
 process identify_recombination {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "clonalframe/*"
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.aligned.fa.gz"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "clonalframe/*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}.aligned.fa.gz"
 
     input:
     file fasta from RECOMBINATION
@@ -132,8 +114,8 @@ process identify_recombination {
 }
 
 process create_phylogeny {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "iqtree/*"
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.iqtree"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "iqtree/*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}.iqtree"
 
     input:
     file fasta from FINAL_TREE
@@ -153,7 +135,7 @@ process create_phylogeny {
 }
 
 process pairwise_snp_distance {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force
 
     input:
     file fasta from SNP_DISTS
@@ -174,7 +156,7 @@ workflow.onComplete {
     workDirSize = toHumanString(workDir.directorySize())
 
     println """
-    Bactopia Tool 'cgtree' - Execution Summary
+    Bactopia Tool '${PROGRAM_NAME}' - Execution Summary
     ---------------------------
     Command Line    : ${workflow.commandLine}
     Resumed         : ${workflow.resume}
@@ -236,11 +218,8 @@ def check_unknown_params() {
 }
 
 def check_input_params() {
-    error = 0
-    fastq_type = null
-
     // Check for unexpected paramaters
-    error += check_unknown_params()
+    error = check_unknown_params()
 
     if (params.bactopia) {
         error += file_exists(params.bactopia, '--bactopia')
@@ -265,6 +244,19 @@ def check_input_params() {
     error += is_positive_integer(params.bb, 'bb')
     error += is_positive_integer(params.alrt, 'alrt')
     error += is_positive_integer(params.prokka_coverage, 'prokka_coverage')
+
+    // Check for existing output directory
+    if (!file(OUTDIR).exists() && !params.force) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
+    }
+
+    // Check publish_mode
+    ALLOWED_MODES = ['copy', 'copyNoFollow', 'link', 'rellink', 'symlink']
+    if (!ALLOWED_MODES.contains(params.publish_mode)) {
+        log.error("'${params.publish_mode}' is not a valid publish mode. Allowed modes are: ${ALLOWED_MODES}")
+        error += 1
+    }
 
     if (error > 0) {
         log.error('Cannot continue, please see --help for more information')
@@ -293,37 +285,66 @@ def is_positive_integer(value, name) {
 }
 
 
-def check_gffs_exist(bactopia_path, sleep_time) {
-    compressed = create_gff_channel(bactopia_path, false)
-    log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
-    log.info "Sleeping for ${sleep_time} seconds..."
-    sleep(sleep_time * 1000)
-    return compressed
+def is_sample_dir(sample, dir){
+    return file("${dir}/${sample}/${sample}-genome-size.txt").exists()
 }
 
-
-def create_gff_channel(bactopia_path, is_process) {
-    if (is_process) {
-        return Channel.fromPath("${bactopia_path}/**/annotation/*.gff*")
+def build_gff_tuple(sample, dir) {
+    gff = "${dir}/${sample}/annotation/${sample}.gff"
+    if (file("${gff}.gz").exists()) {
+        // Compressed assemblies
+        return file("${gff}.gz")
+    } else if (file(gff).exists()) {
+        return file(gff)
     } else {
-        gffs = Channel.fromPath("${bactopia_path}/**/annotation/*.gff*").toList()
-        count = gffs.val.size()
-        if (count > 0) {
-            compressed = gffs.val[0].toString().endsWith("gz") ? true : false
-
-            if (compressed) {
-                log.info "Found ${count} compressed GFF files for analyis"
-            } else {
-                log.info "Found ${count} GFF files for analyis"
-            }
-            return compressed
-        } else {
-            log.error("Failed to find any GFF files. Please verify ${bactopia_path} contains Bactopia outputs.")
-            exit 1
-        }
+        log.error("Could not locate GFF for ${sample}, please verify existence. Unable to continue.")
+        exit 1
     }
 }
 
+def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
+    include_all = true
+    inclusions = []
+    exclusions = []
+    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
+    if (include_list) {
+        new File(include_list).eachLine { line -> 
+            inclusions << line.trim().split('\t')[0]
+        }
+        include_all = false
+        log.info "Including ${inclusions.size} samples for analysis"
+    }
+    else if (exclude_list) {
+        new File(exclude_list).eachLine { line -> 
+            exclusions << line.trim().split('\t')[0]
+        }
+        log.info "Excluding ${exclusions.size} samples from the analysis"
+    }
+    
+    sample_list = []
+    file(bactopia_dir).eachFile { item ->
+        if( item.isDirectory() ) {
+            sample = item.getName()
+            if (!IGNORE_LIST.contains(sample)) {
+                if (inclusions.contains(sample) || include_all) {
+                    if (!exclusions.contains(sample)) {
+                        if (is_sample_dir(sample, bactopia_dir)) {
+                            sample_list << build_gff_tuple(sample, bactopia_dir)
+                        } else {
+                            log.info "${sample} is missing genome size estimate file"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    log.info "Found ${sample_list.size} samples to process"
+    log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
+    log.info "Sleeping for ${sleep_time} seconds..."
+    sleep(sleep_time * 1000)
+    return sample_list
+}
 
 def print_help() {
     log.info"""
@@ -331,8 +352,11 @@ def print_help() {
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
     Optional Parameters:
+        --include STR           A text file containing sample names to include in the
+                                    analysis. The expected format is a single sample per line.
+
         --exclude STR           A text file containing sample names to exclude from the
-                                    pangenome. The expected format is a single sample per line.
+                                    analysis. The expected format is a single sample per line.
 
         --prefix DIR            Prefix to use for final output files
                                     Default: ${params.prefix}
@@ -428,8 +452,22 @@ def print_help() {
                                     Default: ${params.k}
 
     Nextflow Related Parameters:
-        --infodir DIR           Directory to write Nextflow summary files to
-                                    Default: ${params.infodir}
+        --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
+                                    'copy' (default)    Copies the output files into the published directory.
+
+                                    'copyNoFollow' Copies the output files into the published directory 
+                                                   without following symlinks ie. copies the links themselves.
+
+                                    'link'    Creates a hard link in the published directory for each 
+                                              process output file.
+
+                                    'rellink' Creates a relative symbolic link in the published directory
+                                              for each process output file.
+
+                                    'symlink' Creates an absolute symbolic link in the published directory 
+                                              for each process output file.
+
+                                    Default: ${params.publish_mode}
 
         --overwrite             Nextflow will overwrite existing output files.
                                     Default: ${params.overwrite}

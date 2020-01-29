@@ -100,7 +100,10 @@ if __name__ == '__main__':
                 taxon = header.split(';')[-1]
                 match = header.split()[0]
                 accession = match.split('.')[0]
-                match_header = f'{taxon} ({accession})'
+                header_taxon = taxon
+                if len(header_taxon.split()) > 1:
+                    header_taxon = ' '.join(header_taxon.split()[0:2])
+                match_header = f'{header_taxon} ({accession})'
                 seqs[match_header] = seq
         matches[sample] = [match, taxon]
 

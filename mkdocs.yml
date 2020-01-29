@@ -24,9 +24,13 @@ nav:
       - 'Acknowledgements': 'acknowledgements.md'
     - 'Bactopia Tools':
       - 'Introduction': tools/bactopia-tools.md
-      - 'ani': tools/ani.md
-      - 'pangenome': tools/pangenome.md
+      - 'fastani': tools/fastani.md
+      - 'gtdb': tools/gtdb.md
+      - 'mashtree': tools/mashtree.md
+      - 'phyloflash': tools/phyloflash.md
+      - 'roary': tools/roary.md
       - 'summary': tools/summary.md
+
 
 theme:
     name: 'material'

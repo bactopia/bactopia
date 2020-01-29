@@ -7,7 +7,7 @@ From: nfcore/base
     VERSION 1.2.4
 
 %environment
-    PATH=/opt/conda/envs/TOOL_NAME/bin:$PATH
+    PATH=/opt/conda/envs/bactopia-TOOL_NAME/bin:$PATH
     export PATH
 
 %files

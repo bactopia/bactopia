@@ -1,10 +1,9 @@
 #! /usr/bin/env nextflow
 import groovy.json.JsonSlurper
-import groovy.text.SimpleTemplateEngine
-import java.nio.file.Path
-import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
+OUTDIR = "${params.outdir}/bactopia-tool/${PROGRAM_NAME}"
+
 log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
 
 // Validate parameters
@@ -14,10 +13,9 @@ check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 // Setup output directories
-outdir = "${params.outdir}/bactopia-tool/phyloflash"
 
 process reconstruct_16s {
-    publishDir "${outdir}/samples", mode: 'copy', overwrite: params.overwrite, pattern: "${sample}/*"
+    publishDir "${OUTDIR}/samples", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${sample}/*"
     tag "${sample} - ${readlength}"
 
     input:
@@ -49,8 +47,8 @@ process reconstruct_16s {
 }
 
 process align_16s {
-    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-alignment.fasta"
-    publishDir "${outdir}/alignment", mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-matches.txt"
+    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-alignment.fasta"
+    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-matches.txt"
     
     input:
     file(fasta) from ALIGNMENT.collect()
@@ -67,8 +65,8 @@ process align_16s {
 }
 
 process create_phylogeny {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "iqtree/*"
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}.iqtree"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "iqtree/*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}.iqtree"
 
     input:
     file fasta from TREE
@@ -88,7 +86,7 @@ process create_phylogeny {
 }
 
 process phyloflash_summary {
-    publishDir outdir, mode: 'copy', overwrite: params.overwrite, pattern: "${params.prefix}-summary.txt"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-summary.txt"
 
     input:
     file(json) from SUMMARY.collect()
@@ -107,7 +105,7 @@ workflow.onComplete {
     workDirSize = toHumanString(workDir.directorySize())
 
     println """
-    Bactopia Tool 'phyloflash' - Execution Summary
+    Bactopia Tool '${PROGRAM_NAME}' - Execution Summary
     ---------------------------
     Command Line    : ${workflow.commandLine}
     Resumed         : ${workflow.resume}
@@ -169,13 +167,13 @@ def check_unknown_params() {
 }
 
 def check_input_params() {
-    error = 0
-
     // Check for unexpected paramaters
-    error += check_unknown_params()
+    error = check_unknown_params()
 
     if (params.bactopia) {
         error += file_exists(params.bactopia, '--bactopia')
+    } else if (params.include) {
+        error += file_exists(params.include, '--include')
     } else if (params.exclude) {
         error += file_exists(params.exclude, '--exclude')
     } else {
@@ -197,6 +195,20 @@ def check_input_params() {
     error += is_positive_integer(params.taxlevel, 'taxlevel')
     error += is_positive_integer(params.bb, 'bb')
     error += is_positive_integer(params.alrt, 'alrt')
+
+    // Check for existing output directory
+    if (!file(OUTDIR).exists() && !params.force) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
+    }
+
+    // Check publish_mode
+    ALLOWED_MODES = ['copy', 'copyNoFollow', 'link', 'rellink', 'symlink']
+    if (!ALLOWED_MODES.contains(params.publish_mode)) {
+        log.error("'${params.publish_mode}' is not a valid publish mode. Allowed modes are: ${ALLOWED_MODES}")
+        error += 1
+    }
+
 
     if (error > 0) {
         log.error('Cannot continue, please see --help for more information')
@@ -264,13 +276,15 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
             inclusions << line.trim()
         }
         include_all = false
+        log.info "Including ${inclusions.size} samples for analysis"
     }
     else if (exclude_list) {
         new File(exclude_list).eachLine { line -> 
-            exclusions << line.trim() 
+            exclusions << line.trim().split('\t')[0]
         }
+        log.info "Excluding ${exclusions.size} samples from the analysis"
     }
-    log.info "Including ${inclusions.size} samples for analysis"
+
     sample_list = []
     file(bactopia_dir).eachFile { item ->
         if( item.isDirectory() ) {
@@ -289,7 +303,6 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
         }
     }
 
-    log.info "Excluding ${exclusions.size} samples from the analysis"
     log.info "Found ${sample_list.size} samples to process"
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for ${sleep_time} seconds..."
@@ -360,8 +373,25 @@ def print_help() {
                                     Default: ''
 
     Nextflow Related Parameters:
-        --overwrite             Nextflow will overwrite existing output files.
-                                    Default: ${params.overwrite}
+        --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
+                                    'copy' (default)    Copies the output files into the published directory.
+
+                                    'copyNoFollow' Copies the output files into the published directory 
+                                                   without following symlinks ie. copies the links themselves.
+
+                                    'link'    Creates a hard link in the published directory for each 
+                                              process output file.
+
+                                    'rellink' Creates a relative symbolic link in the published directory
+                                              for each process output file.
+
+                                    'symlink' Creates an absolute symbolic link in the published directory 
+                                              for each process output file.
+
+                                    Default: ${params.publish_mode}
+
+        --force                 Nextflow will overwrite existing output files.
+                                    Default: ${params.force}
 
         --conatainerPath        Path to Singularity containers to be used by the 'slurm'
                                     profile.

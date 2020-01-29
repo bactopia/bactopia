@@ -1,7 +1,7 @@
 # `fastani`
 
 ```
-# Last updated Tue 17 Dec 2019 12:39:19 PM EST
-conda create -y -n bactopia-fastani -c r -c conda-forge -c bioconda \
-    fastani
+# Last updated Tue 21 Jan 2020 11:34:14 AM EST
+conda create -y -n bactopia-fastani -c conda-forge -c bioconda \
+    fastani ncbi-genome-download
 ```

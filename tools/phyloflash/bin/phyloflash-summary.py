@@ -33,6 +33,12 @@ def read_fasta(fasta):
 
         yield (headerStr, seq)
 
+def format_taxon(taxonomy):
+    """ Format the taxonomy string. """
+    genus = taxonomy.split(';')[-2]
+    organism = taxonomy.split(';')[-1]
+    return [genus, organism]
+
 if __name__ == '__main__':
     import argparse as ap
     import json
@@ -105,10 +111,10 @@ if __name__ == '__main__':
                     assembly = []
                     assembly_hit = []
                     for hit in json_data['ssu_assembly']['results']:
-                        taxonomy = json_data['ssu_assembly']['results'][0]['taxonomy']
-                        assembly_taxon.append(taxonomy.split(';')[5].strip())
-                        assembly.append(taxonomy.split(';')[6])
-                        assembly_hit.append(json_data['ssu_assembly']['results'][0]['dbHit'])
+                        genus, organism = format_taxon(hit['taxonomy'])
+                        assembly_taxon.append(genus)
+                        assembly.append(organism)
+                        assembly_hit.append(hit['dbHit'])
 
                     if len(set(assembly_taxon)) == 1:
                         results[sample]['assembly_taxon'] = ';'.join(list(set(assembly_taxon)))
@@ -120,9 +126,9 @@ if __name__ == '__main__':
                         results[sample]['assembly_hit'] = ';'.join(assembly_hit)
                     message.append("WARNING: Multiple SSUs were assembled by SPAdes")
                 else:
-                    taxonomy = json_data['ssu_assembly']['results'][0]['taxonomy']
-                    results[sample]['assembly_taxon'] = taxonomy.split(';')[5]
-                    results[sample]['assembly_species'] = taxonomy.split(';')[6]
+                    genus, organism = format_taxon(json_data['ssu_assembly']['results'][0]['taxonomy'])
+                    results[sample]['assembly_taxon'] = genus
+                    results[sample]['assembly_species'] = organism
                     results[sample]['assembly_hit'] = json_data['ssu_assembly']['results'][0]['dbHit']
             else:
                 message.append("WARNING: missing SPAdes assembly of the SSU")

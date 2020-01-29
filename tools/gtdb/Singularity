@@ -3,11 +3,11 @@ From: nfcore/base
 
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
-    DESCRIPTION Singularity image for Bactopia Tool fastani
+    DESCRIPTION Singularity image for Bactopia Tool gtdb
     VERSION 1.2.4
 
 %environment
-    PATH=/opt/conda/envs/bactopia-fastani/bin:$PATH
+    PATH=/opt/conda/envs/bactopia-gtdb/bin:$PATH
     export PATH
 
 %files
