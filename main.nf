@@ -1005,6 +1005,14 @@ def check_input_params() {
         error += file_exists(params.phix, '--phix')
     }
 
+    // Check for existing output directory
+    if (!workflow.resume) {
+        if (!file(params.outdir).exists() && !params.force) {
+            log.error("Output directory (${params.outdir}) exists, Bactopia will not continue unless '--force' is used.")
+            error += 1
+        }
+    }
+
     if (error > 0) {
         log.error('Cannot continue, please see --help for more information')
         exit 1
@@ -1270,6 +1278,9 @@ def basic_help() {
                                               for each process output file.
 
                                     Default: ${params.publish_mode}
+
+        --force                 Nextflow will overwrite existing output files.
+                                    Default: ${params.force}
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based

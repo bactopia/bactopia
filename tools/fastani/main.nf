@@ -190,9 +190,11 @@ def check_input_params() {
     error += is_positive_integer(params.fragLen, 'fragLen')
 
     // Check for existing output directory
-    if (file(OUTDIR).exists() && !params.force) {
-        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-        error += 1
+    if (!workflow.resume) {
+        if (!file(OUTDIR).exists() && !params.force) {
+            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+            error += 1
+        }
     }
 
     // Check publish_mode
