@@ -13,6 +13,7 @@
 - `--include` and `--exclude` to modify which samples used in BT analysis
 - `update-version.sh` improvements
 - can now set how Nextflow publishes outputs (copy, symlink, etc...)
+- option (`--rfam`) to turn on ncRNA annotation in Prokka
 
 ### `Fixed`
 - nextflow.config version out of sync

@@ -10,6 +10,14 @@ if (params.version) print_version();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
+process download_gtdb {
+
+}
+
+process gtdb {
+
+}
+
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
     workDirSize = toHumanString(workDir.directorySize())
@@ -149,11 +157,11 @@ def build_assembly_tuple(sample, dir) {
     assembly = "${dir}/${sample}/assembly/${sample}.fna"
     if (file("${assembly}.gz").exists()) {
         // Compressed assemblies
-        tuple(file("${assembly}.gz"))
+        return file("${assembly}.gz")
     } else if (file(assembly).exists()) {
-        tuple(file(assembly))
-    else {
-        log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
+        return file(assembly)
+    } else {
+        log.error("Could not locate assembly for ${sample}, please verify existence. Unable to continue.")
         exit 1
     }
 }
@@ -165,7 +173,7 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
     if (include_list) {
         new File(include_list).eachLine { line -> 
-            inclusions << line.trim()
+            inclusions << line.trim().split('\t')[0]
         }
         include_all = false
         log.info "Including ${inclusions.size} samples for analysis"
@@ -202,7 +210,6 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     return sample_list
 }
 
-
 def print_help() {
     log.info"""
     Required Parameters:
@@ -230,6 +237,15 @@ def print_help() {
         --cpus INT              Number of processors made available to a single
                                     process.
                                     Default: ${params.cpus}
+
+    GTDB-Tk Related Parameters:
+        --database STR          Location of a pre-downloaded GTDB database.
+                                    Default: Check $GTDBTK_DATA_PATH, if missing download.
+
+        --min_perc_aa INT       Filter genomes with an insufficient percentage of AA in the MSA
+                                    Default: ${params.min_perc_aa}
+
+        --recalculate_red       Recalculate RED values based on the reference tree and all added user genomes
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:

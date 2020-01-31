@@ -20,7 +20,6 @@ if (params.available_datasets) print_available_datasets(params.dataset)
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
-log.info "${params.skip_fastq_check}"
 // Setup some defaults
 log.info "${PROGRAM_NAME} - ${VERSION}"
 ARIBA_DATABASES = []
@@ -234,6 +233,7 @@ process annotate_genome {
     norrna = params.norrna ? "--norrna" : ""
     notrna = params.notrna ? "--notrna" : ""
     rnammer = params.rnammer ? "--rnammer" : ""
+    rfam = params.rnammer ? "--rfam" : ""
     template(task.ext.template)
 }
 
@@ -419,7 +419,7 @@ process call_variants_auto {
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
-    reference_name = reference.getBaseName().split('-')[1].split(/\./)[0]
+    reference_name = reference.getSimpleName().split("${sample}-")[1].split(/\./)[0]
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
@@ -1490,6 +1490,8 @@ def full_help() {
         --notrna                Don't run tRNA search
 
         --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
+
+        --rfam                  Enable searching for ncRNAs with Infernal+Rfam
 
     Minmer Sketch Parameters:
         --mash_sketch INT       Sketch size. Each sketch will have at most this
