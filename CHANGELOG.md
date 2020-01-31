@@ -12,7 +12,7 @@
     - `summary` - summary of results
 - `--include` and `--exclude` to modify which samples used in BT analysis
 - `update-version.sh` improvements
-- can now set how Nextflow publishes outputs (copy, symlink, etc...)
+- can now set how Nextflow publishes outputs (copy, symlink, etc...) via `--publish_mode`
 - option (`--rfam`) to turn on ncRNA annotation in Prokka
 
 ### `Fixed`
