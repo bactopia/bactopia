@@ -1,5 +1,4 @@
 name: bactopia-roary
-version: 1.2.4
 channels:
   - r
   - conda-forge
@@ -15,7 +14,7 @@ dependencies:
   - barrnap=0.9=3
   - bcbio-gff=0.6.6=py_0
   - bedtools=2.29.2=hc088bd4_0
-  - binutils_impl_linux-64=2.33.1=he1b5a44_7
+  - binutils_impl_linux-64=2.33.1=h53a641e_8
   - binutils_linux-64=2.33.1=h9595d00_16
   - biopython=1.76=py37h516909a_0
   - blast=2.9.0=pl526h3066fca_4
@@ -33,30 +32,30 @@ dependencies:
   - cryptography=2.8=py37h72c5cf5_1
   - curl=7.65.3=hf8cf82a_0
   - dbus=1.13.6=he372182_0
-  - entrez-direct=11.0=pl526_1
+  - entrez-direct=13.3=pl526h375a9b1_0
   - enum34=1.1.6=py37_1002
   - ete3=3.1.1=py_1
-  - expat=2.2.5=he1b5a44_1004
+  - expat=2.2.9=he1b5a44_2
   - fasttree=2.1.10=h14c3975_3
   - fontconfig=2.13.1=h86ecdb6_1001
   - freetype=2.10.0=he983fc9_1
   - fribidi=1.0.5=h516909a_1002
-  - gcc_impl_linux-64=7.3.0=hd420e75_4
+  - gcc_impl_linux-64=7.3.0=hd420e75_5
   - gcc_linux-64=7.3.0=h553295d_16
   - gettext=0.19.8.1=hc5be6a0_1002
-  - gfortran_impl_linux-64=7.3.0=hdf63c60_4
+  - gfortran_impl_linux-64=7.3.0=hdf63c60_5
   - gfortran_linux-64=7.3.0=h553295d_16
   - giflib=5.2.1=h516909a_1
   - glib=2.58.3=py37h6f030ca_1002
   - graphite2=1.3.13=hf484d3e_1000
   - graphviz=2.42.3=h0511662_0
   - gsl=2.5=h294904e_1
-  - gst-plugins-base=1.14.5=h0935bb2_0
-  - gstreamer=1.14.5=h36ae1b5_0
-  - gxx_impl_linux-64=7.3.0=hdf63c60_4
+  - gst-plugins-base=1.14.5=h0935bb2_1
+  - gstreamer=1.14.5=h36ae1b5_1
+  - gxx_impl_linux-64=7.3.0=hdf63c60_5
   - gxx_linux-64=7.3.0=h553295d_16
   - harfbuzz=2.4.0=h9f30f68_3
-  - hmmer=3.2.1=he1b5a44_2
+  - hmmer=3.3=he1b5a44_0
   - icu=64.2=he1b5a44_1
   - idna=2.8=py37_1000
   - infernal=1.1.2=h14c3975_2
@@ -64,17 +63,18 @@ dependencies:
   - jpeg=9c=h14c3975_1001
   - krb5=1.16.4=h2fd8d38_0
   - lcms2=2.9=hbd6801e_1
-  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - ld_impl_linux-64=2.33.1=h53a641e_8
   - libblas=3.8.0=14_openblas
   - libcblas=3.8.0=14_openblas
   - libclang=9.0.1=default_hde54327_0
   - libcurl=7.65.3=hda55be3_0
   - libdb=6.1.26=he1b5a44_2001
   - libedit=3.1.20170329=hf8c457e_1001
+  - libfaketime=0.9.8=h516909a_0
   - libffi=3.2.1=he1b5a44_1006
   - libgcc-ng=9.2.0=h24d8f2e_2
   - libgd=2.2.5=h307a58e_1007
-  - libgfortran-ng=7.3.0=hdf63c60_4
+  - libgfortran-ng=7.3.0=hdf63c60_5
   - libgomp=9.2.0=h24d8f2e_2
   - libiconv=1.15=h516909a_1005
   - libidn11=1.34=h1cef754_0
@@ -92,7 +92,7 @@ dependencies:
   - libxkbcommon=0.9.1=hebb1f50_0
   - libxml2=2.9.10=hee79883_0
   - libxslt=1.1.33=h31b3aaa_0
-  - lxml=4.4.2=py37h7ec2d77_0
+  - lxml=4.5.0=py37h7ec2d77_0
   - lz4-c=1.8.3=he1b5a44_1001
   - lzo=2.10=h14c3975_1000
   - mafft=7.455=h516909a_0
@@ -100,7 +100,7 @@ dependencies:
   - maskrc-svg=0.5=1
   - mcl=14.137=pl526h516909a_5
   - minced=0.4.2=0
-  - ncbi-genome-download=0.2.11=py_0
+  - ncbi-genome-download=0.2.12=py_0
   - ncurses=6.1=hf484d3e_1002
   - nspr=4.24=he1b5a44_0
   - nss=3.47=he751ad9_0
@@ -332,7 +332,7 @@ dependencies:
   - perl-xsloader=0.24=pl526_0
   - perl-yaml=1.29=pl526_0
   - pigz=2.3.4=0
-  - pip=20.0.1=py37_0
+  - pip=20.0.2=py37_1
   - pixman=0.38.0=h516909a_1003
   - prank=v.170427=h6bb024c_2
   - prodigal=2.6.3=h516909a_2
@@ -393,11 +393,12 @@ dependencies:
   - svgwrite=1.3.1=py_0
   - t_coffee=11.0.8=py37hea885bf_8
   - tbl2asn=25.7=0
+  - tbl2asn-forever=25.7.1f=0
   - tidyp=1.04=1
   - tk=8.6.10=hed695b0_0
   - tktable=2.10=h555a92e_3
   - urllib3=1.25.7=py37_0
-  - wheel=0.33.6=py37_0
+  - wheel=0.34.2=py37_0
   - xorg-fixesproto=5.0=h14c3975_1002
   - xorg-inputproto=2.3.2=h14c3975_1002
   - xorg-kbproto=1.0.7=h14c3975_1002
