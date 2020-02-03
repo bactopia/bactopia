@@ -1,5 +1,4 @@
 FROM nfcore/base
-MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
 
 LABEL version=BACTOPIA_VERSION
 LABEL authors="robert.petit@emory.edu"
