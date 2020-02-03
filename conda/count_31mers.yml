@@ -5,9 +5,11 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - _libgcc_mutex=0.1=main
-  - libgcc-ng=9.2.0=hdf63c60_0
-  - libstdcxx-ng=9.2.0=hdf63c60_0
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=0_gnu
+  - libgcc-ng=9.2.0=h24d8f2e_2
+  - libgomp=9.2.0=h24d8f2e_2
+  - libstdcxx-ng=9.2.0=hdf63c60_2
   - mccortex=1.0=he860b03_2
   - zlib=1.2.11=h516909a_1006
 

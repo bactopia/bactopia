@@ -5,11 +5,12 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - _libgcc_mutex=0.1=main
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=0_gnu
   - bcftools=1.9=h68d8f2e_9
   - bedtools=2.29.2=hc088bd4_0
-  - biopython=1.75=py37h516909a_0
-  - bwa=0.7.17=hed695b0_6
+  - biopython=1.76=py37h516909a_0
+  - bwa=0.7.17=hed695b0_7
   - bzip2=1.0.8=h516909a_2
   - ca-certificates=2019.11.28=hecc5488_0
   - cairo=1.16.0=hfb77d84_1002
@@ -17,55 +18,56 @@ dependencies:
   - clustalw=2.1=hc9558a2_5
   - curl=7.65.3=hf8cf82a_0
   - emboss=6.6.0=he06d7ca_1
-  - expat=2.2.5=he1b5a44_1004
+  - expat=2.2.9=he1b5a44_2
   - fontconfig=2.13.1=h86ecdb6_1001
-  - freebayes=1.3.1=py37h56106d0_0
+  - freebayes=1.3.2=py37hc088bd4_0
   - freetype=2.10.0=he983fc9_1
   - fribidi=1.0.5=h516909a_1002
   - gettext=0.19.8.1=hc5be6a0_1002
-  - giflib=5.1.9=h516909a_0
+  - giflib=5.2.1=h516909a_1
   - glib=2.58.3=py37h6f030ca_1002
   - graphite2=1.3.13=hf484d3e_1000
   - graphviz=2.42.3=h0511662_0
   - gsl=2.5=h294904e_1
   - harfbuzz=2.4.0=h9f30f68_3
-  - htslib=1.9=h244ad75_9
+  - htslib=1.9=h4da6232_3
   - icu=64.2=he1b5a44_1
   - jpeg=9c=h14c3975_1001
   - krb5=1.16.4=h2fd8d38_0
-  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - ld_impl_linux-64=2.33.1=h53a641e_8
   - libblas=3.8.0=14_openblas
   - libcblas=3.8.0=14_openblas
   - libcurl=7.65.3=hda55be3_0
   - libdb=6.1.26=he1b5a44_2001
-  - libdeflate=1.3=h516909a_0
+  - libdeflate=1.5=h516909a_0
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=he1b5a44_1006
-  - libgcc-ng=9.2.0=hdf63c60_0
+  - libgcc-ng=9.2.0=h24d8f2e_2
   - libgd=2.2.5=h307a58e_1007
-  - libgfortran-ng=7.3.0=hdf63c60_2
+  - libgfortran-ng=7.3.0=hdf63c60_5
+  - libgomp=9.2.0=h24d8f2e_2
   - libiconv=1.15=h516909a_1005
   - liblapack=3.8.0=14_openblas
-  - libopenblas=0.3.7=h5ec1e0e_5
+  - libopenblas=0.3.7=h5ec1e0e_6
   - libpng=1.6.37=hed695b0_0
   - libssh2=1.8.2=h22169c7_2
-  - libstdcxx-ng=9.2.0=hdf63c60_0
-  - libtiff=4.1.0=hc3755c2_1
+  - libstdcxx-ng=9.2.0=hdf63c60_2
+  - libtiff=4.1.0=hc3755c2_3
   - libtool=2.4.6=h14c3975_1002
   - libuuid=2.32.1=h14c3975_1000
-  - libwebp=1.0.2=h576950b_1
+  - libwebp=1.0.2=h56121f0_5
   - libxcb=1.13=h14c3975_1002
   - libxml2=2.9.10=hee79883_0
   - libxslt=1.1.33=h31b3aaa_0
   - lz4-c=1.8.3=he1b5a44_1001
   - minimap2=2.17=h8b12597_1
   - ncurses=6.1=hf484d3e_1002
-  - numpy=1.17.3=py37h95a1406_0
-  - openjdk=8.0.192=h14c3975_1003
+  - numpy=1.17.5=py37h95a1406_0
+  - openjdk=8.0.192=h516909a_1004
   - openssl=1.1.1d=h516909a_0
   - paml=4.9=h516909a_5
   - pango=1.42.4=ha030887_1
-  - parallel=20191122=0
+  - parallel=20200122=0
   - pcre=8.43=he1b5a44_0
   - perl=5.26.2=h516909a_1006
   - perl-aceperl=1.92=pl526_2
@@ -273,16 +275,16 @@ dependencies:
   - perl-xsloader=0.24=pl526_0
   - perl-yaml=1.29=pl526_0
   - pigz=2.3.4=0
-  - pip=19.3.1=py37_0
+  - pip=20.0.2=py37_1
   - pixman=0.38.0=h516909a_1003
   - pthread-stubs=0.4=h14c3975_1001
-  - python=3.7.3=h357f687_2
+  - python=3.7.6=h357f687_2
   - pyvcf=0.6.8=py37_1000
   - readline=8.0=hf8c457e_0
   - samclip=0.2=2
   - samtools=1.9=h10a08f8_12
   - seqtk=1.3=hed695b0_2
-  - setuptools=42.0.2=py37_0
+  - setuptools=45.1.0=py37_0
   - snippy=4.4.5=0
   - snp-sites=2.5.1=hed695b0_0
   - snpeff=4.3.1t=3
@@ -293,7 +295,7 @@ dependencies:
   - vcf-annotator=0.5=1
   - vcflib=1.0.0_rc3=py37hc088bd4_0
   - vt=2015.11.10=he941832_3
-  - wheel=0.33.6=py37_0
+  - wheel=0.34.2=py37_0
   - xorg-kbproto=1.0.7=h14c3975_1002
   - xorg-libice=1.0.10=h516909a_0
   - xorg-libsm=1.2.3=h84519dc_1000
