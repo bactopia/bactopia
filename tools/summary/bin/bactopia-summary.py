@@ -334,6 +334,7 @@ if __name__ == '__main__':
         }
     }
 
+    print (RANK_CUTOFF)
     samples = {}
     with os.scandir(args.bactopia) as dirs:
         for directory in dirs:
@@ -407,6 +408,8 @@ if __name__ == '__main__':
                 contigs = assembly['total_contig']
                 is_paired = True if end_type == 'paired-end' else False
                 rank, reason = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
+                if sample == 'SRX059832':
+                    print (rank)
                 COUNTS[rank] += 1
                 CATEGORIES[rank].append(sample)
                 add_to_counts(assembly, rank)

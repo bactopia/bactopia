@@ -23,7 +23,7 @@ process reconstruct_16s {
 
     output:
     file "${sample}/*" 
-    file "${sample}/${sample}.SSU.collection.fasta" optional true into ALIGNMENT
+    file "${sample}/${sample}.toalign.fasta" optional true into ALIGNMENT
     file "${sample}/${sample}.phyloFlash.json" optional true into SUMMARY
 
     shell:
@@ -37,8 +37,18 @@ process reconstruct_16s {
         jsonify-phyloflash.py !{sample}.phyloFlash > !{sample}.phyloFlash.json
         mv !{sample}.* !{sample}
 
-        if [ ! -f "${sample}/${sample}.SSU.collection.fasta" ]; then 
-            echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+        if [ "!{params.align_all}" == "true" ]; then 
+            if [ -f "${sample}/${sample}.SSU.collection.fasta" ]; then 
+                cp ${sample}/${sample}.SSU.collection.fasta ${sample}/${sample}.toalign.fasta
+            else
+                echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+            fi
+        else
+            if [ -f "${sample}/${sample}.spades_rRNAs.final.fasta" ]; then
+                cp ${sample}/${sample}.spades_rRNAs.final.fasta {sample}/${sample}.toalign.fasta
+            else 
+                echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+            fi
         fi
     else
         echo "${sample} not processed. Mean read length (${readlength}bp) must be greater than 50bp for phyloFlash analysis." > ${sample}/${sample}-unprocessed.txt
@@ -57,6 +67,9 @@ process align_16s {
     file "${params.prefix}-alignment.fasta" into TREE
     file "${params.prefix}-matches.txt"
 
+    when:
+    params.skip_phylogeny == false
+
     shell:
     """
     format-16s-fasta.py ./ --prefix !{params.prefix}
@@ -74,6 +87,9 @@ process create_phylogeny {
     output:
     file 'iqtree/*'
     file "${params.prefix}.iqtree"
+
+    when:
+    params.skip_phylogeny == false
 
     shell:
     """
@@ -353,6 +369,9 @@ def print_help() {
 
 
     MAFFT Related Parameters:
+        --align_all             Include reconstructed 16S genes as well as the corresponding
+                                    reference 16S genes in the alignment.
+
         --mafft_opts STR        MAFFT options to include (in quotes).
                                     Default: ''
 
