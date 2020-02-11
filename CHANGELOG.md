@@ -19,6 +19,7 @@
 - nextflow.config version out of sync
 - Containers now retrieve latest tbl2asn version
 - Check if output directory exists before execution
+- `--available_datasets` accessing not existent variable
 
 ## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
 ### `Added`

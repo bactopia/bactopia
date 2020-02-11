@@ -37,19 +37,33 @@ process reconstruct_16s {
         jsonify-phyloflash.py !{sample}.phyloFlash > !{sample}.phyloFlash.json
         mv !{sample}.* !{sample}
 
+        MULTI=`phyloflash-summary.py ./ | grep -c "WARNING: Multiple SSUs were assembled by SPAdes"`
+        if [ "!{params.allow_multiple_16s} == "true" ]; then
+            MULTI="0"
+        fi
+
         if [ "!{params.align_all}" == "true" ]; then 
-            if [ -f "${sample}/${sample}.SSU.collection.fasta" ]; then 
-                cp ${sample}/${sample}.SSU.collection.fasta ${sample}/${sample}.toalign.fasta
+            if [ -f "${sample}/${sample}.SSU.collection.fasta" ]; then
+                if [ "${MULTI}" -eq "0" ]; then
+                    cp ${sample}/${sample}.SSU.collection.fasta ${sample}/${sample}.toalign.fasta
+                else
+                    echo "${sample} contained multiple 16s genes." > ${sample}/${sample}-multiple-16s.txt
+                fi
             else
                 echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
             fi
         else
             if [ -f "${sample}/${sample}.spades_rRNAs.final.fasta" ]; then
-                cp ${sample}/${sample}.spades_rRNAs.final.fasta {sample}/${sample}.toalign.fasta
+                if [ "${MULTI}" -eq "0" ]; then
+                    cp ${sample}/${sample}.spades_rRNAs.final.fasta {sample}/${sample}.toalign.fasta
+                else
+                    echo "${sample} contained multiple 16s genes." > ${sample}/${sample}-multiple-16s.txt
+                fi
             else 
                 echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
             fi
         fi
+
     else
         echo "${sample} not processed. Mean read length (${readlength}bp) must be greater than 50bp for phyloFlash analysis." > ${sample}/${sample}-unprocessed.txt
     fi
@@ -366,6 +380,16 @@ def print_help() {
 
         --phyloflash_opts STR   Extra phyloFlash options in quotes.
                                     Default: ''
+
+        --allow_multiple_16s    Include samples with multiple reconstructed 16S genes. Due to
+                                    high sequence similarity in true multi-copy 16S genes, it
+                                    is unlikely each copy will be reconstructed, instead only
+                                    one. In order to get more than one reconstructed 16S gene
+                                    there must be a significant difference in the sequence
+                                    identity. As a consequence, any samples that have multiple 
+                                    16S genes reconstructed contain multiple different species
+                                    within their sequencing.
+                                    Default: Exclude samples with multiple 16S genes
 
 
     MAFFT Related Parameters:

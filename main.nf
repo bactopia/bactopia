@@ -10,13 +10,13 @@ VERSION = workflow.manifest.version
 // Validate parameters
 if (params.help || params.help_all || params.conda_help) print_usage();
 if (params.nfdir) print_basedir();
+if (params.available_datasets && params.datasets) print_available_datasets(params.datasets)
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
 fastq_type = check_input_params()
 check_input_fastqs(params.fastqs, fastq_type)
 if (params.check_fastqs) print_check_fastqs(params.fastqs, fastq_type);
-if (params.available_datasets) print_available_datasets(params.dataset)
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
@@ -645,22 +645,34 @@ def print_available_datasets(dataset) {
         if (file("${dataset}/summary.json").exists()) {
             available_datasets = read_dataset_summary(dataset)
             log.info 'Printing the available pre-configured dataset.'
-            log.info "Database Location (--dataset): ${dataset}"
+            log.info "Database Location (--datasets): ${dataset}"
             log.info ''
             if (available_datasets.size() > 0) {
+                IGNORE = ['species-specific']
+                GENERAL = ['ariba', 'minmer', 'plasmid']
                 available_datasets.each { key, value ->
-                    if (key == 'ariba') {
+                    if (GENERAL.contains(key) == 'ariba') {
                         log.info "${key.capitalize()}"
                         value.each {
                             log.info "\tFound ${it}"
                         }
-                    } else if (key == 'minmer') {
-                        log.info "Minmer Sketches"
-                        value.each {
-                            log.info "\tFound ${it})"
+                    } else if (key == 'species-specific') {
+                        value.each { species, sets ->
+                            log.info "${species.capitalize().replace('-', ' ')} (use --species \"${species}\")"
+                            sets.each { set_name, set_path ->
+                                if (set_name == 'optional') {
+                                    log.info "\tOptional:"
+                                    set_path.each {
+                                        log.info "\t\tFound ${it}"
+                                    }
+                                } else {
+                                    log.info "\tFound ${set_name}=${set_path}"
+                                }
+                            }
+                            log.info ''
                         }
                     } else {
-                        log.info "${key.capitalize().replace('-', ' ')} (use --species \"${key}\")"
+                        log.info "${key.capitalize()}"
                         value.each {
                             log.info "\tFound ${it}"
                         }
@@ -670,11 +682,11 @@ def print_available_datasets(dataset) {
             }
         } else {
             log.error "Please verify the PATH is correct and ${dataset}/summary.json" +
-                     " exists, if not try rerunning 'setup-datasets.py'."
+                     " exists, if not try rerunning 'bactopia datasets'."
             exit_code = 1
         }
     } else {
-        log.error "Please use '--dataset' to specify the path to pre-built datasets."
+        log.error "Please use '--datasets' to specify the path to pre-built datasets."
         exit_code = 1
     }
     exit exit_code
@@ -1003,6 +1015,14 @@ def check_input_params() {
     }
     if (params.phix) {
         error += file_exists(params.phix, '--phix')
+    }
+
+    if (params.datasets) {
+        if (!file("${params.datasets}/summary.json").exists()) {
+            log.error "Please verify the PATH is correct for '--datasets'. Unable " +
+                      "to open ${dataset}/summary.json"
+            error += 1
+        }
     }
 
     // Check for existing output directory
