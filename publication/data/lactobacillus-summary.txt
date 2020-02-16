@@ -1,0 +1,4 @@
+QUERY: tax_tree(1578)
+LIMIT: 1000000
+RESULTS: 2030 (./lactobacillus-results.txt)
+ILLUMINA ACCESSIONS: 1664 (./lactobacillus-accessions.txt)

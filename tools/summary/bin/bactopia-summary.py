@@ -10,7 +10,7 @@ from collections import defaultdict
 from statistics import mean
 
 PROGRAM = "bactopia tools summary"
-VERSION = "1.2.4"
+VERSION = "1.3.0"
 TEMPLATE_DIR = os.path.dirname(os.path.realpath(__file__)).replace('bin', 'templates')
 
 STDOUT = 11
@@ -70,30 +70,50 @@ def parse_error(error):
         return ["paired-end-error", "Paired-end read count mismatch"]
     return ["unknown-error", "Unknown Error"]
 
-def parse_read_stats(json_file, ):
-    """ """
-    with open(json_file) as json_fh:
-        return json.load(json_fh)
+def parse_genome_size(txt_file):
+    """Pull out the genome size used for analysis."""
+    with open(txt_file, 'rt') as txt_fh:
+        return txt_fh.readline().rstrip()
 
 def parse_json(json_file):
     """Return a dict of the input json_file"""
     with open(json_file) as json_fh:
         return json.load(json_fh)
 
-def parse_annotation(txt_file):
+def parse_annotation(txt_file, prefix='annotation'):
     """Parse Prokka summary text file."""
     results = {}
-    with open(txt_file) as txt_fh:
+    with open(txt_file, 'rt') as txt_fh:
         for line in txt_fh:
             line = line.rstrip()
             key, val = line.split(":")
-            results[key] = val.lstrip()
+            results[f'{prefix}_{key}'] = val.lstrip()
     return results
+
+def gather_stats(files, rank_cutoff):
+    """Return a dictionary of combined stats."""
+    stats = {}
+    stats['estimated_genome_size'] = parse_genome_size(files['genome_size'])
+    if 'original' in files:
+        stats['is_paired'] = False
+        stats.update(merge_qc_stats(parse_json(files['original']), None))
+        stats.update(merge_qc_stats(parse_json(files['final']), None, prefix='final'))
+    else:
+        stats['is_paired'] = True
+        stats.update(merge_qc_stats(parse_json(files['original-r1']), parse_json(files['original-r2'])))
+        stats.update(merge_qc_stats(parse_json(files['final-r1']), parse_json(files['final-r2']), prefix='final'))
+    stats.update(parse_json(files['assembly']))
+    stats.update(parse_annotation(files['annotation']))
+    rank, reason = get_rank(rank_cutoff, stats['final_coverage'], stats['final_qual_mean'], stats['final_read_mean'],
+                            stats['total_contig'], stats['total_contig_length'], stats['is_paired'])
+    stats['rank'] = rank
+    stats['reason'] = reason
+    
+    return stats
 
 def get_files(path, sample):
     "Return a list of files to read."
     files = None
-    assemblies = []
     missing = []
     end_type = 'paired-end'
 
@@ -101,6 +121,7 @@ def get_files(path, sample):
         # Single End
         end_type = 'single-end'
         files = {
+            'genome_size': f"{path}/{sample}/{sample}-genome-size.txt",
             'annotation': f"{path}/{sample}/annotation/{sample}.txt",
             'assembly': f"{path}/{sample}/assembly/{sample}.fna.json",
             'original': f"{path}/{sample}/quality-control/summary-original/{sample}-original.json",
@@ -109,6 +130,7 @@ def get_files(path, sample):
     else:
         # Paired End
         files = {
+            'genome_size': f"{path}/{sample}/{sample}-genome-size.txt",
             'annotation': f"{path}/{sample}/annotation/{sample}.txt",
             'assembly': f"{path}/{sample}/assembly/{sample}.fna.json",
             'original-r1': f"{path}/{sample}/quality-control/summary-original/{sample}_R1-original.json",
@@ -123,48 +145,57 @@ def get_files(path, sample):
 
     return {'files': files, 'missing': missing, 'end_type': end_type, 'has_error': False}
 
-def get_rank(cutoff, coverage, quality, length, contigs, is_paired):
+def get_rank(cutoff, coverage, quality, length, contigs, genome_size, is_paired):
     """Return the rank (gold, silver, bronze, fail) of the sample."""
+    rank = None
+    reason = []
     gold = cutoff['gold']
     silver = cutoff['silver']
     bronze = cutoff['bronze']
+
     if coverage >= gold['coverage'] and quality >= gold['quality'] and length >= gold['length'] and contigs <= gold['contigs'] and is_paired:
-        return ['gold', 'pass']
+        rank = 'gold'
     elif coverage >= silver['coverage'] and quality >= silver['quality'] and length >= silver['length'] and contigs <= silver['contigs'] and is_paired:
-        return ['silver', 'pass']
+        rank = 'silver'
     elif coverage >= bronze['coverage'] and quality >= bronze['quality'] and length >= bronze['length'] and contigs <= bronze['contigs']:
-        return ['bronze', 'pass']
-    else:
-        reason = []
-        if coverage < bronze['coverage']:
-            reason.append(f"Low coverage ({coverage:.2f}x, expect >= {bronze['coverage']}x)")
-        if quality < bronze['quality']:
-            reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{bronze['quality']})")
-        if length < bronze['length']:
-            reason.append(f"Short read length ({length:.2f}bp, expect >= {bronze['length']} bp)")
-        if contigs > bronze['contigs']:
-            reason.append(f"Too many contigs ({contigs}, expect <= {bronze['contigs']})")
-        return ['fail', ';'.join(reason)]
+        rank = 'bronze'
 
-def merge_stats(r1, r2):
-    if r2:
-        merged = {}
-        for key, val in r1['qc_stats'].items():
-            if key in ['total_bp', 'coverage', 'read_total']:
-                merged[key] = r1['qc_stats'][key] + r1['qc_stats'][key]
-            else:
-                merged[key] = mean([r1['qc_stats'][key], r1['qc_stats'][key]])
-        return merged
-    return r1
+    if coverage < bronze['coverage']:
+        reason.append(f"Low coverage ({coverage:.2f}x, expect >= {bronze['coverage']}x)")
+    if quality < bronze['quality']:
+        reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{bronze['quality']})")
+    if length < bronze['length']:
+        reason.append(f"Short read length ({length:.2f}bp, expect >= {bronze['length']} bp)")
+    if contigs > bronze['contigs']:
+        reason.append(f"Too many contigs ({contigs}, expect <= {bronze['contigs']})")
 
-def add_to_counts(dictionary, rank):
+    if cutoff['min-genome-size']:
+        if genome_size < cutoff['min-genome-size']:
+            reason.append(f"Assembled genome size is too small ({genome_size} bp, expect <= {cutoff['min-genome-size']})")
+
+    if cutoff['max-genome-size']:
+        if genome_size < cutoff['max-genome-size']:
+            reason.append(f"Assembled genome size is too large ({genome_size} bp, expect <= {cutoff['max-genome-size']})")
+
+    return ['fail' if reason else rank, ';'.join(reason) if reason else 'pass']
+
+def merge_qc_stats(r1, r2, prefix='original'):
+    merged = {}
+    for key in r1['qc_stats']:
+        prefixed_key = f'{prefix}_{key}'
+        if key in ['total_bp', 'coverage', 'read_total']:
+            merged[prefixed_key] = r1['qc_stats'][key] + r2['qc_stats'][key] if r2 else r1['qc_stats'][key]
+        else:
+            merged[prefixed_key] = mean([r1['qc_stats'][key], r2['qc_stats'][key]]) if r2 else r1['qc_stats'][key]
+    return merged
+
+def add_to_counts(dictionary):
     """Append values to rank counts."""
+    rank = dictionary['rank']
     for key, val in dictionary.items():
-        COUNTS_BY_RANK[rank][key].append(val)
-        COUNTS_BY_RANK['total'][key].append(val)
-
-def fastani(samples):
-    return None
+        if key != 'rank':
+            COUNTS_BY_RANK[rank][key].append(val)
+            COUNTS_BY_RANK['total'][key].append(val)
 
 def generate_html_report():
     """Generate a HTML report using Jinja2."""
@@ -182,6 +213,9 @@ def generate_html_report():
         }
     )
 
+def generate_txt_report(output_file):
+    return None
+
 def print_failed(failed):
     """Return list of strings for printing failed counts."""
     for key, val in failed.items():
@@ -189,6 +223,7 @@ def print_failed(failed):
 
 if __name__ == '__main__':
     import argparse as ap
+    import csv
     import sys
     import textwrap
     parser = ap.ArgumentParser(
@@ -258,8 +293,8 @@ if __name__ == '__main__':
     )
 
     group3.add_argument(
-        '--min_read_length', metavar="INT", type=int, default=50,
-        help='Minimum mean read length required to pass (Default: 50bp)'
+        '--min_read_length', metavar="INT", type=int, default=49,
+        help='Minimum mean read length required to pass (Default: 49bp)'
     )
 
     group3.add_argument(
@@ -267,23 +302,15 @@ if __name__ == '__main__':
         help='Maximum contig count required to pass (Default: 500)'
     )
 
-    group4 = parser.add_argument_group('Taxon Check')
-    group4.add_argument(
-        '--fastani', action='store_true',
-        help='Determine the pairwise ANI of each sample using FastANI.'
+    group3.add_argument(
+        '--min_genome_size', metavar="FLOAT", type=float,
+        help='Minimum assembled genome size.'
     )
 
-    group4.add_argument(
-        '--ani_threshold', metavar="FLOAT", type=float, default=0.8,
-        help='Exclude samples with a mean ANI less than the threshold. (Default: 0.80).'
+    group3.add_argument(
+        '--max_genome_size', metavar="FLOAT", type=float,
+        help='Maximum assembled genome size.'
     )
-
-    group4.add_argument(
-        '--min_sourmash', metavar="FLOAT", type=float, default=0.5,
-        help='Minimum percentage of k-mers that must have matched (Default: 0.5).'
-    )
-    group4.add_argument('--cpus', metavar="INT", type=int, default=1,
-                        help='Number of CPUs available for FastANI. (Default: 1)')
 
     group5 = parser.add_argument_group('Helpers')
     group5.add_argument(
@@ -331,10 +358,11 @@ if __name__ == '__main__':
             'quality': args.min_quality,
             'length': args.min_read_length,
             'contigs': args.max_contigs
-        }
+        },
+        'min-genome-size': args.min_genome_size,
+        'max-genome-size': args.max_genome_size
     }
 
-    print (RANK_CUTOFF)
     samples = {}
     with os.scandir(args.bactopia) as dirs:
         for directory in dirs:
@@ -368,16 +396,12 @@ if __name__ == '__main__':
                         CATEGORIES['processed'].append(directory.name)
                         samples[directory.name] = get_files(args.bactopia, directory.name)
 
-    if args.fastani:
-        # Use FastANI to flag samples that may be another organism
-        pairwise_ani = fastani(samples)
-
+    sample_stats = {}
     for sample, val in samples.items():
         if not val['has_error']:
             end_type = val['end_type']
             files = val['files']
             missing = val['missing']
-
             COUNTS[end_type] += 1
             if missing:
                 COUNTS['missing'] += 1
@@ -386,42 +410,18 @@ if __name__ == '__main__':
                 logging.debug(f"{missing}")
             else:
                 COUNTS['found'] += 1
-                original_r1 = None
-                original_r2 = None
-                final_r1 = None
-                final_r2 = None
-                rank = None
-                assembly = parse_json(files['assembly'])
-                annotation = parse_annotation(files['annotation'])
-                if end_type == 'single-end':
-                    original_r1 = parse_json(files['original'])
-                    final_r1 = parse_json(files['final'])
-                    coverage = final_r1['qc_stats']['coverage']
-                else:
-                    original_r1 = parse_json(files['original-r1'])
-                    original_r2 = parse_json(files['original-r2'])
-                    final_r1 = parse_json(files['final-r1'])
-                    final_r2 = parse_json(files['final-r2'])
-                    coverage = final_r1['qc_stats']['coverage'] * 2
-                read_length = round(final_r1['qc_stats']['read_mean'])
-                quality = final_r1['qc_stats']['qual_mean']
-                contigs = assembly['total_contig']
-                is_paired = True if end_type == 'paired-end' else False
-                rank, reason = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
-                if sample == 'SRX059832':
-                    print (rank)
-                COUNTS[rank] += 1
-                CATEGORIES[rank].append(sample)
-                add_to_counts(assembly, rank)
-                add_to_counts(annotation, rank)
-                add_to_counts(merge_stats(final_r1, final_r2), rank)
-                if rank == 'fail':
+                stats = gather_stats(files, RANK_CUTOFF)
+                add_to_counts(stats)
+                COUNTS[stats['rank']] += 1
+                CATEGORIES[stats['rank']].append(sample)
+                if stats['rank'] == 'fail':
                     FAILED['failed-cutoff'].append(sample)
-                    CATEGORIES['exclude'].append([sample, f'Failed to pass minimum cutoffs, reason: {reason}'])
+                    CATEGORIES['exclude'].append([sample, f'Failed to pass minimum cutoffs, reason: {stats["reason"]}'])
                     COUNTS['exclude'] += 1
                 else:
                     COUNTS['pass'] += 1
-               
+                sample_stats[sample] = stats
+
     for key, val in COUNTS_BY_RANK.items():
         coverage = int(mean(val['coverage'])) if val['coverage'] else 0
         read_length = int(mean(val['read_mean'])) if val['read_mean'] else 0
@@ -437,6 +437,20 @@ if __name__ == '__main__':
     html_report = f'{outdir}/{args.prefix}-summary.html'
     with open(html_report, 'w') as html_fh:
         html_fh.write(generate_html_report())
+
+    # Tab-delimited report
+    txt_report = f'{outdir}/{args.prefix}-summary.txt'
+    with open(txt_report, 'w') as txt_fh:
+        outputs = []
+        for sample, stats in sorted(sample_stats.items()):
+            output = {'sample': sample}
+            output.update(stats)
+            outputs.append(output)
+
+        writer = csv.DictWriter(txt_fh, fieldnames=outputs[0].keys(), delimiter='\t')
+        writer.writeheader()
+        for row in outputs:
+            writer.writerow(row)
 
     # Exclusion report
     exclusion_report = f'{outdir}/{args.prefix}-exclude.txt'
@@ -458,6 +472,7 @@ if __name__ == '__main__':
     print_failed(FAILED)
     print(textwrap.dedent(f'''
         Reports:
-            HTML: {html_report}
+            Summary (html): {html_report}
+            Summary (txt): {txt_report}
             Exclusion: {exclusion_report}
     '''))

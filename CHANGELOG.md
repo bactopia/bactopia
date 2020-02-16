@@ -20,6 +20,7 @@
 - Containers now retrieve latest tbl2asn version
 - Check if output directory exists before execution
 - `--available_datasets` accessing not existent variable
+- `--available_datasets` is tested before requiring inputs
 
 ## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
 ### `Added`

@@ -16,11 +16,12 @@ Available Tools:
   pangenome      Create a pan-genome with optional core-genome phylogeny.
 """
 import sys
-VERSION = "1.2.4"
+VERSION = "1.3.0"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
     'fastani': 'Pairwise average nucleotide identity',
+    'gtdb': 'Identify marker genes and assign taxonomic classifications',
     'mashtree': 'Mash distance based tree',
     'phyloflash': '16s assembly, alignment and tree',
     'roary': 'Pan-genome with optional core-genome tree.',
@@ -67,10 +68,10 @@ if __name__ == '__main__':
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=available_tools()
     )
-    parser.add_argument('tool', metavar="STR", type=str,
-                        help='Name of the Bactopia tool to execute.')
     parser.add_argument('bactopia_repo', metavar="STR", type=str,
                         help='Directory where Bactopia repository is stored.')
+    parser.add_argument('tool', metavar="STR", type=str,
+                        help='Name of the Bactopia tool to execute.')
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
