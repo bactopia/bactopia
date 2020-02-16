@@ -89,5 +89,4 @@ Not published yet
 # Author 
 
 * Robert A. Petit III
-* Website: https://www.robertpetit.com
 * Twitter: [@rpetit3](https://twitter.com/rpetit3)
