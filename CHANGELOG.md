@@ -1,12 +1,12 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.0 bactopia/bactopia "" - 2020/01/??
+## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/01/??
 ### `Added`
 - bactopia tools (BT) framework
     - docs for each tool
+    - subcommand to execute tools `bactopia tools`
     - `fastani` - pairwise average nucleotide identity
     - `gtdb` - assigning objective taxonomic classifications
-    - `mashtree` - mash distance based tree
     - `phyloflash` - 16s assembly, alignment and tree
     - `roary` - pan-genome and core genome tree
     - `summary` - summary of results
@@ -14,13 +14,14 @@
 - `update-version.sh` improvements
 - can now set how Nextflow publishes outputs (copy, symlink, etc...) via `--publish_mode`
 - option (`--rfam`) to turn on ncRNA annotation in Prokka
+- reduced "README.md" contents, instead point to documentation
 
 ### `Fixed`
 - nextflow.config version out of sync
-- Containers now retrieve latest tbl2asn version
 - Check if output directory exists before execution
 - `--available_datasets` accessing not existent variable
 - `--available_datasets` is tested before requiring inputs
+- Make use of tbl2asn-forever
 
 ## v1.2.4 bactopia/bactopia "Rabbit Charm" - 2019/12/20
 ### `Added`
