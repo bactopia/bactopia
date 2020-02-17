@@ -1,22 +1,20 @@
 #! /usr/bin/env python3
 """
-usage: bactopia tools [-h] [--version] STR STR
+usage: bactopia tools [-h] [--bactopia STR] [--version] STR
 
-bactopia tools - A suite of compartive analyses for Bactopia outputs
+bactopia tools - A suite of comparative analyses for Bactopia outputs
 
 positional arguments:
-  STR         Name of the Bactopia tool to execute.
-  STR         Directory where Bactopia repository is stored.
+  STR             Name of the Bactopia tool to execute.
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --version   show program's version number and exit
-
-Available Tools:
-  pangenome      Create a pan-genome with optional core-genome phylogeny.
+  -h, --help      show this help message and exit
+  --bactopia STR  Directory where Bactopia repository is stored.
+  --version       show program's version number and exit
 """
 import sys
-VERSION = "1.2.4"
+
+VERSION = "1.3.0"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
@@ -67,10 +65,10 @@ if __name__ == '__main__':
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=available_tools()
     )
-    parser.add_argument('bactopia_repo', metavar="STR", type=str,
-                        help='Directory where Bactopia repository is stored.')
     parser.add_argument('tool', metavar="STR", type=str,
                         help='Name of the Bactopia tool to execute.')
+    parser.add_argument('--bactopia', metavar="STR", type=str,
+                        help='Directory where Bactopia repository is stored.')
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -79,5 +77,5 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
-    tool_nf = validate_args(args.tool, args.bactopia_repo)
+    tool_nf = validate_args(args.tool, args.bactopia)
     print(tool_nf)
