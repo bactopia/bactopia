@@ -24,7 +24,7 @@ AVAILABLE_TOOLS = {
     'gtdb': 'Identify marker genes and assign taxonomic classifications',
     'phyloflash': '16s assembly, alignment and tree',
     'roary': 'Pan-genome with optional core-genome tree.',
-    'summary': 'HTML report summarizing Bactopia project',
+    'summary': 'A report summarizing Bactopia project',
 }
 
 
