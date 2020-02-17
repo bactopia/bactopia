@@ -1,6 +1,76 @@
 #! /usr/bin/env python3
 """
+usage: bactopia tools summary [-h] [--gold_coverage FLOAT]
+                              [--gold_quality INT] [--gold_read_length INT]
+                              [--gold_contigs INT] [--silver_coverage FLOAT]
+                              [--silver_quality INT]
+                              [--silver_read_length INT]
+                              [--silver_contigs INT] [--min_coverage FLOAT]
+                              [--min_quality INT] [--min_read_length INT]
+                              [--max_contigs INT] [--min_genome_size FLOAT]
+                              [--max_genome_size FLOAT]
+                              [--outdir OUTPUT_DIRECTORY] [--prefix STR]
+                              [--depends] [--version] [--verbose] [--silent]
+                              BACTOPIA_DIRECTORY
 
+bactopia tools summary - Create a summary of Bactopia outputs
+
+positional arguments:
+  BACTOPIA_DIRECTORY    Directory containing Bactopia output.
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Gold Cutoffs:
+  --gold_coverage FLOAT
+                        Minimum amount of coverage required for Gold status
+                        (Default: 100x)
+  --gold_quality INT    Minimum per-read mean quality score required for Gold
+                        status (Default: Q30)
+  --gold_read_length INT
+                        Minimum mean read length required for Gold status
+                        (Default: 95bp)
+  --gold_contigs INT    Maximum contig count required for Gold status
+                        (Default: 100)
+
+Silver Cutoffs:
+  --silver_coverage FLOAT
+                        Minimum amount of coverage required for Silver status
+                        (Default: 50x)
+  --silver_quality INT  Minimum per-read mean quality score required for
+                        Silver status (Default: Q20)
+  --silver_read_length INT
+                        Minimum mean read length required for Silver status
+                        (Default: 75bp)
+  --silver_contigs INT  Maximum contig count required for Silver status
+                        (Default: 200)
+
+Fail Cutoffs:
+  --min_coverage FLOAT  Minimum amount of coverage required to pass (Default:
+                        20x)
+  --min_quality INT     Minimum per-read mean quality score required to pass
+                        (Default: Q12)
+  --min_read_length INT
+                        Minimum mean read length required to pass (Default:
+                        49bp)
+  --max_contigs INT     Maximum contig count required to pass (Default: 500)
+  --min_genome_size FLOAT
+                        Minimum assembled genome size.
+  --max_genome_size FLOAT
+                        Maximum assembled genome size.
+
+Helpers:
+  --outdir OUTPUT_DIRECTORY
+                        Directory to write output. (Default:
+                        BACTOPIA_DIR/bactopia-tools)
+  --prefix STR          Prefix to use for output files. (Default: bactopia)
+  --depends             Verify dependencies are installed.
+  --version             show program's version number and exit
+  --verbose             Increase the verbosity of output.
+  --silent              Only critical errors will be printed.
+
+example usage:
+  bactopia tools summary bactopiadir outdir
 """
 import json
 import logging
@@ -314,8 +384,8 @@ if __name__ == '__main__':
 
     group5 = parser.add_argument_group('Helpers')
     group5.add_argument(
-        '--outdir', metavar="OUTPUT_DIRECTORY", type=str, default="bactopia-tools",
-        help='Directory to write output. (Default: BACTOPIA_DIR/bactopia-tools)'
+        '--outdir', metavar="OUTPUT_DIRECTORY", type=str, default="./",
+        help='Directory to write output. (Default: ./)'
     )
 
     group5.add_argument(
@@ -430,7 +500,7 @@ if __name__ == '__main__':
         n50 = int(mean(val['n50_contig_length'])) if val['n50_contig_length'] else 0
 
     # Write outputs
-    outdir = args.outdir if args.outdir else f'{args.bactopia}/bactopia-tools'
+    outdir = args.outdir
     os.makedirs(outdir, exist_ok=True)
 
     # HTML report

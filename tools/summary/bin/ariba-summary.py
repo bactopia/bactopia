@@ -113,7 +113,7 @@ if __name__ == '__main__':
                                 datasets[dataset] = []
                             datasets[dataset].append(directory.name)
                     else:
-                        logging.debug(f"{directory.name} missing Ariba directory (possibly single-end reads)")
+                        logging.debug(f"{directory.name} missing Ariba directory (possibly single-end reads, or ariba not run)")
 
     for dataset, samples in sorted(datasets.items()):
         cluster_set = set()

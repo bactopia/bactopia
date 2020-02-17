@@ -1,45 +1,77 @@
 #! /usr/bin/env nextflow
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-OUTDIR = "${params.outdir}/bactopia-tool/${PROGRAM_NAME}"
-log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
+OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
+
 
 // Validate parameters
-if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 if (params.version) print_version();
+log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
+if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 
 process summary {
     publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}*"
 
-    input:
-    val(bactopia) from params.bactopia
-
     output:
     file "${params.prefix}*"
-    file "${params.prefix}-exclude.txt" into ARIBA
+    file "${params.prefix}-exclude.txt" into ARIBA, AMRFINDER
 
     when:
 
-
     shell:
+    verbose = params.verbose? "--verbose" : ""
+    min_genome_size = params.min_genome_size? "--min_genome_size ${params.min_genome_size}" : ""
+    max_genome_size = params.max_genome_size? "--max_genome_size ${params.max_genome_size}" : ""
     """
-    bactopia-summary.py !{bactopia} 
+    bactopia-summary.py !{params.bactopia} !{min_genome_size} !{max_genome_size} !{verbose} \
+        --prefix !{params.prefix} \
+        --gold_coverage !{params.gold_coverage} \
+        --gold_quality !{params.gold_quality} \
+        --gold_read_length !{params.gold_read_length} \
+        --gold_contigs !{params.gold_contigs} \
+        --silver_coverage !{params.silver_coverage} \
+        --silver_quality !{params.silver_quality} \
+        --silver_read_length !{params.silver_read_length} \
+        --silver_contigs !{params.silver_contigs} \
+        --min_coverage !{params.min_coverage} \
+        --min_quality !{params.min_quality} \
+        --min_read_length !{params.min_read_length} \
+        --max_contigs !{params.max_contigs}
     """
 }
 
 process ariba_summary {
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "ariba/*.txt"
+    publishDir "${OUTDIR}/ariba", mode: "${params.publish_mode}", overwrite: params.force, pattern: "ariba-*-summary.txt"
 
     input:
     file(exclude) from ARIBA
 
     output:
-    file "ariba/*"
+    file "ariba-*-summary.txt" optional true
 
     shell:
+    all_hits = params.all_hits ? "--include_all" : ""
+    verbose = params.verbose? "--verbose" : ""
     """
-    ariba-summary.py
+    ariba-summary.py !{params.bactopia} --exclude !{exclude} !{all_hits} !{verbose}
+    """
+}
+
+process amrfinder_summary {
+    publishDir "${OUTDIR}/amrfinder", mode: "${params.publish_mode}", overwrite: params.force, pattern: "amrfinder-*-summary.txt"
+
+    input:
+    file(exclude) from AMRFINDER
+
+    output:
+    file "amrfinder-*-summary.txt" optional true
+
+    shell:
+    subclass = params.subclass ? "--subclass" : ""
+    verbose = params.verbose? "--verbose" : ""
+    """
+    amrfinder-summary.py !{params.bactopia} --exclude !{exclude} !{subclass} !{verbose}
     """
 
 }
@@ -77,7 +109,7 @@ def toHumanString(bytes) {
 }
 
 def print_version() {
-    println(PROGRAM_NAME + ' ' + VERSION)
+    log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
     exit 0
 }
 
@@ -131,10 +163,33 @@ def check_input_params() {
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
 
+    error += is_positive_integer(params.gold_coverage, 'gold_coverage')
+    error += is_positive_integer(params.gold_quality, 'gold_quality')
+    error += is_positive_integer(params.gold_read_length, 'gold_read_length')
+    error += is_positive_integer(params.gold_contigs, 'gold_contigs')
+    error += is_positive_integer(params.silver_coverage, 'silver_coverage')
+    error += is_positive_integer(params.silver_quality, 'silver_quality')
+    error += is_positive_integer(params.silver_read_length, 'silver_read_length')
+    error += is_positive_integer(params.silver_contigs, 'silver_contigs')
+    error += is_positive_integer(params.min_coverage, 'min_coverage')
+    error += is_positive_integer(params.min_quality, 'min_quality')
+    error += is_positive_integer(params.min_read_length, 'min_read_length')
+    error += is_positive_integer(params.max_contigs, 'max_contigs')
+
+    if (params.min_genome_size) {
+        error += is_positive_integer(params.min_genome_size, 'min_genome_size')
+    }
+
+    if (params.max_genome_size) {
+        error += is_positive_integer(params.max_genome_size, 'max_genome_size')
+    }
+
     // Check for existing output directory
-    if (!file(OUTDIR).exists() && !params.force) {
-        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-        error += 1
+    if (!workflow.resume) {
+        if (file(OUTDIR).exists() && !params.force) {
+            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+            error += 1
+        }
     }
 
     // Check publish_mode
@@ -175,8 +230,62 @@ def print_help() {
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
+    Bactopia Summary Parameters:
+        --gold_coverage FLOAT   Minimum amount of coverage required for Gold status
+                                    Default: ${params.gold_coverage}
+
+        --gold_quality INT      Minimum per-read mean quality score required for Gold
+                                    status 
+                                    Default: ${params.gold_quality}
+
+        --gold_read_length INT  Minimum mean read length required for Gold status
+                                    Default: ${params.gold_read_length}
+
+        --gold_contigs INT      Maximum contig count required for Gold status
+                                    Default: ${params.gold_contigs}
+
+        --silver_coverage FLOAT Minimum amount of coverage required for Silver status
+                                    Default: ${params.silver_coverage}
+
+        --silver_quality INT    Minimum per-read mean quality score required for
+                                    Silver status 
+                                    Default: ${params.silver_quality}
+
+        --silver_read_length INT
+                                Minimum mean read length required for Silver status
+                                    Default: ${params.silver_read_length}
+
+        --silver_contigs INT    Maximum contig count required for Silver status
+                                    Default: ${params.silver_contigs}
+
+        --min_coverage FLOAT    Minimum amount of coverage required to pass 
+                                    Default: ${params.min_coverage}
+
+        --min_quality INT       Minimum per-read mean quality score required to pass
+                                    Default: ${params.min_quality}
+
+        --min_read_length INT   Minimum mean read length required to pass 
+                                    Default: ${params.min_read_length}
+
+        --max_contigs INT       Maximum contig count required to pass
+                                    Default: ${params.max_contigs}
+
+        --min_genome_size INT   Minimum assembled genome size.
+                                    Default: ${params.min_genome_size}
+
+        --max_genome_size INT   Maximum assembled genome size.
+                                    Default: ${params.max_genome_size}
+
+    Ariba Summary Parameters:
+        --all_hits              Include all hits (matches and partials) in the summary
+                                    Default: Only report hits that are a match
+
+    AMRFinder+ Summary Parameters:
+        --subclass              Group the report by subclass (ex. Streptomycin).
+                                    Default: Group by class (ex. Aminoglycoside)
+
     Optional Parameters:
-        --prefix DIR            Prefix to use for final output files
+        --prefix STR            Prefix to use for final output files
                                     Default: ${params.prefix}
 
         --outdir DIR            Directory to write results to
@@ -191,7 +300,6 @@ def print_help() {
         --cpus INT              Number of processors made available to a single
                                     process.
                                     Default: ${params.cpus}
-
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
@@ -211,8 +319,8 @@ def print_help() {
 
                                     Default: ${params.publish_mode}
 
-        --overwrite             Nextflow will overwrite existing output files.
-                                    Default: ${params.overwrite}
+        --force                 Nextflow will overwrite existing output files.
+                                    Default: ${params.force}
 
         --conatainerPath        Path to Singularity containers to be used by the 'slurm'
                                     profile.
@@ -222,6 +330,7 @@ def print_help() {
                                     will wait before execution.
                                     Default: ${params.sleep_time} seconds
     Useful Parameters:
+        --verbose               Increase the verbosity of processes.
         --version               Print workflow version information
         --help                  Show this message and exit
     """.stripIndent()

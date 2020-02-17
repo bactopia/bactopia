@@ -2,13 +2,12 @@
 import groovy.json.JsonSlurper
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-OUTDIR = "${params.outdir}/bactopia-tool/${PROGRAM_NAME}"
-
-log.info "bactopia tool ${PROGRAM_NAME} - ${VERSION}"
+OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
 
 // Validate parameters
-if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 if (params.version) print_version();
+log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
+if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
@@ -163,7 +162,7 @@ def toHumanString(bytes) {
 }
 
 def print_version() {
-    println(PROGRAM_NAME + ' ' + VERSION)
+    log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
     exit 0
 }
 
@@ -228,7 +227,7 @@ def check_input_params() {
 
     // Check for existing output directory
     if (!workflow.resume) {
-        if (!file(OUTDIR).exists() && !params.force) {
+        if (file(OUTDIR).exists() && !params.force) {
             log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
             error += 1
         }
