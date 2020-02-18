@@ -467,6 +467,7 @@ if __name__ == '__main__':
                         samples[directory.name] = get_files(args.bactopia, directory.name)
 
     sample_stats = {}
+    stat_fields = []
     for sample, val in samples.items():
         if not val['has_error']:
             end_type = val['end_type']
@@ -491,6 +492,9 @@ if __name__ == '__main__':
                 else:
                     COUNTS['pass'] += 1
                 sample_stats[sample] = stats
+                for key in stats:
+                    if key not in stat_fields:
+                        stat_fields.append(key)
 
     for key, val in COUNTS_BY_RANK.items():
         coverage = int(mean(val['coverage'])) if val['coverage'] else 0
@@ -514,7 +518,14 @@ if __name__ == '__main__':
         outputs = []
         for sample, stats in sorted(sample_stats.items()):
             output = {'sample': sample}
-            output.update(stats)
+            for field in stat_fields:
+                if field in stats:
+                    if isinstance(stats[field], float):
+                        output[field] = f"{stats[field]:.3f}"
+                    else:
+                        output[field] = stats[field]
+                else:
+                    output[field] = ""
             outputs.append(output)
 
         writer = csv.DictWriter(txt_fh, fieldnames=outputs[0].keys(), delimiter='\t')
