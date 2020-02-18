@@ -1,4 +1,5 @@
 name: bactopia-roary
+version: 1.3.0
 channels:
   - r
   - conda-forge
