@@ -26,6 +26,12 @@ AVAILABLE_TOOLS = {
 }
 
 
+def print_available_tools():
+    """Print the available Bactopia Tools."""
+    print(f"{PROGRAM} (v{VERSION}) - {DESCRIPTION}")
+    print("")
+    print(available_tools())
+
 def available_tools():
     """Return a string of available tools."""
     usage = ['Available Tools:']
@@ -73,7 +79,7 @@ if __name__ == '__main__':
                         version=f'{PROGRAM} {VERSION}')
 
     if len(sys.argv) == 1:
-        parser.print_help()
+        print_available_tools()
         sys.exit(0)
 
     args = parser.parse_args()
