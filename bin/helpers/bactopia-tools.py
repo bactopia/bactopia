@@ -44,7 +44,6 @@ def validate_args(tool, bactopia_repo):
 
     if args.tool not in AVAILABLE_TOOLS:
         print(f'"{args.tool}" is not available.\n', file=sys.stderr)
-        print('Available Tools:', file=sys.stderr)
         print(available_tools(), file=sys.stderr)
         sys.exit(1)
 

@@ -90,7 +90,9 @@ elif [[ "$1" == "tools" ]]; then
         bactopia-tools.py
     else
         TOOL_NF=`bactopia-tools.py --bactopia ${BACTOPIA_NF} $2`
-        nextflow run ${TOOL_NF} "${@:3}"
+        if [[ ! -z "$TOOL_NF" ]]; then
+            nextflow run ${TOOL_NF} "${@:3}"
+        fi
     fi
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"

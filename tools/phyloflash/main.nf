@@ -32,40 +32,43 @@ process reconstruct_16s {
     """        
     mkdir !{sample}
     if [ "!{readlength}" -ge "50" ]; then 
-        phyloFlash.pl -dbhome "!{params.phyloflash_db}" !{read} -lib !{sample} \
+        MULTI="0"
+        phyloFlash.pl -dbhome "!{params.phyloflash}" !{read} -lib !{sample} \
                     -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
         jsonify-phyloflash.py !{sample}.phyloFlash > !{sample}.phyloFlash.json
         mv !{sample}.* !{sample}
 
-        MULTI=`phyloflash-summary.py ./ | grep -c "WARNING: Multiple SSUs were assembled by SPAdes"`
-        if [ "!{params.allow_multiple_16s} == "true" ]; then
+        if phyloflash-summary.py !{sample}/ | grep -q -c "WARNING: Multiple SSUs were assembled by SPAdes"; then
+            MULTI="1"
+        fi
+
+        if [ "!{params.allow_multiple_16s}" == "true" ]; then
             MULTI="0"
         fi
 
         if [ "!{params.align_all}" == "true" ]; then 
-            if [ -f "${sample}/${sample}.SSU.collection.fasta" ]; then
-                if [ "${MULTI}" -eq "0" ]; then
-                    cp ${sample}/${sample}.SSU.collection.fasta ${sample}/${sample}.toalign.fasta
+            if [ -f "!{sample}/!{sample}.SSU.collection.fasta" ]; then
+                if [ "\${MULTI}" -eq "0" ]; then
+                    cp !{sample}/!{sample}.SSU.collection.fasta !{sample}/!{sample}.toalign.fasta
                 else
-                    echo "${sample} contained multiple 16s genes." > ${sample}/${sample}-multiple-16s.txt
+                    echo "!{sample} contained multiple 16s genes." > !{sample}/!{sample}-multiple-16s.txt
                 fi
             else
-                echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+                echo "!{sample} failed SPAdes assembly." > !{sample}/!{sample}-spades-failed.txt
             fi
         else
-            if [ -f "${sample}/${sample}.spades_rRNAs.final.fasta" ]; then
-                if [ "${MULTI}" -eq "0" ]; then
-                    cp ${sample}/${sample}.spades_rRNAs.final.fasta {sample}/${sample}.toalign.fasta
+            if [ -f "!{sample}/!{sample}.spades_rRNAs.final.fasta" ]; then
+                if [ "\${MULTI}" -eq "0" ]; then
+                    cp !{sample}/!{sample}.spades_rRNAs.final.fasta !{sample}/!{sample}.toalign.fasta
                 else
-                    echo "${sample} contained multiple 16s genes." > ${sample}/${sample}-multiple-16s.txt
+                    echo "!{sample} contained multiple 16s genes." > !{sample}/!{sample}-multiple-16s.txt
                 fi
             else 
-                echo "${sample} failed SPAdes assembly." > ${sample}/${sample}-spades-failed.txt
+                echo "!{sample} failed SPAdes assembly." > !{sample}/!{sample}-spades-failed.txt
             fi
         fi
-
     else
-        echo "${sample} not processed. Mean read length (${readlength}bp) must be greater than 50bp for phyloFlash analysis." > ${sample}/${sample}-unprocessed.txt
+        echo "!{sample} not processed. Mean read length, !{readlength}bp, must be greater than 50bp for phyloFlash analysis." > !{sample}/!{sample}-unprocessed.txt
     fi
     """
 }
@@ -106,10 +109,12 @@ process create_phylogeny {
     params.skip_phylogeny == false
 
     shell:
+    bb = params.bb == 0 ? "" : "-bb ${params.bb}"
+    alrt = params.alrt == 0 ? "" : "-alrt ${params.alrt}"
     """
     mkdir iqtree
     iqtree -s !{fasta} -m !{params.m} -nt !{task.cpus} -pre iqtree/16s \
-           -bb !{params.bb} -alrt !{params.alrt} -wbt -wbtl \
+           !{bb} !{alrt} -wbt -wbtl \
            -alninfo !{params.iqtree_opts}
     cp iqtree/16s.iqtree !{params.prefix}.iqtree
     """
@@ -225,12 +230,12 @@ def check_input_params() {
         error += file_exists(params.exclude, '--exclude')
     } else {
         log.error """
-        The required '--bactopia' and/or '--phyloflash_db' parameter is missing, please check and try again.
+        The required '--bactopia' and/or '--phyloflash' parameter is missing, please check and try again.
 
         Required Parameters:
             --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
-            --phyloflash_db STR     Directory containing a pre-built phyloFlash database.
+            --phyloflash STR     Directory containing a pre-built phyloFlash database.
         """.stripIndent()
         error += 1
     }
@@ -309,7 +314,7 @@ def build_fastq_tuple(sample, dir) {
     json_data = jsonSlurper.parse(new File(json_stats))
     // PhyloFlash using the same kmers for any read lengths > 134bp
     readlength = Math.min(134, Math.round(json_data['qc_stats']['read_mean'] - json_data['qc_stats']['read_std']))
-    readlength_mod = Math.round(json_data['qc_stats']['read_mean']  * 0.10)
+    readlength_mod = Math.round(readlength * 0.10)
     return tuple(sample, single_end, files, readlength, readlength_mod)
 }
 
@@ -363,7 +368,7 @@ def print_help() {
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
-        --phyloflash_db STR     Directory containing a pre-built phyloFlash database.
+        --phyloflash STR     Directory containing a pre-built phyloFlash database.
 
     Optional Parameters:
         --include STR           A text file containing sample names to include in the
