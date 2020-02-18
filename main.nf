@@ -1020,7 +1020,7 @@ def check_input_params() {
     if (params.datasets) {
         if (!file("${params.datasets}/summary.json").exists()) {
             log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                      "to open ${dataset}/summary.json"
+                      "to open ${params.datasets}/summary.json"
             error += 1
         }
     }
