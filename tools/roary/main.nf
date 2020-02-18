@@ -3,6 +3,7 @@ PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
 OVERWRITE = workflow.resume || params.force ? true : false
+DUMMY_NAME = "DUMMY_FILE"
 
 // Validate parameters
 if (params.version) print_version();
@@ -17,17 +18,24 @@ process download_references {
     output:
     file("fasta/*.fna") into ANNOTATE
 
-    when:
-    params.species != null || params.accession != null
-
     shell:
-    opt = params.species ? "--genus '${params.species}'" : "-A '${params.accession}'"
+    opt = false
+    if (params.species) {
+        opt = "--genus '${params.species}'"
+    } else if (params.accession) {
+        opt = "-A '${params.accession}'"
+    }
+    
     """
     mkdir fasta
-    ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
-    find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
-    rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
-    gunzip fasta/*
+    if [ "!{opt}" == "false" ]; then
+        touch fasta/!{DUMMY_NAME}.fna
+    else
+        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+        gunzip fasta/*
+    fi
     """
 }
 
@@ -44,8 +52,13 @@ process annotate_references {
     shell:
     name = fasta.getSimpleName()
     """
-    prokka !{fasta} --cpus !{task.cpus} --evalue '!{params.prokka_evalue}' \
-                    --outdir gff --prefix !{name} --coverage !{params.prokka_coverage}
+    if [ "!{name}" == "!{DUMMY_NAME}" ]; then
+        mkdir gff
+        touch gff/!{DUMMY_NAME}.gff
+    else
+        prokka !{fasta} --cpus !{task.cpus} --evalue '!{params.prokka_evalue}' \
+                        --outdir gff --prefix !{name} --coverage !{params.prokka_coverage}
+    fi
     """
 
 }
@@ -66,6 +79,7 @@ process build_pangenome {
     s = params.s ? "-s" : ""
     ap = params.ap ? "-ap" : ""
     """
+    rm -rf !{DUMMY_NAME}.gff
     find -name "*.gff.gz" | xargs -I {} gunzip {}
     roary -f roary -e !{n} -v -p !{task.cpus} !{s} !{ap} -g !{params.g} \
           -i !{params.i} -cd !{params.cd} -iv !{params.iv} -r *.gff
