@@ -2,7 +2,7 @@
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
-
+OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters
 if (params.version) print_version();
@@ -11,7 +11,7 @@ if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) pr
 check_input_params()
 
 process summary {
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}*"
 
     output:
     file "${params.prefix}*"
@@ -42,7 +42,7 @@ process summary {
 }
 
 process ariba_summary {
-    publishDir "${OUTDIR}/ariba", mode: "${params.publish_mode}", overwrite: params.force, pattern: "ariba-*-summary.txt"
+    publishDir "${OUTDIR}/ariba", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "ariba-*-summary.txt"
 
     input:
     file(exclude) from ARIBA
@@ -59,7 +59,7 @@ process ariba_summary {
 }
 
 process amrfinder_summary {
-    publishDir "${OUTDIR}/amrfinder", mode: "${params.publish_mode}", overwrite: params.force, pattern: "amrfinder-*-summary.txt"
+    publishDir "${OUTDIR}/amrfinder", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "amrfinder-*-summary.txt"
 
     input:
     file(exclude) from AMRFINDER
@@ -117,6 +117,23 @@ def file_exists(file_name, parameter) {
     if (!file(file_name).exists()) {
         log.error('Invalid input ('+ parameter +'), please verify "' + file_name + '" exists.')
         return 1
+    }
+    return 0
+}
+
+def output_exists(outdir, force, resume) {
+    if (!resume && !force) {
+        if (file(OUTDIR).exists()) {
+            files = file(OUTDIR).list()
+            total_files = files.size()
+            if (total_files == 1) {
+                if (files[0] != 'bactopia-info') {
+                    return 1
+                }
+            } else if (total_files > 1){
+                return 1
+            }
+        }
     }
     return 0
 }
@@ -185,11 +202,9 @@ def check_input_params() {
     }
 
     // Check for existing output directory
-    if (!workflow.resume) {
-        if (file(OUTDIR).exists() && !params.force) {
-            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-            error += 1
-        }
+    if (output_exists(OUTDIR, params.force, workflow.resume)) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
     }
 
     // Check publish_mode

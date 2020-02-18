@@ -2,7 +2,7 @@
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
-
+OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters
 if (params.version) print_version();
@@ -14,7 +14,7 @@ check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 process collect_assemblies {    
-    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: params.force, pattern: "fasta/*.fna"
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
 
     input:
     file(fasta) from Channel.fromList(samples).collect()
@@ -79,8 +79,8 @@ process calculate_ani {
 }
 
 process merge_results {
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "fastani.tsv"
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "references/*.tsv"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fastani.tsv"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "references/*.tsv"
 
     input:
     file(results) from RESULTS.collect()
@@ -144,6 +144,23 @@ def file_exists(file_name, parameter) {
     return 0
 }
 
+def output_exists(outdir, force, resume) {
+    if (!resume && !force) {
+        if (file(OUTDIR).exists()) {
+            files = file(OUTDIR).list()
+            total_files = files.size()
+            if (total_files == 1) {
+                if (files[0] != 'bactopia-info') {
+                    return 1
+                }
+            } else if (total_files > 1){
+                return 1
+            }
+        }
+    }
+    return 0
+}
+
 def check_unknown_params() {
     valid_params = []
     error = 0
@@ -193,12 +210,11 @@ def check_input_params() {
     error += is_positive_integer(params.fragLen, 'fragLen')
 
     // Check for existing output directory
-    if (!workflow.resume) {
-        if (file(OUTDIR).exists() && !params.force) {
-            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-            error += 1
-        }
+    if (output_exists(OUTDIR, params.force, workflow.resume)) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
     }
+
 
     // Check publish_mode
     ALLOWED_MODES = ['copy', 'copyNoFollow', 'link', 'rellink', 'symlink']

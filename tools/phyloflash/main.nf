@@ -3,6 +3,7 @@ import groovy.json.JsonSlurper
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
+OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters
 if (params.version) print_version();
@@ -14,7 +15,7 @@ samples = gather_sample_set(params.bactopia, params.exclude, params.include, par
 // Setup output directories
 
 process reconstruct_16s {
-    publishDir "${OUTDIR}/samples", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${sample}/*"
+    publishDir "${OUTDIR}/samples", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${sample}/*"
     tag "${sample} - ${readlength}"
 
     input:
@@ -70,8 +71,8 @@ process reconstruct_16s {
 }
 
 process align_16s {
-    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-alignment.fasta"
-    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-matches.txt"
+    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}-alignment.fasta"
+    publishDir "${OUTDIR}/alignment", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}-matches.txt"
     
     input:
     file(fasta) from ALIGNMENT.collect()
@@ -91,8 +92,8 @@ process align_16s {
 }
 
 process create_phylogeny {
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "iqtree/*"
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}.iqtree"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "iqtree/*"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}.iqtree"
 
     input:
     file fasta from TREE
@@ -115,7 +116,7 @@ process create_phylogeny {
 }
 
 process phyloflash_summary {
-    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: params.force, pattern: "${params.prefix}-summary.txt"
+    publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}-summary.txt"
 
     input:
     file(json) from SUMMARY.collect()
@@ -174,6 +175,23 @@ def file_exists(file_name, parameter) {
     return 0
 }
 
+def output_exists(outdir, force, resume) {
+    if (!resume && !force) {
+        if (file(OUTDIR).exists()) {
+            files = file(OUTDIR).list()
+            total_files = files.size()
+            if (total_files == 1) {
+                if (files[0] != 'bactopia-info') {
+                    return 1
+                }
+            } else if (total_files > 1){
+                return 1
+            }
+        }
+    }
+    return 0
+}
+
 def check_unknown_params() {
     valid_params = []
     error = 0
@@ -226,11 +244,9 @@ def check_input_params() {
     error += is_positive_integer(params.alrt, 'alrt')
 
     // Check for existing output directory
-    if (!workflow.resume) {
-        if (file(OUTDIR).exists() && !params.force) {
-            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-            error += 1
-        }
+    if (output_exists(OUTDIR, params.force, workflow.resume)) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
     }
 
     // Check publish_mode

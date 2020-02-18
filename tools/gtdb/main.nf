@@ -2,6 +2,8 @@
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
+DOWNLOAD_GTDB = false
+OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters
 if (params.version) print_version();
@@ -12,10 +14,63 @@ samples = gather_sample_set(params.bactopia, params.exclude, params.include, par
 
 process download_gtdb {
 
+    output:
+    file 'gtdb-downloaded.txt' into GTDB_CHECK
+
+    shell:
+    """
+    if [ "!{DOWNLOAD_GTDB}" == "true" ]; then
+        GTDBTK_DATA_PATH=!{params.gtdb}
+        download-db.sh
+    else
+        echo "skipping GTDB database download"
+    fi
+
+    touch gtdb-downloaded.txt
+    """
+}
+
+process check_gtdb {
+ 
+    input:
+    file(gtdb) from GTDB_CHECK
+
+    output:
+    file 'gtdb-passed.txt' into GTDB
+
+    shell:
+    """
+    GTDBTK_DATA_PATH=!{params.gtdb}
+    gtdbtk check_install && touch gtdb-passed.txt
+    """
 }
 
 process gtdb {
+    publishDir OUTDIR, mode: 'copy', overwrite: OVERWRITE, pattern: "classify/*"
+    
+    input:
+    file(fasta) from Channel.fromList(samples).collect()
+    file(gtdb) from GTDB
 
+    output:
+    file 'classify/*' into ANNOTATE
+
+    shell:
+    debug = params.debug ? "--debug" : ""
+    recalculate_red = params.recalculate_red ? "--recalculate_red" : ""
+    force = params.force_gtdb ? "--force" : ""
+    """
+    GTDBTK_DATA_PATH=!{params.gtdb}
+    mkdir genomes
+    find -name "*.fna.gz" | xargs -I {} gunzip {}
+    cp -P *.fna genomes/
+    gtdbtk classify_wf !{debug} !{recalculate_red} !{force} \
+        --cpus !{task.cpus} \
+        --genome_dir ./genomes \
+        --out_dir classify \
+        --min_perc_aa !{params.min_perc_aa} \
+        --prefix !{params.prefix}
+    """
 }
 
 workflow.onComplete {
@@ -63,6 +118,23 @@ def file_exists(file_name, parameter) {
     return 0
 }
 
+def output_exists(outdir, force, resume) {
+    if (!resume && !force) {
+        if (file(OUTDIR).exists()) {
+            files = file(OUTDIR).list()
+            total_files = files.size()
+            if (total_files == 1) {
+                if (files[0] != 'bactopia-info') {
+                    return 1
+                }
+            } else if (total_files > 1){
+                return 1
+            }
+        }
+    }
+    return 0
+}
+
 def check_unknown_params() {
     valid_params = []
     error = 0
@@ -91,6 +163,24 @@ def check_input_params() {
 
     if (params.bactopia) {
         error += file_exists(params.bactopia, '--bactopia')
+    } else if (params.gtdb) {
+        if (file(params.gtdb).exists() && params.download_gtdb) {
+            log.info """
+                Found GTDB database at ${params.gtdb}, but '--download_gtdb'
+                also given. Existing GTDB database will be over written with
+                latest build. If this is error, please stop now.
+            """.stripIndent()
+            DOWNLOAD_GTDB = true
+        } else if (!file(params.gtdb).exists() && params.download_gtdb) {
+            log.info("Latest GTDB database will be downloaded to ${params.gtdb}")
+            DOWNLOAD_GTDB = true
+        } else if (!file(params.gtdb).exists()) {
+            log.error """
+                Please check that a GTDB database exists at ${params.gtdb}. 
+                Otherwise use '--download_gtdb' to download the latest GTDB database
+            """.stripIndent()
+            error += 1
+        }
     } else if (params.include) {
         error += file_exists(params.include, '--include')
     } else if (params.exclude) {
@@ -101,6 +191,9 @@ def check_input_params() {
 
         Required Parameters:
             --bactopia STR          Directory containing Bactopia analysis results for all samples.
+
+            --gtdb STR              Location of a GTDB database. If a database is not found, it will
+                                        be downloaded.
         """.stripIndent()
         error += 1
     }
@@ -109,13 +202,12 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
+    error += is_positive_integer(params.min_perc_aa, 'min_perc_aa')
 
     // Check for existing output directory
-    if (!workflow.resume) {
-        if (file(OUTDIR).exists() && !params.force) {
-            log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
-            error += 1
-        }
+    if (output_exists(OUTDIR, params.force, workflow.resume)) {
+        log.error("Output directory (${OUTDIR}) exists, Bactopia will not continue unless '--force' is used.")
+        error += 1
     }
 
     // Check publish_mode
@@ -130,7 +222,6 @@ def check_input_params() {
         exit 1
     }
 }
-
 
 def is_positive_integer(value, name) {
     error = 0
@@ -217,6 +308,9 @@ def print_help() {
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
+        --gtdb STR              Location of a GTDB database. If a database is not found, you must
+                                    use '--download_gtdb'.
+
     Optional Parameters:
         --include STR           A text file containing sample names to include in the
                                     analysis. The expected format is a single sample per line.
@@ -241,13 +335,18 @@ def print_help() {
                                     Default: ${params.cpus}
 
     GTDB-Tk Related Parameters:
-        --database STR          Location of a pre-downloaded GTDB database.
-                                    Default: Check $GTDBTK_DATA_PATH, if missing download.
+        --download_gtdb         Download the latest GTDB database, even it exists.
 
         --min_perc_aa INT       Filter genomes with an insufficient percentage of AA in the MSA
                                     Default: ${params.min_perc_aa}
 
-        --recalculate_red       Recalculate RED values based on the reference tree and all added user genomes
+        --recalculate_red       Recalculate RED values based on the reference tree and all added 
+                                    user genomes
+
+        --force_gtdb            Force GTDB to continue processing if an error occurrs on a single
+                                    genome
+
+        --debug                 Create intermediate files for debugging purposes
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
@@ -277,6 +376,7 @@ def print_help() {
         --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                     will wait before execution.
                                     Default: ${params.sleep_time} seconds
+
     Useful Parameters:
         --version               Print workflow version information
         --help                  Show this message and exit
