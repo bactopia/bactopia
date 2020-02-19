@@ -4,7 +4,7 @@ LABEL version="1.3.0"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Gitlab CI"
 
-RUN conda create -n bactopia -c conda-forge -c bioconda \
+RUN conda create -y -n bactopia -c conda-forge -c bioconda \
     ariba \
     beautifulsoup4 \
     biopython \
