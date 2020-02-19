@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/01/??
+## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
 - bactopia tools (BT) framework
     - docs for each tool
@@ -15,6 +15,7 @@
 - can now set how Nextflow publishes outputs (copy, symlink, etc...) via `--publish_mode`
 - option (`--rfam`) to turn on ncRNA annotation in Prokka
 - reduced "README.md" contents, instead point to documentation
+- Updated acknowledgements and bibtex for citations
 
 ### `Fixed`
 - nextflow.config version out of sync
