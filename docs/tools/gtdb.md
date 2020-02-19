@@ -216,7 +216,7 @@ _Price, M. N., Dehal, P. S. & Arkin, A. P.
 [FastTree 2 – Approximately Maximum-Likelihood Trees for Large Alignments.](https://dx.doi.org/10.1371%2Fjournal.pone.0009490)
  PLoS One 5, e9490 (2010)_  
 
-* __[GTDB](https://gtdb.ecogenomic.org/)__  
+* __[Genome Taxonomy Database](https://gtdb.ecogenomic.org/)__  
 _Parks, D. H. et al. 
 [A standardized bacterial taxonomy based on genome phylogeny substantially revises the tree of life.](https://doi.org/10.1038/nbt.4229)
  Nat. Biotechnol. 36, 996–1004 (2018) _  
