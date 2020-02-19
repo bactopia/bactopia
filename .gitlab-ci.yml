@@ -1,7 +1,7 @@
 image: continuumio/miniconda3:latest
 
 before_script:
-  - conda env create -y -n bactopia -c conda-forge -c bioconda bactopia
+  - conda create -y -n bactopia -c conda-forge -c bioconda bactopia
   - source activate bactopia
   - export PATH=$PWD:$PWD/bin:$PATH
 
