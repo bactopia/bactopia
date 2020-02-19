@@ -1,0 +1,29 @@
+image: continuumio/miniconda3:latest
+
+before_script:
+  - conda env create -y -n bactopia -c conda-forge -c bioconda bactopia
+  - source activate bactopia
+  - export PATH=$PWD:$PWD/bin:$PATH
+
+stages:
+    - test-bactopia-commands
+    - test-bactopia-nextflow
+
+bactopia-commands:
+    - test-bactopia-commands
+    only:
+        - master
+    script:
+        - bactopia version
+        - bactopia --version
+        - bactopia search
+        - bactopia prepare
+        - bactopia tools
+
+bactopia-nextflow:
+    - test-bactopia-nextflow
+    only:
+        - master
+    script:
+        - bactopia --help
+        - ls tools/ | xargs -I {} bactopia tools {} --help
