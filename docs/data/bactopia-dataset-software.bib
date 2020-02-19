@@ -38,12 +38,73 @@
   language = "en"
 }
 
+@ARTICLE{Page2015-ob,
+  title    = "Roary: rapid large-scale prokaryote pan genome analysis",
+  author   = "Page, Andrew J and Cummins, Carla A and Hunt, Martin and Wong,
+              Vanessa K and Reuter, Sandra and Holden, Matthew T G and Fookes,
+              Maria and Falush, Daniel and Keane, Jacqueline A and Parkhill,
+              Julian",
+  abstract = "UNLABELLED: A typical prokaryote population sequencing study can
+              now consist of hundreds or thousands of isolates. Interrogating
+              these datasets can provide detailed insights into the genetic
+              structure of prokaryotic genomes. We introduce Roary, a tool that
+              rapidly builds large-scale pan genomes, identifying the core and
+              accessory genes. Roary makes construction of the pan genome of
+              thousands of prokaryote samples possible on a standard desktop
+              without compromising on the accuracy of results. Using a single
+              CPU Roary can produce a pan genome consisting of 1000 isolates in
+              4.5 hours using 13 GB of RAM, with further speedups possible
+              using multiple processors. AVAILABILITY AND IMPLEMENTATION: Roary
+              is implemented in Perl and is freely available under an open
+              source GPLv3 license from http://sanger-pathogens.github.io/Roary
+              CONTACT: roary@sanger.ac.uk SUPPLEMENTARY INFORMATION:
+              Supplementary data are available at Bioinformatics online.",
+  journal  = "Bioinformatics",
+  volume   =  31,
+  number   =  22,
+  pages    = "3691--3693",
+  month    =  nov,
+  year     =  2015,
+  language = "en"
+}
+
 @MISC{Andrews2016-kz,
   title  = "{FastQC} A Quality Control tool for High Throughput Sequence Data.
             Babraham Bioinformatics. 2012",
   author = "Andrews, S and Krueger, F and Seconds-Pichon, A and Biggins, F and
             Wingett, S",
   year   =  2016
+}
+
+@ARTICLE{Hoang2018-mu,
+  title    = "{UFBoot2}: Improving the Ultrafast Bootstrap Approximation",
+  author   = "Hoang, Diep Thi and Chernomor, Olga and von Haeseler, Arndt and
+              Minh, Bui Quang and Vinh, Le Sy",
+  abstract = "The standard bootstrap (SBS), despite being computationally
+              intensive, is widely used in maximum likelihood phylogenetic
+              analyses. We recently proposed the ultrafast bootstrap
+              approximation (UFBoot) to reduce computing time while achieving
+              more unbiased branch supports than SBS under mild model
+              violations. UFBoot has been steadily adopted as an efficient
+              alternative to SBS and other bootstrap approaches. Here, we
+              present UFBoot2, which substantially accelerates UFBoot and
+              reduces the risk of overestimating branch supports due to
+              polytomies or severe model violations. Additionally, UFBoot2
+              provides suitable bootstrap resampling strategies for
+              phylogenomic data. UFBoot2 is 778 times (median) faster than SBS
+              and 8.4 times (median) faster than RAxML rapid bootstrap on
+              tested data sets. UFBoot2 is implemented in the IQ-TREE software
+              package version 1.6 and freely available at
+              http://www.iqtree.org.",
+  journal  = "Mol. Biol. Evol.",
+  volume   =  35,
+  number   =  2,
+  pages    = "518--522",
+  month    =  feb,
+  year     =  2018,
+  keywords = "maximum likelihood; model violation; phylogenetic inference;
+              polytomies; ultrafast bootstrap",
+  language = "en"
 }
 
 @MISC{noauthor_undated-dt,
@@ -91,6 +152,62 @@
   pages    = "11--16",
   month    =  jan,
   year     =  2004,
+  language = "en"
+}
+
+@ARTICLE{Rognes2016-qx,
+  title    = "{VSEARCH}: a versatile open source tool for metagenomics",
+  author   = "Rognes, Torbj{\o}rn and Flouri, Tom{\'a}{\v s} and Nichols, Ben
+              and Quince, Christopher and Mah{\'e}, Fr{\'e}d{\'e}ric",
+  abstract = "BACKGROUND: VSEARCH is an open source and free of charge
+              multithreaded 64-bit tool for processing and preparing
+              metagenomics, genomics and population genomics nucleotide
+              sequence data. It is designed as an alternative to the widely
+              used USEARCH tool (Edgar, 2010) for which the source code is not
+              publicly available, algorithm details are only rudimentarily
+              described, and only a memory-confined 32-bit version is freely
+              available for academic use. METHODS: When searching nucleotide
+              sequences, VSEARCH uses a fast heuristic based on words shared by
+              the query and target sequences in order to quickly identify
+              similar sequences, a similar strategy is probably used in
+              USEARCH. VSEARCH then performs optimal global sequence alignment
+              of the query against potential target sequences, using full
+              dynamic programming instead of the seed-and-extend heuristic used
+              by USEARCH. Pairwise alignments are computed in parallel using
+              vectorisation and multiple threads. RESULTS: VSEARCH includes
+              most commands for analysing nucleotide sequences available in
+              USEARCH version 7 and several of those available in USEARCH
+              version 8, including searching (exact or based on global
+              alignment), clustering by similarity (using length pre-sorting,
+              abundance pre-sorting or a user-defined order), chimera detection
+              (reference-based or de novo), dereplication (full length or
+              prefix), pairwise alignment, reverse complementation, sorting,
+              and subsampling. VSEARCH also includes commands for FASTQ file
+              processing, i.e., format detection, filtering, read quality
+              statistics, and merging of paired reads. Furthermore, VSEARCH
+              extends functionality with several new commands and improvements,
+              including shuffling, rereplication, masking of low-complexity
+              sequences with the well-known DUST algorithm, a choice among
+              different similarity definitions, and FASTQ file format
+              conversion. VSEARCH is here shown to be more accurate than
+              USEARCH when performing searching, clustering, chimera detection
+              and subsampling, while on a par with USEARCH for paired-ends read
+              merging. VSEARCH is slower than USEARCH when performing
+              clustering and chimera detection, but significantly faster when
+              performing paired-end reads merging and dereplication. VSEARCH is
+              available at https://github.com/torognes/vsearch under either the
+              BSD 2-clause license or the GNU General Public License version
+              3.0. DISCUSSION: VSEARCH has been shown to be a fast, accurate
+              and full-fledged alternative to USEARCH. A free and open-source
+              versatile tool for sequence analysis is now available to the
+              metagenomics community.",
+  journal  = "PeerJ",
+  volume   =  4,
+  pages    = "e2584",
+  month    =  oct,
+  year     =  2016,
+  keywords = "Alignment; Chimera detection; Clustering; Dereplication; Masking;
+              Metagenomics; Parallellization; Searching; Sequences; Shuffling",
   language = "en"
 }
 
@@ -317,6 +434,64 @@
   institution = "Github"
 }
 
+@ARTICLE{Kalyaanamoorthy2017-ea,
+  title    = "{ModelFinder}: fast model selection for accurate phylogenetic
+              estimates",
+  author   = "Kalyaanamoorthy, Subha and Minh, Bui Quang and Wong, Thomas K F
+              and von Haeseler, Arndt and Jermiin, Lars S",
+  abstract = "Model-based molecular phylogenetics plays an important role in
+              comparisons of genomic data, and model selection is a key step in
+              all such analyses. We present ModelFinder, a fast model-selection
+              method that greatly improves the accuracy of phylogenetic
+              estimates by incorporating a model of rate heterogeneity across
+              sites not previously considered in this context and by allowing
+              concurrent searches of model space and tree space.",
+  journal  = "Nat. Methods",
+  volume   =  14,
+  number   =  6,
+  pages    = "587--589",
+  month    =  jun,
+  year     =  2017,
+  language = "en"
+}
+
+@ARTICLE{Price2010-bv,
+  title     = "{FastTree} 2 -- Approximately {Maximum-Likelihood} Trees for
+               Large Alignments",
+  author    = "Price, Morgan N. and Dehal, Paramvir S. and Arkin, Adam P.",
+  abstract  = "Background We recently described FastTree, a tool for inferring
+               phylogenies for alignments with up to hundreds of thousands of
+               sequences. Here, we describe improvements to FastTree that
+               improve its accuracy without sacrificing scalability.
+               Methodology/Principal Findings Where FastTree 1 used
+               nearest-neighbor interchanges (NNIs) and the minimum-evolution
+               criterion to improve the tree, FastTree 2 adds minimum-evolution
+               subtree-pruning-regrafting (SPRs) and maximum-likelihood NNIs.
+               FastTree 2 uses heuristics to restrict the search for better
+               trees and estimates a rate of evolution for each site (the
+               ``CAT'' approximation). Nevertheless, for both simulated and
+               genuine alignments, FastTree 2 is slightly more accurate than a
+               standard implementation of maximum-likelihood NNIs (PhyML 3 with
+               default settings). Although FastTree 2 is not quite as accurate
+               as methods that use maximum-likelihood SPRs, most of the splits
+               that disagree are poorly supported, and for large alignments,
+               FastTree 2 is 100--1,000 times faster. FastTree 2 inferred a
+               topology and likelihood-based local support values for 237,882
+               distinct 16S ribosomal RNAs on a desktop computer in 22 hours
+               and 5.8 gigabytes of memory. Conclusions/Significance FastTree 2
+               allows the inference of maximum-likelihood phylogenies for huge
+               alignments. FastTree 2 is freely available at
+               http://www.microbesonline.org/fasttree .",
+  journal   = "PLoS One",
+  publisher = "Public Library of Science",
+  volume    =  5,
+  number    =  3,
+  pages     = "e9490",
+  month     =  mar,
+  year      =  2010,
+  keywords  = "00-Ungrouped"
+}
+
 @ARTICLE{Zankari2012-jn,
   title    = "Identification of acquired antimicrobial resistance genes",
   author   = "Zankari, Ea and Hasman, Henrik and Cosentino, Salvatore and
@@ -530,8 +705,40 @@
   year     =  2008
 }
 
-@UNPUBLISHED{Ondov2019-dw,
-  title    = "Mash Screen: High-throughput sequence containment estimation for
+@ARTICLE{Chaumeil2019-tf,
+  title    = "{GTDB-Tk}: a toolkit to classify genomes with the Genome Taxonomy
+              Database",
+  author   = "Chaumeil, Pierre-Alain and Mussig, Aaron J and Hugenholtz, Philip
+              and Parks, Donovan H",
+  abstract = "SUMMARY: The GTDB Toolkit (GTDB-Tk) provides objective taxonomic
+              assignments for bacterial and archaeal genomes based on the
+              Genome Taxonomy Database (GTDB). GTDB-Tk is computationally
+              efficient and able to classify thousands of draft genomes in
+              parallel. Here we demonstrate the accuracy of the GTDB-Tk
+              taxonomic assignments by evaluating its performance on a
+              phylogenetically diverse set of 10,156 bacterial and archaeal
+              metagenome-assembled genomes. AVAILABILITY: GTDB-Tk is
+              implemented in Python and licensed under the GNU General Public
+              License v3.0. Source code and documentation are available at:
+              https://github.com/ecogenomics/gtdbtk. SUPPLEMENTARY INFORMATION:
+              Supplementary data are available at Bioinformatics online.",
+  journal  = "Bioinformatics",
+  month    =  nov,
+  year     =  2019,
+  language = "en"
+}
+
+@MISC{Petit_undated-mv,
+  title       = "fastq-dl - Download {FASTQ} files from {SRA} or {ENA}
+                 repositories",
+  author      = "Petit, III, Robert A",
+  abstract    = "Download FASTQ files from SRA or ENA repositories. -
+                 rpetit3/fastq-dl",
+  institution = "Github"
+}
+
+@ARTICLE{Ondov2019-dw,
+  title    = "Mash Screen: high-throughput sequence containment estimation for
               genome discovery",
   author   = "Ondov, Brian D and Starrett, Gabriel J and Sappington, Anna and
               Kostic, Aleksandra and Koren, Sergey and Buck, Christopher B and
@@ -539,19 +746,23 @@
   abstract = "The MinHash algorithm has proven effective for rapidly estimating
               the resemblance of two genomes or metagenomes. However, this
               method cannot reliably estimate the containment of a genome
-              within a metagenome. Here we describe an online algorithm capable
-              of measuring the containment of genomes and proteomes within
-              either assembled or unassembled sequencing read sets. We describe
-              several use cases, including contamination screening and
+              within a metagenome. Here, we describe an online algorithm
+              capable of measuring the containment of genomes and proteomes
+              within either assembled or unassembled sequencing read sets. We
+              describe several use cases, including contamination screening and
               retrospective analysis of metagenomes for novel genome discovery.
               Using this tool, we provide containment estimates for every NCBI
-              RefSeq genome within every SRA metagenome, and demonstrate the
+              RefSeq genome within every SRA metagenome and demonstrate the
               identification of a novel polyomavirus species from a public
               metagenome.",
-  journal  = "bioRxiv",
-  pages    = "557314",
-  month    =  mar,
+  journal  = "Genome Biol.",
+  volume   =  20,
+  number   =  1,
+  pages    = "232",
+  month    =  nov,
   year     =  2019,
+  keywords = "Metagenomics; MinHash; Polyomavirus; SRA; Sequencing; Viral
+              Discovery",
   language = "en"
 }
 
@@ -734,6 +945,48 @@
   year      =  2010
 }
 
+@ARTICLE{Parks2018-rx,
+  title    = "A standardized bacterial taxonomy based on genome phylogeny
+              substantially revises the tree of life",
+  author   = "Parks, Donovan H and Chuvochina, Maria and Waite, David W and
+              Rinke, Christian and Skarshewski, Adam and Chaumeil, Pierre-Alain
+              and Hugenholtz, Philip",
+  abstract = "Taxonomy is an organizing principle of biology and is ideally
+              based on evolutionary relationships among organisms. Development
+              of a robust bacterial taxonomy has been hindered by an inability
+              to obtain most bacteria in pure culture and, to a lesser extent,
+              by the historical use of phenotypes to guide classification.
+              Culture-independent sequencing technologies have matured
+              sufficiently that a comprehensive genome-based taxonomy is now
+              possible. We used a concatenated protein phylogeny as the basis
+              for a bacterial taxonomy that conservatively removes polyphyletic
+              groups and normalizes taxonomic ranks on the basis of relative
+              evolutionary divergence. Under this approach, 58\% of the 94,759
+              genomes comprising the Genome Taxonomy Database had changes to
+              their existing taxonomy. This result includes the description of
+              99 phyla, including six major monophyletic units from the
+              subdivision of the Proteobacteria, and amalgamation of the
+              Candidate Phyla Radiation into a single phylum. Our taxonomy
+              should enable improved classification of uncultured bacteria and
+              provide a sound basis for ecological and evolutionary studies.",
+  journal  = "Nat. Biotechnol.",
+  volume   =  36,
+  number   =  10,
+  pages    = "996--1004",
+  month    =  nov,
+  year     =  2018,
+  language = "en"
+}
+
+@MISC{Blin_undated-mi,
+  title       = "ncbi-genome-download - Scripts to download genomes from the
+                 {NCBI} {FTP} servers",
+  author      = "Blin, Kai",
+  abstract    = "Scripts to download genomes from the NCBI FTP servers -
+                 kblin/ncbi-genome-download",
+  institution = "Github"
+}
+
 @ARTICLE{Bushnell2016-oa,
   title   = "{BBMap} short read aligner",
   author  = "Bushnell, B",
@@ -770,6 +1023,38 @@
   pages    = "90",
   month    =  nov,
   year     =  2014
+}
+
+@MISC{Seemann_undated-jc,
+  title       = "snp-dists - Pairwise {SNP} distance matrix from a {FASTA}
+                 sequence alignment",
+  author      = "Seemann, Torsten",
+  abstract    = "Pairwise SNP distance matrix from a FASTA sequence alignment -
+                 tseemann/snp-dists",
+  institution = "Github"
+}
+
+@ARTICLE{Katoh2013-ov,
+  title    = "{MAFFT} multiple sequence alignment software version 7:
+              improvements in performance and usability",
+  author   = "Katoh, Kazutaka and Standley, Daron M",
+  abstract = "We report a major update of the MAFFT multiple sequence alignment
+              program. This version has several new features, including options
+              for adding unaligned sequences into an existing alignment,
+              adjustment of direction in nucleotide alignment, constrained
+              alignment and parallel processing, which were implemented after
+              the previous major update. This report shows actual examples to
+              explain how these features work, alone and in combination. Some
+              examples incorrectly aligned by MAFFT are also shown to clarify
+              its limitations. We discuss how to avoid misalignments, and our
+              ongoing efforts to overcome such limitations.",
+  journal  = "Mol. Biol. Evol.",
+  volume   =  30,
+  number   =  4,
+  pages    = "772--780",
+  month    =  apr,
+  year     =  2013,
+  language = "en"
 }
 
 @ARTICLE{Hunt2017-og,
@@ -902,6 +1187,38 @@
   institution = "Github"
 }
 
+@UNPUBLISHED{Parks2019-re,
+  title    = "Selection of representative genomes for 24,706 bacterial and
+              archaeal species clusters provide a complete genome-based
+              taxonomy",
+  author   = "Parks, Donovan H and Chuvochina, Maria and Chaumeil, Pierre-Alain
+              and Rinke, Christian and Mussig, Aaron J and Hugenholtz, Philip",
+  abstract = "Abstract We recently introduced the Genome Taxonomy Database
+              (GTDB), a phylogenetically consistent, genome-based taxonomy
+              providing rank normalized classifications for nearly 150,000
+              genomes from domain to genus. However, nearly 40\% of the genomes
+              used to infer the GTDB reference tree lack a species name,
+              reflecting the large number of genomes in public repositories
+              without complete taxonomic assignments. Here we address this
+              limitation by proposing 24,706 species clusters which encompass
+              all publicly available bacterial and archaeal genomes when using
+              commonly accepted average nucleotide identity (ANI) criteria for
+              circumscribing species. In contrast to previous ANI studies, we
+              selected a single representative genome to serve as the
+              nomenclatural type for circumscribing each species with type
+              strains used where available. We complemented the 8,792 species
+              clusters with validly or effectively published names with 15,914
+              de novo species clusters in order to assign placeholder names to
+              the growing number of genomes from uncultivated species. This
+              provides the first complete domain to species taxonomic framework
+              which will improve communication of scientific results.",
+  journal  = "bioRxiv",
+  pages    = "771964",
+  month    =  nov,
+  year     =  2019,
+  language = "en"
+}
+
 @ARTICLE{Li2015-jz,
   title    = "{MEGAHIT}: an ultra-fast single-node solution for large and
               complex metagenomics assembly via succinct de Bruijn graph",
@@ -933,6 +1250,35 @@
   abstract    = "Faster SPAdes assembly of Illumina reads. Contribute to
                  tseemann/shovill development by creating an account on GitHub.",
   institution = "Github"
+}
+
+@ARTICLE{Quast2013-dv,
+  title    = "The {SILVA} ribosomal {RNA} gene database project: improved data
+              processing and web-based tools",
+  author   = "Quast, Christian and Pruesse, Elmar and Yilmaz, Pelin and Gerken,
+              Jan and Schweer, Timmy and Yarza, Pablo and Peplies, J{\"o}rg and
+              Gl{\"o}ckner, Frank Oliver",
+  abstract = "SILVA (from Latin silva, forest, http://www.arb-silva.de) is a
+              comprehensive web resource for up to date, quality-controlled
+              databases of aligned ribosomal RNA (rRNA) gene sequences from the
+              Bacteria, Archaea and Eukaryota domains and supplementary online
+              services. The referred database release 111 (July 2012) contains
+              3 194 778 small subunit and 288 717 large subunit rRNA gene
+              sequences. Since the initial description of the project,
+              substantial new features have been introduced, including advanced
+              quality control procedures, an improved rRNA gene aligner, online
+              tools for probe and primer evaluation and optimized browsing,
+              searching and downloading on the website. Furthermore, the
+              extensively curated SILVA taxonomy and the new non-redundant
+              SILVA datasets provide an ideal reference for high-throughput
+              classification of data from next-generation sequencing
+              approaches.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  41,
+  number   = "Database issue",
+  pages    = "D590--6",
+  month    =  jan,
+  year     =  2013
 }
 
 @MISC{Petit_undated-kp,
@@ -1228,6 +1574,32 @@
   language = "en"
 }
 
+@ARTICLE{Didelot2015-tg,
+  title    = "{ClonalFrameML}: efficient inference of recombination in whole
+              bacterial genomes",
+  author   = "Didelot, Xavier and Wilson, Daniel J",
+  abstract = "Recombination is an important evolutionary force in bacteria, but
+              it remains challenging to reconstruct the imports that occurred
+              in the ancestry of a genomic sample. Here we present
+              ClonalFrameML, which uses maximum likelihood inference to
+              simultaneously detect recombination in bacterial genomes and
+              account for it in phylogenetic reconstruction. ClonalFrameML can
+              analyse hundreds of genomes in a matter of hours, and we
+              demonstrate its usefulness on simulated and real datasets. We
+              find evidence for recombination hotspots associated with mobile
+              elements in Clostridium difficile ST6 and a previously
+              undescribed 310kb chromosomal replacement in Staphylococcus
+              aureus ST582. ClonalFrameML is freely available at
+              http://clonalframeml.googlecode.com/.",
+  journal  = "PLoS Comput. Biol.",
+  volume   =  11,
+  number   =  2,
+  pages    = "e1004041",
+  month    =  feb,
+  year     =  2015,
+  language = "en"
+}
+
 @MISC{Petit_undated-ke,
   title       = "fastq-scan: generate summary statistics of input {FASTQ}
                  sequences",
@@ -1304,6 +1676,84 @@
   pages    = "3100--3108",
   month    =  apr,
   year     =  2007,
+  language = "en"
+}
+
+@ARTICLE{Matsen2010-oc,
+  title    = "pplacer: linear time maximum-likelihood and Bayesian phylogenetic
+              placement of sequences onto a fixed reference tree",
+  author   = "Matsen, Frederick A and Kodner, Robin B and Armbrust, E Virginia",
+  abstract = "BACKGROUND: Likelihood-based phylogenetic inference is generally
+              considered to be the most reliable classification method for
+              unknown sequences. However, traditional likelihood-based
+              phylogenetic methods cannot be applied to large volumes of short
+              reads from next-generation sequencing due to computational
+              complexity issues and lack of phylogenetic signal. ``Phylogenetic
+              placement,'' where a reference tree is fixed and the unknown
+              query sequences are placed onto the tree via a reference
+              alignment, is a way to bring the inferential power offered by
+              likelihood-based approaches to large data sets. RESULTS: This
+              paper introduces pplacer, a software package for phylogenetic
+              placement and subsequent visualization. The algorithm can place
+              twenty thousand short reads on a reference tree of one thousand
+              taxa per hour per processor, has essentially linear time and
+              memory complexity in the number of reference taxa, and is easy to
+              run in parallel. Pplacer features calculation of the posterior
+              probability of a placement on an edge, which is a statistically
+              rigorous way of quantifying uncertainty on an edge-by-edge basis.
+              It also can inform the user of the positional uncertainty for
+              query sequences by calculating expected distance between
+              placement locations, which is crucial in the estimation of
+              uncertainty with a well-sampled reference tree. The software
+              provides visualizations using branch thickness and color to
+              represent number of placements and their uncertainty. A
+              simulation study using reads generated from 631 COG alignments
+              shows a high level of accuracy for phylogenetic placement over a
+              wide range of alignment diversity, and the power of edge
+              uncertainty estimates to measure placement confidence.
+              CONCLUSIONS: Pplacer enables efficient phylogenetic placement and
+              subsequent visualization, making likelihood-based phylogenetics
+              methodology practical for large collections of reads; it is
+              freely available as source code, binaries, and a web service.",
+  journal  = "BMC Bioinformatics",
+  volume   =  11,
+  pages    = "538",
+  month    =  oct,
+  year     =  2010,
+  language = "en"
+}
+
+@ARTICLE{Nguyen2015-ow,
+  title    = "{IQ-TREE}: a fast and effective stochastic algorithm for
+              estimating maximum-likelihood phylogenies",
+  author   = "Nguyen, Lam-Tung and Schmidt, Heiko A and von Haeseler, Arndt and
+              Minh, Bui Quang",
+  abstract = "Large phylogenomics data sets require fast tree inference
+              methods, especially for maximum-likelihood (ML) phylogenies. Fast
+              programs exist, but due to inherent heuristics to find optimal
+              trees, it is not clear whether the best tree is found. Thus,
+              there is need for additional approaches that employ different
+              search strategies to find ML trees and that are at the same time
+              as fast as currently available ML programs. We show that a
+              combination of hill-climbing approaches and a stochastic
+              perturbation method can be time-efficiently implemented. If we
+              allow the same CPU time as RAxML and PhyML, then our software
+              IQ-TREE found higher likelihoods between 62.2\% and 87.1\% of the
+              studied alignments, thus efficiently exploring the tree-space. If
+              we use the IQ-TREE stopping rule, RAxML and PhyML are faster in
+              75.7\% and 47.1\% of the DNA alignments and 42.2\% and 100\% of
+              the protein alignments, respectively. However, the range of
+              obtaining higher likelihoods with IQ-TREE improves to
+              73.3-97.1\%. IQ-TREE is freely available at
+              http://www.cibiv.at/software/iqtree.",
+  journal  = "Mol. Biol. Evol.",
+  volume   =  32,
+  number   =  1,
+  pages    = "268--274",
+  month    =  jan,
+  year     =  2015,
+  keywords = "maximum likelihood; phylogenetic inference; phylogeny; stochastic
+              algorithm",
   language = "en"
 }
 
@@ -1415,6 +1865,15 @@
   language = "en"
 }
 
+@MISC{Kwong_undated-ha,
+  title       = "maskrc-svg - Masks recombination as detected by
+                 {ClonalFrameML} or Gubbins and draws an {SVG}",
+  author      = "Kwong, Jason",
+  abstract    = "Masks recombination as detected by ClonalFrameML or Gubbins
+                 and draws an SVG - kwongj/maskrc-svg",
+  institution = "Github"
+}
+
 @ARTICLE{Hawkey2015-ul,
   title    = "{ISMapper}: identifying transposase insertion sites in bacterial
               genomes from short read sequence data",
@@ -1472,6 +1931,33 @@
   institution = "Github"
 }
 
+@ARTICLE{Wheeler2013-it,
+  title    = "nhmmer: {DNA} homology search with profile {HMMs}",
+  author   = "Wheeler, Travis J and Eddy, Sean R",
+  abstract = "SUMMARY: Sequence database searches are an essential part of
+              molecular biology, providing information about the function and
+              evolutionary history of proteins, RNA molecules and DNA sequence
+              elements. We present a tool for DNA/DNA sequence comparison that
+              is built on the HMMER framework, which applies probabilistic
+              inference methods based on hidden Markov models to the problem of
+              homology search. This tool, called nhmmer, enables improved
+              detection of remote DNA homologs, and has been used in
+              combination with Dfam and RepeatMasker to improve annotation of
+              transposable elements in the human genome. AVAILABILITY: nhmmer
+              is a part of the new HMMER3.1 release. Source code and
+              documentation can be downloaded from http://hmmer.org. HMMER3.1
+              is freely licensed under the GNU GPLv3 and should be portable to
+              any POSIX-compliant operating system, including Linux and Mac
+              OS/X.",
+  journal  = "Bioinformatics",
+  volume   =  29,
+  number   =  19,
+  pages    = "2487--2489",
+  month    =  oct,
+  year     =  2013,
+  language = "en"
+}
+
 @MISC{Blin_undated-tr,
   title       = "{NCBI} Genome Download: Scripts to download genomes from the
                  {NCBI} {FTP} servers",
@@ -1488,6 +1974,42 @@
   abstract    = "Filter SAM file for soft and hard clipped alignments -
                  tseemann/samclip",
   institution = "Github"
+}
+
+@ARTICLE{Eddy2011-bh,
+  title    = "Accelerated Profile {HMM} Searches",
+  author   = "Eddy, Sean R",
+  abstract = "Profile hidden Markov models (profile HMMs) and probabilistic
+              inference methods have made important contributions to the theory
+              of sequence database homology search. However, practical use of
+              profile HMM methods has been hindered by the computational
+              expense of existing software implementations. Here I describe an
+              acceleration heuristic for profile HMMs, the ``multiple segment
+              Viterbi'' (MSV) algorithm. The MSV algorithm computes an optimal
+              sum of multiple ungapped local alignment segments using a striped
+              vector-parallel approach previously described for fast
+              Smith/Waterman alignment. MSV scores follow the same statistical
+              distribution as gapped optimal local alignment scores, allowing
+              rapid evaluation of significance of an MSV score and thus
+              facilitating its use as a heuristic filter. I also describe a
+              20-fold acceleration of the standard profile HMM Forward/Backward
+              algorithms using a method I call ``sparse rescaling''. These
+              methods are assembled in a pipeline in which high-scoring MSV
+              hits are passed on for reanalysis with the full HMM
+              Forward/Backward algorithm. This accelerated pipeline is
+              implemented in the freely available HMMER3 software package.
+              Performance benchmarks show that the use of the heuristic MSV
+              filter sacrifices negligible sensitivity compared to
+              unaccelerated profile HMM searches. HMMER3 is substantially more
+              sensitive and 100- to 1000-fold faster than HMMER2. HMMER3 is now
+              about as fast as BLAST for protein searches.",
+  journal  = "PLoS Comput. Biol.",
+  volume   =  7,
+  number   =  10,
+  pages    = "e1002195",
+  month    =  oct,
+  year     =  2011,
+  language = "en"
 }
 
 @ARTICLE{McArthur2013-nq,

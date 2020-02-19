@@ -68,7 +68,7 @@ If you have used Bactopia in your work, please be sure to cite any datasets or t
 
 *If a citation needs to updated please let me know!*
 
-A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](docs/bactopia-datasets-software.bib)
+A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](docs/data/bactopia-datasets-software.bib)
 
 # Acknowledgements
 Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly every component of Bactopia was created by others and made freely available to the public.
