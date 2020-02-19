@@ -502,8 +502,8 @@ def print_help() {
 
                                     Default: ${params.publish_mode}
 
-        --overwrite             Nextflow will overwrite existing output files.
-                                    Default: ${params.overwrite}
+        --force                 Nextflow will overwrite existing output files.
+                                    Default: ${params.force}
 
         --conatainerPath        Path to Singularity containers to be used by the 'slurm'
                                     profile.
