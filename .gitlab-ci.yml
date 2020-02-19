@@ -14,6 +14,7 @@ bactopia-commands:
     only:
         - master
     script:
+        - which bactopia
         - bactopia version
         - bactopia --version
         - bactopia search
