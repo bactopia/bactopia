@@ -25,14 +25,14 @@ function update_environment {
     conda env remove -n bactopia-${1}
 }
 
-update_environment "annotate_genome" "prokka pigz" ${CONDA_DIR} ${VERSION} ""
+update_environment "annotate_genome" "prokka pigz tbl2asn-forever" ${CONDA_DIR} ${VERSION} ""
 update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} ${VERSION} ""
 update_environment "ariba_analysis" "ariba" ${CONDA_DIR} ${VERSION} ""
 update_environment "assemble_genome" "shovill assembly-scan pigz" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "call_variants" "snippy samtools=1.9 vcf-annotator pigz" ${CONDA_DIR} ${VERSION} ""
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ""
 update_environment "download_references" "ncbi-genome-download mash biopython python>3.6" ${CONDA_DIR} ${VERSION} ""
-update_environment "insertion_sequences" "ismapper=2.0.a" ${CONDA_DIR} ${VERSION} "-c rpetit3"
+update_environment "insertion_sequences" "ismapper" ${CONDA_DIR} ${VERSION}
 update_environment "gather_fastqs" "aspera-connect fastq-dl" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${VERSION} ""
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${VERSION} ""

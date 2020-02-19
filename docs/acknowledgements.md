@@ -72,6 +72,14 @@ _Titus Brown, C. & Irber, L. [sourmash: a library for MinHash sketching of DNA.]
 JOSS 1, 27 (2016)._  
 
 ### Everything Else
+* __[Genome Taxonomy Database](https://gtdb.ecogenomic.org/)__  
+_Parks, D. H. et al. 
+[A standardized bacterial taxonomy based on genome phylogeny substantially revises the tree of life.](https://doi.org/10.1038/nbt.4229)
+ Nat. Biotechnol. 36, 996–1004 (2018)_  
+_Parks, D. H. et al. 
+[Selection of representative genomes for 24,706 bacterial and archaeal species clusters provide a complete genome-based taxonomy.](https://doi.org/10.1101/771964)
+ bioRxiv 771964 (2019)_  
+
 * __[NCBI RefSeq Database](https://www.ncbi.nlm.nih.gov/refseq/)__  
 _O’Leary, N. A. et al. [Reference sequence (RefSeq) database at NCBI: current status, 
 taxonomic expansion, and functional annotation](http://dx.doi.org/10.1093/nar/gkv1189). 
@@ -86,6 +94,11 @@ Nucleic Acids Res. 47, D195–D202 (2019)._
 _Jolley, K. A., Bray, J. E. & Maiden, M. C. J. [Open-access bacterial population genomics: BIGSdb 
 software, the PubMLST.org website and their applications](http://dx.doi.org/10.12688/wellcomeopenres.14826.1). 
 Wellcome Open Res 3, 124 (2018)._  
+
+* __[SILVA rRNA Database](https://www.arb-silva.de/)__  
+_Quast, C. et al. 
+[The SILVA ribosomal RNA gene database project: improved data processing and web-based tools.](https://doi.org/10.1093/nar/gks1219) 
+Nucleic Acids Res. 41, D590–6 (2013)_
 
 ## Software Included In Bactopia
 Below is a list of software (alphabetical) used (directly and indirectly) by Bactopia. A link to the software page as well as the citation (if available) have been included.
@@ -146,17 +159,35 @@ _Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. [CD-HIT: accelerated for clustering t
 sequencing data](http://dx.doi.org/10.1093/bioinformatics/bts565). 
 Bioinformatics 28, 3150–3152 (2012)._  
 
-* __[ena-dl](https://github.com/rpetit3/ena-dl)__  
-Download FASTQ files from ENA and group runs by Experiment accession.  
-_Petit III, R. A. [ena-dl: download FASTQs from the European Nucleotide Archive.](https://github.com/rpetit3/ena-dl)_  
+* __[ClonalFramML](https://github.com/xavierdidelot/ClonalFrameML)__  
+Efficient Inference of Recombination in Whole Bacterial Genomes  
+_Didelot, X. & Wilson, D. J. 
+[ClonalFrameML: efficient inference of recombination in whole bacterial genomes.](http://dx.doi.org/10.1371/journal.pcbi.1004041)
+ PLoS Comput. Biol. 11, e1004041 (2015)_  
+
+* __[FastANI](https://github.com/ParBLiSS/FastANI)__  
+Fast Whole-Genome Similarity (ANI) Estimation  
+_Jain, C., Rodriguez-R, L. M., Phillippy, A. M., Konstantinidis, K. T. & Aluru, S. 
+[High throughput ANI analysis of 90K prokaryotic genomes reveals clear species boundaries.](http://dx.doi.org/10.1038/s41467-018-07641-9)
+ Nat. Commun. 9, 5114 (2018)_  
 
 * __[FastQC](https://github.com/s-andrews/FastQC)__  
 A quality control analysis tool for high throughput sequencing data.  
 _Andrews, S. [FastQC: a quality control tool for high throughput sequence data.](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)._  
 
+* __[fastq-dl](https://github.com/rpetit3/fastq-dl)__  
+Download FASTQ files from SRA or ENA repositories.  
+_Petit III, R. A. [fastq-dl: Download FASTQ files from SRA or ENA repositories.](https://github.com/rpetit3/fastq-dl)_  
+
 * __[fastq-scan](https://github.com/rpetit3/fastq-scan)__  
 Output FASTQ summary statistics in JSON format  
 _Petit III, R. A. [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan)_  
+
+* __[FastTree 2](http://www.microbesonline.org/fasttree)__  
+Approximately-maximum-likelihood phylogenetic trees  
+_Price, M. N., Dehal, P. S. & Arkin, A. P. 
+[FastTree 2 – Approximately Maximum-Likelihood Trees for Large Alignments.](https://dx.doi.org/10.1371%2Fjournal.pone.0009490)
+ PLoS One 5, e9490 (2010)_  
 
 * __[FLASH](https://ccb.jhu.edu/software/FLASH/)__  
 A fast and accurate tool to merge paired-end reads.  
@@ -170,13 +201,33 @@ _Garrison E., and G. Marth, [Haplotype-based variant detection from short-read s
 A shell tool for executing jobs in parallel  
 _Tange, O. [GNU Parallel](https://doi.org/10.5281/zenodo.1146014) 2018, March 2018_  
 
+* __[GTDB-Tk](https://github.com/Ecogenomics/GTDBTk)__  
+A toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes  
+_Chaumeil, P.-A., Mussig, A. J., Hugenholtz, P. & Parks, D. H. 
+[GTDB-Tk: a toolkit to classify genomes with the Genome Taxonomy Database.](https://doi.org/10.1093/bioinformatics/btz848)
+ Bioinformatics (2019)_  
+
 * __[HMMER](http://hmmer.org/)__  
 Biosequence analysis using profile hidden Markov models  
-_Finn R. D. et al. [HMMER web server: interactive sequence similarity searching.](https://doi.org/10.1093/nar/gkr367) Nucleic Acids Res. ;39:W29-37. (2011)_  
+_Eddy, S. R. 
+[Accelerated Profile HMM Searches.](https://doi.org/10.1371/journal.pcbi.1002195) 
+PLoS Comput. Biol. 7, e1002195 (2011)_  
 
 * __[Infernal](http://eddylab.org/infernal/)__  
 Searches DNA sequence databases for RNA structure and sequence similarities  
 _Nawrocki, E. P., and S. R. Eddy, [Infernal 1.1: 100-fold faster RNA homology searches.](https://doi.org/10.1093/bioinformatics/btt509) Bioinformatics, 29(22), 2933-2935. (2013)_  
+
+* __[IQ-TREE](https://github.com/Cibiv/IQ-TREE)__  
+Efficient phylogenomic software by maximum likelihood  
+_L.-T. Nguyen, H.A. Schmidt, A. von Haeseler, B.Q. Minh (2015) 
+[IQ-TREE: A fast and effective stochastic algorithm for estimating maximum likelihood phylogenies.](https://doi.org/10.1093/molbev/msu300)
+ Mol. Biol. Evol., 32:268-274._  
+_S. Kalyaanamoorthy, B.Q. Minh, T.K.F. Wong, A. von Haeseler, L.S. Jermiin (2017) 
+[ModelFinder: Fast model selection for accurate phylogenetic estimates.](https://doi.org/10.1038/nmeth.4285) 
+Nat. Methods, 14:587-589._  
+_D.T. Hoang, O. Chernomor, A. von Haeseler, B.Q. Minh, L.S. Vinh (2018) [
+UFBoot2: Improving the ultrafast bootstrap approximation.](https://doi.org/10.1093/molbev/msx281)
+ Mol. Biol. Evol., 35:518–522._  
 
 * __[ISMapper](https://github.com/jhawkey/IS_mapper)__  
 IS mapping software  
@@ -188,6 +239,12 @@ BMC Genomics 16, 667 (2015)._
 Fast and memory-efficient sequencing error corrector  
 _Song, L., Florea, L. and B. Langmead, [Lighter: Fast and Memory-efficient Sequencing Error Correction without Counting](http://genomebiology.com/2014/15/11/509/). Genome Biol. 2014 Nov 15;15(11):509._
 
+* __[MAFFT](https://mafft.cbrc.jp/alignment/software/)__  
+Multiple alignment program for amino acid or nucleotide sequences  
+_Katoh, K. & Standley, D. M. 
+[MAFFT multiple sequence alignment software version 7: improvements in performance and usability.](https://doi.org/10.1093/molbev/mst010) 
+Mol. Biol. Evol. 30, 772–780 (2013)_  
+
 * __[Mash](https://github.com/marbl/Mash)__  
 Fast genome and metagenome distance estimation using MinHash  
 _Ondov, B. D. et al. [Mash: fast genome and metagenome distance 
@@ -196,6 +253,11 @@ Genome Biol. 17, 132 (2016)._
 _Ondov, B. D. et al. [Mash Screen: High-throughput sequence 
 containment estimation for genome discovery](http://dx.doi.org/10.1101/557314). 
 bioRxiv 557314 (2019)._  
+
+* __[maskrc-svg](https://github.com/kwongj/maskrc-svg)__  
+Masks recombination as detected by ClonalFrameML or Gubbins  
+_Kwong, J. [maskrc-svg - Masks recombination as detected by ClonalFrameML or Gubbins and draws an SVG.](https://github.com/kwongj/maskrc-svg)_  
+
 
 * __[McCortex](https://github.com/mcveanlab/mccortex)__  
 De novo genome assembly and multisample variant calling  
@@ -211,18 +273,30 @@ _Li, D., et al. [MEGAHIT: an ultra-fast single-node solution for large and compl
 Mining CRISPRs in Environmental Datasets  
 _Skennerton, C. [MinCED: Mining CRISPRs in Environmental Datasets](https://github.com/ctSkennerton/minced)_  
 
-* __[Minimap2](https://github.com/lh3/minimap2)__
+* __[Minimap2](https://github.com/lh3/minimap2)__  
 A versatile pairwise aligner for genomic and spliced nucleotide sequences  
 _Li, H. [Minimap2: pairwise alignment for nucleotide sequences.](https://doi.org/10.1093/bioinformatics/bty191) Bioinformatics, 34:3094-3100. (2018)_  
 
-* __[NCBI Genome Download](https://github.com/kblin/ncbi-genome-download)__  
+* __[ncbi-genome-download](https://github.com/kblin/ncbi-genome-download)__  
 Scripts to download genomes from the NCBI FTP servers  
-_Blin, K. [NCBI Genome Download: Scripts to download genomes from the NCBI FTP 
+_Blin, K. [ncbi-genome-download: Scripts to download genomes from the NCBI FTP 
 servers](https://github.com/kblin/ncbi-genome-download)_  
 
 * __[Nextflow](https://github.com/nextflow-io/nextflow)__  
 A DSL for data-driven computational pipelines.  
 _Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P.P., Palumbo, E., Notredame, C., 2017. [Nextflow enables reproducible computational workflows.](https://www.nature.com/articles/nbt.3820.pdf?origin=ppub) Nat. Biotechnol. 35, 316–319._
+
+* __[nhmmer](http://hmmer.org/)__  
+DNA homology search with profile HMMs.  
+_Wheeler, T. J. & Eddy, S. R. 
+[nhmmer: DNA homology search with profile HMMs.](https://doi.org/10.1093/bioinformatics/btt403)
+ Bioinformatics 29, 2487–2489 (2013)_  
+
+* __[phyloFlash](https://github.com/HRGV/phyloFlash)__  
+A pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset.  
+_H. R. Gruber-Vodicka, B.KB. Seah, E. Pruesse. 
+[phyloFlash — Rapid SSU rRNA profiling and targeted assembly from metagenomes.](https://doi.org/10.1101/521922) 
+bioRxiv 521922_  
 
 * __[Pigz](https://zlib.net/pigz/)__  
 A parallel implementation of gzip for modern multi-processor, multi-core machines.  
@@ -231,6 +305,12 @@ _Adler, M. [pigz: A parallel implementation of gzip for modern multi-processor, 
 * __[Pilon](https://github.com/broadinstitute/pilon/)__  
 An automated genome assembly improvement and variant detection tool  
 _Walker, B. J., et al. [Pilon: an integrated tool for comprehensive microbial variant detection and genome assembly improvement.](https://doi.org/10.1371/journal.pone.0112963) PloS one 9.11 (2014): e112963._  
+
+* __[pplacer](https://github.com/matsen/pplacer)__  
+Phylogenetic placement and downstream analysis  
+_Matsen, F. A., Kodner, R. B. & Armbrust, E. V. 
+[pplacer: linear time maximum-likelihood and Bayesian phylogenetic placement of sequences onto a fixed reference tree.](https://doi.org/10.1186/1471-2105-11-538)
+ BMC Bioinformatics 11, 538 (2010)_  
 
 * __[Prodigal](https://github.com/hyattpd/Prodigal)__  
 Fast, reliable protein-coding gene prediction for prokaryotic genomes.  
@@ -244,6 +324,12 @@ Bioinformatics 30, 2068–2069 (2014)._
 * __[RNAmmer](http://www.cbs.dtu.dk/services/RNAmmer/)__  
 Consistent and rapid annotation of ribosomal RNA genes  
 _Lagesen, K., et al. [RNAmmer: consistent annotation of rRNA genes in genomic sequences.](https://dx.doi.org/10.1093%2Fnar%2Fgkm160) Nucleic Acids Res 35.9: 3100-3108. (2007)_  
+
+* __[Roary](https://github.com/sanger-pathogens/Roary)__  
+Rapid large-scale prokaryote pan genome analysis  
+_Page, A. J. et al. 
+[Roary: rapid large-scale prokaryote pan genome analysis.](https://doi.org/10.1093/bioinformatics/btv421)
+ Bioinformatics 31, 3691–3693 (2015)_  
 
 * __[samclip](https://github.com/tseemann/samclip)__  
 Filter SAM file for soft and hard clipped alignments  
@@ -279,6 +365,11 @@ _Seemann, T. [Snippy: fast bacterial variant calling from NGS reads](https://git
 Genomic variant annotations and functional effect prediction toolbox.  
 _Cingolani, P., et al. [A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3.](https://doi.org/10.4161/fly.19695) Fly, 6(2), 80-92 (2012)_  
 
+* __[snp-dists](https://github.com/tseemann/snp-dists)__  
+Pairwise SNP distance matrix from a FASTA sequence alignment  
+_Seemann, T. [snp-dists - Pairwise SNP distance matrix from a FASTA sequence alignment.](https://github.com/tseemann/snp-dists)_  
+
+
 * __[SNP-sites](https://github.com/sanger-pathogens/snp-sites)__  
 Rapidly extracts SNPs from a multi-FASTA alignment.  
 _Page, A. J., et al. [SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments.](https://dx.doi.org/10.1099%2Fmgen.0.000056) Microbial Genomics 2.4 (2016)._  
@@ -308,6 +399,12 @@ _Garrison, E. [Vcflib: A C++ library for parsing and manipulating VCF files](htt
 * __[Velvet](https://github.com/dzerbino/velvet)__  
 Short read de novo assembler using de Bruijn graphs  
 _Zerbino, D. R., and E. Birney. [Velvet: algorithms for de novo short read assembly using de Bruijn graphs.](http://www.genome.org/cgi/doi/10.1101/gr.074492.107) Genome research 18.5 (2008): 821-829._  
+
+* __[VSEARCH](https://github.com/torognes/vsearch)__  
+Versatile open-source tool for metagenomics  
+_Rognes, T., Flouri, T., Nichols, B., Quince, C. & Mahé, F. 
+[VSEARCH: a versatile open source tool for metagenomics.](https://doi.org/10.7717/peerj.2584)
+ PeerJ 4, e2584 (2016)_  
 
 * __[vt](https://github.com/atks/vt)__  
 A tool set for short variant discovery in genetic sequence data.  

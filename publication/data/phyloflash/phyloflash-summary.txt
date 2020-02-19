@@ -1,0 +1,1547 @@
+sample	assembly_species	assembly_taxon	top_mapped_taxon	top_mapped_reads	chao1_estimate	assembly_hit	input_reads	mapped_reads	ntu_observed_once	ntu_observed_twice	ntu_observed_three_plus	message
+DRX019814	Lactobacillus oryzae	Lactobacillus	Lactobacillus	2323	11.000	AB731660.1.1488	786180	2564	4	2	7	
+DRX022186	Lactobacillus hokkaidonensis	Lactobacillus	Lactobacillus	1312	104.000	AP014680.1445965.1447537	537763	1388	14	1	6	
+DRX040364	Lactobacillus gorillae	Lactobacillus	Lactobacillus	3095	15.125	AB904716.1.1525	511333	3234	7	4	9	
+DRX058277	Lactobacillus parakefiri	Lactobacillus	Lactobacillus	1825	2.500	AB429373.1.1533	610102	2021	1	1	2	
+DRX061114	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	4188	40.167	EF120369.1.1560	872788	4396	13	3	12	
+DRX061115	Lactobacillus mucosae	Lactobacillus	Lactobacillus	8580	11.667	AF126738.1.1568	1403959	8780	4	3	9	
+DRX061116	Lactobacillus mucosae	Lactobacillus	Lactobacillus	4813	11.600	EF120376.1.1566	851502	5016	6	5	8	
+DRX061117	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	8040	21.250	CP011013.762467.764062	1284229	8245	7	2	9	
+DRX061118	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3561	58.000	EF120369.1.1560	762768	3705	14	2	9	
+DRX061119	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3341	34.000	EF120369.1.1560	807221	3482	12	3	10	
+DRX061120	Lactobacillus mucosae	Lactobacillus	Lactobacillus	4734	58.000	EF120376.1.1566	863332	4948	10	1	8	
+DRX061121	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	6935	10.250	CP011013.762467.764062	1082379	7070	3	2	8	
+DRX061122	Lactobacillus mucosae	Lactobacillus	Lactobacillus	5014	25.000	AF126738.1.1568	833239	5202	8	2	9	
+DRX061124	Lactobacillus mucosae	Lactobacillus	Lactobacillus	7389	41.667	EF120376.1.1566	1314171	7604	14	3	9	
+DRX061125	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	5189	21.500	CP011013.762467.764062	838439	5377	9	3	8	
+DRX061126	Lactobacillus mucosae	Lactobacillus	Lactobacillus	9457	16.100	AF126738.1.1568	1396978	9735	9	5	8	
+DRX061127	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3669	23.400	EF120369.1.1560	756124	3829	12	5	9	
+DRX061128	Lactobacillus mucosae	Lactobacillus	Lactobacillus	4964	47.500	EF120376.1.1566	940882	5166	9	1	7	
+DRX061129	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	7063	68.500	CP011013.762467.764062	1111764	7217	11	1	8	
+DRX061130			Lactobacillus	6021	44.125		904914	6302	15	4	16	WARNING: missing SPAdes assembly of the SSU
+DRX061131	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3954	64.250	EF120369.1.1560	795851	4105	15	2	8	
+DRX061132	Lactobacillus mucosae	Lactobacillus	Lactobacillus	5944	50.125	AF126738.1.1568	918646	6290	17	4	14	
+DRX061133	Lactobacillus reuteri	Lactobacillus	Lactobacillus	5167	54.500	CP015408.302655.304239	840762	5394	9	1	14	
+DRX061134	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	8321	14.167	CP011013.762467.764062	1195316	8527	5	3	10	
+DRX061135	Lactobacillus porci	Lactobacillus	Lactobacillus	9707	33.125	MF346092.1.1474	1262000	9926	13	4	12	
+DRX061136			Lactobacillus	8084	169.083		1393523	9016	41	6	29	WARNING: missing SPAdes assembly of the SSU
+DRX061138	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3342	18.000	EF120369.1.1560	712943	3487	10	5	8	
+DRX061139	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3377	15.125	EF120369.1.1560	875680	3499	7	4	9	
+DRX061140	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3619	33.083	AFYE01000091.124.1666	770122	3966	13	6	19	
+DRX061142	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3342	23.667	EF120369.1.1560	766979	3456	10	3	7	
+DRX061143	Lactobacillus mucosae	Lactobacillus	Lactobacillus	5055	14.000	AF126738.1.1568	873631	5261	6	3	8	
+DRX061145	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	5916	29.100	FN298497.455618.457268	933254	6266	11	5	17	
+DRX061146	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	6770	38.889	FN298497.455618.457268	996389	7250	22	9	12	
+DRX061149	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3451	21.500	EF120369.1.1560	764152	3580	9	3	8	
+DRX061150	Lactobacillus mucosae	Lactobacillus	Lactobacillus	4940	16.000	AF126738.1.1568	819735	5090	8	4	8	
+DRX061151	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	7509	21.250	CP011013.762467.764062	1060078	7685	7	2	9	
+DRX061153	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3723	25.667	CP014786.1901091.1902675	795603	3878	10	3	9	
+DRX061154	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3788	23.500	CP014786.1901091.1902675	787110	3935	9	3	10	
+DRX061155	Lactobacillus mucosae LM1	Lactobacillus	Lactobacillus	10095	23.250	CP011013.762467.764062	1463105	10395	7	2	11	
+DRX061157	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	3836	38.167	EF120369.1.1560	847106	4002	13	3	10	
+DRX061158	uncultured bacterium	Lactobacillus	Lactobacillus	5653	53.500	DQ318872.1.1544	810598	5922	18	4	13	
+DRX061159	Lactobacillus mucosae	Lactobacillus	Lactobacillus	7645	57.000	AF126738.1.1568	1302556	7845	10	1	7	
+DRX067012	Lactobacillus reuteri DSM 20016	Lactobacillus	Lactobacillus	6034	14.500	CP000705.624382.625950	1120749	6901	1	1	14	
+DRX150619	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	1620	8.500	AP018549.475961.477529	352746	1645	3	1	4	
+DRX150620	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	1361	12.000	AP018549.475961.477529	346757	1385	4	1	4	
+DRX150621	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	1476	n.d.	AP018549.475961.477529	361964	1495	2	0	5	
+DRX150622	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	1477	14.000	CP006803.1850533.1852112	393880	1502	6	2	5	
+ERX034808	metagenome	Lachnospiraceae ND3007 group	Lachnospiraceae ND3007 group	1833	49.571	FPLO01008171.10.1505	1213677	2566	20	7	21	
+ERX082528	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2799	12.000	CP015408.302655.304239	753115	2921	4	2	8	
+ERX082536	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2461	11.000	CP015408.688490.690074	521865	2559	4	2	7	
+ERX1046384	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1694	35.250	CP000413.1565823.1567401	530303	2220	9	2	15	
+ERX1046385	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2372	n.d.	CP000413.1565823.1567401	760853	3146	10	0	15	
+ERX1046394	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2660	144.000	CP000413.1565823.1567401	865822	3477	16	1	16	
+ERX1046395	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2124	16.500	CP000413.1565823.1567401	702293	2798	5	5	14	
+ERX1046396	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1962	42.000	CP000413.1565823.1567401	607882	2581	10	2	17	
+ERX1046403	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2083	n.d.	CP000413.1565823.1567401	685173	2693	5	0	15	
+ERX1046404	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1592	28.250	CP000413.1565823.1567401	546946	2132	7	2	16	
+ERX1046405	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1890	42.000	CP000413.1565823.1567401	595669	2447	10	2	17	
+ERX1046406	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2360	31.000	CP000413.1565823.1567401	811350	3153	8	2	15	
+ERX1046408	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2073	36.250	CP000413.1565823.1567401	580058	2730	9	2	16	
+ERX1046409	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	6302	68.000	CP000413.1565823.1567401	1710628	8137	10	1	18	
+ERX1046410	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1843	39.500	CP000413.1565823.1567401	536827	2425	7	1	15	
+ERX1046411	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2305	28.500	CP000413.1565823.1567401	628299	3001	5	1	16	
+ERX1046412	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2996	28.400	CP000413.1565823.1567401	922439	3905	12	5	14	
+ERX1046413	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	3598	77.500	CP000413.1565823.1567401	987159	4710	11	1	17	
+ERX1046414	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4931	101.500	CP000413.1565823.1567401	1311176	6460	13	1	17	
+ERX1046415	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2180	20.250	CP000413.1565823.1567401	604358	2821	5	2	14	
+ERX1046417	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	1736	64.000	CP000413.1565823.1567401	528434	2323	14	2	15	
+ERX1046418	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	8951	150.000	CP000413.1565823.1567401	2541047	11663	32	4	22	
+ERX1046419	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4823	71.000	CP000413.1565823.1567401	1336869	6381	18	3	17	
+ERX1126067	Lactobacillus jensenii	Lactobacillus	Lactobacillus	2477	16.400	CP018809.1516019.1517589	721601	2688	8	5	10	
+ERX1126086	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4487	16.250	FN692037.427906.429457	1375045	4667	5	2	10	
+ERX1126089	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4459	15.167	FN692037.427906.429457	1333340	4626	5	3	11	
+ERX1126096	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	5754	33.500	AEPX01000015.105.1663	917226	6057	7	1	9	
+ERX1126106	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2847	9.500	FN692037.427906.429457	1023587	2946	1	1	9	
+ERX1126110	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4388	n.d.	AP018549.475961.477529	865836	4536	2	0	7	
+ERX1126115	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4127	7.500	AP018549.475961.477529	842063	4279	1	1	7	
+ERX1126138	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3890	13.500	FN692037.427906.429457	980127	4033	3	1	9	
+ERX1126140	Lactobacillus crispatus ST1;Gardnerella vaginalis	Lactobacillus;Gardnerella	Lactobacillus	4746	17.000	FN692037.427906.429457;CP029984.1189920.1191419	1670282	5070	6	3	11	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Gardnerella) does not match top mapped taxon (Lactobacillus)
+ERX1126143	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3443	n.d.	FN692037.427906.429457	1029370	3578	4	0	10	
+ERX1126146	Lactobacillus jensenii	Lactobacillus	Lactobacillus	3077	n.d.	CP018809.1516019.1517589	743473	3311	3	0	7	
+ERX1126150	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3251	14.500	FN692037.427906.429457	1021377	3350	3	1	10	
+ERX1231803	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1863	108.000	CP032359.485125.486700	910317	1983	20	2	8	
+ERX1231804	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2147	46.750	CP032359.485125.486700	961062	2306	21	6	10	
+ERX1275831	Lactobacillus delbrueckii	Lactobacillus	Lactobacillus	9604	11.500	CP021136.981252.982823	1536957	10747	3	3	10	
+ERX1275832	Aerococcus urinae	Aerococcus	Aerococcus	2170	n.d.	AY422716.1.1545	981481	4182	7	0	18	
+ERX1275835	Pseudoglutamicibacter albus	Pseudoglutamicibacter	(Micrococcaceae)	969	46.600	AJ243421.1.1501	1148669	3246	14	5	27	WARNING: Assembly taxon (Pseudoglutamicibacter) does not match top mapped taxon ((Micrococcaceae))
+ERX1275841	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4451	n.d.	CP025592.1563082.1564661	1033654	5025	5	0	9	
+ERX1275856	Fastidiosipila sanguinis;Campylobacter ureolyticus RIGS 9880	Fastidiosipila;Campylobacter	Campylobacter	3797	n.d.	CP027226.1475516.1477054;CP012195.493331.494830	1526269	5079	5	0	14	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Fastidiosipila;Campylobacter) does not match top mapped taxon (Campylobacter)
+ERX1275866	Gardnerella vaginalis	Gardnerella	Gardnerella	1357	40.000	CP019058.1615440.1616976	801710	1920	8	1	8	
+ERX1275881	Zhihengliuella sp. ISTPL4	Microbacterium	Microbacterium	1005	11.500	CP025422.315135.316639	1225801	1209	3	3	10	
+ERX1275883	Streptococcus agalactiae	Streptococcus	Streptococcus	5298	n.d.	LS483342.22138.23674	1026958	7436	5	0	11	
+ERX1275920	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	9848	22.500	CP018215.281618.283189	1554178	11044	5	1	10	
+ERX1275921	Aerococcus urinae	Aerococcus	Aerococcus	2156	21.167	AY422716.1.1545	980157	4129	5	3	17	
+ERX1275924	Pseudoglutamicibacter cumminsii	Pseudoglutamicibacter	(Micrococcaceae)	1020	35.250	X93354.1.1483	1163505	3304	10	8	29	WARNING: Assembly taxon (Pseudoglutamicibacter) does not match top mapped taxon ((Micrococcaceae))
+ERX1275930	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4408	9.000	CP025592.1563082.1564661	1031306	4957	2	2	8	
+ERX1275945	Campylobacter ureolyticus RIGS 9880	Campylobacter	Campylobacter	3748	18.000	CP012195.493331.494830	1522840	5020	4	2	14	
+ERX1275955	Gardnerella vaginalis	Gardnerella	Gardnerella	1295	15.167	CP019058.1615440.1616976	799562	1837	5	3	11	
+ERX1275970	Microbacterium sp. PAMC 28756	Microbacterium	Microbacterium	1072	15.500	CP014313.66995.68523	1245345	1264	3	1	11	
+ERX1275972	Streptococcus agalactiae	Streptococcus	Streptococcus	5353	n.d.	LS483342.22138.23674	1027158	7430	6	0	13	
+ERX1276161	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4488	n.d.	CP014201.1046218.1047796	1480877	5059	4	0	10	
+ERX1276172	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3704	n.d.	AP018549.475961.477529	1011499	4101	2	0	10	
+ERX1276255	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4482	n.d.	CP014201.1046218.1047796	1484247	5054	3	0	10	
+ERX1276266	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3909	10.250	AP018549.475961.477529	1032121	4288	3	2	8	
+ERX1284229	Lactobacillus murinus	Lactobacillus	Lactobacillus	3064	n.d.	CP023566.832314.833884	538703	3381	11	0	6	
+ERX1284238	Lactobacillus taiwanensis	Lactobacillus	Lactobacillus	2207	n.d.	EU487512.1.1526	497268	2238	2	0	4	
+ERX1284265	Lactobacillus rodentium	Lactobacillus	Lactobacillus	1653	3.500	HQ851022.1.1436	376999	1699	1	1	3	
+ERX1625345	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1070	33.000	CP011769.1010671.1012246	1199478	1169	12	3	9	
+ERX1625346	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2509	113.000	CP011769.1010671.1012246	1047330	2715	20	2	13	
+ERX1625347	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2593	71.500	CP011769.1010671.1012246	1020617	2842	22	4	11	
+ERX178648	Lactobacillus fermentum;Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4601	16.500	CP014201.1046218.1047796;AP017973.1435046.1436618	1681231	5268	3	1	12	WARNING: Multiple SSUs were assembled by SPAdes
+ERX178649	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4452	14.500	AP018549.475961.477529	973356	5063	3	1	10	
+ERX178650	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	3257	10.500	CP000413.1565823.1567401	994861	3655	1	1	10	
+ERX178651	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4166	14.500	CP014201.1046218.1047796	1441652	4780	3	1	10	
+ERX178652	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	6587	19.000	CP000413.1565823.1567401	1633867	7438	6	2	10	
+ERX178653	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5346	n.d.	AP017973.1435046.1436618	1361117	5926	2	0	9	
+ERX178654	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	5102	n.d.	CP014201.1046218.1047796	1790967	5892	3	0	12	
+ERX178655	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4128	n.d.	CP014201.1046218.1047796	1479698	4765	5	0	11	
+ERX178656	Lactobacillus oris	Lactobacillus	Lactobacillus	7738	n.d.	CP014789.8842.10425	1172966	8335	2	0	15	
+ERX178657	Lactobacillus fermentum;Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3683	12.500	CP014201.1046218.1047796;CP016803.1045686.1047241	1508997	4183	1	1	12	WARNING: Multiple SSUs were assembled by SPAdes
+ERX178658	uncultured bacterium	Lactobacillus	Lactobacillus	7188	13.000	AY959177.1.1555	1408256	7770	2	1	11	
+ERX178659	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2924	16.250	CP014201.1046218.1047796	1060143	3373	5	2	10	
+ERX178662	Lactobacillus fermentum;Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4473	n.d.	CP025592.1563082.1564661;CP014201.1046218.1047796	1080877	5081	3	0	9	WARNING: Multiple SSUs were assembled by SPAdes
+ERX178664	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5116	15.167	CP017107.541095.542664	1039474	6339	1	3	15	
+ERX178665	Lactobacillus sp. KC45b;Lactobacillus fermentum	Lactobacillus	Lactobacillus	4430	8.250	AF243164.1.1511;AP017973.1435046.1436618	1057297	4966	1	2	8	WARNING: Multiple SSUs were assembled by SPAdes
+ERX178666	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4463	15.500	CP000413.1565823.1567401	899092	5012	3	1	11	
+ERX178667	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4326	n.d.	LT906621.282495.284062	1201699	4830	2	0	8	
+ERX178668	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4228	12.000	CP029686.1212146.1213724	1650396	4767	2	1	10	
+ERX178669	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4040	11.667	CP029686.1212146.1213724	1880044	4575	4	3	9	
+ERX178670	Staphylococcus epidermidis PM221	Staphylococcus	Staphylococcus	5741	16.250	HG813242.2336080.2337610	1226568	6908	5	2	10	
+ERX178671	Lactobacillus oris	Lactobacillus	Lactobacillus	4036	35.500	CP014789.8842.10425	1165013	4375	7	1	11	
+ERX178672	uncultured bacterium	Lactobacillus	Lactobacillus	3130	17.250	AY959177.1.1555	1045950	3402	5	2	11	
+ERX178673	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3907	n.d.	CP014201.1046218.1047796	1386935	4544	2	0	12	
+ERX178674	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3011	n.d.	CP014201.1046218.1047796	1090680	3449	4	0	9	
+ERX178675	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	3910	11.500	CP000413.1565823.1567401	966459	4423	1	1	11	
+ERX178676	Lactobacillus oris	Lactobacillus	Lactobacillus	4330	21.500	CP014789.8842.10425	1093725	4677	5	1	9	
+ERX178677	uncultured bacterium	Lactobacillus	Lactobacillus	4101	n.d.	AY959177.1.1555	938773	4466	0	0	12	
+ERX178678	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4740	19.000	CP000413.1565823.1567401	903053	5267	4	1	11	
+ERX178679	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3097	n.d.	CP000033.1632689.1634260	956270	3530	2	0	11	
+ERX178680	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2788	27.000	CP029686.1212146.1213724	1209980	3129	6	1	9	
+ERX178681	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5311	9.667	AP017973.1435046.1436618	1094568	6024	4	3	7	
+ERX178682	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6913	19.000	CP029616.1197226.1198775	1276088	8811	4	2	15	
+ERX178683	Brevibacillus brevis;Lactobacillus casei subsp. casei ATCC 393	Brevibacillus;Lactobacillus	Lactobacillus	4144	18.000	CP030117.4369230.4370768;AP012544.709397.710970	1527426	5272	6	3	12	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Brevibacillus;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+ERX178684	Brevibacillus agri;Lactobacillus rhamnosus	Brevibacillus;Lactobacillus	Lactobacillus	4342	22.000	AB112716.1.1487;CP014201.1046218.1047796	1622669	5989	4	1	14	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Brevibacillus;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+ERX178714	Lactobacillus oris	Lactobacillus	Lactobacillus	3762	14.500	CP014789.8842.10425	1030728	4198	1	1	14	
+ERX178715	Lactobacillus fermentum;Brevibacillus brevis	Lactobacillus;Brevibacillus	Lactobacillus	4407	14.500	CP025592.1563082.1564661;CP030117.4369230.4370768	1039931	5187	3	1	10	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Brevibacillus) does not match top mapped taxon (Lactobacillus)
+ERX178716	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4059	14.167	AP018549.475961.477529	1018430	4739	5	3	10	
+ERX178717	Brevibacillus brevis;Lactobacillus paragasseri	Brevibacillus;Lactobacillus	Lactobacillus	4499	15.125	CP030117.4369230.4370768;AP018549.475961.477529	1211335	5642	5	4	12	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Brevibacillus;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+ERX178718	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2669	12.500	CP029686.1212146.1213724	1064709	2997	3	1	8	
+ERX178719	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4183	10.667	AP018549.475961.477529	1010641	4750	2	3	10	
+ERX178720	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	2840	17.000	AP018549.475961.477529	1021491	3231	6	2	8	
+ERX178721	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3907	13.500	AP018549.475961.477529	1058271	4443	3	1	9	
+ERX178722	Lactobacillus fermentum;Brevibacillus brevis	Lactobacillus;Brevibacillus	Lactobacillus	5738	11.000	LT906621.282495.284062;CP030117.4369230.4370768	1433501	6759	0	2	11	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Brevibacillus) does not match top mapped taxon (Lactobacillus)
+ERX178723	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5145	16.000	CP029686.1212146.1213724	2083390	5956	6	3	10	
+ERX178725	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4306	17.250	CP029686.1212146.1213724	1841823	4935	5	2	11	
+ERX178726	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5607	13.250	CP025592.1563082.1564661	1398604	6337	3	2	11	
+ERX178728	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	2300	n.d.	CP018796.1956265.1957835	1153984	2702	1	0	9	
+ERX178729	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3177	11.000	CP003799.455041.456601	1021330	3599	2	2	10	
+ERX178730	Lactobacillus oris	Lactobacillus	Lactobacillus	3186	10.500	CP014789.8842.10425	1173013	3497	3	3	9	
+ERX178731	Lactobacillus oris	Lactobacillus	Lactobacillus	3241	11.000	CP014789.8842.10425	1146491	3523	2	2	10	
+ERX178732	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4031	12.500	AP018549.475961.477529	1040972	4616	1	1	12	
+ERX178733	Lactobacillus salivarius	Lactobacillus	Lactobacillus	7246	20.500	CP017107.541095.542664	1458288	8966	3	1	16	
+ERX178734	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	7651	19.000	AP018549.475961.477529	1728050	8687	4	1	11	
+ERX178735	Lactobacillus salivarius	Lactobacillus	Lactobacillus	4955	18.250	CP017107.541095.542664	1072893	6109	3	2	16	
+ERX178736	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4235	n.d.	CP014201.1046218.1047796	1555745	4854	5	0	10	
+ERX178737	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4674	n.d.	CP025592.1563082.1564661	1111402	5219	0	0	9	
+ERX178738	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4823	14.000	CP000413.1565823.1567401	916727	5358	2	1	12	
+ERX178739	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5266	17.000	CP017107.541095.542664	1058008	6490	2	1	15	
+ERX178740	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3706	10.250	CP029686.1212146.1213724	1524708	4188	3	2	8	
+ERX178741	uncultured bacterium	Lactobacillus	Lactobacillus	3558	n.d.	AY959177.1.1555	995580	3879	3	0	12	
+ERX178742	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4732	n.d.	LT906621.282495.284062	1164696	5264	2	0	8	
+ERX178743	uncultured bacterium	Lactobacillus	Lactobacillus	3834	n.d.	AY959177.1.1555	1005516	4156	3	0	11	
+ERX1939924	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2948	n.d.	CP029686.1212146.1213724	1185014	2982	5	0	4	
+ERX2000443	Winkia neuii subsp. anitrata	Actinomyces	(Actinomycetaceae)	1546	n.d.	AM084229.1.1497	1042730	3485	7	0	7	WARNING: Assembly taxon (Actinomyces) does not match top mapped taxon ((Actinomycetaceae))
+ERX2000463	Streptococcus parasanguinis ATCC 15912	Streptococcus	Streptococcus	2576	n.d.	CP002843.1727460.1728995	1012297	3252	3	0	8	
+ERX2000470	Facklamia hominis CCUG 36813;Corynebacterium sp. NML98-0116	Facklamia;Corynebacterium	Facklamia	3076	23.167	AGZD01000007.535183.536720;CP017639.1640375.1641902	1496800	3801	7	3	15	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Facklamia;Corynebacterium) does not match top mapped taxon (Facklamia)
+ERX2000473	Actinomyces oris	Actinomyces	Actinomyces	2187	5.250	AB545935.1.1517	1307734	2247	1	2	5	
+ERX2000481	Streptococcus gallolyticus subsp. pasteurianus	Streptococcus	Streptococcus	4386	6.500	LS483462.17605.19141	931918	4657	1	1	6	
+ERX2000482	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2655	17.500	CP014201.1046218.1047796	1171321	2729	5	1	5	
+ERX2000484	Gardnerella vaginalis ATCC 14018 = JCM 11026	Gardnerella	Gardnerella	1283	3.500	AP012332.96440.97971	817501	1438	1	1	3	
+ERX2000499	Bifidobacterium bifidum;Gardnerella vaginalis ATCC 14018 = JCM 11026	Bifidobacterium;Gardnerella	Gardnerella	1862	25.000	AP018132.1481253.1482769;AP012332.96440.97971	1657525	3199	6	1	7	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Bifidobacterium;Gardnerella) does not match top mapped taxon (Gardnerella)
+ERX2000501	Lactobacillus jensenii;Staphylococcus aureus	Lactobacillus;Staphylococcus	Lactobacillus	2109	20.500	CP018809.1516019.1517589;CP030323.2754271.2755808	700399	2650	6	4	16	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Staphylococcus) does not match top mapped taxon (Lactobacillus)
+ERX2000502	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3293	n.d.	AP018549.475961.477529	780883	3403	0	0	7	
+ERX2052289	Lactobacillus casei	Lactobacillus	Lactobacillus	748	14.167	LS991421.296655.298204	227356	796	7	3	6	
+ERX2150224	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	4866	44.727	AEPX01000015.105.1663	608528	5187	26	11	14	
+ERX2150225	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	9002	71.722	AEPX01000015.105.1663	1186908	9577	29	9	25	
+ERX2150228	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2350	9.167	FN692037.427906.429457	666332	2377	5	3	5	
+ERX2150229	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	1775	6.667	FN692037.427906.429457	656432	1798	4	3	4	
+ERX2274496	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	4541	n.d.	AJ306299.1.1513	1028073	5140	11	0	11	
+ERX2274497	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	5977	n.d.	FN298497.455618.457268	1043154	6659	5	0	10	
+ERX2274498	Lactobacillus murinus	Lactobacillus	Lactobacillus	4721	19.500	CP023566.832314.833884	1198519	5753	3	1	15	
+ERX2274499	Lactobacillus murinus	Lactobacillus	Lactobacillus	4628	n.d.	CP023566.832314.833884	1183934	5630	3	0	15	
+ERX2274500	Lactobacillus reuteri	Lactobacillus	Lactobacillus	4385	52.500	CP015408.302655.304239	1116167	5007	9	1	12	
+ERX2274536	Lactobacillus curvatus	Lactobacillus	Lactobacillus	4769	30.000	AP018699.1478534.1480099	1202606	6031	6	1	12	
+ERX2274537	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	2792	12.500	AP018549.475961.477529	1001436	3251	3	3	11	
+ERX2274538	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	4349	18.000	AFYE01000091.124.1666	1089982	5503	6	3	12	
+ERX2274539	uncultured bacterium	Lactobacillus	Lactobacillus	3635	24.500	AB969339.1.1567	996549	3915	5	1	12	
+ERX2274577	Lactobacillus reuteri	Lactobacillus	Lactobacillus	4929	24.500	CP015408.302655.304239	1228801	5606	5	1	12	
+ERX2274578	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	6501	14.500	FN298497.455618.457268	1135074	7295	3	1	10	
+ERX2274588	Lactobacillus salivarius	Lactobacillus	Lactobacillus	4376	21.000	CP029616.1197226.1198775	996712	4677	4	1	13	
+ERX2274599	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3876	15.167	CP014201.1046218.1047796	1486799	4466	5	3	11	
+ERX2274610	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5081	35.500	CP029686.1212146.1213724	1528220	5695	7	1	11	
+ERX2274653	Lactobacillus animalis KCTC 3501 = DSM 20602	Lactobacillus	Lactobacillus	4577	n.d.	AEOF01000010.3322.4865	770221	4819	3	0	12	
+ERX2274664	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3305	14.000	CP029686.1212146.1213724	1245693	3403	4	1	6	
+ERX2274674	Lactobacillus salivarius	Lactobacillus	Lactobacillus	4723	n.d.	CP029616.1197226.1198775	825928	5191	4	0	11	
+ERX2274676	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3241	9.000	CP029686.1212146.1213724	1209964	3319	2	1	7	
+ERX2274677	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3026	n.d.	CP029686.1212146.1213724	1131801	3086	3	0	6	
+ERX2274684	uncultured bacterium	Lactobacillus	Lactobacillus	3203	10.500	AB969339.1.1567	830709	3290	3	1	6	
+ERX2274696	Lactobacillus salivarius	Lactobacillus	Lactobacillus	4449	n.d.	CP029616.1197226.1198775	817945	4936	4	0	11	
+ERX2274698	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3229	6.500	CP029686.1212146.1213724	1311520	3309	1	1	6	
+ERX2274700	Lactobacillus animalis KCTC 3501 = DSM 20602	Lactobacillus	Lactobacillus	4653	15.000	AEOF01000010.3322.4865	794921	4866	4	2	11	
+ERX2274722	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2981	9.000	CP032359.485125.486700	1345519	3086	2	1	7	
+ERX2274728	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3860	10.500	AFYE01000091.124.1666	841549	4544	1	1	10	
+ERX2274757	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3445	7.000	CP014201.1046218.1047796	1087188	3536	2	1	5	
+ERX2274779	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3816	n.d.	AP018549.475961.477529	1541887	3986	0	0	9	
+ERX231526	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1941	44.667	CP029686.1212146.1213724	1830111	2328	14	3	12	
+ERX231527	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2565	30.125	CP015408.688490.690074	1583301	3249	11	4	15	
+ERX231528	Lactobacillus delbrueckii subsp. bulgaricus	Lactobacillus	Lactobacillus	4633	23.667	CP013610.1503243.1504794	1449549	5831	8	3	13	
+ERX231531	Lactobacillus delbrueckii subsp. bulgaricus 2038	Lactobacillus	Lactobacillus	3391	44.000	CP000156.821185.822755	1110518	4236	8	1	12	
+ERX231532	Lactobacillus acidophilus NCFM;Clostridioides difficile	Lactobacillus;Clostridioides	Lactobacillus	1069	46.000	CP000033.1632689.1634260;LN614756.4010488.4011994	955690	1525	8	1	14	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Clostridioides) does not match top mapped taxon (Lactobacillus)
+ERX2338316	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1217	11.000	CP011769.451539.453114	585124	1230	6	2	2	
+ERX2338320	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1289	13.500	CP011769.451539.453114	559660	1296	5	1	1	
+ERX2338417	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1286	1.500	CP011769.451539.453114	553854	1289	1	1	1	
+ERX2338424	Lactobacillus plantarum	Lactobacillus	Lactobacillus	806	n.d.	CP011769.451539.453114	883940	852	9	0	6	
+ERX2338425	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1216	1.000	CP011769.451539.453114	576432	1220	0	2	1	
+ERX2338429	Lactobacillus fermentum	Lactobacillus	Lactobacillus	1515	n.d.	CP025592.1563082.1564661	438854	1523	1	0	2	
+ERX2338430	Lactobacillus sakei	Lactobacillus	Lactobacillus	2320	n.d.	AP017931.1459045.1460621	369927	2390	3	0	5	
+ERX2438124	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3780	n.d.	CP015408.302655.304239	909423	4128	2	0	7	
+ERX2438132	Lactobacillus murinus	Lactobacillus	Lactobacillus	4135	10.500	CP023566.832314.833884	973547	4402	1	1	10	
+ERX2438137	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	3961	n.d.	AJ306299.1.1513	809118	4190	1	0	8	
+ERX2438147	Lactobacillus murinus	Lactobacillus	Lactobacillus	4133	n.d.	CP023566.832314.833884	942614	4451	4	0	9	
+ERX2438150	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3755	6.500	CP015408.302655.304239	875067	3892	1	1	6	
+ERX2438154	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	4902	n.d.	FN298497.455618.457268	836663	5067	1	0	7	
+ERX2438166	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	3910	15.000	AJ306299.1.1513	798645	4094	4	1	7	
+ERX2438167	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	4862	n.d.	FN298497.455618.457268	833173	5026	2	0	8	
+ERX2438168	Lactobacillus murinus	Lactobacillus	Lactobacillus	4080	12.000	CP023566.832314.833884	906002	4368	2	1	10	
+ERX2438182	Lactobacillus murinus	Lactobacillus	Lactobacillus	4340	10.167	CP023566.832314.833884	947668	4644	1	3	10	
+ERX2438183	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	3437	n.d.	AJ306299.1.1513	801527	3606	5	0	8	
+ERX2438184	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	4907	n.d.	FN298497.455618.457268	836653	5065	4	0	7	
+ERX2438185	Lactobacillus murinus	Lactobacillus	Lactobacillus	4135	9.500	CP023566.832314.833884	923838	4433	1	1	9	
+ERX2438186	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3362	n.d.	CP015408.302655.304239	878353	3504	1	0	8	
+ERX2585447	Lactobacillus sakei	Lactobacillus	Lactobacillus	3489	26.000	AP017931.1459045.1460621	420094	3591	6	1	8	
+ERX271948	Lactobacillus gastricus	Lactobacillus	Lactobacillus	3386	n.d.	AY253658.1.1550	1087743	4052	2	0	12	
+ERX271949	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4023	12.000	CP014201.1046218.1047796	1489913	4699	0	1	12	
+ERX271950	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3148	31.250	FN692037.427906.429457	1234146	3591	9	2	11	
+ERX271951	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4100	n.d.	AP018549.475961.477529	1104764	4715	4	0	10	
+ERX271952	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3638	n.d.	CP022373.3025776.3027351	2044854	4260	5	0	11	
+ERX271956	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	2821	19.000	CP018796.1956265.1957835	1364828	3423	6	2	10	
+ERX271957	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	3673	n.d.	CP018796.1956265.1957835	1426335	4247	4	0	9	
+ERX271958	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3504	14.000	FN692037.427906.429457	1312079	3941	4	4	12	
+ERX271959	Lactobacillus gastricus	Lactobacillus	Lactobacillus	3238	n.d.	AY253658.1.1550	1119949	3986	6	0	11	
+ERX271960	Streptococcus mutans;Lactobacillus plantarum	Streptococcus;Lactobacillus	Lactobacillus	3194	36.500	CP023477.206539.208102;CP022373.3025776.3027351	1756515	3923	7	1	12	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Streptococcus;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+ERX271965	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6344	20.250	CP025592.1563082.1564661	1452546	7175	7	2	8	
+ERX271966	uncultured bacterium	Lactobacillus	Lactobacillus	3852	14.250	AB969339.1.1567	1102181	4221	3	2	12	
+ERX271967	Lactobacillus gastricus	Lactobacillus	Lactobacillus	3324	n.d.	AY253658.1.1550	1118651	4007	5	0	12	
+ERX271968	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4335	22.500	CP029686.1212146.1213724	1687916	5014	5	1	10	
+ERX271972	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3777	28.000	CP014201.1046218.1047796	1494050	4383	6	1	10	
+ERX271973	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3680	13.000	CP029686.1212146.1213724	1695287	4211	2	1	11	
+ERX271974	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5013	12.000	AP017973.1435046.1436618	1341034	5595	2	1	10	
+ERX271975	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4105	11.000	CP029686.1212146.1213724	1677359	4660	2	2	10	
+ERX271976	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4904	n.d.	CP016803.1045686.1047241	1307463	5505	3	0	10	
+ERX271980	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5149	13.500	CP017151.1109313.1110888	1268816	5822	3	1	9	
+ERX271981	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	2243	12.125	CP003799.455041.456601	1055349	2563	3	4	11	
+ERX271982	uncultured bacterium	Lactobacillus	Lactobacillus	3902	n.d.	AY959177.1.1555	1144533	4261	6	0	11	
+ERX271988	Lactobacillus antri DSM 16041;Streptococcus mutans NN2025	Lactobacillus;Streptococcus	Lactobacillus	5211	25.500	ACLL01000037.71.1634;AP010655.377872.379422	1770326	5898	5	1	13	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Streptococcus) does not match top mapped taxon (Lactobacillus)
+ERX271989	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3391	12.000	CP014201.1046218.1047796	1554918	3925	2	1	10	
+ERX271990	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5096	10.667	AP017973.1435046.1436618	1368947	5731	4	3	8	
+ERX271991	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3936	n.d.	CP029686.1212146.1213724	1663687	4473	3	0	10	
+ERX271996	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3131	9.500	AP018549.475961.477529	1124295	3633	3	3	8	
+ERX271997	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3249	12.250	AP018549.475961.477529	1068661	3741	3	2	10	
+ERX271998	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4117	13.000	CP014201.1046218.1047796	1603626	4796	2	1	11	
+ERX271999	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4060	11.500	CP029686.1212146.1213724	1656843	4657	3	3	10	
+ERX272004	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4378	n.d.	CP014201.1046218.1047796	1763123	5202	4	0	12	
+ERX272005	uncultured bacterium	Lactobacillus	Lactobacillus	7140	26.500	AB969339.1.1567	1965012	7817	5	1	14	
+ERX272006	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5214	13.500	AP017973.1435046.1436618	1365099	5851	3	1	9	
+ERX272007	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4094	n.d.	CP029686.1212146.1213724	1753291	4701	4	0	12	
+ERX272012	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4363	n.d.	AP018549.475961.477529	1031936	4980	5	0	10	
+ERX272013	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6161	17.000	CP016803.1045686.1047241	1422152	6903	6	2	8	
+ERX272014	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4260	n.d.	CP000413.1565823.1567401	1014630	4810	3	0	11	
+ERX272015	uncultured bacterium	Lactobacillus	Lactobacillus	4219	15.000	AB969339.1.1567	1067638	4615	2	1	13	
+ERX272020	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5735	19.000	CP017107.541095.542664	1067098	7012	4	2	15	
+ERX272021	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3983	28.000	CP014201.1046218.1047796	1394218	4643	6	1	10	
+ERX272022	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3979	13.250	CP014201.1046218.1047796	1581771	4616	3	2	11	
+ERX272023	Lactobacillus oris	Lactobacillus	Lactobacillus	5438	13.125	CP014789.8842.10425	1400803	5892	3	4	12	
+ERX272028	Lactobacillus plantarum;Streptococcus mutans	Lactobacillus;Streptococcus	Lactobacillus	3213	12.000	CP022373.3025776.3027351;AY188348.1.1545	1756157	3913	2	2	11	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Streptococcus) does not match top mapped taxon (Lactobacillus)
+ERX272029	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4048	26.000	CP014201.1046218.1047796	1701012	4700	8	2	10	
+ERX272030	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5893	12.000	AP017973.1435046.1436618	1571355	6702	2	1	10	
+ERX272031	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6534	24.000	CP017107.1020383.1021952	1152949	8088	4	1	16	
+ERX272036	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3259	13.667	CP003799.455041.456601	1086604	3758	4	3	11	
+ERX272037	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4219	20.000	CP000413.1565823.1567401	989613	4738	4	1	12	
+ERX272038	Lactobacillus gastricus	Lactobacillus	Lactobacillus	4065	n.d.	AY253658.1.1550	1389858	4997	7	0	12	
+ERX272039	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3573	15.500	CP022373.3025776.3027351	1826772	4084	3	1	11	
+ERX2874687	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3671	n.d.	CP015408.302655.304239	887440	3855	3	0	7	
+ERX2874690	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	3929	n.d.	AJ306299.1.1513	808994	4133	4	0	8	
+ERX2874760	Lactobacillus murinus	Lactobacillus	Lactobacillus	3955	n.d.	CP023566.832314.833884	946560	4257	2	0	11	
+ERX2938651	Lactobacillus fermentum	Lactobacillus	Lactobacillus	7459	30.250	AP017973.1435046.1436618	1608130	8300	9	2	10	
+ERX3177039	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	11341	19.000	CP000413.1565823.1567401	2473252	14638	2	1	17	
+ERX3180503	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1727	2.000	CP011769.451539.453114	663314	1733	2	2	1	
+ERX3188237	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1521	7.500	CP011769.451539.453114	681162	1534	3	1	3	
+ERX3190887	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1533	n.d.	CP011769.1010671.1012246	648661	1538	5	0	1	
+ERX3191070	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1970	10.000	CP011769.1010671.1012246	759970	1979	4	1	2	
+ERX3310264	Streptococcus pneumoniae	Streptococcus	Streptococcus	9233	n.d.	LS483523.685965.687490	804391	9333	4	0	5	
+ERX3310280	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	8702	n.d.	FQ312030.1892972.1894517	819806	8851	1	0	6	
+ERX3310291	Streptococcus pneumoniae	Streptococcus	Streptococcus	10505	10.500	LN847353.1954783.1956345	770857	10849	3	1	6	
+ERX3310303	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	7200	n.d.	FQ312030.1892972.1894517	769629	7423	5	0	6	
+ERX3310305	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	9533	n.d.	FQ312030.1892972.1894517	751218	9682	1	0	6	
+ERX3310309	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	7581	6.000	FQ312030.1892972.1894517	750368	7742	0	1	6	
+ERX3310316	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	9952	5.500	FQ312030.1892972.1894517	745672	10081	1	1	5	
+ERX3310319	Streptococcus pneumoniae	Streptococcus	Streptococcus	9899	n.d.	CP026670.2031680.2033231	736389	10065	3	0	6	
+ERX3310328	Streptococcus pneumoniae	Streptococcus	Streptococcus	7612	n.d.	LS483417.1838821.1840354	748337	7787	2	0	6	
+ERX3310336	Streptococcus pneumoniae	Streptococcus	Streptococcus	8173	n.d.	CP026670.2031680.2033231	772384	8327	0	0	6	
+ERX3310353	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	8890	n.d.	FQ312030.1892972.1894517	728363	9028	3	0	6	
+ERX3310369	Streptococcus pneumoniae	Streptococcus	Streptococcus	9393	n.d.	LS483448.1883919.1885444	752374	9470	2	0	4	
+ERX3310372	Streptococcus pneumoniae	Streptococcus	Streptococcus	7763	6.500	LS483374.1801178.1802711	735962	8235	1	1	6	
+ERX3310374	Streptococcus pneumoniae	Streptococcus	Streptococcus	10122	n.d.	CP026670.2031680.2033231	769197	10287	0	0	5	
+ERX3310387	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	9395	7.000	FQ312030.1892972.1894517	782141	9772	2	2	6	
+ERX3310388	Streptococcus pneumoniae TCH8431/19A	Streptococcus	Streptococcus	8315	6.000	CP001993.1958374.1959907	809704	8470	0	1	6	
+ERX3310397	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	7529	n.d.	FQ312030.1892972.1894517	769395	7722	3	0	6	
+ERX3310408	Streptococcus pneumoniae	Streptococcus	Streptococcus	8199	6.500	LN847353.1954783.1956345	755389	8740	1	1	6	
+ERX3310410	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	8185	17.500	FQ312030.1892972.1894517	745016	8326	5	1	5	
+ERX3310420	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	8878	9.000	FQ312030.1892972.1894517	750970	9034	2	1	7	
+ERX3310425	Streptococcus pneumoniae England14-9	Streptococcus	Streptococcus	11616	n.d.	AILI01000006.63214.64745	734348	11706	1	0	5	
+ERX3310430	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	7736	10.500	FQ312030.1892972.1894517	772108	7928	3	1	6	
+ERX3310432	Streptococcus pneumoniae England14-9	Streptococcus	Streptococcus	11980	n.d.	AILI01000006.63214.64745	734394	12072	1	0	5	
+ERX3310443	Streptococcus pneumoniae INV104	Streptococcus	Streptococcus	7988	n.d.	FQ312030.1892972.1894517	752875	8147	1	0	6	
+ERX3310445	Streptococcus pneumoniae	Streptococcus	Streptococcus	9815	7.000	LN847353.1954783.1956345	769527	10244	2	1	5	
+ERX3310449	Streptococcus pneumoniae England14-9	Streptococcus	Streptococcus	11939	n.d.	AILI01000006.63214.64745	736722	12064	2	0	6	
+ERX3310452	Streptococcus pneumoniae	Streptococcus	Streptococcus	7048	6.500	LS483417.1838821.1840354	752980	7187	1	1	6	
+ERX3310456	Streptococcus pneumoniae	Streptococcus	Streptococcus	7867	4.500	CP031246.568496.570021	732876	7944	1	1	4	
+ERX3310458	Streptococcus pneumoniae	Streptococcus	Streptococcus	9523	n.d.	LS483417.1838821.1840354	744776	9680	3	0	5	
+ERX3310459	Streptococcus pneumoniae TCH8431/19A	Streptococcus	Streptococcus	8834	n.d.	CP001993.1958374.1959907	778725	8923	3	0	5	
+ERX3310460	Streptococcus pneumoniae	Streptococcus	Streptococcus	9131	n.d.	CP031246.568496.570021	753014	9200	1	0	5	
+ERX3310479	Streptococcus pneumoniae	Streptococcus	Streptococcus	10588	n.d.	LN847353.1954783.1956345	772556	11048	2	0	6	
+ERX3310483	Streptococcus pneumoniae	Streptococcus	Streptococcus	9133	n.d.	CP031246.568496.570021	737645	9222	1	0	5	
+ERX3310490	Streptococcus pneumoniae England14-9	Streptococcus	Streptococcus	11918	n.d.	AILI01000006.63214.64745	728490	12024	1	0	5	
+ERX3427100	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3092	n.d.	CP014201.1046218.1047796	970687	3146	9	0	8	
+ERX358254	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4920	24.500	CP000033.1632689.1634260	1109896	5487	5	1	12	
+ERX358255	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4335	13.000	CP000033.1632689.1634260	1131148	4833	2	1	11	
+ERX358256	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4163	11.500	CP000033.1632689.1634260	1031818	4631	1	1	11	
+ERX358257	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4690	23.500	CP000033.1632689.1634260	1094218	5260	5	1	11	
+ERX358258	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4898	n.d.	CP000033.1632689.1634260	1067952	5479	2	0	11	
+ERX358259	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3943	n.d.	CP000033.1632689.1634260	1105477	4404	2	0	12	
+ERX358260	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3849	13.500	CP000033.1632689.1634260	1052661	4321	3	1	9	
+ERX358261	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3798	n.d.	CP000033.1632689.1634260	1082874	4256	3	0	11	
+ERX358262	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3518	n.d.	CP000033.1632689.1634260	1127623	3940	5	0	11	
+ERX358263	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	6024	13.250	CP000033.1632689.1634260	1176418	6705	3	2	11	
+ERX358264	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4236	n.d.	CP000033.1632689.1634260	1145929	4767	1	0	11	
+ERX358265	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	5815	n.d.	CP000033.1632689.1634260	1175819	6441	3	0	12	
+ERX358266	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	5652	20.000	CP000033.1632689.1634260	1158670	6318	4	1	12	
+ERX358267	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	6462	11.667	CP000033.1632689.1634260	1134982	7178	2	3	11	
+ERX358268	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4604	n.d.	CP000033.1632689.1634260	1135966	5204	2	0	11	
+ERX358269	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	5383	n.d.	CP000033.1632689.1634260	1127627	5949	2	0	12	
+ERX358270	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	7336	n.d.	CP000033.1632689.1634260	1181342	8001	3	0	12	
+ERX358271	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	6756	n.d.	CP000033.1632689.1634260	1160806	7443	3	0	12	
+ERX358272	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4487	n.d.	CP000033.1632689.1634260	1103585	4965	1	0	11	
+ERX358273	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3964	n.d.	CP000033.1632689.1634260	1030827	4431	4	0	12	
+ERX358274	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	5283	n.d.	CP000033.1632689.1634260	1510293	5957	2	0	12	
+ERX358275	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4296	11.000	CP000033.1632689.1634260	1206589	4846	0	1	11	
+ERX358276	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4972	n.d.	CP000033.1632689.1634260	1119696	5552	3	0	12	
+ERX358277	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4269	11.000	CP000033.1632689.1634260	1107949	4748	0	1	11	
+ERX358278	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4447	n.d.	CP000033.1632689.1634260	1125648	5011	3	0	11	
+ERX358279	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4271	11.000	CP000033.1632689.1634260	1176424	4792	0	1	11	
+ERX358280	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4417	n.d.	CP000033.1632689.1634260	1109988	4931	3	0	12	
+ERX358281	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4427	n.d.	CP000033.1632689.1634260	1307082	4935	4	0	11	
+ERX358282	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3921	n.d.	CP000033.1632689.1634260	1143888	4351	3	0	11	
+ERX358283	Lactobacillus casei subsp. casei ATCC 393	Lactobacillus	Lactobacillus	4990	n.d.	AP012544.709397.710970	1674986	5625	6	0	9	
+ERX358284	Lactobacillus casei subsp. casei ATCC 393	Lactobacillus	Lactobacillus	4725	17.000	AP012544.709397.710970	1553008	5265	4	1	9	
+ERX358285	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	6544	14.000	CP000413.1565823.1567401	1146060	7304	2	1	12	
+ERX358286	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4996	n.d.	CP029686.1212146.1213724	1782668	5536	4	0	10	
+ERX358287	Lactobacillus casei subsp. casei ATCC 393	Lactobacillus	Lactobacillus	5637	18.000	AP012544.709397.710970	1858527	6290	4	1	10	
+ERX358288	Lactobacillus plantarum	Lactobacillus	Lactobacillus	5097	n.d.	CP011769.1010671.1012246	1761111	5796	1	0	10	
+ERX358289	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4911	n.d.	CP011769.1010671.1012246	1748916	5570	1	0	11	
+ERX359689	Lactobacillus capillatus	Lactobacillus	Lactobacillus	3566	17.167	AB365976.1.1526	1148388	4648	5	3	13	
+ERX359690	Lactobacillus manihotivorans	Lactobacillus	Lactobacillus	3878	n.d.	AF000162.1.1559	1632507	4584	2	0	13	
+ERX359691	Lactobacillus hayakitensis	Lactobacillus	Lactobacillus	5965	20.500	AB267406.1.1484	879854	7897	3	3	19	
+ERX359692	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4817	n.d.	CP025592.1563082.1564661	1085969	5403	3	0	9	
+ERX359693	Lactobacillus kefiri	Lactobacillus	Lactobacillus	1993	9.000	AB429371.1.1566	1274833	2345	2	2	8	
+ERX359694	Lactobacillus composti	Lactobacillus	Lactobacillus	3558	23.000	AB268118.1.1522	1879708	4469	6	2	14	
+ERX359695	Lactobacillus curvatus	Lactobacillus	Lactobacillus	4799	13.500	AP018699.1478534.1480099	999545	6209	3	3	12	
+ERX359697	Lactobacillus farraginis	Lactobacillus	Lactobacillus	2869	12.000	AB262731.1.1514	1534028	3276	2	2	11	
+ERX359699	Lactobacillus camelliae	Lactobacillus	Lactobacillus	3821	27.500	AB257864.1.1530	1328950	4712	5	1	15	
+ERX359701	Lactobacillus alimentarius DSM 20249	Lactobacillus	Lactobacillus	3326	n.d.	CP018867.982380.983954	1235236	3874	3	0	9	
+ERX359704	Lactobacillus equigenerosi	Lactobacillus	Lactobacillus	3518	15.500	AB288049.1.1516	821062	4512	3	1	11	
+ERX359706	Lactobacillus fabifermentans	Lactobacillus	Lactobacillus	4796	n.d.	AM905388.1.1532	1682010	5525	3	0	12	
+ERX359707	Lactobacillus lindneri	Lactobacillus	Lactobacillus	5007	21.500	CP014907.97049.98633	775230	5590	5	1	9	
+ERX359709	Lactobacillus fuchuensis	Lactobacillus	Lactobacillus	4295	17.000	JX986973.1.1524	1027880	5306	6	3	11	
+ERX359710	Lactobacillus diolivorans	Lactobacillus	Lactobacillus	3281	n.d.	AB429369.1.1535	1706286	3825	4	0	10	
+ERX359712	Lactobacillus hammesii	Lactobacillus	Lactobacillus	5621	73.500	AJ632219.1.1549	1776028	6378	11	1	13	
+ERX359713	Lactobacillus zymae	Lactobacillus	Lactobacillus	4570	n.d.	LT854705.1650814.1652357	1520324	5604	2	0	12	
+ERX359714	Lactobacillus kefiranofaciens ZW3	Lactobacillus	Lactobacillus	4818	13.000	CP002764.142439.144002	1087316	5221	2	1	11	
+ERX359715	Lactobacillus delbrueckii subsp. bulgaricus ND02	Lactobacillus	Lactobacillus	7997	28.000	CP002341.1744598.1746158	974554	8980	6	1	10	
+ERX359716	Lactobacillus iners	Lactobacillus	Lactobacillus	2795	18.000	HE573916.1.1560	830149	3891	4	1	10	
+ERX359717	Lactobacillus amylophilus DSM 20533 = JCM 1125	Lactobacillus	Lactobacillus	3029	11.500	CP018888.1144590.1146171	803517	3902	1	1	11	
+ERX359719	Lactobacillus floricola	Lactobacillus	Lactobacillus	2527	10.000	AB523780.1.1566	687575	3682	2	2	9	
+ERX359720	Lactobacillus brantae	Lactobacillus	Lactobacillus	4348	n.d.	HQ022861.1.2246	1028172	5934	2	0	11	
+ERX359721	Lactobacillus crustorum	Lactobacillus	Lactobacillus	3052	n.d.	CP017996.2229707.2231261	1079678	3381	3	0	8	
+ERX359722	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3391	n.d.	CP032359.485125.486700	1637438	3895	2	0	10	
+ERX359723	Lactobacillus aquaticus	Lactobacillus	Lactobacillus	4053	n.d.	DQ664203.1.1528	1240108	5373	7	0	12	
+ERX359725	Lactobacillus futsaii	Lactobacillus	Lactobacillus	2707	n.d.	HQ322270.1.1542	1194058	3107	4	0	9	
+ERX359726	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	3982	11.000	AY681134.1.1527	1456762	4447	2	1	9	
+ERX359728	Lactobacillus agilis	Lactobacillus	Lactobacillus	5950	21.500	CP016766.1625693.1627264	1061075	7582	3	1	17	
+ERX359729	Lactobacillus ingluviei	Lactobacillus	Lactobacillus	4335	16.500	AF317702.1.1532	1127400	4870	3	1	12	
+ERX359730	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	3336	n.d.	CP018796.1956265.1957835	1295455	3810	6	0	9	
+ERX359731	Lactobacillus vaccinostercus	Lactobacillus	Lactobacillus	5528	14.000	AM113786.1.1553	1361084	6460	2	1	12	
+ERX359732	Lactobacillus ghanensis	Lactobacillus	Lactobacillus	4306	14.500	DQ523489.1.1460	1322620	5408	1	1	14	
+ERX359733	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	4142	13.000	EF120369.1.1560	1000155	4608	2	1	11	
+ERX359734	Lactobacillus murinus	Lactobacillus	Lactobacillus	4430	20.500	CP023566.832314.833884	1156091	5406	3	1	16	
+ERX359735	Lactobacillus nagelii	Lactobacillus	Lactobacillus	4183	19.500	AB162131.1.1531	1276519	5182	3	1	15	
+ERX359736	Lactobacillus pantheris	Lactobacillus	Lactobacillus	3595	n.d.	AF413523.1.1559	1357369	4288	0	0	10	
+ERX359737	Lactobacillus hamsteri	Lactobacillus	Lactobacillus	4910	12.250	AJ306298.1.1510	984118	5526	3	2	10	
+ERX359738	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	3920	12.000	AJ417737.1.1546	943364	4418	2	1	10	
+ERX359739	Lactobacillus equi	Lactobacillus	Lactobacillus	5328	27.000	AB048833.1.1432	1191121	10015	6	2	18	
+ERX359740	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	3156	10.500	AJ306299.1.1513	1008373	3566	1	1	10	
+ERX359741	Lactobacillus kalixensis	Lactobacillus	Lactobacillus	3617	15.000	AY253657.1.1555	1039031	4181	2	1	13	
+ERX359742	Lactobacillus kitasatonis	Lactobacillus	Lactobacillus	4242	n.d.	AB107638.1.1506	983587	4818	2	0	13	
+ERX359743	Lactobacillus otakiensis	Lactobacillus	Lactobacillus	3453	n.d.	AB366386.1.1566	1152996	4011	6	0	10	
+ERX359744	Lactobacillus nodensis	Lactobacillus	Lactobacillus	2925	n.d.	AB332024.1.1556	1369251	3400	0	0	13	
+ERX359745	Lactobacillus oeni	Lactobacillus	Lactobacillus	3009	23.000	AY681127.1.1556	1069910	3656	4	1	15	
+ERX359746	Lactobacillus rapi	Lactobacillus	Lactobacillus	3736	10.000	AB366389.1.1566	1433255	4165	2	1	8	
+ERX359747	Lactobacillus nasuensis	Lactobacillus	Lactobacillus	4368	23.500	AB608051.1.1488	1223483	5200	5	1	11	
+ERX359748	Lactobacillus oligofermentans DSM 15707 = LMG 22743	Lactobacillus	Lactobacillus	5951	12.000	LN898144.1236251.1237819	1520135	7024	2	1	10	
+ERX359749	Lactobacillus perolens	Lactobacillus	Lactobacillus	2657	17.000	Y19167.1.1566	1749341	3145	4	1	9	
+ERX359750	Lactobacillus jensenii	Lactobacillus	Lactobacillus	3600	n.d.	CP018809.1516019.1517589	817044	4342	2	0	10	
+ERX359751	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	3660	16.000	AJ417500.1.1563	1289951	4066	4	1	8	
+ERX359752	Lactobacillus plantarum subsp. argentoratensis	Lactobacillus	Lactobacillus	3337	10.500	CP032751.1080316.1081891	1571580	3806	1	1	10	
+ERX359754	Lactobacillus mindensis	Lactobacillus	Lactobacillus	3738	n.d.	AJ313530.1.1544	1244649	4154	2	0	8	
+ERX359755	Lactobacillus mali KCTC 3596 = DSM 20444	Lactobacillus	Lactobacillus	3792	n.d.	BACP01000083.72.1611	1173681	4649	5	0	14	
+ERX359756	Lactobacillus delbrueckii subsp. bulgaricus	Lactobacillus	Lactobacillus	7696	29.000	CP013610.42022.43573	944768	9402	6	1	11	
+ERX359757	Lactobacillus acetotolerans	Lactobacillus	Lactobacillus	2861	n.d.	AP014808.73744.75256	829525	3323	1	0	9	
+ERX359758	Lactobacillus graminis	Lactobacillus	Lactobacillus	4047	n.d.	AM113778.1.1548	943470	5292	4	0	16	
+ERX359759	Lactobacillus frumenti	Lactobacillus	Lactobacillus	3089	11.000	AJ250074.1.1561	911095	3365	2	2	10	
+ERX359760	Lactobacillus aviarius	Lactobacillus	Lactobacillus	4250	19.167	AB326355.1.1488	851983	5247	5	3	15	
+ERX359761	Lactobacillus bifermentans	Lactobacillus	Lactobacillus	4297	27.500	JN175330.1.1500	1642496	5294	9	3	14	
+ERX359762	Lactobacillus selangorensis	Lactobacillus	Lactobacillus	4669	28.500	AF049745.1.1495	1739563	7223	10	4	16	
+ERX359763	Lactobacillus mali KCTC 3596 = DSM 20444	Lactobacillus	Lactobacillus	4615	17.000	BACP01000083.72.1611	1315695	5462	4	2	13	
+ERX359764	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3500	n.d.	CP003799.455041.456601	898548	3925	5	0	11	
+ERX359765	Lactobacillus plantarum	Lactobacillus	Lactobacillus	5312	n.d.	CP017363.2391933.2393508	1586303	5899	0	0	12	
+ERX359767	Lactobacillus secaliphilus	Lactobacillus	Lactobacillus	3517	13.250	AM279150.1.1551	892132	3966	3	2	11	
+ERX359768	Lactobacillus senioris	Lactobacillus	Lactobacillus	3649	n.d.	AB602570.1.1562	837530	4475	1	0	13	
+ERX359769	Lactobacillus senmaizukei	Lactobacillus	Lactobacillus	3891	10.000	AB682140.1.1491	1108093	4446	0	3	10	
+ERX359770	Lactobacillus sharpeae	Lactobacillus	Lactobacillus	3886	n.d.	M58831.1.1522	1338458	5210	2	0	14	
+ERX359771	Lactobacillus siliginis	Lactobacillus	Lactobacillus	2889	10.167	AB681446.1.1500	999225	3576	1	3	10	
+ERX359772	Lactobacillus similis	Lactobacillus	Lactobacillus	4587	13.000	AB282889.1.1528	1713001	5284	2	1	11	
+ERX359773	Lactobacillus spicheri	Lactobacillus	Lactobacillus	5818	19.000	AJ534844.1.1536	1494019	6859	4	1	11	
+ERX359775	Lactobacillus sunkii	Lactobacillus	Lactobacillus	3611	n.d.	AB366385.1.1567	1538112	4252	3	0	9	
+ERX359776	Lactobacillus taiwanensis	Lactobacillus	Lactobacillus	7226	10.500	EU487512.1.1526	1010622	8093	1	1	10	
+ERX359778	Lactobacillus ingluviei	Lactobacillus	Lactobacillus	3993	13.000	AF317702.1.1532	1141761	4554	2	2	12	
+ERX359779	Lactobacillus tucceti	Lactobacillus	Lactobacillus	3187	n.d.	AJ576006.1.1557	1128224	4049	2	0	12	
+ERX359780	Lactobacillus aquaticus	Lactobacillus	Lactobacillus	3717	24.500	DQ664203.1.1528	1275872	4783	5	1	12	
+ERX359783	Lactobacillus animalis KCTC 3501 = DSM 20602	Lactobacillus	Lactobacillus	5044	n.d.	AEOF01000010.3322.4865	1039489	5995	5	0	15	
+ERX399736	Lactobacillus algidus	Lactobacillus	Lactobacillus	2950	37.500	AB033209.1.1505	863087	4320	7	1	13	
+ERX399737	Lactobacillus apodemi	Lactobacillus	Lactobacillus	4831	27.000	AJ871178.1.1532	1086086	6124	4	1	19	
+ERX399738	Lactobacillus acidipiscis	Lactobacillus	Lactobacillus	2980	n.d.	LT630287.864207.865795	1244906	3391	3	0	13	
+ERX399739	Lactobacillus cacaonum	Lactobacillus	Lactobacillus	4004	18.000	AM905389.1.1527	959257	4878	4	2	14	
+ERX399740	Lactobacillus ceti	Lactobacillus	Lactobacillus	4527	21.900	AM292799.1.1397	788111	6409	7	5	17	
+ERX399741	Lactobacillus paracollinoides	Lactobacillus	Lactobacillus	4312	14.250	CP014924.115701.117273	1822434	5179	3	2	12	
+ERX399742	Lactobacillus concavus	Lactobacillus	Lactobacillus	3518	22.000	AY683322.1.1528	1026114	4568	4	1	14	
+ERX399743	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	7837	n.d.	LS991409.741198.742709	919027	8976	5	0	11	
+ERX399744	Lactobacillus delbrueckii subsp. lactis DSM 20072	Lactobacillus	Lactobacillus	7853	13.250	AEXU01000148.103.1654	1010889	8909	3	2	11	
+ERX399745	Lactobacillus delbrueckii subsp. indicus	Lactobacillus	Lactobacillus	7790	15.000	CP018614.1644696.1646266	991230	8866	4	2	11	
+ERX399746	Lactobacillus dextrinicus	Lactobacillus	Lactobacillus	4044	n.d.	D87679.1.1464	968935	4927	8	0	14	
+ERX399747	Lactobacillus fructivorans KCTC 3543 = DSM 20203	Lactobacillus	Lactobacillus	2817	n.d.	AEQY01000004.80.1635	698036	3420	7	0	12	
+ERX399748	Lactobacillus fructivorans KCTC 3543 = DSM 20203	Lactobacillus	Lactobacillus	3027	14.000	AEQY01000004.80.1635	717006	3697	2	1	12	
+ERX399749	Lactobacillus harbinensis	Lactobacillus	Lactobacillus	3884	24.250	AB194126.1.1507	1619225	4446	7	2	12	
+ERX399750	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	6031	26.500	CP012920.557031.558613	794970	7471	5	1	14	
+ERX399751	Lactobacillus namurensis	Lactobacillus	Lactobacillus	4932	16.500	AM259118.1.1518	1290303	5731	3	1	12	
+ERX399752	Lactobacillus heilongjiangensis	Lactobacillus	Lactobacillus	3669	17.000	CP012559.2345774.2347347	1593837	4090	4	1	9	
+ERX399753	Lactobacillus odoratitofui	Lactobacillus	Lactobacillus	5042	n.d.	AB365975.1.1498	1443728	5803	2	0	13	
+ERX399754	Lactobacillus ozensis	Lactobacillus	Lactobacillus	3723	n.d.	AB572588.1.1541	745700	4868	2	0	14	
+ERX399755	Lactobacillus panis	Lactobacillus	Lactobacillus	4238	11.000	X94230.1.1490	1031455	4568	2	2	10	
+ERX399756	Lactobacillus parabrevis	Lactobacillus	Lactobacillus	4804	19.000	AM158250.1.1518	1369843	5248	4	1	11	
+ERX399757	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3305	12.500	CP029686.1212146.1213724	1302049	3728	3	1	8	
+ERX399758	Lactobacillus paracollinoides	Lactobacillus	Lactobacillus	3040	n.d.	CP014924.115701.117273	1791136	3572	6	0	13	
+ERX399760	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	4120	18.667	AF183558.1.1522	1420557	4683	8	3	8	
+ERX399761	Lactobacillus paraplantarum	Lactobacillus	Lactobacillus	3124	n.d.	CP032744.1079068.1080643	1690472	3569	3	0	10	
+ERX399762	Lactobacillus paucivorans	Lactobacillus	Lactobacillus	3811	13.000	FN185731.1.1513	1290842	4195	0	1	13	
+ERX399763	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3975	n.d.	CP032359.485125.486700	1691188	4519	5	0	11	
+ERX399764	Lactobacillus pobuzihii E100301 = KCTC 13174	Lactobacillus	Lactobacillus	3614	n.d.	AZCL01000058.618.2129	1133042	4088	3	0	12	
+ERX399765	Lactobacillus pontis	Lactobacillus	Lactobacillus	5725	13.000	X76329.1.1570	1001019	6205	2	2	12	
+ERX399766	Lactobacillus rennini	Lactobacillus	Lactobacillus	3341	n.d.	AJ576007.1.1546	1152629	4236	2	0	14	
+ERX399767	Lactobacillus rossiae DSM 15814	Lactobacillus	Lactobacillus	2162	19.000	AKZK01000036.81.1634	1480334	3352	4	1	11	
+ERX399768	Lactobacillus sakei	Lactobacillus	Lactobacillus	4558	16.500	CP020459.1926376.1927953	1053490	5396	1	1	16	
+ERX399769	Lactobacillus saniviri	Lactobacillus	Lactobacillus	3893	14.000	AB602569.1.1558	1377189	6178	2	1	12	
+ERX399770	Lactobacillus satsumensis	Lactobacillus	Lactobacillus	4346	17.500	AB154519.1.1556	1342848	5139	3	1	13	
+ERX399772	Lactobacillus zymae	Lactobacillus	Lactobacillus	4532	20.000	LT854705.1650814.1652357	1443982	5716	4	1	12	
+ERX399774	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3878	28.500	AFYE01000091.124.1666	1038457	4935	5	1	16	
+ERX399775	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3658	18.000	AFYE01000091.124.1666	1057085	4616	4	2	14	
+ERX405609	Lactobacillus aviarius subsp. araffinosus	Lactobacillus	Lactobacillus	4299	n.d.	JX986976.1.1515	771253	5455	3	0	18	
+ERX405610	Lactobacillus fructivorans KCTC 3543 = DSM 20203	Lactobacillus	Lactobacillus	2880	11.000	AEQY01000004.80.1635	685307	3492	2	2	10	
+ERX450850	Lactobacillus gastricus	Lactobacillus	Lactobacillus	3142	n.d.	AY253658.1.1550	1001464	3744	1	0	12	
+ERX450851	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3819	10.000	CP014201.1046218.1047796	1398079	4392	0	1	10	
+ERX450852	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3084	27.000	FN692037.427906.429457	1159246	3475	8	2	11	
+ERX450853	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4024	13.000	AP018549.475961.477529	1010271	4558	2	1	11	
+ERX450854	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3257	12.000	CP022373.3025776.3027351	1755606	3712	2	1	10	
+ERX450858	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	2960	n.d.	CP018796.1956265.1957835	1397850	3402	3	0	9	
+ERX450859	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	3346	n.d.	CP018796.1956265.1957835	1322786	3884	3	0	8	
+ERX450860	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3012	11.125	FN692037.427906.429457	1148929	3384	3	4	10	
+ERX450861	Lactobacillus gastricus	Lactobacillus	Lactobacillus	2994	n.d.	AY253658.1.1550	1025448	3643	0	0	12	
+ERX450862	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3378	12.000	CP022373.3025776.3027351	1759293	3821	2	1	10	
+ERX450867	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4737	n.d.	CP025592.1563082.1564661	1068083	5305	3	0	8	
+ERX450868	uncultured bacterium	Lactobacillus	Lactobacillus	3608	n.d.	AB969339.1.1567	1020678	3918	2	0	11	
+ERX450869	Lactobacillus gastricus	Lactobacillus	Lactobacillus	3119	n.d.	AY253658.1.1550	1025413	3760	0	0	12	
+ERX450870	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3940	11.000	CP029686.1212146.1213724	1536666	4453	0	3	11	
+ERX450874	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3779	13.500	CP014201.1046218.1047796	1455868	4363	3	1	9	
+ERX450875	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3329	n.d.	CP029686.1212146.1213724	1563734	3766	2	0	10	
+ERX450876	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4374	8.250	AP017973.1435046.1436618	1138819	4884	1	2	8	
+ERX450877	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3888	10.500	CP029686.1212146.1213724	1581151	4435	1	1	10	
+ERX450878	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4149	8.000	CP016803.1045686.1047241	1108111	4670	0	1	8	
+ERX450882	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4440	n.d.	CP025592.1563082.1564661	1044388	4998	2	0	8	
+ERX450883	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	2278	10.500	CP003799.455041.456601	982443	2558	1	1	10	
+ERX450884	uncultured bacterium	Lactobacillus	Lactobacillus	3593	n.d.	AY959177.1.1555	1016560	3886	1	0	11	
+ERX450890	Lactobacillus antri DSM 16041	Lactobacillus	Lactobacillus	3757	15.500	ACLL01000037.71.1634	1256995	4130	3	1	11	
+ERX450891	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3104	10.125	CP014201.1046218.1047796	1413549	3637	3	4	9	
+ERX450892	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4224	n.d.	AP017973.1435046.1436618	1108656	4738	0	0	9	
+ERX450893	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3882	n.d.	CP029686.1212146.1213724	1577721	4406	1	0	9	
+ERX450898	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3084	9.500	AP018549.475961.477529	1071693	3511	1	1	9	
+ERX450899	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3134	n.d.	AP018549.475961.477529	1001411	3594	3	0	10	
+ERX450900	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3947	n.d.	CP014201.1046218.1047796	1507411	4508	5	0	9	
+ERX450901	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3893	12.000	CP029686.1212146.1213724	1579970	4442	2	1	10	
+ERX450906	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3831	n.d.	CP014201.1046218.1047796	1455832	4417	2	0	9	
+ERX450907	uncultured bacterium	Lactobacillus	Lactobacillus	3442	12.000	AB969339.1.1567	926997	3723	2	2	11	
+ERX450908	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4355	12.500	AP017973.1435046.1436618	1127164	4832	3	1	8	
+ERX450909	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3484	10.000	CP029686.1212146.1213724	1498422	3957	2	2	9	
+ERX450914	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4092	n.d.	AP018549.475961.477529	955344	4680	3	0	9	
+ERX450915	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4804	n.d.	CP016803.1045686.1047241	1091386	5377	2	0	10	
+ERX450916	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	3819	n.d.	CP000413.1565823.1567401	921452	4267	0	0	11	
+ERX450917	uncultured bacterium	Lactobacillus	Lactobacillus	3829	12.250	AB969339.1.1567	965134	4126	3	2	10	
+ERX450922	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5427	16.000	CP017107.541095.542664	985339	6585	2	2	15	
+ERX450923	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3722	n.d.	CP014201.1046218.1047796	1320252	4275	1	0	12	
+ERX450924	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3865	14.500	CP014201.1046218.1047796	1507666	4480	3	1	10	
+ERX450925	Lactobacillus oris	Lactobacillus	Lactobacillus	4593	14.500	CP014789.8842.10425	1177636	5050	3	1	10	
+ERX450930	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3069	12.000	CP022373.3025776.3027351	1642253	3510	2	1	10	
+ERX450931	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3827	14.500	CP014201.1046218.1047796	1505155	4403	3	1	10	
+ERX450932	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4210	7.000	AP017973.1435046.1436618	1084891	4713	0	3	7	
+ERX450933	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5386	15.500	CP017107.1020383.1021952	953988	6661	1	1	15	
+ERX450938	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3073	n.d.	CP003799.455041.456601	991724	3486	2	0	11	
+ERX450939	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4036	11.250	CP000413.1565823.1567401	934587	4489	3	2	9	
+ERX450940	Lactobacillus gastricus	Lactobacillus	Lactobacillus	2994	n.d.	AY253658.1.1550	1035628	3644	0	0	13	
+ERX450941	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3397	n.d.	CP022373.3025776.3027351	1672897	3866	0	0	10	
+ERX450946	Lactobacillus koreensis	Lactobacillus	Lactobacillus	5120	11.000	CP012033.1330944.1332518	1620339	5563	2	2	10	
+ERX450947	Lactobacillus sucicola	Lactobacillus	Lactobacillus	4130	15.500	AB433982.1.1503	1221034	5418	3	3	14	
+ERX529100	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5993	n.d.	CP017107.541095.542664	1011268	7313	3	0	16	
+ERX529101	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4677	11.500	AP017973.1435046.1436618	1283509	5175	3	1	7	
+ERX529102	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4325	n.d.	AP018549.475961.477529	1002242	4891	4	0	10	
+ERX529103	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4328	n.d.	AP018549.475961.477529	1002030	4921	6	0	11	
+ERX529104	Lactobacillus oris	Lactobacillus	Lactobacillus	5149	15.500	CP014789.8842.10425	1431978	5573	3	1	11	
+ERX529105	Lactobacillus salivarius	Lactobacillus	Lactobacillus	7188	32.000	CP017107.541095.542664	995413	8769	6	1	14	
+ERX529106	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4663	n.d.	AP018549.475961.477529	1039756	5305	4	0	10	
+ERX529107	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3908	10.000	CP014201.1046218.1047796	1535667	4502	2	2	9	
+ERX529108	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6012	22.000	CP017107.541095.542664	1025573	7269	4	1	14	
+ERX529109	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4595	n.d.	AP018549.475961.477529	1004903	5189	5	0	12	
+ERX529110	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3864	n.d.	CP014201.1046218.1047796	1500364	4437	0	0	11	
+ERX529111	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4446	n.d.	AP018549.475961.477529	1009989	5059	2	0	11	
+ERX529112	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4334	15.250	CP014201.1046218.1047796	1589157	5100	5	2	9	
+ERX529113	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5310	12.500	CP016803.1045686.1047241	1279639	5931	3	1	8	
+ERX529114	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3949	n.d.	CP014201.1046218.1047796	1403716	4525	4	0	11	
+ERX529115	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3794	19.000	CP014201.1046218.1047796	1388158	4356	4	1	11	
+ERX529116	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5213	13.500	CP025592.1563082.1564661	1175560	5788	3	1	9	
+ERX529117	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5327	16.250	CP017107.541095.542664	1023346	6629	3	2	14	
+ERX529118	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6057	n.d.	CP025592.1563082.1564661	1337134	6698	4	0	9	
+ERX529119	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6140	n.d.	CP025592.1563082.1564661	1324939	6791	5	0	9	
+ERX529120	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4476	n.d.	CP014201.1046218.1047796	1600312	5093	2	0	11	
+ERX529121	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3892	13.500	CP029686.1212146.1213724	1633101	4367	3	1	9	
+ERX529122	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4249	17.000	CP014201.1046218.1047796	1482009	4892	4	1	9	
+ERX529123	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6213	n.d.	CP025592.1563082.1564661	1231939	6897	3	0	8	
+ERX529124	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4442	12.000	AP018549.475961.477529	982223	4961	2	1	10	
+ERX529125	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4169	10.500	CP014201.1046218.1047796	1478934	4734	1	1	10	
+ERX529126	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5497	23.500	AP018549.475961.477529	982228	6139	5	1	11	
+ERX529127	Lactobacillus fermentum	Lactobacillus	Lactobacillus	7472	n.d.	CP025592.1563082.1564661	1488840	8292	3	0	9	
+ERX529128	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4243	n.d.	CP014201.1046218.1047796	1494068	4871	3	0	11	
+ERX529129	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6486	8.500	CP025592.1563082.1564661	1250489	7155	1	1	8	
+ERX529130	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4239	n.d.	CP014201.1046218.1047796	1508574	4851	2	0	10	
+ERX529131	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6453	9.500	CP025592.1563082.1564661	1224565	7104	1	1	9	
+ERX529132	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5419	n.d.	AP018549.475961.477529	1091570	6032	5	0	10	
+ERX529133	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5557	12.000	AP018549.475961.477529	1077631	6227	2	1	10	
+ERX529134	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3999	14.500	CP011769.1010671.1012246	1617292	4566	3	1	10	
+ERX529135	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5699	n.d.	CP025592.1563082.1564661	1302336	6309	2	0	9	
+ERX529136	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4319	11.000	CP014201.1046218.1047796	1521924	4944	0	1	11	
+ERX529137	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4329	11.000	AP018549.475961.477529	1130632	4854	2	1	9	
+ERX529138	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5418	8.500	CP025592.1563082.1564661	1325719	6004	1	1	8	
+ERX529139	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4474	n.d.	CP014201.1046218.1047796	1521914	5136	4	0	11	
+ERX529140	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3969	n.d.	CP011769.1010671.1012246	1603797	4515	2	0	11	
+ERX529141	Lactobacillus casei BL23	Lactobacillus	Lactobacillus	4614	10.000	FM177140.2643060.2644629	1674717	5182	2	2	9	
+ERX529142	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6031	16.000	CP025592.1563082.1564661	1400641	6692	4	1	8	
+ERX529143	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4475	10.000	CP029686.1212146.1213724	1581523	5041	0	2	10	
+ERX529144	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3999	11.000	CP014201.1046218.1047796	1443154	4578	2	2	10	
+ERX529145	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4672	9.000	CP025592.1563082.1564661	1240449	5234	2	1	7	
+ERX529146	uncultured bacterium	Lactobacillus	Lactobacillus	4584	n.d.	AY959177.1.1555	947755	4943	0	0	12	
+ERX529147	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4494	14.500	AP018549.475961.477529	1065017	5104	3	1	10	
+ERX529148	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5127	n.d.	CP025592.1563082.1564661	1218653	5660	3	0	9	
+ERX529149	Lactobacillus paragasseri;uncultured bacterium	Lactobacillus	Lactobacillus	9203	n.d.	AP018549.475961.477529;AB969339.1.1567	1981918	10556	5	0	12	WARNING: Multiple SSUs were assembled by SPAdes
+ERX529150	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5496	11.500	LT906621.282495.284062	1318484	6113	3	1	7	
+ERX529151	uncultured bacterium;Lactobacillus paracasei	Lactobacillus	Lactobacillus	4924	18.000	CP029686.1212146.1213724;AB969339.1.1567	1728857	5501	4	1	10	WARNING: Multiple SSUs were assembled by SPAdes
+ERX529152	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3653	12.000	CP032359.485125.486700	1621141	4170	2	1	10	
+ERX529153	uncultured bacterium	Lactobacillus	Lactobacillus	4030	11.000	AB969339.1.1567	1053436	4318	2	2	10	
+ERX529154	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4163	18.000	CP029686.1212146.1213724	1445179	4693	4	1	10	
+ERX529155	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3549	n.d.	CP032359.485125.486700	1610034	4079	3	0	10	
+ERX529156	Lactobacillus fermentum	Lactobacillus	Lactobacillus	7292	12.500	LT906621.282495.284062	1921879	8085	3	1	8	
+ERX529157	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5195	n.d.	LT906621.282495.284062	1317667	5830	7	0	9	
+ERX529158	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3706	11.000	CP032359.485125.486700	1593263	4272	0	1	11	
+ERX529159	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4566	10.500	CP029686.1212146.1213724	1559349	5169	1	1	10	
+ERX529160	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3446	17.000	AP018549.475961.477529	1017884	3933	4	1	9	
+ERX529161	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4052	11.000	CP014201.1046218.1047796	1443185	4664	0	1	11	
+ERX529162	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4056	13.500	CP014201.1046218.1047796	1420450	4656	3	1	9	
+ERX529163	Lactobacillus paracasei;Lactobacillus fermentum	Lactobacillus	Lactobacillus	4962	14.500	CP025592.1563082.1564661;CP029686.1212146.1213724	1110343	5523	3	1	10	WARNING: Multiple SSUs were assembled by SPAdes
+ERX529164	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5696	n.d.	CP025592.1563082.1564661	1263638	6406	2	0	11	
+ERX529165	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4344	n.d.	CP014201.1046218.1047796	1550177	5014	3	0	11	
+ERX529166	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4074	12.000	CP011769.1010671.1012246	1632646	4682	2	1	10	
+ERX529167	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4035	n.d.	CP011769.1010671.1012246	1620201	4638	3	0	11	
+ERX529168	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4467	n.d.	CP014201.1046218.1047796	1566191	5164	4	0	10	
+ERX529169	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4244	15.500	CP014201.1046218.1047796	1526931	4921	3	1	11	
+ERX529170	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4185	n.d.	CP011769.1010671.1012246	1617337	4787	1	0	11	
+ERX529171	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	5593	n.d.	CP014201.1046218.1047796	1998102	6415	6	0	12	
+ERX529172	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4105	n.d.	CP011769.1010671.1012246	1636131	4745	1	0	11	
+ERX529173	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4051	n.d.	CP014201.1046218.1047796	1444776	4671	2	0	11	
+ERX529174	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5252	n.d.	AP017973.1435046.1436618	1327577	5844	1	0	8	
+ERX529176	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5182	n.d.	AP017973.1435046.1436618	1346563	5754	1	0	8	
+ERX529177	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4157	n.d.	CP029686.1212146.1213724	1499945	4674	2	0	11	
+ERX529178	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5880	n.d.	CP025592.1563082.1564661	1306265	6538	4	0	10	
+ERX529179	uncultured bacterium;Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4787	15.500	CP014201.1046218.1047796;AB969339.1.1567	1328058	5161	3	1	11	WARNING: Multiple SSUs were assembled by SPAdes
+ERX529180	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5341	16.000	AP017973.1435046.1436618	1304991	5899	4	1	8	
+ERX529181	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5043	n.d.	AP017973.1435046.1436618	1268265	5642	1	0	9	
+ERX529182	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4491	12.250	AP018549.475961.477529	1115979	5093	3	2	10	
+ERX529183	Lactobacillus fermentum	Lactobacillus	Lactobacillus	7159	n.d.	AP017973.1435046.1436618	1285801	7999	3	0	10	
+ERX529184	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	4625	19.000	CP006803.1850533.1852112	1011653	5164	4	1	11	
+ERX529185	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4415	9.250	CP029686.1212146.1213724	1525843	4909	1	2	9	
+ERX529186	Lactobacillus oris	Lactobacillus	Lactobacillus	5200	n.d.	CP014789.8842.10425	1354213	5590	7	0	10	
+ERX529187	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4199	n.d.	CP029686.1212146.1213724	1515357	4692	2	0	10	
+ERX529188	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6154	14.500	AP017973.1435046.1436618	1170706	6825	3	1	10	
+ERX529189	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3552	n.d.	AP018549.475961.477529	1051586	3989	4	0	10	
+ERX529190	Lactobacillus oris	Lactobacillus	Lactobacillus	4835	12.000	CP014789.8842.10425	1279899	5272	2	2	11	
+ERX529191	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6380	n.d.	AP017973.1435046.1436618	1170269	7079	1	0	10	
+ERX529192	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4180	n.d.	CP029686.1212146.1213724	1503378	4698	3	0	8	
+ERX529193	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6484	n.d.	AP017973.1435046.1436618	1188843	7208	0	0	10	
+ERX529194	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4400	14.500	CP029686.1212146.1213724	1523457	4973	3	1	10	
+ERX529195	uncultured bacterium	Lactobacillus	Lactobacillus	4530	n.d.	AB969339.1.1567	1019885	4928	2	0	11	
+ERX529196	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4090	10.000	CP029686.1212146.1213724	1640650	4603	2	2	9	
+ERX529197	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6160	14.250	LT604074.1096157.1097698	1052100	7612	1	2	14	
+ERX529198	Lactobacillus mucosae	Lactobacillus	Lactobacillus	7723	n.d.	AF126738.1.1568	1144315	8571	5	0	10	
+ERX529199	Lactobacillus buchneri NRRL B-30929	Lactobacillus	Lactobacillus	3670	n.d.	CP002652.2300479.2302041	1306759	4429	3	0	9	
+ERX529200	Lactobacillus mucosae	Lactobacillus	Lactobacillus	7238	n.d.	AF126738.1.1568	1161717	7999	3	0	10	
+ERX529201	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5976	18.000	LT604074.1096157.1097698	1054294	7513	2	1	16	
+ERX529202	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4413	11.500	CP029686.1212146.1213724	1596726	4978	1	1	11	
+ERX529203	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4307	n.d.	AP018549.475961.477529	1041139	4826	5	0	10	
+ERX529204	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4302	n.d.	AP018549.475961.477529	1027040	4830	3	0	11	
+ERX529205	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4289	n.d.	CP014201.1046218.1047796	1528952	4949	3	0	11	
+ERX529206	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6006	16.250	LT604074.1096157.1097698	1052255	7448	3	2	14	
+ERX529207	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4314	11.000	CP029686.1212146.1213724	1571517	4854	2	2	10	
+ERX529208	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	5290	10.000	CP000413.1565823.1567401	973499	5887	0	2	10	
+ERX529209	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4289	n.d.	CP029686.1212146.1213724	1624851	4831	1	0	11	
+ERX529210	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4129	13.500	CP014201.1046218.1047796	1460686	4714	3	1	9	
+ERX529211	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5149	n.d.	CP025592.1563082.1564661	1208479	5789	1	0	9	
+ERX529212	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4177	n.d.	CP029686.1212146.1213724	1566934	4697	3	0	10	
+ERX529213	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4049	18.000	CP014201.1046218.1047796	1473225	4674	4	1	10	
+ERX529214	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3996	n.d.	CP014201.1046218.1047796	1405597	4574	0	0	12	
+ERX529215	Lactobacillus oris	Lactobacillus	Lactobacillus	4226	19.000	CP014789.8842.10425	1291875	4604	4	1	11	
+ERX529216	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3504	17.000	AP018549.475961.477529	997091	3958	4	1	9	
+ERX529217	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4242	14.500	CP029686.1212146.1213724	1578981	4750	3	1	10	
+ERX529218	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3376	14.500	CP003799.455041.456601	1039861	3768	3	1	10	
+ERX529219	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4739	11.000	AP018549.475961.477529	1001477	5308	2	2	10	
+ERX529220	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4273	10.500	CP029686.1212146.1213724	1597875	4844	3	3	9	
+ERX529221	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4190	15.500	CP029686.1212146.1213724	1597894	4780	3	1	11	
+ERX529222	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4318	n.d.	CP029686.1212146.1213724	1597794	4886	1	0	10	
+ERX529223	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	3511	n.d.	CP018796.1956265.1957835	1333157	4023	2	0	8	
+ERX529224	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4260	11.250	CP029686.1212146.1213724	1620585	4810	3	2	9	
+ERX529225	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4261	n.d.	CP029686.1212146.1213724	1545586	4825	1	0	11	
+ERX529226	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4155	21.250	CP029686.1212146.1213724	1578955	4684	7	2	9	
+ERX529227	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5300	10.000	AP017973.1435046.1436618	1178452	5891	2	1	8	
+ERX529228	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3846	n.d.	CP014201.1046218.1047796	1478901	4457	2	0	11	
+ERX529229	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5188	10.000	AP017973.1435046.1436618	1176172	5731	2	1	8	
+ERX529230	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5368	9.500	AP017973.1435046.1436618	1279532	5978	1	1	9	
+ERX529231	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4069	n.d.	CP029686.1212146.1213724	1565978	4591	2	0	11	
+ERX529232	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4213	n.d.	CP014201.1046218.1047796	1495605	4823	3	0	11	
+ERX529233	uncultured bacterium	Lactobacillus	Lactobacillus	4411	n.d.	AY959177.1.1555	930175	4753	3	0	11	
+ERX529234	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5166	12.500	AP017973.1435046.1436618	1193901	5734	3	1	8	
+ERX529235	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5287	n.d.	LT906621.282495.284062	1199065	5837	2	0	8	
+ERX529236	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4674	n.d.	CP025592.1563082.1564661	1205728	5249	1	0	9	
+ERX529237	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4050	n.d.	AP018549.475961.477529	1017937	4529	3	0	9	
+ERX529238	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3682	15.500	CP014201.1046218.1047796	1506220	4244	3	1	11	
+ERX529239	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5923	n.d.	CP017107.1020383.1021952	1089669	7261	3	0	16	
+ERX529240	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3666	18.000	CP014201.1046218.1047796	1561590	4164	4	1	10	
+ERX529241	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3605	11.250	AP018549.475961.477529	1094441	4259	3	2	9	
+ERX529242	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4152	n.d.	AP018549.475961.477529	1029258	4680	4	0	9	
+ERX529243	Lactobacillus oris	Lactobacillus	Lactobacillus	4216	n.d.	CP014789.8842.10425	1220193	4576	5	0	11	
+ERX529244	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3742	n.d.	CP014201.1046218.1047796	1504345	4350	4	0	10	
+ERX529245	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3425	11.000	AP018549.475961.477529	1065006	3893	2	1	9	
+ERX529246	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3347	10.000	AP018549.475961.477529	1050620	3786	2	2	9	
+ERX529247	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4080	n.d.	CP029686.1212146.1213724	1568183	4617	4	0	10	
+ERX529248	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3718	11.000	CP014201.1046218.1047796	1506263	4297	2	1	9	
+ERX529249	Lactobacillus oris	Lactobacillus	Lactobacillus	4330	n.d.	CP014789.8842.10425	1258692	4638	4	0	10	
+ERX529250	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6535	20.500	CP017107.541095.542664	1012399	7949	3	1	16	
+ERX529251	Lactobacillus mucosae	Lactobacillus	Lactobacillus	6004	n.d.	AF126738.1.1568	1105779	6708	1	0	10	
+ERX529252	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4021	14.500	CP032359.485125.486700	1708421	4559	3	1	10	
+ERX529253	Lactobacillus mucosae	Lactobacillus	Lactobacillus	5907	n.d.	AF126738.1.1568	1130540	6569	3	0	10	
+ERX529254	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4188	14.000	CP000413.1565823.1567401	954301	4752	4	2	10	
+ERX529255	Lactobacillus oris	Lactobacillus	Lactobacillus	4972	9.500	CP014789.8842.10425	1265619	5393	2	4	9	
+ERX529256	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4113	n.d.	CP032359.485125.486700	1677939	4710	3	0	10	
+ERX529257	Lactobacillus mucosae	Lactobacillus	Lactobacillus	6319	10.500	AF126738.1.1568	1157905	7033	1	1	10	
+ERX529258	Lactobacillus mucosae	Lactobacillus	Lactobacillus	6222	11.250	AF126738.1.1568	1129574	6962	3	2	9	
+ERX529259	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	4488	12.000	CP000413.1565823.1567401	957556	5134	2	1	10	
+ERX529260	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6256	n.d.	CP017107.541095.542664	1048683	7748	4	0	15	
+ERX529261	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5514	n.d.	AP018549.475961.477529	976891	6164	5	0	10	
+ERX529262	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5482	11.000	AP018549.475961.477529	979960	6165	2	2	10	
+ERX529263	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6551	n.d.	CP017107.541095.542664	1055094	8059	4	0	15	
+ERX529264	Lactobacillus mucosae	Lactobacillus	Lactobacillus	6296	n.d.	EF120376.1.1566	1114938	7076	1	0	12	
+ERX529265	uncultured bacterium	Lactobacillus	Lactobacillus	4218	n.d.	AB969339.1.1567	1005506	4510	3	0	10	
+ERX529266	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	10049	29.000	AP018549.475961.477529	1771919	11296	6	1	11	
+ERX529267	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6878	15.500	CP017107.541095.542664	1047456	8371	1	1	15	
+ERX529268	Lactobacillus salivarius	Lactobacillus	Lactobacillus	6448	16.500	CP017107.541095.542664	1048885	7997	1	1	16	
+ERX529269	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5703	n.d.	AP018549.475961.477529	1035693	6424	5	0	10	
+ERX529270	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4020	11.500	CP011769.1010671.1012246	1616079	4663	1	1	11	
+ERX529271	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3828	11.000	CP029686.1212146.1213724	1567925	4373	0	2	11	
+ERX529272	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4104	n.d.	CP029686.1212146.1213724	1597806	4623	2	0	11	
+ERX529273	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4116	n.d.	CP011769.1010671.1012246	1618845	4685	3	0	11	
+ERX529274	Lactobacillus plantarum	Lactobacillus	Lactobacillus	4086	10.250	CP011769.1010671.1012246	1615212	4677	1	2	10	
+ERX529275	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3974	9.500	CP029686.1212146.1213724	1557709	4493	1	1	9	
+ERX529276	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3837	33.500	CP029686.1212146.1213724	1612900	4368	7	1	9	
+ERX980026	Lactobacillus fermentum	Lactobacillus	Lactobacillus	5228	n.d.	CP025592.1563082.1564661	1173315	5777	0	0	10	
+ERX980027	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4618	8.500	AP017973.1435046.1436618	1192605	5184	1	1	8	
+ERX980028	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	5731	n.d.	CP000413.1565823.1567401	953611	6352	2	0	10	
+ERX980029	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	5875	10.000	CP000413.1565823.1567401	962999	6597	0	2	10	
+ERX980030	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3662	11.500	AP018549.475961.477529	1048452	4337	1	1	11	
+ERX980031	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3983	n.d.	AP018549.475961.477529	1067197	4471	2	0	10	
+ERX980032	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	5952	9.000	AP018549.475961.477529	1050860	6682	0	2	9	
+ERX980033	uncultured bacterium	Lactobacillus	Lactobacillus	4357	10.500	AY959177.1.1555	1003217	4702	1	1	10	
+ERX980034	uncultured bacterium	Lactobacillus	Lactobacillus	4167	n.d.	AY959177.1.1555	994746	4530	1	0	10	
+SRX1090887	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	6265	28.500	FN692037.427906.429457	1125017	7137	9	3	15	
+SRX1090894	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	6926	31.250	AP018549.475961.477529	960532	7870	9	2	11	
+SRX1092347	Lactobacillus reuteri	Lactobacillus	Lactobacillus	1978	13.000	CP015408.302655.304239	435569	2008	6	2	4	
+SRX1131769	uncultured bacterium;Lactobacillus plantarum	Achromobacter;Lactobacillus	Lactobacillus	4128	58.000	DQ129609.1.1490;CP032359.485125.486700	1731417	5407	18	6	31	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Achromobacter;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX1328264	Lactobacillus reuteri DSM 20016	Lactobacillus	Lactobacillus	3419	69.900	CP000705.624382.625950	589732	3806	23	5	17	
+SRX1343142	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2202	n.d.	CP011769.1010671.1012246	1151318	2301	4	0	10	
+SRX1433289	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3410	14.167	CP029686.1212146.1213724	1639807	3912	5	3	10	
+SRX1482118	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1627	109.000	CP014201.1046218.1047796	561650	1728	28	4	11	
+SRX1526290	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2899	59.900	CP014201.1046218.1047796	974797	2963	23	5	7	
+SRX1526291	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2830	37.000	CP014201.1046218.1047796	978963	2897	24	9	5	
+SRX1526292	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3123	89.083	CP014201.1046218.1047796	1063391	3228	31	6	9	
+SRX1526293	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2812	n.d.	CP014201.1046218.1047796	1190628	2819	1	0	2	
+SRX1526295	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2887	n.d.	CP014201.1046218.1047796	1182016	2889	2	0	1	
+SRX1526296	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2789	n.d.	CP014201.1046218.1047796	986216	2793	4	0	1	
+SRX1526297	Lactobacillus rhamnosus GG	Lactobacillus	Lactobacillus	3051	3.667	FM179322.307756.309313	1250793	3061	4	3	1	
+SRX1526302	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3254	n.d.	CP014201.1046218.1047796	1161674	3256	2	0	1	
+SRX1526303	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2923	72.667	CP014201.1046218.1047796	967939	2977	20	3	6	
+SRX1526317	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2176	27.083	CP014201.1046218.1047796	705762	2461	13	6	13	
+SRX1526345	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2535	9.000	CP014201.1046218.1047796	879593	2541	4	1	1	
+SRX1526349	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2403	141.000	CP014201.1046218.1047796	802878	2622	16	1	13	
+SRX1526354	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2400	17.333	CP014201.1046218.1047796	825098	2496	10	6	9	
+SRX1526363	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2953	88.667	CP014201.1046218.1047796	1012243	3076	22	3	8	
+SRX1526369	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2935	19.125	CP014201.1046218.1047796	973452	2981	11	4	4	
+SRX1526379	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2588	n.d.	CP014201.1046218.1047796	937859	2588	0	0	1	
+SRX1526380	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2711	45.125	CP014201.1046218.1047796	906534	2818	17	4	9	
+SRX1526391	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3243	55.333	CP014201.1046218.1047796	1052392	3429	22	6	15	
+SRX1526395	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2495	45.667	CP014201.1046218.1047796	876014	2673	14	3	13	
+SRX1526415	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2796	20.667	CP014201.1046218.1047796	973604	3035	8	3	10	
+SRX1526437	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2836	19.000	CP014201.1046218.1047796	1018918	3021	6	3	13	
+SRX1526457	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2607	31.600	CP014201.1046218.1047796	955722	2815	14	5	12	
+SRX1526467	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2960	20.000	CP014201.1046218.1047796	1069028	3148	8	4	12	
+SRX1526468	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3287	55.885	CP014201.1046218.1047796	1103450	3518	33	13	14	
+SRX1526473	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3591	59.750	CP014201.1046218.1047796	1124412	3832	35	14	16	
+SRX1528078	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3182	57.462	CP014201.1046218.1047796	1098092	3392	34	13	13	
+SRX1528080	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2727	83.250	CP014201.1046218.1047796	943827	2930	34	8	11	
+SRX1528083	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3074	94.786	CP014201.1046218.1047796	1182228	3283	33	7	17	
+SRX1528085	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3285	94.042	CP014201.1046218.1047796	1133291	3540	43	12	17	
+SRX1528089	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3215	1.500	CP014201.1046218.1047796	1062108	3218	1	1	1	
+SRX1528090	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3382	n.d.	AB008211.1.1540	1076383	3385	0	0	2	
+SRX1528091	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3571	n.d.	AB008211.1.1540	1168929	3573	2	0	1	
+SRX1528093	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3371	1.000	CP014201.1046218.1047796	1062319	3373	0	1	1	
+SRX1528095			Lactobacillus	3301	3.000		1095486	3305	2	1	1	WARNING: missing SPAdes assembly of the SSU
+SRX1528097	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3243	59.500	CP014201.1046218.1047796	1015425	3497	30	12	22	
+SRX1528099	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3146	66.545	CP014201.1046218.1047796	1026416	3339	34	11	14	
+SRX1528102	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3290	120.000	CP014201.1046218.1047796	1025552	3542	40	8	20	
+SRX1528103	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3177	110.450	CP014201.1046218.1047796	1006054	3406	43	10	18	
+SRX1528104	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3248	63.545	CP014201.1046218.1047796	985350	3441	32	11	17	
+SRX1542927	Lactobacillus acetotolerans	Lactobacillus	Lactobacillus	20373	n.d.	AP014808.73744.75256	1121951	22101	7	0	13	
+SRX1546476	Lactobacillus harbinensis	Lactobacillus	Lactobacillus	3779	49.400	AB194126.1.1507	2041714	4599	18	5	17	
+SRX1546523	Lactobacillus harbinensis;Mus musculus (house mouse)	Lactobacillus;Mammalia	Choanozoa	3261	71.562	AB194126.1.1507;JC106267.3.1863	1538454	6397	29	8	19	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Mammalia) does not match top mapped taxon (Choanozoa)
+SRX155504	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	6163	206.125	FN692037.427906.429457	1441017	7103	39	4	16	
+SRX155505	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	6645	163.400	FN692037.427906.429457	1692818	7729	38	5	19	
+SRX155863	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4800	145.667	FN692037.427906.429457	1791379	5802	28	3	15	
+SRX155875	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4176	83.000	FN692037.427906.429457	1782161	5116	16	2	19	
+SRX1563608	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4284	26.500	CP014201.1046218.1047796	1570653	5058	5	1	14	
+SRX1563616	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3853	37.500	CP014201.1046218.1047796	1580099	4578	7	1	13	
+SRX1563623	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4144	22.167	CP014201.1046218.1047796	1601878	4885	7	3	14	
+SRX1563643	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4119	25.500	CP014201.1046218.1047796	1522220	4863	5	1	13	
+SRX1563649	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3951	n.d.	CP014201.1046218.1047796	1525377	4693	6	0	13	
+SRX1563852	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2830	12.250	CP014201.1046218.1047796	1091924	3292	3	2	10	
+SRX1564916	Lactobacillus casei	Lactobacillus	Lactobacillus	4915	n.d.	LS991421.296655.298204	1874513	5664	5	0	13	
+SRX1564925	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3659	16.500	CP014201.1046218.1047796	1592570	4330	3	1	12	
+SRX1565073	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3848	24.500	CP014201.1046218.1047796	1398550	4516	5	1	12	
+SRX1565095	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3371	14.500	CP014201.1046218.1047796	1491250	3947	6	4	10	
+SRX1565108	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3695	13.250	CP014201.1046218.1047796	1498409	4355	3	2	11	
+SRX1565157	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3819	29.000	CP014201.1046218.1047796	1479606	4443	6	1	11	
+SRX1615118	Lactobacillus fermentum	Lactobacillus	Lactobacillus	6820	12.500	AP017973.1435046.1436618	1579458	7775	3	3	11	
+SRX1760642	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	4173	7.667	AJ417500.1.1563	1804769	4201	4	3	5	
+SRX1760645	Lactobacillus lindneri	Lactobacillus	Lactobacillus	6896	n.d.	CP014907.97049.98633	1368250	7066	4	0	8	
+SRX1760646	Lactobacillus nagelii	Lactobacillus	Lactobacillus	5257	12.167	AB162131.1.1531	1790699	5449	5	3	8	
+SRX1879424	Lactobacillus harbinensis	Lactobacillus	Lactobacillus	2666	38.250	AB194126.1.1507	1193667	2735	11	2	8	
+SRX1970176	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1892	23.000	CP029686.1212146.1213724	1380369	1946	12	4	5	
+SRX1970177	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1541	23.000	CP029686.1212146.1213724	1299596	1580	8	2	7	
+SRX1970178	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1514	20.250	CP029686.1212146.1213724	1282171	1566	7	2	8	
+SRX2032381	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3310	65.000	CP000033.1632689.1634260	638846	3445	18	3	11	
+SRX2032382	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	9885	134.250	CP000033.1632689.1634260	932321	10503	21	2	24	
+SRX2032383	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3632	31.900	CP000033.1632689.1634260	692013	3904	13	5	15	
+SRX2032384	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	1684	15.250	CP000033.1632689.1634260	213346	1706	7	2	3	
+SRX2032385	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4249	59.167	CP000033.1632689.1634260	538501	4442	17	3	11	
+SRX2032386	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	2310	n.d.	CP000033.1632689.1634260	432073	2311	1	0	1	
+SRX2032387	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4493	67.083	CP000033.1632689.1634260	990050	4814	25	6	15	
+SRX2032388	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4271	28.000	CP000033.1632689.1634260	898003	4656	10	5	18	
+SRX2052678	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3637	11.083	AFYE01000091.124.1666	746053	3781	5	6	9	
+SRX2063621	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	2714	31.333	CP000033.1632689.1634260	592125	2858	16	6	10	
+SRX2105549	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3337	127.500	CP011769.1010671.1012246	1120430	3623	15	1	15	
+SRX2105550	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2447	23.400	CP011769.1010671.1012246	966567	2584	12	5	9	
+SRX2105551	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1904	12.000	CP011769.1010671.1012246	616746	1945	4	1	4	
+SRX2105552	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2072	12.250	CP032359.485125.486700	744784	2121	5	2	6	
+SRX2105553	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1762	98.250	CP011769.1010671.1012246	708184	1890	19	2	8	
+SRX2105554	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2203	405.000	CP011769.1010671.1012246	881223	2354	28	1	13	
+SRX2105555	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2528	110.000	CP011769.1010671.1012246	944349	2706	20	2	10	
+SRX2118809	Lactobacillus rogosae	Lachnospira	Lachnospira	2288	n.d.	GU269544.1.1452	1163256	3040	9	0	14	
+SRX2118812	Lactobacillus kefiranofaciens ZW3	Lactobacillus	Lactobacillus	1667	15.667	CP002764.142439.144002	860565	1705	8	3	5	
+SRX2126115	Lactobacillus apis	Lactobacillus	Lactobacillus	2791	8.000	CP029476.75988.77561	771039	2833	4	2	4	
+SRX2126118	Lactobacillus bombicola	Lactobacillus	Lactobacillus	3089	n.d.	FOMN01000019.107.1676	828681	3125	7	0	5	
+SRX2147351	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3681	14.000	CP029686.1212146.1213724	1517206	4204	2	1	12	
+SRX2147357	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4301	17.250	CP029686.1212146.1213724	1538032	4813	5	2	11	
+SRX2147359	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4929	37.000	CP029686.1212146.1213724	1915143	5676	10	2	12	
+SRX2147360	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5371	22.000	CP029686.1212146.1213724	1884475	6112	6	2	13	
+SRX2147361	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5376	22.000	CP029686.1212146.1213724	1886684	6162	4	1	14	
+SRX2147363	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5440	40.000	CP029686.1212146.1213724	1908085	6231	10	2	15	
+SRX2147364	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4655	n.d.	CP029686.1212146.1213724	1728825	5328	8	0	14	
+SRX2147366	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5506	n.d.	CP029686.1923855.1925433	2078718	6264	8	0	13	
+SRX2147367	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4906	20.900	CP029686.1212146.1213724	1747036	5618	7	5	16	
+SRX2147368	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4785	32.167	CP029686.1212146.1213724	1801101	5457	11	3	12	
+SRX2147369	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5270	23.250	CP029686.1212146.1213724	1893163	5974	7	2	11	
+SRX2147372	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4764	n.d.	CP029686.1212146.1213724	1644598	5464	11	0	15	
+SRX2147374	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4820	67.250	CP029686.1212146.1213724	1677448	5467	15	2	11	
+SRX2147376	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4583	23.500	CP029686.1212146.1213724	1695771	5226	10	4	11	
+SRX2147377	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4737	99.500	CP029686.1212146.1213724	1690972	5389	13	1	15	
+SRX2147379	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4861	73.167	CP029686.1212146.1213724	1641936	5510	19	3	13	
+SRX2147380	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5660	106.250	CP029686.1212146.1213724	1919980	6638	19	2	16	
+SRX2147382	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5427	38.000	CP029686.1212146.1213724	1775205	6167	10	2	13	
+SRX2147383	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5442	40.500	CP029686.1212146.1213724	1858605	6252	7	1	16	
+SRX2147386	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5130	n.d.	CP029686.1212146.1213724	1775022	5838	10	0	13	
+SRX2147387	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5481	36.125	CP029686.1212146.1213724	1934163	6281	13	4	15	
+SRX2147388	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5075	n.d.	CP029686.1212146.1213724	1803590	5846	13	0	13	
+SRX2147391	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5447	n.d.	CP029686.1212146.1213724	1746906	6172	7	0	13	
+SRX2147393	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5339	24.667	CP029686.1212146.1213724	1733372	6038	8	3	14	
+SRX2147395	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5335	27.400	CP029686.1212146.1213724	1670905	6067	12	5	13	
+SRX2147397	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5566	64.000	CP029686.1212146.1213724	1739921	6382	14	2	15	
+SRX2147398	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5010	n.d.	CP029686.1212146.1213724	1651363	5595	7	0	12	
+SRX2147400	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4984	37.500	CP029686.1212146.1213724	1759713	5627	7	1	13	
+SRX2147402	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4950	42.250	CP029686.1212146.1213724	1748643	5604	11	2	12	
+SRX2147404	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5133	60.167	CP029686.1212146.1213724	1729718	5794	17	3	12	
+SRX2147405	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4825	113.000	CP029686.1212146.1213724	1758475	5491	20	2	13	
+SRX2147410	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4785	24.250	CP029686.1212146.1213724	1718851	5445	7	2	12	
+SRX2147413	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5111	24.250	CP029686.1212146.1213724	1750896	5807	7	2	12	
+SRX2147418	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5182	13.667	CP029686.1212146.1213724	1755062	5856	4	3	11	
+SRX2147421	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4872	43.250	CP029686.1212146.1213724	1680189	5521	11	2	13	
+SRX2147423	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5039	n.d.	CP029686.1212146.1213724	1806044	5689	5	0	12	
+SRX2147425	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4688	60.000	CP029686.1212146.1213724	1613555	5297	14	2	11	
+SRX2147436	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4616	24.500	CP029686.1212146.1213724	1622429	5270	10	4	12	
+SRX2147437	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4614	41.900	CP029686.1212146.1213724	1668812	5245	17	5	13	
+SRX2147438	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4558	98.500	CP029686.1212146.1213724	1675448	5181	13	1	14	
+SRX2147440	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4353	25.250	CP029686.1212146.1213724	1621006	4951	7	2	13	
+SRX2147442	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4842	65.000	CP029686.1212146.1213724	1696272	5519	10	1	15	
+SRX2147444	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4770	63.000	CP029686.1212146.1213724	1669660	5398	10	1	13	
+SRX2147445	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4539	125.500	CP029686.1212146.1213724	1620733	5163	15	1	13	
+SRX2147446	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5157	17.000	CP029686.1212146.1213724	1719694	5790	4	2	13	
+SRX2147447	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4923	18.125	CP029686.1212146.1213724	1720823	5622	7	4	12	
+SRX2147449	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4763	14.500	CP029686.1212146.1213724	1642338	5365	6	4	10	
+SRX2147450	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4802	30.000	CP029686.1212146.1213724	1654487	5357	6	1	12	
+SRX2147452	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5019	21.667	CP029686.1212146.1213724	1672263	5602	8	3	11	
+SRX2147453	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4087	20.000	CP029686.1212146.1213724	1529594	4598	4	1	12	
+SRX215445	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4489	11.500	CP014201.1046218.1047796	1938338	4721	1	1	11	
+SRX215446	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4411	13.333	CP014201.1046218.1047796	2167484	4884	4	6	12	
+SRX215447	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4744	12.250	CP014201.1046218.1047796	2131650	4969	1	2	12	
+SRX215449	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3550	14.000	CP014201.1046218.1047796	1710756	3697	2	1	12	
+SRX2155602	Lactobacillus sp. C33LV5	Lactobacillus	Lactobacillus	5097	20.250	AF197125.1.1555	1263833	5543	5	2	14	
+SRX2155606	Lactobacillus mucosae	Lactobacillus	Lactobacillus	6153	27.000	AF126738.1.1568	1004908	6260	6	1	9	
+SRX2155608	Lactobacillus mucosae	Lactobacillus	Lactobacillus	5497	14.000	AF126738.1.1568	923801	5587	8	4	6	
+SRX2155629	Lactobacillus mucosae	Lactobacillus	Lactobacillus	4797	8.125	AF126738.1.1568	791083	4866	5	4	5	
+SRX2161487	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	573	n.d.	CP000033.1632689.1634260	148662	575	2	0	1	
+SRX2222449	Lactobacillus rhamnosus R0011	Lactobacillus	Lactobacillus	4196	91.333	AGKC01000003.469203.470782	1653342	5319	28	6	26	
+SRX2222450	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2701	29.750	CP014201.1046218.1047796	838668	2856	15	6	11	
+SRX2222451	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2802	34.125	CP014201.1046218.1047796	773845	2982	13	4	13	
+SRX2222452	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2658	33.125	CP014201.1046218.1047796	782103	2851	13	4	12	
+SRX2222453	Lactobacillus rhamnosus R0011	Lactobacillus	Lactobacillus	1953	47.000	AGKC01000003.469203.470782	566206	2092	12	2	11	
+SRX2222454	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2068	n.d.	CP014201.1046218.1047796	666902	2128	10	0	8	
+SRX2222455	Lactobacillus rhamnosus R0011	Lactobacillus	Lactobacillus	1200	18.250	AGKC01000003.469203.470782	352831	1243	7	2	6	
+SRX2239653	Nicotiana otophora;Arabidopsis thaliana (thale cress);Lactobacillus fermentum	Magnoliophyta;Chloroplast;Lactobacillus	Lactobacillus	5079	30.333	AWOL010353533.344.1803;AP000423.136147.137637;AP017973.1435046.1436618	1213007	7280	10	6	22	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Magnoliophyta;Chloroplast;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX2250249	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	5339	90.500	CP014201.1046218.1047796	2025061	6252	21	3	17	
+SRX2250250	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	5160	59.100	CP014201.1046218.1047796	2099349	6083	21	5	15	
+SRX2250251	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4549	14.000	CP014201.1046218.1047796	1506190	5179	4	2	10	
+SRX2250252	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4079	62.125	CP014201.1046218.1047796	1550579	4819	19	4	17	
+SRX2268563	Lactobacillus casei subsp. casei ATCC 393	Lactobacillus	Lactobacillus	3175	15.167	AP012544.709397.710970	922274	3235	7	3	7	
+SRX2268564	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2670	49.000	CP029686.1212146.1213724	937782	2857	12	2	13	
+SRX2268565	Lactobacillus casei subsp. casei ATCC 393	Lactobacillus	Lactobacillus	2225	10.000	AP012544.709397.710970	678755	2251	6	3	4	
+SRX2268566	Lactobacillus brevis KB290	Lactobacillus	Lactobacillus	3432	96.667	AP012167.920438.922003	665844	3634	22	3	16	
+SRX2268567	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2821	260.250	CP029686.1212146.1213724	976409	3255	31	2	20	
+SRX2268569	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2504	83.250	CP015408.302655.304239	591611	2731	17	2	11	
+SRX2268570	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	8629	56.200	CP003799.455041.456601	1157065	10694	18	10	40	
+SRX2268571	Lactobacillus reuteri	Lactobacillus	Lactobacillus	4337	25.000	CP015408.688490.690074	572178	4530	8	2	9	
+SRX2268572	Lactobacillus salivarius	Lactobacillus	Lactobacillus	7302	60.400	CP029616.1197226.1198775	653346	7595	22	5	12	
+SRX2268573	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2164	22.500	CP029686.1212146.1213724	786147	2254	9	3	9	
+SRX2268574	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	4133	39.125	CP003799.455041.456601	486450	4254	15	4	11	
+SRX2268575	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1929	12.250	CP029686.1212146.1213724	742732	1977	5	2	6	
+SRX2268576	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5128	111.000	CP029616.1197226.1198775	595124	5357	24	3	15	
+SRX2268577	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3536	42.900	CP029686.1212146.1213724	986795	3768	17	5	14	
+SRX2268578	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2543	33.333	CP029686.1212146.1213724	996028	2757	16	6	12	
+SRX2268579	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	2632	21.250	CP006603.682158.683754	619108	2737	7	2	9	
+SRX2268580			Lactobacillus	3268	30.125		721581	3397	13	4	9	WARNING: missing SPAdes assembly of the SSU
+SRX2268581	Lactobacillus reuteri DSM 20016	Lactobacillus	Lactobacillus	3003	9.250	CP000705.624382.625950	444662	3118	3	2	7	
+SRX2268582			Lactobacillus	2976	40.000		607326	3051	8	1	8	WARNING: missing SPAdes assembly of the SSU
+SRX2268583	Lactobacillus salivarius	Lactobacillus	Lactobacillus	5449	38.786	CP029616.1197226.1198775	620170	5810	19	7	13	
+SRX2268584	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2563	40.600	CP029686.1212146.1213724	943087	2818	16	5	15	
+SRX2268585	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	3190	127.500	CP003799.455041.456601	604015	3355	15	1	15	
+SRX2268586	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2341	32.333	CP029686.1212146.1213724	794583	2495	16	6	11	
+SRX2268587	Lactobacillus helveticus R0052	Lactobacillus	Lactobacillus	2646	31.125	CP003799.455041.456601	547379	2764	13	4	10	
+SRX244574	Streptococcus agalactiae	Streptococcus	Streptococcus	1448	12.125	HG939456.349924.351460	227241	1633	5	4	9	
+SRX247324	Lactobacillus murinus	Lactobacillus	Lactobacillus	5990	42.000	CP023566.832314.833884	1480852	7614	12	3	18	
+SRX247325	Lactobacillus murinus	Lactobacillus	Lactobacillus	7847	111.500	CP023566.832314.833884	1148820	9959	39	9	27	
+SRX2582455	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	3780	13.000	FN298497.455618.457268	435430	3841	4	1	5	
+SRX2582456	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	3434	n.d.	FN298497.455618.457268	552922	3490	3	0	7	
+SRX2582457	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	4023	n.d.	FN298497.455618.457268	501452	4081	3	0	7	
+SRX2582458	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	2680	5.000	FN298497.455618.457268	435306	2711	2	2	4	
+SRX2582459	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	2906	5.000	FN298497.455618.457268	444825	2941	2	2	4	
+SRX2582460	Lactobacillus johnsonii FI9785;Lactobacillus reuteri	Lactobacillus	Lactobacillus	3001	22.000	FN298497.455618.457268;CP015408.302655.304239	508727	3046	6	1	4	WARNING: Multiple SSUs were assembled by SPAdes
+SRX2582461	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	1989	9.500	CP006603.682158.683754	474167	2056	3	1	5	
+SRX2582462	Lactobacillus reuteri	Lactobacillus	Lactobacillus	1607	8.500	CP015408.302655.304239	433676	1672	3	1	4	
+SRX2582463	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2163	9.500	CP015408.302655.304239	606164	2237	3	1	5	
+SRX2582465	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	2751	16.500	CP006603.682158.683754	587457	2828	5	1	4	
+SRX2582466	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	2447	6.000	CP006603.682158.683754	636931	2546	0	1	6	
+SRX2582467	Lactobacillus sp. L0(2016)	Lactobacillus	Lactobacillus	2739	5.500	KX010808.1.1465	590117	2829	3	3	4	
+SRX2582468	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2002	7.000	CP015408.302655.304239	446108	2085	2	1	5	
+SRX2610825	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4296	37.500	CP000033.1632689.1634260	533382	4461	14	4	13	
+SRX2610826	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1557	n.d.	CP011769.1010671.1012246	470959	1578	5	0	4	
+SRX2610827	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2088	11.000	CP014201.1046218.1047796	693095	2130	6	3	5	
+SRX2610828	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	2328	16.000	CP006603.682158.683754	493518	2376	4	1	8	
+SRX2610829	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	4141	51.250	CP000033.1632689.1634260	553208	4246	13	2	9	
+SRX2610831	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	3729	119.125	CP000033.1632689.1634260	756284	3986	29	4	14	
+SRX2610836	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2391	14.125	CP011769.1010671.1012246	773363	2443	9	4	4	
+SRX2610839	Lactobacillus rhamnosus R0011	Lactobacillus	Lactobacillus	2557	58.100	AGKC01000003.469203.470782	813472	2754	21	5	14	
+SRX2610840	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1950	19.500	CP014201.1046218.1047796	662509	1991	5	1	7	
+SRX2641059	Lactobacillus salivarius	Lactobacillus	Lactobacillus	9309	119.050	CP017107.541095.542664	965900	10410	41	10	35	
+SRX2641073	Lactobacillus reuteri	Lactobacillus	Lactobacillus	6262	42.600	CP015408.302655.304239	949934	6595	16	5	17	
+SRX2641081	Lactobacillus salivarius	Lactobacillus	Lactobacillus	11528	112.042	CP020858.11247.12815	978425	13691	41	12	42	
+SRX2641165	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	12670	222.083	FN298497.455618.457268	1114925	14494	47	6	38	
+SRX2641191	Lactobacillus reuteri	Lactobacillus	Lactobacillus	5037	50.500	CP015408.302655.304239	891143	5205	15	3	13	
+SRX2641200	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	10242	45.000	AJ417737.1.1546	880183	10481	16	4	13	
+SRX2641222	Lactobacillus salivarius	Lactobacillus	Lactobacillus	8892	55.000	CP017107.117066.118635	850554	9467	24	8	19	
+SRX2641232	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	8674	182.250	AJ417737.1.1546	798933	9215	25	2	26	
+SRX2641234	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	5404	50.125	AJ417737.1.1546	765363	5666	17	4	14	
+SRX2641236	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	3364	48.125	AJ417737.1.1546	778623	3546	17	4	12	
+SRX2641251	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	2643	59.000	AJ417737.1.1546	672168	2756	20	4	9	
+SRX2660270	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2234	14.250	FN692037.427906.429457	458350	2249	7	2	2	
+SRX2699459	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2962	57.800	CP011769.1010671.1012246	1103586	3214	26	10	24	
+SRX2736144	Ochotona princeps (American pika);Lactobacillus paragasseri	Mammalia;Lactobacillus	Lactobacillus	4474	7.500	AAYZ01424023.1547.2934;AP018549.475961.477529	935027	4600	3	3	6	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Mammalia;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX2736145	Erinaceus europaeus (western European hedgehog)	Mammalia	Choanozoa	182	3.250	AANN01653944.1.1854	983021	341	1	2	3	WARNING: Assembly taxon (Mammalia) does not match top mapped taxon (Choanozoa)
+SRX2736146	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3756	9.500	AP018549.475961.477529	955161	3942	3	3	8	
+SRX2736147	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4158	n.d.	AP018549.475961.477529	961870	4332	8	0	7	
+SRX2736148	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3914	8.000	AP018549.475961.477529	1003031	4066	4	4	6	
+SRX2736149	Lactobacillus paragasseri;Bos mutus (wild yak)	Lactobacillus;Mammalia	Lactobacillus	4140	n.d.	AP018549.475961.477529;CP027095.5202018.5203876	1202911	4328	5	0	9	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Mammalia) does not match top mapped taxon (Lactobacillus)
+SRX2741187	Erinaceus europaeus (western European hedgehog)	Mammalia	Choanozoa	182	3.250	AANN01653944.1.1854	983021	341	1	2	3	WARNING: Assembly taxon (Mammalia) does not match top mapped taxon (Choanozoa)
+SRX2741188	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3756	9.500	AP018549.475961.477529	955161	3942	3	3	8	
+SRX2741189	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4158	n.d.	AP018549.475961.477529	961870	4332	8	0	7	
+SRX2741190	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3914	8.000	AP018549.475961.477529	1003031	4066	4	4	6	
+SRX2741191	Bos mutus (wild yak);Lactobacillus paragasseri	Mammalia;Lactobacillus	Lactobacillus	4140	n.d.	CP027095.5202018.5203876;AP018549.475961.477529	1202911	4328	5	0	9	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Mammalia;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX2741192	Ochotona princeps (American pika);Lactobacillus paragasseri	Mammalia;Lactobacillus	Lactobacillus	4474	6.500	AAYZ01424023.1547.2934;AP018549.475961.477529	935027	4600	2	4	6	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Mammalia;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX2789243	Lactobacillus paragasseri;Bos mutus (wild yak)	Lactobacillus;Mammalia	Lactobacillus	4140	n.d.	AP018549.475961.477529;CP027095.5202018.5203876	1202911	4328	5	0	9	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Mammalia) does not match top mapped taxon (Lactobacillus)
+SRX2789244	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3914	8.000	AP018549.475961.477529	1003031	4066	4	4	6	
+SRX2789245	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4158	n.d.	AP018549.475961.477529	961870	4332	8	0	7	
+SRX2789246	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3756	9.500	AP018549.475961.477529	955161	3942	3	3	8	
+SRX2789247	Erinaceus europaeus (western European hedgehog)	Mammalia	Choanozoa	182	3.250	AANN01653944.1.1854	983021	341	1	2	3	WARNING: Assembly taxon (Mammalia) does not match top mapped taxon (Choanozoa)
+SRX2789248	Ochotona princeps (American pika);Lactobacillus paragasseri	Mammalia;Lactobacillus	Lactobacillus	4474	7.500	AAYZ01424023.1547.2934;AP018549.475961.477529	935027	4600	3	3	6	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Mammalia;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX2940497	Lactobacillus brevis	Lactobacillus	Lactobacillus	3596	217.000	CP016797.866760.868334	944107	3795	20	1	17	
+SRX2940500	Lactobacillus brevis BSO 464	Lactobacillus	Lactobacillus	1872	20.750	CP005977.441566.443148	671451	2001	9	6	14	
+SRX2940501	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2184	348.000	CP011769.1010671.1012246	937670	2346	26	1	10	
+SRX298584	Lactobacillus parabrevis	Lactobacillus	Lactobacillus	4164	26.500	AM158250.1.1518	1240113	4319	9	3	13	
+SRX301579	Eggerthia catenaformis OT 569 = DSM 20559	Eggerthia	Eggerthia	3224	37.500	AGEJ01000008.84769.86302	1223787	3391	14	4	13	
+SRX301614	Lactobacillus ceti	Lactobacillus	Lactobacillus	6264	59.250	AM292799.1.1397	1295527	7586	13	2	17	
+SRX301752	Lactobacillus saerimneri	Lactobacillus	Lactobacillus	2932	23.500	AY255802.1.1568	713158	3169	9	3	10	
+SRX301765	Lactobacillus rossiae DSM 15814	Lactobacillus	Lactobacillus	1402	30.125	AKZK01000036.81.1634	1114013	2060	13	4	9	
+SRX301867	Lactobacillus harbinensis	Lactobacillus	Lactobacillus	2978	31.167	AB194126.1.1507	1397836	3120	11	3	11	
+SRX301885	Lactobacillus jensenii	Lactobacillus	Lactobacillus	2819	17.000	CP018809.1516019.1517589	699537	3031	4	1	9	
+SRX3104383	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	4304	n.d.	AEPX01000015.105.1663	616932	4544	4	0	8	
+SRX3104384	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	4422	12.000	AEPX01000015.105.1663	734568	5176	2	1	10	
+SRX3104388	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	4311	n.d.	AEPX01000015.105.1663	649971	4532	4	0	9	
+SRX3104392	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3293	n.d.	AP018549.475961.477529	780883	3403	0	0	7	
+SRX3155943	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	4127	7.500	AP018549.475961.477529	842063	4279	1	1	7	
+SRX334092	Lactobacillus curvatus	Lactobacillus	Lactobacillus	4310	40.167	AP018699.1478534.1480099	1066358	5289	13	3	12	
+SRX334093	Lactobacillus curvatus	Lactobacillus	Lactobacillus	7887	229.143	AP018699.1478534.1480099	1398622	12333	52	7	36	
+SRX334094	Lactobacillus curvatus	Lactobacillus	Lactobacillus	4352	38.000	AP018699.1478534.1480099	1078995	5358	10	2	13	
+SRX334095	Lactobacillus curvatus	Lactobacillus	Lactobacillus	6958	124.000	AP018699.1478534.1480099	1286207	11292	48	12	28	
+SRX365193	Lactobacillus fabifermentans	Lactobacillus	Lactobacillus	1607	52.250	AM905388.1.1532	938254	1701	13	2	10	
+SRX3749552	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2808	24.000	CP029686.1212146.1213724	989073	2839	6	1	6	
+SRX3749553	Homo sapiens (human);Lactobacillus paracasei	Mammalia;Lactobacillus	Lactobacillus	3484	72.000	LDOC03007328.18.1810;CP029686.1212146.1213724	1003027	3937	28	7	16	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Mammalia;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX3749554	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4394	191.500	CP029686.1212146.1213724	983001	4506	19	1	11	
+SRX3749555	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5851	n.d.	CP029686.1212146.1213724	1656433	6554	7	0	12	
+SRX3749556	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3540	18.000	CP029686.1212146.1213724	1016478	3955	6	2	9	
+SRX3749557	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5091	15.500	CP029686.1212146.1213724	1777029	5722	3	3	14	
+SRX3749558	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4480	17.500	CP029686.1212146.1213724	1600867	5103	3	1	13	
+SRX3749559	Lactobacillus paracasei;Pseudomonas sp. TKP	Lactobacillus;Pseudomonas	Lactobacillus	3759	53.083	CP029686.1212146.1213724;CP006852.6275210.6276747	1542065	4589	19	6	23	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Pseudomonas) does not match top mapped taxon (Lactobacillus)
+SRX3749560	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4251	69.167	CP029686.1212146.1213724	1479069	5056	17	3	21	
+SRX3749561	Achromobacter ruhlandii;Lactobacillus paracasei;Pseudomonas sp. TKP;Serratia marcescens	Alcaligenaceae;Lactobacillus;Pseudomonas;Serratia	Lactobacillus	3153	129.000	CP017433.688345.689808;CP029686.1212146.1213724;CP006852.6275210.6276747;AP019009.4644526.4646063	1612925	4159	20	2	29	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Alcaligenaceae;Lactobacillus;Pseudomonas;Serratia) does not match top mapped taxon (Lactobacillus)
+SRX3749562	Pseudomonas fluorescens;Lactobacillus paracasei	Pseudomonas;Lactobacillus	Lactobacillus	3678	49.125	CP015637.742874.744420;CP029686.1212146.1213724	1570026	4426	15	4	21	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Pseudomonas;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX3749563	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3994	22.000	CP029686.1212146.1213724	1511336	4489	6	2	13	
+SRX3749564	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4183	11.500	CP029686.1212146.1213724	1504553	4707	2	4	11	
+SRX3749565	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4054	n.d.	CP029686.1212146.1213724	1540136	4577	4	0	11	
+SRX3749566	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4049	22.500	CP029686.1212146.1213724	1522507	4529	5	1	10	
+SRX3749567	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2954	3.667	CP029686.1212146.1213724	1093765	2964	4	3	1	
+SRX3749568	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4680	18.500	CP029686.1212146.1213724	961663	4732	5	1	6	
+SRX3749569	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2893	n.d.	CP029686.1212146.1213724	1069880	2910	4	0	4	
+SRX3749570	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2887	4.000	CP029686.1212146.1213724	1118094	2904	2	2	3	
+SRX3749571	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4462	112.571	CP029686.1212146.1213724	1300849	4812	36	7	20	
+SRX3749572	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3899	29.000	CP029686.1212146.1213724	1471968	4429	6	1	11	
+SRX3749573	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3997	64.500	CP029686.1212146.1213724	1293386	4042	11	1	4	
+SRX3749574	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4589	n.d.	CP029686.1212146.1213724	1518625	5128	5	0	11	
+SRX3749575	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4074	n.d.	CP029686.1212146.1213724	1497057	4551	5	0	10	
+SRX3749576	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4300	14.000	CP029686.1212146.1213724	1536133	4760	4	2	10	
+SRX3749577	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4285	12.500	CP029686.1212146.1213724	1518548	4799	1	1	12	
+SRX3749578	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4580	13.000	CP029686.1212146.1213724	1512119	5178	2	2	12	
+SRX3749579	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3883	67.250	CP029686.1212146.1213724	1522244	4397	15	2	11	
+SRX3749580	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4128	16.250	CP029686.1212146.1213724	1515599	4580	5	2	10	
+SRX3749581	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4494	13.500	CP029686.1212146.1213724	1517445	5004	6	4	9	
+SRX3749582	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4706	18.250	CP029686.1212146.1213724	1595035	5296	5	2	12	
+SRX3749583	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4924	n.d.	CP029686.1212146.1213724	1808732	5611	6	0	15	
+SRX3749584	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4071	30.000	CP029686.1212146.1213724	1545584	4680	6	1	12	
+SRX3749585	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5441	24.250	CP029686.1212146.1213724	1988840	6203	7	2	12	
+SRX3749586	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4332	14.667	CP029686.1212146.1213724	1518546	4903	4	3	12	
+SRX3749587	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4286	25.250	CP029686.1212146.1213724	1524585	4849	7	2	13	
+SRX3749588	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4110	13.000	CP029686.1212146.1213724	1494658	4635	2	1	11	
+SRX3749589	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4202	12.250	CP029686.1212146.1213724	1529102	4724	3	2	10	
+SRX3749590	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4512	50.500	CP029686.1212146.1213724	1533649	5064	9	1	10	
+SRX3749591	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4549	13.000	CP029686.1212146.1213724	1549024	5130	2	1	11	
+SRX3749592	Lactobacillus paracasei	Lactobacillus	Lactobacillus	5162	14.000	CP029686.1212146.1213724	1896510	5897	4	4	12	
+SRX3749593	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4180	n.d.	CP029686.1212146.1213724	1472325	4717	4	0	11	
+SRX377710			Lactobacillus	107	3.000		913531	111	2	1	1	WARNING: missing SPAdes assembly of the SSU
+SRX3865657	Lactobacillus brevis KB290	Lactobacillus	Lactobacillus	1920	31.600	AP012167.920438.922003	679658	2062	14	5	12	
+SRX3865658	Lactobacillus brevis KB290	Lactobacillus	Lactobacillus	749	24.000	AP012167.920438.922003	271255	797	6	1	6	
+SRX3865659	Lactobacillus brevis	Lactobacillus	Lactobacillus	2490	15.167	CP016797.866760.868334	643066	2551	7	3	7	
+SRX3865660	Lactobacillus brevis KB290	Lactobacillus	Lactobacillus	2619	38.000	AP012167.920438.922003	903542	2751	12	3	14	
+SRX3865661	Lactobacillus brevis BSO 464	Lactobacillus	Lactobacillus	2349	29.400	CP005977.441566.443148	694425	2605	12	5	15	
+SRX3865662	Lactobacillus brevis KB290	Lactobacillus	Lactobacillus	1993	39.000	AP012167.920438.922003	591802	2102	10	2	14	
+SRX3908887	Lactobacillus plantarum	Lactobacillus	Lactobacillus	797	6.500	CP032359.485125.486700	294750	810	3	1	2	
+SRX3908888	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2634	45.125	CP032359.485125.486700	951483	2766	17	4	9	
+SRX3908889	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1853	7.000	CP011769.1010671.1012246	632656	1902	2	1	5	
+SRX3908890	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2388	27.250	CP011769.451539.453114	813978	2477	9	2	7	
+SRX3908891	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2692	14.167	CP032359.485125.486700	890126	2769	7	3	6	
+SRX3908892	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2063	22.667	CP032359.485125.486700	789066	2137	10	3	6	
+SRX3908893	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2160	149.500	CP011769.1010671.1012246	831229	2249	17	1	5	
+SRX3908894	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2247	16.667	CP032359.485125.486700	821496	2324	8	3	6	
+SRX3908895	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1031	66.500	CP032359.485125.486700	366347	1078	11	1	6	
+SRX3908896	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2564	80.250	CP011769.1010671.1012246	947608	2688	17	2	8	
+SRX3908897	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2473	230.500	CP032359.485125.486700	898728	2607	21	1	10	
+SRX3908898	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1699	n.d.	CP032359.485125.486700	628362	1738	6	0	5	
+SRX3908899	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2190	n.d.	CP011769.1010671.1012246	693953	2232	3	0	7	
+SRX4367479	Lactobacillus fermentum	Lactobacillus	Lactobacillus	4526	87.000	AP017973.1435046.1436618	1200104	4815	24	4	15	
+SRX4395584	Lactobacillus murinus	Lactobacillus	Lactobacillus	4392	11.667	CP023566.832314.833884	256210	4855	2	3	11	
+SRX4395742	Lactobacillus murinus	Lactobacillus	Lactobacillus	3990	n.d.	CP023566.832314.833884	917824	4441	7	0	8	
+SRX4395847	Lactobacillus murinus	Lactobacillus	Lactobacillus	848	n.d.	CP023566.832314.833884	1043286	961	6	0	6	
+SRX4395848	Lactobacillus murinus	Lactobacillus	Lactobacillus	2612	n.d.	CP023566.832314.833884	938103	2955	5	0	11	
+SRX4395855	Lactobacillus murinus	Lactobacillus	Lactobacillus	2734	8.500	CP023566.832314.833884	936020	3027	2	4	8	
+SRX4395905			Lactobacillus	88	n.d.		573571	104	5	0	3	WARNING: missing SPAdes assembly of the SSU
+SRX4417045	Lactobacillus fermentum	Lactobacillus	Lactobacillus	10763	204.000	CP025592.1563082.1564661	1970054	13077	70	14	29	
+SRX4417046	Lactobacillus fermentum	Lactobacillus	Lactobacillus	10481	263.286	AP017973.1435046.1436618	1868034	12697	58	7	23	
+SRX4417052	Lactobacillus plantarum	Lactobacillus	Lactobacillus	3064	18.250	CP011769.1010671.1012246	1077276	3147	7	2	6	
+SRX4417054	Lactobacillus paraplantarum	Lactobacillus	Lactobacillus	3065	25.000	CP032744.1079068.1080643	1083910	3146	6	1	7	
+SRX4417055	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3293	12.000	CP029686.1923855.1925433	1056115	3379	4	4	10	
+SRX4417056	Lactobacillus paracasei	Lactobacillus	Lactobacillus	9741	172.375	CP029686.1212146.1213724	2243231	13947	57	12	37	
+SRX4417057	Lactobacillus paracasei	Lactobacillus	Lactobacillus	6722	144.300	CP029686.1212146.1213724	2166578	9547	57	15	36	
+SRX4417058	Lactobacillus plantarum	Lactobacillus	Lactobacillus	6140	265.250	CP011769.1010671.1012246	2309873	7738	62	8	25	
+SRX4417059	Lactobacillus plantarum	Lactobacillus	Lactobacillus	6279	142.227	CP011769.451539.453114	2222473	7899	51	11	24	
+SRX4417060	Lactobacillus plantarum	Lactobacillus	Lactobacillus	6198	375.083	CP032359.485125.486700	2306644	7810	65	6	23	
+SRX4417061	Lactobacillus brevis BSO 464	Lactobacillus	Lactobacillus	5552	272.227	CP005977.441566.443148	1745202	8289	73	11	30	
+SRX4417062	Lactobacillus brevis BSO 464	Lactobacillus	Lactobacillus	6061	142.667	CP005977.441566.443148	1946572	8540	52	12	30	
+SRX4417063	Lactobacillus plantarum	Lactobacillus	Lactobacillus	5867	322.562	CP032359.485125.486700	2431131	7444	69	8	25	
+SRX4417065	Lactobacillus paracasei	Lactobacillus	Lactobacillus	6864	91.500	CP029686.1212146.1213724	2055961	9574	33	9	31	
+SRX4526082	Lactobacillus micheneri	Lactobacillus	Streptophyta	3411	324.919	KT833121.1.1549	106552	17495	123	43	149	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Streptophyta)
+SRX4526083			Lactobacillus	28215	377.509		534597	113746	155	56	163	WARNING: missing SPAdes assembly of the SSU
+SRX4526084	Lactobacillus micheneri	Lactobacillus	Pseudomonas	9840	760.520	KT833121.1.1549	253951	66868	285	124	433	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Pseudomonas)
+SRX4526085			Lactobacillus	33519	476.687		575734	135513	196	67	190	WARNING: missing SPAdes assembly of the SSU
+SRX4526086	Lactobacillus micheneri	Lactobacillus	Streptophyta	7746	420.065	KT833121.1.1549	290418	36113	170	62	187	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Streptophyta)
+SRX4526087			Streptophyta	5909	439.446		140938	29705	153	46	185	WARNING: missing SPAdes assembly of the SSU
+SRX4526089	Lactobacillus micheneri	Lactobacillus	Lactobacillus	31836	484.042	KT833121.1.1549	497234	129814	170	48	183	
+SRX4526090	Lactobacillus micheneri	Lactobacillus	Streptophyta	1876	267.610	KT833121.1.1549	165634	9453	120	41	92	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Streptophyta)
+SRX4526091	Lactobacillus micheneri	Lactobacillus	Streptophyta	4234	379.510	KT833121.1.1549	145782	19311	151	48	142	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Streptophyta)
+SRX4526093	Lactobacillus micheneri	Lactobacillus	Lactobacillus	19286	467.516	KT833121.1.1549	452770	75043	145	32	139	
+SRX4526094	Lactobacillus micheneri	Lactobacillus	Streptophyta	7589	418.221	KT833121.1.1549	168280	40763	159	61	211	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Streptophyta)
+SRX4526095	Lactobacillus micheneri	Lactobacillus	Lactobacillus	4554	511.450	KT833121.1.1549	346369	24811	231	90	215	
+SRX4526096			Streptophyta	8139	520.516		237408	42513	194	62	217	WARNING: missing SPAdes assembly of the SSU
+SRX4526097	Lactobacillus micheneri	Lactobacillus	Lactobacillus	25342	553.000	KT833121.1.1549	566179	100231	168	36	161	
+SRX4526098	Lactobacillus micheneri	Lactobacillus	(Eukaryota)	3510	544.720	KT833121.1.1549	202824	24103	227	84	238	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon ((Eukaryota))
+SRX4526099	Lactobacillus micheneri	Lactobacillus	Lactobacillus	48585	450.811	KT833121.1.1549	583007	197521	188	74	212	
+SRX4526100	Lactobacillus micheneri	Lactobacillus	Lactobacillus	58318	549.777	KT833121.1.1549	572565	237410	201	65	239	
+SRX4526101	Lactobacillus micheneri	Lactobacillus	Pseudomonas	7002	697.970	KT833121.1.1549	236021	50876	275	116	372	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Pseudomonas)
+SRX4526102	Lactobacillus micheneri	Lactobacillus	Pseudomonas	12620	833.402	KT833121.1.1549	324592	84912	290	117	474	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Pseudomonas)
+SRX4526103			(Eukaryota)	19457	1002.004		732593	136397	319	120	578	WARNING: missing SPAdes assembly of the SSU
+SRX4526104	Lactobacillus micheneri	Lactobacillus	(Eukaryota)	10030	797.540	KT833121.1.1549	371386	69577	283	112	440	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon ((Eukaryota))
+SRX4526105	Lactobacillus micheneri	Lactobacillus	Pseudomonas	10193	759.167	KT833121.1.1549	261588	68124	258	108	451	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon (Pseudomonas)
+SRX4526106			Pseudomonas	14442	783.098		460199	101340	261	128	517	WARNING: missing SPAdes assembly of the SSU
+SRX4526107	Lactobacillus micheneri	Lactobacillus	Lactobacillus	27431	584.612	KT833121.1.1549	346374	112714	183	40	166	
+SRX4526108	Lactobacillus micheneri	Lactobacillus	(Eukaryota)	3739	536.888	KT833121.1.1549	151685	25460	224	89	255	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon ((Eukaryota))
+SRX4526109	Lactobacillus kunkeei	Lactobacillus	(Eukaryota)	3139	510.910	CP012920.557031.558613	202654	19306	229	83	195	WARNING: Assembly taxon (Lactobacillus) does not match top mapped taxon ((Eukaryota))
+SRX4526110	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	22473	447.115	CP012920.557031.558613	698107	89265	174	52	156	
+SRX456224	Lactobacillus bifermentans	Lactobacillus	Lactobacillus	4960	25.062	JN175330.1.1500	1860135	6000	9	8	20	
+SRX456225	Lactobacillus curvatus	Lactobacillus	Lactobacillus	11059	86.333	AP018699.1478534.1480099	1227190	12955	28	6	21	
+SRX456226	Lactobacillus delbrueckii subsp. indicus	Lactobacillus	Lactobacillus	14640	46.667	CP018614.1644696.1646266	1282207	15610	14	3	14	
+SRX456227	Lactobacillus delbrueckii subsp. lactis DSM 20072	Lactobacillus	Lactobacillus	18413	86.125	AEXU01000148.103.1654	1451936	19787	23	4	20	
+SRX456228	Lactobacillus helveticus CNRZ32	Lactobacillus	Lactobacillus	6629	18.062	CP002081.81315.82885	1876073	7350	7	8	15	
+SRX456229	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4062	61.000	CP029686.1212146.1213724	1565066	4540	14	2	12	
+SRX456230	Lactobacillus paracasei	Lactobacillus	Lactobacillus	3516	21.000	CP029686.1212146.1213724	1185106	3540	6	1	3	
+SRX456231	Lactobacillus agilis	Lactobacillus	Lactobacillus	6334	67.400	CP016766.1625693.1627264	1268314	7462	22	5	19	
+SRX456232	Lactobacillus concavus	Lactobacillus	Lactobacillus	4599	23.100	AY683322.1.1528	1073867	5895	9	5	15	
+SRX456233	Lactobacillus coryniformis subsp. torquens DSM 20004 = KCTC 3535	Lactobacillus	Lactobacillus	9486	42.333	CP017697.1963169.1964747	1848467	13252	14	6	26	
+SRX456234	Lactobacillus paracollinoides	Lactobacillus	Lactobacillus	3718	30.167	CP014924.115701.117273	1811758	4424	7	3	22	
+SRX456235	Lactobacillus sharpeae;Lactobacillus salivarius	Lactobacillus	Lactobacillus	5345	39.600	M58831.1.1522;LT604074.1311125.1312666	2021589	6921	14	5	20	WARNING: Multiple SSUs were assembled by SPAdes
+SRX456236	Lactobacillus aquaticus	Lactobacillus	Lactobacillus	6491	33.900	DQ664203.1.1528	1406659	7886	13	5	17	
+SRX456237	Lactobacillus equicursoris	Lactobacillus	Lactobacillus	16165	34.333	AB290830.1.1486	1625439	18701	14	6	18	
+SRX456238	Lactobacillus equigenerosi	Lactobacillus	Lactobacillus	6265	41.000	AB288049.1.1516	1100987	7851	10	2	16	
+SRX456239	Lactobacillus johnsonii ATCC 33200	Lactobacillus	Lactobacillus	10431	62.000	ACGR01000047.118.1678	1934434	11899	14	2	13	
+SRX456240	Lactobacillus jensenii	Lactobacillus	Lactobacillus	8688	63.000	CP018809.1516019.1517589	1125588	10033	14	2	14	
+SRX456241	Lactobacillus rennini	Lactobacillus	Lactobacillus	6987	39.167	AJ576007.1.1546	1605963	8793	11	3	19	
+SRX456242	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	7472	38.167	AFYE01000091.124.1666	1258376	9111	11	3	18	
+SRX456243	Lactobacillus vaccinostercus	Lactobacillus	Lactobacillus	8287	27.667	AM113786.1.1553	1495469	9405	8	3	17	
+SRX456244	Lactobacillus versmoldensis DSM 14857 = KCTC 3814	Lactobacillus	Lactobacillus	4621	19.250	BACR01000055.89.1642	1841412	5200	5	2	13	
+SRX456245	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2483	10.000	FN692037.427906.429457	725511	2502	4	1	2	
+SRX456246	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	1687	10.250	CP000033.1632689.1634260	756621	1711	5	2	4	
+SRX456247	Lactobacillus animalis KCTC 3501 = DSM 20602	Lactobacillus	Lactobacillus	8738	57.500	AEOF01000010.3322.4865	1518231	10147	9	1	17	
+SRX456248	Lactobacillus antri DSM 16041	Lactobacillus	Lactobacillus	4731	n.d.	ACLL01000037.71.1634	1418482	5081	9	0	12	
+SRX456249	Lactobacillus apodemi	Lactobacillus	Lactobacillus	4705	n.d.	AJ871178.1.1532	1332613	5741	19	0	19	
+SRX456250	Lactobacillus aviarius	Lactobacillus	Lactobacillus	5535	26.667	AB326355.1.1488	1089975	6195	8	3	16	
+SRX456251	Lactobacillus brantae	Lactobacillus	Lactobacillus	7169	20.250	HQ022861.1.2246	1611240	9851	5	2	14	
+SRX456252	Lactobacillus coleohominis	Lactobacillus	Lactobacillus	3503	24.500	AM113776.1.1564	1129777	3931	5	1	12	
+SRX456253	Lactobacillus equi	Lactobacillus	Lactobacillus	5238	56.125	AB048833.1.1432	1358486	8070	17	4	20	
+SRX456254	Lactobacillus gallinarum	Lactobacillus	Lactobacillus	5564	14.600	AJ417737.1.1546	1141475	6226	6	5	11	
+SRX456255	Lactobacillus gigeriorum	Lactobacillus	Lactobacillus	6416	23.500	FR681899.1.1448	1295506	7603	5	1	11	
+SRX456256	Lactobacillus hamsteri	Lactobacillus	Lactobacillus	6914	61.167	AJ306298.1.1510	1691731	7682	17	3	13	
+SRX456257	Lactobacillus hayakitensis	Lactobacillus	Lactobacillus	17284	56.571	AB267406.1.1484	1973409	21565	22	7	22	
+SRX456258	Lactobacillus hominis	Lactobacillus	Lactobacillus	5393	43.000	FR681902.1.1718	1251808	5893	8	1	11	
+SRX456259	Lactobacillus iners ATCC 55195	Lactobacillus	Lactobacillus	13779	37.000	AEPX01000015.105.1663	1201440	15602	12	3	13	
+SRX456260	Lactobacillus ingluviei	Lactobacillus	Lactobacillus	8556	23.667	AF317702.1.1532	1802884	9519	8	3	13	
+SRX456261	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	4109	25.125	AJ306299.1.1513	1078748	4694	9	4	15	
+SRX456262	Lactobacillus jensenii	Lactobacillus	Lactobacillus	3120	23.500	CP018809.1516019.1517589	1156416	3752	9	3	10	
+SRX456263	Lactobacillus kalixensis	Lactobacillus	Lactobacillus	4770	14.667	AY253657.1.1555	1098175	5554	2	3	14	
+SRX456264	Lactobacillus mucosae	Lactobacillus	Lactobacillus	8663	53.500	AF126738.1.1568	1470950	9542	9	1	13	
+SRX456265	Lactobacillus murinus	Lactobacillus	Lactobacillus	8770	58.500	CP023566.832314.833884	1837066	10491	18	4	18	
+SRX456266	Lactobacillus oris	Lactobacillus	Lactobacillus	5904	53.500	CP014789.8842.10425	1339624	6390	9	1	13	
+SRX456267	Lactobacillus pantheris	Lactobacillus	Lactobacillus	4173	33.250	AF413523.1.1559	1960962	4972	9	2	13	
+SRX456268	Lactobacillus parabuchneri	Lactobacillus	Lactobacillus	6520	30.125	CP018796.1956265.1957835	1627579	7267	13	4	9	
+SRX456269	Lactobacillus pasteurii DSM 23907 = CRBIP 24.76	Lactobacillus	Lactobacillus	5791	n.d.	AYZN01000032.115.1658	1326198	6826	8	0	11	
+SRX456270	Lactobacillus reuteri	Lactobacillus	Lactobacillus	10928	41.500	CP015408.688490.690074	1505273	12343	7	1	17	
+SRX456271	Lactobacillus saerimneri	Lactobacillus	Lactobacillus	8259	37.167	AY255802.1.1568	1223190	10627	11	3	17	
+SRX456272	Lactobacillus salivarius	Lactobacillus	Lactobacillus	20699	33.125	CP029616.1197226.1198775	1218835	24120	11	4	18	
+SRX456273	Lactobacillus senioris	Lactobacillus	Lactobacillus	6224	26.250	AB602570.1.1562	1239694	7550	7	2	14	
+SRX456274	Lactobacillus ultunensis DSM 16047	Lactobacillus	Lactobacillus	3884	52.500	ACGU01000081.106.1657	1270717	4306	9	1	12	
+SRX456275	uncultured bacterium	Lactobacillus	Lactobacillus	8883	16.500	AY959177.1.1555	1087435	9448	6	4	12	
+SRX456276	Lactobacillus kitasatonis	Lactobacillus	Lactobacillus	5828	108.125	AB107638.1.1506	1363182	6421	27	4	17	
+SRX456277	Lactobacillus gastricus	Lactobacillus	Lactobacillus	2754	50.500	AY253658.1.1550	1110554	3259	15	3	13	
+SRX456278	Lactobacillus brevis BSO 464	Lactobacillus	Lactobacillus	3324	8.000	CP005977.441566.443148	941734	3397	4	4	6	
+SRX456279	Lactobacillus amylophilus DSM 20533 = JCM 1125	Lactobacillus	Lactobacillus	2314	30.500	CP018888.1144590.1146171	597182	2534	7	1	6	
+SRX456280	Lactobacillus amylovorus DSM 20531	Lactobacillus	Lactobacillus	1935	6.000	CP017706.659927.661500	767613	1947	4	2	2	
+SRX456281	Lactobacillus aviarius subsp. araffinosus	Lactobacillus	Lactobacillus	3840	n.d.	JX986976.1.1515	818593	4883	6	0	17	
+SRX456282	Lactobacillus acidipiscis	Lactobacillus	Lactobacillus	1824	31.000	LT630287.864207.865795	1506878	2141	12	4	13	
+SRX456283	Lactobacillus algidus	Lactobacillus	Lactobacillus	6565	27.000	AB033209.1.1505	1341826	9033	6	3	21	
+SRX456284	Lactobacillus alimentarius DSM 20249	Lactobacillus	Lactobacillus	3921	37.000	CP018867.982380.983954	1345660	4477	10	2	12	
+SRX456285	Lactobacillus farciminis KCTC 3681 = DSM 20184	Lactobacillus	Lactobacillus	4730	28.125	CP017702.869524.871097	1320980	5196	11	4	13	
+SRX456286	Lactobacillus fuchuensis	Lactobacillus	Lactobacillus	7293	25.125	JX986973.1.1524	1422711	9102	9	4	15	
+SRX456287	Lactobacillus oligofermentans DSM 15707 = LMG 22743	Lactobacillus	Lactobacillus	9797	43.000	LN898144.1236251.1237819	1912209	11321	12	3	19	
+SRX456288	Lactobacillus sakei	Lactobacillus	Lactobacillus	8847	23.100	CP020459.1926376.1927953	1247633	9919	9	5	15	
+SRX456289	Lactobacillus tucceti	Lactobacillus	Lactobacillus	4826	n.d.	AJ576006.1.1557	1208451	6051	11	0	17	
+SRX456290	Lactobacillus fructivorans KCTC 3543 = DSM 20203	Lactobacillus	Lactobacillus	4374	83.000	AEQY01000004.80.1635	797326	5202	12	1	11	
+SRX456291	Lactobacillus casei BL23	Lactobacillus	Lactobacillus	6029	27.125	FM177140.2643060.2644629	1766723	6799	11	4	12	
+SRX456292	Lactobacillus camelliae	Lactobacillus	Lactobacillus	4079	24.000	AB257864.1.1530	1348749	4936	8	4	16	
+SRX456293	Lactobacillus plantarum	Lactobacillus	Lactobacillus	6253	n.d.	CP011769.1010671.1012246	2031548	7127	5	0	12	
+SRX456294	Lactobacillus acetotolerans	Lactobacillus	Lactobacillus	6729	46.000	AP014808.73744.75256	1979229	8158	12	3	22	
+SRX456295	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	2938	69.500	AY681134.1.1527	1540876	3319	11	1	9	
+SRX456296	Lactobacillus buchneri NRRL B-30929	Lactobacillus	Lactobacillus	4608	38.000	CP002652.2300479.2302041	1776283	5395	10	2	13	
+SRX456297	Lactobacillus cacaonum	Lactobacillus	Lactobacillus	2250	n.d.	AM905389.1.1527	1084050	2627	9	0	13	
+SRX456298	Lactobacillus capillatus	Lactobacillus	Lactobacillus	4967	35.167	AB365976.1.1526	1300388	6421	11	3	15	
+SRX456299	Lactobacillus paracollinoides	Lactobacillus	Lactobacillus	5466	18.000	CP014924.115701.117273	1883359	6457	4	2	14	
+SRX456300	Lactobacillus composti	Lactobacillus	Lactobacillus	4130	31.125	AB268118.1.1522	1915760	5258	9	4	21	
+SRX456301	Lactobacillus dextrinicus	Lactobacillus	Lactobacillus	7676	39.000	D87679.1.1464	1392916	9127	12	3	15	
+SRX456302	Lactobacillus diolivorans	Lactobacillus	Lactobacillus	1913	36.500	AB429369.1.1535	1931116	2323	14	4	12	
+SRX456303	Lactobacillus fabifermentans	Lactobacillus	Lactobacillus	5617	127.500	AM905388.1.1532	1711534	6470	15	1	15	
+SRX456304	Lactobacillus floricola	Lactobacillus	Lactobacillus	5118	84.000	AB523780.1.1566	946210	7522	12	1	12	
+SRX456305	Lactobacillus florum	Lactobacillus	Lactobacillus	16638	89.000	AB498045.1.1507	1395043	18742	24	4	17	
+SRX456306	Lactobacillus futsaii	Lactobacillus	Lactobacillus	5314	n.d.	HQ322270.1.1542	1854943	5819	6	0	10	
+SRX456307	Lactobacillus ghanensis	Lactobacillus	Lactobacillus	5938	104.500	DQ523489.1.1460	1393864	7384	13	1	20	
+SRX456308	Lactobacillus graminis	Lactobacillus	Lactobacillus	5913	33.125	AM113778.1.1548	982178	7320	11	4	18	
+SRX456309	Lactobacillus harbinensis;Serratia marcescens	Lactobacillus;Serratia	Lactobacillus	3472	47.500	AB194126.1.1507;CP027798.676811.678361	1657295	4143	14	4	23	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Serratia) does not match top mapped taxon (Lactobacillus)
+SRX456310	Lactobacillus mali KCTC 3596 = DSM 20444	Lactobacillus	Lactobacillus	3340	36.250	BACP01000083.72.1611	1261514	3942	9	2	16	
+SRX456311	Lactobacillus kefiranofaciens ZW3	Lactobacillus	Lactobacillus	3533	20.000	CP002764.142439.144002	1305897	3830	4	1	12	
+SRX456312	Lactobacillus kefiranofaciens ZW3	Lactobacillus	Lactobacillus	4598	17.250	CP002764.142439.144002	1157026	5010	5	2	11	
+SRX456313	Lactobacillus kefiri	Lactobacillus	Lactobacillus	3307	19.000	AB429371.1.1566	1805279	3789	6	3	13	
+SRX456314	Heliconius cydno chioneus	Lactobacillus	Lactobacillus	6355	35.167	FAQT01011697.3404.5047	1733121	7351	11	3	15	
+SRX456315	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	2649	43.250	AF183558.1.1522	1593846	3003	11	2	13	
+SRX456316	Lactobacillus kisonensis	Lactobacillus	Lactobacillus	4144	84.000	AB366388.1.1565	1698073	4671	12	1	12	
+SRX456317	Lactobacillus koreensis	Lactobacillus	Lactobacillus	6969	47.000	CP012033.1330944.1332518	1935450	7469	8	1	15	
+SRX456318	Lactobacillus mali KCTC 3596 = DSM 20444	Lactobacillus	Lactobacillus	2707	34.600	BACP01000083.72.1611	1671834	3168	14	5	15	
+SRX456319	Lactobacillus manihotivorans	Lactobacillus	Lactobacillus	4624	32.667	AF000162.1.1559	1973967	5460	10	3	16	
+SRX456320	Lactobacillus nasuensis	Lactobacillus	Lactobacillus	5947	50.000	AB608051.1.1488	1275615	7030	8	1	18	
+SRX456321	Lactobacillus nodensis	Lactobacillus	Lactobacillus	5012	28.500	AB332024.1.1556	1695424	5891	9	3	15	
+SRX456322	Lactobacillus odoratitofui	Lactobacillus	Lactobacillus	5530	156.167	AB365975.1.1498	1682561	6474	29	3	16	
+SRX456323	Lactobacillus otakiensis	Lactobacillus	Lactobacillus	4587	37.500	AB366386.1.1566	1315642	5223	7	1	13	
+SRX456324	Lactobacillus ozensis	Lactobacillus	Lactobacillus	22933	76.250	AB572588.1.1541	1888592	28554	15	2	20	
+SRX456325	Lactobacillus parabrevis	Lactobacillus	Lactobacillus	6317	64.000	AM158250.1.1518	1621557	6868	10	1	14	
+SRX456326	Lactobacillus kefiri	Lactobacillus	Lactobacillus	4488	23.643	AB429371.1.1566	1841058	5163	11	7	15	
+SRX456327	Lactobacillus perolens	Lactobacillus	Lactobacillus	4112	n.d.	Y19167.1.1566	1760297	4798	11	0	11	
+SRX456328	Lactobacillus plantarum subsp. argentoratensis	Lactobacillus	Lactobacillus	4768	n.d.	CP032751.1080316.1081891	1766958	5404	5	0	15	
+SRX456329	Lactobacillus pobuzihii E100301 = KCTC 13174	Lactobacillus	Lactobacillus	15013	41.643	AZCL01000058.618.2129	2095665	16726	17	7	21	
+SRX456330	Lactobacillus rapi	Lactobacillus	Lactobacillus	6001	27.000	AB366389.1.1566	1649637	6624	8	2	11	
+SRX456331	Lactobacillus senmaizukei	Lactobacillus	Lactobacillus	7083	29.100	AB682140.1.1491	1784980	8107	11	5	17	
+SRX456332	Lactobacillus similis	Lactobacillus	Lactobacillus	6090	63.000	AB282889.1.1528	1880454	6720	10	1	13	
+SRX456333	Lactobacillus sucicola	Lactobacillus	Lactobacillus	6562	25.125	AB433982.1.1503	1410733	8633	9	4	15	
+SRX456334	Lactobacillus suebicus DSM 5007 = KCTC 3549	Lactobacillus	Lactobacillus	5991	15.000	BACO01000094.3324.4880	1780347	6862	2	2	14	
+SRX456335	Lactobacillus sunkii	Lactobacillus	Lactobacillus	4545	28.667	AB366385.1.1567	1456051	5114	10	3	12	
+SRX456336	Lactobacillus taiwanensis	Lactobacillus	Lactobacillus	20135	33.000	EU487512.1.1526	1754483	22354	8	2	17	
+SRX456337	Lactobacillus pantheris	Lactobacillus	Lactobacillus	4651	84.000	AF413523.1.1559	1522177	5622	12	1	12	
+SRX456338	Lactobacillus aquaticus	Lactobacillus	Lactobacillus	7042	29.100	DQ664203.1.1528	2082648	9042	11	5	17	
+SRX456339	Lactobacillus vini	Lactobacillus	Lactobacillus	1908	48.000	AY681131.1.1510	1674090	2406	8	1	16	
+SRX456340	Lactobacillus coryniformis subsp. torquens DSM 20004 = KCTC 3535	Lactobacillus	Lactobacillus	2002	39.000	CP017697.682377.683955	1012618	2462	8	1	7	
+SRX456341			Lactobacillus	7254	21.500		876370	7721	5	1	9	WARNING: missing SPAdes assembly of the SSU
+SRX456342	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2007	16.250	CP032359.485125.486700	889531	2066	7	2	4	
+SRX456343	Lactobacillus zymae	Lactobacillus	Lactobacillus	7123	60.643	LT854705.1650814.1652357	1875882	8355	25	7	16	
+SRX456344	Lactobacillus crustorum	Lactobacillus	Lactobacillus	8397	34.500	CP017996.2229707.2231261	1245227	9031	15	5	12	
+SRX456345	Lactobacillus frumenti	Lactobacillus	Lactobacillus	1924	n.d.	AJ250074.1.1561	1096142	2088	7	0	12	
+SRX456346	Lactobacillus hammesii	Lactobacillus	Lactobacillus	5398	28.562	AJ632219.1.1549	1854417	6068	13	8	18	
+SRX456347	Lactobacillus mindensis	Lactobacillus	Lactobacillus	3428	16.250	AJ313530.1.1544	1316243	3788	5	2	10	
+SRX456348	Lactobacillus namurensis	Lactobacillus	Lactobacillus	7274	44.167	AM259118.1.1518	1691106	8413	13	3	16	
+SRX456349	Lactobacillus heilongjiangensis	Lactobacillus	Lactobacillus	5918	95.500	CP012559.2345774.2347347	1696348	6481	13	1	11	
+SRX456350	uncultured bacterium	Lactobacillus	Lactobacillus	8079	19.167	GQ505032.1.1537	1511491	8606	5	3	15	
+SRX456351	Lactobacillus paralimentarius	Lactobacillus	Lactobacillus	6542	23.250	AJ417500.1.1563	1461748	7168	7	2	11	
+SRX456352	Lactobacillus pontis	Lactobacillus	Lactobacillus	5596	n.d.	X76329.1.1570	959970	6172	18	0	15	
+SRX456353	Lactobacillus rossiae DSM 15814	Lactobacillus	Lactobacillus	3534	27.500	AKZK01000036.81.1634	1666685	5237	5	1	15	
+SRX456354	Lactobacillus sanfranciscensis TMW 1.1304	Lactobacillus	Lactobacillus	15143	n.d.	CP002461.1279132.1280701	1288024	18432	13	0	15	
+SRX456355	Lactobacillus spicheri	Lactobacillus	Lactobacillus	5537	69.250	AJ534844.1.1536	1497789	6572	15	2	13	
+SRX456356	Lactobacillus zymae	Lactobacillus	Lactobacillus	7214	84.083	LT854705.1650814.1652357	1855914	8790	29	6	14	
+SRX456357	Lactobacillus amylolyticus DSM 11664	Lactobacillus	Lactobacillus	4807	n.d.	ADNY01000006.3530.5081	888968	5389	10	0	14	
+SRX456358	Lactobacillus amylophilus DSM 20533 = JCM 1125	Lactobacillus	Lactobacillus	6795	62.167	CP018888.1144590.1146171	1240479	8789	17	3	14	
+SRX456359	Lactobacillus farraginis	Lactobacillus	Lactobacillus	2257	214.000	AB262731.1.1514	1760458	2678	20	1	14	
+SRX456360	Lactobacillus buchneri ATCC 11577	Lactobacillus	Lactobacillus	7466	78.000	ACGH01000101.75.1636	1775209	8299	16	2	14	
+SRX456361	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3496	46.667	CP012920.557031.558613	956071	4181	14	3	14	
+SRX456362	Lactobacillus malefermentans DSM 5705 = KCTC 3548	Lactobacillus	Lactobacillus	7265	31.000	BACN01000105.142.1687	1907855	9051	6	1	13	
+SRX456363	Lactobacillus nagelii	Lactobacillus	Lactobacillus	7789	44.900	AB162131.1.1531	1357466	9259	17	5	16	
+SRX456364	Lactobacillus oeni	Lactobacillus	Lactobacillus	8075	57.500	AY681127.1.1556	1138100	9701	9	1	17	
+SRX456365	Lactobacillus parafarraginis	Lactobacillus	Lactobacillus	4128	26.333	AB262735.1.1544	1570178	4645	8	6	21	
+SRX456366	Lactobacillus paraplantarum	Lactobacillus	Lactobacillus	3279	n.d.	CP032744.1079068.1080643	1717128	3723	5	0	14	
+SRX456367	Lactobacillus sakei	Lactobacillus	Lactobacillus	8846	53.000	AP017931.1459045.1460621	1251178	9851	12	2	17	
+SRX456368	Lactobacillus satsumensis	Lactobacillus	Lactobacillus	9446	19.600	AB154519.1.1556	1611957	10772	6	5	16	
+SRX456369			Lactobacillus	2083	45.250		725918	2142	13	2	3	WARNING: missing SPAdes assembly of the SSU
+SRX456370	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2367	12.000	CP014201.1046218.1047796	803869	2402	4	1	4	
+SRX4636333	Lactobacillus fermentum	Lactobacillus	Lactobacillus	1979	306.400	AP017973.1435046.1436618	440966	7032	84	20	130	
+SRX4791890	Lactobacillus acidophilus NCFM	Lactobacillus	Lactobacillus	8125	17.125	CP000033.1632689.1634260	791833	8268	7	4	11	
+SRX4890322	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	930	30.000	AFYE01000091.124.1666	364344	1090	12	4	12	
+SRX4890324	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2945	41.000	CP029686.1212146.1213724	1121206	3324	12	3	17	
+SRX4890325	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3028	23.000	CP014201.1046218.1047796	1071917	3247	6	2	14	
+SRX4958455	Lactobacillus fermentum	Lactobacillus	Lactobacillus	9748	16.500	AP017973.1435046.1436618	2825171	11984	3	1	12	
+SRX4985825	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2376	n.d.	CP015408.302655.304239	479048	2395	1	0	3	
+SRX4985826	Lactobacillus reuteri	Lactobacillus	Lactobacillus	2722	36.000	CP015408.302655.304239	462197	2979	8	1	4	
+SRX5002688	Lactobacillus reuteri	Lactobacillus	Lactobacillus	4979	32.000	CP014786.1901091.1902675	831836	5337	12	4	14	
+SRX5025521	uncultured bacterium	Lactobacillus	Lactobacillus	3421	116.182	AY959177.1.1555	903240	3817	42	11	36	
+SRX5026081	Lactobacillus apis	Lactobacillus	Lactobacillus	1543	4.000	CP029476.75988.77561	410465	1558	4	4	2	
+SRX5026082	uncultured Lactobacillus sp.	Lactobacillus	Lactobacillus	1587	2.667	AY370183.1.1532	411599	1599	2	3	2	
+SRX5026083	uncultured Lactobacillus sp.	Lactobacillus	Lactobacillus	1551	25.500	AY370183.1.1532	450633	1560	7	1	1	
+SRX5026084	Lactobacillus kullabergensis	Lactobacillus	Lactobacillus	1680	26.000	CP029477.1363180.1364753	468967	1694	10	2	1	
+SRX5026085	Lactobacillus helsingborgensis	Lactobacillus	Lactobacillus	1490	n.d.	CP029544.1276417.1277990	425235	1500	3	0	3	
+SRX5026086	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1446	36.000	FOMN01000019.107.1676	369778	1469	8	1	4	
+SRX5026087	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1702	45.500	FOMN01000019.107.1676	411609	1726	9	1	5	
+SRX5026088	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1492	27.500	FOMN01000019.107.1676	362742	1510	7	1	3	
+SRX5026089	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1477	14.250	FOMN01000019.107.1676	372922	1492	7	2	2	
+SRX5026090	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1749	14.500	FOMN01000019.107.1676	408342	1764	9	3	1	
+SRX5026091	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1572	9.000	FOMN01000019.107.1676	360460	1591	6	3	3	
+SRX5026092	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1493	18.000	FOMN01000019.107.1676	372458	1508	8	2	2	
+SRX5026093	Lactobacillus bombicola	Lactobacillus	Lactobacillus	2268	23.250	FOMN01000019.107.1676	426875	2291	9	2	3	
+SRX5026094	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1741	35.000	FOMN01000019.107.1676	406331	1757	8	1	3	
+SRX5026095	Lactobacillus bombicola	Lactobacillus	Lactobacillus	1734	43.500	FOMN01000019.107.1676	424271	1752	9	1	3	
+SRX5192487	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3258	19.000	CP014786.1901091.1902675	684378	3343	4	1	11	
+SRX5192488	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2547	15.250	CP011769.1010671.1012246	1113057	2629	5	2	9	
+SRX5192505	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2639	13.500	CP029686.1212146.1213724	1029809	2696	3	1	9	
+SRX542237	Lactobacillus salivarius	Lactobacillus	Lactobacillus	20997	68.167	CP017107.541095.542664	2181017	24540	17	3	20	
+SRX547191	Lactobacillus salivarius	Lactobacillus	Lactobacillus	16229	254.273	CP017107.541095.542664	2218188	19821	98	22	36	
+SRX5620993	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2141	20.667	CP014201.1046218.1047796	596405	2172	10	3	4	
+SRX5620998	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2404	10.400	CP029686.1212146.1213724	665594	2448	8	5	4	
+SRX5620999	Lactobacillus fermentum	Lactobacillus	Lactobacillus	2974	7.667	AP017973.1435046.1436618	519456	3002	4	3	5	
+SRX5621000	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2227	9.333	CP014201.1046218.1047796	632249	2266	8	6	4	
+SRX5653696	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	12905	68.000	CP018215.909171.910742	1524103	15210	20	4	18	
+SRX5653697	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	20311	530.130	CP018215.909171.910742	1690107	24453	150	23	41	
+SRX5653698	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	21264	313.587	CP018215.909171.910742	1706471	25486	113	23	36	
+SRX5705607	Lactobacillus buchneri NRRL B-30929	Lactobacillus	Lactobacillus	4576	27.500	CP002652.2300479.2302041	1120575	5430	9	3	14	
+SRX5705608	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3768	70.250	CP003043.854077.855639	1040825	4497	15	2	14	
+SRX5705609	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3632	18.167	CP003043.854077.855639	1097926	4317	5	3	14	
+SRX5705610	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3606	56.500	CP003043.854077.855639	996877	4280	9	1	16	
+SRX5705611	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3821	33.000	CP003043.854077.855639	1106805	4570	12	4	15	
+SRX5705613	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3609	98.500	CP003043.854077.855639	947738	4235	13	1	14	
+SRX5705614	Lactobacillus curvatus	Lactobacillus	Lactobacillus	5517	34.333	AP018699.1478534.1480099	929423	6612	14	6	18	
+SRX5705615	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4932	27.125	CP029686.1212146.1213724	1372157	5629	9	4	17	
+SRX5705617	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3921	69.250	CP003043.854077.855639	1115388	4643	15	2	13	
+SRX5705618	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	4062	23.667	CP003043.854077.855639	1099673	4757	8	3	13	
+SRX5705619	Lactobacillus amylovorus	Lactobacillus	Lactobacillus	4873	33.667	EF120369.1.1560	835218	5340	10	3	17	
+SRX5705620	Lactobacillus buchneri CD034	Lactobacillus	Lactobacillus	3798	62.167	CP003043.854077.855639	1105056	4517	17	3	14	
+SRX5725484	Lactobacillus murinus	Lactobacillus	Lactobacillus	4771	18.000	CP023566.832314.833884	907253	5054	4	1	10	
+SRX5726460	Lactobacillus murinus	Lactobacillus	Lactobacillus	6247	n.d.	CP023566.832314.833884	1213709	6733	7	0	11	
+SRX5766037	Lactobacillus intestinalis	Lactobacillus	Lactobacillus	8915	12.500	AJ306299.1.1513	1028468	9039	3	1	8	
+SRX5766040	Lactobacillus johnsonii FI9785	Lactobacillus	Lactobacillus	11181	7.000	FN298497.455618.457268	1014903	11297	2	1	5	
+SRX5823655	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	5860	11.500	CP012920.557031.558613	605295	6756	3	1	7	
+SRX5823656	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3240	6.000	CP012920.557031.558613	518121	3574	0	2	6	
+SRX5823657	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3827	n.d.	CP012920.557031.558613	562527	4422	3	0	7	
+SRX5823837	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3596	11.500	CP015408.302655.304239	640276	3690	3	1	7	
+SRX5823838	Lactobacillus reuteri	Lactobacillus	Lactobacillus	1106	n.d.	LN906634.1351830.1353400	210720	1154	2	0	6	
+SRX5831611	Lactobacillus animalis KCTC 3501 = DSM 20602	Lactobacillus	Lactobacillus	2658	12.500	AEOF01000010.3322.4865	528627	2725	6	4	8	
+SRX5843336	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	2137	n.d.	CP000413.1565823.1567401	302450	2156	3	0	4	
+SRX5843343	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1574	n.d.	CP018809.1516019.1517589	325343	1628	1	0	5	
+SRX5843369	Lactobacillus reuteri TD1	Lactobacillus	Lactobacillus	1720	n.d.	CP006603.682158.683754	439456	1742	4	0	6	
+SRX5843371	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	1969	4.000	AP018549.475961.477529	470522	1991	2	2	3	
+SRX5949263	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2546	7.000	FN692037.427906.429457	920095	2575	4	2	3	
+SRX5949277	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1780	13.000	CP018809.1516019.1517589	601808	1825	4	1	5	
+SRX5986001	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2717	28.167	FN692037.427906.429457	672008	2823	11	3	8	
+SRX5986002	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2295	17.500	FN692037.427906.429457	562273	2352	10	4	5	
+SRX5986003	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2614	17.667	FN692037.427906.429457	671777	2689	8	3	7	
+SRX5992450	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2779	19.900	AFYE01000091.124.1666	657756	3086	7	5	15	
+SRX5992479	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2616	55.500	CP029686.1212146.1213724	839818	2863	9	1	15	
+SRX5992516	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3260	n.d.	AFYE01000091.124.1666	833979	3612	10	0	14	
+SRX5992517	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3478	26.500	AFYE01000091.124.1666	874227	3875	9	3	13	
+SRX5992518	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2802	48.000	AFYE01000091.124.1666	817740	3212	16	4	16	
+SRX5992519	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	1867	31.250	AFYE01000091.124.1666	487655	2075	9	2	11	
+SRX5992520	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	4315	64.500	AFYE01000091.124.1666	959010	4909	18	4	24	
+SRX5992521	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	5013	79.125	AFYE01000091.124.1666	1231039	5701	21	4	24	
+SRX5992522	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3667	38.600	AFYE01000091.124.1666	1048373	4113	16	5	13	
+SRX5992523	Bacteroides clarus;Lactobacillus ruminis ATCC 25644	Bacteroides;Lactobacillus	Lactobacillus	3801	36.062	AB490801.1.1479;AFYE01000091.124.1666	1016059	4375	17	8	18	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Bacteroides;Lactobacillus) does not match top mapped taxon (Lactobacillus)
+SRX5992524	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3665	20.000	AFYE01000091.124.1666	994342	4097	8	4	12	
+SRX5992525	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	1591	12.667	AFYE01000091.124.1666	376610	1767	4	3	10	
+SRX5992559	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3900	35.750	AFYE01000091.124.1666	921678	4439	15	6	17	
+SRX5992562	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3938	28.100	AFYE01000091.124.1666	822274	4367	9	5	20	
+SRX5992563	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3555	17.125	AFYE01000091.124.1666	764803	3862	7	4	11	
+SRX5992564	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	4717	20.000	AFYE01000091.124.1666	763677	5054	8	4	12	
+SRX5992565	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3219	60.500	AFYE01000091.124.1666	861645	3673	18	4	20	
+SRX5992566	Lactobacillus ruminis ATCC 25644;Bifidobacterium longum subsp. infantis	Lactobacillus;Bifidobacterium	Lactobacillus	5150	178.167	AFYE01000091.124.1666;LN824140.1861843.1863339	1450488	6339	31	3	18	WARNING: Multiple SSUs were assembled by SPAdes;WARNING: Assembly taxon (Lactobacillus;Bifidobacterium) does not match top mapped taxon (Lactobacillus)
+SRX5992567	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3159	34.600	AFYE01000091.124.1666	828587	3631	14	5	15	
+SRX5992568	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	5004	45.500	AFYE01000091.124.1666	1287488	5758	21	7	14	
+SRX5992569	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3252	37.900	AFYE01000091.124.1666	849013	3745	13	5	21	
+SRX5992738	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	1991	46.000	AFYE01000091.124.1666	471419	2223	8	1	14	
+SRX5992739	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	3357	23.000	AFYE01000091.124.1666	798479	3702	8	4	15	
+SRX5992740	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2303	33.167	AFYE01000091.124.1666	587970	2543	11	3	13	
+SRX5992741	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2418	25.500	AFYE01000091.124.1666	594904	2696	10	4	13	
+SRX5992742	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2096	61.000	AFYE01000091.124.1666	505750	2309	10	1	11	
+SRX5992743	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2811	18.900	AFYE01000091.124.1666	788240	3108	7	5	14	
+SRX5992754	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	4721	26.000	AFYE01000091.124.1666	1402343	5304	12	9	18	
+SRX5992755	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	1566	33.000	AFYE01000091.124.1666	335422	1718	10	2	8	
+SRX5992780	Lactobacillus ruminis ATCC 25644	Lactobacillus	Lactobacillus	2415	n.d.	AFYE01000091.124.1666	552091	2648	14	0	13	
+SRX5992812	Lactobacillus paracasei	Lactobacillus	Lactobacillus	1615	24.500	CP029686.1212146.1213724	616249	1754	9	3	11	
+SRX5992813	Lactobacillus paracasei	Lactobacillus	Lactobacillus	2945	41.000	CP029686.1212146.1213724	1121206	3324	12	3	17	
+SRX5992983	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3078	27.250	CP014201.1046218.1047796	1310939	3373	7	2	15	
+SRX5992984	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3129	13.125	CP014201.1046218.1047796	1081531	3246	5	4	10	
+SRX5992986	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	977	7.667	CP014201.1046218.1047796	396586	1099	2	3	7	
+SRX5992987	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2254	19.167	CP014201.1046218.1047796	1081985	2438	7	3	11	
+SRX5992990	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2724	24.000	CP014201.1046218.1047796	1090968	2930	10	5	14	
+SRX5992991	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1698	19.667	CP014201.1046218.1047796	539051	1767	8	3	9	
+SRX5992992	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3028	23.000	CP014201.1046218.1047796	1071917	3247	6	2	14	
+SRX6406719	Lactobacillus harbinensis	Lactobacillus	Lactobacillus	4584	n.d.	AB194126.1.1507	1782522	5214	3	0	11	
+SRX642087	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3134	698.586	CP012920.557031.558613	897859	4324	192	29	63	
+SRX6454027	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	953	n.d.	AP018549.475961.477529	322281	1010	3	0	7	
+SRX6454028	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1444	116.400	CP018809.1516019.1517589	500225	1698	32	5	14	
+SRX6454029			Lactobacillus	2508	36.900		637271	2653	17	5	8	WARNING: missing SPAdes assembly of the SSU
+SRX6454031	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	832	88.500	CP006803.1850533.1852112	305617	876	13	1	4	
+SRX6454032	Lactobacillus jensenii	Lactobacillus	Lactobacillus	732	171.000	CP018809.1516019.1517589	359856	821	18	1	9	
+SRX6454033	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1962	153.500	CP018809.1516019.1517589	498676	2082	17	1	9	
+SRX6454034	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1745	10.571	CP018809.1516019.1517589	746435	1844	8	7	6	
+SRX6454036	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	2221	50.750	CP006803.1850533.1852112	432962	2518	21	6	14	
+SRX6454037	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	4699	54.125	CP006803.1850533.1852112	743295	4891	19	4	9	
+SRX6454038	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	3200	110.000	AP018549.475961.477529	600865	3337	20	2	10	
+SRX6454039	Lactobacillus jensenii	Lactobacillus	Lactobacillus	2790	31.286	CP018809.1516019.1517589	506833	3032	16	7	13	
+SRX6454041	Lactobacillus jensenii	Lactobacillus	Lactobacillus	615	45.000	CP018809.1516019.1517589	359059	700	12	2	9	
+SRX6454042	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1060	9.600	CP018809.1516019.1517589	743684	1173	6	5	6	
+SRX6454044	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1497	11.500	CP018809.1516019.1517589	521598	1575	6	4	7	
+SRX6454045	Lactobacillus jensenii	Lactobacillus	Lactobacillus	579	12.000	CP018809.1516019.1517589	267022	624	8	4	4	
+SRX6492358	uncultured Lactobacillus sp.	Lactobacillus	Lactobacillus	3179	6.125	FJ192637.1.1522	725932	3472	3	4	5	
+SRX6494060	Lactobacillus reuteri	Lactobacillus	Lactobacillus	3307	10.000	CP015408.302655.304239	814994	3400	4	4	8	
+SRX6613945	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	2619	152.500	FN692037.427906.429457	495187	2677	17	1	8	
+SRX6757122	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2813	16.250	CP014201.1046218.1047796	1044621	3033	3	2	14	
+SRX6757123	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2340	21.000	CP014201.1046218.1047796	849635	2512	6	2	12	
+SRX6757124	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1787	45.000	CP014201.1046218.1047796	649079	1932	8	1	13	
+SRX6757125	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1267	28.000	CP014201.1046218.1047796	456128	1374	6	1	10	
+SRX6757126	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2350	40.000	CP014201.1046218.1047796	918594	2570	10	2	15	
+SRX6757127	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1865	15.571	CP014201.1046218.1047796	716431	2042	8	7	11	
+SRX6757128	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1652	29.000	CP014201.1046218.1047796	612155	1784	6	1	11	
+SRX6757129	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2708	22.000	CP014201.1046218.1047796	1113611	3061	6	6	19	
+SRX6757130	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2262	21.000	CP014201.1046218.1047796	974554	2420	6	2	12	
+SRX6757131	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2153	15.500	CP014201.1046218.1047796	802260	2277	6	4	11	
+SRX6757132	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2105	21.000	CP014201.1046218.1047796	1028170	2284	8	4	13	
+SRX6757133	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1292	13.167	CP014201.1046218.1047796	509540	1396	5	3	9	
+SRX6757134	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2184	28.000	CP014201.1046218.1047796	810494	2346	8	2	12	
+SRX6757135	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2390	21.000	CP014201.1046218.1047796	937725	2571	6	2	12	
+SRX6757136	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2271	32.250	CP014201.1046218.1047796	1012804	2456	9	2	12	
+SRX6757137	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2177	15.000	CP014201.1046218.1047796	1008720	2353	4	4	13	
+SRX6757138	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2142	15.125	CP014201.1046218.1047796	1044101	2323	5	4	12	
+SRX6757139	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1805	13.900	CP014201.1046218.1047796	700358	1924	7	5	9	
+SRX6757140	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1935	34.500	CP014201.1046218.1047796	754078	2069	7	1	10	
+SRX6757141	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	927	8.400	CP014201.1046218.1047796	410803	999	2	5	8	
+SRX6757142	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1937	16.125	CP014201.1046218.1047796	695983	2092	7	4	10	
+SRX6757143	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2012	19.167	CP014201.1046218.1047796	889817	2135	7	3	11	
+SRX6757144	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1566	28.667	CP014201.1046218.1047796	721316	1740	10	3	12	
+SRX6757145	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1099	9.400	CP014201.1046218.1047796	428520	1195	2	5	9	
+SRX6757146	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2300	14.600	CP014201.1046218.1047796	1176250	2496	6	5	11	
+SRX6757147	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2397	22.667	CP014201.1046218.1047796	999911	2576	8	3	12	
+SRX6757148	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2610	55.250	CP014201.1046218.1047796	1156186	2834	13	2	13	
+SRX6757149	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2077	31.250	CP014201.1046218.1047796	867520	2225	9	2	11	
+SRX6757150	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1270	14.125	CP014201.1046218.1047796	552854	1340	7	4	8	
+SRX6757151	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2219	83.000	CP014201.1046218.1047796	961990	2397	12	1	11	
+SRX6757152	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2087	32.000	CP014201.1046218.1047796	983634	2267	6	1	14	
+SRX6757153	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1878	14.125	CP014201.1046218.1047796	853021	2026	5	4	11	
+SRX6757154	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2148	12.667	CP014201.1046218.1047796	886901	2305	2	3	12	
+SRX6757155	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2213	17.250	CP014201.1046218.1047796	941158	2353	5	2	11	
+SRX6757156	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3414	21.250	CP014201.1046218.1047796	1230237	3684	5	2	15	
+SRX6757157	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2390	38.500	CP014201.1046218.1047796	1041236	2574	7	1	14	
+SRX6757158	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2052	19.167	CP014201.1046218.1047796	1045857	2229	7	3	11	
+SRX6757159	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1031	15.250	CP014201.1046218.1047796	493336	1121	5	2	9	
+SRX6757160	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2124	22.000	CP014201.1046218.1047796	891493	2275	6	2	13	
+SRX6757161	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2339	52.500	CP014201.1046218.1047796	921597	2511	9	1	12	
+SRX6757162	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1940	25.500	CP014201.1046218.1047796	883169	2093	5	1	13	
+SRX6757163	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1999	22.250	CP014201.1046218.1047796	845217	2098	7	2	10	
+SRX6757164	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3133	24.250	CP014201.1046218.1047796	1061875	3335	7	2	12	
+SRX6757165	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1661	13.667	CP014201.1046218.1047796	569102	1767	4	3	11	
+SRX6757166	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1279	22.250	CP014201.1046218.1047796	434551	1378	7	2	10	
+SRX6757167	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2497	16.600	CP014201.1046218.1047796	941648	2727	6	5	13	
+SRX6757168	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2364	19.250	CP014201.1046218.1047796	797642	2544	5	2	13	
+SRX6757169	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2552	17.000	CP014201.1046218.1047796	898434	2750	4	2	13	
+SRX6757170	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2592	47.000	CP014201.1046218.1047796	871491	2795	8	1	15	
+SRX6757171	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2121	12.125	CP014201.1046218.1047796	711544	2268	3	4	11	
+SRX6757172	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1793	23.000	CP014201.1046218.1047796	558918	1879	8	2	7	
+SRX6757173	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1529	n.d.	CP014201.1046218.1047796	532342	1639	10	0	9	
+SRX6757174	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	818	18.250	CP014201.1046218.1047796	280113	860	7	2	6	
+SRX6757175	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2316	18.125	CP014201.1046218.1047796	836891	2493	7	4	12	
+SRX6757176	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3530	74.500	CP014201.1046218.1047796	1327729	3799	11	1	14	
+SRX6757177	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2229	24.250	CP014201.1046218.1047796	869280	2409	7	2	12	
+SRX6757178	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1941	26.667	CP014201.1046218.1047796	720195	2080	10	3	10	
+SRX681634	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1911	n.d.	CP032359.485125.486700	627324	1996	1	0	4	
+SRX682137	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1867	2.000	CP032359.485125.486700	626851	1885	0	1	2	
+SRX682139	Lactobacillus plantarum	Lactobacillus	Lactobacillus	2429	12.000	CP032359.485125.486700	843135	2498	6	2	3	
+SRX682140	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1957	n.d.	CP011769.1010671.1012246	623442	1971	1	0	3	
+SRX682141	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1605	n.d.	CP032359.485125.486700	643536	1625	0	0	3	
+SRX682142	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1797	n.d.	CP032359.485125.486700	645529	1817	1	0	3	
+SRX682143	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1690	n.d.	CP032359.485125.486700	639871	1711	2	0	3	
+SRX682144	Lactobacillus plantarum	Lactobacillus	Lactobacillus	1556	n.d.	CP032359.485125.486700	650435	1576	2	0	3	
+SRX682145	Lactobacillus plantarum	Lactobacillus	Lactobacillus	7295	61.250	CP011769.1010671.1012246	4106165	9212	13	2	19	
+SRX683685	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1785	n.d.	CP014201.1046218.1047796	665957	1790	2	0	2	
+SRX683693	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1991	n.d.	CP014201.1046218.1047796	687439	1994	0	0	2	
+SRX683696	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	3999	9.500	CP014201.1046218.1047796	1331938	4048	3	1	5	
+SRX683698	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1938	n.d.	CP014201.1046218.1047796	648815	1942	1	0	2	
+SRX683701	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2010	n.d.	CP014201.1046218.1047796	755506	2012	2	0	1	
+SRX683705	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1917	n.d.	CP014201.1046218.1047796	629435	1919	2	0	1	
+SRX683720	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2274	n.d.	CP014201.1046218.1047796	658304	2281	3	0	2	
+SRX683733			Lactobacillus	2700	n.d.		790957	2702	2	0	1	WARNING: missing SPAdes assembly of the SSU
+SRX683735	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	2041	5.500	CP014201.1046218.1047796	639213	2046	3	1	1	
+SRX683744	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1731	6.500	CP014201.1046218.1047796	546875	1739	3	1	2	
+SRX6878787	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1777	25.056	CP018809.1347636.1349206	254339	1923	17	9	9	
+SRX6878792	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1936	143.667	CP018809.1516019.1517589	275584	2147	28	3	13	
+SRX6878807	Lactobacillus jensenii	Lactobacillus	Lactobacillus	2668	58.000	CP018809.1516019.1517589	293059	2816	14	2	9	
+SRX6878810	Lactobacillus jensenii	Lactobacillus	Lactobacillus	938	40.000	CP018809.1516019.1517589	159527	1023	8	1	8	
+SRX6878811	Lactobacillus jensenii	Lactobacillus	Lactobacillus	2152	81.250	CP018809.1516019.1517589	242107	2259	17	2	9	
+SRX6878812	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1948	n.d.	CP018809.1516019.1517589	226019	2061	8	0	8	
+SRX6878820	Lactobacillus jensenii	Lactobacillus	Lactobacillus	1060	91.000	CP018809.1516019.1517589	201218	1194	18	2	10	
+SRX6878824	Lactobacillus jensenii	Lactobacillus	Lactobacillus	984	21.000	CP018809.1516019.1517589	208364	1142	10	5	11	
+SRX6897166	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	11198	45.562	CP000413.1565823.1567401	1189835	13525	21	8	18	
+SRX690300	Lactobacillus selangorensis	Lactobacillus	Lactobacillus	1486	427.333	AF049745.1.1495	706802	2024	110	15	24	
+SRX690301	uncultured bacterium	Lactobacillus	Lactobacillus	1930	235.111	EU878321.1.1559	620028	2190	88	18	20	
+SRX690302	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	3098	118.300	CP018215.281618.283189	340538	3258	57	15	10	
+SRX690303	Lactobacillus hokkaidonensis	Lactobacillus	Lactobacillus	1626	186.136	AP014680.438913.440485	637669	1842	61	11	17	
+SRX6959881	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3869	11.167	FN692037.427906.429457	651531	3923	5	3	7	
+SRX6959883	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	3466	29.500	FN692037.427906.429457	611456	3523	7	1	5	
+SRX6959885	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	1417	n.d.	FN692037.427906.429457	437543	1417	0	0	1	
+SRX6959886	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4904	21.000	FN692037.427906.429457	755597	4944	8	2	5	
+SRX6959887	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	7861	14.000	FN692037.427906.429457	855767	7901	4	1	6	
+SRX6959888	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	7931	12.250	FN692037.427906.429457	889246	7969	5	2	6	
+SRX6959889	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	8269	9.000	FN692037.427906.429457	908355	8293	6	3	3	
+SRX6959890	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	9317	n.d.	FN692037.427906.429457	954329	9350	4	0	7	
+SRX6959891	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	12936	8.500	FN692037.427906.429457	1123057	12970	3	3	7	
+SRX6959892	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	10041	8.000	FN692037.427906.429457	985712	10072	2	2	7	
+SRX6959893	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	5582	11.000	FN692037.427906.429457	818174	5617	4	2	7	
+SRX6959894	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	8093	n.d.	FN692037.427906.429457	925848	8123	10	0	5	
+SRX6959895	Lactobacillus crispatus ST1	Lactobacillus	Lactobacillus	4718	48.250	FN692037.427906.429457	775548	4776	13	2	6	
+SRX7004908	Lactobacillus plantarum subsp. argentoratensis	Lactobacillus	Lactobacillus	3933	n.d.	CP032751.2443498.2445073	1569051	4333	4	0	10	
+SRX7042530	Lactobacillus helveticus	Lactobacillus	Lactobacillus	2548	36.250	CP015498.1772918.1774491	790129	2637	11	2	6	
+SRX7042531	Lactobacillus fermentum	Lactobacillus	Lactobacillus	2894	28.250	AP017973.1435046.1436618	702672	2986	9	2	8	
+SRX7042532	Lactobacillus delbrueckii subsp. bulgaricus	Lactobacillus	Lactobacillus	5208	83.250	CP013610.42022.43573	620925	5760	17	2	11	
+SRX761991	Lactobacillus paracasei	Lactobacillus	Lactobacillus	608	39.125	CP029686.1212146.1213724	425774	748	15	4	11	
+SRX762075	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	694	44.000	CP014201.1046218.1047796	569334	894	16	4	12	
+SRX762128	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	595	18.562	CP000413.1565823.1567401	207176	719	13	8	8	
+SRX762137	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	687	34.000	CP000413.1565823.1567401	279222	812	10	2	9	
+SRX762166	Lactobacillus paracasei	Lactobacillus	Lactobacillus	515	71.500	CP029686.1212146.1213724	345480	640	11	1	11	
+SRX762207	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	697	71.500	CP014201.1046218.1047796	585033	900	22	4	11	
+SRX762350	Lactobacillus gasseri DSM 14869	Lactobacillus	Lactobacillus	765	56.100	CP006803.1850533.1852112	412364	1021	19	5	20	
+SRX762387	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	568	26.125	AP018549.475961.477529	218742	709	11	4	11	
+SRX762418	Lactobacillus paracasei	Lactobacillus	Lactobacillus	538	25.250	CP029686.1212146.1213724	406253	703	14	8	13	
+SRX762419	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	489	21.083	CP014201.1046218.1047796	346458	625	11	6	11	
+SRX762437	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	514	56.667	CP014201.1046218.1047796	354013	678	16	3	14	
+SRX762600	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	554	24.000	CP014201.1046218.1047796	387354	735	8	4	16	
+SRX762610	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	579	55.250	CP014201.1046218.1047796	453912	765	13	2	13	
+SRX762676	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	673	19.000	CP014201.1046218.1047796	494369	856	10	5	9	
+SRX762678	Lactobacillus gasseri ATCC 33323 = JCM 1131	Lactobacillus	Lactobacillus	681	42.250	CP000413.1565823.1567401	273277	844	11	2	12	
+SRX762686	Lactobacillus salivarius str. Ren	Lactobacillus	Lactobacillus	1276	82.600	CP011403.433528.435077	588516	1777	24	5	25	
+SRX762693	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	916	143.667	CP014201.1046218.1047796	717897	1210	28	3	13	
+SRX762750	Lactobacillus paracasei	Lactobacillus	Lactobacillus	652	62.000	CP029686.1212146.1213724	425050	824	10	1	12	
+SRX762772	Lactobacillus salivarius	Lactobacillus	Lactobacillus	662	61.000	LT604074.1096157.1097698	312767	979	24	6	13	
+SRX762773	Lactobacillus casei	Lactobacillus	Lactobacillus	755	48.400	CP017065.776570.778148	608825	1011	18	5	16	
+SRX762775	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	634	40.083	CP014201.1046218.1047796	416757	844	17	6	16	
+SRX762798	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	638	42.083	CP014201.1046218.1047796	528642	857	19	6	12	
+SRX762811	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	584	39.500	CP014201.1046218.1047796	415658	768	14	4	15	
+SRX762861	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	841	132.000	CP014201.1046218.1047796	434527	1044	22	2	11	
+SRX762862	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	940	50.500	CP014201.1046218.1047796	564864	1205	15	3	13	
+SRX762897	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	802	62.167	CP014201.1046218.1047796	561869	1005	17	3	14	
+SRX762906	Lactobacillus paragasseri	Lactobacillus	Lactobacillus	866	42.125	AP018549.475961.477529	355042	1037	15	4	14	
+SRX762907	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	1048	73.167	CP014201.1046218.1047796	638143	1351	19	3	13	
+SRX833726	Lactobacillus apis	Lactobacillus	Lactobacillus	3791	n.d.	CP029476.75988.77561	642547	3858	3	0	5	
+SRX833730	Lactobacillus helsingborgensis	Lactobacillus	Lactobacillus	3423	7.667	CP029544.1276417.1277990	737980	3486	4	3	5	
+SRX833737	Lactobacillus kullabergensis	Lactobacillus	Lactobacillus	3856	5.667	CP029477.87196.88769	782670	3886	4	3	3	
+SRX833743	Lactobacillus mellis	Lactobacillus	Lactobacillus	3827	24.250	JX099545.1.1435	665658	3991	7	2	12	
+SRX833746	Lactobacillus mellifer	Lactobacillus	Lactobacillus	3453	18.000	JX099543.1.1437	673410	3591	4	1	10	
+SRX833748	Lactobacillus kullabergensis	Lactobacillus	Lactobacillus	3644	6.000	CP029477.1363180.1364753	762668	3688	4	4	4	
+SRX833756	uncultured Lactobacillus sp.	Lactobacillus	Lactobacillus	3574	13.000	AY370183.1.1532	798865	3617	4	1	5	
+SRX835539	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3135	19.000	CP012920.557031.558613	655638	3528	4	1	11	
+SRX835540	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	7887	15.600	CP012920.557031.558613	1851946	9201	4	5	14	
+SRX835541	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	1872	11.000	CP012920.557031.558613	383717	2144	2	1	9	
+SRX835581	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	13656	n.d.	CP012920.557031.558613	3204871	15869	12	0	16	
+SRX835583	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2448	21.000	CP012920.557031.558613	476637	2788	6	2	12	
+SRX835584	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	16763	46.250	CP012920.557031.558613	3861090	19852	11	2	16	
+SRX835585	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2509	28.000	CP012920.557031.558613	547432	2874	6	1	10	
+SRX835586	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	14898	64.000	CP012920.557031.558613	3727662	17465	14	2	15	
+SRX835587	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2750	n.d.	CP012920.557031.558613	577005	3147	4	0	13	
+SRX835589	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	17276	65.000	CP012920.557031.558613	4285182	20394	10	1	15	
+SRX835590	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2514	18.000	CP012920.557031.558613	502081	2838	4	1	10	
+SRX835591	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	16043	33.000	CP012920.557031.558613	3817945	18958	8	2	17	
+SRX838077	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2796	21.250	CP012920.557031.558613	526233	3205	7	2	9	
+SRX838078	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	16605	196.500	CP012920.557031.558613	3576593	19528	19	1	16	
+SRX838079	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	1956	13.000	CP012920.557031.558613	418228	2280	6	3	7	
+SRX838080	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	11741	38.000	CP012920.557031.558613	3065993	13918	10	2	13	
+SRX838081	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2954	20.000	CP012920.557031.558613	652897	3346	4	1	12	
+SRX838082	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	7529	16.000	CP012920.557031.558613	1849998	8842	4	4	14	
+SRX838083	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2046	10.667	CP012920.557031.558613	436046	2359	2	3	10	
+SRX838092	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	16177	n.d.	CP012920.557031.558613	3949105	19028	7	0	17	
+SRX838094	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	2768	20.000	CP012920.557031.558613	496019	3174	6	2	11	
+SRX838095	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	8154	n.d.	CP012920.557031.558613	1688408	9538	7	0	14	
+SRX838106	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3216	19.250	CP012920.557031.558613	563936	3634	7	2	7	
+SRX838110	Lactobacillus kunkeei	Lactobacillus	Lactobacillus	3587	n.d.	CP012920.1527536.1529118	517116	3814	4	0	7	
+SRX959911	Lactobacillus delbrueckii subsp. lactis	Lactobacillus	Lactobacillus	9036	162.500	CP018156.1914114.1915684	1263802	10473	17	1	18	
+SRX963011	Lactobacillus rhamnosus	Lactobacillus	Lactobacillus	4691	33.000	CP020464.2775723.2777301	1560676	5470	6	1	15	
+SRX963035	Lactobacillus fermentum	Lactobacillus	Lactobacillus	7273	22.250	AP017973.1435046.1436618	1426676	8115	7	2	10	
+SRX963052	Neisseria bacilliformis ATCC BAA-1200	Neisseria	Neisseria	5133	106.571	AFAY01000058.4368.5896	1932119	7378	34	7	24	
+SRX963255	Lactobacillus paracasei	Lactobacillus	Lactobacillus	4695	27.100	CP029686.1212146.1213724	1741960	5337	11	5	15	

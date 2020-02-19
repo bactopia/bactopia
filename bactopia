@@ -5,54 +5,60 @@
 # been inspired by a similar wrapper in Will Rowe's DRAX pipeline
 # (https://github.com/will-rowe/drax).
 #
-# By default `bactopia` will attmept to execute the main Nextflow pipeline.
+# By default `bactopia` will attempt to execute the main Nextflow pipeline.
 # There are additional sub-commands available to help make Bactopia easier to
 # use. They are:
 #
-#   pull - Pull (via Nextflow) the bactopia-ap GitHub repo
+#   bactopia build - Build Bactopia Conda environments
 #
-#   datasets - Download and setup useful datasets to supplement Bactopia
+#   bactopia datasets - Download/setup useful datasets for Bactopia
 #
-#   fofn - Create a FOFN of the input FASTQ files
+#   bactopia prepare - Create a 'file of filenames' for input FASTQ files
 #
-#   version - Print Bactopia version and exit
+#   bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
+#
+#   bactopia tools - Execute existing Bactopia Tools
+#
+#   bactopia version - Print Bactopia version and exit
 #
 # Examples:
 #
-# bactopia pull
+# bactopia build
 # bactopia datasets --help
-# bactopia fofn --help
+# bactopia prepare --help
+# bactopia search --help
+# bactopia tools --help
 # bactopia version
 # bactopia --help
-VERSION=1.2.4
-NXF_HOME=${NXF_HOME:-`which bactopia | sed 's=bin/bactopia=.nextflow='`}
-BACTOPIA_NF="${NXF_HOME}/assets/bactopia/bactopia"
-export NXF_HOME=${NXF_HOME}
+VERSION=1.3.0
+CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
+BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}"
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
     echo "bactopia - v${VERSION}"
     echo ""
     echo "Available Commands"
-    echo "\`bactopia\` - Execute the Bactopia Nextflow pipeline"
+    echo "bactopia - Execute the Bactopia Nextflow pipeline"
     echo ""
-    echo "\`bactopia pull\` - Pull (via Nextflow) the bactopia GitHub repo"
+    echo "bactopia build - Build Bactopia Conda environments"
     echo ""
-    echo "\`bactopia build\` - Build Bactopia Conda environments"
+    echo "bactopia datasets - Download/setup useful datasets for Bactopia"
     echo ""
-    echo "\`bactopia datasets\` - Download/setup useful datasets for Bactopia"
+    echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
     echo ""
-    echo "\`bactopia prepare\` - Create a 'file of filenames' for input FASTQ files"
+    echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
-    echo "\`bactopia search\` - Query Taxon ID or Study Accession against ENA for input accessions"
+    echo "bactopia tools - Execute existing Bactopia Tools"
     echo ""
-    echo "\`bactopia version\` - Print Bactopia version and exit"
+    echo "bactopia version - Print Bactopia version and exit"
     echo ""
     echo "Print Usages:"
-    echo "\`bactopia --help\`"
-    echo "\`bactopia datasets --help\`"
-    echo "\`bactopia prepare --help\`"
-    echo "\`bactopia search --help\`"
+    echo "bactopia --help"
+    echo "bactopia datasets --help"
+    echo "bactopia prepare --help"
+    echo "bactopia search --help"
+    echo "bactopia tools --help"
     echo ""
     echo "Example Commands"
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
@@ -71,21 +77,23 @@ if [[ $# == 0 ]]; then
     exit
 fi
 
-if [[ "$1" == "pull" ]]; then
-    # Use Nextflow to pull Bactopia
-    nextflow pull bactopia/bactopia -r "v${VERSION}"
-elif [[ "$1" == "datasets" ]]; then
-    # Run setup-datasets
+if [[ "$1" == "datasets" ]]; then
     setup-datasets.py "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
-    # Run prepare-fofn
     prepare-fofn.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
-    # Run ena-search
     ena-search.py "${@:2}"
 elif [[ "$1" == "build" ]]; then
-    # Run build-conda-envs
     build-conda-envs.py "${@:2}"
+elif [[ "$1" == "tools" ]]; then
+    if [[ -z "$2" ]]; then
+        bactopia-tools.py
+    else
+        TOOL_NF=`bactopia-tools.py --bactopia ${BACTOPIA_NF} $2`
+        if [[ ! -z "$TOOL_NF" ]]; then
+            nextflow run ${TOOL_NF} "${@:3}"
+        fi
+    fi
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
@@ -103,10 +111,9 @@ else
         if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
             echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
-            nextflow pull bactopia/bactopia -r "v${VERSION}"
             build-conda-envs.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
         fi
     fi
     # Execute Bactopia Nextflow pipeline
-    nextflow run bactopia/bactopia -r "v${VERSION}" "${@:1}"
+    nextflow run ${BACTOPIA_NF}/main.nf "${@:1}"
 fi

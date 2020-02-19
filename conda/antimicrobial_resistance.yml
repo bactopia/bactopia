@@ -1,92 +1,68 @@
 name: bactopia-antimicrobial_resistance
-version: 1.2.4
+version: 1.3.0
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
-  - _libgcc_mutex=0.1=main
-  - blast=2.9.0=pl526h3066fca_4
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=0_gnu
+  - blast=2.9.0=h20b68b9_1
+  - boost=1.68.0=py37h8619c78_1001
+  - boost-cpp=1.68.0=h11c811c_1000
   - bzip2=1.0.8=h516909a_2
   - ca-certificates=2019.11.28=hecc5488_0
-  - curl=7.65.3=hf8cf82a_0
-  - entrez-direct=11.0=pl526_1
-  - expat=2.2.5=he1b5a44_1004
-  - hmmer=3.2.1=he1b5a44_2
+  - certifi=2019.11.28=py37_0
+  - gmp=6.2.0=he1b5a44_1
+  - gnutls=3.6.5=hd3a4fd2_1002
+  - hmmer=3.3=he1b5a44_0
+  - icu=58.2=hf484d3e_1000
   - krb5=1.16.4=h2fd8d38_0
+  - ld_impl_linux-64=2.33.1=h53a641e_8
+  - libblas=3.8.0=14_openblas
+  - libcblas=3.8.0=14_openblas
   - libcurl=7.65.3=hda55be3_0
   - libedit=3.1.20170329=hf8c457e_1001
-  - libgcc-ng=9.2.0=hdf63c60_0
+  - libffi=3.2.1=he1b5a44_1006
+  - libgcc-ng=9.2.0=h24d8f2e_2
+  - libgfortran-ng=7.3.0=hdf63c60_5
+  - libgomp=9.2.0=h24d8f2e_2
+  - liblapack=3.8.0=14_openblas
+  - libopenblas=0.3.7=h5ec1e0e_6
   - libssh2=1.8.2=h22169c7_2
-  - libstdcxx-ng=9.2.0=hdf63c60_0
-  - ncbi-amrfinderplus=3.2.3=hf18293b_0
+  - libstdcxx-ng=9.2.0=hdf63c60_2
+  - ncbi-amrfinderplus=3.6.7=hf18293b_0
   - ncurses=6.1=hf484d3e_1002
+  - nettle=3.4.1=h1bed415_1002
+  - numpy=1.17.5=py37h95a1406_0
   - openssl=1.1.1d=h516909a_0
   - pcre=8.43=he1b5a44_0
   - perl=5.26.2=h516909a_1006
-  - perl-app-cpanminus=1.7044=pl526_1
   - perl-archive-tar=2.32=pl526_0
-  - perl-base=2.23=pl526_1
-  - perl-business-isbn=3.004=pl526_0
-  - perl-business-isbn-data=20140910.003=pl526_0
   - perl-carp=1.38=pl526_3
   - perl-common-sense=3.74=pl526_2
   - perl-compress-raw-bzip2=2.087=pl526he1b5a44_0
   - perl-compress-raw-zlib=2.087=pl526hc9558a2_0
-  - perl-constant=1.33=pl526_1
-  - perl-data-dumper=2.173=pl526_0
-  - perl-digest-hmac=1.03=pl526_3
-  - perl-digest-md5=2.55=pl526_0
-  - perl-encode=2.88=pl526_1
-  - perl-encode-locale=1.05=pl526_6
   - perl-exporter=5.72=pl526_1
   - perl-exporter-tiny=1.002001=pl526_0
   - perl-extutils-makemaker=7.36=pl526_1
-  - perl-file-listing=6.04=pl526_1
-  - perl-file-path=2.16=pl526_0
-  - perl-file-temp=0.2304=pl526_2
-  - perl-html-parser=3.72=pl526h6bb024c_5
-  - perl-html-tagset=3.20=pl526_3
-  - perl-html-tree=5.07=pl526_1
-  - perl-http-cookies=6.04=pl526_0
-  - perl-http-daemon=6.01=pl526_1
-  - perl-http-date=6.02=pl526_3
-  - perl-http-message=6.18=pl526_0
-  - perl-http-negotiate=6.01=pl526_3
   - perl-io-compress=2.087=pl526he1b5a44_0
-  - perl-io-html=1.001=pl526_2
-  - perl-io-socket-ssl=2.066=pl526_0
   - perl-io-zlib=1.10=pl526_2
   - perl-json=4.02=pl526_0
   - perl-json-xs=2.34=pl526h6bb024c_3
-  - perl-libwww-perl=6.39=pl526_0
   - perl-list-moreutils=0.428=pl526_1
   - perl-list-moreutils-xs=0.428=pl526_0
-  - perl-lwp-mediatypes=6.04=pl526_0
-  - perl-lwp-protocol-https=6.07=pl526_4
-  - perl-mime-base64=3.15=pl526_1
-  - perl-mozilla-ca=20180117=pl526_1
-  - perl-net-http=6.19=pl526_0
-  - perl-net-ssleay=1.88=pl526h90d6eec_0
-  - perl-ntlm=1.09=pl526_4
-  - perl-parent=0.236=pl526_1
   - perl-pathtools=3.75=pl526h14c3975_1
   - perl-scalar-list-utils=1.52=pl526h516909a_0
-  - perl-socket=2.027=pl526_1
-  - perl-storable=3.15=pl526h14c3975_0
-  - perl-test-requiresinternet=0.05=pl526_0
-  - perl-time-local=1.28=pl526_1
-  - perl-try-tiny=0.30=pl526_1
   - perl-types-serialiser=1.0=pl526_2
-  - perl-uri=1.76=pl526_0
-  - perl-www-robotrules=6.02=pl526_3
-  - perl-xml-namespacesupport=1.12=pl526_0
-  - perl-xml-parser=2.44_01=pl526ha1d75be_1002
-  - perl-xml-sax=1.02=pl526_0
-  - perl-xml-sax-base=1.09=pl526_0
-  - perl-xml-sax-expat=0.51=pl526_3
-  - perl-xml-simple=2.25=pl526_1
   - perl-xsloader=0.24=pl526_0
+  - pip=20.0.2=py37_1
+  - python=3.7.6=h357f687_2
+  - readline=8.0=hf8c457e_0
+  - setuptools=45.1.0=py37_0
+  - sqlite=3.30.1=hcee41ef_0
   - tk=8.6.10=hed695b0_0
+  - wheel=0.34.2=py37_0
+  - xz=5.2.4=h14c3975_1001
   - zlib=1.2.11=h516909a_1006
 

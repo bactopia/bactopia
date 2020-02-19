@@ -29,6 +29,7 @@ else
         !{norrna} \
         !{notrna} \
         !{rnammer} \
+        !{rfam} \
         !{gunzip_fasta}
 
     if [[ !{params.compress} == "true" ]]; then

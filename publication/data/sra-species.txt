@@ -1,0 +1,1664 @@
+DRX019814	Lactobacillus oryzae JCM 18671
+DRX022186	Lactobacillus hokkaidonensis JCM 18461
+DRX040364	Lactobacillus gorillae
+DRX058277	Lactobacillus parakefiri
+DRX061114	Lactobacillus amylovorus
+DRX061115	Lactobacillus amylovorus
+DRX061116	Lactobacillus mucosae
+DRX061117	Lactobacillus mucosae
+DRX061118	Lactobacillus amylovorus
+DRX061119	Lactobacillus amylovorus
+DRX061120	Lactobacillus amylovorus
+DRX061121	Lactobacillus mucosae
+DRX061122	Lactobacillus mucosae
+DRX061123	Lactobacillus mucosae
+DRX061124	Lactobacillus mucosae
+DRX061125	Lactobacillus mucosae
+DRX061126	Lactobacillus mucosae
+DRX061127	Lactobacillus acidophilus
+DRX061128	Lactobacillus mucosae
+DRX061129	Lactobacillus mucosae
+DRX061130	Lactobacillus equicursoris
+DRX061131	Lactobacillus amylovorus
+DRX061132	Lactobacillus mucosae
+DRX061133	Lactobacillus reuteri
+DRX061134	Lactobacillus sp. ST93
+DRX061135	Lactobacillus equicursoris
+DRX061136	Lactobacillus amylovorus
+DRX061138	Lactobacillus amylovorus
+DRX061139	Lactobacillus amylovorus
+DRX061140	Lactobacillus ruminis
+DRX061142	Lactobacillus amylovorus
+DRX061143	Lactobacillus mucosae
+DRX061145	Lactobacillus johnsonii
+DRX061146	Lactobacillus johnsonii
+DRX061147	Lactobacillus reuteri
+DRX061149	Lactobacillus amylovorus
+DRX061150	Lactobacillus mucosae
+DRX061151	Lactobacillus mucosae
+DRX061153	Lactobacillus reuteri
+DRX061154	Lactobacillus reuteri
+DRX061155	Lactobacillus mucosae
+DRX061157	Lactobacillus amylovorus
+DRX061158	Lactobacillus mucosae
+DRX061159	Lactobacillus mucosae
+DRX067012	Lactobacillus reuteri
+DRX143657	Lactobacillus kosoi
+DRX150619	Lactobacillus paragasseri
+DRX150620	Lactobacillus paragasseri
+DRX150621	Lactobacillus paragasseri
+DRX150622	Lactobacillus gasseri
+ERX034808	Lactobacillus sp.
+ERX034817	Lactobacillus sp.
+ERX082528	Lactobacillus reuteri
+ERX082536	Lactobacillus reuteri
+ERX1046384	Lactobacillus gasseri
+ERX1046385	Lactobacillus gasseri
+ERX1046386	Lactobacillus gasseri
+ERX1046387	Lactobacillus gasseri
+ERX1046388	Lactobacillus gasseri
+ERX1046389	Lactobacillus gasseri
+ERX1046390	Lactobacillus gasseri
+ERX1046391	Lactobacillus gasseri
+ERX1046392	Lactobacillus gasseri
+ERX1046393	Lactobacillus gasseri
+ERX1046394	Lactobacillus gasseri
+ERX1046395	Lactobacillus gasseri
+ERX1046396	Lactobacillus gasseri
+ERX1046397	Lactobacillus gasseri
+ERX1046398	Lactobacillus gasseri
+ERX1046399	Lactobacillus gasseri
+ERX1046400	Lactobacillus gasseri
+ERX1046401	Lactobacillus gasseri
+ERX1046402	Lactobacillus gasseri
+ERX1046403	Lactobacillus gasseri
+ERX1046404	Lactobacillus gasseri
+ERX1046405	Lactobacillus gasseri
+ERX1046406	Lactobacillus gasseri
+ERX1046407	Lactobacillus gasseri
+ERX1046408	Lactobacillus gasseri
+ERX1046409	Lactobacillus gasseri
+ERX1046410	Lactobacillus gasseri
+ERX1046411	Lactobacillus gasseri
+ERX1046412	Lactobacillus gasseri
+ERX1046413	Lactobacillus gasseri
+ERX1046414	Lactobacillus gasseri
+ERX1046415	Lactobacillus gasseri
+ERX1046416	Lactobacillus gasseri
+ERX1046417	Lactobacillus gasseri
+ERX1046418	Lactobacillus gasseri
+ERX1046419	Lactobacillus gasseri
+ERX1126067	Lactobacillus jensenii
+ERX1126086	Lactobacillus crispatus
+ERX1126089	Lactobacillus crispatus
+ERX1126096	Lactobacillus iners
+ERX1126106	Lactobacillus crispatus
+ERX1126110	Lactobacillus gasseri
+ERX1126115	Lactobacillus gasseri
+ERX1126138	Lactobacillus crispatus
+ERX1126140	Lactobacillus crispatus
+ERX1126143	Lactobacillus crispatus
+ERX1126146	Lactobacillus jensenii
+ERX1126150	Lactobacillus crispatus
+ERX1231803	Lactobacillus plantarum
+ERX1231804	Lactobacillus plantarum
+ERX1275831	Lactobacillus delbrueckii
+ERX1275832	Lactobacillus rhamnosus
+ERX1275835	Lactobacillus iners
+ERX1275836	Lactobacillus crispatus
+ERX1275841	Lactobacillus jensenii
+ERX1275856	Lactobacillus fermentum
+ERX1275866	Lactobacillus rhamnosus
+ERX1275870	Lactobacillus vaginalis
+ERX1275881	Lactobacillus jensenii
+ERX1275883	Lactobacillus sp.
+ERX1275920	Lactobacillus delbrueckii
+ERX1275921	Lactobacillus rhamnosus
+ERX1275924	Lactobacillus iners
+ERX1275925	Lactobacillus crispatus
+ERX1275930	Lactobacillus jensenii
+ERX1275945	Lactobacillus fermentum
+ERX1275955	Lactobacillus rhamnosus
+ERX1275959	Lactobacillus vaginalis
+ERX1275970	Lactobacillus jensenii
+ERX1275972	Lactobacillus sp.
+ERX1276161	Lactobacillus rhamnosus
+ERX1276172	Lactobacillus gasseri
+ERX1276255	Lactobacillus rhamnosus
+ERX1276266	Lactobacillus gasseri
+ERX1284229	Lactobacillus murinus
+ERX1284238	Lactobacillus taiwanensis
+ERX1284265	Lactobacillus rodentium
+ERX1625345	Lactobacillus plantarum
+ERX1625346	Lactobacillus plantarum
+ERX1625347	Lactobacillus plantarum
+ERX178648	Lactobacillus rhamnosus
+ERX178649	Lactobacillus gasseri
+ERX178650	Lactobacillus gasseri
+ERX178651	Lactobacillus rhamnosus
+ERX178652	Lactobacillus casei
+ERX178653	Lactobacillus fermentum
+ERX178654	Lactobacillus rhamnosus
+ERX178655	Lactobacillus gasseri
+ERX178656	Lactobacillus oris
+ERX178657	Lactobacillus rhamnosus
+ERX178658	Lactobacillus vaginalis
+ERX178659	Lactobacillus rhamnosus
+ERX178660	Lactobacillus rhamnosus
+ERX178661	Lactobacillus fermentum
+ERX178662	Lactobacillus gasseri
+ERX178663	Lactobacillus casei
+ERX178664	Lactobacillus salivarius
+ERX178665	Lactobacillus fermentum
+ERX178666	Lactobacillus gasseri
+ERX178667	Lactobacillus fermentum
+ERX178668	Lactobacillus casei
+ERX178669	Lactobacillus casei
+ERX178670	Lactobacillus casei
+ERX178671	Lactobacillus fermentum
+ERX178672	Lactobacillus oris
+ERX178673	Lactobacillus rhamnosus
+ERX178674	Lactobacillus rhamnosus
+ERX178675	Lactobacillus gasseri
+ERX178676	Lactobacillus oris
+ERX178677	Lactobacillus vaginalis
+ERX178678	Lactobacillus gasseri
+ERX178679	Lactobacillus acidophilus
+ERX178680	Lactobacillus paracasei
+ERX178681	Lactobacillus fermentum
+ERX178682	Lactobacillus salivarius
+ERX178683	Lactobacillus casei
+ERX178684	Lactobacillus rhamnosus
+ERX178714	Lactobacillus oris
+ERX178715	Lactobacillus fermentum
+ERX178716	Lactobacillus gasseri
+ERX178717	Lactobacillus gasseri
+ERX178718	Lactobacillus paracasei
+ERX178719	Lactobacillus gasseri
+ERX178720	Lactobacillus gasseri
+ERX178721	Lactobacillus gasseri
+ERX178722	Lactobacillus fermentum
+ERX178723	Lactobacillus paracasei
+ERX178725	Lactobacillus paracasei
+ERX178726	Lactobacillus fermentum
+ERX178728	Lactobacillus parabuchneri
+ERX178729	Lactobacillus helveticus
+ERX178730	Lactobacillus oris
+ERX178731	Lactobacillus oris
+ERX178732	Lactobacillus gasseri
+ERX178733	Lactobacillus salivarius
+ERX178734	Lactobacillus gasseri
+ERX178735	Lactobacillus salivarius
+ERX178736	Lactobacillus
+ERX178737	Lactobacillus fermentum
+ERX178738	Lactobacillus gasseri
+ERX178739	Lactobacillus salivarius
+ERX178740	Lactobacillus
+ERX178741	Lactobacillus fermentum
+ERX178742	Lactobacillus fermentum
+ERX178743	Lactobacillus vaginalis
+ERX1939924	Lactobacillus paracasei
+ERX2000443	Lactobacillus gasseri
+ERX2000463	Lactobacillus johnsonii
+ERX2000470	Lactobacillus jensenii
+ERX2000473	Lactobacillus jensenii
+ERX2000481	Lactobacillus crispatus
+ERX2000482	Lactobacillus gasseri
+ERX2000484	Lactobacillus iners
+ERX2000499	Lactobacillus crispatus
+ERX2000501	Lactobacillus rhamnosus
+ERX2000502	Lactobacillus crispatus
+ERX2052289	Lactobacillus casei
+ERX2150224	Lactobacillus iners
+ERX2150225	Lactobacillus iners
+ERX2150228	Lactobacillus crispatus
+ERX2150229	Lactobacillus crispatus
+ERX2274496	Lactobacillus intestinalis
+ERX2274497	Lactobacillus johnsonii
+ERX2274498	Lactobacillus murinus
+ERX2274499	Lactobacillus murinus
+ERX2274500	Lactobacillus reuteri
+ERX2274536	Lactobacillus curvatus
+ERX2274537	Lactobacillus gasseri
+ERX2274538	Lactobacillus ruminis
+ERX2274539	Lactobacillus vaginalis
+ERX2274577	Lactobacillus reuteri
+ERX2274578	Lactobacillus johnsonii
+ERX2274588	Lactobacillus salivarius
+ERX2274599	Lactobacillus rhamnosus
+ERX2274610	Lactobacillus casei
+ERX2274653	Lactobacillus animalis
+ERX2274664	Lactobacillus paracasei
+ERX2274674	Lactobacillus salivarius
+ERX2274676	Lactobacillus paracasei
+ERX2274677	Lactobacillus casei
+ERX2274684	Lactobacillus vaginalis
+ERX2274696	Lactobacillus salivarius
+ERX2274698	Lactobacillus casei
+ERX2274700	Lactobacillus animalis
+ERX2274722	Lactobacillus plantarum
+ERX2274728	Lactobacillus ruminis
+ERX2274757	Lactobacillus rhamnosus
+ERX2274779	Lactobacillus gasseri
+ERX231526	Lactobacillus paracasei
+ERX231527	Lactobacillus reuteri
+ERX231528	Lactobacillus delbrueckii subsp. bulgaricus
+ERX231531	Lactobacillus delbrueckii subsp. bulgaricus
+ERX231532	Lactobacillus acidophilus
+ERX2338316	Lactobacillus plantarum
+ERX2338320	Lactobacillus plantarum
+ERX2338417	Lactobacillus plantarum
+ERX2338424	Lactobacillus plantarum
+ERX2338425	Lactobacillus plantarum
+ERX2338429	Lactobacillus fermentum
+ERX2338430	Lactobacillus sakei
+ERX2438124	Lactobacillus reuteri
+ERX2438132	Lactobacillus murinus
+ERX2438137	Lactobacillus intestinalis
+ERX2438147	Lactobacillus murinus
+ERX2438150	Lactobacillus gasseri
+ERX2438154	Lactobacillus johnsonii
+ERX2438166	Lactobacillus intestinalis
+ERX2438167	Lactobacillus johnsonii
+ERX2438168	Lactobacillus murinus
+ERX2438180	Lactobacillus intestinalis
+ERX2438182	Lactobacillus animalis
+ERX2438183	Lactobacillus intestinalis
+ERX2438184	Lactobacillus johnsonii
+ERX2438185	Lactobacillus murinus
+ERX2438186	Lactobacillus reuteri
+ERX2585447	Lactobacillus sakei
+ERX271948	Lactobacillus gastricus
+ERX271949	Lactobacillus rhamnosus
+ERX271950	Lactobacillus crispatus
+ERX271951	Lactobacillus gasseri
+ERX271952	Lactobacillus plantarum
+ERX271956	Lactobacillus parabuchneri
+ERX271957	Lactobacillus parabuchneri
+ERX271958	Lactobacillus crispatus
+ERX271959	Lactobacillus gastricus
+ERX271960	Lactobacillus plantarum
+ERX271964	Lactobacillus helveticus
+ERX271965	Lactobacillus fermentum
+ERX271966	Lactobacillus vaginalis
+ERX271967	Lactobacillus gastricus
+ERX271968	Lactobacillus casei
+ERX271972	Lactobacillus rhamnosus
+ERX271973	Lactobacillus casei
+ERX271974	Lactobacillus fermentum
+ERX271975	Lactobacillus casei
+ERX271976	Lactobacillus fermentum
+ERX271980	Lactobacillus fermentum
+ERX271981	Lactobacillus helveticus
+ERX271982	Lactobacillus vaginalis
+ERX271983	Lactobacillus gasseri
+ERX271988	Lactobacillus antri
+ERX271989	Lactobacillus rhamnosus
+ERX271990	Lactobacillus fermentum
+ERX271991	Lactobacillus casei
+ERX271996	Lactobacillus gasseri
+ERX271997	Lactobacillus gasseri
+ERX271998	Lactobacillus rhamnosus
+ERX271999	Lactobacillus casei
+ERX272004	Lactobacillus rhamnosus
+ERX272005	Lactobacillus vaginalis
+ERX272006	Lactobacillus fermentum
+ERX272007	Lactobacillus casei
+ERX272012	Lactobacillus gasseri
+ERX272013	Lactobacillus fermentum
+ERX272014	Lactobacillus gasseri
+ERX272015	Lactobacillus vaginalis
+ERX272020	Lactobacillus salivarius
+ERX272021	Lactobacillus rhamnosus
+ERX272022	Lactobacillus rhamnosus
+ERX272023	Lactobacillus oris
+ERX272028	Lactobacillus plantarum
+ERX272029	Lactobacillus rhamnosus
+ERX272030	Lactobacillus gasseri
+ERX272031	Lactobacillus salivarius
+ERX272036	Lactobacillus helveticus
+ERX272037	Lactobacillus gasseri
+ERX272038	Lactobacillus gastricus
+ERX272039	Lactobacillus plantarum
+ERX2866884	Lactobacillus plantarum
+ERX2874687	Lactobacillus reuteri
+ERX2874690	Lactobacillus intestinalis
+ERX2874760	Lactobacillus murinus
+ERX2938651	Lactobacillus fermentum
+ERX303991	Lactobacillus gasseri MV-22
+ERX3177039	Lactobacillus gasseri
+ERX3180503	Lactobacillus plantarum
+ERX3188237	Lactobacillus plantarum
+ERX3190887	Lactobacillus plantarum
+ERX3191070	Lactobacillus plantarum
+ERX3310264	Lactobacillus delbrueckii subsp. bulgaricus
+ERX3310280	Lactobacillus fermentum
+ERX3310291	Lactobacillus mali
+ERX3310303	Lactobacillus brevis
+ERX3310305	Lactobacillus paracasei
+ERX3310309	Lactobacillus sanfranciscensis
+ERX3310316	Lactobacillus delbrueckii
+ERX3310319	Lactobacillus amylophilus
+ERX3310328	Lactobacillus hilgardii
+ERX3310336	Lactobacillus farciminis
+ERX3310353	Lactobacillus sakei
+ERX3310369	Lactobacillus agilis
+ERX3310372	Lactobacillus fructivorans
+ERX3310374	Lactobacillus pentosus
+ERX3310387	Lactobacillus sakei L45
+ERX3310388	Lactobacillus sp. 30A
+ERX3310397	Lactobacillus acetotolerans
+ERX3310408	Lactobacillus bifermentans
+ERX3310410	Lactobacillus aviarius
+ERX3310420	Lactobacillus acidophilus
+ERX3310425	Lactobacillus casei
+ERX3310430	Lactobacillus sharpeae
+ERX3310432	Lactobacillus oris
+ERX3310443	Lactobacillus amylovorus
+ERX3310445	Lactobacillus plantarum
+ERX3310449	Lactobacillus buchneri
+ERX3310452	Lactobacillus ruminis
+ERX3310456	Lactobacillus vermiforme
+ERX3310458	Lactobacillus alimentarius
+ERX3310459	Lactobacillus coryniformis
+ERX3310460	Lactobacillus helveticus
+ERX3310479	Lactobacillus animalis
+ERX3310483	Lactobacillus vaginalis
+ERX3310490	Lactobacillus salivarius
+ERX3427100	Lactobacillus rhamnosus
+ERX358254	Lactobacillus acidophilus
+ERX358255	Lactobacillus acidophilus
+ERX358256	Lactobacillus acidophilus
+ERX358257	Lactobacillus acidophilus
+ERX358258	Lactobacillus acidophilus
+ERX358259	Lactobacillus acidophilus
+ERX358260	Lactobacillus acidophilus
+ERX358261	Lactobacillus acidophilus
+ERX358262	Lactobacillus acidophilus
+ERX358263	Lactobacillus acidophilus
+ERX358264	Lactobacillus acidophilus
+ERX358265	Lactobacillus acidophilus
+ERX358266	Lactobacillus acidophilus
+ERX358267	Lactobacillus acidophilus
+ERX358268	Lactobacillus acidophilus
+ERX358269	Lactobacillus acidophilus
+ERX358270	Lactobacillus acidophilus
+ERX358271	Lactobacillus acidophilus
+ERX358272	Lactobacillus acidophilus
+ERX358273	Lactobacillus acidophilus
+ERX358274	Lactobacillus acidophilus
+ERX358275	Lactobacillus acidophilus
+ERX358276	Lactobacillus acidophilus
+ERX358277	Lactobacillus acidophilus
+ERX358278	Lactobacillus acidophilus
+ERX358279	Lactobacillus acidophilus
+ERX358280	Lactobacillus acidophilus
+ERX358281	Lactobacillus acidophilus
+ERX358282	Lactobacillus acidophilus
+ERX358283	Lactobacillus acidophilus
+ERX358284	Lactobacillus brevis
+ERX358285	Lactobacillus gasseri
+ERX358286	Lactobacillus casei
+ERX358287	Lactobacillus casei
+ERX358288	Lactobacillus plantarum
+ERX358289	Lactobacillus plantarum
+ERX359689	Lactobacillus capillatus
+ERX359690	Lactobacillus manihotivorans
+ERX359691	Lactobacillus hayakitensis
+ERX359692	Lactobacillus fermentum
+ERX359693	Lactobacillus kefiri
+ERX359694	Lactobacillus composti
+ERX359695	Lactobacillus sakei subsp. sakei
+ERX359696	Lactobacillus vaccinostercus
+ERX359697	Lactobacillus farraginis
+ERX359699	Lactobacillus camelliae
+ERX359701	Lactobacillus alimentarius
+ERX359703	Lactobacillus parabuchneri
+ERX359704	Lactobacillus equigenerosi
+ERX359706	Lactobacillus fabifermentans
+ERX359707	Lactobacillus lindneri
+ERX359709	Lactobacillus fuchuensis
+ERX359710	Lactobacillus diolivorans
+ERX359712	Lactobacillus hammesii
+ERX359713	Lactobacillus acidifarinae
+ERX359714	Lactobacillus kefiranofaciens subsp. kefirgranum
+ERX359715	Lactobacillus delbrueckii subsp. lactis
+ERX359716	Lactobacillus amylotrophicus
+ERX359717	Lactobacillus amylophilus
+ERX359718	Lactobacillus kimchicus JCM 15530
+ERX359719	Lactobacillus floricola
+ERX359720	Lactobacillus brantae
+ERX359721	Lactobacillus crustorum
+ERX359722	Lactobacillus fornicalis
+ERX359723	Lactobacillus aquaticus
+ERX359724	Lactobacillus sp.
+ERX359725	Lactobacillus futsaii
+ERX359726	Lactobacillus paralimentarius
+ERX359728	Lactobacillus agilis
+ERX359729	Lactobacillus ingluviei
+ERX359730	Lactobacillus parabuchneri
+ERX359731	Lactobacillus vaccinostercus
+ERX359732	Lactobacillus ghanensis
+ERX359733	Lactobacillus amylovorus
+ERX359734	Lactobacillus murinus
+ERX359735	Lactobacillus nagelii
+ERX359736	Lactobacillus pantheris
+ERX359737	Lactobacillus hamsteri
+ERX359738	Lactobacillus gallinarum
+ERX359739	Lactobacillus equi
+ERX359740	Lactobacillus intestinalis
+ERX359741	Lactobacillus kalixensis
+ERX359742	Lactobacillus kitasatonis
+ERX359743	Lactobacillus otakiensis
+ERX359744	Lactobacillus nodensis
+ERX359745	Lactobacillus oeni
+ERX359746	Lactobacillus rapi
+ERX359747	Lactobacillus nasuensis
+ERX359748	Lactobacillus oligofermentans
+ERX359749	Lactobacillus perolens
+ERX359750	Lactobacillus psittaci
+ERX359751	Lactobacillus paralimentarius
+ERX359752	Lactobacillus plantarum subsp. argentoratensis
+ERX359754	Lactobacillus mindensis
+ERX359755	Lactobacillus hordei
+ERX359756	Lactobacillus delbrueckii subsp. bulgaricus
+ERX359757	Lactobacillus acetotolerans
+ERX359758	Lactobacillus graminis
+ERX359759	Lactobacillus frumenti
+ERX359760	Lactobacillus aviarius subsp. aviarius
+ERX359761	Lactobacillus sp.
+ERX359762	Lactobacillus selangorensis
+ERX359763	Lactobacillus mali
+ERX359764	Lactobacillus helveticus
+ERX359765	Lactobacillus sp.
+ERX359767	Lactobacillus secaliphilus
+ERX359768	Lactobacillus senioris
+ERX359769	Lactobacillus senmaizukei
+ERX359770	Lactobacillus sharpeae
+ERX359771	Lactobacillus siliginis
+ERX359772	Lactobacillus similis
+ERX359773	Lactobacillus spicheri
+ERX359774	Lactobacillus sucicola
+ERX359775	Lactobacillus sunkii
+ERX359776	Lactobacillus taiwanensis
+ERX359777	Lactobacillus thailandensis
+ERX359778	Lactobacillus ingluviei
+ERX359779	Lactobacillus tucceti
+ERX359780	Lactobacillus uvarum
+ERX359783	Lactobacillus animalis
+ERX399736	Lactobacillus algidus
+ERX399737	Lactobacillus apodemi
+ERX399738	Lactobacillus acidipiscis
+ERX399739	Lactobacillus cacaonum
+ERX399740	Lactobacillus ceti
+ERX399741	Lactobacillus collinoides
+ERX399742	Lactobacillus concavus
+ERX399743	Lactobacillus delbrueckii subsp. delbrueckii
+ERX399744	Lactobacillus delbrueckii subsp. lactis
+ERX399745	Lactobacillus delbrueckii subsp. indicus
+ERX399746	Lactobacillus dextrinicus
+ERX399747	Lactobacillus fructivorans
+ERX399748	Lactobacillus fructivorans
+ERX399749	Lactobacillus harbinensis
+ERX399750	Lactobacillus kunkeei
+ERX399751	Lactobacillus namurensis
+ERX399752	Lactobacillus nantensis
+ERX399753	Lactobacillus odoratitofui
+ERX399754	Lactobacillus ozensis
+ERX399755	Lactobacillus panis
+ERX399756	Lactobacillus parabrevis
+ERX399757	Lactobacillus paracasei subsp. tolerans
+ERX399758	Lactobacillus paracollinoides
+ERX399759	Lactobacillus parakefiri
+ERX399760	Lactobacillus paralimentarius
+ERX399761	Lactobacillus paraplantarum
+ERX399762	Lactobacillus paucivorans
+ERX399763	Lactobacillus plantarum
+ERX399764	Lactobacillus pobuzihii
+ERX399765	Lactobacillus pontis
+ERX399766	Lactobacillus rennini
+ERX399767	Lactobacillus rossiae
+ERX399768	Lactobacillus sakei subsp. carnosus
+ERX399769	Lactobacillus saniviri
+ERX399770	Lactobacillus satsumensis
+ERX399772	Lactobacillus zymae
+ERX399774	Lactobacillus ruminis
+ERX399775	Lactobacillus ruminis
+ERX405609	Lactobacillus aviarius subsp. araffinosus
+ERX405610	Lactobacillus homohiochii
+ERX450850	Lactobacillus gastricus
+ERX450851	Lactobacillus rhamnosus
+ERX450852	Lactobacillus crispatus
+ERX450853	Lactobacillus gasseri
+ERX450854	Lactobacillus plantarum
+ERX450858	Lactobacillus parabuchneri
+ERX450859	Lactobacillus parabuchneri
+ERX450860	Lactobacillus crispatus
+ERX450861	Lactobacillus gastricus
+ERX450862	Lactobacillus plantarum
+ERX450866	Lactobacillus helveticus
+ERX450867	Lactobacillus fermentum
+ERX450868	Lactobacillus vaginalis
+ERX450869	Lactobacillus gastricus
+ERX450870	Lactobacillus casei
+ERX450874	Lactobacillus rhamnosus
+ERX450875	Lactobacillus casei
+ERX450876	Lactobacillus fermentum
+ERX450877	Lactobacillus casei
+ERX450878	Lactobacillus fermentum
+ERX450882	Lactobacillus fermentum
+ERX450883	Lactobacillus helveticus
+ERX450884	Lactobacillus vaginalis
+ERX450885	Lactobacillus gasseri
+ERX450890	Lactobacillus antri
+ERX450891	Lactobacillus rhamnosus
+ERX450892	Lactobacillus fermentum
+ERX450893	Lactobacillus casei
+ERX450898	Lactobacillus gasseri
+ERX450899	Lactobacillus gasseri
+ERX450900	Lactobacillus rhamnosus
+ERX450901	Lactobacillus casei
+ERX450906	Lactobacillus rhamnosus
+ERX450907	Lactobacillus vaginalis
+ERX450908	Lactobacillus fermentum
+ERX450909	Lactobacillus casei
+ERX450914	Lactobacillus gasseri
+ERX450915	Lactobacillus fermentum
+ERX450916	Lactobacillus gasseri
+ERX450917	Lactobacillus vaginalis
+ERX450922	Lactobacillus salivarius
+ERX450923	Lactobacillus rhamnosus
+ERX450924	Lactobacillus rhamnosus
+ERX450925	Lactobacillus oris
+ERX450930	Lactobacillus plantarum
+ERX450931	Lactobacillus rhamnosus
+ERX450932	Lactobacillus gasseri
+ERX450933	Lactobacillus salivarius
+ERX450938	Lactobacillus helveticus
+ERX450939	Lactobacillus gasseri
+ERX450940	Lactobacillus gastricus
+ERX450941	Lactobacillus plantarum
+ERX450946	Lactobacillus sp.
+ERX450947	Lactobacillus sucicola
+ERX529055	Lactobacillus gasseri MV-22
+ERX529100	Lactobacillus salivarius
+ERX529101	Lactobacillus fermentum
+ERX529102	Lactobacillus gasseri
+ERX529103	Lactobacillus gasseri
+ERX529104	Lactobacillus oris
+ERX529105	Lactobacillus salivarius
+ERX529106	Lactobacillus gasseri
+ERX529107	Lactobacillus rhamnosus
+ERX529108	Lactobacillus salivarius
+ERX529109	Lactobacillus gasseri
+ERX529110	Lactobacillus rhamnosus
+ERX529111	Lactobacillus gasseri
+ERX529112	Lactobacillus rhamnosus
+ERX529113	Lactobacillus rhamnosus
+ERX529114	Lactobacillus rhamnosus
+ERX529115	Lactobacillus rhamnosus
+ERX529116	Lactobacillus fermentum
+ERX529117	Lactobacillus salivarius
+ERX529118	Lactobacillus fermentum
+ERX529119	Lactobacillus fermentum
+ERX529120	Lactobacillus rhamnosus
+ERX529121	Lactobacillus sp.
+ERX529122	Lactobacillus rhamnosus
+ERX529123	Lactobacillus fermentum
+ERX529124	Lactobacillus gasseri
+ERX529125	Lactobacillus rhamnosus
+ERX529126	Lactobacillus gasseri
+ERX529127	Lactobacillus fermentum
+ERX529128	Lactobacillus rhamnosus
+ERX529129	Lactobacillus fermentum
+ERX529130	Lactobacillus rhamnosus
+ERX529131	Lactobacillus fermentum
+ERX529132	Lactobacillus gasseri
+ERX529133	Lactobacillus gasseri
+ERX529134	Lactobacillus plantarum
+ERX529135	Lactobacillus fermentum
+ERX529136	Lactobacillus rhamnosus
+ERX529137	Lactobacillus gasseri
+ERX529138	Lactobacillus fermentum
+ERX529139	Lactobacillus rhamnosus
+ERX529140	Lactobacillus plantarum
+ERX529141	Lactobacillus sp.
+ERX529142	Lactobacillus fermentum
+ERX529143	Lactobacillus sp.
+ERX529144	Lactobacillus rhamnosus
+ERX529145	Lactobacillus fermentum
+ERX529146	Lactobacillus vaginalis
+ERX529147	Lactobacillus gasseri
+ERX529148	Lactobacillus fermentum
+ERX529149	Lactobacillus gasseri
+ERX529150	Lactobacillus fermentum
+ERX529151	Lactobacillus sp.
+ERX529152	Lactobacillus sp.
+ERX529153	Lactobacillus fermentum
+ERX529154	Lactobacillus sp.
+ERX529155	Lactobacillus sp.
+ERX529156	Lactobacillus fermentum
+ERX529157	Lactobacillus fermentum
+ERX529158	Lactobacillus sp.
+ERX529159	Lactobacillus sp.
+ERX529160	Lactobacillus gasseri
+ERX529161	Lactobacillus rhamnosus
+ERX529162	Lactobacillus rhamnosus
+ERX529163	Lactobacillus fermentum
+ERX529164	Lactobacillus fermentum
+ERX529165	Lactobacillus rhamnosus
+ERX529166	Lactobacillus plantarum
+ERX529167	Lactobacillus sp.
+ERX529168	Lactobacillus rhamnosus
+ERX529169	Lactobacillus rhamnosus
+ERX529170	Lactobacillus plantarum
+ERX529171	Lactobacillus rhamnosus
+ERX529172	Lactobacillus plantarum
+ERX529173	Lactobacillus rhamnosus
+ERX529174	Lactobacillus fermentum
+ERX529175	Lactobacillus rhamnosus
+ERX529176	Lactobacillus fermentum
+ERX529177	Lactobacillus sp.
+ERX529178	Lactobacillus fermentum
+ERX529179	Lactobacillus vaginalis
+ERX529180	Lactobacillus fermentum
+ERX529181	Lactobacillus fermentum
+ERX529182	Lactobacillus gasseri
+ERX529183	Lactobacillus fermentum
+ERX529184	Lactobacillus gasseri
+ERX529185	Lactobacillus sp.
+ERX529186	Lactobacillus oris
+ERX529187	Lactobacillus casei
+ERX529188	Lactobacillus fermentum
+ERX529189	Lactobacillus gasseri
+ERX529190	Lactobacillus oris
+ERX529191	Lactobacillus fermentum
+ERX529192	Lactobacillus sp.
+ERX529193	Lactobacillus fermentum
+ERX529194	Lactobacillus sp.
+ERX529195	Lactobacillus vaginalis
+ERX529196	Lactobacillus sp.
+ERX529197	Lactobacillus salivarius
+ERX529198	Lactobacillus sp.
+ERX529199	Lactobacillus buchneri
+ERX529200	Lactobacillus sp.
+ERX529201	Lactobacillus salivarius
+ERX529202	Lactobacillus sp.
+ERX529203	Lactobacillus gasseri
+ERX529204	Lactobacillus gasseri
+ERX529205	Lactobacillus rhamnosus
+ERX529206	Lactobacillus salivarius
+ERX529207	Lactobacillus sp.
+ERX529208	Lactobacillus gasseri
+ERX529209	Lactobacillus sp.
+ERX529210	Lactobacillus rhamnosus
+ERX529211	Lactobacillus fermentum
+ERX529212	Lactobacillus sp.
+ERX529213	Lactobacillus rhamnosus
+ERX529214	Lactobacillus oris
+ERX529215	Lactobacillus rhamnosus
+ERX529216	Lactobacillus gasseri
+ERX529217	Lactobacillus sp.
+ERX529218	Lactobacillus sp.
+ERX529219	Lactobacillus gasseri
+ERX529220	Lactobacillus sp.
+ERX529221	Lactobacillus sp.
+ERX529222	Lactobacillus sp.
+ERX529223	Lactobacillus parabuchneri
+ERX529224	Lactobacillus sp.
+ERX529225	Lactobacillus sp.
+ERX529226	Lactobacillus sp.
+ERX529227	Lactobacillus fermentum
+ERX529228	Lactobacillus rhamnosus
+ERX529229	Lactobacillus fermentum
+ERX529230	Lactobacillus fermentum
+ERX529231	Lactobacillus sp.
+ERX529232	Lactobacillus rhamnosus
+ERX529233	Lactobacillus vaginalis
+ERX529234	Lactobacillus fermentum
+ERX529235	Lactobacillus fermentum
+ERX529236	Lactobacillus fermentum
+ERX529237	Lactobacillus gasseri
+ERX529238	Lactobacillus rhamnosus
+ERX529239	Lactobacillus salivarius
+ERX529240	Lactobacillus rhamnosus
+ERX529241	Lactobacillus gasseri
+ERX529242	Lactobacillus gasseri
+ERX529243	Lactobacillus oris
+ERX529244	Lactobacillus rhamnosus
+ERX529245	Lactobacillus gasseri
+ERX529246	Lactobacillus gasseri
+ERX529247	Lactobacillus sp.
+ERX529248	Lactobacillus rhamnosus
+ERX529249	Lactobacillus oris
+ERX529250	Lactobacillus salivarius
+ERX529251	Lactobacillus mucosae
+ERX529252	Lactobacillus sp.
+ERX529253	Lactobacillus mucosae
+ERX529254	Lactobacillus gasseri
+ERX529255	Lactobacillus oris
+ERX529256	Lactobacillus sp.
+ERX529257	Lactobacillus sp.
+ERX529258	Lactobacillus sp.
+ERX529259	Lactobacillus gasseri
+ERX529260	Lactobacillus salivarius
+ERX529261	Lactobacillus gasseri
+ERX529262	Lactobacillus gasseri
+ERX529263	Lactobacillus salivarius
+ERX529264	Lactobacillus fermentum
+ERX529265	Lactobacillus vaginalis
+ERX529266	Lactobacillus gasseri
+ERX529267	Lactobacillus salivarius
+ERX529268	Lactobacillus salivarius
+ERX529269	Lactobacillus gasseri
+ERX529270	Lactobacillus plantarum
+ERX529271	Lactobacillus sp.
+ERX529272	Lactobacillus sp.
+ERX529273	Lactobacillus plantarum
+ERX529274	Lactobacillus plantarum
+ERX529275	Lactobacillus sp.
+ERX529276	Lactobacillus sp.
+ERX980026	Lactobacillus fermentum
+ERX980027	Lactobacillus fermentum
+ERX980028	Lactobacillus gasseri
+ERX980029	Lactobacillus gasseri
+ERX980030	Lactobacillus gasseri
+ERX980031	Lactobacillus gasseri
+ERX980032	Lactobacillus gasseri
+ERX980033	Lactobacillus vaginalis
+ERX980034	Lactobacillus vaginalis
+SRX026143	Lactobacillus crispatus EX849587VC01
+SRX059832	Lactobacillus buchneri NRRL B-30929
+SRX1090887	Lactobacillus crispatus
+SRX1090894	Lactobacillus gasseri
+SRX1092347	Lactobacillus reuteri
+SRX1131769	Lactobacillus plantarum
+SRX130888	Lactobacillus gasseri EX336960VC01
+SRX130889	Lactobacillus gasseri EX336960VC02
+SRX130890	Lactobacillus gasseri EX336960VC03
+SRX130891	Lactobacillus gasseri EX336960VC10
+SRX130892	Lactobacillus gasseri EX336960VC13
+SRX130893	Lactobacillus gasseri EX336960VC15
+SRX130894	Lactobacillus jensenii EX533959VC02
+SRX130895	Lactobacillus crispatus EX533959VC03
+SRX130896	Lactobacillus crispatus EX533959VC04
+SRX130897	Lactobacillus crispatus EX533959VC05
+SRX130898	Lactobacillus crispatus EX533959VC06
+SRX130900	Lactobacillus crispatus EX849587VC02
+SRX130901	Lactobacillus jensenii EX849587VC03
+SRX130902	Lactobacillus jensenii EX849587VC05
+SRX130903	Lactobacillus crispatus EX849587VC07
+SRX130904	Lactobacillus vaginalis EX336960VC11
+SRX130910	Lactobacillus crispatus EX533959VC01
+SRX130911	Lactobacillus crispatus EX533959VC13
+SRX130912	Lactobacillus crispatus EX849587VC04
+SRX130913	Lactobacillus jensenii EX849587VC06
+SRX130914	Lactobacillus crispatus EX849587VC08
+SRX130916	Lactobacillus vaginalis EX336960VC11
+SRX1328264	Lactobacillus reuteri DSM 20016
+SRX1343142	Lactobacillus plantarum
+SRX1433289	Lactobacillus paracasei
+SRX1482118	Lactobacillus rhamnosus GG
+SRX1490246	Lactobacillus brevis
+SRX1526290	Lactobacillus rhamnosus GG
+SRX1526291	Lactobacillus rhamnosus GG
+SRX1526292	Lactobacillus rhamnosus GG
+SRX1526293	Lactobacillus rhamnosus GG
+SRX1526295	Lactobacillus rhamnosus GG
+SRX1526296	Lactobacillus rhamnosus GG
+SRX1526297	Lactobacillus rhamnosus GG
+SRX1526302	Lactobacillus rhamnosus GG
+SRX1526303	Lactobacillus rhamnosus GG
+SRX1526317	Lactobacillus rhamnosus GG
+SRX1526345	Lactobacillus rhamnosus GG
+SRX1526349	Lactobacillus rhamnosus GG
+SRX1526354	Lactobacillus rhamnosus GG
+SRX1526363	Lactobacillus rhamnosus GG
+SRX1526369	Lactobacillus rhamnosus GG
+SRX1526379	Lactobacillus rhamnosus GG
+SRX1526380	Lactobacillus rhamnosus GG
+SRX1526391	Lactobacillus rhamnosus GG
+SRX1526395	Lactobacillus rhamnosus GG
+SRX1526415	Lactobacillus rhamnosus GG
+SRX1526437	Lactobacillus rhamnosus GG
+SRX1526457	Lactobacillus rhamnosus GG
+SRX1526467	Lactobacillus rhamnosus GG
+SRX1526468	Lactobacillus rhamnosus GG
+SRX1526473	Lactobacillus rhamnosus GG
+SRX1528078	Lactobacillus rhamnosus GG
+SRX1528080	Lactobacillus rhamnosus GG
+SRX1528083	Lactobacillus rhamnosus GG
+SRX1528085	Lactobacillus rhamnosus GG
+SRX1528089	Lactobacillus rhamnosus GG
+SRX1528090	Lactobacillus rhamnosus GG
+SRX1528091	Lactobacillus rhamnosus GG
+SRX1528093	Lactobacillus rhamnosus GG
+SRX1528095	Lactobacillus rhamnosus GG
+SRX1528097	Lactobacillus rhamnosus GG
+SRX1528099	Lactobacillus rhamnosus GG
+SRX1528102	Lactobacillus rhamnosus GG
+SRX1528103	Lactobacillus rhamnosus GG
+SRX1528104	Lactobacillus rhamnosus GG
+SRX1542927	Lactobacillus acetotolerans
+SRX1546476	Lactobacillus brevis
+SRX1546523	Lactobacillus harbinensis
+SRX155504	Lactobacillus crispatus FB049-03
+SRX155505	Lactobacillus crispatus FB077-07
+SRX155863	Lactobacillus crispatus FB049-03
+SRX155875	Lactobacillus crispatus FB077-07
+SRX1563608	Lactobacillus sp. HMSC072E07
+SRX1563616	Lactobacillus sp. HMSC068B07
+SRX1563623	Lactobacillus sp. HMSC064F12
+SRX1563643	Lactobacillus sp. HMSC077C11
+SRX1563649	Lactobacillus sp. HMSC078F07
+SRX1563852	Lactobacillus sp. HMSC066G01
+SRX1564916	Lactobacillus sp. HMSC068F07
+SRX1564925	Lactobacillus sp. HMSC061B07
+SRX1565073	Lactobacillus sp. HMSC073B09
+SRX1565095	Lactobacillus sp. HMSC075D02
+SRX1565108	Lactobacillus sp. HMSC056D05
+SRX1565157	Lactobacillus sp. HMSC073D04
+SRX1615118	Lactobacillus fermentum
+SRX1684187	Lactobacillus johnsonii
+SRX1684189	Lactobacillus johnsonii
+SRX1687039	Lactobacillus acetotolerans
+SRX1760642	Lactobacillus paralimentarius DSM 13238 = JCM 10415
+SRX1760645	Lactobacillus lindneri DSM 20690 = JCM 11027
+SRX1760646	Lactobacillus nagelii DSM 13675
+SRX1842889	Lactobacillus crispatus
+SRX1879424	Lactobacillus harbinensis DSM 16991
+SRX1949176	Lactobacillus gasseri ATCC 33323 = JCM 1131
+SRX1950180	Lactobacillus buchneri NRRL B-30929
+SRX1950181	Lactobacillus buchneri NRRL B-30929
+SRX1970176	Lactobacillus casei A2-362
+SRX1970177	Lactobacillus casei 21/1
+SRX1970178	Lactobacillus casei UW4
+SRX1970179	Lactobacillus casei 12A
+SRX200229	Lactobacillus iners ACS-070-V-Col3
+SRX200230	Lactobacillus iners ACS-070-V-Col3
+SRX2032381	Lactobacillus acidophilus
+SRX2032382	Lactobacillus acidophilus
+SRX2032383	Lactobacillus acidophilus
+SRX2032384	Lactobacillus acidophilus
+SRX2032385	Lactobacillus acidophilus
+SRX2032386	Lactobacillus acidophilus
+SRX2032387	Lactobacillus acidophilus
+SRX2032388	Lactobacillus acidophilus
+SRX2052678	Lactobacillus ruminis DSM 20403 = NBRC 102161
+SRX2063621	Lactobacillus acidophilus
+SRX2105549	Lactobacillus plantarum
+SRX2105550	Lactobacillus plantarum
+SRX2105551	Lactobacillus plantarum
+SRX2105552	Lactobacillus plantarum
+SRX2105553	Lactobacillus plantarum
+SRX2105554	Lactobacillus plantarum
+SRX2105555	Lactobacillus plantarum
+SRX2118809	Lactobacillus rogosae
+SRX2118812	Lactobacillus kefiranofaciens
+SRX2126115	Lactobacillus apis
+SRX2126118	Lactobacillus bombicola
+SRX2147351	Lactobacillus casei
+SRX2147357	Lactobacillus casei
+SRX2147359	Lactobacillus casei
+SRX2147360	Lactobacillus casei
+SRX2147361	Lactobacillus casei
+SRX2147363	Lactobacillus casei
+SRX2147364	Lactobacillus casei
+SRX2147366	Lactobacillus casei
+SRX2147367	Lactobacillus casei
+SRX2147368	Lactobacillus casei
+SRX2147369	Lactobacillus casei
+SRX2147372	Lactobacillus casei
+SRX2147374	Lactobacillus casei
+SRX2147376	Lactobacillus casei
+SRX2147377	Lactobacillus casei
+SRX2147379	Lactobacillus casei
+SRX2147380	Lactobacillus casei
+SRX2147382	Lactobacillus casei
+SRX2147383	Lactobacillus casei
+SRX2147386	Lactobacillus casei
+SRX2147387	Lactobacillus casei
+SRX2147388	Lactobacillus casei
+SRX2147391	Lactobacillus casei
+SRX2147393	Lactobacillus casei
+SRX2147395	Lactobacillus casei
+SRX2147397	Lactobacillus casei
+SRX2147398	Lactobacillus casei
+SRX2147400	Lactobacillus casei
+SRX2147402	Lactobacillus casei
+SRX2147404	Lactobacillus casei
+SRX2147405	Lactobacillus casei
+SRX2147410	Lactobacillus casei
+SRX2147413	Lactobacillus casei
+SRX2147418	Lactobacillus casei
+SRX2147421	Lactobacillus casei
+SRX2147423	Lactobacillus casei
+SRX2147425	Lactobacillus casei
+SRX2147436	Lactobacillus casei
+SRX2147437	Lactobacillus casei
+SRX2147438	Lactobacillus casei
+SRX2147440	Lactobacillus casei
+SRX2147442	Lactobacillus casei
+SRX2147444	Lactobacillus casei
+SRX2147445	Lactobacillus casei
+SRX2147446	Lactobacillus casei
+SRX2147447	Lactobacillus casei
+SRX2147449	Lactobacillus casei
+SRX2147450	Lactobacillus casei
+SRX2147452	Lactobacillus casei
+SRX2147453	Lactobacillus casei
+SRX215445	Lactobacillus rhamnosus GG
+SRX215446	Lactobacillus rhamnosus LMG 25859
+SRX215447	Lactobacillus rhamnosus GG
+SRX215449	Lactobacillus rhamnosus LMG 27229
+SRX2155602	Lactobacillus ruminis
+SRX2155606	Lactobacillus mucosae
+SRX2155608	Lactobacillus mucosae
+SRX2155629	Lactobacillus mucosae
+SRX2161487	Lactobacillus acidophilus
+SRX2222449	Lactobacillus rhamnosus
+SRX2222450	Lactobacillus rhamnosus
+SRX2222451	Lactobacillus rhamnosus
+SRX2222452	Lactobacillus rhamnosus
+SRX2222453	Lactobacillus rhamnosus
+SRX2222454	Lactobacillus rhamnosus
+SRX2222455	Lactobacillus rhamnosus
+SRX2239653	Lactobacillus fermentum
+SRX2250249	Lactobacillus rhamnosus
+SRX2250250	Lactobacillus rhamnosus
+SRX2250251	Lactobacillus rhamnosus
+SRX2250252	Lactobacillus rhamnosus
+SRX2268563	Lactobacillus zeae
+SRX2268564	Lactobacillus sp. DS13_6
+SRX2268565	Lactobacillus zeae
+SRX2268566	Lactobacillus brevis
+SRX2268567	Lactobacillus sp. DS1_6
+SRX2268568	Lactobacillus salivarius
+SRX2268569	Lactobacillus reuteri
+SRX2268570	Lactobacillus helveticus
+SRX2268571	Lactobacillus reuteri
+SRX2268572	Lactobacillus salivarius
+SRX2268573	Lactobacillus sp. DS9_6
+SRX2268574	Lactobacillus helveticus
+SRX2268575	Lactobacillus sp. DS3_6
+SRX2268576	Lactobacillus salivarius
+SRX2268577	Lactobacillus casei group
+SRX2268578	Lactobacillus sp. DS15_6
+SRX2268579	Lactobacillus reuteri
+SRX2268580	Lactobacillus fermentum
+SRX2268581	Lactobacillus reuteri
+SRX2268582	Lactobacillus fermentum
+SRX2268583	Lactobacillus salivarius
+SRX2268584	Lactobacillus sp. DS18_6
+SRX2268585	Lactobacillus helveticus
+SRX2268586	Lactobacillus sp. DS2_6
+SRX2268587	Lactobacillus helveticus
+SRX244574	Lactobacillus gasseri ADL-351
+SRX247324	Lactobacillus murinus ASF361
+SRX247325	Lactobacillus murinus ASF361
+SRX247326	Lactobacillus sp. ASF360
+SRX2582455	Lactobacillus johnsonii
+SRX2582456	Lactobacillus johnsonii
+SRX2582457	Lactobacillus johnsonii
+SRX2582458	Lactobacillus johnsonii
+SRX2582459	Lactobacillus johnsonii
+SRX2582460	Lactobacillus johnsonii
+SRX2582461	Lactobacillus reuteri
+SRX2582462	Lactobacillus reuteri
+SRX2582463	Lactobacillus reuteri
+SRX2582464	Lactobacillus reuteri
+SRX2582465	Lactobacillus reuteri
+SRX2582466	Lactobacillus reuteri
+SRX2582467	Lactobacillus reuteri
+SRX2582468	Lactobacillus reuteri
+SRX2610825	Lactobacillus acidophilus
+SRX2610826	Lactobacillus plantarum
+SRX2610827	Lactobacillus rhamnosus
+SRX2610828	Lactobacillus reuteri
+SRX2610829	Lactobacillus plantarum
+SRX2610831	Lactobacillus acidophilus
+SRX2610836	Lactobacillus plantarum
+SRX2610839	Lactobacillus rhamnosus
+SRX2610840	Lactobacillus rhamnosus
+SRX2641059	Lactobacillus salivarius
+SRX2641073	Lactobacillus reuteri
+SRX2641081	Lactobacillus salivarius
+SRX2641165	Lactobacillus gasseri
+SRX2641191	Lactobacillus reuteri
+SRX2641200	Lactobacillus gallinarum
+SRX2641222	Lactobacillus salivarius
+SRX2641232	Lactobacillus gallinarum
+SRX2641234	Lactobacillus gallinarum
+SRX2641236	Lactobacillus gallinarum
+SRX2641251	Lactobacillus gallinarum
+SRX2660270	Lactobacillus crispatus
+SRX2699459	Lactobacillus plantarum
+SRX2736144	Lactobacillus gasseri
+SRX2736145	Lactobacillus gasseri
+SRX2736146	Lactobacillus gasseri
+SRX2736147	Lactobacillus gasseri
+SRX2736148	Lactobacillus gasseri
+SRX2736149	Lactobacillus gasseri
+SRX2741187	Lactobacillus gasseri
+SRX2741188	Lactobacillus gasseri
+SRX2741189	Lactobacillus gasseri
+SRX2741190	Lactobacillus gasseri
+SRX2741191	Lactobacillus gasseri
+SRX2741192	Lactobacillus gasseri
+SRX2789243	Lactobacillus gasseri
+SRX2789244	Lactobacillus gasseri
+SRX2789245	Lactobacillus gasseri
+SRX2789246	Lactobacillus gasseri
+SRX2789247	Lactobacillus gasseri
+SRX2789248	Lactobacillus gasseri
+SRX2940497	Lactobacillus brevis
+SRX2940498	Lactobacillus helveticus
+SRX2940499	Lactobacillus brevis
+SRX2940500	Lactobacillus brevis
+SRX2940501	Lactobacillus plantarum
+SRX298584	Lactobacillus parabrevis ATCC 53295
+SRX301579	Lactobacillus catenefornis DSM 20559
+SRX301614	Lactobacillus ceti DSM 22408
+SRX301752	Lactobacillus saerimneri DSM 16049
+SRX301765	Lactobacillus rossiae DSM 15814
+SRX301867	Lactobacillus harbinensis DSM 16991
+SRX301885	Lactobacillus psittaci DSM 15354
+SRX3075577	Lactobacillus plantarum
+SRX3104383	Lactobacillus iners
+SRX3104384	Lactobacillus iners
+SRX3104388	Lactobacillus iners
+SRX3104392	Lactobacillus gasseri
+SRX3146668	Lactobacillus murinus
+SRX3155943	Lactobacillus gasseri
+SRX3155954	Lactobacillus pontis
+SRX318181	Lactobacillus fermentum Lf1
+SRX334092	Lactobacillus curvatus F16_9
+SRX334093	Lactobacillus curvatus F16_9
+SRX334094	Lactobacillus curvatus F16_9
+SRX334095	Lactobacillus curvatus F16_9
+SRX365193	Lactobacillus fabifermentans T30PCM01
+SRX3749552	Lactobacillus casei
+SRX3749553	Lactobacillus casei
+SRX3749554	Lactobacillus casei
+SRX3749555	Lactobacillus casei
+SRX3749556	Lactobacillus casei
+SRX3749557	Lactobacillus casei
+SRX3749558	Lactobacillus casei
+SRX3749559	Lactobacillus casei
+SRX3749560	Lactobacillus casei
+SRX3749561	Lactobacillus casei
+SRX3749562	Lactobacillus casei
+SRX3749563	Lactobacillus casei
+SRX3749564	Lactobacillus casei
+SRX3749565	Lactobacillus casei
+SRX3749566	Lactobacillus casei
+SRX3749567	Lactobacillus casei
+SRX3749568	Lactobacillus casei
+SRX3749569	Lactobacillus casei
+SRX3749570	Lactobacillus casei
+SRX3749571	Lactobacillus casei
+SRX3749572	Lactobacillus casei
+SRX3749573	Lactobacillus casei
+SRX3749574	Lactobacillus casei
+SRX3749575	Lactobacillus casei
+SRX3749576	Lactobacillus casei
+SRX3749577	Lactobacillus casei
+SRX3749578	Lactobacillus casei
+SRX3749579	Lactobacillus casei
+SRX3749580	Lactobacillus casei
+SRX3749581	Lactobacillus casei
+SRX3749582	Lactobacillus casei
+SRX3749583	Lactobacillus casei
+SRX3749584	Lactobacillus casei
+SRX3749585	Lactobacillus casei
+SRX3749586	Lactobacillus casei
+SRX3749587	Lactobacillus casei
+SRX3749588	Lactobacillus casei
+SRX3749589	Lactobacillus casei
+SRX3749590	Lactobacillus casei
+SRX3749591	Lactobacillus casei
+SRX3749592	Lactobacillus casei
+SRX3749593	Lactobacillus casei
+SRX377710	Lactobacillus acidophilus CFH
+SRX377715	Lactobacillus acidophilus CFH
+SRX3865657	Lactobacillus brevis
+SRX3865658	Lactobacillus brevis
+SRX3865659	Lactobacillus brevis
+SRX3865660	Lactobacillus brevis
+SRX3865661	Lactobacillus brevis
+SRX3865662	Lactobacillus brevis
+SRX3908887	Lactobacillus plantarum
+SRX3908888	Lactobacillus plantarum
+SRX3908889	Lactobacillus plantarum
+SRX3908890	Lactobacillus plantarum
+SRX3908891	Lactobacillus plantarum
+SRX3908892	Lactobacillus plantarum
+SRX3908893	Lactobacillus plantarum
+SRX3908894	Lactobacillus plantarum
+SRX3908895	Lactobacillus plantarum
+SRX3908896	Lactobacillus plantarum
+SRX3908897	Lactobacillus plantarum
+SRX3908898	Lactobacillus plantarum
+SRX3908899	Lactobacillus plantarum
+SRX422995	Lactobacillus sp. ASF360
+SRX4336892	Lactobacillus paracasei
+SRX4367479	Lactobacillus fermentum
+SRX4395584	Lactobacillus animalis
+SRX4395742	Lactobacillus animalis
+SRX4395847	Lactobacillus animalis
+SRX4395848	Lactobacillus animalis
+SRX4395855	Lactobacillus animalis
+SRX4395905	Lactobacillus animalis
+SRX4417045	Lactobacillus fermentum
+SRX4417046	Lactobacillus fermentum
+SRX4417052	Lactobacillus plantarum
+SRX4417054	Lactobacillus paraplantarum
+SRX4417055	Lactobacillus paracasei subsp. paracasei
+SRX4417056	Lactobacillus paracasei
+SRX4417057	Lactobacillus paracasei
+SRX4417058	Lactobacillus plantarum
+SRX4417059	Lactobacillus plantarum
+SRX4417060	Lactobacillus plantarum
+SRX4417061	Lactobacillus brevis
+SRX4417062	Lactobacillus brevis
+SRX4417063	Lactobacillus plantarum
+SRX4417065	Lactobacillus paracasei
+SRX4526082	Lactobacillus timberlakei
+SRX4526083	Lactobacillus timberlakei
+SRX4526084	Lactobacillus timberlakei
+SRX4526085	Lactobacillus timberlakei
+SRX4526086	Lactobacillus timberlakei
+SRX4526087	Lactobacillus timberlakei
+SRX4526088	Lactobacillus timberlakei
+SRX4526089	Lactobacillus micheneri
+SRX4526090	Lactobacillus timberlakei
+SRX4526091	Lactobacillus micheneri
+SRX4526092	Lactobacillus micheneri
+SRX4526093	Lactobacillus micheneri
+SRX4526094	Lactobacillus micheneri
+SRX4526095	Lactobacillus micheneri
+SRX4526096	Lactobacillus micheneri
+SRX4526097	Lactobacillus micheneri
+SRX4526098	Lactobacillus micheneri
+SRX4526099	Lactobacillus micheneri
+SRX4526100	Lactobacillus micheneri
+SRX4526101	Lactobacillus micheneri
+SRX4526102	Lactobacillus micheneri
+SRX4526103	Lactobacillus micheneri
+SRX4526104	Lactobacillus micheneri
+SRX4526105	Lactobacillus micheneri
+SRX4526106	Lactobacillus micheneri
+SRX4526107	Lactobacillus micheneri
+SRX4526108	Lactobacillus micheneri
+SRX4526109	Lactobacillus kunkeei
+SRX4526110	Lactobacillus kunkeei
+SRX456224	Lactobacillus bifermentans DSM 20003
+SRX456225	Lactobacillus curvatus JCM 1096 = DSM 20019
+SRX456226	Lactobacillus delbrueckii subsp. indicus DSM 15996
+SRX456227	Lactobacillus delbrueckii subsp. lactis DSM 20072
+SRX456228	Lactobacillus helveticus DSM 20075 = CGMCC 1.1877
+SRX456229	Lactobacillus paracasei subsp. tolerans DSM 20258
+SRX456230	Lactobacillus casei DSM 20011 = JCM 1134
+SRX456231	Lactobacillus agilis DSM 20509
+SRX456232	Lactobacillus concavus DSM 17758
+SRX456233	Lactobacillus coryniformis subsp. torquens DSM 20004 = KCTC 3535
+SRX456234	Lactobacillus paracollinoides DSM 15502 = JCM 11969
+SRX456235	Lactobacillus sharpeae JCM 1186 = DSM 20505
+SRX456236	Lactobacillus aquaticus DSM 21051
+SRX456237	Lactobacillus equicursoris DSM 19284 = JCM 14600 = CIP 110162
+SRX456238	Lactobacillus equigenerosi DSM 18793 = JCM 14505
+SRX456239	Lactobacillus johnsonii ATCC 33200
+SRX456240	Lactobacillus psittaci DSM 15354
+SRX456241	Lactobacillus rennini DSM 20253
+SRX456242	Lactobacillus ruminis DSM 20403 = NBRC 102161
+SRX456243	Lactobacillus vaccinostercus DSM 20634
+SRX456244	Lactobacillus versmoldensis DSM 14857 = KCTC 3814
+SRX456245	Lactobacillus crispatus DSM 20584 = JCM 1185
+SRX456246	Lactobacillus acidophilus DSM 20079 = JCM 1132 = NBRC 13951
+SRX456247	Lactobacillus animalis KCTC 3501 = DSM 20602
+SRX456248	Lactobacillus antri DSM 16041
+SRX456249	Lactobacillus apodemi DSM 16634 = JCM 16172
+SRX456250	Lactobacillus aviarius subsp. aviarius DSM 20655
+SRX456251	Lactobacillus brantae DSM 23927
+SRX456252	Lactobacillus coleohominis DSM 14060
+SRX456253	Lactobacillus equi DSM 15833 = JCM 10991
+SRX456254	Lactobacillus gallinarum DSM 10532 = JCM 2011
+SRX456255	Lactobacillus gigeriorum DSM 23908 = CRBIP 24.85
+SRX456256	Lactobacillus hamsteri DSM 5661 = JCM 6256
+SRX456257	Lactobacillus hayakitensis DSM 18933 = JCM 14209
+SRX456258	Lactobacillus hominis DSM 23910 = CRBIP 24.179
+SRX456259	Lactobacillus iners DSM 13335
+SRX456260	Lactobacillus ingluviei DSM 15946
+SRX456261	Lactobacillus intestinalis DSM 6629
+SRX456262	Lactobacillus jensenii DSM 20557
+SRX456263	Lactobacillus kalixensis DSM 16043
+SRX456264	Lactobacillus mucosae DSM 13345
+SRX456265	Lactobacillus murinus DSM 20452 = NBRC 14221
+SRX456266	Lactobacillus oris DSM 4864
+SRX456267	Lactobacillus pantheris DSM 15945 = JCM 12539 = NBRC 106106
+SRX456268	Lactobacillus parabuchneri DSM 5707 = NBRC 107865
+SRX456269	Lactobacillus pasteurii DSM 23907 = CRBIP 24.76
+SRX456270	Lactobacillus reuteri DSM 20016
+SRX456271	Lactobacillus saerimneri DSM 16049
+SRX456272	Lactobacillus salivarius DSM 20555 = ATCC 11741
+SRX456273	Lactobacillus senioris DSM 24302 = JCM 17472
+SRX456274	Lactobacillus ultunensis DSM 16047
+SRX456275	Lactobacillus vaginalis DSM 5837 = ATCC 49540
+SRX456276	Lactobacillus kitasatonis DSM 16761 = JCM 1039
+SRX456277	Lactobacillus gastricus DSM 16045
+SRX456278	Lactobacillus brevis ATCC 14869 = DSM 20054
+SRX456279	Lactobacillus amylotrophicus DSM 20534
+SRX456280	Lactobacillus amylovorus DSM 20531
+SRX456281	Lactobacillus aviarius subsp. araffinosus DSM 20653
+SRX456282	Lactobacillus acidipiscis DSM 15836
+SRX456283	Lactobacillus algidus DSM 15638
+SRX456284	Lactobacillus alimentarius DSM 20249
+SRX456285	Lactobacillus farciminis KCTC 3681 = DSM 20184
+SRX456286	Lactobacillus fuchuensis DSM 14340 = JCM 11249
+SRX456287	Lactobacillus oligofermentans DSM 15707 = LMG 22743
+SRX456288	Lactobacillus sakei subsp. carnosus DSM 15831
+SRX456289	Lactobacillus tucceti DSM 20183
+SRX456290	Lactobacillus fructivorans KCTC 3543 = DSM 20203
+SRX456291	Lactobacillus paracasei subsp. paracasei DSM 5622
+SRX456292	Lactobacillus camelliae DSM 22697 = JCM 13995
+SRX456293	Lactobacillus plantarum subsp. plantarum ATCC 14917 = JCM 1149 = CGMCC 1.2437
+SRX456294	Lactobacillus acetotolerans DSM 20749 = JCM 3825
+SRX456295	Lactobacillus paralimentarius DSM 19674
+SRX456296	Lactobacillus buchneri DSM 20057
+SRX456297	Lactobacillus cacaonum DSM 21116
+SRX456298	Lactobacillus capillatus DSM 19910
+SRX456299	Lactobacillus collinoides DSM 20515 = JCM 1123
+SRX456300	Lactobacillus composti DSM 18527 = JCM 14202
+SRX456301	Lactobacillus dextrinicus DSM 20335
+SRX456302	Lactobacillus diolivorans DSM 14421
+SRX456303	Lactobacillus fabifermentans DSM 21115
+SRX456304	Lactobacillus floricola DSM 23037 = JCM 16512
+SRX456305	Lactobacillus florum DSM 22689 = JCM 16035
+SRX456306	Lactobacillus futsaii JCM 17355
+SRX456307	Lactobacillus ghanensis DSM 18630
+SRX456308	Lactobacillus graminis DSM 20719
+SRX456309	Lactobacillus harbinensis DSM 16991
+SRX456310	Lactobacillus hordei DSM 19519
+SRX456311	Lactobacillus kefiranofaciens subsp. kefiranofaciens DSM 5016 = JCM 6985
+SRX456312	Lactobacillus kefiranofaciens subsp. kefirgranum DSM 10550 = JCM 8572
+SRX456313	Lactobacillus kefiri DSM 20587 = JCM 5818
+SRX456314	Lactobacillus kimchicus JCM 15530
+SRX456315	Lactobacillus paralimentarius DSM 13961 = JCM 10707
+SRX456316	Lactobacillus kisonensis DSM 19906 = JCM 15041
+SRX456317	Lactobacillus koreensis JCM 16448
+SRX456318	Lactobacillus mali KCTC 3596 = DSM 20444
+SRX456319	Lactobacillus manihotivorans DSM 13343 = JCM 12514
+SRX456320	Lactobacillus nasuensis JCM 17158
+SRX456321	Lactobacillus nodensis DSM 19682 = JCM 14932 = NBRC 107160
+SRX456322	Lactobacillus odoratitofui DSM 19909 = JCM 15043
+SRX456323	Lactobacillus otakiensis DSM 19908 = JCM 15040
+SRX456324	Lactobacillus ozensis DSM 23829 = JCM 17196
+SRX456325	Lactobacillus parabrevis ATCC 53295
+SRX456326	Lactobacillus parakefiri DSM 10551
+SRX456327	Lactobacillus perolens DSM 12744
+SRX456328	Lactobacillus plantarum subsp. argentoratensis DSM 16365
+SRX456329	Lactobacillus pobuzihii E100301 = KCTC 13174
+SRX456330	Lactobacillus rapi DSM 19907 = JCM 15042
+SRX456331	Lactobacillus senmaizukei DSM 21775 = NBRC 103853
+SRX456332	Lactobacillus similis DSM 23365 = JCM 2765
+SRX456333	Lactobacillus sucicola DSM 21376 = JCM 15457
+SRX456334	Lactobacillus suebicus DSM 5007 = KCTC 3549
+SRX456335	Lactobacillus sunkii DSM 19904
+SRX456336	Lactobacillus taiwanensis DSM 21401
+SRX456337	Lactobacillus thailandensis DSM 22698 = JCM 13996
+SRX456338	Lactobacillus uvarum DSM 19971
+SRX456339	Lactobacillus vini DSM 20605
+SRX456340	Lactobacillus coryniformis subsp. coryniformis KCTC 3167 = DSM 20001
+SRX456341	Lactobacillus delbrueckii subsp. delbrueckii DSM 20074 = JCM 1012
+SRX456342	Lactobacillus pentosus DSM 20314
+SRX456343	Lactobacillus acidifarinae DSM 19394
+SRX456344	Lactobacillus crustorum JCM 15951
+SRX456345	Lactobacillus frumenti DSM 13145
+SRX456346	Lactobacillus hammesii DSM 16381
+SRX456347	Lactobacillus mindensis DSM 14500
+SRX456348	Lactobacillus namurensis DSM 19117
+SRX456349	Lactobacillus nantensis DSM 16982
+SRX456350	Lactobacillus panis DSM 6035
+SRX456351	Lactobacillus paralimentarius DSM 13238 = JCM 10415
+SRX456352	Lactobacillus pontis DSM 8475
+SRX456353	Lactobacillus rossiae DSM 15814
+SRX456354	Lactobacillus sanfranciscensis DSM 20451
+SRX456355	Lactobacillus spicheri DSM 15429
+SRX456356	Lactobacillus zymae DSM 19395
+SRX456357	Lactobacillus amylolyticus DSM 11664
+SRX456358	Lactobacillus amylophilus DSM 20533 = JCM 1125
+SRX456359	Lactobacillus farraginis DSM 18382 = JCM 14108
+SRX456360	Lactobacillus hilgardii DSM 20176 = ATCC 8290
+SRX456361	Lactobacillus kunkeei DSM 12361 = ATCC 700308
+SRX456362	Lactobacillus malefermentans DSM 5705 = KCTC 3548
+SRX456363	Lactobacillus nagelii DSM 13675
+SRX456364	Lactobacillus oeni DSM 19972
+SRX456365	Lactobacillus parafarraginis DSM 18390 = JCM 14109
+SRX456366	Lactobacillus paraplantarum DSM 10667
+SRX456367	Lactobacillus sakei subsp. sakei DSM 20017 = JCM 1157
+SRX456368	Lactobacillus satsumensis DSM 16230 = JCM 12392
+SRX456369	Lactobacillus zeae DSM 20178 = KCTC 3804
+SRX456370	Lactobacillus rhamnosus DSM 20021 = JCM 1136 = NBRC 3425
+SRX4636333	Lactobacillus fermentum
+SRX4791890	Lactobacillus acidophilus
+SRX4890322	Lactobacillus ruminis
+SRX4890324	Lactobacillus paracasei
+SRX4890325	Lactobacillus rhamnosus
+SRX4958455	Lactobacillus fermentum
+SRX4985825	Lactobacillus reuteri
+SRX4985826	Lactobacillus reuteri
+SRX4997533	Lactobacillus reuteri
+SRX5002688	Lactobacillus reuteri
+SRX5025521	Lactobacillus vaginalis
+SRX5026081	Lactobacillus sp. ESL0263
+SRX5026082	Lactobacillus sp. ESL0259
+SRX5026083	Lactobacillus sp. ESL0260
+SRX5026084	Lactobacillus sp. ESL0261
+SRX5026085	Lactobacillus sp. ESL0262
+SRX5026086	Lactobacillus sp. ESL0237
+SRX5026087	Lactobacillus sp. ESL0245
+SRX5026088	Lactobacillus sp. ESL0234
+SRX5026089	Lactobacillus sp. ESL0236
+SRX5026090	Lactobacillus sp. ESL0230
+SRX5026091	Lactobacillus sp. ESL0233
+SRX5026092	Lactobacillus sp. ESL0225
+SRX5026093	Lactobacillus sp. ESL0228
+SRX5026094	Lactobacillus sp. ESL0246
+SRX5026095	Lactobacillus sp. ESL0247
+SRX5116733	Lactobacillus pentosus
+SRX5116734	Lactobacillus pentosus
+SRX5116735	Lactobacillus pentosus
+SRX5116736	Lactobacillus pentosus
+SRX5116737	Lactobacillus pentosus
+SRX5192487	Lactobacillus reuteri
+SRX5192488	Lactobacillus plantarum
+SRX5192505	Lactobacillus paracasei
+SRX5395058	Lactobacillus reuteri
+SRX542237	Lactobacillus salivarius str. Ren
+SRX547191	Lactobacillus salivarius str. Ren
+SRX5489807	Lactobacillus plantarum
+SRX5620993	Lactobacillus rhamnosus GG
+SRX5620998	Lactobacillus paracasei
+SRX5620999	Lactobacillus fermentum
+SRX5621000	Lactobacillus rhamnosus
+SRX5653696	Lactobacillus delbrueckii subsp. lactis
+SRX5653697	Lactobacillus delbrueckii subsp. lactis
+SRX5653698	Lactobacillus delbrueckii subsp. lactis
+SRX5705607	Lactobacillus buchneri
+SRX5705608	Lactobacillus buchneri
+SRX5705609	Lactobacillus buchneri
+SRX5705610	Lactobacillus buchneri
+SRX5705611	Lactobacillus buchneri
+SRX5705613	Lactobacillus buchneri
+SRX5705614	Lactobacillus curvatus
+SRX5705615	Lactobacillus paracasei
+SRX5705617	Lactobacillus buchneri
+SRX5705618	Lactobacillus buchneri
+SRX5705619	Lactobacillus amylovorus
+SRX5705620	Lactobacillus buchneri
+SRX5725484	Lactobacillus murinus
+SRX5726460	Lactobacillus murinus
+SRX5766037	Lactobacillus intestinalis
+SRX5766040	Lactobacillus johnsonii
+SRX5823655	Lactobacillus kunkeei
+SRX5823656	Lactobacillus kunkeei
+SRX5823657	Lactobacillus kunkeei
+SRX5823837	Lactobacillus reuteri
+SRX5823838	Lactobacillus reuteri
+SRX5831611	Lactobacillus animalis
+SRX5843336	Lactobacillus gasseri MV-22
+SRX5843343	Lactobacillus jensenii JV-V16
+SRX5843369	Lactobacillus reuteri CF48-3A
+SRX5843371	Lactobacillus paragasseri JV-V03
+SRX5949263	Lactobacillus crispatus
+SRX5949277	Lactobacillus jensenii
+SRX5986001	Lactobacillus crispatus
+SRX5986002	Lactobacillus crispatus
+SRX5986003	Lactobacillus crispatus
+SRX5992450	Lactobacillus ruminis
+SRX5992479	Lactobacillus paracasei
+SRX5992480	Lactobacillus paracasei
+SRX5992516	Lactobacillus ruminis
+SRX5992517	Lactobacillus ruminis
+SRX5992518	Lactobacillus ruminis
+SRX5992519	Lactobacillus ruminis
+SRX5992520	Lactobacillus ruminis
+SRX5992521	Lactobacillus ruminis
+SRX5992522	Lactobacillus ruminis
+SRX5992523	Lactobacillus ruminis
+SRX5992524	Lactobacillus ruminis
+SRX5992525	Lactobacillus ruminis
+SRX5992559	Lactobacillus ruminis
+SRX5992562	Lactobacillus ruminis
+SRX5992563	Lactobacillus ruminis
+SRX5992564	Lactobacillus ruminis
+SRX5992565	Lactobacillus ruminis
+SRX5992566	Lactobacillus ruminis
+SRX5992567	Lactobacillus ruminis
+SRX5992568	Lactobacillus ruminis
+SRX5992569	Lactobacillus ruminis
+SRX5992738	Lactobacillus ruminis
+SRX5992739	Lactobacillus ruminis
+SRX5992740	Lactobacillus ruminis
+SRX5992741	Lactobacillus ruminis
+SRX5992742	Lactobacillus ruminis
+SRX5992743	Lactobacillus ruminis
+SRX5992754	Lactobacillus ruminis
+SRX5992755	Lactobacillus ruminis
+SRX5992780	Lactobacillus ruminis
+SRX5992812	Lactobacillus paracasei
+SRX5992813	Lactobacillus paracasei
+SRX5992983	Lactobacillus rhamnosus
+SRX5992984	Lactobacillus rhamnosus
+SRX5992985	Lactobacillus rhamnosus
+SRX5992986	Lactobacillus rhamnosus
+SRX5992987	Lactobacillus rhamnosus
+SRX5992988	Lactobacillus rhamnosus
+SRX5992989	Lactobacillus rhamnosus
+SRX5992990	Lactobacillus rhamnosus
+SRX5992991	Lactobacillus rhamnosus
+SRX5992992	Lactobacillus rhamnosus
+SRX6406719	Lactobacillus harbinensis
+SRX642087	Lactobacillus kunkeei EFB6
+SRX6454026	Lactobacillus gasseri
+SRX6454027	Lactobacillus gasseri
+SRX6454028	Lactobacillus jensenii
+SRX6454029	Lactobacillus paragasseri
+SRX6454030	Lactobacillus paragasseri
+SRX6454031	Lactobacillus gasseri
+SRX6454032	Lactobacillus jensenii
+SRX6454033	Lactobacillus jensenii
+SRX6454034	Lactobacillus jensenii
+SRX6454035	Lactobacillus jensenii
+SRX6454036	Lactobacillus gasseri
+SRX6454037	Lactobacillus gasseri
+SRX6454038	Lactobacillus gasseri
+SRX6454039	Lactobacillus jensenii
+SRX6454040	Lactobacillus jensenii
+SRX6454041	Lactobacillus jensenii
+SRX6454042	Lactobacillus jensenii
+SRX6454043	Lactobacillus gasseri
+SRX6454044	Lactobacillus jensenii
+SRX6454045	Lactobacillus jensenii
+SRX6492358	Lactobacillus sp. LL6
+SRX6494060	Lactobacillus reuteri
+SRX6613945	Lactobacillus crispatus
+SRX6757122	Lactobacillus rhamnosus
+SRX6757123	Lactobacillus rhamnosus
+SRX6757124	Lactobacillus rhamnosus
+SRX6757125	Lactobacillus rhamnosus
+SRX6757126	Lactobacillus rhamnosus
+SRX6757127	Lactobacillus rhamnosus
+SRX6757128	Lactobacillus rhamnosus
+SRX6757129	Lactobacillus rhamnosus
+SRX6757130	Lactobacillus rhamnosus
+SRX6757131	Lactobacillus rhamnosus
+SRX6757132	Lactobacillus rhamnosus
+SRX6757133	Lactobacillus rhamnosus
+SRX6757134	Lactobacillus rhamnosus
+SRX6757135	Lactobacillus rhamnosus
+SRX6757136	Lactobacillus rhamnosus
+SRX6757137	Lactobacillus rhamnosus
+SRX6757138	Lactobacillus rhamnosus
+SRX6757139	Lactobacillus rhamnosus
+SRX6757140	Lactobacillus rhamnosus
+SRX6757141	Lactobacillus rhamnosus
+SRX6757142	Lactobacillus rhamnosus
+SRX6757143	Lactobacillus rhamnosus
+SRX6757144	Lactobacillus rhamnosus
+SRX6757145	Lactobacillus rhamnosus
+SRX6757146	Lactobacillus rhamnosus
+SRX6757147	Lactobacillus rhamnosus
+SRX6757148	Lactobacillus rhamnosus
+SRX6757149	Lactobacillus rhamnosus
+SRX6757150	Lactobacillus rhamnosus
+SRX6757151	Lactobacillus rhamnosus
+SRX6757152	Lactobacillus rhamnosus
+SRX6757153	Lactobacillus rhamnosus
+SRX6757154	Lactobacillus rhamnosus
+SRX6757155	Lactobacillus rhamnosus
+SRX6757156	Lactobacillus rhamnosus
+SRX6757157	Lactobacillus rhamnosus
+SRX6757158	Lactobacillus rhamnosus
+SRX6757159	Lactobacillus rhamnosus
+SRX6757160	Lactobacillus rhamnosus
+SRX6757161	Lactobacillus rhamnosus
+SRX6757162	Lactobacillus rhamnosus
+SRX6757163	Lactobacillus rhamnosus
+SRX6757164	Lactobacillus rhamnosus
+SRX6757165	Lactobacillus rhamnosus
+SRX6757166	Lactobacillus rhamnosus
+SRX6757167	Lactobacillus rhamnosus
+SRX6757168	Lactobacillus rhamnosus
+SRX6757169	Lactobacillus rhamnosus
+SRX6757170	Lactobacillus rhamnosus
+SRX6757171	Lactobacillus rhamnosus
+SRX6757172	Lactobacillus rhamnosus
+SRX6757173	Lactobacillus rhamnosus
+SRX6757174	Lactobacillus rhamnosus
+SRX6757175	Lactobacillus rhamnosus
+SRX6757176	Lactobacillus rhamnosus
+SRX6757177	Lactobacillus rhamnosus
+SRX6757178	Lactobacillus rhamnosus
+SRX681634	Lactobacillus plantarum subsp. plantarum ATCC 14917 = JCM 1149 = CGMCC 1.2437
+SRX682137	Lactobacillus plantarum subsp. plantarum ATCC 14917 = JCM 1149 = CGMCC 1.2437
+SRX682139	Lactobacillus plantarum subsp. plantarum ATCC 14917 = JCM 1149 = CGMCC 1.2437
+SRX682140	Lactobacillus plantarum subsp. plantarum ATCC 14917 = JCM 1149 = CGMCC 1.2437
+SRX682141	Lactobacillus plantarum
+SRX682142	Lactobacillus plantarum
+SRX682143	Lactobacillus plantarum
+SRX682144	Lactobacillus plantarum
+SRX682145	Lactobacillus plantarum
+SRX683685	Lactobacillus rhamnosus GG
+SRX683693	Lactobacillus rhamnosus GG
+SRX683696	Lactobacillus rhamnosus GG
+SRX683698	Lactobacillus rhamnosus GG
+SRX683701	Lactobacillus rhamnosus GG
+SRX683705	Lactobacillus rhamnosus GG
+SRX683720	Lactobacillus rhamnosus GG
+SRX683733	Lactobacillus rhamnosus GG
+SRX683735	Lactobacillus rhamnosus GG
+SRX683744	Lactobacillus rhamnosus GG
+SRX6878787	Lactobacillus jensenii
+SRX6878792	Lactobacillus jensenii
+SRX6878807	Lactobacillus jensenii
+SRX6878810	Lactobacillus jensenii
+SRX6878811	Lactobacillus jensenii
+SRX6878812	Lactobacillus jensenii
+SRX6878820	Lactobacillus jensenii
+SRX6878824	Lactobacillus jensenii
+SRX6897166	Lactobacillus gasseri ATCC 33323 = JCM 1131
+SRX690300	Lactobacillus selangorensis
+SRX690301	Lactobacillus kimchiensis
+SRX690302	Lactobacillus delbrueckii subsp. jakobsenii ZN7a-9 = DSM 26046
+SRX690303	Lactobacillus hokkaidonensis
+SRX6959881	Lactobacillus crispatus
+SRX6959882	Lactobacillus crispatus
+SRX6959883	Lactobacillus crispatus
+SRX6959885	Lactobacillus crispatus
+SRX6959886	Lactobacillus crispatus
+SRX6959887	Lactobacillus crispatus
+SRX6959888	Lactobacillus crispatus
+SRX6959889	Lactobacillus crispatus
+SRX6959890	Lactobacillus crispatus
+SRX6959891	Lactobacillus crispatus
+SRX6959892	Lactobacillus crispatus
+SRX6959893	Lactobacillus crispatus
+SRX6959894	Lactobacillus crispatus
+SRX6959895	Lactobacillus crispatus
+SRX7004908	Lactobacillus plantarum
+SRX7004909	Lactobacillus fermentum
+SRX7042530	Lactobacillus helveticus
+SRX7042531	Lactobacillus fermentum
+SRX7042532	Lactobacillus delbrueckii
+SRX761991	Lactobacillus casei
+SRX761992	Lactobacillus casei
+SRX762075	Lactobacillus rhamnosus
+SRX762105	Lactobacillus rhamnosus
+SRX762128	Lactobacillus gasseri
+SRX762137	Lactobacillus gasseri
+SRX762166	Lactobacillus paracasei
+SRX762207	Lactobacillus rhamnosus
+SRX762278	Lactobacillus rhamnosus
+SRX762279	Lactobacillus rhamnosus
+SRX762350	Lactobacillus gasseri
+SRX762385	Lactobacillus gasseri
+SRX762387	Lactobacillus gasseri
+SRX762418	Lactobacillus paracasei
+SRX762419	Lactobacillus rhamnosus
+SRX762437	Lactobacillus rhamnosus
+SRX762507	Lactobacillus salivarius
+SRX762600	Lactobacillus rhamnosus
+SRX762610	Lactobacillus rhamnosus
+SRX762676	Lactobacillus rhamnosus
+SRX762678	Lactobacillus gasseri
+SRX762686	Lactobacillus salivarius
+SRX762687	Lactobacillus fermentum
+SRX762693	Lactobacillus rhamnosus
+SRX762750	Lactobacillus casei
+SRX762772	Lactobacillus salivarius
+SRX762773	Lactobacillus casei
+SRX762775	Lactobacillus rhamnosus
+SRX762798	Lactobacillus rhamnosus
+SRX762811	Lactobacillus rhamnosus
+SRX762861	Lactobacillus rhamnosus
+SRX762862	Lactobacillus rhamnosus
+SRX762897	Lactobacillus rhamnosus
+SRX762906	Lactobacillus gasseri
+SRX762907	Lactobacillus rhamnosus
+SRX833726	Lactobacillus apis
+SRX833730	Lactobacillus helsingborgensis
+SRX833737	Lactobacillus kimbladii
+SRX833743	Lactobacillus mellis
+SRX833746	Lactobacillus mellifer
+SRX833748	Lactobacillus kullabergensis
+SRX833756	Lactobacillus melliventris
+SRX835539	Lactobacillus kunkeei
+SRX835540	Lactobacillus kunkeei
+SRX835541	Lactobacillus kunkeei
+SRX835581	Lactobacillus kunkeei
+SRX835583	Lactobacillus kunkeei
+SRX835584	Lactobacillus kunkeei
+SRX835585	Lactobacillus kunkeei
+SRX835586	Lactobacillus kunkeei
+SRX835587	Lactobacillus kunkeei
+SRX835589	Lactobacillus kunkeei
+SRX835590	Lactobacillus kunkeei
+SRX835591	Lactobacillus kunkeei
+SRX838077	Lactobacillus kunkeei
+SRX838078	Lactobacillus kunkeei
+SRX838079	Lactobacillus kunkeei
+SRX838080	Lactobacillus kunkeei
+SRX838081	Lactobacillus kunkeei
+SRX838082	Lactobacillus kunkeei
+SRX838083	Lactobacillus kunkeei
+SRX838092	Lactobacillus kunkeei
+SRX838094	Lactobacillus kunkeei DSM 12361 = ATCC 700308
+SRX838095	Lactobacillus kunkeei DSM 12361 = ATCC 700308
+SRX838106	Lactobacillus kunkeei
+SRX838110	Lactobacillus apinorum
+SRX959911	Lactobacillus sp. HMSC08B12
+SRX963011	Lactobacillus sp. HMSC17G08
+SRX963035	Lactobacillus sp. HMSC24D01
+SRX963052	Lactobacillus sp. HMSC12B03
+SRX963255	Lactobacillus sp. HMSC25A02

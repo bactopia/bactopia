@@ -1,19 +1,86 @@
 #! /usr/bin/env python3
 """
+usage: bactopia tools summary [-h] [--gold_coverage FLOAT]
+                              [--gold_quality INT] [--gold_read_length INT]
+                              [--gold_contigs INT] [--silver_coverage FLOAT]
+                              [--silver_quality INT]
+                              [--silver_read_length INT]
+                              [--silver_contigs INT] [--min_coverage FLOAT]
+                              [--min_quality INT] [--min_read_length INT]
+                              [--max_contigs INT] [--min_genome_size FLOAT]
+                              [--max_genome_size FLOAT]
+                              [--outdir OUTPUT_DIRECTORY] [--prefix STR]
+                              [--depends] [--version] [--verbose] [--silent]
+                              BACTOPIA_DIRECTORY
 
+bactopia tools summary - Create a summary of Bactopia outputs
+
+positional arguments:
+  BACTOPIA_DIRECTORY    Directory containing Bactopia output.
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Gold Cutoffs:
+  --gold_coverage FLOAT
+                        Minimum amount of coverage required for Gold status
+                        (Default: 100x)
+  --gold_quality INT    Minimum per-read mean quality score required for Gold
+                        status (Default: Q30)
+  --gold_read_length INT
+                        Minimum mean read length required for Gold status
+                        (Default: 95bp)
+  --gold_contigs INT    Maximum contig count required for Gold status
+                        (Default: 100)
+
+Silver Cutoffs:
+  --silver_coverage FLOAT
+                        Minimum amount of coverage required for Silver status
+                        (Default: 50x)
+  --silver_quality INT  Minimum per-read mean quality score required for
+                        Silver status (Default: Q20)
+  --silver_read_length INT
+                        Minimum mean read length required for Silver status
+                        (Default: 75bp)
+  --silver_contigs INT  Maximum contig count required for Silver status
+                        (Default: 200)
+
+Fail Cutoffs:
+  --min_coverage FLOAT  Minimum amount of coverage required to pass (Default:
+                        20x)
+  --min_quality INT     Minimum per-read mean quality score required to pass
+                        (Default: Q12)
+  --min_read_length INT
+                        Minimum mean read length required to pass (Default:
+                        49bp)
+  --max_contigs INT     Maximum contig count required to pass (Default: 500)
+  --min_genome_size FLOAT
+                        Minimum assembled genome size.
+  --max_genome_size FLOAT
+                        Maximum assembled genome size.
+
+Helpers:
+  --outdir OUTPUT_DIRECTORY
+                        Directory to write output. (Default:
+                        BACTOPIA_DIR/bactopia-tools)
+  --prefix STR          Prefix to use for output files. (Default: bactopia)
+  --depends             Verify dependencies are installed.
+  --version             show program's version number and exit
+  --verbose             Increase the verbosity of output.
+  --silent              Only critical errors will be printed.
+
+example usage:
+  bactopia tools summary bactopiadir outdir
 """
-import glob
-import jinja2
 import json
 import logging
 import os
-import sys
 
 from collections import defaultdict
 from statistics import mean
 
 PROGRAM = "bactopia tools summary"
-VERSION = "1.2.4"
+VERSION = "1.3.0"
 TEMPLATE_DIR = os.path.dirname(os.path.realpath(__file__)).replace('bin', 'templates')
 
 STDOUT = 11
@@ -21,7 +88,7 @@ STDERR = 12
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
 
-IGNORE_LIST = ['.nextflow', '.nextflow.log', 'bactopia-info', 'work']
+IGNORE_LIST = ['.nextflow', '.nextflow.log', 'bactopia-info', 'work', 'bactopia-tools']
 COUNTS = defaultdict(int)
 FAILED = defaultdict(list)
 CATEGORIES = defaultdict(list)
@@ -64,39 +131,59 @@ def check_bactopia(path, name):
 def parse_error(error):
     """Return the error name."""
     if error.endswith("genome-size-error.txt"):
-        return "genome-size-error"
+        return ["genome-size-error", "Poor estimate of genome size"]
     elif error.endswith("low-read-count-error.txt"):
-        return "low-read-count-error"
+        return ["low-read-count-error", "Low number of reads"]
     elif error.endswith("low-sequence-depth-error.txt"):
-        return "low-sequence-depth-error"
+        return ["low-sequence-depth-error", "Low depth of sequencing"]
     elif  error.endswith("paired-end-error.txt"):
-        return "paired-end-error"
-    return "unknown-error"
+        return ["paired-end-error", "Paired-end read count mismatch"]
+    return ["unknown-error", "Unknown Error"]
 
-def parse_read_stats(json_file, ):
-    """ """
-    with open(json_file) as json_fh:
-        return json.load(json_fh)
+def parse_genome_size(txt_file):
+    """Pull out the genome size used for analysis."""
+    with open(txt_file, 'rt') as txt_fh:
+        return txt_fh.readline().rstrip()
 
 def parse_json(json_file):
     """Return a dict of the input json_file"""
     with open(json_file) as json_fh:
         return json.load(json_fh)
 
-def parse_annotation(txt_file):
+def parse_annotation(txt_file, prefix='annotation'):
     """Parse Prokka summary text file."""
     results = {}
-    with open(txt_file) as txt_fh:
+    with open(txt_file, 'rt') as txt_fh:
         for line in txt_fh:
             line = line.rstrip()
             key, val = line.split(":")
-            results[key] = val.lstrip()
+            results[f'{prefix}_{key}'] = val.lstrip()
     return results
+
+def gather_stats(files, rank_cutoff):
+    """Return a dictionary of combined stats."""
+    stats = {}
+    stats['estimated_genome_size'] = parse_genome_size(files['genome_size'])
+    if 'original' in files:
+        stats['is_paired'] = False
+        stats.update(merge_qc_stats(parse_json(files['original']), None))
+        stats.update(merge_qc_stats(parse_json(files['final']), None, prefix='final'))
+    else:
+        stats['is_paired'] = True
+        stats.update(merge_qc_stats(parse_json(files['original-r1']), parse_json(files['original-r2'])))
+        stats.update(merge_qc_stats(parse_json(files['final-r1']), parse_json(files['final-r2']), prefix='final'))
+    stats.update(parse_json(files['assembly']))
+    stats.update(parse_annotation(files['annotation']))
+    rank, reason = get_rank(rank_cutoff, stats['final_coverage'], stats['final_qual_mean'], stats['final_read_mean'],
+                            stats['total_contig'], stats['total_contig_length'], stats['is_paired'])
+    stats['rank'] = rank
+    stats['reason'] = reason
+    
+    return stats
 
 def get_files(path, sample):
     "Return a list of files to read."
     files = None
-    assemblies = []
     missing = []
     end_type = 'paired-end'
 
@@ -104,6 +191,7 @@ def get_files(path, sample):
         # Single End
         end_type = 'single-end'
         files = {
+            'genome_size': f"{path}/{sample}/{sample}-genome-size.txt",
             'annotation': f"{path}/{sample}/annotation/{sample}.txt",
             'assembly': f"{path}/{sample}/assembly/{sample}.fna.json",
             'original': f"{path}/{sample}/quality-control/summary-original/{sample}-original.json",
@@ -112,6 +200,7 @@ def get_files(path, sample):
     else:
         # Paired End
         files = {
+            'genome_size': f"{path}/{sample}/{sample}-genome-size.txt",
             'annotation': f"{path}/{sample}/annotation/{sample}.txt",
             'assembly': f"{path}/{sample}/assembly/{sample}.fna.json",
             'original-r1': f"{path}/{sample}/quality-control/summary-original/{sample}_R1-original.json",
@@ -126,54 +215,91 @@ def get_files(path, sample):
 
     return {'files': files, 'missing': missing, 'end_type': end_type, 'has_error': False}
 
-def get_rank(cutoff, coverage, quality, length, contigs, is_paired):
+def get_rank(cutoff, coverage, quality, length, contigs, genome_size, is_paired):
     """Return the rank (gold, silver, bronze, fail) of the sample."""
+    rank = None
+    reason = []
     gold = cutoff['gold']
     silver = cutoff['silver']
     bronze = cutoff['bronze']
+
     if coverage >= gold['coverage'] and quality >= gold['quality'] and length >= gold['length'] and contigs <= gold['contigs'] and is_paired:
-        return 'gold'
+        rank = 'gold'
     elif coverage >= silver['coverage'] and quality >= silver['quality'] and length >= silver['length'] and contigs <= silver['contigs'] and is_paired:
-        return 'silver'
+        rank = 'silver'
     elif coverage >= bronze['coverage'] and quality >= bronze['quality'] and length >= bronze['length'] and contigs <= bronze['contigs']:
-        return 'bronze'
-    else:
-        return 'fail'
+        rank = 'bronze'
 
-def merge_stats(r1, r2):
-    if r2:
-        merged = {}
-        for key, val in r1['qc_stats'].items():
-            if key in ['total_bp', 'coverage', 'read_total']:
-                merged[key] = r1['qc_stats'][key] + r1['qc_stats'][key]
-            else:
-                merged[key] = mean([r1['qc_stats'][key], r1['qc_stats'][key]])
-        return merged
-    return r1
+    if coverage < bronze['coverage']:
+        reason.append(f"Low coverage ({coverage:.2f}x, expect >= {bronze['coverage']}x)")
+    if quality < bronze['quality']:
+        reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{bronze['quality']})")
+    if length < bronze['length']:
+        reason.append(f"Short read length ({length:.2f}bp, expect >= {bronze['length']} bp)")
+    if contigs > bronze['contigs']:
+        reason.append(f"Too many contigs ({contigs}, expect <= {bronze['contigs']})")
 
-def add_to_counts(dictionary, rank):
-    """Append values to rank counts."""
-    for key, val in dictionary.items():
-        COUNTS_BY_RANK[rank][key].append(val)
-        COUNTS_BY_RANK['total'][key].append(val)
+    if cutoff['min-genome-size']:
+        if genome_size < cutoff['min-genome-size']:
+            reason.append(f"Assembled genome size is too small ({genome_size} bp, expect <= {cutoff['min-genome-size']})")
 
-def fastani(samples):
-    for key, val in samples.items():
-        if val['has_error'] or len(val['missing']):
-            #
+    if cutoff['max-genome-size']:
+        if genome_size < cutoff['max-genome-size']:
+            reason.append(f"Assembled genome size is too large ({genome_size} bp, expect <= {cutoff['max-genome-size']})")
+
+    return ['fail' if reason else rank, ';'.join(reason) if reason else 'pass']
+
+def merge_qc_stats(r1, r2, prefix='original'):
+    merged = {}
+    for key in r1['qc_stats']:
+        prefixed_key = f'{prefix}_{key}'
+        if key in ['total_bp', 'coverage', 'read_total']:
+            merged[prefixed_key] = r1['qc_stats'][key] + r2['qc_stats'][key] if r2 else r1['qc_stats'][key]
         else:
+            merged[prefixed_key] = mean([r1['qc_stats'][key], r2['qc_stats'][key]]) if r2 else r1['qc_stats'][key]
+    return merged
+
+def add_to_counts(dictionary):
+    """Append values to rank counts."""
+    rank = dictionary['rank']
+    for key, val in dictionary.items():
+        if key != 'rank':
+            COUNTS_BY_RANK[rank][key].append(val)
+            COUNTS_BY_RANK['total'][key].append(val)
+
+def generate_html_report():
+    """Generate a HTML report using Jinja2."""
+    import jinja2
+    templateEnv = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR),
+        autoescape=True
+    )
+    template = templateEnv.get_template('summary.j2')
+    return template.render(
+        data={
+            'counts': COUNTS,
+            'failed': FAILED,
+            'rank_counts': COUNTS_BY_RANK
+        }
+    )
+
+def generate_txt_report(output_file):
+    return None
+
+def print_failed(failed):
+    """Return list of strings for printing failed counts."""
+    for key, val in failed.items():
+        print(f'    {key}: {len(val)}')
 
 if __name__ == '__main__':
     import argparse as ap
-    from collections import defaultdict
-    from statistics import mean
+    import csv
+    import sys
     import textwrap
     parser = ap.ArgumentParser(
         prog=PROGRAM,
         conflict_handler='resolve',
-        description=(
-            f'{PROGRAM} (v{VERSION}) - Create a summary of Bacopia outputs'
-        ),
+        description=f'{PROGRAM} (v{VERSION}) - Create a summary of Bactopia outputs',
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(f'''
             example usage:
@@ -184,11 +310,6 @@ if __name__ == '__main__':
     parser.add_argument(
         'bactopia', metavar="BACTOPIA_DIRECTORY", type=str,
         help='Directory containing Bactopia output.'
-    )
-
-    parser.add_argument(
-        'outdir', metavar="OUTPUT_DIRECTORY", type=str,
-        help='Directory to write output.'
     )
 
     group1 = parser.add_argument_group('Gold Cutoffs')
@@ -222,8 +343,8 @@ if __name__ == '__main__':
     )
 
     group2.add_argument(
-        '--silver_read_length', metavar="INT", type=int, default=45,
-        help='Minimum mean read length required for Silver status (Default: 45bp)'
+        '--silver_read_length', metavar="INT", type=int, default=75,
+        help='Minimum mean read length required for Silver status (Default: 75bp)'
     )
 
     group2.add_argument(
@@ -242,8 +363,8 @@ if __name__ == '__main__':
     )
 
     group3.add_argument(
-        '--min_read_length', metavar="INT", type=int, default=30,
-        help='Minimum mean read length required to pass (Default: 30bp)'
+        '--min_read_length', metavar="INT", type=int, default=49,
+        help='Minimum mean read length required to pass (Default: 49bp)'
     )
 
     group3.add_argument(
@@ -251,25 +372,26 @@ if __name__ == '__main__':
         help='Maximum contig count required to pass (Default: 500)'
     )
 
-    group4 = parser.add_argument_group('Taxon Check')
-    group4.add_argument(
-        '--fastani', action='store_true',
-        help='Determine the pairwise ANI of each sample using FastANI.')
+    group3.add_argument(
+        '--min_genome_size', metavar="FLOAT", type=float,
+        help='Minimum assembled genome size.'
     )
 
-    group4.add_argument(
-        '--ani_threshold', metavar="FLOAT", type=float, default=0.8
-        help='Exclude samples with a mean ANI less than the threshold. (Default: 0.80).'
+    group3.add_argument(
+        '--max_genome_size', metavar="FLOAT", type=float,
+        help='Maximum assembled genome size.'
     )
-
-    group4.add_argument(
-        '--min_sourmash', metavar="FLOAT", type=float, default=0.5
-        help='Minimum percentage of k-mers that must have matched (Default: 50%).'
-    )
-    group5.add_argument('--cpus', metavar="INT", type=int, default=1,
-                        help='Number of CPUs available for FastANI. (Default: 1)')
 
     group5 = parser.add_argument_group('Helpers')
+    group5.add_argument(
+        '--outdir', metavar="OUTPUT_DIRECTORY", type=str, default="./",
+        help='Directory to write output. (Default: ./)'
+    )
+
+    group5.add_argument(
+        '--prefix', metavar="STR", type=str, default="bactopia",
+        help='Prefix to use for output files. (Default: bactopia)'
+    )
     group5.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
     group5.add_argument('--version', action='version',
@@ -306,7 +428,9 @@ if __name__ == '__main__':
             'quality': args.min_quality,
             'length': args.min_read_length,
             'contigs': args.max_contigs
-        }
+        },
+        'min-genome-size': args.min_genome_size,
+        'max-genome-size': args.max_genome_size
     }
 
     samples = {}
@@ -326,95 +450,110 @@ if __name__ == '__main__':
                     COUNTS['total'] += 1
                     if has_error:
                         logging.debug(f"{directory.name} {has_error} ")
+                        error_msg = []
                         for error in has_error:
-                            error_msg = parse_error(error)
-                            COUNTS[error_msg] += 1
+                            error_type, error_name = parse_error(error)
+                            error_msg.append(error_name)
+                            COUNTS[error_type] += 1
                             COUNTS['error'] += 1
                             COUNTS['exclude'] += 1
-                            FAILED[error_msg].append(directory.name)
-                            CATEGORIES['exclude'].append([directory.name, f"Not processed due to '{error_msg}' error"])
-                            samples[directory.name] = {'has_error': True, 'missing': []}
+                            FAILED[error_type].append(directory.name)
+                        CATEGORIES['exclude'].append([directory.name, f"Not processed, reason: {';'.join(error_msg)}"])
+                        samples[directory.name] = {'has_error': True, 'missing': []}
                     else:
                         logging.debug(f"{directory.name} found ")
                         COUNTS['processed'] += 1
                         CATEGORIES['processed'].append(directory.name)
-                        samples[direcotry.name] = get_files(args.bactopia, directory.name)
+                        samples[directory.name] = get_files(args.bactopia, directory.name)
 
-    if args.fastani:
-        # Use FastANI to flag samples that may be another organism
-        pairwise_ani = fastani(samples)
-
-    for key, val in samples.items():
+    sample_stats = {}
+    stat_fields = []
+    for sample, val in samples.items():
         if not val['has_error']:
             end_type = val['end_type']
             files = val['files']
             missing = val['missing']
-
             COUNTS[end_type] += 1
             if missing:
                 COUNTS['missing'] += 1
-                CATEGORIES['exclude'].append([directory.name, 'Missing expected files'])
-                logging.debug(f"{directory.name} missing files ")
+                CATEGORIES['exclude'].append([sample, 'Missing expected files'])
+                logging.debug(f"{sample} missing files ")
                 logging.debug(f"{missing}")
             else:
                 COUNTS['found'] += 1
-                original_r1 = None
-                original_r2 = None
-                final_r1 = None
-                final_r2 = None
-                rank = None
-                assembly = parse_json(files['assembly'])
-                annotation = parse_annotation(files['annotation'])
-                if end_type == 'single-end':
-                    original_r1 = parse_json(files['original'])
-                    final_r1 = parse_json(files['final'])
-                    coverage = final_r1['qc_stats']['coverage']
-                else:
-                    original_r1 = parse_json(files['original-r1'])
-                    original_r2 = parse_json(files['original-r2'])
-                    final_r1 = parse_json(files['final-r1'])
-                    final_r2 = parse_json(files['final-r2'])
-                    coverage = final_r1['qc_stats']['coverage'] * 2
-                read_length = round(final_r1['qc_stats']['read_mean'])
-                quality = final_r1['qc_stats']['qual_mean']
-                contigs = assembly['total_contig']
-                is_paired = True if end_type == 'paired-end' else False
-                rank = get_rank(RANK_CUTOFF, coverage, quality, read_length, contigs, is_paired)
-
-                print('\t'.join([str(a) for a in [rank, coverage, quality, read_length, contigs, is_paired]]))
-                COUNTS[rank] += 1
-                CATEGORIES[rank].append(directory.name)
-                add_to_counts(assembly, rank)
-                add_to_counts(annotation, rank)
-                add_to_counts(merge_stats(final_r1, final_r2), rank)
-                if rank == 'fail':
-                    FAILED['failed-cutoff'].append(directory.name)
-                    CATEGORIES['exclude'].append([directory.name, 'Failed to pass minimum cutoffs'])
+                stats = gather_stats(files, RANK_CUTOFF)
+                add_to_counts(stats)
+                COUNTS[stats['rank']] += 1
+                CATEGORIES[stats['rank']].append(sample)
+                if stats['rank'] == 'fail':
+                    FAILED['failed-cutoff'].append(sample)
+                    CATEGORIES['exclude'].append([sample, f'Failed to pass minimum cutoffs, reason: {stats["reason"]}'])
                     COUNTS['exclude'] += 1
                 else:
                     COUNTS['pass'] += 1
+                sample_stats[sample] = stats
+                for key in stats:
+                    if key not in stat_fields:
+                        stat_fields.append(key)
 
-
-    #print("rank\tcount\tcoverage\tlength\tquality\tcontigs\tn50")
     for key, val in COUNTS_BY_RANK.items():
         coverage = int(mean(val['coverage'])) if val['coverage'] else 0
         read_length = int(mean(val['read_mean'])) if val['read_mean'] else 0
         quality = int(mean(val['qual_mean'])) if val['qual_mean'] else 0
         contigs = int(mean(val['total_contig'])) if val['total_contig'] else 0
         n50 = int(mean(val['n50_contig_length'])) if val['n50_contig_length'] else 0
-        #print(f'{key}\t{COUNTS[key]}\t{coverage}\t{read_length}\t{quality}\t{contigs}\t{n50}')
 
-    templateLoader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
-    templateEnv = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR),
-        autoescape=True
-    )
-    template = templateEnv.get_template('summary.j2')
-    outputText = template.render(
-        data={
-            'counts': COUNTS,
-            'failed': FAILED,
-            'rank_counts': COUNTS_BY_RANK
-        }
-    )
-    #print(outputText)
+    # Write outputs
+    outdir = args.outdir
+    os.makedirs(outdir, exist_ok=True)
+
+    # HTML report
+    html_report = f'{outdir}/{args.prefix}-summary.html'
+    with open(html_report, 'w') as html_fh:
+        html_fh.write(generate_html_report())
+
+    # Tab-delimited report
+    txt_report = f'{outdir}/{args.prefix}-summary.txt'
+    with open(txt_report, 'w') as txt_fh:
+        outputs = []
+        for sample, stats in sorted(sample_stats.items()):
+            output = {'sample': sample}
+            for field in stat_fields:
+                if field in stats:
+                    if isinstance(stats[field], float):
+                        output[field] = f"{stats[field]:.3f}"
+                    else:
+                        output[field] = stats[field]
+                else:
+                    output[field] = ""
+            outputs.append(output)
+
+        writer = csv.DictWriter(txt_fh, fieldnames=outputs[0].keys(), delimiter='\t')
+        writer.writeheader()
+        for row in outputs:
+            writer.writerow(row)
+
+    # Exclusion report
+    exclusion_report = f'{outdir}/{args.prefix}-exclude.txt'
+    with open(exclusion_report, 'w') as exclude_fh:
+        for name, reason in CATEGORIES['exclude']:
+            exclude_fh.write(f'{name}\t{reason}\n')
+
+    # Screen report
+    print("Bactopia Summary Report")
+    print(textwrap.dedent(f'''
+        Total Samples: {len(samples)}
+        
+        Passed: {COUNTS["pass"]}
+            Gold: {COUNTS["gold"]}
+            Silver: {COUNTS["silver"]}
+            Bronze: {COUNTS["bronze"]}
+
+        Excluded: {COUNTS["exclude"]}'''))
+    print_failed(FAILED)
+    print(textwrap.dedent(f'''
+        Reports:
+            Summary (html): {html_report}
+            Summary (txt): {txt_report}
+            Exclusion: {exclusion_report}
+    '''))
