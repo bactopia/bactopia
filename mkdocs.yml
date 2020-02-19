@@ -30,7 +30,6 @@ nav:
       - 'roary': tools/roary.md
       - 'summary': tools/summary.md
 
-
 theme:
     name: 'material'
     font:
