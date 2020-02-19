@@ -10,7 +10,7 @@ stages:
     - test-bactopia-nextflow
 
 bactopia-commands:
-    - test-bactopia-commands
+    stage: test-bactopia-commands
     only:
         - master
     script:
@@ -21,7 +21,7 @@ bactopia-commands:
         - bactopia tools
 
 bactopia-nextflow:
-    - test-bactopia-nextflow
+    stage: test-bactopia-nextflow
     only:
         - master
     script:
