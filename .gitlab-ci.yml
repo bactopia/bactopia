@@ -2,11 +2,11 @@ image: bactopia/bactopia-ci:latest
 
 before_script:
   - BACTOPIA=/opt/conda/envs/bactopia
-  - VERSION=`bactopia version | cut -d " " -f 2`
   - chmod 755 bactopia
   - cp bactopia ${BACTOPIA}/bin
   - chmod 755 bin/helpers/*
   - cp bin/helpers/* ${BACTOPIA}/bin
+  - VERSION=`bactopia version | cut -d " " -f 2`
   - mkdir ${BACTOPIA}/share/bactopia-${VERSION}/
   - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${VERSION}/
 
