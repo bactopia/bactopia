@@ -1,12 +1,14 @@
-image: bactopia/bactopia-ci:1.3.0
+image: bactopia/bactopia-ci:latest
 
 before_script:
+  - BACTOPIA=/opt/conda/envs/bactopia
+  - VERSION=`bactopia version | cut -d " " -f 2`
   - chmod 755 bactopia
-  - cp bactopia /opt/conda/envs/bactopia/bin
+  - cp bactopia ${BACTOPIA}/bin
   - chmod 755 bin/helpers/*
-  - cp bin/helpers/* /opt/conda/envs/bactopia/bin
-  - mkdir /opt/conda/envs/bactopia/share/bactopia-`bactopia version | cut -d " " -f 2`/
-  - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config /opt/conda/envs/bactopia/share/bactopia-`bactopia version | cut -d " " -f 2`
+  - cp bin/helpers/* ${BACTOPIA}/bin
+  - mkdir ${BACTOPIA}/share/bactopia-${VERSION}/
+  - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${VERSION}/
 
 stages:
     - test-bactopia-commands
@@ -29,11 +31,5 @@ bactopia-nextflow:
     only:
         - master
     script:
-        - env
-        - which bactopia
         - bactopia --help
-        - bactopia tools fastani --help
-        - bactopia tools gtdb --help
-        - bactopia tools phyloflash --help
-        - bactopia tools roary --help
-        - bactopia tools summary --help
+        - ls tools | xargs -I {} sh -c 'cd /tmp/ && bactopia tools {} --help'
