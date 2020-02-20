@@ -351,7 +351,7 @@ def print_help() {
 
     FastANI Related Parameters:
         --kmer INT              kmer size <= 16 
-                                    Default: ${params.kmers}
+                                    Default: ${params.kmer}
 
         --fragLen INT           fragment length
                                     Default: ${params.fragLen}
