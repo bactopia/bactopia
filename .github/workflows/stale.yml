@@ -1,0 +1,21 @@
+name: Close Stale Issues and Pull Requests
+
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Looks like things have been quiet for the last 30 days. If its still quiet it 7 days, this issue will be automatically closed.'
+        stale-pr-message: 'Looks like things have been quiet for the last 30 days. If its still quiet it 7 days, this pull request will be automatically closed.'
+        stale-issue-label: 'Stale'
+        stale-pr-label: 'Stale'
+        days-before-stale: 30,
+        days-before-close: 7
