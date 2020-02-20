@@ -5,7 +5,7 @@ before_script:
   - cp bactopia /opt/conda/envs/bactopia/bin
   - chmod 755 bin/helpers/*
   - cp bin/helpers/* /opt/conda/envs/bactopia/bin
-  - mkdir /opt/conda/envs/bactopia/share/bactopia-`bactopia version | cut -d " " -f 2`/*
+  - mkdir /opt/conda/envs/bactopia/share/bactopia-`bactopia version | cut -d " " -f 2`/
   - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config /opt/conda/envs/bactopia/share/bactopia-`bactopia version | cut -d " " -f 2`/*
 
 stages:
