@@ -1,5 +1,5 @@
 [![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/bactopia/bactopia/master?style=flat-square&logo=appveyor)](https://gitlab.com/bactopia/bactopia/pipelines/latest)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://conda.anaconda.org/bioconda) 
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://bioconda.github.io/recipes/bactopia/README.html) 
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
 [![Gitter](https://badges.gitter.im/bactopia/bactopia.svg)](https://gitter.im/bactopia/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![GitHub](https://img.shields.io/github/license/bactopia/bactopia)](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
