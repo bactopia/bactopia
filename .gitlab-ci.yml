@@ -1,7 +1,6 @@
 image: bactopia/bactopia-ci:1.3.0
 
 before_script:
-  - source activate bactopia
   - chmod 755 bactopia
   - cp bactopia /opt/conda/envs/bactopia/bin
   - chmod 755 bin/helpers/*
