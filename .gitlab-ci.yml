@@ -29,6 +29,8 @@ bactopia-nextflow:
     only:
         - master
     script:
+        - env
+        - which bactopia
         - bactopia --help
         - bactopia tools fastani --help
         - bactopia tools gtdb --help
