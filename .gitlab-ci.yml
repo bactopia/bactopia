@@ -30,4 +30,5 @@ bactopia-nextflow:
         - master
     script:
         - bactopia --help
+        - ls /opt/conda/envs/bactopia/share/bactopia-1.3.0/tools/fastani/
         - ls tools/ | xargs -I {} bactopia tools {} --help
