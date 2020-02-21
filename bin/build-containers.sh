@@ -63,3 +63,15 @@ for recipe in $(ls "${BACTOPIA_DIR}/containers/docker" | grep ".Dockerfile"); do
     recipe_image="bactopia/${recipe_name}:${VERSION}"
     docker_build ${recipe_path} ${recipe_image}
 done
+
+# Build Bactopia Tools containers
+for tool in $(ls "${BACTOPIA_DIR}/tools"); do
+    recipe_path="${BACTOPIA_DIR}/tools/${tool}"
+    docker_file="${recipe_path}/Dockerfile"
+    docker_image="bactopia/tools-${tool}:${VERSION}"
+    docker_build ${docker_file} ${docker_image}
+
+    singularity_file="${recipe_path}/Singularity"
+    singularity_image="${OUTPUT_DIR}/tools-${tool}-${VERSION}.simg"
+    singularity_build ${singularity_file} "tools-${tool}" ${singularity_image} ${VERSION}
+done

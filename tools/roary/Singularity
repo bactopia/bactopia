@@ -11,6 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
+    tools/roary/environment.yml /
     environment.yml /
 
 %post

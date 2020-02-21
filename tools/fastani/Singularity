@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    ./environment.yml /
+    tools/fastani/environment.yml /
 
 %post
     /opt/conda/bin/conda env create -f /environment.yml
