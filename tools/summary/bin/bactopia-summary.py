@@ -97,7 +97,8 @@ COUNTS_BY_RANK = {
     'gold': defaultdict(list),
     'silver': defaultdict(list),
     'bronze': defaultdict(list),
-    'fail': defaultdict(list)
+    'exclude': defaultdict(list),
+    'qc-failure': defaultdict(list)
 }
 
 def set_log_level(error, debug):
@@ -219,16 +220,40 @@ def get_rank(cutoff, coverage, quality, length, contigs, genome_size, is_paired)
     """Return the rank (gold, silver, bronze, fail) of the sample."""
     rank = None
     reason = []
+    coverage = float(f'{coverage:.2f}')
     gold = cutoff['gold']
     silver = cutoff['silver']
     bronze = cutoff['bronze']
 
     if coverage >= gold['coverage'] and quality >= gold['quality'] and length >= gold['length'] and contigs <= gold['contigs'] and is_paired:
+        reason.append('passed all cutoffs')
         rank = 'gold'
     elif coverage >= silver['coverage'] and quality >= silver['quality'] and length >= silver['length'] and contigs <= silver['contigs'] and is_paired:
+        if coverage < gold['coverage']:
+            reason.append(f"Low coverage ({coverage:.2f}x, expect >= {gold['coverage']}x)")
+        if quality < gold['quality']:
+            reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{gold['quality']})")
+        if length < gold['length']:
+            reason.append(f"Short read length ({length:.2f}bp, expect >= {gold['length']} bp)")
+        if contigs > gold['contigs']:
+            reason.append(f"Too many contigs ({contigs}, expect <= {gold['contigs']})")
         rank = 'silver'
     elif coverage >= bronze['coverage'] and quality >= bronze['quality'] and length >= bronze['length'] and contigs <= bronze['contigs']:
+        if coverage < silver['coverage']:
+            reason.append(f"Low coverage ({coverage:.2f}x, expect >= {silver['coverage']}x)")
+        if quality < silver['quality']:
+            reason.append(f"Poor read quality (Q{quality:.2f}, expect >= Q{silver['quality']})")
+        if length < silver['length']:
+            reason.append(f"Short read length ({length:.2f}bp, expect >= {silver['length']} bp)")
+        if contigs > silver['contigs']:
+            reason.append(f"Too many contigs ({contigs}, expect <= {silver['contigs']})")
+        if not is_paired:
+            reason.append(f"Single-end reads")
         rank = 'bronze'
+
+
+    if not rank:
+        rank = 'exclude'
 
     if coverage < bronze['coverage']:
         reason.append(f"Low coverage ({coverage:.2f}x, expect >= {bronze['coverage']}x)")
@@ -247,7 +272,8 @@ def get_rank(cutoff, coverage, quality, length, contigs, genome_size, is_paired)
         if genome_size < cutoff['max-genome-size']:
             reason.append(f"Assembled genome size is too large ({genome_size} bp, expect <= {cutoff['max-genome-size']})")
 
-    return ['fail' if reason else rank, ';'.join(reason) if reason else 'pass']
+    reason = ";".join(sorted(reason))
+    return [rank, reason]
 
 def merge_qc_stats(r1, r2, prefix='original'):
     merged = {}
@@ -287,9 +313,21 @@ def generate_txt_report(output_file):
     return None
 
 def print_failed(failed):
-    """Return list of strings for printing failed counts."""
-    for key, val in failed.items():
-        print(f'    {key}: {len(val)}')
+    """Print failed counts."""
+    lines = []
+    for key, val in sorted(failed.items()):
+        if key != 'failed-cutoff':
+            pretty_key = key.replace('-', ' ').title()
+            lines.append(f'        {pretty_key}: {len(val)}')
+    return '\n'.join(lines)
+
+
+def print_cutoffs(cutoffs):
+    """Print cutoff counts."""
+    lines = []
+    for key, val in sorted(cutoffs.items()):
+        lines.append(f'        {key}: {val}')
+    return '\n'.join(lines)
 
 if __name__ == '__main__':
     import argparse as ap
@@ -392,6 +430,8 @@ if __name__ == '__main__':
         '--prefix', metavar="STR", type=str, default="bactopia",
         help='Prefix to use for output files. (Default: bactopia)'
     )
+    group5.add_argument('--force', action='store_true',
+                        help='Overwrite existing reports.')
     group5.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
     group5.add_argument('--version', action='version',
@@ -405,6 +445,12 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
+
+    if os.path.exists(f'{args.outdir}/{args.prefix}-exclude.txt') and not args.force:
+        print(f"Existing reports found in {args.outdir}. Will not overwirte unless --force is used. Exiting.", 
+              file=sys.stderr)
+        sys.exit(1)
+
 
     # Setup logs
     FORMAT = '%(asctime)s:%(name)s:%(levelname)s - %(message)s'
@@ -455,10 +501,10 @@ if __name__ == '__main__':
                             error_type, error_name = parse_error(error)
                             error_msg.append(error_name)
                             COUNTS[error_type] += 1
-                            COUNTS['error'] += 1
-                            COUNTS['exclude'] += 1
+                            COUNTS['qc-failure'] += 1
+                            COUNTS['total-excluded'] += 1
                             FAILED[error_type].append(directory.name)
-                        CATEGORIES['exclude'].append([directory.name, f"Not processed, reason: {';'.join(error_msg)}"])
+                        CATEGORIES['failed'].append([directory.name, f"Not processed, reason: {';'.join(error_msg)}"])
                         samples[directory.name] = {'has_error': True, 'missing': []}
                     else:
                         logging.debug(f"{directory.name} found ")
@@ -476,7 +522,7 @@ if __name__ == '__main__':
             COUNTS[end_type] += 1
             if missing:
                 COUNTS['missing'] += 1
-                CATEGORIES['exclude'].append([sample, 'Missing expected files'])
+                CATEGORIES['failed'].append([sample, 'Missing expected files'])
                 logging.debug(f"{sample} missing files ")
                 logging.debug(f"{missing}")
             else:
@@ -485,10 +531,10 @@ if __name__ == '__main__':
                 add_to_counts(stats)
                 COUNTS[stats['rank']] += 1
                 CATEGORIES[stats['rank']].append(sample)
-                if stats['rank'] == 'fail':
+                if stats['rank'] == 'exclude':
                     FAILED['failed-cutoff'].append(sample)
-                    CATEGORIES['exclude'].append([sample, f'Failed to pass minimum cutoffs, reason: {stats["reason"]}'])
-                    COUNTS['exclude'] += 1
+                    CATEGORIES['failed'].append([sample, f'Failed to pass minimum cutoffs, reason: {stats["reason"]}'])
+                    COUNTS['total-excluded'] += 1
                 else:
                     COUNTS['pass'] += 1
                 sample_stats[sample] = stats
@@ -508,12 +554,14 @@ if __name__ == '__main__':
     os.makedirs(outdir, exist_ok=True)
 
     # HTML report
-    html_report = f'{outdir}/{args.prefix}-summary.html'
+    """
+    html_report = f'{outdir}/{args.prefix}-report.html'
     with open(html_report, 'w') as html_fh:
         html_fh.write(generate_html_report())
+    """
 
     # Tab-delimited report
-    txt_report = f'{outdir}/{args.prefix}-summary.txt'
+    txt_report = f'{outdir}/{args.prefix}-report.txt'
     with open(txt_report, 'w') as txt_fh:
         outputs = []
         for sample, stats in sorted(sample_stats.items()):
@@ -535,25 +583,43 @@ if __name__ == '__main__':
 
     # Exclusion report
     exclusion_report = f'{outdir}/{args.prefix}-exclude.txt'
+    cutoff_counts = defaultdict(int)
     with open(exclusion_report, 'w') as exclude_fh:
-        for name, reason in CATEGORIES['exclude']:
-            exclude_fh.write(f'{name}\t{reason}\n')
+        exclude_fh.write('sample\tstatus\treason\n')
+        for name, reason in CATEGORIES['failed']:
+            if name in sample_stats:
+                print(reason)
+                reasons = reason.split(':')[1].split(';')
+                cutoffs = []
+                for r in reasons:
+                    cutoffs.append(r.split('(')[0].strip().title())
+                cutoff_counts[';'.join(sorted(cutoffs))] += 1
+                exclude_fh.write(f'{name}\texclude\t{reason}\n')
+            else:
+                exclude_fh.write(f'{name}\tqc-fail\t{reason}\n')
 
     # Screen report
-    print("Bactopia Summary Report")
-    print(textwrap.dedent(f'''
-        Total Samples: {len(samples)}
-        
-        Passed: {COUNTS["pass"]}
-            Gold: {COUNTS["gold"]}
-            Silver: {COUNTS["silver"]}
-            Bronze: {COUNTS["bronze"]}
+    with open(f'{outdir}/{args.prefix}-summary.txt', 'w') as summary_fh:
+        summary_fh.write("Bactopia Summary Report\n")
+        summary_fh.write(textwrap.dedent(f'''
+            Total Samples: {len(samples)}
+            
+            Passed: {COUNTS["pass"]}
+                Gold: {COUNTS["gold"]}
+                Silver: {COUNTS["silver"]}
+                Bronze: {COUNTS["bronze"]}
 
-        Excluded: {COUNTS["exclude"]}'''))
-    print_failed(FAILED)
-    print(textwrap.dedent(f'''
-        Reports:
-            Summary (html): {html_report}
-            Summary (txt): {txt_report}
-            Exclusion: {exclusion_report}
-    '''))
+            Excluded: {COUNTS["total-excluded"]}
+                Failed Cutoff: {COUNTS["exclude"]}\n'''))
+        summary_fh.write(print_cutoffs(cutoff_counts))
+        summary_fh.write('\n')
+        summary_fh.write(f'    QC Failure: {COUNTS["qc-failure"]}\n')
+        summary_fh.write(print_failed(FAILED))
+        summary_fh.write(textwrap.dedent(f'''\n
+            Reports:
+                Full Report (txt): {txt_report}
+                Exclusion: {exclusion_report}
+
+            Rank Cutoffs:\n'''))
+        summary_fh.write(json.dumps(RANK_CUTOFF, indent=4))
+        summary_fh.write('\n')
