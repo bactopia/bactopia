@@ -12,7 +12,6 @@ From: nfcore/base
 
 %files
     tools/roary/environment.yml /
-    environment.yml /
 
 %post
     /opt/conda/bin/conda env create -f /environment.yml
