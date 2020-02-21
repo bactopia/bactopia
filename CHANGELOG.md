@@ -1,5 +1,15 @@
 # bactopia/bactopia: Changelog
 
+## v1.3.0 bactopia/bactopia "" - 2020/??/??
+### `Added`
+- `summary` tool now gives reason for rank
+- `summary` tools now splits `failed` into `exclude` and `qc-failure`
+
+### `Fixed`
+- build-containers.sh not working with Bactopia Tools
+- Bactopia Tools container tools missing environment.yml
+- Typo in `fastani` usage
+
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
 - bactopia tools (BT) framework

@@ -1,0 +1,107 @@
+sample	status	reason
+ERX1046399	qc-fail	Not processed, reason: Low depth of sequencing
+SRX200229	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX200230	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX1490246	qc-fail	Not processed, reason: Low number of reads
+ERX1046389	qc-fail	Not processed, reason: Low depth of sequencing
+SRX5116733	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX303991	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX529175	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1275870	qc-fail	Not processed, reason: Low number of reads;Low depth of sequencing
+SRX2582464	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX130889	qc-fail	Not processed, reason: Low depth of sequencing
+SRX130890	qc-fail	Not processed, reason: Low depth of sequencing
+SRX1684187	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX2866884	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX3075577	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX178663	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX5992989	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX359696	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX4336892	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX529055	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX359703	qc-fail	Not processed, reason: Poor estimate of genome size
+DRX143657	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX359774	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX4997533	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX359718	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX5116736	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX5116737	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1275925	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1046387	qc-fail	Not processed, reason: Low depth of sequencing
+ERX2438180	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1275836	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX1684189	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX2940498	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX178660	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX034817	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX1687039	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX1970179	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1275959	qc-fail	Not processed, reason: Low number of reads;Low depth of sequencing
+SRX5116735	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX399759	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX247326	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1046397	qc-fail	Not processed, reason: Low depth of sequencing
+ERX1046386	qc-fail	Not processed, reason: Low depth of sequencing
+DRX061147	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX422995	qc-fail	Not processed, reason: Low number of reads;Low depth of sequencing
+SRX762278	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1046398	qc-fail	Not processed, reason: Low depth of sequencing
+SRX5395058	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX359724	qc-fail	Not processed, reason: Low number of reads;Low depth of sequencing
+DRX061123	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX5489807	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX5116734	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX4526092	qc-fail	Not processed, reason: Paired-end read count mismatch
+SRX2940499	qc-fail	Not processed, reason: Poor estimate of genome size
+ERX1046388	qc-fail	Not processed, reason: Low depth of sequencing
+SRX1949176	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX3155954	qc-fail	Not processed, reason: Poor estimate of genome size
+SRX130898	qc-fail	Not processed, reason: Low depth of sequencing
+ERX1046400	exclude	Failed to pass minimum cutoffs, reason: Low coverage (11.97x, expect >= 20x);Too many contigs (810, expect <= 500)
+SRX6959882	exclude	Failed to pass minimum cutoffs, reason: Low coverage (16.59x, expect >= 20x);Too many contigs (855, expect <= 500)
+SRX377715	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (787, expect <= 500)
+SRX130910	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.77x, expect >= 20x)
+SRX3146668	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.90x, expect >= 20x);Too many contigs (784, expect <= 500)
+SRX6454030	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (796, expect <= 500)
+SRX5992985	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (1220, expect <= 500)
+SRX762385	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (1132, expect <= 500)
+SRX130896	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (610, expect <= 500)
+SRX7004909	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (999, expect <= 500)
+SRX130911	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (948, expect <= 500)
+SRX130895	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (1050, expect <= 500)
+ERX1046416	exclude	Failed to pass minimum cutoffs, reason: Low coverage (19.20x, expect >= 20x)
+SRX4526088	exclude	Failed to pass minimum cutoffs, reason: Low coverage (16.08x, expect >= 20x)
+SRX130892	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (618, expect <= 500)
+SRX6454026	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (533, expect <= 500)
+SRX762105	exclude	Failed to pass minimum cutoffs, reason: Low coverage (15.33x, expect >= 20x);Too many contigs (560, expect <= 500)
+ERX1046401	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.17x, expect >= 20x);Too many contigs (559, expect <= 500)
+SRX762279	exclude	Failed to pass minimum cutoffs, reason: Low coverage (16.51x, expect >= 20x)
+SRX130904	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (719, expect <= 500)
+ERX1046402	exclude	Failed to pass minimum cutoffs, reason: Low coverage (13.30x, expect >= 20x);Too many contigs (857, expect <= 500)
+SRX762507	exclude	Failed to pass minimum cutoffs, reason: Low coverage (16.75x, expect >= 20x)
+SRX6454043	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (801, expect <= 500)
+ERX178661	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (1079, expect <= 500)
+SRX5992988	exclude	Failed to pass minimum cutoffs, reason: Low coverage (9.19x, expect >= 20x);Too many contigs (1440, expect <= 500)
+SRX130897	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.31x, expect >= 20x);Too many contigs (940, expect <= 500)
+SRX318181	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (692, expect <= 500)
+SRX130903	exclude	Failed to pass minimum cutoffs, reason: Low coverage (17.02x, expect >= 20x);Too many contigs (677, expect <= 500)
+SRX6454035	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (687, expect <= 500)
+SRX762687	exclude	Failed to pass minimum cutoffs, reason: Low coverage (19.54x, expect >= 20x)
+ERX450866	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (902, expect <= 500)
+SRX5992480	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (843, expect <= 500)
+ERX1046392	exclude	Failed to pass minimum cutoffs, reason: Low coverage (11.54x, expect >= 20x);Too many contigs (755, expect <= 500)
+ERX271964	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (900, expect <= 500)
+ERX1046393	exclude	Failed to pass minimum cutoffs, reason: Low coverage (17.59x, expect >= 20x);Too many contigs (544, expect <= 500)
+ERX450885	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (554, expect <= 500)
+SRX1950180	exclude	Failed to pass minimum cutoffs, reason: Short read length (35.00bp, expect >= 49 bp);Too many contigs (962, expect <= 500)
+SRX1842889	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (1016, expect <= 500)
+SRX059832	exclude	Failed to pass minimum cutoffs, reason: Short read length (35.00bp, expect >= 49 bp)
+ERX1046391	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (631, expect <= 500)
+SRX761992	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.30x, expect >= 20x)
+SRX6454040	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (792, expect <= 500)
+ERX1046407	exclude	Failed to pass minimum cutoffs, reason: Low coverage (18.63x, expect >= 20x)
+SRX130916	exclude	Failed to pass minimum cutoffs, reason: Low coverage (16.95x, expect >= 20x)
+ERX271983	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (515, expect <= 500)
+ERX359777	exclude	Failed to pass minimum cutoffs, reason: Too many contigs (674, expect <= 500)
+SRX1950181	exclude	Failed to pass minimum cutoffs, reason: Short read length (35.00bp, expect >= 49 bp)
+ERX1046390	exclude	Failed to pass minimum cutoffs, reason: Low coverage (14.83x, expect >= 20x);Too many contigs (783, expect <= 500)
