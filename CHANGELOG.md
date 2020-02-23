@@ -11,6 +11,8 @@
 - Typo in `fastani` usage
 - Samples with multiple QC errors counted for each error
 - Incorrect ISMapper version
+- typo in `summary` SLURM profile
+- `gtdb` Singularity container not mounting path to GTDB database
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
