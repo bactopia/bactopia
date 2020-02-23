@@ -13,6 +13,8 @@ check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 process download_gtdb {
+    input:
+    env GTDBTK_DATA_PATH from params.gtdb
 
     output:
     file 'gtdb-downloaded.txt' into GTDB_CHECK
@@ -20,7 +22,6 @@ process download_gtdb {
     shell:
     """
     if [ "!{DOWNLOAD_GTDB}" == "true" ]; then
-        GTDBTK_DATA_PATH=!{params.gtdb}
         download-db.sh
     else
         echo "skipping GTDB database download"
@@ -31,16 +32,15 @@ process download_gtdb {
 }
 
 process check_gtdb {
- 
     input:
     file(gtdb) from GTDB_CHECK
+    env GTDBTK_DATA_PATH from params.gtdb
 
     output:
     file 'gtdb-passed.txt' into GTDB
 
     shell:
     """
-    GTDBTK_DATA_PATH=!{params.gtdb}
     gtdbtk check_install && touch gtdb-passed.txt
     """
 }
@@ -51,6 +51,7 @@ process gtdb {
     input:
     file(fasta) from Channel.fromList(samples).collect()
     file(gtdb) from GTDB
+    env GTDBTK_DATA_PATH from params.gtdb
 
     output:
     file 'classify/*' into ANNOTATE
@@ -60,7 +61,6 @@ process gtdb {
     recalculate_red = params.recalculate_red ? "--recalculate_red" : ""
     force = params.force_gtdb ? "--force" : ""
     """
-    GTDBTK_DATA_PATH=!{params.gtdb}
     mkdir genomes
     find -name "*.fna.gz" | xargs -I {} gunzip {}
     cp -P *.fna genomes/
