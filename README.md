@@ -78,10 +78,17 @@ Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly ev
 
 I would like to personally extend my many thanks and gratitude to the authors of these software packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. Really, thank you very much!
 
+# Alternatives
+In case Bactopia doesn't fit your needs, here are two alternatives I highly recommend you check out.
+
+* __[Nullarbor](https://github.com/tseemann/nullarbor)__  
+Seemann T, Goncalves da Silva A, Bulach DM, Schultz MB, Kwong JC, Howden BP. Nullarbor Github https://github.com/tseemann/nullarbor 
+
+* __[ASA³P](https://github.com/oschwengers/asap)__  
+ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher level analysis of closely related bacterial isolates. Oliver Schwengers, Andreas Hoek, Moritz Fritzenwanker, Linda Falgenhauer, Torsten Hain, Trinad Chakraborty, Alexander Goesmann. bioRxiv 654319; doi: https://doi.org/10.1101/654319  
 
 # Feedback
 Your feedback is very valuable! If you run into any issues using Bactopia, have questions, or have some ideas to improve Bactopia, I highly encourage you to submit it to the [Issue Tracker](https://github.com/bactopia/bactopia/issues).
-
 
 # License
 [MIT License](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
