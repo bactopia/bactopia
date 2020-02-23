@@ -13,6 +13,7 @@
 - Incorrect ISMapper version
 - typo in `summary` SLURM profile
 - `gtdb` Singularity container not mounting path to GTDB database
+- `roary` missing `rename` in containers
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
