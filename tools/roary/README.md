@@ -9,6 +9,7 @@ conda create -y -n bactopia-roary -c r -c conda-forge -c bioconda \
     pigz \
     prokka \
     r-ggplot2 \
+    rename \
     roary \
     snp-dists \
     tbl2asn-forever

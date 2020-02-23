@@ -7,7 +7,7 @@ channels:
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=0_gnu
+  - _openmp_mutex=4.5=1_llvm
   - _r-mutex=1.0.1=anacondar_1
   - alsa-lib=1.1.5=h516909a_1002
   - appdirs=1.4.3=py_1
@@ -20,7 +20,7 @@ dependencies:
   - biopython=1.76=py37h516909a_0
   - blast=2.9.0=pl526h3066fca_4
   - bwidget=1.9.14=0
-  - bx-python=0.8.6=py37h9449cc1_0
+  - bx-python=0.8.8=py37h9449cc1_0
   - bzip2=1.0.8=h516909a_2
   - ca-certificates=2019.11.28=hecc5488_0
   - cairo=1.16.0=hfb77d84_1002
@@ -31,10 +31,10 @@ dependencies:
   - clonalframeml=1.12=hc9558a2_0
   - clustalw=2.1=hc9558a2_5
   - cryptography=2.8=py37h72c5cf5_1
-  - curl=7.65.3=hf8cf82a_0
+  - curl=7.68.0=hf8cf82a_0
   - dbus=1.13.6=he372182_0
   - entrez-direct=13.3=pl526h375a9b1_0
-  - enum34=1.1.6=py37_1002
+  - enum34=1.1.9=py37_0
   - ete3=3.1.1=py_1
   - expat=2.2.9=he1b5a44_2
   - fasttree=2.1.10=h14c3975_3
@@ -46,29 +46,29 @@ dependencies:
   - gettext=0.19.8.1=hc5be6a0_1002
   - gfortran_impl_linux-64=7.3.0=hdf63c60_5
   - gfortran_linux-64=7.3.0=h553295d_16
-  - giflib=5.2.1=h516909a_1
+  - giflib=5.2.1=h516909a_2
   - glib=2.58.3=py37h6f030ca_1002
   - graphite2=1.3.13=hf484d3e_1000
   - graphviz=2.42.3=h0511662_0
-  - gsl=2.5=h294904e_1
-  - gst-plugins-base=1.14.5=h0935bb2_1
-  - gstreamer=1.14.5=h36ae1b5_1
+  - gsl=2.6=h294904e_0
+  - gst-plugins-base=1.14.5=h0935bb2_2
+  - gstreamer=1.14.5=h36ae1b5_2
   - gxx_impl_linux-64=7.3.0=hdf63c60_5
   - gxx_linux-64=7.3.0=h553295d_16
   - harfbuzz=2.4.0=h9f30f68_3
   - hmmer=3.3=he1b5a44_0
   - icu=64.2=he1b5a44_1
-  - idna=2.8=py37_1000
+  - idna=2.9=py_1
   - infernal=1.1.2=h14c3975_2
   - iqtree=1.6.12=he513fc3_0
   - jpeg=9c=h14c3975_1001
   - krb5=1.16.4=h2fd8d38_0
   - lcms2=2.9=hbd6801e_1
   - ld_impl_linux-64=2.33.1=h53a641e_8
-  - libblas=3.8.0=14_openblas
-  - libcblas=3.8.0=14_openblas
+  - libblas=3.8.0=15_openblas
+  - libcblas=3.8.0=15_openblas
   - libclang=9.0.1=default_hde54327_0
-  - libcurl=7.65.3=hda55be3_0
+  - libcurl=7.68.0=hda55be3_0
   - libdb=6.1.26=he1b5a44_2001
   - libedit=3.1.20170329=hf8c457e_1001
   - libfaketime=0.9.8=h516909a_0
@@ -79,9 +79,9 @@ dependencies:
   - libgomp=9.2.0=h24d8f2e_2
   - libiconv=1.15=h516909a_1005
   - libidn11=1.34=h1cef754_0
-  - liblapack=3.8.0=14_openblas
+  - liblapack=3.8.0=15_openblas
   - libllvm9=9.0.1=hc9558a2_0
-  - libopenblas=0.3.7=h5ec1e0e_6
+  - libopenblas=0.3.8=h5ec1e0e_0
   - libpng=1.6.37=hed695b0_0
   - libssh2=1.8.2=h22169c7_2
   - libstdcxx-ng=9.2.0=hdf63c60_2
@@ -90,9 +90,10 @@ dependencies:
   - libuuid=2.32.1=h14c3975_1000
   - libwebp=1.0.2=h56121f0_5
   - libxcb=1.13=h14c3975_1002
-  - libxkbcommon=0.9.1=hebb1f50_0
+  - libxkbcommon=0.10.0=he1b5a44_0
   - libxml2=2.9.10=hee79883_0
   - libxslt=1.1.33=h31b3aaa_0
+  - llvm-openmp=9.0.1=hc9558a2_2
   - lxml=4.5.0=py37h7ec2d77_0
   - lz4-c=1.8.3=he1b5a44_1001
   - lzo=2.10=h14c3975_1000
@@ -103,15 +104,15 @@ dependencies:
   - minced=0.4.2=0
   - ncbi-genome-download=0.2.12=py_0
   - ncurses=6.1=hf484d3e_1002
-  - nspr=4.24=he1b5a44_0
+  - nspr=4.25=he1b5a44_0
   - nss=3.47=he751ad9_0
-  - numpy=1.17.5=py37h95a1406_0
+  - numpy=1.18.1=py37h95a1406_0
   - openjdk=11.0.1=h600c080_1018
   - openssl=1.1.1d=h516909a_0
   - paml=4.9=h516909a_5
   - pango=1.42.4=ha030887_1
   - parallel=20200122=0
-  - pcre=8.43=he1b5a44_0
+  - pcre=8.44=he1b5a44_0
   - perl=5.26.2=h516909a_1006
   - perl-aceperl=1.92=pl526_2
   - perl-algorithm-diff=1.1903=pl526_2
@@ -333,14 +334,14 @@ dependencies:
   - perl-xsloader=0.24=pl526_0
   - perl-yaml=1.29=pl526_0
   - pigz=2.3.4=0
-  - pip=20.0.2=py37_1
+  - pip=20.0.2=py_2
   - pixman=0.38.0=h516909a_1003
   - prank=v.170427=h6bb024c_2
   - prodigal=2.6.3=h516909a_2
-  - prokka=1.14.5=pl526_0
+  - prokka=1.14.6=pl526_0
   - pthread-stubs=0.4=h14c3975_1001
-  - pycparser=2.19=py37_1
-  - pyopenssl=19.1.0=py37_0
+  - pycparser=2.19=py_2
+  - pyopenssl=19.1.0=py_1
   - pyparsing=2.4.6=py_0
   - pyqt=5.12.3=py37hcca6a23_1
   - pysocks=1.7.1=py37_0
@@ -348,7 +349,7 @@ dependencies:
   - python-lzo=1.12=py37h3753786_1000
   - qt=5.12.5=hd8c4c69_1
   - r-assertthat=0.2.1=r36h6115d3f_0
-  - r-base=3.6.2=h3a67422_0
+  - r-base=3.6.2=h7ed4ef7_1
   - r-cli=1.1.0=r36h6115d3f_0
   - r-colorspace=1.4_1=r36h96ca727_0
   - r-crayon=1.3.4=r36h6115d3f_0
@@ -383,23 +384,23 @@ dependencies:
   - r-viridislite=0.3.0=r36h6115d3f_0
   - r-withr=2.1.2=r36h6115d3f_0
   - readline=8.0=hf8c457e_0
-  - requests=2.22.0=py37_1
+  - rename=1.601=0
+  - requests=2.23.0=py37_0
   - roary=3.13.0=pl526h516909a_0
   - scipy=1.4.1=py37h921218d_0
   - sed=4.7=h1bed415_1000
-  - setuptools=45.1.0=py37_0
+  - setuptools=45.2.0=py37_0
   - six=1.14.0=py37_0
   - snp-dists=0.6.3=h84994c4_1
   - sqlite=3.30.1=hcee41ef_0
   - svgwrite=1.3.1=py_0
   - t_coffee=11.0.8=py37hea885bf_8
-  - tbl2asn=25.7=0
   - tbl2asn-forever=25.7.1f=0
   - tidyp=1.04=1
   - tk=8.6.10=hed695b0_0
   - tktable=2.10=h555a92e_3
   - urllib3=1.25.7=py37_0
-  - wheel=0.34.2=py37_0
+  - wheel=0.34.2=py_1
   - xorg-fixesproto=5.0=h14c3975_1002
   - xorg-inputproto=2.3.2=h14c3975_1002
   - xorg-kbproto=1.0.7=h14c3975_1002
@@ -425,5 +426,4 @@ dependencies:
   - pip:
     - pyqt5-sip==4.19.18
     - pyqtwebengine==5.12.1
-prefix: /home/rpetit3/miniconda3/envs/bactopia-roary
 
