@@ -7,22 +7,22 @@ Passed: 1558
     Silver: 386
     Bronze: 205
 
-Excluded: 110
+Excluded: 106
     Failed Cutoff: 48
         Low Coverage: 9
         Low Coverage;Too Many Contigs: 12
         Short Read Length: 2
         Short Read Length;Too Many Contigs: 1
         Too Many Contigs: 24
-    QC Failure: 62
+    QC Failure: 58
         Genome Size Error: 42
         Low Read Count Error: 5
         Low Sequence Depth Error: 14
         Paired End Error: 1
 
 Reports:
-    Full Report (txt): bactopia-tools/summary/lactobacillus-report.txt
-    Exclusion: bactopia-tools/summary/lactobacillus-exclude.txt
+    Full Report (txt): bactopia-tools/summary/modded-report.txt
+    Exclusion: bactopia-tools/summary/modded-exclude.txt
 
 Rank Cutoffs:
 {

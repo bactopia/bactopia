@@ -501,9 +501,9 @@ if __name__ == '__main__':
                             error_type, error_name = parse_error(error)
                             error_msg.append(error_name)
                             COUNTS[error_type] += 1
-                            COUNTS['qc-failure'] += 1
-                            COUNTS['total-excluded'] += 1
                             FAILED[error_type].append(directory.name)
+                        COUNTS['total-excluded'] += 1
+                        COUNTS['qc-failure'] += 1
                         CATEGORIES['failed'].append([directory.name, f"Not processed, reason: {';'.join(error_msg)}"])
                         samples[directory.name] = {'has_error': True, 'missing': []}
                     else:
@@ -588,7 +588,6 @@ if __name__ == '__main__':
         exclude_fh.write('sample\tstatus\treason\n')
         for name, reason in CATEGORIES['failed']:
             if name in sample_stats:
-                print(reason)
                 reasons = reason.split(':')[1].split(';')
                 cutoffs = []
                 for r in reasons:

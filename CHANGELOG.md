@@ -9,6 +9,8 @@
 - build-containers.sh not working with Bactopia Tools
 - Bactopia Tools container tools missing environment.yml
 - Typo in `fastani` usage
+- Samples with multiple QC errors counted for each error
+- Incorrect ISMapper version
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
