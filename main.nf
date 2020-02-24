@@ -35,6 +35,7 @@ PROKKA_PROTEINS = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
+print_efficiency() 
 setup_datasets()
 
 
@@ -1180,6 +1181,21 @@ def print_dataset_info(dataset_list, dataset_info) {
     dataset_list.each {
         log.info "\t${it}"
     }
+}
+
+def print_efficiency() {
+    if (workflow.profile == 'standard') {
+        // This is a local run on a single machine
+        total_cpus = Runtime.runtime.availableProcessors()
+        tasks = total_cpus / params.cpus
+        log.info ""
+        log.info """
+            Each task will use ${params.cpus} CPUs out of the available ${total_cpus} CPUs". At most ${tasks} tasks will be run at 
+            once, this can affect the efficiency of Bactopia.
+        """.stripIndent()
+        log.info ""
+    }
+
 }
 
 

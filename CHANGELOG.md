@@ -5,6 +5,7 @@
 - `summary` tool now gives reason for rank
 - `summary` tools now splits `failed` into `exclude` and `qc-failure`
 - Better documentation on how `--cpus` works in Nextflow
+- Efficiency info when executed on standard profile
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools
