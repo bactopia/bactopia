@@ -12,10 +12,10 @@ assignees: ''
 - [ ] Bactopia
 - [ ] Bactopia Tools
 
-**Is your feature request related to a problem?**
+**Is this related to a problem?**
 A description of what the problem is. Ex. I'm always converting X to Y, cannot adjust parameter Z [...]
 
-**Is your feature request related to a additional analyses?**
+**Is this something you would like to see added?**
 A description of the analysis and required tools you would like to see. Ex. New tool does "XYZ", a new Bactopia Tool [...]
 
 **Describe the solution you'd like**
