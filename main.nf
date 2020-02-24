@@ -1190,7 +1190,7 @@ def print_efficiency() {
         tasks = total_cpus / params.cpus
         log.info ""
         log.info """
-            Each task will use ${params.cpus} CPUs out of the available ${total_cpus} CPUs". At most ${tasks} tasks will be run at 
+            Each task will use ${params.cpus} CPUs out of the available ${total_cpus} CPUs. At most ${tasks} tasks will be run at 
             once, this can affect the efficiency of Bactopia.
         """.stripIndent()
         log.info ""
