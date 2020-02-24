@@ -1252,14 +1252,24 @@ def basic_help() {
         --outdir DIR            Directory to write results to
                                     Default: ${params.outdir}
 
-        --max_time INT          The maximum number of minutes a job should run before being halted.
+    Nextflow Queue Parameters:
+        At execution, Nextflow creates a queue and the number of slots in the queue is determined by the total number 
+        of cores on the system. When a task is submitted to the queue, the total number of slots it occupies is 
+        determined by the value set by "--cpus". 
+
+        This can have a significant effect on the efficiency of the Nextflow's queue system. If "--cpus" is set to a 
+        value that is equal to the number of cores availabe, in most cases only a single task will be able to run 
+        because its occupying all available slots.
+
+        When in doubt, "--cpus 4" is a safe bet, it is also the default value if you don't use "--cpus".
+
+        --max_time INT          The maximum number of minutes a single task should run before being halted.
                                     Default: ${params.max_time} minutes
 
-        --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
+        --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                     Default: ${params.max_memory} Gb
 
-        --cpus INT              Number of processors made available to a single
-                                    process.
+        --cpus INT              Number of processors made available to a single task. 
                                     Default: ${params.cpus}
 
     Nextflow Related Parameters:

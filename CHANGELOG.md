@@ -1,9 +1,10 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.0 bactopia/bactopia "" - 2020/??/??
+## v1.3.1 bactopia/bactopia "" - 2020/??/??
 ### `Added`
 - `summary` tool now gives reason for rank
 - `summary` tools now splits `failed` into `exclude` and `qc-failure`
+- Better documentation on how `--cpus` works in Nextflow
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools

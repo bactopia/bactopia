@@ -57,16 +57,31 @@ These optional parameters, while not required, will be quite useful to tweak.
     --outdir DIR            Directory to write results to
                                 Default: .
 
-    --max_time INT          The maximum number of minutes a job should run before being halted.
+    --max_time INT          The maximum number of minutes a task should run before being halted.
                                 Default: 120 minutes
 
-    --max_memory INT        The maximum amount of memory (Gb) allowed to a single process.
+    --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                 Default: 32 Gb
 
-    --cpus INT              Number of processors made available to a single
-                                process. 
+    --cpus INT              Number of processors made available to a single task.
                                 Default: 4
 ```
+
+## `--cpus`
+At execution, Nextflow creates a queue and the number of slots in the queue is determined by the total number of cores on the system. So if you have a 24-core system, that means Nextflow will have a queue with 24-slots available. This feature kind of makes `--cpus` a little misleading. Typically when you give `--cpus` you are saying *"use this amount of cpus"*. But that is not the case for Nextflow and Bactopia. When you use `--cpus` what you are actually saying is *"for any particular task, use this amount of slots"*. Commands within a task processors will use the amount specified by `--cpus`.
+
+!!! error "`--cpus` can have a significant effect on the efficiency of Bactopia"
+    So for example if you have a system with 24-cores.
+
+    This command, `bactopia ... --cpus 24`, says *for any particular task, use 24 slots*. Nextflow will give tasks in Bactopia 24 slots out of 24 available (24-core machine). In other words the queue can one have one task running at once because each task occupies 24 slots.
+
+    On the other hand, `bactopia ... --cpus 4` says *for any particular task, use 4 slots*. Now, for Nextflow will give each task 4 slots out of 24 slots. Which means 6 tasks can be running at once. This can lead to much better efficiency because less jobs are stuck waiting in line. 
+
+    There are some tasks in Bactopia that will only ever use a single slot because they are single-core tasks. But for example the `annotation` step will always use the number of slots specified by `--cpus`. If the `--cpus` is too high, the `annotation` will get bogged down, which causes tasks dependent on `annotation` to also get bogged down.
+
+!!! info "When in doubt `--cpus 4` is a safe value."
+    This is also the default value for Bactopia.
+
 
 ### `--genome_size`
 Throughout the Bactopia workflow a genome size is used for various tasks. By default, a genome size is estimated using Mash. However, users can provide their own value for genome size, use values based on [Species Specific Datasets](/datasets/#species-specific), or completely disable it.
