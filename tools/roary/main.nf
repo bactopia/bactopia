@@ -100,9 +100,6 @@ process identify_recombination {
     file "${params.prefix}.aligned.fa.gz"
     file 'alignment-masked.fa' into FINAL_TREE, SNP_DISTS
 
-    when:
-    params.skip_phylogeny == false
-
     shell:
     if (params.skip_clonalframe)
     """
@@ -138,6 +135,9 @@ process create_phylogeny {
     output:
     file 'iqtree/*'
     file "${params.prefix}.iqtree"
+
+    when:
+    params.skip_phylogeny == false
 
     shell:
     """
