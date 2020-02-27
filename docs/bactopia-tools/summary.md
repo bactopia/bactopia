@@ -39,13 +39,15 @@ bactopia-tools/
     │   ├── summary-report.html
     │   ├── summary-timeline.html
     │   └── summary-trace.txt
+    ├── bactopia-results.txt
     └── bactopia-summary.txt
 ```
 
 | Filename | Description |
 |----------|-------------|
 | bactopia-exclude.txt | A list of samples and the reason they failed quality cutoffs |
-| bactopia-summary.txt | A tab-delimited file containing squence, assembly and annotation stats for all samples |
+| bactopia-results.txt | A tab-delimited file containing sequence, assembly and annotation stats for all samples |
+| bactopia-summary.txt | Brief breakdown of ranks and qc-failures |
 
 ### Directory Description
 
