@@ -1,0 +1,357 @@
+---
+title: "Bactopia Analysis"
+author: "Robert A Petit III and Tim Read"
+date: "February 27, 2020"
+output:
+  html_document:
+    df_print: paged
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(stringr)
+library(tidyr)
+library(tidyverse)
+options(scipen=999)
+DATA <- "../data"
+
+# Read Inputs
+sra_metadata <- read.delim(paste0(DATA,"/lactobacillus-results.txt")) %>% distinct(experiment_accession, .keep_all=TRUE)
+sra_metadata$sample <- sra_metadata$experiment_accession
+sequence_metrics = read.delim(paste0(DATA,"/summary/lactobacillus-report.txt"))
+full_metrics = merge(sequence_metrics, sra_metadata, by='sample', all.x = TRUE)
+full_metrics$year <- as.data.frame(select(full_metrics, first_public) %>% separate(first_public, into=c('year'), extra='drop'))$year
+phyloflash <- read.delim(paste0(DATA,"/phyloflash/phyloflash-summary.txt"))
+gtdb <- read.delim(paste0(DATA,"/gtdb/gtdbtk.summary.tsv"))
+exclude <- read.delim(paste0(DATA,"/summary/lactobacillus-exclude.txt"))
+
+#' write_plot
+#'
+#' A wrapper for to validate given vector is multiple ids and proper type. This
+#' function should not be directly used by the user.
+#'
+#' @param plot_object A ggplot object
+#' @param name Basename for the output PDF and PNG files
+#' @param height The PDF height of the output (Default: 5)
+#' @param width The PDF width of the object (Default: 12)
+#'
+#' @export
+#' @return bool TRUE is multiple ids else FALSE.
+write_plot <- function(plot_object, name, height = 5, width = 12) {
+    pdf(paste0(name, ".pdf"), width=width, height=height)
+    print(plot_object)
+    dev_null <- dev.off()
+
+    png(paste0(name, ".png"), width=width*100, height=height*100)
+    print(plot_object)
+    dev_null <- dev.off()
+}
+```
+
+### Technologies
+```{r}
+table(sra_metadata$instrument_platform)
+```
+
+### By Year Plots
+#### Submissions Per Year
+```{r fig.width=12, fig.asp=0.4}
+submissions <- select(full_metrics, year) %>% count(year)
+
+p <- ggplot(data=submissions, aes(x=year, y=n)) +
+    xlab("Year") +
+    ylab("Count") +
+    geom_bar(stat='identity') +
+    geom_text(aes(label=n), vjust = -0.5) +
+    scale_x_discrete(breaks = round(
+        seq(min(submissions$year), max(submissions$year), by = 1),1
+    )) +
+    theme_bw() +
+    theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=14,face="bold"))
+p
+```
+
+# Sequence Summary
+## Ranks
+```{r}
+table(sequence_metrics$rank)
+```
+
+### By Rank Table
+#### Gold
+```{r}
+sequence_metrics %>%
+    filter(rank == 'gold') %>%
+    select(original_coverage, final_coverage, final_qual_mean, final_read_mean, total_contig) %>%
+    map(summary)
+
+summary(sequence_metrics[sequence_metrics$rank == 'gold',]$total_contig_length/sequence_metrics[sequence_metrics$rank == 'gold',]$estimated_genome_size)
+```
+
+#### Silver
+```{r}
+sequence_metrics %>%
+    filter(rank == 'silver') %>%
+    select(original_coverage, final_coverage, final_qual_mean, final_read_mean, total_contig) %>%
+    map(summary)
+
+summary(sequence_metrics[sequence_metrics$rank == 'silver',]$total_contig_length/sequence_metrics[sequence_metrics$rank == 'silver',]$estimated_genome_size)
+```
+
+#### Bronze
+```{r}
+sequence_metrics %>%
+    filter(rank == 'bronze') %>%
+    select(original_coverage, final_coverage, final_qual_mean, final_read_mean, total_contig) %>%
+    map(summary)
+
+
+summary(sequence_metrics[sequence_metrics$rank == 'silver',]$total_contig_length/sequence_metrics[sequence_metrics$rank == 'silver',]$estimated_genome_size)
+```
+
+#### Exclude
+```{r}
+sequence_metrics %>%
+    filter(rank == 'exclude') %>%
+    select(original_coverage, final_coverage, final_qual_mean, final_read_mean, total_contig) %>%
+    map(summary)
+
+
+summary(sequence_metrics[sequence_metrics$rank == 'silver',]$total_contig_length/sequence_metrics[sequence_metrics$rank == 'silver',]$estimated_genome_size)
+```
+
+# Taxonmic Comparisons
+```{r}
+sra_species <- select(full_metrics, experiment_accession, rank, estimated_genome_size, total_contig_length, scientific_name) %>%
+                separate(scientific_name, into=c('genus', 'species'), extra='drop', fill='right') %>%
+                unite('sra', c('genus', 'species'), sep=" ")
+colnames(sra_species) <- c('sample', 'rank', 'estimated_genome_size', 'assembled_genome_size', 'sra')
+
+phyloflash_species <- filter(phyloflash, !grepl("WARNING", message)) %>% 
+                        select(sample, assembly_species) %>%
+                        separate(assembly_species, into=c('genus', 'species'), extra='drop', fill='right') %>%
+                        unite('phyloflash', c('genus', 'species'), sep=" ")
+
+gtdb_species <- select(gtdb, user_genome, classification) %>%
+                separate(classification, into=c('genus', 'species'), sep=";s__", extra='drop', fill='right') %>%
+                select(user_genome, genus, species) %>%
+                separate(genus, into=c('taxon', 'genus'), sep="g__", extra='drop', fill='right') %>%
+                separate(species, into=c('temp_genus', 'species'), sep=" ", extra='drop', fill='right') %>%
+                separate(temp_genus, into=c('temp_genus'), sep="_", extra='drop', fill='right') %>%
+                separate(species, into=c('species'), sep="_", extra='drop', fill='right') %>%
+                unite('species', c('temp_genus', 'species'), sep=" ") %>%
+                select(user_genome, genus, species)
+
+
+colnames(gtdb_species) <- c('sample', 'genus', 'species')
+gtdb_species$gtdb <- ifelse(gtdb_species$species == ' NA', gtdb_species$genus,  gtdb_species$species)
+gtdb_species$is_lacto = ifelse(grepl("Lactobacillus", gtdb_species$gtdb), TRUE, FALSE)
+species <- merge(sra_species, 
+    merge(gtdb_species, phyloflash_species, by=c("sample"), all.x = TRUE), 
+    by=c("sample"), 
+    all.x = TRUE
+)
+species$phyloflash[is.na(species$phyloflash)] <- 'unknown_phyloflash'
+species$gtdb[is.na(species$gtdb)] <- 'unknown_gtdb'
+species$all_agree <- species$sra == species$phyloflash & species$sra == species$gtdb
+species$sra_phyloflash <- species$sra == species$phyloflash
+species$sra_gtdb <- species$sra == species$gtdb
+species$phyloflash_gtdb <- species$phyloflash == species$gtdb
+species$is_lacto <- ifelse(grepl("Lactobacillus", species$gtdb), TRUE, FALSE)
+
+```
+
+### Samples with GTDB assignments
+```{r}
+nrow(gtdb_species)
+```
+
+### Non-Lactobacillus assignments by GTDB
+```{r}
+table(gtdb_species$is_lacto)
+table(gtdb_species[!gtdb_species$is_lacto,]$gtdb)
+```
+
+### Mismatches between assignments
+```{r}
+# unknown_gtdb means gtdb wasn't run on the sample
+table(species[species$gtdb != "unknown_gtdb",]$all_agree)
+```
+
+### Mismatches between 16S and GTDB
+```{r}
+# comapre samples with phyloflash and gtdb results
+nrow(species %>% filter(gtdb != "unknown_gtdb" & phyloflash != "unknown_phyloflash"))
+gtdb_phyloflash_mismatch <- species %>%
+                              filter(gtdb != "unknown_gtdb" & phyloflash != "unknown_phyloflash" & !phyloflash_gtdb) %>%
+                              select(gtdb, phyloflash) %>%
+                              unite('mismatch', c('gtdb', 'phyloflash'), sep=";")
+nrow(gtdb_phyloflash_mismatch)
+table(gtdb_phyloflash_mismatch)
+```
+
+```{r}
+estimated_sizes <- select(species, gtdb, estimated_genome_size) %>%
+                    filter(gtdb != "unknown_gtdb") %>%
+                    group_by(gtdb) %>%
+                    summarise_all(funs(length, min, median, mean, max, max-min, sd))
+colnames(estimated_sizes) <- c('species', 'count', 'min', 'median', 'mean', 'max', 'range', 'standard_deviation')
+filter(estimated_sizes, count >50) %>% arrange(desc(count))
+```
+
+```{r}
+assembly_sizes <- select(species, gtdb, assembled_genome_size) %>%
+                    filter(gtdb != "unknown_gtdb") %>%
+                    group_by(gtdb) %>%
+                    summarise_all(funs(length, min, median, mean, max, max-min, sd))
+colnames(assembly_sizes) <- c('species', 'count', 'min', 'median', 'mean', 'max', 'range', 'standard_deviation')
+filter(assembly_sizes, count >50) %>% arrange(desc(count))
+```
+# Supplementary Tables and Figures
+### Supplementary Table 1 - Supplementary Table 1 - Lactobacillus excluded from analysis
+```{r}
+exclude %>% select(sample, reason)
+```
+
+### Supplementary Table 2 - Samples with a non-Lactobacillus taxonomic classification
+```{r}
+species %>% filter(gtdb != 'unknown_gtdb' & !is_lacto ) %>% select(sample, sra, gtdb) 
+```
+
+### Supplementary Figure 2 - Sequencing quality ranks per year 2011–2019 of Lactobacillus genome projects. Submission Ranks
+```{r Supplementary Figure 2, fig.width=12, fig.asp=0.5}
+melted <- select(full_metrics, rank, year) %>% 
+            filter(rank != 'exclude') %>% 
+            mutate(rank = sub("(.)", "\\U\\1", rank, perl=TRUE)) %>% 
+            count(year, rank)
+p <- ggplot(data=melted, aes(x=year, y=n, fill=rank, group=rank, label=year)) +
+    xlab("Year") +
+    ylab("Count") +
+    geom_bar(stat='identity', position='dodge') +
+    geom_text(aes(label=n), vjust = -0.5, position = position_dodge(.9)) +
+    scale_fill_manual(values=c("#CD7F32", "#D4AF37", "#C0C0C0" )) +
+    scale_x_discrete(breaks = round(
+        seq(min(melted$year), max(melted$year), by = 1), 1
+    )) +
+    theme_bw() +
+    theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=14,face="bold"),
+          legend.title = element_blank())
+    
+p
+
+write_plot(p, paste0(getwd(), '/../preprint/supplementary-quality-by-year'))
+```
+
+
+### Supplementary Figure 3 - Comparison of estimated genome size and assembled genome size.
+```{r Supplementary Figure 3, fig.width=12, fig.asp=0.5}
+p <- ggplot(full_metrics, aes(x = estimated_genome_size, y = total_contig_length, color=rank)) +
+    xlab("Estimated Genome Size") +
+    ylab("Assembled Genome Size") +
+    geom_point() +
+    geom_abline(intercept = 0, slope = 1) + 
+    scale_color_manual(values = c("#CD7F32", "#000000", "#D4AF37", "#C0C0C0" )) +
+    theme_bw() +
+    theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=14,face="bold"),
+          legend.title = element_blank())
+    
+p
+
+write_plot(p, paste0(getwd(), '/../preprint/figures/supplementary-genome-size-assembly-vs-estimate'))
+```
+
+
+### Supplementary Figure 4 - Assembled genome sizes are consistent within species.
+```{r Supplementary Figure 4, fig.width=12, fig.asp=0.5}
+species_genomes <- select(species, gtdb, assembled_genome_size) %>% 
+    filter(gtdb != "unknown_gtdb" & !is.na(gtdb)) %>%
+    group_by(.data = ., gtdb) %>%
+    mutate(.data = ., n = n()) %>%
+    separate(gtdb, c("genus", "species"), sep=" ", extra='drop', fill='right') %>%
+    filter(n>50)
+
+species_genomes$label <- paste0("L. ", species_genomes$species, " (n=", species_genomes$n, ")")
+
+p <- ggplot(species_genomes, aes(x = label, y = assembled_genome_size)) +
+    xlab("Species") +
+    ylab("Assembled Size (bp)") +
+    geom_boxplot() +
+    theme_bw() +
+    theme(axis.text=element_text(size=10),
+          axis.text.x = element_text(face = 'italic'),
+          axis.title=element_text(size=14,face="bold"),
+          legend.title = element_blank()) 
+    
+p
+
+write_plot(p, paste0(getwd(), '/../preprint/supplementary-consistent-genome-size'))
+```
+
+### Antibiotic Resistance
+
+```{r}
+AMR_finder <- read.delim(paste0(DATA,"/summary/amrfinder/amrfinder-gene-summary.txt"))  %>%
+  rename(sample = sample_name) %>%
+  mutate_at(2:11,as.logical)
+
+CARD <- read.delim(paste0(DATA,"/summary/ariba/ariba-card-summary.txt")) %>%
+  rename(sample = sample_name) %>%
+  mutate_at(2:48,as.logical)
+```
+
+```{r}
+Lacto_AMR <- inner_join(gtdb_species,AMR_finder,by="sample") %>%
+  filter(is_lacto == TRUE) %>%
+  select(-c(is_lacto)) %>%
+  mutate(ANY = ifelse(rowSums(.[5:14]),TRUE,FALSE))
+
+Lacto_CARD <- inner_join(gtdb_species,CARD,by="sample") %>%
+  filter(is_lacto == TRUE) %>%
+  select(-c(is_lacto)) %>%
+  mutate(ANY = ifelse(rowSums(.[5:51]),TRUE,FALSE))
+```
+
+
+```{r}
+count_AMR <- Lacto_AMR %>%
+  group_by(gtdb) %>% 
+  summarise(count = n())
+
+Lacto_AMR_summary <- Lacto_AMR %>% 
+  group_by(gtdb) %>% 
+  summarise_if(is.logical,sum,na.rm = T) 
+
+Lacto_AMR_summary2 <- inner_join(count_AMR,Lacto_AMR_summary, by = "gtdb")
+colSums(Lacto_AMR_summary2[,2:13])
+```
+
+```{r}
+Lacto_AMR_summary2$total <- rowSums(Lacto_AMR_summary2[3:12])
+filter(Lacto_AMR_summary2, total >5) %>% arrange(desc(total))
+```
+
+
+```{r}
+# Ariba was not run on the single-end sampels, hence different counts then
+# the AMRFinder+ counts
+count_CARD <- Lacto_CARD %>%
+  group_by(gtdb) %>% 
+  summarise(count = n())
+
+CARD_summary <- Lacto_CARD %>% 
+  group_by(gtdb) %>% 
+  summarise_if(is.logical,sum,na.rm = T) 
+
+CARD_summary2 <- inner_join(count_CARD,CARD_summary, by = "gtdb")
+CARD_numbers <- colSums(CARD_summary2[,2:50]) 
+CARD_numbers[CARD_numbers > 0]
+```
+
+# Session Info
+```{r}
+sessionInfo()
+```

@@ -1,0 +1,6 @@
+Quality Rank	Count	Original Coverage (Median)	Post-Bactopia Coverage (Median)	Per-Read Quality Score (Median)	Read Length (Median)	Contig Count (Median)	Percent of Assembled Genome Size compared to Estimated Genome Size (Median)
+Gold	967	213x	100x	Q35	100	52	92%
+Silver	386	160x	100x	Q35	100	110	93%
+Bronze	205	102x	100x	Q34	100	90	93%
+Exclude	48	26x	22x	Q34	100	706	93%
+QC Failure	58	-	-	-	-	-	-
