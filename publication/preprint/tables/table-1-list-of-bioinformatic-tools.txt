@@ -57,7 +57,7 @@ Sourmash	3.2.0	Compute and compare MinHash signatures for DNA data sets	https://
 SPAdes	3.13.0	An assembly toolkit containing various assembly pipelines	https://github.com/ablab/spades
 Trimmomatic	0.39	A flexible read trimming tool for Illumina NGS data	http://www.usadellab.org/cms/index.php?page=trimmomatic
 vcf-annotator	0.5	Add biological annotations to variants in a VCF file	https://github.com/rpetit3/vcf-annotator
-Vcflib	1.0.0rc3	A simple C++ library for parsing and manipulating VCF files	https://bactopia.github.io/acknowledgements/
+Vcflib	1.0.0rc3	A simple C++ library for parsing and manipulating VCF files	https://github.com/vcflib/vcflib
 Velvet	1.2.10	Short read de novo assembler using de Bruijn graphs	https://github.com/dzerbino/velvet
 VSEARCH	2.14.1	Versatile open-source tool for metagenomics	https://github.com/torognes/vsearch
 vt	2015.11.10	A tool set for short variant discovery in genetic sequence data	https://github.com/atks/vt
