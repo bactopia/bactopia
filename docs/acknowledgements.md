@@ -392,7 +392,7 @@ Add biological annotations to variants in a VCF file.
 _Petit III, R. A. [VCF-Annotator: Add biological annotations to variants 
 in a VCF file.](https://github.com/rpetit3/vcf-annotator)._  
 
-* __[Vcflib]()__  
+* __[Vcflib](https://github.com/vcflib/vcflib)__  
 a simple C++ library for parsing and manipulating VCF files  
 _Garrison, E. [Vcflib: A C++ library for parsing and manipulating VCF files](https://github.com/vcflib/vcflib)_  
 
