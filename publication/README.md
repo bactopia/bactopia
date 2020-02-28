@@ -81,8 +81,8 @@ The results of the *Lactobacillus crispatus* pan-genome
 
 | Filename | Description |
 |----------|-------------|
-| {amrfinder|ariba}-{gene|protein|card|vfdb}-detailed-summary.txt | Detailed information about each hit against a specific antimicrobial resistance or Ariba dataset |
-| {amrfinder|ariba}-{gene|protein|card|vfdb}-summary.txt | A presence/absence matrix for hits against a specific antimicrobial resistance or Ariba dataset  |
+| {amrfinder\|ariba}-{gene\|protein\|card\|vfdb}-detailed-summary.txt | Detailed information about each hit against a specific antimicrobial resistance or Ariba dataset |
+| {amrfinder\|ariba}-{gene\|protein\|card\|vfdb}-summary.txt | A presence/absence matrix for hits against a specific antimicrobial resistance or Ariba dataset  |
 | lactobacillus-exclude.txt | A list of samples and the reason they failed quality cutoffs |
 | lactobacillus-report.txt| A tab-delimited file containing sequence, assembly and annotation stats for all samples|
 | lactobacillus-summary.txt| Brief breakdown of ranks and qc-failures |
