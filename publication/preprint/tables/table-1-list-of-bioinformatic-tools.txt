@@ -1,28 +1,28 @@
 name	version	description	link
-AMRFinder+	3.6.7	Find acquired antimicrobial resistance genes and some point mutations in protein or assembled nucleotide sequences.	https://github.com/ncbi/amr
+AMRFinder+	3.6.7	Find acquired antimicrobial resistance genes and some point mutations in protein or assembled nucleotide sequences	https://github.com/ncbi/amr
 Aragorn	1.2.38	Finds transfer RNA features (tRNA)	http://130.235.244.92/ARAGORN/Downloads/
 Ariba	2.14.4	Antimicrobial Resistance Identification By Assembly	https://github.com/sanger-pathogens/ariba
-assembly-scan	0.3.0	Generate basic stats for an assembly.	https://github.com/rpetit3/assembly-scan
+assembly-scan	0.3.0	Generate basic stats for an assembly	https://github.com/rpetit3/assembly-scan
 Barrnap	0.9	Bacterial ribosomal RNA predictor	https://github.com/tseemann/barrnap
-BBMap	38.76	A suite of fast, multithreaded bioinformatics tools designed for analysis of DNA and RNA sequence data.	https://jgi.doe.gov/data-and-tools/bbtools/
-BCFtools	1.9	Utilities for variant calling and manipulating VCFs and BCFs.	https://github.com/samtools/bcftools
-Bedtools	2.29.2	A powerful toolset for genome arithmetic.	https://github.com/arq5x/bedtools2
+BBMap	38.76	A suite of fast, multithreaded bioinformatics tools designed for analysis of DNA and RNA sequence data	https://jgi.doe.gov/data-and-tools/bbtools/
+BCFtools	1.9	Utilities for variant calling and manipulating VCFs and BCFs	https://github.com/samtools/bcftools
+Bedtools	2.29.2	A powerful toolset for genome arithmetic	https://github.com/arq5x/bedtools2
 BioPython	1.76	Tools for biological computation written in Python	https://github.com/biopython/biopython
 BLAST+	2.9.0	Basic Local Alignment Search Tool	https://blast.ncbi.nlm.nih.gov/Blast.cgi
 BWA	0.7.17	Burrows-Wheeler Aligner for short-read alignment	https://github.com/lh3/bwa/
 CD-HIT	4.8.1	Accelerated for clustering the next-generation sequencing data	https://github.com/weizhongli/cdhit
 ClonalFrameML	1.12	Efficient Inference of Recombination in Whole Bacterial Genomes	https://github.com/xavierdidelot/ClonalFrameML
-DiagrammeR	1.0.0	Graph and network visualization using tabular data in R.Ê	https://github.com/rich-iannone/DiagrammeR
-EMIRGE	0.61.1	Reconstructs full length ribosomal genes from short read sequencing data.	https://github.com/csmiller/EMIRGE
+DiagrammeR	1.0.0	Graph and network visualization using tabular data in R	https://github.com/rich-iannone/DiagrammeR
+EMIRGE	0.61.1	Reconstructs full length ribosomal genes from short read sequencing data	https://github.com/csmiller/EMIRGE
 FastANI	1.3	Fast Whole-Genome Similarity (ANI) Estimation	https://github.com/ParBLiSS/FastANI
 FastTree 2	2.1.10	Approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences	http://www.microbesonline.org/fasttree
 fastq-dl	1.0.3	Download FASTQ files from SRA or ENA repositories	https://github.com/rpetit3/fastq-dl
-FastQC	0.11.9	A quality control analysis tool for high throughput sequencing data.	https://github.com/s-andrews/FastQC
+FastQC	0.11.9	A quality control analysis tool for high throughput sequencing data	https://github.com/s-andrews/FastQC
 fastq-scan	0.4.2	Output FASTQ summary statistics in JSON format	https://github.com/rpetit3/fastq-scan
-FLASH	1.2.11	A fast and accurate tool to merge paired-end reads.	https://ccb.jhu.edu/software/FLASH/
+FLASH	1.2.11	A fast and accurate tool to merge paired-end reads	https://ccb.jhu.edu/software/FLASH/
 freebayes	1.3.2	Bayesian haplotype-based genetic polymorphism discovery and genotyping	https://github.com/ekg/freebayes
 GNU Parallel	20200122	A shell tool for executing jobs in parallel	https://www.gnu.org/software/parallel/
-GTDB-tk	1.0.2	A toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes.	https://github.com/Ecogenomics/GTDBTk
+GTDB-tk	1.0.2	A toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes	https://github.com/Ecogenomics/GTDBTk
 HMMER	3.3	Biosequence analysis using profile hidden Markov models	http://hmmer.org/
 Infernal	1.1.2	Searches DNA sequence databases for RNA structure and sequence similarities	http://eddylab.org/infernal/
 IQ-TREE	1.6.12	Efficient phylogenomic software by maximum likelihood	https://github.com/Cibiv/IQ-TREE
@@ -36,28 +36,28 @@ MEGAHIT	1.2.9	Ultra-fast and memory-efficient (meta-)genome assembler	https://gi
 MinCED	0.4.2	Mining CRISPRs in Environmental Datasets	https://github.com/ctSkennerton/minced
 Minimap2	2.17	A versatile pairwise aligner for genomic and spliced nucleotide sequences	https://github.com/lh3/minimap2
 ncbi-genome-download	0.2.12	Scripts to download genomes from the NCBI FTP servers	https://github.com/kblin/ncbi-genome-download
-Nextflow	19.10.0	A DSL for data-driven computational pipelines.	https://github.com/nextflow-io/nextflow
-phyloFlash	3.3b3	Rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset.	https://github.com/HRGV/phyloFlash
-Pigz	2.3.4	A parallel implementation of gzip for modern multi-processor, multi-core machines.	https://zlib.net/pigz/
+Nextflow	19.10.0	A DSL for data-driven computational pipelines	https://github.com/nextflow-io/nextflow
+phyloFlash	3.3b3	Rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset	https://github.com/HRGV/phyloFlash
+Pigz	2.3.4	A parallel implementation of gzip for modern multi-processor, multi-core machines	https://zlib.net/pigz/
 Pilon	1.23	An automated genome assembly improvement and variant detection tool	https://github.com/broadinstitute/pilon/
 pplacer	1.1.alpha19	Phylogenetic placement and downstream analysis	https://github.com/matsen/pplacer
-Prodigal	2.6.3	Fast, reliable protein-coding gene prediction for prokaryotic genomes.	https://github.com/hyattpd/Prodigal
+Prodigal	2.6.3	Fast, reliable protein-coding gene prediction for prokaryotic genomes	https://github.com/hyattpd/Prodigal
 Prokka	1.4.5	Rapid prokaryotic genome annotation	https://github.com/tseemann/prokka
 Roary	3.13.0	Rapid large-scale prokaryote pan genome analysis	https://github.com/sanger-pathogens/Roary
 samclip	0.2	Filter SAM file for soft and hard clipped alignments	https://github.com/tseemann/samclip
 SAMtools	1.9	Tools for manipulating next-generation sequencing data	https://github.com/samtools/samtools
-Seqtk	1.3	A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.	https://github.com/lh3/seqtk
+Seqtk	1.3	A fast and lightweight tool for processing sequences in the FASTA or FASTQ format	https://github.com/lh3/seqtk
 Shovill	1.0.9se	Faster assembly of Illumina reads	https://github.com/tseemann/shovill
 SKESA	2.3.0	Strategic Kmer Extension for Scrupulous Assemblies	https://github.com/ncbi/SKESA
 Snippy	4.4.5	Rapid haploid variant calling and core genome alignment	https://github.com/tseemann/snippy
-SnpEff	4.3.1	Genomic variant annotations and functional effect prediction toolbox.	http://snpeff.sourceforge.net/
+SnpEff	4.3.1	Genomic variant annotations and functional effect prediction toolbox	http://snpeff.sourceforge.net/
 snp-dists	0.6.3	Pairwise SNP distance matrix from a FASTA sequence alignment	https://github.com/tseemann/snp-dists
-SNP-sites	2.5.1	Rapidly extracts SNPs from a multi-FASTA alignment.	https://github.com/sanger-pathogens/snp-sites
-Sourmash	3.2.0	Compute and compare MinHash signatures for DNA data sets.	https://github.com/dib-lab/sourmash
-SPAdes	3.13.0	An assembly toolkit containing various assembly pipelines.	https://github.com/ablab/spades
+SNP-sites	2.5.1	Rapidly extracts SNPs from a multi-FASTA alignment	https://github.com/sanger-pathogens/snp-sites
+Sourmash	3.2.0	Compute and compare MinHash signatures for DNA data sets	https://github.com/dib-lab/sourmash
+SPAdes	3.13.0	An assembly toolkit containing various assembly pipelines	https://github.com/ablab/spades
 Trimmomatic	0.39	A flexible read trimming tool for Illumina NGS data	http://www.usadellab.org/cms/index.php?page=trimmomatic
-vcf-annotator	0.5	Add biological annotations to variants in a VCF file.	https://github.com/rpetit3/vcf-annotator
+vcf-annotator	0.5	Add biological annotations to variants in a VCF file	https://github.com/rpetit3/vcf-annotator
 Vcflib	1.0.0rc3	A simple C++ library for parsing and manipulating VCF files	https://bactopia.github.io/acknowledgements/
 Velvet	1.2.10	Short read de novo assembler using de Bruijn graphs	https://github.com/dzerbino/velvet
 VSEARCH	2.14.1	Versatile open-source tool for metagenomics	https://github.com/torognes/vsearch
-vt	2015.11.10	A tool set for short variant discovery in genetic sequence data.	https://github.com/atks/vt
+vt	2015.11.10	A tool set for short variant discovery in genetic sequence data	https://github.com/atks/vt
