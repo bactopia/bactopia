@@ -79,8 +79,6 @@ The results of the *Lactobacillus crispatus* pan-genome
 
 #### `summary`
 
-The results of the *Lactobacillus crispatus* pan-genome
-
 | Filename | Description |
 |----------|-------------|
 | {amrfinder|ariba}-{gene|protein|card|vfdb}-detailed-summary.txt | Detailed information about each hit against a specific antimicrobial resistance or Ariba dataset |
