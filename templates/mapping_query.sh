@@ -26,7 +26,7 @@ else
     samtools view -bS bwa.sam | samtools sort -o cov.bam -
     genomeCoverageBed -ibam cov.bam -d > cov.txt
     split-coverages.py mapping.txt cov.txt --outdir mapping
-    awk '{print "samtools view -b cov.bam "$2" > mapping/"$1".bam"}' mapping.txt | xargs -I {} sh -c '{}'
+    
     if [[ !{params.compress} == "true" ]]; then
         pigz --best -n -p !{task.cpus} mapping/*.txt
     fi
