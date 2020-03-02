@@ -19,7 +19,7 @@ dependencies:
   - entrez-direct=13.3=pl526h375a9b1_0
   - expat=2.2.9=he1b5a44_2
   - htslib=1.10.2=h78d89cc_0
-  - ismapper=2.0.a=py37_0
+  - ismapper=2.0.2=py_0
   - krb5=1.16.4=h2fd8d38_0
   - ld_impl_linux-64=2.33.1=h53a641e_8
   - libblas=3.8.0=15_openblas

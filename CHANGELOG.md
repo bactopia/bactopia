@@ -16,6 +16,8 @@
 - typo in `summary` SLURM profile
 - `gtdb` Singularity container not mounting path to GTDB database
 - `roary` missing `rename` in containers
+- `blast_query` results overwriting one another
+- split `blast_query` into `blast_genes`, `blast_primers` and `blast_proteins`
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`

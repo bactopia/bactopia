@@ -28,7 +28,9 @@ MLST_DATABASES = []
 REFERENCES = []
 INSERTIONS = []
 PRIMERS = []
-BLAST_FASTAS = []
+BLAST_GENE_FASTAS = []
+BLAST_PRIMER_FASTAS = []
+BLAST_PROTEIN_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = file('EMPTY')
@@ -188,7 +190,7 @@ process make_blastdb {
 
     output:
     file("blastdb/*")
-    set val(sample), file("blastdb/*") into BLAST_QUERY
+    set val(sample), file("blastdb/*") into BLAST_GENES, BLAST_PRIMERS, BLAST_PROTEINS
 
     shell:
     template(task.ext.template)
@@ -522,22 +524,57 @@ process plasmid_blast {
 }
 
 
-process blast_query {
+process blast_genes {
     /*
-    Query a FASTA files against annotated assembly using BLAST
+    Query gene FASTA files against annotated assembly using BLAST
     */
-    tag "${sample} - ${query.getName()}"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "blast/*"
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{txt,txt.gz}"
 
     input:
-    set val(sample), file(blastdb) from BLAST_QUERY
-    each file(query) from BLAST_FASTAS
+    set val(sample), file(blastdb) from BLAST_GENES
+    file(query) from Channel.from(BLAST_GENE_FASTAS).collect()
 
     output:
-    file("blast/*")
+    file("genes/*.{txt,txt.gz}")
 
     shell:
-    query_name = query.getSimpleName()
+    template(task.ext.template)
+}
+
+process blast_primers {
+    /*
+    Query primer FASTA files against annotated assembly using BLAST
+    */
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "primers/*.{txt,txt.gz}"
+
+    input:
+    set val(sample), file(blastdb) from BLAST_PRIMERS
+    file(query) from Channel.from(BLAST_PRIMER_FASTAS).collect()
+
+    output:
+    file("primers/*.{txt,txt.gz}")
+
+    shell:
+    template(task.ext.template)
+}
+
+process blast_proteins {
+    /*
+    Query protein FASTA files against annotated assembly using BLAST
+    */
+    tag "${sample}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "proteins/*.{txt,txt.gz}"
+
+    input:
+    set val(sample), file(blastdb) from BLAST_PROTEINS
+    file(query) from Channel.from(BLAST_PROTEIN_FASTAS).collect()
+
+    output:
+    file("proteins/*.{txt,txt.gz}")
+
+    shell:
     template(task.ext.template)
 }
 
@@ -831,12 +868,21 @@ def setup_datasets() {
 
                     // BLAST Related
                     species_db['optional']['blast'].each() {
+                        blast_type = it
                         temp_path = "${dataset_path}/${it}"
                         file(temp_path).list().each() {
-                            BLAST_FASTAS << file("${temp_path}/${it}")
+                            if (blast_type.contains('blast/genes')) {
+                                BLAST_GENE_FASTAS << file("${temp_path}/${it}")
+                            } else if (blast_type.contains('blast/primers')) {
+                                BLAST_PRIMER_FASTAS << file("${temp_path}/${it}")
+                            } else {
+                                BLAST_PROTEIN_FASTAS << file("${temp_path}/${it}")
+                            }
                         }
                     }
-                    print_dataset_info(BLAST_FASTAS, "FASTAs to query with BLAST")
+                    print_dataset_info(BLAST_GENE_FASTAS, "gene FASTAs to query with BLAST")
+                    print_dataset_info(BLAST_PRIMER_FASTAS, "primer FASTAs to query with BLAST")
+                    print_dataset_info(BLAST_PROTEIN_FASTAS, "protein FASTAs to query with BLAST")
                 } else {
                     log.error "Species '${params.species}' not available, please check spelling " +
                               "or use '--available_datasets' to verify the dataset has been set " +
@@ -1178,9 +1224,18 @@ def get_canonical_path(file_path) {
 
 def print_dataset_info(dataset_list, dataset_info) {
     log.info "Found ${dataset_list.size()} ${dataset_info}"
-    dataset_list.each {
-        log.info "\t${it}"
-    }
+    count = 0
+    try {
+        dataset_list.each {
+            if (count < 5) {
+                log.info "\t${it}"
+            } else {
+                log.info "\t...More than 5, truncating..."
+                throw new Exception("break")
+            }
+            count++
+        }
+    } catch (Exception e) {}
 }
 
 def print_efficiency() {
