@@ -583,23 +583,21 @@ process mapping_query {
     /*
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
-    tag "${sample} - ${query.getName()}"
+    tag "${sample}}"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "mapping/*"
 
     input:
     set val(sample), val(single_end), file(fq) from MAPPING_QUERY
-    each file(query) from MAPPING_FASTAS
+    file(query) from Channel.from(MAPPING_FASTAS).collect()
 
     output:
     file("mapping/*")
 
     shell:
-    query_name = query.getSimpleName()
     bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
     bwa_aln_opts = params.bwa_aln_opts ? params.bwa_aln_opts : ""
     bwa_samse_opts = params.bwa_samse_opts ? params.bwa_samse_opts : ""
     bwa_sampe_opts = params.bwa_sampe_opts ? params.bwa_sampe_opts : ""
-    f_value = params.keep_unmapped_reads ? '-F 0' : '-F 4'
     template(task.ext.template)
 }
 

@@ -6,6 +6,8 @@
 - `summary` tools now splits `failed` into `exclude` and `qc-failure`
 - Better documentation on how `--cpus` works in Nextflow
 - Efficiency info when executed on standard profile
+- split `blast_query` into `blast_genes`, `blast_primers` and `blast_proteins`
+- `mapping_query` now creates multifasta of fastas at maps at once then splits per-base coverage into separate files
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools
@@ -17,7 +19,7 @@
 - `gtdb` Singularity container not mounting path to GTDB database
 - `roary` missing `rename` in containers
 - `blast_query` results overwriting one another
-- split `blast_query` into `blast_genes`, `blast_primers` and `blast_proteins`
+
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`
