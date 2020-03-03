@@ -1348,6 +1348,12 @@ def basic_help() {
         --condadir DIR          Directory to Nextflow should use for Conda environments
                                     Default: Bactopia's Nextflow directory
 
+        --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+                                    you to create profiles specific to your environment (e.g. SGE,
+                                    AWS, SLURM, etc...). This config file is loaded last and will 
+                                    overwrite existing variables if set.
+                                    Default: Bactopia's default configs
+
         --nfdir                 Print directory Nextflow has pulled Bactopia to
 
         --overwrite             Nextflow will overwrite existing output files.
@@ -1380,6 +1386,9 @@ def basic_help() {
 
         --force                 Nextflow will overwrite existing output files.
                                     Default: ${params.force}
+
+        -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+                                    only a single '-'
 
     Useful Parameters:
         --available_datasets    Print a list of available datasets found based

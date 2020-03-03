@@ -101,13 +101,19 @@ Throughout the Bactopia workflow a genome size is used for various tasks. By def
 
 
 ## Helpers
-The following parameters are useful to test to test input parameters.
+The following parameters are useful to test input parameters.
 ```
     --infodir DIR           Directory to write Nextflow summary files to
                                 Default: ./bactopia-info
 
     --condadir DIR          Directory to Nextflow should use for Conda environments
                                 Default: Bactopia's Nextflow directory
+
+    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+                                you to create profiles specific to your environment (e.g. SGE,
+                                AWS, SLURM, etc...). This config file is loaded last and will 
+                                overwrite existing variables if set.
+                                Default: Bactopia's default configs
 
     --nfdir                 Print directory Nextflow has pulled Bactopia to
 
@@ -121,6 +127,9 @@ The following parameters are useful to test to test input parameters.
     --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                 will wait before execution.
                                 Default: 5 seconds
+
+    -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+                                only a single '-'
 
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
@@ -143,6 +152,34 @@ The following parameters are useful to test to test input parameters.
 
     --help_all              Show a complete list of adjustable parameters
 ```
+
+### `--nfconfig`
+A key feature of Nextflow is you can provide your own config files. What this boils down to you can easily set Bactopia to run on your environment. With `--nfconfig` you can tell Bactopia to import your config file. 
+
+`--nfconfig` has been set up so that it is the last config file to be loaded by Nextflow. This means that if your config file contains variables (e.g. params or profiles) already set they will be overwritten by your values.
+
+[Nextflow goes into great details on how to create configuration files.](https://www.nextflow.io/docs/latest/config.html) Please check the following links for adjustsments you be interested in making.
+
+| Scope   | Description |
+|---------|-------------|
+| [env](https://www.nextflow.io/docs/latest/config.html#scope-env)     | Set any environment variables that might be required |
+| [params](https://www.nextflow.io/docs/latest/config.html#scope-params)  | Change the default values of command line arguments  |
+| [process](https://www.nextflow.io/docs/latest/config.html#scope-process) | Adjust perprocess configurations such as containers, conda envs, or resource usage |
+| [profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) | Create predefined profiles for your [Executor](https://www.nextflow.io/docs/latest/operator.html#filtering-operators) |
+
+There are [many other scopes](https://www.nextflow.io/docs/latest/config.html#config-scopes) that you might be interested in checking out.
+
+You are most like going to want to create a custom profile. By doing so you can specify it at runtime (`-profile myProfile`) and Nextflow will be excuted based on that profile. Often times your custom profile will include information on the executor (queues, allocations, apths, etc...).
+
+If you need help please [reach out](https://github.com/bactopia/bactopia/issues/new/choose)!
+
+*If you're using the standard profile (did not specify -profile 'xyz') this might not be necessary.*
+
+### `-resume`
+Bactopia relies on [Nextflow's Resume Feature](https://www.nextflow.io/docs/latest/getstarted.html#modify-and-resume) to resume runs. You can tell Bactopia to resume by adding `-resume` to your command line. When `-resume` is used, Nextflow will review the cache and determine if the previous run is resumable. If the previous run is not resumable, execution will
+start at the beginning.
+
+
 
 ### `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.
