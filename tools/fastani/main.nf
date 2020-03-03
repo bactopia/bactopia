@@ -389,6 +389,16 @@ def print_help() {
         --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                     will wait before execution.
                                     Default: ${params.sleep_time} seconds
+
+        --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+                                    you to create profiles specific to your environment (e.g. SGE,
+                                    AWS, SLURM, etc...). This config file is loaded last and will 
+                                    overwrite existing variables if set.
+                                    Default: Bactopia's default configs
+
+        -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+                                    only a single '-'
+
     Useful Parameters:
         --version               Print workflow version information
         --help                  Show this message and exit

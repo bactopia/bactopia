@@ -51,7 +51,7 @@ fi
 if [ $? -eq 0 ]; then
     # It is! Now update versions
     # Conda Files
-    for file in $(find -name "*.yml" -not -name "mkdocs.yml"); do
+    for file in $(find -not -path "*.git*" -name "*.yml" -and -not -name "mkdocs.yml" -and -not -name ".git*"); do
         yaml_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
 
@@ -61,7 +61,7 @@ if [ $? -eq 0 ]; then
     done
 
     # Docker/Singularity/Nextflow Configs
-    for file in $(find -name "*Dockerfile" -or -name "*Singularity" -or -name "nextflow.config"); do
+    for file in $(find -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -or -name "nextflow.config" -and -not -name ".git*"); do
         generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
 

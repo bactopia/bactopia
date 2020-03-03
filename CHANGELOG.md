@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.1 bactopia/bactopia "" - 2020/??/??
+## v1.3.1 bactopia/bactopia "Emperor Hairpin" - 2020/03/??
 ### `Added`
 - `summary` tool now gives reason for rank
 - `summary` tools now splits `failed` into `exclude` and `qc-failure`
