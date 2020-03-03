@@ -18,6 +18,7 @@ process collect_assemblies {
 
     input:
     file(fasta) from Channel.fromList(samples).collect()
+    file(reference) from Channel.fromPath(params.reference).collect()
 
     output:
     file 'fasta/*.fna' optional true
@@ -25,6 +26,12 @@ process collect_assemblies {
     file 'samples/*.fna.query' into EACH_SAMPLE
 
     shell:
+    is_gzipped = null
+    reference_name = null
+    if (reference) {
+        is_gzipped = params.reference.endsWith(".gz") ? true : false
+        reference_name = reference.getSimpleName().replace(".gz", "")
+    }
     """
     mkdir assemblies samples
     if [ "!{params.species}" != "null" ]; then
@@ -36,7 +43,9 @@ process collect_assemblies {
         gunzip fasta/*
         cp fasta/*.fna assemblies/
         ls fasta/ | xargs -I {} cp -P fasta/{} samples/{}.query
-    elif [ "!{params.accession}" != "null" ]; then
+    fi
+
+    if [ "!{params.accession}" != "null" ]; then
         mkdir fasta
         ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                       -A !{params.accession} -r 50
@@ -46,9 +55,20 @@ process collect_assemblies {
         cp fasta/*.fna assemblies/
         ls fasta/ | xargs -I {} cp -P fasta/{} samples/{}.query
     fi
+    
+    if [ "!{params.reference}" != "null" ]; then
+        if [ "!{is_gzipped}" == "true" ]; then
+            zcat !{reference} > assemblies/!{reference_name}.fna
+            cp -P assemblies/!{reference_name}.fna samples/!{reference_name}.fna.query
+        else
+            cp -P !{reference} assemblies/!{reference_name}.fna
+            cp -P !{reference} samples/!{reference_name}.fna.query
+        fi
+    fi
+
     find -name "*.fna.gz" | xargs -I {} gunzip {}
 
-    if [ "!{params.refseq_only}" == "false" ]; then
+    if [ "!{params.pairwise}" == "true" ]; then
         cp -P *.fna assemblies/
     fi
 
@@ -347,7 +367,9 @@ def print_help() {
         
         --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
         
-        --refseq_only           Pairwise ANI's will only be calulated against download RefSeq genomes.
+
+    User Procided Reference:
+        --reference STR         A reference genome to calculate 
 
     FastANI Related Parameters:
         --kmer INT              kmer size <= 16 
@@ -360,6 +382,10 @@ def print_help() {
                                     If reference and query genome size differ, smaller one among
                                     the two is considered.
                                     Default: ${params.minFraction}
+
+        --pairwise              Pairwise ANI's will be calculated for all samples including any 
+                                    downloaded RefSeq genomes or user provided genomes.
+
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:

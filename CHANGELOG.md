@@ -9,6 +9,7 @@
 - split `blast_query` into `blast_genes`, `blast_primers` and `blast_proteins`
 - `mapping_query` now creates multifasta of fastas at maps at once then splits per-base coverage into separate files
 - `--nfconfig` users can provide their own Nextflow config file
+- `fastani` users can provide their own reference now
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools
