@@ -9,20 +9,31 @@ function singularity_build {
     name=$2
     image=$3
     version=$4
+    latest=${5:-0}
 
     echo "Working on ${recipe}"
-    singularity build --fakeroot ${image} ${recipe}
+    singularity build -F --fakeroot ${image} ${recipe}
     singularity sign ${image}
     singularity push ${image} library://rpetit3/bactopia/${name}:${version}
+
+    if [[ "${latest}" == "1" ]]; then
+        singularity push ${image} library://rpetit3/bactopia/${name}:latest
+    fi
 }
 
 function docker_build {
     recipe=$1
     image=$2
+    latest=${3:-0}
 
     echo "Working on ${recipe}"
     docker build --rm -t ${image} -f ${recipe} .
     docker push ${image}
+
+    if [[ "${latest}" != "0" ]]; then
+        docker tag ${image} ${latest}
+        docker push ${latest}
+    fi
 }
 
 
@@ -47,7 +58,7 @@ fi
 mkdir -p ${OUTPUT_DIR}
 
 # Build Singularity
-singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${VERSION}.simg ${VERSION}
+singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${VERSION}.simg ${VERSION} 1
 for recipe in $(ls "${BACTOPIA_DIR}/containers/singularity" | grep ".Singularity"); do
     recipe_path="${BACTOPIA_DIR}/containers/singularity/${recipe}"
     recipe_name=$(echo ${recipe} | sed 's/.Singularity//')
@@ -56,7 +67,7 @@ for recipe in $(ls "${BACTOPIA_DIR}/containers/singularity" | grep ".Singularity
 done
 
 # Build Docker
-docker_build Dockerfile bactopia/bactopia:${VERSION}
+docker_build Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
 for recipe in $(ls "${BACTOPIA_DIR}/containers/docker" | grep ".Dockerfile"); do
     recipe_path="${BACTOPIA_DIR}/containers/docker/${recipe}"
     recipe_name=$(echo ${recipe} | sed 's/.Dockerfile//')
