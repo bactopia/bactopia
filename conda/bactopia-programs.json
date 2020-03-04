@@ -103,14 +103,6 @@
         "description": "Efficient Inference of Recombination in Whole Bacterial Genomes", 
         "link": "https://github.com/xavierdidelot/ClonalFrameML" 
     },
-    "EMIRGE": {
-        "conda": {
-            "name": "emirge", 
-            "yaml": "tools/phyloflash/environment.yml"
-        }, 
-        "description": "Reconstructs full length ribosomal genes from short read sequencing data", 
-        "link": "https://github.com/csmiller/EMIRGE" 
-    },
     "FastANI": {
         "conda": {
             "name": "fastani", 

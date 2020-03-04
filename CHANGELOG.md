@@ -10,6 +10,8 @@
 - `mapping_query` now creates multifasta of fastas at maps at once then splits per-base coverage into separate files
 - `--nfconfig` users can provide their own Nextflow config file
 - `fastani` users can provide their own reference now
+- `bactopia versions` will print versions for tools used by Bactopia
+- `bactopia citations` will print citations for tools and datasets used by Bactopia
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools

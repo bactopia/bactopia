@@ -1,0 +1,82 @@
+name	type	citation
+ARG-ANNOT	datasets	Gupta SK, Padmanabhan BR, Diene SM, et al. ARG-ANNOT, a new bioinformatic tool to discover antibiotic resistance genes in bacterial genomes. Antimicrob Agents Chemother. 2014;58(1):212-220. doi:10.1128/AAC.01310-13
+CARD	datasets	McArthur AG, Waglechner N, Nizam F, et al. The comprehensive antibiotic resistance database. Antimicrob Agents Chemother. 2013;57(7):3348-3357. doi:10.1128/AAC.00419-13
+MEGARes	datasets	Lakin SM, Dean C, Noyes NR, et al. MEGARes: an antimicrobial resistance database for high throughput sequencing. Nucleic Acids Res. 2017;45(D1):D574-D580. doi:10.1093/nar/gkw1009
+NCBI Resistance Gene Catalog	datasets	Feldgarden M, Brover V, Haft DH, et al. Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates. Antimicrob Agents Chemother. August 2019. doi:10.1128/AAC.00483-19
+PlasmidFinder	datasets	Carattoli A, Zankari E, García-Fernández A, et al. In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing. Antimicrob Agents Chemother. 2014;58(7):3895-3903. doi:10.1128/AAC.02412-14
+ResFinder	datasets	Zankari E, Hasman H, Cosentino S, et al. Identification of acquired antimicrobial resistance genes. J Antimicrob Chemother. 2012;67(11):2640-2644. doi:10.1093/jac/dks261
+SRST2	datasets	Inouye M, Dashnow H, Raven L-A, et al. SRST2: Rapid genomic surveillance for public health and hospital microbiology labs. Genome Med. 2014;6(11):90. doi:10.1186/s13073-014-0090-6
+VFDB	datasets	Chen L, Zheng D, Liu B, Yang J, Jin Q. VFDB 2016: hierarchical and refined dataset for big data analysis--10 years on. Nucleic Acids Res. 2016;44(D1):D694-D697. doi:10.1093/nar/gkv1239
+VirulenceFinder	datasets	Joensen KG, Scheutz F, Lund O, et al. Real-time whole-genome sequencing for routine typing, surveillance, and outbreak detection of verotoxigenic Escherichia coli. J Clin Microbiol. 2014;52(5):1501-1510. doi:10.1128/JCM.03617-13
+Mash Refseq Sketch	datasets	Ondov BD, Starrett GJ, Sappington A, et al. Mash Screen: high-throughput sequence containment estimation for genome discovery. Genome Biol. 2019;20(1):232. doi:10.1186/s13059-019-1841-x
+Sourmash Genbank LCA Signature	datasets	Titus Brown C, Irber L. sourmash: a library for MinHash sketching of DNA. JOSS. 2016;1(5):27. doi:10.21105/joss.00027
+Genome Taxonomy Database	datasets	Parks DH, Chuvochina M, Waite DW, et al. A standardized bacterial taxonomy based on genome phylogeny substantially revises the tree of life. Nat Biotechnol. 2018;36(10):996-1004. doi:10.1038/nbt.4229
+Genome Taxonomy Database	datasets	Parks DH, Chuvochina M, Chaumeil P-A, Rinke C, Mussig AJ, Hugenholtz P. Selection of representative genomes for 24,706 bacterial and archaeal species clusters provide a complete genome-based taxonomy. bioRxiv. November 2019:771964. doi:10.1101/771964
+NCBI RefSeq Database	datasets	O’Leary NA, Wright MW, Brister JR, et al. Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional annotation. Nucleic Acids Res. 2016;44(D1):D733-D745. doi:10.1093/nar/gkv1189
+PLSDB - A plasmid database	datasets	Galata V, Fehlmann T, Backes C, Keller A. PLSDB: a resource of complete bacterial plasmids. Nucleic Acids Res. 2019;47(D1):D195-D202. doi:10.1093/nar/gky1050
+PubMLST.org	datasets	Jolley KA, Bray JE, Maiden MCJ. Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications. Wellcome Open Res. 2018;3:124. doi:10.12688/wellcomeopenres.14826.1
+SILVA rRNA Database	datasets	Quast C, Pruesse E, Yilmaz P, et al. The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Res. 2013;41(Database issue):D590-D596. doi:10.1093/nar/gks1219
+AMRFinder+	tools	Feldgarden M, Brover V, Haft DH, et al. Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates. Antimicrob Agents Chemother. August 2019. doi:10.1128/AAC.00483-19
+Aragorn	tools	Laslett D, Canback B. ARAGORN, a program to detect tRNA genes and tmRNA genes in nucleotide sequences. Nucleic Acids Res. 2004;32(1):11-16. doi:10.1093/nar/gkh152
+Ariba	tools	Hunt M, Mather AE, Sánchez-Busó L, et al. ARIBA: rapid antimicrobial resistance genotyping directly from sequencing reads. Microb Genom. 2017;3(10):e000131. doi:10.1099/mgen.0.000131
+assembly-scan	tools	Petit RA III. Assembly-Scan: Generate Basic Stats for an Assembly. Github https://github.com/rpetit3/assembly-scan. Accessed September 24, 2019.
+Barrnap	tools	Seemann T. Barrnap: Bacterial Ribosomal RNA Predictor. Github https://github.com/tseemann/barrnap. Accessed September 24, 2019.
+BBMap	tools	Bushnell B. BBMap short read aligner. University of California, Berkeley, California URL http://sourceforge net/projects/bbmap. 2016.
+BCFtools	tools	Danecek P. BCFtools - Utilities for Variant Calling and Manipulating VCFs and BCFs. Github https://github.com/samtools/bcftools. Accessed September 24, 2019.
+Bedtools	tools	Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010;26(6):841-842. doi:10.1093/bioinformatics/btq033
+BioPython	tools	Cock PJA, Antao T, Chang JT, et al. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics. 2009;25(11):1422-1423. doi:10.1093/bioinformatics/btp163
+BLAST+	tools	Camacho C, Coulouris G, Avagyan V, et al. BLAST+: architecture and applications. BMC Bioinformatics. 2009;10:421. doi:10.1186/1471-2105-10-421
+BWA	tools	Li H. Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv [q-bioGN]. March 2013. http://arxiv.org/abs/1303.3997.
+CD-HIT	tools	Li W, Godzik A. Cd-hit: a fast program for clustering and comparing large sets of protein or nucleotide sequences. Bioinformatics. 2006;22(13):1658-1659. doi:10.1093/bioinformatics/btl158
+CD-HIT	tools	Fu L, Niu B, Zhu Z, Wu S, Li W. CD-HIT: accelerated for clustering the next-generation sequencing data. Bioinformatics. 2012;28(23):3150-3152. doi:10.1093/bioinformatics/bts565
+ClonalFrameML	tools	Didelot X, Wilson DJ. ClonalFrameML: efficient inference of recombination in whole bacterial genomes. PLoS Comput Biol. 2015;11(2):e1004041. doi:10.1371/journal.pcbi.1004041
+FastANI	tools	Jain C, Rodriguez-R LM, Phillippy AM, Konstantinidis KT, Aluru S. High throughput ANI analysis of 90K prokaryotic genomes reveals clear species boundaries. Nat Commun. 2018;9(1):5114. doi:10.1038/s41467-018-07641-9
+FastQC	tools	Andrews S, Krueger F, Seconds-Pichon A, Biggins F, Wingett S. FastQC A Quality Control tool for High Throughput Sequence Data. Babraham Bioinformatics. 2012. 2016.
+fastq-dl	tools	Petit RA III. Fastq-Dl - Download FASTQ Files from SRA or ENA Repositories. Github https://github.com/rpetit3/fastq-dl. Accessed February 10, 2020.
+fastq-scan	tools	Petit RA III. Fastq-Scan: Generate Summary Statistics of Input FASTQ Sequences. Github https://github.com/rpetit3/fastq-scan. Accessed September 24, 2019.
+FastTree 2	tools	Price MN, Dehal PS, Arkin AP. FastTree 2 – Approximately Maximum-Likelihood Trees for Large Alignments. PLoS One. 2010;5(3):e9490. doi:10.1371/journal.pone.0009490
+FLASH	tools	Magoč T, Salzberg SL. FLASH: fast length adjustment of short reads to improve genome assemblies. Bioinformatics. 2011;27(21):2957-2963. doi:10.1093/bioinformatics/btr507
+freebayes	tools	Garrison E, Marth G. Haplotype-based variant detection from short-read sequencing. arXiv [q-bioGN]. July 2012. http://arxiv.org/abs/1207.3907.
+GNU Parallel	tools	Tange O. GNU Parallel 2018.; 2018. doi:10.5281/zenodo.1146014
+GTDB-tk	tools	Chaumeil P-A, Mussig AJ, Hugenholtz P, Parks DH. GTDB-Tk: a toolkit to classify genomes with the Genome Taxonomy Database. Bioinformatics. November 2019. doi:10.1093/bioinformatics/btz848
+HMMER	tools	Eddy SR. Accelerated Profile HMM Searches. PLoS Comput Biol. 2011;7(10):e1002195. doi:10.1371/journal.pcbi.1002195
+Infernal	tools	Nawrocki EP, Eddy SR. Infernal 1.1: 100-fold faster RNA homology searches. Bioinformatics. 2013;29(22):2933-2935. doi:10.1093/bioinformatics/btt509
+ISMapper	tools	Hawkey J, Hamidian M, Wick RR, et al. ISMapper: identifying transposase insertion sites in bacterial genomes from short read sequence data. BMC Genomics. 2015;16:667. doi:10.1186/s12864-015-1860-2
+IQ-TREE	tools	Nguyen L-T, Schmidt HA, von Haeseler A, Minh BQ. IQ-TREE: a fast and effective stochastic algorithm for estimating maximum-likelihood phylogenies. Mol Biol Evol. 2015;32(1):268-274. doi:10.1093/molbev/msu300
+IQ-TREE (ModelFinder)	tools	Kalyaanamoorthy S, Minh BQ, Wong TKF, von Haeseler A, Jermiin LS. ModelFinder: fast model selection for accurate phylogenetic estimates. Nat Methods. 2017;14(6):587-589. doi:10.1038/nmeth.4285
+IQ-TREE (UFBoot2)	tools	Hoang DT, Chernomor O, von Haeseler A, Minh BQ, Vinh LS. UFBoot2: Improving the Ultrafast Bootstrap Approximation. Mol Biol Evol. 2018;35(2):518-522. doi:10.1093/molbev/msx281
+Lighter	tools	Song L, Florea L, Langmead B. Lighter: fast and memory-efficient sequencing error correction without counting. Genome Biol. 2014;15(11):509. doi:10.1186/s13059-014-0509-9
+MAFFT	tools	Katoh K, Standley DM. MAFFT multiple sequence alignment software version 7: improvements in performance and usability. Mol Biol Evol. 2013;30(4):772-780. doi:10.1093/molbev/mst010
+Mash	tools	Ondov BD, Treangen TJ, Melsted P, et al. Mash: fast genome and metagenome distance estimation using MinHash. Genome Biol. 2016;17(1):132. doi:10.1186/s13059-016-0997-x
+maskrc-svg	tools	Kwong J. Maskrc-Svg - Masks Recombination as Detected by ClonalFrameML or Gubbins and Draws an SVG. Github https://github.com/kwongj/maskrc-svg. Accessed February 11, 2020.
+McCortex	tools	Turner I, Garimella KV, Iqbal Z, McVean G. Integrating long-range connectivity information into de Bruijn graphs. Bioinformatics. 2018;34(15):2556-2565. doi:10.1093/bioinformatics/bty157
+MEGAHIT	tools	Li D, Liu C-M, Luo R, Sadakane K, Lam T-W. MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics. 2015;31(10):1674-1676. doi:10.1093/bioinformatics/btv033
+MinCED	tools	Skennerton CT. MinCED: Mining CRISPRs in Environmental Datasets. Github https://github.com/ctSkennerton/minced. Accessed September 24, 2019.
+Minimap2	tools	Li H. Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics. 2018;34(18):3094-3100. doi:10.1093/bioinformatics/bty191
+ncbi-genome-download	tools	Blin K. Ncbi-Genome-Download - Scripts to Download Genomes from the NCBI FTP Servers. Github https://github.com/kblin/ncbi-genome-download. Accessed February 11, 2020.
+Nextflow	tools	Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017;35(4):316-319. doi:10.1038/nbt.3820
+nhmmer	tools	Wheeler TJ, Eddy SR. nhmmer: DNA homology search with profile HMMs. Bioinformatics. 2013;29(19):2487-2489. doi:10.1093/bioinformatics/btt403
+phyloFlash	tools	Gruber-Vodicka HR, Seah BKB, Pruesse E. phyloFlash – Rapid SSU rRNA profiling and targeted assembly from metagenomes. bioRxiv. January 2019:521922. doi:10.1101/521922
+Pigz	tools	Adler M. pigz: A parallel implementation of gzip for modern multi-processor, multi-core machines. Jet Propulsion Laboratory. 2015.
+Pilon	tools	Walker BJ, Abeel T, Shea T, et al. Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement. PLoS One. 2014;9(11):e112963. doi:10.1371/journal.pone.0112963
+pplacer	tools	Matsen FA, Kodner RB, Armbrust EV. pplacer: linear time maximum-likelihood and Bayesian phylogenetic placement of sequences onto a fixed reference tree. BMC Bioinformatics. 2010;11:538. doi:10.1186/1471-2105-11-538
+Prodigal	tools	Hyatt D, Chen G-L, Locascio PF, Land ML, Larimer FW, Hauser LJ. Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC Bioinformatics. 2010;11:119. doi:10.1186/1471-2105-11-119
+Prokka	tools	Seemann T. Prokka: rapid prokaryotic genome annotation. Bioinformatics. 2014;30(14):2068-2069. doi:10.1093/bioinformatics/btu153
+Roary	tools	Page AJ, Cummins CA, Hunt M, et al. Roary: rapid large-scale prokaryote pan genome analysis. Bioinformatics. 2015;31(22):3691-3693. doi:10.1093/bioinformatics/btv421
+samclip	tools	Seemann T. Samclip: Filter SAM File for Soft and Hard Clipped Alignments. Github https://github.com/tseemann/samclip. Accessed September 24, 2019.
+SAMtools	tools	Li H, Handsaker B, Wysoker A, et al. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009;25(16):2078-2079. doi:10.1093/bioinformatics/btp352
+Seqtk	tools	Li H. seqtk Toolkit for processing sequences in FASTA/Q formats. 2012.
+Shovill	tools	Seemann T. Shovill: De Novo Assembly Pipeline for Illumina Paired Reads. Github https://github.com/tseemann/shovill. Accessed September 24, 2019.
+SKESA	tools	Souvorov A, Agarwala R, Lipman DJ. SKESA: strategic k-mer extension for scrupulous assemblies. Genome Biol. 2018;19(1):153. doi:10.1186/s13059-018-1540-z
+Snippy	tools	Seemann T. Snippy: Fast Bacterial Variant Calling from NGS Reads. Github https://github.com/tseemann/snippy. Accessed September 24, 2019.
+SnpEff	tools	Cingolani P, Platts A, Wang LL, et al. A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3. Fly . 2012;6(2):80-92. doi:10.4161/fly.19695
+snp-dists	tools	Seemann T. Snp-Dists - Pairwise SNP Distance Matrix from a FASTA Sequence Alignment. Github https://github.com/tseemann/snp-dists. Accessed February 11, 2020.
+SNP-sites	tools	Page AJ, Taylor B, Delaney AJ, et al. SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments. Microb Genom. 2016;2(4):e000056. doi:10.1099/mgen.0.000056
+Sourmash	tools	Titus Brown C, Irber L. sourmash: a library for MinHash sketching of DNA. JOSS. 2016;1(5):27. doi:10.21105/joss.00027
+SPAdes	tools	Bankevich A, Nurk S, Antipov D, et al. SPAdes: A New Genome Assembly Algorithm and Its Applications to Single-Cell Sequencing | Journal of Computational Biology. Mary Ann Liebert, Inc., publishers. https://www.liebertpub.com/doi/10.1089/cmb.2012.0021. Accessed November 8, 2018.
+Trimmomatic	tools	Bolger AM, Lohse M, Usadel B. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics. 2014;30(15):2114-2120. doi:10.1093/bioinformatics/btu170
+vcf-annotator	tools	Petit RA III. VCF-Annotator: Add Biological Annotations to Variants in a VCF File. Github https://github.com/rpetit3/vcf-annotator. Accessed September 24, 2019.
+Vcflib	tools	Vcflib: A C++ Library for Parsing and Manipulating VCF Files. Github https://github.com/vcflib/vcflib. Accessed September 24, 2019.
+Velvet	tools	Zerbino DR, Birney E. Velvet: Algorithms for de novo short read assembly using de Bruijn graphs. Genome Res. 2008;18(5):821-829. doi:10.1101/gr.074492.107
+VSEARCH	tools	Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: a versatile open source tool for metagenomics. PeerJ. 2016;4:e2584. doi:10.7717/peerj.2584
+vt	tools	Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015;31(13):2202-2204. doi:10.1093/bioinformatics/btv112

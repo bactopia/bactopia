@@ -42,7 +42,6 @@ def read_yaml(yaml):
 
 if __name__ == '__main__':
     import argparse as ap
-    from collections import OrderedDict
 
     parser = ap.ArgumentParser(
         prog=PROGRAM,
@@ -52,8 +51,6 @@ if __name__ == '__main__':
         ),
         formatter_class=ap.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--tool', metavar="STR", type=str,
-                        help='A specific tool to determine version for.')
     parser.add_argument('--bactopia', metavar="STR", type=str,
                         help='Directory where Bactopia repository is stored.')
     parser.add_argument('--version', action='version',
@@ -72,18 +69,19 @@ if __name__ == '__main__':
     for yaml in yamls:
         versions[yaml] = read_yaml(f'{args.bactopia}/{yaml}')
 
-    final_versions = OrderedDict()
+    final_versions = {}
     for tool, info in sorted(tools.items()):
         yaml = info['conda']['yaml']
         if yaml not in versions:
              versions[yaml] = read_yaml(f'{args.bactopia}/{yaml}')
 
-        final_versions[tool] = {
+        final_versions[tool.lower()] = {
+            'name': tool,
             'version': versions[yaml][info['conda']['name']],
             'description': info['description'],
             'link': info['link']
         }
 
     print(f'name\tversion\tdescription\tlink')
-    for tool, cols in final_versions.items():
-        print(f'{tool}\t{cols["version"]}\t{cols["description"]}\t{cols["link"]}')
+    for tool, cols in sorted(final_versions.items()):
+        print(f'{cols["name"]}\t{cols["version"]}\t{cols["description"]}\t{cols["link"]}')

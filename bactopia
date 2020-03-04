@@ -9,17 +9,22 @@
 # There are additional sub-commands available to help make Bactopia easier to
 # use. They are:
 #
-#   bactopia build - Build Bactopia Conda environments
+#    bactopia build - Build Bactopia Conda environments
 #
-#   bactopia datasets - Download/setup useful datasets for Bactopia
+#    bactopia citations - Print citation for datasets, tools and Bactopia
 #
-#   bactopia prepare - Create a 'file of filenames' for input FASTQ files
+#    bactopia datasets - Download/setup useful datasets for Bactopia
 #
-#   bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
+#    bactopia prepare - Create a 'file of filenames' for input FASTQ files
 #
-#   bactopia tools - Execute existing Bactopia Tools
+#    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
 #
-#   bactopia version - Print Bactopia version and exit
+#    bactopia tools - Execute existing Bactopia Tools
+#
+#    bactopia versions - Print versions of tools used by Bactopia
+#
+#    bactopia --citation - Print the Bactopia citation
+#    bactopia --version - Print the Bactopia version
 #
 # Examples:
 #
@@ -100,13 +105,14 @@ elif [[ "$1" == "tools" ]]; then
         fi
     fi
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
-    echo "bactopia ${VERSION}"
+    echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
+    echo "genomes. bioRxiv 2020.02.28.969394 (2020) https://doi.org/10.1101/2020.02.28.969394"
 elif [[ "$1" == "citations" ]]; then
-    bactopia-citations.py "${@:2}"
+    bactopia-citations.py --bactopia ${BACTOPIA_NF} "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 elif [[ "$1" == "versions" ]]; then
-    bactopia-versions.py "${@:2}"
+    bactopia-versions.py --bactopia ${BACTOPIA_NF}  "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
