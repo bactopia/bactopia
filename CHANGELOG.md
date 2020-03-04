@@ -12,6 +12,7 @@
 - `fastani` users can provide their own reference now
 - `bactopia versions` will print versions for tools used by Bactopia
 - `bactopia citations` will print citations for tools and datasets used by Bactopia
+- `bactopia search` can filter based on total bases, mean read length, and missing FASTQs
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools

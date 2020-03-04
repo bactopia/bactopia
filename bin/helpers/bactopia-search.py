@@ -73,9 +73,10 @@ def ena_search(query, limit=1000000):
     return response.text.split('\n')
 
 
-def parse_accessions(results):
+def parse_accessions(results, min_read_length=None, min_base_count=None):
     """Parse Illumina experiment accessions from the ENA results."""
     accessions = []
+    filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': []}
     for line in results:
         if line.startswith(FIELDS[0]):
             continue
@@ -84,8 +85,36 @@ def parse_accessions(results):
             if len(col_vals) == len(FIELDS):
                 c = dict(zip(FIELDS, col_vals))
                 if c['instrument_platform'] == "ILLUMINA":
-                    accessions.append(c['experiment_accession'])
-    return list(set(accessions))
+                    passes = True
+                    reason = []
+                    if not c['fastq_bytes']:
+                        passes = False
+                        reason.append(f'Missing FASTQs')
+                        filtered['technical'] += 1
+                    else:
+                        if min_read_length:
+                            total_fastqs = len(c['fastq_bytes'].rstrip(';').split(';'))
+                            read_length = int(float(c['base_count']) / (float(c['read_count']) * total_fastqs))
+                            if read_length < min_read_length:
+                                passes = False
+                                reason.append(f'Failed mean read length ({read_length} bp) filter, expected > {min_read_length} bp')
+                                filtered['min_read_length'] += 1
+
+                        if min_base_count:
+                            if float(c['base_count']) < min_base_count:
+                                passes = False
+                                reason.append(f'Failed base count ({c["base_count"]} bp) filter, expected > {min_base_count} bp')
+                                filtered['min_base_count'] += 1
+
+                    if passes:
+                        accessions.append(c['experiment_accession'])
+                    else:
+                        filtered['filtered'].append({
+                            'accession': c['experiment_accession'],
+                            'reason': ';'.join(reason)
+                        })
+
+    return [list(set(accessions)), filtered]
 
 
 def parse_query(query, exact_taxon=False):
@@ -143,6 +172,22 @@ if __name__ == '__main__':
         '--limit', metavar="INT", type=int, default=1000000,
         help='Maximum number of results to return. (Default: 1000000)'
     )
+    parser.add_argument(
+        '--min_read_length', metavar="INT", type=int,
+        help='Filters samples based on minimum mean read length. (Default: No filter)'
+    )
+    parser.add_argument(
+        '--min_base_count', metavar="INT", type=int,
+        help='Filters samples based on minimum basepair count. (Default: No filter)'
+    )
+    parser.add_argument(
+        '--min_coverage', metavar="INT", type=int,
+        help='Filter samples based on minimum coverage (requires --genome_size)'
+    )
+    parser.add_argument(
+        '--genome_size', metavar="INT", type=int,
+        help='Genome size to estimate coverage (requires --coverage)'
+    )
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -151,10 +196,24 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
+    min_read_length = args.min_read_length
+    min_base_count = args.min_base_count
+    if args.min_coverage and args.genome_size:
+        if args.min_base_count:
+            print("--min_base_count cannot be used with --coverage/--genome_size. Exiting...",
+                  file=sys.stderr)
+            sys.exit(1)
+        else:
+            min_base_count = args.min_coverage * args.genome_size
+    elif args.min_coverage or args.genome_size:
+        print("--coverage and --genome_size must be used together. Exiting...",
+              file=sys.stderr)
+        sys.exit(1)
 
     query = parse_query(args.query, exact_taxon=args.exact_taxon)
     results = ena_search(query, limit=args.limit)
-    accessions = parse_accessions(results)
+    accessions, filtered = parse_accessions(results, min_read_length=min_read_length,
+                                            min_base_count=min_base_count)
 
     # Output the results
     results_file = f'{args.outdir}/{args.prefix}-results.txt'
@@ -168,8 +227,25 @@ if __name__ == '__main__':
         for accession in accessions:
             output_fh.write(f'{accession}\n')
 
+    filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
+    with open(filtered_file, 'w') as output_fh:
+        output_fh.write(f'accession\treason\n')
+        for f in filtered['filtered']:
+            output_fh.write(f'{f["accession"]}\t{f["reason"]}\n')
+
     with open(f'{args.outdir}/{args.prefix}-summary.txt', 'w') as output_fh:
         output_fh.write(f'QUERY: {query}\n')
         output_fh.write(f'LIMIT: {args.limit}\n')
         output_fh.write(f'RESULTS: {len(results) - 2} ({results_file})\n')
         output_fh.write(f'ILLUMINA ACCESSIONS: {len(accessions)} ({accessions_file})\n')
+
+        if min_read_length or min_base_count:
+            output_fh.write(f'FILTERED ACCESSIONS: {len(filtered["filtered"])}\n')
+            if min_read_length:
+                output_fh.write(f'\tFAILED MIN READ LENGTH ({min_read_length} bp): {filtered["min_read_length"]}\n')
+            if min_base_count:
+                output_fh.write(f'\tFAILED MIN BASE COUNT ({min_base_count} bp): {filtered["min_base_count"]}\n')
+        else:
+            output_fh.write(f'FILTERED ACCESSIONS: no filters applied\n')
+
+        output_fh.write(f'\tMISSING FASTQS: {filtered["technical"]}\n')
