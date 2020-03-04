@@ -3,7 +3,8 @@ set -e
 set -u
 OUTDIR=assembly
 if [ "!{params.dry_run}" == "true" ]; then
-    touch !{sample}.fna shovill.dry_run.txt
+    mkdir ${OUTDIR}
+    touch ${OUTDIR}/!{sample}.fna ${OUTDIR}/shovill.dry_run.txt
 else
     GENOME_SIZE=`head -n 1 !{genome_size}`
     if [ "!{single_end}" == "false" ]; then

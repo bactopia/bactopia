@@ -146,6 +146,9 @@ The following parameters are useful to test input parameters.
                                 to resume Nextflow runs, and only occurs at the end
                                 of the process.
 
+    --dry_run               Mimics workflow execution, to help determine if conda environments
+                                or container images are properly set up.
+                                    
     --version               Print workflow version information
 
     --help                  Show this message and exit

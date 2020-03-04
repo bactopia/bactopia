@@ -1406,9 +1406,8 @@ def basic_help() {
                                     to resume Nextflow runs, and only occurs at the end
                                     of the process.
 
-        --dry_run               Mimics workflow execution, to help prevent errors realated to
-                                    conda envs being built in parallel. Only useful on new
-                                    installs of Bactopia.
+        --dry_run               Mimics workflow execution, to help determine if conda environments
+                                    or container images are properly set up.
 
         --version               Print workflow version information
 
