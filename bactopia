@@ -43,6 +43,8 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia build - Build Bactopia Conda environments"
     echo ""
+    echo "bactopia citations - Print citation for datasets, tools and Bactopia"
+    echo ""
     echo "bactopia datasets - Download/setup useful datasets for Bactopia"
     echo ""
     echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
@@ -51,7 +53,10 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia tools - Execute existing Bactopia Tools"
     echo ""
-    echo "bactopia version - Print Bactopia version and exit"
+    echo "bactopia versions - Print versions of tools and Bactopia"
+    echo ""
+    echo "bactopia --citation - Print the Bactopia citation"
+    echo "bactopia --version - Print the Bactopia version"
     echo ""
     echo "Print Usages:"
     echo "bactopia --help"
@@ -78,13 +83,13 @@ if [[ $# == 0 ]]; then
 fi
 
 if [[ "$1" == "datasets" ]]; then
-    setup-datasets.py "${@:2}"
+    bactopia-datasets.py "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
-    prepare-fofn.py "${@:2}"
+    bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
-    ena-search.py "${@:2}"
+    bactopia-search.py "${@:2}"
 elif [[ "$1" == "build" ]]; then
-    build-conda-envs.py "${@:2}"
+    bactopia-build.py "${@:2}"
 elif [[ "$1" == "tools" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-tools.py
@@ -94,8 +99,14 @@ elif [[ "$1" == "tools" ]]; then
             nextflow run ${TOOL_NF} "${@:3}"
         fi
     fi
+elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
+    echo "bactopia ${VERSION}"
+elif [[ "$1" == "citations" ]]; then
+    bactopia-citations.py "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
+elif [[ "$1" == "versions" ]]; then
+    bactopia-versions.py "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
@@ -111,7 +122,7 @@ else
         if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
             echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
-            build-conda-envs.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
+            bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
         fi
     fi
     # Execute Bactopia Nextflow pipeline
