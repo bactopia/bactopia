@@ -13,6 +13,7 @@
 - `bactopia versions` will print versions for tools used by Bactopia
 - `bactopia citations` will print citations for tools and datasets used by Bactopia
 - `bactopia search` can filter based on total bases, mean read length, and missing FASTQs
+- blast queries results are only JSON format for easy parsing later
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools

@@ -5,24 +5,28 @@ set -u
 OUTDIR=primers
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir ${OUTDIR}
-    touch ${OUTDIR}/blast_primers.dry_run.txt
+    touch ${OUTDIR}/blast_primers.dry_run.json
 else
   for fasta in *.fasta; do
       type=`readlink -f ${fasta}`
       name="${fasta%.*}"
-      mkdir -p ${OUTDIR}
+      mkdir -p ${OUTDIR} temp_json
       cat ${fasta} |
       parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
       blastn -db !{sample} \
-             -outfmt \'!{params.outfmt}\' \
+             -outfmt 15 \
              -dust no \
              -word_size 7 \
              -perc_identity !{params.perc_identity} \
              -evalue 1 \
-             -query - > ${OUTDIR}/${name}.txt
+             -query - \
+             -out temp_json/${name}_{#}.json
+
+      merge-blast-json.py temp_json > ${OUTDIR}/${name}.json
+      rm -rf temp_json
 
       if [[ !{params.compress} == "true" ]]; then
-          pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.txt
+          pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.json
       fi
   done
 fi

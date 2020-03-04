@@ -529,14 +529,14 @@ process blast_genes {
     Query gene FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{txt,txt.gz}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{json,json.gz}"
 
     input:
     set val(sample), file(blastdb) from BLAST_GENES
     file(query) from Channel.from(BLAST_GENE_FASTAS).collect()
 
     output:
-    file("genes/*.{txt,txt.gz}")
+    file("genes/*.{json,json.gz}")
 
     shell:
     template(task.ext.template)
@@ -547,14 +547,14 @@ process blast_primers {
     Query primer FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "primers/*.{txt,txt.gz}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "primers/*.{json,json.gz}"
 
     input:
     set val(sample), file(blastdb) from BLAST_PRIMERS
     file(query) from Channel.from(BLAST_PRIMER_FASTAS).collect()
 
     output:
-    file("primers/*.{txt,txt.gz}")
+    file("primers/*.{json,json.gz}")
 
     shell:
     template(task.ext.template)
@@ -565,14 +565,14 @@ process blast_proteins {
     Query protein FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "proteins/*.{txt,txt.gz}"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "proteins/*.{json,json.gz}"
 
     input:
     set val(sample), file(blastdb) from BLAST_PROTEINS
     file(query) from Channel.from(BLAST_PROTEIN_FASTAS).collect()
 
     output:
-    file("proteins/*.{txt,txt.gz}")
+    file("proteins/*.{json,json.gz}")
 
     shell:
     template(task.ext.template)
@@ -1785,9 +1785,6 @@ def full_help() {
         --max_target_seqs INT   Maximum number of aligned sequences to
                                     keep
                                     Default: ${params.max_target_seqs}
-
-        --outfmt STR            BLAST alignment view options
-                                    Default: '${params.outfmt}'
 
     Mapping Parameters:
         --keep_unmapped_reads   Keep unmapped reads, this does not affect variant

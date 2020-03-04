@@ -331,9 +331,6 @@ It is important to note, not all of the available parameters for each and every 
     --max_target_seqs INT   Maximum number of aligned sequences to
                                 keep
                                 Default: 2000
-
-    --outfmt STR            BLAST alignment view options
-                                Default: '6 qseqid qlen qstart qend sseqid slen sstart send length evalue bitscore pident nident mismatch gaps qcovs qcovhsp'
 ```
 
 
