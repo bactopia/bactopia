@@ -12,20 +12,21 @@ else
 
     prokka --outdir annotation \
         --force \
-        --prefix !{sample} \
-        !{addgenes} \
-        !{addmrna} \
-        --locustag !{sample} \
-        --centre !{params.centre} \
-        --genus !{genus} \
-        --species !{species} \
-        !{proteins} \
-        !{rawproduct} \
-        !{cdsrnaolap} \
+        --prefix '!{sample}' \
+        --locustag '!{sample}' \
+        --genus '!{genus}' \
+        --species '!{species}' \
         --evalue '!{params.prokka_evalue}' \
         --coverage !{params.prokka_coverage} \
         --cpus !{task.cpus} \
+        --centre '!{params.centre}' \
         --mincontiglen !{params.min_contig_len} \
+        !{addgenes} \
+        !{compliant} \
+        !{proteins} \
+        !{rawproduct} \
+        !{cdsrnaolap} \
+        !{addmrna} \
         !{norrna} \
         !{notrna} \
         !{rnammer} \

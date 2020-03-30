@@ -229,7 +229,8 @@ process annotate_genome {
             species = "spp."
         }
     }
-    addgenes = params.addgenes ? "--addgenes" : ""
+    compliant = params.compliant ? "--compliant" : ""
+    addgenes = params.nogenes ? "" : "--addgenes"
     addmrna = params.addmrna ? "--addmrna" : ""
     rawproduct = params.rawproduct ? "--rawproduct" : ""
     cdsrnaolap = params.cdsrnaolap ? "--cdsrnaolap" : ""
@@ -853,12 +854,14 @@ def setup_datasets() {
                         REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
                     }
                     print_dataset_info(REFERENCES, "reference genomes")
-
+                    
+                    /*
                     file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
                         INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
                     }
                     print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
-
+                    */
+                    
                     file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
                         MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
                     }
@@ -1603,10 +1606,13 @@ def full_help() {
                                     Default: Filter out singletons
 
     Annotation Parameters:
-        --centre STR            Sequencing centre ID
-                                    Default: ''
+        --compliant             Force Genbank/ENA/DDJB compliance: --genes --mincontiglen ${params.min_contig_len} --centre '${params.centre}'
+                                    Default: ${params.compliant}
 
-        --addgenes              Add 'gene' features for each 'CDS' feature
+        --centre STR            Sequencing centre ID
+                                    Default: '${params.centre}'
+
+        --nogenes               Do not add 'gene' features for each 'CDS' feature
 
         --addmrna               Add 'mRNA' features for each 'CDS' feature
 
