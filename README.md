@@ -6,7 +6,7 @@
 [![GitHub](https://img.shields.io/github/license/bactopia/bactopia)](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
 
 # Bactopia
-Bactopia is an extensive workflow for processing Illumina sequencing of bacterial genomes. The goal of Bactopia is to process your data with a broad set of tools, so that you can get to the fun part of analyses quicker!
+Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The goal of Bactopia is to process your data with a broad set of tools, so that you can get to the fun part of analyses quicker!
 
 Bactopia can be split into three main parts: [Bactopia Datasets](https://bactopia.github.io/datasets/), [Bactopia Analysis Pipeline](https://bactopia.github.io/#bactopia-workflow), and [Bactopia Tools](https://bactopia.github.io/tools/bactopia-tools/).
 
