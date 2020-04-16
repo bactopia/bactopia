@@ -86,7 +86,7 @@ In case Bactopia doesn't fit your needs, here are two alternatives I highly reco
 Seemann T, Goncalves da Silva A, Bulach DM, Schultz MB, Kwong JC, Howden BP. Nullarbor Github https://github.com/tseemann/nullarbor 
 
 * __[ASA³P](https://github.com/oschwengers/asap)__  
-ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher level analysis of closely related bacterial isolates. Oliver Schwengers, Andreas Hoek, Moritz Fritzenwanker, Linda Falgenhauer, Torsten Hain, Trinad Chakraborty, Alexander Goesmann. bioRxiv 654319; doi: https://doi.org/10.1101/654319  
+Schwengers O, Hoek A, Fritzenwanker M, Falgenhauer L, Hain T, Chakraborty T, et al. ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher-level analysis of closely related bacterial isolates. PLoS Comput Biol 2020;16:e1007134. https://doi.org/10.1371/journal.pcbi.1007134.
 
 # Feedback
 Your feedback is very valuable! If you run into any issues using Bactopia, have questions, or have some ideas to improve Bactopia, I highly encourage you to submit it to the [Issue Tracker](https://github.com/bactopia/bactopia/issues).
