@@ -14,6 +14,7 @@
 - `bactopia citations` will print citations for tools and datasets used by Bactopia
 - `bactopia search` can filter based on total bases, mean read length, and missing FASTQs
 - blast queries results are only JSON format for easy parsing later
+- added `--compliant` option for Prokka annotation
 
 ### `Fixed`
 - build-containers.sh not working with Bactopia Tools
@@ -27,6 +28,10 @@
 - `blast_query` results overwriting one another
 - `build-containers.sh` now creates a "latest" tag
 - `bactopia tool roary` outputs results based on the given prefix
+- renamed `--addgenes` to `--nogenes`
+- updated ASA³P citation
+- Typos in Bactopia Tools docs
+- Link in README.md
 
 ## v1.3.0 bactopia/bactopia "Leaping Boots" - 2020/02/19
 ### `Added`

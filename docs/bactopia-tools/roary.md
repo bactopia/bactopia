@@ -188,7 +188,7 @@ Where possible descriptions were taken from the [Roary Documentation](http://san
 | unique_vs_new_genes.png | Plot compairing new vs old genes |
 
 
-## Completed Usage
+## Usage
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.

@@ -196,10 +196,11 @@ It is important to note, not all of the available parameters for each and every 
 
 ### Annotation
 ```
-    --centre STR            Sequencing centre ID
-                                Default: ''
+    --compliant             Force Genbank/ENA/DDJB compliance: --genes --mincontiglen 500 --centre 'Bactopia'
+                                    Default: False
 
-    --addgenes              Add 'gene' features for each 'CDS' feature
+    --centre STR            Sequencing centre ID
+                                Default: 'Bactopia'
 
     --addmrna               Add 'mRNA' features for each 'CDS' feature
 
@@ -212,6 +213,8 @@ It is important to note, not all of the available parameters for each and every 
 
     --prokka_coverage INT   Minimum coverage on query protein
                                  Default: 80
+
+    --nogenes               Do not add 'gene' features for each 'CDS' feature
 
     --norrna                Don't run rRNA search
 

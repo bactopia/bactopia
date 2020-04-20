@@ -12,7 +12,7 @@ optional arguments:
 import os
 import sys
 
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 PROGRAM = "bactopia versions"
 DESCRIPTION = 'Prints the version of tools used by Bactopia'
 

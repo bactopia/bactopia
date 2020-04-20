@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """
-usage: bactopia tools [-h] [--bactopia STR] [--version] STR
+usage: bactopia versions [-h] [--bactopia STR] [--version] STR
 
 bactopia tools - A suite of comparative analyses for Bactopia outputs
 
@@ -15,7 +15,7 @@ optional arguments:
 import sys
 
 VERSION = "1.3.1"
-PROGRAM = "bactopia tools"
+PROGRAM = "bactopia"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
     'fastani': 'Pairwise average nucleotide identity',

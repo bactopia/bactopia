@@ -67,7 +67,7 @@ bactopia-tools/
 | ${REFERENCE}.fna | FASTA formated genome downloaded from NCBI Assembly database. |
 
 
-## Completed Usage
+## Usage
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.

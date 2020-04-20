@@ -70,7 +70,7 @@ bactopia-tools/
 | summary-timeline.html | The Nextflow [Timeline Report](https://www.nextflow.io/docs/latest/tracing.html#timeline-report) |
 | summary-trace.txt | The Nextflow [Trace](https://www.nextflow.io/docs/latest/tracing.html#trace-report) report |
 
-## Completed Usage
+## Usage
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.

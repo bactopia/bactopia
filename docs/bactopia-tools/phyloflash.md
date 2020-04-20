@@ -166,7 +166,7 @@ and the phyloFlash source [PhyloFlash.pm](https://github.com/HRGV/phyloFlash/blo
 | ${SAMPLE_NAME}.toalign.fasta | Sequences from the sample that were used in the MAFFT alignment |
 | ${SAMPLE_NAME}-unprocessed.txt | Text file with reason for not processing sample |
 
-## Complete Usage
+## Usage
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.

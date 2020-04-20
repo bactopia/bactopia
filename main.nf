@@ -1612,8 +1612,6 @@ def full_help() {
         --centre STR            Sequencing centre ID
                                     Default: '${params.centre}'
 
-        --nogenes               Do not add 'gene' features for each 'CDS' feature
-
         --addmrna               Add 'mRNA' features for each 'CDS' feature
 
         --rawproduct            Do not clean up /product annotation
@@ -1626,6 +1624,8 @@ def full_help() {
         --prokka_coverage INT   Minimum coverage on query protein
                                      Default: ${params.prokka_coverage}
 
+        --nogenes               Do not add 'gene' features for each 'CDS' feature
+        
         --norrna                Don't run rRNA search
 
         --notrna                Don't run tRNA search

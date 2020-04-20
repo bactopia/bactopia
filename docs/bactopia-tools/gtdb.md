@@ -126,7 +126,7 @@ bactopia-tools/
 | identify/intermediate_results/marker_genes/ | Contains individual genome results for gene calling using Prodigal and gene identification based on TIGRFAM and Pfam HMMs |
 
 
-## Completed Usage
+## Usage
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.
