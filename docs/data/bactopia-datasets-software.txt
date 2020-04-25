@@ -1,6 +1,6 @@
 name	type	citation
 ARG-ANNOT	datasets	Gupta SK, Padmanabhan BR, Diene SM, et al. ARG-ANNOT, a new bioinformatic tool to discover antibiotic resistance genes in bacterial genomes. Antimicrob Agents Chemother. 2014;58(1):212-220. doi:10.1128/AAC.01310-13
-CARD	datasets	McArthur AG, Waglechner N, Nizam F, et al. The comprehensive antibiotic resistance database. Antimicrob Agents Chemother. 2013;57(7):3348-3357. doi:10.1128/AAC.00419-13
+CARD	datasets	Alcock, Brian P., et al. CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic Acids Res. 2020;48(D1): D517-D525. doi:10.1093/nar/gkz935.
 MEGARes	datasets	Lakin SM, Dean C, Noyes NR, et al. MEGARes: an antimicrobial resistance database for high throughput sequencing. Nucleic Acids Res. 2017;45(D1):D574-D580. doi:10.1093/nar/gkw1009
 NCBI Resistance Gene Catalog	datasets	Feldgarden M, Brover V, Haft DH, et al. Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates. Antimicrob Agents Chemother. August 2019. doi:10.1128/AAC.00483-19
 PlasmidFinder	datasets	Carattoli A, Zankari E, García-Fernández A, et al. In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing. Antimicrob Agents Chemother. 2014;58(7):3895-3903. doi:10.1128/AAC.02412-14
