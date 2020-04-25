@@ -80,13 +80,16 @@ Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly ev
 I would like to personally extend my many thanks and gratitude to the authors of these software packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. Really, thank you very much!
 
 # Alternatives
-In case Bactopia doesn't fit your needs, here are two alternatives I highly recommend you check out.
-
-* __[Nullarbor](https://github.com/tseemann/nullarbor)__  
-Seemann T, Goncalves da Silva A, Bulach DM, Schultz MB, Kwong JC, Howden BP. Nullarbor Github https://github.com/tseemann/nullarbor 
+In case Bactopia doesn't fit your needs, here are two alternatives I highly recommend you check out the following.
 
 * __[ASA³P](https://github.com/oschwengers/asap)__  
-Schwengers O, Hoek A, Fritzenwanker M, Falgenhauer L, Hain T, Chakraborty T, et al. ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher-level analysis of closely related bacterial isolates. PLoS Comput Biol 2020;16:e1007134. https://doi.org/10.1371/journal.pcbi.1007134.
+Schwengers O, Hoek A, Fritzenwanker M, Falgenhauer L, Hain T, Chakraborty T, Goesmann A. *ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher-level analysis of closely related bacterial isolates.* __PLoS Comput Biol__ 2020;16:e1007134. https://doi.org/10.1371/journal.pcbi.1007134.
+
+* __[Nullarbor](https://github.com/tseemann/nullarbor)__  
+Seemann T, Goncalves da Silva A, Bulach DM, Schultz MB, Kwong JC, Howden BP. *Nullarbor* __Github__ https://github.com/tseemann/nullarbor 
+
+* __[TORMES](https://github.com/nmquijada/tormes)__  
+Quijada NM, Rodríguez-Lázaro D, Eiros JM, Hernández M. *TORMES: an automated pipeline for whole bacterial genome analysis.* __Bioinformatics__ 2019;35:4207–12. https://doi.org/10.1093/bioinformatics/btz220.
 
 # Feedback
 Your feedback is very valuable! If you run into any issues using Bactopia, have questions, or have some ideas to improve Bactopia, I highly encourage you to submit it to the [Issue Tracker](https://github.com/bactopia/bactopia/issues).
@@ -95,8 +98,7 @@ Your feedback is very valuable! If you run into any issues using Bactopia, have 
 [MIT License](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
 
 # Citation
-*Petit III, R. A. & Read, T. D. [Bactopia: a flexible pipeline for complete analysis of bacterial genomes.](https://doi.org/10.1101/2020.02.28.969394) bioRxiv 2020.02.28.969394 (2020)*
-
+Petit III RA, Read TD. *Bactopia: a flexible pipeline for complete analysis of bacterial genomes.* __bioRxiv__ 2020:2020.02.28.969394. https://doi.org/10.1101/2020.02.28.969394.
 # Author 
 
 * Robert A. Petit III
