@@ -27,8 +27,7 @@ discover antibiotic resistance genes in bacterial genomes.](http://www.ncbi.nlm.
 Antimicrob. Agents Chemother. 58, 212–220 (2014)._  
 
 * __[CARD](https://card.mcmaster.ca/)__  
-_McArthur, A. G. et al. [The comprehensive antibiotic resistance database.](http://www.ncbi.nlm.nih.gov/pubmed/23650175) 
-Antimicrob. Agents Chemother. 57, 3348–3357 (2013)._  
+_Alcock, Brian P., et al. [CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database.](https://www.ncbi.nlm.nih.gov/pubmed/31665441) Nucleic acids research 48.D1, D517-D525 (2020)._
 
 * __[MEGARes](https://megares.meglab.org/)__  
 _Lakin, S. M. et al. [MEGARes: an antimicrobial resistance database for high 
