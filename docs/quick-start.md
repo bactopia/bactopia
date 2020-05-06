@@ -29,16 +29,16 @@ On the first launch of Bactopia it will install the Conda environments, so expec
 #### Paired-End
 ```
 bactopia --R1 ${SAMPLE}_R1.fastq.gz --R2 ${SAMPLE}_R2.fastq.gz --sample ${SAMPLE} \
-         --dataset datasets/ --outdir ${OUTDIR}
+         --datasets datasets/ --outdir ${OUTDIR}
 ```
 
 #### Single-End
 ```
-bactopia --SE ${SAMPLE}.fastq.gz --sample ${SAMPLE} --dataset datasets/ --outdir ${OUTDIR}
+bactopia --SE ${SAMPLE}.fastq.gz --sample ${SAMPLE} --datasets datasets/ --outdir ${OUTDIR}
 ```
 
 ### Multiple Samples
 ```
 bactopia prepare directory-of-fastqs/ > fastqs.txt
-bactopia --fastqs fastqs.txt --dataset datasets --outdir ${OUTDIR}
+bactopia --fastqs fastqs.txt --datasets datasets --outdir ${OUTDIR}
 ```

@@ -1,8 +1,10 @@
 #! /usr/bin/env nextflow
+import java.nio.file.Paths
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
 OVERWRITE = workflow.resume || params.force ? true : false
+BACTOPIA_DIR = params.bactopia
 
 // Validate parameters
 if (params.version) print_version();
@@ -24,7 +26,7 @@ process summary {
     min_genome_size = params.min_genome_size? "--min_genome_size ${params.min_genome_size}" : ""
     max_genome_size = params.max_genome_size? "--max_genome_size ${params.max_genome_size}" : ""
     """
-    bactopia-summary.py !{params.bactopia} !{min_genome_size} !{max_genome_size} !{verbose} \
+    bactopia-summary.py !{BACTOPIA_DIR} !{min_genome_size} !{max_genome_size} !{verbose} \
         --prefix !{params.prefix} \
         --gold_coverage !{params.gold_coverage} \
         --gold_quality !{params.gold_quality} \
@@ -54,7 +56,7 @@ process ariba_summary {
     all_hits = params.all_hits ? "--include_all" : ""
     verbose = params.verbose? "--verbose" : ""
     """
-    ariba-summary.py !{params.bactopia} --exclude !{exclude} !{all_hits} !{verbose}
+    ariba-summary.py !{BACTOPIA_DIR} --exclude !{exclude} !{all_hits} !{verbose}
     """
 }
 
@@ -71,7 +73,7 @@ process amrfinder_summary {
     subclass = params.subclass ? "--subclass" : ""
     verbose = params.verbose? "--verbose" : ""
     """
-    amrfinder-summary.py !{params.bactopia} --exclude !{exclude} !{subclass} !{verbose}
+    amrfinder-summary.py !{BACTOPIA_DIR} --exclude !{exclude} !{subclass} !{verbose}
     """
 
 }
@@ -199,6 +201,11 @@ def check_input_params() {
 
     if (params.max_genome_size) {
         error += is_positive_integer(params.max_genome_size, 'max_genome_size')
+    }
+    Path bactopia_path = Paths.get(BACTOPIA_DIR); 
+    if (!bactopia_path.isAbsolute()) {
+        BACTOPIA_DIR = "${workflow.launchDir}/${BACTOPIA_DIR}"
+        log.info("A relative path to the bactopia directory (--bactopia ${params.bactopia}) was given. Using ${BACTOPIA_DIR} instead.")
     }
 
     // Check for existing output directory
