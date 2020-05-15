@@ -10,7 +10,7 @@ if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
-samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.only_completed)
 
 process download_references {
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
@@ -67,7 +67,7 @@ process build_pangenome {
     publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "roary/*"
 
     input:
-    file(sample_gff) from Channel.fromList(samples).collect()
+    file(sample_gff) from Channel.fromList(samples).collect().ifEmpty { "${DUMMY_NAME}.gff" }
     file(reference_gff) from REFERENCE_GFF.collect()
 
     output:
@@ -277,6 +277,10 @@ def check_input_params() {
     error += is_positive_integer(params.alrt, 'alrt')
     error += is_positive_integer(params.prokka_coverage, 'prokka_coverage')
 
+    if (params.only_completed && !params.species && !params.accession) {
+        log.error("'--only_completed' requires that '--species' or '--accession' is used also.")
+        error += 1
+    }
 
     // Check for existing output directory
     if (output_exists(OUTDIR, params.force, workflow.resume)) {
@@ -335,44 +339,54 @@ def build_gff_tuple(sample, dir) {
     }
 }
 
-def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
-    include_all = true
-    inclusions = []
-    exclusions = []
-    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
-    if (include_list) {
-        new File(include_list).eachLine { line -> 
-            inclusions << line.trim().split('\t')[0]
-        }
-        include_all = false
-        log.info "Including ${inclusions.size} samples for analysis"
-    }
-    else if (exclude_list) {
-        new File(exclude_list).eachLine { line -> 
-            exclusions << line.trim().split('\t')[0]
-        }
-        log.info "Excluding ${exclusions.size} samples from the analysis"
-    }
-    
+def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time, only_completed) {
     sample_list = []
-    file(bactopia_dir).eachFile { item ->
-        if( item.isDirectory() ) {
-            sample = item.getName()
-            if (!IGNORE_LIST.contains(sample)) {
-                if (inclusions.contains(sample) || include_all) {
-                    if (!exclusions.contains(sample)) {
-                        if (is_sample_dir(sample, bactopia_dir)) {
-                            sample_list << build_gff_tuple(sample, bactopia_dir)
-                        } else {
-                            log.info "${sample} is missing genome size estimate file"
+    if (only_completed) {
+        log.info "--only_completed given, so only the completed genomes will be used for pan-genome analysis."
+    } else {
+        include_all = true
+        inclusions = []
+        exclusions = []
+        IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
+        if (include_list) {
+            new File(include_list).eachLine { line -> 
+                inclusions << line.trim().split('\t')[0]
+            }
+            include_all = false
+            log.info "Including ${inclusions.size} samples for analysis"
+        }
+        else if (exclude_list) {
+            new File(exclude_list).eachLine { line -> 
+                exclusions << line.trim().split('\t')[0]
+            }
+            log.info "Excluding ${exclusions.size} samples from the analysis"
+        }
+        
+        file(bactopia_dir).eachFile { item ->
+            if( item.isDirectory() ) {
+                sample = item.getName()
+                if (!IGNORE_LIST.contains(sample)) {
+                    if (inclusions.contains(sample) || include_all) {
+                        if (!exclusions.contains(sample)) {
+                            if (is_sample_dir(sample, bactopia_dir)) {
+                                sample_list << build_gff_tuple(sample, bactopia_dir)
+                            } else {
+                                log.info "${sample} is missing genome size estimate file"
+                            }
                         }
                     }
                 }
             }
         }
+
+        if (sample_list.size == 0) {
+            log.error "Did not find any samples in ${bactopia_dir} to process, please check and try again."
+            exit 1
+        } else {
+            log.info "Found ${sample_list.size} samples to process"
+        }
     }
 
-    log.info "Found ${sample_list.size} samples to process"
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for ${sleep_time} seconds..."
     sleep(sleep_time * 1000)
@@ -411,6 +425,11 @@ def print_help() {
         --species STR           The name of the species to download RefSeq assemblies for. This
                                     is a completely optional step and is meant to supplement
                                     your dataset with high-quality completed genomes.
+
+        --accession STR         A NCBI Assembly database RefSeq accession to be downloaded and included
+                                    in the pan-genome analysis.
+
+        --only_completed        Pan-genome will be created using only the completed RefSeq genomes.    
 
         --prokka_evalue STR     Similarity e-value cut-off
                                     Default: ${params.prokka_evalue}

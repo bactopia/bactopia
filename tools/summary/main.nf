@@ -1,10 +1,10 @@
 #! /usr/bin/env nextflow
 import java.nio.file.Paths
+BACTOPIA_DIR = params.bactopia
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
 OVERWRITE = workflow.resume || params.force ? true : false
-BACTOPIA_DIR = params.bactopia
 
 // Validate parameters
 if (params.version) print_version();
@@ -202,6 +202,7 @@ def check_input_params() {
     if (params.max_genome_size) {
         error += is_positive_integer(params.max_genome_size, 'max_genome_size')
     }
+    
     Path bactopia_path = Paths.get(BACTOPIA_DIR); 
     if (!bactopia_path.isAbsolute()) {
         BACTOPIA_DIR = "${workflow.launchDir}/${BACTOPIA_DIR}"
