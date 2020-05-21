@@ -63,7 +63,7 @@ dependencies:
   - minimap2=2.17=h8b12597_1
   - ncurses=6.1=hf484d3e_1002
   - numpy=1.17.5=py37h95a1406_0
-  - openjdk=8.0.192=h516909a_1004
+  - openjdk=8.0.192=h14c3975_1003
   - openssl=1.1.1d=h516909a_0
   - paml=4.9=h516909a_5
   - pango=1.42.4=ha030887_1
