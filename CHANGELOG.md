@@ -1,5 +1,18 @@
 # bactopia/bactopia: Changelog
 
+## v1.3.2 bactopia/bactopia "" - 2020/??/??
+### `Added`
+- New Bactopia Tools
+    - Added `mashtree` to create a tree using Mash distances
+    - `roary` can now be run on just completed genomes
+
+### `Fixed`
+- `summary` will now determine absolute path of inputs
+- `fastani` improved user reference import
+- went back a version on `call_variants` openjdk version
+- updated CARD citations
+- all bactopia tools now put nextflow info in the same folder as outputs
+
 ## v1.3.1 bactopia/bactopia "Emperor Hairpin" - 2020/04/20
 ### `Added`
 - `summary` tool now gives reason for rank

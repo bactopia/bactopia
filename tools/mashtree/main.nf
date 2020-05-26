@@ -10,6 +10,96 @@ log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+reference = null
+if (params.reference) {
+    if (file(params.reference).exists()) {
+        samples << file(params.reference)
+        reference = file(params.reference)
+    } else {
+        log.error("Could not open ${params.reference}, please verify existence. Unable to continue.")
+        exit 1
+    }
+}
+
+process collect_assemblies {    
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
+
+    input:
+    file(fasta) from Channel.fromList(samples).collect()
+
+    output:
+    file 'fasta/*.fna' optional true
+    file 'assemblies/*.fna' into ALL_FASTA
+
+    shell:
+    is_gzipped = null
+    reference_name = null
+    reference_file = null
+    if (reference) {
+        is_gzipped = params.reference.endsWith(".gz") ? true : false
+        reference_file = reference.getName()
+        reference_name = reference.getSimpleName().replace(".gz", "")
+    }
+    """
+    mkdir assemblies
+    if [ "!{params.species}" != "null" ]; then
+        mkdir fasta
+        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                      --genus "!{params.species}" -r 50
+        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+        gunzip fasta/*
+        cp fasta/*.fna assemblies/
+    fi
+
+    if [ "!{params.accession}" != "null" ]; then
+        mkdir fasta
+        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                      -A !{params.accession} -r 50
+        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+        gunzip fasta/*
+        cp fasta/*.fna assemblies/
+    fi
+
+    if [ "!{params.reference}" != "null" ]; then
+        if [ "!{is_gzipped}" == "true" ]; then
+            zcat !{reference_file} > assemblies/!{reference_name}.fna
+        else
+            cp -P !{reference_file} assemblies/!{reference_name}.fna
+        fi
+    fi
+
+    find -name "*.fna.gz" | xargs -I {} gunzip {}
+    ls *.fna | xargs -I {} cp -f -P {} assemblies/{}
+    """
+}
+
+process build_tree {
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}-matrix.txt"
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${params.prefix}-mashtree.dnd"
+
+    input:
+    file(inputs) from ALL_FASTA.collect()
+
+    output:
+    file "${params.prefix}-matrix.txt"
+    file "${params.prefix}-mashtree.dnd"
+
+    shell:
+    """
+    mashtree --numcpus !{task.cpus} \
+             --outmatrix !{params.prefix}-matrix.txt \
+             --outtree !{params.prefix}-mashtree.dnd \
+             --truncLength !{params.trunclength} \
+             --sort-order !{params.sortorder} \
+             --genomesize !{params.genomesize} \
+             --mindepth !{params.mindepth} \
+             --kmerlength !{params.kmerlength} \
+             --sketch-size !{params.sketchsize} *.fna
+    """
+}
+
 
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
@@ -119,6 +209,17 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
+    error += is_positive_integer(params.cpus, 'trunclength')
+    error += is_positive_integer(params.max_time, 'genomesize')
+    error += is_positive_integer(params.max_memory, 'mindepth')
+    error += is_positive_integer(params.sleep_time, 'kmerlength')
+    error += is_positive_integer(params.sleep_time, 'sketchsize')
+
+    orders = ['ABC', 'random', 'input-order']
+    if (!orders.contains(params.sortorder)) {
+        log.error("'${params.sortorder}' is not a valid sort order, must be 'ABC', 'random', or 'input-order'.")
+        error += 1
+    }
 
     // Check for existing output directory
     if (output_exists(OUTDIR, params.force, workflow.resume)) {
@@ -171,8 +272,8 @@ def build_assembly_tuple(sample, dir) {
         tuple(file("${assembly}.gz"))
     } else if (file(assembly).exists()) {
         tuple(file(assembly))
-    else {
-        log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
+    } else {
+        log.error("Could not locate assembly for ${sample}, please verify existence. Unable to continue.")
         exit 1
     }
 }
@@ -249,6 +350,39 @@ def print_help() {
         --cpus INT              Number of processors made available to a single
                                     process.
                                     Default: ${params.cpus}
+
+    RefSeq Assemblies Related Parameters:
+        This is a completely optional step and is meant to supplement your dataset with 
+        high-quality completed genomes.
+
+        --species STR           The name of the species to download RefSeq assemblies for.
+        
+        --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
+        
+    User Procided Reference:
+        --reference STR         A reference genome to calculate 
+
+    Mashtree Related Parameters            
+        --trunclength INT       How many characters to keep in a filename
+                                    Default: ${params.trunclength}
+
+        --sortorder STR         For neighbor-joining, the sort order can make a difference. 
+                                    Options include:  ABC (alphabetical), random, input-order
+                                    Default: ${params.sortorder}
+
+        --genomesize INT        Genome size of the input samples.
+                                    Default: ${params.genomesize}
+
+        --mindepth INT          If mindepth is zero, then it will be chosen in a smart but slower 
+                                    method, to discard lower-abundance kmers.
+                                    Default: ${params.mindepth}
+
+        --kmerlength INT        Hashes will be based on strings of this many nucleotides.
+                                    Default: ${params.kmerlength}
+
+        --sketchsize INT        Each sketch will have at most this
+                                    many non-redundant min-hashes. 
+                                    Default: ${params.sketchsize}
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:

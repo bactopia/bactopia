@@ -3,7 +3,7 @@ import java.nio.file.Paths
 BACTOPIA_DIR = params.bactopia
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
+OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}/${params.prefix}"
 OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters

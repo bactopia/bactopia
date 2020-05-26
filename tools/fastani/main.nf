@@ -9,16 +9,25 @@ if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 
-
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+reference = null
+if (params.reference) {
+    if (file(params.reference).exists()) {
+        samples << file(params.reference)
+        reference = file(params.reference)
+    } else {
+        log.error("Could not open ${params.reference}, please verify existence. Unable to continue.")
+        exit 1
+    }
+}
+
 
 process collect_assemblies {    
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
 
     input:
     file(fasta) from Channel.fromList(samples).collect()
-    file(reference) from Channel.fromPath(params.reference).collect()
 
     output:
     file 'fasta/*.fna' optional true
@@ -31,6 +40,7 @@ process collect_assemblies {
     if (reference) {
         is_gzipped = params.reference.endsWith(".gz") ? true : false
         reference_name = reference.getSimpleName().replace(".gz", "")
+        reference_file = reference.getName()
     }
     """
     mkdir assemblies samples
@@ -58,21 +68,21 @@ process collect_assemblies {
     
     if [ "!{params.reference}" != "null" ]; then
         if [ "!{is_gzipped}" == "true" ]; then
-            zcat !{reference} > assemblies/!{reference_name}.fna
+            zcat !{reference_file} > assemblies/!{reference_name}.fna
             cp -P assemblies/!{reference_name}.fna samples/!{reference_name}.fna.query
         else
-            cp -P !{reference} assemblies/!{reference_name}.fna
-            cp -P !{reference} samples/!{reference_name}.fna.query
+            cp -P !{reference_file} assemblies/!{reference_name}.fna
+            cp -P !{reference_file} samples/!{reference_name}.fna.query
         fi
     fi
 
     find -name "*.fna.gz" | xargs -I {} gunzip {}
 
     if [ "!{params.pairwise}" == "true" ]; then
-        cp -P *.fna assemblies/
+        cp -f -P *.fna assemblies/
     fi
 
-    ls *.fna | xargs -I {} cp -P {} samples/{}.query
+    ls *.fna | xargs -I {} cp -f -P {} samples/{}.query
     """
 }
 
