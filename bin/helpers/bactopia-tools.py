@@ -20,8 +20,10 @@ DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
     'fastani': 'Pairwise average nucleotide identity',
     'gtdb': 'Identify marker genes and assign taxonomic classifications',
+    'mashtree': 'Trees based on Mash distances',
+    'pirate': 'Pan-genome with optional core-genome tree',
     'phyloflash': '16s assembly, alignment and tree',
-    'roary': 'Pan-genome with optional core-genome tree.',
+    'roary': 'Pan-genome with optional core-genome tree',
     'summary': 'A report summarizing Bactopia project',
 }
 
