@@ -82,17 +82,16 @@ This will setup the MLST schema (if available) and a protein cluster FASTA file 
 
 ## Usage
 ``` 
-usage: bactopia datasets [-h] [--ariba STR] [--species STR]
-                              [--skip_prokka] [--include_genus]
-                              [--identity FLOAT] [--overlap FLOAT]
-                              [--max_memory INT] [--fast_cluster]
-                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                              [--clear_cache] [--force] [--force_ariba]
-                              [--force_mlst] [--force_prokka]
-                              [--force_minmer] [--force_plsdb]
-                              [--keep_files] [--list_datasets] [--depends]
-                              [--version] [--verbose] [--silent]
-                              OUTPUT_DIRECTORY
+usage: bactopia datasets [-h] [--ariba STR] [--species STR] [--skip_prokka]
+                         [--include_genus] [--limit INT] [--accessions STR]
+                         [--identity FLOAT] [--overlap FLOAT]
+                         [--max_memory INT] [--fast_cluster] [--skip_minmer]
+                         [--skip_plsdb] [--cpus INT] [--clear_cache] [--force]
+                         [--force_ariba] [--force_mlst] [--force_prokka]
+                         [--force_minmer] [--force_plsdb] [--keep_files]
+                         [--list_datasets] [--depends] [--version] [--verbose]
+                         [--silent]
+                         OUTPUT_DIRECTORY
 
 bactopia datasets - Setup public datasets for Bactopia
 
@@ -113,6 +112,9 @@ Bacterial Species:
 Custom Prokka Protein FASTA:
   --skip_prokka     Skip creation of a Prokka formatted fasta for each species
   --include_genus   Include all genus members in the Prokka proteins FASTA
+  --limit INT       If available completed genomes exceeds a given limit, a
+                    random subsample will be taken.
+  --accessions STR  A list of RefSeq accessions to download.
   --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
   --overlap FLOAT   CD-HIT (-s) length difference cutoff. (Default: 0.8)
   --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
@@ -163,6 +165,12 @@ If a dataset exists, it will only be overwritten if one of the `--force` paramet
  
 #### --include_genus
 Completed RefSeq genomes are downloaded for a given species to be used for protein clustering. `--include_genus` will also download completed RefSeq genomes for each genus member.
+
+#### --limit
+For some species of bacteria there might be thousands of completed genomes available. For dataset creation, downloading thousands of completed genomes will be time consuming and like take up a significant amount of storage. To help in such cases `--limit` can be used to limit the downloads to a random subset of genomes.
+
+#### --accessions
+In cases where a random subset of completed genomes is not ideal, you can provide your own curated list of genomes to download with `--accessions`. The file should have a single NCBI RefSeq Assembly accession (E.g GCF_000008865.2) per line.
 
 #### --keep_files
 Many intermediate files are downloaded/created (e.g. completed genomes) and deleted during the building process, use `--keep_files` to retain these files.
