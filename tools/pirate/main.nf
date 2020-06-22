@@ -14,9 +14,11 @@ samples = gather_sample_set(params.bactopia, params.exclude, params.include, par
 
 process download_references {
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
 
     output:
     file("fasta/*.fna") into ANNOTATE
+    file 'accession-*.txt' optional true
 
     shell:
     opt = false
@@ -31,7 +33,19 @@ process download_references {
     if [ "!{opt}" == "false" ]; then
         touch fasta/!{DUMMY_NAME}.fna
     else
-        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+        if [ "!{params.species}" != "null" ];
+            if [ "!{params.limit}" != "null" ]; then
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                              !{opt} -r 50 --dry-run > accession-list.txt
+                shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                            -A accession-subset.txt -r 50 --dry-run > accession-list.txt
+            else
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+            fi
+        else
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+        fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
@@ -291,6 +305,7 @@ def check_input_params() {
     error += is_positive_integer(params.bb, 'bb')
     error += is_positive_integer(params.alrt, 'alrt')
     error += is_positive_integer(params.prokka_coverage, 'prokka_coverage')
+    error += is_positive_integer(params.limit, 'limit')
 
     if (params.only_completed && !params.species && !params.accession) {
         log.error("'--only_completed' requires that '--species' or '--accession' is used also.")
@@ -453,6 +468,11 @@ def print_help() {
 
         --accession STR         A NCBI Assembly database RefSeq accession to be downloaded and included
                                     in the pan-genome analysis.
+
+        --limit INT             Limit the number of RefSeq assemblies to download. If the the
+                                    number of available genomes exceeds the given limit, a 
+                                    random subset will be selected.
+                                    Default: Download all available genomes
 
         --only_completed        Pan-genome will be created using only the completed RefSeq genomes.    
 

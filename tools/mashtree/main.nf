@@ -23,12 +23,14 @@ if (params.reference) {
 
 process collect_assemblies {    
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
+    publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
 
     input:
     file(fasta) from Channel.fromList(samples).collect()
 
     output:
     file 'fasta/*.fna' optional true
+    file 'accession-*.txt' optional true
     file 'assemblies/*.fna' into ALL_FASTA
 
     shell:
@@ -44,8 +46,16 @@ process collect_assemblies {
     mkdir assemblies
     if [ "!{params.species}" != "null" ]; then
         mkdir fasta
-        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                      --genus "!{params.species}" -r 50
+        if [ "!{params.limit}" != "null" ]; then
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                          --genus "!{params.species}" -r 50 --dry-run > accession-list.txt
+            shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                          -A accession-subset.txt -r 50 --dry-run > accession-list.txt
+        else
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                          --genus "!{params.species}" -r 50
+        fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
@@ -214,6 +224,7 @@ def check_input_params() {
     error += is_positive_integer(params.max_memory, 'mindepth')
     error += is_positive_integer(params.sleep_time, 'kmerlength')
     error += is_positive_integer(params.sleep_time, 'sketchsize')
+    error += is_positive_integer(params.limit, 'limit')
 
     orders = ['ABC', 'random', 'input-order']
     if (!orders.contains(params.sortorder)) {
@@ -358,6 +369,11 @@ def print_help() {
         --species STR           The name of the species to download RefSeq assemblies for.
         
         --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
+
+        --limit INT             Limit the number of RefSeq assemblies to download. If the the
+                                    number of available genomes exceeds the given limit, a 
+                                    random subset will be selected.
+                                    Default: Download all available genomes
         
     User Procided Reference:
         --reference STR         A reference genome to calculate 
