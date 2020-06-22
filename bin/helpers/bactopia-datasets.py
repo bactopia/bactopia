@@ -414,8 +414,9 @@ def process_cds(cds):
 
 
 def setup_prokka(request, available_datasets, outdir, force=False,
-                 include_genus=False, identity=0.9, overlap=0.8, max_memory=0,
-                 fast_cluster=False, keep_files=False, cpus=1):
+                 include_genus=False, limit=None, accession_file=None, identity=0.9, 
+                 overlap=0.8, max_memory=0, fast_cluster=False, keep_files=False, 
+                 cpus=1):
     """
     Setup a Prokka compatible protein fasta file based on completed genomes.
 
@@ -425,6 +426,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
     """
     import gzip
     import re
+    import random
     from statistics import median, mean
     requests = setup_requests(request, available_datasets, 'pubMLST.org',
                               skip_check=True)
@@ -460,9 +462,35 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             genus = ' '.join(request.split()[0:2])
             if include_genus:
                 genus = genus.split()[0]
-            execute((f'ncbi-genome-download bacteria --genus "{genus}" '
-                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
-                     f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
+
+            if limit:
+                execute(f'mkdir {genome_dir}')
+                accessions = []
+                results = execute((f'ncbi-genome-download bacteria --genus "{genus}" '
+                                   f'-l complete -F genbank -r 20 --dry-run'), capture=True)
+
+                for line in results.split('\n'):
+                    if line and not line.startswith('Considering'):
+                        accessions.append(line.split()[0])
+                
+                if len(accessions) > limit:
+                    logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
+                    accession_file = f'{genome_dir}/accessions.txt'
+                    with open(accession_file, 'w') as accession_fh:
+                        for accession in random.sample(accessions, limit):
+                            accession_fh.write(f'{accession}\n')
+                else:
+                    logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
+            
+                
+            if accession_file:
+                execute((f'ncbi-genome-download bacteria -A {accession_file} '
+                        f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
+                        f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
+            else:
+                execute((f'ncbi-genome-download bacteria --genus "{genus}" '
+                        f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
+                        f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
 
             # Extract information from Genbank files
             genbank_files = execute(
@@ -832,6 +860,15 @@ if __name__ == '__main__':
         help=('Include all genus members in the Prokka proteins FASTA')
     )
     group3.add_argument(
+        '--limit', metavar="INT", type=int, default=0,
+        help=('If available completed genomes exceeds a given limit, a random '
+              'subsample will be taken.')
+    )
+    group3.add_argument(
+        '--accessions', metavar="STR", type=str,
+        help=('A list of RefSeq accessions to download.')
+    )
+    group3.add_argument(
         '--identity', metavar="FLOAT", type=float, default=0.9,
         help=('CD-HIT (-c) sequence identity threshold. (Default: 0.9)')
     )
@@ -958,7 +995,8 @@ if __name__ == '__main__':
             logging.info('Setting up custom Prokka proteins')
             setup_prokka(
                 args.species, PUBMLST, species_dir, cpus=args.cpus,
-                include_genus=args.include_genus, identity=args.identity,
+                include_genus=args.include_genus, limit=args.limit,
+                accession_file=args.accessions, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,
                 fast_cluster=args.fast_cluster, keep_files=args.keep_files,
                 force=(args.force or args.force_prokka)
