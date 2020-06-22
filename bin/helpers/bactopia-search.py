@@ -132,6 +132,10 @@ def parse_query(query, exact_taxon=False):
         # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
         if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
             return f'(study_accession={query} OR secondary_study_accession={query})'
+        elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
+            return f'(sample_accession={query} OR secondary_sample_accession={query})'
+        elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
+            return f'(run_accession={query})'
         else:
             # Assuming it is a scientific name
             return f'tax_name("{query}")'
@@ -153,10 +157,12 @@ if __name__ == '__main__':
               {PROGRAM} PRJNA480016 --limit 20
               {PROGRAM} 1280 --exact_taxon --limit 20'
               {PROGRAM} "staphylococcus aureus" --limit 20
+              {PROGRAM} SAMN01737350
+              {PROGRAM} SRR578340
         ''')
     )
     parser.add_argument('query', metavar="STR", type=str,
-                        help='Taxon ID or Study accession')
+                        help='Taxon ID or Study, BioSample, or Run accession')
     parser.add_argument(
         '--exact_taxon', action='store_true', help='Exclude Taxon ID descendents.'
     )
