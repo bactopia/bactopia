@@ -266,18 +266,23 @@ Exiting
 In the above example, there are mulitple errors. Lines 4 and 5 (`LINE 4:ERROR` or `LINE 5:ERROR`) suggest that based on the given paths the FASTQs do not exist. The sample name `test002` has been used multiple times, and must be corrected. There is also an issue with the header line that must be looked into.
 
 ### ENA & SRA
-There are a lot of publicly avilable sequences available from the [European Nucleotide Archive](https://www.ebi.ac.uk/ena) (ENA) and the [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) (SRA). There's a good chance you might want to include some of those sequences in your analysis! If that sounds like you, Bactopia has that built in for you! You can give a single *Experiment* accession (`--accession`) or a file where each line is a single *Experiment* accession (`--accessions`). Bactopia will then query ENA to determine *Run* accession(s) associated with the given Experiment accession and proceed download the corresponding FASTQ files from either the SRA (default) or ENA (`--use_ena`). After the download is completed, it will be processed through Bactopia.
+There are a lot of publicly avilable sequences available from the [European Nucleotide Archive](https://www.ebi.ac.uk/ena) (ENA) and the [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) (SRA). There's a good chance you might want to include some of those sequences in your analysis! If that sounds like you, Bactopia has that built in for you! You can give a single *Experiment* accession (`--accession`) or a file where each line is a single *Experiment* accession (`--accessions`). Bactopia will then query ENA to determine *Run* accession(s) associated with the given Experiment accession and proceed download the corresponding FASTQ files from either the SRA (default) or ENA (`--use_ena`). 
+
+After the download is completed, it will be processed through Bactopia.
 
 !!! info "Use --accession for a Single Experiment Accession"
-    SRA: `bactopia --accession SRX476958`
+    SRA: `bactopia --accession SRX476958`  
     ENA: `bactopia --accession SRX476958 --use_ena`
 
 !!! info "Use --accessions for Multiple Experiment Accessions"
-    SRA: `bactopia --accessions my-accessions.txt`
+    SRA: `bactopia --accessions my-accessions.txt`  
     ENA: `bactopia --accessions my-accessions.txt --use_ena`
 
+!!! info "What happens when an Experiment has multiple Runs?"
+    In cases where a single Experiment might have multiple Run accessions associated with it, the FASTQ files from each Run are merged into a single set of sequences.
+
 #### Generating Accession List
-`bactopia search` has been made to help assist in generating a list of Experiment accessions to be procesed by Bactopia (via `--accessions`). Users can provide a Taxon ID (e.g. 1280), a binary name (e.g. Staphylococcus aureus), or Study accessions (e.g. PRJNA480016). This value is then queried against ENA's [Data Warehouse API](https://www.ebi.ac.uk/ena/browse/search-rest)), and a list of all Experiment accessions associated with the query is returned.
+`bactopia search` has been made to help assist in generating a list of Experiment accessions to be procesed by Bactopia (via `--accessions`). Users can provide a Taxon ID (e.g. 1280), a binary name (e.g. Staphylococcus aureus), a Study accession (e.g. PRJNA480016), a BioSample accession (e.g. SAMN01737350), or a Run accession (e.g. SRR578340). This value is then queried against ENA's [Data Warehouse API](https://www.ebi.ac.uk/ena/browse/search-rest)), and a list of all Experiment accessions associated with the query is returned.
 
 ##### Usage
 ```
@@ -288,7 +293,7 @@ usage: bactopia search [-h] [--exact_taxon] [--outdir OUTPUT_DIRECTORY]
 bactopia search - Search ENA for associated WGS samples
 
 positional arguments:
-  STR                   Taxon ID or Study accession
+  STR                   Taxon ID or Study, BioSample, or Run accession
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -304,6 +309,8 @@ example usage:
   bactopia search PRJNA480016 --limit 20
   bactopia search 1280 --exact_taxon --limit 20'
   bactopia search "staphylococcus aureus" --limit 20
+  bactopia search SAMN01737350
+  bactopia search SRR578340
 ```
 
 ##### Example
