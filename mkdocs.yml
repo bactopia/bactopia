@@ -27,6 +27,7 @@ nav:
       - 'fastani': bactopia-tools/fastani.md
       - 'gtdb': bactopia-tools/gtdb.md
       - 'phyloflash': bactopia-tools/phyloflash.md
+      - 'pirate': bactopia-tools/pirate.md
       - 'roary': bactopia-tools/roary.md
       - 'summary': bactopia-tools/summary.md
 

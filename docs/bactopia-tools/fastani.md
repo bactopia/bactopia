@@ -99,9 +99,17 @@ RefSeq Assemblies Related Parameters:
     This is a completely optional step and is meant to supplement your dataset with
     high-quality completed genomes.
 
-    --species STR           The name of the species to download RefSeq assemblies for.
+    --species STR           The name of the species to download RefSeq assemblies for. This
+                                is a completely optional step and is meant to supplement
+                                your dataset with high-quality completed genomes.
 
-    --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
+    --accession STR         A NCBI Assembly database RefSeq accession to be downloaded and included
+                                in the pan-genome analysis.
+
+    --limit INT             Limit the number of RefSeq assemblies to download. If the the
+                                number of available genomes exceeds the given limit, a 
+                                random subset will be selected.
+                                Default: Download all available genomes
 
     --refseq_only           Pairwise ANI's will only be calulated against download RefSeq genomes.
 
