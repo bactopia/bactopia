@@ -312,6 +312,9 @@ ${DATASET_FOLDER}
 | blastdb.tar.gz | A BLAST formatted MLST dataset for a given schema |
 | mlst-updated.txt | Contains time stamp for the last time the MSLT dataset was updated |
 
+!!! info "How does Bactopia handle organisms with multiple MLST schemas?"
+    In a few cases, an organism might have multiple MLST schemas available (Example: [E. coli](https://pubmlst.org/escherichia/)). In such cases, each MLST schema is downloaded and set up. Bactopia will also call sequence types against each schema. 
+
 !!! warning "Changing files in `mlst` is not recommended"
     The MLST schemas have been pre-formatted for your usage. There might be rare cases where you would like to provide your own schema. If this is the case it is recommended you take a look at: [What about MLST not hosted at pubmlst.org?](https://github.com/sanger-pathogens/ariba/issues/185) then follow the directory structure for `mlst`.
 
