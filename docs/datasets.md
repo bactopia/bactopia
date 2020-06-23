@@ -178,37 +178,159 @@ Many intermediate files are downloaded/created (e.g. completed genomes) and dele
 #### Tweaking CD-HIT
 There are parameters (`--identity`, `--overlap`, `--max_memory`, and `--fast_cluster`) to tweak CD-HIT if you find it necessary. Please keep in mind, the only goal of the protein clustering step is to help speed up Prokka, by providing a decent set of proteins to annotate against first.
 
-## User Populated Folders
-Built into the Bactopia dataset structure are folders that you, the user, can populate for species specific analysis. These could include specific genes you want BLASTed against your samples or a specific reference you want all your samples mapped to and variants called.
+## Datasets Folder Overview
+After creating datasets you will have a directory structure that Bactopia recognizes. Based on the available datasets Bactopia will queue up the associated analyses.
 
-### Directory Structure
-When a species specific dataset is created, a folder named `optional` is also created. For example, a *S. aureus* specific dataset will have the following directory structure:
-
+Here is the directory structure for the Bactopia Datasets. Some of these include files from public datasets that can be used directly, but there are also other folders you can populate yourself to fit your needs.
 ```
-datasets/species-specific/staphylococcus-aureus/
-├── annotation
+${DATASET_FOLDER}
+├── ariba
 ├── minmer
-├── mlst
-└── optional
-    ├── blast
-    │   ├── genes
-    │   ├── primers
-    │   └── proteins
-    ├── insertion-sequences
-    ├── mapping-sequences
-    └── reference-genomes
+├── plasmid
+└── species-specific
+    └── ${SPECIES}
+        ├── annotation
+        │   ├── cdhit-stats.txt
+        │   ├── genome_size.json
+        │   ├── ncbi-metadata.txt
+        │   ├── proteins.faa
+        │   ├── proteins.faa.clstr
+        │   └── proteins-updated.txt
+        ├── minmer
+        │   ├── minmer-updated.txt
+        │   └── refseq-genomes.msh
+        ├── mlst
+        │   └── ${SCHEMA}
+        │       ├── ariba.tar.gz
+        │       ├── blastdb.tar.gz
+        │       └── mlst-updated.txt
+        └── optional
+            ├── blast
+            │   ├── genes
+            │   │   └── ${NAME}.fasta
+            │   ├── primers
+            │   │   └── ${NAME}.fasta
+            │   └── proteins
+            │       └── ${NAME}.fasta
+            ├── insertion-sequences
+            │   └── ${NAME}.fasta
+            ├── mapping-sequences
+            │   └── ${NAME}.fasta
+            └── reference-genomes
+                └── ${NAME}.{gbk|fasta}
+```
+### General Datasets
+General datasets can be used for all bacterial samples. There are three general dataset folders: `ariba`, `minmer` and `plasmid`.
+
+The `ariba` folder contains pre-formatted datasets available from [Ariba's `getref` Reference Datasets](https://github.com/sanger-pathogens/ariba/wiki/Task:-getref). 
+
+The `minmer` folder contains a [RefSeq Mash Sketch](https://mash.readthedocs.io/en/latest/data.html) and [GenBank Sourmash Signatures](https://sourmash.readthedocs.io/en/latest/datasets.html?highlight=--track-abundance#genbank-lca-dataset) of more than 100,000 genomes.
+
+Finally, the `plasmid` folder contains a [PLSDB Mash Sketch & BLAST database](https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/) from a curated set of plasmids.
+
+!!! warning "Changing files in `ariba`, `minmer` and `plasmid` is not recommended"
+    These directories are for general analysis and have been precomputed. Modifying these files
+    may cause errors during analysis.
+
+### Species Specific Datasets
+Bactopia allows the datasets to be created for a specific species. The following sections outline the species specific datasets.
+
+#### annotation
+Completed RefSeq genomes are downloaded and then the proteins are clustered and formatted for usage with Prokka. The results from this clustering is stored in the `annotation` folder.  
+```
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── annotation
+            ├── cdhit-stats.txt
+            ├── genome_size.json
+            ├── ncbi-metadata.txt
+            ├── proteins.faa
+            ├── proteins.faa.clstr
+            └── proteins-updated.txt
 ```
 
-Within the `optional` folder are folders that you can added your own data up interest to. 
+| Filename | Description |
+|----------|-------------|
+| cdhit-stats.txt | General statistics associated with CD-HIT clustering |
+| genome_size.json | A list of genome size for each downloaded RefSeq genome |
+| ncbi-metadata.txt | NCBI Assembly metadata associated with the downloaded RefSeq genomes |
+| proteins.faa | Set of [Prokka formatted proteins](https://github.com/tseemann/prokka#fasta-database-format) |
+| proteins.faa.clstr | Description of the clusters created by CD-HIT |
+| proteins-updated.txt | Information on the last time the protein set was updated |
 
-#### BLAST
+!!! info "You can add your curated protein set here"
+    If you have a set of proteins you would like to use for annotation, you can name it `proteins.faa` and place it 
+    in the `annotation` folder. In order for your set of proteins to be used by Prokka, you must make sure you follow
+    the [Prokka FASTA database format](https://github.com/tseemann/prokka#fasta-database-format).
+
+    An alternative is to use the `--accessions` parameter and give `bactopia datasets` the list of RefSeq accessions when the
+    dataset is created. In doing so the custom protein set will be automatically formatted using the genomes you specified.
+
+#### minmer
+By default, a [Mash sketch](https://github.com/marbl/Mash) is created for the completed genomes downloaded for clustering proteins. These sketches are then be used for automatic selection of reference genomes for variant calling.
 ```
-datasets/species-specific/staphylococcus-aureus/
-└── optional
-    └── blast
-        ├── genes
-        ├── primers
-        └── proteins
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── minmer
+            ├── minmer-updated.txt
+            └── refseq-genomes.msh
+```
+| Filename | Description |
+|----------|-------------|
+| minmer-updated.txt | Information on the last time the mash sketch was updated |
+| refseq-genomes.msh | A Mash sketch (k=31) of the RefSeq completed genomes |
+
+
+!!! info "You can add your curated RefSeq sketch here"
+    You can replace `refseq-genomes.msh` with a custom set of RefSeq genomes to be used for automatic reference selection. 
+    The only requirements to do so are that only RefSeq genomes (start with GCF) are used and the `mash sketch` uses a k-mer
+    length of 31 (`-k 31`). This will allow it to be compatible with Bactopia.
+
+    An alternative is to use the `--accessions` parameter and give `bactopia datasets` the list of RefSeq accessions when the
+    dataset is created. In doing so the mash sketch will be automatically created.
+  
+
+#### mlst
+The `mlst` folder contains MLST schemas that have been formatted to be used by [Ariba](https://github.com/sanger-pathogens/ariba/) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi).
+```
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── mlst
+            └── ${SCHEMA}
+                ├── ariba.tar.gz
+                ├── blastdb.tar.gz
+                └── mlst-updated.txt
+
+```
+
+| Filename | Description |
+|----------|-------------|
+| ariba.tar.gz | An Ariba formatted MLST dataset for a given schema |
+| blastdb.tar.gz | A BLAST formatted MLST dataset for a given schema |
+| mlst-updated.txt | Contains time stamp for the last time the MSLT dataset was updated |
+
+!!! warning "Changing files in `mlst` is not recommended"
+    The MLST schemas have been pre-formatted for your usage. There might be rare cases where you would like to provide your own schema. If this is the case it is recommended you take a look at: [What about MLST not hosted at pubmlst.org?](https://github.com/sanger-pathogens/ariba/issues/185) then follow the directory structure for `mlst`.
+
+#### optional
+Built into the Bactopia dataset structure is the `optional` folder that you, the user, can populate for species specific analysis. These could include specific genes you might want BLASTed against your samples or a specific reference you want all your samples mapped to and variants called.
+
+##### blast
+```
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── optional
+            └── blast
+                ├── genes
+                │   └── ${NAME}.fasta
+                ├── primers
+                │   └── ${NAME}.fasta
+                └── proteins
+                    └── ${NAME}.fasta
 ```
 
 In the `blast` directory there are three more directories! 
@@ -219,29 +341,38 @@ The `primers` folder is where you can place primer sequences (nucleotides) in FA
 
 Finally, the `proteins` (as you probably guessed!) is where you can place protein sequnces (amino acids) in FASTA format to query against assemblies using `blastp`.
 
-#### Insertion Sequences
+##### insertion-sequences
 ```
-datasets/species-specific/staphylococcus-aureus/
-└── optional
-    └── insertion-sequences
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── optional
+            └── insertion-sequences
+                └── ${NAME}.fasta
 ```
 
 In the `insertion-sequences` directory you can place FASTA files of insertion seqeunces you would like searched for using [ISMapper](https://github.com/jhawkey/IS_mapper).
 
-#### Mapping
+##### mapping-sequences
 ```
-datasets/species-specific/staphylococcus-aureus/
-└── optional
-    └── mapping-sequences
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── optional
+            └── mapping-sequences
+                └── ${NAME}.fasta
 ```
 
 In the `mapping-sequences` directory you can place FASTA files of any nucleotide sequence you would like FASTQ reads to be mapped against using [BWA](https://github.com/lh3/bwa). This can be useful if you are interested if whether a certain region or gene is covered or not.
 
-#### Reference Genomes
+##### reference-genomes
 ```
-datasets/species-specific/staphylococcus-aureus/
-└── optional
-    └── reference-genomes
+${DATASET_FOLDER}
+└── species-specific
+    └── ${SPECIES}
+        └── optional
+            └── reference-genomes
+                └── ${NAME}.{gbk|fasta}
 ```
 
 In the `reference-genomes` directory you can put a GenBank (preferred!) or FASTA file of a reference genome you would like variants to be called against using [Snippy](https://github.com/tseemann/snippy).

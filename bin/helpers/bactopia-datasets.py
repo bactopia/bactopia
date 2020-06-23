@@ -158,22 +158,29 @@ def validate_species(species):
     """Query input species against ENA to determine if it exists."""
     import requests
     ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/scientific-name'
-    r = requests.get(f'{ENDPOINT}/{species}?limit=1')
-    if r.status_code == requests.codes.ok:
-        json_data = r.json()
-        if json_data[0]['scientificName'].lower() != species.lower():
-            # Error! Species/Organism found, but doesn't match input. This shouldn't
-            # (query is case-insensitive exact match) happen, but my grandma could "
-            # probably trigger it, so here it is!
-            logging.error((f'Input species ({species}) does not match return result '
-                           f'({json_data[0]["scientificName"]}), please check spelling.'))
-            sys.exit(1)
-        logging.info(f'{species} verified in ENA Taxonomy database')
+    checks = []
+    if "," in species:
+        checks = species.split(',')
     else:
-        # Error! Species/Organism not found. Check spelling?
-        # TODO: Implement"Did you mean?" function
-        logging.error(f'Input species ({species}) not found, please check spelling.')
-        sys.exit(1)
+        checks.append(species)
+    
+    for species in checks:
+        r = requests.get(f'{ENDPOINT}/{species}?limit=1')
+        if r.status_code == requests.codes.ok:
+            json_data = r.json()
+            if json_data[0]['scientificName'].lower() != species.lower():
+                # Error! Species/Organism found, but doesn't match input. This shouldn't
+                # (query is case-insensitive exact match) happen, but my grandma could "
+                # probably trigger it, so here it is!
+                logging.error((f'Input species ({species}) does not match return result '
+                            f'({json_data[0]["scientificName"]}), please check spelling.'))
+                sys.exit(1)
+            logging.info(f'{species} verified in ENA Taxonomy database')
+        else:
+            # Error! Species/Organism not found. Check spelling?
+            # TODO: Implement"Did you mean?" function
+            logging.error(f'Input species ({species}) not found, please check spelling.')
+            sys.exit(1)
 
     return True
 
@@ -296,9 +303,9 @@ def setup_mlst_request(request, available_schemas):
                 requests.append(line.rstrip())
     elif "," in request:
         for dataset in request.split(','):
-            requests.append(dataset.strip())
+            requests.append(dataset.capitalize().strip())
     else:
-        requests.append(request)
+        requests.append(request.capitalize())
 
     schemas = []
     for species in requests:
@@ -318,7 +325,7 @@ def setup_mlst_request(request, available_schemas):
 def setup_mlst(request, available_datasets, outdir, force=False):
     """Setup MLST datasets for each requested schema."""
     import re
-    requests = setup_mlst_request(request.capitalize(), available_datasets)
+    requests = setup_mlst_request(request, available_datasets)
     if requests:
         for request in requests:
             schema = request['schema']
@@ -414,7 +421,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
     import re
     import random
     from statistics import median, mean
-    requests = setup_requests(request, available_datasets, 'pubMLST.org',
+    requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins',
                               skip_check=True)
     if requests:
         for request in requests:
