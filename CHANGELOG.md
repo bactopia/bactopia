@@ -4,7 +4,12 @@
 ### `Added`
 - New Bactopia Tools
     - Added `mashtree` to create a tree using Mash distances
+    - Added `pirate` to create pangenome using PIRATE
     - `roary` can now be run on just completed genomes
+- Can limit number of completed genomes downloaded
+- Can provide list of RefSeq completed genome accessions to download
+- `bactopia search` can now use BioSample and Run accessions
+- Support for organisms with multiple MLST schemas
 
 ### `Fixed`
 - `summary` will now determine absolute path of inputs
@@ -12,6 +17,7 @@
 - went back a version on `call_variants` openjdk version
 - updated CARD citations
 - all bactopia tools now put nextflow info in the same folder as outputs
+- Typos in docs
 
 ## v1.3.1 bactopia/bactopia "Emperor Hairpin" - 2020/04/20
 ### `Added`

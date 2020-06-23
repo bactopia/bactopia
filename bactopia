@@ -88,7 +88,7 @@ if [[ $# == 0 ]]; then
 fi
 
 if [[ "$1" == "datasets" ]]; then
-    bactopia-datasets.py "${@:2}"
+    bactopia-datasets.py ${BACTOPIA_NF}/conf/pubmlst.txt "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
@@ -112,7 +112,7 @@ elif [[ "$1" == "citations" ]]; then
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 elif [[ "$1" == "versions" ]]; then
-    bactopia-versions.py --bactopia ${BACTOPIA_NF}  "${@:2}"
+    bactopia-versions.py --bactopia ${BACTOPIA_NF} "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1

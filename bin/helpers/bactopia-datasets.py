@@ -112,7 +112,7 @@ def check_cache(clear_cache=False):
     return cache_data
 
 
-def get_available_datasets(clear_cache):
+def get_available_datasets(pubmlst_file, clear_cache):
     """Get a list of available datasets to be set up."""
     data = check_cache(clear_cache=clear_cache)
     expected = ['ariba', 'pubmlst']
@@ -121,7 +121,7 @@ def get_available_datasets(clear_cache):
                        'expected fields, refreshing.'))
         data = {
             'ariba': sorted(ariba_datasets()),
-            'pubmlst': pubmlst_schemas()
+            'pubmlst': pubmlst_schemas(pubmlst_file)
         }
 
         with open(CACHE_JSON, 'w') as cache_fh:
@@ -178,58 +178,6 @@ def validate_species(species):
     return True
 
 
-def pubmlst_schemas():
-    """Use Ariba to pull available MLST schemas from pubmlst.org"""
-    schemas = {}
-    query = execute('ariba pubmlstspecies', capture=True).rstrip().split('\n')
-    for schema in query:
-        schemas[schema] = schema
-
-    # Map Mycobacterium species to 'Mycobacteria spp.'
-    mycobacterium = [
-        'Mycobacterium abscessus',
-        'Mycobacterium africanum',
-        'Mycobacterium avium',
-        'Mycobacterium bovis',
-        'Mycobacterium canettii',
-        'Mycobacterium caprae',
-        'Mycobacterium chubuense',
-        'Mycobacterium colombiense',
-        'Mycobacterium fortuitum',
-        'Mycobacterium gilvum',
-        'Mycobacterium hassiacum',
-        'Mycobacterium indicus',
-        'Mycobacterium intracellulare',
-        'Mycobacterium kansasii',
-        'Mycobacterium leprae',
-        'Mycobacterium liflandii',
-        'Mycobacterium mageritense',
-        'Mycobacterium marinum',
-        'Mycobacterium microti',
-        'Mycobacterium orygis',
-        'Mycobacterium parascrofulaceum',
-        'Mycobacterium phlei',
-        'Mycobacterium pinnipedii',
-        'Mycobacterium rhodesiae',
-        'Mycobacterium septicum',
-        'Mycobacterium simiae',
-        'Mycobacterium smegmatis',
-        'Mycobacterium sp.',
-        'Mycobacterium thermoresistibile',
-        'Mycobacterium tuberculosis',
-        'Mycobacterium tusciae',
-        'Mycobacterium ulcerans',
-        'Mycobacterium vaccae',
-        'Mycobacterium vanbaalenii',
-        'Mycobacterium xenopi',
-        'Mycobacterium yongonense'
-    ]
-    for species in mycobacterium:
-        schemas[species] = 'Mycobacteria spp.'
-
-    return schemas
-
-
 def ariba_datasets():
     """Print a list of datasets available with 'ariba getref'."""
     getref_usage = ' '.join([
@@ -240,6 +188,19 @@ def ariba_datasets():
     return datasets.split()
 
 
+def pubmlst_schemas(pubmlst_file):
+    """Read the PubMLST mappings and return a dict."""
+    pubmlst = {}
+    with open(pubmlst_file, 'rt') as pubmlst_fh:
+        for line in pubmlst_fh:
+            if line and not line.startswith('ariba'):
+                ariba, species, schema = line.rstrip().split('\t')
+                if species not in pubmlst:
+                    pubmlst[species] = {}
+                pubmlst[species][schema] = ariba
+    return pubmlst
+
+
 def list_datasets(ariba, pubmlst, missing=False):
     """Print available Ariba references, MLST schemas, and exit."""
     print_to = sys.stderr if missing else sys.stdout
@@ -247,8 +208,11 @@ def list_datasets(ariba, pubmlst, missing=False):
     print("\n".join(sorted(ariba)), file=print_to)
 
     print("\nMLST schemas available from pubMLST.org:", file=print_to)
-    print("\n".join(sorted(pubmlst.keys())), file=print_to)
-
+    for k,v in sorted(pubmlst.items()):
+        if len(v) > 1:
+            print(f'{k} ({len(v)} shemas)', file=print_to)
+        else:
+            print(f'{k}', file=print_to)
     sys.exit(1 if missing else 0)
 
 
@@ -323,33 +287,64 @@ def setup_ariba(request, available_datasets, outdir, force=False,
         logging.info("No valid Ariba datasets to setup, skipping")
 
 
+def setup_mlst_request(request, available_schemas):
+    """Return a list of mlst schemas to build."""
+    requests = []
+    if os.path.exists(request):
+        with open(request, 'r') as handle:
+            for line in handle:
+                requests.append(line.rstrip())
+    elif "," in request:
+        for dataset in request.split(','):
+            requests.append(dataset.strip())
+    else:
+        requests.append(request)
+
+    schemas = []
+    for species in requests:
+        genus = species.split()[0]
+        if species in available_schemas:
+            for schema, ariba_name in available_schemas[species].items():
+                schemas.append({'ariba': ariba_name, 'schema': schema, 'species': species})
+        elif genus in available_schemas:
+            # MLST schema is for a genus not just species
+            for schema, ariba_name in available_schemas[genus].items():
+                schemas.append({'ariba': ariba_name, 'schema': schema, 'species': species})
+        else:
+            logging.error(f'{species} is not available from pubMLST.org, skipping')
+
+    return schemas
+
 def setup_mlst(request, available_datasets, outdir, force=False):
     """Setup MLST datasets for each requested schema."""
     import re
-    requests = setup_requests(request.capitalize(), available_datasets, 'pubMLST.org')
-    bad_chars = [' ', '#', '/', '(', ')']
+    requests = setup_mlst_request(request.capitalize(), available_datasets)
     if requests:
         for request in requests:
-            species = re.sub(r'[ /()]', "-", request.lower())
+            schema = request['schema']
+            species = request['species']
+
+            species = re.sub(r'[ /()]', "-", species.lower())
             species = species.replace('--', '-').strip('-')
-            mlst_dir = f'{outdir}/{species}/mlst'
+            mlst_dir = f'{outdir}/{species}/mlst/{schema}'
             if os.path.exists(f'{mlst_dir}/mlst-updated.txt'):
                 if force:
-                    logging.info(f'--force, removing existing {request} setup')
+                    logging.info(f'--force, removing existing {request["species"]} setup')
                     execute(f'rm -rf {mlst_dir}')
                 else:
-                    logging.info((f'{request} MLST Schema ({mlst_dir}) exists'
+                    logging.info((f'{request["species"]}MLST Schema ({mlst_dir}) exists'
                                   ', skipping'))
                     continue
             elif force:
-                logging.info(f'--force, removing existing {request} setup')
+                logging.info(f'--force, removing existing {request["species"]}setup')
                 execute(f'rm -rf {mlst_dir}')
+
             # Setup MLST dataset
-            logging.info(f'Setting up MLST for {request}')
+            logging.info(f'Setting up {schema} MLST schema for {request["species"]}')
             execute(f'mkdir -p {mlst_dir}')
 
             # Ariba
-            species_request = available_datasets[request]
+            species_request = request['ariba']
             logging.info(f'Creating Ariba MLST dataset')
             ariba_dir = f'{mlst_dir}/ariba'
             execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
@@ -367,15 +362,6 @@ def setup_mlst(request, available_datasets, outdir, force=False):
             execute(f'rm -rf {ariba_dir}')
             execute(f'tar -zcvf blastdb.tar.gz blastdb/', directory=mlst_dir)
             execute(f'rm -rf {blast_dir}')
-
-            # MentaLiST
-            """
-            logging.info(f'Creating MentaLiST MLST dataset')
-            mentalist_dir = f'{mlst_dir}/mentalist'
-            execute(f'mkdir -p {mentalist_dir}')
-            execute((f'mentalist download_pubmlst -o mlst -k 31 -s "{request}"'
-                     ' --db mlst.db'), directory=mentalist_dir)
-            """
 
             # Finish up
             execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > mlst-updated.txt',
@@ -832,6 +818,11 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        'pubmlst', metavar="PUBMLST", type=str,
+        help='Bactopia config file with PubMLST schema mappings for Ariba.'
+    )
+
+    parser.add_argument(
         'outdir', metavar="OUTPUT_DIRECTORY", type=str,
         help='Directory to write output.'
     )
@@ -928,6 +919,7 @@ if __name__ == '__main__':
         help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
+
     group6.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
 
@@ -938,6 +930,7 @@ if __name__ == '__main__':
                         help='Print debug related text.')
     group7.add_argument('--silent', action='store_true',
                         help='Only critical errors will be printed.')
+
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -958,7 +951,7 @@ if __name__ == '__main__':
     if args.species:
         validate_species(args.species)
 
-    ARIBA, PUBMLST = get_available_datasets(args.clear_cache)
+    ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.list_datasets:
         list_datasets(ARIBA, PUBMLST)
 

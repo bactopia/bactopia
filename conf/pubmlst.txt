@@ -1,0 +1,759 @@
+ariba	pubmlst_species	schema
+Achromobacter spp.	Achromobacter xylosoxidans	default
+Achromobacter spp.	Achromobacter ruhlandii	default
+Achromobacter spp.	Achromobacter insuavis	default
+Achromobacter spp.	Achromobacter dolens	default
+Achromobacter spp.	Achromobacter aegrifaciens	default
+Achromobacter spp.	Achromobacter mucicolens	default
+Achromobacter spp.	Achromobacter insolitus	default
+Achromobacter spp.	Achromobacter spanius	default
+Achromobacter spp.	Achromobacter piechaudii	default
+Achromobacter spp.	Achromobacter denitrificans	default
+Achromobacter spp.	Achromobacter marplatensis	default
+Achromobacter spp.	Achromobacter pulmonis	default
+Achromobacter spp.	Achromobacter deleyi	default
+Achromobacter spp.	Achromobacter animicus	default
+Achromobacter spp.	Achromobacter kerstersii	default
+Achromobacter spp.	Achromobacter anxifer	default
+Achromobacter spp.	Achromobacter veterisilvae	default
+Achromobacter spp.	Achromobacter agilis	default
+Achromobacter spp.	Achromobacter pestifer	default
+Achromobacter spp.	Achromobacter	default
+Acinetobacter baumannii#1	Acinetobacter baumannii	oxford
+Acinetobacter baumannii#2	Acinetobacter baumannii	pasteur
+Aeromonas spp.	Aeromonas veronii	default
+Aeromonas spp.	Aeromonas hydrophila	default
+Aeromonas spp.	Aeromonas aquariorum	default
+Aeromonas spp.	Aeromonas caviae	default
+Aeromonas spp.	Aeromonas sobria	default
+Aeromonas spp.	Aeromonas jandaei	default
+Aeromonas spp.	Aeromonas salmonicida	default
+Aeromonas spp.	Aeromonas allosaccharophila	default
+Aeromonas spp.	Aeromonas trota	default
+Aeromonas spp.	Aeromonas	default
+Aeromonas spp.	Aeromonas media	default
+Aeromonas spp.	Aeromonas enteropelogenes	default
+Aeromonas spp.	Aeromonas bestiarum	default
+Aeromonas spp.	Aeromonas schubertii	default
+Aeromonas spp.	Aeromonas tecta	default
+Aeromonas spp.	Aeromonas eucrenophila	default
+Aeromonas spp.	Aeromonas encheleia	default
+Aeromonas spp.	Aeromonas popoffii	default
+Aeromonas spp.	Aeromonas molluscorum	default
+Anaplasma phagocytophilum	Anaplasma phagocytophilum	default
+Arcobacter spp.	Arcobacter butzleri	default
+Arcobacter spp.	Arcobacter cryaerophilus	default
+Arcobacter spp.	Arcobacter skirrowii	default
+Arcobacter spp.	Arcobacter cibarius	default
+Arcobacter spp.	Arcobacter thereius	default
+Aspergillus fumigatus	Aspergillus fumigatus	default
+Bacillus cereus	Bacillus cereus	default
+Bacillus licheniformis	Bacillus licheniformis	default
+Bacillus subtilis	Bacillus subtilis	default
+Bartonella bacilliformis	Bartonella bacilliformis	default
+Bartonella henselae	Bartonella henselae	default
+Bartonella washoensis	Bartonella washoensis	default
+Bordetella spp.	Bordetella pertussis	default
+Bordetella spp.	Bordetella bronchiseptica	default
+Bordetella spp.	Bordetella holmesii	default
+Bordetella spp.	Bordetella parapertussis	default
+Bordetella spp.	Bordetella hinzii	default
+Bordetella spp.	Bordetella bronchialis	default
+Bordetella spp.	Bordetella trematum	default
+Bordetella spp.	Bordetella pseudohinzii	default
+Bordetella spp.	Bordetella avium	default
+Bordetella spp.	Bordetella petrii	default
+Bordetella spp.	Bordetella	default
+Bordetella spp.	Bordetella ansorpii	default
+Bordetella spp.	Bordetella tumulicola	default
+Bordetella spp.	Bordetella sputigena	default
+Bordetella spp.	Bordetella flabilis	default
+Bordetella spp.	Bordetella tumbae	default
+Bordetella spp.	Bordetella muralis	default
+Borrelia spp.	Borrelia burgdorferi	default
+Borrelia spp.	Borrelia afzelii	default
+Borrelia spp.	Borrelia garinii	default
+Borrelia spp.	Borrelia bavariensis	default
+Borrelia spp.	Borrelia valaisiana	default
+Borrelia spp.	Borrelia lusitaniae	default
+Borrelia spp.	Borrelia turcica	default
+Borrelia spp.	Borrelia miyamotoi	default
+Borrelia spp.	Borrelia yangtzensis	default
+Borrelia spp.	Borrelia bissettiae	default
+Borrelia spp.	Borrelia turdi	default
+Borrelia spp.	Borrelia mayonii	default
+Borrelia spp.	Borrelia lanei	default
+Borrelia spp.	Borrelia	default
+Borrelia spp.	Borrelia recurrentis	default
+Borrelia spp.	Borrelia kurtenbachii	default
+Borrelia spp.	Borrelia carolinensis	default
+Borrelia spp.	Borrelia japonica	default
+Borrelia spp.	Borrelia americana	default
+Borrelia spp.	Borrelia spielmanii	default
+Borrelia spp.	Borrelia persica	default
+Borrelia spp.	Borrelia hispanica	default
+Borrelia spp.	Borrelia californiensis	default
+Borrelia spp.	Borrelia chilensis	default
+Borrelia spp.	Borrelia anserina	default
+Borrelia spp.	Borrelia hermsii	default
+Borrelia spp.	Borrelia sinica	default
+Borrelia spp.	Borrelia parkeri	default
+Borrelia spp.	Borrelia duttonii	default
+Borrelia spp.	Borrelia coriaceae	default
+Borrelia spp.	Borrelia turicatae	default
+Borrelia spp.	Borrelia crocidurae	default
+Borrelia spp.	Borrelia andersonii	default
+Borrelia spp.	Borrelia tanukii	default
+Brachyspira hampsonii	Brachyspira hampsonii	hampsonii
+Brachyspira hyodysenteriae	Brachyspira hyodysenteriae	hyodysenteriae
+Brachyspira intermedia	Brachyspira intermedia	intermedia
+Brachyspira pilosicoli	Brachyspira pilosicoli	pilosicoli
+Brachyspira spp.	Brachyspira hampsonii	default
+Brachyspira spp.	Brachyspira hyodysenteriae	default
+Brachyspira spp.	Brachyspira intermedia	default
+Brachyspira spp.	Brachyspira pilosicoli	default
+Brucella spp.	Brucella spp.	default
+Brucella spp.	Brucella abortus	default
+Brucella spp.	Brucella ceti	default
+Brucella spp.	Brucella suis	default
+Brucella spp.	Brucella pinnipedialis	default
+Brucella spp.	Brucella	default
+Brucella spp.	Brucella canis	default
+Brucella spp.	Brucella ovis	default
+Brucella spp.	Brucella microti	default
+Brucella spp.	Brucella neotomae	default
+Brucella spp.	Brucella papionis	default
+Brucella spp.	Brucella vulpis	default
+Brucella spp.	Brucella inopinata	default
+Burkholderia cepacia complex	Burkholderia cenocepacia	default
+Burkholderia cepacia complex	Burkholderia multivorans	default
+Burkholderia cepacia complex	Burkholderia ubonensis	default
+Burkholderia cepacia complex	Burkholderia cepacia	default
+Burkholderia cepacia complex	Burkholderia vietnamiensis	default
+Burkholderia cepacia complex	Burkholderia ambifaria	default
+Burkholderia cepacia complex	Burkholderia gladioli	default
+Burkholderia cepacia complex	Burkholderia contaminans	default
+Burkholderia cepacia complex	Burkholderia lata	default
+Burkholderia cepacia complex	Burkholderia stabilis	default
+Burkholderia cepacia complex	Burkholderia stagnalis	default
+Burkholderia cepacia complex	Burkholderia seminalis	default
+Burkholderia cepacia complex	Burkholderia arboris	default
+Burkholderia cepacia complex	Burkholderia dolosa	default
+Burkholderia cepacia complex	Burkholderia pyrrocinia	default
+Burkholderia cepacia complex	Burkholderia diffusa	default
+Burkholderia cepacia complex	Burkholderia anthina	default
+Burkholderia cepacia complex	Burkholderia pseudomultivorans	default
+Burkholderia cepacia complex	Paraburkholderia caledonica	default
+Burkholderia cepacia complex	Burkholderia latens	default
+Burkholderia cepacia complex	Burkholderia metallica	default
+Burkholderia cepacia complex	Paraburkholderia fungorum	default
+Burkholderia cepacia complex	Burkholderia plantarii	default
+Burkholderia cepacia complex	Burkholderia territorii	default
+Burkholderia cepacia complex	Paraburkholderia aspalathi	default
+Burkholderia cepacia complex	Burkholderia glumae	default
+Burkholderia cepacia complex	Burkholderia singularis	default
+Burkholderia cepacia complex	Caballeronia zhejiangensis	default
+Burkholderia cepacia complex	Caballeronia choica	default
+Burkholderia cepacia complex	Burkholderia thailandensis	default
+Burkholderia cepacia complex	Paraburkholderia terricola	default
+Burkholderia cepacia complex	Caballeronia cordobensis	default
+Burkholderia cepacia complex	Caballeronia glathei	default
+Burkholderia cepacia complex	Paraburkholderia tropica	default
+Burkholderia cepacia complex	Paraburkholderia phenoliruptrix	default
+Burkholderia cepacia complex	Burkholderia paludis	default
+Burkholderia cepacia complex	Caballeronia concitans	default
+Burkholderia cepacia complex	Burkholderia catarinensis	default
+Burkholderia cepacia complex	Paraburkholderia graminis	default
+Burkholderia cepacia complex	Paraburkholderia phymatum	default
+Burkholderia cepacia complex	Paraburkholderia tuberum	default
+Burkholderia cepacia complex	Paraburkholderia caribensis	default
+Burkholderia cepacia complex	Caballeronia humi	default
+Burkholderia cepacia complex	Caballeronia temeraria	default
+Burkholderia cepacia complex	Paraburkholderia kururensis	default
+Burkholderia cepacia complex	Burkholderia oklahomensis	default
+Burkholderia cepacia complex	Paraburkholderia hospita	default
+Burkholderia cepacia complex	Burkholderia humptydooensis	default
+Burkholderia cepacia complex	Paraburkholderia sacchari	default
+Burkholderia cepacia complex	Burkholderia puraquae	default
+Burkholderia cepacia complex	Caballeronia turbans	default
+Burkholderia cepacia complex	Paraburkholderia mimosarum	default
+Burkholderia cepacia complex	Caballeronia jiangsuensis	default
+Burkholderia cepacia complex	Paraburkholderia ribeironis	default
+Burkholderia cepacia complex	Caballeronia ptereochthonis	default
+Burkholderia cepacia complex	Caballeronia pedi	default
+Burkholderia cepacia complex	Caballeronia terrestris	default
+Burkholderia cepacia complex	Caballeronia megalochromosomata	default
+Burkholderia cepacia complex	Paraburkholderia susongensis	default
+Burkholderia cepacia complex	Caballeronia udeis	default
+Burkholderia cepacia complex	Paraburkholderia phytofirmans	default
+Burkholderia cepacia complex	Caballeronia peredens	default
+Burkholderia cepacia complex	Caballeronia catudaia	default
+Burkholderia cepacia complex	Paraburkholderia fynbosensis	default
+Burkholderia cepacia complex	Paraburkholderia rhynchosiae	default
+Burkholderia cepacia complex	Caballeronia mineralivorans	default
+Burkholderia cepacia complex	Paraburkholderia humisilvae	default
+Burkholderia cepacia complex	Paraburkholderia caffeinilytica	default
+Burkholderia cepacia complex	Caballeronia grimmiae	default
+Burkholderia cepacia complex	Paraburkholderia sediminicola	default
+Burkholderia cepacia complex	Caballeronia novacaledonica	default
+Burkholderia cepacia complex	Caballeronia fortuita	default
+Burkholderia cepacia complex	Paraburkholderia bryophila	default
+Burkholderia cepacia complex	Caballeronia hypogeia	default
+Burkholderia cepacia complex	Caballeronia arvi	default
+Burkholderia cepacia complex	Trinickia soli	default
+Burkholderia cepacia complex	Burkholderia mallei	default
+Burkholderia cepacia complex	Caballeronia telluris	default
+Burkholderia cepacia complex	Paraburkholderia acidophila	default
+Burkholderia cepacia complex	Trinickia caryophylli	default
+Burkholderia cepacia complex	Burkholderia pseudomallei	default
+Burkholderia cepacia complex	Paraburkholderia caffeinitolerans	default
+Burkholderia cepacia complex	Caballeronia calidae	default
+Burkholderia cepacia complex	Paraburkholderia ultramafica	default
+Burkholderia cepacia complex	Caballeronia arationis	default
+Burkholderia cepacia complex	Pararobbsia alpina	default
+Burkholderia cepacia complex	Caballeronia glebae	default
+Burkholderia cepacia complex	Burkholderia rinojensis	default
+Burkholderia cepacia complex	Paraburkholderia solisilvae	default
+Burkholderia cepacia complex	Caballeronia sordidicola	default
+Burkholderia cepacia complex	Paraburkholderia piptadeniae	default
+Burkholderia cepacia complex	Caballeronia insecticola	default
+Burkholderia pseudomallei	Burkholderia pseudomallei	default
+Campylobacter concisus/curvus	Campylobacter concisus	default
+Campylobacter concisus/curvus	Campylobacter curvus	default
+Campylobacter fetus	Campylobacter fetus	default
+Campylobacter helveticus	Campylobacter helveticus	default
+Campylobacter hyointestinalis	Campylobacter hyointestinalis	default
+Campylobacter insulaenigrae	Campylobacter insulaenigrae	default
+Campylobacter jejuni	Campylobacter jejuni	default
+Campylobacter lanienae	Campylobacter lanienae	default
+Campylobacter lari	Campylobacter lari	default
+Campylobacter sputorum	Campylobacter sputorum	default
+Campylobacter upsaliensis	Campylobacter upsaliensis	default
+Candida albicans	Candida albicans	default
+Candida glabrata	Candida glabrata	default
+Candida krusei	Candida krusei	default
+Candida tropicalis	Candida tropicalis	default
+Candidatus Liberibacter solanacearum	Candidatus Liberibacter solanacearum	default
+Carnobacterium maltaromaticum	Carnobacterium maltaromaticum	default
+Chlamydiales spp.	Chlamydia trachomatis	default
+Chlamydiales spp.	Chlamydia pecorum	default
+Chlamydiales spp.	Chlamydia psittaci	default
+Chlamydiales spp.	Chlamydia abortus	default
+Chlamydiales spp.	Chlamydia suis	default
+Chlamydiales spp.	Chlamydia gallinacea	default
+Chlamydiales spp.	Chlamydia pneumoniae	default
+Chlamydiales spp.	Chlamydia avium	default
+Chlamydiales spp.	Chlamydia muridarum	default
+Chlamydiales spp.	Chlamydia ibidis	default
+Chlamydiales spp.	Candidatus Chlamydia corallus	default
+Chlamydiales spp.	Candidatus Chlamydia sanzinia	default
+Chlamydiales spp.	Waddlia chrondophila	default
+Chlamydiales spp.	Chlamydia caviae	default
+Chlamydiales spp.	Chlamydia serpentis	default
+Chlamydiales spp.	Chlamydia buteonis	default
+Chlamydiales spp.	Simkania negevensis	default
+Chlamydiales spp.	Chlamydia felis	default
+Chlamydiales spp.	Parachlamydia acanthamoebae	default
+Chlamydiales spp.	Chlamydia poikilothermis	default
+Chlamydiales spp.	Chlamydia	default
+Citrobacter freundii	Citrobacter freundii	default
+Clonorchis sinensis	Clonorchis sinensis	default
+Clostridioides difficile	Clostridioides difficile	default
+Clostridium botulinum	Clostridium botulinum	default
+Clostridium septicum	Clostridium septicum	default
+Corynebacterium diphtheriae	Corynebacterium diphtheriae	default
+Cronobacter spp.	Cronobacter sakazakii	default
+Cronobacter spp.	Cronobacter malonaticus	default
+Cronobacter spp.	Cronobacter dublinensis	default
+Cronobacter spp.	Cronobacter turicensis	default
+Cronobacter spp.	Cronobacter muytjensii	default
+Cronobacter spp.	Cronobacter universalis	default
+Cronobacter spp.	Cronobacter condimenti	default
+Cronobacter spp.	Cronobacter	default
+Dichelobacter nodosus	Dichelobacter nodosus	default
+Edwardsiella spp.	Edwardsiella piscicida	default
+Edwardsiella spp.	Edwardsiella ictaluri	default
+Edwardsiella spp.	Edwardsiella tarda	default
+Edwardsiella spp.	Edwardsiella anguillarum	default
+Edwardsiella spp.	Edwardsiella hoshinae	default
+Edwardsiella spp.	Edwardsiella	default
+Enterobacter cloacae	Enterobacter cloacae	default
+Enterococcus faecalis	Enterococcus faecalis	default
+Enterococcus faecium	Enterococcus faecium	default
+Escherichia coli#1	Escherichia coli	achtman
+Escherichia coli#2	Escherichia coli	pasteur
+Flavobacterium psychrophilum	Flavobacterium psychrophilum	default
+Gallibacterium anatis	Gallibacterium anatis	default
+Haemophilus influenzae	Haemophilus influenzae	default
+Haemophilus parasuis	Haemophilus parasuis	default
+Helicobacter cinaedi	Helicobacter cinaedi	default
+Helicobacter pylori	Helicobacter pylori	default
+Helicobacter suis	Helicobacter suis	default
+Kingella kingae	Kingella kingae	default
+Klebsiella aerogenes	Klebsiella aerogenes	default
+Klebsiella oxytoca	Klebsiella oxytoca	default
+Klebsiella pneumoniae	Klebsiella pneumoniae	default
+Kudoa septempunctata	Kudoa septempunctata	default
+Lactobacillus salivarius	Lactobacillus salivarius	default
+Leptospira spp.	Leptospira interrogans	scheme_1
+Leptospira spp.	Leptospira borgpetersenii	scheme_1
+Leptospira spp.	Leptospira santarosai	scheme_1
+Leptospira spp.	Leptospira kirschneri	scheme_1
+Leptospira spp.	Leptospira	scheme_1
+Leptospira spp.	Leptospira noguchii	scheme_1
+Leptospira spp.	Leptospira weilii	scheme_1
+Leptospira spp.	Leptospira alexanderi	scheme_1
+Leptospira spp.	Leptospira alstonii	scheme_1
+Leptospira spp.	Leptospira licerasiae	scheme_1
+Leptospira spp.	Leptospira inadai	scheme_1
+Leptospira spp.	Leptospira mayottensis	scheme_1
+Leptospira spp.	Leptospira meyeri	scheme_1
+Leptospira spp.	Leptospira kmetyi	scheme_1
+Leptospira spp.	Leptospira vanthielii	scheme_1
+Leptospira spp.	Leptospira biflexa	scheme_1
+Leptospira spp.	Leptospira wolbachii	scheme_1
+Leptospira spp.	Leptospira wolffii	scheme_1
+Leptospira spp.	Leptospira yanagawae	scheme_1
+Leptospira spp.	Leptospira fainei	scheme_1
+Leptospira spp.	Leptospira broomii	scheme_1
+Leptospira spp.	Leptospira terpstrae	scheme_1
+Leptospira spp.	Leptospira idonii	scheme_1
+Leptospira spp.#2	Leptospira interrogans	scheme_2
+Leptospira spp.#2	Leptospira borgpetersenii	scheme_2
+Leptospira spp.#2	Leptospira santarosai	scheme_2
+Leptospira spp.#2	Leptospira kirschneri	scheme_2
+Leptospira spp.#2	Leptospira	scheme_2
+Leptospira spp.#2	Leptospira noguchii	scheme_2
+Leptospira spp.#2	Leptospira weilii	scheme_2
+Leptospira spp.#2	Leptospira alexanderi	scheme_2
+Leptospira spp.#2	Leptospira alstonii	scheme_2
+Leptospira spp.#2	Leptospira licerasiae	scheme_2
+Leptospira spp.#2	Leptospira inadai	scheme_2
+Leptospira spp.#2	Leptospira mayottensis	scheme_2
+Leptospira spp.#2	Leptospira meyeri	scheme_2
+Leptospira spp.#2	Leptospira kmetyi	scheme_2
+Leptospira spp.#2	Leptospira vanthielii	scheme_2
+Leptospira spp.#2	Leptospira biflexa	scheme_2
+Leptospira spp.#2	Leptospira wolbachii	scheme_2
+Leptospira spp.#2	Leptospira wolffii	scheme_2
+Leptospira spp.#2	Leptospira yanagawae	scheme_2
+Leptospira spp.#2	Leptospira fainei	scheme_2
+Leptospira spp.#2	Leptospira broomii	scheme_2
+Leptospira spp.#2	Leptospira terpstrae	scheme_2
+Leptospira spp.#2	Leptospira idonii	scheme_2
+Leptospira spp.#3	Leptospira interrogans	scheme_3
+Leptospira spp.#3	Leptospira borgpetersenii	scheme_3
+Leptospira spp.#3	Leptospira santarosai	scheme_3
+Leptospira spp.#3	Leptospira kirschneri	scheme_3
+Leptospira spp.#3	Leptospira	scheme_3
+Leptospira spp.#3	Leptospira noguchii	scheme_3
+Leptospira spp.#3	Leptospira weilii	scheme_3
+Leptospira spp.#3	Leptospira alexanderi	scheme_3
+Leptospira spp.#3	Leptospira alstonii	scheme_3
+Leptospira spp.#3	Leptospira licerasiae	scheme_3
+Leptospira spp.#3	Leptospira inadai	scheme_3
+Leptospira spp.#3	Leptospira mayottensis	scheme_3
+Leptospira spp.#3	Leptospira meyeri	scheme_3
+Leptospira spp.#3	Leptospira kmetyi	scheme_3
+Leptospira spp.#3	Leptospira vanthielii	scheme_3
+Leptospira spp.#3	Leptospira biflexa	scheme_3
+Leptospira spp.#3	Leptospira wolbachii	scheme_3
+Leptospira spp.#3	Leptospira wolffii	scheme_3
+Leptospira spp.#3	Leptospira yanagawae	scheme_3
+Leptospira spp.#3	Leptospira fainei	scheme_3
+Leptospira spp.#3	Leptospira broomii	scheme_3
+Leptospira spp.#3	Leptospira terpstrae	scheme_3
+Leptospira spp.#3	Leptospira idonii	scheme_3
+Listeria monocytogenes	Listeria monocytogenes	default
+Macrococcus canis	Macrococcus canis	default
+Macrococcus caseolyticus	Macrococcus caseolyticus	default
+Mannheimia haemolytica	Mannheimia haemolytica	default
+Melissococcus plutonius	Melissococcus plutonius	default
+Moraxella catarrhalis	Moraxella catarrhalis	default
+Mycobacteria spp.	Mycobacterium tuberculosis	default
+Mycobacteria spp.	Mycobacterium bovis	default
+Mycobacteria spp.	Mycobacterium abscessus	default
+Mycobacteria spp.	Mycobacterium ulcerans	default
+Mycobacteria spp.	Mycobacterium avium	default
+Mycobacteria spp.	Mycobacterium caprae	default
+Mycobacteria spp.	Mycobacterium smegmatis	default
+Mycobacteria spp.	Mycobacterium africanum	default
+Mycobacteria spp.	Mycobacterium canettii	default
+Mycobacteria spp.	Mycobacterium sp.	default
+Mycobacteria spp.	Mycobacterium orygis	default
+Mycobacteria spp.	Mycobacterium microti	default
+Mycobacteria spp.	Mycobacterium leprae	default
+Mycobacteria spp.	Mycobacterium intracellulare	default
+Mycobacteria spp.	Mycobacterium kansasii	default
+Mycobacteria spp.	Mycobacterium marinum	default
+Mycobacteria spp.	Mycobacterium pinnipedii	default
+Mycobacteria spp.	Mycobacterium xenopi	default
+Mycobacteria spp.	Mycobacterium rhodesiae	default
+Mycobacteria spp.	Mycobacterium gilvum	default
+Mycobacteria spp.	Mycobacterium yongonense	default
+Mycobacteria spp.	Mycobacterium phlei	default
+Mycobacteria spp.	Mycobacterium vaccae	default
+Mycobacteria spp.	Mycobacterium chubuense	default
+Mycobacteria spp.	Mycobacterium tusciae	default
+Mycobacteria spp.	Mycobacterium vanbaalenii	default
+Mycobacteria spp.	Mycobacterium thermoresistibile	default
+Mycobacteria spp.	Mycobacterium fortuitum	default
+Mycobacteria spp.	Mycobacterium parascrofulaceum	default
+Mycobacteria spp.	Mycobacterium colombiense	default
+Mycobacteria spp.	Mycobacterium hassiacum	default
+Mycobacteria spp.	Mycobacterium simiae	default
+Mycobacteria spp.	Mycobacterium mageritense	default
+Mycobacteria spp.	Mycobacterium septicum	default
+Mycobacteria spp.	Mycobacterium indicus	default
+Mycobacteria spp.	Mycobacterium	default
+Mycobacteria spp.	Mycobacterium liflandii	default
+Mycobacterium abscessus	Mycobacterium abscessus	abscessus
+Mycobacterium massiliense	Mycobacterium massiliense	massiliense
+Mycoplasma agalactiae	Mycoplasma agalactiae	default
+Mycoplasma bovis	Mycoplasma bovis	default
+Mycoplasma flocculare	Mycoplasma flocculare	default
+Mycoplasma gallisepticum#1	Mycoplasma gallisepticum	ghanem
+Mycoplasma gallisepticum#2	Mycoplasma gallisepticum	beko
+Mycoplasma hominis	Mycoplasma hominis	default
+Mycoplasma hyopneumoniae	Mycoplasma hyopneumoniae	default
+Mycoplasma hyorhinis	Mycoplasma hyorhinis	default
+Mycoplasma iowae	Mycoplasma iowae	default
+Mycoplasma pneumoniae	Mycoplasma pneumoniae	default
+Mycoplasma synoviae	Mycoplasma synoviae	default
+Neisseria spp.	Neisseria meningitidis	default
+Neisseria spp.	Neisseria gonorrhoeae	default
+Neisseria spp.	Neisseria lactamica	default
+Neisseria spp.	Neisseria	default
+Neisseria spp.	Neisseria subflava	default
+Neisseria spp.	Neisseria polysaccharea	default
+Neisseria spp.	Neisseria cinerea	default
+Neisseria spp.	Neisseria mucosa	default
+Neisseria spp.	Neisseria oralis	default
+Neisseria spp.	Neisseria musculi	default
+Neisseria spp.	Neisseria bergeri	default
+Neisseria spp.	Neisseria bacilliformis	default
+Neisseria spp.	Neisseria flavescens	default
+Neisseria spp.	Neisseria perflava	default
+Neisseria spp.	Neisseria zoodegmatis	default
+Neisseria spp.	Neisseria elongata	default
+Neisseria spp.	Neisseria sicca	default
+Neisseria spp.	Neisseria canis	default
+Neisseria spp.	Neisseria iguanae	default
+Neisseria spp.	Neisseria macacae	default
+Neisseria spp.	Neisseria elongata	default
+Neisseria spp.	Neisseria animaloris	default
+Neisseria spp.	Neisseria wadsworthii	default
+Neisseria spp.	Neisseria weaveri	default
+Neisseria spp.	Neisseria shayeganii	default
+Neisseria spp.	Neisseria animalis	default
+Neisseria spp.	Neisseria dentiae	default
+Orientia tsutsugamushi	Orientia tsutsugamushi	default
+Ornithobacterium rhinotracheale	Ornithobacterium rhinotracheale	default
+Paenibacillus larvae	Paenibacillus larvae	default
+Pasteurella multocida#1	Pasteurella multocida	rirdc
+Pasteurella multocida#2	Pasteurella multocida	multihost
+Pediococcus pentosaceus	Pediococcus pentosaceus	default
+Photobacterium damselae	Photobacterium damselae	default
+Piscirickettsia salmonis	Piscirickettsia salmonis	default
+Porphyromonas gingivalis	Porphyromonas gingivalis	default
+Propionibacterium acnes	Propionibacterium acnes	default
+Pseudomonas aeruginosa	Pseudomonas aeruginosa	default
+Pseudomonas fluorescens	Pseudomonas fluorescens	default
+Pseudomonas putida	Pseudomonas putida	default
+Rhodococcus spp.	Rhodococcus	default
+Rhodococcus spp.	Rhodococcus equi	default
+Riemerella anatipestifer	Riemerella anatipestifer	default
+Salmonella enterica	Salmonella enterica	default
+Saprolegnia parasitica	Saprolegnia parasitica	default
+Sinorhizobium spp.	Sinorhizobium meliloti	default
+Sinorhizobium spp.	Sinorhizobium medicae	default
+Sinorhizobium spp.	Sinorhizobium	default
+Staphylococcus aureus	Staphylococcus aureus	default
+Staphylococcus epidermidis	Staphylococcus epidermidis	default
+Staphylococcus haemolyticus	Staphylococcus haemolyticus	default
+Staphylococcus hominis	Staphylococcus hominis	default
+Staphylococcus lugdunensis	Staphylococcus lugdunensis	default
+Staphylococcus pseudintermedius	Staphylococcus pseudintermedius	default
+Stenotrophomonas maltophilia	Stenotrophomonas maltophilia	default
+Streptococcus agalactiae	Streptococcus agalactiae	default
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus infantarius	sbsec
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus equinus	sbsec
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus gallolyticus	sbsec
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus lutetiensis	sbsec
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus alactolyticus	sbsec
+Streptococcus bovis/equinus complex (SBSEC)	Streptococcus bovis	sbsec
+Streptococcus canis	Streptococcus canis	default
+Streptococcus dysgalactiae equisimilis	Streptococcus dysgalactiae equisimilis	default
+Streptococcus gallolyticus	Streptococcus gallolyticus	default
+Streptococcus oralis	Streptococcus oralis	default
+Streptococcus pneumoniae	Streptococcus pneumoniae	default
+Streptococcus pyogenes	Streptococcus pyogenes	default
+Streptococcus suis	Streptococcus suis	default
+Streptococcus thermophilus	Streptococcus thermophilus	pasteur
+Streptococcus thermophilus#2	Streptococcus thermophilus	pubmlst
+Streptococcus uberis	Streptococcus uberis	default
+Streptococcus zooepidemicus	Streptococcus zooepidemicus	default
+Streptomyces spp	Streptomyces abikoensis	default
+Streptomyces spp	Streptomyces achromogenes	default
+Streptomyces spp	Streptomyces acrimycini	default
+Streptomyces spp	Streptomyces afghaniensis	default
+Streptomyces spp	Streptomyces albidoflavus	default
+Streptomyces spp	Streptomyces albofaciens	default
+Streptomyces spp	Streptomyces alboflavus	default
+Streptomyces spp	Streptomyces albospinus	default
+Streptomyces spp	Streptomyces albovinaceus	default
+Streptomyces spp	Streptomyces alboviridis	default
+Streptomyces spp	Streptomyces albulus	default
+Streptomyces spp	Streptomyces albus	default
+Streptomyces spp	Streptomyces angustmyceticus	default
+Streptomyces spp	Streptomyces antimycoticus	default
+Streptomyces spp	Streptomyces anulatus	default
+Streptomyces spp	Streptomyces argenteolus	default
+Streptomyces spp	Streptomyces asiaticus	default
+Streptomyces spp	Streptomyces atratus	default
+Streptomyces spp	Streptomyces atroolivaceus	default
+Streptomyces spp	Streptomyces aureocirculatus	default
+Streptomyces spp	Streptomyces aureofaciens	default
+Streptomyces spp	Streptomyces aureoversilis	default
+Streptomyces spp	Streptomyces aureus	default
+Streptomyces spp	Streptomyces avellaneus	default
+Streptomyces spp	Streptomyces avermitilis	default
+Streptomyces spp	Streptomyces baarnensis	default
+Streptomyces spp	Streptomyces bacillaris	default
+Streptomyces spp	Streptomyces badius	default
+Streptomyces spp	Streptomyces bikiniensis	default
+Streptomyces spp	Streptomyces bobili	default
+Streptomyces spp	Streptomyces bottropensis	default
+Streptomyces spp	Streptomyces caeruleus	default
+Streptomyces spp	Streptomyces californicus	default
+Streptomyces spp	Streptomyces cangkringensis	default
+Streptomyces spp	Streptomyces caniferus	default
+Streptomyces spp	Streptomyces catenulae	default
+Streptomyces spp	Streptomyces caviscabies	default
+Streptomyces spp	Streptomyces cavourensis	default
+Streptomyces spp	Streptomyces celluloflavus	default
+Streptomyces spp	Streptomyces chattanoogensis	default
+Streptomyces spp	Streptomyces chlorus	default
+Streptomyces spp	Streptomyces chrestomyceticus	default
+Streptomyces spp	Streptomyces cinereorectus	default
+Streptomyces spp	Streptomyces cinnabarinus	default
+Streptomyces spp	Streptomyces cinnamoneus	default
+Streptomyces spp	Streptomyces cirratus	default
+Streptomyces spp	Streptomyces clavifer	default
+Streptomyces spp	Streptomyces clavuligerus	default
+Streptomyces spp	Streptomyces coelicolor	default
+Streptomyces spp	Streptomyces coerulescens	default
+Streptomyces spp	Streptomyces cremeus	default
+Streptomyces spp	Streptomyces cyaneofuscatus	default
+Streptomyces spp	Streptomyces cyaneus	default
+Streptomyces spp	Streptomyces demainii	default
+Streptomyces spp	Streptomyces durhamensis	default
+Streptomyces spp	Streptomyces ehimensis	default
+Streptomyces spp	Streptomyces endus	default
+Streptomyces spp	Streptomyces erumpens	default
+Streptomyces spp	Streptomyces exfoliatus	default
+Streptomyces spp	Streptomyces ferralitis	default
+Streptomyces spp	Streptomyces fimicarius	default
+Streptomyces spp	Streptomyces finlayi	default
+Streptomyces spp	Streptomyces flavidofuscus	default
+Streptomyces spp	Streptomyces flavidovirens	default
+Streptomyces spp	Streptomyces flavofuscus	default
+Streptomyces spp	Streptomyces flavogriseus	default
+Streptomyces spp	Streptomyces flavotricini	default
+Streptomyces spp	Streptomyces flavovariabilis	default
+Streptomyces spp	Streptomyces flavovirens	default
+Streptomyces spp	Streptomyces floridae	default
+Streptomyces spp	Streptomyces fulvissimus	default
+Streptomyces spp	Streptomyces fulvorobeus	default
+Streptomyces spp	Streptomyces galilaeus	default
+Streptomyces spp	Streptomyces gelaticus	default
+Streptomyces spp	Streptomyces ghanaensis	default
+Streptomyces spp	Streptomyces globisporus	default
+Streptomyces spp	Streptomyces globosus	default
+Streptomyces spp	Streptomyces graminofaciens	default
+Streptomyces spp	Streptomyces griseinus	default
+Streptomyces spp	Streptomyces griseobrunneus	default
+Streptomyces spp	Streptomyces griseofuscus	default
+Streptomyces spp	Streptomyces griseolus	default
+Streptomyces spp	Streptomyces griseoplanus	default
+Streptomyces spp	Streptomyces griseorubiginosus	default
+Streptomyces spp	Streptomyces griseoverticillatus	default
+Streptomyces spp	Streptomyces griseus	default
+Streptomyces spp	Streptomyces halstedii	default
+Streptomyces spp	Streptomyces himastatinicus	default
+Streptomyces spp	Streptomyces hiroshimensis	default
+Streptomyces spp	Streptomyces hygroscopicus	default
+Streptomyces spp	Streptomyces iakyrus	default
+Streptomyces spp	Streptomyces indonesiensis	default
+Streptomyces spp	Streptomyces ipomoeae	default
+Streptomyces spp	Streptomyces javensis	default
+Streptomyces spp	Streptomyces kanamyceticus	default
+Streptomyces spp	Streptomyces kasugaensis	default
+Streptomyces spp	Streptomyces katrae	default
+Streptomyces spp	Streptomyces kishiwadensis	default
+Streptomyces spp	Streptomyces laceyi	default
+Streptomyces spp	Streptomyces lavendulae	default
+Streptomyces spp	Streptomyces lavenduligriseus	default
+Streptomyces spp	Streptomyces leeuwenhoekii	default
+Streptomyces spp	Streptomyces libani	default
+Streptomyces spp	Streptomyces lilacinus	default
+Streptomyces spp	Streptomyces luridiscabiei	default
+Streptomyces spp	Streptomyces luteoverticillatus	default
+Streptomyces spp	Streptomyces lydicus	default
+Streptomyces spp	Streptomyces mashuensis	default
+Streptomyces spp	Streptomyces mauvecolor	default
+Streptomyces spp	Streptomyces mediolani	default
+Streptomyces spp	Streptomyces megasporus	default
+Streptomyces spp	Streptomyces melanosporofaciens	default
+Streptomyces spp	Streptomyces microflavus	default
+Streptomyces spp	Streptomyces misakiensis	default
+Streptomyces spp	Streptomyces mobaraensis	default
+Streptomyces spp	Streptomyces monomycini	default
+Streptomyces spp	Streptomyces mutomycini	default
+Streptomyces spp	Streptomyces neyagawaensis	default
+Streptomyces spp	Streptomyces niger	default
+Streptomyces spp	Streptomyces nigrescens	default
+Streptomyces spp	Streptomyces nitrosporeus	default
+Streptomyces spp	Streptomyces nodosus	default
+Streptomyces spp	Streptomyces nojiriensis	default
+Streptomyces spp	Streptomyces noursei	default
+Streptomyces spp	Streptomyces novaecaesareae	default
+Streptomyces spp	Streptomyces ochraceiscleroticus	default
+Streptomyces spp	Streptomyces olivaceiscleroticus	default
+Streptomyces spp	Streptomyces olivaceus	default
+Streptomyces spp	Streptomyces olivoviridis	default
+Streptomyces spp	Streptomyces ornatus	default
+Streptomyces spp	Streptomyces parvus	default
+Streptomyces spp	Streptomyces peucetius	default
+Streptomyces spp	Streptomyces phaeofaciens	default
+Streptomyces spp	Streptomyces platensis	default
+Streptomyces spp	Streptomyces pluricolorescens	default
+Streptomyces spp	Streptomyces pluripotens	default
+Streptomyces spp	Streptomyces praecox	default
+Streptomyces spp	Streptomyces pratensis	default
+Streptomyces spp	Streptomyces prunicolor	default
+Streptomyces spp	Streptomyces pulveraceus	default
+Streptomyces spp	Streptomyces puniceus	default
+Streptomyces spp	Streptomyces purpeofuscus	default
+Streptomyces spp	Streptomyces purpureus	default
+Streptomyces spp	Streptomyces purpurogeneiscleroticus	default
+Streptomyces spp	Streptomyces ramulosus	default
+Streptomyces spp	Streptomyces rapamycinicus	default
+Streptomyces spp	Streptomyces rectiverticillatus	default
+Streptomyces spp	Streptomyces resistomycificus	default
+Streptomyces spp	Streptomyces rhizosphaericus	default
+Streptomyces spp	Streptomyces rimosus	default
+Streptomyces spp	Streptomyces roseodiastaticus	default
+Streptomyces spp	Streptomyces rubiginosohelvolus	default
+Streptomyces spp	Streptomyces rubrisoli	default
+Streptomyces spp	Streptomyces rutgersensis	default
+Streptomyces spp	Streptomyces sanglieri	default
+Streptomyces spp	Streptomyces scabiei	default
+Streptomyces spp	Streptomyces scabrisporus	default
+Streptomyces spp	Streptomyces sclerotialus	default
+Streptomyces spp	Streptomyces scopuliridis	default
+Streptomyces spp	Streptomyces seoulensis	default
+Streptomyces spp	Streptomyces setonii	default
+Streptomyces spp	Streptomyces sindenensis	default
+Streptomyces spp	Streptomyces sioyaensis	default
+Streptomyces spp	Streptomyces somaliensis	default
+Streptomyces spp	Streptomyces speibonae	default
+Streptomyces spp	Streptomyces spiroverticillatus	default
+Streptomyces spp	Streptomyces sporocinereus	default
+Streptomyces spp	Streptomyces sporoclivatus	default
+Streptomyces spp	Streptomyces spororaveus	default
+Streptomyces spp	Streptomyces subrutilus	default
+Streptomyces spp	Streptomyces sulphureus	default
+Streptomyces spp	Streptomyces tanashiensis	default
+Streptomyces spp	Streptomyces torulosus	default
+Streptomyces spp	Streptomyces tubercidicus	default
+Streptomyces spp	Streptomyces variegatus	default
+Streptomyces spp	Streptomyces varsoviensis	default
+Streptomyces spp	Streptomyces venezuelae	default
+Streptomyces spp	Streptomyces vietnamensis	default
+Streptomyces spp	Streptomyces vinaceus	default
+Streptomyces spp	Streptomyces violaceorubidus	default
+Streptomyces spp	Streptomyces violaceusniger	default
+Streptomyces spp	Streptomyces violens	default
+Streptomyces spp	Streptomyces virginiae	default
+Streptomyces spp	Streptomyces viridis	default
+Streptomyces spp	Streptomyces vitaminophilus	default
+Streptomyces spp	Streptomyces wedmorensis	default
+Streptomyces spp	Streptomyces xanthophaeus	default
+Streptomyces spp	Streptomyces xinghaiensis	default
+Streptomyces spp	Streptomyces yanii	default
+Streptomyces spp	Streptomyces yeochonensis	default
+Streptomyces spp	Streptomyces yerevanensis	default
+Streptomyces spp	Streptomyces yogyakartensis	default
+Streptomyces spp	Streptomyces zinciresistens	default
+Streptomyces spp	Streptomyces	default
+Taylorella spp.	Taylorella	default
+Taylorella spp.	Taylorella equigenitalis	default
+Taylorella spp.	Taylorella asinigenitalis	default
+Tenacibaculum spp.	Tenacibaculum maritimum	default
+Tenacibaculum spp.	Tenacibaculum	default
+Tenacibaculum spp.	Tenacibaculum discolor	default
+Tenacibaculum spp.	Tenacibaculum mesophilum	default
+Tenacibaculum spp.	Tenacibaculum crassostreae	default
+Tenacibaculum spp.	Tenacibaculum dicentrarchi	default
+Tenacibaculum spp.	Tenacibaculum gallaicum	default
+Tenacibaculum spp.	Tenacibaculum geojense	default
+Tenacibaculum spp.	Tenacibaculum adriaticum	default
+Tenacibaculum spp.	Tenacibaculum litopenaei	default
+Tenacibaculum spp.	Tenacibaculum litoreum	default
+Tenacibaculum spp.	Tenacibaculum lutimaris	default
+Tenacibaculum spp.	Tenacibaculum ovolyticum	default
+Tenacibaculum spp.	Tenacibaculum skagerrakense	default
+Tenacibaculum spp.	Tenacibaculum soleae	default
+Tenacibaculum spp.	Tenacibaculum jejuense	default
+Tenacibaculum spp.	Tenacibaculum aestuarii	default
+Tenacibaculum spp.	Tenacibaculum aiptasiae	default
+Tenacibaculum spp.	Tenacibaculum amylolyticum	default
+Treponema pallidum	Treponema pallidum	default
+Trichomonas vaginalis	Trichomonas vaginalis	default
+Ureaplasma spp.	Ureaplasma	default
+Ureaplasma spp.	Ureaplasma parvum	default
+Ureaplasma spp.	Ureaplasma urealyticum	default
+Vibrio cholerae	Vibrio cholerae	non_o1_o129
+Vibrio cholerae#2	Vibrio cholerae	o1_o129
+Vibrio parahaemolyticus	Vibrio parahaemolyticus	parahaemolyticus
+Vibrio spp.	Vibrio	default
+Vibrio spp.	Vibrio alginolyticus	default
+Vibrio spp.	Vibrio anguillarum	default
+Vibrio spp.	Vibrio brasiliensis	default
+Vibrio spp.	Vibrio chagasii	default
+Vibrio spp.	Vibrio cholerae	default
+Vibrio spp.	Vibrio diabolicus	default
+Vibrio spp.	Vibrio fischeri	default
+Vibrio spp.	Vibrio fluvialis	default
+Vibrio spp.	Vibrio furnissii	default
+Vibrio spp.	Vibrio harveyi	default
+Vibrio spp.	Vibrio mediterranei	default
+Vibrio spp.	Vibrio mimicus	default
+Vibrio spp.	Vibrio orientalis	default
+Vibrio spp.	Vibrio parahaemolyticus	default
+Vibrio spp.	Vibrio shilonii	default
+Vibrio spp.	Vibrio splendidus	default
+Vibrio spp.	Vibrio vulnificus	default
+Vibrio tapetis	Vibrio tapetis	tapetis
+Vibrio vulnificus	Vibrio vulnificus	vulnificus
+Wolbachia	Wolbachia	default
+Xylella fastidiosa	Xylella fastidiosa	default
+Yersinia pseudotuberculosis	Yersinia pseudotuberculosis	pseudotuberculosis
+Yersinia ruckeri	Yersinia ruckeri	ruckeri
+Yersinia spp.	Yersinia enterocolitica	default
+Yersinia spp.	Yersinia pseudotuberculosis	default
+Yersinia spp.	Yersinia frederiksenii	default
+Yersinia spp.	Yersinia intermedia	default
+Yersinia spp.	Yersinia mollaretii	default
+Yersinia spp.	Yersinia kristensenii	default
+Yersinia spp.	Yersinia ruckeri	default
+Yersinia spp.	Yersinia rohdei	default
+Yersinia spp.	Yersinia bercovieri	default
+Yersinia spp.	Yersinia similis	default
+Yersinia spp.	Yersinia pestis	default
+Yersinia spp.	Yersinia massiliensis	default
+Yersinia spp.	Yersinia aleksiciae	default
+Yersinia spp.	Yersinia aldovae	default
+Yersinia spp.	Yersinia pekkanenii	default
+Yersinia spp.	Yersinia	default
