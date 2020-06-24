@@ -149,11 +149,11 @@ def is_positive_integer(value, name) {
             error = 1
         }
     } else {
-        if (!value.isInteger()) {
+        if (!value.toString().isNumber()) {
             log.error('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
             error = 1
-        } else if (value.toInteger() < 0) {
-            log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
+        } else if (value.toString().toFloat() < 0) {
+            log.error('Invalid input (--'+ name +'), "' + value + '"" is not positive.')
             error = 1
         }
     }
