@@ -11,6 +11,8 @@ log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+EMAPPER_PARAMS = build_emapper_params()
+log.info "EMAPPER_PARAMS -> ${EMAPPER_PARAMS}"
 
 process download_eggnogdb {
     publishDir "${params.eggnog}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "eggnog.db"
@@ -33,7 +35,8 @@ process download_eggnogdb {
 }
 
 process eggnog_mapper {
-    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${sample}/*"
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${sample}.emapper.annotations"
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${sample}.emapper.seed_orthologs"
     tag "${sample}"
 
     input:
@@ -41,44 +44,21 @@ process eggnog_mapper {
     each file(fasta) from Channel.fromList(samples)
     
     output:
-    file("${sample}/*")
+    file("${sample}.emapper.annotations")
+    file("${sample}.emapper.seed_orthologs")
 
     shell:
     sample = fasta.getSimpleName()
-    keep_mapping_files =  params.keep_mapping_files ? '--keep_mapping_files' : '' 
-    no_annot =  params.no_annot ? '--no_annot' : ''
-    no_file_comments =  params.no_file_comments ? '--no_file_comments' : ''
-    no_refine =  params.no_refine ? '--no_refine' : ''
-    no_search =  params.no_search ? '--no_refine' : ''
-    matrix = params.matrix ? "--matrix ${params.matrix}" : ''
-    gapopen = params.gapopen ? "--gapopen ${params.gapopen}" : ''
-    gapextend = params.gapextend ? "--matrix ${params.gapextend}" : ''
     is_gzipped = fasta.getName().endsWith('gz') ? true : false
     """
     if [ "!{is_gzipped}" == "true" ]; then
         zcat !{fasta} > !{sample}.faa
     fi
-    mkdir !{sample}/
-    emapper.py -i !{sample}.faa --output_dir !{sample}/ \
-        --qtype seq \
-        --tax_scope !{params.tax_scope} \
-        --target_orthologs !{params.target_orthologs} \
-        --go_evidence !{params.go_evidence} \
-        --hmm_maxhits !{params.hmm_maxhits} \
-        --hmm_evalue !{params.hmm_evalue} \
-        --hmm_score !{params.hmm_score} \
-        --hmm_maxseqlen !{params.hmm_maxseqlen} \
-        --output !{params.prefix} \
-        --predict_ortho \
-        --report_orthologs \
-        -m diamond \
-        !{matrix} !{gapopen} !{gapextend} --query-cover !{params.query_cover} \
-        --subject-cover !{params.subject_cover} \
-        --seed_ortholog_evalue !{params.seed_ortholog_evalue} \
-        --seed_ortholog_score !{params.seed_ortholog_score} \
-        --target_taxa !{params.target_taxa} \
-        --predict_output_format !{params.predict_output_format} \
-        !{keep_mapping_files} !{no_annot} !{no_file_comments} !{no_refine} !{no_search} --cpu !{task.cpus} \
+    emapper.py -i !{sample}.faa \
+        --output_dir ./ \
+        --output !{sample} \
+        !{EMAPPER_PARAMS} -m diamond \
+        --cpu !{task.cpus} \
         --data_dir ./ 
     """
 }
@@ -167,6 +147,33 @@ def check_unknown_params() {
     return error
 }
 
+def build_emapper_params() {
+    // String together the emapper.py params
+    emapper_params = [
+        params.keep_mapping_files ? '--keep_mapping_files' : '',
+        params.no_annot ? '--no_annot' : '',
+        params.no_file_comments ? '--no_file_comments' : '',
+        params.no_refine ? '--no_refine' : '',
+        params.no_search ? '--no_refine' : '',
+        params.tax_scope ? "--tax_scope ${params.tax_scope}" : '',
+        params.go_evidence ? "--go_evidence ${params.go_evidence}" : '',
+        params.hmm_maxhits ? "--hmm_maxhits ${params.hmm_maxhits}" : '',
+        params.hmm_evalue ? "--hmm_evalue ${params.hmm_evalue}" : '',
+        params.hmm_score ? "--hmm_score ${params.hmm_score}" : '',
+        params.hmm_maxseqlen ? "--hmm_maxseqlen ${params.hmm_maxseqlen}" : '',
+        params.matrix ? "--matrix ${params.matrix}" : '',
+        params.gapopen ? "--gapopen ${params.gapopen}" : '',
+        params.gapextend ? "--matrix ${params.gapextend}" : '',
+        params.query_cover ? "--query-cover ${params.query_cover}" : '',
+        params.subject_cover ? "--subject-cover ${params.subject_cover}" : '',
+        params.seed_ortholog_evalue ? "--seed_ortholog_evalue ${params.seed_ortholog_evalue}" : '',
+        params.seed_ortholog_score ? "--seed_ortholog_score ${params.seed_ortholog_score}" : '',
+        params.target_taxa ? "--target_taxa ${params.target_taxa}" : '',
+        params.predict_output_format ? "--predict_output_format ${params.predict_output_format}" : '',
+    ]
+    return (emapper_params.join(' ').replaceAll("\\s{2,}", " ").trim())
+}
+
 def check_input_params() {
     // Check for unexpected paramaters
     error = check_unknown_params()
@@ -223,6 +230,7 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
+
     error += is_positive_integer(params.hmm_maxhits, 'hmm_maxhits')
     error += is_positive_integer(params.hmm_evalue, 'hmm_evalue')
     error += is_positive_integer(params.hmm_score, 'hmm_score')
@@ -246,16 +254,20 @@ def check_input_params() {
     }
 
     // Check for valid choices
-    ALLOWED_TARGETS = ['one2one', 'many2one', 'one2many', 'many2many', 'all']
-    if (!ALLOWED_TARGETS.contains(params.target_orthologs)) {
-        log.error("'${params.target_orthologs}' is not a valid coice for --target_orthologs. Choices are: ${ALLOWED_TARGETS}")
-        error += 1
+    if (params.target_orthologs) {
+        ALLOWED_TARGETS = ['one2one', 'many2one', 'one2many', 'many2many', 'all']
+        if (!ALLOWED_TARGETS.contains(params.target_orthologs)) {
+            log.error("'${params.target_orthologs}' is not a valid coice for --target_orthologs. Choices are: ${ALLOWED_TARGETS}")
+            error += 1
+        }
     }
 
-    ALLOWED_GO = ['experimental', 'non-electronic']
-    if (!ALLOWED_GO.contains(params.go_evidence)) {
-        log.error("'${params.go_evidence}' is not a valid coice for --go_evidence. Choices are: ${ALLOWED_GO}")
-        error += 1
+    if (params.go_evidence) {
+        ALLOWED_GO = ['experimental', 'non-electronic']
+        if (!ALLOWED_GO.contains(params.go_evidence)) {
+            log.error("'${params.go_evidence}' is not a valid coice for --go_evidence. Choices are: ${ALLOWED_GO}")
+            error += 1
+        }
     }
 
     if (params.matrix) {
@@ -266,10 +278,12 @@ def check_input_params() {
         }
     }
 
-    ALLOWED_FORMAT = ['per_query', 'per_species']
-    if (!ALLOWED_FORMAT.contains(params.predict_output_format)) {
-        log.error("'${params.predict_output_format}' is not a valid coice for --predict_output_format. Choices are: ${ALLOWED_FORMAT}")
-        error += 1
+    if (params.predict_output_format) {
+        ALLOWED_FORMAT = ['per_query', 'per_species']
+        if (!ALLOWED_FORMAT.contains(params.predict_output_format)) {
+            log.error("'${params.predict_output_format}' is not a valid coice for --predict_output_format. Choices are: ${ALLOWED_FORMAT}")
+            error += 1
+        }
     }
 
 
@@ -295,18 +309,20 @@ def check_input_params() {
 
 def is_positive_integer(value, name) {
     error = 0
-    if (value.getClass() == Integer) {
-        if (value < 0) {
-            log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
-            error = 1
-        }
-    } else {
-        if (!value.toString().isNumber()) {
-            log.error('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
-            error = 1
-        } else if (value.toString().toFloat() < 0) {
-            log.error('Invalid input (--'+ name +'), "' + value + '"" is not positive.')
-            error = 1
+    if (value) {
+        if (value.getClass() == Integer) {
+            if (value < 0) {
+                log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
+                error = 1
+            }
+        } else {
+            if (!value.toString().isNumber()) {
+                log.error('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
+                error = 1
+            } else if (value.toString().toFloat() < 0) {
+                log.error('Invalid input (--'+ name +'), "' + value + '"" is not positive.')
+                error = 1
+            }
         }
     }
     return error
@@ -408,81 +424,60 @@ def print_help() {
                                     Default: ${params.cpus}
 
     eggNOG-mapper Parameters:
-        --download_eggnog       Download the latest eggNOG database, even if it exists.
+    *Note: Unless specified the eggNOG-mapper defaults are used.*
 
-        --database STR          Specify the target database for sequence searches. 
-                                    Choices: euk, bact, arch, host:port, or a local database
-                                    Default: ${params.database}
-        
-        --dbtype STR            Type of eggNOG database. Choices are 'hmmdb' or 'seqdb'.
-                                    Default: ${params.dbtype}
+        --download_eggnog       Download the latest eggNOG database, even if it exists.
 
     eggNOG Annotation Parameters:
         --tax_scope STR         Fix the taxonomic scope used for annotation, so only orthologs
                                     from a particular clade are used for functional transfer. 
-                                    Default: ${params.tax_scope}
         
         --target_orthologs STR  Defines what type of orthologs should be used for functional 
                                     transfer.
                                     Choices are: one2one, many2one, one2many, many2many, all
-                                    Default: ${params.target_orthologs}
 
         --go_evidence STR       Defines what type of GO terms should be used for annotation. Choices are:
                                     'experimental': Use only terms inferred from experimental evidence
                                     'non-electronic': Use only non- electronically curated terms
-                                    Default: ${params.go_evidence}
 
     eggNOG HMM Search Parameters:
         --hmm_maxhits INT       Max number of hits to report.
-                                    Default: ${params.hmm_maxhits}
 
-        --hmm_evalue FLOAT      E-value threshold. 
-                                    Default: ${params.hmm_evalue}
+        --hmm_evalue FLOAT      E-value threshold.
 
-        --hmm_score INT         Bit score threshold. 
-                                    Default: ${params.hmm_score}
+        --hmm_score INT         Bit score threshold.
 
-        --hmm_maxseqlen INT     Ignore query sequences larger than `maxseqlen`. 
-                                    Default: ${params.hmm_maxseqlen}
+        --hmm_maxseqlen INT     Ignore query sequences larger than `maxseqlen`.
 
-        --hmm_qcov FLOAT        Min query coverage (from 0 to 1). 
-                                    Default: Disabled
+        --hmm_qcov FLOAT        Min query coverage (from 0 to 1).
 
         --Z INT                 Fixed database size used in phmmer/hmmscan (allows comparing e-values 
                                     among databases).
-                                    Default: ${params.Z}
 
     eggNOG DIAMOND Search Parameters:
         --use_diamond           Use DIAMOND instead of HMMER.
 
         --matrix STR            Scoring matrix. Choices are: BLOSUM62, BLOSUM90, BLOSUM80, BLOSUM50,
                                                              BLOSUM45, PAM250, PAM70, PAM30
-                                    Default: ${params.matrix}
         
         --gapopen INT           Gap open penalty
-                                    Default: DIAMOND's default
 
         --gapextend INT         Gap extend penalty
-                                    Default: DIAMOND's default
 
         --query_cover FLOAT     Report only alignments above the given percentage of query cover.
-                                    Default: ${params.query_cover}
 
         --subject_cover FLOAT   Report only alignments above the given percentage of subject cover.
-                                    Default: ${params.subject_cover}
 
     eggNOG Seed Ortholog Search Parameters:
         --seed_ortholog_evalue FLOAT
                                 Min E-value expected when searching for seed eggNOG ortholog. 
                                     Applies to phmmer/diamond searches. Queries not having a 
                                     --significant seed orthologs will not be annotated. 
-                                    Default: ${params.seed_ortholog_evaule}
 
         --seed_ortholog_score INT
                                 Min bit score expected when searching for seed eggNOG ortholog. 
                                     Applies to phmmer/diamond searches. Queries not having a 
                                     --significant seed orthologs will not be annotated. 
-                                    Default: ${params.seed_ortholog_score}
 
     eggNOG Output Parameters:
         --keep_mapping_files    Do not delete temporary mapping files used for annotation (i.e. 
@@ -498,11 +493,9 @@ def print_help() {
 
     eggNOG Predict Orthologs Parameters:
         --target_taxa STR       Taxa that will be searched for orthologs
-                                    Default: ${params.target_taxa}
 
         --predict_output_format STR
                                 Choose the output format among: per_query, per_species. 
-                                    Default: ${params.predict_output_format}
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:

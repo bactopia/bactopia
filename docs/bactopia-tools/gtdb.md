@@ -6,6 +6,8 @@ If you are unsure of your sequences, `gtdb` is useful tool to help determine
 the taxonomy of your samples.
 
 ## Example
+The following command will use `gtdb` to assign a taxonomic classification on all 
+samples except those listed in the *exclude* file.
 ```
 bactopia tools gtdb \
     --bactopia ~/bactopia-tutorial/bactopia \
@@ -203,6 +205,12 @@ Nextflow Related Parameters:
 Useful Parameters:
     --version               Print workflow version information
     --help                  Show this message and exit
+```
+
+## Conda Environment
+Below is the command used to create the Conda environment.
+```
+conda create -y -n bactopia-gtdb -c conda-forge -c bioconda gtdbtk
 ```
 
 ## References

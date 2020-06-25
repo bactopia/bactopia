@@ -5,6 +5,7 @@ genes can then be aligned to one another with [MAFFT](https://mafft.cbrc.jp/alig
 and a phylogenetic representation created using [IQ-TREE](http://www.iqtree.org/)
 
 ## Example
+The following command will reconstruct the 16S rRNA gene for each sample except those listed in the *exclude* file.
 ```
 bactopia tools phyloflash \
     --bactopia ~/bactopia-tutorial/bactopia \
@@ -271,6 +272,16 @@ Nextflow Related Parameters:
 Useful Parameters:
     --version               Print workflow version information
     --help                  Show this message and exit
+```
+
+## Conda Environment
+Below is the command that was used to create the Conda environment.
+```
+conda create -y -n bactopia-gtdb -c conda-forge -c bioconda \
+    phyloflash \
+    mafft \
+    iqtree \
+    pigz
 ```
 
 ## References

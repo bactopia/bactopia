@@ -3,9 +3,11 @@
 ## v1.3.2 bactopia/bactopia "" - 2020/??/??
 ### `Added`
 - New Bactopia Tools
+    - Added `eggnog` to functional annotate using eggNOG-mapper
     - Added `mashtree` to create a tree using Mash distances
     - Added `pirate` to create pangenome using PIRATE
     - `roary` can now be run on just completed genomes
+    - Documentation for new tools and tweaks to existing
 - Can limit number of completed genomes downloaded
 - Can provide list of RefSeq completed genome accessions to download
 - `bactopia search` can now use BioSample and Run accessions

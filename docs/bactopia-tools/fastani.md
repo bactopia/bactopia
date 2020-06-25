@@ -158,6 +158,15 @@ Useful Parameters:
     --help                  Show this message and exit
 ```
 
+## Conda Environment
+Below is the command used to create the Conda environment.
+```
+conda create -y -n bactopia-fastani -c conda-forge -c bioconda \
+    fastani \
+    ncbi-genome-download \
+    rename 
+```
+
 ## References
 * __[FastANI](https://github.com/ParBLiSS/FastANI)__  
 _Jain, C., Rodriguez-R, L. M., Phillippy, A. M., Konstantinidis, K. T. & Aluru, S. 

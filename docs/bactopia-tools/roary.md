@@ -17,6 +17,8 @@ The core genome pair-wise SNP distance for each sample is also calculated with
 [snp-dists](https://github.com/tseemann/snp-dists).
 
 ## Example
+The following command will run Roary, on a set of samples in the *include* file. Then it 
+will create a phylogenetic tree based on the core-genome alignment.
 ```
 bactopia tools roary \
     --bactopia ~/bactopia-tutorial/bactopia \
@@ -334,6 +336,23 @@ Nextflow Related Parameters:
 Useful Parameters:
     --version               Print workflow version information
     --help                  Show this message and exit
+```
+
+## Conda Environment
+Below is the command that was used to create the Conda environment.
+```
+conda create -y -n bactopia-roary -c r -c conda-forge -c bioconda \
+    clonalframeml \
+    iqtree \
+    maskrc-svg \
+    ncbi-genome-download \
+    pigz \
+    prokka \
+    r-ggplot2 \
+    rename \
+    roary \
+    snp-dists \
+    tbl2asn-forever
 ```
 
 ## References

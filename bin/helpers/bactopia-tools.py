@@ -18,6 +18,7 @@ VERSION = "1.3.1"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
+    'eggnog': 'Functional annotation using orthologous groups',
     'fastani': 'Pairwise average nucleotide identity',
     'gtdb': 'Identify marker genes and assign taxonomic classifications',
     'mashtree': 'Trees based on Mash distances',

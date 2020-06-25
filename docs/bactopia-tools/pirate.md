@@ -16,6 +16,8 @@ The core genome pair-wise SNP distance for each sample is also calculated with
 [snp-dists](https://github.com/tseemann/snp-dists).
 
 ## Example
+The following command will run PIRATE, on a set of samples in the include file. 
+Then it will create a phylogenetic tree based on the core-genome alignment.
 ```
 bactopia tools pirate \
     --bactopia ~/bactopia-tutorial/bactopia \
@@ -381,6 +383,27 @@ Useful Parameters:
     --help                  Show this message and exit
 ```
 
+## Conda Environment
+Below is the command that was used to create the Conda environment.
+```
+conda create -y -n bactopia-pirate -c r -c conda-forge -c bioconda \
+    bioconductor-ggtree \
+    clonalframeml \
+    iqtree \
+    maskrc-svg \
+    ncbi-genome-download \
+    pigz \
+    pirate \
+    prokka \
+    r-dplyr \
+    r-ggplot2 \
+    r-gridextra \
+    r-phangorn \
+    rename \
+    snp-dists \
+    tbl2asn-forever
+```
+
 ## References
 * __[ClonalFramML](https://github.com/xavierdidelot/ClonalFrameML)__  
 _Didelot, X. & Wilson, D. J. 
@@ -405,7 +428,7 @@ _Kwong, J. [maskrc-svg - Masks recombination as detected by ClonalFrameML or Gub
 _Blin, K. [ncbi-genome-download: Scripts to download genomes from the NCBI FTP 
 servers](https://github.com/kblin/ncbi-genome-download)_  
 
-* __[PIRATE](http://github.com/SionBayliss/PIRATE)__
+* __[PIRATE](http://github.com/SionBayliss/PIRATE)__  
 _S. C. Bayliss, H. A. Thorpe, N. M. Coyle, S. K. Sheppard, E. J. Feil (2019)
 [PIRATE: A fast and scalable pangenomics toolbox for clustering diverged orthologues in bacteria.](https://doi.org/10.1093/gigascience/giz119) 
 Gigascience. 8_  
