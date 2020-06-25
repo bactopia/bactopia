@@ -11,12 +11,12 @@ def check_assembly_version(accession):
     Entrez.email = "robert.petit@emory.edu"
     Entrez.tool = "BactopiaSelectReferences"
 
-    handle = Entrez.esearch(db="assembly", term=accession.split(".")[0], retmax="500")
-    record = Entrez.read(handle)
+    handle = Entrez.esearch(db="assembly", term=accession, retmax="500")
+    record = Entrez.read(handle, validate=False)
     time.sleep(1) # Be kind to NCBI
 
     handle = Entrez.esummary(db="assembly", id=",".join(record["IdList"]))
-    record = Entrez.read(handle)
+    record = Entrez.read(handle, validate=False)
     time.sleep(1) # Be kind to NCBI
 
     records = []
@@ -88,6 +88,7 @@ if __name__ == '__main__':
 
         for reference in references:
             if reference:
+                print(reference)
                 current_accession, excluded = check_assembly_version(reference)
                 if excluded:
                     print(

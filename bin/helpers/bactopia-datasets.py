@@ -365,9 +365,9 @@ def setup_mlst(request, available_datasets, outdir, force=False):
             execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
 
             # Tarball directories
-            execute(f'tar -zcvf ariba.tar.gz ariba/', directory=mlst_dir)
+            execute(f'tar -zcvf {schema}-ariba.tar.gz ariba/', directory=mlst_dir)
             execute(f'rm -rf {ariba_dir}')
-            execute(f'tar -zcvf blastdb.tar.gz blastdb/', directory=mlst_dir)
+            execute(f'tar -zcvf {schema}-blastdb.tar.gz blastdb/', directory=mlst_dir)
             execute(f'rm -rf {blast_dir}')
 
             # Finish up
@@ -741,14 +741,18 @@ def create_summary(outdir):
                     new_species['genome_size'] = json_data
 
             mlst = f'{species_dir}/mlst'
-            if os.path.exists(f'{mlst}/ariba.tar.gz'):
-                new_species['mlst'] = {
-                    'ariba': f'species-specific/{species}/mlst/ariba.tar.gz',
-                    'blast': f'species-specific/{species}/mlst/blastdb.tar.gz',
-                    'last_updated': execute(
-                        f'head -n 1 {mlst}/mlst-updated.txt', capture=True
-                    ).rstrip()
-                }
+            if os.path.exists(f'{mlst}'):
+                new_species['mlst'] = {}
+                available_datasets['ariba'] = []
+                for schema in sorted(os.listdir(f'{mlst}')):
+                    if os.path.exists(f'{mlst}/{schema}/{schema}-ariba.tar.gz'):
+                        new_species['mlst'][schema] = {
+                            'ariba': f'species-specific/{species}/mlst/{schema}/{schema}-ariba.tar.gz',
+                            'blast': f'species-specific/{species}/mlst/{schema}/{schema}-blastdb.tar.gz',
+                            'last_updated': execute(
+                                f'head -n 1 {mlst}/{schema}/mlst-updated.txt', capture=True
+                            ).rstrip()
+                        }
 
             optionals = sorted([
                 'insertion-sequences', 'reference-genomes', 'mapping-sequences',

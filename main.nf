@@ -261,8 +261,8 @@ process count_31mers {
 
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
-    tag "${sample} - ${method}"
-    publishDir "${outdir}/${sample}/mlst", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
+    tag "${sample} - ${schema} - ${method}"
+    publishDir "${outdir}/${sample}/mlst/${schema}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
@@ -277,7 +277,8 @@ process sequence_type {
     shell:
     method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
     dataset_tarball = file(dataset).getName()
-    dataset_name = dataset_tarball.replace('.tar.gz', '')
+    dataset_name = dataset_tarball.replace('.tar.gz', '').split('-')[1]
+    schema = dataset_tarball.split('-')[0]
     noclean = params.ariba_no_clean ? "--noclean" : ""
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     template(task.ext.template)
@@ -841,10 +842,12 @@ def setup_datasets() {
                         log.info "\t${REFSEQ_SKETCH}"
                     }
 
-                    species_db['mlst'].each { key, val ->
-                        if (key != "last_updated") {
-                            if (file("${dataset_path}/${val}").exists()) {
-                                MLST_DATABASES << file("${dataset_path}/${val}")
+                    species_db['mlst'].each { schema, vals ->
+                        vals.each { key, val ->
+                            if (key != "last_updated") {
+                                if (file("${dataset_path}/${val}").exists()) {
+                                    MLST_DATABASES << file("${dataset_path}/${val}")
+                                }
                             }
                         }
                     }

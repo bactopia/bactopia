@@ -261,23 +261,24 @@ ${SAMPLE_NAME}/
 
 
 ### `mlst`
-If a [Species Specific Dataset](/datasets/#species-specific) has been set up, the `mlst` directory will contain [Ariba](https://github.com/sanger-pathogens/ariba) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) results for a [PubMLST.org](https://pubmlst.org/) schema.
+If a [Species Specific Dataset](/datasets/#species-specific) has been set up, the `mlst` directory will contain [Ariba](https://github.com/sanger-pathogens/ariba) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) results for a [PubMLST.org](https://pubmlst.org/) schema. For most organisms there is only one MLST schema available, and it will be labeled as `default`. In cases where a organism has multiple schemas available they will be named following pubMLST's naming.
 
 ```
 ${SAMPLE_NAME}/
 └── mlst
-    ├── ariba
-    │   ├── assembled_genes.fa.gz
-    │   ├── assembled_seqs.fa.gz
-    │   ├── assemblies.fa.gz
-    │   ├── debug.report.tsv
-    │   ├── log.clusters.gz
-    │   ├── mlst_report.details.tsv
-    │   ├── mlst_report.tsv
-    │   ├── report.tsv
-    │   └── version_info.txt
-    └── blast
-        └── ${SAMPLE_NAME}-blast.json
+    └── ${SCHEMA}
+       ├── ariba
+       │   ├── assembled_genes.fa.gz
+       │   ├── assembled_seqs.fa.gz
+       │   ├── assemblies.fa.gz
+       │   ├── debug.report.tsv
+       │   ├── log.clusters.gz
+       │   ├── mlst_report.details.tsv
+       │   ├── mlst_report.tsv
+       │   ├── report.tsv
+       │   └── version_info.txt
+       └── blast
+           └── ${SAMPLE_NAME}-blast.json
 ```
 
 | Filename | Description |
