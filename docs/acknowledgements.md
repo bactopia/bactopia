@@ -71,6 +71,9 @@ _Titus Brown, C. & Irber, L. [sourmash: a library for MinHash sketching of DNA.]
 JOSS 1, 27 (2016)._  
 
 ### Everything Else
+* __[eggNOG 5.0 Database](http://eggnog.embl.de/)__  
+_J. Huerta-Cepas, D. Szklarczyk, D. Heller, A. Hernández-Plaza, S. K. Forslund, H. Cook, D. R. Mende, I. Letunic, T. Rattei, L. J. Jensen, C. von Mering, P. Bork, [eggNOG 5.0: a hierarchical, functionally and phylogenetically annotated orthology resource based on 5090 organisms and 2502 viruses.](https://doi.org/10.1093/nar/gky1085) Nucleic Acids Res. 47, D309–D314 (2019)._  
+
 * __[Genome Taxonomy Database](https://gtdb.ecogenomic.org/)__  
 _Parks, D. H. et al. 
 [A standardized bacterial taxonomy based on genome phylogeny substantially revises the tree of life.](https://doi.org/10.1038/nbt.4229)
@@ -164,6 +167,14 @@ _Didelot, X. & Wilson, D. J.
 [ClonalFrameML: efficient inference of recombination in whole bacterial genomes.](http://dx.doi.org/10.1371/journal.pcbi.1004041)
  PLoS Comput. Biol. 11, e1004041 (2015)_  
 
+* __[DIAMOND]()__  
+Accelerated BLAST compatible local sequence aligner.  
+_B. Buchfink, C. Xie, D. H. Huson, [Fast and sensitive protein alignment using DIAMOND.](http://dx.doi.org/10.1038/nmeth.3176) Nat. Methods. 12, 59–60 (2015)._  
+
+* __[eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper)__  
+Fast genome-wide functional annotation through orthology assignment  
+_J. Huerta-Cepas, K. Forslund, L. P. Coelho, D. Szklarczyk, L. J. Jensen, C. von Mering, P. Bork, [Fast Genome-Wide Functional Annotation through Orthology Assignment by eggNOG-Mapper.](http://dx.doi.org/10.1093/molbev/msx148) Mol. Biol. Evol. 34, 2115–2122 (2017)._  
+
 * __[FastANI](https://github.com/ParBLiSS/FastANI)__  
 Fast Whole-Genome Similarity (ANI) Estimation  
 _Jain, C., Rodriguez-R, L. M., Phillippy, A. M., Konstantinidis, K. T. & Aluru, S. 
@@ -253,10 +264,13 @@ _Ondov, B. D. et al. [Mash Screen: High-throughput sequence
 containment estimation for genome discovery](http://dx.doi.org/10.1101/557314). 
 bioRxiv 557314 (2019)._  
 
+* __[Mashtree](https://github.com/lskatz/mashtree)__  
+Create a tree using Mash distances  
+_Katz, L. S., Griswold, T., Morrison, S., Caravas, J., Zhang, S., den Bakker, H.C., Deng, X., and Carleton, H. A. [Mashtree: a rapid comparison of whole genome sequence files.](https://doi.org/10.21105/joss.01762) Journal of Open Source Software, 4(44), 1762, (2019)_  
+
 * __[maskrc-svg](https://github.com/kwongj/maskrc-svg)__  
 Masks recombination as detected by ClonalFrameML or Gubbins  
 _Kwong, J. [maskrc-svg - Masks recombination as detected by ClonalFrameML or Gubbins and draws an SVG.](https://github.com/kwongj/maskrc-svg)_  
-
 
 * __[McCortex](https://github.com/mcveanlab/mccortex)__  
 De novo genome assembly and multisample variant calling  
@@ -304,6 +318,12 @@ _Adler, M. [pigz: A parallel implementation of gzip for modern multi-processor, 
 * __[Pilon](https://github.com/broadinstitute/pilon/)__  
 An automated genome assembly improvement and variant detection tool  
 _Walker, B. J., et al. [Pilon: an integrated tool for comprehensive microbial variant detection and genome assembly improvement.](https://doi.org/10.1371/journal.pone.0112963) PloS one 9.11 (2014): e112963._  
+
+* __[PIRATE](http://github.com/SionBayliss/PIRATE)__  
+A toolbox for pangenome analysis and threshold evaluation.  
+_S. C. Bayliss, H. A. Thorpe, N. M. Coyle, S. K. Sheppard, E. J. Feil 
+[PIRATE: A fast and scalable pangenomics toolbox for clustering diverged orthologues in bacteria.](https://doi.org/10.1093/gigascience/giz119) 
+Gigascience. 8 (2019)_  
 
 * __[pplacer](https://github.com/matsen/pplacer)__  
 Phylogenetic placement and downstream analysis  
