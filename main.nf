@@ -169,6 +169,7 @@ process assemble_genome {
     file "assembly/*"
     file "${sample}-assembly-error.txt" optional true
     set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
+    set val(sample), file("assembly/${sample}.{fna,fna.gz}"), file(genome_size) optional true into ASSEMBLY_QC
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -176,6 +177,33 @@ process assemble_genome {
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.nostitch ? "--nostitch" : ""
     nocorr = params.nocorr ? "--nocorr" : ""
+    template(task.ext.template)
+}
+
+
+process assembly_qc {
+    /* Assess the quality of the assembly using QUAST and CheckM */
+    tag "${sample} - ${method}"
+    publishDir "${outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
+
+    input:
+    set val(sample), file(fasta), file(genome_size) from ASSEMBLY_QC
+    each method from Channel.fromList(['checkm', 'quast'])
+
+    output:
+    file "${method}/*"
+
+    shell:
+    //CheckM Related
+    full_tree = params.full_tree ? '' : '--reduced_tree'
+    checkm_ali = params.checkm_ali ? '--ali' : ''
+    checkm_nt = params.checkm_nt ? '--nt' : ''
+    force_domain = params.force_domain ? '--force_domain' : ''
+    no_refinement = params.no_refinement ? '--no_refinement' : ''
+    individual_markers = params.individual_markers ? '--individual_markers' : ''
+    skip_adj_correction = params.skip_adj_correction ? '--skip_adj_correction' : ''
+    skip_pseudogene_correction = params.skip_pseudogene_correction ? '--skip_pseudogene_correction' : ''
+    ignore_thresholds = params.ignore_thresholds ? '--ignore_thresholds' : ''
     template(task.ext.template)
 }
 
@@ -1050,6 +1078,8 @@ def check_input_params() {
     error += is_positive_integer(params.qc_ram, 'qc_ram')
     error += is_positive_integer(params.minmer_ram, 'minmer_ram')
 
+
+
     if (params.genome_size) {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
             error += is_positive_integer(params.genome_size, 'genome_size')
@@ -1600,6 +1630,51 @@ def full_help() {
 
         --nocorr                Disable post-assembly correction
 
+    Assembly Quality Control Parameters"
+        --checkm_unique INT     Minimum number of unique phylogenetic markers required 
+                                    to use lineage-specific marker set.
+                                    Default: ${params.checkm_unique}
+        
+        --checkm_multi INT      Maximum number of multi-copy phylogenetic markers before
+                                    defaulting to domain-level marker set.
+                                    Default: ${params.checkm_multi}
+        
+        --aai_strain FLOAT      AAI threshold used to identify strain heterogeneity
+                                    Default: ${params.aai_strain}
+        
+        --checkm_length FLOAT   Percent overlap between target and query
+                                    Default: ${params.checkm_length}
+
+        --full_tree             Use the full tree (requires ~40GB of memory) for determining 
+                                    lineage of each bin.
+                                    Default: Use reduced tree (<16gb memory)
+
+        --skip_pseudogene_correction
+                                Skip identification and filtering of pseudogene
+
+        --ignore_thresholds     Ignore model-specific score thresholds
+
+        --checkm_ali            Generate HMMER alignment file for each bin
+
+        --checkm_nt             Generate nucleotide gene sequences for each bin
+
+        --force_domain          Use domain-level sets for all bins
+
+        --no_refinement         Do not perform lineage-specific marker set refinement
+
+        --individual_markers    Treat marker as independent (i.e., ignore co-located 
+                                    set structure.
+
+        --skip_adj_correction   Do not exclude adjacent marker genes when estimating 
+                                    contamination
+
+        --contig_thresholds STR Comma-separated list of contig length thresholds
+                                    Default: ${params.contig_thresholds}
+
+        --plots_format STR      Save plots in specified format.
+                                    Supported formats: emf, eps, pdf, png, ps, raw, 
+                                                        rgba, svg, svgz
+                                    Default: ${params.plots_format}
 
     Count 31mers Parameters:
         --cortex_ram INT        Try to keep RAM usage below this many GB

@@ -399,6 +399,9 @@ def print_help() {
         --eggnog STR            Directory containing the the eggNOG database files:
                                     eggnog.db and eggnog_proteins.dmnd.  If the database is not 
                                     found, you must use '--download_eggnog'.
+                                    WARNING: eggNOG databases stored on NFS will see a significant
+                                             increase in runtimes. If possible, SSD or Ramdisk 
+                                             should be used.
 
     Optional Parameters:
         --include STR           A text file containing sample names to include in the

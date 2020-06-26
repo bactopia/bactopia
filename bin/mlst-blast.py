@@ -33,8 +33,7 @@ def pipe_command(cmd_1, cmd_2, stdout=False, stderr=False, verbose=True,
     stderr = open(stderr, 'w') if stderr else subprocess.PIPE
     p1 = subprocess.Popen(cmd_1, stdout=subprocess.PIPE)
     p2 = subprocess.Popen(cmd_2, stdin=p1.stdout, stdout=stdout, stderr=stderr)
-    p1.wait()
-
+    p1.stdout.close()
     return p2.communicate()
 
 
@@ -71,6 +70,7 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
         total_loci += 1
         blastdb = splitext(tfa)[0]
         allele = basename(blastdb)
+        print(allele)
         blastn = pipe_command(
             ['zcat' if compressed else 'cat', input_file],
             ['blastn', '-db', blastdb, '-query', '-', '-outfmt', outfmt,
@@ -78,6 +78,7 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
              '-evalue', '10000', '-ungapped', '-dust', 'no',
              '-word_size', '28'], verbose=verbose
         )
+        print("finished")
         max_bitscore = 0
         top_hits = []
         not_first = False
