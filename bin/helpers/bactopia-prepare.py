@@ -1,19 +1,31 @@
 #! /usr/bin/env python3
 """
-usage: bactopia prepare [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
+usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_seperator STR]
+                        [--fastq_pattern STR] [--assembly_pattern STR]
+                        [--long_reads] [--version]
+                        STR
 
-bactopia prepare - Read a directory and prepare a FOFN of FASTQs
+bactopia prepare (v1.3.1) - Read a directory and prepare a FOFN of
+FASTQs/FASTAs
 
 positional arguments:
-  STR                Directory where FASTQ files are stored
+  STR                   Directory where FASTQ files are stored
 
 optional arguments:
-  -h, --help         show this help message and exit
-  -e STR, --ext STR  Extension of the FASTQs. Default: .fastq.gz
-  -s STR, --sep STR  Split FASTQ name on the last occurrence of the separator.
-                     Default: _
-  --pattern STR      Glob pattern to match FASTQs. Default: *.fastq.gz
-  --version          show program's version number and exit
+  -h, --help            show this help message and exit
+  -f STR, --fastq_ext STR
+                        Extension of the FASTQs. Default: .fastq.gz
+  -a STR, --assembly_ext STR
+                        Extension of the FASTA assemblies. Default: .fna.gz
+  --fastq_seperator STR
+                        Split FASTQ name on the last occurrence of the
+                        separator. Default: _
+  --fastq_pattern STR   Glob pattern to match FASTQs. Default: *.fastq.gz
+  --assembly_pattern STR
+                        Glob pattern to match assembly FASTAs. Default:
+                        *.fna.gz
+  --long_reads          Single-end reads should be treated as long reads
+  --version             show program's version number and exit
 """
 VERSION = "1.3.1"
 PROGRAM = "bactopia prepare"
@@ -29,26 +41,42 @@ if __name__ == '__main__':
         prog='bactopia prepare',
         conflict_handler='resolve',
         description=(
-            f'{PROGRAM} (v{VERSION}) - Read a directory and prepare a FOFN of FASTQs'
+            f'{PROGRAM} (v{VERSION}) - Read a directory and prepare a FOFN of FASTQs/FASTAs'
         )
     )
     parser.add_argument('path', metavar="STR", type=str,
                         help='Directory where FASTQ files are stored')
     parser.add_argument(
-        '-e', '--ext', metavar='STR', type=str,
+        '-f', '--fastq_ext', metavar='STR', type=str,
         default=".fastq.gz",
         help='Extension of the FASTQs. Default: .fastq.gz'
     )
     parser.add_argument(
-        '-s', '--sep', metavar='STR', type=str,
+        '-a', '--assembly_ext', metavar='STR', type=str,
+        default=".fna.gz",
+        help='Extension of the FASTA assemblies. Default: .fna.gz'
+    )
+    parser.add_argument(
+        '--fastq_seperator', metavar='STR', type=str,
         default="_",
         help='Split FASTQ name on the last occurrence of the separator. Default: _'
     )
 
     parser.add_argument(
-        '--pattern', metavar='STR', type=str,
+        '--fastq_pattern', metavar='STR', type=str,
         default="*.fastq.gz",
         help='Glob pattern to match FASTQs. Default: *.fastq.gz'
+    )
+
+    parser.add_argument(
+        '--assembly_pattern', metavar='STR', type=str,
+        default="*.fna.gz",
+        help='Glob pattern to match assembly FASTAs. Default: *.fna.gz'
+    )
+
+    parser.add_argument(
+        '--long_reads', action='store_true',
+        help='Single-end reads should be treated as long reads'
     )
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
@@ -61,42 +89,97 @@ if __name__ == '__main__':
 
     # https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
     abspath = os.path.abspath(args.path)
-    FASTQS = {}
-    for fastq in glob.glob(f'{abspath}/*{args.pattern}'):
-        fastq_name = os.path.basename(fastq).replace(args.ext, "")
+    SAMPLES = {}
 
+    # Match FASTQS
+    for fastq in glob.glob(f'{abspath}/*{args.fastq_pattern}'):
+        fastq_name = os.path.basename(fastq).replace(args.fastq_ext, "")
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
         # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
-        split_vals = fastq_name.rsplit(args.sep, 1)
+        split_vals = fastq_name.rsplit(args.fastq_seperator, 1)
         sample_name = split_vals[0]
-        single_end = False if len(split_vals) == 2 else True
-        if sample_name not in FASTQS:
-            FASTQS[sample_name] = {'single_end': False, 'fastqs': []}
-        FASTQS[sample_name]['fastqs'].append(fastq)
-        FASTQS[sample_name]['single_end'] = single_end
+        if sample_name not in SAMPLES:
+            SAMPLES[sample_name] = {'pe': [], 'se': [], 'assembly': []}
 
-    print("sample\tr1\tr2")
-    errors = []
-    for sample, vals in sorted(FASTQS.items()):
-        fastqs = vals['fastqs']
-        if len(fastqs) > 2:
-            errors.append(
-                f'ERROR: "{sample}" has more than two different FASTQ files, please check.'
-            )
-        elif len(fastqs) != 1 and vals['single_end']:
-            errors.append(
-                f'ERROR: "{sample}" might be single end, but multiple FASTQs matched, please check.'
-            )
-
-        fastq_string = ""
-        if len(fastqs) == 1:
-            fastq_string = f'{fastqs[0]}\t'
+        if len(split_vals) == 1:
+            # single-end
+            SAMPLES[sample_name]['se'].append(fastq)
         else:
-            fastq_string = "\t".join(sorted(fastqs))
+            # paired-end
+            SAMPLES[sample_name]['pe'].append(fastq)
 
-        fastq_string = "\t".join(sorted(fastqs))
-        print(f'{sample}\t{fastq_string}')
+    # Match assemblies
+    for assembly in glob.glob(f'{abspath}/*{args.assembly_pattern}'):
+        sample_name = os.path.basename(assembly).replace(args.assembly_ext, "")
+        # Split the fastq file name on separator
+        # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
+        # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
+        if sample_name not in SAMPLES:
+            SAMPLES[sample_name] = {'pe': [], 'se': [], 'assembly': []}
+        SAMPLES[sample_name]['assembly'].append(assembly)
 
-    for error in errors:
-        print(error, file=sys.stderr)
+    FOFN = []
+    for sample, vals in sorted(SAMPLES.items()):
+        pe_reads = vals['pe']
+        se_reads = vals['se']
+        assembly = vals['assembly']
+        errors = []
+
+        # Validate everything
+        if len(assembly) > 1:
+            # Can't have multiple assemblies for the same sample
+            errors.append(f'ERROR: "{sample}" cannot have more than two assembly FASTA, please check.')
+        elif len(assembly) == 1 and (len(pe_reads) or len(se_reads)):
+            # Can't have an assembly and reads for a sample
+            errors.append(f'ERROR: "{sample}" cannot have assembly and sequence reads, please check.')
+
+        if len(pe_reads) == 1:
+            # PE reads must be a pair
+            errors.append(f'ERROR: "{sample}" must have two paired-end FASTQ, please check.')
+        elif len(pe_reads) > 2:
+            # PE reads must be a pair
+            errors.append(f'ERROR: "{sample}" cannot have more than two paired-end FASTQ, please check.')
+
+        if args.long_reads:
+            if not len(pe_reads) and len(se_reads):
+                # Long reads must also have short PE reads 
+                errors.append(f'ERROR: "{sample}" long reads FASTQ must also have paired-end FASTQs, please check.')
+        else:
+            if len(se_reads) > 1:
+                # Can't have multiple SE reads
+                errors.append(f'ERROR: "{sample}" has more than two single-end FASTQs, please check.')
+            elif len(pe_reads) and len(se_reads):
+                # Can't have SE and PE reads unless long reads
+                errors.append(f'ERROR: "{sample}" has paired and single-end FASTQs, please check.')
+
+        if errors:
+            print('\n'.join(errors), file=sys.stderr)
+        else:
+            runtype = ''
+            r1 = ''
+            r2 = ''
+            extra = ''
+
+            if assembly:
+                runtype = 'assembly'
+                extra = assembly[0]
+
+            if pe_reads:
+                runtype = 'standard'
+                r1, r2 = sorted(pe_reads)
+
+            if se_reads:
+                if args.long_reads:
+                    runtype = 'hybrid'
+                    extra = se_reads[0]
+                else:
+                    runtype = 'standard'
+                    r1 = se_reads[0]
+
+            FOFN.append([sample, runtype, r1, r2, extra])
+
+    if FOFN:
+        print('sample\truntype\tr1\tr2\textra')
+        for line in FOFN:
+            print('\t'.join(line))
