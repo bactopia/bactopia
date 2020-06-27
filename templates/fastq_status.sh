@@ -9,14 +9,14 @@ else
     ERROR=0
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         # Not completely sure about the inputs, so make sure they meet minimum requirements
-        zcat *.gz | fastq-scan > info.txt
+        zcat *.fastq.gz | fastq-scan > info.txt
         SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
         TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
         rm info.txt
 
         # Check paired-end reads have same read counts
         if [ "!{single_end}" == "false" ]; then
-            if ! reformat.sh in1=!{fq[0]} in2=!{fq[1]} out=/dev/null 2> !{sample}-paired-end-error.txt; then
+            if ! reformat.sh in1=!{fq[0]} in2=!{fq[1]} !{qin} out=/dev/null 2> !{sample}-paired-end-error.txt; then
                 ERROR=1
                 echo "!{sample} FASTQs contains an error. Please check the input FASTQs.
                     Further analysis is discontinued." | \

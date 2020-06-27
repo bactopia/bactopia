@@ -34,7 +34,7 @@ process reconstruct_16s {
     if [ "!{readlength}" -ge "50" ]; then 
         MULTI="0"
         phyloFlash.pl -dbhome "!{params.phyloflash}" !{read} -lib !{sample} \
-                    -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
+                      -CPUs !{task.cpus} -readlength !{readlength} -taxlevel !{params.taxlevel}
         jsonify-phyloflash.py !{sample}.phyloFlash > !{sample}.phyloFlash.json
         mv !{sample}.* !{sample}
 

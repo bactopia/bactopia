@@ -7,31 +7,49 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch ${OUTDIR}/!{sample}.fna ${OUTDIR}/shovill.dry_run.txt
 else
     GENOME_SIZE=`head -n 1 !{genome_size}`
-    if [ "!{single_end}" == "false" ]; then
-        # Paired-End Reads
-        shovill --R1 !{fq[0]} --R2 !{fq[1]} --depth 0 --gsize ${GENOME_SIZE} \
-            --outdir ${OUTDIR} \
-            --force \
-            --minlen !{params.min_contig_len} \
-            --mincov !{params.min_contig_cov} \
-            --namefmt "!{params.contig_namefmt}" \
-            --keepfiles \
-            --cpus !{task.cpus} \
-            --ram !{shovill_ram} \
-            --assembler !{params.assembler} \
-            --noreadcorr !{opts} !{kmers} !{nostitch} !{nocorr}
+    if [ "!{sample_type}" == "hybrid" ]; then
+        unicycler -1 !{fq[0]} -2 !{fq[1]} -l !{extra} \
+            -o ${OUTDIR} \
+            --no_correct \
+            --min_fasta_length !{params.min_contig_len} \
+            --threads !{task.cpus} \
+            !{keep} --mode !{params.unicycler_mode} \
+            !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
+            --min_component_size !{params.min_component_size} \
+            --min_dead_end_size !{params.min_dead_end_size}
+        cat assembly/spades_assembly/assembly/spades.log
+        mv ${OUTDIR}/assembly.fasta ${OUTDIR}/contigs.fa
+        mv ${OUTDIR}/assembly.gfa ${OUTDIR}/contigs.gfa 
+    elif [ "!{use_original_assembly}" == "true" ]; then
+        mkdir ${OUTDIR}
+        zcat !{extra} > ${OUTDIR}/contigs.fa
     else
-        # Single-End Reads
-        shovill-se --se !{fq[0]} --depth 0 --gsize ${GENOME_SIZE} \
-            --outdir ${OUTDIR} \
-            --force \
-            --minlen !{params.min_contig_len} \
-            --mincov !{params.min_contig_cov} \
-            --namefmt "!{params.contig_namefmt}" \
-            --keepfiles \
-            --cpus !{task.cpus} \
-            --ram !{shovill_ram} \
-            --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
+        if [ "!{single_end}" == "false" ]; then
+            # Paired-End Reads
+            shovill --R1 !{fq[0]} --R2 !{fq[1]} --depth 0 --gsize ${GENOME_SIZE} \
+                --outdir ${OUTDIR} \
+                --force \
+                --minlen !{params.min_contig_len} \
+                --mincov !{params.min_contig_cov} \
+                --namefmt "!{params.contig_namefmt}" \
+                --keepfiles \
+                --cpus !{task.cpus} \
+                --ram !{shovill_ram} \
+                --assembler !{params.assembler} \
+                --noreadcorr !{opts} !{kmers} !{nostitch} !{nocorr}
+        else
+            # Single-End Reads
+            shovill-se --se !{fq[0]} --depth 0 --gsize ${GENOME_SIZE} \
+                --outdir ${OUTDIR} \
+                --force \
+                --minlen !{params.min_contig_len} \
+                --mincov !{params.min_contig_cov} \
+                --namefmt "!{params.contig_namefmt}" \
+                --keepfiles \
+                --cpus !{task.cpus} \
+                --ram !{shovill_ram} \
+                --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
+        fi
     fi
 
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/contigs.fa || true`

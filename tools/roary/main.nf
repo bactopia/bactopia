@@ -39,7 +39,7 @@ process download_references {
                                               !{opt} -r 50 --dry-run > accession-list.txt
                 shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
                 ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                            -A accession-subset.txt -r 50 --dry-run > accession-list.txt
+                                              -A accession-subset.txt -r 50
             else
                 ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
             fi

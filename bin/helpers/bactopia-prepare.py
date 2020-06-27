@@ -166,7 +166,7 @@ if __name__ == '__main__':
                 extra = assembly[0]
 
             if pe_reads:
-                runtype = 'standard'
+                runtype = 'paired-end'
                 r1, r2 = sorted(pe_reads)
 
             if se_reads:
@@ -174,7 +174,7 @@ if __name__ == '__main__':
                     runtype = 'hybrid'
                     extra = se_reads[0]
                 else:
-                    runtype = 'standard'
+                    runtype = 'single-end'
                     r1 = se_reads[0]
 
             FOFN.append([sample, runtype, r1, r2, extra])

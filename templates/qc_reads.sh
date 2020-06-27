@@ -24,7 +24,7 @@ else
             tbo=!{params.tbo} \
             threads=!{task.cpus} \
             ftm=!{params.ftm} \
-            ordered=t \
+            !{qin} ordered=t \
             stats=quality-control/logs/bbduk-adapter.log
 
         # Remove PhiX
@@ -40,7 +40,7 @@ else
             trimq=!{params.trimq} \
             minlength=!{params.minlength} \
             minavgquality=!{params.maq} \
-            qout=!{params.qout} \
+            !{qin} qout=!{params.qout} \
             tossjunk=!{params.tossjunk} \
             threads=!{task.cpus} \
             ordered=t \
@@ -157,6 +157,10 @@ else
         sed 's/^\s*//' > !{sample}-low-read-count-error.txt
     fi
 
+    if [ "!{is_assembly}" == "true" ]; then
+        touch quality-control/reads-simulated-from-assembly.txt
+    fi
+    
     if [ "${ERROR}" -eq "1" ]; then
         if [ "!{single_end}" == "false" ]; then
             mv quality-control/!{sample}_R1.fastq.gz quality-control/!{sample}_R1.error-fq.gz

@@ -14,8 +14,8 @@ if (params.available_datasets && params.datasets) print_available_datasets(param
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
-fastq_type = check_input_params()
-check_input_fastqs(params.fastqs, fastq_type)
+run_type = check_input_params()
+check_input_fastqs(run_type)
 if (params.check_fastqs) print_check_fastqs(params.fastqs, fastq_type);
 
 // Setup output directories
@@ -45,13 +45,24 @@ process gather_fastqs {
     /* Gather up input FASTQs for analysis. */
 
     input:
-    set val(sample), val(single_end), file(fq) from create_fastq_channel(params.fastqs, fastq_type)
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from create_input_channel(run_type)
 
     output:
-    set val(sample), val(single_end),
-        file("fastqs/${sample}*.fastq.gz") into FASTQ_PE_STATUS
+    set val(sample_name), val(sample_type), val(single_end),
+        file("fastqs/${sample_name}*.fastq.gz"), file("extra/*.gz") into FASTQ_PE_STATUS
 
     shell:
+    is_assembly = sample_type.startsWith('assembly') ? true : false
+    is_compressed = false
+    if (extra) {
+        is_compressed = extra.getName().endsWith('gz') ? true : false
+    }
+    sample_name = sample_type == 'assembly_accession' ? sample.split(/\./)[0] : sample
+    section = null
+    if (sample_type == 'assembly_accession') {
+        section = sample_name.startsWith('GCF') ? 'refseq' : 'genbank'
+    }
+    fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
     template(task.ext.template)
 }
 
@@ -60,14 +71,16 @@ process fastq_status {
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     input:
-    set val(sample), val(single_end), file(fq) from FASTQ_PE_STATUS
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from FASTQ_PE_STATUS
 
     output:
     file "*-error.txt" optional true
-    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz") optional true into ESTIMATE_GENOME_SIZE
+    set val(sample), val(sample_type), val(single_end), 
+        file("fastqs/${sample}*.fastq.gz"), file(extra) optional true into ESTIMATE_GENOME_SIZE
 
     shell:
     single_end = fq[1] == null ? true : false
+    qin = sample_type.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     template(task.ext.template)
 }
 
@@ -77,12 +90,13 @@ process estimate_genome_size {
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     input:
-    set val(sample), val(single_end), file(fq) from ESTIMATE_GENOME_SIZE
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from ESTIMATE_GENOME_SIZE
 
     output:
     file "${sample}-genome-size-error.txt" optional true
     file("${sample}-genome-size.txt") optional true
-    set val(sample), val(single_end), file(fq), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
+    set val(sample), val(sample_type), val(single_end), 
+        file(fq), file(extra), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
 
     shell:
     template(task.ext.template)
@@ -95,7 +109,7 @@ process qc_reads {
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*error.txt"
 
     input:
-    set val(sample), val(single_end), file(fq), file(genome_size) from QC_READS
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra), file(genome_size) from QC_READS
 
     output:
     file "*-error.txt" optional true
@@ -104,8 +118,8 @@ process qc_reads {
         file("quality-control/${sample}*.fastq.gz") optional true into COUNT_31MERS, ARIBA_ANALYSIS,
                                                                        MINMER_SKETCH, CALL_VARIANTS,
                                                                        MAPPING_QUERY
-    set val(sample), val(single_end),
-        file("quality-control/${sample}*.fastq.gz"),
+    set val(sample), val(sample_type), val(single_end),
+        file("quality-control/${sample}*.fastq.gz"), file(extra),
         file(genome_size) optional true into ASSEMBLY
 
     set val(sample), val(single_end),
@@ -113,6 +127,8 @@ process qc_reads {
         file(genome_size) optional true into QC_FINAL_SUMMARY
 
     shell:
+    is_assembly = sample_type.startsWith('assembly') ? true : false
+    qin = sample_type.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapters = params.adapters ? file(params.adapters) : 'adapters'
     phix = params.phix ? file(params.phix) : 'phix'
     template(task.ext.template)
@@ -125,7 +141,7 @@ process qc_original_summary {
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
-    set val(sample), val(single_end), file(fq), file(genome_size) from QC_ORIGINAL_SUMMARY
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra), file(genome_size) from QC_ORIGINAL_SUMMARY
 
     output:
     file "quality-control/*"
@@ -163,7 +179,7 @@ process assemble_genome {
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
     input:
-    set val(sample), val(single_end), file(fq), file(genome_size) from ASSEMBLY
+    set val(sample), val(sample_type), val(single_end), file(fq), file(extra), file(genome_size) from ASSEMBLY
 
     output:
     file "assembly/*"
@@ -177,6 +193,11 @@ process assemble_genome {
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.nostitch ? "--nostitch" : ""
     nocorr = params.nocorr ? "--nocorr" : ""
+    no_miniasm = params.no_miniasm ? "--no_miniasm" : ""
+    no_rotate = params.no_rotate ? "--no_rotate" : ""
+    no_pilon = params.no_pilon ? "--no_pilon" : ""
+    keep = params.keep_all_files ? "--keep 3" : "--keep 1"
+    use_original_assembly = sample_type.startsWith('assembly') && params.reassemble ? false : true 
     template(task.ext.template)
 }
 
@@ -690,13 +711,13 @@ def print_example_fastqs() {
 }
 
 
-def print_check_fastqs(fastq_input, fastq_type) {
-    if (fastq_type == "fastqs") {
+def print_check_fastqs(run_type) {
+    if (run_type == "fastqs") {
         log.info 'Printing what would have been processed. Each line consists of an array of'
         log.info 'three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]'
         log.info ''
         log.info 'Found:'
-        create_fastq_channel(fastq_input).println()
+        create_input_channel(run_type).println()
         exit 0
     } else {
         log.error '"--check_fastqs" requires "--fastqs" to be set.'
@@ -1021,26 +1042,36 @@ def check_unknown_params() {
 
 def check_input_params() {
     error = 0
-    fastq_type = null
+    run_type = null
 
     // Check for unexpected paramaters
     error += check_unknown_params()
 
     if (params.fastqs) {
         error += file_exists(params.fastqs, '--fastqs')
-        fastq_type = "fastqs"
+        run_type = "fastqs"
+    } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
+        error += file_exists(params.R1, '--R1')
+        error += file_exists(params.R2, '--R2')
+        error += file_exists(params.SE, '--SE')
+        run_type = "hybrid"
+    } else if  (params.R1 && params.R2 && params.SE) {
+        log.error "Cannot use --R1, --R2, and --SE together, unless --hybrid is used."
     } else if  (params.R1 && params.R2 && params.sample) {
         error += file_exists(params.R1, '--R1')
         error += file_exists(params.R2, '--R2')
-        fastq_type = "paired"
+        run_type = "paired-end"
     } else if (params.SE && params.sample) {
         error += file_exists(params.SE, '--SE')
-        fastq_type = "single"
+        run_type = "single-end"
+    } else if (params.assembly && params.sample) {
+        error += file_exists(params.assembly, '--assembly')
+        run_type = "assembly"
     } else if (params.accessions) {
         error += file_exists(params.accessions, '--accessions')
-        fastq_type = "ena_accessions"
-    }else if (params.accession || params.dry_run) {
-        fastq_type = "ena_accession"
+        run_type = "is_accessions"
+    } else if (params.accession || params.dry_run) {
+        run_type = "is_accession"
     } else {
         log.error """
         One or more required parameters are missing, please check and try again.
@@ -1048,7 +1079,7 @@ def check_input_params() {
         Required Parameters:
             ### For Procesessing Multiple Samples
             --fastqs STR            An input file containing the sample name and
-                                        absolute paths to FASTQs to process
+                                        absolute paths to FASTQ/FASTAs to process
 
             ### For Processing A Single Sample
             --R1 STR                First set of reads for paired end in compressed (gzip)
@@ -1059,12 +1090,21 @@ def check_input_params() {
 
             --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
-            --sample STR            The name of the input sequences
-            ### For Downloading from ENA
-            --accessions            An input file containing ENA/SRA experiement accessions to
-                                        be processed
+            --hybrid                The SE should be treated as long reads for hybrid assembly.
 
-            --accession             A single ENA/SRA Experiment accession to be processed
+            --sample STR            The name of the input sequences
+
+            ### For Downloading from SRA/ENA or NCBI Assembly
+            **Note: Assemblies will have error free Illumina reads simulated for processing.**
+            --accessions            An input file containing ENA/SRA Experiment accessions or 
+                                        NCBI Assembly accessions to be processed
+
+            --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession 
+                                        to be processed
+
+            ### For Processing an Assembly
+            **Note: The assembly will have error free Illumina reads simulated for processing.**
+            --assembly STR          A assembled genome in compressed FASTA format.
         """.stripIndent()
         error += 1
     }
@@ -1077,8 +1117,6 @@ def check_input_params() {
     error += is_positive_integer(params.cortex_ram, 'cortex_ram')
     error += is_positive_integer(params.qc_ram, 'qc_ram')
     error += is_positive_integer(params.minmer_ram, 'minmer_ram')
-
-
 
     if (params.genome_size) {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
@@ -1119,46 +1157,56 @@ def check_input_params() {
         exit 1
     }
 
-    return fastq_type
+    return run_type
 }
 
 
 def process_csv(line) {
     /* Parse line and determine if single end or paired reads*/
-    if (line.r2) {
-        // Paired
-        return tuple(line.sample, false, [file(line.r1), file(line.r2)])
-    } else {
-        // Single End
-        return tuple(line.sample, true, [file(line.r1)])
+    if (line.runtype == 'single-end') {
+        return tuple(line.sample, line.runtype, true, [file(line.r1)], null)
+    } else if (line.runtype == 'paried-end') {
+        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], null)
+    } else if (line.runtype == 'hybrid') {
+        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], line.extra)
+    } else if (line.runtype == 'assembly') {
+        return tuple(line.sample, line.runtype, false, [null, null], line.extra)
     }
 }
 
 def process_accessions(accession) {
     /* Parse line and determine if single end or paired reads*/
-    return tuple(accession.trim(), "is_accession", [null, null])
+    if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
+        return tuple(accession.trim(), "assembly_accession", false, [null, null], null)
+    } else {
+        return tuple(accession.trim(), "sra_accession", false, [null, null], null)
+    }
 }
 
 
-def create_fastq_channel(fastq_input, fastq_type) {
-    if (fastq_type == "fastqs") {
-        return Channel.fromPath( file(fastq_input) )
+def create_input_channel(run_type) {
+    if (run_type == "fastqs") {
+        return Channel.fromPath( file(params.fastqs) )
             .splitCsv(header: true, sep: '\t')
             .map { row -> process_csv(row) }
-    } else if (fastq_type == "ena_accessions") {
+    } else if (run_type == "is_accessions") {
         return Channel.fromPath( file(params.accessions) )
             .splitText()
             .map { line -> process_accessions(line) }
-    } else if (fastq_type == "ena_accession") {
+    } else if (run_type == "is_accession") {
         if (params.dry_run) {
-            return [tuple("BACTOPIA_DRY_RUN", "is_accession", [null, null])]
+            return [tuple("BACTOPIA_DRY_RUN", "is_accession", false, [null, null], null)]
         } else {
-            return [tuple(params.accession, "is_accession", [null, null])]
+            return [process_accessions(params.accession)]
         }
-    } else if (fastq_type == "paired") {
-        return [tuple(params.sample, false, [file(params.R1), file(params.R2)])]
+    } else if (run_type == "paired-end") {
+        return [tuple(params.sample, run_type, false, [file(params.R1), file(params.R2)], null)]
+    } else if (run_type == "hybrid") {
+        return [tuple(params.sample, run_type, false, [file(params.R1), file(params.R2)], file(params.SE))]
+    } else if (run_type == "assembly") {
+        return [tuple(params.sample, run_type, false, [null, null], file(params.assembly))]
     } else {
-        return [tuple(params.sample, true, [file(params.SE)])]
+        return [tuple(params.sample, run_type, true, [file(params.SE)], null)]
     }
 }
 
@@ -1179,16 +1227,16 @@ def create_reference_channel(channel_input) {
      }.flatMap { it -> L:{ it.collect { it } } }
 }
 
-def check_input_fastqs(fastq_input, fastq_type) {
+def check_input_fastqs(run_type) {
     /* Read through --fastqs and verify each input exists. */
-    if (fastq_type == "fastqs") {
+    if (run_type == "fastqs") {
         samples = [:]
         error = false
         has_valid_header = false
         line = 1
-        file(fastq_input).splitEachLine('\t') { cols ->
+        file(params.fastqs).splitEachLine('\t') { cols ->
             if (line == 1) {
-                if (cols[0] == 'sample' && cols[1] == 'r1' && cols[2] == 'r2') {
+                if (cols[0] == 'sample' && cols[1] == 'runtype' && cols[2] == 'r1' && cols[3] == 'r2' && cols[4] == 'extra') {
                     has_valid_header = true
                 }
             } else {
@@ -1197,15 +1245,21 @@ def check_input_fastqs(fastq_input, fastq_type) {
                 } else {
                     samples[cols[0]] = 1
                 }
-                if (cols[1]) {
-                    if (!file(cols[1]).exists()) {
-                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[1]+ ' exists, and try again'
-                        error = true
-                    }
-                }
                 if (cols[2]) {
                     if (!file(cols[2]).exists()) {
                         log.error "LINE " + line + ':ERROR: Please verify ' + cols[2]+ ' exists, and try again'
+                        error = true
+                    }
+                }
+                if (cols[3]) {
+                    if (!file(cols[3]).exists()) {
+                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[3]+ ' exists, and try again'
+                        error = true
+                    }
+                }
+                if (cols[4]) {
+                    if (!file(cols[4]).exists()) {
+                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[4]+ ' exists, and try again'
                         error = true
                     }
                 }
@@ -1223,11 +1277,11 @@ def check_input_fastqs(fastq_input, fastq_type) {
 
         if (!has_valid_header) {
             error = true
-            log.error 'The header line (line 1) does not follow expected structure.'
+            log.error 'The header line (line 1) does not follow expected structure. (sample, runtype, r1, r2, extra)'
         }
 
         if (error) {
-            log.error 'Verify sample names are unique and/or FASTQ paths are correct'
+            log.error 'Verify sample names are unique and/or FASTA/FASTQ paths are correct'
             log.error 'See "--example_fastqs" for an example'
             log.error 'Exiting'
             exit 1
@@ -1314,7 +1368,7 @@ def basic_help() {
     Required Parameters:
         ### For Procesessing Multiple Samples
         --fastqs STR            An input file containing the sample name and
-                                    absolute paths to FASTQs to process
+                                    absolute paths to FASTQ/FASTAs to process
 
         ### For Processing A Single Sample
         --R1 STR                First set of reads for paired end in compressed (gzip)
@@ -1325,14 +1379,24 @@ def basic_help() {
 
         --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
+        --hybrid                The SE should be treated as long reads for hybrid assembly.
+
         --sample STR            The name of the input sequences
 
-        ### For Downloading from ENA
-        --accessions            An input file containing ENA/SRA experiement accessions to
-                                    be processed
+        ### For Downloading from SRA/ENA or NCBI Assembly
+        **Note: Assemblies will have error free Illumina reads simulated for processing.**
+        --accessions            An input file containing ENA/SRA Experiment accessions or 
+                                    NCBI Assembly accessions to be processed
 
-        --accession             A single ENA/SRA Experiment accession to be processed
+        --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession 
+                                    to be processed
 
+        ### For Processing an Assembly
+        **Note: The assembly will have error free Illumina reads simulated for processing.**
+        --assembly STR          A assembled genome in compressed FASTA format.
+
+        --reassemble            The simulated reads will be used to create a new assembly.
+                                    Default: Use the original assembly, do not reassemble
 
     Dataset Parameters:
         --datasets DIR          The path to available datasets that have
@@ -1602,6 +1666,7 @@ def full_help() {
 
 
     Assembly Parameters:
+        Standard Assembly:
         --shovill_ram INT       Try to keep RAM usage below this many GB
                                     Default: ${params.shovill_ram} GB
 
@@ -1629,6 +1694,37 @@ def full_help() {
         --nostitch              Disable read stitching
 
         --nocorr                Disable post-assembly correction
+
+        Hybrid Assembly:
+        --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
+                                    conservative = smaller contigs, lowest 
+                                                   misassembly rate
+                                    normal = moderate contig size and 
+                                             misassembly rate (Default)
+                                    bold = longest contigs, higher misassembly 
+                                           rate
+
+        --min_polish_size INT   Contigs shorter than this value (bp) will not be 
+                                    polished using Pilon
+                                    Default: ${params.min_polish_size}
+
+        --min_component_size INT
+                                Graph components smaller than this size (bp) will 
+                                    be removed from the final graph
+                                    Default: ${params.min_compenent_size}
+
+        --min_dead_end_size INT 
+                                Graph dead ends smaller than this size (bp) will 
+                                    be removed from the final graph
+                                    Default: ${params.min_dead_end_size}
+
+        --no_miniasm            Skip miniasm+Racon bridging 
+                                    Default: Produce long-read bridges
+
+        --no_rotate             Do not rotate completed replicons to start at a 
+                                    standard gene
+
+        --no_pilon              Do not use Pilon to polish the final assembly 
 
     Assembly Quality Control Parameters"
         --checkm_unique INT     Minimum number of unique phylogenetic markers required 
