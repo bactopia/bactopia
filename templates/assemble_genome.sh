@@ -16,14 +16,15 @@ else
             !{keep} --mode !{params.unicycler_mode} \
             !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
-            --min_dead_end_size !{params.min_dead_end_size} || true
-        ls assembly
-        cat assembly/spades_assembly/assembly/spades.log
-        mv ${OUTDIR}/assembly.fasta ${OUTDIR}/contigs.fa
-        mv ${OUTDIR}/assembly.gfa ${OUTDIR}/contigs.gfa 
+            --min_dead_end_size !{params.min_dead_end_size}
+        sed -r 's/^>([0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
+        if [[ !{params.compress} == "true" ]]; then
+            pigz -n --best -p !{task.cpus} ${OUTDIR}/*.gfa
+            pigz -n --best -p !{task.cpus} ${OUTDIR}/*.fasta
+        fi
     elif [ "!{use_original_assembly}" == "true" ]; then
         mkdir ${OUTDIR}
-        zcat !{extra} > ${OUTDIR}/contigs.fa
+        zcat !{extra} > ${OUTDIR}/!{sample}.fna
     else
         if [ "!{single_end}" == "false" ]; then
             # Paired-End Reads
@@ -51,12 +52,14 @@ else
                 --ram !{shovill_ram} \
                 --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
         fi
+        sed -r 's/^>(contig[0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/contigs.fa > ${OUTDIR}/!{sample}.fna
+        if [[ !{params.compress} == "true" ]]; then
+            pigz -n --best -p !{task.cpus} ${OUTDIR}/contigs.fa
+        fi
     fi
 
-    TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/contigs.fa || true`
+    TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
     if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
-        sed -i -r  's/^>(contig[0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/contigs.fa
-        mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{sample}.fna
         assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json
         TOTAL_CONTIG_SIZE=`grep "total_contig_length" ${OUTDIR}/!{sample}.fna.json | sed -r 's/.*: ([0-9]+)/\1/'`
         if [ ${TOTAL_CONTIG_SIZE} -lt "!{params.min_genome_size}" ]; then

@@ -113,14 +113,16 @@ ${SAMPLE_NAME}/
 | version_info.txt | Information on the versions of ARIBA and its dependencies at runtime. |
 
 ### `assembly`
-The `assembly` folder contains the results of the sample's assembly. Assembly is managed by [Shovill](https://github.com/tseemann/shovill) and by default [SKESA](https://github.com/ncbi/SKESA) is used for assembly. Alternative assemblers include [SPAdes](https://github.com/ablab/spades), [MEGAHIT](https://github.com/voutcn/megahit), and [Velvet](https://github.com/dzerbino/velvet). Depending on the choice of assembler, additional output files (e.g. assembly graphs) may be given.
+The `assembly` folder contains the results of the sample's assembly. 
+
+#### standard
+The standard assembly is managed by [Shovill](https://github.com/tseemann/shovill) and by default [SKESA](https://github.com/ncbi/SKESA) is used for assembly. Alternative assemblers include [SPAdes](https://github.com/ablab/spades), [MEGAHIT](https://github.com/voutcn/megahit), and [Velvet](https://github.com/dzerbino/velvet). Depending on the choice of assembler, additional output files (e.g. assembly graphs) may be given.
 
 Files descriptions with some modifications were directly taken from [Shovill's Output Files](https://github.com/tseemann/shovill#output-files) section as well as the [FLASH usage](https://sourceforge.net/p/flashpage/code/ci/master/tree/flash.c#l114).
-
-
 ```
 ${SAMPLE_NAME}/
 └── assembly
+    ├── cointigs.fa
     ├── flash.hist
     ├── flash.histogram
     ├── shovill.corrections
@@ -131,12 +133,106 @@ ${SAMPLE_NAME}/
 
 | Filename | Description |
 |----------|-------------|
+| contigs.fa | Final assembly without renamed headers. |
 | flash.hist | Numeric histogram of merged read lengths. |
-| flash.histogram | Visual histogram of merged read lengths. |
+| flash.histogram | Visual histogram of merged read lengths |
 | shovill.log | Full log file for bug reporting |
 | shovill.corrections | List of post-assembly corrections |
-| ${SAMPLE_NAME}.fna | The final assembly you should use |
+| ${SAMPLE_NAME}.fna | The final assembly, with renamed header to include sample name |
 | ${SAMPLE_NAME}.fna.json | Summary statistics of the assembly |
+
+!!! info "FASTA inputs are not reassembled by default"
+    In the case where an assembly is given as an input, the only files that will be available are `${SAMPLE_NAME}.fna` (the original unmodified assembly) and `${SAMPLE_NAME}.fna.json`. If `--reassemble` is also given, then all the files seen above will be available.
+
+#### hybrid
+If long reads are available to supplement input paired-end Illumina reads, a hybrid assembly can be created using [Unicycler](https://github.com/rrwick/Unicycler).
+
+Files descriptions with some modifications were directly taken from [Unicycler's Output Files](https://github.com/rrwick/Unicycler#output-files).
+```
+${SAMPLE_NAME}/
+└── assembly
+    ├── 001_best_spades_graph.gfa
+    ├── 002_overlaps_removed.gfa
+    ├── 003_long_read_assembly.gfa
+    ├── 004_bridges_applied.gfa
+    ├── 005_final_clean.gfa
+    ├── 006_polished.gfa
+    ├── 007_rotated.gfa
+    ├── assembly.fasta
+    ├── assembly.gfa
+    ├── ${SAMPLE_NAME}.fna
+    ├── ${SAMPLE_NAME}.fna.json
+    └── unicycler.log
+```
+
+| Filename | Description |
+|----------|-------------|
+| 001_best_spades_graph.gfa | The best SPAdes short-read assembly graph, with a bit of graph clean-up |
+| 002_overlaps_removed.gfa | Overlap-free version of the SPAdes graph, with some more graph clean-up |
+| 003_long_read_assembly.gfa | Assembly graph after long read assembly |
+| 004_bridges_applied.gfa | Bridges applied, before any cleaning or merging |
+| 005_final_clean.gfa | Assembly graph after more redundant contigs removed |
+| 006_polished.gfa | Assembly graph after a round of Pilon polishing |
+| 007_rotated.gfa | Assembly graph after ircular replicons rotated and/or flipped to a start position |
+| assembly.fasta | The final assembly in FASTA format (same contigs names as in assembly.gfa) |
+| assembly.gfa | The final assembly in [GFA v1](https://github.com/GFA-spec/GFA-spec/blob/master/GFA1.md) graph format |
+| ${SAMPLE_NAME}.fna | The final assembly with renamed header to include sample name |
+| ${SAMPLE_NAME}.fna.json | Summary statistics of the assembly |
+| unicycler.log | Unicycler log file (same info as stdout) |
+
+#### quality reports
+Each assembly will have its biological and technical quality assessed with [CheckM](https://github.com/Ecogenomics/CheckM) and [QUAST](http://quast.sourceforge.net/). This assessment is done no matter the input type (paired, single, hybrid, or assembly).
+
+Files descriptions with some modifications were directly taken from [CheckM's Usage](https://github.com/Ecogenomics/CheckM/blob/master/bin/checkm)  and [QUAST's Output Files](http://quast.sourceforge.net/docs/manual.html#sec3).
+```
+assembly/
+├── checkm
+│   ├── bins/
+│   ├── checkm-genes.aln
+│   ├── checkm.log
+│   ├── checkm-results.txt
+│   ├── lineage.ms
+│   └── storage/
+└── quast
+    ├── basic_stats/
+    ├── icarus.html
+    ├── icarus_viewers
+    │   └── contig_size_viewer.html
+    ├── predicted_genes
+    │   ├── GCF_003431365_glimmer_genes.gff.gz
+    │   └── GCF_003431365_glimmer.stderr
+    ├── quast.log
+    ├── report.{html|pdf|tex|tsv|txt}
+    ├── transposed_report.tex
+    ├── transposed_report.tsv
+    └── transposed_report.txt
+```
+
+_CheckM Outputs_  
+
+| Filename | Description |
+|----------|-------------|
+| bins/ | A folder with inputs (e.g. proteins) for processing by CheckM  |
+| checkm-genes.aln | Alignment of multi-copy genes and their AAI identity |
+| checkm.log | The output log of CheckM |
+| checkm-results.txt | Final results of [CheckM's lineage_wf](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow) |
+| lineage.ms | Output file describing marker set for each bin |
+| storage/ | A folder with intermediate results from CheckM processing |
+
+
+_QUAST Outputs_  
+
+| Filename | Description |
+|----------|-------------|
+| basic_stats | A folder with plots of assembly metrics (e.g. GC content, NGx, Nx) |
+| icarus.html | Icarus main menu with links to interactive viewers. |
+| icarus_viewers/ | Additional reports for Icarus  |
+| predicted_genes/ | Predicted gene output |
+| quast.log | Detailed information about the QUAST run |
+| report.{html\|pdf }| Assessement summary including all tables and plots |
+| report.{tex\|tsv\|txt} | Assessment summary in multiple different formats |
+| transposed_report.{tex\|tsv\|txt} | Transposed version of the assessment summary |
+
 
 ### `blast`
 The `blast` directory contains the [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) results and a BLAST database of the sample assembly.

@@ -69,12 +69,22 @@ A minmer sketch and signature is created based on the QC'd FASTQs for multiple v
 | [Sourmash](https://github.com/dib-lab/sourmash) | Produces a signature (*k*=21,31,51) of the QC'd FASTQ |
 
 #### De novo Assembly
-The QC'd FASTQs are assembled using the [Shovill](https://github.com/tseemann/shovill) pipeline. This allows for a seamless assembly process using [MEGAHIT](https://github.com/voutcn/megahit), [SKESA](https://github.com/ncbi/SKESA), [SPAdes](https://github.com/ablab/spades) or [Velvet](https://github.com/dzerbino/velvet).
+The QC'd FASTQs are assembled using the [Shovill](https://github.com/tseemann/shovill) pipeline. This allows for a seamless assembly process using [MEGAHIT](https://github.com/voutcn/megahit), [SKESA](https://github.com/ncbi/SKESA), [SPAdes](https://github.com/ablab/spades) or [Velvet](https://github.com/dzerbino/velvet). Alternatively, if long reads are available to complement Illumina paired-end reads, hybrid assembly is available through [Unicycler](https://github.com/rrwick/Unicycler).
 
 | Software | Usage   |
 |----------|:--------------|
 | [assembly-scan](https://github.com/rpetit3/assembly-scan) | Generates summary statistics of the final assembly |
 | [Shovill](https://github.com/tseemann/shovill)  | Manages multiple steps in the Illumina assembly process |
+| [Unicycler](https://github.com/rrwick/Unicycler) | Manages multiple steps in the hybrid assembly process |
+
+#### Assembly Quality Assessment
+After assembly, the *de novo* assembly is assessed for its biological (e.g. containment & contamination) as well as its technical (e.g. misassemblies and errors) quality using [CheckM](https://github.com/Ecogenomics/CheckM) and [QUAST](http://quast.sourceforge.net/).
+
+| Software | Usage   |
+|----------|:--------------|
+| [CheckM](https://github.com/Ecogenomics/CheckM) | Assess the biological quality of a *de novo* assembly based on presence of marker genes |
+| [QUAST](http://quast.sourceforge.net/) | Gives a summary on the technical (e.g. misassemblies etc) quality of a *de novo* assembly |
+
 
 #### Genome Annotation
 Genes are predicted and annotated from the assembled genome using [Prokka](https://github.com/tseemann/prokka). If available, a [clustered RefSeq protein set](/datasets/#species-specific) is used for the first pass of annotation.
@@ -94,7 +104,7 @@ Searches for antimicrobial resistance genes and assosiated point mutations in th
 The remaining *Dataset Enabled Steps* require supplemental datasets to be available to be executed. There are many datasets available that Bactopia can take advantage of. To learn more about setting up these datasets, check out [Build Datasets](/datasets/#build-datasets). These datasets can be broken into two groups, *Public Datasets* and *User Datasets*.
 
 ### Public Datasets
-[Publicly available datasets](/datasets/#general) can be used for futher analysis.
+[Publicly available datasets](/datasets/#general) can be used for further analysis.
 
 #### Call Variants (Auto)
 Variants are predicted using [Snippy](https://github.com/tseemann/snippy). The QC'd FASTQs are aligned to the nearest (based on Mash distance) RefSeq completed genome. By default, only the nearest genome is selected, but multiple genomes can be selected (`--max_references`) or this feature can be completely disabled (`disable_auto_variants`).
@@ -147,14 +157,6 @@ Uses the same procedure as [Call Variants (Auto)](/workflow-overview/#call-varia
 | [Bedtools](https://github.com/arq5x/bedtools2) | Generates the per-base coverage of the reference alignment |
 | [Snippy](https://github.com/tseemann/snippy)   | Manages multiple steps in the haploid variant calling process |
 | [vcf-annotator](https://github.com/rpetit3/vcf-annotator) | Adds annotations from reference GenBank to the final VCF |
-
-
-#### Insertion Sites
-Identifies the location of insertion sites (if any) for each insertion sequence provided by the user.
-
-| Software | Usage   |
-|----------|:--------------|
-| [ISMapper](https://github.com/jhawkey/IS_mapper) | Predicts insertion site locations for insertion sequences |
 
 #### Reference Mapping
 Aligns the QC'd FASTQs to each sequence provided by the user.
