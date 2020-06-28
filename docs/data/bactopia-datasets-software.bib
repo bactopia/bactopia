@@ -107,6 +107,26 @@
   language = "en"
 }
 
+@ARTICLE{Buchfink2015-yu,
+  title    = "Fast and sensitive protein alignment using {DIAMOND}",
+  author   = "Buchfink, Benjamin and Xie, Chao and Huson, Daniel H",
+  abstract = "The alignment of sequencing reads against a protein reference
+              database is a major computational bottleneck in metagenomics and
+              data-intensive evolutionary projects. Although recent tools offer
+              improved performance over the gold standard BLASTX, they exhibit
+              only a modest speedup or low sensitivity. We introduce DIAMOND,
+              an open-source algorithm based on double indexing that is 20,000
+              times faster than BLASTX on short reads and has a similar degree
+              of sensitivity.",
+  journal  = "Nat. Methods",
+  volume   =  12,
+  number   =  1,
+  pages    = "59--60",
+  month    =  jan,
+  year     =  2015,
+  language = "en"
+}
+
 @MISC{noauthor_undated-dt,
   title       = "Vcflib: A C++ library for parsing and manipulating {VCF} files",
   abstract    = "a simple C++ library for parsing and manipulating VCF files, +
@@ -125,6 +145,20 @@
   month    =  apr,
   year     =  2017,
   language = "en"
+}
+
+@ARTICLE{Katz2019-cp,
+  title    = "Mashtree: a rapid comparison of whole genome sequence files",
+  author   = "Katz, Lee and Griswold, Taylor and Morrison, Shatavia and
+              Caravas, Jason and Zhang, Shaokang and Bakker, Henk and Deng,
+              Xiangyu and Carleton, Heather",
+  abstract = "Software archive",
+  journal  = "JOSS",
+  volume   =  4,
+  number   =  44,
+  pages    = "1762",
+  month    =  dec,
+  year     =  2019
 }
 
 @ARTICLE{Laslett2004-li,
@@ -307,6 +341,54 @@
   language = "en"
 }
 
+@ARTICLE{Alcock2020-cx,
+  title    = "{CARD} 2020: antibiotic resistome surveillance with the
+              comprehensive antibiotic resistance database",
+  author   = "Alcock, Brian P and Raphenya, Amogelang R and Lau, Tammy T Y and
+              Tsang, Kara K and Bouchard, M{\'e}gane and Edalatmand, Arman and
+              Huynh, William and Nguyen, Anna-Lisa V and Cheng, Annie A and
+              Liu, Sihan and Min, Sally Y and Miroshnichenko, Anatoly and Tran,
+              Hiu-Ki and Werfalli, Rafik E and Nasir, Jalees A and Oloni,
+              Martins and Speicher, David J and Florescu, Alexandra and Singh,
+              Bhavya and Faltyn, Mateusz and Hernandez-Koutoucheva, Anastasia
+              and Sharma, Arjun N and Bordeleau, Emily and Pawlowski, Andrew C
+              and Zubyk, Haley L and Dooley, Damion and Griffiths, Emma and
+              Maguire, Finlay and Winsor, Geoff L and Beiko, Robert G and
+              Brinkman, Fiona S L and Hsiao, William W L and Domselaar, Gary V
+              and McArthur, Andrew G",
+  abstract = "The Comprehensive Antibiotic Resistance Database (CARD;
+              https://card.mcmaster.ca) is a curated resource providing
+              reference DNA and protein sequences, detection models and
+              bioinformatics tools on the molecular basis of bacterial
+              antimicrobial resistance (AMR). CARD focuses on providing
+              high-quality reference data and molecular sequences within a
+              controlled vocabulary, the Antibiotic Resistance Ontology (ARO),
+              designed by the CARD biocuration team to integrate with software
+              development efforts for resistome analysis and prediction, such
+              as CARD's Resistance Gene Identifier (RGI) software. Since 2017,
+              CARD has expanded through extensive curation of reference
+              sequences, revision of the ontological structure, curation of
+              over 500 new AMR detection models, development of a new
+              classification paradigm and expansion of analytical tools. Most
+              notably, a new Resistomes \& Variants module provides analysis
+              and statistical summary of in silico predicted resistance
+              variants from 82 pathogens and over 100 000 genomes. By adding
+              these resistance variants to CARD, we are able to summarize
+              predicted resistance using the information included in CARD,
+              identify trends in AMR mobility and determine previously
+              undescribed and novel resistance variants. Here, we describe
+              updates and recent expansions to CARD and its biocuration
+              process, including new resources for community biocuration of AMR
+              molecular reference data.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  48,
+  number   = "D1",
+  pages    = "D517--D525",
+  month    =  jan,
+  year     =  2020,
+  language = "en"
+}
+
 @ARTICLE{Ondov2016-cn,
   title    = "Mash: fast genome and metagenome distance estimation using
               {MinHash}",
@@ -333,6 +415,52 @@
   year     =  2016,
   keywords = "Alignment; Comparative genomics; Genomic distance; Metagenomics;
               Nanopore; Sequencing",
+  language = "en"
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@ARTICLE{Huerta-Cepas2017-sn,
+  title    = "Fast {Genome-Wide} Functional Annotation through Orthology
+              Assignment by {eggNOG-Mapper}",
+  author   = "Huerta-Cepas, Jaime and Forslund, Kristoffer and Coelho, Luis
+              Pedro and Szklarczyk, Damian and Jensen, Lars Juhl and von
+              Mering, Christian and Bork, Peer",
+  abstract = "Orthology assignment is ideally suited for functional inference.
+              However, because predicting orthology is computationally
+              intensive at large scale, and most pipelines are relatively
+              inaccessible (e.g., new assignments only available through
+              database updates), less precise homology-based functional
+              transfer is still the default for (meta-)genome annotation. We,
+              therefore, developed eggNOG-mapper, a tool for functional
+              annotation of large sets of sequences based on fast orthology
+              assignments using precomputed clusters and phylogenies from the
+              eggNOG database. To validate our method, we benchmarked Gene
+              Ontology (GO) predictions against two widely used homology-based
+              approaches: BLAST and InterProScan. Orthology filters applied to
+              BLAST results reduced the rate of false positive assignments by
+              11\%, and increased the ratio of experimentally validated terms
+              recovered over all terms assigned per protein by 15\%. Compared
+              with InterProScan, eggNOG-mapper achieved similar proteome
+              coverage and precision while predicting, on average, 41 more
+              terms per protein and increasing the rate of experimentally
+              validated terms recovered over total term assignments per protein
+              by 35\%. EggNOG-mapper predictions scored within the top-5
+              methods in the three GO categories using the CAFA2 NK-partial
+              benchmark. Finally, we evaluated eggNOG-mapper for functional
+              annotation of metagenomics data, yielding better performance than
+              interProScan. eggNOG-mapper runs ∼15$\times$ faster than BLAST
+              and at least 2.5$\times$ faster than InterProScan. The tool is
+              available standalone and as an online service at
+              http://eggnog-mapper.embl.de.",
+  journal  = "Mol. Biol. Evol.",
+  volume   =  34,
+  number   =  8,
+  pages    = "2115--2122",
+  month    =  aug,
+  year     =  2017,
+  keywords = "comparative genomics; functional annotation; gene function;
+              genomics; metagenomics; orthology",
   language = "en"
 }
 
@@ -737,6 +865,47 @@
   institution = "Github"
 }
 
+@ARTICLE{Bayliss2019-cv,
+  title    = "{PIRATE}: A fast and scalable pangenomics toolbox for clustering
+              diverged orthologues in bacteria",
+  author   = "Bayliss, Sion C and Thorpe, Harry A and Coyle, Nicola M and
+              Sheppard, Samuel K and Feil, Edward J",
+  abstract = "BACKGROUND: Cataloguing the distribution of genes within natural
+              bacterial populations is essential for understanding evolutionary
+              processes and the genetic basis of adaptation. Advances in whole
+              genome sequencing technologies have led to a vast expansion in
+              the amount of bacterial genomes deposited in public databases.
+              There is a pressing need for software solutions which are able to
+              cluster, catalogue and characterise genes, or other features, in
+              increasingly large genomic datasets. RESULTS: Here we present a
+              pangenomics toolbox, PIRATE (Pangenome Iterative Refinement and
+              Threshold Evaluation), which identifies and classifies
+              orthologous gene families in bacterial pangenomes over a wide
+              range of sequence similarity thresholds. PIRATE builds upon
+              recent scalable software developments to allow for the rapid
+              interrogation of thousands of isolates. PIRATE clusters genes (or
+              other annotated features) over a wide range of amino acid or
+              nucleotide identity thresholds and uses the clustering
+              information to rapidly identify paralogous gene families and
+              putative fission/fusion events. Furthermore, PIRATE orders the
+              pangenome using a directed graph, provides a measure of allelic
+              variation, and estimates sequence divergence for each gene
+              family. CONCLUSIONS: We demonstrate that PIRATE scales linearly
+              with both number of samples and computation resources, allowing
+              for analysis of large genomic datasets, and compares favorably to
+              other popular tools. PIRATE provides a robust framework for
+              analysing bacterial pangenomes, from largely clonal to panmictic
+              species.",
+  journal  = "Gigascience",
+  volume   =  8,
+  number   =  10,
+  month    =  oct,
+  year     =  2019,
+  keywords = "bioinformatics; microbial genomics; next-generation sequencing;
+              pangenomics",
+  language = "en"
+}
+
 @ARTICLE{Ondov2019-dw,
   title    = "Mash Screen: high-throughput sequence containment estimation for
               genome discovery",
@@ -985,6 +1154,47 @@
   abstract    = "Scripts to download genomes from the NCBI FTP servers -
                  kblin/ncbi-genome-download",
   institution = "Github"
+}
+
+@ARTICLE{Parks2015-xm,
+  title    = "{CheckM}: assessing the quality of microbial genomes recovered
+              from isolates, single cells, and metagenomes",
+  author   = "Parks, Donovan H and Imelfort, Michael and Skennerton, Connor T
+              and Hugenholtz, Philip and Tyson, Gene W",
+  abstract = "Large-scale recovery of genomes from isolates, single cells, and
+              metagenomic data has been made possible by advances in
+              computational methods and substantial reductions in sequencing
+              costs. Although this increasing breadth of draft genomes is
+              providing key information regarding the evolutionary and
+              functional diversity of microbial life, it has become impractical
+              to finish all available reference genomes. Making robust
+              biological inferences from draft genomes requires accurate
+              estimates of their completeness and contamination. Current
+              methods for assessing genome quality are ad hoc and generally
+              make use of a limited number of ``marker'' genes conserved across
+              all bacterial or archaeal genomes. Here we introduce CheckM, an
+              automated method for assessing the quality of a genome using a
+              broader set of marker genes specific to the position of a genome
+              within a reference genome tree and information about the
+              collocation of these genes. We demonstrate the effectiveness of
+              CheckM using synthetic data and a wide range of isolate-,
+              single-cell-, and metagenome-derived genomes. CheckM is shown to
+              provide accurate estimates of genome completeness and
+              contamination and to outperform existing approaches. Using
+              CheckM, we identify a diverse range of errors currently impacting
+              publicly available isolate genomes and demonstrate that genomes
+              obtained from single cells and metagenomic data vary
+              substantially in quality. In order to facilitate the use of draft
+              genomes, we propose an objective measure of genome quality that
+              can be used to select genomes suitable for specific gene- and
+              genome-centric analyses of microbial communities.",
+  journal  = "Genome Res.",
+  volume   =  25,
+  number   =  7,
+  pages    = "1043--1055",
+  month    =  jul,
+  year     =  2015,
+  language = "en"
 }
 
 @ARTICLE{Bushnell2016-oa,
@@ -1252,6 +1462,42 @@
   institution = "Github"
 }
 
+@UNPUBLISHED{Gruber-Vodicka2019-ch,
+  title    = "phyloFlash -- Rapid {SSU} {rRNA} profiling and targeted assembly
+              from metagenomes",
+  author   = "Gruber-Vodicka, Harald R and Seah, Brandon K B and Pruesse, Elmar",
+  abstract = "ABSTRACT The SSU rRNA gene is the key marker in molecular ecology
+              for all domains of life, but is largely absent from
+              metagenome-assembled genomes that often are the only resource
+              available for environmental microbes. Here we present phyloFlash,
+              a pipeline to overcome this gap with rapid, SSU rRNA-centered
+              taxonomic classification, targeted assembly, and graph-based
+              binning of full metagenomic assemblies. We show that a cleanup of
+              artifacts is pivotal even with a curated reference database. With
+              such a filtered database, the general-purpose mapper BBmap
+              extracts SSU rRNA reads five times faster than the
+              rRNA-specialized tool SortMeRNA with similar sensitivity and
+              higher selectivity on simulated metagenomes. Reference-based
+              targeted assemblers yielded either highly fragmented assemblies
+              or high levels of chimerism, so we employ the general-purpose
+              genomic assembler SPAdes. Our optimized implementation is
+              independent of reference database composition and has
+              satisfactory levels of chimera formation. Using the phyloFlash
+              workflow we could recover the first complete genomes of several
+              enigmatic taxa, including Marinamargulisbacteria from surface
+              ocean seawater. phyloFlash quickly processes Illumina
+              (meta)genomic data, is straightforward to use, even as part of
+              high-throughput quality control, and has user-friendly output
+              reports. The software is available at
+              https://github.com/HRGV/phyloFlash (GPL3 license) and is
+              documented with an online manual.",
+  journal  = "bioRxiv",
+  pages    = "521922",
+  month    =  jan,
+  year     =  2019,
+  language = "en"
+}
+
 @ARTICLE{Quast2013-dv,
   title    = "The {SILVA} ribosomal {RNA} gene database project: improved data
               processing and web-based tools",
@@ -1437,6 +1683,38 @@
   keywords = "PubMed S. aureus 2000-15/2014;S. aureus Genomics/No Data/PDF"
 }
 
+@ARTICLE{Jain2018-zl,
+  title    = "High throughput {ANI} analysis of {90K} prokaryotic genomes
+              reveals clear species boundaries",
+  author   = "Jain, Chirag and Rodriguez-R, Luis M and Phillippy, Adam M and
+              Konstantinidis, Konstantinos T and Aluru, Srinivas",
+  abstract = "A fundamental question in microbiology is whether there is
+              continuum of genetic diversity among genomes, or clear species
+              boundaries prevail instead. Whole-genome similarity metrics such
+              as Average Nucleotide Identity (ANI) help address this question
+              by facilitating high resolution taxonomic analysis of thousands
+              of genomes from diverse phylogenetic lineages. To scale to
+              available genomes and beyond, we present FastANI, a new method to
+              estimate ANI using alignment-free approximate sequence mapping.
+              FastANI is accurate for both finished and draft genomes, and is
+              up to three orders of magnitude faster compared to
+              alignment-based approaches. We leverage FastANI to compute
+              pairwise ANI values among all prokaryotic genomes available in
+              the NCBI database. Our results reveal clear genetic
+              discontinuity, with 99.8\% of the total 8 billion genome pairs
+              analyzed conforming to >95\% intra-species and <83\%
+              inter-species ANI values. This discontinuity is manifested with
+              or without the most frequently sequenced species, and is robust
+              to historic additions in the genome databases.",
+  journal  = "Nat. Commun.",
+  volume   =  9,
+  number   =  1,
+  pages    = "5114",
+  month    =  nov,
+  year     =  2018,
+  language = "en"
+}
+
 @MISC{Bankevich_undated-ft,
   title        = "{SPAdes}: A New Genome Assembly Algorithm and Its
                   Applications to {Single-Cell} Sequencing | Journal of
@@ -1474,6 +1752,33 @@
   pages     = "2078--2079",
   month     =  aug,
   year      =  2009
+}
+
+@ARTICLE{Cock2009-ep,
+  title    = "Biopython: freely available Python tools for computational
+              molecular biology and bioinformatics",
+  author   = "Cock, Peter J A and Antao, Tiago and Chang, Jeffrey T and
+              Chapman, Brad A and Cox, Cymon J and Dalke, Andrew and Friedberg,
+              Iddo and Hamelryck, Thomas and Kauff, Frank and Wilczynski,
+              Bartek and de Hoon, Michiel J L",
+  abstract = "SUMMARY: The Biopython project is a mature open source
+              international collaboration of volunteer developers, providing
+              Python libraries for a wide range of bioinformatics problems.
+              Biopython includes modules for reading and writing different
+              sequence file formats and multiple sequence alignments, dealing
+              with 3D macro molecular structures, interacting with common tools
+              such as BLAST, ClustalW and EMBOSS, accessing key online
+              databases, as well as providing numerical methods for statistical
+              learning. AVAILABILITY: Biopython is freely available, with
+              documentation and source code at (www.biopython.org) under the
+              Biopython license.",
+  journal  = "Bioinformatics",
+  volume   =  25,
+  number   =  11,
+  pages    = "1422--1423",
+  month    =  jun,
+  year     =  2009,
+  language = "en"
 }
 
 @ARTICLE{Lakin2017-gd,
@@ -1597,6 +1902,31 @@
   pages    = "e1004041",
   month    =  feb,
   year     =  2015,
+  language = "en"
+}
+
+@ARTICLE{Vaser2017-wd,
+  title    = "Fast and accurate de novo genome assembly from long uncorrected
+              reads",
+  author   = "Vaser, Robert and Sovi{\'c}, Ivan and Nagarajan, Niranjan and {\v
+              S}iki{\'c}, Mile",
+  abstract = "The assembly of long reads from Pacific Biosciences and Oxford
+              Nanopore Technologies typically requires resource-intensive
+              error-correction and consensus-generation steps to obtain
+              high-quality assemblies. We show that the error-correction step
+              can be omitted and that high-quality consensus sequences can be
+              generated efficiently with a SIMD-accelerated, partial-order
+              alignment-based, stand-alone consensus module called Racon. Based
+              on tests with PacBio and Oxford Nanopore data sets, we show that
+              Racon coupled with miniasm enables consensus genomes with similar
+              or better quality than state-of-the-art methods while being an
+              order of magnitude faster.",
+  journal  = "Genome Res.",
+  volume   =  27,
+  number   =  5,
+  pages    = "737--746",
+  month    =  may,
+  year     =  2017,
   language = "en"
 }
 
@@ -1835,6 +2165,39 @@
   language = "en"
 }
 
+@ARTICLE{Gurevich2013-rp,
+  title    = "{QUAST}: quality assessment tool for genome assemblies",
+  author   = "Gurevich, Alexey and Saveliev, Vladislav and Vyahhi, Nikolay and
+              Tesler, Glenn",
+  abstract = "SUMMARY: Limitations of genome sequencing techniques have led to
+              dozens of assembly algorithms, none of which is perfect. A number
+              of methods for comparing assemblers have been developed, but none
+              is yet a recognized benchmark. Further, most existing methods for
+              comparing assemblies are only applicable to new assemblies of
+              finished genomes; the problem of evaluating assemblies of
+              previously unsequenced species has not been adequately
+              considered. Here, we present QUAST-a quality assessment tool for
+              evaluating and comparing genome assemblies. This tool improves on
+              leading assembly comparison software with new ideas and quality
+              metrics. QUAST can evaluate assemblies both with a reference
+              genome, as well as without a reference. QUAST produces many
+              reports, summary tables and plots to help scientists in their
+              research and in their publications. In this study, we used QUAST
+              to compare several genome assemblers on three datasets. QUAST
+              tables and plots for all of them are available in the
+              Supplementary Material, and interactive versions of these reports
+              are on the QUAST website. AVAILABILITY:
+              http://bioinf.spbau.ru/quast . SUPPLEMENTARY INFORMATION:
+              Supplementary data are available at Bioinformatics online.",
+  journal  = "Bioinformatics",
+  volume   =  29,
+  number   =  8,
+  pages    = "1072--1075",
+  month    =  feb,
+  year     =  2013,
+  keywords = "00-Ungrouped"
+}
+
 @ARTICLE{Tan2015-oi,
   title    = "Unified representation of genetic variants",
   author   = "Tan, Adrian and Abecasis, Gon{\c c}alo R and Kang, Hyun Min",
@@ -1863,6 +2226,44 @@
   month    =  jul,
   year     =  2015,
   language = "en"
+}
+
+@ARTICLE{Wick2017-nz,
+  title     = "Unicycler: Resolving bacterial genome assemblies from short and
+               long sequencing reads",
+  author    = "Wick, Ryan R and Judd, Louise M and Gorrie, Claire L and Holt,
+               Kathryn E",
+  abstract  = "The Illumina DNA sequencing platform generates accurate but
+               short reads, which can be used to produce accurate but
+               fragmented genome assemblies. Pacific Biosciences and Oxford
+               Nanopore Technologies DNA sequencing platforms generate long
+               reads that can produce complete genome assemblies, but the
+               sequencing is more expensive and error-prone. There is
+               significant interest in combining data from these complementary
+               sequencing technologies to generate more accurate ``hybrid''
+               assemblies. However, few tools exist that truly leverage the
+               benefits of both types of data, namely the accuracy of short
+               reads and the structural resolving power of long reads. Here we
+               present Unicycler, a new tool for assembling bacterial genomes
+               from a combination of short and long reads, which produces
+               assemblies that are accurate, complete and cost-effective.
+               Unicycler builds an initial assembly graph from short reads
+               using the de novo assembler SPAdes and then simplifies the graph
+               using information from short and long reads. Unicycler uses a
+               novel semi-global aligner to align long reads to the assembly
+               graph. Tests on both synthetic and real reads show Unicycler can
+               assemble larger contigs with fewer misassemblies than other
+               hybrid assemblers, even when long-read depth and accuracy are
+               low. Unicycler is open source (GPLv3) and available at
+               github.com/rrwick/Unicycler.",
+  journal   = "PLoS Comput. Biol.",
+  publisher = "journals.plos.org",
+  volume    =  13,
+  number    =  6,
+  pages     = "e1005595",
+  month     =  jun,
+  year      =  2017,
+  language  = "en"
 }
 
 @MISC{Kwong_undated-ha,
@@ -1958,6 +2359,34 @@
   language = "en"
 }
 
+@ARTICLE{Huang2012-sj,
+  title    = "{ART}: a next-generation sequencing read simulator",
+  author   = "Huang, Weichun and Li, Leping and Myers, Jason R and Marth, Gabor
+              T",
+  abstract = "UNLABELLED: ART is a set of simulation tools that generate
+              synthetic next-generation sequencing reads. This functionality is
+              essential for testing and benchmarking tools for next-generation
+              sequencing data analysis including read alignment, de novo
+              assembly and genetic variation discovery. ART generates simulated
+              sequencing reads by emulating the sequencing process with
+              built-in, technology-specific read error models and base quality
+              value profiles parameterized empirically in large sequencing
+              datasets. We currently support all three major commercial
+              next-generation sequencing platforms: Roche's 454, Illumina's
+              Solexa and Applied Biosystems' SOLiD. ART also allows the
+              flexibility to use customized read error model parameters and
+              quality profiles. AVAILABILITY: Both source and binary software
+              packages are available at
+              http://www.niehs.nih.gov/research/resources/software/art.",
+  journal  = "Bioinformatics",
+  volume   =  28,
+  number   =  4,
+  pages    = "593--594",
+  month    =  feb,
+  year     =  2012,
+  language = "en"
+}
+
 @MISC{Blin_undated-tr,
   title       = "{NCBI} Genome Download: Scripts to download genomes from the
                  {NCBI} {FTP} servers",
@@ -2011,18 +2440,65 @@
   year     =  2011,
   language = "en"
 }
-@ARTICLE{alcock2020card,
-    title={CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database},
-    author={Alcock, Brian P and Raphenya, Amogelang R and Lau, Tammy TY and Tsang, Kara K and Bouchard, M{\'e}gane and Edalatmand, Arman and Huynh, William and Nguyen, Anna-Lisa V and Cheng, Annie A and Liu, Sihan and others},
-    abstract={The Comprehensive Antibiotic Resistance Database (CARD; https://card.mcmaster.ca) is a curated resource providing reference DNA and protein sequences, detection models and bioinformatics tools on the molecular basis of bacterial antimicrobial resistance (AMR). CARD focuses on providing high-quality reference data and molecular sequences within a controlled vocabulary, the Antibiotic Resistance Ontology (ARO), designed by the CARD biocuration team to integrate with software development efforts for resistome analysis and prediction, such as CARD's Resistance Gene Identifier (RGI) software. Since 2017, CARD has expanded through extensive curation of reference sequences, revision of the ontological structure, curation of over 500 new AMR detection models, development of a new classification paradigm and expansion of analytical tools. Most notably, a new Resistomes \& Variants module provides analysis and statistical summary of in silico predicted resistance variants from 82 pathogens and over 100 000 genomes. By adding these resistance variants to CARD, we are able to summarize predicted resistance using the information included in CARD, identify trends in AMR mobility and determine previously undescribed and novel resistance variants. Here, we describe updates and recent expansions to CARD and its biocuration process, including new resources for community biocuration of AMR molecular reference data.}
-    journal={Nucleic Acids Res.},
-    volume={48},
-    number={D1},
-    pages={D517--D525},
-    year={2020},
-    publisher={Oxford University Press}
-    language="en"
+
+@ARTICLE{McArthur2013-nq,
+  title    = "The comprehensive antibiotic resistance database",
+  author   = "McArthur, Andrew G and Waglechner, Nicholas and Nizam, Fazmin and
+              Yan, Austin and Azad, Marisa A and Baylay, Alison J and Bhullar,
+              Kirandeep and Canova, Marc J and De Pascale, Gianfranco and Ejim,
+              Linda and Kalan, Lindsay and King, Andrew M and Koteva, Kalinka
+              and Morar, Mariya and Mulvey, Michael R and O'Brien, Jonathan S
+              and Pawlowski, Andrew C and Piddock, Laura J V and
+              Spanogiannopoulos, Peter and Sutherland, Arlene D and Tang, Irene
+              and Taylor, Patricia L and Thaker, Maulik and Wang, Wenliang and
+              Yan, Marie and Yu, Tennison and Wright, Gerard D",
+  abstract = "The field of antibiotic drug discovery and the monitoring of new
+              antibiotic resistance elements have yet to fully exploit the
+              power of the genome revolution. Despite the fact that the first
+              genomes sequenced of free living organisms were those of
+              bacteria, there have been few specialized bioinformatic tools
+              developed to mine the growing amount of genomic data associated
+              with pathogens. In particular, there are few tools to study the
+              genetics and genomics of antibiotic resistance and how it impacts
+              bacterial populations, ecology, and the clinic. We have initiated
+              development of such tools in the form of the Comprehensive
+              Antibiotic Research Database (CARD; http://arpcard.mcmaster.ca).
+              The CARD integrates disparate molecular and sequence data,
+              provides a unique organizing principle in the form of the
+              Antibiotic Resistance Ontology (ARO), and can quickly identify
+              putative antibiotic resistance genes in new unannotated genome
+              sequences. This unique platform provides an informatic tool that
+              bridges antibiotic resistance concerns in health care,
+              agriculture, and the environment.",
+  journal  = "Antimicrob. Agents Chemother.",
+  volume   =  57,
+  number   =  7,
+  pages    = "3348--3357",
+  month    =  jul,
+  year     =  2013,
+  language = "en"
 }
+
+@ARTICLE{Langmead2012-gp,
+  title    = "Fast gapped-read alignment with Bowtie 2",
+  author   = "Langmead, Ben and Salzberg, Steven L",
+  abstract = "As the rate of sequencing increases, greater throughput is
+              demanded from read aligners. The full-text minute index is often
+              used to make alignment very fast and memory-efficient, but the
+              approach is ill-suited to finding longer, gapped alignments.
+              Bowtie 2 combines the strengths of the full-text minute index
+              with the flexibility and speed of hardware-accelerated dynamic
+              programming algorithms to achieve a combination of high speed,
+              sensitivity and accuracy.",
+  journal  = "Nat. Methods",
+  volume   =  9,
+  number   =  4,
+  pages    = "357--359",
+  month    =  mar,
+  year     =  2012,
+  language = "en"
+}
+
 @ARTICLE{Finn2011-zk,
   title    = "{HMMER} web server: interactive sequence similarity searching",
   author   = "Finn, Robert D and Clements, Jody and Eddy, Sean R",
@@ -2063,6 +2539,43 @@
   author  = "Adler, Mark",
   journal = "Jet Propulsion Laboratory",
   year    =  2015
+}
+
+@ARTICLE{Huerta-Cepas2019-xa,
+  title    = "{eggNOG} 5.0: a hierarchical, functionally and phylogenetically
+              annotated orthology resource based on 5090 organisms and 2502
+              viruses",
+  author   = "Huerta-Cepas, Jaime and Szklarczyk, Damian and Heller, Davide and
+              Hern{\'a}ndez-Plaza, Ana and Forslund, Sofia K and Cook, Helen
+              and Mende, Daniel R and Letunic, Ivica and Rattei, Thomas and
+              Jensen, Lars J and von Mering, Christian and Bork, Peer",
+  abstract = "eggNOG is a public database of orthology relationships, gene
+              evolutionary histories and functional annotations. Here, we
+              present version 5.0, featuring a major update of the underlying
+              genome sets, which have been expanded to 4445 representative
+              bacteria and 168 archaea derived from 25 038 genomes, as well as
+              477 eukaryotic organisms and 2502 viral proteomes that were
+              selected for diversity and filtered by genome quality. In total,
+              4.4M orthologous groups (OGs) distributed across 379 taxonomic
+              levels were computed together with their associated sequence
+              alignments, phylogenies, HMM models and functional descriptors.
+              Precomputed evolutionary analysis provides fine-grained
+              resolution of duplication/speciation events within each OG. Our
+              benchmarks show that, despite doubling the amount of genomes, the
+              quality of orthology assignments and functional annotations (80\%
+              coverage) has persisted without significant changes across this
+              update. Finally, we improved eggNOG online services for fast
+              functional annotation and orthology prediction of custom genomics
+              or metagenomics datasets. All precomputed data are publicly
+              available for downloading or via API queries at
+              http://eggnog.embl.de.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  47,
+  number   = "D1",
+  pages    = "D309--D314",
+  month    =  jan,
+  year     =  2019,
+  language = "en"
 }
 
 @MISC{Petit_undated-hw,

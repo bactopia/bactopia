@@ -7,42 +7,44 @@ channels:
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=1_llvm
+  - _openmp_mutex=4.5=0_gnu
   - alsa-lib=1.1.5=h516909a_1002
   - assembly-scan=0.3.0=py_0
-  - blast=2.5.0=hc0b0e79_3
+  - blast=2.9.0=pl526he19e7b1_5
   - boost=1.70.0=py37h9de70de_1
   - boost-cpp=1.70.0=h7b93d67_3
   - bowtie2=2.4.1=py37h4ef193e_2
   - bwa=0.7.17=hed695b0_7
   - bzip2=1.0.8=h516909a_2
   - ca-certificates=2020.6.20=hecda079_0
-  - capnproto=0.6.1=hfc679d8_1
   - certifi=2020.6.20=py37hc8dfbb8_0
   - curl=7.71.0=he644dc0_0
+  - entrez-direct=13.3=pl526h375a9b1_0
+  - expat=2.2.9=he1b5a44_2
   - flash=1.2.11=hed695b0_5
   - fontconfig=2.13.1=h1056068_1002
   - freebayes=1.3.2=py37h7c46602_1
   - freetype=2.10.2=he06d7ca_0
   - giflib=5.2.1=h516909a_2
-  - gsl=2.5=h294904e_1
-  - htslib=1.9=h4da6232_3
+  - htslib=1.10.2=h78d89cc_0
   - icu=67.1=he1b5a44_0
   - jpeg=9d=h516909a_0
+  - kmc=3.1.2rc1=h2d02072_0
   - krb5=1.17.1=hfafb76e_1
   - lcms2=2.11=hbd6801e_0
   - ld_impl_linux-64=2.34=h53a641e_5
-  - libblas=3.8.0=16_openblas
-  - libcblas=3.8.0=16_openblas
+  - libblas=3.8.0=14_openblas
+  - libcblas=3.8.0=14_openblas
   - libcurl=7.71.0=hcdd3856_0
-  - libdeflate=1.6=h516909a_0
+  - libdeflate=1.3=h516909a_0
   - libedit=3.1.20191231=h46ee950_0
   - libffi=3.2.1=he1b5a44_1007
   - libgcc-ng=9.2.0=h24d8f2e_2
   - libgfortran-ng=7.5.0=hdf63c60_6
+  - libgomp=9.2.0=h24d8f2e_2
   - libiconv=1.15=h516909a_1006
-  - liblapack=3.8.0=16_openblas
-  - libopenblas=0.3.9=h5ec1e0e_0
+  - liblapack=3.8.0=14_openblas
+  - libopenblas=0.3.7=h5ec1e0e_6
   - libpng=1.6.37=hed695b0_1
   - libssh2=1.9.0=hab1572f_2
   - libstdcxx-ng=9.2.0=hdf63c60_2
@@ -52,19 +54,83 @@ dependencies:
   - libxcb=1.13=h14c3975_1002
   - libxml2=2.9.10=h72b56ed_1
   - lighter=1.1.2=he513fc3_2
-  - llvm-openmp=10.0.0=hc9558a2_0
+  - llvm-openmp=8.0.1=hc9558a2_0
   - lz4-c=1.9.2=he1b5a44_1
-  - mash=2.2.2=h3d38be6_1
   - megahit=1.2.9=h8b12597_0
   - miniasm=0.3_r179=ha92aebf_0
   - ncurses=6.1=hf484d3e_1002
   - numpy=1.18.5=py37h8960a57_0
   - openjdk=11.0.1=h600c080_1018
+  - openmp=8.0.1=0
   - openssl=1.1.1g=h516909a_0
   - parallel=20200522=0
+  - pcre=8.44=he1b5a44_0
   - perl=5.26.2=h516909a_1006
+  - perl-app-cpanminus=1.7044=pl526_1
+  - perl-archive-tar=2.32=pl526_0
+  - perl-base=2.23=pl526_1
+  - perl-business-isbn=3.004=pl526_0
+  - perl-business-isbn-data=20140910.003=pl526_0
+  - perl-carp=1.38=pl526_3
+  - perl-common-sense=3.74=pl526_2
+  - perl-compress-raw-bzip2=2.087=pl526he1b5a44_0
+  - perl-compress-raw-zlib=2.087=pl526hc9558a2_0
+  - perl-constant=1.33=pl526_1
+  - perl-data-dumper=2.173=pl526_0
+  - perl-digest-hmac=1.03=pl526_3
+  - perl-digest-md5=2.55=pl526_0
+  - perl-encode=2.88=pl526_1
+  - perl-encode-locale=1.05=pl526_6
+  - perl-exporter=5.72=pl526_1
+  - perl-exporter-tiny=1.002001=pl526_0
+  - perl-extutils-makemaker=7.36=pl526_1
+  - perl-file-listing=6.04=pl526_1
+  - perl-file-path=2.16=pl526_0
   - perl-file-spec=3.48_01=pl526_1
+  - perl-file-temp=0.2304=pl526_2
   - perl-findbin=1.51=pl526_2
+  - perl-html-parser=3.72=pl526h6bb024c_5
+  - perl-html-tagset=3.20=pl526_3
+  - perl-html-tree=5.07=pl526_1
+  - perl-http-cookies=6.04=pl526_0
+  - perl-http-daemon=6.01=pl526_1
+  - perl-http-date=6.02=pl526_3
+  - perl-http-message=6.18=pl526_0
+  - perl-http-negotiate=6.01=pl526_3
+  - perl-io-compress=2.087=pl526he1b5a44_0
+  - perl-io-html=1.001=pl526_2
+  - perl-io-socket-ssl=2.066=pl526_0
+  - perl-io-zlib=1.10=pl526_2
+  - perl-json=4.02=pl526_0
+  - perl-json-xs=2.34=pl526h6bb024c_3
+  - perl-libwww-perl=6.39=pl526_0
+  - perl-list-moreutils=0.428=pl526_1
+  - perl-list-moreutils-xs=0.428=pl526_0
+  - perl-lwp-mediatypes=6.04=pl526_0
+  - perl-lwp-protocol-https=6.07=pl526_4
+  - perl-mime-base64=3.15=pl526_1
+  - perl-mozilla-ca=20180117=pl526_1
+  - perl-net-http=6.19=pl526_0
+  - perl-net-ssleay=1.88=pl526h90d6eec_0
+  - perl-ntlm=1.09=pl526_4
+  - perl-parent=0.236=pl526_1
+  - perl-pathtools=3.75=pl526h14c3975_1
+  - perl-scalar-list-utils=1.52=pl526h516909a_0
+  - perl-socket=2.027=pl526_1
+  - perl-storable=3.15=pl526h14c3975_0
+  - perl-test-requiresinternet=0.05=pl526_0
+  - perl-time-local=1.28=pl526_1
+  - perl-try-tiny=0.30=pl526_1
+  - perl-types-serialiser=1.0=pl526_2
+  - perl-uri=1.76=pl526_0
+  - perl-www-robotrules=6.02=pl526_3
+  - perl-xml-namespacesupport=1.12=pl526_0
+  - perl-xml-parser=2.44_01=pl526ha1d75be_1002
+  - perl-xml-sax=1.02=pl526_0
+  - perl-xml-sax-base=1.09=pl526_0
+  - perl-xml-sax-expat=0.51=pl526_3
+  - perl-xml-simple=2.25=pl526_1
+  - perl-xsloader=0.24=pl526_0
   - pigz=2.3.4=hed695b0_1
   - pilon=1.23=2
   - pip=20.1.1=py_1
@@ -74,12 +140,12 @@ dependencies:
   - racon=1.4.13=he513fc3_0
   - readline=8.0=hf8c457e_0
   - samclip=0.4.0=0
-  - samtools=1.9=h10a08f8_12
+  - samtools=1.10=h9402c20_2
   - seqtk=1.3=hed695b0_2
   - setuptools=47.3.1=py37hc8dfbb8_0
-  - shovill=1.0.9se=0
+  - shovill=1.1.0se=0
   - skesa=2.3.0=he1c1bb9_2
-  - spades=3.13.0=0
+  - spades=3.14.0=h2d02072_0
   - sqlite=3.32.3=hcee41ef_0
   - tbb=2020.1=hc9558a2_0
   - tk=8.6.10=hed695b0_0

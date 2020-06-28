@@ -23,6 +23,14 @@
         "description": "Antimicrobial Resistance Identification By Assembly", 
         "link": "https://github.com/sanger-pathogens/ariba" 
     },
+    "ART": {
+        "conda": {
+            "name": "art", 
+            "yaml": "conda/gather_fastqs.yml"
+        }, 
+        "description": "A set of simulation tools to generate synthetic next-generation sequencing reads", 
+        "link": "https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm" 
+    },
     "assembly-scan": {
         "conda": {
             "name": "assembly-scan", 
@@ -79,6 +87,14 @@
         "description": "Basic Local Alignment Search Tool", 
         "link": "https://blast.ncbi.nlm.nih.gov/Blast.cgi" 
     },
+    "Bowtie2": {
+        "conda": {
+            "name": "bowtie2", 
+            "yaml": "conda/assemble_genome.yml"
+        }, 
+        "description": "A fast and sensitive gapped read aligner", 
+        "link": "https://github.com/BenLangmead/bowtie2" 
+    },
     "BWA": {
         "conda": {
             "name": "bwa", 
@@ -95,6 +111,14 @@
         "description": "Accelerated for clustering the next-generation sequencing data", 
         "link": "https://github.com/weizhongli/cdhit" 
     },
+    "CheckM": {
+        "conda": {
+            "name": "checkm", 
+            "yaml": "conda/assembly_qc.yml"
+        }, 
+        "description": "Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes", 
+        "link": "https://github.com/Ecogenomics/CheckM" 
+    },
     "ClonalFrameML": {
         "conda": {
             "name": "clonalframeml", 
@@ -102,6 +126,22 @@
         }, 
         "description": "Efficient Inference of Recombination in Whole Bacterial Genomes", 
         "link": "https://github.com/xavierdidelot/ClonalFrameML" 
+    },
+    "DIAMOND": {
+        "conda": {
+            "name": "diamond", 
+            "yaml": "tools/eggnog/environment.yml"
+        }, 
+        "description": "Accelerated BLAST compatible local sequence aligner", 
+        "link": "https://github.com/bbuchfink/diamond" 
+    },
+    "eggNOG-mapper": {
+        "conda": {
+            "name": "eggnog-mapper", 
+            "yaml": "tools/eggnog/environment.yml"
+        }, 
+        "description": "Fast genome-wide functional annotation through orthology assignment", 
+        "link": "https://github.com/eggnogdb/eggnog-mapper" 
     },
     "FastANI": {
         "conda": {
@@ -231,6 +271,14 @@
         "description": "Fast genome and metagenome distance estimation using MinHash", 
         "link": "https://github.com/marbl/Mash" 
     },
+    "Mashtree": {
+        "conda": {
+            "name": "mashtree", 
+            "yaml": "tools/mashtree/environment.yml"
+        }, 
+        "description": "Create a tree using Mash distances", 
+        "link": "https://github.com/lskatz/mashtree" 
+    },
     "maskrc-svg": {
         "conda": {
             "name": "maskrc-svg", 
@@ -303,6 +351,14 @@
         "description": "An automated genome assembly improvement and variant detection tool", 
         "link": "https://github.com/broadinstitute/pilon/" 
     },
+    "PIRATE": {
+        "conda": {
+            "name": "pirate", 
+            "yaml": "tools/pirate/environment.yml"
+        }, 
+        "description": "A toolbox for pangenome analysis and threshold evaluation", 
+        "link": "http://github.com/SionBayliss/PIRATE" 
+    },
     "pplacer": {
         "conda": {
             "name": "pplacer", 
@@ -326,6 +382,22 @@
         }, 
         "description": "Rapid prokaryotic genome annotation", 
         "link": "https://github.com/tseemann/prokka" 
+    },
+    "QUAST": {
+        "conda": {
+            "name": "quast", 
+            "yaml": "conda/assembly_qc.yml"
+        }, 
+        "description": "Quality Assessment Tool for Genome", 
+        "link": "http://quast.sourceforge.net/" 
+    },
+    "Racon": {
+        "conda": {
+            "name": "racon", 
+            "yaml": "conda/assemble_genome.yml"
+        }, 
+        "description": "Ultrafast consensus module for raw de novo genome assembly of long uncorrected reads", 
+        "link": "https://github.com/lbcb-sci/racon" 
     },
     "Roary": {
         "conda": {
@@ -430,6 +502,14 @@
         }, 
         "description": "A flexible read trimming tool for Illumina NGS data", 
         "link": "http://www.usadellab.org/cms/index.php?page=trimmomatic" 
+    },
+    "Unicycler": {
+        "conda": {
+            "name": "unicycler", 
+            "yaml": "conda/assemble_genome.yml"
+        }, 
+        "description": "Hybrid assembly pipeline for bacterial genomes", 
+        "link": "https://github.com/rrwick/Unicycler" 
     },
     "vcf-annotator": {
         "conda": {

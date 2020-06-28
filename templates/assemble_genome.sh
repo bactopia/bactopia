@@ -16,7 +16,8 @@ else
             !{keep} --mode !{params.unicycler_mode} \
             !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
-            --min_dead_end_size !{params.min_dead_end_size}
+            --min_dead_end_size !{params.min_dead_end_size} || true
+        ls assembly
         cat assembly/spades_assembly/assembly/spades.log
         mv ${OUTDIR}/assembly.fasta ${OUTDIR}/contigs.fa
         mv ${OUTDIR}/assembly.gfa ${OUTDIR}/contigs.gfa 

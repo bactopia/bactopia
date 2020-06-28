@@ -119,6 +119,10 @@ _Hunt, M. et al. [ARIBA: rapid antimicrobial resistance genotyping directly from
 sequencing reads](http://dx.doi.org/10.1099/mgen.0.000131). 
 Microb Genom 3, e000131 (2017)._  
 
+* __[ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm)__  
+A set of simulation tools to generate synthetic next-generation sequencing reads  
+_W. Huang, L. Li, J. R. Myers, G. T. Marth, [ART: a next-generation sequencing read simulator.](http://dx.doi.org/10.1093/bioinformatics/btr708) Bioinformatics. 28, 593–594 (2012)._  
+
 * __[assembly-scan](https://github.com/rpetit3/assembly-scan)__  
 Generate basic stats for an assembly.  
 _Petit III, R. A. [assembly-scan: generate basic stats for an 
@@ -147,6 +151,10 @@ Basic Local Alignment Search Tool
 _Camacho, C. et al. [BLAST+: architecture and applications](http://dx.doi.org/10.1186/1471-2105-10-421). 
 BMC Bioinformatics 10, 421 (2009)._  
 
+* __[Bowtie2](https://github.com/BenLangmead/bowtie2)__  
+A fast and sensitive gapped read aligner  
+_B. Langmead, S. L. Salzberg, [Fast gapped-read alignment with Bowtie 2.](http://dx.doi.org/10.1038/nmeth.1923) Nat. Methods. 9, 357–359 (2012)._  
+
 * __[BWA](https://github.com/lh3/bwa/)__  
 Burrow-Wheeler Aligner for short-read alignment  
 _Li, H. [Aligning sequence reads, clone sequences and assembly contigs with 
@@ -161,13 +169,17 @@ _Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. [CD-HIT: accelerated for clustering t
 sequencing data](http://dx.doi.org/10.1093/bioinformatics/bts565). 
 Bioinformatics 28, 3150–3152 (2012)._  
 
+* __[CheckM](https://github.com/Ecogenomics/CheckM)__  
+Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes  
+_D. H. Parks, M. Imelfort, C. T. Skennerton, P. Hugenholtz, G. W. Tyson, [CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes.](http://dx.doi.org/10.1101/gr.186072.114) Genome Res. 25, 1043–1055 (2015)._  
+
 * __[ClonalFramML](https://github.com/xavierdidelot/ClonalFrameML)__  
 Efficient Inference of Recombination in Whole Bacterial Genomes  
 _Didelot, X. & Wilson, D. J. 
 [ClonalFrameML: efficient inference of recombination in whole bacterial genomes.](http://dx.doi.org/10.1371/journal.pcbi.1004041)
  PLoS Comput. Biol. 11, e1004041 (2015)_  
 
-* __[DIAMOND]()__  
+* __[DIAMOND](https://github.com/bbuchfink/diamond)__  
 Accelerated BLAST compatible local sequence aligner.  
 _B. Buchfink, C. Xie, D. H. Huson, [Fast and sensitive protein alignment using DIAMOND.](http://dx.doi.org/10.1038/nmeth.3176) Nat. Methods. 12, 59–60 (2015)._  
 
@@ -340,6 +352,14 @@ Rapid prokaryotic genome annotation
 _Seemann, T. [Prokka: rapid prokaryotic genome annotation](http://dx.doi.org/10.1093/bioinformatics/btu153). 
 Bioinformatics 30, 2068–2069 (2014)._  
 
+* __[QUAST](http://quast.sourceforge.net/)__  
+Quality Assessment Tool for Genome  
+_A. Gurevich, V. Saveliev, N. Vyahhi, G. Tesler, [QUAST: quality assessment tool for genome assemblies.](http://dx.doi.org/10.1093/bioinformatics/btt086) Bioinformatics. 29, 1072–1075 (2013)._  
+
+* __[Racon](https://github.com/lbcb-sci/racon)__  
+Ultrafast consensus module for raw de novo genome assembly of long uncorrected reads  
+_R. Vaser, I. Sović, N. Nagarajan, M. Šikić, [Fast and accurate de novo genome assembly from long uncorrected reads.](http://dx.doi.org/10.1101/gr.214270.116) Genome Res. 27, 737–746 (2017)._  
+
 * __[RNAmmer](http://www.cbs.dtu.dk/services/RNAmmer/)__  
 Consistent and rapid annotation of ribosomal RNA genes  
 _Lagesen, K., et al. [RNAmmer: consistent annotation of rRNA genes in genomic sequences.](https://dx.doi.org/10.1093%2Fnar%2Fgkm160) Nucleic Acids Res 35.9: 3100-3108. (2007)_  
@@ -388,7 +408,6 @@ _Cingolani, P., et al. [A program for annotating and predicting the effects of s
 Pairwise SNP distance matrix from a FASTA sequence alignment  
 _Seemann, T. [snp-dists - Pairwise SNP distance matrix from a FASTA sequence alignment.](https://github.com/tseemann/snp-dists)_  
 
-
 * __[SNP-sites](https://github.com/sanger-pathogens/snp-sites)__  
 Rapidly extracts SNPs from a multi-FASTA alignment.  
 _Page, A. J., et al. [SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments.](https://dx.doi.org/10.1099%2Fmgen.0.000056) Microbial Genomics 2.4 (2016)._  
@@ -405,6 +424,10 @@ _Bankevich, A., et al. [SPAdes: a new genome assembly algorithm and its applicat
 * __[Trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic)__  
 A flexible read trimming tool for Illumina NGS data  
 _Bolger, A. M., Lohse, M., and B. Usadel. [Trimmomatic: a flexible trimmer for Illumina sequence data.](https://doi.org/10.1093/bioinformatics/btu170) Bioinformatics 30.15 (2014): 2114-2120._  
+
+* __[Unicycler](https://github.com/rrwick/Unicycler)__  
+Hybrid assembly pipeline for bacterial genomes  
+_R. R. Wick, L. M. Judd, C. L. Gorrie, K. E. Holt, [Unicycler: Resolving bacterial genome assemblies from short and long sequencing reads.](http://dx.doi.org/10.1371/journal.pcbi.1005595) PLoS Comput. Biol. 13, e1005595 (2017)._  
 
 * __[VCF-Annotator](https://github.com/rpetit3/vcf-annotator)__  
 Add biological annotations to variants in a VCF file.  
