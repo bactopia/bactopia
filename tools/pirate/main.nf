@@ -290,6 +290,14 @@ def check_input_params() {
         error += 1
     }
 
+    if (params.include) {
+        error += file_exists(params.include, '--include')
+    } 
+    
+    if (params.exclude) {
+        error += file_exists(params.exclude, '--exclude')
+    } 
+
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')

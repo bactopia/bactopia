@@ -68,7 +68,6 @@ else
             else
                 rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
             fi
-            ls fasta
             zcat fasta/!{sample_name}.fna.gz > !{sample_name}-art.fna
         elif [ "!{sample_type}" == "assembly" ]; then
             if [ "!{is_compressed}" == "true" ]; then

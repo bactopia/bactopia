@@ -201,10 +201,6 @@ def check_input_params() {
 
     if (params.bactopia) {
         error += file_exists(params.bactopia, '--bactopia')
-    } else if (params.include) {
-        error += file_exists(params.include, '--include')
-    } else if (params.exclude) {
-        error += file_exists(params.exclude, '--exclude')
     } else {
         log.error """
         The required '--bactopia' parameter is missing, please check and try again.
@@ -214,6 +210,14 @@ def check_input_params() {
         """.stripIndent()
         error += 1
     }
+
+    if (params.include) {
+        error += file_exists(params.include, '--include')
+    } 
+    
+    if (params.exclude) {
+        error += file_exists(params.exclude, '--exclude')
+    } 
 
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')

@@ -22,16 +22,18 @@ bactopia tools mashree \
 Below is the default output structure for the `mashtree` tool. Where possible the 
 file descriptions below were modified from a tools description.
 ```
-└── ${PREFIX}
-    ├── bactopia-info
-    │   ├── mashtree-report.html
-    │   ├── mashtree-timeline.html
-    │   └── mashtree-trace.txt
-    ├── refseq
-    │   └── fasta
-    │       └── ${SAMPLE_NAME}.fna
-    ├── ${PREFIX}-mashtree.dnd
-    └── ${PREFIX}-matrix.txt
+bactopia-tools/
+└── mashtree
+    └── ${PREFIX}
+        ├── bactopia-info
+        │   ├── mashtree-report.html
+        │   ├── mashtree-timeline.html
+        │   └── mashtree-trace.txt
+        ├── refseq
+        │   └── fasta
+        │       └── ${SAMPLE_NAME}.fna
+        ├── ${PREFIX}-mashtree.dnd
+        └── ${PREFIX}-matrix.txt
 ```
 
 | Filename | Description |

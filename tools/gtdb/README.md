@@ -24,60 +24,61 @@ file descriptions below were modified from descriptions at the
 ```
 bactopia-tools/
 └── gtdb
-    ├── bactopia-info
-    │   ├── gtdb-report.html
-    │   ├── gtdb-timeline.html
-    │   └── gtdb-trace.txt
-    └── classify
-        ├── align
-        │   ├── gtdb.(ar122|bac120).filtered.tsv
-        │   ├── gtdb.(ar122|bac120).msa.fasta
-        │   ├── gtdb.(ar122|bac120).user_msa.fasta
-        │   └── intermediate_results
-        │       └── gtdb.(ar122|bac120).marker_info.tsv
-        ├── classify
-        │   ├── gtdb.(ar122|bac120).classify.tree
-        │   ├── gtdb.(ar122|bac120).summary.tsv
-        │   └── intermediate_results
-        │       ├── gtdb.(ar122|bac120).classification_pplacer.tsv
-        │       ├── gtdb.(ar122|bac120).red_dictionary.tsv
-        │       └── pplacer
-        │           ├── pplacer.(ar122|bac120).json
-        │           └── pplacer.(ar122|bac120).out
-        ├── gtdb.(ar122|bac120).classify.tree
-        ├── gtdb.(ar122|bac120).filtered.tsv
-        ├── gtdb.(ar122|bac120).markers_summary.tsv
-        ├── gtdb.(ar122|bac120).msa.fasta
-        ├── gtdb.(ar122|bac120).summary.tsv
-        ├── gtdb.(ar122|bac120).user_msa.fasta
-        ├── gtdbtk.log
-        ├── gtdbtk.warnings.log
-        ├── gtdb.translation_table_summary.tsv
-        └── identify
-            ├── gtdb.ar122.markers_summary.tsv
-            ├── gtdb.bac120.markers_summary.tsv
+    └── ${PREFIX}
+        ├── bactopia-info
+        │   ├── gtdb-report.html
+        │   ├── gtdb-timeline.html
+        │   └── gtdb-trace.txt
+        └── classify
+            ├── align
+            │   ├── gtdb.(ar122|bac120).filtered.tsv
+            │   ├── gtdb.(ar122|bac120).msa.fasta
+            │   ├── gtdb.(ar122|bac120).user_msa.fasta
+            │   └── intermediate_results
+            │       └── gtdb.(ar122|bac120).marker_info.tsv
+            ├── classify
+            │   ├── gtdb.(ar122|bac120).classify.tree
+            │   ├── gtdb.(ar122|bac120).summary.tsv
+            │   └── intermediate_results
+            │       ├── gtdb.(ar122|bac120).classification_pplacer.tsv
+            │       ├── gtdb.(ar122|bac120).red_dictionary.tsv
+            │       └── pplacer
+            │           ├── pplacer.(ar122|bac120).json
+            │           └── pplacer.(ar122|bac120).out
+            ├── gtdb.(ar122|bac120).classify.tree
+            ├── gtdb.(ar122|bac120).filtered.tsv
+            ├── gtdb.(ar122|bac120).markers_summary.tsv
+            ├── gtdb.(ar122|bac120).msa.fasta
+            ├── gtdb.(ar122|bac120).summary.tsv
+            ├── gtdb.(ar122|bac120).user_msa.fasta
+            ├── gtdbtk.log
+            ├── gtdbtk.warnings.log
             ├── gtdb.translation_table_summary.tsv
-            └── intermediate_results
-                └── marker_genes
-                    └── ${SAMPLE_NAME}
-                        ├── prodigal_translation_table.tsv
-                        ├── prodigal_translation_table.tsv.sha256
-                        ├── ${SAMPLE_NAME}_pfam_tophit.tsv
-                        ├── ${SAMPLE_NAME}_pfam_tophit.tsv.sha256
-                        ├── ${SAMPLE_NAME}_pfam.tsv
-                        ├── ${SAMPLE_NAME}_pfam.tsv.sha256
-                        ├── ${SAMPLE_NAME}_protein.faa
-                        ├── ${SAMPLE_NAME}_protein.faa.sha256
-                        ├── ${SAMPLE_NAME}_protein.fna
-                        ├── ${SAMPLE_NAME}_protein.fna.sha256
-                        ├── ${SAMPLE_NAME}_protein.gff
-                        ├── ${SAMPLE_NAME}_protein.gff.sha256
-                        ├── ${SAMPLE_NAME}_tigrfam.out
-                        ├── ${SAMPLE_NAME}_tigrfam.out.sha256
-                        ├── ${SAMPLE_NAME}_tigrfam_tophit.tsv
-                        ├── ${SAMPLE_NAME}_tigrfam_tophit.tsv.sha256
-                        ├── ${SAMPLE_NAME}_tigrfam.tsv
-                        └── ${SAMPLE_NAME}_tigrfam.tsv.sha256
+            └── identify
+                ├── gtdb.ar122.markers_summary.tsv
+                ├── gtdb.bac120.markers_summary.tsv
+                ├── gtdb.translation_table_summary.tsv
+                └── intermediate_results
+                    └── marker_genes
+                        └── ${SAMPLE_NAME}
+                            ├── prodigal_translation_table.tsv
+                            ├── prodigal_translation_table.tsv.sha256
+                            ├── ${SAMPLE_NAME}_pfam_tophit.tsv
+                            ├── ${SAMPLE_NAME}_pfam_tophit.tsv.sha256
+                            ├── ${SAMPLE_NAME}_pfam.tsv
+                            ├── ${SAMPLE_NAME}_pfam.tsv.sha256
+                            ├── ${SAMPLE_NAME}_protein.faa
+                            ├── ${SAMPLE_NAME}_protein.faa.sha256
+                            ├── ${SAMPLE_NAME}_protein.fna
+                            ├── ${SAMPLE_NAME}_protein.fna.sha256
+                            ├── ${SAMPLE_NAME}_protein.gff
+                            ├── ${SAMPLE_NAME}_protein.gff.sha256
+                            ├── ${SAMPLE_NAME}_tigrfam.out
+                            ├── ${SAMPLE_NAME}_tigrfam.out.sha256
+                            ├── ${SAMPLE_NAME}_tigrfam_tophit.tsv
+                            ├── ${SAMPLE_NAME}_tigrfam_tophit.tsv.sha256
+                            ├── ${SAMPLE_NAME}_tigrfam.tsv
+                            └── ${SAMPLE_NAME}_tigrfam.tsv.sha256
 ```
 
 | Filename | Description |

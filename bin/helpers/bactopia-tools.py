@@ -21,6 +21,7 @@ AVAILABLE_TOOLS = {
     'eggnog': 'Functional annotation using orthologous groups',
     'fastani': 'Pairwise average nucleotide identity',
     'gtdb': 'Identify marker genes and assign taxonomic classifications',
+    'ismapper': 'Identify positions of insertion sites',
     'mashtree': 'Trees based on Mash distances',
     'pirate': 'Pan-genome with optional core-genome tree',
     'phyloflash': '16s assembly, alignment and tree',

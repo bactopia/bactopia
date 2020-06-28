@@ -29,88 +29,89 @@ bactopia tools pirate \
 Below is the default output structure for the `pirate` tool. Where possible the 
 file descriptions below were modified from a tools description.
 ```
-pirate/
-└── ${PREFIX}
-    ├── bactopia-info
-    │   ├── pirate-report.html
-    │   ├── pirate-timeline.html
-    │   └── pirate-trace.txt
-    ├── clonalframe
-    │   ├── clonalframe.emsim.txt
-    │   ├── clonalframe.em.txt
-    │   ├── clonalframe.importation_status.txt
-    │   ├── clonalframe.labelled_tree.newick
-    │   ├── clonalframe.ML_sequence.fasta
-    │   ├── clonalframe.position_cross_reference.txt
-    │   ├── core_gene_alignment-masked.aln.gz
-    │   ├── start-tree.bionj
-    │   ├── start-tree.ckp.gz
-    │   ├── start-tree.iqtree
-    │   ├── start-tree.log
-    │   ├── start-tree.mldist
-    │   ├── start-tree.model.gz
-    │   └── start-tree.treefile
-    ├── iqtree
-    │   ├── core-genome.alninfo
-    │   ├── core-genome.bionj
-    │   ├── core-genome.ckp.gz
-    │   ├── core-genome.contree
-    │   ├── core-genome.iqtree
-    │   ├── core-genome.log
-    │   ├── core-genome.mldist
-    │   ├── core-genome.model.gz
-    │   ├── core-genome.splits.nex
-    │   ├── core-genome.treefile
-    │   └── core-genome.ufboot
-    ├── pirate
-    │   ├── binary_presence_absence.{fasta|nwk}
-    │   ├── cluster_alleles.tab
-    │   ├── co-ords
-    │   │   └── ${SAMPLE_NAME}.co-ords.tab
-    │   ├── core_alignment.fasta
-    │   ├── core_alignment.gff
-    │   ├── feature_sequences
-    │   │   └── ${GENE_FAMILY}.{aa|nucleotide|.fasta
-    │   ├── genome2loci.tab
-    │   ├── genome_list.txt
-    │   ├── loci_list.tab
-    │   ├── loci_paralog_categories.tab
-    │   ├── loci_paralog_categories.tab.idx
-    │   ├── modified_gffs
-    │   │   └── ${SAMPLE_NAME}.gff
-    │   ├── pangenome_alignment.fasta.gz
-    │   ├── pangenome_alignment.gff
-    │   ├── pangenome.connected_blocks.tsv
-    │   ├── pangenome.edges
-    │   ├── pangenome.gfa
-    │   ├── pangenome_iterations
-    │   │   ├── pan_sequences.{50|60|70|80|90|95|98}.reclustered.reinflated
-    │   │   ├── pan_sequences.blast.output
-    │   │   ├── pan_sequences.cdhit_clusters
-    │   │   ├── pan_sequences.core_clusters.tab
-    │   │   ├── pan_sequences.mcl_log.txt
-    │   │   └── pan_sequences.representative.fasta
-    │   ├── pangenome.order.tsv
-    │   ├── pangenome.reversed.tsv
-    │   ├── pangenome.syntenic_blocks.tsv
-    │   ├── pan_sequences.fasta
-    │   ├── paralog_clusters.tab
-    │   ├── PIRATE.gene_families.ordered.tsv
-    │   ├── PIRATE.gene_families.tsv
-    │   ├── PIRATE.genomes_per_allele.tsv
-    │   ├── PIRATE.log
-    │   ├── PIRATE.pangenome_summary.txt
-    │   ├── PIRATE_plots.pdf
-    │   ├── PIRATE.unique_alleles.tsv
-    │   └── split_groups.log
-    ├── refseq
-    │    ├── fasta
-    │    │   └── *.fna
-    │    └── gff
-    │        └── *.gff 
-    ├── ${PREFIX}.aligned.fa.gz
-    ├── ${PREFIX}.distance.txt
-    └── ${PREFIX}.iqtree
+bactopia-tools/
+└── pirate/
+    └── ${PREFIX}
+        ├── bactopia-info
+        │   ├── pirate-report.html
+        │   ├── pirate-timeline.html
+        │   └── pirate-trace.txt
+        ├── clonalframe
+        │   ├── clonalframe.emsim.txt
+        │   ├── clonalframe.em.txt
+        │   ├── clonalframe.importation_status.txt
+        │   ├── clonalframe.labelled_tree.newick
+        │   ├── clonalframe.ML_sequence.fasta
+        │   ├── clonalframe.position_cross_reference.txt
+        │   ├── core_gene_alignment-masked.aln.gz
+        │   ├── start-tree.bionj
+        │   ├── start-tree.ckp.gz
+        │   ├── start-tree.iqtree
+        │   ├── start-tree.log
+        │   ├── start-tree.mldist
+        │   ├── start-tree.model.gz
+        │   └── start-tree.treefile
+        ├── iqtree
+        │   ├── core-genome.alninfo
+        │   ├── core-genome.bionj
+        │   ├── core-genome.ckp.gz
+        │   ├── core-genome.contree
+        │   ├── core-genome.iqtree
+        │   ├── core-genome.log
+        │   ├── core-genome.mldist
+        │   ├── core-genome.model.gz
+        │   ├── core-genome.splits.nex
+        │   ├── core-genome.treefile
+        │   └── core-genome.ufboot
+        ├── pirate
+        │   ├── binary_presence_absence.{fasta|nwk}
+        │   ├── cluster_alleles.tab
+        │   ├── co-ords
+        │   │   └── ${SAMPLE_NAME}.co-ords.tab
+        │   ├── core_alignment.fasta
+        │   ├── core_alignment.gff
+        │   ├── feature_sequences
+        │   │   └── ${GENE_FAMILY}.{aa|nucleotide|.fasta
+        │   ├── genome2loci.tab
+        │   ├── genome_list.txt
+        │   ├── loci_list.tab
+        │   ├── loci_paralog_categories.tab
+        │   ├── loci_paralog_categories.tab.idx
+        │   ├── modified_gffs
+        │   │   └── ${SAMPLE_NAME}.gff
+        │   ├── pangenome_alignment.fasta.gz
+        │   ├── pangenome_alignment.gff
+        │   ├── pangenome.connected_blocks.tsv
+        │   ├── pangenome.edges
+        │   ├── pangenome.gfa
+        │   ├── pangenome_iterations
+        │   │   ├── pan_sequences.{50|60|70|80|90|95|98}.reclustered.reinflated
+        │   │   ├── pan_sequences.blast.output
+        │   │   ├── pan_sequences.cdhit_clusters
+        │   │   ├── pan_sequences.core_clusters.tab
+        │   │   ├── pan_sequences.mcl_log.txt
+        │   │   └── pan_sequences.representative.fasta
+        │   ├── pangenome.order.tsv
+        │   ├── pangenome.reversed.tsv
+        │   ├── pangenome.syntenic_blocks.tsv
+        │   ├── pan_sequences.fasta
+        │   ├── paralog_clusters.tab
+        │   ├── PIRATE.gene_families.ordered.tsv
+        │   ├── PIRATE.gene_families.tsv
+        │   ├── PIRATE.genomes_per_allele.tsv
+        │   ├── PIRATE.log
+        │   ├── PIRATE.pangenome_summary.txt
+        │   ├── PIRATE_plots.pdf
+        │   ├── PIRATE.unique_alleles.tsv
+        │   └── split_groups.log
+        ├── refseq
+        │    ├── fasta
+        │    │   └── *.fna
+        │    └── gff
+        │        └── *.gff 
+        ├── ${PREFIX}.aligned.fa.gz
+        ├── ${PREFIX}.distance.txt
+        └── ${PREFIX}.iqtree
 ```
 
 | Filename | Description |

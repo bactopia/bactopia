@@ -31,16 +31,17 @@ file descriptions below were modified from a tools description.
 ```
 bactopia-tools/
 └── fastani/
-    ├── bactopia-info
-    │   ├── fastani-report.html
-    │   ├── fastani-timeline.html
-    │   └── fastani-trace.txt
-    ├── fastani.tsv
-    ├── references
-    │   └── ${REFERENCE}.tsv
-    └── refseq
-        └── fasta
-            └── ${REFERENCE}.fna
+    └── ${PREFIX}
+        ├── bactopia-info
+        │   ├── fastani-report.html
+        │   ├── fastani-timeline.html
+        │   └── fastani-trace.txt
+        ├── fastani.tsv
+        ├── references
+        │   └── ${REFERENCE}.tsv
+        └── refseq
+            └── fasta
+                └── ${REFERENCE}.fna
 ```
 
 | Filename | Description |

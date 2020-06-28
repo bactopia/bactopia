@@ -7,7 +7,7 @@ The required parameters depends on how many samples are to be proccessed. You ca
 ```
     ### For Procesessing Multiple Samples
     --fastqs STR            An input file containing the sample name and
-                                absolute paths to FASTQs to process
+                                absolute paths to FASTQ/FASTAs to process
 
     ### For Processing A Single Sample
     --R1 STR                First set of reads for paired end in compressed (gzip)
@@ -18,13 +18,24 @@ The required parameters depends on how many samples are to be proccessed. You ca
 
     --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
+    --hybrid                The SE should be treated as long reads for hybrid assembly.
+
     --sample STR            The name of the input sequences
 
-    ### For Downloading from ENA
-    --accessions            An input file containing ENA/SRA experiement accessions to
-                                be processed
+    ### For Downloading from SRA/ENA or NCBI Assembly
+    **Note: Assemblies will have error free Illumina reads simulated for processing.**
+    --accessions            An input file containing ENA/SRA Experiment accessions or
+                                NCBI Assembly accessions to be processed
 
-    --accession             A single ENA/SRA Experiment accession to be processed
+    --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession
+                                to be processed
+
+    ### For Processing an Assembly
+    **Note: The assembly will have error free Illumina reads simulated for processing.**
+    --assembly STR          A assembled genome in compressed FASTA format.
+
+    --reassemble            The simulated reads will be used to create a new assembly.
+                                Default: Use the original assembly, do not reassemble
 ```
 
 ## Dataset
@@ -187,167 +198,16 @@ start at the beginning.
 ### `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.
 
-## Program Specific
+## Additional Parameters
 The remaining parameters are associated with specific programs. In the following sections, these parameters are grouped by which Nextflow process they are applicable to.
 
 The description and default values for these parameters were taken from the program to which they apply.
 
 It is important to note, not all of the available parameters for each and every program are available in Bactopia. If there is a parameter that was overlooked and should probably be included, please make a suggestion!
 
-### Annotation
+### ENA Download Parameters
 ```
-    --compliant             Force Genbank/ENA/DDJB compliance: --genes --mincontiglen 500 --centre 'Bactopia'
-                                    Default: False
-
-    --centre STR            Sequencing centre ID
-                                Default: 'Bactopia'
-
-    --addmrna               Add 'mRNA' features for each 'CDS' feature
-
-    --rawproduct            Do not clean up /product annotation
-
-    --cdsrnaolap            Allow [tr]RNA to overlap CDS
-
-    --prokka_evalue STR     Similarity e-value cut-off
-                                Default: 1e-09
-
-    --prokka_coverage INT   Minimum coverage on query protein
-                                 Default: 80
-
-    --nogenes               Do not add 'gene' features for each 'CDS' feature
-
-    --norrna                Don't run rRNA search
-
-    --notrna                Don't run tRNA search
-
-    --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
-```
-
-### Antimicrobial Resistance
-```
-    --update_amr            Force amrfinder to update its database.
-
-    --amr_ident_min         Minimum identity for nucleotide hit (0..1). -1
-                                means use a curated threshold if it exists and
-                                0.9 otherwise
-                                Default: -1
-
-    --amr_coverage_min      Minimum coverage of the reference protein (0..1)
-                                Default: 0.5
-
-    --amr_organism          Taxonomy group: Campylobacter, Escherichia, Klebsiella
-                                Salmonella, Staphylococcus, Vibrio
-                                Default: ''
-
-    --amr_translation_table NCBI genetic code for translated BLAST
-                                Default: 11
-
-    --amr_plus              Add the plus genes to the report
-
-    --amr_report_common     Suppress proteins common to a taxonomy group
-```
-
-### Ariba
-```
-    --nucmer_min_id INT     Minimum alignment identity (delta-filter -i)
-                                Default: 90
-
-    --nucmer_min_len INT    Minimum alignment length (delta-filter -i)
-                                Default: 20
-
-    --nucmer_breaklen INT   Value to use for -breaklen when running nucmer
-                                Default: 200
-
-    --assembly_cov INT      Target read coverage when sampling reads for
-                                assembly
-                                Default: 50
-
-    --min_scaff_depth INT   Minimum number of read pairs needed as evidence
-                                for scaffold link between two contigs
-                                Default: 10
-
-    --spades_options STR    Extra options to pass to Spades assembler
-                                Default: null
-
-    --assembled_threshold FLOAT (between 0 and 1)
-                            If proportion of gene assembled (regardless of
-                                into how many contigs) is at least this
-                                value then the flag gene_assembled is set
-                                Default: 0.95
-
-    --gene_nt_extend INT    Max number of nucleotides to extend ends of gene
-                                matches to look for start/stop codons
-                                Default: 30
-
-    --unique_threshold FLOAT (between 0 and 1)
-                            If proportion of bases in gene assembled more
-                                than once is <= this value, then the flag
-                                unique_contig is set
-                                Default: 0.03
-
-    --ariba_no_clean        Do not clean up intermediate files created by
-                                Ariba. By default, the local assemblies are
-                                deleted.
-```
-
-
-### Assembly
-```
-    --shovill_ram INT       Try to keep RAM usage below this many GB
-                                Default: 6 GB
-
-    --assembler STR         Assembler: megahit velvet skesa spades
-                                Default: skesa
-
-    --min_contig_len INT    Minimum contig length <0=AUTO>
-                                Default: 500
-
-    --min_contig_cov INT    Minimum contig coverage <0=AUTO>
-                                Default: 2
-
-    --contig_namefmt STR    Format of contig FASTA IDs in 'printf' style
-                                Default: contig%05d
-
-    --shovill_opts STR      Extra assembler options in quotes eg.
-                                spades: "--untrusted-contigs locus.fna" ...
-                                Default: ''
-
-    --shovill_kmers STR     K-mers to use <blank=AUTO>
-                                Default: ''
-
-    --trim                  Enable adaptor trimming
-
-    --nostitch              Disable read stitching
-
-    --nocorr                Disable post-assembly correction
-```
-
-
-### BLAST
-```
-    --perc_identity INT     Percent identity
-                                Default: 50
-
-    --qcov_hsp_perc INT     Percent query coverage per hsp
-                                Default: 50
-
-    --max_target_seqs INT   Maximum number of aligned sequences to
-                                keep
-                                Default: 2000
-```
-
-
-### Counting 31mers
-```
-    --cortex_ram INT        Try to keep RAM usage below this many GB
-                                Default: 8 GB
-
-    --keep_singletons       Keep all counted 31-mers
-                                Default: Filter out singletons
-```
-
-### Download FASTQ
-```
+ENA Download Parameters:
     --max_retry INT         Maximum times to retry downloads
                                 Default: 10
 
@@ -361,120 +221,42 @@ It is important to note, not all of the available parameters for each and every 
                                 Default: 100M
 ```
 
-### Download Reference Genome
+### FASTQ Minimum Requirements Parameters
 ```
-    --max_references INT    Maximum number of nearest neighbor reference genomes to
-                                download for variant calling.
-                                Default: 1
+FASTQ Minimum Requirements Parameters:
+    --min_basepairs INT     The minimum amount of input sequenced basepairs required
+                                to continue downstream analyses.
+                                Default: 2241820
 
-    --random_tie_break      On references with matching distances, randomly select one.
-                                Default: Pick earliest accession number
+    --min_reads INT         The minimum amount of input sequenced reads required
+                                to continue downstream analyses.
+                                Default: 7472
 
-    --disable_auto_variants Disable automatic selection of reference genome based on
-                                Mash distances.
-```
+    --skip_fastq_check      The input FASTQs will not be check to verify they meet the
+                                minimum requirements to be processed. This parameter
+                                is useful if you are confident your sequences will
+                                pass the minimum requirements.
 
-### Insertion Mapping
-```
-    --min_clip INT          Minimum size for softclipped region to be
-                                extracted from initial mapping
-                                Default: 10
-
-    --max_clip INT          Maximum size for softclipped regions to be
-                                included
-                                Default: 30
-
-    --cutoff INT            Minimum depth for mapped region to be kept in
-                                bed file
-                                Default: 6
-
-    --novel_gap_size INT    Distance in base pairs between left and right
-                                flanks to be called a novel hit
-                                Default: 15
-
-    --min_range FLOAT       Minimum percent size of the gap to be called a
-                                known hit
-                                Default: 0.9
-
-    --max_range FLOAT       Maximum percent size of the gap to be called a
-                                known hit
-                                Default: 1.1
-
-    --merging INT           Value for merging left and right hits in bed
-                                files together to simply calculation of
-                                closest and intersecting regions
-                                Default: 100
-
-    --ismap_all             Switch on all alignment reporting for bwa
-
-    --ismap_minqual INT     Mapping quality score for bwa
-                                Default: 30
 ```
 
-
-### Mapping
+### Estimate Genome Size Parameters
 ```
-    --keep_unmapped_reads   Keep unmapped reads, this does not affect variant
-                                calling.
-                                
-    --bwa_mem_opts STR      Extra BWA MEM options
-                                Default: ''
+Estimate Genome Size Parameters:
+    Only applied if the genome size is estimated.
 
-    --bwa_aln_opts STR      Extra BWA ALN options
-                                Default: ''
+    --min_genome_size INT   The minimum estimated genome size allowed for the input sequence
+                            to continue downstream analyses.
+                            Default: 100000
 
-    --bwa_samse_opts STR    Extra BWA SAMSE options
-                                Default: ''
+    --max_genome_size INT   The maximum estimated genome size allowed for the input sequence
+                            to continue downstream analyses.
+                            Default: 18040666
 
-    --bwa_sampe_opts STR    Extra BWA SAMPE options
-                                Default: ''
-
-    --bwa_n INT             Maximum number of alignments to output in the XA
-                                tag for reads paired properly. If a read has
-                                more than INT hits, the XA tag will not be
-                                written.
-                                Default: 9999
 ```
 
-
-### Minmer Query
+### QC Reads Parameters
 ```
-    --screen_w              Winner-takes-all strategy for identity estimates.
-                                After counting hashes for each query, hashes
-                                that appear in multiple queries will be
-                                removed from all except the one with the best
-                                identity (ties broken by larger query), and
-                                other identities will be reduced. This
-                                removes output redundancy, providing a rough
-                                compositional outline.
-                                Default: True
-
-    --screen_i FLOAT        Minimum identity to report. Inclusive unless set
-                                to zero, in which case only identities greater
-                                than zero (i.e. with at least one shared hash)
-                                will be reported. Set to -1 to output
-                                everything.
-                                Default: 0.8
-```
-
-
-### Minmer Sketch
-```
-    --minmer_ram INT        Try to keep RAM usage below this many GB
-                                Default: 5 GB
-
-    --mash_sketch INT       Sketch size. Each sketch will have at most this
-                                many non-redundant min-hashes.
-                                Default: 10000
-
-    --sourmash_scale INT    Choose number of hashes as 1 in FRACTION of
-                                input k-mers
-                                Default: 10000
-```
-
-
-### Quality Control 
-```
+QC Reads Parameters:
     --qc_ram INT            Try to keep RAM usage below this many GB
                                 Default: 3 GB
 
@@ -538,7 +320,7 @@ It is important to note, not all of the available parameters for each and every 
 
     --maq INT               Reads with average quality (after trimming)
                                 below this will be discarded
-                                Default: 20
+                                Default: 10
 
     --minlength INT         Reads shorter than this after trimming will be
                                 discarded. Pairs will be discarded if both
@@ -574,11 +356,246 @@ It is important to note, not all of the available parameters for each and every 
                                 Default: 42
 ```
 
-
-### Variant Calling
+### Assembly Parameters
 ```
-    --snippy_ram INT        Try and keep RAM under this many GB
+Assembly Parameters:
+    Standard Assembly:
+    --shovill_ram INT       Try to keep RAM usage below this many GB
                                 Default: 8 GB
+
+    --assembler STR         Assembler: megahit velvet skesa spades
+                                Default: skesa
+
+    --min_contig_len INT    Minimum contig length <0=AUTO>
+                                Default: 500
+
+    --min_contig_cov INT    Minimum contig coverage <0=AUTO>
+                                Default: 2
+
+    --contig_namefmt STR    Format of contig FASTA IDs in 'printf' style
+                                Default: contig%05d
+
+    --shovill_opts STR      Extra assembler options in quotes eg.
+                                spades: "--untrusted-contigs locus.fna" ...
+                                Default: ''
+
+    --shovill_kmers STR     K-mers to use <blank=AUTO>
+                                Default: ''
+
+    --trim                  Enable adaptor trimming
+
+    --nostitch              Disable read stitching
+
+    --nocorr                Disable post-assembly correction
+
+    Hybrid Assembly:
+    --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
+                                conservative = smaller contigs, lowest
+                                               misassembly rate
+                                normal = moderate contig size and
+                                         misassembly rate (Default)
+                                bold = longest contigs, higher misassembly
+                                       rate
+
+    --min_polish_size INT   Contigs shorter than this value (bp) will not be
+                                polished using Pilon
+                                Default: 10000
+
+    --min_component_size INT
+                            Graph components smaller than this size (bp) will
+                                be removed from the final graph
+                                Default: null
+
+    --min_dead_end_size INT
+                            Graph dead ends smaller than this size (bp) will
+                                be removed from the final graph
+                                Default: 1000
+
+    --no_miniasm            Skip miniasm+Racon bridging
+                                Default: Produce long-read bridges
+
+    --no_rotate             Do not rotate completed replicons to start at a
+                                standard gene
+
+    --no_pilon              Do not use Pilon to polish the final assembly
+```
+
+### Assembly Quality Control Parameters
+```
+Assembly Quality Control Parameters
+    --checkm_unique INT     Minimum number of unique phylogenetic markers required
+                                to use lineage-specific marker set.
+                                Default: 10
+
+    --checkm_multi INT      Maximum number of multi-copy phylogenetic markers before
+                                defaulting to domain-level marker set.
+                                Default: 10
+
+    --aai_strain FLOAT      AAI threshold used to identify strain heterogeneity
+                                Default: 0.9
+
+    --checkm_length FLOAT   Percent overlap between target and query
+                                Default: 0.7
+
+    --full_tree             Use the full tree (requires ~40GB of memory) for determining
+                                lineage of each bin.
+                                Default: Use reduced tree (<16gb memory)
+
+    --skip_pseudogene_correction
+                            Skip identification and filtering of pseudogene
+
+    --ignore_thresholds     Ignore model-specific score thresholds
+
+    --checkm_ali            Generate HMMER alignment file for each bin
+
+    --checkm_nt             Generate nucleotide gene sequences for each bin
+
+    --force_domain          Use domain-level sets for all bins
+
+    --no_refinement         Do not perform lineage-specific marker set refinement
+
+    --individual_markers    Treat marker as independent (i.e., ignore co-located
+                                set structure.
+
+    --skip_adj_correction   Do not exclude adjacent marker genes when estimating
+                                contamination
+
+    --contig_thresholds STR Comma-separated list of contig length thresholds
+                                Default: 0,1000,10000,100000,250000,1000000
+
+    --plots_format STR      Save plots in specified format.
+                                Supported formats: emf, eps, pdf, png, ps, raw,
+                                                    rgba, svg, svgz
+                                Default: pdf
+```
+
+### Count 31mers Parameters
+```
+Count 31mers Parameters:
+    --cortex_ram INT        Try to keep RAM usage below this many GB
+                                Default: 8 GB
+
+    --keep_singletons       Keep all counted 31-mers
+                                Default: Filter out singletons
+```
+
+### Annotation Parameters
+```
+Annotation Parameters:
+    --compliant             Force Genbank/ENA/DDJB compliance: --genes --mincontiglen 500 --centre 'Bactopia'
+                                Default: false
+
+    --centre STR            Sequencing centre ID
+                                Default: 'Bactopia'
+
+    --addmrna               Add 'mRNA' features for each 'CDS' feature
+
+    --rawproduct            Do not clean up /product annotation
+
+    --cdsrnaolap            Allow [tr]RNA to overlap CDS
+
+    --prokka_evalue STR     Similarity e-value cut-off
+                                Default: 1e-09
+
+    --prokka_coverage INT   Minimum coverage on query protein
+                                 Default: 80
+
+    --nogenes               Do not add 'gene' features for each 'CDS' feature
+
+    --norrna                Don't run rRNA search
+
+    --notrna                Don't run tRNA search
+
+    --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
+
+    --rfam                  Enable searching for ncRNAs with Infernal+Rfam
+```
+
+### Minmer Sketch Parameters
+```
+Minmer Sketch Parameters:
+    --mash_sketch INT       Sketch size. Each sketch will have at most this
+                                many non-redundant min-hashes.
+                                Default: 10000
+
+    --sourmash_scale INT    Choose number of hashes as 1 in FRACTION of
+                                input k-mers
+                                Default: 10000
+```
+
+### Minmer Query Parameters
+```
+Minmer Query Parameters:
+    --minmer_ram INT        Try to keep RAM usage below this many GB
+                                Default: 5 GB
+
+    --screen_w              Winner-takes-all strategy for identity estimates.
+                                After counting hashes for each query, hashes
+                                that appear in multiple queries will be
+                                removed from all except the one with the best
+                                identity (ties broken by larger query), and
+                                other identities will be reduced. This
+                                removes output redundancy, providing a rough
+                                compositional outline.
+                                Default: True
+
+    --screen_i FLOAT        Minimum identity to report. Inclusive unless set
+                                to zero, in which case only identities greater
+                                than zero (i.e. with at least one shared hash)
+                                will be reported. Set to -1 to output
+                                everything.
+                                Default: 0.8
+```
+
+### Ariba Parameters
+```
+Ariba Parameters:
+    --nucmer_min_id INT     Minimum alignment identity (delta-filter -i)
+                                Default: 90
+
+    --nucmer_min_len INT    Minimum alignment length (delta-filter -i)
+                                Default: 20
+
+    --nucmer_breaklen INT   Value to use for -breaklen when running nucmer
+                                Default: 200
+
+    --assembly_cov INT      Target read coverage when sampling reads for
+                                assembly
+                                Default: 50
+
+    --min_scaff_depth INT   Minimum number of read pairs needed as evidence
+                                for scaffold link between two contigs
+                                Default: 10
+
+    --spades_options STR    Extra options to pass to Spades assembler
+                                Default: null
+
+    --assembled_threshold FLOAT (between 0 and 1)
+                            If proportion of gene assembled (regardless of
+                                into how many contigs) is at least this
+                                value then the flag gene_assembled is set
+                                Default: 0.95
+
+    --gene_nt_extend INT    Max number of nucleotides to extend ends of gene
+                                matches to look for start/stop codons
+                                Default: 30
+
+    --unique_threshold FLOAT (between 0 and 1)
+                            If proportion of bases in gene assembled more
+                                than once is <= this value, then the flag
+                                unique_contig is set
+                                Default: 0.03
+
+    --ariba_no_clean        Do not clean up intermediate files created by
+                                Ariba. By default, the local assemblies are
+                                deleted.
+```
+
+### Call Variant Parameters
+```
+Call Variant Parameters:
+    --snippy_ram INT        Try and keep RAM under this many GB
+                                Default: 4 GB
 
     --mapqual INT           Minimum read mapping quality to consider
                                 Default: 60
@@ -604,4 +621,82 @@ It is important to note, not all of the available parameters for each and every 
     --fbopt STR             Extra Freebayes options,
                                 eg. --theta 1E-6 --read-snp-limit 2
                                 Default: ''
+```
+
+### Nearest Neighbor Reference Genomes
+```
+Nearest Neighbor Reference Genomes:
+    --max_references INT    Maximum number of nearest neighbor reference genomes to
+                                download for variant calling.
+                                Default: 1
+
+    --random_tie_break      On references with matching distances, randomly select one.
+                                Default: Pick earliest accession number
+
+    --disable_auto_variants Disable automatic selection of reference genome based on
+                                Mash distances.
+```
+
+### BLAST Parameters
+```
+BLAST Parameters:
+    --perc_identity INT     Percent identity
+                                Default: 50
+
+    --qcov_hsp_perc INT     Percent query coverage per hsp
+                                Default: 50
+
+    --max_target_seqs INT   Maximum number of aligned sequences to
+                                keep
+                                Default: 2000
+```
+
+### Mapping Parameters
+```
+Mapping Parameters:
+    --keep_unmapped_reads   Keep unmapped reads, this does not affect variant
+                                calling.
+
+    --bwa_mem_opts STR      Extra BWA MEM options
+                                Default: ''
+
+    --bwa_aln_opts STR      Extra BWA ALN options
+                                Default: ''
+
+    --bwa_samse_opts STR    Extra BWA SAMSE options
+                                Default: ''
+
+    --bwa_sampe_opts STR    Extra BWA SAMPE options
+                                Default: ''
+
+    --bwa_n INT             Maximum number of alignments to output in the XA
+                                tag for reads paired properly. If a read has
+                                more than INT hits, the XA tag will not be
+                                written.
+                                Default: 9999
+```
+
+### Antimicrobial Resistance Parameters
+```
+Antimicrobial Resistance Parameters:
+    --update_amr            Force amrfinder to update its database.
+
+    --amr_ident_min         Minimum identity for nucleotide hit (0..1). -1
+                                means use a curated threshold if it exists and
+                                0.9 otherwise
+                                Default: -1
+
+    --amr_coverage_min      Minimum coverage of the reference protein (0..1)
+                                Default: 0.5
+
+    --amr_organism          Taxonomy group: Campylobacter, Escherichia, Klebsiella
+                                Salmonella, Staphylococcus, Vibrio
+                                Default: ''
+
+    --amr_translation_table NCBI genetic code for translated BLAST
+                                Default: 11
+
+    --amr_plus              Add the plus genes to the report
+
+    --amr_report_common     Suppress proteins common to a taxonomy group
 ```

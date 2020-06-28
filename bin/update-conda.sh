@@ -33,7 +33,6 @@ update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${VERSI
 update_environment "call_variants" "snippy samtools=1.9 vcf-annotator pigz" ${CONDA_DIR} ${VERSION} ""
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ""
 update_environment "download_references" "ncbi-genome-download mash biopython python>3.6" ${CONDA_DIR} ${VERSION} ""
-update_environment "insertion_sequences" "ismapper" ${CONDA_DIR} ${VERSION}
 update_environment "gather_fastqs" "aspera-connect art rename ncbi-genome-download fastq-dl" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${VERSION} ""
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${VERSION} ""

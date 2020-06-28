@@ -1,25 +1,35 @@
 # bactopia/bactopia: Changelog
 
-## v1.3.2 bactopia/bactopia "" - 2020/??/??
+## v1.4.0 bactopia/bactopia "" - 2020/??/??
 ### `Added`
 - New Bactopia Tools
-    - Added `eggnog` to functional annotate using eggNOG-mapper
-    - Added `mashtree` to create a tree using Mash distances
-    - Added `pirate` to create pangenome using PIRATE
-    - `roary` can now be run on just completed genomes
+    - `eggnog` for functional annotation using eggNOG-mapper
+    - `mashtree` to create a tree using Mash distances
+    - `pirate` to create pangenome using PIRATE
+    - `ismapper` for insertion site discovery
     - Documentation for new tools and tweaks to existing
-- Can limit number of completed genomes downloaded
-- Can provide list of RefSeq completed genome accessions to download
+- BTs `roary` and `pirate` can now be run on just completed genomes
+- Can limit number of completed genomes downloaded where applicable
+- `bactopia datasets` can provide list of RefSeq accessions to download
 - `bactopia search` can now use BioSample and Run accessions
 - Support for organisms with multiple MLST schemas
+- Assembly QC via QUAST and CheckM
+- Assemblies (local or NCBI Assembly accession) as inputs for Bactopia
+- Long reads as supplementary to paired end reads for hybrid assembly
 
 ### `Fixed`
 - `summary` will now determine absolute path of inputs
 - `fastani` improved user reference import
 - went back a version on `call_variants` openjdk version
-- updated CARD citations
 - all bactopia tools now put nextflow info in the same folder as outputs
 - Typos in docs
+- Bactopia Tools now check existence of include and exclude files
+- Lots more documentation
+- Updated citations/tools used by Bactopia
+
+### `Removed`
+- ISMapper as part of the main pipeline (its now a tool)
+- `insertion-sequences` in bactopia datasets
 
 ## v1.3.1 bactopia/bactopia "Emperor Hairpin" - 2020/04/20
 ### `Added`

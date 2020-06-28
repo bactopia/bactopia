@@ -20,65 +20,66 @@ file descriptions below were modified from a tools description.
 ```
 bactopia-tools/
 └── phyloflash/
-    ├── alignment
-    │   ├── phyloflash-alignment.fasta
-    │   └── phyloflash-matches.txt
-    ├── bactopia-info
-    │   ├── phyloflash-report.html
-    │   ├── phyloflash-timeline.html
-    │   └── phyloflash-trace.txt
-    ├── iqtree
-    │   ├── 16s.alninfo
-    │   ├── 16s.bionj
-    │   ├── 16s.ckp.gz
-    │   ├── 16s.iqtree
-    │   ├── 16s.log
-    │   ├── 16s.mldist
-    │   ├── 16s.model.gz
-    │   ├── 16s.treefile
-    │   └── 16s.uniqueseq.phy
-    ├── phyloflash.iqtree
-    ├── phyloflash-summary.txt
-    └── samples
-        └── ${SAMPLE_NAME}
-            ├── ${SAMPLE_NAME}.all.dbhits.NR97.fa
-            ├── ${SAMPLE_NAME}.all.final.fasta
-            ├── ${SAMPLE_NAME}.all.final.phyloFlash.dbhits.fa
-            ├── ${SAMPLE_NAME}.all.final.phyloFlash.notmatched.fa
-            ├── ${SAMPLE_NAME}.all.vsearch.csv
-            ├── ${SAMPLE_NAME}.assemratio.csv
-            ├── ${SAMPLE_NAME}.assemratio.csv.svg
-            ├── ${SAMPLE_NAME}.bbmap.out
-            ├── ${SAMPLE_NAME}.bbmap.sam
-            ├── ${SAMPLE_NAME}.hitstats
-            ├── ${SAMPLE_NAME}.idhistogram
-            ├── ${SAMPLE_NAME}.idhistogram.svg
-            ├── ${SAMPLE_NAME}.inserthistogram
-            ├── ${SAMPLE_NAME}.inserthistogram.svg
-            ├── ${SAMPLE_NAME}.mapratio.csv
-            ├── ${SAMPLE_NAME}.mapratio.csv.svg
-            ├── ${SAMPLE_NAME}.phyloFlash
-            ├── ${SAMPLE_NAME}.phyloFlash.extractedSSUclassifications.csv
-            ├── ${SAMPLE_NAME}.phyloFlash.html
-            ├── ${SAMPLE_NAME}.phyloFlash.json
-            ├── ${SAMPLE_NAME}.phyloFlash.NTUabundance.csv
-            ├── ${SAMPLE_NAME}.phyloFlash.NTUabundance.csv.svg
-            ├── ${SAMPLE_NAME}.phyloFlash.NTUfull_abundance.csv
-            ├── ${SAMPLE_NAME}.phyloFlash.report.csv
-            ├── ${SAMPLE_NAME}.phyloFlash.unassembled.NTUabundance.csv
-            ├── ${SAMPLE_NAME}.remap_spades.bbmap.out
-            ├── ${SAMPLE_NAME}.spades.out
-            ├── ${SAMPLE_NAME}.spades_rRNAs.final.fasta
-            ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.1.fq
-            ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.2.fq
-            ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.sam
-            ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU_spades.sam
-            ├── ${SAMPLE_NAME}.SSU.collection.alignment.fasta
-            ├── ${SAMPLE_NAME}.SSU.collection.fasta
-            ├── ${SAMPLE_NAME}.SSU.collection.fasta.tree
-            ├── ${SAMPLE_NAME}.SSU.collection.fasta.tree.svg
-            ├── ${SAMPLE_NAME}.toalign.fasta
-            └── ${SAMPLE_NAME}-unprocessed.txt
+    └── ${PREFIX}
+        ├── alignment
+        │   ├── phyloflash-alignment.fasta
+        │   └── phyloflash-matches.txt
+        ├── bactopia-info
+        │   ├── phyloflash-report.html
+        │   ├── phyloflash-timeline.html
+        │   └── phyloflash-trace.txt
+        ├── iqtree
+        │   ├── 16s.alninfo
+        │   ├── 16s.bionj
+        │   ├── 16s.ckp.gz
+        │   ├── 16s.iqtree
+        │   ├── 16s.log
+        │   ├── 16s.mldist
+        │   ├── 16s.model.gz
+        │   ├── 16s.treefile
+        │   └── 16s.uniqueseq.phy
+        ├── phyloflash.iqtree
+        ├── phyloflash-summary.txt
+        └── samples
+            └── ${SAMPLE_NAME}
+                ├── ${SAMPLE_NAME}.all.dbhits.NR97.fa
+                ├── ${SAMPLE_NAME}.all.final.fasta
+                ├── ${SAMPLE_NAME}.all.final.phyloFlash.dbhits.fa
+                ├── ${SAMPLE_NAME}.all.final.phyloFlash.notmatched.fa
+                ├── ${SAMPLE_NAME}.all.vsearch.csv
+                ├── ${SAMPLE_NAME}.assemratio.csv
+                ├── ${SAMPLE_NAME}.assemratio.csv.svg
+                ├── ${SAMPLE_NAME}.bbmap.out
+                ├── ${SAMPLE_NAME}.bbmap.sam
+                ├── ${SAMPLE_NAME}.hitstats
+                ├── ${SAMPLE_NAME}.idhistogram
+                ├── ${SAMPLE_NAME}.idhistogram.svg
+                ├── ${SAMPLE_NAME}.inserthistogram
+                ├── ${SAMPLE_NAME}.inserthistogram.svg
+                ├── ${SAMPLE_NAME}.mapratio.csv
+                ├── ${SAMPLE_NAME}.mapratio.csv.svg
+                ├── ${SAMPLE_NAME}.phyloFlash
+                ├── ${SAMPLE_NAME}.phyloFlash.extractedSSUclassifications.csv
+                ├── ${SAMPLE_NAME}.phyloFlash.html
+                ├── ${SAMPLE_NAME}.phyloFlash.json
+                ├── ${SAMPLE_NAME}.phyloFlash.NTUabundance.csv
+                ├── ${SAMPLE_NAME}.phyloFlash.NTUabundance.csv.svg
+                ├── ${SAMPLE_NAME}.phyloFlash.NTUfull_abundance.csv
+                ├── ${SAMPLE_NAME}.phyloFlash.report.csv
+                ├── ${SAMPLE_NAME}.phyloFlash.unassembled.NTUabundance.csv
+                ├── ${SAMPLE_NAME}.remap_spades.bbmap.out
+                ├── ${SAMPLE_NAME}.spades.out
+                ├── ${SAMPLE_NAME}.spades_rRNAs.final.fasta
+                ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.1.fq
+                ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.2.fq
+                ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU.sam
+                ├── ${SAMPLE_NAME}.${SAMPLE_NAME}_R1.fastq.gz.SSU_spades.sam
+                ├── ${SAMPLE_NAME}.SSU.collection.alignment.fasta
+                ├── ${SAMPLE_NAME}.SSU.collection.fasta
+                ├── ${SAMPLE_NAME}.SSU.collection.fasta.tree
+                ├── ${SAMPLE_NAME}.SSU.collection.fasta.tree.svg
+                ├── ${SAMPLE_NAME}.toalign.fasta
+                └── ${SAMPLE_NAME}-unprocessed.txt
 ```
 
 | Filename | Description |

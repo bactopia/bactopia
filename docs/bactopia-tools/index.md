@@ -50,6 +50,9 @@ Pairwise average nucleotide identity
 __[gtdb](/tools/gtdb/)__  
 Identify marker genes and assign taxonomic classifications
 
+__[ismapper](/tools/ismapper/)__  
+Identify positions of insertion sites 
+
 __[mashtree](/tools/mashtree/)__  
 Tree based on Mash distances
 

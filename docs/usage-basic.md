@@ -3,12 +3,10 @@ Bactopia is a wrapper around many different tools. Each of these tools may (or m
 
 ## Usage
 ```
-bactopia
-
 Required Parameters:
     ### For Procesessing Multiple Samples
     --fastqs STR            An input file containing the sample name and
-                                absolute paths to FASTQs to process
+                                absolute paths to FASTQ/FASTAs to process
 
     ### For Processing A Single Sample
     --R1 STR                First set of reads for paired end in compressed (gzip)
@@ -19,14 +17,24 @@ Required Parameters:
 
     --SE STR                Single end set of reads in compressed (gzip) FASTQ format
 
+    --hybrid                The SE should be treated as long reads for hybrid assembly.
+
     --sample STR            The name of the input sequences
 
-    ### For Downloading from ENA
-    --accessions            An input file containing ENA/SRA experiement accessions to
-                                be processed
+    ### For Downloading from SRA/ENA or NCBI Assembly
+    **Note: Assemblies will have error free Illumina reads simulated for processing.**
+    --accessions            An input file containing ENA/SRA Experiment accessions or
+                                NCBI Assembly accessions to be processed
 
-    --accession             A single ENA/SRA Experiment accession to be processed
+    --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession
+                                to be processed
 
+    ### For Processing an Assembly
+    **Note: The assembly will have error free Illumina reads simulated for processing.**
+    --assembly STR          A assembled genome in compressed FASTA format.
+
+    --reassemble            The simulated reads will be used to create a new assembly.
+                                Default: Use the original assembly, do not reassemble
 
 Dataset Parameters:
     --datasets DIR          The path to available datasets that have
@@ -52,24 +60,26 @@ Optional Parameters:
                                 Default: .
 
 Nextflow Queue Parameters:
-    At execution, Nextflow creates a queue and the number of slots in the queue is determined by the total number 
-    of cores on the system. When a task is submitted to the queue, the total number of slots it occupies is 
-    determined by the value set by "--cpus". 
+    At execution, Nextflow creates a queue and the number of slots in the queue is determined 
+    by the total number of cores on the system. When a task is submitted to the queue, the 
+    total number of slots it occupies is determined by the value set by "--cpus".
 
-    This can have a significant effect on the efficiency of the Nextflow's queue system. If "--cpus" is set to a 
-    value that is equal to the number of cores availabe, in most cases only a single task will be able to run 
-    because its occupying all available slots.
+    This can have a significant effect on the efficiency of the Nextflow's queue system. 
+    If "--cpus" is set to a value that is equal to the number of cores availabe, in most 
+    cases only a single task will be able to run because its occupying all available slots.
 
-    When in doubt, "--cpus 4" is a safe bet, it is also the default value if you don't use "--cpus".
+    When in doubt, "--cpus 4" is a safe bet, it is also the default value if you 
+    don't use "--cpus".
 
-    --max_time INT          The maximum number of minutes a task should run before being halted.
-                                Default: 120 minutes
+    --max_time INT          The maximum number of minutes a single task should run before 
+                                being halted.
+                                Default: 240 minutes
 
     --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                 Default: 32 Gb
 
     --cpus INT              Number of processors made available to a single task.
-                                Default: 4
+                                Default: 39
 
 Nextflow Related Parameters:
     --infodir DIR           Directory to write Nextflow summary files to
@@ -78,9 +88,9 @@ Nextflow Related Parameters:
     --condadir DIR          Directory to Nextflow should use for Conda environments
                                 Default: Bactopia's Nextflow directory
 
-    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows
                                 you to create profiles specific to your environment (e.g. SGE,
-                                AWS, SLURM, etc...). This config file is loaded last and will 
+                                AWS, SLURM, etc...). This config file is loaded last and will
                                 overwrite existing variables if set.
                                 Default: Bactopia's default configs
 
@@ -95,9 +105,31 @@ Nextflow Related Parameters:
 
     --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                 will wait before execution.
-                                Default: 5 seconds
+                                Default: 1 seconds
 
-    -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+    --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
+                                'copy' (default) Copies the output files into the published 
+                                                 directory.
+
+                                'copyNoFollow' Copies the output files into the published directory
+                                               without following symlinks ie. copies the links 
+                                               themselves.
+
+                                'link'    Creates a hard link in the published directory for each
+                                          process output file.
+
+                                'rellink' Creates a relative symbolic link in the published 
+                                          directory for each process output file.
+
+                                'symlink' Creates an absolute symbolic link in the published 
+                                          directory for each process output file.
+
+                                Default: copy
+
+    --force                 Nextflow will overwrite existing output files.
+                                Default: false
+
+    -resume                 Nextflow will attempt to resume a previous run. Please notice it is
                                 only a single '-'
 
 Useful Parameters:
@@ -116,7 +148,6 @@ Useful Parameters:
                                 to resume Nextflow runs, and only occurs at the end
                                 of the process.
 
-
     --dry_run               Mimics workflow execution, to help determine if conda environments
                                 or container images are properly set up.
 
@@ -127,12 +158,18 @@ Useful Parameters:
     --help_all              Show a complete list of adjustable parameters
 ```
 
-## FASTQ Inputs
-Bactopia has multiple approaches to specify your input sequences. You can make use of your local FASTQs or download FASTQs from the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena). Which approach really depends on what you need to achieve! The following sections describe methods to process single samples, multiple samples, downloading samples from the ENA.
+## Inputs
+Bactopia has multiple approaches to specify your input sequences. Bactopia can process Illumina FASTQs, assemblies, and long reads for hybrid assembly.
+
+Illumina FASTQs a can be your local FASTQs or a Experiment accession to download associated FASTQs from the [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena). 
+
+Likewise assemblies can be local, or a GenBank/RefSeq accession to download from NCBI Assembly. Input assemblies will have Illumina reads simulated so that the complete Bactopia pipeline run. By default, the assembly will not be reassembled.
+
+Which approach really depends on what you need to achieve! The following sections describe methods to process single samples, multiple samples, downloading samples from the ENA.
 
 ### Local
 #### Single Sample
-When you only need to process a single sample at a time, Bactopia allows that! You only have to the sample name (`--sample`) and the whether the read set is paired-end (`--R1` and `--R2`) or a single-end (`--SE`). 
+When you only need to process a single sample at a time, Bactopia allows that! You only have to the sample name (`--sample`) and the whether the read set is paired-end (`--R1` and `--R2`), single-end (`--SE`), Illumina paired-end + long reads (`--hybrid`), or an assembly (`--assembly`).
 
 !!! info "Use --R1, --R2 for Paired-End FASTQs"
     `bactopia --sample my-sample --R1 /path/to/my-sample_R1.fastq.gz --R2 /path/to/my-sample_R2.fastq.gz`
@@ -140,8 +177,25 @@ When you only need to process a single sample at a time, Bactopia allows that! Y
 !!! info "Use --SE for Single-End FASTQs"
     `bactopia --sample my-sample --SE /path/to/my-sample.fastq.gz`
 
+!!! info "Use --R1, --R2, --SE, and --hybrid for Paired-End FASTQs with Long Reads"
+    At the assembly step, Unicycler will be used to create a hybrid assembly using the paired-end reads and the long reads.
+    ```
+    bactopia --sample my-sample 
+             --R1 /path/to/my-sample_R1.fastq.gz \
+             --R2 /path/to/my-sample_R2.fastq.gz \
+             --SE /path/to/my-sample.fastq.gz \
+             --hybrid
+    ```
+
+!!! info "Use --assembly for an assembled FASTA"
+    Assemblies will have 2x250bp Illumina reads simulated without insertions or deletions in the sequence and a minimum PHRED score of Q33. By default, the input assembly will be used for all downstream analyses (e.g. annotation) which use an assembly. If the `--reassemble` parameter is given, then the a assembly will be created from the simulated reads.
+    ```
+    bactopia --sample my-sample --assembly /path/to/my-sample.fna.gz 
+
+    ```
+
 #### Multiple Samples
-For multiple samples, you must create a file with information about the inputs, a *file of filenames* (FOFN). This file specifies sample names and location of FASTQs to be processed. Using this information, paired-end or single-end information can be extracted as well as naming output files.
+For multiple samples, you must create a file with information about the inputs, a *file of filenames* (FOFN). This file specifies sample names and location of FASTQs/FASTAs to be processed. Using this information, paired-end, single-end, hybrid or assembly information can be extracted as well as naming output files.
 
 While this is an additional step for you, the user, it helps to avoid potential pattern matching errors. 
 
@@ -159,25 +213,34 @@ N E X T F L O W  ~  version 19.01.0
 Launching `/home/rpetit/illumina-cleanup/bin/illumina-cleanup` [naughty_borg] - revision: 0416ba407c
 Printing example input for "--fastqs"
 
-sample  r1      r2
-test001 /path/to/fastqs/test_R1.fastq.gz        /path/to/fastqs/test_R2.fastq.gz
-test002 /path/to/fastqs/test.fastq.gz
+sample	runtype	r1	r2	extra
+SA103113	assembly			/example/SA103113.fna.gz
+SA110685	hybrid	/example/SA110685_R1.fastq.gz	/SA110685_R2.fastq.gz	/example/SA110685.fastq.gz
+SA123186	paired-end	/example/SA123186_R1.fastq.gz	/example/SA123186_R2.fastq.gz
+SA123456	single-end	/example/SA12345.fastq.gz
 ```
 
 The expected structure is a **tab-delimited** table with three columns:
 
 1. `sample`: A unique prefix, or unique name, to be used for naming output files
-2. `r1`: If paired-end, the first pair of reads, else the single-end reads
-3. `r2`: If paired-end, the second pair of reads
+2. `runtype`: Informs Bactopia what type of input the sample is
+3. `r1`: If paired-end, the first pair of reads, else the single-end reads
+4. `r2`: If paired-end, the second pair of reads
+5. `extra`: Either the assembly or long reads associated with a sample.
 
-These three columns are used as the header for the file. In other words, all input FOFNs require their first line to be:
+These five columns are used as the header for the file. In other words, all input FOFNs require their first line to be:
 ```
-sample  r1      r2
+sample	runtype	r1	r2	extra
 ```
 
 All lines after the header line, contain unique sample names and location(s) to associated FASTQ file(s). Absolute paths should be used to prevent any *file not found* errors due to the relative path changing.
 
-In the example above, two samples would be processed by Bactopia. Sample `test001` has two FASTQs and would be processed as pair-end reads. While sample `test002` only has a single FASTQ and would be processed as single-end reads.
+In the example above, four samples would be processed by Bactopia. 
+
+1. `SA103113` would have simulated reads crreated from the assembly
+2. `SA110685` would have a hybrid assembly created using the paired-end reads and long-reads
+3. `SA123186` would be processed as paired-end reads
+4. `SA123456` would be processed as single-end reads
 
 ##### Generating A FOFN
 `bactopia prepare` has been included to help aid (hopefully!) the process of creating a FOFN for your samples. This script will attempt to find FASTQ files in a given directory and output the expected FOFN format. It will also output any potential issues associated with the pattern matching.
@@ -187,41 +250,32 @@ In the example above, two samples would be processed by Bactopia. Sample `test00
 
 ###### Usage
 ```
-bactopia prepare [-h] [-e STR] [-s STR] [--pattern STR] [--version] STR
+usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_seperator STR]
+                        [--fastq_pattern STR] [--assembly_pattern STR]
+                        [--long_reads] [--version]
+                        STR
 
-bactopia prepare - Read a directory and prepare a FOFN of FASTQs
+bactopia prepare - Read a directory and prepare a FOFN of FASTQs/FASTAs
 
 positional arguments:
-  STR                Directory where FASTQ files are stored
+  STR                   Directory where FASTQ files are stored
 
 optional arguments:
-  -h, --help         show this help message and exit
-  -e STR, --ext STR  Extension of the FASTQs. Default: .fastq.gz
-  -s STR, --sep STR  Split FASTQ name on the last occurrence of the separator.
-                     Default: _
-  --pattern STR      Glob pattern to match FASTQs. Default: *.fastq.gz
-  --version          show program's version number and exit
+  -h, --help            show this help message and exit
+  -f STR, --fastq_ext STR
+                        Extension of the FASTQs. Default: .fastq.gz
+  -a STR, --assembly_ext STR
+                        Extension of the FASTA assemblies. Default: .fna.gz
+  --fastq_seperator STR
+                        Split FASTQ name on the last occurrence of the
+                        separator. Default: _
+  --fastq_pattern STR   Glob pattern to match FASTQs. Default: *.fastq.gz
+  --assembly_pattern STR
+                        Glob pattern to match assembly FASTAs. Default:
+                        *.fna.gz
+  --long_reads          Single-end reads should be treated as long reads
+  --version             show program's version number and exit
 ```
-
-###### Examples
-Here is an example using the default parameters. In the example, sample *SRR00000* has more than 2 FASTQs matched to it, which is recognized as an error.
-
-```
-bactopia prepare  tests/dummy-fastqs/
-sample  r1      r2
-SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000.fastq.gz /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
-ERROR: "SRR00000" has more than two different FASTQ files, please check.
-```
-
-After tweaking the `--pattern` parameter a little bit. The error is corrected and sample *SRR00000* is properly recognized as a paired-end read set.
-
-```
-bactopia prepare  tests/dummy-fastqs/ --pattern *_[12].fastq.gz
-sample  r1      r2
-SRR00000        /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_1.fastq.gz       /home/rpetit/projects/bactopia/bactopia/tests/dummy-fastqs/SRR00000_2.fastq.gz
-```
-
-There are a number of ways to tweak the pattern. Just please be sure to give a quick look over of the resulting FOFN.
 
 ##### Validating FOFN
 When a FOFN is given, the first thing Bactopia does is verify all FASTQ files are found. If everything checks out, each sample will then be processed, otherwise a list of samples with errors will be output to STDERR. 
@@ -230,15 +284,17 @@ If you would like to only validate your FOFN (and not run the full pipeline), yo
 
 ###### Without Errors
 ```
-bactopia --check_fastqs --fastqs example-data/good-fastqs.txt
-N E X T F L O W  ~  version 19.01.0
-Launching `/home/rpetit3/bactopia/bactopia` [astonishing_colden] - revision: 96c6a1a7ae
+N E X T F L O W  ~  version 20.01.0
+Launching `/home/rpetit3/repos/bactopia/main.nf` [gigantic_meitner] - revision: 6a0fbfbd9c
 Printing what would have been processed. Each line consists of an array of
-three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]
+five elements: [SAMPLE_NAME, RUNTYPE, IS_SINGLE_END, [FASTQ_1, FASTQ_2], EXTRA]
 
 Found:
-[test001, false, [/home/rpetit3/bactopia/tests/fastqs/test_R1.fastq.gz, /home/rpetit3/bactopia/tests/fastqs/test_R2.fastq.gz]]
-[test002, true, [/home/rpetit3/bactopia/tests/fastqs/test.fastq.gz]]
+
+[SA103113, assembly, false, [null, null], /example/SA103113.fna.gz]
+[SA110685, hybrid, false, [/example/SA110685_R1.fastq.gz, /example/SA110685_R2.fastq.gz], /example/SA110685.fastq.gz]
+[SA123186, paired-end, false, [/example/SA123186_R1.fastq.gz, /example/SA123186_R2.fastq.gz], null]
+[SA12345, single-end, true, [/example/SA12345.fastq.gz], null]
 ```
 Each sample has passed validation and is put into a three element array:
 
@@ -250,20 +306,18 @@ This array is then automatically queued up for proccessing by Nextflow.
 
 ###### With errors
 ```
-bactopia --check_fastqs --fastqs tests/data/bad-fastqs.txt
-N E X T F L O W  ~  version 19.01.0
-Launching `/home/rpetit3/bactopia/bactopia` [kickass_mestorf] - revision: 222a5ad8b1
-LINE 4:ERROR: Please verify /home/rpetit3/bactopia/test/fastqs/test003_R1.fastq.gz exists, and try again
-LINE 5:ERROR: Please verify /home/rpetit3/bactopia/test/fastqs/test003_R1.fastq.gz exists, and try again
-LINE 5:ERROR: Please verify /home/rpetit3/bactopia/test/fastqs/test002_R2.fastq.gz exists, and try again
-Sample name "test002" is not unique, please revise sample names
-The header line (line 1) does not follow expected structure.
-Verify sample names are unique and/or FASTQ paths are correct
+N E X T F L O W  ~  version 20.01.0
+Launching `/home/rpetit3/repos/bactopia/main.nf` [special_ampere] - revision: 6a0fbfbd9c
+LINE 4:ERROR: Please verify /example-bad/SA123186_R1.fastq.gz exists, and try again
+LINE 4:ERROR: Please verify /example-bad/SA123186_R2.fastq.gz exists, and try again
+LINE 5:ERROR: Please verify /example-bad/SA12345.fastq.gz exists, and try again
+Sample name "SA123186" is not unique, please revise sample names
+Verify sample names are unique and/or FASTA/FASTQ paths are correct
 See "--example_fastqs" for an example
 Exiting
 ```
 
-In the above example, there are mulitple errors. Lines 4 and 5 (`LINE 4:ERROR` or `LINE 5:ERROR`) suggest that based on the given paths the FASTQs do not exist. The sample name `test002` has been used multiple times, and must be corrected. There is also an issue with the header line that must be looked into.
+In the above example, there are multiple errors. Lines 4 and 5 (`LINE 4:ERROR` or `LINE 5:ERROR`) suggest that based on the given paths the FASTQs do not exist. The sample name `SA123186` has been used multiple times, and must be corrected.
 
 ### ENA & SRA
 There are a lot of publicly avilable sequences available from the [European Nucleotide Archive](https://www.ebi.ac.uk/ena) (ENA) and the [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) (SRA). There's a good chance you might want to include some of those sequences in your analysis! If that sounds like you, Bactopia has that built in for you! You can give a single *Experiment* accession (`--accession`) or a file where each line is a single *Experiment* accession (`--accessions`). Bactopia will then query ENA to determine *Run* accession(s) associated with the given Experiment accession and proceed download the corresponding FASTQ files from either the SRA (default) or ENA (`--use_ena`). 

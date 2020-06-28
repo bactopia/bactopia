@@ -31,70 +31,72 @@ bactopia tools roary \
 Below is the default output structure for the `roary` tool. Where possible the 
 file descriptions below were modified from a tools description.
 ```
-roary/
-├── bactopia-info
-│   ├── roary-report.html
-│   ├── roary-timeline.html
-│   └── roary-trace.txt
-├── clonalframe
-│   ├── clonalframe.emsim.txt
-│   ├── clonalframe.em.txt
-│   ├── clonalframe.importation_status.txt
-│   ├── clonalframe.labelled_tree.newick
-│   ├── clonalframe.ML_sequence.fasta
-│   ├── clonalframe.position_cross_reference.txt
-│   ├── core_gene_alignment-masked.aln.gz
-│   ├── start-tree.bionj
-│   ├── start-tree.ckp.gz
-│   ├── start-tree.iqtree
-│   ├── start-tree.log
-│   ├── start-tree.mldist
-│   ├── start-tree.model.gz
-│   └── start-tree.treefile
-├── core-genome.aligned.fa.gz
-├── core-genome.distance.txt
-├── core-genome.iqtree
-├── iqtree
-│   ├── core-genome.alninfo
-│   ├── core-genome.bionj
-│   ├── core-genome.ckp.gz
-│   ├── core-genome.contree
-│   ├── core-genome.iqtree
-│   ├── core-genome.log
-│   ├── core-genome.mldist
-│   ├── core-genome.model.gz
-│   ├── core-genome.splits.nex
-│   ├── core-genome.treefile
-│   └── core-genome.ufboot
-├── refseq
-│   ├── fasta
-│   │   └── GCF_900475245.fna
-│   └── gff
-│       └── GCF_900475245.gff
-└── roary
-    | accessory_binary_genes.fa
-    | accessory_binary_genes.fa.newick
-    | accessory_graph.dot
-    | accessory.header.embl
-    | accessory.tab
-    | blast_identity_frequency.Rtab
-    | clustered_proteins
-    | conserved_vs_total_genes.png
-    | core_accessory_graph.dot
-    | core_accessory.header.embl
-    | core_accessory.tab
-    | core_alignment_header.embl
-    | core_gene_alignment.aln.gz
-    | gene_presence_absence.csv
-    | gene_presence_absence.Rtab
-    | number_of_conserved_genes.Rtab
-    | number_of_genes_in_pan_genome.Rtab
-    | number_of_new_genes.Rtab
-    | number_of_unique_genes.Rtab
-    | pan_genome_reference.fa
-    | Rplots.pdf
-    | summary_statistics.txt
-    └── unique_vs_new_genes.png
+bactopia-tools
+└──roary/
+   └── ${PREFIX}
+       ├── bactopia-info
+       │   ├── roary-report.html
+       │   ├── roary-timeline.html
+       │   └── roary-trace.txt
+       ├── clonalframe
+       │   ├── clonalframe.emsim.txt
+       │   ├── clonalframe.em.txt
+       │   ├── clonalframe.importation_status.txt
+       │   ├── clonalframe.labelled_tree.newick
+       │   ├── clonalframe.ML_sequence.fasta
+       │   ├── clonalframe.position_cross_reference.txt
+       │   ├── core_gene_alignment-masked.aln.gz
+       │   ├── start-tree.bionj
+       │   ├── start-tree.ckp.gz
+       │   ├── start-tree.iqtree
+       │   ├── start-tree.log
+       │   ├── start-tree.mldist
+       │   ├── start-tree.model.gz
+       │   └── start-tree.treefile
+       ├── core-genome.aligned.fa.gz
+       ├── core-genome.distance.txt
+       ├── core-genome.iqtree
+       ├── iqtree
+       │   ├── core-genome.alninfo
+       │   ├── core-genome.bionj
+       │   ├── core-genome.ckp.gz
+       │   ├── core-genome.contree
+       │   ├── core-genome.iqtree
+       │   ├── core-genome.log
+       │   ├── core-genome.mldist
+       │   ├── core-genome.model.gz
+       │   ├── core-genome.splits.nex
+       │   ├── core-genome.treefile
+       │   └── core-genome.ufboot
+       ├── refseq
+       │   ├── fasta
+       │   │   └── GCF_900475245.fna
+       │   └── gff
+       │       └── GCF_900475245.gff
+       └── roary
+           ├── accessory_binary_genes.fa
+           ├── accessory_binary_genes.fa.newick
+           ├── accessory_graph.dot
+           ├── accessory.header.embl
+           ├── accessory.tab
+           ├── blast_identity_frequency.Rtab
+           ├── clustered_proteins
+           ├── conserved_vs_total_genes.png
+           ├── core_accessory_graph.dot
+           ├── core_accessory.header.embl
+           ├── core_accessory.tab
+           ├── core_alignment_header.embl
+           ├── core_gene_alignment.aln.gz
+           ├── gene_presence_absence.csv
+           ├── gene_presence_absence.Rtab
+           ├── number_of_conserved_genes.Rtab
+           ├── number_of_genes_in_pan_genome.Rtab
+           ├── number_of_new_genes.Rtab
+           ├── number_of_unique_genes.Rtab
+           ├── pan_genome_reference.fa
+           ├── Rplots.pdf
+           ├── summary_statistics.txt
+           └── unique_vs_new_genes.png
 ```
 
 | Filename | Description |

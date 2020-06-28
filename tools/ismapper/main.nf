@@ -1,8 +1,7 @@
 #! /usr/bin/env nextflow
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
-DOWNLOAD_GTDB = false
+OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}/${params.prefix}"
 OVERWRITE = workflow.resume || params.force ? true : false
 
 // Validate parameters
@@ -10,68 +9,86 @@ if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
-samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.insertions)
 
-process download_gtdb {
+process collect_reference {    
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "genbank/${reference_name}.gbk"
+
     input:
-    env GTDBTK_DATA_PATH from params.gtdb
+    file(reference) from Channel.fromPath(params.reference).ifEmpty { "EMPTY.gbk" }
 
     output:
-    file 'gtdb-downloaded.txt' into GTDB_CHECK
+    file "genbank/${reference_name}.gbk" optional true
+    file("genbank/${reference_name}.gbk") into ISMAPPER_REFERENCE
 
     shell:
+    is_compressed = null
+    section = null
+    reference_name = null
+    if (reference) {
+        is_compressed = params.reference.endsWith(".gz") ? true : false
+        reference_name = reference.getSimpleName()
+    } else {
+        section = params.accession.startsWith('GCF') ? 'refseq' : 'genbank'
+        reference_name = params.accession.split(/\./)[0]
+    }
     """
-    if [ "!{DOWNLOAD_GTDB}" == "true" ]; then
-        download-db.sh
+    mkdir genbank
+    if [ "!{params.accession}" != "null" ]; then
+        ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} \
+                                        -s !{section} -A !{params.accession} -r 50
+
+        find -name "*!{params.accession}*.gbff.gz" | xargs -I {} mv {} genbank/
+        if [ "!{section}" == 'refseq' ]; then
+            rename 's/(GCF_\\d+).*/\$1.gbk.gz/' genbank/*
+        else
+            rename 's/(GCA_\\d+).*/\$1.gbk.gz/' genbank/*
+        fi
+        gunzip genbank/*
     else
-        echo "skipping GTDB database download"
+        if [ "!{is_compressed}" == "true" ]; then
+            zcat !{reference} > genbank/!{reference_name}.gbk
+        else 
+            cat !{reference} > genbank/!{reference_name}.gbk
+        fi
     fi
-
-    touch gtdb-downloaded.txt
     """
 }
 
-process check_gtdb {
+process insertion_sites {
+    /* Query a set of insertion sequences (FASTA) against annotated GenBank file using ISMapper.  */
+    tag "${sample} - ${insertion_name}"
+    publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}/*"
+
     input:
-    file(gtdb) from GTDB_CHECK
-    env GTDBTK_DATA_PATH from params.gtdb
+    set val(sample), file(fq), file(insertions) from Channel.fromList(samples)
+    each file(reference) from ISMAPPER_REFERENCE
 
     output:
-    file 'gtdb-passed.txt' into GTDB
+    file("${sample}/*")
 
     shell:
+    insertion_name = insertions.getSimpleName()
+    all = params.ismap_all ? "--a" : ""
     """
-    gtdbtk check_install && touch gtdb-passed.txt
+    ismap --reads !{sample}_R*.fastq.gz \
+        --queries !{insertions} \
+        --reference !{reference} \
+        --log !{sample}-!{insertion_name} \
+        --min_clip !{params.min_clip} \
+        --max_clip !{params.max_clip} \
+        --cutoff !{params.cutoff} \
+        --novel_gap_size !{params.novel_gap_size} \
+        --min_range !{params.min_range} \
+        --max_range !{params.max_range} \
+        --merging !{params.merging} \
+        --T !{params.ismap_minqual} \
+        --t !{task.cpus} !{all}
+
+    mv !{sample}-!{insertion_name}.log !{sample}/
     """
 }
 
-process gtdb {
-    publishDir OUTDIR, mode: 'copy', overwrite: OVERWRITE, pattern: "classify/*"
-    
-    input:
-    file(fasta) from Channel.fromList(samples).collect()
-    file(gtdb) from GTDB
-    env GTDBTK_DATA_PATH from params.gtdb
-
-    output:
-    file 'classify/*' into ANNOTATE
-
-    shell:
-    debug = params.debug ? "--debug" : ""
-    recalculate_red = params.recalculate_red ? "--recalculate_red" : ""
-    force = params.force_gtdb ? "--force" : ""
-    """
-    mkdir genomes
-    find -name "*.fna.gz" | xargs -I {} gunzip {}
-    cp -P *.fna genomes/
-    gtdbtk classify_wf !{debug} !{recalculate_red} !{force} \
-        --cpus !{task.cpus} \
-        --genome_dir ./genomes \
-        --out_dir classify \
-        --min_perc_aa !{params.min_perc_aa} \
-        --prefix !{params.prefix}
-    """
-}
 
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
@@ -161,43 +178,35 @@ def check_input_params() {
     // Check for unexpected paramaters
     error = check_unknown_params()
 
-    if (params.bactopia) {
+    if (params.bactopia && params.insertions && params.reference) {
         error += file_exists(params.bactopia, '--bactopia')
-    } else if (params.gtdb) {
-        if (file(params.gtdb).exists() && params.download_gtdb) {
-            log.info """
-                Found GTDB database at ${params.gtdb}, but '--download_gtdb'
-                also given. Existing GTDB database will be over written with
-                latest build. If this is error, please stop now.
-            """.stripIndent()
-            DOWNLOAD_GTDB = true
-        } else if (!file(params.gtdb).exists() && params.download_gtdb) {
-            log.info("Latest GTDB database will be downloaded to ${params.gtdb}")
-            DOWNLOAD_GTDB = true
-        } else if (!file(params.gtdb).exists()) {
-            log.error """
-                Please check that a GTDB database exists at ${params.gtdb}. 
-                Otherwise use '--download_gtdb' to download the latest GTDB database
-            """.stripIndent()
-            error += 1
-        }
+        error += file_exists(params.insertions, '--insertions')
+        error += file_exists(params.reference, '--reference')
+    } else if (params.bactopia && params.insertions && params.accession) {
+        error += file_exists(params.bactopia, '--bactopia')
+        error += file_exists(params.insertions, '--insertions')
     } else {
         log.error """
-        The required '--bactopia' parameter is missing, please check and try again.
+        Missing one or more required parameters, please check and try again.
 
         Required Parameters:
             --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
-            --gtdb STR              Location of a GTDB database. If a database is not found, it will
-                                        be downloaded.
+            --insertions STR        Multifasta file with insertion sequence(s) to be mapped to.
+
+            *Note: --reference or --accession is required.*
+            --reference STR         Reference genome for typing against in GenBank format.
+
+            --accession STR         The Assembly accession (e.g. GC(A|F)*.*) of the reference to
+                                        download from RefSeq.
         """.stripIndent()
         error += 1
     }
 
     if (params.include) {
         error += file_exists(params.include, '--include')
-    }
-    
+    } 
+
     if (params.exclude) {
         error += file_exists(params.exclude, '--exclude')
     } 
@@ -206,7 +215,15 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
-    error += is_positive_integer(params.min_perc_aa, 'min_perc_aa')
+
+    error += is_positive_integer(params.min_clip, 'min_clip')
+    error += is_positive_integer(params.max_clip, 'max_clip')
+    error += is_positive_integer(params.cutoff, 'cutoff')
+    error += is_positive_integer(params.novel_gap_size, 'novel_gap_size')
+    error += is_positive_integer(params.min_range, 'min_range')
+    error += is_positive_integer(params.max_range, 'max_range')
+    error += is_positive_integer(params.merging, 'merging')
+    error += is_positive_integer(params.ismap_minqual, 'ismap_minqual')
 
     // Check for existing output directory
     if (output_exists(OUTDIR, params.force, workflow.resume)) {
@@ -227,6 +244,7 @@ def check_input_params() {
     }
 }
 
+
 def is_positive_integer(value, name) {
     error = 0
     if (value.getClass() == Integer) {
@@ -235,11 +253,11 @@ def is_positive_integer(value, name) {
             error = 1
         }
     } else {
-        if (!value.isInteger()) {
+        if (!value.toString().isNumber()) {
             log.error('Invalid input (--'+ name +'), "' + value + '"" is not numeric.')
             error = 1
-        } else if (value.toInteger() < 0) {
-            log.error('Invalid input (--'+ name +'), "' + value + '"" is not a positive integer.')
+        } else if (value.toString().toFloat() < 0) {
+            log.error('Invalid input (--'+ name +'), "' + value + '"" is not positive.')
             error = 1
         }
     }
@@ -250,27 +268,29 @@ def is_sample_dir(sample, dir){
     return file("${dir}/${sample}/${sample}-genome-size.txt").exists()
 }
 
-def build_assembly_tuple(sample, dir) {
-    assembly = "${dir}/${sample}/assembly/${sample}.fna"
-    if (file("${assembly}.gz").exists()) {
-        // Compressed assemblies
-        return file("${assembly}.gz")
-    } else if (file(assembly).exists()) {
-        return file(assembly)
+def build_fastq_tuple(sample, dir, insertions) {
+    se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
+    pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
+    pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
+
+    if (file(se).exists()) {
+        log.info "Excluding ${sample} from the analysis, must be paired-end"
+    } else if (file(pe1).exists() && file(pe2).exists()) {
+        return tuple(sample, [file(pe1), file(pe2)], file(insertions))
     } else {
-        log.error("Could not locate assembly for ${sample}, please verify existence. Unable to continue.")
+        log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
         exit 1
     }
 }
 
-def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
+def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time, insertions) {
     include_all = true
     inclusions = []
     exclusions = []
     IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
     if (include_list) {
         new File(include_list).eachLine { line -> 
-            inclusions << line.trim().split('\t')[0]
+            inclusions << line.trim()
         }
         include_all = false
         log.info "Including ${inclusions.size} samples for analysis"
@@ -290,7 +310,7 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
                 if (inclusions.contains(sample) || include_all) {
                     if (!exclusions.contains(sample)) {
                         if (is_sample_dir(sample, bactopia_dir)) {
-                            sample_list << build_assembly_tuple(sample, bactopia_dir)
+                            sample_list << build_fastq_tuple(sample, bactopia_dir, insertions)
                         } else {
                             log.info "${sample} is missing genome size estimate file"
                         }
@@ -307,13 +327,19 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     return sample_list
 }
 
+
 def print_help() {
     log.info"""
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
-        --gtdb STR              Location of a GTDB database. If a database is not found, you must
-                                    use '--download_gtdb'.
+        --insertions STR        Multifasta file with insertion sequence(s) to be mapped to.
+
+        *Note: --reference or --accession is required.*
+        --reference STR         Reference genome for typing against in GenBank format.
+
+        --accession STR         The Assembly accession (e.g. GC(A|F)*.*) of the reference to
+                                    download from RefSeq.
 
     Optional Parameters:
         --include STR           A text file containing sample names to include in the
@@ -338,19 +364,41 @@ def print_help() {
                                     process.
                                     Default: ${params.cpus}
 
-    GTDB-Tk Related Parameters:
-        --download_gtdb         Download the latest GTDB database, even it exists.
+    ISMapper Parameters:
+        --min_clip INT          Minimum size for softclipped region to be
+                                    extracted from initial mapping
+                                    Default: ${params.min_clip}
 
-        --min_perc_aa INT       Filter genomes with an insufficient percentage of AA in the MSA
-                                    Default: ${params.min_perc_aa}
+        --max_clip INT          Maximum size for softclipped regions to be
+                                    included
+                                    Default: ${params.max_clip}
 
-        --recalculate_red       Recalculate RED values based on the reference tree and all added 
-                                    user genomes
+        --cutoff INT            Minimum depth for mapped region to be kept in
+                                    bed file
+                                    Default: ${params.cutoff}
 
-        --force_gtdb            Force GTDB to continue processing if an error occurrs on a single
-                                    genome
+        --novel_gap_size INT    Distance in base pairs between left and right
+                                    flanks to be called a novel hit
+                                    Default: ${params.novel_gap_size}
 
-        --debug                 Create intermediate files for debugging purposes
+        --min_range FLOAT       Minimum percent size of the gap to be called a
+                                    known hit
+                                    Default: ${params.min_range}
+
+        --max_range FLOAT       Maximum percent size of the gap to be called a
+                                    known hit
+                                    Default: ${params.max_range}
+
+        --merging INT           Value for merging left and right hits in bed
+                                    files together to simply calculation of
+                                    closest and intersecting regions
+                                    Default: ${params.merging}
+
+        --ismap_all             Switch on all alignment reporting for bwa
+
+        --ismap_minqual INT     Mapping quality score for bwa
+                                    Default: ${params.ismap_minqual}
+
 
     Nextflow Related Parameters:
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:

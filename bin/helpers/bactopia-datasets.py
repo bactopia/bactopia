@@ -755,8 +755,7 @@ def create_summary(outdir):
                         }
 
             optionals = sorted([
-                'insertion-sequences', 'reference-genomes', 'mapping-sequences',
-                'blast'
+                'reference-genomes', 'mapping-sequences', 'blast'
             ])
             new_species['optional'] = OrderedDict()
             for optional in optionals:

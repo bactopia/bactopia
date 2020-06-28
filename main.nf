@@ -16,7 +16,7 @@ if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
 run_type = check_input_params()
 check_input_fastqs(run_type)
-if (params.check_fastqs) print_check_fastqs(params.fastqs, fastq_type);
+if (params.check_fastqs) print_check_fastqs(run_type);
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
@@ -26,7 +26,6 @@ ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
 REFERENCES = []
-INSERTIONS = []
 PRIMERS = []
 BLAST_GENE_FASTAS = []
 BLAST_PRIMER_FASTAS = []
@@ -258,7 +257,6 @@ process annotate_genome {
     output:
     file "annotation/${sample}*"
     set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
-    set val(sample), val(single_end), file(fq), file("annotation/${sample}.{gbk,gbk.gz}") optional true into INSERTION_SEQUENCES
     set val(sample),
         file("annotation/${sample}.{ffn,ffn.gz}"),
         file("annotation/${sample}.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
@@ -526,32 +524,6 @@ process antimicrobial_resistance {
 }
 
 
-process insertion_sequences {
-    /*
-    Query a set of insertion sequences (FASTA) against annotated GenBank file
-    using ISMapper.
-    */
-    tag "${sample} - ${insertion_name}"
-    publishDir "${outdir}/${sample}/", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "insertion-sequences/*"
-
-    input:
-    set val(sample), val(single_end), file(fq), file(genbank) from INSERTION_SEQUENCES
-    each file(insertion_fasta) from INSERTIONS
-
-    output:
-    file("insertion-sequences/*")
-
-    when:
-    single_end == false || params.dry_run == true
-
-    shell:
-    insertion_name = insertion_fasta.getSimpleName()
-    gunzip_genbank = genbank.getName().replace('.gz', '')
-    all = params.ismap_all ? "--a" : ""
-    template(task.ext.template)
-}
-
-
 process plasmid_blast {
     /*
     BLAST a set of predicted genes against the PLSDB BALST database.
@@ -702,11 +674,15 @@ def print_basedir() {
 }
 
 def print_example_fastqs() {
-    log.info 'Printing example input for "--fastqs"'
-    log.info ''
-    log.info 'sample\tr1\tr2'
-    log.info 'test001\t/path/to/fastqs/test_R1.fastq.gz\t/path/to/fastqs/test_R2.fastq.gz'
-    log.info 'test002\t/path/to/fastqs/test.fastq.gz\t'
+    log.info """
+        Printing example input for "--fastqs"
+
+        sample	runtype	r1	r2	extra
+        SA103113	assembly			/example/SA103113.fna.gz
+        SA110685	hybrid	/example/SA110685_R1.fastq.gz	/example/SA110685_R2.fastq.gz	/example/SA110685.fastq.gz
+        SA123186	paired-end	/example/SA123186_R1.fastq.gz	/example/SA123186_R2.fastq.gz
+        SA123456	single-end	/example/SA12345.fastq.gz
+    """.stripIndent()
     exit 0
 }
 
@@ -714,10 +690,11 @@ def print_example_fastqs() {
 def print_check_fastqs(run_type) {
     if (run_type == "fastqs") {
         log.info 'Printing what would have been processed. Each line consists of an array of'
-        log.info 'three elements: [SAMPLE_NAME, IS_SINGLE_END, [FASTQ_1, FASTQ_2]]'
+        log.info 'five elements: [SAMPLE_NAME, RUNTYPE, IS_SINGLE_END, [FASTQ_1, FASTQ_2], EXTRA]'
         log.info ''
         log.info 'Found:'
-        create_input_channel(run_type).println()
+        create_input_channel(run_type).view()
+        log.info ''
         exit 0
     } else {
         log.error '"--check_fastqs" requires "--fastqs" to be set.'
@@ -907,13 +884,6 @@ def setup_datasets() {
                     }
                     print_dataset_info(REFERENCES, "reference genomes")
                     
-                    /*
-                    file("${dataset_path}/${species_db['optional']['insertion-sequences']}").list().each() {
-                        INSERTIONS << file("${dataset_path}/${species_db['optional']['insertion-sequences']}/${it}")
-                    }
-                    print_dataset_info(INSERTIONS, "insertion sequence FASTAs")
-                    */
-                    
                     file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
                         MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
                     }
@@ -951,7 +921,6 @@ def setup_datasets() {
             log.info "--species not given, skipping the following processes (analyses):"
             log.info "\tsequence_type"
             log.info "\tcall_variants"
-            log.info "\tinsertion_sequence_query"
             log.info "\tprimer_query"
             if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
                 log.error "Asked for genome size '${params.genome_size}' which requires a " +
@@ -963,7 +932,6 @@ def setup_datasets() {
     } else if (params.dry_run) {
         log.info "--dry_run found, creating dummy data to be 'processed'."
         ARIBA_DATABASES << file('EMPTY.tar.gz')
-        INSERTIONS << file('EMPTY.fasta')
         MAPPING_FASTAS << file('EMPTY.fasta')
         MLST_DATABASES << file('EMPTY_DB')
         REFSEQ_SKETCH = file('EMPTY.msh')
@@ -974,7 +942,6 @@ def setup_datasets() {
         log.info "\tminmer_query"
         log.info "\tplasmid_blast"
         log.info "\tcall_variants"
-        log.info "\tinsertion_sequence_query"
         log.info "\tprimer_query"
     }
 
@@ -1161,16 +1128,18 @@ def check_input_params() {
 }
 
 
-def process_csv(line) {
+def process_fastqs(line) {
     /* Parse line and determine if single end or paired reads*/
     if (line.runtype == 'single-end') {
         return tuple(line.sample, line.runtype, true, [file(line.r1)], null)
-    } else if (line.runtype == 'paried-end') {
+    } else if (line.runtype == 'paired-end') {
         return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], null)
     } else if (line.runtype == 'hybrid') {
         return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], line.extra)
     } else if (line.runtype == 'assembly') {
         return tuple(line.sample, line.runtype, false, [null, null], line.extra)
+    } else {
+        log.info "whoops ${line} "
     }
 }
 
@@ -1188,7 +1157,7 @@ def create_input_channel(run_type) {
     if (run_type == "fastqs") {
         return Channel.fromPath( file(params.fastqs) )
             .splitCsv(header: true, sep: '\t')
-            .map { row -> process_csv(row) }
+            .map { row -> process_fastqs(row) }
     } else if (run_type == "is_accessions") {
         return Channel.fromPath( file(params.accessions) )
             .splitText()
@@ -1726,7 +1695,7 @@ def full_help() {
 
         --no_pilon              Do not use Pilon to polish the final assembly 
 
-    Assembly Quality Control Parameters"
+    Assembly Quality Control Parameters:
         --checkm_unique INT     Minimum number of unique phylogenetic markers required 
                                     to use lineage-specific marker set.
                                     Default: ${params.checkm_unique}
@@ -1919,41 +1888,6 @@ def full_help() {
 
         --disable_auto_variants Disable automatic selection of reference genome based on
                                     Mash distances.
-
-    Insertion Sequence Parameters:
-        --min_clip INT          Minimum size for softclipped region to be
-                                    extracted from initial mapping
-                                    Default: ${params.min_clip}
-
-        --max_clip INT          Maximum size for softclipped regions to be
-                                    included
-                                    Default: ${params.max_clip}
-
-        --cutoff INT            Minimum depth for mapped region to be kept in
-                                    bed file
-                                    Default: ${params.cutoff}
-
-        --novel_gap_size INT    Distance in base pairs between left and right
-                                    flanks to be called a novel hit
-                                    Default: ${params.novel_gap_size}
-
-        --min_range FLOAT       Minimum percent size of the gap to be called a
-                                    known hit
-                                    Default: ${params.min_range}
-
-        --max_range FLOAT       Maximum percent size of the gap to be called a
-                                    known hit
-                                    Default: ${params.max_range}
-
-        --merging INT           Value for merging left and right hits in bed
-                                    files together to simply calculation of
-                                    closest and intersecting regions
-                                    Default: ${params.merging}
-
-        --ismap_all             Switch on all alignment reporting for bwa
-
-        --ismap_minqual INT     Mapping quality score for bwa
-                                    Default: ${params.ismap_minqual}
 
     BLAST Parameters:
         --perc_identity INT     Percent identity

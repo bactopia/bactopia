@@ -344,18 +344,6 @@ The `primers` folder is where you can place primer sequences (nucleotides) in FA
 
 Finally, the `proteins` (as you probably guessed!) is where you can place protein sequnces (amino acids) in FASTA format to query against assemblies using `blastp`.
 
-##### insertion-sequences
-```
-${DATASET_FOLDER}
-└── species-specific
-    └── ${SPECIES}
-        └── optional
-            └── insertion-sequences
-                └── ${NAME}.fasta
-```
-
-In the `insertion-sequences` directory you can place FASTA files of insertion seqeunces you would like searched for using [ISMapper](https://github.com/jhawkey/IS_mapper).
-
 ##### mapping-sequences
 ```
 ${DATASET_FOLDER}

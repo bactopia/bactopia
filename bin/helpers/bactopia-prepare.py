@@ -125,6 +125,7 @@ if __name__ == '__main__':
         se_reads = vals['se']
         assembly = vals['assembly']
         errors = []
+        is_single_end = False
 
         # Validate everything
         if len(assembly) > 1:
@@ -144,7 +145,8 @@ if __name__ == '__main__':
         if args.long_reads:
             if not len(pe_reads) and len(se_reads):
                 # Long reads must also have short PE reads 
-                errors.append(f'ERROR: "{sample}" long reads FASTQ must also have paired-end FASTQs, please check.')
+                print(f'WARNING: "{sample}" does not have paired-end reads, treating as single-end short reads, please verify.', file=sys.stderr)
+                is_single_end = True
         else:
             if len(se_reads) > 1:
                 # Can't have multiple SE reads
@@ -170,7 +172,7 @@ if __name__ == '__main__':
                 r1, r2 = sorted(pe_reads)
 
             if se_reads:
-                if args.long_reads:
+                if args.long_reads and not is_single_end:
                     runtype = 'hybrid'
                     extra = se_reads[0]
                 else:

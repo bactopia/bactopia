@@ -10,7 +10,6 @@ ${SAMPLE_NAME}/
 ├── ariba
 ├── assembly
 ├── blast
-├── insertion-sequences
 ├── kmers
 ├── mapping
 ├── minmers
@@ -174,37 +173,6 @@ ${SAMPLE_NAME}/
 For every sample `${SAMPLE_NAME}-genome-size.txt` file is created. This file contains the genome size that was used for analysis. Genome size is used throughout Bactopia for various tasks including error correction, subsampling, and assembly.
 
 By default, the genome size is estimated with Mash, but users have the option to provide their own value or completely disable genome size related features. Learn more about changing the genome size at [Basic Usage - Genome Size](/usage-basic/#-genome_size)
-
-### `insertion-sequences`
-The `insertion-sequences` directory contains [ISMapper](https://github.com/jhawkey/IS_mapper) results for each of the [User Populated Insertion Sequences](/datasets/#insertion-sequences). 
-```
-${SAMPLE_NAME}/
-└── insertion-sequences
-    ├── ${INSERTION_NAME}
-    │   ├── ${SAMPLE_NAME}_${INSERTION_NAME}_(left|right)_final.fastq
-    │   ├── ${SAMPLE_NAME}_(left|right)_${SAMPLE_NAME}_${CONTIG_NUMBER}_finalcov.bed
-    │   ├── ${SAMPLE_NAME}_(left|right)_${SAMPLE_NAME}_${CONTIG_NUMBER}_merged.sorted.bed
-    │   ├── ${SAMPLE_NAME}_(left|right)_${SAMPLE_NAME}_${CONTIG_NUMBER}.sorted.bam
-    │   ├── ${SAMPLE_NAME}_(left|right)_${SAMPLE_NAME}_${CONTIG_NUMBER}.sorted.bam.bai
-    │   ├── ${SAMPLE_NAME}_(left|right)_${SAMPLE_NAME}_${CONTIG_NUMBER}_unpaired.bed
-    │   ├── ${SAMPLE_NAME}__${SAMPLE_NAME}_${CONTIG_NUMBER}_closest.bed
-    │   ├── ${SAMPLE_NAME}__${SAMPLE_NAME}_${CONTIG_NUMBER}_intersect.bed
-    │   ├── ${SAMPLE_NAME}__${SAMPLE_NAME}_${CONTIG_NUMBER}_table.txt
-    └── ${SAMPLE_NAME}-${INSERTION_NAME}.log
-```
-
-| Extension | Description |
-|-----------|-------------|
-| _final.fastq | Sequences (FASTQ format) that mapped to the flanking regions of the IS query |
-| _finalcov.bed | Contains information about the coverage of the IS query |
-| _merged.sorted.bed | Merged overlapping regions that passed coverage cutoffs |
-| .sorted.bam | Reads mapped to the IS query. |
-| .sorted.bam.bai | An index of the sorted BAM file. |
-| _unpaired.bed | All unpaired mappings to the IS query  |
-| _closest.bed | Merged regions that are close but do not overlap |
-| _intersect.bed | An intersection of merged regions from the left and right flanks. |
-| _table.txt | A [detailed description](https://github.com/jhawkey/IS_mapper#single-isolate-output) of the IS query results. |
-| .log | Information logged during the execution of ISMapper |
 
 ### `kmers`
 The `kmers` directory contains [McCortex](https://github.com/mcveanlab/mccortex) 31-mer counts of the cleaned up FASTQ sequences. 

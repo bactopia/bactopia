@@ -27,6 +27,7 @@ nav:
       - 'eggnog': bactopia-tools/eggnog.md
       - 'fastani': bactopia-tools/fastani.md
       - 'gtdb': bactopia-tools/gtdb.md
+      - 'ismapper': bactopia-tools/ismapper.md
       - 'mashtree': bactopia-tools/mashtree.md
       - 'phyloflash': bactopia-tools/phyloflash.md
       - 'pirate': bactopia-tools/pirate.md
