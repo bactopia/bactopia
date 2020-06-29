@@ -1,4 +1,4 @@
-# Bactopia Tools - *fastani*
+# Bactopia Tools - *eggnog*
 The `eggnog` tool uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to 
 assign functional annotation to protein sequences. eggNOG-mapper uses orthologous groups
 and phylogenies from the eggNOG database to more precisely functionally annotate than 

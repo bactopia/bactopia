@@ -9,11 +9,16 @@ A list of software **directly** used in each step is also listed. Please check o
 The *Always Enabled Steps* are always executed by Bactopia. These steps do not depend of external datasets and thus are always enabled.
 
 #### Gather FASTQs
-Specifies exactly where the input FASTQs are coming from. If you are using local inputs (e.g. `--R1/--R2`, `--fastqs`) it will verify they can be accessed. If ENA/SRA accessions (`--accession` or `--accessions`) were given, they corresponding FASTQs are downloaded in this step.
+Specifies exactly where the input FASTQ/FASTAs are coming from. If you are using local inputs (e.g. `--R1/--R2`, `--fastqs`) it will verify they can be accessed. 
+
+If an accession(s) (`--accession` or `--accessions`) was given, the corresponding FASTQs (SRA/ENA) or assemblies (NCBI Assembly) are downloaded in this step. All assemblies will have 2x250bp Illumina reads simulated withour insertions or deletions and a minimum PHRED score of Q33.
+
 
 | Software | Usage   |
 |----------|:--------------|
+| [ART](https://github.com/rpetit3/ena-dl)   | Generate simulated Illumina reads from an assembly |
 | [ena-dl](https://github.com/rpetit3/ena-dl)   | Download FASTQ files from ENA |
+| [ncbi-genome-download](https://github.com/rpetit3/ena-dl)   | Download GenBank/RefSeq assemblies from NCBI Assembly database |
 
 #### Validate FASTQs
 Determines if the FASTQ file contains enough sequencing to continue processing. The `--min_reads` and `--min_basepairs` parameters adjust the minimum amount of sequencing required to continue processing. This step does not *directly* test the validity of the FASTQ format (although, it would fail if the format is invalid!).

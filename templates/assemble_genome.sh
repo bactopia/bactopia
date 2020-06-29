@@ -56,6 +56,11 @@ else
         if [[ !{params.compress} == "true" ]]; then
             pigz -n --best -p !{task.cpus} ${OUTDIR}/contigs.fa
         fi
+
+        if [ "!{params.keep_all_files}" == "false" ]; then
+            # Remove intermediate files
+            rm -fv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz 
+        fi
     fi
 
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
@@ -81,10 +86,5 @@ else
               !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...) for this
               outcome. Further assembly-based analysis of !{sample} will be discontinued." | \
         sed 's/^\s*//' > !{sample}-assembly-error.txt
-    fi
-
-    if [ "!{params.keep_all_files}" == "false" ]; then
-        # Remove intermediate files
-        rm -fv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz 
     fi
 fi
