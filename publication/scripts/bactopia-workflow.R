@@ -46,7 +46,7 @@ workflow <- paste0("
                    qc1[label = 'QC Summary']
                    kmer[label = 'Count 31-mers']
                    anno[label = 'Genome Annotation']
-                   is[label = 'Insertion Sites', shape = 'oval', fillcolor='",color_schema$optional,"']
+                   aqc[label = 'Assembly Quality Control']
                    maps[label = 'Reference Mapping', shape = 'oval', fillcolor='",color_schema$optional,"']
                    snp[label = 'Call Variants', shape = 'oval', fillcolor='",color_schema$optional,"']
                    amr[label = 'Antimicrobial Resistance']
@@ -58,10 +58,11 @@ workflow <- paste0("
                    a0->mlst[arrowhead=dot];
                    qc->mlst[arrowhead=dot];
                    qc->{qc1,kmer,a0,m0}
-                   qc->{snp,maps,local,is}[arrowhead=dot];
+                   qc->{snp,maps,local}[arrowhead=dot];
 
                    # Assembly Input
                    a0->anno;
+                   a0->aqc;
                    anno->amr;
                    empty1[style='invis'];
                    empty2[style='invis'];
@@ -93,26 +94,23 @@ workflow <- paste0("
                    genes[label='Gene'];
                    proteins[label='Protein'];
                    primers[label='Primer']
-                   is_seqs[label = 'IS Element']
                    maps_user[label = 'Sequence']
 
                    # Edges
                    edge [arrowhead=box]
                    ariba->local;
                    snp_auto->snp;
-                   anno->is;
 
                    a0->blast;
                    snp_user->snp;
                    primers->blast;
                    proteins->blast;
                    genes->blast;
-                   is_seqs->is;
                    maps_user->maps;
                    protein_set->anno;
                    sketch->m1;
                    mlst_schema->mlst;
-                   {rank=same;mlst;is}
+                   {rank=same;mlst}
                    {rank=same;empty1;m1;snp}
                    {rank=same;empty2;maps;blast;local}
                    {rank=same;m0;a0;}
