@@ -1,5 +1,5 @@
 name: bactopia-annotate_genome
-version: 1.3.1
+version: 1.4.0
 channels:
   - conda-forge
   - bioconda
@@ -11,43 +11,43 @@ dependencies:
   - aragorn=1.2.38=h470a237_2
   - barrnap=0.9=3
   - bedtools=2.29.2=hc088bd4_0
-  - blast=2.9.0=pl526h3066fca_4
+  - blast=2.9.0=pl526he19e7b1_5
   - bzip2=1.0.8=h516909a_2
-  - ca-certificates=2019.11.28=hecc5488_0
-  - cairo=1.16.0=hfb77d84_1002
-  - certifi=2019.11.28=py37_0
+  - ca-certificates=2020.6.20=hecda079_0
+  - cairo=1.16.0=hcf35c78_1003
+  - certifi=2020.6.20=py37hc8dfbb8_0
   - clustalw=2.1=hc9558a2_5
-  - curl=7.65.3=hf8cf82a_0
+  - curl=7.71.0=he644dc0_0
   - entrez-direct=13.3=pl526h375a9b1_0
   - expat=2.2.9=he1b5a44_2
   - fontconfig=2.13.1=h86ecdb6_1001
-  - freetype=2.10.0=he983fc9_1
-  - fribidi=1.0.5=h516909a_1002
+  - freetype=2.10.2=he06d7ca_0
+  - fribidi=1.0.9=h516909a_0
   - gettext=0.19.8.1=hc5be6a0_1002
-  - giflib=5.2.1=h516909a_1
-  - glib=2.58.3=py37h6f030ca_1002
-  - graphite2=1.3.13=hf484d3e_1000
+  - giflib=5.2.1=h516909a_2
+  - glib=2.65.0=h6f030ca_0
+  - graphite2=1.3.13=he1b5a44_1001
   - graphviz=2.42.3=h0511662_0
   - harfbuzz=2.4.0=h9f30f68_3
-  - hmmer=3.3=he1b5a44_0
+  - hmmer=3.3=he1b5a44_1
   - icu=64.2=he1b5a44_1
   - infernal=1.1.2=h14c3975_2
-  - jpeg=9c=h14c3975_1001
-  - krb5=1.16.4=h2fd8d38_0
-  - lcms2=2.9=hbd6801e_1
-  - ld_impl_linux-64=2.33.1=h53a641e_8
-  - libcurl=7.65.3=hda55be3_0
-  - libdb=6.1.26=he1b5a44_2001
-  - libedit=3.1.20170329=hf8c457e_1001
+  - jpeg=9d=h516909a_0
+  - krb5=1.17.1=hfafb76e_1
+  - lcms2=2.11=hbd6801e_0
+  - ld_impl_linux-64=2.34=h53a641e_5
+  - libcurl=7.71.0=hcdd3856_0
+  - libdb=6.1.26=he1b5a44_2002
+  - libedit=3.1.20191231=h46ee950_0
   - libfaketime=0.9.8=h516909a_0
-  - libffi=3.2.1=he1b5a44_1006
+  - libffi=3.2.1=he1b5a44_1007
   - libgcc-ng=9.2.0=h24d8f2e_2
   - libgd=2.2.5=h307a58e_1007
   - libgomp=9.2.0=h24d8f2e_2
-  - libiconv=1.15=h516909a_1005
+  - libiconv=1.15=h516909a_1006
   - libidn11=1.34=h1cef754_0
-  - libpng=1.6.37=hed695b0_0
-  - libssh2=1.8.2=h22169c7_2
+  - libpng=1.6.37=hed695b0_1
+  - libssh2=1.9.0=hab1572f_2
   - libstdcxx-ng=9.2.0=hdf63c60_2
   - libtiff=4.1.0=hc3755c2_3
   - libtool=2.4.6=h14c3975_1002
@@ -56,15 +56,15 @@ dependencies:
   - libxcb=1.13=h14c3975_1002
   - libxml2=2.9.10=hee79883_0
   - libxslt=1.1.33=h31b3aaa_0
-  - lz4-c=1.8.3=he1b5a44_1001
+  - lz4-c=1.9.2=he1b5a44_1
   - minced=0.4.2=0
   - ncurses=6.1=hf484d3e_1002
   - openjdk=11.0.1=h600c080_1018
-  - openssl=1.1.1d=h516909a_0
+  - openssl=1.1.1g=h516909a_0
   - paml=4.9=h516909a_5
-  - pango=1.42.4=ha030887_1
-  - parallel=20200122=0
-  - pcre=8.43=he1b5a44_0
+  - pango=1.42.4=h7062337_4
+  - parallel=20200522=0
+  - pcre=8.44=he1b5a44_0
   - perl=5.26.2=h516909a_1006
   - perl-aceperl=1.92=pl526_2
   - perl-algorithm-diff=1.1903=pl526_2
@@ -273,22 +273,22 @@ dependencies:
   - perl-xml-xpathengine=0.14=pl526_2
   - perl-xsloader=0.24=pl526_0
   - perl-yaml=1.29=pl526_0
-  - pigz=2.3.4=0
-  - pip=20.0.2=py37_1
+  - pigz=2.3.4=hed695b0_1
+  - pip=20.1.1=py_1
   - pixman=0.38.0=h516909a_1003
   - prodigal=2.6.3=h516909a_2
-  - prokka=1.14.5=pl526_0
+  - prokka=1.14.6=pl526_0
   - pthread-stubs=0.4=h14c3975_1001
-  - python=3.7.6=h357f687_2
+  - python=3.7.6=cpython_h8356626_6
+  - python_abi=3.7=1_cp37m
   - readline=8.0=hf8c457e_0
-  - setuptools=45.1.0=py37_0
-  - sqlite=3.30.1=hcee41ef_0
+  - setuptools=47.3.1=py37hc8dfbb8_0
+  - sqlite=3.32.3=hcee41ef_0
   - t_coffee=11.0.8=py37hea885bf_8
-  - tbl2asn=25.7=0
   - tbl2asn-forever=25.7.1f=0
   - tidyp=1.04=1
   - tk=8.6.10=hed695b0_0
-  - wheel=0.34.2=py37_0
+  - wheel=0.34.2=py_1
   - xorg-fixesproto=5.0=h14c3975_1002
   - xorg-inputproto=2.3.2=h14c3975_1002
   - xorg-kbproto=1.0.7=h14c3975_1002
@@ -308,7 +308,7 @@ dependencies:
   - xorg-renderproto=0.11.1=h14c3975_1002
   - xorg-xextproto=7.3.0=h14c3975_1002
   - xorg-xproto=7.0.31=h14c3975_1007
-  - xz=5.2.4=h14c3975_1001
+  - xz=5.2.5=h516909a_0
   - zlib=1.2.11=h516909a_1006
-  - zstd=1.4.4=h3b9ef0a_1
+  - zstd=1.4.4=h6597ccf_3
 

@@ -1,42 +1,43 @@
 name: bactopia-antimicrobial_resistance
-version: 1.3.1
+version: 1.4.0
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=0_gnu
+  - _openmp_mutex=4.5=1_llvm
   - blast=2.9.0=h20b68b9_1
   - boost=1.68.0=py37h8619c78_1001
   - boost-cpp=1.68.0=h11c811c_1000
   - bzip2=1.0.8=h516909a_2
-  - ca-certificates=2019.11.28=hecc5488_0
-  - certifi=2019.11.28=py37_0
-  - gmp=6.2.0=he1b5a44_1
-  - gnutls=3.6.5=hd3a4fd2_1002
-  - hmmer=3.3=he1b5a44_0
+  - ca-certificates=2020.6.20=hecda079_0
+  - certifi=2020.6.20=py37hc8dfbb8_0
+  - curl=7.71.0=he644dc0_0
+  - gmp=6.2.0=he1b5a44_2
+  - gnutls=3.6.13=h79a8f9a_0
+  - hmmer=3.3=he1b5a44_1
   - icu=58.2=hf484d3e_1000
-  - krb5=1.16.4=h2fd8d38_0
-  - ld_impl_linux-64=2.33.1=h53a641e_8
-  - libblas=3.8.0=14_openblas
-  - libcblas=3.8.0=14_openblas
-  - libcurl=7.65.3=hda55be3_0
-  - libedit=3.1.20170329=hf8c457e_1001
-  - libffi=3.2.1=he1b5a44_1006
+  - krb5=1.17.1=hfafb76e_1
+  - ld_impl_linux-64=2.34=h53a641e_5
+  - libblas=3.8.0=17_openblas
+  - libcblas=3.8.0=17_openblas
+  - libcurl=7.71.0=hcdd3856_0
+  - libedit=3.1.20191231=h46ee950_0
+  - libffi=3.2.1=he1b5a44_1007
   - libgcc-ng=9.2.0=h24d8f2e_2
-  - libgfortran-ng=7.3.0=hdf63c60_5
-  - libgomp=9.2.0=h24d8f2e_2
-  - liblapack=3.8.0=14_openblas
-  - libopenblas=0.3.7=h5ec1e0e_6
-  - libssh2=1.8.2=h22169c7_2
+  - libgfortran-ng=7.5.0=hdf63c60_6
+  - liblapack=3.8.0=17_openblas
+  - libopenblas=0.3.10=h5ec1e0e_0
+  - libssh2=1.9.0=hab1572f_2
   - libstdcxx-ng=9.2.0=hdf63c60_2
-  - ncbi-amrfinderplus=3.6.7=hf18293b_0
+  - llvm-openmp=10.0.0=hc9558a2_0
+  - ncbi-amrfinderplus=3.8.4=hf18293b_0
   - ncurses=6.1=hf484d3e_1002
   - nettle=3.4.1=h1bed415_1002
-  - numpy=1.17.5=py37h95a1406_0
-  - openssl=1.1.1d=h516909a_0
-  - pcre=8.43=he1b5a44_0
+  - numpy=1.18.5=py37h8960a57_0
+  - openssl=1.1.1g=h516909a_0
+  - pcre=8.44=he1b5a44_0
   - perl=5.26.2=h516909a_1006
   - perl-archive-tar=2.32=pl526_0
   - perl-carp=1.38=pl526_3
@@ -56,13 +57,14 @@ dependencies:
   - perl-scalar-list-utils=1.52=pl526h516909a_0
   - perl-types-serialiser=1.0=pl526_2
   - perl-xsloader=0.24=pl526_0
-  - pip=20.0.2=py37_1
-  - python=3.7.6=h357f687_2
+  - pip=20.1.1=py_1
+  - python=3.7.6=cpython_h8356626_6
+  - python_abi=3.7=1_cp37m
   - readline=8.0=hf8c457e_0
-  - setuptools=45.1.0=py37_0
-  - sqlite=3.30.1=hcee41ef_0
+  - setuptools=47.3.1=py37hc8dfbb8_0
+  - sqlite=3.32.3=hcee41ef_0
   - tk=8.6.10=hed695b0_0
-  - wheel=0.34.2=py37_0
-  - xz=5.2.4=h14c3975_1001
+  - wheel=0.34.2=py_1
+  - xz=5.2.5=h516909a_0
   - zlib=1.2.11=h516909a_1006
 

@@ -27,8 +27,8 @@ function update_environment {
 
 update_environment "annotate_genome" "prokka pigz tbl2asn-forever" ${CONDA_DIR} ${VERSION} ""
 update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} ${VERSION} ""
-update_environment "ariba_analysis" "ariba" ${CONDA_DIR} ${VERSION} ""
-update_environment "assemble_genome" "shovill assembly-scan unicycler pigz" ${CONDA_DIR} ${VERSION} "-c rpetit3"
+update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ""
+update_environment "assemble_genome" "shovill assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${VERSION} ""
 update_environment "call_variants" "snippy samtools=1.9 vcf-annotator pigz" ${CONDA_DIR} ${VERSION} ""
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ""
@@ -36,6 +36,6 @@ update_environment "download_references" "ncbi-genome-download mash biopython py
 update_environment "gather_fastqs" "aspera-connect art rename ncbi-genome-download fastq-dl" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${VERSION} ""
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${VERSION} ""
-update_environment "sequence_type" "ariba blast" ${CONDA_DIR} ${VERSION} ""
+update_environment "sequence_type" "ariba blast bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ""
 
 echo "Last updated: " `date` > ${CONDA_DIR}/README.md

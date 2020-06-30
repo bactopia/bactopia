@@ -1,5 +1,5 @@
 name: bactopia-assembly_qc
-version: 1.3.1
+version: 1.4.0
 channels:
   - conda-forge
   - bioconda
@@ -36,8 +36,8 @@ dependencies:
   - krb5=1.17.1=hfafb76e_1
   - lcms2=2.11=hbd6801e_0
   - ld_impl_linux-64=2.34=h53a641e_5
-  - libblas=3.8.0=16_openblas
-  - libcblas=3.8.0=16_openblas
+  - libblas=3.8.0=17_openblas
+  - libcblas=3.8.0=17_openblas
   - libclang=9.0.1=default_hde54327_0
   - libcurl=7.71.0=hcdd3856_0
   - libdeflate=1.6=h516909a_0
@@ -48,9 +48,9 @@ dependencies:
   - libgfortran-ng=7.5.0=hdf63c60_6
   - libiconv=1.15=h516909a_1006
   - libidn2=2.3.0=h516909a_0
-  - liblapack=3.8.0=16_openblas
+  - liblapack=3.8.0=17_openblas
   - libllvm9=9.0.1=he513fc3_1
-  - libopenblas=0.3.9=h5ec1e0e_0
+  - libopenblas=0.3.10=h5ec1e0e_0
   - libpng=1.6.37=hed695b0_1
   - libssh2=1.9.0=hab1572f_2
   - libstdcxx-ng=9.2.0=hdf63c60_2
@@ -120,11 +120,11 @@ dependencies:
   - qt=5.12.5=hd8c4c69_1
   - quast=5.0.2=py36pl526ha92aebf_0
   - readline=8.0=hf8c457e_0
-  - scipy=1.4.1=py36h2d22cac_3
+  - scipy=1.5.0=py36h2d22cac_0
   - setuptools=47.3.1=py36h9f0ad1d_0
   - simplejson=3.17.0=py36h8c4c3a4_1
   - six=1.15.0=pyh9f0ad1d_0
-  - sqlite=3.30.1=hcee41ef_0
+  - sqlite=3.32.3=hcee41ef_0
   - tk=8.6.10=hed695b0_0
   - tornado=6.0.4=py36h8c4c3a4_1
   - wget=1.20.1=h22169c7_0
@@ -151,3 +151,4 @@ dependencies:
     - pyqt5-sip==4.19.18
     - pyqtchart==5.12
     - pyqtwebengine==5.12.1
+
