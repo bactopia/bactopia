@@ -5,7 +5,7 @@ usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_seperator STR]
                         [--long_reads] [--version]
                         STR
 
-bactopia prepare (v1.3.1) - Read a directory and prepare a FOFN of
+bactopia prepare - Read a directory and prepare a FOFN of
 FASTQs/FASTAs
 
 positional arguments:
@@ -27,7 +27,7 @@ optional arguments:
   --long_reads          Single-end reads should be treated as long reads
   --version             show program's version number and exit
 """
-VERSION = "1.3.1"
+VERSION = "1.4.0"
 PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':

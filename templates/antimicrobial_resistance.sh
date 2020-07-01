@@ -7,8 +7,11 @@ if [[ !{params.compress} == "true" ]]; then
     zcat !{proteins} > !{sample}.faa
 fi
 
+tar -xzvf !{amrdb}
+
 mkdir antimicrobial_resistance
 amrfinder -n !{sample}.ffn \
+          -d amrdb/ \
           -o antimicrobial_resistance/!{sample}-gene-report.txt \
           --ident_min !{params.amr_ident_min} \
           --coverage_min !{params.amr_coverage_min} \
@@ -16,6 +19,7 @@ amrfinder -n !{sample}.ffn \
           --threads !{task.cpus} !{organism_gene} !{plus} !{report_common}
 
 amrfinder -p !{sample}.faa \
+          -d amrdb/ \
           -o antimicrobial_resistance/!{sample}-protein-report.txt \
           --ident_min !{params.amr_ident_min} \
           --coverage_min !{params.amr_coverage_min} \

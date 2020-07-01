@@ -30,7 +30,7 @@ update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} 
 update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ""
 update_environment "assemble_genome" "shovill assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} "-c rpetit3"
 update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${VERSION} ""
-update_environment "call_variants" "snippy samtools=1.9 vcf-annotator pigz" ${CONDA_DIR} ${VERSION} ""
+update_environment "call_variants" "snippy vcf-annotator pigz" ${CONDA_DIR} ${VERSION} ""
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ""
 update_environment "download_references" "ncbi-genome-download mash biopython python>3.6" ${CONDA_DIR} ${VERSION} ""
 update_environment "gather_fastqs" "aspera-connect art rename ncbi-genome-download fastq-dl" ${CONDA_DIR} ${VERSION} "-c rpetit3"

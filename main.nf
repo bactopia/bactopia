@@ -488,7 +488,7 @@ process update_antimicrobial_resistance {
     val x from Channel.from(1)
 
     output:
-    val(updated) into AMR_UPDATED
+    file("amrdb.tar.gz") into AMRDB
 
     shell:
     updated = true
@@ -506,6 +506,7 @@ process antimicrobial_resistance {
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
+    each file(amrdb) from AMRDB
 
     output:
     file("${amrdir}/*")

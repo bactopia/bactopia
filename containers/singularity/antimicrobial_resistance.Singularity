@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image containing requirements for the Bactopia antimicrobial_resistance process
-    VERSION 1.3.1
+    VERSION 1.4.0
 
 %environment
     PATH=/opt/conda/envs/bactopia-antimicrobial_resistance/bin:$PATH

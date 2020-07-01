@@ -7,7 +7,8 @@ channels:
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=1_llvm
-  - bcftools=1.9=h68d8f2e_9
+  - any2fasta=0.4.2=2
+  - bcftools=1.10.2=hd2cd319_0
   - bedtools=2.29.2=hc088bd4_0
   - biopython=1.77=py37h8f50634_0
   - bwa=0.7.17=hed695b0_7
@@ -17,7 +18,6 @@ dependencies:
   - certifi=2020.6.20=py37hc8dfbb8_0
   - clustalw=2.1=hc9558a2_5
   - curl=7.71.0=he644dc0_0
-  - emboss=6.6.0=heeff6be_2
   - expat=2.2.9=he1b5a44_2
   - fontconfig=2.13.1=h86ecdb6_1001
   - freebayes=1.3.2=py37h7c46602_1
@@ -30,7 +30,7 @@ dependencies:
   - graphviz=2.42.3=h0511662_0
   - gsl=2.5=h294904e_1
   - harfbuzz=2.4.0=h9f30f68_3
-  - htslib=1.9=h4da6232_3
+  - htslib=1.10.2=h78d89cc_0
   - icu=64.2=he1b5a44_1
   - jpeg=9d=h516909a_0
   - k8=0.2.5=he513fc3_0
@@ -40,7 +40,7 @@ dependencies:
   - libcblas=3.8.0=17_openblas
   - libcurl=7.71.0=hcdd3856_0
   - libdb=6.1.26=he1b5a44_2002
-  - libdeflate=1.6=h516909a_0
+  - libdeflate=1.3=h516909a_0
   - libedit=3.1.20191231=h46ee950_0
   - libffi=3.2.1=he1b5a44_1007
   - libgcc-ng=9.2.0=h24d8f2e_2
@@ -247,7 +247,6 @@ dependencies:
   - perl-tie-ixhash=1.23=pl526_2
   - perl-time-hires=1.9760=pl526h14c3975_1
   - perl-time-local=1.28=pl526_1
-  - perl-time-piece=1.27=pl526_1
   - perl-timedate=2.30=pl526_1
   - perl-tree-dag_node=1.31=pl526_0
   - perl-try-tiny=0.30=pl526_1
@@ -284,10 +283,10 @@ dependencies:
   - pyvcf=0.6.8=py37hc8dfbb8_1001
   - readline=8.0=hf8c457e_0
   - samclip=0.4.0=0
-  - samtools=1.9=h10a08f8_12
+  - samtools=1.10=h9402c20_2
   - seqtk=1.3=hed695b0_2
   - setuptools=47.3.1=py37hc8dfbb8_0
-  - snippy=4.4.5=1
+  - snippy=4.6.0=0
   - snp-sites=2.5.1=hed695b0_0
   - snpeff=4.5covid19=1
   - sqlite=3.32.3=hcee41ef_0

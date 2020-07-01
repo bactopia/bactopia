@@ -1,6 +1,6 @@
 FROM nfcore/base
 
-LABEL version="1.3.1"
+LABEL version="1.4.0"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia gather_fastqs process"
 

@@ -8,17 +8,17 @@ dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=1_llvm
   - alsa-lib=1.1.5=h516909a_1002
-  - blast=2.5.0=hc0b0e79_3
-  - boost=1.73.0=py36h6957fcd_0
-  - boost-cpp=1.73.0=h6c875cf_0
+  - blast=2.9.0=pl526he19e7b1_5
   - bzip2=1.0.8=h516909a_2
   - ca-certificates=2020.6.20=hecda079_0
   - certifi=2020.6.20=py36h9f0ad1d_0
   - checkm-genome=1.1.2=py_1
   - circos=0.69.8=0
+  - curl=7.71.0=he644dc0_0
   - cycler=0.10.0=py_2
   - dbus=1.13.6=he372182_0
   - dendropy=4.4.0=py_1
+  - entrez-direct=13.3=pl526h375a9b1_0
   - expat=2.2.9=he1b5a44_2
   - fontconfig=2.13.1=h86ecdb6_1001
   - freetype=2.10.2=he06d7ca_0
@@ -73,38 +73,90 @@ dependencies:
   - openssl=1.1.1g=h516909a_0
   - pcre=8.44=he1b5a44_0
   - perl=5.26.2=h516909a_1006
+  - perl-app-cpanminus=1.7044=pl526_1
+  - perl-archive-tar=2.32=pl526_0
   - perl-autoloader=5.74=pl526_2
+  - perl-base=2.23=pl526_1
+  - perl-business-isbn=3.004=pl526_0
+  - perl-business-isbn-data=20140910.003=pl526_0
   - perl-carp=1.38=pl526_3
   - perl-clone=0.42=pl526h516909a_0
+  - perl-common-sense=3.74=pl526_2
+  - perl-compress-raw-bzip2=2.087=pl526he1b5a44_0
+  - perl-compress-raw-zlib=2.087=pl526hc9558a2_0
   - perl-config-general=2.63=pl526_0
+  - perl-constant=1.33=pl526_1
+  - perl-data-dumper=2.173=pl526_0
+  - perl-digest-hmac=1.03=pl526_3
+  - perl-digest-md5=2.55=pl526_0
   - perl-digest-perl-md5=1.9=pl526_1
   - perl-dynaloader=1.25=pl526_1
+  - perl-encode=2.88=pl526_1
+  - perl-encode-locale=1.05=pl526_6
   - perl-exporter=5.72=pl526_1
   - perl-exporter-tiny=1.002001=pl526_0
   - perl-extutils-makemaker=7.36=pl526_1
+  - perl-file-listing=6.04=pl526_1
+  - perl-file-path=2.16=pl526_0
+  - perl-file-temp=0.2304=pl526_2
   - perl-font-ttf=1.06=pl526_0
   - perl-gd=2.71=pl526he860b03_0
+  - perl-html-parser=3.72=pl526h6bb024c_5
+  - perl-html-tagset=3.20=pl526_3
+  - perl-html-tree=5.07=pl526_1
+  - perl-http-cookies=6.04=pl526_0
+  - perl-http-daemon=6.01=pl526_1
+  - perl-http-date=6.02=pl526_3
+  - perl-http-message=6.18=pl526_0
+  - perl-http-negotiate=6.01=pl526_3
+  - perl-io-compress=2.087=pl526he1b5a44_0
+  - perl-io-html=1.001=pl526_2
+  - perl-io-socket-ssl=2.066=pl526_0
   - perl-io-string=1.08=pl526_3
+  - perl-io-zlib=1.10=pl526_2
+  - perl-json=4.02=pl526_0
+  - perl-json-xs=2.34=pl526h6bb024c_3
+  - perl-libwww-perl=6.39=pl526_0
   - perl-list-moreutils=0.428=pl526_1
   - perl-list-moreutils-xs=0.428=pl526_0
+  - perl-lwp-mediatypes=6.04=pl526_0
+  - perl-lwp-protocol-https=6.07=pl526_4
   - perl-math-bezier=0.01=pl526_1
   - perl-math-round=0.07=pl526_1
   - perl-math-vecstat=0.08=pl526_1
+  - perl-mime-base64=3.15=pl526_1
   - perl-module-implementation=0.09=pl526_2
   - perl-module-runtime=0.016=pl526_1
+  - perl-mozilla-ca=20180117=pl526_1
+  - perl-net-http=6.19=pl526_0
+  - perl-net-ssleay=1.88=pl526h90d6eec_0
+  - perl-ntlm=1.09=pl526_4
   - perl-number-format=1.75=pl526_3
   - perl-params-validate=1.29=pl526h14c3975_1
+  - perl-parent=0.236=pl526_1
   - perl-pathtools=3.75=pl526h14c3975_1
   - perl-readonly=2.05=pl526_0
   - perl-regexp-common=2017060201=pl526_0
   - perl-scalar-list-utils=1.52=pl526h516909a_0
   - perl-set-intspan=1.19=pl526_1
+  - perl-socket=2.027=pl526_1
   - perl-statistics-basic=1.6611=pl526_2
+  - perl-storable=3.15=pl526h14c3975_0
   - perl-svg=2.84=pl526_0
+  - perl-test-requiresinternet=0.05=pl526_0
   - perl-text-format=0.59=pl526_2
   - perl-time-hires=1.9760=pl526h14c3975_1
+  - perl-time-local=1.28=pl526_1
   - perl-try-tiny=0.30=pl526_1
+  - perl-types-serialiser=1.0=pl526_2
+  - perl-uri=1.76=pl526_0
+  - perl-www-robotrules=6.02=pl526_3
+  - perl-xml-namespacesupport=1.12=pl526_0
   - perl-xml-parser=2.44_01=pl526ha1d75be_1002
+  - perl-xml-sax=1.02=pl526_0
+  - perl-xml-sax-base=1.09=pl526_0
+  - perl-xml-sax-expat=0.51=pl526_3
+  - perl-xml-simple=2.25=pl526_1
   - perl-xsloader=0.24=pl526_0
   - pigz=2.3.4=hed695b0_1
   - pip=20.1.1=py_1

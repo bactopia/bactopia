@@ -11,7 +11,7 @@ dependencies:
   - appdirs=1.4.3=py_1
   - art=2016.06.05=h869255c_2
   - aspera-connect=3.9.6=0
-  - blas=1.1=openblas
+  - blas=1.0=mkl
   - brotlipy=0.7.0=py38h1e0a361_1000
   - ca-certificates=2020.6.20=hecda079_0
   - certifi=2020.6.20=py38h32f6830_0
@@ -23,7 +23,7 @@ dependencies:
   - fasteners=0.14.1=py_3
   - fastq-dl=1.0.3=0
   - gettext=0.19.8.1=hc5be6a0_1002
-  - gsl=2.2.1=blas_openblash47a8a8e_5
+  - gsl=2.2.1=h0c605f7_3
   - hdf5=1.10.5=nompi_h3c11f04_1104
   - humanfriendly=8.2=py38h32f6830_0
   - icu=67.1=he1b5a44_0
