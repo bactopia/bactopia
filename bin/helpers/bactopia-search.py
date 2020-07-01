@@ -123,26 +123,27 @@ def parse_query(query, exact_taxon=False):
     try:
         taxon_id = int(query)
         if exact_taxon:
-            return f'tax_eq({taxon_id})'
+            return ['taxon', f'tax_eq({taxon_id})']
         else:
-            return f'tax_tree({taxon_id})'
+            return ['taxon', f'tax_tree({taxon_id})']
     except ValueError:
         # It is a accession or scientific name
         # Test Accession
         # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
         if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
-            return f'(study_accession={query} OR secondary_study_accession={query})'
+            return ['bioproject', f'(study_accession={query} OR secondary_study_accession={query})']
         elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
-            return f'(sample_accession={query} OR secondary_sample_accession={query})'
+            return ['biosample', f'(sample_accession={query} OR secondary_sample_accession={query})']
         elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
-            return f'(run_accession={query})'
+            return ['run', f'(run_accession={query})']
         else:
             # Assuming it is a scientific name
-            return f'tax_name("{query}")'
+            return ['taxon', f'tax_name("{query}")']
 
 
 if __name__ == '__main__':
     import argparse as ap
+    import random
     import textwrap
 
     parser = ap.ArgumentParser(
@@ -178,6 +179,12 @@ if __name__ == '__main__':
         '--limit', metavar="INT", type=int, default=1000000,
         help='Maximum number of results to return. (Default: 1000000)'
     )
+
+    parser.add_argument(
+        '--biosample_subset', metavar="INT", type=int, default=0,
+        help='If a BioSample has multiple Experiments, pick a random subset. (Default: Return All)'
+    )
+
     parser.add_argument(
         '--min_read_length', metavar="INT", type=int,
         help='Filters samples based on minimum mean read length. (Default: No filter)'
@@ -216,10 +223,16 @@ if __name__ == '__main__':
               file=sys.stderr)
         sys.exit(1)
 
-    query = parse_query(args.query, exact_taxon=args.exact_taxon)
+    query_type, query = parse_query(args.query, exact_taxon=args.exact_taxon)
     results = ena_search(query, limit=args.limit)
     accessions, filtered = parse_accessions(results, min_read_length=min_read_length,
                                             min_base_count=min_base_count)
+
+    WARNING_MESSAGE = None
+    if query_type == 'biosample' and args.biosample_subset > 0:
+        if len(accessions) > args.biosample_subset:
+            WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(accessions)}'
+            accessions = random.sample(accessions, args.biosample_subset)
 
     # Output the results
     results_file = f'{args.outdir}/{args.prefix}-results.txt'
@@ -244,6 +257,9 @@ if __name__ == '__main__':
         output_fh.write(f'LIMIT: {args.limit}\n')
         output_fh.write(f'RESULTS: {len(results) - 2} ({results_file})\n')
         output_fh.write(f'ILLUMINA ACCESSIONS: {len(accessions)} ({accessions_file})\n')
+
+        if WARNING_MESSAGE:
+            output_fh.write(f'\t{WARNING_MESSAGE}\n')
 
         if min_read_length or min_base_count:
             output_fh.write(f'FILTERED ACCESSIONS: {len(filtered["filtered"])}\n')

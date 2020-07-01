@@ -12,10 +12,12 @@
 - Can limit number of completed genomes downloaded where applicable
 - `bactopia datasets` can provide list of RefSeq accessions to download
 - `bactopia search` can now use BioSample and Run accessions
+- `bactopia search` can select a subset of Experiments associated with a BioSample
 - Support for organisms with multiple MLST schemas
 - Assembly QC via QUAST and CheckM
 - Assemblies (local or NCBI Assembly accession) as inputs for Bactopia
 - Long reads as supplementary to paired end reads for hybrid assembly
+- Tools versions are locked to the minor version, not the patch
 
 ### `Fixed`
 - `summary` will now determine absolute path of inputs
