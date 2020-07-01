@@ -1,5 +1,5 @@
 name: bactopia-count_31mers
-version: 1.4.0
+version: 1.4.x
 channels:
   - conda-forge
   - bioconda
@@ -12,4 +12,3 @@ dependencies:
   - libstdcxx-ng=9.2.0=hdf63c60_2
   - mccortex=1.0=he860b03_2
   - zlib=1.2.11=h516909a_1006
-

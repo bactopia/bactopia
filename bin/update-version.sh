@@ -32,6 +32,9 @@ fi
 DIRECTORY=$1
 OLD_VERSION=$2
 NEW_VERSION=$3
+OLD_CONTAINER="${OLD_VERSION%.*}.x"
+NEW_CONTAINER="${NEW_VERSION%.*}.x"
+
 if [ -z  ${DIRECTORY} ] || [ -z  ${OLD_VERSION} ] || [ -z  ${NEW_VERSION} ]; then
     echo "Got ${#} arguement"
     echo "Must give a directory, old version and new version"
@@ -52,7 +55,7 @@ if [ $? -eq 0 ]; then
     # It is! Now update versions
     # Conda Files
     for file in $(find -not -path "*.git*" -name "*.yml" -and -not -name "mkdocs.yml" -and -not -name ".git*"); do
-        yaml_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        yaml_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
     done
 
     # Python Scripts
@@ -60,15 +63,22 @@ if [ $? -eq 0 ]; then
         python_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
     done
 
-    # Docker/Singularity/Nextflow Configs
-    for file in $(find -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -or -name "nextflow.config" -and -not -name ".git*"); do
+    # Docker/Singularity
+    for file in $(find -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -and -not -name ".git*"); do
+        generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
+    done
+
+    # Nextflow Configs
+    for file in $(find -not -path "*work*" -not -path "*.git*" -name "nextflow.config" -and -not -name ".git*"); do
         generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
     done
 
     # Bactopia/Nextflow
     shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bactopia
     shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bin/build-containers.sh
-    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/conda/README.md
+    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bin/create-tool.sh
+
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"
     echo "Please verify '${DIRECTORY}' points to the bactopia repo."

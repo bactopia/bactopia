@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image for Bactopia Tool fastani
-    VERSION 1.4.0
+    VERSION 1.4.x
 
 %environment
     PATH=/opt/conda/envs/bactopia-fastani/bin:$PATH

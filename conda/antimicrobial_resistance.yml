@@ -1,5 +1,5 @@
 name: bactopia-antimicrobial_resistance
-version: 1.4.0
+version: 1.4.x
 channels:
   - conda-forge
   - bioconda
@@ -91,4 +91,3 @@ dependencies:
   - perl-xsloader=0.24=pl526_0
   - tk=8.6.10=hed695b0_0
   - zlib=1.2.11=h516909a_1006
-

@@ -3,6 +3,7 @@
 #
 # Automate the building of Bactopia related containers
 VERSION=1.4.0
+CONTAINER_VERSION="${VERSION%.*}.x"
 
 function singularity_build {
     recipe=$1
@@ -58,20 +59,20 @@ fi
 mkdir -p ${OUTPUT_DIR}
 
 # Build Singularity
-singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${VERSION}.simg ${VERSION} 1
+singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${CONTAINER_VERSION}.simg ${CONTAINER_VERSION} 1
 for recipe in $(ls "${BACTOPIA_DIR}/containers/singularity" | grep ".Singularity"); do
     recipe_path="${BACTOPIA_DIR}/containers/singularity/${recipe}"
     recipe_name=$(echo ${recipe} | sed 's/.Singularity//')
-    recipe_image="${OUTPUT_DIR}/${recipe_name}-${VERSION}.simg"
-    singularity_build ${recipe_path} ${recipe_name} ${recipe_image} ${VERSION}
+    recipe_image="${OUTPUT_DIR}/${recipe_name}-${CONTAINER_VERSION}.simg"
+    singularity_build ${recipe_path} ${recipe_name} ${recipe_image} ${CONTAINER_VERSION}
 done
 
 # Build Docker
-docker_build Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
+docker_build Dockerfile bactopia/bactopia:${CONTAINER_VERSION} bactopia/bactopia:latest
 for recipe in $(ls "${BACTOPIA_DIR}/containers/docker" | grep ".Dockerfile"); do
     recipe_path="${BACTOPIA_DIR}/containers/docker/${recipe}"
     recipe_name=$(echo ${recipe} | sed 's/.Dockerfile//')
-    recipe_image="bactopia/${recipe_name}:${VERSION}"
+    recipe_image="bactopia/${recipe_name}:${CONTAINER_VERSION}"
     docker_build ${recipe_path} ${recipe_image}
 done
 
@@ -79,10 +80,10 @@ done
 for tool in $(ls "${BACTOPIA_DIR}/tools"); do
     recipe_path="${BACTOPIA_DIR}/tools/${tool}"
     docker_file="${recipe_path}/Dockerfile"
-    docker_image="bactopia/tools-${tool}:${VERSION}"
+    docker_image="bactopia/tools-${tool}:${CONTAINER_VERSION}"
     docker_build ${docker_file} ${docker_image}
 
     singularity_file="${recipe_path}/Singularity"
-    singularity_image="${OUTPUT_DIR}/tools-${tool}-${VERSION}.simg"
-    singularity_build ${singularity_file} "tools-${tool}" ${singularity_image} ${VERSION}
+    singularity_image="${OUTPUT_DIR}/tools-${tool}-${CONTAINER_VERSION}.simg"
+    singularity_build ${singularity_file} "tools-${tool}" ${singularity_image} ${CONTAINER_VERSION}
 done

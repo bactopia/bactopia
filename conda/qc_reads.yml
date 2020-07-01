@@ -1,5 +1,5 @@
 name: bactopia-qc_reads
-version: 1.4.0
+version: 1.4.x
 channels:
   - conda-forge
   - bioconda
@@ -54,4 +54,3 @@ dependencies:
   - xz=5.2.5=h516909a_0
   - zlib=1.2.11=h516909a_1006
   - zstd=1.4.4=h6597ccf_3
-

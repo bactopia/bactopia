@@ -1,5 +1,5 @@
 name: bactopia-assembly_qc
-version: 1.4.0
+version: 1.4.x
 channels:
   - conda-forge
   - bioconda
@@ -203,4 +203,3 @@ dependencies:
     - pyqt5-sip==4.19.18
     - pyqtchart==5.12
     - pyqtwebengine==5.12.1
-

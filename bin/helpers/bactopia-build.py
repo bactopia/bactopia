@@ -93,6 +93,8 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
+    major, minor, patch = VERSION.split('.')
+    CONTAINER_VERSION = f'{major}.{minor}.x'
 
     # Setup logs
     FORMAT = '%(asctime)s:%(name)s:%(levelname)s - %(message)s'
@@ -102,7 +104,7 @@ if __name__ == '__main__':
     # https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
     env_path = os.path.abspath(args.conda_envs)
     install_path = os.path.abspath(args.install_path)
-    finish_file = f'{install_path}/envs-build-{VERSION}.txt'
+    finish_file = f'{install_path}/envs-build-{CONTAINER_VERSION}.txt'
     if not args.force and os.path.exists(finish_file):
         logging.error(
             f'Conda envs are already built in {install_path}, will not rebuild without --force'
@@ -113,11 +115,11 @@ if __name__ == '__main__':
     if env_files:
         for i, env_file in enumerate(env_files):
             envname = os.path.splitext(os.path.basename(env_file))[0]
-            prefix = f'{install_path}/{envname}-{VERSION}'
+            prefix = f'{install_path}/{envname}-{CONTAINER_VERSION}'
             logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
             force = '--force' if args.force else ''
             execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
-        execute(f'touch {install_path}/envs-built-{VERSION}.txt')
+        execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
         logging.error(
             f'Unable to find Conda *.{args.ext} files in {env_path}, please verify'

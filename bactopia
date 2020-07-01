@@ -36,8 +36,9 @@
 # bactopia version
 # bactopia --help
 VERSION=1.4.0
+CONTAINER_VERSION="${VERSION%.*}.x"
 CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
-BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}"
+BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}"
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
@@ -125,7 +126,7 @@ else
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
         # Figure out where Bactopia is setup
-        if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
+        if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${CONTAINER_VERSION}.txt" ]]; then
             echo "Unable to locate required Conda environments."
             echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
             bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
