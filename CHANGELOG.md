@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.0 bactopia/bactopia "" - 2020/??/??
+## v1.4.0 bactopia/bactopia "Archer's Ring" - 2020/07/01
 ### `Added`
 - New Bactopia Tools
     - `eggnog` for functional annotation using eggNOG-mapper
@@ -28,6 +28,7 @@
 - Bactopia Tools now check existence of include and exclude files
 - Lots more documentation
 - Updated citations/tools used by Bactopia
+- Did I mention typos?
 
 ### `Removed`
 - ISMapper as part of the main pipeline (its now a tool)
