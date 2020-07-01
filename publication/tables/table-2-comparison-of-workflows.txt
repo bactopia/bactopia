@@ -1,20 +1,20 @@
 Feature	Bactopia	ASA3P	Nullarbor	TORMES
-Version	1.3.0	1.2.2	2.0.20191013	1.0
-Release Date	"February 19th, 2020"	"November 20th, 2019Ê"	"October 13th, 2019"	"February 4th, 2019"
-Latest Commit	"February 23th, 2020"	"February 19th, 2020"	"February 23th, 2020"	"January 30th, 2020"
-Sequence Technology	Illumina	"Illumina, Nanopore, PacBio"	Illumina	Illumina
+Version	1.4.0	1.3.0	2.0.20191013	1.1
+Release Date	July 1st, 2020	May 2nd, 2020Â 	October 13th, 2019	April 14th, 2020
+Latest Commit	July 1st, 2020	June 26th, 2020	March 15th, 2020	May 28th, 2020
+Sequence Technology	Illumina, Hybrid (Nanopore, Pacbio)	Illumina, Nanopore, PacBio	Illumina	Illumina
 Single End Reads	Yes	Yes	No	No
 Workflow	Nextflow	Groovy	Perl + Make	Bash
 Resume If Stopped	Yes	No	Yes	No
 Reuse Existing Runs For Expanded Analysis	Yes	No	Yes	No
 Built In HPC Cluster and Cloud Capability	Yes	Yes	No	No
-Individual Program Adjustable ParametersÊ	Yes	No	Yes	No
+Individual Program Adjustable ParametersÂ 	Yes	No	Yes	No
 Batch processing from Config File	Yes	Yes	Yes	Yes
 Single Sample Processing from Command Line	Yes	No	Yes	No
-Sequence Depth Downsample	YesÊ	No	Yes	No
+Sequence Depth Downsample	YesÂ 	No	Yes	No
 Automatic Reference Selection For Variant Detection	Yes	No	No	No
 Data Download from SRA/ENA	Yes	No	No	No
-Species Identification	"k-mers,16S, ANI"	"k-mers, 16S, ANI"	k-mers	k-mers
+Species Identification	k-mers,16S, ANI	k-mers, 16S, ANI	k-mers	k-mers
 Comparative Analysis	Separate Process	Built In Process	Built In Process	Built In Process
 Summary	Text	HTML	HTML	R Markdown
 Package Manager	Bioconda	-	Bioconda & Brew	Conda YAML

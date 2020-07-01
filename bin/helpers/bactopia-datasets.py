@@ -743,7 +743,6 @@ def create_summary(outdir):
             mlst = f'{species_dir}/mlst'
             if os.path.exists(f'{mlst}'):
                 new_species['mlst'] = {}
-                available_datasets['ariba'] = []
                 for schema in sorted(os.listdir(f'{mlst}')):
                     if os.path.exists(f'{mlst}/{schema}/{schema}-ariba.tar.gz'):
                         new_species['mlst'][schema] = {

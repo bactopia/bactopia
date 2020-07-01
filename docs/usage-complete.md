@@ -389,6 +389,9 @@ Assembly Parameters:
     --nocorr                Disable post-assembly correction
 
     Hybrid Assembly:
+    --unicycler_ram INT     Try to keep RAM usage below this many GB
+                                Default: 32 GB
+                                
     --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
                                 conservative = smaller contigs, lowest
                                                misassembly rate

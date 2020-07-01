@@ -196,7 +196,10 @@ process assemble_genome {
     no_rotate = params.no_rotate ? "--no_rotate" : ""
     no_pilon = params.no_pilon ? "--no_pilon" : ""
     keep = params.keep_all_files ? "--keep 3" : "--keep 1"
-    use_original_assembly = sample_type.startsWith('assembly') && params.reassemble ? false : true 
+    use_original_assembly = null
+    if (sample_type.startsWith('assembly')) {
+        use_original_assembly = params.reassemble ? true : false
+    }
     template(task.ext.template)
 }
 
@@ -1136,11 +1139,12 @@ def process_fastqs(line) {
     } else if (line.runtype == 'paired-end') {
         return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], null)
     } else if (line.runtype == 'hybrid') {
-        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], line.extra)
+        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], file(line.extra))
     } else if (line.runtype == 'assembly') {
-        return tuple(line.sample, line.runtype, false, [null, null], line.extra)
+        return tuple(line.sample, line.runtype, false, [null, null], file(line.extra))
     } else {
-        log.info "whoops ${line} "
+        log.error('Invalid run_type ${line.runtype} found, please correct to continue')
+        exit 1
     }
 }
 
@@ -1666,6 +1670,9 @@ def full_help() {
         --nocorr                Disable post-assembly correction
 
         Hybrid Assembly:
+        --unicycler_ram INT       Try to keep RAM usage below this many GB
+                                    Default: ${params.unicycler_ram} GB
+
         --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
                                     conservative = smaller contigs, lowest 
                                                    misassembly rate
