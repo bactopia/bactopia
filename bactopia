@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+# bactopia
+#
+# This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
+# been inspired by a similar wrapper in Will Rowe's DRAX pipeline
+# (https://github.com/will-rowe/drax).
+#
+# By default `bactopia` will attempt to execute the main Nextflow pipeline.
+# There are additional sub-commands available to help make Bactopia easier to
+# use. They are:
+#
+#    bactopia build - Build Bactopia Conda environments
+#
+#    bactopia citations - Print citation for datasets, tools and Bactopia
+#
+#    bactopia datasets - Download/setup useful datasets for Bactopia
+#
+#    bactopia prepare - Create a 'file of filenames' for input FASTQ files
+#
+#    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
+#
+#    bactopia tools - Execute existing Bactopia Tools
+#
+#    bactopia versions - Print versions of tools used by Bactopia
+#
+#    bactopia --citation - Print the Bactopia citation
+#    bactopia --version - Print the Bactopia version
+#
+# Examples:
+#
+# bactopia build
+# bactopia datasets --help
+# bactopia prepare --help
+# bactopia search --help
+# bactopia tools --help
+# bactopia version
+# bactopia --help
+VERSION=1.4.0
+CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
+BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}"
+
+# If no user input, print usage
+if [[ $# == 0 ]]; then
+    echo "bactopia - v${VERSION}"
+    echo ""
+    echo "Available Commands"
+    echo "bactopia - Execute the Bactopia Nextflow pipeline"
+    echo ""
+    echo "bactopia build - Build Bactopia Conda environments"
+    echo ""
+    echo "bactopia citations - Print citation for datasets, tools and Bactopia"
+    echo ""
+    echo "bactopia datasets - Download/setup useful datasets for Bactopia"
+    echo ""
+    echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
+    echo ""
+    echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
+    echo ""
+    echo "bactopia tools - Execute existing Bactopia Tools"
+    echo ""
+    echo "bactopia versions - Print versions of tools and Bactopia"
+    echo ""
+    echo "bactopia --citation - Print the Bactopia citation"
+    echo "bactopia --version - Print the Bactopia version"
+    echo ""
+    echo "Print Usages:"
+    echo "bactopia --help"
+    echo "bactopia datasets --help"
+    echo "bactopia prepare --help"
+    echo "bactopia search --help"
+    echo "bactopia tools --help"
+    echo ""
+    echo "Example Commands"
+    echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
+    echo ""
+    echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
+    echo ""
+    echo "bactopia datasets dataset-dir --species 'Staphylococcus aureus'"
+    echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
+    echo ""
+    echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
+    echo "bactopia --fastqs my-fastqs.txt"
+    echo ""
+    echo "bactopia search PRJNA480016 --limit 20"
+    echo "bactopia --accessions ena-accessions.txt"
+    echo ""
+    exit
+fi
+
+if [[ "$1" == "datasets" ]]; then
+    bactopia-datasets.py ${BACTOPIA_NF}/docs/data/pubmlst.txt "${@:2}"
+elif [[ "$1" == "prepare" ]]; then
+    bactopia-prepare.py "${@:2}"
+elif [[ "$1" == "search" ]]; then
+    bactopia-search.py "${@:2}"
+elif [[ "$1" == "build" ]]; then
+    bactopia-build.py "${@:2}"
+elif [[ "$1" == "tools" ]]; then
+    if [[ -z "$2" ]]; then
+        bactopia-tools.py
+    else
+        TOOL_NF=`bactopia-tools.py --bactopia ${BACTOPIA_NF} $2`
+        if [[ ! -z "$TOOL_NF" ]]; then
+            nextflow run ${TOOL_NF} "${@:3}"
+        fi
+    fi
+elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
+    echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
+    echo "genomes. bioRxiv 2020.02.28.969394 (2020) https://doi.org/10.1101/2020.02.28.969394"
+elif [[ "$1" == "citations" ]]; then
+    bactopia-citations.py --bactopia ${BACTOPIA_NF} "${@:2}"
+elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
+    echo "bactopia ${VERSION}"
+elif [[ "$1" == "versions" ]]; then
+    bactopia-versions.py --bactopia ${BACTOPIA_NF} "${@:2}"
+else
+    # Check if Conda environments need to be built
+    BUILD_CONDA=1
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
+    for check in  "${CHECKS[@]}"; do
+        if [[ "$*" == *"${check}"* ]]; then
+            BUILD_CONDA=0
+        fi
+    done
+
+    if [[ "${BUILD_CONDA}" -eq 1 ]]; then
+        # Figure out where Bactopia is setup
+        if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${VERSION}.txt" ]]; then
+            echo "Unable to locate required Conda environments."
+            echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
+            bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
+        fi
+    fi
+    # Execute Bactopia Nextflow pipeline
+    nextflow run ${BACTOPIA_NF}/main.nf "${@:1}"
+fi
