@@ -1,5 +1,5 @@
 name: bactopia-pirate
-version: 1.4.0
+version: 1.4.x
 channels:
   - r
   - conda-forge

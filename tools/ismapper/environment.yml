@@ -1,5 +1,5 @@
 name: bactopia-ismapper
-version: 1.4.0
+version: 1.4.x
 channels:
   - rpetit3
   - conda-forge
@@ -113,4 +113,3 @@ dependencies:
   - wheel=0.34.2=py_1
   - xz=5.2.4=h14c3975_1001
   - zlib=1.2.11=h516909a_1006
-

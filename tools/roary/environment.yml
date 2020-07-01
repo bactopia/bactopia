@@ -1,5 +1,5 @@
 name: bactopia-roary
-version: 1.4.0
+version: 1.4.x
 channels:
   - r
   - conda-forge
@@ -426,4 +426,3 @@ dependencies:
   - pip:
     - pyqt5-sip==4.19.18
     - pyqtwebengine==5.12.1
-

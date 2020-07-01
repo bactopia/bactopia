@@ -40,6 +40,7 @@ CONTAINER_VERSION="${VERSION%.*}.x"
 CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}"
 
+echo ${BACTOPIA_NF}
 # If no user input, print usage
 if [[ $# == 0 ]]; then
     echo "bactopia - v${VERSION}"
