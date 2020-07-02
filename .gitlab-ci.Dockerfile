@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 
-LABEL version="1.3.0"
+LABEL version="1.4.0"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Gitlab CI"
 
