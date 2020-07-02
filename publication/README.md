@@ -4,6 +4,7 @@ Below is a description of the files in this directory and subdirectories.
 # `data` Folder
 ```
 └── data
+    ├── bactopia-analysis.html
     ├── fastani
     │   └── crispatus-include.txt
     ├── gtdb
@@ -40,6 +41,10 @@ Below is a description of the files in this directory and subdirectories.
         └── lactobacillus-summary.txt
 ```
 This directory contains the files used to create the final results and phylogenies.
+
+| Filename | Description |
+|----------|-------------|
+| bactopia-analysis.html | HTML output created from the R Markdown script bactopia-analysis.Rmd in the scripts directory |
 
 ### Directories
 #### `fastani`
@@ -88,45 +93,46 @@ The results of the *Lactobacillus crispatus* pan-genome
 | lactobacillus-summary.txt| Brief breakdown of ranks and qc-failures |
 
 
-# `preprint` Folder
+# `figures\files\tables` Folders
 ```
-└── preprint
-    ├── bactopia-analysis.html
-    ├── figures
-    │   ├── figure-1-bactopia-overview.png
-    │   ├── figure-2a-lactobacillus-16s.png
-    │   ├── figure-2a-lactobacillus-16s.svg
-    │   ├── figure-2b-lactobacillus-only-16s-annotated.png
-    │   ├── figure-2b-lactobacillus-only-16s-annotated.svg
-    │   ├── figure-2b-lactobacillus-only-16s.svg
-    │   ├── figure-3-lcrispatus-core-genome-annotated.png
-    │   ├── figure-3-lcrispatus-core-genome-annotated.svg
-    │   ├── figure-3-lcrispatus-core-genome.svg
-    │   ├── supplementary-figure-1-bactopia-workflow.pdf
-    │   ├── supplementary-figure-1-bactopia-workflow.png
-    │   ├── supplementary-figure-1-bactopia-workflow.svg
-    │   ├── supplementary-figure-2-quality-by-year.pdf
-    │   ├── supplementary-figure-2-quality-by-year.png
-    │   ├── supplementary-figure-3-genome-size-assembly-vs-estimate.pdf
-    │   ├── supplementary-figure-3-genome-size-assembly-vs-estimate.png
-    │   ├── supplementary-figure-4-consistent-genome-size.pdf
-    │   └── supplementary-figure-4-consistent-genome-size.png
-    ├── files
-    │   ├── supplementary-data-1-lactobacillus-query-results.txt
-    │   ├── supplementary-data-2-illumina-accessions.txt
-    │   └── supplementary-data-3-nextflow-report.html
-    └── tables
-        ├── supplementary-table-1-samples-excluded.txt
-        ├── supplementary-table-2-non-lactobacillus-by-gtdb.txt
-        ├── table-1-list-of-bioinformatic-tools.txt
-        ├── table-2-comparison-of-workflows.txt
-        ├── table-3-lactobacillus-sequence-summary.txt
-        └── table-4-lactobacillus-crispatus-metadata.txt
+
+└── figures
+    ├── figure-1a-bactopia-overview.png
+    ├── figure-1b-bactopia-workflow.pdf
+    ├── figure-1b-bactopia-workflow.png
+    ├── figure-1b-bactopia-workflow.svg
+    ├── figure-2a-lactobacillus-16s.png
+    ├── figure-2a-lactobacillus-16s.svg
+    ├── figure-2b-lactobacillus-only-16s-annotated.png
+    ├── figure-2b-lactobacillus-only-16s-annotated.svg
+    ├── figure-2b-lactobacillus-only-16s.svg
+    ├── figure-3-lcrispatus-core-genome-annotated.png
+    ├── figure-3-lcrispatus-core-genome-annotated.svg
+    ├── figure-3-lcrispatus-core-genome.svg
+    ├── supplementary-figure-1-bactopia-workflow.pdf
+    ├── supplementary-figure-1-bactopia-workflow.png
+    ├── supplementary-figure-1-bactopia-workflow.svg
+    ├── supplementary-figure-2-quality-by-year.pdf
+    ├── supplementary-figure-2-quality-by-year.png
+    ├── supplementary-figure-3-genome-size-assembly-vs-estimate.pdf
+    ├── supplementary-figure-3-genome-size-assembly-vs-estimate.png
+    ├── supplementary-figure-4-consistent-genome-size.pdf
+    └── supplementary-figure-4-consistent-genome-size.png
+└──  files
+    ├── supplementary-data-1-lactobacillus-query-results.txt
+    ├── supplementary-data-2-illumina-accessions.txt
+    └── supplementary-data-3-nextflow-report.html
+└── tables
+    ├── supplementary-table-1-samples-excluded.txt
+    ├── supplementary-table-2-non-lactobacillus-by-gtdb.txt
+    ├── table-1-list-of-bioinformatic-tools.txt
+    ├── table-2-comparison-of-workflows.txt
+    ├── table-3-lactobacillus-sequence-summary.txt
+    └── table-4-lactobacillus-crispatus-metadata.txt
 ```
 
 | Filename / Directory | Description |
 |----------|-------------|
-| bactopia-analysis.html | HTML output created from the R Markdown script bactopia-analysis.Rmd in the scripts directory |
 | figures | Figures used in preprint |
 | files | Supplementary data in the preprint |
 | tables | Tab-delimited representations of tables in the preprint |
