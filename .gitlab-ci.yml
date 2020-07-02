@@ -7,8 +7,9 @@ before_script:
   - chmod 755 bin/helpers/*
   - cp bin/helpers/* ${BACTOPIA}/bin
   - VERSION=`bactopia version | cut -d " " -f 2`
-  - mkdir ${BACTOPIA}/share/bactopia-${VERSION}/
-  - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${VERSION}/
+  - BACTOPIA_VERSION="${VERSION%.*}.x"
+  - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+  - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
 stages:
     - test-bactopia-commands
