@@ -15,6 +15,7 @@ else
       parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
       blastn -db !{sample} \
              -outfmt 15 \
+             -task blastn \
              -dust no \
              -word_size 7 \
              -perc_identity !{params.perc_identity} \

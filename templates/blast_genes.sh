@@ -15,7 +15,6 @@ else
         parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
         blastn -db !{sample} \
             -outfmt 15 \
-            -task blastn \
             -evalue 1 \
             -perc_identity !{params.perc_identity} \
             -qcov_hsp_perc !{params.qcov_hsp_perc} \

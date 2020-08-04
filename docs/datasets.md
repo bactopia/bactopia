@@ -277,6 +277,7 @@ ${DATASET_FOLDER}
             ├── minmer-updated.txt
             └── refseq-genomes.msh
 ```
+
 | Filename | Description |
 |----------|-------------|
 | minmer-updated.txt | Information on the last time the mash sketch was updated |
