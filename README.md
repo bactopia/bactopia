@@ -98,7 +98,8 @@ Your feedback is very valuable! If you run into any issues using Bactopia, have 
 [MIT License](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
 
 # Citation
-Petit III RA, Read TD. *Bactopia: a flexible pipeline for complete analysis of bacterial genomes.* __bioRxiv__ 2020:2020.02.28.969394. https://doi.org/10.1101/2020.02.28.969394.
+Petit III RA, Read TD, *Bactopia: a flexible pipeline for complete analysis of bacterial genomes.* __mSystems__. 5 (2020), https://doi.org/10.1128/mSystems.00190-20.
+
 # Author 
 
 * Robert A. Petit III
