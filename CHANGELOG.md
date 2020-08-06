@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.1 bactopia/bactopia "" - 2020/08/??
+## v1.4.1 bactopia/bactopia "Rajas Ring" - 2020/08/06
 ### `Added`
 - Links to publication (woohoo!)
 - Can pass a Prodigal training file to `bactopia datasets`
@@ -9,7 +9,6 @@
 - Typos in the Docs
 - blast_primers now uses `blastn` and blast_genes uses `megablast`
 - validExitStatus deprecation warning
-
 
 ## v1.4.0 bactopia/bactopia "Archer's Ring" - 2020/07/01
 ### `Added`
