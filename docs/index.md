@@ -10,6 +10,8 @@ Bactopia uses [Nextflow](https://www.nextflow.io/) to manage the workflow, allow
 [Anaconda channels](https://anaconda.org/)) to make installation
 as simple as possible for *all* users.
 
+To highlight the use of [Bactopia Datasets](datasets.md), [Bactopia](workflow-overview.md), and [Bactopia Tools](bactopia-tools/index.md), we performed an analysis of 1,664 public *Lactobacillus* genomes, focusing on *Lactobacillus crispatus*, a species that is a common part of the human vaginal microbiome. The results from this analysis are published in mSystems under the title: *[Bactopia: a flexible pipeline for complete analysis of bacterial genomes](https://doi.org/10.1128/mSystems.00190-20)*
+
 ## Bactopia Workflow
 ![Bactopia Workflow](data/bactopia-workflow.png)
 
@@ -24,7 +26,7 @@ More detailed information for getting Bactopia set up on your system.
 A subset of parameters users may commonly adjust.
 
 [Tutorial](tutorial.md)  
-A brief tutorial on how to replicate the [Staphopia Analyis Pipeline](https://staphopia.emory.edu) using Bactopia.
+A brief tutorial on how to replicate the [Staphopia Analysis Pipeline](https://staphopia.emory.edu) using Bactopia.
 
 [Build Datasets](datasets.md)  
 A description on how to make use of datasets (public or private) with Bactopia.

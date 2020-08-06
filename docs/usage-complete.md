@@ -512,6 +512,8 @@ Annotation Parameters:
     --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
 
     --rfam                  Enable searching for ncRNAs with Infernal+Rfam
+
+    --skip_prodigal_tf      If a Prodigal training file was found, it will not be used
 ```
 
 ### Minmer Sketch Parameters

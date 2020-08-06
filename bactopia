@@ -111,7 +111,7 @@ elif [[ "$1" == "tools" ]]; then
     fi
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
-    echo "genomes. bioRxiv 2020.02.28.969394 (2020) https://doi.org/10.1101/2020.02.28.969394"
+    echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-citations.py

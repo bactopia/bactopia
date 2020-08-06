@@ -120,6 +120,9 @@ Custom Prokka Protein FASTA:
   --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
   --fast_cluster    Use CD-HIT's (-g 0) fast clustering algorithm, instead of
                     the accurate but slow algorithm.
+  --prodigal_tf STR  A pre-built Prodigal training file to add to the species
+                     annotation folder. Requires a single species (--species)
+                     and will replace existing training files.
 
 Minmer Datasets:
   --skip_minmer     Skip download of pre-computed minmer datasets (mash,
@@ -245,6 +248,7 @@ ${DATASET_FOLDER}
             ├── cdhit-stats.txt
             ├── genome_size.json
             ├── ncbi-metadata.txt
+            ├── prodigal.tf
             ├── proteins.faa
             ├── proteins.faa.clstr
             └── proteins-updated.txt
@@ -255,6 +259,7 @@ ${DATASET_FOLDER}
 | cdhit-stats.txt | General statistics associated with CD-HIT clustering |
 | genome_size.json | A list of genome size for each downloaded RefSeq genome |
 | ncbi-metadata.txt | NCBI Assembly metadata associated with the downloaded RefSeq genomes |
+| prodigal.tf | A pre-built species specific Prodigal training file provided with `--prodigal_tf` |
 | proteins.faa | Set of [Prokka formatted proteins](https://github.com/tseemann/prokka#fasta-database-format) |
 | proteins.faa.clstr | Description of the clusters created by CD-HIT |
 | proteins-updated.txt | Information on the last time the protein set was updated |
