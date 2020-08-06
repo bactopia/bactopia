@@ -33,6 +33,7 @@ BLAST_PROTEIN_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
 PROKKA_PROTEINS = file('EMPTY')
+PRODIGAL_TF = file('EMPTY')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
@@ -256,6 +257,7 @@ process annotate_genome {
     input:
     set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
     file prokka_proteins from PROKKA_PROTEINS
+    file prodigal_tf from PRODIGAL_TF
 
     output:
     file "annotation/${sample}*"
@@ -279,6 +281,12 @@ process annotate_genome {
             species = "spp."
         }
     }
+
+    prodigal = ""
+    if (prodigal_tf.getName() != 'EMPTY' && !params.skip_prodigal_tf) {
+        prodigal = "--prodigaltf ${prodigal_tf}"
+    }
+
     compliant = params.compliant ? "--compliant" : ""
     addgenes = params.nogenes ? "" : "--addgenes"
     addmrna = params.addmrna ? "--addmrna" : ""
@@ -862,6 +870,12 @@ def setup_datasets() {
                         PROKKA_PROTEINS = file(prokka)
                         log.info "Found Prokka proteins file"
                         log.info "\t${PROKKA_PROTEINS}"
+                    }
+                    prodigal_tf = "${dataset_path}/${species_db['annotation']['training_set']}"
+                    if (file(prodigal_tf).exists()) {
+                        PRODIGAL_TF = file(prodigal_tf)
+                        log.info "Found Prodigal training file"
+                        log.info "\t${PRODIGAL_TF}"
                     }
 
                     refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
@@ -1784,6 +1798,8 @@ def full_help() {
         --rnammer               Prefer RNAmmer over Barrnap for rRNA prediction
 
         --rfam                  Enable searching for ncRNAs with Infernal+Rfam
+
+        --skip_prodigal_tf      If a Prodigal training file was found, it will not be used
 
     Minmer Sketch Parameters:
         --mash_sketch INT       Sketch size. Each sketch will have at most this

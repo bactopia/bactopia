@@ -21,6 +21,7 @@ else
         --cpus !{task.cpus} \
         --centre '!{params.centre}' \
         --mincontiglen !{params.min_contig_len} \
+        !{prodigal} \
         !{addgenes} \
         !{compliant} \
         !{proteins} \
