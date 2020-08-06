@@ -182,7 +182,7 @@ def validate_species(species):
             logging.error(f'Input species ({species}) not found, please check spelling.')
             sys.exit(1)
 
-    return True
+    return len(checks)
 
 
 def ariba_datasets():
@@ -454,36 +454,34 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             genome_dir = f'{prokka_dir}/genomes'
             genus = ' '.join(request.split()[0:2])
             if include_genus:
-                genus = genus.split()[0]
-
-            if limit:
+                genus = genus.split()[0]            
                 execute(f'mkdir {genome_dir}')
                 accessions = []
-                results = execute((f'ncbi-genome-download bacteria --genus "{genus}" '
-                                   f'-l complete -F genbank -r 20 --dry-run'), capture=True)
+                results = execute((f'ncbi-genome-download bacteria --genera "{genus}" '
+                                   f'-l complete -F genbank -r 80 --dry-run'), capture=True)
 
                 for line in results.split('\n'):
                     if line and not line.startswith('Considering'):
                         accessions.append(line.split()[0])
-                
+
+            accessions_dl = accessions
+            if limit:
                 if len(accessions) > limit:
                     logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
-                    accession_file = f'{genome_dir}/accessions.txt'
-                    with open(accession_file, 'w') as accession_fh:
-                        for accession in random.sample(accessions, limit):
-                            accession_fh.write(f'{accession}\n')
+                    
+                    accessions_dl = random.sample(accessions, limit)
+
                 else:
                     logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
             
-                
-            if accession_file:
-                execute((f'ncbi-genome-download bacteria -A {accession_file} '
-                        f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
-                        f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
-            else:
-                execute((f'ncbi-genome-download bacteria --genus "{genus}" '
-                        f'-l complete -o {prokka_dir}/genomes -F genbank -r 20 '
-                        f'-m {prokka_dir}/ncbi-metadata.txt -p {cpus}'))
+            accession_file = f'{genome_dir}/accessions.txt'
+            with open(accession_file, 'w') as accession_fh:
+                for accession in accessions_dl:
+                    accession_fh.write(f'{accession}\n')
+
+            execute((f'ncbi-genome-download bacteria -A {accession_file} '
+                    f'-l complete -o {prokka_dir}/genomes -F genbank -r 80 '
+                    f'-m {prokka_dir}/ncbi-metadata.txt'))
 
             # Extract information from Genbank files
             genbank_files = execute(
@@ -667,7 +665,7 @@ def setup_plsdb(outdir, keep_files=False, force=False):
             directory=plsdb_dir)
 
 
-def create_summary(outdir):
+def create_summary(outdir, training_set=False):
     """Create a summary of available datasets in JSON format."""
     from collections import OrderedDict
     available_datasets = OrderedDict()
@@ -726,6 +724,7 @@ def create_summary(outdir):
                 }
 
             prokka = f'{species_dir}/annotation'
+            new_species['annotation'] = { 'proteins': None, 'training_set': None, 'last_updated': None}
             if os.path.exists(f'{prokka}/proteins.faa'):
                 new_species['annotation'] = {
                     'proteins': f'species-specific/{species}/annotation/proteins.faa',
@@ -734,6 +733,12 @@ def create_summary(outdir):
                         capture=True
                     ).rstrip()
                 }
+
+            if training_set:
+                if not os.path.exists(prokka):
+                    execute(f'mkdir -p {prokka}')
+                execute(f'cp {training_set} {prokka}/prodigal.tf')
+                new_species['annotation']['training_set'] = f'species-specific/{species}/annotation/prodigal.tf'
 
             if os.path.exists(f'{prokka}/genome_size.json'):
                 with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
@@ -885,7 +890,12 @@ if __name__ == '__main__':
         help=("Use CD-HIT's (-g 0) fast clustering algorithm, instead of the "
               "accurate but slow algorithm.")
     )
-
+    group3.add_argument(
+        '--prodigal_tf', metavar="STR", type=str,
+        help=("A pre-built Prodigal training file to add to the species "
+              "annotation folder. Requires a single species (--species) and "
+              "will replace existing training files.")
+    )
 
     group4 = parser.add_argument_group('Minmer Datasets')
     group4.add_argument(
@@ -957,8 +967,20 @@ if __name__ == '__main__':
     else:
         validate_requirements()
 
+    num_species = 0
     if args.species:
-        validate_species(args.species)
+        num_species = validate_species(args.species)
+    
+    if args.prodigal_tf:
+        if not os.path.exists(args.prodigal_tf):
+            logging.error(f'Unable to locate {args.prodigal_tf}, please verify path')
+            sys.exit(1)
+        elif not num_species:
+            logging.error(f'A single species (--species) must be given to use --prodigal_tf')
+            sys.exit(1)
+        elif num_species > 1:
+            logging.error(f'Only a single species (given {num_species}) can be used with --prodigal_tf')
+            sys.exit(1)
 
     ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.list_datasets:
@@ -1008,4 +1030,4 @@ if __name__ == '__main__':
     else:
         logging.info('No requests for an species, skipping')
 
-    create_summary(args.outdir)
+    create_summary(args.outdir, training_set=args.prodigal_tf)
