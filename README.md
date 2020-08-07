@@ -71,7 +71,7 @@ And voilà, you are all set to get started processing your data!
 # Please Cite Datasets and Tools
 If you have used Bactopia in your work, please be sure to cite any datasets or tools you may have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.github.io/acknowledgements/). 
 
-*If a citation needs to updated please let me know!*
+*If a citation needs to be updated please let me know!*
 
 A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](docs/data/bactopia-datasets-software.bib)
 
