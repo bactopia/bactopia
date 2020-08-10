@@ -64,7 +64,9 @@ if [ $? -eq 0 ]; then
     done
 
     # Docker/Singularity
-    for file in $(find -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -and -not -name ".git*"); do
+    generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ./Singularity
+    generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ./Dockerfile
+    for file in $(find -mindepth 2 -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -and -not -name ".git*"); do
         generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
     done
 

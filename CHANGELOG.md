@@ -7,6 +7,7 @@
 
 ### `Fixed`
 - file of accessions not working with `bactopia datasets`
+- Dockerfile and Singularity being missed by `update-version.sh`
 
 ## v1.4.1 bactopia/bactopia "Rajas Ring" - 2020/08/06
 ### `Added`

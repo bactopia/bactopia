@@ -27,7 +27,7 @@ optional arguments:
   --long_reads          Single-end reads should be treated as long reads
   --version             show program's version number and exit
 """
-VERSION = "1.4.1"
+VERSION = "1.4.2"
 PROGRAM = "bactopia prepare"
 
 if __name__ == '__main__':
