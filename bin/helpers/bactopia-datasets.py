@@ -167,15 +167,21 @@ def validate_species(species):
     for species in checks:
         r = requests.get(f'{ENDPOINT}/{species}?limit=1')
         if r.status_code == requests.codes.ok:
-            json_data = r.json()
-            if json_data[0]['scientificName'].lower() != species.lower():
-                # Error! Species/Organism found, but doesn't match input. This shouldn't
-                # (query is case-insensitive exact match) happen, but my grandma could "
-                # probably trigger it, so here it is!
-                logging.error((f'Input species ({species}) does not match return result '
-                            f'({json_data[0]["scientificName"]}), please check spelling.'))
-                sys.exit(1)
-            logging.info(f'{species} verified in ENA Taxonomy database')
+            try:
+                json_data = r.json()
+                print(json_data)
+                if json_data[0]['scientificName'].lower() != species.lower():
+                    # Error! Species/Organism found, but doesn't match input. This shouldn't
+                    # (query is case-insensitive exact match) happen, but my grandma could "
+                    # probably trigger it, so here it is!
+                    logging.error((f'Input species ({species}) does not match return result '
+                                f'({json_data[0]["scientificName"]}), please check spelling.'))
+                    sys.exit(1)
+                logging.info(f'{species} verified in ENA Taxonomy database')
+            except json.decoder.JSONDecodeError:
+                if r.text == "No results.":
+                    logging.error(f'Input species ({species}) not found, please check spelling.')
+                    sys.exit(1)
         else:
             # Error! Species/Organism not found. Check spelling?
             # TODO: Implement"Did you mean?" function
@@ -407,7 +413,7 @@ def process_cds(cds):
 
 
 def setup_prokka(request, available_datasets, outdir, force=False,
-                 include_genus=False, limit=None, accession_file=None, identity=0.9, 
+                 include_genus=False, limit=None, user_accessions=None, identity=0.9, 
                  overlap=0.8, max_memory=0, fast_cluster=False, keep_files=False, 
                  cpus=1):
     """
@@ -453,31 +459,37 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             logging.info(f'Downloading completed genomes')
             genome_dir = f'{prokka_dir}/genomes'
             genus = ' '.join(request.split()[0:2])
-            if include_genus:
-                genus = genus.split()[0]            
-                execute(f'mkdir {genome_dir}')
-                accessions = []
+            execute(f'mkdir {genome_dir}')
+            accessions = []
+            accession_file = f'{genome_dir}/accessions.txt'
+            if user_accessions:
+                execute(f'cp {user_accessions} {accession_file}')
+                if include_genus:
+                    logging.info(f'Ignoring `--include_genus` since a file of accessions was given.')
+                if limit:
+                    logging.info(f'Ignoring `--limit {limit}` since a file of accessions was given.')
+            else:
+                if include_genus:
+                    genus = genus.split()[0]
+
                 results = execute((f'ncbi-genome-download bacteria --genera "{genus}" '
-                                   f'-l complete -F genbank -r 80 --dry-run'), capture=True)
+                                f'-l complete -F genbank -r 80 --dry-run'), capture=True)
 
                 for line in results.split('\n'):
                     if line and not line.startswith('Considering'):
                         accessions.append(line.split()[0])
 
-            accessions_dl = accessions
-            if limit:
-                if len(accessions) > limit:
-                    logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
-                    
-                    accessions_dl = random.sample(accessions, limit)
-
-                else:
-                    logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
+                accessions = accessions
+                if limit:
+                    if len(accessions) > limit:
+                        logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
+                        accessions = random.sample(accessions, limit)
+                    else:
+                        logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
             
-            accession_file = f'{genome_dir}/accessions.txt'
-            with open(accession_file, 'w') as accession_fh:
-                for accession in accessions_dl:
-                    accession_fh.write(f'{accession}\n')
+                with open(accession_file, 'w') as accession_fh:
+                    for accession in accessions:
+                        accession_fh.write(f'{accession}\n')
 
             execute((f'ncbi-genome-download bacteria -A {accession_file} '
                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 80 '
@@ -970,7 +982,15 @@ if __name__ == '__main__':
     num_species = 0
     if args.species:
         num_species = validate_species(args.species)
-    
+
+    if args.include_genus:
+        if not num_species:
+            logging.error(f'Species (--species) not given, ignoring --include_genus')
+            sys.exit(1)
+        elif num_species > 1:
+            logging.error(f'Only a single species (given {num_species}) can be used with --include_genus')
+            sys.exit(1)
+
     if args.prodigal_tf:
         if not os.path.exists(args.prodigal_tf):
             logging.error(f'Unable to locate {args.prodigal_tf}, please verify path')
@@ -982,6 +1002,17 @@ if __name__ == '__main__':
             logging.error(f'Only a single species (given {num_species}) can be used with --prodigal_tf')
             sys.exit(1)
 
+    if args.accessions:
+        if not os.path.exists(args.accessions):
+            logging.error(f'Unable to locate {args.accessions}, please verify path')
+            sys.exit(1)
+        elif not num_species:
+            logging.error(f'A single species (--species) must be given to use --accessions')
+            sys.exit(1)
+        elif num_species > 1:
+            logging.error(f'Only a single species (given {num_species}) can be used with --accessions')
+            sys.exit(1)
+            
     ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.list_datasets:
         list_datasets(ARIBA, PUBMLST)
@@ -1020,7 +1051,7 @@ if __name__ == '__main__':
             setup_prokka(
                 args.species, PUBMLST, species_dir, cpus=args.cpus,
                 include_genus=args.include_genus, limit=args.limit,
-                accession_file=args.accessions, identity=args.identity,
+                user_accessions=args.accessions, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,
                 fast_cluster=args.fast_cluster, keep_files=args.keep_files,
                 force=(args.force or args.force_prokka)

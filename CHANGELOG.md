@@ -1,5 +1,13 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.2 bactopia/bactopia "Tamas Ring" - 2020/08/10
+### `Added`
+- added requirement checks of `--accessions` in `bactopia datasets`
+- improved ENA spell check for species name
+
+### `Fixed`
+- file of accessions not working with `bactopia datasets`
+
 ## v1.4.1 bactopia/bactopia "Rajas Ring" - 2020/08/06
 ### `Added`
 - Links to publication (woohoo!)
