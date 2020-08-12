@@ -113,7 +113,7 @@
     },
     "CheckM": {
         "conda": {
-            "name": "checkm", 
+            "name": "checkm-genome", 
             "yaml": "conda/assembly_qc.yml"
         }, 
         "description": "Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes", 
@@ -242,7 +242,7 @@
     "ISMapper": {
         "conda": {
             "name": "ismapper", 
-            "yaml": "conda/insertion_sequences.yml"
+            "yaml": "tools/ismapper/environment.yml"
         }, 
         "description": "IS mapping software", 
         "link": "https://github.com/jhawkey/IS_mapper" 

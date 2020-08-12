@@ -1,5 +1,11 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.3 bactopia/bactopia "" - 2020/08/??
+### `Fixed`
+- `bactopia versions` and `bactopia citations` improper execution
+- Convert spaces to tabs in citation doc
+- Corrected CheckM name in program version info file
+
 ## v1.4.2 bactopia/bactopia "Tamas Ring" - 2020/08/10
 ### `Added`
 - added requirement checks of `--accessions` in `bactopia datasets`

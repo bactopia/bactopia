@@ -113,19 +113,11 @@ elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
-    if [[ -z "$2" ]]; then
-        bactopia-citations.py
-    else
-        bactopia-citations.py --bactopia ${BACTOPIA_NF} "${@:2}"
-    fi
+    bactopia-citations.py --bactopia ${BACTOPIA_NF} "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 elif [[ "$1" == "versions" ]]; then
-    if [[ -z "$2" ]]; then
-        bactopia-versions.py
-    else
-        bactopia-versions.py --bactopia ${BACTOPIA_NF} "${@:2}"
-    fi
+    bactopia-versions.py --bactopia ${BACTOPIA_NF} "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1

@@ -20,7 +20,7 @@ SILVA rRNA Database	datasets	Quast C, Pruesse E, Yilmaz P, et al. The SILVA ribo
 AMRFinder+	tools	Feldgarden M, Brover V, Haft DH, et al. Validating the NCBI AMRFinder Tool and Resistance Gene Database Using Antimicrobial Resistance Genotype-Phenotype Correlations in a Collection of NARMS Isolates. Antimicrob Agents Chemother. August 2019. doi:10.1128/AAC.00483-19
 Aragorn	tools	Laslett D, Canback B. ARAGORN, a program to detect tRNA genes and tmRNA genes in nucleotide sequences. Nucleic Acids Res. 2004;32(1):11-16. doi:10.1093/nar/gkh152
 Ariba	tools	Hunt M, Mather AE, Sánchez-Busó L, et al. ARIBA: rapid antimicrobial resistance genotyping directly from sequencing reads. Microb Genom. 2017;3(10):e000131. doi:10.1099/mgen.0.000131
-ART tools   Huang W, Li L, Myers JR, Marth GT. ART: a next-generation sequencing read simulator. Bioinformatics. 2012;28(4):593-594. doi:10.1093/bioinformatics/btr708
+ART	tools	Huang W, Li L, Myers JR, Marth GT. ART: a next-generation sequencing read simulator. Bioinformatics. 2012;28(4):593-594. doi:10.1093/bioinformatics/btr708
 assembly-scan	tools	Petit RA III. Assembly-Scan: Generate Basic Stats for an Assembly. Github https://github.com/rpetit3/assembly-scan. Accessed September 24, 2019.
 Barrnap	tools	Seemann T. Barrnap: Bacterial Ribosomal RNA Predictor. Github https://github.com/tseemann/barrnap. Accessed September 24, 2019.
 BBMap	tools	Bushnell B. BBMap short read aligner. University of California, Berkeley, California URL http://sourceforge net/projects/bbmap. 2016.
@@ -28,11 +28,11 @@ BCFtools	tools	Danecek P. BCFtools - Utilities for Variant Calling and Manipulat
 Bedtools	tools	Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010;26(6):841-842. doi:10.1093/bioinformatics/btq033
 BioPython	tools	Cock PJA, Antao T, Chang JT, et al. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics. 2009;25(11):1422-1423. doi:10.1093/bioinformatics/btp163
 BLAST+	tools	Camacho C, Coulouris G, Avagyan V, et al. BLAST+: architecture and applications. BMC Bioinformatics. 2009;10:421. doi:10.1186/1471-2105-10-421
-Bowtie2 tools   Langmead B, Salzberg SL. Fast gapped-read alignment with Bowtie 2. Nat Methods. 2012;9(4):357-359. doi:10.1038/nmeth.1923
+Bowtie2	tools	Langmead B, Salzberg SL. Fast gapped-read alignment with Bowtie 2. Nat Methods. 2012;9(4):357-359. doi:10.1038/nmeth.1923
 BWA	tools	Li H. Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv [q-bioGN]. March 2013. http://arxiv.org/abs/1303.3997.
 CD-HIT	tools	Li W, Godzik A. Cd-hit: a fast program for clustering and comparing large sets of protein or nucleotide sequences. Bioinformatics. 2006;22(13):1658-1659. doi:10.1093/bioinformatics/btl158
 CD-HIT	tools	Fu L, Niu B, Zhu Z, Wu S, Li W. CD-HIT: accelerated for clustering the next-generation sequencing data. Bioinformatics. 2012;28(23):3150-3152. doi:10.1093/bioinformatics/bts565
-CheckM  tools   Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW. CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes. Genome Res. 2015;25(7):1043-1055. doi:10.1101/gr.186072.114
+CheckM	tools	Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW. CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes. Genome Res. 2015;25(7):1043-1055. doi:10.1101/gr.186072.114
 ClonalFrameML	tools	Didelot X, Wilson DJ. ClonalFrameML: efficient inference of recombination in whole bacterial genomes. PLoS Comput Biol. 2015;11(2):e1004041. doi:10.1371/journal.pcbi.1004041
 DIAMOND	tools	B. Buchfink, C. Xie, D. H. Huson, Fast and sensitive protein alignment using DIAMOND. Nat. Methods. 12, 59–60 (2015). doi:10.1038/nmeth.3176
 eggNOG-mapper	tools	J. Huerta-Cepas, K. Forslund, L. P. Coelho, D. Szklarczyk, L. J. Jensen, C. von Mering, P. Bork, Fast Genome-Wide Functional Annotation through Orthology Assignment by eggNOG-Mapper. Mol. Biol. Evol. 34, 2115–2122 (2017) doi:10.1093/molbev/msx148 
@@ -70,8 +70,8 @@ PIRATE	tools	S. C. Bayliss, H. A. Thorpe, N. M. Coyle, S. K. Sheppard, E. J. Fei
 pplacer	tools	Matsen FA, Kodner RB, Armbrust EV. pplacer: linear time maximum-likelihood and Bayesian phylogenetic placement of sequences onto a fixed reference tree. BMC Bioinformatics. 2010;11:538. doi:10.1186/1471-2105-11-538
 Prodigal	tools	Hyatt D, Chen G-L, Locascio PF, Land ML, Larimer FW, Hauser LJ. Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC Bioinformatics. 2010;11:119. doi:10.1186/1471-2105-11-119
 Prokka	tools	Seemann T. Prokka: rapid prokaryotic genome annotation. Bioinformatics. 2014;30(14):2068-2069. doi:10.1093/bioinformatics/btu153
-QUAST   tools   Gurevich A, Saveliev V, Vyahhi N, Tesler G. QUAST: quality assessment tool for genome assemblies. Bioinformatics. 2013;29(8):1072-1075. doi:10.1093/bioinformatics/btt086
-Racon   tools   Vaser R, Sović I, Nagarajan N, Šikić M. Fast and accurate de novo genome assembly from long uncorrected reads. Genome Res. 2017;27(5):737-746. doi:10.1101/gr.214270.116
+QUAST	tools	Gurevich A, Saveliev V, Vyahhi N, Tesler G. QUAST: quality assessment tool for genome assemblies. Bioinformatics. 2013;29(8):1072-1075. doi:10.1093/bioinformatics/btt086
+Racon	tools	Vaser R, Sović I, Nagarajan N, Šikić M. Fast and accurate de novo genome assembly from long uncorrected reads. Genome Res. 2017;27(5):737-746. doi:10.1101/gr.214270.116
 Roary	tools	Page AJ, Cummins CA, Hunt M, et al. Roary: rapid large-scale prokaryote pan genome analysis. Bioinformatics. 2015;31(22):3691-3693. doi:10.1093/bioinformatics/btv421
 samclip	tools	Seemann T. Samclip: Filter SAM File for Soft and Hard Clipped Alignments. Github https://github.com/tseemann/samclip. Accessed September 24, 2019.
 SAMtools	tools	Li H, Handsaker B, Wysoker A, et al. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009;25(16):2078-2079. doi:10.1093/bioinformatics/btp352
@@ -85,7 +85,7 @@ SNP-sites	tools	Page AJ, Taylor B, Delaney AJ, et al. SNP-sites: rapid efficient
 Sourmash	tools	Titus Brown C, Irber L. sourmash: a library for MinHash sketching of DNA. JOSS. 2016;1(5):27. doi:10.21105/joss.00027
 SPAdes	tools	Bankevich A, Nurk S, Antipov D, et al. SPAdes: A New Genome Assembly Algorithm and Its Applications to Single-Cell Sequencing | Journal of Computational Biology. Mary Ann Liebert, Inc., publishers. https://www.liebertpub.com/doi/10.1089/cmb.2012.0021. Accessed November 8, 2018.
 Trimmomatic	tools	Bolger AM, Lohse M, Usadel B. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics. 2014;30(15):2114-2120. doi:10.1093/bioinformatics/btu170
-Unicycler   tools   Wick RR, Judd LM, Gorrie CL, Holt KE. Unicycler: Resolving bacterial genome assemblies from short and long sequencing reads. PLoS Comput Biol. 2017;13(6):e1005595. doi:10.1371/journal.pcbi.1005595
+Unicycler	tools	Wick RR, Judd LM, Gorrie CL, Holt KE. Unicycler: Resolving bacterial genome assemblies from short and long sequencing reads. PLoS Comput Biol. 2017;13(6):e1005595. doi:10.1371/journal.pcbi.1005595
 vcf-annotator	tools	Petit RA III. VCF-Annotator: Add Biological Annotations to Variants in a VCF File. Github https://github.com/rpetit3/vcf-annotator. Accessed September 24, 2019.
 Vcflib	tools	Vcflib: A C++ Library for Parsing and Manipulating VCF Files. Github https://github.com/vcflib/vcflib. Accessed September 24, 2019.
 Velvet	tools	Zerbino DR, Birney E. Velvet: Algorithms for de novo short read assembly using de Bruijn graphs. Genome Res. 2008;18(5):821-829. doi:10.1101/gr.074492.107
