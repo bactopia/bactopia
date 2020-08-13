@@ -2,7 +2,7 @@
 """
 """
 PROGRAM = "select-references"
-VERSION = "1.4.4"
+VERSION = "1.4.5"
 
 def check_assembly_version(accession):
     from Bio import Entrez

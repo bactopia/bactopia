@@ -1,4 +1,8 @@
 # bactopia/bactopia: Changelog
+## v1.4.4 bactopia/bactopia "Bomb Queen Ring" - 2020/08/13
+### `Fixed`
+- `--min_basepairs` and `--min_reads` not being honored
+
 ## v1.4.4 bactopia/bactopia "Vilma's Ring" - 2020/08/13
 ### `Fixed`
 - `annotate_genome` name clashes
