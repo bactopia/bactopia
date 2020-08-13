@@ -15,7 +15,7 @@ example usage:
   jsonify-phyloflash ./
 """
 PROGRAM = "jsonify-phyloflash"
-VERSION = "1.4.2"
+VERSION = "1.4.3"
 
 
 def read_phyloflash(phyloflash):

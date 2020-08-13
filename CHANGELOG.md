@@ -1,10 +1,14 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.3 bactopia/bactopia "" - 2020/08/??
+## v1.4.3 bactopia/bactopia "Sattva Ring" - 2020/08/13
+### `Added`
+- `--skip_ariba` option in `bactopia datasets`
+
 ### `Fixed`
 - `bactopia versions` and `bactopia citations` improper execution
 - Convert spaces to tabs in citation doc
 - Corrected CheckM name in program version info file
+- CARD no longer default Ariba dataset download for `bactopia datasets`
 
 ## v1.4.2 bactopia/bactopia "Tamas Ring" - 2020/08/10
 ### `Added`

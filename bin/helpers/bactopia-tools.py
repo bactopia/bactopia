@@ -14,7 +14,7 @@ optional arguments:
 """
 import sys
 
-VERSION = "1.4.2"
+VERSION = "1.4.3"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {

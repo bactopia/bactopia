@@ -2,7 +2,7 @@
 # build-containers
 #
 # Create a blank tool.
-VERSION=1.4.2
+VERSION=1.4.3
 
 if [[ $# == 0 ]]; then
     echo ""
