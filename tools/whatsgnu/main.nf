@@ -4,12 +4,78 @@ VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}/${params.prefix}"
 OVERWRITE = workflow.resume || params.force ? true : false
 
+WHATSGNU_DB = [
+    "k_pneumoniae_ortho": [
+        "filetype": "zip",
+        "url": 'https://zenodo.org/record/3774324/files/WhatsGNU_Kp_Ortholog.zip?download=1'
+    ],
+    "s_aureus_ortho": [
+        "filetype": "zip",
+        "url": 'https://www.dropbox.com/sh/p292mia4oc99hx6/AACPuv7uoYUkZ1WCBDX0XPSVa?dl=0'
+    ],
+    "m_tuberculosis_ortho": [
+        "filetype": "zip",
+        "url": 'https://www.dropbox.com/sh/8nqowtd4fcf7dgs/AAAdXiqcxTsEqfIAyNE9TWwRa?dl=0'
+    ],
+    "p_aeruginosa_ortho": [
+        "filetype": "zip",
+        "url": 'https://www.dropbox.com/sh/r0wvoig3alsz7xg/AABPoNu6FdN7zG2PP9BFezQYa?dl=0'
+    ],
+    "s_aureus_staphopia": [
+        "filetype": "pickle",
+        "url": 'https://www.dropbox.com/s/bcs922768tjrwwg/Sau_Staphopia_basic_43914.pickle?dl=0'
+    ],
+    "S_enterica_enterobase": [
+        "filetype": "pickle",
+        "url": 'https://www.dropbox.com/s/gbjengikpynxo12/Senterica_Enterobase_basic_216642.pickle?dl=0'
+    ],
+
+
+]
+
 // Validate parameters
 if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
+
+
+
+process setup_database {
+
+    shell:
+    whatsg_filetype = null
+    whatsgnu_url = null
+    if (params.whatsgnu_db) {
+        whatsgnu_filetype = WHATSGNU_DB[params.whatsgnu_db]['filetype']
+        whatsgnu_url = WHATSGNU_DB[params.whatsgnu_db]['url']
+    }
+    """
+    if [ "!{use_whatsgnu_db}" == "true" ]; then
+        wget -O !{params.whatsgnu_db}.!{whatsgnu_filetype} !{whatsgnu_url}
+        if [ "!{whatsgnu_filetype}" == "zip" ]; then
+            unzip !{params.whatsgnu_db}.!{whatsgnu_filetype} -d whatsgnu_db/
+        else
+            mkdir whatsgnu_db
+            mv !{params.whatsgnu_db}.!{whatsgnu_filetype} whatsgnu_db
+        fi
+    elif [ "!{params.species}" != "null" ]; then
+        # Build with RefSeq downloads
+    else
+        # Build with current set
+    fi
+    """
+
+}
+
+process calculate_gnu {
+
+}
+
+process make_plots {
+
+}
 
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")

@@ -169,7 +169,6 @@ def validate_species(species):
         if r.status_code == requests.codes.ok:
             try:
                 json_data = r.json()
-                print(json_data)
                 if json_data[0]['scientificName'].lower() != species.lower():
                     # Error! Species/Organism found, but doesn't match input. This shouldn't
                     # (query is case-insensitive exact match) happen, but my grandma could "
@@ -838,7 +837,7 @@ if __name__ == '__main__':
         epilog=textwrap.dedent(f'''
             example usage:
               {PROGRAM} outdir
-              {PROGRAM} outdir --ariba 'card'
+              {PROGRAM} outdir --ariba 'vfdb_core'
               {PROGRAM} outdir --species 'Staphylococcus aureus' --include_genus
         ''')
     )
@@ -855,9 +854,13 @@ if __name__ == '__main__':
 
     group1 = parser.add_argument_group('Ariba Reference Datasets')
     group1.add_argument(
-        '--ariba', metavar="STR", type=str, default='card,vfdb_core',
+        '--skip_ariba', action='store_true',
+        help=('Skip setup of Ariba datasets')
+    )
+    group1.add_argument(
+        '--ariba', metavar="STR", type=str, default='vfdb_core',
         help=('Setup Ariba datasets for a given reference or a list of '
-              'references in a text file. (Default: card,vfdb_core)')
+              'references in a text file. (Default: vfdb_core)')
     )
 
     group2 = parser.add_argument_group('Bacterial Species')
@@ -1017,14 +1020,17 @@ if __name__ == '__main__':
     if args.list_datasets:
         list_datasets(ARIBA, PUBMLST)
 
-    if args.ariba:
-        logging.info('Setting up Ariba datasets')
-        setup_ariba(
-            args.ariba, ARIBA, args.outdir, keep_files=args.keep_files,
-            force=(args.force or args.force_ariba)
-        )
+    if not args.skip_ariba:
+        if args.ariba:
+            logging.info('Setting up Ariba datasets')
+            setup_ariba(
+                args.ariba, ARIBA, args.outdir, keep_files=args.keep_files,
+                force=(args.force or args.force_ariba)
+            )
+        else:
+            logging.info('No requests for an Ariba dataset, skipping')
     else:
-        logging.info('No requests for an Ariba dataset, skipping')
+        logging.info('Skipping Ariba dataset step')
 
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer datasets')
