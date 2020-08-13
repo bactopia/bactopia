@@ -1,5 +1,5 @@
 # bactopia/bactopia: Changelog
-## v1.4.4 bactopia/bactopia "Bomb Queen Ring" - 2020/08/13
+## v1.4.5 bactopia/bactopia "Bomb Queen Ring" - 2020/08/13
 ### `Fixed`
 - `--min_basepairs` and `--min_reads` not being honored
 
