@@ -19,7 +19,7 @@ example usage:
   phyloflash-summary ./
 """
 PROGRAM = "phyloflash-summary"
-VERSION = "1.4.3"
+VERSION = "1.4.4"
 
 def read_fasta(fasta):
     """ Kudos: https://www.biostars.org/p/710/ """

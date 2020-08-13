@@ -18,7 +18,7 @@ optional arguments:
   --version     show program's version number and exit
 """
 PROGRAM = "mask-consensus"
-VERSION = "1.4.3"
+VERSION = "1.4.4"
 import sys
 
 

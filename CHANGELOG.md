@@ -1,4 +1,8 @@
 # bactopia/bactopia: Changelog
+## v1.4.4 bactopia/bactopia "Vilma's Ring" - 2020/08/13
+### `Fixed`
+- `annotate_genome` name clashes
+- Updated `fastq-dl` version to support new ENA API endpoint
 
 ## v1.4.3 bactopia/bactopia "Sattva Ring" - 2020/08/13
 ### `Added`
