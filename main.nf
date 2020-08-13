@@ -32,8 +32,8 @@ BLAST_PRIMER_FASTAS = []
 BLAST_PROTEIN_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
-PROKKA_PROTEINS = file('EMPTY')
-PRODIGAL_TF = file('EMPTY')
+PROKKA_PROTEINS = file('EMPTY_PROTEINS')
+PRODIGAL_TF = file('EMPTY_TF')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
@@ -271,7 +271,7 @@ process annotate_genome {
     genus = "Genus"
     species = "species"
     proteins = ""
-    if (prokka_proteins.getName() != 'EMPTY') {
+    if (prokka_proteins.getName() != 'EMPTY_PROTEINS') {
         proteins = "--proteins ${prokka_proteins}"
         if (SPECIES.contains("-")) {
             genus = SPECIES.split('-')[0].capitalize()
@@ -283,7 +283,7 @@ process annotate_genome {
     }
 
     prodigal = ""
-    if (prodigal_tf.getName() != 'EMPTY' && !params.skip_prodigal_tf) {
+    if (prodigal_tf.getName() != 'EMPTY_TF' && !params.skip_prodigal_tf) {
         prodigal = "--prodigaltf ${prodigal_tf}"
     }
 
