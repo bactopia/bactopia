@@ -10,8 +10,8 @@ else
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         # Not completely sure about the inputs, so make sure they meet minimum requirements
         zcat *.fastq.gz | fastq-scan > info.txt
-        SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
-        TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*:([0-9]+),/\1/'`
+        SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
+        TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
         rm info.txt
 
         # Check paired-end reads have same read counts
