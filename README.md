@@ -81,7 +81,7 @@ Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly ev
 I would like to personally extend my many thanks and gratitude to the authors of these software packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. Really, thank you very much!
 
 # Alternatives
-In case Bactopia doesn't fit your needs, here are two alternatives I highly recommend you check out the following.
+In case Bactopia doesn't fit your needs, here are some alternatives I highly recommend you check out the following.
 
 * __[ASA³P](https://github.com/oschwengers/asap)__  
 Schwengers O, Hoek A, Fritzenwanker M, Falgenhauer L, Hain T, Chakraborty T, Goesmann A. *ASA³P: An automatic and scalable pipeline for the assembly, annotation and higher-level analysis of closely related bacterial isolates.* __PLoS Comput Biol__ 2020;16:e1007134. https://doi.org/10.1371/journal.pcbi.1007134.
