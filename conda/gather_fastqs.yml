@@ -97,6 +97,7 @@ dependencies:
   - sra-tools=2.10.8=pl526haddd2b5_0
   - tk=8.6.10=hed695b0_0
   - urllib3=1.25.10=py_0
+  - util-linux=2.35=py38h332c769_1
   - verboselogs=1.7=py_0
   - wget=1.20.1=h22169c7_0
   - wheel=0.34.2=py_1

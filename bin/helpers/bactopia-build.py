@@ -79,6 +79,8 @@ if __name__ == '__main__':
         default="yml",
         help='Extension of the Conda environment files. Default: .yml'
     )
+    parser.add_argument('--default', action='store_true',
+                        help='Builds Conda environments to the default Bactopia location (will overwrite).')
     parser.add_argument('--force', action='store_true',
                         help='Force overwrite of existing Conda environments.')
     parser.add_argument('--verbose', action='store_true',

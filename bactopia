@@ -99,7 +99,11 @@ elif [[ "$1" == "prepare" ]]; then
 elif [[ "$1" == "search" ]]; then
     bactopia-search.py "${@:2}"
 elif [[ "$1" == "build" ]]; then
-    bactopia-build.py "${@:2}"
+    if [[ "$2" == "--default" ]]; then
+        bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
+    else
+        bactopia-build.py "${@:2}"
+    fi
 elif [[ "$1" == "tools" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-tools.py
