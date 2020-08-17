@@ -1,4 +1,10 @@
 # bactopia/bactopia: Changelog
+
+## v1.4.6 bactopia/bactopia "" - 2020/08/??
+### `Added`
+- Option to rebuild conda envs to default location
+- Updated fastq-dl for sra-toolkit forced interaction workaround
+
 ## v1.4.5 bactopia/bactopia "Bomb Queen Ring" - 2020/08/13
 ### `Fixed`
 - `--min_basepairs` and `--min_reads` not being honored

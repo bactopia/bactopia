@@ -28,7 +28,6 @@ else
         ASPERA_SPEED="--aspera_speed !{params.aspera_speed}"
         FTP_ONLY=""
         ARCHIVE=""
-        NCBI_HOME=~/.ncbi
 
         # Check if ascp is available
         if [ "!{params.use_ena}" == "true" ]; then
@@ -48,13 +47,6 @@ else
             ARCHIVE="ENA"
         else
             ARCHIVE="SRA"
-        fi
-
-        if [ ${ARCHIVE} == "SRA" ]; then
-            if [ ! -d "${NCBI_HOME}" ]; then
-                mkdir ~/.ncbi
-                printf '/LIBS/GUID = "%s"\n' `uuidgen` >> ~/.ncbi/user-settings.mkfg
-            fi
         fi
 
         # Download accession from ENA/SRA
