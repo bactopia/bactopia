@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.6 bactopia/bactopia "" - 2020/08/??
+## v1.4.6 bactopia/bactopia "Astral Ring" - 2020/08/17
 ### `Added`
 - Option to rebuild conda envs to default location
 - Updated fastq-dl for sra-toolkit forced interaction workaround

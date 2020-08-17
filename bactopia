@@ -35,7 +35,7 @@
 # bactopia tools --help
 # bactopia version
 # bactopia --help
-VERSION=1.4.5
+VERSION=1.4.6
 CONTAINER_VERSION="${VERSION%.*}.x"
 CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}"
