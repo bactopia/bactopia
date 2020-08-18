@@ -11,7 +11,7 @@ else
     fi
 
     if [ "!{renamed}" == "true" ]; then
-        echo "Original sample name (!{sample}) not used due to length (>37 characters)"
+        echo "Original sample name (!{sample}) not used due to creating a contig ID >37 characters"
     fi
 
     prokka --outdir annotation \

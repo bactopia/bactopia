@@ -290,10 +290,11 @@ process annotate_genome {
     }
 
     compliant = params.compliant ? "--compliant" : ""
-    locustag = ""
+    locustag = "--locustag ${sample}"
     renamed = false
-    if (sample.length() <= 37) {
-        locustag = "--locustag ${sample}"
+    // Contig ID must <= 37 characters
+    if ("gnl|${params.centre}|${sample}".length() > 37) {
+        locustag = ""
         compliant = "--compliant"
         renamed = true
     }
