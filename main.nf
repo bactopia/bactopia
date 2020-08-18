@@ -54,6 +54,7 @@ process gather_fastqs {
     shell:
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = false
+    no_cache = params.no_cache ? '-N' : ''
     if (extra) {
         is_compressed = extra.getName().endsWith('gz') ? true : false
     }
@@ -460,6 +461,7 @@ process download_references {
     REFSEQ_SKETCH_FOUND == true || params.dry_run == true
 
     shell:
+    no_cache = params.no_cache ? '-N' : ''
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
     total = params.max_references
     template(task.ext.template)
@@ -1527,6 +1529,8 @@ def full_help() {
 
         --aspera_speed STR      Speed at which Aspera Connect will download.
                                     Default: ${params.aspera_speed}
+
+        --no_cache              Don't cache the assembly summary file from ncbi-genome-download
 
     FASTQ Minimum Requirements Parameters:
         --min_basepairs INT     The minimum amount of input sequenced basepairs required

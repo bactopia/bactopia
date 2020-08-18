@@ -16,7 +16,7 @@ else
     grep -v distance mash-dist.txt | cut -f3 > download-list.txt
 
     # Download genomes
-    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50
+    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50 !{no_cache}
 
     # Split Genbank files containing plasmids
     mkdir -p refseq/split

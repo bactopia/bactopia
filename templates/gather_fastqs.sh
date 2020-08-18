@@ -61,7 +61,7 @@ else
             # Download from NCBI assembly and simulate reads
             mkdir fasta/
             ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
-                                          -s !{section} -A !{sample} -r 50
+                                          -s !{section} -A !{sample} -r 50 !{no_cache}
             find -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
             if [ "!{section}" == 'refseq' ]; then
                 rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
