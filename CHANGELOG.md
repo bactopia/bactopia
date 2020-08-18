@@ -1,5 +1,11 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.7 bactopia/bactopia "" - 2020/08/??
+### `Added`
+
+### `Fixed`
+- Long sample names breaking Prokka annotation
+
 ## v1.4.7 bactopia/bactopia "Serket Ring" - 2020/08/17
 ### `Added`
 - `--no_cache` to skip caching ncbi assembly info

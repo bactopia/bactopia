@@ -10,10 +10,13 @@ else
         gunzip -f !{fasta}
     fi
 
+    if [ "!{renamed}" == "true" ]; then
+        echo "Original sample name (!{sample}) not used due to length (>37 characters)"
+    fi
+
     prokka --outdir annotation \
         --force \
         --prefix '!{sample}' \
-        --locustag '!{sample}' \
         --genus '!{genus}' \
         --species '!{species}' \
         --evalue '!{params.prokka_evalue}' \
@@ -21,6 +24,7 @@ else
         --cpus !{task.cpus} \
         --centre '!{params.centre}' \
         --mincontiglen !{params.min_contig_len} \
+        !{locustag} \
         !{prodigal} \
         !{addgenes} \
         !{compliant} \

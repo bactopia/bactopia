@@ -272,6 +272,7 @@ process annotate_genome {
     genus = "Genus"
     species = "species"
     proteins = ""
+
     if (prokka_proteins.getName() != 'EMPTY_PROTEINS') {
         proteins = "--proteins ${prokka_proteins}"
         if (SPECIES.contains("-")) {
@@ -289,6 +290,13 @@ process annotate_genome {
     }
 
     compliant = params.compliant ? "--compliant" : ""
+    locustag = ""
+    renamed = false
+    if (sample.length() <= 37) {
+        locustag = "--locustag ${sample}"
+        compliant = "--compliant"
+        renamed = true
+    }
     addgenes = params.nogenes ? "" : "--addgenes"
     addmrna = params.addmrna ? "--addmrna" : ""
     rawproduct = params.rawproduct ? "--rawproduct" : ""
