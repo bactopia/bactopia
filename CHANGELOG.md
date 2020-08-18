@@ -1,5 +1,9 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.7 bactopia/bactopia "Serket Ring" - 2020/08/17
+### `Added`
+- `--no_cache` to skip caching ncbi assembly info
+
 ## v1.4.6 bactopia/bactopia "Astral Ring" - 2020/08/17
 ### `Added`
 - Option to rebuild conda envs to default location
