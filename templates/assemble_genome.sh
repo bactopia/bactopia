@@ -64,6 +64,7 @@ else
     fi
 
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
+    touch "total_contigs_${TOTAL_CONTIGS}"
     if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
         assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json
         TOTAL_CONTIG_SIZE=`grep "total_contig_length" ${OUTDIR}/!{sample}.fna.json | sed -r 's/.*: ([0-9]+)/\1/'`

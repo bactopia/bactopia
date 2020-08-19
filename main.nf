@@ -185,7 +185,8 @@ process assemble_genome {
     output:
     file "assembly/*"
     file "${sample}-assembly-error.txt" optional true
-    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into ANNOTATION, MAKE_BLASTDB, SEQUENCE_TYPE
+    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into MAKE_BLASTDB, SEQUENCE_TYPE
+    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}"), file("total_contigs_*") optional true into ANNOTATION
     set val(sample), file("assembly/${sample}.{fna,fna.gz}"), file(genome_size) optional true into ASSEMBLY_QC
 
     shell:
@@ -253,14 +254,16 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
+    publishDir "${outdir}/${sample}/annotation", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "annotation/${sample}*"
 
     input:
-    set val(sample), val(single_end), file(fq), file(fasta) from ANNOTATION
+    set val(sample), val(single_end), file(fq), file(fasta), file(total_contigs) from ANNOTATION
     file prokka_proteins from PROKKA_PROTEINS
     file prodigal_tf from PRODIGAL_TF
 
     output:
+    file("logs/*") optional true
     file "annotation/${sample}*"
     set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
     set val(sample),
@@ -269,10 +272,10 @@ process annotate_genome {
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
+    contig_count = total_contigs.getName().replace('total_contigs_', '')
     genus = "Genus"
     species = "species"
     proteins = ""
-
     if (prokka_proteins.getName() != 'EMPTY_PROTEINS') {
         proteins = "--proteins ${prokka_proteins}"
         if (SPECIES.contains("-")) {
@@ -293,7 +296,7 @@ process annotate_genome {
     locustag = "--locustag ${sample}"
     renamed = false
     // Contig ID must <= 37 characters
-    if ("gnl|${params.centre}|${sample}".length() > 37) {
+    if ("gnl|${params.centre}|${sample}_${contig_count}".length() > 37) {
         locustag = ""
         compliant = "--compliant"
         renamed = true
@@ -730,7 +733,7 @@ def print_available_datasets(dataset) {
     exit_code = 0
     if (dataset) {
         if (file("${dataset}/summary.json").exists()) {
-            available_datasets = read_dataset_summary(dataset)
+            available_datasets = read_json("${dataset}/summary.json")
             log.info 'Printing the available pre-configured dataset.'
             log.info "Database Location (--datasets): ${dataset}"
             log.info ''
@@ -780,9 +783,9 @@ def print_available_datasets(dataset) {
 }
 
 
-def read_dataset_summary(dataset) {
+def read_json(json_file) {
     slurp = new JsonSlurper()
-    return slurp.parseText(file("${dataset}/summary.json").text)
+    return slurp.parseText(file(json_file).text)
 }
 
 
@@ -854,7 +857,7 @@ def setup_datasets() {
     species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
     if (params.datasets) {
         dataset_path = params.datasets
-        available_datasets = read_dataset_summary(dataset_path)
+        available_datasets = read_json("${dataset_path}/summary.json")
 
         available_datasets['ariba'].each {
             ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
@@ -1490,6 +1493,8 @@ def basic_help() {
                                     only a single '-'
 
     Useful Parameters:
+        --skip_logs             Logs for each process per sample will not be kept.
+
         --available_datasets    Print a list of available datasets found based
                                     on location given by "--datasets"
 
