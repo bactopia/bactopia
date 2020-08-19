@@ -2,9 +2,15 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     touch !{sample}.ctx
 else
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
+    echo "# mccortex31 Version" >> ${LOG_DIR}/!{task.process}.versions
+    mccortex31 2>&1 | grep "version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
     if [ "!{single_end}" == "false" ]; then
         # Paired-End Reads
         mccortex31 build -f -k 31 -s !{sample} -2 !{fq[0]}:!{fq[1]} -t !{task.cpus} -m !{m}mb -q temp_counts
@@ -19,5 +25,15 @@ else
         rm temp_counts
     else
         mv temp_counts !{sample}.ctx
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

@@ -2,10 +2,16 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     touch mash-dist.txt
 else
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
+
     # Get Mash distance
+    echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
+    mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
     mash dist -t !{sample_sketch} !{refseq_sketch} | grep -v "query" | sort -k 2,2 > distances.txt
 
     # Pick genomes to download
@@ -16,7 +22,9 @@ else
     grep -v distance mash-dist.txt | cut -f3 > download-list.txt
 
     # Download genomes
-    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50 !{no_cache}
+    echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
+    ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
 
     # Split Genbank files containing plasmids
     mkdir -p refseq/split
@@ -32,5 +40,15 @@ else
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate GenBank files
         rm -rf refseq/
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

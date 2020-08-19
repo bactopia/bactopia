@@ -2,32 +2,50 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 OUTDIR=primers
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir ${OUTDIR}
     touch ${OUTDIR}/blast_primers.dry_run.json
 else
-  for fasta in *.fasta; do
-      type=`readlink -f ${fasta}`
-      name="${fasta%.*}"
-      mkdir -p ${OUTDIR} temp_json
-      cat ${fasta} |
-      parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
-      blastn -db !{sample} \
-             -outfmt 15 \
-             -task blastn \
-             -dust no \
-             -word_size 7 \
-             -perc_identity !{params.perc_identity} \
-             -evalue 1 \
-             -query - \
-             -out temp_json/${name}_{#}.json
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
+    echo "# blastn Version" >> ${LOG_DIR}/!{task.process}.versions
+    blastn -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
-      merge-blast-json.py temp_json > ${OUTDIR}/${name}.json
-      rm -rf temp_json
+    echo "# Parallel Version" >> ${LOG_DIR}/!{task.process}.versions
+    parallel --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    for fasta in *.fasta; do
+        type=`readlink -f ${fasta}`
+        name="${fasta%.*}"
+        mkdir -p ${OUTDIR} temp_json
+        cat ${fasta} |
+        parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
+        blastn -db !{sample} \
+                -outfmt 15 \
+                -task blastn \
+                -dust no \
+                -word_size 7 \
+                -perc_identity !{params.perc_identity} \
+                -evalue 1 \
+                -query - \
+                -out temp_json/${name}_{#}.json
 
-      if [[ !{params.compress} == "true" ]]; then
-          pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.json
-      fi
-  done
+        merge-blast-json.py temp_json > ${OUTDIR}/${name}.json
+        rm -rf temp_json
+
+        if [[ !{params.compress} == "true" ]]; then
+            pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.json
+        fi
+    done
+    
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
+    fi
 fi

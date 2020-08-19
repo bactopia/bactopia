@@ -2,6 +2,15 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
+mkdir -p ${LOG_DIR}
+touch ${LOG_DIR}/!{task.process}.versions
+echo "# FastQC Version" >> ${LOG_DIR}/!{task.process}.versions
+fastqc -version>> ${LOG_DIR}/!{task.process}.versions 2>&1
+
+echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
+fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
 GENOME_SIZE=`head -n 1 !{genome_size}`
 if [ "!{single_end}" == "false" ]; then
     # Paired-End Reads
@@ -21,3 +30,13 @@ mkdir -p quality-control/summary-original
 mv *.json  quality-control/summary-original
 mv *fastqc.html quality-control/summary-original
 mv *fastqc.zip quality-control/summary-original
+
+if [ "!{params.skip_logs}" == "false" ]; then 
+    cp .command.err ${LOG_DIR}/!{task.process}.err
+    cp .command.out ${LOG_DIR}/!{task.process}.out
+    cp .command.run ${LOG_DIR}/!{task.process}.run
+    cp .command.sh ${LOG_DIR}/!{task.process}.sh
+    cp .command.trace ${LOG_DIR}/!{task.process}.trace
+else
+    rm -rf ${LOG_DIR}/
+fi

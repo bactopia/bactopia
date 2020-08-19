@@ -2,13 +2,18 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir -p fastqs
     touch fastqs/!{sample}.fastq.gz
 else
     ERROR=0
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         # Not completely sure about the inputs, so make sure they meet minimum requirements
+        echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
+        fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
         zcat *.fastq.gz | fastq-scan > info.txt
         SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
         TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
@@ -53,5 +58,15 @@ else
             # Single-End Reads
             ln -s `readlink !{fq[0]}` fastqs/!{sample}.fastq.gz
         fi
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

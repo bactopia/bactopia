@@ -2,12 +2,18 @@
 set -e
 set -u
 OUTDIR=assembly
+LOG_DIR="!{task.process}"
+mkdir -p ${LOG_DIR}
+touch ${LOG_DIR}/!{task.process}.versions
+
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir ${OUTDIR}
     touch ${OUTDIR}/!{sample}.fna ${OUTDIR}/shovill.dry_run.txt
 else
     GENOME_SIZE=`head -n 1 !{genome_size}`
     if [ "!{sample_type}" == "hybrid" ]; then
+        echo "# unicycler Version" >> ${LOG_DIR}/!{task.process}.versions
+        unicycler --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
         unicycler -1 !{fq[0]} -2 !{fq[1]} -l !{extra} \
             -o ${OUTDIR} \
             --no_correct \
@@ -16,7 +22,7 @@ else
             !{keep} --mode !{params.unicycler_mode} \
             !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
-            --min_dead_end_size !{params.min_dead_end_size}
+            --min_dead_end_size !{params.min_dead_end_size} > ${LOG_DIR}/unicycler.out 2> ${LOG_DIR}/unicycler.err
         sed -r 's/^>([0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
         if [[ !{params.compress} == "true" ]]; then
             pigz -n --best -p !{task.cpus} ${OUTDIR}/*.gfa
@@ -26,6 +32,24 @@ else
         mkdir ${OUTDIR}
         zcat !{extra} > ${OUTDIR}/!{sample}.fna
     else
+        echo "# shovill Version" >> ${LOG_DIR}/!{task.process}.versions
+        shovill --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        shovill --check >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
+        if [ "!{params.assembler}" == "spades" ]; then
+            echo "# SPAdes Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
+            spades.py --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        elif [ "!{params.assembler}" == "skesa" ]; then
+            echo "# SKESA Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
+            skesa --version 2>&1 | tail -n 1 >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        elif [ "!{params.assembler}" == "velvet" ]; then
+            echo "# Velvet Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
+            velvetg | grep "^Version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        else
+            echo "# MEGAHIT Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
+            megahit --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        fi
+
         if [ "!{single_end}" == "false" ]; then
             # Paired-End Reads
             shovill --R1 !{fq[0]} --R2 !{fq[1]} --depth 0 --gsize ${GENOME_SIZE} \
@@ -38,7 +62,7 @@ else
                 --cpus !{task.cpus} \
                 --ram !{shovill_ram} \
                 --assembler !{params.assembler} \
-                --noreadcorr !{opts} !{kmers} !{nostitch} !{nocorr}
+                --noreadcorr !{opts} !{kmers} !{nostitch} !{nocorr} > ${LOG_DIR}/shovill.out 2> ${LOG_DIR}/shovill.err
         else
             # Single-End Reads
             shovill-se --se !{fq[0]} --depth 0 --gsize ${GENOME_SIZE} \
@@ -50,7 +74,7 @@ else
                 --keepfiles \
                 --cpus !{task.cpus} \
                 --ram !{shovill_ram} \
-                --assembler !{params.assembler} !{opts} !{kmers} !{nocorr}
+                --assembler !{params.assembler} !{opts} !{kmers} !{nocorr} > ${LOG_DIR}/shovill.out 2> ${LOG_DIR}/shovill.err
         fi
         sed -r 's/^>(contig[0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/contigs.fa > ${OUTDIR}/!{sample}.fna
         if [[ !{params.compress} == "true" ]]; then
@@ -66,7 +90,7 @@ else
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
     touch "total_contigs_${TOTAL_CONTIGS}"
     if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
-        assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json
+        assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json 2> ${LOG_DIR}/assembly-scan.err
         TOTAL_CONTIG_SIZE=`grep "total_contig_length" ${OUTDIR}/!{sample}.fna.json | sed -r 's/.*: ([0-9]+)/\1/'`
         if [ ${TOTAL_CONTIG_SIZE} -lt "!{params.min_genome_size}" ]; then
             mv ${OUTDIR}/!{sample}.fna ${OUTDIR}/!{sample}-error.fna
@@ -87,5 +111,15 @@ else
               !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...) for this
               outcome. Further assembly-based analysis of !{sample} will be discontinued." | \
         sed 's/^\s*//' > !{sample}-assembly-error.txt
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

@@ -3,13 +3,17 @@ set -e
 set -u
 
 OUTPUT="!{sample}-genome-size.txt"
-
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     touch ${OUTPUT}
 else
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
     if [ "!{params.genome_size}" == "null" ]; then
         # Use mash to estimate the genome size, if a genome size cannot be
         # estimated set the genome size to 0
+        echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
+        mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
         if [ "!{single_end}" == "false" ]; then
             mash sketch -o test -k 31 -m 3 -r !{fq[0]} !{fq[1]} 2>&1 | \
                 grep "Estimated genome size:" | \
@@ -81,5 +85,15 @@ else
     else
         # Use the genome size given by the user. (Should be >= 0)
         echo "!{params.genome_size}" > ${OUTPUT}
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

@@ -2,11 +2,20 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 OUTDIR=proteins
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir ${OUTDIR}
     touch ${OUTDIR}/blast_proteins.dry_run.json
 else
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
+    echo "# tblastn Version" >> ${LOG_DIR}/!{task.process}.versions
+    tblastn -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
+    echo "# Parallel Version" >> ${LOG_DIR}/!{task.process}.versions
+    parallel --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
     for fasta in *.fasta; do
         type=`readlink -f ${fasta}`
         name="${fasta%.*}"
@@ -27,4 +36,14 @@ else
             pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.json
         fi
     done
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
+    fi
 fi

@@ -2,13 +2,20 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
+mkdir -p quality-control
 if [ "!{params.dry_run}" == "true" ]; then
-    mkdir -p quality-control
     touch quality-control/!{sample}.fastq.gz
 else
+    mkdir -p ${LOG_DIR}
+    touch ${LOG_DIR}/!{task.process}.versions
     ERROR=0
     GENOME_SIZE=`head -n 1 !{genome_size}`
     TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
+
+    echo "# BBMap (bbduk.sh, reformat.sh) Version" >> ${LOG_DIR}/!{task.process}.versions
+    bbduk.sh --version 2>&1 | grep " version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    
     if [ "!{single_end}" == "false" ]; then
         # Paired-End Reads
         # Remove Adapters
@@ -25,7 +32,7 @@ else
             threads=!{task.cpus} \
             ftm=!{params.ftm} \
             !{qin} ordered=t \
-            stats=quality-control/logs/bbduk-adapter.log
+            stats=${LOG_DIR}/bbduk-adapter.log 1> ${LOG_DIR}/bbduk-adapter.out 2> ${LOG_DIR}/bbduk-adapter.err
 
         # Remove PhiX
         bbduk.sh -Xmx!{params.xmx} \
@@ -44,11 +51,13 @@ else
             tossjunk=!{params.tossjunk} \
             threads=!{task.cpus} \
             ordered=t \
-            stats=quality-control/logs/bbduk-phix.log
+            stats=${LOG_DIR}/bbduk-phix.log 1> ${LOG_DIR}/bbduk-phix.out 2> ${LOG_DIR}/bbduk-phix.err
 
         # Error Correction
         if [ "!{params.skip_error_correction}" == "false" ]; then
-            lighter -od . -r phix-r1.fq -r phix-r2.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
+            echo "# Lighter Version" >> ${LOG_DIR}/!{task.process}.versions
+            lighter -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            lighter -od . -r phix-r1.fq -r phix-r2.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> ${LOG_DIR}/lighter.out 2> ${LOG_DIR}/lighter.err
         else
             echo "Skipping error correction"
             ln -s phix-r1.fq phix-r1.cor.fq
@@ -62,7 +71,7 @@ else
                 out=subsample-r1.fq out2=subsample-r2.fq \
                 samplebasestarget=${TOTAL_BP} \
                 sampleseed=!{params.sampleseed} \
-                overwrite=t
+                overwrite=t 1> ${LOG_DIR}/reformat.out 2> ${LOG_DIR}/reformat.err
         else
             echo "Skipping coverage reduction"
             ln -s phix-r1.cor.fq subsample-r1.fq
@@ -88,7 +97,7 @@ else
             threads=!{task.cpus} \
             ftm=!{params.ftm} \
             ordered=t \
-            stats=quality-control/logs/bbduk-adapter.log
+            stats=${LOG_DIR}/bbduk-adapter.log 1> ${LOG_DIR}/bbduk-adapter.out 2> ${LOG_DIR}/bbduk-adapter.err
 
         # Remove PhiX
         bbduk.sh -Xmx!{params.xmx} \
@@ -107,11 +116,13 @@ else
             tossjunk=!{params.tossjunk} \
             threads=!{task.cpus} \
             ordered=t \
-            stats=quality-control/logs/bbduk-phix.log
+            stats=${LOG_DIR}/bbduk-phix.log 1> ${LOG_DIR}/bbduk-phix.out 2> ${LOG_DIR}/bbduk-phix.err
 
         # Error Correction
         if [ "!{params.skip_error_correction}" == "false" ]; then
-            lighter -od . -r phix-r1.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
+            echo "# Lighter Version" >> ${LOG_DIR}/!{task.process}.versions
+            lighter -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            lighter -od . -r phix-r1.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> ${LOG_DIR}/lighter.out 2> ${LOG_DIR}/lighter.err
         else
             echo "Skipping error correction"
             ln -s phix-r1.fq phix-r1.cor.fq
@@ -124,7 +135,7 @@ else
                 out=subsample-r1.fq \
                 samplebasestarget=${TOTAL_BP} \
                 sampleseed=!{params.sampleseed} \
-                overwrite=t
+                overwrite=t 1> ${LOG_DIR}/reformat.out 2> ${LOG_DIR}/reformat.err
         else
             echo "Skipping coverage reduction"
             ln -s phix-r1.cor.fq subsample-r1.fq
@@ -139,6 +150,8 @@ else
         rm *.fq
     fi
 
+    echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
+    fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
     FINAL_BP=`zcat quality-control/*.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:([0-9]+),/\1/'`
     if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
         ERROR=1
@@ -168,5 +181,15 @@ else
         else
             mv quality-control/!{sample}.fastq.gz quality-control/!{sample}.error-fq.gz
         fi
+    fi
+
+    if [ "!{params.skip_logs}" == "false" ]; then 
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+    else
+        rm -rf ${LOG_DIR}/
     fi
 fi

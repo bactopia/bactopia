@@ -1,12 +1,13 @@
 #!/bin/bash
 set -e
 set -u
-
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir -p annotation
     touch annotation/!{sample}.gbk
 else
-    mkdir -p logs
+    mkdir -p ${LOG_DIR}/
+    touch ${LOG_DIR}/!{task.process}.versions
     if [[ !{params.compress} == "true" ]]; then
         gunzip -f !{fasta}
     fi
@@ -16,8 +17,8 @@ else
     fi
 
     # Prokka Version
-    echo "# Prokka Version" > logs/annotate_genome.versions
-    prokka --version >> logs/annotate_genome.versions 2>&1
+    echo "# Prokka Version" >> ${LOG_DIR}/!{task.process}.versions
+    prokka --version >> ${LOG_DIR}/annotate_genome.versions 2>&1
     prokka --outdir annotation \
         --force \
         --prefix '!{sample}' \
@@ -40,7 +41,7 @@ else
         !{notrna} \
         !{rnammer} \
         !{rfam} \
-        !{gunzip_fasta} > logs/prokka.out 2> logs/prokka.err
+        !{gunzip_fasta} > ${LOG_DIR}/prokka.out 2> ${LOG_DIR}/prokka.err
 
     if [[ !{params.compress} == "true" ]]; then
         find annotation/ -type f -not -name "*.txt" -and -not -name "*.log*" | \
@@ -48,12 +49,12 @@ else
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err logs/annotate_genome.err
-        cp .command.out logs/annotate_genome.out
-        cp .command.run logs/annotate_genome.run
-        cp .command.sh logs/annotate_genome.sh
-        cp .command.trace logs/annotate_genome.trace
+        cp .command.err ${LOG_DIR}/!{task.process}.err
+        cp .command.out ${LOG_DIR}/!{task.process}.out
+        cp .command.run ${LOG_DIR}/!{task.process}.run
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace
     else
-        rm -rf logs/
+        rm -rf ${LOG_DIR}/
     fi
 fi

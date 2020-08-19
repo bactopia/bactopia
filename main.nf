@@ -43,6 +43,7 @@ setup_datasets()
 
 process gather_fastqs {
     /* Gather up input FASTQs for analysis. */
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
 
     input:
     set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from create_input_channel(run_type)
@@ -50,6 +51,7 @@ process gather_fastqs {
     output:
     set val(sample_name), val(sample_type), val(single_end),
         file("fastqs/${sample_name}*.fastq.gz"), file("extra/*.gz") into FASTQ_PE_STATUS
+    file "${task.process}/*" optional true
 
     shell:
     is_assembly = sample_type.startsWith('assembly') ? true : false
@@ -69,6 +71,7 @@ process gather_fastqs {
 
 process fastq_status {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     input:
@@ -78,6 +81,7 @@ process fastq_status {
     file "*-error.txt" optional true
     set val(sample), val(sample_type), val(single_end), 
         file("fastqs/${sample}*.fastq.gz"), file(extra) optional true into ESTIMATE_GENOME_SIZE
+    file "${task.process}/*" optional true
 
     shell:
     single_end = fq[1] == null ? true : false
@@ -88,6 +92,8 @@ process fastq_status {
 process estimate_genome_size {
     /* Estimate the input genome size if not given. */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     input:
@@ -98,6 +104,7 @@ process estimate_genome_size {
     file("${sample}-genome-size.txt") optional true
     set val(sample), val(sample_type), val(single_end), 
         file(fq), file(extra), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
+    file "${task.process}/*" optional true
 
     shell:
     template(task.ext.template)
@@ -106,6 +113,8 @@ process estimate_genome_size {
 process qc_reads {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*error.txt"
 
@@ -126,6 +135,7 @@ process qc_reads {
     set val(sample), val(single_end),
         file("quality-control/${sample}*.{fastq,error-fq}.gz"),
         file(genome_size) optional true into QC_FINAL_SUMMARY
+    file "${task.process}/*" optional true
 
     shell:
     is_assembly = sample_type.startsWith('assembly') ? true : false
@@ -139,6 +149,8 @@ process qc_reads {
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
@@ -146,6 +158,7 @@ process qc_original_summary {
 
     output:
     file "quality-control/*"
+    file "${task.process}/*" optional true
 
     when:
     params.dry_run == false
@@ -157,6 +170,8 @@ process qc_original_summary {
 process qc_final_summary {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
 
     input:
@@ -164,6 +179,7 @@ process qc_final_summary {
 
     output:
     file "quality-control/*"
+    file "${task.process}/*" optional true
 
     when:
     params.dry_run == false
@@ -176,6 +192,8 @@ process qc_final_summary {
 process assemble_genome {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "assembly/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
@@ -188,6 +206,7 @@ process assemble_genome {
     set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into MAKE_BLASTDB, SEQUENCE_TYPE
     set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}"), file("total_contigs_*") optional true into ANNOTATION
     set val(sample), file("assembly/${sample}.{fna,fna.gz}"), file(genome_size) optional true into ASSEMBLY_QC
+    file "${task.process}/*" optional true
 
     shell:
     shovill_ram = task.memory.toString().split(' ')[0]
@@ -210,6 +229,8 @@ process assemble_genome {
 process assembly_qc {
     /* Assess the quality of the assembly using QUAST and CheckM */
     tag "${sample} - ${method}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
@@ -218,6 +239,7 @@ process assembly_qc {
 
     output:
     file "${method}/*"
+    file "${task.process}/*" optional true
 
     shell:
     //CheckM Related
@@ -237,6 +259,8 @@ process assembly_qc {
 process make_blastdb {
     /* Create a BLAST database of the assembly using BLAST */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "blastdb/*"
 
     input:
@@ -245,6 +269,7 @@ process make_blastdb {
     output:
     file("blastdb/*")
     set val(sample), file("blastdb/*") into BLAST_GENES, BLAST_PRIMERS, BLAST_PROTEINS
+    file "${task.process}/*" optional true
 
     shell:
     template(task.ext.template)
@@ -254,7 +279,8 @@ process make_blastdb {
 process annotate_genome {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
-    publishDir "${outdir}/${sample}/annotation", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "annotation/${sample}*"
 
     input:
@@ -263,12 +289,12 @@ process annotate_genome {
     file prodigal_tf from PRODIGAL_TF
 
     output:
-    file("logs/*") optional true
     file "annotation/${sample}*"
     set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
     set val(sample),
         file("annotation/${sample}.{ffn,ffn.gz}"),
         file("annotation/${sample}.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
+    file "${task.process}/*" optional true
 
     shell:
     gunzip_fasta = fasta.getName().replace('.gz', '')
@@ -316,6 +342,8 @@ process annotate_genome {
 process count_31mers {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/kmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.ctx"
 
     input:
@@ -323,6 +351,7 @@ process count_31mers {
 
     output:
     file "${sample}.ctx"
+    file "${task.process}/*" optional true
 
     shell:
     m = task.memory.toString().split(' ')[0].toInteger() * 1000
@@ -333,6 +362,8 @@ process count_31mers {
 process sequence_type {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${sample} - ${schema} - ${method}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/mlst/${schema}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
@@ -344,6 +375,7 @@ process sequence_type {
 
     output:
     file "${method}/*"
+    file "${task.process}/*" optional true
 
     shell:
     method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
@@ -359,6 +391,8 @@ process sequence_type {
 process ariba_analysis {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/ariba", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${dataset_name}/*"
 
     input:
@@ -367,6 +401,7 @@ process ariba_analysis {
 
     output:
     file "${dataset_name}/*"
+    file "${task.process}/*" optional true
 
     when:
     single_end == false || params.dry_run == true
@@ -386,6 +421,8 @@ process minmer_sketch {
     Sourmash (k=21,31,51)
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{msh,sig}"
 
     input:
@@ -395,6 +432,7 @@ process minmer_sketch {
     file("${sample}*.{msh,sig}")
     set val(sample), val(single_end), file(fq), file("${sample}.sig") into MINMER_QUERY
     set val(sample), val(single_end), file(fq), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
+    file "${task.process}/*" optional true
 
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
@@ -408,6 +446,8 @@ process minmer_query {
     GenBank (Sourmash, k=21,31,51)
     */
     tag "${sample} - ${dataset_name}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.txt"
 
     input:
@@ -416,6 +456,7 @@ process minmer_query {
 
     output:
     file "*.txt"
+    file "${task.process}/*" optional true
 
     shell:
     dataset_name = dataset.getName()
@@ -431,6 +472,8 @@ process call_variants {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/variants/user", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
@@ -438,7 +481,8 @@ process call_variants {
     each file(reference) from REFERENCES
 
     output:
-    file("${reference_name}/*")
+    file "${reference_name}/*"
+    file "${task.process}/*" optional true
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
@@ -459,6 +503,8 @@ process download_references {
     variants will not be called against the nearest completed genome.
     */
     tag "${sample} - ${params.max_references} reference(s)"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: 'mash-dist.txt'
 
     input:
@@ -468,6 +514,7 @@ process download_references {
     output:
     set val(sample), val(single_end), file(fq), file("genbank/*.gbk") optional true into CALL_VARIANTS_AUTO
     file("mash-dist.txt")
+    file "${task.process}/*" optional true
 
     when:
     REFSEQ_SKETCH_FOUND == true || params.dry_run == true
@@ -486,13 +533,16 @@ process call_variants_auto {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
     set val(sample), val(single_end), file(fq), file(reference) from create_reference_channel(CALL_VARIANTS_AUTO)
 
     output:
-    file("${reference_name}/*")
+    file "${reference_name}/*"
+    file "${task.process}/*" optional true
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
@@ -508,7 +558,6 @@ process update_antimicrobial_resistance {
     /*
     Update amrfinders database a single time.
     */
-
     input:
     val x from Channel.from(1)
 
@@ -527,6 +576,8 @@ process antimicrobial_resistance {
     on their Mash distance from the input.
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${amrdir}/*"
 
     input:
@@ -534,7 +585,8 @@ process antimicrobial_resistance {
     each file(amrdb) from AMRDB
 
     output:
-    file("${amrdir}/*")
+    file "${amrdir}/*"
+    file "logs/*" optional true
 
     shell:
     amrdir = "antimicrobial_resistance"
@@ -555,6 +607,8 @@ process plasmid_blast {
     BLAST a set of predicted genes against the PLSDB BALST database.
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{txt,txt.gz}"
 
     input:
@@ -563,6 +617,7 @@ process plasmid_blast {
 
     output:
     file("${sample}-plsdb.{txt,txt.gz}")
+    file "${task.process}/*" optional true
 
     when:
     PLASMID_BLASTDB.isEmpty() == false
@@ -578,6 +633,8 @@ process blast_genes {
     Query gene FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{json,json.gz}"
 
     input:
@@ -586,6 +643,7 @@ process blast_genes {
 
     output:
     file("genes/*.{json,json.gz}")
+    file "${task.process}/*" optional true
 
     shell:
     template(task.ext.template)
@@ -596,6 +654,8 @@ process blast_primers {
     Query primer FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "primers/*.{json,json.gz}"
 
     input:
@@ -604,6 +664,7 @@ process blast_primers {
 
     output:
     file("primers/*.{json,json.gz}")
+    file "${task.process}/*" optional true
 
     shell:
     template(task.ext.template)
@@ -614,6 +675,8 @@ process blast_proteins {
     Query protein FASTA files against annotated assembly using BLAST
     */
     tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "proteins/*.{json,json.gz}"
 
     input:
@@ -622,6 +685,7 @@ process blast_proteins {
 
     output:
     file("proteins/*.{json,json.gz}")
+    file "${task.process}/*" optional true
 
     shell:
     template(task.ext.template)
@@ -633,6 +697,8 @@ process mapping_query {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample}}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "mapping/*"
 
     input:
@@ -640,7 +706,8 @@ process mapping_query {
     file(query) from Channel.from(MAPPING_FASTAS).collect()
 
     output:
-    file("mapping/*")
+    file "mapping/*"
+    file "${task.process}/*" optional true
 
     shell:
     bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
