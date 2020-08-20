@@ -1,10 +1,17 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.7 bactopia/bactopia "" - 2020/08/??
+## v1.4.8 bactopia/bactopia "" - 2020/08/??
 ### `Added`
+- Versions are logged for Bactopia
+- STDOUT/STDERR is kept for each sample
+    - can be skipped using `--skip_logs`
 
 ### `Fixed`
 - Long sample names breaking Prokka annotation
+- Syntax errors in Bactopia tools
+- null values being tested as integers
+- Ariba card and mlst downloads not working
+- missing parameter in GTDB Bactopia tool 
 
 ## v1.4.7 bactopia/bactopia "Serket Ring" - 2020/08/17
 ### `Added`
