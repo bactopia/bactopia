@@ -33,7 +33,7 @@ process download_references {
     if [ "!{opt}" == "false" ]; then
         touch fasta/!{DUMMY_NAME}.fna
     else
-        if [ "!{params.species}" != "null" ];
+        if [ "!{params.species}" != "null" ]; then
             if [ "!{params.limit}" != "null" ]; then
                 ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                               !{opt} -r 50 --dry-run > accession-list.txt
