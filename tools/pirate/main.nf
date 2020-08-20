@@ -313,7 +313,10 @@ def check_input_params() {
     error += is_positive_integer(params.bb, 'bb')
     error += is_positive_integer(params.alrt, 'alrt')
     error += is_positive_integer(params.prokka_coverage, 'prokka_coverage')
-    error += is_positive_integer(params.limit, 'limit')
+    
+    if (params.limit) {
+        error += is_positive_integer(params.limit, 'limit')
+    }
 
     if (params.only_completed && !params.species && !params.accession) {
         log.error("'--only_completed' requires that '--species' or '--accession' is used also.")

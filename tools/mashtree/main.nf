@@ -228,7 +228,10 @@ def check_input_params() {
     error += is_positive_integer(params.max_memory, 'mindepth')
     error += is_positive_integer(params.sleep_time, 'kmerlength')
     error += is_positive_integer(params.sleep_time, 'sketchsize')
-    error += is_positive_integer(params.limit, 'limit')
+
+    if (params.limit) {
+        error += is_positive_integer(params.limit, 'limit')
+    }
 
     orders = ['ABC', 'random', 'input-order']
     if (!orders.contains(params.sortorder)) {
