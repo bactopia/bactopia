@@ -246,13 +246,16 @@ def check_input_params() {
         error += file_exists(params.exclude, '--exclude')
     }
 
+    if (params.limit) {
+        error += is_positive_integer(params.limit, 'limit')
+    }
+
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
     error += is_positive_integer(params.kmer, 'kmer')
     error += is_positive_integer(params.fragLen, 'fragLen')
-    error += is_positive_integer(params.limit, 'limit')
 
     // Check for existing output directory
     if (output_exists(OUTDIR, params.force, workflow.resume)) {
