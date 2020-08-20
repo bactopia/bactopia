@@ -278,7 +278,7 @@ Useful Parameters:
 ## Conda Environment
 Below is the command that was used to create the Conda environment.
 ```
-conda create -y -n bactopia-gtdb -c conda-forge -c bioconda \
+conda create -y -n bactopia-phyloflash -c conda-forge -c bioconda \
     phyloflash \
     mafft \
     iqtree \
