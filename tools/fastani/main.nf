@@ -39,6 +39,7 @@ process collect_assemblies {
     shell:
     is_gzipped = null
     reference_name = null
+    reference_file = null
     if (reference) {
         is_gzipped = params.reference.endsWith(".gz") ? true : false
         reference_name = reference.getSimpleName().replace(".gz", "")
@@ -110,7 +111,6 @@ process calculate_ani {
     reference = reference_fasta.getSimpleName()
     query = query_fasta.getSimpleName()
     """
-
     fastANI -q !{query_fasta} -r !{reference_fasta} --kmer !{params.kmer} --fragLen !{params.fragLen} \
             --minFraction !{params.minFraction} -o !{reference}.!{query}.tsv
     sed -i 's/.fna.query//' !{reference}.!{query}.tsv
