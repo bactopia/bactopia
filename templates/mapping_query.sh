@@ -2,6 +2,7 @@
 set -e
 set -u
 
+LOG_DIR="!{task.process}"
 if [ "!{params.dry_run}" == "true" ]; then
     mkdir -p mapping
     touch mapping/dry-run.coverage.txt
