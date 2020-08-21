@@ -434,18 +434,24 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             species = species.replace('--', '-').strip('-')
             prokka_dir = f'{outdir}/{species}/annotation'
             minmer_dir = f'{outdir}/{species}/minmer'
+            clean_up = False
             genome_sizes = []
 
             if os.path.exists(f'{prokka_dir}/proteins.faa'):
                 if force:
                     logging.info(f'--force, delete existing {prokka_dir}')
-                    execute(f'rm -rf {prokka_dir}')
-                    execute(f'rm -rf {minmer_dir}')
+                    clean_up = True
                 else:
                     logging.info((f'{prokka_dir} exists, skipping'))
                     continue
+            elif os.path.exists(f'{prokka_dir}/'):
+                logging.info(f'Incomplete setup, deleting {prokka_dir} to start over')
+                clean_up = True
             elif force:
                 logging.info(f'--force, delete existing {prokka_dir}')
+                clean_up = True
+
+            if clean_up:
                 execute(f'rm -rf {prokka_dir}')
                 execute(f'rm -rf {minmer_dir}')
 

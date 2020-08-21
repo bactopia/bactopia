@@ -30,8 +30,7 @@ example usage:
 import sys
 VERSION = "1.4.8"
 PROGRAM = "bactopia search"
-ENA_URL = ('https://www.ebi.ac.uk/ena/data/warehouse/search?result=read_run&'
-           'display=report')
+ENA_URL = ('https://www.ebi.ac.uk/ena/portal/api/search?result=read_run&format=tsv')
 FIELDS = [
     'study_accession', 'secondary_study_accession', 'sample_accession',
     'secondary_sample_accession', 'experiment_accession', 'run_accession',
@@ -53,7 +52,6 @@ def ena_search(query, limit=1000000):
     """USE ENA's API to retreieve the latest results."""
     import requests
     # ENA browser info: http://www.ebi.ac.uk/ena/about/browser
-    address = 'http://www.ebi.ac.uk/ena/data/warehouse/search'
     query = (
         f'"{query} AND library_source=GENOMIC AND '
         '(library_strategy=OTHER OR library_strategy=WGS OR '
@@ -61,11 +59,10 @@ def ena_search(query, limit=1000000):
         'library_selection=RANDOM OR library_selection=unspecified OR '
         'library_selection="size fractionation")"'
     )
-    result = 'result=read_run'
-    display = 'display=report'
     limit = f'limit={limit}'
     url = f'{ENA_URL}&query={query}&{limit}&fields={",".join(FIELDS)}'
-    response = requests.get(url)
+    headers = {'Content-type': 'application/x-www-form-urlencoded'}
+    response = requests.get(url, headers=headers)
     if not response.text:
         print(f'{query} did not return any results from ENA.', file=sys.stderr)
         sys.exit(1)
