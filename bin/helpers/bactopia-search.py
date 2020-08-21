@@ -51,6 +51,8 @@ FIELDS = [
 def ena_search(query, limit=1000000):
     """USE ENA's API to retreieve the latest results."""
     import requests
+    import time
+
     # ENA browser info: http://www.ebi.ac.uk/ena/about/browser
     query = (
         f'"{query} AND library_source=GENOMIC AND '
@@ -68,6 +70,7 @@ def ena_search(query, limit=1000000):
         sys.exit(1)
 
     results = response.text.split('\n')
+    time.sleep(3)
     return [results[0], results[1:]]
 
 
