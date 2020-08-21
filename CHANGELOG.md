@@ -1,9 +1,9 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.8 bactopia/bactopia "" - 2020/08/??
+## v1.4.8 bactopia/bactopia "Shikaree Ring" - 2020/08/20
 ### `Added`
 - Versions are logged for Bactopia
-- STDOUT/STDERR is kept for each sample
+- STDOUT/STDERR logs are kept for each sample
     - can be skipped using `--skip_logs`
 
 ### `Fixed`
