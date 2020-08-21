@@ -67,7 +67,8 @@ def ena_search(query, limit=1000000):
         print(f'{query} did not return any results from ENA.', file=sys.stderr)
         sys.exit(1)
 
-    return response.text.split('\n')
+    results = response.text.split('\n')
+    return [results[0], results[1:]]
 
 
 def parse_accessions(results, min_read_length=None, min_base_count=None):
@@ -114,28 +115,44 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
     return [list(set(accessions)), filtered]
 
 
-def parse_query(query, exact_taxon=False):
+def parse_query(q, exact_taxon=False):
     """Return the query based on if Taxon ID or BioProject/Study accession."""
+    import os
     import re
-    try:
-        taxon_id = int(query)
-        if exact_taxon:
-            return ['taxon', f'tax_eq({taxon_id})']
-        else:
-            return ['taxon', f'tax_tree({taxon_id})']
-    except ValueError:
-        # It is a accession or scientific name
-        # Test Accession
-        # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
-        if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
-            return ['bioproject', f'(study_accession={query} OR secondary_study_accession={query})']
-        elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
-            return ['biosample', f'(sample_accession={query} OR secondary_sample_accession={query})']
-        elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
-            return ['run', f'(run_accession={query})']
-        else:
-            # Assuming it is a scientific name
-            return ['taxon', f'tax_name("{query}")']
+    queries = []
+    if os.path.exists(q):
+        with open(q, 'r') as handle:
+            for line in handle:
+                line = line.rstrip()
+                if line:
+                    queries.append(line)
+    elif "," in q:
+        queries = q.split(',')
+    else:
+        queries.append(q)
+
+    results = []
+    for query in queries:
+        try:
+            taxon_id = int(query)
+            if exact_taxon:
+                results.append(['taxon', f'tax_eq({taxon_id})'])
+            else:
+                results.append(['taxon', f'tax_tree({taxon_id})'])
+        except ValueError:
+            # It is a accession or scientific name
+            # Test Accession
+            # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
+            if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
+                results.append(['bioproject', f'(study_accession={query} OR secondary_study_accession={query})'])
+            elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
+                results.append(['biosample', f'(sample_accession={query} OR secondary_sample_accession={query})'])
+            elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
+                results.append( ['run', f'(run_accession={query})'])
+            else:
+                # Assuming it is a scientific name
+                results.append(['taxon', f'tax_name("{query}")'])
+    return results
 
 
 if __name__ == '__main__':
@@ -157,10 +174,14 @@ if __name__ == '__main__':
               {PROGRAM} "staphylococcus aureus" --limit 20
               {PROGRAM} SAMN01737350
               {PROGRAM} SRR578340
+              {PROGRAM} SAMN01737350,SRR578340
+              {PROGRAM} accessions.txt
         ''')
     )
     parser.add_argument('query', metavar="STR", type=str,
-                        help='Taxon ID or Study, BioSample, or Run accession')
+                        help=('Taxon ID or Study, BioSample, or Run accession (can also be comma '
+                              'separated or a file of accessions)')
+    )
     parser.add_argument(
         '--exact_taxon', action='store_true', help='Exclude Taxon ID descendents.'
     )
@@ -174,7 +195,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         '--limit', metavar="INT", type=int, default=1000000,
-        help='Maximum number of results to return. (Default: 1000000)'
+        help='Maximum number of results (per query) to return. (Default: 1000000)'
     )
 
     parser.add_argument(
@@ -220,51 +241,76 @@ if __name__ == '__main__':
               file=sys.stderr)
         sys.exit(1)
 
-    query_type, query = parse_query(args.query, exact_taxon=args.exact_taxon)
-    results = ena_search(query, limit=args.limit)
-    accessions, filtered = parse_accessions(results, min_read_length=min_read_length,
-                                            min_base_count=min_base_count)
 
-    WARNING_MESSAGE = None
-    if query_type == 'biosample' and args.biosample_subset > 0:
-        if len(accessions) > args.biosample_subset:
-            WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(accessions)}'
-            accessions = random.sample(accessions, args.biosample_subset)
+    results = []
+    result_header = None
+    accessions = []
+    filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': []}
+    summary = []
+    queries = parse_query(args.query, exact_taxon=args.exact_taxon)
+    i = 1
+    results_file = f'{args.outdir}/{args.prefix}-results.txt'
+    accessions_file = f'{args.outdir}/{args.prefix}-accessions.txt'
+    filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
+    for query_type, query in queries:
+        query_header, query_results = ena_search(query, limit=args.limit)
+        query_accessions, query_filtered = parse_accessions(query_results, min_read_length=min_read_length,
+                                                            min_base_count=min_base_count)
+
+        WARNING_MESSAGE = None
+        if query_type == 'biosample' and args.biosample_subset > 0:
+            if len(query_accessions) > args.biosample_subset:
+                WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(query_accessions)}'
+                query_accessions = random.sample(query_accessions, args.biosample_subset)
+
+        result_header = query_header
+        results = list(set(results + query_results))
+        accessions = list(set(accessions + query_accessions))
+        filtered['min_base_count'] += query_filtered['min_base_count']
+        filtered['min_read_length'] += query_filtered['min_read_length']
+        filtered['technical'] += query_filtered['technical']
+        filtered['filtered'] = list(set(filtered['filtered'] + query_filtered['filtered']))
+
+        # Create Summary
+        if len(queries) > 1:
+            summary.append(f'QUERY ({i} of {len(queries)}): {query}')
+            i += 1
+        else:
+            summary.append(f'QUERY: {query}')
+        summary.append(f'LIMIT: {args.limit}')
+        summary.append(f'RESULTS: {len(query_results) - 2} ({results_file})')
+        summary.append(f'ILLUMINA ACCESSIONS: {len(query_accessions)} ({accessions_file})')
+
+        if WARNING_MESSAGE:
+            summary.append(f'\t{WARNING_MESSAGE}')
+
+        if min_read_length or min_base_count:
+            summary.append(f'FILTERED ACCESSIONS: {len(filtered["filtered"])}')
+            if min_read_length:
+                summary.append(f'\tFAILED MIN READ LENGTH ({min_read_length} bp): {query_filtered["min_read_length"]}')
+            if min_base_count:
+                summary.append(f'\tFAILED MIN BASE COUNT ({min_base_count} bp): {query_filtered["min_base_count"]}')
+        else:
+            summary.append(f'FILTERED ACCESSIONS: no filters applied')
+
+        summary.append(f'\tMISSING FASTQS: {filtered["technical"]}')
+        summary.append("")
 
     # Output the results
-    results_file = f'{args.outdir}/{args.prefix}-results.txt'
     with open(results_file, 'w') as output_fh:
+        output_fh.write(f'{result_header}\n')
         for result in results:
             if result:
                 output_fh.write(f'{result}\n')
 
-    accessions_file = f'{args.outdir}/{args.prefix}-accessions.txt'
     with open(accessions_file, 'w') as output_fh:
         for accession in accessions:
             output_fh.write(f'{accession}\n')
 
-    filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
     with open(filtered_file, 'w') as output_fh:
         output_fh.write(f'accession\treason\n')
         for f in filtered['filtered']:
             output_fh.write(f'{f["accession"]}\t{f["reason"]}\n')
 
     with open(f'{args.outdir}/{args.prefix}-summary.txt', 'w') as output_fh:
-        output_fh.write(f'QUERY: {query}\n')
-        output_fh.write(f'LIMIT: {args.limit}\n')
-        output_fh.write(f'RESULTS: {len(results) - 2} ({results_file})\n')
-        output_fh.write(f'ILLUMINA ACCESSIONS: {len(accessions)} ({accessions_file})\n')
-
-        if WARNING_MESSAGE:
-            output_fh.write(f'\t{WARNING_MESSAGE}\n')
-
-        if min_read_length or min_base_count:
-            output_fh.write(f'FILTERED ACCESSIONS: {len(filtered["filtered"])}\n')
-            if min_read_length:
-                output_fh.write(f'\tFAILED MIN READ LENGTH ({min_read_length} bp): {filtered["min_read_length"]}\n')
-            if min_base_count:
-                output_fh.write(f'\tFAILED MIN BASE COUNT ({min_base_count} bp): {filtered["min_base_count"]}\n')
-        else:
-            output_fh.write(f'FILTERED ACCESSIONS: no filters applied\n')
-
-        output_fh.write(f'\tMISSING FASTQS: {filtered["technical"]}\n')
+        output_fh.write('\n'.join(summary))

@@ -161,35 +161,35 @@ def check_input_params() {
     // Check for unexpected paramaters
     error = check_unknown_params()
 
-    if (params.bactopia) {
-        error += file_exists(params.bactopia, '--bactopia')
-    } else if (params.gtdb) {
-        if (file(params.gtdb).exists() && params.download_gtdb) {
-            log.info """
-                Found GTDB database at ${params.gtdb}, but '--download_gtdb'
-                also given. Existing GTDB database will be over written with
-                latest build. If this is error, please stop now.
-            """.stripIndent()
-            DOWNLOAD_GTDB = true
-        } else if (!file(params.gtdb).exists() && params.download_gtdb) {
-            log.info("Latest GTDB database will be downloaded to ${params.gtdb}")
-            DOWNLOAD_GTDB = true
-        } else if (!file(params.gtdb).exists()) {
-            log.error """
-                Please check that a GTDB database exists at ${params.gtdb}. 
-                Otherwise use '--download_gtdb' to download the latest GTDB database
-            """.stripIndent()
-            error += 1
-        }
-    } else {
+    mising_required = false
+    if (!params.bactopia || !params.gtdb) {
         log.error """
-        The required '--bactopia' parameter is missing, please check and try again.
+        The required parameter(s) '--bactopia' and/or '--gtdb'are missing, please check and try again.
 
         Required Parameters:
             --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
             --gtdb STR              Location of a GTDB database. If a database is not found, it will
                                         be downloaded.
+        """.stripIndent()
+        error += 1
+    }
+
+    error += file_exists(params.bactopia, '--bactopia')
+    if (file(params.gtdb).exists() && params.download_gtdb) {
+        log.info """
+            Found GTDB database at ${params.gtdb}, but '--download_gtdb'
+            also given. Existing GTDB database will be over written with
+            latest build. If this is error, please stop now.
+        """.stripIndent()
+        DOWNLOAD_GTDB = true
+    } else if (!file(params.gtdb).exists() && params.download_gtdb) {
+        log.info("Latest GTDB database will be downloaded to ${params.gtdb}")
+        DOWNLOAD_GTDB = true
+    } else if (!file(params.gtdb).exists()) {
+        log.error """
+            Please check that a GTDB database exists at ${params.gtdb}. 
+            Otherwise use '--download_gtdb' to download the latest GTDB database
         """.stripIndent()
         error += 1
     }

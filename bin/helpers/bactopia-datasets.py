@@ -159,7 +159,14 @@ def validate_species(species):
     import requests
     ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/scientific-name'
     checks = []
-    if "," in species:
+
+    if os.path.exists(species):
+        with open(species, 'r') as handle:
+            for line in handle:
+                line = line.rstrip()
+                if line:
+                    checks.append(line)
+    elif "," in species:
         checks = species.split(',')
     else:
         checks.append(species)
@@ -205,8 +212,9 @@ def pubmlst_schemas(pubmlst_file):
     pubmlst = {}
     with open(pubmlst_file, 'rt') as pubmlst_fh:
         for line in pubmlst_fh:
+            line = line.rstrip()
             if line and not line.startswith('ariba'):
-                ariba, species, schema = line.rstrip().split('\t')
+                ariba, species, schema = line.split('\t')
                 if species not in pubmlst:
                     pubmlst[species] = {}
                 pubmlst[species][schema] = ariba
@@ -305,7 +313,9 @@ def setup_mlst_request(request, available_schemas):
     if os.path.exists(request):
         with open(request, 'r') as handle:
             for line in handle:
-                requests.append(line.rstrip())
+                line = line.rstrip()
+                if line:
+                    requests.append(line)
     elif "," in request:
         for dataset in request.split(','):
             requests.append(dataset.capitalize().strip())
@@ -344,11 +354,11 @@ def setup_mlst(request, available_datasets, outdir, force=False):
                     logging.info(f'--force, removing existing {request["species"]} setup')
                     execute(f'rm -rf {mlst_dir}')
                 else:
-                    logging.info((f'{request["species"]}MLST Schema ({mlst_dir}) exists'
+                    logging.info((f'{request["species"]} MLST Schema ({mlst_dir}) exists'
                                   ', skipping'))
                     continue
             elif force:
-                logging.info(f'--force, removing existing {request["species"]}setup')
+                logging.info(f'--force, removing existing {request["species"]} setup')
                 execute(f'rm -rf {mlst_dir}')
 
             # Setup MLST dataset
@@ -426,8 +436,13 @@ def setup_prokka(request, available_datasets, outdir, force=False,
     import re
     import random
     from statistics import median, mean
-    requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins',
-                              skip_check=True)
+    requests = None
+    if os.path.exists(request):
+        requests = setup_requests(request, available_datasets, 'Prokka Proteins',
+                                  skip_check=True)
+    else:
+        requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins',
+                                  skip_check=True)
     if requests:
         for request in requests:
             species = re.sub(r'[ /()]', "-", request.lower())
