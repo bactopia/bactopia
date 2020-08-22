@@ -22,6 +22,7 @@ process download_gtdb {
     shell:
     """
     if [ "!{DOWNLOAD_GTDB}" == "true" ]; then
+        rm -rf !{params.gtdb}/gtdbtk_data.tar.gz
         download-db.sh
     else
         echo "skipping GTDB database download"
@@ -312,8 +313,9 @@ def print_help() {
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
 
-        --gtdb STR              Location of a GTDB database. If a database is not found, you must
-                                    use '--download_gtdb'.
+        --gtdb STR              Location of a GTDB database. Due to the size of GTDB (>30GB), you must
+                                    also provide '--download_gtdb' if you would like to download GTDB
+                                    automatically.
 
     Optional Parameters:
         --include STR           A text file containing sample names to include in the

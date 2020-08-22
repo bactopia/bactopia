@@ -70,7 +70,7 @@ def ena_search(query, limit=1000000):
         sys.exit(1)
 
     results = response.text.split('\n')
-    time.sleep(3)
+    time.sleep(1)
     return [results[0], results[1:]]
 
 

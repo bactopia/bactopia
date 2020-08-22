@@ -11,11 +11,10 @@ if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) pr
 
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
-reference = null
+reference = [tuple(null, null)]
 if (params.reference) {
     if (file(params.reference).exists()) {
-        samples << file(params.reference)
-        reference = file(params.reference)
+        reference = [tuple(true, file(params.reference))]
     } else {
         log.error("Could not open ${params.reference}, please verify existence. Unable to continue.")
         exit 1
@@ -28,27 +27,25 @@ process collect_assemblies {
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
 
     input:
-    file(fasta) from Channel.fromList(samples).collect()
+    set val(has_reference), file(reference_fasta) from reference
 
     output:
     file 'fasta/*.fna' optional true
     file 'accession-*.txt' optional true
-    file 'assemblies/*.fna' into ALL_FASTA
-    file 'samples/*.fna.query' into EACH_SAMPLE
+    file 'reference/*.fna.reference' into REFERENCE_FASTA
 
     shell:
     is_gzipped = null
     reference_name = null
     reference_file = null
-    if (reference) {
+    if (has_reference) {
         is_gzipped = params.reference.endsWith(".gz") ? true : false
-        reference_name = reference.getSimpleName().replace(".gz", "")
-        reference_file = reference.getName()
+        reference_name = reference_fasta.getSimpleName().replace(".gz", "")
+        reference_file = reference_fasta.getName()
     }
     """
-    mkdir assemblies samples
+    mkdir reference fasta
     if [ "!{params.species}" != "null" ]; then
-        mkdir fasta
         if [ "!{params.limit}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                           --genus "!{params.species}" -r 50 --dry-run > accession-list.txt
@@ -60,70 +57,41 @@ process collect_assemblies {
                                           --genus "!{params.species}" -r 50
         fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
-        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+        rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
-        cp fasta/*.fna assemblies/
-        ls fasta/ | xargs -I {} cp -P fasta/{} samples/{}.query
+        cp fasta/*.fna.reference reference/
     fi
 
     if [ "!{params.accession}" != "null" ]; then
-        mkdir fasta
         ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                       -A !{params.accession} -r 50
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
-        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+        rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
-        cp fasta/*.fna assemblies/
-        ls fasta/ | xargs -I {} cp -P fasta/{} samples/{}.query
+        cp fasta/*.fna.reference reference/
     fi
     
     if [ "!{params.reference}" != "null" ]; then
         if [ "!{is_gzipped}" == "true" ]; then
-            zcat !{reference_file} > assemblies/!{reference_name}.fna
-            cp -P assemblies/!{reference_name}.fna samples/!{reference_name}.fna.query
+            zcat !{reference_file} > reference/!{reference_name}.fna.reference
         else
-            cp -P !{reference_file} assemblies/!{reference_name}.fna
-            cp -P !{reference_file} samples/!{reference_name}.fna.query
+            cp -P !{reference_file} reference/!{reference_name}.fna.reference
         fi
     fi
 
-    find -name "*.fna.gz" | xargs -I {} gunzip {}
-
-    if [ "!{params.pairwise}" == "true" ]; then
-        cp -f -P *.fna assemblies/
+    if [ ! "\$(ls -A reference/ )" ]; then
+        touch reference/EMPTY_FILE.fna.reference
     fi
-
-    ls *.fna | xargs -I {} cp -f -P {} samples/{}.query
     """
 }
 
 process calculate_ani {
-    tag "${query} - ${reference}"
-
-    input:
-    file(reference_fasta) from ALL_FASTA.flatten()
-    each file(query_fasta) from EACH_SAMPLE
-
-    output:
-    file "${reference}.${query}.tsv" into RESULTS
-
-    shell:
-    reference = reference_fasta.getSimpleName()
-    query = query_fasta.getSimpleName()
-    """
-    fastANI -q !{query_fasta} -r !{reference_fasta} --kmer !{params.kmer} --fragLen !{params.fragLen} \
-            --minFraction !{params.minFraction} -o !{reference}.!{query}.tsv
-    sed -i 's/.fna.query//' !{reference}.!{query}.tsv
-    sed -i 's/.fna//' !{reference}.!{query}.tsv
-    """
-}
-
-process merge_results {
     publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fastani.tsv"
     publishDir OUTDIR, mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "references/*.tsv"
 
     input:
-    file(results) from RESULTS.collect()
+    file(query_fasta) from Channel.fromList(samples).collect()
+    file(reference_fasta) from REFERENCE_FASTA.collect().ifEmpty { "EMPTY_FILE" }
 
     output:
     file "fastani.tsv"
@@ -131,10 +99,62 @@ process merge_results {
 
     shell:
     """
-    mkdir references
-    ls *.tsv | cut -f 1,1 -d "." | sort | uniq | \
-        xargs -I {} sh -c 'cat {}.*.tsv | sort -k 2,2 -k3,3rn > references/{}.tsv' 
-    cat *.tsv | sort -k 2,2 -k3,3rn > fastani.tsv
+    # Setup refs and queries
+    mkdir query reference
+    if [ -e "EMPTY_FILE.fna.reference" ]; then
+        rm EMPTY_FILE.fna.reference
+    else
+        cp -P *.reference reference/
+    fi
+
+    cp -P *.fna* query/
+    find -name "*.fna.gz" | xargs -I {} gunzip {} 
+
+    if [ "!{params.skip_pairwise}" == "false" ]; then
+        cp -f -P query/*.fna reference/
+    fi
+
+    # Build commands for xargs
+    for r in reference/*; do
+        r_name=\${r##*/}
+        r_name=\${r_name%%.*}
+        mkdir -p outputs/\${r_name}
+        if [ -e "query/\${r_name}.fna" ]; then
+            # Duplicate sample names
+            rm query/\${r_name}.fna.reference
+            cp -P \${r_name}.fna.reference query/\${r_name}_reference.fna 
+        fi
+
+        for q in query/*; do
+            q_name=\${q##*/}
+            q_name=\${q_name%.*}
+            echo "fastANI -q \${q} -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/\${q_name}.tsv" >> fastani.sh
+        done
+    done
+
+    # Run FastANI (one-to-one) in parallel with xargs
+    cat fastani.sh | xargs -I {} -P !{task.cpus} -n 1 sh -c '{}'
+
+    # Aggregate/merge the results
+    mkdir -p references
+    for r in outputs/*; do
+        if [ -d "\${r}" ]; then
+            r_name=\${r##*/}
+            printf "query\treference\tani\tmapped_fragments\ttotal_fragments\n" > references/\${r_name}_tmp.tsv
+            cat \${r}/*.tsv | sort -k2,2 -k3,3rn >> references/\${r_name}_tmp.tsv
+
+            # Remove paths/extensions
+            sed -i 's/\\.fna\\.reference//g' references/\${r_name}_tmp.tsv
+            sed -i 's/\\.fna//g' references/\${r_name}_tmp.tsv
+            sed -i 's=query/==' references/\${r_name}_tmp.tsv
+            sed -i 's=reference/==' references/\${r_name}_tmp.tsv
+
+            uniq references/\${r_name}_tmp.tsv > references/\${r_name}.tsv
+            rm references/\${r_name}_tmp.tsv
+        fi
+    done
+    printf "query\treference\tani\tmapped_fragments\ttotal_fragments\n" > fastani.tsv
+    cat references/*.tsv | grep -P -v "query\treference\tani\tmapped_fragments\ttotal_fragments" >> fastani.tsv
     """
 }
 
@@ -263,6 +283,12 @@ def check_input_params() {
         error += 1
     }
 
+    if (params.skip_pairwise) {
+        if (!params.reference && !params.accession && !params.species) {
+            log.error("'--skip_pairwise' requires a reference genome (--accession, --species, or --reference)")
+            error += 1
+        }
+    }
 
     // Check publish_mode
     ALLOWED_MODES = ['copy', 'copyNoFollow', 'link', 'rellink', 'symlink']
@@ -415,7 +441,7 @@ def print_help() {
                                     the two is considered.
                                     Default: ${params.minFraction}
 
-        --pairwise              Pairwise ANI's will be calculated for all samples including any 
+        --skip_pairwise         Skip pairwise ANI's calculations for all samples including any 
                                     downloaded RefSeq genomes or user provided genomes.
 
 
