@@ -11,6 +11,7 @@
 - ENA API endpoint for `bactopia search`
 - Updated GTDB-TK to 1.3.0 to support latest downloads
 - FastANI tool merge_results in no longer a separate step
+    - ANI is now one-to-many calculations
 - `--reassemble` misapplied
 
 ## v1.4.8 bactopia/bactopia "Shikaree Ring" - 2020/08/20

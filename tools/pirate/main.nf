@@ -33,7 +33,7 @@ process download_references {
     file 'accession-*.txt' optional true
 
     shell:
-    opt = false
+    opt = has_accessions ? true : false
     if (params.species) {
         opt = "-g '${params.species}'"
     } else if (params.accession) {
@@ -55,11 +55,16 @@ process download_references {
             else
                 ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
             fi
-        elif [ "!{has_accessions}" == "true" ]; then
-            ncbi-genome-download bacteria -l complete -o ./ -F fasta -A accession_list -r 50
-        else
+        fi
+
+        if [ "!{has_accessions}" == "true" ]; then
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -A !{accession_list} -r 50
+        fi
+
+        if [ "!{params.accession}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
         fi
+
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
@@ -292,7 +297,26 @@ def check_input_params() {
     // Check for unexpected paramaters
     error = check_unknown_params()
 
-    if (params.bactopia) {
+    if (params.only_completed) {
+        if (!params.accessions && !params.species) {
+            log.error """
+            Either '--acessions' or '--species' is required to use '--only_completed'.
+
+            Required Parameters:
+            --species STR           The name of the species to download RefSeq assemblies for. This
+                                        is a completely optional step and is meant to supplement
+                                        your dataset with high-quality completed genomes.
+            
+            --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
+
+            --only_completed        Pan-genome will be created using only the completed RefSeq genomes. Requires
+                                        either '--accessions' and/or '--species'
+            """.stripIndent()
+            error += 1
+        } else if (params.accessions) {
+            error += file_exists(params.accessions, '--accessions')
+        }
+    } else if (params.bactopia) {
         error += file_exists(params.bactopia, '--bactopia')
     } else {
         log.error """
@@ -330,11 +354,6 @@ def check_input_params() {
     
     if (params.limit) {
         error += is_positive_integer(params.limit, 'limit')
-    }
-
-    if (params.only_completed && !params.species && !params.accession) {
-        log.error("'--only_completed' requires that '--species' or '--accession' is used also.")
-        error += 1
     }
 
     if (params.use_diamond && params.nucl) {
@@ -462,6 +481,7 @@ def print_help() {
     log.info"""
     Required Parameters:
         --bactopia STR          Directory containing Bactopia analysis results for all samples.
+                                    This parameter is not required if '--only_completed' is used.
 
     Optional Parameters:
         --include STR           A text file containing sample names to include in the
@@ -501,7 +521,8 @@ def print_help() {
                                     random subset will be selected.
                                     Default: Download all available genomes
 
-        --only_completed        Pan-genome will be created using only the completed RefSeq genomes.    
+        --only_completed        Pan-genome will be created using only the completed RefSeq genomes. Requires
+                                    either '--accessions' and/or '--species'
 
         --prokka_evalue STR     Similarity e-value cut-off
                                     Default: ${params.prokka_evalue}
