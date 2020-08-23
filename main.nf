@@ -220,7 +220,7 @@ process assemble_genome {
     keep = params.keep_all_files ? "--keep 3" : "--keep 1"
     use_original_assembly = null
     if (sample_type.startsWith('assembly')) {
-        use_original_assembly = params.reassemble ? true : false
+        use_original_assembly = params.reassemble ? false : true
     }
     template(task.ext.template)
 }

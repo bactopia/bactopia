@@ -21,12 +21,23 @@ if (params.reference) {
     }
 }
 
+accessions = [tuple(null, null)]
+if (params.accessions) {
+    if (file(params.accessions).exists()) {
+        accessions = [tuple(true, file(params.accessions))]
+    } else {
+        log.error("Could not open ${params.accessions}, please verify existence. Unable to continue.")
+        exit 1
+    }
+}
+
 process collect_assemblies {    
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
 
     input:
     file(fasta) from Channel.fromList(samples).collect()
+    set val(has_accessions), file(accession_list) from accessions
 
     output:
     file 'fasta/*.fna' optional true
@@ -48,18 +59,19 @@ process collect_assemblies {
         mkdir fasta
         if [ "!{params.limit}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                          --genus "!{params.species}" -r 50 --dry-run > accession-list.txt
-            shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
+                                          -g "!{params.species}" -r 50 --dry-run > accession-list.txt
+            shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1 > accession-subset.txt
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                           -A accession-subset.txt -r 50
         else
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                          --genus "!{params.species}" -r 50
+                                          -g "!{params.species}" -r 50
         fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna assemblies/
+        rm -rf fasta/
     fi
 
     if [ "!{params.accession}" != "null" ]; then
@@ -70,6 +82,18 @@ process collect_assemblies {
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna assemblies/
+        rm -rf fasta/
+    fi
+
+    if [ "!{has_accessions}" == "true" ]; then
+        mkdir fasta
+        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                      -A !{accession_list} -r 50
+        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
+        gunzip fasta/*
+        cp fasta/*.fna assemblies/
+        rm -rf fasta/
     fi
 
     if [ "!{params.reference}" != "null" ]; then
@@ -375,7 +399,9 @@ def print_help() {
 
         --species STR           The name of the species to download RefSeq assemblies for.
         
-        --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
+        --accession STR         The Assembly accession (e.g. GCF*.*) to download from RefSeq.
+
+        --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
 
         --limit INT             Limit the number of RefSeq assemblies to download. If the the
                                     number of available genomes exceeds the given limit, a 
@@ -383,7 +409,7 @@ def print_help() {
                                     Default: Download all available genomes
         
     User Procided Reference:
-        --reference STR         A reference genome to calculate 
+        --reference STR         A reference genome to add to the mashtree 
 
     Mashtree Related Parameters            
         --trunclength INT       How many characters to keep in a filename

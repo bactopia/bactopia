@@ -11,10 +11,22 @@ log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.only_completed)
+accessions = [tuple(null, null)]
+if (params.accessions) {
+    if (file(params.accessions).exists()) {
+        accessions = [tuple(true, file(params.accessions))]
+    } else {
+        log.error("Could not open ${params.accessions}, please verify existence. Unable to continue.")
+        exit 1
+    }
+}
 
 process download_references {
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
+
+    input:
+    set val(has_accessions), file(accession_list) from accessions
 
     output:
     file("fasta/*.fna") into ANNOTATE
@@ -23,7 +35,7 @@ process download_references {
     shell:
     opt = false
     if (params.species) {
-        opt = "--genus '${params.species}'"
+        opt = "-g '${params.species}'"
     } else if (params.accession) {
         opt = "-A '${params.accession}'"
     }
@@ -35,16 +47,18 @@ process download_references {
     else
         if [ "!{params.species}" != "null" ]; then
             if [ "!{params.limit}" != "null" ]; then
-                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta \
                                               !{opt} -r 50 --dry-run > accession-list.txt
-                shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
-                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1 > accession-subset.txt
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta \
                                               -A accession-subset.txt -r 50
             else
                 ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
             fi
+        elif [ "!{has_accessions}" == "true" ]; then
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta -A accession_list -r 50
         else
-            ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+            ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
         fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
@@ -454,6 +468,8 @@ def print_help() {
 
         --accession STR         A NCBI Assembly database RefSeq accession to be downloaded and included
                                     in the pan-genome analysis.
+
+        --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
 
         --limit INT             Limit the number of RefSeq assemblies to download. If the the
                                     number of available genomes exceeds the given limit, a 

@@ -21,6 +21,15 @@ if (params.reference) {
     }
 }
 
+accessions = [tuple(null, null)]
+if (params.accessions) {
+    if (file(params.accessions).exists()) {
+        accessions = [tuple(true, file(params.accessions))]
+    } else {
+        log.error("Could not open ${params.accessions}, please verify existence. Unable to continue.")
+        exit 1
+    }
+}
 
 process collect_assemblies {    
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
@@ -28,6 +37,7 @@ process collect_assemblies {
 
     input:
     set val(has_reference), file(reference_fasta) from reference
+    set val(has_accessions), file(accession_list) from accessions
 
     output:
     file 'fasta/*.fna' optional true
@@ -44,31 +54,46 @@ process collect_assemblies {
         reference_file = reference_fasta.getName()
     }
     """
-    mkdir reference fasta
+    mkdir reference
     if [ "!{params.species}" != "null" ]; then
+        mkdir fasta
         if [ "!{params.limit}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                          --genus "!{params.species}" -r 50 --dry-run > accession-list.txt
-            shuf accession-list.txt | head -n !{params.limit} > accession-subset.txt
+                                          -g "!{params.species}" -r 50 --dry-run > accession-list.txt
+            shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1  > accession-subset.txt
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                           -A accession-subset.txt -r 50
         else
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                          --genus "!{params.species}" -r 50
+                                          -g "!{params.species}" -r 50
         fi
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna.reference reference/
+        rm -rf fasta/
     fi
 
     if [ "!{params.accession}" != "null" ]; then
+        mkdir fasta
         ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                       -A !{params.accession} -r 50
         find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna.reference reference/
+        rm -rf fasta/
+    fi
+
+    if [ "!{has_accessions}" == "true" ]; then
+        mkdir fasta
+        ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
+                                      -A !{accession_list} -r 50
+        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
+        gunzip fasta/*
+        cp fasta/*.fna.reference reference/
+        rm -rf fasta/
     fi
     
     if [ "!{params.reference}" != "null" ]; then
@@ -120,16 +145,20 @@ process calculate_ani {
         r_name=\${r_name%%.*}
         mkdir -p outputs/\${r_name}
         if [ -e "query/\${r_name}.fna" ]; then
-            # Duplicate sample names
-            rm query/\${r_name}.fna.reference
-            cp -P \${r_name}.fna.reference query/\${r_name}_reference.fna 
+            if [ -e "query/\${r_name}.fna.reference" ]; then
+                # Duplicate sample names
+                rm query/\${r_name}.fna.reference
+                cp -P \${r_name}.fna.reference query/\${r_name}_reference.fna
+            fi
         fi
 
-        for q in query/*; do
-            q_name=\${q##*/}
-            q_name=\${q_name%.*}
-            echo "fastANI -q \${q} -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/\${q_name}.tsv" >> fastani.sh
-        done
+        find query/ -name "*.fna*" > query-list.txt  
+        echo "fastANI --ql query-list.txt -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/output.tsv" >> fastani.sh
+        #for q in query/*; do
+        #    q_name=\${q##*/}
+        #    q_name=\${q_name%.*}
+        #    echo "fastANI -q \${q} -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/\${q_name}.tsv" >> fastani.sh
+        #done
     done
 
     # Run FastANI (one-to-one) in parallel with xargs
@@ -419,7 +448,9 @@ def print_help() {
 
         --species STR           The name of the species to download RefSeq assemblies for.
         
-        --accession STR         The Assembly accession (e.g. GCF*.*) download from RefSeq.
+        --accession STR         The Assembly accession (e.g. GCF*.*) to download from RefSeq.
+
+        --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
 
         --limit INT             Limit the number of RefSeq assemblies to download. If the the
                                     number of available genomes exceeds the given limit, a 
