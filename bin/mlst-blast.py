@@ -17,7 +17,7 @@ optional arguments:
   --compressed  Input FASTA is Gzipped.
 """
 PROGRAM = "mlst-blast"
-VERSION = "1.4.8"
+VERSION = "1.4.9"
 
 def pipe_command(cmd_1, cmd_2, stdout=False, stderr=False, verbose=True,
                  shell=False):

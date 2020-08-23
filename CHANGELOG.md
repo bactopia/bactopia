@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.4.9 bactopia/bactopia "" - 2020/08/??
+## v1.4.9 bactopia/bactopia "Toreador's Ring" - 2020/08/23
 ### `Added`
 - Support for multiple accession
     - `bactopia search` (SRA)
