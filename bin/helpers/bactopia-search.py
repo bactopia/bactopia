@@ -27,6 +27,7 @@ example usage:
   bactopia search "staphylococcus aureus" --limit 20
 
 """
+import os
 import sys
 VERSION = "1.4.9"
 PROGRAM = "bactopia search"
@@ -54,6 +55,7 @@ def ena_search(query, limit=1000000):
     import time
 
     # ENA browser info: http://www.ebi.ac.uk/ena/about/browser
+    query_original = query
     query = (
         f'"{query} AND library_source=GENOMIC AND '
         '(library_strategy=OTHER OR library_strategy=WGS OR '
@@ -65,13 +67,13 @@ def ena_search(query, limit=1000000):
     url = f'{ENA_URL}&query={query}&{limit}&fields={",".join(FIELDS)}'
     headers = {'Content-type': 'application/x-www-form-urlencoded'}
     response = requests.get(url, headers=headers)
-    if not response.text:
-        print(f'{query} did not return any results from ENA.', file=sys.stderr)
-        sys.exit(1)
-
-    results = response.text.split('\n')
     time.sleep(1)
-    return [results[0], results[1:]]
+    if not response.text:
+        print(f'WARNING: {query_original} did not return any results from ENA.', file=sys.stderr)
+        return [[], []]
+    else:
+        results = response.text.split('\n')
+        return [results[0], results[1:]]
 
 
 def parse_accessions(results, min_read_length=None, min_base_count=None):
@@ -120,7 +122,6 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
 
 def parse_query(q, exact_taxon=False):
     """Return the query based on if Taxon ID or BioProject/Study accession."""
-    import os
     import re
     queries = []
     if os.path.exists(q):
@@ -232,6 +233,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     min_read_length = args.min_read_length
     min_base_count = args.min_base_count
+    if not os.path.exists(args.outdir):
+        os.makedirs(args.outdir, exist_ok=True)
+
     if args.min_coverage and args.genome_size:
         if args.min_base_count:
             print("--min_base_count cannot be used with --coverage/--genome_size. Exiting...",
@@ -259,20 +263,22 @@ if __name__ == '__main__':
         query_header, query_results = ena_search(query, limit=args.limit)
         query_accessions, query_filtered = parse_accessions(query_results, min_read_length=min_read_length,
                                                             min_base_count=min_base_count)
+        if len(query_accessions):
+            WARNING_MESSAGE = None
+            if query_type == 'biosample' and args.biosample_subset > 0:
+                if len(query_accessions) > args.biosample_subset:
+                    WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(query_accessions)}'
+                    query_accessions = random.sample(query_accessions, args.biosample_subset)
 
-        WARNING_MESSAGE = None
-        if query_type == 'biosample' and args.biosample_subset > 0:
-            if len(query_accessions) > args.biosample_subset:
-                WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(query_accessions)}'
-                query_accessions = random.sample(query_accessions, args.biosample_subset)
-
-        result_header = query_header
-        results = list(set(results + query_results))
-        accessions = list(set(accessions + query_accessions))
-        filtered['min_base_count'] += query_filtered['min_base_count']
-        filtered['min_read_length'] += query_filtered['min_read_length']
-        filtered['technical'] += query_filtered['technical']
-        filtered['filtered'] = list(set(filtered['filtered'] + query_filtered['filtered']))
+            result_header = query_header
+            results = list(set(results + query_results))
+            accessions = list(set(accessions + query_accessions))
+            filtered['min_base_count'] += query_filtered['min_base_count']
+            filtered['min_read_length'] += query_filtered['min_read_length']
+            filtered['technical'] += query_filtered['technical']
+            filtered['filtered'] = list(set(filtered['filtered'] + query_filtered['filtered']))
+        else:
+            WARNING_MESSAGE = f'WARNING: {query} did not return any results from ENA.'
 
         # Create Summary
         if len(queries) > 1:
@@ -281,7 +287,10 @@ if __name__ == '__main__':
         else:
             summary.append(f'QUERY: {query}')
         summary.append(f'LIMIT: {args.limit}')
-        summary.append(f'RESULTS: {len(query_results) - 2} ({results_file})')
+        if len(query_accessions):
+            summary.append(f'RESULTS: {len(query_results) - 2} ({results_file})')
+        else:
+            summary.append(f'RESULTS: {len(query_results)} ({results_file})')
         summary.append(f'ILLUMINA ACCESSIONS: {len(query_accessions)} ({accessions_file})')
 
         if WARNING_MESSAGE:

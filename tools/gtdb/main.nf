@@ -1,7 +1,7 @@
 #! /usr/bin/env nextflow
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
-OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
+OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}/${params.prefix}"
 DOWNLOAD_GTDB = false
 OVERWRITE = workflow.resume || params.force ? true : false
 
