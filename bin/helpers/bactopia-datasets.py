@@ -879,7 +879,7 @@ if __name__ == '__main__':
         help=('Skip setup of Ariba datasets')
     )
     group1.add_argument(
-        '--ariba', metavar="STR", type=str, default='vfdb_core',
+        '--ariba', metavar="STR", type=str, default='vfdb_core,card',
         help=('Setup Ariba datasets for a given reference or a list of '
               'references in a text file. (Default: vfdb_core)')
     )

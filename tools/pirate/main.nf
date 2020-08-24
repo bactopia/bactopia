@@ -127,8 +127,8 @@ process build_pangenome {
     
     ls -lh pirate
 
-    cp pirate/pangenome_alignment.fasta alignment.fa
-    pigz -n --best -p !{task.cpus} pirate/pangenome_alignment.fasta
+    cp pirate/core_alignment.fasta alignment.fa
+    pigz -n --best -p !{task.cpus} pirate/*.fasta
     """
 }
 
