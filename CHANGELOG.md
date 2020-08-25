@@ -1,5 +1,16 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.10 bactopia/bactopia "Jelly Ring" - 2020/08/25
+### `Added`
+- `card` is back as a default Ariba dataset
+- Added timestamps to `versions` files
+
+### `Fixed`
+- `bactopia search` not creating `--outdir`
+- `gtdb` tool not using prefix in outdir naming
+- `pirate` tool using pangenome alignment instead of core
+- Use of `scratch` causing logs to fail
+
 ## v1.4.9 bactopia/bactopia "Toreador's Ring" - 2020/08/23
 ### `Added`
 - Support for multiple accession

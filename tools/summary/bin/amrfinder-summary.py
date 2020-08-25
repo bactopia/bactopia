@@ -5,7 +5,7 @@
 import logging
 from collections import Counter, OrderedDict
 PROGRAM = "bactopia tools summary amrfinder"
-VERSION = "1.4.9"
+VERSION = "1.4.10"
 IGNORE_LIST = ['.nextflow', '.nextflow.log', 'bactopia-info', 'work', 'bactopia-tools']
 EXCLUDE_LIST = []
 
