@@ -7,7 +7,8 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch !{sample}.sig !{sample}-k31.msh !{sample}-k21.msh
 else
     mkdir -p ${LOG_DIR}
-    touch ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
     echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
     mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
@@ -22,9 +23,8 @@ else
     if [ "!{params.skip_logs}" == "false" ]; then 
         cp .command.err ${LOG_DIR}/!{task.process}.err
         cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.run ${LOG_DIR}/!{task.process}.run
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

@@ -9,7 +9,8 @@ else
     mkdir -p fastqs
     mkdir -p extra
     mkdir -p ${LOG_DIR}
-    touch ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
     if [ "!{sample_type}" == "paired-end" ]; then
         # Paired-End Reads
         ln -s `readlink !{fq[0]}` fastqs/!{sample}_R1.fastq.gz
@@ -107,9 +108,8 @@ else
     if [ "!{params.skip_logs}" == "false" ]; then 
         cp .command.err ${LOG_DIR}/!{task.process}.err
         cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.run ${LOG_DIR}/!{task.process}.run
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace
+        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
+        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

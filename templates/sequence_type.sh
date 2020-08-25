@@ -9,7 +9,8 @@ if [ "!{params.dry_run}" == "true" ]; then
 else
     tar -xzvf !{dataset_tarball}
     mkdir -p ${LOG_DIR}
-    touch ${LOG_DIR}/!{task.process}-!{method}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 
     if [ "!{method}" == "blast" ]; then
         echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{task.process}.versions
@@ -43,9 +44,8 @@ else
     if [ "!{params.skip_logs}" == "false" ]; then 
         cp .command.err ${LOG_DIR}/!{task.process}-!{method}.err
         cp .command.out ${LOG_DIR}/!{task.process}-!{method}.out
-        cp .command.run ${LOG_DIR}/!{task.process}-!{method}.run
-        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh
-        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace
+        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh  || :
+        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

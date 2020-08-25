@@ -8,9 +8,11 @@ if [ "!{params.dry_run}" == "true" ]; then
     touch ${OUTDIR}/!{method}.dry_run.txt
 else
     mkdir -p ${LOG_DIR}
+    echo "# Timestamp" >> ${LOG_DIR}/!{task.process}-!{method}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
     if [ "!{method}" == "checkm" ]; then
         # CheckM
-        echo "# CheckM Version" > ${LOG_DIR}/!{task.process}-!{method}.versions
+        echo "# CheckM Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
         checkm -h | grep ":::" >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
 
         mkdir checkm/
@@ -30,7 +32,7 @@ else
         fi
     else
         # QUAST
-        echo "# QUAST Version" > ${LOG_DIR}/!{task.process}-!{method}.versions
+        echo "# QUAST Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
         quast --version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
         GENOME_SIZE=`head -n 1 !{genome_size}`
         est_ref_size=""
@@ -48,9 +50,8 @@ else
     if [ "!{params.skip_logs}" == "false" ]; then 
         cp .command.err ${LOG_DIR}/!{task.process}-!{method}.err
         cp .command.out ${LOG_DIR}/!{task.process}-!{method}.out
-        cp .command.run ${LOG_DIR}/!{task.process}-!{method}.run
-        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh
-        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace
+        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh || :
+        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

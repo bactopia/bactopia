@@ -45,6 +45,8 @@ process gather_fastqs {
     /* Gather up input FASTQs for analysis. */
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
 
+    tag "${sample}"
+
     input:
     set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from create_input_channel(run_type)
 
