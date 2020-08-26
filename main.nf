@@ -44,6 +44,7 @@ setup_datasets()
 process gather_fastqs {
     /* Gather up input FASTQs for analysis. */
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     tag "${sample}"
 
@@ -51,6 +52,7 @@ process gather_fastqs {
     set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from create_input_channel(run_type)
 
     output:
+    file "*-error.txt" optional true
     set val(sample_name), val(sample_type), val(single_end),
         file("fastqs/${sample_name}*.fastq.gz"), file("extra/*.gz") into FASTQ_PE_STATUS
     file "${task.process}/*" optional true

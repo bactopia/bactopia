@@ -70,17 +70,25 @@ else
             echo "# ncbi-genome-download Version" >> ${LOG_DIR}/annotate_genome.versions
             ncbi-genome-download --version >> ${LOG_DIR}/annotate_genome.versions 2>&1
 
-            # Download from NCBI assembly and simulate reads
-            mkdir fasta/
-            ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
-                                          -s !{section} -A !{sample} -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
-            find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
-            if [ "!{section}" == 'refseq' ]; then
-                rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
+            # Verify Assembly accession
+            check-assembly-accession.py !{sample} > accession.txt 2> ${LOG_DIR}/check-assembly-accession.txt
+
+            if [ -s "accession.txt" ]; then
+                # Download from NCBI assembly and simulate reads
+                mkdir fasta/
+                ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
+                                            -s !{section} -A accession.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
+                find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
+                if [ "!{section}" == 'refseq' ]; then
+                    rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
+                else
+                    rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
+                fi
+                zcat fasta/!{sample_name}.fna.gz > !{sample_name}-art.fna
             else
-                rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
+                cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt
+                exit 42
             fi
-            zcat fasta/!{sample_name}.fna.gz > !{sample_name}-art.fna
         elif [ "!{sample_type}" == "assembly" ]; then
             if [ "!{is_compressed}" == "true" ]; then
                 zcat !{extra} > !{sample_name}-art.fna

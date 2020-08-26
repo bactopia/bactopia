@@ -1,5 +1,5 @@
 name: bactopia-gather_fastqs
-version: 1.4.x
+version: 1.4.10
 channels:
   - rpetit3
   - conda-forge
@@ -11,6 +11,7 @@ dependencies:
   - appdirs=1.4.3
   - art=2016.06.05
   - aspera-connect=3.9.6
+  - biopython=1.77
   - blas=2.16
   - brotlipy=0.7.0
   - c-ares=1.16.1
@@ -57,6 +58,7 @@ dependencies:
   - ncbi-genome-download=0.3.0
   - ncbi-ngs-sdk=2.10.4
   - ncurses=6.2
+  - numpy=1.19.1
   - openblas=0.3.6
   - openssl=1.1.1g
   - ossuuid=1.6.2
@@ -93,7 +95,7 @@ dependencies:
   - requests=2.24.0
   - setuptools=49.6.0
   - six=1.15.0
-  - sqlite=3.32.3
+  - sqlite=3.33.0
   - sra-tools=2.10.8
   - tk=8.6.10
   - urllib3=1.25.10
@@ -102,3 +104,4 @@ dependencies:
   - wheel=0.35.1
   - xz=5.2.5
   - zlib=1.2.11
+
