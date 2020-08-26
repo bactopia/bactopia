@@ -19,7 +19,7 @@ else
 
     # Prokka Version
     echo "# Prokka Version" >> ${LOG_DIR}/!{task.process}.versions
-    prokka --version >> ${LOG_DIR}/annotate_genome.versions 2>&1
+    prokka --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
     prokka --outdir annotation \
         --force \
         --prefix '!{sample}' \

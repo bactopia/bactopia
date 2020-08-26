@@ -67,8 +67,8 @@ else
     elif [ "!{is_assembly}" == "true" ]; then
         if [ "!{sample_type}" == "assembly_accession" ]; then
             # ncbi-genome-download Version
-            echo "# ncbi-genome-download Version" >> ${LOG_DIR}/annotate_genome.versions
-            ncbi-genome-download --version >> ${LOG_DIR}/annotate_genome.versions 2>&1
+            echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
+            ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
             # Verify Assembly accession
             check-assembly-accession.py !{sample} > accession.txt 2> ${LOG_DIR}/check-assembly-accession.txt
@@ -84,16 +84,16 @@ else
                 else
                     rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
                 fi
-                zcat fasta/!{sample_name}.fna.gz > !{sample_name}-art.fna
+                zcat fasta/!{sample}.fna.gz > !{sample}-art.fna
             else
                 cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt
-                exit 42
+                exit
             fi
         elif [ "!{sample_type}" == "assembly" ]; then
             if [ "!{is_compressed}" == "true" ]; then
-                zcat !{extra} > !{sample_name}-art.fna
+                zcat !{extra} > !{sample}-art.fna
             else 
-                cat !{extra} > !{sample_name}-art.fna
+                cat !{extra} > !{sample}-art.fna
             fi
         fi
         # ART Version
@@ -103,14 +103,14 @@ else
         # Simulate reads from assembly, reads are 250bp without errors
         art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov !{fcov} \
                      -ir 0 -ir2 0 -dr 0 -dr2 0 -rs !{params.sampleseed} \
-                     -na -qL 33 -qU 40 -o !{sample_name}_R \
-                     --id !{sample_name} -i !{sample_name}-art.fna > ${LOG_DIR}/art.out 2> ${LOG_DIR}/art.err
+                     -na -qL 33 -qU 40 -o !{sample}_R \
+                     --id !{sample} -i !{sample}-art.fna > ${LOG_DIR}/art.out 2> ${LOG_DIR}/art.err
 
-        mv !{sample_name}_R1.fq fastqs/!{sample_name}_R1.fastq 
-        mv !{sample_name}_R2.fq fastqs/!{sample_name}_R2.fastq
+        mv !{sample}_R1.fq fastqs/!{sample}_R1.fastq 
+        mv !{sample}_R2.fq fastqs/!{sample}_R2.fastq
         pigz -p !{task.cpus} --fast fastqs/*.fastq
-        cp !{sample_name}-art.fna extra/!{sample_name}.fna
-        pigz -p !{task.cpus} --best extra/!{sample_name}.fna
+        cp !{sample}-art.fna extra/!{sample}.fna
+        pigz -p !{task.cpus} --best extra/!{sample}.fna
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 

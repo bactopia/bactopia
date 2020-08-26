@@ -53,8 +53,8 @@ process gather_fastqs {
 
     output:
     file "*-error.txt" optional true
-    set val(sample_name), val(sample_type), val(single_end),
-        file("fastqs/${sample_name}*.fastq.gz"), file("extra/*.gz") into FASTQ_PE_STATUS
+    set val(sample), val(sample_type), val(single_end),
+        file("fastqs/${sample}*.fastq.gz"), file("extra/*.gz") optional true into FASTQ_PE_STATUS
     file "${task.process}/*" optional true
 
     shell:
@@ -64,10 +64,9 @@ process gather_fastqs {
     if (extra) {
         is_compressed = extra.getName().endsWith('gz') ? true : false
     }
-    sample_name = sample_type == 'assembly_accession' ? sample.split(/\./)[0] : sample
     section = null
     if (sample_type == 'assembly_accession') {
-        section = sample_name.startsWith('GCF') ? 'refseq' : 'genbank'
+        section = sample.startsWith('GCF') ? 'refseq' : 'genbank'
     }
     fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
     template(task.ext.template)
@@ -1249,10 +1248,12 @@ def process_fastqs(line) {
 
 def process_accessions(accession) {
     /* Parse line and determine if single end or paired reads*/
-    if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
-        return tuple(accession.trim(), "assembly_accession", false, [null, null], null)
-    } else {
-        return tuple(accession.trim(), "sra_accession", false, [null, null], null)
+    if (accession.length() > 0) {
+        if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
+            return tuple(accession.split(/\./)[0], "assembly_accession", false, [null, null], null)
+        } else {
+            return tuple(accession, "sra_accession", false, [null, null], null)
+        }
     }
 }
 
@@ -1265,7 +1266,7 @@ def create_input_channel(run_type) {
     } else if (run_type == "is_accessions") {
         return Channel.fromPath( file(params.accessions) )
             .splitText()
-            .map { line -> process_accessions(line) }
+            .map { line -> process_accessions(line.trim()) }
     } else if (run_type == "is_accession") {
         if (params.dry_run) {
             return [tuple("BACTOPIA_DRY_RUN", "is_accession", false, [null, null], null)]
