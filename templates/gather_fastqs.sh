@@ -74,7 +74,7 @@ else
             mkdir fasta/
             ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
                                           -s !{section} -A !{sample} -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
-            find -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
+            find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
             if [ "!{section}" == 'refseq' ]; then
                 rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
             else

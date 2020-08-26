@@ -64,7 +64,7 @@ process download_references {
         if [ "!{params.accession}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
         fi
-        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
     fi
@@ -112,7 +112,7 @@ process build_pangenome {
     ap = params.ap ? "-ap" : ""
     """
     rm -rf !{DUMMY_NAME}.gff
-    find -name "*.gff.gz" | xargs -I {} gunzip {}
+    find . -name "*.gff.gz" | xargs -I {} gunzip {}
     roary -f roary -e !{n} -v -p !{task.cpus} !{s} !{ap} -g !{params.g} \
           -i !{params.i} -cd !{params.cd} -iv !{params.iv} -r *.gff
     cp roary/core_gene_alignment.aln alignment.fa

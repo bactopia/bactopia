@@ -1998,7 +1998,8 @@ def full_help() {
                                     Default: Pick earliest accession number
 
         --disable_auto_variants Disable automatic selection of reference genome based on
-                                    Mash distances.
+                                    Mash distances. This will not skip reference genomes
+                                    you may have provided in the optional folders.
 
     BLAST Parameters:
         --perc_identity INT     Percent identity

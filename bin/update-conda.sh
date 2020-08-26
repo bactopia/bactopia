@@ -19,7 +19,7 @@ function update_environment {
     # 1: template, 2: programs, 3: conda dir, 4: version, 5: extra channel
     echo "Working on ${1}"
     conda create -y -n bactopia-${1} ${5} -c conda-forge -c bioconda ${2} 
-    conda env export -n bactopia-${1} | \
+    conda env export --no-builds -n bactopia-${1} | \
         grep -v prefix | \
         sed -r 's=channels:=version: '"${4}"'\nchannels:=' > ${3}/${1}.yml
     conda env remove -n bactopia-${1}

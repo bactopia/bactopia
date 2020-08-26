@@ -28,7 +28,7 @@ else
             --length !{params.checkm_length} > ${LOG_DIR}/checkm.out 2> ${LOG_DIR}/checkm.err
 
         if [[ !{params.compress} == "true" ]]; then
-            find -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
+            find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
         fi
     else
         # QUAST

@@ -63,7 +63,7 @@ process gtdb {
     force = params.force_gtdb ? "--force" : ""
     """
     mkdir genomes
-    find -name "*.fna.gz" | xargs -I {} gunzip {}
+    find . -name "*.fna.gz" | xargs -I {} gunzip {}
     cp -P *.fna genomes/
     gtdbtk classify_wf !{debug} !{recalculate_red} !{force} \
         --cpus !{task.cpus} \

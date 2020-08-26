@@ -38,7 +38,7 @@ process collect_reference {
         ncbi-genome-download bacteria -l complete -o ./ -F genbank \
                                       -s !{section} -A !{params.accession} -r 50
 
-        find -name "*!{params.accession}*.gbff.gz" | xargs -I {} mv {} genbank/
+        find . -name "*!{params.accession}*.gbff.gz" | xargs -I {} mv {} genbank/
         if [ "!{section}" == 'refseq' ]; then
             rename 's/(GCF_\\d+).*/\$1.gbk.gz/' genbank/*
         else

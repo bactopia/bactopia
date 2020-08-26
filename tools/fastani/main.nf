@@ -67,7 +67,7 @@ process collect_assemblies {
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                           -g "!{params.species}" -r 50
         fi
-        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna.reference reference/
@@ -78,7 +78,7 @@ process collect_assemblies {
         mkdir fasta
         ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                       -A !{params.accession} -r 50
-        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna.reference reference/
@@ -89,7 +89,7 @@ process collect_assemblies {
         mkdir fasta
         ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                       -A !{accession_list} -r 50
-        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.reference.gz/' fasta/*
         gunzip fasta/*
         cp fasta/*.fna.reference reference/
@@ -133,7 +133,7 @@ process calculate_ani {
     fi
 
     cp -P *.fna* query/
-    find -name "*.fna.gz" | xargs -I {} gunzip {} 
+    find . -name "*.fna.gz" | xargs -I {} gunzip {} 
 
     if [ "!{params.skip_pairwise}" == "false" ]; then
         cp -f -P query/*.fna reference/

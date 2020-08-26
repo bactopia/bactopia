@@ -8,7 +8,7 @@ usage: bactopia datasets [-h] [--ariba STR] [--species STR]
                               [--clear_cache] [--force] [--force_ariba]
                               [--force_mlst] [--force_prokka]
                               [--force_minmer] [--force_plsdb]
-                              [--keep_files] [--list_datasets] [--depends]
+                              [--keep_files] [--available_datasets] [--depends]
                               [--version] [--verbose] [--silent]
                               OUTPUT_DIRECTORY
 
@@ -54,7 +54,8 @@ Helpful Options:
   --force_minmer    Forcibly overwrite existing minmer datasets.
   --force_plsdb     Forcibly overwrite existing PLSDB datasets.
   --keep_files      Keep all downloaded and intermediate files.
-  --list_datasets   List Ariba reference datasets and MLST schemas
+  --available_datasets   
+                    List Ariba reference datasets and MLST schemas
                     available for setup.
   --depends         Verify dependencies are installed.
 
@@ -221,7 +222,7 @@ def pubmlst_schemas(pubmlst_file):
     return pubmlst
 
 
-def list_datasets(ariba, pubmlst, missing=False):
+def available_datasets(ariba, pubmlst, missing=False):
     """Print available Ariba references, MLST schemas, and exit."""
     print_to = sys.stderr if missing else sys.stdout
     print("Ariba reference datasets available:", file=print_to)
@@ -517,7 +518,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
 
             # Extract information from Genbank files
             genbank_files = execute(
-                'find -name "*.gbff.gz"', directory=prokka_dir, capture=True
+                'find . -name "*.gbff.gz"', directory=prokka_dir, capture=True
             ).split('\n')
             count = 0
             passing_cds = f'{prokka_dir}/passing-cds.faa'
@@ -857,9 +858,9 @@ if __name__ == '__main__':
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(f'''
             example usage:
-              {PROGRAM} outdir
-              {PROGRAM} outdir --ariba 'vfdb_core'
-              {PROGRAM} outdir --species 'Staphylococcus aureus' --include_genus
+              {PROGRAM} 
+              {PROGRAM} --ariba 'vfdb_core'
+              {PROGRAM} --species 'Staphylococcus aureus' --include_genus
         ''')
     )
 
@@ -869,8 +870,8 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        'outdir', metavar="OUTPUT_DIRECTORY", type=str,
-        help='Directory to write output.'
+        '--outdir', metavar="STR", type=str, default="./datasets"
+        help='Directory to write output. (Default ./datasets)'
     )
 
     group1 = parser.add_argument_group('Ariba Reference Datasets')
@@ -880,8 +881,11 @@ if __name__ == '__main__':
     )
     group1.add_argument(
         '--ariba', metavar="STR", type=str, default='vfdb_core,card',
-        help=('Setup Ariba datasets for a given reference or a list of '
-              'references in a text file. (Default: vfdb_core)')
+        help=('Comma separated list of Ariba datasets to download and setup. '
+              'Available datasets include: argannot, card, ncbi, megares, '
+              'plasmidfinder, resfinder, srst2_argannot, vfdb_core, vfdb_full, '
+              'virulencefinder (Default: "vfdb_core,card") Use --available_datasets '
+              'to see the full list.')
     )
 
     group2 = parser.add_argument_group('Bacterial Species')
@@ -926,12 +930,7 @@ if __name__ == '__main__':
         help=("Use CD-HIT's (-g 0) fast clustering algorithm, instead of the "
               "accurate but slow algorithm.")
     )
-    group3.add_argument(
-        '--prodigal_tf', metavar="STR", type=str,
-        help=("A pre-built Prodigal training file to add to the species "
-              "annotation folder. Requires a single species (--species) and "
-              "will replace existing training files.")
-    )
+
 
     group4 = parser.add_argument_group('Minmer Datasets')
     group4.add_argument(
@@ -945,45 +944,84 @@ if __name__ == '__main__':
         help='Skip download of pre-computed PLSDB datbases (blast, mash)'
     )
 
-    group6 = parser.add_argument_group('Helpful Options')
+    group6 = parser.add_argument_group('Optional User Provided Datasets')
     group6.add_argument(
+        '--prodigal_tf', metavar="STR", type=str,
+        help=("A pre-built Prodigal training file to add to the species "
+              "annotation folder. Requires a single species (--species) and "
+              "will replace existing training files.")
+    )
+
+    group6.add_argument(
+        '--reference', metavar="STR", type=str,
+        help=("A reference genome (FASTA/GenBank (preferred)) file or directory "
+              "to be added to the optional folder for variant calling. Requires "
+              "a single species (--species).")
+    )
+    group6.add_argument(
+        '--mapping', metavar="STR", type=str,
+        help=("A reference sequence (FASTA) file or directory to be added to the "
+              "optional folder for mapping. Requires a single species (--species).")
+    )
+    group6.add_argument(
+        help=("A gene sequence (FASTA) file or directory to be added to the "
+              "optional folder for BLAST. Requires a single species (--species).")
+    )
+    group6.add_argument(
+        '--proteins', metavar="STR", type=str,
+        help=("A protein sequence (FASTA) file or directory to be added to the "
+              "optional folder for BLAST. Requires a single species (--species).")
+    )
+    group6.add_argument(
+        '--primers', metavar="STR", type=str,
+        help=("A primer sequence (FASTA) file or directory to be added to the "
+              "optional folder for BLAST. Requires a single species (--species).")
+    )
+    group6.add_argument(
+        '--force_optional', action='store_true',
+        help='Overwrite any existing files in the optional folders'
+    )
+
+
+    group7 = parser.add_argument_group('Custom Options')
+    group7.add_argument(
         '--cpus', metavar="INT", type=int, default=1,
         help=('Number of cpus to use. (Default: 1)')
     )
-    group6.add_argument('--clear_cache', action='store_true',
+    group7.add_argument('--clear_cache', action='store_true',
                         help='Remove any existing cache.')
 
-    group6.add_argument('--force', action='store_true',
+    group7.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing datasets.')
-    group6.add_argument('--force_ariba', action='store_true',
+    group7.add_argument('--force_ariba', action='store_true',
                         help='Forcibly overwrite existing Ariba datasets.')
-    group6.add_argument('--force_mlst', action='store_true',
+    group7.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST datasets.')
-    group6.add_argument('--force_prokka', action='store_true',
+    group7.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka datasets.')
-    group6.add_argument('--force_minmer', action='store_true',
+    group7.add_argument('--force_minmer', action='store_true',
                         help='Forcibly overwrite existing minmer datasets.')
-    group6.add_argument('--force_plsdb', action='store_true',
+    group7.add_argument('--force_plsdb', action='store_true',
                         help='Forcibly overwrite existing PLSDB datasets.')
-    group6.add_argument(
+    group7.add_argument(
         '--keep_files', action='store_true',
         help=('Keep all downloaded and intermediate files.')
     )
-    group6.add_argument(
-        '--list_datasets', action='store_true',
+    group7.add_argument(
+        '--available_datasets', action='store_true',
         help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
 
-    group6.add_argument('--depends', action='store_true',
+    group7.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
 
-    group7 = parser.add_argument_group('Adjust Verbosity')
-    group7.add_argument('--version', action='version',
+    group8 = parser.add_argument_group('Adjust Verbosity')
+    group8.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
-    group7.add_argument('--verbose', action='store_true',
+    group8.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
-    group7.add_argument('--silent', action='store_true',
+    group8.add_argument('--silent', action='store_true',
                         help='Only critical errors will be printed.')
 
 
@@ -1002,6 +1040,10 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         validate_requirements()
+
+    ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
+    if args.available_datasets:
+        available_datasets(ARIBA, PUBMLST)
 
     num_species = 0
     if args.species:
@@ -1037,10 +1079,6 @@ if __name__ == '__main__':
             logging.error(f'Only a single species (given {num_species}) can be used with --accessions')
             sys.exit(1)
             
-    ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
-    if args.list_datasets:
-        list_datasets(ARIBA, PUBMLST)
-
     if not args.skip_ariba:
         if args.ariba:
             logging.info('Setting up Ariba datasets')

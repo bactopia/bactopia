@@ -65,7 +65,7 @@ process download_references {
             ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
         fi
 
-        find -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
         rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
         gunzip fasta/*
     fi
@@ -115,7 +115,7 @@ process build_pangenome {
     split_diamond = params.split_diamond ? "--diamond-split" : ""
     """
     rm -rf !{DUMMY_NAME}.gff
-    find -name "*.gff.gz" | xargs -I {} gunzip {}
+    find . -name "*.gff.gz" | xargs -I {} gunzip {}
     PIRATE --input ./ \
         --output pirate \
         --steps "!{params.steps}" \
