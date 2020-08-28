@@ -870,7 +870,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--outdir', metavar="STR", type=str, default="./datasets"
+        '--outdir', metavar="STR", type=str, default="./datasets",
         help='Directory to write output. (Default ./datasets)'
     )
 
@@ -964,6 +964,7 @@ if __name__ == '__main__':
               "optional folder for mapping. Requires a single species (--species).")
     )
     group6.add_argument(
+        '--genes', metavar="STR", type=str,
         help=("A gene sequence (FASTA) file or directory to be added to the "
               "optional folder for BLAST. Requires a single species (--species).")
     )
@@ -981,7 +982,6 @@ if __name__ == '__main__':
         '--force_optional', action='store_true',
         help='Overwrite any existing files in the optional folders'
     )
-
 
     group7 = parser.add_argument_group('Custom Options')
     group7.add_argument(

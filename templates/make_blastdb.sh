@@ -13,7 +13,7 @@ else
     echo "# makeblastdb Version" >> ${LOG_DIR}/!{task.process}.versions
     makeblastdb -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
     if [[ !{params.compress} == "true" ]]; then
-        zcat !{fasta} | \
+        gzip -cd !{fasta} | \
         makeblastdb -dbtype "nucl" -title "Assembled contigs for !{sample}" -out blastdb/!{sample}
     else
         cat !{fasta} | \

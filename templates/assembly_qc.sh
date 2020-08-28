@@ -12,23 +12,27 @@ else
     date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
     if [ "!{method}" == "checkm" ]; then
         # CheckM
-        echo "# CheckM Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
-        checkm -h | grep ":::" >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
-
         mkdir checkm/
-        checkm lineage_wf ./ checkm/ \
-            !{full_tree} --alignment_file checkm/checkm-genes.aln \
-            --tab_table \
-            --file checkm/checkm-results.txt \
-            --threads !{task.cpus} \
-            !{checkm_ali} !{checkm_nt}  --pplacer_threads !{task.cpus} \
-            !{force_domain} !{no_refinement} --unique !{params.checkm_unique} \
-            !{individual_markers} !{skip_adj_correction}  --multi !{params.checkm_multi} \
-            !{skip_pseudogene_correction} !{ignore_thresholds} --aai_strain !{params.aai_strain} \
-            --length !{params.checkm_length} > ${LOG_DIR}/checkm.out 2> ${LOG_DIR}/checkm.err
+        if [ "$(uname)" = Darwin ]; then
+            echo "checkm is not available due to pplacer not being available on MacOSX (via BioConda)" > checkm/checkm-not-available-on-macosx.txt
+        else
+            echo "# CheckM Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
+            checkm -h | grep ":::" >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
 
-        if [[ !{params.compress} == "true" ]]; then
-            find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
+            checkm lineage_wf ./ checkm/ \
+                !{full_tree} --alignment_file checkm/checkm-genes.aln \
+                --tab_table \
+                --file checkm/checkm-results.txt \
+                --threads !{task.cpus} \
+                !{checkm_ali} !{checkm_nt}  --pplacer_threads !{task.cpus} \
+                !{force_domain} !{no_refinement} --unique !{params.checkm_unique} \
+                !{individual_markers} !{skip_adj_correction}  --multi !{params.checkm_multi} \
+                !{skip_pseudogene_correction} !{ignore_thresholds} --aai_strain !{params.aai_strain} \
+                --length !{params.checkm_length} > ${LOG_DIR}/checkm.out 2> ${LOG_DIR}/checkm.err
+
+            if [[ !{params.compress} == "true" ]]; then
+                find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
+            fi
         fi
     else
         # QUAST

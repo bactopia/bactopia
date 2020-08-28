@@ -30,7 +30,7 @@ else
     # Split Genbank files containing plasmids
     mkdir -p refseq/split
     ls refseq/bacteria/ | \
-        xargs -I {} sh -c 'zcat refseq/bacteria/{}/{}*.gbff.gz | csplit -z --quiet --prefix=refseq/split/{}- - "/^\/\//+1" "{*}"'
+        xargs -I {} sh -c 'gzip -cd refseq/bacteria/{}/{}*.gbff.gz | csplit -z --quiet --prefix=refseq/split/{}- - "/^\/\//+1" "{*}"'
 
     # Copy the largest segment for each split Genbank (assumes completed genomes)
     mkdir genbank

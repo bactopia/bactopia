@@ -15,8 +15,8 @@ else
     echo "# Sourmash Version" >> ${LOG_DIR}/!{task.process}.versions
     sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
-    zcat !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
-    zcat !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
+    gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
+    gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
     sourmash compute --scaled !{params.sourmash_scale} -o !{sample}.sig -p !{task.cpus} \
                      --track-abundance --merge !{sample} -k 21,31,51 !{fastq}
 

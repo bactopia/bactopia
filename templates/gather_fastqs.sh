@@ -44,6 +44,9 @@ else
                         # ascp is symbolic link, need to get key
                         ASPERA_KEY="--aspera_key `readlink -f $ASCP | sed 's=bin/ascp$=etc/asperaweb_id_dsa.openssh='`"
                     fi
+                else
+                    #ascp not found, only use ftp
+                    FTP_ONLY="--ftp_only"
                 fi
             else
                 FTP_ONLY="--ftp_only"
@@ -84,14 +87,14 @@ else
                 else
                     rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
                 fi
-                zcat fasta/!{sample}.fna.gz > !{sample}-art.fna
+                gzip -cd fasta/!{sample}.fna.gz > !{sample}-art.fna
             else
                 cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt
                 exit
             fi
         elif [ "!{sample_type}" == "assembly" ]; then
             if [ "!{is_compressed}" == "true" ]; then
-                zcat !{extra} > !{sample}-art.fna
+                gzip -cd !{extra} > !{sample}-art.fna
             else 
                 cat !{extra} > !{sample}-art.fna
             fi

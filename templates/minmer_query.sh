@@ -15,7 +15,7 @@ else
         mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
         printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > !{sample}-refseq-k21.txt
-        zcat !{fastq} | \
+        gzip -cd !{fastq} | \
         mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
         sort -gr >> !{sample}-refseq-k21.txt 2> ${LOG_DIR}/mash.err
     elif [ "!{dataset_name}" == "plsdb.msh" ]; then
@@ -23,7 +23,7 @@ else
         mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
         printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > !{sample}-plsdb-k21.txt
-        zcat !{fastq} | \
+        gzip -cd !{fastq} | \
         mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
         sort -gr >> !{sample}-plsdb-k21.txt 2> ${LOG_DIR}/mash.err
     elif [ "!{dataset_name}" == "genbank-k21.json.gz" ]; then

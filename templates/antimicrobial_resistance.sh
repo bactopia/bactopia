@@ -8,8 +8,8 @@ echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 
 if [[ !{params.compress} == "true" ]]; then
-    zcat !{genes} > !{sample}.ffn
-    zcat !{proteins} > !{sample}.faa
+    gzip -cd !{genes} > !{sample}.ffn
+    gzip -cd !{proteins} > !{sample}.faa
 fi
 
 tar -xzvf !{amrdb}

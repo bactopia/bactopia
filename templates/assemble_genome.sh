@@ -31,7 +31,7 @@ else
         fi
     elif [ "!{use_original_assembly}" == "true" ]; then
         mkdir ${OUTDIR}
-        zcat !{extra} > ${OUTDIR}/!{sample}.fna
+        gzip -cd !{extra} > ${OUTDIR}/!{sample}.fna
     else
         echo "# shovill Version" >> ${LOG_DIR}/!{task.process}.versions
         shovill --version >> ${LOG_DIR}/!{task.process}.versions 2>&1

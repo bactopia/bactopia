@@ -4,8 +4,16 @@ import groovy.text.SimpleTemplateEngine
 import groovy.util.FileNameByRegexFinder
 import java.nio.file.Path
 import java.nio.file.Paths
+import nextflow.util.SysHelper
 PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
+
+// Adjust memory/cpu requests for standard profile only
+MAX_MEMORY = workflow.profile == 'standard' ? get_max_memory((params.max_memory).GB) : (params.max_memory).GB
+MAX_MEMORY_INT = MAX_MEMORY.toString().split(" ")[0]
+MAX_CPUS = workflow.profile == 'standard' ? get_max_cpus(params.cpus.toInteger()) : params.cpus.toInteger()
+MAX_CPUS_75 = Math.round(MAX_CPUS * 0.75)
+MAX_CPUS_50 = Math.round(MAX_CPUS * 0.50)
 
 // Validate parameters
 if (params.help || params.help_all || params.conda_help) print_usage();
@@ -20,6 +28,7 @@ if (params.check_fastqs) print_check_fastqs(run_type);
 
 // Setup output directories
 outdir = params.outdir ? params.outdir : './'
+
 // Setup some defaults
 log.info "${PROGRAM_NAME} - ${VERSION}"
 ARIBA_DATABASES = []
@@ -872,6 +881,26 @@ def format_species(species) {
     return name
 }
 
+def get_max_memory(requested) {
+    available = SysHelper.getAvailMemory()
+    if (available < requested) {
+        log.warn "Maximum memory (${requested}) was adjusted to fit your system (${available})"
+        return available
+    }
+
+    return requested
+}
+
+def get_max_cpus(requested) {
+    available = SysHelper.getAvailCpus()
+    if (available < requested) {
+        log.warn "Maximum CPUs (${requested}) was adjusted to fit your system (${available})"
+        return available
+    }
+    
+    return requested
+}
+
 
 def check_species_datasets(dataset, species) {
     /* Check for available species specific datasets */
@@ -1404,11 +1433,11 @@ def print_efficiency() {
     if (workflow.profile == 'standard') {
         // This is a local run on a single machine
         total_cpus = Runtime.runtime.availableProcessors()
-        tasks = total_cpus / params.cpus
+        tasks = total_cpus / MAX_CPUS
         log.info ""
         log.info """
-            Each task will use ${params.cpus} CPUs out of the available ${total_cpus} CPUs. At most ${tasks} tasks will be run at 
-            once, this can affect the efficiency of Bactopia.
+            Each task will use ${MAX_CPUS} CPUs out of the available ${total_cpus} CPUs. At most ${tasks} task(s) will be run at 
+            a time, this can affect the efficiency of Bactopia.
         """.stripIndent()
         log.info ""
     }
@@ -1514,6 +1543,11 @@ def basic_help() {
 
         --cpus INT              Number of processors made available to a single task. 
                                     Default: ${params.cpus}
+
+        -qs                     Nextflow queue size. This parameter is very useful to limit the total number of 
+                                    processors used on desktops, laptops or shared resources.
+                                    Default: Nextflow defaults to the total number of processors on your system.
+
 
     Nextflow Related Parameters:
         --infodir DIR           Directory to write Nextflow summary files to

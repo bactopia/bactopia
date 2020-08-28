@@ -15,7 +15,7 @@ else
         # Not completely sure about the inputs, so make sure they meet minimum requirements
         echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
         fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
-        zcat *.fastq.gz | fastq-scan > info.txt
+        gzip -cd *.fastq.gz | fastq-scan > info.txt
         SEQUENCED_BP=`grep "total_bp" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
         TOTAL_READS=`grep "read_total" info.txt | sed -r 's/.*: ([0-9]+),/\1/'`
         rm info.txt

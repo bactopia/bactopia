@@ -16,7 +16,7 @@ parallel --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
 file_size=`gzip -dc !{genes} | wc -c`
 block_size=$(( file_size / !{task.cpus} / 2 ))
-zcat !{genes} | \
+gzip -cd !{genes} | \
 parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
 blastn -db !{blastdb} \
        -outfmt 15 \
