@@ -9,12 +9,23 @@ optional arguments:
   --bactopia STR  Directory where Bactopia repository is stored.
   --version       show program's version number and exit
 """
+
 import os
 import sys
 
 VERSION = "1.4.10"
 PROGRAM = "bactopia versions"
 DESCRIPTION = 'Prints the version of tools used by Bactopia'
+
+def get_platform():
+    from sys import platform
+    if platform == "darwin":
+        return 'mac'
+    elif platform == "win32":
+        # Windows is not supported
+        print("Windows is not supported.", file=sys.stderr)
+        sys.exit(1)
+    return 'linux'
 
 def validate_args(bactopia_repo):
     import json 
@@ -36,7 +47,7 @@ def read_yaml(yaml):
         for line in yaml_fh:
             line = line.strip()
             if '=' in line:
-                program, version, build = line.replace('- ', '').split('=')
+                program, version = line.replace('- ', '').split('=')[0:2]
                 versions[program] = version
     return versions
 
@@ -61,9 +72,10 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
+    ostype = get_platform()
     tools = validate_args(args.bactopia)
 
-    conda_dir = f'{args.bactopia}/conda/linux'
+    conda_dir = f'{args.bactopia}/conda/{ostype}'
     yamls = [f'{f.name}' for f in os.scandir(conda_dir) if f.name.endswith('.yml')]
     versions = {}
     for yaml in yamls:
@@ -73,7 +85,10 @@ if __name__ == '__main__':
     for tool, info in sorted(tools.items()):
         yaml = info['conda']['yaml']
         if yaml not in versions:
-             versions[yaml] = read_yaml(f'{conda_dir}/{yaml}')
+            if yaml.startswith("tools"):
+                versions[yaml] = read_yaml(f'{args.bactopia}/{yaml}')
+            else:
+                versions[yaml] = read_yaml(f'{conda_dir}/{yaml}')
 
         final_versions[tool.lower()] = {
             'name': tool,

@@ -2,7 +2,7 @@
     "AMRFinder+": {
         "conda": {
             "name": "ncbi-amrfinderplus", 
-            "yaml": "conda/antimicrobial_resistance.yml"
+            "yaml": "antimicrobial_resistance.yml"
         }, 
         "description": "Find acquired antimicrobial resistance genes and some point mutations in protein or assembled nucleotide sequences", 
         "link": "https://github.com/ncbi/amr" 
@@ -10,7 +10,7 @@
     "Aragorn": {
         "conda": {
             "name": "aragorn", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Finds transfer RNA features (tRNA)", 
         "link": "http://130.235.244.92/ARAGORN/Downloads/" 
@@ -18,7 +18,7 @@
     "Ariba": {
         "conda": {
             "name": "ariba", 
-            "yaml": "conda/ariba_analysis.yml"
+            "yaml": "ariba_analysis.yml"
         }, 
         "description": "Antimicrobial Resistance Identification By Assembly", 
         "link": "https://github.com/sanger-pathogens/ariba" 
@@ -26,7 +26,7 @@
     "ART": {
         "conda": {
             "name": "art", 
-            "yaml": "conda/gather_fastqs.yml"
+            "yaml": "gather_fastqs.yml"
         }, 
         "description": "A set of simulation tools to generate synthetic next-generation sequencing reads", 
         "link": "https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm" 
@@ -34,7 +34,7 @@
     "assembly-scan": {
         "conda": {
             "name": "assembly-scan", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Generate basic stats for an assembly", 
         "link": "https://github.com/rpetit3/assembly-scan" 
@@ -42,7 +42,7 @@
     "Barrnap": {
         "conda": {
             "name": "barrnap", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Bacterial ribosomal RNA predictor", 
         "link": "https://github.com/tseemann/barrnap" 
@@ -50,7 +50,7 @@
     "BBMap": {
         "conda": {
             "name": "bbmap", 
-            "yaml": "conda/qc_reads.yml"
+            "yaml": "qc_reads.yml"
         }, 
         "description": "A suite of fast, multithreaded bioinformatics tools designed for analysis of DNA and RNA sequence data", 
         "link": "https://jgi.doe.gov/data-and-tools/bbtools/" 
@@ -58,7 +58,7 @@
     "BCFtools": {
         "conda": {
             "name": "bcftools", 
-            "yaml": "conda/ariba_analysis.yml"
+            "yaml": "ariba_analysis.yml"
         }, 
         "description": "Utilities for variant calling and manipulating VCFs and BCFs", 
         "link": "https://github.com/samtools/bcftools" 
@@ -66,7 +66,7 @@
     "Bedtools": {
         "conda": {
             "name": "bedtools", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "A powerful toolset for genome arithmetic", 
         "link": "https://github.com/arq5x/bedtools2" 
@@ -74,7 +74,7 @@
     "BioPython": {
         "conda": {
             "name": "biopython", 
-            "yaml": "conda/ariba_analysis.yml"
+            "yaml": "ariba_analysis.yml"
         }, 
         "description": "Tools for biological computation written in Python", 
         "link": "https://github.com/biopython/biopython" 
@@ -82,7 +82,7 @@
     "BLAST+": {
         "conda": {
             "name": "blast", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Basic Local Alignment Search Tool", 
         "link": "https://blast.ncbi.nlm.nih.gov/Blast.cgi" 
@@ -90,7 +90,7 @@
     "Bowtie2": {
         "conda": {
             "name": "bowtie2", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "A fast and sensitive gapped read aligner", 
         "link": "https://github.com/BenLangmead/bowtie2" 
@@ -98,7 +98,7 @@
     "BWA": {
         "conda": {
             "name": "bwa", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Burrows-Wheeler Aligner for short-read alignment", 
         "link": "https://github.com/lh3/bwa/" 
@@ -106,7 +106,7 @@
     "CD-HIT": {
         "conda": {
             "name": "cd-hit", 
-            "yaml": "conda/ariba_analysis.yml"
+            "yaml": "ariba_analysis.yml"
         }, 
         "description": "Accelerated for clustering the next-generation sequencing data", 
         "link": "https://github.com/weizhongli/cdhit" 
@@ -114,7 +114,7 @@
     "CheckM": {
         "conda": {
             "name": "checkm-genome", 
-            "yaml": "conda/assembly_qc.yml"
+            "yaml": "assembly_qc.yml"
         }, 
         "description": "Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes", 
         "link": "https://github.com/Ecogenomics/CheckM" 
@@ -162,7 +162,7 @@
     "fastq-dl": {
         "conda": {
             "name": "fastq-dl", 
-            "yaml": "conda/gather_fastqs.yml"
+            "yaml": "gather_fastqs.yml"
         }, 
         "description": "Download FASTQ files from SRA or ENA repositories", 
         "link": "https://github.com/rpetit3/fastq-dl" 
@@ -170,7 +170,7 @@
     "FastQC": {
         "conda": {
             "name": "fastqc", 
-            "yaml": "conda/qc_reads.yml"
+            "yaml": "qc_reads.yml"
         }, 
         "description": "A quality control analysis tool for high throughput sequencing data", 
         "link": "https://github.com/s-andrews/FastQC" 
@@ -178,7 +178,7 @@
     "fastq-scan": {
         "conda": {
             "name": "fastq-scan", 
-            "yaml": "conda/qc_reads.yml"
+            "yaml": "qc_reads.yml"
         }, 
         "description": "Output FASTQ summary statistics in JSON format", 
         "link": "https://github.com/rpetit3/fastq-scan" 
@@ -186,7 +186,7 @@
     "FLASH": {
         "conda": {
             "name": "flash", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "A fast and accurate tool to merge paired-end reads", 
         "link": "https://ccb.jhu.edu/software/FLASH/" 
@@ -194,7 +194,7 @@
     "freebayes": {
         "conda": {
             "name": "freebayes", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "Bayesian haplotype-based genetic polymorphism discovery and genotyping", 
         "link": "https://github.com/ekg/freebayes" 
@@ -202,7 +202,7 @@
     "GNU Parallel": {
         "conda": {
             "name": "parallel", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "A shell tool for executing jobs in parallel", 
         "link": "https://www.gnu.org/software/parallel/" 
@@ -218,7 +218,7 @@
     "HMMER": {
         "conda": {
             "name": "hmmer", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Biosequence analysis using profile hidden Markov models", 
         "link": "http://hmmer.org/" 
@@ -226,7 +226,7 @@
     "Infernal": {
         "conda": {
             "name": "infernal", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Searches DNA sequence databases for RNA structure and sequence similarities", 
         "link": "http://eddylab.org/infernal/" 
@@ -250,7 +250,7 @@
     "Lighter": {
         "conda": {
             "name": "lighter", 
-            "yaml": "conda/qc_reads.yml"
+            "yaml": "qc_reads.yml"
         }, 
         "description": "Fast and memory-efficient sequencing error corrector", 
         "link": "https://github.com/mourisl/Lighter" 
@@ -266,7 +266,7 @@
     "Mash": {
         "conda": {
             "name": "mash", 
-            "yaml": "conda/minmers.yml"
+            "yaml": "minmers.yml"
         }, 
         "description": "Fast genome and metagenome distance estimation using MinHash", 
         "link": "https://github.com/marbl/Mash" 
@@ -290,7 +290,7 @@
     "McCortex": {
         "conda": {
             "name": "mccortex", 
-            "yaml": "conda/count_31mers.yml"
+            "yaml": "count_31mers.yml"
         }, 
         "description": "De novo genome assembly and multisample variant calling", 
         "link": "https://github.com/mcveanlab/mccortex" 
@@ -298,7 +298,7 @@
     "MEGAHIT": {
         "conda": {
             "name": "megahit", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Ultra-fast and memory-efficient (meta-)genome assembler", 
         "link": "https://github.com/voutcn/megahit" 
@@ -306,7 +306,7 @@
     "MinCED": {
         "conda": {
             "name": "minced", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Mining CRISPRs in Environmental Datasets", 
         "link": "https://github.com/ctSkennerton/minced" 
@@ -314,7 +314,7 @@
     "Minimap2": {
         "conda": {
             "name": "minimap2", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "A versatile pairwise aligner for genomic and spliced nucleotide sequences", 
         "link": "https://github.com/lh3/minimap2" 
@@ -322,7 +322,7 @@
     "ncbi-genome-download": {
         "conda": {
             "name": "ncbi-genome-download", 
-            "yaml": "conda/download_references.yml"
+            "yaml": "download_references.yml"
         }, 
         "description": "Scripts to download genomes from the NCBI FTP servers", 
         "link": "https://github.com/kblin/ncbi-genome-download" 
@@ -338,7 +338,7 @@
     "Pigz": {
         "conda": {
             "name": "pigz", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "A parallel implementation of gzip for modern multi-processor, multi-core machines", 
         "link": "https://zlib.net/pigz/" 
@@ -346,7 +346,7 @@
     "Pilon": {
         "conda": {
             "name": "pilon", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "An automated genome assembly improvement and variant detection tool", 
         "link": "https://github.com/broadinstitute/pilon/" 
@@ -370,7 +370,7 @@
     "Prodigal": {
         "conda": {
             "name": "prodigal", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Fast, reliable protein-coding gene prediction for prokaryotic genomes", 
         "link": "https://github.com/hyattpd/Prodigal" 
@@ -378,7 +378,7 @@
     "Prokka": {
         "conda": {
             "name": "prokka", 
-            "yaml": "conda/annotate_genome.yml"
+            "yaml": "annotate_genome.yml"
         }, 
         "description": "Rapid prokaryotic genome annotation", 
         "link": "https://github.com/tseemann/prokka" 
@@ -386,7 +386,7 @@
     "QUAST": {
         "conda": {
             "name": "quast", 
-            "yaml": "conda/assembly_qc.yml"
+            "yaml": "assembly_qc.yml"
         }, 
         "description": "Quality Assessment Tool for Genome", 
         "link": "http://quast.sourceforge.net/" 
@@ -394,7 +394,7 @@
     "Racon": {
         "conda": {
             "name": "racon", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Ultrafast consensus module for raw de novo genome assembly of long uncorrected reads", 
         "link": "https://github.com/lbcb-sci/racon" 
@@ -410,7 +410,7 @@
     "samclip": {
         "conda": {
             "name": "samclip", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Filter SAM file for soft and hard clipped alignments", 
         "link": "https://github.com/tseemann/samclip" 
@@ -418,7 +418,7 @@
     "SAMtools": {
         "conda": {
             "name": "samtools", 
-            "yaml": "conda/ariba_analysis.yml"
+            "yaml": "ariba_analysis.yml"
         }, 
         "description": "Tools for manipulating next-generation sequencing data", 
         "link": "https://github.com/samtools/samtools" 
@@ -426,7 +426,7 @@
     "Seqtk": {
         "conda": {
             "name": "seqtk", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "A fast and lightweight tool for processing sequences in the FASTA or FASTQ format", 
         "link": "https://github.com/lh3/seqtk" 
@@ -434,7 +434,7 @@
     "Shovill": {
         "conda": {
             "name": "shovill", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Faster assembly of Illumina reads", 
         "link": "https://github.com/tseemann/shovill" 
@@ -442,7 +442,7 @@
     "SKESA": {
         "conda": {
             "name": "skesa", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Strategic Kmer Extension for Scrupulous Assemblies", 
         "link": "https://github.com/ncbi/SKESA" 
@@ -450,7 +450,7 @@
     "Snippy": {
         "conda": {
             "name": "snippy", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "Rapid haploid variant calling and core genome alignment", 
         "link": "https://github.com/tseemann/snippy" 
@@ -458,7 +458,7 @@
     "SnpEff": {
         "conda": {
             "name": "snpeff", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "Genomic variant annotations and functional effect prediction toolbox", 
         "link": "http://snpeff.sourceforge.net/" 
@@ -474,7 +474,7 @@
     "SNP-sites": {
         "conda": {
             "name": "snp-sites", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "Rapidly extracts SNPs from a multi-FASTA alignment", 
         "link": "https://github.com/sanger-pathogens/snp-sites" 
@@ -482,7 +482,7 @@
     "Sourmash": {
         "conda": {
             "name": "sourmash", 
-            "yaml": "conda/minmers.yml"
+            "yaml": "minmers.yml"
         }, 
         "description": "Compute and compare MinHash signatures for DNA data sets", 
         "link": "https://github.com/dib-lab/sourmash" 
@@ -490,7 +490,7 @@
     "SPAdes": {
         "conda": {
             "name": "spades", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "An assembly toolkit containing various assembly pipelines", 
         "link": "https://github.com/ablab/spades" 
@@ -498,7 +498,7 @@
     "Trimmomatic": {
         "conda": {
             "name": "trimmomatic", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "A flexible read trimming tool for Illumina NGS data", 
         "link": "http://www.usadellab.org/cms/index.php?page=trimmomatic" 
@@ -506,7 +506,7 @@
     "Unicycler": {
         "conda": {
             "name": "unicycler", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Hybrid assembly pipeline for bacterial genomes", 
         "link": "https://github.com/rrwick/Unicycler" 
@@ -514,7 +514,7 @@
     "vcf-annotator": {
         "conda": {
             "name": "vcf-annotator", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "Add biological annotations to variants in a VCF file", 
         "link": "https://github.com/rpetit3/vcf-annotator" 
@@ -522,7 +522,7 @@
     "Vcflib": {
         "conda": {
             "name": "vcflib", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "A simple C++ library for parsing and manipulating VCF files", 
         "link": "https://github.com/vcflib/vcflib" 
@@ -530,7 +530,7 @@
     "Velvet": {
         "conda": {
             "name": "velvet", 
-            "yaml": "conda/assemble_genome.yml"
+            "yaml": "assemble_genome.yml"
         }, 
         "description": "Short read de novo assembler using de Bruijn graphs", 
         "link": "https://github.com/dzerbino/velvet" 
@@ -546,7 +546,7 @@
     "vt": {
         "conda": {
             "name": "vt", 
-            "yaml": "conda/call_variants.yml"
+            "yaml": "call_variants.yml"
         }, 
         "description": "A tool set for short variant discovery in genetic sequence data", 
         "link": "https://github.com/atks/vt" 

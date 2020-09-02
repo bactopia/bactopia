@@ -28,6 +28,15 @@ STDERR = 12
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
 
+def get_platform():
+    from sys import platform
+    if platform == "darwin":
+        return 'mac'
+    elif platform == "win32":
+        # Windows is not supported
+        print("Windows is not supported.", file=sys.stderr)
+        sys.exit(1)
+    return 'linux'
 
 def set_log_level(error, debug):
     """Set the output log level."""
@@ -95,6 +104,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
+    ostype = get_platform()
     major, minor, patch = VERSION.split('.')
     CONTAINER_VERSION = f'{major}.{minor}.x'
 
@@ -104,7 +114,7 @@ if __name__ == '__main__':
     logging.getLogger().setLevel(set_log_level(args.silent, args.verbose))
 
     # https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
-    env_path = os.path.abspath(args.conda_envs)
+    env_path = f'{os.path.abspath(args.conda_envs)}/{ostype}'
     install_path = os.path.abspath(args.install_path)
     finish_file = f'{install_path}/envs-build-{CONTAINER_VERSION}.txt'
     if not args.force and os.path.exists(finish_file):
