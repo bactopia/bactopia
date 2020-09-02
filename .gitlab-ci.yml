@@ -11,7 +11,7 @@ before_script:
   - VERSION=`bactopia version | cut -d " " -f 2`
   - BACTOPIA_VERSION="${VERSION%.*}.x"
   - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-  - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+  - cp -r bin/ docs/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
 stages:
     - test-bactopia-version
