@@ -2,6 +2,8 @@ image: bactopia/bactopia-ci:latest
 
 before_script:
   - BACTOPIA=/opt/conda/envs/bactopia
+  - FQ_DIR=tests/real-fastqs/
+  - COVERAGE="--coverage 20"
   - chmod 755 bactopia
   - cp bactopia ${BACTOPIA}/bin
   - chmod 755 bin/helpers/*
@@ -12,25 +14,161 @@ before_script:
   - cp -r bin/ conda/ conf/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
 stages:
-    - test-bactopia-commands
-    - test-bactopia-nextflow
+    - test-bactopia-version
+    - test-bactopia-citation
+    - test-bactopia-search
+    - test-bactopia-datasets
+    - test-bactopia-prepare
+    - test-run-bactopia-se
+    - test-run-bactopia-pe
+    - test-run-bactopia-fofn
+    - test-run-bactopia-sra
+    - test-run-bactopia-assembly
+    - test-run-bactopia-accessions
 
-bactopia-commands:
-    stage: test-bactopia-commands
+bactopia-version:
+    stage: test-bactopia-version
     only:
         - master
     script:
         - which bactopia
         - bactopia version
         - bactopia --version
+        - bactopia versions
+    when: manual
+
+bactopia-citation:
+    stage: test-bactopia-citation
+    only:
+        - master
+    script:
+        - bactopia citation
+        - bactopia --citation
+        - bactopia citations
         - bactopia search
         - bactopia prepare
         - bactopia tools
+    when: manual
+
+bactopia-search:
+    stage: test-bactopia-search
+    only:
+        - master
+    script:
+        - bactopia search
+        - bactopia search --help
+        - bactopia search PRJNA480016 --limit 5
+        - bactopia search 1280 --exact_taxon --limit 5
+        - bactopia search "staphylococcus aureus" --limit 5
+        - bactopia search SAMN01737350 --limit 5
+        - bactopia search SRR578340 --limit 5
+        - bactopia search SAMN01737350,SRR578340 --limit 5
+        - bactopia search tests/test-search-accessions.txt --limit 5
+    when: manual
+
+bactopia-datasets:
+    stage: test-bactopia-datasets
+    only:
+        - master
+    script:
+        - bactopia datasets
+        - bactopia datasets --help
+        - bactopia datasets --species "Portiera aleyrodidarum" --limit 5
+    when: manual
+
+bactopia-prepare:
+    stage: test-bactopia-prepare
+    only:
+        - master
+    script:
+        - bactopia prepare
+        - bactopia prepare --help
+        - bactopia prepare ${FQ_DIR} > fastqs.txt
+    when: manual
+
+bactopia-build:
+    stage: test-bactopia-build
+    only:
+        - master
+    script:
+        - bactopia datasets
+        - bactopia datasets --help
+        - bactopia datasets --species "Portiera aleyrodidarum" --limit 5
+    when: manual
+
+run-bactopia-se:
+    stage: test-run-bactopia-se
+    only:
+        - master
+    script:
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-pe:
+    stage: test-run-bactopia-pe
+    only:
+        - master
+    script:
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-fofn:
+    stage: test-run-bactopia-fofn
+    only:
+        - master
+    script:
+        - bactopia prepare ${FQ_DIR} > fastqs.txt
+        - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-sra:
+    stage: test-run-bactopia-sra
+    only:
+        - master
+    script:
+        - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-assembly:
+    stage: test-run-bactopia-assembly
+    only:
+        - master
+    script:
+        - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-accessions:
+    stage: test-run-bactopia-accessions
+    only:
+        - master
+    script:
+        - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
+
+run-bactopia-with-datasets:
+    stage: test-run-bactopia-with-datasets
+    only:
+        - master
+    script:
+        - bactopia datasets --species "Staphylococcus aureus" --limit 10
+        - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
+        - cp -r bactopia-datasets/species-specific/ datasets/
+        - rm -rf bactopia-datasets/
+        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE}
+        - rm -rf .nextflow* work/
+    when: manual
 
 bactopia-nextflow:
-    stage: test-bactopia-nextflow
+    stage: test-bactopia-tools
     only:
         - master
     script:
         - bactopia --help
         - ls tools | xargs -I {} sh -c 'cd /tmp/ && bactopia tools {} --help'
+    when: manual

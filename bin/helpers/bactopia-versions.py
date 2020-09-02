@@ -63,7 +63,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     tools = validate_args(args.bactopia)
 
-    conda_dir = f'{args.bactopia}/conda'
+    conda_dir = f'{args.bactopia}/conda/linux'
     yamls = [f'conda/{f.name}' for f in os.scandir(conda_dir) if f.name.endswith('.yml')]
     versions = {}
     for yaml in yamls:
