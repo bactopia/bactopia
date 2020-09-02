@@ -67,13 +67,13 @@ if __name__ == '__main__':
     yamls = [f'conda/{f.name}' for f in os.scandir(conda_dir) if f.name.endswith('.yml')]
     versions = {}
     for yaml in yamls:
-        versions[yaml] = read_yaml(f'{args.bactopia}/{yaml}')
+        versions[yaml] = read_yaml(f'{conda_dir}/{yaml}')
 
     final_versions = {}
     for tool, info in sorted(tools.items()):
         yaml = info['conda']['yaml']
         if yaml not in versions:
-             versions[yaml] = read_yaml(f'{args.bactopia}/{yaml}')
+             versions[yaml] = read_yaml(f'{conda_dir}/{yaml}')
 
         final_versions[tool.lower()] = {
             'name': tool,
