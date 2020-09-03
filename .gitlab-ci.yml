@@ -80,7 +80,7 @@ bactopia-prepare:
     script:
         - bactopia prepare
         - bactopia prepare --help
-        - bactopia prepare ${FQ_DIR} > fastqs.txt
+        - bactopia prepare ${FQ_DIR}
     when: manual
 
 bactopia-build:
@@ -88,9 +88,9 @@ bactopia-build:
     only:
         - master
     script:
-        - bactopia datasets
-        - bactopia datasets --help
-        - bactopia datasets --species "Portiera aleyrodidarum" --limit 5
+        - bactopia build
+        - bactopia build --help
+        - bactopia build --default
     when: manual
 
 run-bactopia-se:
