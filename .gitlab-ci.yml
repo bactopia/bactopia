@@ -3,7 +3,7 @@ image: bactopia/bactopia-ci:latest
 before_script:
   - BACTOPIA=/opt/conda/envs/bactopia
   - FQ_DIR=tests/real-fastqs/
-  - CONDA_DIR=conda-envs/
+  - CONDA_DIR=/opt/bactopia-envs
   - COVERAGE="--coverage 20"
   - chmod 755 bactopia
   - cp bactopia ${BACTOPIA}/bin
@@ -16,7 +16,6 @@ before_script:
 
 stages:
     - subcommand_stage
-    - build_stage
     - test_stage
 
 bactopia-version:
@@ -71,7 +70,7 @@ bactopia-prepare:
         - bactopia prepare ${FQ_DIR}
 
 bactopia-build:
-    stage: build_stage
+    stage: test_stage
     tags:
         - local-docker
     only:
@@ -79,10 +78,7 @@ bactopia-build:
     script:
         - bactopia build
         - bactopia build --help
-        - bactopia build conda/ ${CONDA_DIR}
-    artifacts:
-        paths:
-            - conda-envs/
+        - bactopia build --default
 
 run-bactopia-se:
     stage: test_stage

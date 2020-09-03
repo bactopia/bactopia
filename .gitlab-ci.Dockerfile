@@ -22,6 +22,6 @@ RUN conda create -y -n bactopia -c conda-forge -c bioconda \
     requests \
     unzip \
     wget \ 
-    && conda clean -a
+    && conda clean -a && mkdir /opt/bactopia-envs
 
 ENV PATH /opt/conda/envs/bactopia/bin:$PATH
