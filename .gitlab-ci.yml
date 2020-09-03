@@ -26,6 +26,7 @@ stages:
     - test-run-bactopia-sra
     - test-run-bactopia-assembly
     - test-run-bactopia-accessions
+    - test-run-bactopia-with-datasets
 
 bactopia-version:
     stage: test-bactopia-version
