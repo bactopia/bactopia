@@ -70,7 +70,7 @@ bactopia-datasets:
     script:
         - bactopia datasets
         - bactopia datasets --help
-        - bactopia datasets --species "Candidatus Portiera aleyrodidarum" --limit 5
+        - bactopia datasets --species "Candidatus Liberibacter solanacearum" --include_genus --limit 3
     when: manual
 
 bactopia-prepare:

@@ -174,6 +174,7 @@ def validate_species(species):
     
     species_key = {}
     for species in checks:
+        species = species.strip()
         r = requests.get(f'{ENDPOINT}/{species}?limit=1')
         if r.status_code == requests.codes.ok:
             try:
