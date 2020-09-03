@@ -87,7 +87,7 @@ run-bactopia-se:
     only:
         - master
     script:
-        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-pe:
