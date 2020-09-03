@@ -14,22 +14,11 @@ before_script:
   - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
 stages:
-    - test-bactopia-version
-    - test-bactopia-citation
-    - test-bactopia-search
-    - test-bactopia-datasets
-    - test-bactopia-prepare
-    - test-bactopia-build
-    - test-run-bactopia-se
-    - test-run-bactopia-pe
-    - test-run-bactopia-fofn
-    - test-run-bactopia-sra
-    - test-run-bactopia-assembly
-    - test-run-bactopia-accessions
-    - test-run-bactopia-with-datasets
+    - subcommand_stage
+    - test_stage
 
 bactopia-version:
-    stage: test-bactopia-version
+    stage: subcommand_stage
     only:
         - master
     script:
@@ -39,7 +28,7 @@ bactopia-version:
         - bactopia versions
 
 bactopia-citation:
-    stage: test-bactopia-citation
+    stage: subcommand_stage
     only:
         - master
     script:
@@ -48,7 +37,7 @@ bactopia-citation:
         - bactopia citations
 
 bactopia-search:
-    stage: test-bactopia-search
+    stage: subcommand_stage
     only:
         - master
     script:
@@ -63,7 +52,7 @@ bactopia-search:
         - bactopia search tests/test-search-accessions.txt --limit 5
 
 bactopia-datasets:
-    stage: test-bactopia-datasets
+    stage: subcommand_stage
     only:
         - master
     script:
@@ -72,7 +61,7 @@ bactopia-datasets:
         - bactopia datasets --species "Candidatus Liberibacter solanacearum" --include_genus --limit 3
 
 bactopia-prepare:
-    stage: test-bactopia-prepare
+    stage: subcommand_stage
     only:
         - master
     script:
@@ -80,69 +69,21 @@ bactopia-prepare:
         - bactopia prepare --help
         - bactopia prepare ${FQ_DIR}
 
-bactopia-build:
-    stage: test-bactopia-build
+test-bactopia:
+    stage: test_stage
     only:
         - master
     script:
         - bactopia build
         - bactopia build --help
         - bactopia build --default
-
-run-bactopia-se:
-    stage: test-run-bactopia-se
-    only:
-        - master
-    script:
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-pe:
-    stage: test-run-bactopia-pe
-    only:
-        - master
-    script:
         - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-fofn:
-    stage: test-run-bactopia-fofn
-    only:
-        - master
-    script:
         - bactopia prepare ${FQ_DIR} > fastqs.txt
         - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-sra:
-    stage: test-run-bactopia-sra
-    only:
-        - master
-    script:
         - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-assembly:
-    stage: test-run-bactopia-assembly
-    only:
-        - master
-    script:
         - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-accessions:
-    stage: test-run-bactopia-accessions
-    only:
-        - master
-    script:
         - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE}
-        - rm -rf .nextflow* work/
-
-run-bactopia-with-datasets:
-    stage: test-run-bactopia-with-datasets
-    only:
-        - master
-    script:
         - bactopia datasets --species "Staphylococcus aureus" --limit 10
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/

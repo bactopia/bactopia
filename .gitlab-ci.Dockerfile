@@ -4,6 +4,7 @@ LABEL version="1.4.10"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Gitlab CI"
 
+RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 RUN conda create -y -n bactopia -c conda-forge -c bioconda \
     ariba \
     beautifulsoup4 \
