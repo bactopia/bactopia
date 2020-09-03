@@ -72,6 +72,8 @@ bactopia-prepare:
 
 bactopia-build:
     stage: build_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -84,6 +86,8 @@ bactopia-build:
 
 run-bactopia-se:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -92,6 +96,8 @@ run-bactopia-se:
 
 run-bactopia-pe:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -100,6 +106,8 @@ run-bactopia-pe:
 
 run-bactopia-fofn:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -109,6 +117,8 @@ run-bactopia-fofn:
 
 run-bactopia-sra:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -117,6 +127,8 @@ run-bactopia-sra:
 
 run-bactopia-assembly:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -125,6 +137,8 @@ run-bactopia-assembly:
 
 run-bactopia-accessions:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
@@ -133,6 +147,8 @@ run-bactopia-accessions:
 
 run-bactopia-with-datasets:
     stage: test_stage
+    tags:
+        - local
     only:
         - master
     script:
