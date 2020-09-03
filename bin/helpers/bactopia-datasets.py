@@ -172,6 +172,7 @@ def validate_species(species):
     else:
         checks.append(species)
     
+    species_key = {}
     for species in checks:
         r = requests.get(f'{ENDPOINT}/{species}?limit=1')
         if r.status_code == requests.codes.ok:
@@ -184,6 +185,8 @@ def validate_species(species):
                     logging.error((f'Input species ({species}) does not match return result '
                                 f'({json_data[0]["scientificName"]}), please check spelling.'))
                     sys.exit(1)
+                
+                species_key[species.lower()] = json_data[0]['scientificName']
                 logging.info(f'{species} verified in ENA Taxonomy database')
             except json.decoder.JSONDecodeError:
                 if r.text == "No results.":
@@ -195,7 +198,7 @@ def validate_species(species):
             logging.error(f'Input species ({species}) not found, please check spelling.')
             sys.exit(1)
 
-    return len(checks)
+    return species_key
 
 
 def ariba_datasets():
@@ -308,7 +311,7 @@ def setup_ariba(request, available_datasets, outdir, force=False,
         logging.info("No valid Ariba datasets to setup, skipping")
 
 
-def setup_mlst_request(request, available_schemas):
+def setup_mlst_request(request, available_schemas, species_key=None):
     """Return a list of mlst schemas to build."""
     requests = []
     if os.path.exists(request):
@@ -325,6 +328,7 @@ def setup_mlst_request(request, available_schemas):
 
     schemas = []
     for species in requests:
+        species = species_key[species.lower()]
         genus = species.split()[0]
         if species in available_schemas:
             for schema, ariba_name in available_schemas[species].items():
@@ -338,10 +342,10 @@ def setup_mlst_request(request, available_schemas):
 
     return schemas
 
-def setup_mlst(request, available_datasets, outdir, force=False):
+def setup_mlst(request, available_datasets, outdir, force=False, species_key=None):
     """Setup MLST datasets for each requested schema."""
     import re
-    requests = setup_mlst_request(request, available_datasets)
+    requests = setup_mlst_request(request, available_datasets, species_key=species_key)
     if requests:
         for request in requests:
             schema = request['schema']
@@ -425,7 +429,7 @@ def process_cds(cds):
 def setup_prokka(request, available_datasets, outdir, force=False,
                  include_genus=False, limit=None, user_accessions=None, identity=0.9, 
                  overlap=0.8, max_memory=0, fast_cluster=False, keep_files=False, 
-                 cpus=1):
+                 cpus=1, species_key=None):
     """
     Setup a Prokka compatible protein fasta file based on completed genomes.
 
@@ -452,6 +456,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             minmer_dir = f'{outdir}/{species}/minmer'
             clean_up = False
             genome_sizes = []
+            skip_genome_size = False
 
             if os.path.exists(f'{prokka_dir}/proteins.faa'):
                 if force:
@@ -479,8 +484,10 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             # Download completed genomes
             logging.info(f'Downloading completed genomes')
             genome_dir = f'{prokka_dir}/genomes'
-            genus = ' '.join(request.split()[0:2])
+            genus = species_key[request.lower()]
             execute(f'mkdir {genome_dir}')
+            species_accession = []
+            all_accessions = {}
             accessions = []
             accession_file = f'{genome_dir}/accessions.txt'
             if user_accessions:
@@ -495,18 +502,33 @@ def setup_prokka(request, available_datasets, outdir, force=False,
 
                 results = execute((f'ncbi-genome-download bacteria --genera "{genus}" '
                                 f'-l complete -F genbank -r 80 --dry-run'), capture=True)
-
                 for line in results.split('\n'):
                     if line and not line.startswith('Considering'):
-                        accessions.append(line.split()[0])
+                        accession, name = line.split('\t', 1)
+                        all_accessions[accession] = name
+                        if name.startswith(species_key[request.lower()]):
+                            species_accession.append(accession)
+                        accessions.append(accession)
 
-                accessions = accessions
                 if limit:
                     if len(accessions) > limit:
                         logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
                         accessions = random.sample(accessions, limit)
+                        contains_species = False
+                        for accession in accessions:
+                            if all_accessions[accession] == species_key[request.lower()]:
+                                contains_species = True
+                        if not contains_species:
+                            if len(species_accession):
+                                logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
+                                accessions.append(random.sample(species_accession, 1)[0])
                     else:
                         logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
+
+                if not len(species_accession):
+                    logging.info(f'A completed genome does not exist for {species_key[request.lower()]}, skipping genome size statistics..')
+                    skip_genome_size = True
+                
             
                 with open(accession_file, 'w') as accession_fh:
                     for accession in accessions:
@@ -560,25 +582,27 @@ def setup_prokka(request, available_datasets, outdir, force=False,
 
                         # Only add genome sizes for the species, incase the
                         # option '--inlude_genus' was used.
-                        if record.annotations["organism"].startswith(request):
-                            logging.debug(
-                                f'Added {record.annotations["organism"]} '
-                                f'({sum(sizes)}) to median genome size '
-                                'calculation.'
-                            )
-                            genome_sizes.append(sum(sizes))
-                        else:
-                            logging.debug(
-                                f'Skip adding {record.annotations["organism"]} '
-                                f'({sum(sizes)}) to median genome size '
-                                f'calculation (not {request}).'
-                            )
+                        if not skip_genome_size:
+                            if record.annotations["organism"].lower().startswith(request.lower()):
+                                logging.debug(
+                                    f'Added {record.annotations["organism"]} '
+                                    f'({sum(sizes)}) to median genome size '
+                                    'calculation.'
+                                )
+                                genome_sizes.append(sum(sizes))
+                            else:
+                                logging.debug(
+                                    f'Skip adding {record.annotations["organism"]} '
+                                    f'({sum(sizes)}) to median genome size '
+                                    f'calculation (not {request}).'
+                                )
 
             total_genome = len(genome_sizes)
-            median_genome = int(median(genome_sizes))
-            logging.info(
-                f'Median genome size: {median_genome} (n={total_genome})'
-            )
+            if not skip_genome_size:
+                median_genome = int(median(genome_sizes))
+                logging.info(
+                    f'Median genome size: {median_genome} (n={total_genome})'
+                )
             cdhit_cds = f'{prokka_dir}/proteins.faa'
             logging.info(f'Running CD-HIT on {count} proteins')
             g = 0 if fast_cluster else 1
@@ -594,16 +618,21 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             # Finish up
             with open(f'{prokka_dir}/genome_size.json', 'w') as genome_size_fh:
                 gs_dict = {
-                    'min': min(genome_sizes),
-                    'median': int(median(genome_sizes)),
-                    'mean': int(median(genome_sizes)),
-                    'max': max(genome_sizes),
-                    'total': total_genome,
-                    'description': (
-                        f'Genome size values are based on {total_genome} '
-                        'completed genomes (RefSeq).'
-                    )
+                    'min': 0, 'median': 0, 'mean':0, 'max': 0, 'total': 0,
+                    'description': 'No available completed genomes.'
                 }
+                if not skip_genome_size:
+                    gs_dict = {
+                        'min': min(genome_sizes),
+                        'median': int(median(genome_sizes)),
+                        'mean': int(median(genome_sizes)),
+                        'max': max(genome_sizes),
+                        'total': total_genome,
+                        'description': (
+                            f'Genome size values are based on {total_genome} '
+                            'completed genomes (RefSeq).'
+                        )
+                    }
                 json.dump(gs_dict, genome_size_fh, indent=4)
             execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
                     directory=prokka_dir)
@@ -1045,9 +1074,11 @@ if __name__ == '__main__':
     if args.available_datasets:
         available_datasets(ARIBA, PUBMLST)
 
+    species_key = None
     num_species = 0
     if args.species:
-        num_species = validate_species(args.species)
+        species_key = validate_species(args.species)
+        num_species = len(species_key.keys())
 
     if args.include_genus:
         if not num_species:
@@ -1109,7 +1140,7 @@ if __name__ == '__main__':
         species_dir = f'{args.outdir}/species-specific'
         logging.info('Setting up MLST datasets')
         setup_mlst(args.species, PUBMLST, species_dir,
-                   force=(args.force or args.force_mlst))
+                   force=(args.force or args.force_mlst), species_key=species_key)
 
         if not args.skip_prokka:
             logging.info('Setting up custom Prokka proteins')
@@ -1119,7 +1150,7 @@ if __name__ == '__main__':
                 user_accessions=args.accessions, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,
                 fast_cluster=args.fast_cluster, keep_files=args.keep_files,
-                force=(args.force or args.force_prokka)
+                force=(args.force or args.force_prokka), species_key=species_key
             )
         else:
             logging.info('Skipping custom Prokka dataset step')
