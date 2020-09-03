@@ -77,7 +77,7 @@ bactopia-build:
     script:
         - bactopia build
         - bactopia build --help
-        - bactopia build ${BACTOPIA}/conda ${CONDA_DIR}
+        - bactopia build conda/ ${CONDA_DIR}
     artifacts:
         paths:
             - conda-envs/
