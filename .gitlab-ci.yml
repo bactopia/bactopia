@@ -3,7 +3,7 @@ image: bactopia/bactopia-ci:latest
 before_script:
   - BACTOPIA=/opt/conda/envs/bactopia
   - FQ_DIR=tests/real-fastqs/
-  - CONDADIR=conda-envs/
+  - CONDA_DIR=conda-envs/
   - COVERAGE="--coverage 20"
   - chmod 755 bactopia
   - cp bactopia ${BACTOPIA}/bin
@@ -88,7 +88,7 @@ run-bactopia-se:
     only:
         - master
     script:
-        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-pe:
@@ -96,8 +96,7 @@ run-bactopia-pe:
     only:
         - master
     script:
-
-        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-fofn:
@@ -106,7 +105,7 @@ run-bactopia-fofn:
         - master
     script:
         - bactopia prepare ${FQ_DIR} > fastqs.txt
-        - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-sra:
@@ -114,7 +113,7 @@ run-bactopia-sra:
     only:
         - master
     script:
-        - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-assembly:
@@ -122,7 +121,7 @@ run-bactopia-assembly:
     only:
         - master
     script:
-        - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-accessions:
@@ -130,7 +129,7 @@ run-bactopia-accessions:
     only:
         - master
     script:
-        - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-with-datasets:
@@ -142,5 +141,5 @@ run-bactopia-with-datasets:
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
-        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR}
+        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
