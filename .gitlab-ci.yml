@@ -50,7 +50,7 @@ bactopia-search:
         - bactopia search "staphylococcus aureus" --limit 5
         - bactopia search SAMN01737350 --limit 5
         - bactopia search SRR578340 --limit 5
-        - bactopia search SAMN01737350,SRR578340 --limit 5
+        - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
         - bactopia search tests/test-search-accessions.txt --limit 5
 
 bactopia-datasets:
@@ -60,7 +60,6 @@ bactopia-datasets:
     script:
         - bactopia datasets
         - bactopia datasets --help
-        - bactopia datasets --species "Candidatus Liberibacter solanacearum" --include_genus --limit 3
 
 bactopia-prepare:
     stage: subcommand_stage
