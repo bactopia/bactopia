@@ -185,7 +185,7 @@ run-bactopia-with-datasets:
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
 
 cleanup_runs:
-    stage: cleaunp_stage
+    stage: cleanup_stage
     <<: *shell_template
     tags:
         - local
