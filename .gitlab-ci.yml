@@ -21,10 +21,9 @@ variables:
 .before_script_template: &shell_template
     before_script:
       - BACTOPIA_CI=/data/storage/bactopia-ci
-      - CONDA_DIR=${BACTOPIA_CI}/bactopia-envs
-      - BACTOPIA=$(pwd)/${CI_JOB_NAME}
+      - BACTOPIA=$(pwd)
       - FQ_DIR=$(pwd)/tests/real-fastqs/
-      - COVERAGE="--coverage 20"
+      - BACTOPIA_OPTS="--outdir bactopia --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false -qs 4"
       - chmod 755 bactopia
       - mkdir -p ${BACTOPIA}/bin
       - cp bactopia ${BACTOPIA}/bin
@@ -117,7 +116,7 @@ run-bactopia-se:
     only:
         - master
     script:
-        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
 
 run-bactopia-pe:
     stage: test_stage
@@ -127,7 +126,7 @@ run-bactopia-pe:
     only:
         - master
     script:
-        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702 ${BACTOPIA_OPTS}
 
 run-bactopia-fofn:
     stage: test_stage
@@ -138,7 +137,7 @@ run-bactopia-fofn:
         - master
     script:
         - bactopia prepare ${FQ_DIR} > fastqs.txt
-        - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --fastqs fastqs.txt ${BACTOPIA_OPTS}
 
 run-bactopia-sra:
     stage: test_stage
@@ -148,7 +147,7 @@ run-bactopia-sra:
     only:
         - master
     script:
-        - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --accession SRX1390609 ${BACTOPIA_OPTS}
 
 run-bactopia-assembly:
     stage: test_stage
@@ -158,7 +157,7 @@ run-bactopia-assembly:
     only:
         - master
     script:
-        - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --accession GCF_002849995 ${BACTOPIA_OPTS}
 
 run-bactopia-accessions:
     stage: test_stage
@@ -168,7 +167,7 @@ run-bactopia-accessions:
     only:
         - master
     script:
-        - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
 
 run-bactopia-with-datasets:
     stage: test_stage
@@ -182,7 +181,7 @@ run-bactopia-with-datasets:
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
-        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
 
 cleanup_runs:
     stage: cleanup_stage
