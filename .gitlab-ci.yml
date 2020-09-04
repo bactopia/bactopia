@@ -1,18 +1,37 @@
 image: bactopia/bactopia-ci:latest
 
-before_script:
-  - BACTOPIA=/opt/conda/envs/bactopia
-  - FQ_DIR=tests/real-fastqs/
-  - CONDA_DIR=/opt/bactopia-envs
-  - COVERAGE="--coverage 20"
-  - chmod 755 bactopia
-  - cp bactopia ${BACTOPIA}/bin
-  - chmod 755 bin/helpers/*
-  - cp bin/helpers/* ${BACTOPIA}/bin
-  - VERSION=`bactopia version | cut -d " " -f 2`
-  - BACTOPIA_VERSION="${VERSION%.*}.x"
-  - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-  - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+.before_script_template: &docker_template
+  before_script:
+    - BACTOPIA=/opt/conda/envs/bactopia
+    - FQ_DIR=tests/real-fastqs/
+    - CONDA_DIR=/opt/bactopia-envs
+    - COVERAGE="--coverage 20"
+    - chmod 755 bactopia
+    - cp bactopia ${BACTOPIA}/bin
+    - chmod 755 bin/helpers/*
+    - cp bin/helpers/* ${BACTOPIA}/bin
+    - VERSION=`bactopia version | cut -d " " -f 2`
+    - BACTOPIA_VERSION="${VERSION%.*}.x"
+    - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+    - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+
+.before_script_template: &shell_template
+    before_script:
+      - BACTOPIA_CI=/data/storage/bactopia-ci
+      - CONDA_DIR=${BACTOPIA_CI}/bactopia-envs
+      - BACTOPIA=$(pwd)/${CI_JOB_NAME}
+      - FQ_DIR=$(pwd)/tests/real-fastqs/
+      - COVERAGE="--coverage 20"
+      - chmod 755 bactopia
+      - mkdir -p ${BACTOPIA}/bin
+      - cp bactopia ${BACTOPIA}/bin
+      - chmod 755 bin/helpers/*
+      - cp bin/helpers/* ${BACTOPIA}/bin
+      - VERSION=`bactopia version | cut -d " " -f 2`
+      - BACTOPIA_VERSION="${VERSION%.*}.x"
+      - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+      - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+      - conda activate bactopia-ci
 
 stages:
     - subcommand_stage
@@ -20,6 +39,7 @@ stages:
 
 bactopia-version:
     stage: subcommand_stage
+    <<: *docker_template
     only:
         - master
     script:
@@ -30,6 +50,7 @@ bactopia-version:
 
 bactopia-citation:
     stage: subcommand_stage
+    <<: *docker_template
     only:
         - master
     script:
@@ -39,6 +60,7 @@ bactopia-citation:
 
 bactopia-search:
     stage: subcommand_stage
+    <<: *docker_template
     only:
         - master
     script:
@@ -54,6 +76,7 @@ bactopia-search:
 
 bactopia-datasets:
     stage: subcommand_stage
+    <<: *docker_template
     only:
         - master
     script:
@@ -62,6 +85,7 @@ bactopia-datasets:
 
 bactopia-prepare:
     stage: subcommand_stage
+    <<: *docker_template
     only:
         - master
     script:
@@ -71,8 +95,7 @@ bactopia-prepare:
 
 bactopia-build:
     stage: test_stage
-    tags:
-        - local-docker
+    <<: *docker_template
     only:
         - master
     script:
@@ -82,16 +105,18 @@ bactopia-build:
 
 run-bactopia-se:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
         - master
     script:
-        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} -ansi-log false
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
 run-bactopia-pe:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
@@ -102,6 +127,7 @@ run-bactopia-pe:
 
 run-bactopia-fofn:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
@@ -113,6 +139,7 @@ run-bactopia-fofn:
 
 run-bactopia-sra:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
@@ -123,6 +150,7 @@ run-bactopia-sra:
 
 run-bactopia-assembly:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
@@ -133,6 +161,7 @@ run-bactopia-assembly:
 
 run-bactopia-accessions:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
@@ -143,6 +172,7 @@ run-bactopia-accessions:
 
 run-bactopia-with-datasets:
     stage: test_stage
+    <<: *shell_template
     tags:
         - local-docker
     only:
