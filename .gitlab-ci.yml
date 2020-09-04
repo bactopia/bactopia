@@ -25,6 +25,7 @@ image: bactopia/bactopia-ci:latest
       - chmod 755 bactopia
       - mkdir -p ${BACTOPIA}/bin
       - cp bactopia ${BACTOPIA}/bin
+      - export PATH=${BACTOPIA}/bin:${PATH}
       - chmod 755 bin/helpers/*
       - cp bin/helpers/* ${BACTOPIA}/bin
       - VERSION=`bactopia version | cut -d " " -f 2`
