@@ -30,7 +30,7 @@ image: bactopia/bactopia-ci:latest
       - cp bin/helpers/* ${BACTOPIA}/bin
       - VERSION=`bactopia version | cut -d " " -f 2`
       - BACTOPIA_VERSION="${VERSION%.*}.x"
-      - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+      - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - conda activate bactopia-ci
 
