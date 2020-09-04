@@ -32,6 +32,7 @@ image: bactopia/bactopia-ci:latest
       - BACTOPIA_VERSION="${VERSION%.*}.x"
       - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+      - source ~/.bashrc
       - conda activate bactopia-ci
 
 stages:
