@@ -101,6 +101,8 @@ bactopia-commands-docker:
 bactopia-commands-osx:
     stage: subcommand_stage
     <<: *osx_template
+    tags:
+        - osx
     only:
         - master
     script:
