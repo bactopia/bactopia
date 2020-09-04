@@ -1,5 +1,8 @@
 image: bactopia/bactopia-ci:latest
 
+variables:
+    GIT_CLONE_PATH: '$CI_BUILDS_DIR/$CI_PIPELINE_ID/$CI_JOB_NAME'
+
 .before_script_template: &docker_template
   before_script:
     - BACTOPIA=/opt/conda/envs/bactopia
@@ -38,6 +41,7 @@ image: bactopia/bactopia-ci:latest
 stages:
     - subcommand_stage
     - test_stage
+    - cleanup_stage
 
 bactopia-version:
     stage: subcommand_stage
@@ -123,7 +127,7 @@ run-bactopia-pe:
     only:
         - master
     script:
-        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
 
 run-bactopia-fofn:
     stage: test_stage
@@ -179,3 +183,14 @@ run-bactopia-with-datasets:
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
+
+cleanup_runs:
+    stage: cleaunp_stage
+    <<: *shell_template
+    tags:
+        - local
+    only:
+        - master
+    script:
+        - echo "Cleaning up Bactopia runs"
+        - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
