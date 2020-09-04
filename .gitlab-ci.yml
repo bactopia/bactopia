@@ -107,7 +107,7 @@ run-bactopia-se:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -118,7 +118,7 @@ run-bactopia-pe:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -129,7 +129,7 @@ run-bactopia-fofn:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -141,7 +141,7 @@ run-bactopia-sra:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -152,7 +152,7 @@ run-bactopia-assembly:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -163,7 +163,7 @@ run-bactopia-accessions:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
@@ -174,7 +174,7 @@ run-bactopia-with-datasets:
     stage: test_stage
     <<: *shell_template
     tags:
-        - local-docker
+        - local
     only:
         - master
     script:
