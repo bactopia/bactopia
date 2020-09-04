@@ -47,6 +47,8 @@ variables:
         - mkdir -p ${BACTOPIA}/bin
         - cp bactopia ${BACTOPIA}/bin
         - export PATH=${BACTOPIA}/bin:/Users/rpetit/miniconda3/bin:${PATH}
+        - export LC_ALL=en_US.UTF-8  
+        - export LANG=en_US.UTF-8
         - chmod 755 bin/helpers/*
         - cp bin/helpers/* ${BACTOPIA}/bin
         - VERSION=`bactopia version | cut -d " " -f 2`
