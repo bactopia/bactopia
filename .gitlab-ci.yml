@@ -32,6 +32,8 @@ image: bactopia/bactopia-ci:latest
       - BACTOPIA_VERSION="${VERSION%.*}.x"
       - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+      - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+      - conda activate bactopia-ci
 
 stages:
     - subcommand_stage
@@ -111,10 +113,7 @@ run-bactopia-se:
     only:
         - master
     script:
-        - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
-        - conda activate bactopia-ci
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-pe:
     stage: test_stage
@@ -125,7 +124,6 @@ run-bactopia-pe:
         - master
     script:
         - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}s/SRR2838702_R2.fastq.gz --sample SRR2838702 --outdir runs/bactopia-pe ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-fofn:
     stage: test_stage
@@ -137,7 +135,6 @@ run-bactopia-fofn:
     script:
         - bactopia prepare ${FQ_DIR} > fastqs.txt
         - bactopia --fastqs fastqs.txt --outdir runs/bactopia-fofn ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-sra:
     stage: test_stage
@@ -148,7 +145,6 @@ run-bactopia-sra:
         - master
     script:
         - bactopia --accession SRX1390609 --outdir runs/bactopia-sra ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-assembly:
     stage: test_stage
@@ -159,7 +155,6 @@ run-bactopia-assembly:
         - master
     script:
         - bactopia --accession GCF_002849995 --outdir runs/bactopia-assembly ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-accessions:
     stage: test_stage
@@ -170,7 +165,6 @@ run-bactopia-accessions:
         - master
     script:
         - bactopia --accessions tests/test-search-accessions.txt --outdir runs/bactopia-accessions ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
 
 run-bactopia-with-datasets:
     stage: test_stage
@@ -185,4 +179,3 @@ run-bactopia-with-datasets:
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" --outdir runs/bactopia-with-datasets ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
-        - rm -rf .nextflow* work/
