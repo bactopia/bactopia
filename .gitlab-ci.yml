@@ -18,7 +18,7 @@ variables:
     - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
     - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
-.before_script_template: &shell_template
+.before_script_template: &linux_template
     before_script:
       - BACTOPIA_CI=/data/storage/bactopia-ci
       - BACTOPIA=$(pwd)
@@ -37,38 +37,46 @@ variables:
       - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
       - conda activate bactopia-ci
 
+.before_script_template: &osx_template
+      before_script:
+        - BACTOPIA_CI=/Users/rpetit/bactopia-ci
+        - BACTOPIA=$(pwd)
+        - FQ_DIR=$(pwd)/tests/real-fastqs/
+        - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
+        - chmod 755 bactopia
+        - mkdir -p ${BACTOPIA}/bin
+        - cp bactopia ${BACTOPIA}/bin
+        - export PATH=${BACTOPIA}/bin:/Users/rpetit/miniconda3/bin:${PATH}
+        - chmod 755 bin/helpers/*
+        - cp bin/helpers/* ${BACTOPIA}/bin
+        - VERSION=`bactopia version | cut -d " " -f 2`
+        - BACTOPIA_VERSION="${VERSION%.*}.x"
+        - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+        - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+        - source /Users/rpetit/miniconda3/etc/profile.d/conda.sh
+        - conda activate bactopia-ci
+
 stages:
     - subcommand_stage
     - test_stage
     - cleanup_stage
 
-bactopia-version:
+bactopia-commands-docker:
     stage: subcommand_stage
     <<: *docker_template
     only:
         - master
     script:
         - which bactopia
+        - echo "Testing bactopia version"
         - bactopia version
         - bactopia --version
         - bactopia versions
-
-bactopia-citation:
-    stage: subcommand_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
+        - echo "Testing bactopia citation"
         - bactopia citation
         - bactopia --citation
         - bactopia citations
-
-bactopia-search:
-    stage: subcommand_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
+        - echo "Testing bactopia search"
         - bactopia search
         - bactopia search --help
         - bactopia search PRJNA480016 --limit 5
@@ -78,116 +86,127 @@ bactopia-search:
         - bactopia search SRR578340 --limit 5
         - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
         - bactopia search tests/test-search-accessions.txt --limit 5
-
-bactopia-datasets:
-    stage: subcommand_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
+        - echo "Testing bactopia datasets"
         - bactopia datasets
         - bactopia datasets --help
-
-bactopia-prepare:
-    stage: subcommand_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
+        - echo "Testing bactopia prepare"
         - bactopia prepare
         - bactopia prepare --help
         - bactopia prepare ${FQ_DIR}
-
-bactopia-build:
-    stage: test_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
+        - echo "Testing bactopia build"
         - bactopia build
         - bactopia build --help
         - bactopia build --default
 
-run-bactopia-se:
+bactopia-commands-osx:
+    stage: subcommand_stage
+    <<: *osx_template
+    only:
+        - master
+    script:
+        - which bactopia
+        - echo "Testing bactopia version"
+        - bactopia version
+        - bactopia --version
+        - bactopia versions
+        - echo "Testing bactopia citation"
+        - bactopia citation
+        - bactopia --citation
+        - bactopia citations
+        - echo "Testing bactopia search"
+        - bactopia search
+        - bactopia search --help
+        - bactopia search PRJNA480016 --limit 5
+        - bactopia search 1280 --exact_taxon --limit 5
+        - bactopia search "staphylococcus aureus" --limit 5
+        - bactopia search SAMN01737350 --limit 5
+        - bactopia search SRR578340 --limit 5
+        - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
+        - bactopia search tests/test-search-accessions.txt --limit 5
+        - echo "Testing bactopia datasets"
+        - bactopia datasets
+        - bactopia datasets --help
+        - echo "Testing bactopia prepare"
+        - bactopia prepare
+        - bactopia prepare --help
+        - bactopia prepare ${FQ_DIR}
+        - echo "Testing bactopia build"
+        - bactopia build
+        - bactopia build --help
+        - bactopia build --default
+
+run-bactopia-linux:
     stage: test_stage
-    <<: *shell_template
+    <<: *linux_template
     tags:
         - local
     only:
         - master
     script:
+        - echo "Testing single end reads"
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
-
-run-bactopia-pe:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
-        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702 ${BACTOPIA_OPTS}
-
-run-bactopia-fofn:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
+        - echo "Testing paired end reads"
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702PE ${BACTOPIA_OPTS}
+        - echo "Testing FOFN input"
         - bactopia prepare ${FQ_DIR} > fastqs.txt
         - bactopia --fastqs fastqs.txt ${BACTOPIA_OPTS}
-
-run-bactopia-sra:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
-        - bactopia --accession SRX1390609 ${BACTOPIA_OPTS}
-
-run-bactopia-assembly:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
-        - bactopia --accession GCF_002849995 ${BACTOPIA_OPTS}
-
-run-bactopia-accessions:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
+        - echo "Testing SRA accession"
+        - bactopia --accession SRX1390608 ${BACTOPIA_OPTS}
+        - echo "Testing Assembly accession"
+        - bactopia --accession GCF_000292685 ${BACTOPIA_OPTS}
+        - echo "Testing multiple accessions"
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
-
-run-bactopia-with-datasets:
-    stage: test_stage
-    <<: *shell_template
-    tags:
-        - local
-    only:
-        - master
-    script:
+        - echo "Testing with datasets"
         - bactopia datasets --species "Staphylococcus aureus" --limit 10
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
 
-cleanup_runs:
+run-bactopia-osx:
+    stage: test_stage
+    <<: *osx_template
+    tags:
+        - osx
+    only:
+        - master
+    script:
+        - echo "Testing single end reads"
+        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
+        - echo "Testing paired end reads"
+        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702PE ${BACTOPIA_OPTS}
+        - echo "Testing FOFN input"
+        - bactopia prepare ${FQ_DIR} > fastqs.txt
+        - bactopia --fastqs fastqs.txt ${BACTOPIA_OPTS}
+        - echo "Testing SRA accession"
+        - bactopia --accession SRX1390608 ${BACTOPIA_OPTS}
+        - echo "Testing Assembly accession"
+        - bactopia --accession GCF_000292685 ${BACTOPIA_OPTS}
+        - echo "Testing multiple accessions"
+        - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
+        - echo "Testing with datasets"
+        - bactopia datasets --species "Staphylococcus aureus" --limit 10
+        - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
+        - cp -r bactopia-datasets/species-specific/ datasets/
+        - rm -rf bactopia-datasets/
+        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
+
+cleanup-linux-runs:
     stage: cleanup_stage
-    <<: *shell_template
+    <<: *linux_template
     tags:
         - local
+    only:
+        - master
+    script:
+        - echo "Cleaning up Bactopia runs"
+        - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
+
+cleanup-osx-runs:
+    stage: cleanup_stage
+    <<: *osx_template
+    tags:
+        - osx
     only:
         - master
     script:
