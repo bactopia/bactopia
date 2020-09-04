@@ -25,15 +25,13 @@ image: bactopia/bactopia-ci:latest
       - chmod 755 bactopia
       - mkdir -p ${BACTOPIA}/bin
       - cp bactopia ${BACTOPIA}/bin
-      - export PATH=${BACTOPIA}/bin:${PATH}
+      - export PATH=${BACTOPIA}/bin:${BACTOPIA_CI}/miniconda3/bin:${PATH}
       - chmod 755 bin/helpers/*
       - cp bin/helpers/* ${BACTOPIA}/bin
       - VERSION=`bactopia version | cut -d " " -f 2`
       - BACTOPIA_VERSION="${VERSION%.*}.x"
       - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-      - source ~/.bashrc
-      - conda activate bactopia-ci
 
 stages:
     - subcommand_stage
@@ -113,6 +111,8 @@ run-bactopia-se:
     only:
         - master
     script:
+        - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+        - conda activate bactopia-ci
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE --outdir runs/bactopia-se ${COVERAGE} --condadir ${CONDA_DIR} -ansi-log false
         - rm -rf .nextflow* work/
 
