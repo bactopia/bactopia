@@ -205,6 +205,8 @@ cleanup-linux-runs:
     script:
         - echo "Cleaning up Bactopia runs"
         - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
+    dependencies:
+        - run-bactopia-linux
 
 cleanup-osx-runs:
     stage: cleanup_stage
@@ -216,3 +218,5 @@ cleanup-osx-runs:
     script:
         - echo "Cleaning up Bactopia runs"
         - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
+    dependencies:
+        - run-bactopia-osx
