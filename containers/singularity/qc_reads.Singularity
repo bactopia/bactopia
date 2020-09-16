@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/qc_reads.yml /
+    conda/linux/qc_reads.yml /
 
 %post
     /opt/conda/bin/conda env create -f /qc_reads.yml

@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/gather_fastqs.yml /
+    conda/linux/gather_fastqs.yml /
 
 %post
     /opt/conda/bin/conda env create -f /gather_fastqs.yml

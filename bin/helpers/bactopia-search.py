@@ -252,7 +252,7 @@ if __name__ == '__main__':
     results = []
     result_header = None
     accessions = []
-    filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': []}
+    filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': {}}
     summary = []
     queries = parse_query(args.query, exact_taxon=args.exact_taxon)
     i = 1
@@ -273,10 +273,12 @@ if __name__ == '__main__':
             result_header = query_header
             results = list(set(results + query_results))
             accessions = list(set(accessions + query_accessions))
+
             filtered['min_base_count'] += query_filtered['min_base_count']
             filtered['min_read_length'] += query_filtered['min_read_length']
             filtered['technical'] += query_filtered['technical']
-            filtered['filtered'] = list(set(filtered['filtered'] + query_filtered['filtered']))
+            for filtered_sample in query_filtered['filtered']:
+                filtered['filtered'][filtered_sample['accession']] = filtered_sample['reason']
         else:
             WARNING_MESSAGE = f'WARNING: {query} did not return any results from ENA.'
 
@@ -321,8 +323,8 @@ if __name__ == '__main__':
 
     with open(filtered_file, 'w') as output_fh:
         output_fh.write(f'accession\treason\n')
-        for f in filtered['filtered']:
-            output_fh.write(f'{f["accession"]}\t{f["reason"]}\n')
+        for accession, reason in filtered['filtered'].items():
+            output_fh.write(f'{accession}\t{reason}\n')
 
     with open(f'{args.outdir}/{args.prefix}-summary.txt', 'w') as output_fh:
         output_fh.write('\n'.join(summary))

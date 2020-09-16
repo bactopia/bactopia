@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/antimicrobial_resistance.yml /
+    conda/linux/antimicrobial_resistance.yml /
 
 %post
     /opt/conda/bin/conda env create -f /antimicrobial_resistance.yml

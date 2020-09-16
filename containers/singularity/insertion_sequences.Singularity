@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/insertion_sequences.yml /
+    conda/linux/insertion_sequences.yml /
 
 %post
     /opt/conda/bin/conda env create -f /insertion_sequences.yml

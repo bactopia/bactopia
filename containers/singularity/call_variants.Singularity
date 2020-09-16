@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/call_variants.yml /
+    conda/linux/call_variants.yml /
 
 %post
     /opt/conda/bin/conda env create -f /call_variants.yml

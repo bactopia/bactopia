@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/download_references.yml /
+    conda/linux/download_references.yml /
 
 %post
     /opt/conda/bin/conda env create -f /download_references.yml

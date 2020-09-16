@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/ariba_analysis.yml /
+    conda/linux/ariba_analysis.yml /
 
 %post
     /opt/conda/bin/conda env create -f /ariba_analysis.yml

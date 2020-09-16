@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/assembly_qc.yml /
+    conda/linux/assembly_qc.yml /
 
 %post
     /opt/conda/bin/conda env create -f /assembly_qc.yml

@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/sequence_type.yml /
+    conda/linux/sequence_type.yml /
 
 %post
     /opt/conda/bin/conda env create -f /sequence_type.yml

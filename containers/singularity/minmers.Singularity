@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/minmers.yml /
+    conda/linux/minmers.yml /
 
 %post
     /opt/conda/bin/conda env create -f /minmers.yml

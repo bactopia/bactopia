@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/assemble_genome.yml /
+    conda/linux/assemble_genome.yml /
 
 %post
     /opt/conda/bin/conda env create -f /assemble_genome.yml

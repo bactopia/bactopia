@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/count_31mers.yml /
+    conda/linux/count_31mers.yml /
 
 %post
     /opt/conda/bin/conda env create -f /count_31mers.yml

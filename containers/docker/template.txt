@@ -4,6 +4,6 @@ LABEL version=BACTOPIA_VERSION
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia environment process"
 
-COPY conda/environment.yml /
+COPY conda/linux/environment.yml /
 RUN conda env create -f environment.yml && conda clean -a
 ENV PATH /opt/conda/envs/bactopia-environment/bin:$PATH

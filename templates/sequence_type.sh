@@ -9,12 +9,12 @@ if [ "!{params.dry_run}" == "true" ]; then
 else
     tar -xzvf !{dataset_tarball}
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{task.process}-!{method}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
 
     if [ "!{method}" == "blast" ]; then
-        echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{task.process}.versions
-        mlst-blast.py --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
+        mlst-blast.py --version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
         mkdir -p blast
         if [[ !{params.compress} == "true" ]]; then
             mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
@@ -24,8 +24,8 @@ else
                 --cpu !{task.cpus}
         fi
     elif [ "!{method}" == "ariba" ]; then
-        echo "# Ariba Version" >> ${LOG_DIR}/!{task.process}.versions
-        ariba version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# Ariba Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
+        ariba version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
         mv !{dataset_name}/ref_db ./
         ariba run ref_db !{fq[0]} !{fq[1]} ariba \
             --nucmer_min_id !{params.nucmer_min_id} \

@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    conda/annotate_genome.yml /
+    conda/linux/annotate_genome.yml /
 
 %post
     /opt/conda/bin/conda env create -f /annotate_genome.yml
