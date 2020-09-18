@@ -88,8 +88,10 @@ if __name__ == '__main__':
         default="yml",
         help='Extension of the Conda environment files. Default: .yml'
     )
+    parser.add_argument('--envname', metavar='STR', type=str,
+                        help='Build Conda environment with the given name')
     parser.add_argument('--default', action='store_true',
-                        help='Builds Conda environments to the default Bactopia location (will overwrite).')
+                        help='Builds Conda environments to the default Bactopia location.')
     parser.add_argument('--force', action='store_true',
                         help='Force overwrite of existing Conda environments.')
     parser.add_argument('--verbose', action='store_true',
@@ -130,13 +132,18 @@ if __name__ == '__main__':
             prefix = f'{install_path}/{envname}-{CONTAINER_VERSION}'
             envbuilt = f'{install_path}/{envname}-{CONTAINER_VERSION}/env-built.txt'
             force = '--force' if args.force else ''
-
-            if os.path.exists(envbuilt) and not args.force:
-                logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
-            else:
-                logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
-                execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
-                execute(f'touch {envbuilt}')
+            build = True
+            if args.envname:
+                if not args.envname == envname:
+                    build = False
+            
+            if build:
+                if os.path.exists(envbuilt) and not args.force:
+                    logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
+                else:
+                    logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
+                    execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
+                    execute(f'touch {envbuilt}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
         logging.error(
