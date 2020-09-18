@@ -128,9 +128,15 @@ if __name__ == '__main__':
         for i, env_file in enumerate(env_files):
             envname = os.path.splitext(os.path.basename(env_file))[0]
             prefix = f'{install_path}/{envname}-{CONTAINER_VERSION}'
-            logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
+            envbuilt = f'{install_path}/{envname}-{CONTAINER_VERSION}/env-built.txt'
             force = '--force' if args.force else ''
-            execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
+
+            if os.path.exists(envbuilt) and not args.force:
+                logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
+            else:
+                logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
+                execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
+                execute(f'touch {envbuilt}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
         logging.error(
