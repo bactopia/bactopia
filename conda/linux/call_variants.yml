@@ -297,7 +297,7 @@ dependencies:
   - t_coffee=11.0.8
   - tidyp=1.04
   - tk=8.6.10
-  - vcf-annotator=0.5
+  - vcf-annotator=0.6
   - vcflib=1.0.1
   - vt=2015.11.10=he941832_3
   - wheel=0.35.1

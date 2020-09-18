@@ -27,16 +27,14 @@ else
     ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
     ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
 
-    # Split Genbank files containing plasmids
-    mkdir -p refseq/split
-    ls refseq/bacteria/ | \
-        xargs -I {} sh -c 'gzip -cd refseq/bacteria/{}/{}*.gbff.gz | csplit -z --quiet --prefix=refseq/split/{}- - "/^\/\//+1" "{*}"'
-
-    # Copy the largest segment for each split Genbank (assumes completed genomes)
+    # Move and uncompress genomes
+    mkdir genbank_temp
+    find refseq -name "*.gbff.gz" | xargs -I {} mv {} genbank/
+    rename 's/(GCF_\d+).*/$1/' genbank_temp/*
+    rename 's/(GCA_\d+).*/$1/' genbank_temp/*
     mkdir genbank
-    ls refseq/bacteria/ | \
-        xargs -I {} sh -c 'ls -l -S refseq/split/{}-* | head -n 1 | awk "{print \$9\" genbank/!{sample}-{}.gbk\"}"' | \
-        xargs -I {} sh -c 'cp {}'
+    ls genbank_temp/ | xargs -I {} sh -c 'gzip -cd genbank_temp/{} > genbank/!{sample}-{}.gbk'
+    rm -rf genbank_temp
 
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate GenBank files

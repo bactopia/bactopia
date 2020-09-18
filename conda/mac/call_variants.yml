@@ -256,11 +256,10 @@ dependencies:
   - sqlite=3.32.3
   - tidyp=1.04
   - tk=8.6.10
-  - vcf-annotator=0.5
+  - vcf-annotator=0.6
   - vcflib=1.0.1
   - vt=0.57721
   - wheel=0.35.1
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.5
-
