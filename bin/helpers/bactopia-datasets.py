@@ -924,6 +924,10 @@ if __name__ == '__main__':
         help=('Download available MLST schemas and completed genomes for '
               'a given species or a list of species in a text file.')
     )
+    group2.add_argument(
+        '--skip_mlst', action='store_true',
+        help=('Skip setup of MLST schemas for each species')
+    )
 
     group3 = parser.add_argument_group('Custom Prokka Protein FASTA')
     group3.add_argument(
@@ -1139,9 +1143,11 @@ if __name__ == '__main__':
     # Organism datasets
     if args.species:
         species_dir = f'{args.outdir}/species-specific'
-        logging.info('Setting up MLST datasets')
-        setup_mlst(args.species, PUBMLST, species_dir,
-                   force=(args.force or args.force_mlst), species_key=species_key)
+
+        if not args.skip_mlst:
+            logging.info('Setting up MLST datasets')
+            setup_mlst(args.species, PUBMLST, species_dir,
+                    force=(args.force or args.force_mlst), species_key=species_key)
 
         if not args.skip_prokka:
             logging.info('Setting up custom Prokka proteins')
