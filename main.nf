@@ -968,7 +968,7 @@ def setup_datasets() {
                     species_genome_size = species_db['genome_size']
 
                     prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                    if (fdataset_exists(prokka)) {
+                    if (dataset_exists(prokka)) {
                         PROKKA_PROTEINS = file(prokka)
                         log.info "Found Prokka proteins file"
                         log.info "\t${PROKKA_PROTEINS}"
