@@ -40,6 +40,7 @@ dependencies:
   - python=3.8.5
   - python_abi=3.8
   - readline=8.0
+  - rename=1.601
   - requests=2.24.0
   - sed=4.7
   - setuptools=49.6.0
@@ -50,4 +51,3 @@ dependencies:
   - wheel=0.35.1
   - xz=5.2.5
   - zlib=1.2.11
-
