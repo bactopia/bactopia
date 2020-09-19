@@ -39,7 +39,6 @@ else
     cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
     rm !{reference_name}/!{sample}.full-coverage.txt
 
-
     # Mask low coverage regions
     mask-consensus.py !{sample} !{reference_name} \
                       !{reference_name}/!{sample}.consensus.subs.fa \

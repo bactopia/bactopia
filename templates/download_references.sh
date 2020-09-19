@@ -29,7 +29,7 @@ else
 
     # Move and uncompress genomes
     mkdir genbank_temp
-    find refseq -name "*.gbff.gz" | xargs -I {} mv {} genbank/
+    find refseq -name "*.gbff.gz" | xargs -I {} mv {} genbank_temp/
     rename 's/(GCF_\d+).*/$1/' genbank_temp/*
     rename 's/(GCA_\d+).*/$1/' genbank_temp/*
     mkdir genbank
