@@ -881,6 +881,7 @@ def format_species(species) {
     return name
 }
 
+
 def get_max_memory(requested) {
     available = SysHelper.getAvailMemory()
     if (available < requested) {
@@ -890,6 +891,7 @@ def get_max_memory(requested) {
 
     return requested
 }
+
 
 def get_max_cpus(requested) {
     available = SysHelper.getAvailCpus()
@@ -901,56 +903,13 @@ def get_max_cpus(requested) {
     return requested
 }
 
-
-def check_species_datasets(dataset, species) {
-    /* Check for available species specific datasets */
-    species_datasets = []
-    files = [
-        // MLST
-        "${dataset}/${species}/mlst/ariba/ref_db/00.auto_metadata.tsv",
-        "${dataset}/${species}/mlst/blast/profile.txt",
-
-        // Prokka
-        "${dataset}/${species}/prokka/proteins.faa"
-    ]
-    files.each {
-        if (file(it).exists()) {
-            species_datasets << it
-        }
+def dataset_exists(dataset_path) {
+    if (file(dataset_path).exists()) {
+        return true
+    } else {
+        log.warn "Warning: ${dataset_path} does not exist and will not be used for analysis."
     }
-    return species_datasets
 }
-
-
-def check_ariba_datasets(dataset) {
-    /* Check for available Ariba datasets */
-    ariba_directory = new File("${dataset}/ariba/")
-    ariba_datasets = []
-    ariba_directory.eachFile(FileType.DIRECTORIES) {
-        ariba_datasets << it.name
-    }
-    return ariba_datasets
-}
-
-
-def check_minmers(dataset) {
-    /* Check for available minmer sketches */
-    minmers = []
-    sketches = [
-        // Mash
-        'refseq-k21-s1000.msh',
-        // Sourmash
-        'genbank-k21.json.gz', 'genbank-k31.json.gz', 'genbank-k51.json.gz'
-    ]
-    sketches.each {
-        if (file("${dataset}/minmer/${it}").exists()) {
-            minmers << "${dataset}/minmer/${it}"
-        }
-    }
-
-    return minmers
-}
-
 
 def setup_datasets() {
     species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
@@ -958,19 +917,49 @@ def setup_datasets() {
         dataset_path = params.datasets
         available_datasets = read_json("${dataset_path}/summary.json")
 
-        available_datasets['ariba'].each {
-            ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
+        // Ariba Datasets
+        if (available_datasets.containsKey('ariba')) {
+            available_datasets['ariba'].each {
+                if (dataset_exists("${dataset_path}/ariba/${it.name}")) {
+                    ARIBA_DATABASES << file("${dataset_path}/ariba/${it.name}")
+                }
+            }
+            print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
         }
-        print_dataset_info(ARIBA_DATABASES, "ARIBA datasets")
 
-        available_datasets['minmer']['sketches'].each {
-            MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
+        // RefSeq/GenBank Check
+        if (available_datasets.containsKey('minmer')) {
+            if (available_datasets['minmer'].containsKey('sketches')) {
+                available_datasets['minmer']['sketches'].each {
+                    if (dataset_exists("${dataset_path}/minmer/${it}")) {
+                        MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
+                    }
+                }
+            }
         }
-        MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
+
+        // PLSDB Check
+        if (available_datasets.containsKey('plasmid')) {
+            if (available_datasets['plasmid'].containsKey('sketches')) {
+                if (dataset_exists("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")) {
+                    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
+                }
+            }
+
+            if (available_datasets['plasmid'].containsKey('blastdb')) {
+                all_exist = true
+                file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*").each {
+                    if (!dataset_exists(it)) {
+                        all_exist = false
+                    }
+                }
+                if (all_exist) {
+                    PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
+                    print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
+                }
+            }
+        }
         print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
-
-        PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
-        print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
 
         if (SPECIES) {
             if (available_datasets.containsKey('species-specific')) {
@@ -979,20 +968,20 @@ def setup_datasets() {
                     species_genome_size = species_db['genome_size']
 
                     prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                    if (file(prokka).exists()) {
+                    if (fdataset_exists(prokka)) {
                         PROKKA_PROTEINS = file(prokka)
                         log.info "Found Prokka proteins file"
                         log.info "\t${PROKKA_PROTEINS}"
                     }
                     prodigal_tf = "${dataset_path}/${species_db['annotation']['training_set']}"
-                    if (file(prodigal_tf).exists()) {
+                    if (dataset_exists(prodigal_tf)) {
                         PRODIGAL_TF = file(prodigal_tf)
                         log.info "Found Prodigal training file"
                         log.info "\t${PRODIGAL_TF}"
                     }
 
                     refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
-                    if (file(refseq_minmer).exists()) {
+                    if (dataset_exists(refseq_minmer)) {
                         REFSEQ_SKETCH = file(refseq_minmer)
                         REFSEQ_SKETCH_FOUND = true
                         log.info "Found Mash Sketch of RefSeq genomes"
@@ -1002,7 +991,7 @@ def setup_datasets() {
                     species_db['mlst'].each { schema, vals ->
                         vals.each { key, val ->
                             if (key != "last_updated") {
-                                if (file("${dataset_path}/${val}").exists()) {
+                                if (dataset_exists("${dataset_path}/${val}")) {
                                     MLST_DATABASES << file("${dataset_path}/${val}")
                                 }
                             }
@@ -1011,12 +1000,16 @@ def setup_datasets() {
                     print_dataset_info(MLST_DATABASES, "MLST datasets")
 
                     file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                        REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
+                        if (dataset_exists("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")) {
+                            REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
+                        }
                     }
                     print_dataset_info(REFERENCES, "reference genomes")
                     
                     file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
-                        MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
+                        if (dataset_exists("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")) {
+                            MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
+                        }
                     }
                     print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
 
@@ -1025,12 +1018,14 @@ def setup_datasets() {
                         blast_type = it
                         temp_path = "${dataset_path}/${it}"
                         file(temp_path).list().each() {
-                            if (blast_type.contains('blast/genes')) {
-                                BLAST_GENE_FASTAS << file("${temp_path}/${it}")
-                            } else if (blast_type.contains('blast/primers')) {
-                                BLAST_PRIMER_FASTAS << file("${temp_path}/${it}")
-                            } else {
-                                BLAST_PROTEIN_FASTAS << file("${temp_path}/${it}")
+                            if (dataset_exists("${temp_path}/${it}")) {
+                                if (blast_type.contains('blast/genes')) {
+                                    BLAST_GENE_FASTAS << file("${temp_path}/${it}")
+                                } else if (blast_type.contains('blast/primers')) {
+                                    BLAST_PRIMER_FASTAS << file("${temp_path}/${it}")
+                                } else {
+                                    BLAST_PROTEIN_FASTAS << file("${temp_path}/${it}")
+                                }
                             }
                         }
                     }
@@ -1414,19 +1409,21 @@ def get_canonical_path(file_path) {
 
 
 def print_dataset_info(dataset_list, dataset_info) {
-    log.info "Found ${dataset_list.size()} ${dataset_info}"
-    count = 0
-    try {
-        dataset_list.each {
-            if (count < 5) {
-                log.info "\t${it}"
-            } else {
-                log.info "\t...More than 5, truncating..."
-                throw new Exception("break")
+    if (dataset_list.size() > 0) {
+        log.info "Found ${dataset_list.size()} ${dataset_info}"
+        count = 0
+        try {
+            dataset_list.each {
+                if (count < 5) {
+                    log.info "\t${it}"
+                } else {
+                    log.info "\t...More than 5, truncating..."
+                    throw new Exception("break")
+                }
+                count++
             }
-            count++
-        }
-    } catch (Exception e) {}
+        } catch (Exception e) {}
+    }
 }
 
 def print_efficiency() {
