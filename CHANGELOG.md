@@ -1,5 +1,21 @@
 # bactopia/bactopia: Changelog
 
+## v1.4.11 bactopia/bactopia "Metamorph Ring" - 2020/09/19
+### `Added`
+- `bactopia build` checks if each environment is built before building
+- Can specify `bactopia build` to build a specific environment
+- Removed build numbers in Conda environment yamls
+- Created separate Conda yamls for Linux and Mac
+- NCBI assembly accessions will retrieve the most current version (e.g. .1, .2, .3, etc...)
+
+### `Fixed`
+- `bactopia datasets` trailing whitespace in species names
+- `bactopia datasets` random subsample missing specified species when `--limit` and `--include_genus` used
+- GitLab CI OSX compatibility
+- Adaptive resource allocations
+- Datasets are checked for existence
+- Variant calls against references with multiple chromosomes
+
 ## v1.4.10 bactopia/bactopia "Jelly Ring" - 2020/08/25
 ### `Added`
 - `card` is back as a default Ariba dataset
