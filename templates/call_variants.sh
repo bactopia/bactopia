@@ -35,7 +35,7 @@ else
     echo "# bedtools Version" >> ${LOG_DIR}/!{task.process}.versions
     bedtools --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
     grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.full-coverage.txt
-    genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d | cut -f3 >> !{reference_name}/!{sample}.full-coverage.txt 2> ${LOG_DIR}/genomeCoverageBed.err
+    genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d >> !{reference_name}/!{sample}.full-coverage.txt 2> ${LOG_DIR}/genomeCoverageBed.err
     cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
     rm !{reference_name}/!{sample}.full-coverage.txt
 
