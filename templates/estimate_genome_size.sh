@@ -10,7 +10,7 @@ else
     mkdir -p ${LOG_DIR}
     echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    if [ "!{SPECIES_GENOME_SIZE}" == "null" ]; then
+    if [ "!{genome_size}" == "null" ]; then
         # Use mash to estimate the genome size, if a genome size cannot be
         # estimated set the genome size to 0
         echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
@@ -73,7 +73,7 @@ else
         fi
     else
         # Use the genome size given by the user. (Should be >= 0)
-        echo "!{params.genome_size}" > ${OUTPUT}
+        echo "!{genome_size}" > ${OUTPUT}
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 

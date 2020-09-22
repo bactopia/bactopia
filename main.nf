@@ -120,6 +120,7 @@ process estimate_genome_size {
     file "${task.process}/*" optional true
 
     shell:
+    genome_size = SPECIES_GENOME_SIZE
     template(task.ext.template)
 }
 
