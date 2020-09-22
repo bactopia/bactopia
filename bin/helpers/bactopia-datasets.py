@@ -501,7 +501,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                 if include_genus:
                     genus = genus.split()[0]
 
-                results = execute((f'ncbi-genome-download bacteria --genera "{genus}" '
+                results = execute((f'ncbi-genome-download bacteria -g "{genus}" '
                                 f'-l complete -F genbank -r 80 --dry-run'), capture=True)
                 for line in results.split('\n'):
                     if line and not line.startswith('Considering'):
