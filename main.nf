@@ -46,6 +46,7 @@ PRODIGAL_TF = file('EMPTY_TF')
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
+SPECIES_GENOME_SIZE = null
 print_efficiency() 
 setup_datasets()
 
@@ -912,7 +913,7 @@ def dataset_exists(dataset_path) {
 }
 
 def setup_datasets() {
-    species_genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
+    genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
     if (params.datasets) {
         dataset_path = params.datasets
         available_datasets = read_json("${dataset_path}/summary.json")
@@ -965,7 +966,26 @@ def setup_datasets() {
             if (available_datasets.containsKey('species-specific')) {
                 if (available_datasets['species-specific'].containsKey(SPECIES)) {
                     species_db = available_datasets['species-specific'][SPECIES]
-                    species_genome_size = species_db['genome_size']
+                    if (species_db.containsKey('genome_size')) {
+                        genome_size = species_db['genome_size']
+                    } 
+                    
+                    if (params.genome_size) {
+                        if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
+                            SPECIES_GENOME_SIZE = genome_size[params.genome_size]
+                        } else {
+                            SPECIES_GENOME_SIZE = params.genome_size
+                        }
+
+                        if (SPECIES_GENOME_SIZE > 0) {
+                            log.info "Will use ${SPECIES_GENOME_SIZE} bp for genome size"
+                        } else if (SPECIES_GENOME_SIZE == 0) {
+                            log.info "Found ${SPECIES_GENOME_SIZE} bp for genome size, it will be estimated."
+                        }
+                    } else {
+                        SPECIES_GENOME_SIZE = null
+                        log.info "Genome size will be estimated."
+                    }
 
                     if (species_db.containsKey('annotation')) {
                         if (species_db['annotation'].containsKey('proteins')) {

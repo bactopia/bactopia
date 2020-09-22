@@ -10,7 +10,7 @@ else
     mkdir -p ${LOG_DIR}
     echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    if [ "!{params.genome_size}" == "null" ]; then
+    if [ "!{SPECIES_GENOME_SIZE}" == "null" ]; then
         # Use mash to estimate the genome size, if a genome size cannot be
         # estimated set the genome size to 0
         echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
@@ -71,18 +71,6 @@ else
                   of !{sample} will be discontinued." | \
             sed 's/^\s*//' > !{sample}-genome-size-error.txt
         fi
-    elif [ "!{params.genome_size}" == "min" ]; then
-        # Use the minimum genome size based on completed RefSeq genomes
-        echo "!{species_genome_size.min}" > ${OUTPUT}
-    elif [ "!{params.genome_size}" == "median" ]; then
-        # Use the median genome size based on completed RefSeq genomes
-        echo "!{species_genome_size.median}" > ${OUTPUT}
-    elif [ "!{params.genome_size}" == "mean" ]; then
-        # Use the mean genome size based on completed RefSeq genomes
-        echo "!{species_genome_size.mean}" > ${OUTPUT}
-    elif [ "!{params.genome_size}" == "max" ]; then
-        # Use the maximum genome size based on completed RefSeq genomes
-        echo "!{species_genome_size.max}" > ${OUTPUT}
     else
         # Use the genome size given by the user. (Should be >= 0)
         echo "!{params.genome_size}" > ${OUTPUT}
