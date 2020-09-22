@@ -967,71 +967,91 @@ def setup_datasets() {
                     species_db = available_datasets['species-specific'][SPECIES]
                     species_genome_size = species_db['genome_size']
 
-                    prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                    if (dataset_exists(prokka)) {
-                        PROKKA_PROTEINS = file(prokka)
-                        log.info "Found Prokka proteins file"
-                        log.info "\t${PROKKA_PROTEINS}"
-                    }
-                    prodigal_tf = "${dataset_path}/${species_db['annotation']['training_set']}"
-                    if (dataset_exists(prodigal_tf)) {
-                        PRODIGAL_TF = file(prodigal_tf)
-                        log.info "Found Prodigal training file"
-                        log.info "\t${PRODIGAL_TF}"
-                    }
+                    if (species_db.containsKey('annotation')) {
+                        if (species_db['annotation'].containsKey('proteins')) {
+                            prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
+                            if (dataset_exists(prokka)) {
+                                PROKKA_PROTEINS = file(prokka)
+                                log.info "Found Prokka proteins file"
+                                log.info "\t${PROKKA_PROTEINS}"
+                            }
+                        }
 
-                    refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
-                    if (dataset_exists(refseq_minmer)) {
-                        REFSEQ_SKETCH = file(refseq_minmer)
-                        REFSEQ_SKETCH_FOUND = true
-                        log.info "Found Mash Sketch of RefSeq genomes"
-                        log.info "\t${REFSEQ_SKETCH}"
-                    }
-
-                    species_db['mlst'].each { schema, vals ->
-                        vals.each { key, val ->
-                            if (key != "last_updated") {
-                                if (dataset_exists("${dataset_path}/${val}")) {
-                                    MLST_DATABASES << file("${dataset_path}/${val}")
-                                }
+                        if (species_db['annotation'].containsKey('training_set')) {
+                            prodigal_tf = "${dataset_path}/${species_db['annotation']['training_set']}"
+                            if (dataset_exists(prodigal_tf)) {
+                                PRODIGAL_TF = file(prodigal_tf)
+                                log.info "Found Prodigal training file"
+                                log.info "\t${PRODIGAL_TF}"
                             }
                         }
                     }
-                    print_dataset_info(MLST_DATABASES, "MLST datasets")
 
-                    file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                        if (dataset_exists("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")) {
-                            REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
-                        }
-                    }
-                    print_dataset_info(REFERENCES, "reference genomes")
-                    
-                    file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
-                        if (dataset_exists("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")) {
-                            MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
-                        }
-                    }
-                    print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
-
-                    // BLAST Related
-                    species_db['optional']['blast'].each() {
-                        blast_type = it
-                        temp_path = "${dataset_path}/${it}"
-                        file(temp_path).list().each() {
-                            if (dataset_exists("${temp_path}/${it}")) {
-                                if (blast_type.contains('blast/genes')) {
-                                    BLAST_GENE_FASTAS << file("${temp_path}/${it}")
-                                } else if (blast_type.contains('blast/primers')) {
-                                    BLAST_PRIMER_FASTAS << file("${temp_path}/${it}")
-                                } else {
-                                    BLAST_PROTEIN_FASTAS << file("${temp_path}/${it}")
-                                }
+                    if (species_db.containsKey('minmer')) {
+                        if (species_db['minmer'].containsKey('mash')) {
+                            refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
+                            if (dataset_exists(refseq_minmer)) {
+                                REFSEQ_SKETCH = file(refseq_minmer)
+                                REFSEQ_SKETCH_FOUND = true
+                                log.info "Found Mash Sketch of RefSeq genomes"
+                                log.info "\t${REFSEQ_SKETCH}"
                             }
                         }
                     }
-                    print_dataset_info(BLAST_GENE_FASTAS, "gene FASTAs to query with BLAST")
-                    print_dataset_info(BLAST_PRIMER_FASTAS, "primer FASTAs to query with BLAST")
-                    print_dataset_info(BLAST_PROTEIN_FASTAS, "protein FASTAs to query with BLAST")
+
+                    if (species_db.containsKey('mlst')) {
+                        species_db['mlst'].each { schema, vals ->
+                            vals.each { key, val ->
+                                if (key != "last_updated") {
+                                    if (dataset_exists("${dataset_path}/${val}")) {
+                                        MLST_DATABASES << file("${dataset_path}/${val}")
+                                    }
+                                }
+                            }
+                        }
+                        print_dataset_info(MLST_DATABASES, "MLST datasets")
+                    }
+
+                    if (species_db.containsKey('optional')) {
+                        if (species_db['optional'].containsKey('reference-genomes')) {
+                            file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
+                                if (dataset_exists("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")) {
+                                    REFERENCES << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
+                                }
+                            }
+                            print_dataset_info(REFERENCES, "reference genomes")
+                        }
+                        
+                        if (species_db['optional'].containsKey('mapping-sequences')) {
+                            file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
+                                if (dataset_exists("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")) {
+                                    MAPPING_FASTAS << file("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")
+                                }
+                            }
+                            print_dataset_info(MAPPING_FASTAS, "FASTAs to align reads against")
+                        }
+
+                        if (species_db['optional'].containsKey('blast')) {
+                            species_db['optional']['blast'].each() {
+                                blast_type = it
+                                temp_path = "${dataset_path}/${it}"
+                                file(temp_path).list().each() {
+                                    if (dataset_exists("${temp_path}/${it}")) {
+                                        if (blast_type.contains('blast/genes')) {
+                                            BLAST_GENE_FASTAS << file("${temp_path}/${it}")
+                                        } else if (blast_type.contains('blast/primers')) {
+                                            BLAST_PRIMER_FASTAS << file("${temp_path}/${it}")
+                                        } else {
+                                            BLAST_PROTEIN_FASTAS << file("${temp_path}/${it}")
+                                        }
+                                    }
+                                }
+                            }
+                            print_dataset_info(BLAST_GENE_FASTAS, "gene FASTAs to query with BLAST")
+                            print_dataset_info(BLAST_PRIMER_FASTAS, "primer FASTAs to query with BLAST")
+                            print_dataset_info(BLAST_PROTEIN_FASTAS, "protein FASTAs to query with BLAST")
+                        }
+                    }
                 } else {
                     log.error "Species '${params.species}' not available, please check spelling " +
                               "or use '--available_datasets' to verify the dataset has been set " +
