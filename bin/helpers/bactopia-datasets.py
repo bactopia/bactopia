@@ -76,7 +76,7 @@ import os
 import sys
 
 from Bio import SeqIO
-from executor import ExternalCommand
+from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "bactopia datasets"
 VERSION = "1.4.11"
@@ -502,38 +502,42 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                     genus = genus.split()[0]
 
                 results = execute((f'ncbi-genome-download bacteria -g "{genus}" '
-                                f'-l complete -F genbank -r 80 --dry-run'), capture=True)
-                for line in results.split('\n'):
-                    if line and not line.startswith('Considering'):
-                        accession, name = line.split('\t', 1)
-                        all_accessions[accession] = name
-                        if name.startswith(species_key[request.lower()]):
-                            species_accession.append(accession)
-                        accessions.append(accession)
-
-                if limit:
-                    if len(accessions) > limit:
-                        logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
-                        accessions = random.sample(accessions, limit)
-                        contains_species = False
-                        for accession in accessions:
-                            if all_accessions[accession] == species_key[request.lower()]:
-                                contains_species = True
-                        if not contains_species:
-                            if len(species_accession):
-                                logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
-                                accessions.append(random.sample(species_accession, 1)[0])
-                    else:
-                        logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
-
-                if not len(species_accession):
-                    logging.info(f'A completed genome does not exist for {species_key[request.lower()]}, skipping genome size statistics..')
-                    skip_genome_size = True
+                                   f'-l complete -F genbank -r 80 --dry-run'), capture=True, error_ok=True)
                 
-            
-                with open(accession_file, 'w') as accession_fh:
-                    for accession in accessions:
-                        accession_fh.write(f'{accession}\n')
+                if results:
+                    for line in results.split('\n'):
+                        if line and not line.startswith('Considering'):
+                            accession, name = line.split('\t', 1)
+                            all_accessions[accession] = name
+                            if name.startswith(species_key[request.lower()]):
+                                species_accession.append(accession)
+                            accessions.append(accession)
+
+                    if limit:
+                        if len(accessions) > limit:
+                            logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
+                            accessions = random.sample(accessions, limit)
+                            contains_species = False
+                            for accession in accessions:
+                                if all_accessions[accession] == species_key[request.lower()]:
+                                    contains_species = True
+                            if not contains_species:
+                                if len(species_accession):
+                                    logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
+                                    accessions.append(random.sample(species_accession, 1)[0])
+                        else:
+                            logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
+
+                    if not len(species_accession):
+                        logging.info(f'A completed genome does not exist for {species_key[request.lower()]}, skipping genome size statistics..')
+                        skip_genome_size = True
+                    
+                    with open(accession_file, 'w') as accession_fh:
+                        for accession in accessions:
+                            accession_fh.write(f'{accession}\n')
+                else:
+                    logging.error(f'No completed genomes found for "{genus}", skipping custom Prokka proteins')
+                    continue
 
             execute((f'ncbi-genome-download bacteria -A {accession_file} '
                     f'-l complete -o {prokka_dir}/genomes -F genbank -r 80 '
@@ -860,20 +864,27 @@ def get_log_level():
 
 
 def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
-            stderr_file=None):
+            stderr_file=None, error_ok=False):
     """A simple wrapper around executor."""
-    command = ExternalCommand(
-        cmd, directory=directory, capture=True, capture_stderr=True,
-        stdout_file=stdout_file, stderr_file=stderr_file
-    )
+    try:
+        command = ExternalCommand(
+            cmd, directory=directory, capture=True, capture_stderr=True,
+            stdout_file=stdout_file, stderr_file=stderr_file
+        )
 
-    command.start()
-    if get_log_level() == 'DEBUG':
-        logging.log(STDOUT, command.decoded_stdout)
-        logging.log(STDERR, command.decoded_stderr)
+        command.start()
+        if get_log_level() == 'DEBUG':
+            logging.log(STDOUT, command.decoded_stdout)
+            logging.log(STDERR, command.decoded_stderr)
 
-    if capture:
-        return command.decoded_stdout
+        if capture:
+            return command.decoded_stdout
+    except ExternalCommandFailed as e:
+        if "No downloads matched your filter" in e.error_message and error_ok:
+            return None
+        else:
+            print(e)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
