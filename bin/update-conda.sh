@@ -36,13 +36,16 @@ function update_environment {
         conda env export --no-builds -n bactopia-${1} | \
             grep -v "^prefix:" | \
             sed -E 's=channels:=version: '"${4}"'\'$'\nchannels:=' > ${3}/${1}.yml
+        md5 -r ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
     else
         # Linux
         conda create -y -n bactopia-${1} ${6} -c conda-forge -c bioconda ${2} 
         conda env export --no-builds -n bactopia-${1} | \
             grep -v "^prefix:" | \
             sed -r 's=channels:=version: '"${4}"'\nchannels:=' > ${3}/${1}.yml
+        md5sum ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
     fi
+    
     conda env remove -n bactopia-${1}
 }
 

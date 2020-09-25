@@ -37,7 +37,7 @@
 # bactopia --help
 VERSION=1.4.11
 CONTAINER_VERSION="${VERSION%.*}.x"
-CONDA_ENV=`which bactopia | sed 's=bin/bactopia=='`
+CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}"
 
 # If no user input, print usage
@@ -92,7 +92,7 @@ if [[ "$1" == "datasets" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-datasets.py
     else 
-        bactopia-datasets.py ${BACTOPIA_NF}/docs/data/pubmlst.txt "${@:2}"
+        bactopia-datasets.py "${BACTOPIA_NF}/docs/data/pubmlst.txt" "${@:2}"
     fi
 elif [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
@@ -100,7 +100,7 @@ elif [[ "$1" == "search" ]]; then
     bactopia-search.py "${@:2}"
 elif [[ "$1" == "build" ]]; then
     if [[ "$2" == "--default" ]]; then
-        bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
+        bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" "${@:2}"
     else
         bactopia-build.py "${@:2}"
     fi
@@ -108,38 +108,77 @@ elif [[ "$1" == "tools" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-tools.py
     else
-        TOOL_NF=`bactopia-tools.py --bactopia ${BACTOPIA_NF} $2`
-        if [[ ! -z "$TOOL_NF" ]]; then
-            nextflow run ${TOOL_NF} "${@:3}"
+        TOOL_NF=$(bactopia-tools.py --bactopia "${BACTOPIA_NF}" "$2")
+        # Create custom work dir
+        WORK_DIR=""
+        WORK_ARG=""
+        CAN_CLEAN_UP=1
+        if [[ "$*" ==  *" -w "* ]] || [[ "$*" == *" -work-dir "* ]]; then
+            # User specified a work directory
+            CAN_CLEAN_UP=0
+        else
+            # User did not specify a work directory, we'll use custom one
+            WORK_DIR="$(pwd)/work/$2"
+            WORK_ARG="-w ${WORK_DIR}"
+        fi
+
+        if [[ -n "$TOOL_NF" ]]; then
+            OPTS="${WORK_ARG} ${@:3}"
+            if nextflow run "${TOOL_NF}" ${OPTS}; then
+                # bactopia finished successfully
+                if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
+                    # user asked for work dir to be cleaned up
+                    echo "Bactopia Tool '$2' finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
+                    rm -rf "${WORK_DIR}"
+                fi
+            fi
         fi
     fi
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
-    bactopia-citations.py --bactopia ${BACTOPIA_NF} "${@:2}"
+    bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 elif [[ "$1" == "versions" ]]; then
-    bactopia-versions.py --bactopia ${BACTOPIA_NF} "${@:2}"
+    bactopia-versions.py --bactopia "${BACTOPIA_NF}" "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
     CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
-    for check in  "${CHECKS[@]}"; do
+    for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
         fi
     done
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
-        # Figure out where Bactopia is setup
-        if [[ ! -f "${BACTOPIA_NF}/conda/envs/envs-built-${CONTAINER_VERSION}.txt" ]]; then
-            echo "Unable to locate required Conda environments."
-            echo "Building to ${BACTOPIA_NF}/conda/envs ... This might take a while"
-            bactopia-build.py ${BACTOPIA_NF}/conda ${BACTOPIA_NF}/conda/envs --force
+        # Build conda envs, rebuild out of sync envs, skipp existing
+        /data/apps/bactopia/bin/helpers/bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
+    fi
+
+    # Create custom work dir
+    WORK_DIR=""
+    WORK_ARG=""
+    CAN_CLEAN_UP=1
+    if [[ "$*" ==  *" -w "* ]] || [[ "$*" == *" -work-dir "* ]]; then
+        # User specified a work directory
+        CAN_CLEAN_UP=0
+    else
+        # User did not specify a work directory, we'll use custom one
+        WORK_DIR="$(pwd)/work/bactopia"
+        WORK_ARG="-w ${WORK_DIR}"
+    fi
+
+    # Execute Bactopia Nextflow pipeline
+    OPTS="${WORK_ARG} ${@:1}"
+    if nextflow run "${BACTOPIA_NF}/main.nf" ${OPTS}; then
+        # bactopia finished successfully
+        if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
+            # user asked for work dir to be cleaned up
+            echo "Bactopia finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
+            rm -rf "${WORK_DIR}"
         fi
     fi
-    # Execute Bactopia Nextflow pipeline
-    nextflow run ${BACTOPIA_NF}/main.nf "${@:1}"
 fi

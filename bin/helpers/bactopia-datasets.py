@@ -519,8 +519,9 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                             accessions = random.sample(accessions, limit)
                             contains_species = False
                             for accession in accessions:
-                                if all_accessions[accession] == species_key[request.lower()]:
+                                if all_accessions[accession].startswith(species_key[request.lower()]):
                                     contains_species = True
+
                             if not contains_species:
                                 if len(species_accession):
                                     logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
@@ -737,9 +738,12 @@ def create_summary(outdir, training_set=False):
     from collections import OrderedDict
     available_datasets = OrderedDict()
 
+    available_datasets['ariba'] = []
+    available_datasets['minmer'] = {'sketches': [], 'last_update': None}
+    available_datasets['plasmid'] = {'sketches': None, 'blastdb': None, 'last_update': None}
+
     # Ariba
     if os.path.exists(f'{outdir}/ariba'):
-        available_datasets['ariba'] = []
         for db in sorted(os.listdir(f'{outdir}/ariba')):
             if db.endswith(".tar.gz"):
                 name = db.replace(".tar.gz", "")
@@ -777,10 +781,10 @@ def create_summary(outdir, training_set=False):
         available_datasets['species-specific'] = OrderedDict()
         for species in sorted(os.listdir(f'{outdir}/species-specific')):
             new_species = OrderedDict()
-            new_species['mlst'] = []
             species_dir = f'{outdir}/species-specific/{species}'
 
             minmer = f'{species_dir}/minmer'
+            new_species['minmer'] = {'mash': None, 'last_updated': None}
             if os.path.exists(f'{minmer}/refseq-genomes.msh'):
                 new_species['minmer'] = {
                     'mash': f'species-specific/{species}/minmer/refseq-genomes.msh',
@@ -807,14 +811,15 @@ def create_summary(outdir, training_set=False):
                 execute(f'cp {training_set} {prokka}/prodigal.tf')
                 new_species['annotation']['training_set'] = f'species-specific/{species}/annotation/prodigal.tf'
 
+            new_species['genome_size'] = {'min': None, 'median': None, 'mean': None, 'max': None}
             if os.path.exists(f'{prokka}/genome_size.json'):
                 with open(f'{prokka}/genome_size.json', 'r') as gs_fh:
                     json_data = json.load(gs_fh)
                     new_species['genome_size'] = json_data
 
             mlst = f'{species_dir}/mlst'
+            new_species['mlst'] = {} 
             if os.path.exists(f'{mlst}'):
-                new_species['mlst'] = {}
                 for schema in sorted(os.listdir(f'{mlst}')):
                     if os.path.exists(f'{mlst}/{schema}/{schema}-ariba.tar.gz'):
                         new_species['mlst'][schema] = {

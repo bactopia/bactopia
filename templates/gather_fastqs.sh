@@ -82,11 +82,7 @@ else
                 ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
                                             -s !{section} -A accession.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
                 find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
-                if [ "!{section}" == 'refseq' ]; then
-                    rename 's/(GCF_\d+).*/$1.fna.gz/' fasta/*
-                else
-                    rename 's/(GCA_\d+).*/$1.fna.gz/' fasta/*
-                fi
+                rename 's/(GC[AF]_\d+).*/$1.fna.gz/' fasta/*
                 gzip -cd fasta/!{sample}.fna.gz > !{sample}-art.fna
             else
                 cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt

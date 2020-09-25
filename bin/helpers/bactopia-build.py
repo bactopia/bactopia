@@ -42,6 +42,17 @@ def set_log_level(error, debug):
     """Set the output log level."""
     return logging.ERROR if error else logging.DEBUG if debug else logging.INFO
 
+def check_md5sum(expected_md5, current_md5):
+    """Compare the two md5 files to see if a rebuild is needed."""
+    expected = None
+    current = None
+    with open(expected_md5, 'r') as f:
+        expected = f.readline().rstrip()
+
+    with open(current_md5, 'r') as f:
+        current = f.readline().rstrip()
+
+    return expected == current
 
 def get_log_level():
     """Return logging level name."""
@@ -94,6 +105,8 @@ if __name__ == '__main__':
                         help='Builds Conda environments to the default Bactopia location.')
     parser.add_argument('--force', action='store_true',
                         help='Force overwrite of existing Conda environments.')
+    parser.add_argument('--is_bactopia', action='store_true',
+                        help='This is an automated call by bactopia not a user')
     parser.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
     parser.add_argument('--silent', action='store_true',
@@ -129,8 +142,9 @@ if __name__ == '__main__':
     if env_files:
         for i, env_file in enumerate(env_files):
             envname = os.path.splitext(os.path.basename(env_file))[0]
+            md5_file = env_file.replace('.yml', '.md5')
             prefix = f'{install_path}/{envname}-{CONTAINER_VERSION}'
-            envbuilt = f'{install_path}/{envname}-{CONTAINER_VERSION}/env-built.txt'
+            envbuilt_file = f'{install_path}/{envname}-{CONTAINER_VERSION}/env-built.txt'
             force = '--force' if args.force else ''
             build = True
             if args.envname:
@@ -138,12 +152,24 @@ if __name__ == '__main__':
                     build = False
             
             if build:
-                if os.path.exists(envbuilt) and not args.force:
-                    logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
+                needs_build = False
+                if os.path.exists(envbuilt_file) and not args.force:
+                    build_is_current = check_md5sum(md5_file, envbuilt_file)
+                    if build_is_current:
+                        if not args.is_bactopia:
+                            logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
+                    else:
+                        needs_build = True
+                        logging.info(f'Existing env ({prefix}) is out of sync, it will be updated')                       
                 else:
+                    needs_build = True
+
+                if needs_build:
+                    if args.is_bactopia:
+                        force = '--force'
                     logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
                     execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
-                    execute(f'touch {envbuilt}')
+                    execute(f'cp {md5_file} {envbuilt_file}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
         logging.error(
