@@ -1,29 +1,34 @@
 #!/bin/bash
 set -e
 set -u
-
 LOG_DIR="!{task.process}"
-if [ "!{params.dry_run}" == "true" ]; then
-    mkdir -p blast/
-    touch blast/!{sample}-blast.json
-else
-    tar -xzvf !{dataset_tarball}
-    mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}-!{method}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
+tar -xzvf !{dataset_tarball}
+mkdir -p ${LOG_DIR}
+echo "# Timestamp" > ${LOG_DIR}/!{task.process}-!{method}.versions
+date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
 
-    if [ "!{method}" == "blast" ]; then
-        echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
-        mlst-blast.py --version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
-        mkdir -p blast
-        if [[ !{params.compress} == "true" ]]; then
-            mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
-                --cpu !{task.cpus} --compressed
-        else
-            mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
-                --cpu !{task.cpus}
-        fi
-    elif [ "!{method}" == "ariba" ]; then
+# Verify AWS files were staged
+if [[ ! -L "!{fq[0]}" ]]; then
+    if [ "!{single_end}" == "true" ]; then
+        check_staging.py --fq1 !{fq[0]} --assembly !{assembly} --is_single
+    else
+        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --assembly !{assembly}
+    fi
+fi
+
+if [ "!{method}" == "blast" ]; then
+    echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
+    mlst-blast.py --version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
+    mkdir -p blast
+    if [[ !{params.compress} == "true" ]]; then
+        mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
+            --cpu !{task.cpus} --compressed
+    else
+        mlst-blast.py !{assembly} !{dataset_name} blast/!{sample}-blast.json \
+            --cpu !{task.cpus}
+    fi
+elif [ "!{method}" == "ariba" ]; then
+    if [ "!{single_end}" == "false" ]; then
         echo "# Ariba Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
         ariba version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
         mv !{dataset_name}/ref_db ./
@@ -39,14 +44,17 @@ else
             --threads !{task.cpus} \
             --force \
             --verbose !{noclean} !{spades_options}
-    fi
-
-    if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}-!{method}.err
-        cp .command.out ${LOG_DIR}/!{task.process}-!{method}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh  || :
-        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace || :
     else
-        rm -rf ${LOG_DIR}/
+        mkdir -p ariba
+        echo "Ariba cannot be run on single end reads" > ariba/ariba-not-run.txt
     fi
+fi
+
+if [ "!{params.skip_logs}" == "false" ]; then 
+    cp .command.err ${LOG_DIR}/!{task.process}-!{method}.err
+    cp .command.out ${LOG_DIR}/!{task.process}-!{method}.out
+    cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh  || :
+    cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace || :
+else
+    rm -rf ${LOG_DIR}/
 fi

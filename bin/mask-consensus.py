@@ -88,11 +88,15 @@ def mask_sequence(sequence, coverages, subs, mincov):
         for i, cov in enumerate(coverage):
             if cov >= mincov:
                 # Passes
-                if str(i+1) in subs[accession]:
-                    # Substitution
-                    bases.append(sequence[accession][i].lower())
+                if accession in subs:
+                    if str(i+1) in subs[accession]:
+                        # Substitution
+                        bases.append(sequence[accession][i].lower())
+                    else:
+                        # Same as reference
+                        bases.append(sequence[accession][i])
                 else:
-                    # Same as reference
+                    # No SNPs, Same as reference
                     bases.append(sequence[accession][i])
             elif cov:
                 # Low coverage

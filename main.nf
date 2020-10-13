@@ -41,8 +41,8 @@ BLAST_PRIMER_FASTAS = []
 BLAST_PROTEIN_FASTAS = []
 MAPPING_FASTAS = []
 PLASMID_BLASTDB = []
-PROKKA_PROTEINS = file('EMPTY_PROTEINS')
-PRODIGAL_TF = file('EMPTY_TF')
+PROKKA_PROTEINS = file(params.empty_proteins)
+PRODIGAL_TF = file(params.empty_tf)
 REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
@@ -71,6 +71,14 @@ process gather_fastqs {
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = false
     no_cache = params.no_cache ? '-N' : ''
+    use_ena = params.use_ena
+    ftp_only = params.ftp_only
+    if (task.attempt >= 10) {
+        use_ena = true
+        if (task.attempt >= 15) {
+            ftp_only = true
+        }
+    }
     if (extra) {
         is_compressed = extra.getName().endsWith('gz') ? true : false
     }
@@ -174,9 +182,6 @@ process qc_original_summary {
     file "quality-control/*"
     file "${task.process}/*" optional true
 
-    when:
-    params.dry_run == false
-
     shell:
     template(task.ext.template)
 }
@@ -194,9 +199,6 @@ process qc_final_summary {
     output:
     file "quality-control/*"
     file "${task.process}/*" optional true
-
-    when:
-    params.dry_run == false
 
     shell:
     template(task.ext.template)
@@ -217,7 +219,8 @@ process assemble_genome {
     output:
     file "assembly/*"
     file "${sample}-assembly-error.txt" optional true
-    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into MAKE_BLASTDB, SEQUENCE_TYPE
+    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into SEQUENCE_TYPE
+    set val(sample), val(single_end), file("assembly/${sample}.{fna,fna.gz}") optional true into MAKE_BLASTDB
     set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}"), file("total_contigs_*") optional true into ANNOTATION
     set val(sample), file("assembly/${sample}.{fna,fna.gz}"), file(genome_size) optional true into ASSEMBLY_QC
     file "${task.process}/*" optional true
@@ -278,7 +281,7 @@ process make_blastdb {
     publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "blastdb/*"
 
     input:
-    set val(sample), val(single_end), file(fq), file(fasta) from MAKE_BLASTDB
+    set val(sample), val(single_end), file(fasta) from MAKE_BLASTDB
 
     output:
     file("blastdb/*")
@@ -368,7 +371,7 @@ process count_31mers {
     file "${task.process}/*" optional true
 
     shell:
-    m = task.memory.toString().split(' ')[0].toInteger() * 1000
+    m = task.memory.toString().split(' ')[0].toInteger() * 1000 - 500
     template(task.ext.template)
 }
 
@@ -384,12 +387,12 @@ process sequence_type {
     set val(sample), val(single_end), file(fq), file(assembly) from SEQUENCE_TYPE
     each file(dataset) from MLST_DATABASES
 
-    when:
-    dataset =~ /.*blast.*/ || (dataset =~ /.*ariba.*/ && single_end == false)
-
     output:
     file "${method}/*"
     file "${task.process}/*" optional true
+
+    when:
+    MLST_DATABASES.isEmpty() == false
 
     shell:
     method = dataset =~ /.*blastdb.*/ ? 'blast' : 'ariba'
@@ -418,7 +421,7 @@ process ariba_analysis {
     file "${task.process}/*" optional true
 
     when:
-    single_end == false || params.dry_run == true
+    single_end == false && ARIBA_DATABASES.isEmpty() == false
 
     shell:
     dataset_tarball = file(dataset).getName()
@@ -472,6 +475,9 @@ process minmer_query {
     file "*.txt"
     file "${task.process}/*" optional true
 
+    when:
+    MINMER_DATABASES.isEmpty() == false
+
     shell:
     dataset_name = dataset.getName()
     mash_w = params.screen_w ? "-w" : ""
@@ -497,6 +503,9 @@ process call_variants {
     output:
     file "${reference_name}/*"
     file "${task.process}/*" optional true
+
+    when:
+    REFERENCES.isEmpty() == false
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
@@ -531,7 +540,7 @@ process download_references {
     file "${task.process}/*" optional true
 
     when:
-    REFSEQ_SKETCH_FOUND == true || params.dry_run == true
+    REFSEQ_SKETCH_FOUND == true
 
     shell:
     no_cache = params.no_cache ? '-N' : ''
@@ -659,6 +668,9 @@ process blast_genes {
     file("genes/*.{json,json.gz}")
     file "${task.process}/*" optional true
 
+    when:
+    BLAST_GENE_FASTAS.isEmpty() == false
+
     shell:
     template(task.ext.template)
 }
@@ -679,6 +691,9 @@ process blast_primers {
     output:
     file("primers/*.{json,json.gz}")
     file "${task.process}/*" optional true
+
+    when:
+    BLAST_PRIMER_FASTAS.isEmpty() == false
 
     shell:
     template(task.ext.template)
@@ -701,6 +716,9 @@ process blast_proteins {
     file("proteins/*.{json,json.gz}")
     file "${task.process}/*" optional true
 
+    when:
+    BLAST_PROTEIN_FASTAS.isEmpty() == false
+
     shell:
     template(task.ext.template)
 }
@@ -722,6 +740,9 @@ process mapping_query {
     output:
     file "mapping/*"
     file "${task.process}/*" optional true
+
+    when:
+    MAPPING_FASTAS.isEmpty() == false
 
     shell:
     bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
@@ -1096,12 +1117,6 @@ def setup_datasets() {
                 exit 1
             }
         }
-    } else if (params.dry_run) {
-        log.info "--dry_run found, creating dummy data to be 'processed'."
-        ARIBA_DATABASES << file('EMPTY.tar.gz')
-        MAPPING_FASTAS << file('EMPTY.fasta')
-        MLST_DATABASES << file('EMPTY_DB')
-        REFSEQ_SKETCH = file('EMPTY.msh')
     } else {
         log.info "--datasets not given, skipping the following processes (analyses):"
         log.info "\tsequence_type"
@@ -1204,7 +1219,7 @@ def check_input_params() {
     } else if (params.accessions) {
         error += file_exists(params.accessions, '--accessions')
         run_type = "is_accessions"
-    } else if (params.accession || params.dry_run) {
+    } else if (params.accession) {
         run_type = "is_accession"
     } else {
         log.error """
@@ -1333,11 +1348,7 @@ def create_input_channel(run_type) {
             .splitText()
             .map { line -> process_accessions(line.trim()) }
     } else if (run_type == "is_accession") {
-        if (params.dry_run) {
-            return [tuple("BACTOPIA_DRY_RUN", "is_accession", false, [null, null], null)]
-        } else {
-            return [process_accessions(params.accession)]
-        }
+        return [process_accessions(params.accession)]
     } else if (run_type == "paired-end") {
         return [tuple(params.sample, run_type, false, [file(params.R1), file(params.R2)], null)]
     } else if (run_type == "hybrid") {
@@ -1656,9 +1667,6 @@ def basic_help() {
                                     files are removed. This will not affect the ability
                                     to resume Nextflow runs, and only occurs at the end
                                     of the process.
-
-        --dry_run               Mimics workflow execution, to help determine if conda environments
-                                    or container images are properly set up.
 
         --version               Print workflow version information
 

@@ -1,6 +1,6 @@
 /datasets/
 /conda/envs
-/configs/aws.config
+/conf/aws.config
 .nextflow*
 /work/
 trace.txt*

@@ -2,7 +2,7 @@
 # build-containers
 #
 # Automate the building of Bactopia related containers
-VERSION=1.4.1
+VERSION=1.4.11
 CONTAINER_VERSION="${VERSION%.*}.x"
 
 function singularity_build {
@@ -55,7 +55,7 @@ if [ -z  ${BACTOPIA_DIR} ]; then
     echo "Must give the path to Bactopia repository"
     exit 1
 fi
-MAJOR_VERSION=${2:-"0"}
+MAJOR_VERSION=${3:-"0"}
 
 mkdir -p ${OUTPUT_DIR}
 

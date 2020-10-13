@@ -7,6 +7,7 @@
 - Verify species-specific datasets exist
 - separate work dir for bactopia and bactopia tools
 - `--cleanup_workdir` to delete work directory after successful run
+- default values for `bactopia datasets` summary.json
 
 ### `Fixed`
 - Warn user if no completed genomes are available

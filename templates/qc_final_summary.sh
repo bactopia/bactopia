@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 set -u
-
 LOG_DIR="!{task.process}"
 mkdir -p ${LOG_DIR}
 echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
@@ -12,6 +11,15 @@ fastqc -version>> ${LOG_DIR}/!{task.process}.versions 2>&1
 
 echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
 fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+
+# Verify AWS files were staged
+if [[ ! -L "!{fq[0]}" ]]; then
+    if [ "!{single_end}" == "true" ]; then
+        check_staging.py --fq1 !{fq[0]} --genome_size !{genome_size} --is_single
+    else
+        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --genome_size !{genome_size}
+    fi
+fi
 
 GENOME_SIZE=`head -n 1 !{genome_size}`
 if [ "!{single_end}" == "false" ]; then

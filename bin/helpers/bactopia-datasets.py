@@ -746,13 +746,14 @@ def create_summary(outdir, training_set=False):
     if os.path.exists(f'{outdir}/ariba'):
         for db in sorted(os.listdir(f'{outdir}/ariba')):
             if db.endswith(".tar.gz"):
-                name = db.replace(".tar.gz", "")
-                available_datasets['ariba'].append({
-                    'name': db,
-                    'last_update': execute(
-                        f'head -n 1 {outdir}/ariba/{name}-updated.txt', capture=True
-                    ).rstrip()
-                })
+                if db != 'EMPTY.tar.gz':
+                    name = db.replace(".tar.gz", "")
+                    available_datasets['ariba'].append({
+                        'name': db,
+                        'last_update': execute(
+                            f'head -n 1 {outdir}/ariba/{name}-updated.txt', capture=True
+                        ).rstrip()
+                    })
 
     # Minmers
     if os.path.exists(f'{outdir}/minmer/minmer-updated.txt'):
