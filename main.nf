@@ -1710,6 +1710,12 @@ def full_help() {
                                     to continue downstream analyses.
                                     Default: ${params.min_reads}
 
+        --min_proportion FLOAT  The minimum proportion of basepairs for paired-end reads to continue 
+                                    downstream analyses. Example: If set to 0.75 the R1 and R2 must 
+                                    have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not 
+                                    R1 100bp, R2 50bp)
+                                    Default: ${params.min_proportion}
+
         --skip_fastq_check      The input FASTQs will not be check to verify they meet the
                                     minimum requirements to be processed. This parameter 
                                     is useful if you are confident your sequences will 
