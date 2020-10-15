@@ -14,9 +14,13 @@ blastn -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 echo "# Parallel Version" >> ${LOG_DIR}/!{task.process}.versions
 parallel --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
-file_size=`gzip -dc !{genes} | wc -c`
+if [[ !{params.compress} == "true" ]]; then
+    gunzip -f !{genes}
+fi
+
+file_size=`cat !{gunzip_genes} | wc -c`
 block_size=$(( file_size / !{task.cpus} / 2 ))
-gzip -cd !{genes} | \
+cat !{gunzip_genes} | \
 parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
 blastn -db !{blastdb} \
        -outfmt 15 \

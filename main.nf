@@ -646,6 +646,7 @@ process plasmid_blast {
     PLASMID_BLASTDB.isEmpty() == false
 
     shell:
+    gunzip_genes = genes.getName().replace('.gz', '')
     blastdb = blastdb_files[0].getBaseName()
     template(task.ext.template)
 }
