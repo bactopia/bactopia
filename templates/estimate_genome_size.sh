@@ -82,6 +82,29 @@ else
     echo "!{genome_size}" > ${OUTPUT}
 fi
 
+# pass along FASTQs
+mkdir -p fastqs
+if [[ -L "!{fq[0]}" ]]; then
+    if [ "!{single_end}" == "false" ]; then
+        # Paired-End Reads
+        ln -s `readlink !{fq[0]}` fastqs/!{sample}_R1.fastq.gz
+        ln -s `readlink !{fq[1]}` fastqs/!{sample}_R2.fastq.gz
+    else
+        # Single-End Reads
+        ln -s `readlink !{fq[0]}` fastqs/!{sample}.fastq.gz
+    fi
+else
+    if [ "!{single_end}" == "false" ]; then
+        # Paired-End Reads
+        cp !{fq[0]} fastqs/!{sample}_R1.fastq.gz
+        cp !{fq[1]} fastqs/!{sample}_R2.fastq.gz
+    else
+        # Single-End Reads
+        cp  !{fq[0]} fastqs/!{sample}.fastq.gz
+    fi
+fi
+
+
 if [ "!{params.skip_logs}" == "false" ]; then 
     cp .command.err ${LOG_DIR}/!{task.process}.err
     cp .command.out ${LOG_DIR}/!{task.process}.out

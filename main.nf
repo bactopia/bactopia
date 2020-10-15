@@ -73,9 +73,9 @@ process gather_fastqs {
     no_cache = params.no_cache ? '-N' : ''
     use_ena = params.use_ena
     ftp_only = params.ftp_only
-    if (task.attempt >= 10) {
+    if (task.attempt >= 4) {
         use_ena = true
-        if (task.attempt >= 15) {
+        if (task.attempt >= 6) {
             ftp_only = true
         }
     }
@@ -124,7 +124,7 @@ process estimate_genome_size {
     file "${sample}-genome-size-error.txt" optional true
     file("${sample}-genome-size.txt") optional true
     set val(sample), val(sample_type), val(single_end), 
-        file(fq), file(extra), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
+        file("fastqs/${sample}*.fastq.gz"), file(extra), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
     file "${task.process}/*" optional true
 
     shell:
@@ -219,9 +219,9 @@ process assemble_genome {
     output:
     file "assembly/*"
     file "${sample}-assembly-error.txt" optional true
-    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}") optional true into SEQUENCE_TYPE
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz"), file("assembly/${sample}.{fna,fna.gz}") optional true into SEQUENCE_TYPE
     set val(sample), val(single_end), file("assembly/${sample}.{fna,fna.gz}") optional true into MAKE_BLASTDB
-    set val(sample), val(single_end), file(fq), file("assembly/${sample}.{fna,fna.gz}"), file("total_contigs_*") optional true into ANNOTATION
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz"), file("assembly/${sample}.{fna,fna.gz}"), file("total_contigs_*") optional true into ANNOTATION
     set val(sample), file("assembly/${sample}.{fna,fna.gz}"), file(genome_size) optional true into ASSEMBLY_QC
     file "${task.process}/*" optional true
 
@@ -447,8 +447,8 @@ process minmer_sketch {
 
     output:
     file("${sample}*.{msh,sig}")
-    set val(sample), val(single_end), file(fq), file("${sample}.sig") into MINMER_QUERY
-    set val(sample), val(single_end), file(fq), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz"), file("${sample}.sig") into MINMER_QUERY
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz"), file("${sample}-k31.msh") into DOWNLOAD_REFERENCES
     file "${task.process}/*" optional true
 
     shell:
@@ -535,7 +535,7 @@ process download_references {
     file(refseq_sketch) from REFSEQ_SKETCH
 
     output:
-    set val(sample), val(single_end), file(fq), file("genbank/*.gbk") optional true into CALL_VARIANTS_AUTO
+    set val(sample), val(single_end), file("fastqs/${sample}*.fastq.gz"), file("genbank/*.gbk") optional true into CALL_VARIANTS_AUTO
     file("mash-dist.txt")
     file "${task.process}/*" optional true
 
