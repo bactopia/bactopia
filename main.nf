@@ -10,7 +10,6 @@ VERSION = workflow.manifest.version
 
 // Adjust memory/cpu requests for standard profile only
 MAX_MEMORY = workflow.profile == 'standard' ? get_max_memory(params.max_memory).GB : (params.max_memory).GB
-log.info "${MAX_MEMORY}"
 MAX_MEMORY_INT = MAX_MEMORY.toString().split(" ")[0]
 MAX_CPUS = workflow.profile == 'standard' ? get_max_cpus(params.cpus.toInteger()) : params.cpus.toInteger()
 MAX_CPUS_75 = Math.round(MAX_CPUS * 0.75)
