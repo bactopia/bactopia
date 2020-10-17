@@ -43,7 +43,7 @@ if [ "!{params.skip_fastq_check}" == "false" ]; then
         if ! check-fastqs.py --fq1 r1.json ${OPTS}; then
             ERROR=1
         fi
-        rm r1json
+        rm r1.json
     fi
 fi
 
