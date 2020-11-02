@@ -18,17 +18,26 @@ VERSION = "1.4.11"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
-    'eggnog': 'Functional annotation using orthologous groups',
-    'fastani': 'Pairwise average nucleotide identity',
-    'gtdb': 'Identify marker genes and assign taxonomic classifications',
-    'ismapper': 'Identify positions of insertion sites',
-    'mashtree': 'Trees based on Mash distances',
-    'pirate': 'Pan-genome with optional core-genome tree',
-    'phyloflash': '16s assembly, alignment and tree',
-    'roary': 'Pan-genome with optional core-genome tree',
-    'summary': 'A report summarizing Bactopia project',
+    'eggnog': {'info': 'Functional annotation using orthologous groups', 'mac': True},
+    'fastani': {'info': 'Pairwise average nucleotide identity', 'mac': True},
+    'gtdb': {'info': 'Identify marker genes and assign taxonomic classifications', 'mac': False},
+    'ismapper': {'info': 'Identify positions of insertion sites', 'mac': True},
+    'mashtree': {'info': 'Trees based on Mash distances', 'mac': True},
+    'pirate': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
+    'phyloflash': {'info': '16s assembly, alignment and tree', 'mac': True},
+    'roary': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
+    'summary': {'info': 'A report summarizing Bactopia project', 'mac': True},
 }
 
+def get_platform():
+    from sys import platform
+    if platform == "darwin":
+        return 'mac'
+    elif platform == "win32":
+        # Windows is not supported
+        print("Windows is not supported.", file=sys.stderr)
+        sys.exit(1)
+    return 'linux'
 
 def print_available_tools():
     """Print the available Bactopia Tools."""
@@ -40,16 +49,21 @@ def available_tools():
     """Return a string of available tools."""
     usage = ['Available Tools:']
     for k,v in sorted(AVAILABLE_TOOLS.items()):
-        usage.append(f'  {k: <12}{v}')
+        usage.append(f'  {k: <12}{v["info"]}')
     return '\n'.join(usage)
 
 def validate_args(tool, bactopia_repo):
     import os
+    platform = get_platform()
 
-    if args.tool not in AVAILABLE_TOOLS:
-        print(f'"{args.tool}" is not available.\n', file=sys.stderr)
+    if tool not in AVAILABLE_TOOLS:
+        print(f'"{tool}" is not available.\n', file=sys.stderr)
         print(available_tools(), file=sys.stderr)
         sys.exit(1)
+    elif platform == 'mac' and not AVAILABLE_TOOLS[tool]['mac']:
+        print(f'"{tool}" is not available on Mac OSX.\n', file=sys.stderr)
+        sys.exit(1)
+
 
     tool_nf = f'{bactopia_repo}/tools/{tool}/main.nf'
     if not os.path.exists(tool_nf):
@@ -59,7 +73,11 @@ def validate_args(tool, bactopia_repo):
               file=sys.stderr)
         sys.exit(1)
 
-    return tool_nf
+    tool_env = f'{bactopia_repo}/tools/{tool}/environment-linux.yml'
+    if platform == 'mac':
+        tool_env = f'{bactopia_repo}/tools/{tool}/environment-osx.yml'
+
+    return f"{tool_nf} --conda_yaml {tool_env}" 
 
 if __name__ == '__main__':
     import argparse as ap
@@ -86,5 +104,4 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
-    tool_nf = validate_args(args.tool, args.bactopia)
-    print(tool_nf)
+    print(validate_args(args.tool, args.bactopia))

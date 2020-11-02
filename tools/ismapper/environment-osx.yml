@@ -1,0 +1,50 @@
+name: bactopia-ismapper
+version: 1.4.11
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bedtools=2.29.2
+  - biopython=1.78
+  - blast=2.6.0
+  - bwa=0.7.17
+  - bzip2=1.0.8
+  - c-ares=1.16.1
+  - ca-certificates=2020.6.20
+  - certifi=2020.6.20
+  - coreutils=8.31
+  - htslib=1.11
+  - ismapper=2.0.1
+  - krb5=1.17.1
+  - libblas=3.9.0
+  - libcblas=3.9.0
+  - libcurl=7.71.1
+  - libcxx=11.0.0
+  - libdeflate=1.6
+  - libedit=3.1.20191231
+  - libev=4.33
+  - libffi=3.2.1
+  - libgfortran=5.0.0
+  - libgfortran5=9.3.0
+  - liblapack=3.9.0
+  - libnghttp2=1.41.0
+  - libopenblas=0.3.12
+  - libssh2=1.9.0
+  - llvm-openmp=11.0.0
+  - ncurses=6.2
+  - numpy=1.19.2
+  - openssl=1.1.1h
+  - perl=5.30.3
+  - pip=20.2.4
+  - python=3.9.0
+  - python_abi=3.9
+  - readline=8.0
+  - samtools=1.11
+  - setuptools=49.6.0
+  - sqlite=3.33.0
+  - tk=8.6.10
+  - tzdata=2020d
+  - wheel=0.35.1
+  - xz=5.2.5
+  - zlib=1.2.11
