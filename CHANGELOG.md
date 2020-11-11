@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.5.0 bactopia/bactopia "" - 2020/09/??
+## v1.5.0 bactopia/bactopia "" - 2020/11/??
 ### `Added`
 - Conda environments will check if in sync with latest version now
 - md5sums of all conda envs
@@ -8,19 +8,18 @@
 - separate work dir for bactopia and bactopia tools
 - `--cleanup_workdir` to delete work directory after successful run
 - default values for `bactopia datasets` summary.json
+- Fallback to NCBI Assembly when eUtils is down
+- Additional pre-process QC checks
+- BacOSX conda envs for Bactopia Tools
+- Documentation edits
 
 ### `Fixed`
 - Warn user if no completed genomes are available
 - use of `--genera` for ncbi-genome-download
 - improved genome_size handling
-
-### `Fixed`
-- `bactopia datasets` trailing whitespace in species names
-- `bactopia datasets` random subsample missing specified species when `--limit` and `--include_genus` used
-- GitLab CI OSX compatibility
-- Adaptive resource allocations
-- Datasets are checked for existence
-- Variant calls against references with multiple chromosomes
+- explicit file passing for AWS Batch
+- Memory estimates now floored
+- PLSDB blast not being executed
 
 ## v1.4.11 bactopia/bactopia "Metamorph Ring" - 2020/09/19
 ### `Added`

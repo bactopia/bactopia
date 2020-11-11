@@ -155,7 +155,7 @@ else
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
         # Build conda envs, rebuild out of sync envs, skipp existing
-        /data/apps/bactopia/bin/helpers/bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
+        bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
     fi
 
     # Create custom work dir

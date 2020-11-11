@@ -118,7 +118,10 @@ def check_bactopia(path, name):
         f"{path}/{name}/{name}-genome-size-error.txt",
         f"{path}/{name}/{name}-low-read-count-error.txt",
         f"{path}/{name}/{name}-low-sequence-depth-error.txt",
-        f"{path}/{name}/{name}-paired-end-error.txt"
+        f"{path}/{name}/{name}-low-basepair-proportion-error.txt",
+        f"{path}/{name}/{name}-different-read-count-error.txt",
+        f"{path}/{name}/{name}-paired-end-error.txt",
+        f"{path}/{name}/{name}-assembly-error.txt",
     ]
 
     for filename in files:
@@ -138,7 +141,14 @@ def parse_error(error):
     elif error.endswith("low-sequence-depth-error.txt"):
         return ["low-sequence-depth-error", "Low depth of sequencing"]
     elif  error.endswith("paired-end-error.txt"):
-        return ["paired-end-error", "Paired-end read count mismatch"]
+        return ["paired-end-error", "Paired-end reads were not in acceptable format"]
+    elif  error.endswith("different-read-count-error.txt"):
+        return ["different-read-count-error", "Paired-end read count mismatch"]
+    elif  error.endswith("low-basepair-proportion-error.txt"):
+        return ["low-basepair-proportion-error", "Paired-end basepair counts are out of accesptable proportions"]
+    elif  error.endswith("assembly-error.txt"):
+        return ["assembly-error", "Assembled size was not withing an acceptable range"]
+
     return ["unknown-error", "Unknown Error"]
 
 def parse_genome_size(txt_file):
