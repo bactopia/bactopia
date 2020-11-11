@@ -14,6 +14,7 @@
 - Documentation edits
 - Bactopia and Nextflow versions are now output for logging purposes
 - option to skip QC step (`--skip_qc`)
+- `bactopia datasets` can now specify assembly level
 
 ### `Fixed`
 - Warn user if no completed genomes are available

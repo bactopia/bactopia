@@ -1,73 +1,116 @@
 #! /usr/bin/env python3
 """
-usage: bactopia datasets [-h] [--ariba STR] [--species STR]
-                              [--skip_prokka] [--include_genus]
-                              [--identity FLOAT] [--overlap FLOAT]
-                              [--max_memory INT] [--fast_cluster]
-                              [--skip_minmer] [--skip_plsdb] [--cpus INT]
-                              [--clear_cache] [--force] [--force_ariba]
-                              [--force_mlst] [--force_prokka]
-                              [--force_minmer] [--force_plsdb]
-                              [--keep_files] [--available_datasets] [--depends]
-                              [--version] [--verbose] [--silent]
-                              OUTPUT_DIRECTORY
+usage: bactopia datasets [-h] [--outdir STR] [--skip_ariba] [--ariba STR]
+                         [--species STR] [--skip_mlst] [--skip_prokka]
+                         [--include_genus]
+                         [--asssembly_level {all,complete,chromosome,scaffold,contig}]
+                         [--limit INT] [--accessions STR] [--identity FLOAT]
+                         [--overlap FLOAT] [--max_memory INT] [--fast_cluster]
+                         [--skip_minmer] [--skip_plsdb] [--prodigal_tf STR]
+                         [--reference STR] [--mapping STR] [--genes STR]
+                         [--proteins STR] [--primers STR] [--force_optional]
+                         [--cpus INT] [--clear_cache] [--force]
+                         [--force_ariba] [--force_mlst] [--force_prokka]
+                         [--force_minmer] [--force_plsdb] [--keep_files]
+                         [--available_datasets] [--depends] [--version]
+                         [--verbose] [--silent]
+                         PUBMLST
 
-bactopia datasets - Setup datasets for Bactopia
+bactopia datasets - Setup public datasets for Bactopia
 
 positional arguments:
-  OUTPUT_DIRECTORY  Directory to write output.
+  PUBMLST               Bactopia config file with PubMLST schema mappings for
+                        Ariba.
 
 optional arguments:
-  -h, --help        show this help message and exit
+  -h, --help            show this help message and exit
+  --outdir STR          Directory to write output. (Default ./datasets)
 
 Ariba Reference Datasets:
-  --ariba STR       Setup Ariba datasets for a given reference or a list of
-                    references in a text file. (Default: card,vfdb_core)
+  --skip_ariba          Skip setup of Ariba datasets
+  --ariba STR           Comma separated list of Ariba datasets to download and
+                        setup. Available datasets include: argannot, card,
+                        ncbi, megares, plasmidfinder, resfinder,
+                        srst2_argannot, vfdb_core, vfdb_full, virulencefinder
+                        (Default: "vfdb_core,card") Use --available_datasets
+                        to see the full list.
 
 Bacterial Species:
-  --species STR     Download available MLST schemas and completed genomes
-                    for a given species or a list of species in a text file.
+  --species STR         Download available MLST schemas and completed genomes
+                        for a given species or a list of species in a text
+                        file.
+  --skip_mlst           Skip setup of MLST schemas for each species
 
-Custom Prokka Protein FASTA & Minmer Sketch of Completed Genomes:
-  --skip_prokka     Skip creation of a Prokka formatted fasta for each species
-  --include_genus   Include all genus members in the Prokka proteins FASTA
-  --identity FLOAT  CD-HIT (-c) sequence identity threshold. (Default: 0.9)
-  --overlap FLOAT   CD-HIT (-s) length difference cutoff. (Default: 0.8)
-  --max_memory INT  CD-HIT (-M) memory limit (in MB). (Default: unlimited
-  --fast_cluster    Use CD-HIT's (-g 0) fast clustering algorithm, instead of
-                    the accurate but slow algorithm.
+Custom Prokka Protein FASTA:
+  --skip_prokka         Skip creation of a Prokka formatted fasta for each
+                        species
+  --include_genus       Include all genus members in the Prokka proteins FASTA
+  --assembly_level {all,complete,chromosome,scaffold,contig}
+                        Assembly levels of genomes to download (Default:
+                        complete).
+  --limit INT           If available completed genomes exceeds a given limit,
+                        a random subsample will be taken. (Default 1000)
+  --accessions STR      A list of RefSeq accessions to download.
+  --identity FLOAT      CD-HIT (-c) sequence identity threshold. (Default:
+                        0.9)
+  --overlap FLOAT       CD-HIT (-s) length difference cutoff. (Default: 0.8)
+  --max_memory INT      CD-HIT (-M) memory limit (in MB). (Default: unlimited
+  --fast_cluster        Use CD-HIT's (-g 0) fast clustering algorithm, instead
+                        of the accurate but slow algorithm.
 
 Minmer Datasets:
-  --skip_minmer     Skip download of pre-computed minmer datasets (mash,
-                    sourmash)
+  --skip_minmer         Skip download of pre-computed minmer datasets (mash,
+                        sourmash)
 
 PLSDB (Plasmid) BLAST/Sketch:
-  --skip_plsdb      Skip download of pre-computed PLSDB datbases (blast, mash)
+  --skip_plsdb          Skip download of pre-computed PLSDB datbases (blast,
+                        mash)
 
-Helpful Options:
-  --cpus INT        Number of cpus to use. (Default: 1)
-  --clear_cache     Remove any existing cache.
-  --force           Forcibly overwrite existing datasets.
-  --force_ariba     Forcibly overwrite existing Ariba datasets.
-  --force_mlst      Forcibly overwrite existing MLST datasets.
-  --force_prokka    Forcibly overwrite existing Prokka datasets.
-  --force_minmer    Forcibly overwrite existing minmer datasets.
-  --force_plsdb     Forcibly overwrite existing PLSDB datasets.
-  --keep_files      Keep all downloaded and intermediate files.
-  --available_datasets   
-                    List Ariba reference datasets and MLST schemas
-                    available for setup.
-  --depends         Verify dependencies are installed.
+Optional User Provided Datasets:
+  --prodigal_tf STR     A pre-built Prodigal training file to add to the
+                        species annotation folder. Requires a single species
+                        (--species) and will replace existing training files.
+  --reference STR       A reference genome (FASTA/GenBank (preferred)) file or
+                        directory to be added to the optional folder for
+                        variant calling. Requires a single species
+                        (--species).
+  --mapping STR         A reference sequence (FASTA) file or directory to be
+                        added to the optional folder for mapping. Requires a
+                        single species (--species).
+  --genes STR           A gene sequence (FASTA) file or directory to be added
+                        to the optional folder for BLAST. Requires a single
+                        species (--species).
+  --proteins STR        A protein sequence (FASTA) file or directory to be
+                        added to the optional folder for BLAST. Requires a
+                        single species (--species).
+  --primers STR         A primer sequence (FASTA) file or directory to be
+                        added to the optional folder for BLAST. Requires a
+                        single species (--species).
+  --force_optional      Overwrite any existing files in the optional folders
+
+Custom Options:
+  --cpus INT            Number of cpus to use. (Default: 1)
+  --clear_cache         Remove any existing cache.
+  --force               Forcibly overwrite existing datasets.
+  --force_ariba         Forcibly overwrite existing Ariba datasets.
+  --force_mlst          Forcibly overwrite existing MLST datasets.
+  --force_prokka        Forcibly overwrite existing Prokka datasets.
+  --force_minmer        Forcibly overwrite existing minmer datasets.
+  --force_plsdb         Forcibly overwrite existing PLSDB datasets.
+  --keep_files          Keep all downloaded and intermediate files.
+  --available_datasets  List Ariba reference datasets and MLST schemas
+                        available for setup.
+  --depends             Verify dependencies are installed.
 
 Adjust Verbosity:
-  --version         show program's version number and exit
-  --verbose         Print debug related text.
-  --silent          Only critical errors will be printed.
+  --version             show program's version number and exit
+  --verbose             Print debug related text.
+  --silent              Only critical errors will be printed.
 
 example usage:
-  bactopia datasets outdir
-  bactopia datasets outdir --ariba 'card'
-  bactopia datasets outdir --species 'Staphylococcus aureus' --include_genus
+  bactopia datasets
+  bactopia datasets --ariba 'vfdb_core'
+  bactopia datasets --species 'Staphylococcus aureus' --include_genus
 """
 import glob
 import json
@@ -430,7 +473,7 @@ def process_cds(cds):
 def setup_prokka(request, available_datasets, outdir, force=False,
                  include_genus=False, limit=None, user_accessions=None, identity=0.9, 
                  overlap=0.8, max_memory=0, fast_cluster=False, keep_files=False, 
-                 cpus=1, species_key=None):
+                 cpus=1, species_key=None, assembly_level='complete'):
     """
     Setup a Prokka compatible protein fasta file based on completed genomes.
 
@@ -483,7 +526,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             execute(f'mkdir -p {minmer_dir}')
 
             # Download completed genomes
-            logging.info(f'Downloading completed genomes')
+            logging.info(f'Downloading genomes (assembly level: {assembly_level})')
             genome_dir = f'{prokka_dir}/genomes'
             genus = species_key[request.lower()]
             execute(f'mkdir {genome_dir}')
@@ -502,7 +545,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                     genus = genus.split()[0]
 
                 results = execute((f'ncbi-genome-download bacteria -g "{genus}" '
-                                   f'-l complete -F genbank -r 80 --dry-run'), capture=True, error_ok=True)
+                                   f'-l {assembly_level} -F genbank -r 80 --dry-run'), capture=True, error_ok=True)
                 
                 if results:
                     for line in results.split('\n'):
@@ -956,9 +999,14 @@ if __name__ == '__main__':
         help=('Include all genus members in the Prokka proteins FASTA')
     )
     group3.add_argument(
-        '--limit', metavar="INT", type=int, default=0,
+        '--assembly_level', default='complete', type=str,
+        choices=['all', 'complete', 'chromosome', 'scaffold', 'contig'],
+        help=('Assembly levels of genomes to download (Default: complete).')
+    )
+    group3.add_argument(
+        '--limit', metavar="INT", type=int, default=1000,
         help=('If available completed genomes exceeds a given limit, a random '
-              'subsample will be taken.')
+              'subsample will be taken. (Default 1000)')
     )
     group3.add_argument(
         '--accessions', metavar="STR", type=str,
@@ -1174,7 +1222,8 @@ if __name__ == '__main__':
                 user_accessions=args.accessions, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,
                 fast_cluster=args.fast_cluster, keep_files=args.keep_files,
-                force=(args.force or args.force_prokka), species_key=species_key
+                force=(args.force or args.force_prokka), species_key=species_key, 
+                assembly_level=args.assembly_level
             )
         else:
             logging.info('Skipping custom Prokka dataset step')
