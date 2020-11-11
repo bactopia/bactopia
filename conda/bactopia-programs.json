@@ -122,7 +122,7 @@
     "ClonalFrameML": {
         "conda": {
             "name": "clonalframeml", 
-            "yaml": "tools/roary/environment.yml"
+            "yaml": "tools/roary/environment-linux.yml"
         }, 
         "description": "Efficient Inference of Recombination in Whole Bacterial Genomes", 
         "link": "https://github.com/xavierdidelot/ClonalFrameML" 
@@ -130,7 +130,7 @@
     "DIAMOND": {
         "conda": {
             "name": "diamond", 
-            "yaml": "tools/eggnog/environment.yml"
+            "yaml": "tools/eggnog/environment-linux.yml"
         }, 
         "description": "Accelerated BLAST compatible local sequence aligner", 
         "link": "https://github.com/bbuchfink/diamond" 
@@ -138,7 +138,7 @@
     "eggNOG-mapper": {
         "conda": {
             "name": "eggnog-mapper", 
-            "yaml": "tools/eggnog/environment.yml"
+            "yaml": "tools/eggnog/environment-linux.yml"
         }, 
         "description": "Fast genome-wide functional annotation through orthology assignment", 
         "link": "https://github.com/eggnogdb/eggnog-mapper" 
@@ -146,7 +146,7 @@
     "FastANI": {
         "conda": {
             "name": "fastani", 
-            "yaml": "tools/fastani/environment.yml"
+            "yaml": "tools/fastani/environment-linux.yml"
         }, 
         "description": "Fast Whole-Genome Similarity (ANI) Estimation", 
         "link": "https://github.com/ParBLiSS/FastANI" 
@@ -154,7 +154,7 @@
     "FastTree 2": {
         "conda": {
             "name": "fasttree", 
-            "yaml": "tools/gtdb/environment.yml"
+            "yaml": "tools/gtdb/environment-linux.yml"
         }, 
         "description": "Approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences", 
         "link": "http://www.microbesonline.org/fasttree" 
@@ -210,7 +210,7 @@
     "GTDB-tk": {
         "conda": {
             "name": "gtdbtk", 
-            "yaml": "tools/gtdb/environment.yml"
+            "yaml": "tools/gtdb/environment-linux.yml"
         }, 
         "description": "A toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes", 
         "link": "https://github.com/Ecogenomics/GTDBTk" 
@@ -234,7 +234,7 @@
     "IQ-TREE": {
         "conda": {
             "name": "iqtree", 
-            "yaml": "tools/phyloflash/environment.yml"
+            "yaml": "tools/phyloflash/environment-linux.yml"
         }, 
         "description": "Efficient phylogenomic software by maximum likelihood", 
         "link": "https://github.com/Cibiv/IQ-TREE" 
@@ -242,7 +242,7 @@
     "ISMapper": {
         "conda": {
             "name": "ismapper", 
-            "yaml": "tools/ismapper/environment.yml"
+            "yaml": "tools/ismapper/environment-linux.yml"
         }, 
         "description": "IS mapping software", 
         "link": "https://github.com/jhawkey/IS_mapper" 
@@ -258,7 +258,7 @@
     "MAFFT": {
         "conda": {
             "name": "mafft", 
-            "yaml": "tools/phyloflash/environment.yml"
+            "yaml": "tools/phyloflash/environment-linux.yml"
         }, 
         "description": "Multiple alignment program for amino acid or nucleotide sequences", 
         "link": "https://mafft.cbrc.jp/alignment/software/" 
@@ -274,7 +274,7 @@
     "Mashtree": {
         "conda": {
             "name": "mashtree", 
-            "yaml": "tools/mashtree/environment.yml"
+            "yaml": "tools/mashtree/environment-linux.yml"
         }, 
         "description": "Create a tree using Mash distances", 
         "link": "https://github.com/lskatz/mashtree" 
@@ -282,7 +282,7 @@
     "maskrc-svg": {
         "conda": {
             "name": "maskrc-svg", 
-            "yaml": "tools/roary/environment.yml"
+            "yaml": "tools/roary/environment-linux.yml"
         }, 
         "description": "Masks recombination as detected by ClonalFrameML or Gubbins and draws an SVG", 
         "link": "https://github.com/kwongj/maskrc-svg" 
@@ -330,7 +330,7 @@
     "phyloFlash": {
         "conda": {
             "name": "phyloflash", 
-            "yaml": "tools/phyloflash/environment.yml"
+            "yaml": "tools/phyloflash/environment-linux.yml"
         }, 
         "description": "Rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset", 
         "link": "https://github.com/HRGV/phyloFlash" 
@@ -354,7 +354,7 @@
     "PIRATE": {
         "conda": {
             "name": "pirate", 
-            "yaml": "tools/pirate/environment.yml"
+            "yaml": "tools/pirate/environment-linux.yml"
         }, 
         "description": "A toolbox for pangenome analysis and threshold evaluation", 
         "link": "http://github.com/SionBayliss/PIRATE" 
@@ -362,7 +362,7 @@
     "pplacer": {
         "conda": {
             "name": "pplacer", 
-            "yaml": "tools/gtdb/environment.yml"
+            "yaml": "tools/gtdb/environment-linux.yml"
         }, 
         "description": "Phylogenetic placement and downstream analysis", 
         "link": "https://github.com/matsen/pplacer" 
@@ -402,7 +402,7 @@
     "Roary": {
         "conda": {
             "name": "roary", 
-            "yaml": "tools/roary/environment.yml"
+            "yaml": "tools/roary/environment-linux.yml"
         }, 
         "description": "Rapid large-scale prokaryote pan genome analysis", 
         "link": "https://github.com/sanger-pathogens/Roary" 
@@ -466,7 +466,7 @@
     "snp-dists": {
         "conda": {
             "name": "snp-dists", 
-            "yaml": "tools/roary/environment.yml"
+            "yaml": "tools/roary/environment-linux.yml"
         }, 
         "description": "Pairwise SNP distance matrix from a FASTA sequence alignment", 
         "link": "https://github.com/tseemann/snp-dists" 
@@ -538,7 +538,7 @@
     "VSEARCH": {
         "conda": {
             "name": "vsearch", 
-            "yaml": "tools/phyloflash/environment.yml"
+            "yaml": "tools/phyloflash/environment-linux.yml"
         }, 
         "description": "Versatile open-source tool for metagenomics", 
         "link": "https://github.com/torognes/vsearch" 

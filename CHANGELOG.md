@@ -10,8 +10,9 @@
 - default values for `bactopia datasets` summary.json
 - Fallback to NCBI Assembly when eUtils is down
 - Additional pre-process QC checks
-- BacOSX conda envs for Bactopia Tools
+- OSX/Linux conda envs for Bactopia Tools
 - Documentation edits
+- Bactopia and Nextflow versions are now output for logging purposes
 
 ### `Fixed`
 - Warn user if no completed genomes are available

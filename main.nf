@@ -54,6 +54,7 @@ setup_datasets()
 process gather_fastqs {
     /* Gather up input FASTQs for analysis. */
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "bactopia.versions"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     tag "${sample}"
@@ -66,8 +67,11 @@ process gather_fastqs {
     set val(sample), val(sample_type), val(single_end),
         file("fastqs/${sample}*.fastq.gz"), file("extra/*.gz") optional true into FASTQ_PE_STATUS
     file "${task.process}/*" optional true
+    file "bactopia.versions" optional true
 
     shell:
+    bactopia_version = VERSION
+    nextflow_version = nextflow.version
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = false
     no_cache = params.no_cache ? '-N' : ''
@@ -167,7 +171,6 @@ process qc_reads {
     template(task.ext.template)
 }
 
-
 process qc_original_summary {
     /* Run FASTQC on the input FASTQ files. */
     tag "${sample}"
@@ -241,7 +244,6 @@ process assemble_genome {
     }
     template(task.ext.template)
 }
-
 
 process assembly_qc {
     /* Assess the quality of the assembly using QUAST and CheckM */

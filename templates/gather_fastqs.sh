@@ -5,6 +5,15 @@ LOG_DIR="!{task.process}"
 mkdir -p fastqs
 mkdir -p extra
 mkdir -p ${LOG_DIR}
+
+# Bactopia Version Info
+echo "# Timestamp" > bactopia.versions
+date --iso-8601=seconds >> bactopia.versions
+echo "# Bactopia Version" >> bactopia.versions
+echo "bactopia !{bactopia_version}" >> bactopia.versions
+echo "# Nextflow Version" >> bactopia.versions
+echo "nextflow !{nextflow_version}" >> bactopia.versions
+
 echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 if [ "!{sample_type}" == "paired-end" ]; then
