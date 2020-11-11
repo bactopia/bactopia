@@ -108,7 +108,35 @@ elif [[ "$1" == "tools" ]]; then
     if [[ -z "$2" ]]; then
         bactopia-tools.py
     else
-        TOOL_NF=$(bactopia-tools.py --bactopia "${BACTOPIA_NF}" "$2")
+        # Check if Conda environments need to be built
+        BUILD_CONDA=1
+        CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
+        for check in "${CHECKS[@]}"; do
+            if [[ "$*" == *"${check}"* ]]; then
+                BUILD_CONDA=0
+            fi
+        done
+
+        TOOL_NF=""
+        if [[ "${BUILD_CONDA}" -eq 1 ]]; then
+            # Build conda envs, rebuild out of sync envs, skipp existing
+            REBUILD=0
+            CHECKS=("force_rebuild") 
+            for check in "${CHECKS[@]}"; do
+                if [[ "$*" == *"${check}"* ]]; then
+                    REBUILD=1
+                fi
+            done
+
+            if [[ "${REBUILD}" -eq 1 ]]; then
+                TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" "--force_rebuild" | tail -n 1)
+            else
+                TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" | tail -n 1)
+            fi
+        else
+            TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" "--skip_conda" | tail -n 1)
+        fi
+
         # Create custom work dir
         WORK_DIR=""
         WORK_ARG=""
