@@ -22,7 +22,28 @@ if [[ ! -L "!{fq[0]}" ]]; then
     fi
 fi
 
-if [ "!{single_end}" == "false" ]; then
+if [ "!{params.skip_qc}" == "true" ]; then
+    echo "Sequence QC was skipped for !{sample}" > quality-control/!{sample}-qc-skipped.txt
+    if [[ -L "!{fq[0]}" ]]; then
+        if [ "!{single_end}" == "false" ]; then
+            # Paired-End Reads
+            ln -s `readlink !{fq[0]}` quality-control/!{sample}_R1.fastq.gz
+            ln -s `readlink !{fq[1]}` quality-control/!{sample}_R2.fastq.gz
+        else
+            # Single-End Reads
+            ln -s `readlink !{fq[0]}` quality-control/!{sample}.fastq.gz
+        fi
+    else
+        if [ "!{single_end}" == "false" ]; then
+            # Paired-End Reads
+            cp !{fq[0]} quality-control/!{sample}_R1.fastq.gz
+            cp !{fq[1]} quality-control/!{sample}_R2.fastq.gz
+        else
+            # Single-End Reads
+            cp  !{fq[0]} quality-control/!{sample}.fastq.gz
+        fi
+    fi
+elif [ "!{single_end}" == "false" ]; then
     # Paired-End Reads
     # Remove Adapters
     bbduk.sh -Xmx4g \

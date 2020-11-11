@@ -1737,6 +1737,11 @@ def full_help() {
                                 Default: ${params.max_genome_size}
 
     QC Reads Parameters:
+        --skip_qc               The QC step qill be skipped and it will be assumed the inputs
+                                    sequences have already been QCed.
+
+        --skip_error_correction FLASH error correction of paired-end reads will be skipped.
+
         --qc_ram INT            Try to keep RAM usage below this many GB
                                     Default: ${params.qc_ram} GB
 

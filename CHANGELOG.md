@@ -13,6 +13,7 @@
 - OSX/Linux conda envs for Bactopia Tools
 - Documentation edits
 - Bactopia and Nextflow versions are now output for logging purposes
+- option to skip QC step (`--skip_qc`)
 
 ### `Fixed`
 - Warn user if no completed genomes are available
