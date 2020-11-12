@@ -21,7 +21,7 @@ optional arguments:
 import logging
 import os
 
-VERSION = "1.4.11"
+VERSION = "1.5.0"
 PROGRAM = "bactopia build"
 STDOUT = 11
 STDERR = 12

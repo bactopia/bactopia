@@ -1,6 +1,6 @@
 FROM amazonlinux:2
 
-LABEL version="1.4.x"
+LABEL version="1.5.x"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia annotate_genome process"
 

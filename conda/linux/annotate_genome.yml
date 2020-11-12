@@ -1,5 +1,5 @@
 name: bactopia-annotate_genome
-version: 1.4.x
+version: 1.5.x
 channels:
   - conda-forge
   - bioconda

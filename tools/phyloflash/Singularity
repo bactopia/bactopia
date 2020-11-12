@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image for Bactopia Tool phyloflash
-    VERSION 1.4.x
+    VERSION 1.5.x
 
 %environment
     PATH=/opt/conda/envs/bactopia-phyloflash/bin:/opt/conda/envs/python3/bin:$PATH

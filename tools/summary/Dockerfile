@@ -1,6 +1,6 @@
 FROM nfcore/base
 
-LABEL version="1.4.x"
+LABEL version="1.5.x"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Tool summary"
 

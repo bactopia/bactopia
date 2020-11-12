@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.5.0 bactopia/bactopia "" - 2020/11/??
+## v1.5.0 bactopia/bactopia "Cassie Earring" - 2020/11/12
 ### `Added`
 - Conda environments will check if in sync with latest version now
 - md5sums of all conda envs
@@ -11,12 +11,12 @@
 - Fallback to NCBI Assembly when eUtils is down
 - Additional pre-process QC checks
 - OSX/Linux conda envs for Bactopia Tools
-- Documentation edits
+- Documentation edits and updates
 - Bactopia and Nextflow versions are now output for logging purposes
 - option to skip QC step (`--skip_qc`)
 - `bactopia datasets` can now specify assembly level
 - `bactopia tools` now use reusable conda envs
-- `bactopia toola` for Roary and PIRATE can now include local assemblies
+- `bactopia tools` for Roary and PIRATE can now include local assemblies
 
 ### `Fixed`
 - Warn user if no completed genomes are available

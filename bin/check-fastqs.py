@@ -4,7 +4,7 @@ Sometimes with AWS, files might fail to download but not cause an error.
 This script checks to verify all expected inputs are staged.
 """
 PROGRAM = "check-staging"
-VERSION = "1.4.11"
+VERSION = "1.5.0"
 import sys
 
 

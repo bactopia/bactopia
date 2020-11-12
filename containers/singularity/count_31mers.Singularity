@@ -4,7 +4,7 @@ From: nfcore/base
 %labels
     MAINTAINER Robert A. Petit III <robert.petit@emory.edu>
     DESCRIPTION Singularity image containing requirements for the Bactopia count_31mers process
-    VERSION 1.4.x
+    VERSION 1.5.x
 
 %environment
     PATH=/opt/conda/envs/bactopia-count_31mers/bin:$PATH
