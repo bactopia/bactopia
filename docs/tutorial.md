@@ -29,23 +29,24 @@ conda activate bactopia
 Now we are ready to build our datasets!
 
 ```
-bactopia datasets datasets/ --ariba "vfdb_core,card" \
-                            --species "Staphylococcus aureus" \
-                            --include_genus \
-                            --cpus 4
+bactopia datasets \
+    --ariba "vfdb_core,card" \
+    --species "Staphylococcus aureus" \
+    --include_genus \
+    --cpus 4
 ```
 
 Let's review what is happening here.
 
-`datasets/` is where our datasets will be downloaded, processed and stored.
-
 `--ariba "vfdb_core,card"` says to download and setup the [VFDB Core](http://www.mgc.ac.cn/VFs/) and the [CARD](https://card.mcmaster.ca/) databases to be used by Ariba.
 
-`--species "Staphylococcus aureus"` will download MLST schemas associated with *S. aureus* it will also download completed *S. aureus* genomes (RefSeq only) that are used to create a set of protein set for annotation, a Mash sketch for automatic variant calling to the nearest neighbor, and calulate genome size statistics.
+`--species "Staphylococcus aureus"` will download MLST schemas associated with *S. aureus* it will also download completed *S. aureus* genomes (RefSeq only) that are used to create a set of protein set for annotation, a Mash sketch for automatic variant calling to the nearest neighbor, and calculate genome size statistics.
 
 `--include_genus` will also download completed genomes from the *Staphylococcus* genus that will be used for the protein set. These completed genomes **are not** used for the sketch creation or genome size calculation.
 
 `--cpus 4` will use 4 cpus for downloading and the clustering step. Adjust this number according to your setup!
+
+These datasets will be built into the default `datasets/` folder which can be changed using `--outdir`
 
 !!! info "Use CARD over MEGARes"
     Staphopia v1 made use of MEGARes, for the purposes of this tutorial we are going to use the CARD database instead.

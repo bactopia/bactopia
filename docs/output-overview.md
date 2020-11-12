@@ -11,6 +11,7 @@ ${SAMPLE_NAME}/
 ├── assembly
 ├── blast
 ├── kmers
+├── logs
 ├── mapping
 ├── minmers
 ├── mlst
@@ -282,6 +283,49 @@ ${SAMPLE_NAME}/
 | Extension | Description |
 |-----------|-------------|
 | .ctx      | A Cortex graph file of the 31-mer counts |
+
+### `logs`
+The `logs` folder will contain useful files for debugging or reviewing what was executed. For each process (e.g. annotation or assembly) the STDOUT and STDERR is log, as well as the time of execution and program versions. These outputs are completely optional, and can be disabled using `--skip_logs` at runtime.
+
+```
+${SAMPLE_NAME}/
+└── logs/
+    ├── ${PROCESS_NAME}
+    │   ├── ${PROCESS_NAME}.err
+    │   ├── ${PROCESS_NAME}.out
+    │   ├── ${PROCESS_NAME}.sh
+    │   ├── ${PROCESS_NAME}.trace
+    │   ├── ${PROCESS_NAME}.versions
+    │   ├── ${PROGRAM}.err
+    │   └── ${PROGRAM}.out
+    └── bactopia.versions
+
+```
+
+| Filename | Description |
+|-----------|-------------|
+| ${PROCESS_NAME}.err      | Any STDERR captured by the process. |
+| ${PROCESS_NAME}.out      | Any STDERR captured by the process.|
+| ${PROCESS_NAME}.sh       | The shell script that process used. |
+| ${PROCESS_NAME}.trace    | Compute resource usage by the process (this will not always be available) |
+| ${PROCESS_NAME}.versions | Date and program versions used by the process |
+| ${PROGRAM}.err           | STDERR captured for a specific program. |
+| ${PROGRAM}.err           | STDOUT captured for a specific program. |
+| bactopia.versions        | Date and Bactopia/Nextflow versions used |
+
+#### Example `versions`
+Here is an example of the `bactopia.versions` file. 
+```
+# Timestamp
+2020-11-11T11:12:31-05:00
+# Bactopia Version
+bactopia 1.4.11
+# Nextflow Version
+nextflow 20.07.1
+```
+
+All the `.versions` files will follow this format. The first line is always `# Timestamp` followed by the output of `date`. Then each line beginning with `#` will represent a new program and its version. 
+
 
 ### `mapping`
 The `mapping-sequences` directory contains [BWA](https://github.com/lh3/bwa/) (bwa-mem) mapping results for each of the [User Populated Mapping Sequences](/datasets/#mapping). 

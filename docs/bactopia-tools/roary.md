@@ -221,6 +221,13 @@ Optional Parameters:
                                 Default: 1
 
 RefSeq Assemblies Related Parameters:
+    --assembly              A single assembly, or directory of assemblies to be included in the
+                                pan-genome analysis. If compressed, gzip and the ".gz" extension
+                                must be used.
+
+    --assembly_pattern      If a directory is given, use the given pattern to match assemblies.
+                                Default: *.fna
+
     --species STR           The name of the species to download RefSeq assemblies for. This
                                 is a completely optional step and is meant to supplement
                                 your dataset with high-quality completed genomes.
@@ -308,6 +315,9 @@ SNP-Dists Related Parameters:
                                 Default: false
 
 Nextflow Related Parameters:
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+                                
     --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                 'copy' (default)    Copies the output files into the published directory.
 

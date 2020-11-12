@@ -138,8 +138,10 @@ ISMapper Parameters:
     --ismap_minqual INT     Mapping quality score for bwa
                                 Default: 30
 
-
 Nextflow Related Parameters:
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+
     --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                 'copy' (default)    Copies the output files into the published directory.
 

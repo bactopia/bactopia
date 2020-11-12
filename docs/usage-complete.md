@@ -42,7 +42,7 @@ The required parameters depends on how many samples are to be proccessed. You ca
 If you followed the steps in [Build Datasets](datasets.md), you can use the following parameters to point Bactopia to you datasets.
 
 ```
-    --datasets DIR          The path to available public datasets that have
+    --datasets DIR          The path to available datasets that have
                                 already been set up
 
     --species STR           Determines which species-specific dataset to
@@ -76,6 +76,10 @@ These optional parameters, while not required, will be quite useful to tweak.
 
     --cpus INT              Number of processors made available to a single task.
                                 Default: 4
+
+    -qs                     Nextflow queue size. This parameter is very useful to limit the total number of
+                                processors used on desktops, laptops or shared resources.
+                                Default: Nextflow defaults to the total number of processors on your system.
 ```
 
 ## `--cpus`
@@ -92,6 +96,19 @@ At execution, Nextflow creates a queue and the number of slots in the queue is d
 
 !!! info "When in doubt `--cpus 4` is a safe value."
     This is also the default value for Bactopia.
+
+## `-qs`
+The `-qs` parameter is short for *queue size*. As described above for `--cpus`, the default value for `-qs` is set to the total number of cores on the system. This parameter allows you to adjust the maximum number of cores Nextflow can use at any given moment.
+
+!!! error "`-qs` allows you to play nicely on shared resources"
+    From the example above, if you have a system with 24-cores. The default queue size if 24 slots.
+
+    `bactopia ... --cpus 4` says *for any particular task, use a maximum of 4 slots*. Nextflow will give each task 4 slots out of 24 slots. But there might be other people also using the server.
+
+    `bactopia ... --cpus 4 -qs 12` says *for any particular task, use a maximum of 4 slots, but don't use more than 12 slots*. Nextflow will give each task 4 slots out of 12 slots. Now instead of using all the cores on the server, the maximum that can be used in 12.
+
+!!! info "`-qs` might need adjusting for job schedulers."
+    The default value for `-qs` is set to 100 when using a job scheduler (e.g. SLURM, AWS Batch). There may be times when you need adjust this to meet your needs. For example, if using AWS Batch you might want to increase the value to have more jobs processed at once (e.g. 100 vs 500).
 
 
 ### `--genome_size`
@@ -120,9 +137,9 @@ The following parameters are useful to test input parameters.
     --condadir DIR          Directory to Nextflow should use for Conda environments
                                 Default: Bactopia's Nextflow directory
 
-    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows
                                 you to create profiles specific to your environment (e.g. SGE,
-                                AWS, SLURM, etc...). This config file is loaded last and will 
+                                AWS, SLURM, etc...). This config file is loaded last and will
                                 overwrite existing variables if set.
                                 Default: Bactopia's default configs
 
@@ -139,8 +156,33 @@ The following parameters are useful to test input parameters.
                                 will wait before execution.
                                 Default: 5 seconds
 
-    -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+    --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
+                                'copy' (default)    Copies the output files into the published directory.
+
+                                'copyNoFollow' Copies the output files into the published directory
+                                               without following symlinks ie. copies the links themselves.
+
+                                'link'    Creates a hard link in the published directory for each
+                                          process output file.
+
+                                'rellink' Creates a relative symbolic link in the published directory
+                                          for each process output file.
+
+                                'symlink' Creates an absolute symbolic link in the published directory
+                                          for each process output file.
+
+                                Default: copy
+
+    --force                 Nextflow will overwrite existing output files.
+                                Default: false
+
+    -resume                 Nextflow will attempt to resume a previous run. Please notice it is
                                 only a single '-'
+
+    --cleanup_workdir       After Bactopia is successfully executed, the work firectory will be deleted.
+                                Warning: by doing this you lose the ability to resume workflows.
+
+    --skip_logs             Logs for each process per sample will not be kept.
 
     --available_datasets    Print a list of available datasets found based
                                 on location given by "--datasets"
@@ -157,15 +199,18 @@ The following parameters are useful to test input parameters.
                                 to resume Nextflow runs, and only occurs at the end
                                 of the process.
 
-    --dry_run               Mimics workflow execution, to help determine if conda environments
-                                or container images are properly set up.
-                                    
     --version               Print workflow version information
 
     --help                  Show this message and exit
 
     --help_all              Show a complete list of adjustable parameters
 ```
+
+## `--cleanup_workdir`
+After you run Bactopia, you will notice a directory called `work`. This directory is where Nextflow runs all the processes and stores the intermediate files. After a process completes successfully, the appropriate results are pulled out and placed in the sample's result folder. The `work` directory can grow very large very quickly! Please keep this in mind when using Bactopia. To help prevent the build up of the `work` directory you can use `--cleanup_workdir` to delete intermediate files after a successful execution of Bactopia.
+
+!!! info "Bactopia and Bactopia Tools use separate `work` directories"
+    Inside the `work` directory there will be separate subfolders that correspond to a Bactopia run or a specific Bactopia Tool run. This allows you to more easily identify which are ok to delete. The `work` directory is always ok to delete after a successful run.
 
 ### `--nfconfig`
 A key feature of Nextflow is you can provide your own config files. What this boils down to you can easily set Bactopia to run on your environment. With `--nfconfig` you can tell Bactopia to import your config file. 
@@ -194,7 +239,6 @@ Bactopia relies on [Nextflow's Resume Feature](https://www.nextflow.io/docs/late
 start at the beginning.
 
 
-
 ### `--keep_all_files`
 In some processes, Bactopia will delete large intermediate files (e.g. multiple uncompressed FASTQs) **only** after a process successfully completes. Since this a per-process function, it does not affect Nextflow's ability to resume (`-resume`)a workflow. You can deactivate this feature using `--keep_all_files`. Please, keep in mind the *work* directory is already large, this will make it 2-3 times larger.
 
@@ -219,6 +263,8 @@ ENA Download Parameters:
 
     --aspera_speed STR      Speed at which Aspera Connect will download.
                                 Default: 100M
+
+    --no_cache              Don't cache the assembly summary file from ncbi-genome-download
 ```
 
 ### FASTQ Minimum Requirements Parameters
@@ -231,6 +277,12 @@ FASTQ Minimum Requirements Parameters:
     --min_reads INT         The minimum amount of input sequenced reads required
                                 to continue downstream analyses.
                                 Default: 7472
+
+    --min_proportion FLOAT  The minimum proportion of basepairs for paired-end reads to continue
+                                downstream analyses. Example: If set to 0.75 the R1 and R2 must
+                                have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not
+                                R1 100bp, R2 50bp)
+                                Default: 0.5
 
     --skip_fastq_check      The input FASTQs will not be check to verify they meet the
                                 minimum requirements to be processed. This parameter
@@ -257,6 +309,11 @@ Estimate Genome Size Parameters:
 ### QC Reads Parameters
 ```
 QC Reads Parameters:
+    --skip_qc               The QC step qill be skipped and it will be assumed the inputs
+                                sequences have already been QCed.
+
+    --skip_error_correction FLASH error correction of paired-end reads will be skipped.
+
     --qc_ram INT            Try to keep RAM usage below this many GB
                                 Default: 3 GB
 
@@ -389,9 +446,9 @@ Assembly Parameters:
     --nocorr                Disable post-assembly correction
 
     Hybrid Assembly:
-    --unicycler_ram INT     Try to keep RAM usage below this many GB
+    --unicycler_ram INT       Try to keep RAM usage below this many GB
                                 Default: 32 GB
-                                
+
     --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
                                 conservative = smaller contigs, lowest
                                                misassembly rate
@@ -425,7 +482,7 @@ Assembly Parameters:
 
 ### Assembly Quality Control Parameters
 ```
-Assembly Quality Control Parameters
+Assembly Quality Control Parameters:
     --checkm_unique INT     Minimum number of unique phylogenetic markers required
                                 to use lineage-specific marker set.
                                 Default: 10

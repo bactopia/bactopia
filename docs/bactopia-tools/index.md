@@ -41,31 +41,31 @@ only the subset of samples.
 Below is a list of Bactopia Tools currently available. To learn more about each, 
 please follow the link.
 
-__[eggnog](/tools/eggnog/)__  
+__[eggnog](/bactopia-tools/eggnog/)__  
 Functional annotation using orthologous groups
 
-__[fastani](/tools/fastani/)__  
+__[fastani](/bactopia-tools/fastani/)__  
 Pairwise average nucleotide identity
 
-__[gtdb](/tools/gtdb/)__  
+__[gtdb](/bactopia-tools/gtdb/)__  
 Identify marker genes and assign taxonomic classifications
 
-__[ismapper](/tools/ismapper/)__  
+__[ismapper](/bactopia-tools/ismapper/)__  
 Identify positions of insertion sites 
 
-__[mashtree](/tools/mashtree/)__  
+__[mashtree](/bactopia-tools/mashtree/)__  
 Tree based on Mash distances
 
-__[phyloflash](/tools/phyloflash/)__  
+__[phyloflash](/bactopia-tools/phyloflash/)__  
 16s extraction, alignment, and tree  
 
-__[pirate](/tools/pirate/)__  
+__[pirate](/bactopia-tools/pirate/)__  
 Pan-genome, core-genome alignment and tree 
 
-__[roary](/tools/roary/)__  
+__[roary](/bactopia-tools/roary/)__  
 Pan-genome, core-genome alignment and tree 
 
-__[summary](/tools/summary/)__  
+__[summary](/bactopia-tools/summary/)__  
 A report summarizing Bactopia project
 
 ### Suggest A Tool

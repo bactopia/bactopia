@@ -227,6 +227,7 @@ page.
 ```
 Required Parameters:
     --bactopia STR          Directory containing Bactopia analysis results for all samples.
+                                This parameter is not required if '--only_completed' is used.
 
 Optional Parameters:
     --include STR           A text file containing sample names to include in the
@@ -249,9 +250,16 @@ Optional Parameters:
 
     --cpus INT              Number of processors made available to a single
                                 process.
-                                Default: 1
+                                Default: 10
 
 RefSeq Assemblies Related Parameters:
+    --assembly              A single assembly, or directory of assemblies to be included in the
+                                pan-genome analysis. If compressed, gzip and the ".gz" extension
+                                must be used.
+
+    --assembly_pattern      If a directory is given, use the given pattern to match assemblies.
+                                Default: *.fna
+
     --species STR           The name of the species to download RefSeq assemblies for. This
                                 is a completely optional step and is meant to supplement
                                 your dataset with high-quality completed genomes.
@@ -259,18 +267,21 @@ RefSeq Assemblies Related Parameters:
     --accession STR         A NCBI Assembly database RefSeq accession to be downloaded and included
                                 in the pan-genome analysis.
 
+    --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
+
     --limit INT             Limit the number of RefSeq assemblies to download. If the the
-                                number of available genomes exceeds the given limit, a 
+                                number of available genomes exceeds the given limit, a
                                 random subset will be selected.
                                 Default: Download all available genomes
-    
-    --only_completed        Pan-genome will be created using only the completed RefSeq genomes.    
+
+    --only_completed        Pan-genome will be created using only the completed RefSeq genomes. Requires
+                                either '--accessions' and/or '--species'
 
     --prokka_evalue STR     Similarity e-value cut-off
                                 Default: 1e-09
 
     --prokka_coverage INT   Minimum coverage on query protein
-                                 Default: 80
+                                Default: 80
 
 PIRATE Related Parameters:
     --steps STR                 Percent identity thresholds to use for pangenome construction
@@ -352,6 +363,9 @@ SNP-Dists Related Parameters:
                                 Default: false
 
 Nextflow Related Parameters:
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+
     --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                 'copy' (default)    Copies the output files into the published directory.
 
@@ -370,7 +384,7 @@ Nextflow Related Parameters:
                                 Default: copy
 
     --force                 Nextflow will overwrite existing output files.
-                                Default: null
+                                Default: true
 
     --conatainerPath        Path to Singularity containers to be used by the 'slurm'
                                 profile.
@@ -379,6 +393,16 @@ Nextflow Related Parameters:
     --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                 will wait before execution.
                                 Default: 5 seconds
+
+    --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows
+                                you to create profiles specific to your environment (e.g. SGE,
+                                AWS, SLURM, etc...). This config file is loaded last and will
+                                overwrite existing variables if set.
+                                Default: Bactopia's default configs
+
+    -resume                 Nextflow will attempt to resume a previous run. Please notice it is
+                                only a single '-'
+
 Useful Parameters:
     --version               Print workflow version information
     --help                  Show this message and exit
