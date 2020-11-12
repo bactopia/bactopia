@@ -10,7 +10,6 @@ if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
-samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.only_completed)
 accessions = [tuple(null, null)]
 if (params.accessions) {
     if (file(params.accessions).exists()) {
@@ -21,53 +20,98 @@ if (params.accessions) {
     }
 }
 
+assemblies = []
+has_assembly = false
+is_compressed = false
+if (params.assembly) {
+    if (file(params.assembly).exists()) {
+        if (file(params.assembly).isDirectory()) {
+            assemblies = file("${params.assembly}/${params.assembly_pattern}")
+            if (assemblies.size() == 0) {
+                log.error("0 assemblies were found in ${params.assembly} using the pattern ${params.assembly_pattern}, please check. Unable to continue.")
+                exit 1
+            } else {
+                is_compressed = params.assembly_pattern.endsWith(".gz") ? true : false
+                has_assembly = true
+            }
+        } else {
+            assemblies << file(params.assembly)
+            is_compressed = params.assembly.endsWith(".gz") ? true : false
+            has_assembly = true
+        }
+    } else {
+        log.error("Could not open ${params.assembly}, please verify existence. Unable to continue.")
+        exit 1
+    }
+    log.info("Found ${assemblies.size()} local assemblies.")
+}
+samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.only_completed)
+
 process download_references {
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "fasta/*.fna"
     publishDir "${OUTDIR}/refseq", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "accession-*.txt"
 
     input:
     set val(has_accessions), file(accession_list) from accessions
+    file(assembly_fasta) from Channel.fromList(assemblies).collect().ifEmpty { "${DUMMY_NAME}.fna" }
 
     output:
-    file("fasta/*.fna") into ANNOTATE
+    file("fasta/*") into ANNOTATE
     file 'accession-*.txt' optional true
 
     shell:
     opt = has_accessions ? true : false
+    use_ncbi = has_accessions || params.accession || params.species ? true : false
     if (params.species) {
         opt = "-g '${params.species}'"
     } else if (params.accession) {
         opt = "-A '${params.accession}'"
+    } else if (has_assembly) {
+        opt = true
     }
     
     """
+    mkdir local_fasta
     mkdir fasta
     if [ "!{opt}" == "false" ]; then
         touch fasta/!{DUMMY_NAME}.fna
     else
-        if [ "!{params.species}" != "null" ]; then
-            if [ "!{params.limit}" != "null" ]; then
-                ncbi-genome-download bacteria -l complete -o ./ -F fasta \
-                                              !{opt} -r 50 --dry-run > accession-list.txt
-                shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1 > accession-subset.txt
-                ncbi-genome-download bacteria -l complete -o ./ -F fasta \
-                                              -A accession-subset.txt -r 50
-            else
-                ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+        if [ "!{has_assembly}" == "true" ]; then
+            cp ${params.assembly_pattern} local_fasta/
+            if [ "!{is_compressed}" == "true" ]; then
+                find local_fasta/ -name "${params.assembly_pattern}" | xargs -I {} gunzip {}
             fi
         fi
 
-        if [ "!{has_accessions}" == "true" ]; then
-            ncbi-genome-download bacteria -l complete -o ./ -F fasta -A !{accession_list} -r 50
+        if [ "!{use_ncbi}" == "true" ]; then
+            if [ "!{params.species}" != "null" ]; then
+                if [ "!{params.limit}" != "null" ]; then
+                    ncbi-genome-download bacteria -l complete -o ./ -F fasta \
+                                                !{opt} -r 50 --dry-run > accession-list.txt
+                    shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1 > accession-subset.txt
+                    ncbi-genome-download bacteria -l complete -o ./ -F fasta \
+                                                -A accession-subset.txt -r 50
+                else
+                    ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} !{opt} -r 50
+                fi
+            fi
+
+            if [ "!{has_accessions}" == "true" ]; then
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta -A !{accession_list} -r 50
+            fi
+
+            if [ "!{params.accession}" != "null" ]; then
+                ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
+            fi
+
+            find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
+            rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
+            gunzip fasta/*
         fi
 
-        if [ "!{params.accession}" != "null" ]; then
-            ncbi-genome-download bacteria -l complete -o ./ -F fasta !{opt} -r 50
+        if [ "!{has_assembly}" == "true" ]; then
+            mv local_fasta/* fasta/
         fi
-
-        find . -name "GCF*.fna.gz" | xargs -I {} mv {} fasta/
-        rename 's/(GCF_\\d+).*/\$1.fna.gz/' fasta/*
-        gunzip fasta/*
     fi
     """
 }
@@ -83,7 +127,7 @@ process annotate_references {
     file "gff/${name}.gff" into REFERENCE_GFF
 
     shell:
-    name = fasta.getSimpleName()
+    name = fasta.getBaseName()
     """
     if [ "!{name}" == "!{DUMMY_NAME}" ]; then
         mkdir gff
@@ -507,6 +551,13 @@ def print_help() {
                                     Default: ${params.cpus}
 
     RefSeq Assemblies Related Parameters:
+        --assembly              A single assembly, or directory of assemblies to be included in the
+                                    pan-genome analysis. If compressed, gzip and the ".gz" extension
+                                    must be used.
+
+        --assembly_pattern      If a directory is given, use the given pattern to match assemblies.
+                                    Default: ${params.assembly_pattern}
+
         --species STR           The name of the species to download RefSeq assemblies for. This
                                     is a completely optional step and is meant to supplement
                                     your dataset with high-quality completed genomes.

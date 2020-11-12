@@ -15,6 +15,8 @@
 - Bactopia and Nextflow versions are now output for logging purposes
 - option to skip QC step (`--skip_qc`)
 - `bactopia datasets` can now specify assembly level
+- `bactopia tools` now use reusable conda envs
+- `bactopia toola` for Roary and PIRATE can now include local assemblies
 
 ### `Fixed`
 - Warn user if no completed genomes are available
