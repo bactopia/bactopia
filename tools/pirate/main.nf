@@ -342,11 +342,18 @@ def check_input_params() {
     error = check_unknown_params()
 
     if (params.only_completed) {
-        if (!params.accessions && !params.species) {
+        if (!params.accessions && !params.species && !params.assembly) {
             log.error """
-            Either '--acessions' or '--species' is required to use '--only_completed'.
+            Either '--assembly', '--acessions' or '--species' is required to use '--only_completed'.
 
             Required Parameters:
+            --assembly              A single assembly, or directory of assemblies to be included in the
+                                        pan-genome analysis. If compressed, gzip and the ".gz" extension
+                                        must be used.
+
+            --assembly_pattern      If a directory is given, use the given pattern to match assemblies.
+                                        Default: *.fna
+
             --species STR           The name of the species to download RefSeq assemblies for. This
                                         is a completely optional step and is meant to supplement
                                         your dataset with high-quality completed genomes.
@@ -354,7 +361,7 @@ def check_input_params() {
             --accessions STR        A file with Assembly accessions (e.g. GCF*.*) to download from RefSeq.
 
             --only_completed        Pan-genome will be created using only the completed RefSeq genomes. Requires
-                                        either '--accessions' and/or '--species'
+                                        either '--assembly', '--accessions' and/or '--species'
             """.stripIndent()
             error += 1
         } else if (params.accessions) {
