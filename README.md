@@ -28,7 +28,7 @@ Documentation for Bactopia is available at https://bactopia.github.io/. The docu
 ```
 conda create -y -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
-bactopia datasets datasets
+bactopia datasets
 
 # Paired-end
 bactopia --R1 R1.fastq.gz --R2 R2.fastq.gz --sample SAMPLE_NAME \
