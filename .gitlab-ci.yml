@@ -24,6 +24,7 @@ variables:
       - BACTOPIA=$(pwd)
       - FQ_DIR=$(pwd)/tests/real-fastqs/
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false -qs 4"
+      - BACTOPIA_TOOL_OPTS="--bactopia ${CI_JOB_NAME} --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
       - chmod 755 bactopia
       - mkdir -p ${BACTOPIA}/bin
       - cp bactopia ${BACTOPIA}/bin
@@ -166,6 +167,7 @@ run-bactopia-linux:
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
+        - bactopia tools summary ${BACTOPIA_TOOL_OPTS}
 
 run-bactopia-osx:
     stage: test_stage
