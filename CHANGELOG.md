@@ -1,5 +1,11 @@
 # bactopia/bactopia: Changelog
 
+## v1.5.1 bactopia/bactopia "Astral Earring" - 2020/11/17
+
+### `Fixed`
+- `bactopia tools` not a valid project name
+- `bactopia tools` `--cleanup_workdir` unrecognized variable
+
 ## v1.5.0 bactopia/bactopia "Cassie Earring" - 2020/11/12
 ### `Added`
 - Conda environments will check if in sync with latest version now

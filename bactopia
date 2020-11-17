@@ -151,8 +151,8 @@ elif [[ "$1" == "tools" ]]; then
         fi
 
         if [[ -n "$TOOL_NF" ]]; then
-            OPTS="${WORK_ARG} ${@:3}"
-            if nextflow run "${TOOL_NF}" ${OPTS}; then
+            OPTS="${TOOL_NF} ${WORK_ARG} ${@:3}"
+            if nextflow run ${OPTS}; then
                 # bactopia finished successfully
                 if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
                     # user asked for work dir to be cleaned up

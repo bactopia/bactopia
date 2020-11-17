@@ -1651,7 +1651,7 @@ def basic_help() {
         -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
                                     only a single '-'
 
-        --cleanup_workdir       After Bactopia is successfully executed, the work firectory will be deleted.
+        --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
                                     Warning: by doing this you lose the ability to resume workflows.
 
     Useful Parameters:
