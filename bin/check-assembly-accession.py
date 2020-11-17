@@ -2,7 +2,7 @@
 """
 """
 PROGRAM = "check-assembly-accession"
-VERSION = "1.5.0"
+VERSION = "1.5.1"
 
 def check_assembly_version(accession):
     from Bio import Entrez

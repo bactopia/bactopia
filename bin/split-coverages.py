@@ -2,7 +2,7 @@
 """
 """
 PROGRAM = "split-coverages"
-VERSION = "1.5.0"
+VERSION = "1.5.1"
 
 if __name__ == '__main__':
     import argparse as ap
