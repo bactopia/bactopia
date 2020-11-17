@@ -167,7 +167,7 @@ run-bactopia-linux:
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
-        - bactopia tools summary ${BACTOPIA_TOOL_OPTS}
+        - mkdir test-tool && cd test-tool && bactopia tools summary ${BACTOPIA_TOOL_OPTS}
 
 run-bactopia-osx:
     stage: test_stage
