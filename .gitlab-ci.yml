@@ -24,7 +24,7 @@ variables:
       - BACTOPIA=$(pwd)
       - FQ_DIR=$(pwd)/tests/real-fastqs/
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false -qs 4"
-      - BACTOPIA_TOOL_OPTS="--bactopia ${CI_JOB_NAME} --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
+      - BACTOPIA_TOOL_OPTS="--bactopia ../${CI_JOB_NAME} --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
       - chmod 755 bactopia
       - mkdir -p ${BACTOPIA}/bin
       - cp bactopia ${BACTOPIA}/bin
