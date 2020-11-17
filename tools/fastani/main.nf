@@ -478,7 +478,10 @@ def print_help() {
     Nextflow Related Parameters:
         --condadir DIR          Directory to Nextflow should use for Conda environments
                                     Default: Bactopia's Nextflow directory
-        
+
+        --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
+                                    Warning: by doing this you lose the ability to resume workflows.
+
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                     'copy' (default)    Copies the output files into the published directory.
 
