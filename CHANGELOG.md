@@ -1,5 +1,11 @@
 # bactopia/bactopia: Changelog
 
+## v1.5.1 bactopia/bactopia "" - 2020/11/??
+
+### `Fixed`
+- `--skip_qc` causing "file not found"
+- `qc_reads` not honoring FINAL_BP and FINAL_READS checks
+
 ## v1.5.1 bactopia/bactopia "Astral Earring" - 2020/11/17
 
 ### `Fixed`

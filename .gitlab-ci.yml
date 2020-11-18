@@ -156,7 +156,7 @@ run-bactopia-linux:
         - bactopia prepare ${FQ_DIR} > fastqs.txt
         - bactopia --fastqs fastqs.txt ${BACTOPIA_OPTS}
         - echo "Testing SRA accession"
-        - bactopia --accession SRX1390608 ${BACTOPIA_OPTS}
+        - bactopia --accession SRX1390608 ${BACTOPIA_OPTS} --skip_qc
         - echo "Testing Assembly accession"
         - bactopia --accession GCF_000292685 ${BACTOPIA_OPTS}
         - echo "Testing multiple accessions"
