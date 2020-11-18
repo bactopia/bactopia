@@ -80,7 +80,7 @@ from collections import defaultdict
 from statistics import mean
 
 PROGRAM = "bactopia tools summary"
-VERSION = "1.5.1"
+VERSION = "1.5.2"
 TEMPLATE_DIR = os.path.dirname(os.path.realpath(__file__)).replace('bin', 'templates')
 
 STDOUT = 11

@@ -1,6 +1,6 @@
 # bactopia/bactopia: Changelog
 
-## v1.5.1 bactopia/bactopia "" - 2020/11/??
+## v1.5.1 bactopia/bactopia "" - 2020/11/18
 
 ### `Fixed`
 - `--skip_qc` causing "file not found"

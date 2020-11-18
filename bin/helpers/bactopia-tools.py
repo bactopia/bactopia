@@ -21,7 +21,7 @@ STDERR = 12
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
 
-VERSION = "1.5.1"
+VERSION = "1.5.2"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
