@@ -90,7 +90,6 @@ bactopia-commands-docker:
         - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
         - bactopia search tests/test-search-accessions.txt --limit 5
         - echo "Testing bactopia datasets"
-        - bactopia datasets
         - bactopia datasets --help
         - echo "Testing bactopia prepare"
         - bactopia prepare
@@ -129,7 +128,6 @@ bactopia-commands-osx:
         - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
         - bactopia search tests/test-search-accessions.txt --limit 5
         - echo "Testing bactopia datasets"
-        - bactopia datasets
         - bactopia datasets --help
         - echo "Testing bactopia prepare"
         - bactopia prepare
