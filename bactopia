@@ -76,7 +76,7 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
     echo ""
-    echo "bactopia datasets dataset-dir --species 'Staphylococcus aureus'"
+    echo "bactopia datasets --species 'Staphylococcus aureus'"
     echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
     echo ""
     echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
@@ -89,11 +89,7 @@ if [[ $# == 0 ]]; then
 fi
 
 if [[ "$1" == "datasets" ]]; then
-    if [[ -z "$2" ]]; then
-        bactopia-datasets.py
-    else 
-        bactopia-datasets.py "${BACTOPIA_NF}/docs/data/pubmlst.txt" "${@:2}"
-    fi
+    bactopia-datasets.py "${BACTOPIA_NF}/docs/data/pubmlst.txt" "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
