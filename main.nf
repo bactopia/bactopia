@@ -1325,7 +1325,7 @@ def process_fastqs(line) {
     } else if (line.runtype == 'assembly') {
         return tuple(line.sample, line.runtype, false, [null, null], file(line.extra))
     } else {
-        log.error('Invalid run_type ${line.runtype} found, please correct to continue')
+        log.error("Invalid run_type ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, or assembly")
         exit 1
     }
 }
