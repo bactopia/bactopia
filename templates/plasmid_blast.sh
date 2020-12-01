@@ -20,6 +20,7 @@ fi
 
 file_size=`cat !{gunzip_genes} | wc -c`
 block_size=$(( file_size / !{task.cpus} / 2 ))
+mkdir -p temp_json
 cat !{gunzip_genes} | \
 parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
 blastn -db !{blastdb} \
@@ -29,10 +30,15 @@ blastn -db !{blastdb} \
        -max_target_seqs !{params.max_target_seqs} \
        -perc_identity !{params.perc_identity} \
        -qcov_hsp_perc !{params.qcov_hsp_perc} \
-       -query - > !{sample}-plsdb.txt
+       -query - \
+       -out temp_json/${name}_{#}.json
+
+merge-blast-json.py temp_json > ${name}-plsdb.json
+rm -rf temp_json
+
 
 if [[ !{params.compress} == "true" ]]; then
-    pigz --best -n -p !{task.cpus} !{sample}-plsdb.txt
+    pigz --best -n -p !{task.cpus} ${name}-plsdb.json
 fi
 
 if [ "!{params.skip_logs}" == "false" ]; then 
