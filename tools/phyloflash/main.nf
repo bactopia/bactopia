@@ -18,8 +18,8 @@ if (DOWNLOAD_PHYLOFLASH){
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
 process download_phyloflash {
-    publishDir "${params.phyloflash}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "ref/*"
-    publishDir "${params.phyloflash}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "SILVA*"
+    publishDir "${params.phyloflash}", mode: "copy", overwrite: true, pattern: "ref/*"
+    publishDir "${params.phyloflash}", mode: "copy", overwrite: true, pattern: "SILVA*"
 
     input:
     val phyloflash_path from params.phyloflash
