@@ -22,6 +22,7 @@ nav:
       - 'Complete Usage': 'usage-complete.md'
       - 'Troubleshooting': 'troubleshooting.md'
       - 'Acknowledgements': 'acknowledgements.md'
+      - 'Changelog': 'changelog.md'
     - 'Bactopia Tools':
       - 'Introduction': 'bactopia-tools/index.md'
       - 'eggnog': bactopia-tools/eggnog.md

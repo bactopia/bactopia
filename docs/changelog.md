@@ -1,6 +1,19 @@
-# bactopia/bactopia: Changelog
+# Changelog
 
+<<<<<<< HEAD:docs/changelog.md
+## v1.5.3 bactopia/bactopia "" - 2020/12/??
+### `Added`
+- Changelog moved to docs
+
+### `Fixed`
+- unable to run `bactopia datasets` without parameters
+- PLSDB blast results in invalid JSON format
+- Error message for unaccepted `run_type`
+
+## v1.5.2 bactopia/bactopia "Physical Earring" - 2020/11/18
+=======
 ## v1.5.1 bactopia/bactopia "Physical Earring" - 2020/11/18
+>>>>>>> 0d04c2757220a246a165f9a5cb7a86326488cac6:CHANGELOG.md
 
 ### `Fixed`
 - `--skip_qc` causing "file not found"

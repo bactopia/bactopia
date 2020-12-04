@@ -4,15 +4,46 @@ PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 OUTDIR = "${params.outdir}/bactopia-tools/${PROGRAM_NAME}"
 OVERWRITE = workflow.resume || params.force ? true : false
+DOWNLOAD_PHYLOFLASH = false
+SILVA_VERSION = false
 
 // Validate parameters
 if (params.version) print_version();
 log.info "bactopia tools ${PROGRAM_NAME} - ${VERSION}"
 if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) print_help();
 check_input_params()
+if (DOWNLOAD_PHYLOFLASH){
+    print_silva_license()
+}
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 
-// Setup output directories
+process download_phyloflash {
+    publishDir "${params.phyloflash}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "ref/*"
+    publishDir "${params.phyloflash}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "SILVA*"
+
+    input:
+    val phyloflash_path from params.phyloflash
+
+    output:
+    file("ref/*") optional true
+    file("SILVA*") optional true
+    file 'phyloflash-downloaded.txt' into PHYLOFLASH_CHECK
+
+    when:
+    DOWNLOAD_PHYLOFLASH == true
+
+    shell:
+    """
+    if [ "!{DOWNLOAD_PHYLOFLASH}" == "true" ]; then
+        printf 'yes\n' | phyloFlash_makedb.pl --remote --CPUs !{task.cpus}
+        mv !{SILVA_VERSION}/* ./
+    else
+        echo "skipping phyloFlash database download"
+    fi
+
+    touch phyloflash-downloaded.txt
+    """
+}
 
 process reconstruct_16s {
     publishDir "${OUTDIR}/samples", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "${sample}/*"
@@ -20,6 +51,7 @@ process reconstruct_16s {
 
     input:
     set val(sample), val(single_end), file(fq), val(readlength), val(readlength_mod) from Channel.fromList(samples)
+    file(phyloflash_check) from PHYLOFLASH_CHECK
 
     output:
     file "${sample}/*" 
@@ -244,6 +276,24 @@ def check_input_params() {
         error += file_exists(params.exclude, '--exclude')
     } 
 
+    if (file(params.phyloflash).exists() && params.download_phyloflash) {
+        log.info """
+            Found phyloFlash database at ${params.phyloflash}, but '--download_phyloflash'
+            also given. Existing phyloFlash database will be over written with
+            latest build. If this is error, please stop now.
+        """.stripIndent()
+        DOWNLOAD_PHYLOFLASH = true
+    } else if (!file(params.phyloflash).exists() && params.download_phyloflash) {
+        log.info("Latest phyloFlash database will be downloaded to ${params.phyloflash}")
+        DOWNLOAD_PHYLOFLASH = true
+    } else if (!file(params.phyloflash).exists()) {
+        log.error """
+            Please check that a phyloFlash database exists at ${params.phyloflash}. 
+            Otherwise use '--download_phyloflash' to download the latest phyloFlash database
+        """.stripIndent()
+        error += 1
+    }
+
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
@@ -322,6 +372,23 @@ def build_fastq_tuple(sample, dir) {
     return tuple(sample, single_end, files, readlength, readlength_mod)
 }
 
+def print_silva_license() {
+    log.info "In order to use the SILVA database you must accept its license. "
+    log.info "SILVA License:"
+    log.info ""
+    println file('https://ftp.arb-silva.de/current/LICENSE.txt').text
+    log.info ""
+    if (params.yes) {
+        log.info "You have given '--yes' stating you accept the SILVA license."
+        SILVA_VERSION = file('https://ftp.arb-silva.de/current/VERSION.txt').text.trim()
+        log.info "The SILVA (${SILVA_VERSION}) will be used by phyloFlash."
+    } else {
+        log.error "Please use '--yes' to accept the SILVA license to continue."
+        exit 1
+    }
+
+}
+
 def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     include_all = true
     inclusions = []
@@ -360,6 +427,15 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time) {
     }
 
     log.info "Found ${sample_list.size} samples to process"
+    if (sample_list.size == 0) {
+        if (DOWNLOAD_PHYLOFLASH) {
+            log.info "\nphyloFlash database download will proceed."
+        } else {
+            log.info "\nNothing to do, exiting..."
+            exit 1
+        }
+    }
+
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for ${sleep_time} seconds..."
     sleep(sleep_time * 1000)
@@ -398,6 +474,10 @@ def print_help() {
                                     Default: ${params.cpus}
 
     phyloFlash Related Parameters:
+        --download_phyloflash   Download the latest phyloFlash database, even it exists.
+
+        --yes                   You acknowledge SILVAs license.
+
         --taxlevel INT          Level in the taxonomy string to summarize read counts per taxon.
                                     Numeric and 1-based (i.e. "1" corresponds to "Domain").
                                     Default: ${params.taxlevel}
