@@ -1,9 +1,9 @@
 FROM nfcore/base
 
-LABEL version="1.5.2"
+LABEL version="1.5.3"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia"
 
-RUN conda create -n bactopia -c conda-forge -c bioconda bactopia=1.5.2 && conda clean -a
+RUN conda create -n bactopia -c conda-forge -c bioconda bactopia=1.5.3 && conda clean -a
 
 ENV PATH /opt/conda/envs/bactopia/bin:$PATH

@@ -1,8 +1,10 @@
 # Changelog
 
-## v1.5.3 bactopia/bactopia "" - 2020/12/??
+## v1.5.3 bactopia/bactopia "Morion Earring" - 2020/12/04
 ### `Added`
 - Changelog moved to docs
+- recursive search for `bactopia prepare`
+- allow multiple FASTQs per sample (FASTQs are merged)
 
 ### `Fixed`
 - unable to run `bactopia datasets` without parameters

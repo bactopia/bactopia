@@ -4,7 +4,7 @@
 import json
 
 PROGRAM = "merge-blast-json"
-VERSION = "1.5.2"
+VERSION = "1.5.3"
 
 def read_json(json_file):
     json_data = None
