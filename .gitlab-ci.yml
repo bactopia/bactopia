@@ -161,7 +161,7 @@ run-bactopia-linux:
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
         - echo "Testing with datasets"
         - bactopia datasets --skip_mlst --skip_ariba --skip_plsdb
-        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba
+        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba  --skip_plsdb
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
@@ -191,7 +191,7 @@ run-bactopia-osx:
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
         - echo "Testing with datasets"
         - bactopia datasets --skip_mlst --skip_ariba --skip_plsdb
-        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba
+        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba --skip_plsdb
         - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
         - cp -r bactopia-datasets/species-specific/ datasets/
         - rm -rf bactopia-datasets/
