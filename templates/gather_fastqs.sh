@@ -2,6 +2,7 @@
 set -e
 set -u
 LOG_DIR="!{task.process}"
+MERGED="multiple-read-sets-merged.txt"
 mkdir -p fastqs
 mkdir -p extra
 mkdir -p ${LOG_DIR}
@@ -18,18 +19,60 @@ echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 if [ "!{sample_type}" == "paired-end" ]; then
     # Paired-End Reads
-    ln -s `readlink !{fq[0]}` fastqs/!{sample}_R1.fastq.gz
-    ln -s `readlink !{fq[1]}` fastqs/!{sample}_R2.fastq.gz
+    ln -s `readlink !{r1[0]}` fastqs/!{sample}_R1.fastq.gz
+    ln -s `readlink !{r2[0]}` fastqs/!{sample}_R2.fastq.gz
     touch extra/empty.fna.gz
 elif [ "!{sample_type}" == "single-end" ]; then
     # Single-End Reads
-    ln -s `readlink !{fq[0]}` fastqs/!{sample}.fastq.gz
+    ln -s `readlink !{r1[0]}` fastqs/!{sample}.fastq.gz
     touch extra/empty.fna.gz
 elif  [ "!{sample_type}" == "hybrid" ]; then
     # Paired-End Reads
-    ln -s `readlink !{fq[0]}` fastqs/!{sample}_R1.fastq.gz
-    ln -s `readlink !{fq[1]}` fastqs/!{sample}_R2.fastq.gz
+    ln -s `readlink !{r1[0]}` fastqs/!{sample}_R1.fastq.gz
+    ln -s `readlink !{r2[0]}` fastqs/!{sample}_R2.fastq.gz
     ln -s `readlink !{extra}` extra/!{sample}.fastq.gz
+elif [ "!{sample_type}" == "merge-pe" ]; then 
+    # Merge Paired-End Reads
+    echo "This sample had reads merged." > ${MERGED}
+    echo "R1:" >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
+    echo "Merged R1:" >> ${MERGED}
+    ls -l fastqs/!{sample}_R1.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
+
+    echo "R2:" >> ${MERGED}
+    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
+    echo "Merged R2:" >> ${MERGED}
+    ls -l fastqs/!{sample}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
+
+    touch extra/empty.fna.gz
+elif [ "!{sample_type}" == "hybrid-merge-pe" ]; then 
+    # Merge Paired-End Reads
+    echo "This sample had reads merged." > ${MERGED}
+    echo "R1:" >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
+    echo "Merged R1:" >> ${MERGED}
+    ls -l fastqs/!{sample}_R1.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
+
+    echo "R2:" >> ${MERGED}
+    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} ls -l {} >> ${MERGED}
+    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
+    echo "Merged R2:" >> ${MERGED}
+    ls -l fastqs/!{sample}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
+
+    ln -s `readlink !{extra}` extra/!{sample}.fastq.gz
+elif [ "!{sample_type}" == "merge-se" ]; then 
+    # Merge Single-End Reads
+    echo "This sample had reads merged." > ${MERGED}
+    echo "SE:" >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}.fastq.gz
+    echo "Merged SE:" >> ${MERGED}
+    ls -l fastqs/!{sample}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
+
+    touch extra/empty.fna.gz
 elif [ "!{sample_type}" == "sra_accession" ]; then
     # Download accession from ENA/SRA
     ASPERA=""

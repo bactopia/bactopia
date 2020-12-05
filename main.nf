@@ -14,6 +14,7 @@ MAX_MEMORY_INT = MAX_MEMORY.toString().split(" ")[0]
 MAX_CPUS = workflow.profile == 'standard' ? get_max_cpus(params.cpus.toInteger()) : params.cpus.toInteger()
 MAX_CPUS_75 = Math.round(MAX_CPUS * 0.75)
 MAX_CPUS_50 = Math.round(MAX_CPUS * 0.50)
+USING_MERGE = false
 
 // Validate parameters
 if (params.help || params.help_all || params.conda_help) print_usage();
@@ -60,14 +61,15 @@ process gather_fastqs {
     tag "${sample}"
 
     input:
-    set val(sample), val(sample_type), val(single_end), file(fq), file(extra) from create_input_channel(run_type)
+    set val(sample), val(sample_type), val(single_end), file(r1: '*???-r1'), file(r2: '*???-r2'), file(extra) from create_input_channel(run_type)
 
     output:
     file "*-error.txt" optional true
-    set val(sample), val(sample_type), val(single_end),
+    set val(sample), val(final_sample_type), val(single_end),
         file("fastqs/${sample}*.fastq.gz"), file("extra/*.gz") optional true into FASTQ_PE_STATUS
     file "${task.process}/*" optional true
     file "bactopia.versions" optional true
+    file "multiple-read-sets-merged.txt" optional true
 
     shell:
     bactopia_version = VERSION
@@ -91,6 +93,14 @@ process gather_fastqs {
         section = sample.startsWith('GCF') ? 'refseq' : 'genbank'
     }
     fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
+    final_sample_type = sample_type
+    if (sample_type == 'hybrid-merge-pe') {
+        final_sample_type = 'hybrid'
+    } else if (sample_type == 'merge-pe') {
+        final_sample_type = 'paired-end'
+    } else if (sample_type == 'merge-se') {
+        final_sample_type = 'single-end'
+    }
     template(task.ext.template)
 }
 
@@ -821,7 +831,7 @@ def print_example_fastqs() {
 def print_check_fastqs(run_type) {
     if (run_type == "fastqs") {
         log.info 'Printing what would have been processed. Each line consists of an array of'
-        log.info 'five elements: [SAMPLE_NAME, RUNTYPE, IS_SINGLE_END, [FASTQ_1, FASTQ_2], EXTRA]'
+        log.info 'five elements: [SAMPLE_NAME, RUNTYPE, IS_SINGLE_END, [FASTQ_1], [FASTQ_2], EXTRA]'
         log.info ''
         log.info 'Found:'
         create_input_channel(run_type).view()
@@ -1135,6 +1145,12 @@ def setup_datasets() {
         REFSEQ_SKETCH_FOUND = false
     }
 
+    if (USING_MERGE) {
+        log.info "\n"
+        log.warn "One or more samples consists of multiple read sets and will have their reads merged. "
+        log.warn "This is an experimental feature, please use with caution."
+        log.info "\n"
+    }
 
     log.info "\nIf something looks wrong, now's your chance to back out (CTRL+C 3 times). "
     log.info "Sleeping for ${params.sleep_time} seconds..."
@@ -1313,19 +1329,35 @@ def check_input_params() {
     return run_type
 }
 
+def handle_multiple_fqs(read_set) {
+    def fqs = []
+    def String[] reads = read_set.split(",");
+    reads.each { fq -> 
+        fqs << file(fq)
+    }
+    return fqs
+}
+
+
 
 def process_fastqs(line) {
     /* Parse line and determine if single end or paired reads*/
     if (line.runtype == 'single-end') {
-        return tuple(line.sample, line.runtype, true, [file(line.r1)], null)
+        return tuple(line.sample, line.runtype, true, [file(line.r1)], [null], null)
     } else if (line.runtype == 'paired-end') {
-        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], null)
+        return tuple(line.sample, line.runtype, false, [file(line.r1)], [file(line.r2)], null)
     } else if (line.runtype == 'hybrid') {
-        return tuple(line.sample, line.runtype, false, [file(line.r1), file(line.r2)], file(line.extra))
+        return tuple(line.sample, line.runtype, false, [file(line.r1)], [file(line.r2)], file(line.extra))
     } else if (line.runtype == 'assembly') {
-        return tuple(line.sample, line.runtype, false, [null, null], file(line.extra))
+        return tuple(line.sample, line.runtype, false, [null], [null], file(line.extra))
+    } else if (line.runtype == 'merge-pe') {
+        return tuple(line.sample, line.runtype, false, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), null)
+    } else if (line.runtype == 'hybrid-merge-pe') {
+        return tuple(line.sample, line.runtype, false, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(line.extra))
+    } else if (line.runtype == 'merge-se') {
+        return tuple(line.sample, line.runtype, false, handle_multiple_fqs(line.r1), [null], null)
     } else {
-        log.error("Invalid run_type ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, or assembly")
+        log.error("Invalid run_type ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, merge-pe, hybrid-merge-pe, merge-se, or assembly")
         exit 1
     }
 }
@@ -1334,9 +1366,9 @@ def process_accessions(accession) {
     /* Parse line and determine if single end or paired reads*/
     if (accession.length() > 0) {
         if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
-            return tuple(accession.split(/\./)[0], "assembly_accession", false, [null, null], null)
+            return tuple(accession.split(/\./)[0], "assembly_accession", false, [null], [null], null)
         } else {
-            return tuple(accession, "sra_accession", false, [null, null], null)
+            return tuple(accession, "sra_accession", false, [null], [null], null)
         }
     }
 }
@@ -1354,13 +1386,13 @@ def create_input_channel(run_type) {
     } else if (run_type == "is_accession") {
         return [process_accessions(params.accession)]
     } else if (run_type == "paired-end") {
-        return [tuple(params.sample, run_type, false, [file(params.R1), file(params.R2)], null)]
+        return [tuple(params.sample, run_type, false, [file(params.R1)], [file(params.R2)], null)]
     } else if (run_type == "hybrid") {
-        return [tuple(params.sample, run_type, false, [file(params.R1), file(params.R2)], file(params.SE))]
+        return [tuple(params.sample, run_type, false, [file(params.R1)], [file(params.R2)], file(params.SE))]
     } else if (run_type == "assembly") {
-        return [tuple(params.sample, run_type, false, [null, null], file(params.assembly))]
+        return [tuple(params.sample, run_type, false, [null], [null], file(params.assembly))]
     } else {
-        return [tuple(params.sample, run_type, true, [file(params.SE)], null)]
+        return [tuple(params.sample, run_type, true, [file(params.SE)], [null], null)]
     }
 }
 
@@ -1400,15 +1432,24 @@ def check_input_fastqs(run_type) {
                     samples[cols[0]] = 1
                 }
                 if (cols[2]) {
-                    if (!file(cols[2]).exists()) {
-                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[2]+ ' exists, and try again'
-                        error = true
+                    count = 0
+                    cols[2].split(',').each{ fq ->
+                        if (!file(fq).exists()) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
+                            error = true
+                        }
+                        count = count + 1
+                    }
+                    if (count > 1) { 
+                        USING_MERGE = true
                     }
                 }
                 if (cols[3]) {
-                    if (!file(cols[3]).exists()) {
-                        log.error "LINE " + line + ':ERROR: Please verify ' + cols[3]+ ' exists, and try again'
-                        error = true
+                    cols[3].split(',').each{ fq ->
+                        if (!file(fq).exists()) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
+                            error = true
+                        }
                     }
                 }
                 if (cols[4]) {

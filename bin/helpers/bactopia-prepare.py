@@ -30,11 +30,21 @@ optional arguments:
 VERSION = "1.5.2"
 PROGRAM = "bactopia prepare"
 
+
+def search_path(path, pattern, recursive=False):
+    from pathlib import Path
+    if recursive:
+        return Path(path).rglob(pattern)
+    else:
+        return Path(path).glob(pattern)
+
+
 if __name__ == '__main__':
     import argparse as ap
     from collections import defaultdict
     import glob
     import os
+    import re
     import sys
 
     parser = ap.ArgumentParser(
@@ -69,15 +79,36 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '--pe1_pattern', metavar='STR', type=str, default="[Aa]|[Rr]1",
+            help='Designates difference first set of paired-end reads. Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)'
+    )
+
+    parser.add_argument(
+        '--pe2_pattern', metavar='STR', type=str, default="[Bb]|[Rr]2",
+            help='Designates difference second set of paired-end reads. Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)'
+    )
+
+    parser.add_argument(
         '--assembly_pattern', metavar='STR', type=str,
         default="*.fna.gz",
         help='Glob pattern to match assembly FASTAs. Default: *.fna.gz'
     )
 
     parser.add_argument(
+        '-r', '--recursive', action='store_true',
+        help='Directories will be traversed recursively'
+    )
+
+    parser.add_argument(
         '--long_reads', action='store_true',
         help='Single-end reads should be treated as long reads'
     )
+
+    parser.add_argument(
+        '--merge', action='store_true',
+        help='Flag samples with multiple read sets to be merged by Bactopia'
+    )
+
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -92,25 +123,36 @@ if __name__ == '__main__':
     SAMPLES = {}
 
     # Match FASTQS
-    for fastq in glob.glob(f'{abspath}/*{args.fastq_pattern}'):
-        fastq_name = os.path.basename(fastq).replace(args.fastq_ext, "")
+
+    for fastq in search_path(abspath, args.fastq_pattern, recursive=args.recursive):
+        fastq_name = fastq.name.replace(args.fastq_ext, "")
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
         # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
         split_vals = fastq_name.rsplit(args.fastq_seperator, 1)
         sample_name = split_vals[0]
         if sample_name not in SAMPLES:
-            SAMPLES[sample_name] = {'pe': [], 'se': [], 'assembly': []}
+            SAMPLES[sample_name] = {'pe': {'r1': [], 'r2': []}, 'se': [], 'assembly': []}
 
         if len(split_vals) == 1:
             # single-end
-            SAMPLES[sample_name]['se'].append(fastq)
+            SAMPLES[sample_name]['se'].append(str(fastq.absolute()))
         else:
             # paired-end
-            SAMPLES[sample_name]['pe'].append(fastq)
+            pe1 = re.compile(args.pe1_pattern)
+            pe2 = re.compile(args.pe2_pattern)
+            if pe1.match(split_vals[1]):
+                SAMPLES[sample_name]['pe']['r1'].append(str(fastq.absolute()))
+            elif pe2.match(split_vals[1]):
+                SAMPLES[sample_name]['pe']['r2'].append(str(fastq.absolute()))
+            else:
+                print(f'ERROR: Could not determine read set for "{fastq_name}".', file = sys.stderr)
+                print(f'ERROR: Found {split_vals[1]} expected (R1: {args.pe1_pattern} or R2: {args.pe2_pattern})', file = sys.stderr)
+                print(f'ERROR: Please use --pe1_pattern and --pe2_pattern to correct and try again.', file = sys.stderr)
+                sys.exit(1)
 
     # Match assemblies
-    for assembly in glob.glob(f'{abspath}/*{args.assembly_pattern}'):
+    for assembly in glob.glob(f'{abspath}/**/*{args.assembly_pattern}', recursive = args.recursive):
         sample_name = os.path.basename(assembly).replace(args.assembly_ext, "")
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
@@ -121,37 +163,47 @@ if __name__ == '__main__':
 
     FOFN = []
     for sample, vals in sorted(SAMPLES.items()):
-        pe_reads = vals['pe']
+        r1_reads = vals['pe']['r1']
+        r2_reads = vals['pe']['r2']
         se_reads = vals['se']
         assembly = vals['assembly']
         errors = []
         is_single_end = False
+        multiple_read_sets = False
+        pe_count = len(r1_reads) + len(r2_reads)
 
         # Validate everything
         if len(assembly) > 1:
             # Can't have multiple assemblies for the same sample
             errors.append(f'ERROR: "{sample}" cannot have more than two assembly FASTA, please check.')
-        elif len(assembly) == 1 and (len(pe_reads) or len(se_reads)):
+        elif len(assembly) == 1 and (pe_count or len(se_reads)):
             # Can't have an assembly and reads for a sample
             errors.append(f'ERROR: "{sample}" cannot have assembly and sequence reads, please check.')
 
-        if len(pe_reads) == 1:
+        if len(r1_reads) != len(r2_reads):
             # PE reads must be a pair
-            errors.append(f'ERROR: "{sample}" must have two paired-end FASTQ, please check.')
-        elif len(pe_reads) > 2:
+            errors.append(f'ERROR: "{sample}" must have equal paired-end read sets (R1 has {len(r1_reads)} and R2 has {len(r2_reads)}, please check.')
+        elif pe_count > 2:
             # PE reads must be a pair
-            errors.append(f'ERROR: "{sample}" cannot have more than two paired-end FASTQ, please check.')
+            if args.merge:
+                multiple_read_sets = True
+            else:
+                errors.append(f'ERROR: "{sample}" cannot have more than two paired-end FASTQ, please check.')
+
 
         if args.long_reads:
-            if not len(pe_reads) and len(se_reads):
+            if not pe_count and len(se_reads):
                 # Long reads must also have short PE reads 
                 print(f'WARNING: "{sample}" does not have paired-end reads, treating as single-end short reads, please verify.', file=sys.stderr)
                 is_single_end = True
         else:
             if len(se_reads) > 1:
                 # Can't have multiple SE reads
-                errors.append(f'ERROR: "{sample}" has more than two single-end FASTQs, please check.')
-            elif len(pe_reads) and len(se_reads):
+                if args.merge:
+                    multiple_read_sets = True
+                else:
+                    errors.append(f'ERROR: "{sample}" has more than two single-end FASTQs, please check.')
+            elif pe_count and len(se_reads):
                 # Can't have SE and PE reads unless long reads
                 errors.append(f'ERROR: "{sample}" has paired and single-end FASTQs, please check.')
 
@@ -167,17 +219,30 @@ if __name__ == '__main__':
                 runtype = 'assembly'
                 extra = assembly[0]
 
-            if pe_reads:
-                runtype = 'paired-end'
-                r1, r2 = sorted(pe_reads)
+            if pe_count:
+                if multiple_read_sets:
+                    if args.long_reads:
+                        runtype = 'hybrid-merge-pe'
+                    else:
+                        runtype = 'merge-pe'
+                    r1 = ','.join(sorted(r1_reads))
+                    r2 = ','.join(sorted(r2_reads))
+                else:
+                    runtype = 'paired-end'
+                    r1 = r1_reads[0]
+                    r2 = r2_reads[0]
 
             if se_reads:
                 if args.long_reads and not is_single_end:
                     runtype = 'hybrid'
                     extra = se_reads[0]
                 else:
-                    runtype = 'single-end'
-                    r1 = se_reads[0]
+                    if multiple_read_sets:
+                        runtype = 'merge-se'
+                        r1 = ','.join(se_reads)
+                    else:
+                        runtype = 'single-end'
+                        r1 = se_reads[0]
 
             FOFN.append([sample, runtype, r1, r2, extra])
 
