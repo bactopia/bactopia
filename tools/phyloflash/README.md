@@ -199,6 +199,10 @@ Optional Parameters:
                                 Default: 4
 
 phyloFlash Related Parameters:
+    --download_phyloflash   Download the latest phyloFlash database, even it exists.
+    
+    --yes                   You acknowledge SILVAs license.
+
     --taxlevel INT          Level in the taxonomy string to summarize read counts per taxon.
                                 Numeric and 1-based (i.e. "1" corresponds to "Domain").
                                 Default: 6
@@ -243,6 +247,9 @@ IQ-TREE Related Parameters:
                                 Default: ''
 
 Nextflow Related Parameters:
+    --condadir DIR          Directory to Nextflow should use for Conda environments
+                                Default: Bactopia's Nextflow directory
+
     --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                 'copy' (default)    Copies the output files into the published directory.
 
@@ -278,7 +285,7 @@ Useful Parameters:
 ## Conda Environment
 Below is the command that was used to create the Conda environment.
 ```
-conda create -y -n bactopia-gtdb -c conda-forge -c bioconda \
+conda create -y -n bactopia-phyloflash -c conda-forge -c bioconda \
     phyloflash \
     mafft \
     iqtree \

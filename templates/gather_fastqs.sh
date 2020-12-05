@@ -35,14 +35,14 @@ elif [ "!{sample_type}" == "merge-pe" ]; then
     # Merge Paired-End Reads
     echo "This sample had reads merged." > ${MERGED}
     echo "R1:" >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
     echo "Merged R1:" >> ${MERGED}
     ls -l fastqs/!{sample}_R1.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
     echo "R2:" >> ${MERGED}
-    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
-    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
+    find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
     echo "Merged R2:" >> ${MERGED}
     ls -l fastqs/!{sample}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
@@ -51,14 +51,14 @@ elif [ "!{sample_type}" == "hybrid-merge-pe" ]; then
     # Merge Paired-End Reads
     echo "This sample had reads merged." > ${MERGED}
     echo "R1:" >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R1.fastq.gz
     echo "Merged R1:" >> ${MERGED}
     ls -l fastqs/!{sample}_R1.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
     echo "R2:" >> ${MERGED}
-    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} ls -l {} >> ${MERGED}
-    find -name "*r2" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
+    find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} >> ${MERGED}
+    find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}_R2.fastq.gz
     echo "Merged R2:" >> ${MERGED}
     ls -l fastqs/!{sample}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
@@ -67,8 +67,8 @@ elif [ "!{sample_type}" == "merge-se" ]; then
     # Merge Single-End Reads
     echo "This sample had reads merged." > ${MERGED}
     echo "SE:" >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
-    find -name "*r1" | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}.fastq.gz
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print $5"\t"$9}' >> ${MERGED}
+    find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/!{sample}.fastq.gz
     echo "Merged SE:" >> ${MERGED}
     ls -l fastqs/!{sample}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 

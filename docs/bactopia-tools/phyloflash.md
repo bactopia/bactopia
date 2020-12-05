@@ -199,6 +199,10 @@ Optional Parameters:
                                 Default: 4
 
 phyloFlash Related Parameters:
+    --download_phyloflash   Download the latest phyloFlash database, even it exists.
+    
+    --yes                   You acknowledge SILVAs license.
+
     --taxlevel INT          Level in the taxonomy string to summarize read counts per taxon.
                                 Numeric and 1-based (i.e. "1" corresponds to "Domain").
                                 Default: 6
