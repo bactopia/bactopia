@@ -273,10 +273,17 @@ optional arguments:
                         Split FASTQ name on the last occurrence of the
                         separator. Default: _
   --fastq_pattern STR   Glob pattern to match FASTQs. Default: *.fastq.gz
+  --pe1_pattern STR     Designates difference first set of paired-end reads.
+                        Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)
+  --pe2_pattern STR     Designates difference second set of paired-end reads.
+                        Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)
   --assembly_pattern STR
                         Glob pattern to match assembly FASTAs. Default:
                         *.fna.gz
+  -r, --recursive       Directories will be traversed recursively
   --long_reads          Single-end reads should be treated as long reads
+  --merge               Flag samples with multiple read sets to be merged by
+                        Bactopia
   --version             show program's version number and exit
 ```
 
