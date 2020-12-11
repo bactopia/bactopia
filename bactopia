@@ -137,7 +137,7 @@ elif [[ "$1" == "tools" ]]; then
         WORK_DIR=""
         WORK_ARG=""
         CAN_CLEAN_UP=1
-        if [[ "$*" ==  *" -w "* ]] || [[ "$*" == *" -work-dir "* ]]; then
+        if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir"; then
             # User specified a work directory
             CAN_CLEAN_UP=0
         else
@@ -186,7 +186,7 @@ else
     WORK_DIR=""
     WORK_ARG=""
     CAN_CLEAN_UP=1
-    if [[ "$*" ==  *" -w "* ]] || [[ "$*" == *" -work-dir "* ]]; then
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir"; then
         # User specified a work directory
         CAN_CLEAN_UP=0
     else
