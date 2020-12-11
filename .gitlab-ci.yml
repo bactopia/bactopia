@@ -167,6 +167,7 @@ run-bactopia-linux:
         - rm -rf bactopia-datasets/
         - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
         - mkdir test-tool && cd test-tool && bactopia tools summary ${BACTOPIA_TOOL_OPTS}/tools-summary-${BACTOPIA_VERSION}
+        - bactopia -w test | grep -v "Can only specify option -w once."
 
 run-bactopia-osx:
     stage: test_stage
