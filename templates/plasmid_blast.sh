@@ -20,6 +20,8 @@ fi
 
 file_size=`cat !{gunzip_genes} | wc -c`
 block_size=$(( file_size / !{task.cpus} / 2 ))
+name=!{genes}
+name="${name%.*}"
 mkdir -p temp_json
 cat !{gunzip_genes} | \
 parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
