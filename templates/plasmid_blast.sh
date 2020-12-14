@@ -31,7 +31,7 @@ blastn -db !{blastdb} \
        -perc_identity !{params.perc_identity} \
        -qcov_hsp_perc !{params.qcov_hsp_perc} \
        -query - \
-       -out temp_json/${name}_{#}.json
+       -out temp_json/!{sample}_{#}.json
 
 merge-blast-json.py temp_json > !{sample}-plsdb.json
 rm -rf temp_json
