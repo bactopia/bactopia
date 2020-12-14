@@ -33,12 +33,12 @@ blastn -db !{blastdb} \
        -query - \
        -out temp_json/${name}_{#}.json
 
-merge-blast-json.py temp_json > ${name}-plsdb.json
+merge-blast-json.py temp_json > !{sample}-plsdb.json
 rm -rf temp_json
 
 
 if [[ !{params.compress} == "true" ]]; then
-    pigz --best -n -p !{task.cpus} ${name}-plsdb.json
+    pigz --best -n -p !{task.cpus} !{sample}-plsdb.json
 fi
 
 if [ "!{params.skip_logs}" == "false" ]; then 
