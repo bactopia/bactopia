@@ -106,7 +106,7 @@ elif [[ "$1" == "tools" ]]; then
     else
         # Check if Conda environments need to be built
         BUILD_CONDA=1
-        CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
+        CHECKS=("condadir" "docker" "singularity" "slurm" "conda_help") 
         for check in "${CHECKS[@]}"; do
             if [[ "$*" == *"${check}"* ]]; then
                 BUILD_CONDA=0
@@ -147,8 +147,9 @@ elif [[ "$1" == "tools" ]]; then
         fi
 
         if [[ -n "$TOOL_NF" ]]; then
-            OPTS="${TOOL_NF} ${WORK_ARG} ${@:3}"
-            if nextflow run ${OPTS}; then
+            OPTS="${TOOL_NF} ${WORK_ARG}"
+            echo ${OPTS}
+            if nextflow run ${OPTS} "${@:3}"; then
                 # bactopia finished successfully
                 if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
                     # user asked for work dir to be cleaned up
@@ -196,8 +197,8 @@ else
     fi
 
     # Execute Bactopia Nextflow pipeline
-    OPTS="${WORK_ARG} ${@:1}"
-    if nextflow run "${BACTOPIA_NF}/main.nf" ${OPTS}; then
+    OPTS="${WORK_ARG}"
+    if nextflow run "${BACTOPIA_NF}/main.nf" ${OPTS} "${@:1}"; then
         # bactopia finished successfully
         if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
             # user asked for work dir to be cleaned up

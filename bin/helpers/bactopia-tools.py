@@ -97,6 +97,7 @@ def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
     if capture:
         return command.decoded_stdout
 
+
 def validate_args(tool, bactopia_repo, skip_conda=False, force_rebuild=False):
     import os
     platform = get_platform()
@@ -182,6 +183,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         print_available_tools()
+        parser.print_help()
         sys.exit(0)
 
     args = parser.parse_args()
