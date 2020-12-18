@@ -1,0 +1,67 @@
+name: bactopia-commands
+
+on:
+  push:
+    branches: [ master, main, dev ]
+  pull_request:
+    branches: [ master, main, dev ]
+    
+jobs:
+  bactopia-commands:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bactopia/bactopia
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: conda env create -f enviornment.yml --prefix ${CONDA}/envs/bactopia
+      - name: Staging
+        run: |
+          BACTOPIA=/opt/conda/envs/bactopia
+          chmod 755 bactopia bin/helpers/*
+          cp bactopia bin/helpers/* ${BACTOPIA}/bin
+          VERSION=`bactopia version | cut -d " " -f 2`
+          BACTOPIA_VERSION="${VERSION%.*}.x"
+          mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+          cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+          echo "${CONDA}/envs/bactopia/bin" >> $GITHUB_PATH
+      - name: Test bactopia version
+        run: |
+          echo "Testing bactopia version"
+          bactopia version
+          bactopia --version
+          bactopia versions
+      - name: Test bactopia citation
+        run: |
+          echo "Testing bactopia citation"
+          bactopia citation
+          bactopia --citation
+          bactopia citations
+      - name: Test bactopia search
+        run: |
+          echo "Testing bactopia search"
+          bactopia search
+          bactopia search --help
+          bactopia search PRJNA480016 --limit 5
+          bactopia search 1280 --exact_taxon --limit 5
+          bactopia search "staphylococcus aureus" --limit 5
+          bactopia search SAMN01737350 --limit 5
+          bactopia search SRR578340 --limit 5
+          bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
+          bactopia search ${GITHUB_WORKSPACE}/tests/test-search-accessions.txt --limit 5
+      - name: Test bactopia datasets
+        run: |
+          echo "Testing bactopia datasets"
+          bactopia datasets --help
+      - name: Test bactopia prepare
+        run: |
+          echo "Testing bactopia prepare"
+          bactopia prepare
+          bactopia prepare --help
+          bactopia prepare ${GITHUB_WORKSPACE}/tests/real-fastqs/
+      - name: Test bactopia build
+        run: |
+          echo "Testing bactopia build"
+          bactopia build
+          bactopia build --help
+          bactopia build --default
+          
