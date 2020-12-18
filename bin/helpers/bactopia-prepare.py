@@ -27,7 +27,7 @@ optional arguments:
   --long_reads          Single-end reads should be treated as long reads
   --version             show program's version number and exit
 """
-VERSION = "1.5.3"
+VERSION = "1.5.4"
 PROGRAM = "bactopia prepare"
 
 
