@@ -87,7 +87,7 @@ process download_references {
             if [ "!{params.species}" != "null" ]; then
                 if [ "!{params.limit}" != "null" ]; then
                     ncbi-genome-download bacteria -l complete -o ./ -F fasta \
-                                                !{opt} -r 50 --dry-run > accession-list.txt
+                                                !{opt} -r 50 --dry-run | grep -v "Considering" > accession-list.txt
                     shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1 > accession-subset.txt
                     ncbi-genome-download bacteria -l complete -o ./ -F fasta \
                                                 -A accession-subset.txt -r 50

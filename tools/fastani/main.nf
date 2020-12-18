@@ -59,7 +59,7 @@ process collect_assemblies {
         mkdir fasta
         if [ "!{params.limit}" != "null" ]; then
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
-                                          -g "!{params.species}" -r 50 --dry-run > accession-list.txt
+                                          -g "!{params.species}" -r 50 --dry-run | grep -v "Considering" > accession-list.txt
             shuf accession-list.txt | head -n !{params.limit} | cut -f 1,1  > accession-subset.txt
             ncbi-genome-download bacteria -l complete -o ./ -F fasta -p !{task.cpus} \
                                           -A accession-subset.txt -r 50
