@@ -40,6 +40,7 @@ jobs:
         run: |
           echo "Testing bactopia search"
           bactopia search
+          bactopia search --version
           bactopia search --help
           bactopia search PRJNA480016 --limit 5
           bactopia search 1280 --exact_taxon --limit 5
@@ -56,12 +57,13 @@ jobs:
         run: |
           echo "Testing bactopia prepare"
           bactopia prepare
+          bactopia prepare --version
           bactopia prepare --help
           bactopia prepare ${GITHUB_WORKSPACE}/tests/real-fastqs/
       - name: Test bactopia build
         run: |
           echo "Testing bactopia build"
-          bactopia build
+          bactopia build --version
           bactopia build --help
-          bactopia build --default
+
           
