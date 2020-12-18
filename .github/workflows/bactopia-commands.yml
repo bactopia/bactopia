@@ -13,7 +13,7 @@ jobs:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: conda env create -f enviornment.yml --prefix ${CONDA}/envs/bactopia
+        run: conda env create -f ${GITHUB_WORKSPACE}/environment.yml --prefix ${CONDA}/envs/bactopia
       - name: Staging
         run: |
           BACTOPIA=/opt/conda/envs/bactopia
