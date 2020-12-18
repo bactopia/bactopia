@@ -148,7 +148,6 @@ elif [[ "$1" == "tools" ]]; then
 
         if [[ -n "$TOOL_NF" ]]; then
             OPTS="${TOOL_NF} ${WORK_ARG}"
-            echo ${OPTS}
             if nextflow run ${OPTS} "${@:3}"; then
                 # bactopia finished successfully
                 if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
