@@ -41,17 +41,11 @@ jobs:
           echo "Testing bactopia search"
           bactopia search
           bactopia search --version
-          bactopia search --help
-          bactopia search PRJNA480016 --limit 5
-          bactopia search 1280 --exact_taxon --limit 5
-          bactopia search "staphylococcus aureus" --limit 5
-          bactopia search SAMN01737350 --limit 5
-          bactopia search SRR578340 --limit 5
-          bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
-          bactopia search ${GITHUB_WORKSPACE}/tests/test-search-accessions.txt --limit 5
+          bactopia search --help         
       - name: Test bactopia datasets
         run: |
           echo "Testing bactopia datasets"
+          bactopia datasets --version
           bactopia datasets --help
       - name: Test bactopia prepare
         run: |
@@ -59,7 +53,6 @@ jobs:
           bactopia prepare
           bactopia prepare --version
           bactopia prepare --help
-          bactopia prepare ${GITHUB_WORKSPACE}/tests/real-fastqs/
       - name: Test bactopia build
         run: |
           echo "Testing bactopia build"
