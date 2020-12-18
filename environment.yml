@@ -9,7 +9,6 @@ dependencies:
   - _openmp_mutex=4.5
   - appdirs=1.4.4
   - ariba=2.14.5
-  - bactopia=1.5.3
   - bcftools=1.11
   - beautifulsoup4=4.9.3
   - biopython=1.78
