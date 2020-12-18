@@ -16,7 +16,7 @@ jobs:
         run: conda env create -f ${GITHUB_WORKSPACE}/environment.yml --prefix ${CONDA}/envs/bactopia
       - name: Staging
         run: |
-          BACTOPIA=/opt/conda/envs/bactopia
+          BACTOPIA=${CONDA}/envs/bactopia
           chmod 755 bactopia bin/helpers/*
           cp bactopia bin/helpers/* ${BACTOPIA}/bin
           VERSION=`bactopia version | cut -d " " -f 2`
