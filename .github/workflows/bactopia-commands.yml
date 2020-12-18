@@ -19,7 +19,7 @@ jobs:
           BACTOPIA=${CONDA}/envs/bactopia
           chmod 755 bactopia bin/helpers/*
           cp bactopia bin/helpers/* ${BACTOPIA}/bin
-          VERSION=`bactopia version | cut -d " " -f 2`
+          VERSION=`${CONDA}/envs/bactopia/bin/bactopia version | cut -d " " -f 2`
           BACTOPIA_VERSION="${VERSION%.*}.x"
           mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
           cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
