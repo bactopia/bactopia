@@ -7,6 +7,7 @@
 - remove ncbi-genome-download header when using `--dry-run`
 - undefined `name` variable in plasmid_blast
 - custom work dir causing two `-w` parameters
+- `bactopia search` results now contains all (illumina and non-illumina)
 
 ## v1.5.3 bactopia/bactopia "Morion Earring" - 2020/12/04
 ### `Added`

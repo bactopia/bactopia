@@ -49,6 +49,7 @@ FIELDS = [
     'sample_alias', 'broker_name', 'sample_title', 'first_created'
 ]
 
+
 def ena_search(query, limit=1000000):
     """USE ENA's API to retreieve the latest results."""
     import requests
@@ -72,14 +73,14 @@ def ena_search(query, limit=1000000):
         print(f'WARNING: {query_original} did not return any results from ENA.', file=sys.stderr)
         return [[], []]
     else:
-        results = response.text.split('\n')
+        results = response.text.rstrip().split('\n')
         return [results[0], results[1:]]
 
 
 def parse_accessions(results, min_read_length=None, min_base_count=None):
     """Parse Illumina experiment accessions from the ENA results."""
     accessions = []
-    filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': []}
+    filtered = {'min_base_count': 0, 'min_read_length': 0, 'technical': 0, 'filtered': []}
     for line in results:
         if line.startswith(FIELDS[0]):
             continue
@@ -261,6 +262,9 @@ if __name__ == '__main__':
     filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
     for query_type, query in queries:
         query_header, query_results = ena_search(query, limit=args.limit)
+        results = list(set(results + query_results))
+        if not result_header:
+            result_header = query_header
         query_accessions, query_filtered = parse_accessions(query_results, min_read_length=min_read_length,
                                                             min_base_count=min_base_count)
         if len(query_accessions):
@@ -269,18 +273,17 @@ if __name__ == '__main__':
                 if len(query_accessions) > args.biosample_subset:
                     WARNING_MESSAGE = f'WARNING: Selected {args.biosample_subset} Experiment accession(s) from a total of {len(query_accessions)}'
                     query_accessions = random.sample(query_accessions, args.biosample_subset)
-
-            result_header = query_header
-            results = list(set(results + query_results))
             accessions = list(set(accessions + query_accessions))
-
             filtered['min_base_count'] += query_filtered['min_base_count']
             filtered['min_read_length'] += query_filtered['min_read_length']
             filtered['technical'] += query_filtered['technical']
             for filtered_sample in query_filtered['filtered']:
                 filtered['filtered'][filtered_sample['accession']] = filtered_sample['reason']
         else:
-            WARNING_MESSAGE = f'WARNING: {query} did not return any results from ENA.'
+            if query_results:
+                WARNING_MESSAGE = f'WARNING: {query} did not return any Illumina results from ENA.'
+            else:
+                WARNING_MESSAGE = f'WARNING: {query} did not return any results from ENA.'
 
         # Create Summary
         if len(queries) > 1:
@@ -289,10 +292,7 @@ if __name__ == '__main__':
         else:
             summary.append(f'QUERY: {query}')
         summary.append(f'LIMIT: {args.limit}')
-        if len(query_accessions):
-            summary.append(f'RESULTS: {len(query_results) - 2} ({results_file})')
-        else:
-            summary.append(f'RESULTS: {len(query_results)} ({results_file})')
+        summary.append(f'RESULTS: {len(query_results)} ({results_file})')
         summary.append(f'ILLUMINA ACCESSIONS: {len(query_accessions)} ({accessions_file})')
 
         if WARNING_MESSAGE:

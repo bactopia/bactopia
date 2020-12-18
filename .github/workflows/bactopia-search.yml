@@ -19,29 +19,29 @@ jobs:
           BACTOPIA=${CONDA}/envs/bactopia
           chmod 755 bactopia bin/helpers/*
           cp bactopia bin/helpers/* ${BACTOPIA}/bin
-          VERSION=`bactopia version | cut -d " " -f 2`
+          VERSION=`${CONDA}/envs/bactopia/bin/bactopia version | cut -d " " -f 2`
           BACTOPIA_VERSION="${VERSION%.*}.x"
           mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
           cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
           echo "${CONDA}/envs/bactopia/bin" >> $GITHUB_PATH
 
       - name: Test BioProject (PRJNA480016)
-        run: bactopia search PRJNA480016 --limit 5 --prefix PRJNA480016 && head PRJNA480016-accessions.txt
+        run: bactopia search PRJNA480016 --limit 5 --prefix PRJNA480016 && cat PRJNA480016-summary.txt
 
       - name: Test Tax ID (1280)
-        run: bactopia search 1280 --exact_taxon --limit 5 --prefix 1280 && head 1280-accessions.txt
+        run: bactopia search 1280 --exact_taxon --limit 5 --prefix 1280 && cat 1280-summary.txt
 
       - name: Test Species (S. aureus)
-        run: bactopia search "staphylococcus aureus" --limit 5 --prefix saureus && head saureus-accessions.txt
+        run: bactopia search "staphylococcus aureus" --limit 5 --prefix saureus && cat saureus-summary.txt
 
       - name: Test BioSample (SAMN01737350)
-        run: bactopia search SAMN01737350 --limit 5 --prefix SAMN01737350 && head SAMN01737350-accessions.txt
+        run: bactopia search SAMN01737350 --limit 5 --prefix SAMN01737350 && cat SAMN01737350-summary.txt
 
       - name: Test Run (SAMN01737350)
-        run: bactopia search SRR578340 --limit 5 --prefix SRR578340 && head SRR578340-accessions.txt
+        run: bactopia search SRR578340 --limit 5 --prefix SRR578340 && cat SRR578340-summary.txt
 
       - name: Test Multiple Accessions 
-        run: bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test && head test-search/test-accessions.txt
+        run: bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test && cat test-search/test-summary.txt
 
       - name: Test Accessions File
-        run: bactopia search ${GITHUB_WORKSPACE}/tests/test-search-accessions.txt --limit 5 --prefix accfile && head accfile-accessions.txt
+        run: bactopia search ${GITHUB_WORKSPACE}/tests/test-search-accessions.txt --limit 5 --prefix accfile && cat accfile-summary.txt
