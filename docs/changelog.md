@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.4 bactopia/bactopia "Nemesis Earring" - 2020/12/17
+### `Fixed`
+- quoted arguments being broken up (e.g. `--species "Staphylococcus aureus` -> `--species Staphylococcus`)
+- `mashtree` tool failure to download with `--accessions`
+- remove ncbi-genome-download header when using `--dry-run`
+- undefined `name` variable in plasmid_blast
+- custom work dir causing two `-w` parameters
+
 ## v1.5.3 bactopia/bactopia "Morion Earring" - 2020/12/04
 ### `Added`
 - Changelog moved to docs
