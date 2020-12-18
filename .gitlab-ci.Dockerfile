@@ -12,6 +12,7 @@ RUN conda create -y -n bactopia -c conda-forge -c bioconda \
     blast \
     cd-hit \
     conda \
+    coreutils \
     executor \
     lxml \
     mash \
@@ -20,6 +21,7 @@ RUN conda create -y -n bactopia -c conda-forge -c bioconda \
     pysam=0.15.3 \
     python=3.6.7 \
     requests \
+    sed \
     unzip \
     wget \ 
     && conda clean -a && mkdir /opt/bactopia-envs
