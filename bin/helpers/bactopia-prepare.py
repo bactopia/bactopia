@@ -1,8 +1,9 @@
 #! /usr/bin/env python3
 """
 usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_seperator STR]
-                        [--fastq_pattern STR] [--assembly_pattern STR]
-                        [--long_reads] [--version]
+                        [--fastq_pattern STR] [--pe1_pattern STR]
+                        [--pe2_pattern STR] [--assembly_pattern STR] [-r]
+                        [--long_reads] [--merge] [--prefix STR] [--version]
                         STR
 
 bactopia prepare - Read a directory and prepare a FOFN of
@@ -21,10 +22,19 @@ optional arguments:
                         Split FASTQ name on the last occurrence of the
                         separator. Default: _
   --fastq_pattern STR   Glob pattern to match FASTQs. Default: *.fastq.gz
+  --pe1_pattern STR     Designates difference first set of paired-end reads.
+                        Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)
+  --pe2_pattern STR     Designates difference second set of paired-end reads.
+                        Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)
   --assembly_pattern STR
                         Glob pattern to match assembly FASTAs. Default:
                         *.fna.gz
+  -r, --recursive       Directories will be traversed recursively
   --long_reads          Single-end reads should be treated as long reads
+  --merge               Flag samples with multiple read sets to be merged by
+                        Bactopia
+  --prefix STR          Replace the absolute path with a given string.
+                        Default: Use absolute path
   --version             show program's version number and exit
 """
 VERSION = "1.5.4"
@@ -37,6 +47,13 @@ def search_path(path, pattern, recursive=False):
         return Path(path).rglob(pattern)
     else:
         return Path(path).glob(pattern)
+
+
+def get_path(fastq, abspath, prefix):
+    fastq_path = str(fastq.absolute())
+    if prefix:
+        return fastq_path.replace(abspath, prefix.rstrip("/"))
+    return fastq_path
 
 
 if __name__ == '__main__':
@@ -80,12 +97,12 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--pe1_pattern', metavar='STR', type=str, default="[Aa]|[Rr]1",
-            help='Designates difference first set of paired-end reads. Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)'
+        help='Designates difference first set of paired-end reads. Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)'
     )
 
     parser.add_argument(
         '--pe2_pattern', metavar='STR', type=str, default="[Bb]|[Rr]2",
-            help='Designates difference second set of paired-end reads. Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)'
+        help='Designates difference second set of paired-end reads. Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)'
     )
 
     parser.add_argument(
@@ -109,6 +126,11 @@ if __name__ == '__main__':
         help='Flag samples with multiple read sets to be merged by Bactopia'
     )
 
+    parser.add_argument(
+        '--prefix', metavar='STR', type=str,
+        help='Replace the absolute path with a given string. Default: Use absolute path'
+    )
+
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -123,7 +145,6 @@ if __name__ == '__main__':
     SAMPLES = {}
 
     # Match FASTQS
-
     for fastq in search_path(abspath, args.fastq_pattern, recursive=args.recursive):
         fastq_name = fastq.name.replace(args.fastq_ext, "")
         # Split the fastq file name on separator
@@ -136,30 +157,30 @@ if __name__ == '__main__':
 
         if len(split_vals) == 1:
             # single-end
-            SAMPLES[sample_name]['se'].append(str(fastq.absolute()))
+            SAMPLES[sample_name]['se'].append(get_path(fastq, abspath, args.prefix))
         else:
             # paired-end
             pe1 = re.compile(args.pe1_pattern)
             pe2 = re.compile(args.pe2_pattern)
             if pe1.match(split_vals[1]):
-                SAMPLES[sample_name]['pe']['r1'].append(str(fastq.absolute()))
+                SAMPLES[sample_name]['pe']['r1'].append(get_path(fastq, abspath, args.prefix))
             elif pe2.match(split_vals[1]):
-                SAMPLES[sample_name]['pe']['r2'].append(str(fastq.absolute()))
+                SAMPLES[sample_name]['pe']['r2'].append(get_path(fastq, abspath, args.prefix))
             else:
-                print(f'ERROR: Could not determine read set for "{fastq_name}".', file = sys.stderr)
-                print(f'ERROR: Found {split_vals[1]} expected (R1: {args.pe1_pattern} or R2: {args.pe2_pattern})', file = sys.stderr)
-                print(f'ERROR: Please use --pe1_pattern and --pe2_pattern to correct and try again.', file = sys.stderr)
+                print(f'ERROR: Could not determine read set for "{fastq_name}".', file=sys.stderr)
+                print(f'ERROR: Found {split_vals[1]} expected (R1: {args.pe1_pattern} or R2: {args.pe2_pattern})', file=sys.stderr)
+                print(f'ERROR: Please use --pe1_pattern and --pe2_pattern to correct and try again.', file=sys.stderr)
                 sys.exit(1)
 
     # Match assemblies
-    for assembly in glob.glob(f'{abspath}/**/*{args.assembly_pattern}', recursive = args.recursive):
+    for assembly in glob.glob(f'{abspath}/**/*{args.assembly_pattern}', recursive=args.recursive):
         sample_name = os.path.basename(assembly).replace(args.assembly_ext, "")
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
         # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
         if sample_name not in SAMPLES:
             SAMPLES[sample_name] = {'pe': [], 'se': [], 'assembly': []}
-        SAMPLES[sample_name]['assembly'].append(assembly)
+        SAMPLES[sample_name]['assembly'].append(get_path(assembly, abspath, args.prefix))
 
     FOFN = []
     for sample, vals in sorted(SAMPLES.items()):
@@ -190,10 +211,9 @@ if __name__ == '__main__':
             else:
                 errors.append(f'ERROR: "{sample}" cannot have more than two paired-end FASTQ, please check.')
 
-
         if args.long_reads:
             if not pe_count and len(se_reads):
-                # Long reads must also have short PE reads 
+                # Long reads must also have short PE reads
                 print(f'WARNING: "{sample}" does not have paired-end reads, treating as single-end short reads, please verify.', file=sys.stderr)
                 is_single_end = True
         else:
