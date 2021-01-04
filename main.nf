@@ -1738,12 +1738,6 @@ def full_help() {
         --use_ena               Download FASTQs from ENA with Aspera Connect.
                                     Default: Download from SRA
 
-        --ftp_only              If "--use_ena" is enabled, FTP will be used to
-                                    download FASTQs from ENA.
-
-        --aspera_speed STR      Speed at which Aspera Connect will download.
-                                    Default: ${params.aspera_speed}
-
         --no_cache              Don't cache the assembly summary file from ncbi-genome-download
 
     FASTQ Minimum Requirements Parameters:

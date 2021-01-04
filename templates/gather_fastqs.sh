@@ -75,30 +75,11 @@ elif [ "!{sample_type}" == "merge-se" ]; then
     touch extra/empty.fna.gz
 elif [ "!{sample_type}" == "sra_accession" ]; then
     # Download accession from ENA/SRA
-    ASPERA=""
-    ASPERA_KEY=""
-    ASPERA_SPEED="--aspera_speed !{params.aspera_speed}"
-    FTP_ONLY=""
+    FTP_ONLY="--ftp_only"
     ARCHIVE=""
 
     # Check if ascp is available
     if [ "!{use_ena}" == "true" ]; then
-        if [ "!{ftp_only}" == "false" ]; then
-            if which ascp; then
-                # ascp found
-                ASCP=`which ascp`
-                ASPERA="--aspera $ASCP"
-                if readlink $ASCP; then
-                    # ascp is symbolic link, need to get key
-                    ASPERA_KEY="--aspera_key `readlink -f $ASCP | sed 's=bin/ascp$=etc/asperaweb_id_dsa.openssh='`"
-                fi
-            else
-                #ascp not found, only use ftp
-                FTP_ONLY="--ftp_only"
-            fi
-        else
-            FTP_ONLY="--ftp_only"
-        fi
         ARCHIVE="ENA"
     else
         ARCHIVE="SRA"
@@ -113,7 +94,7 @@ elif [ "!{sample_type}" == "sra_accession" ]; then
         --cpus !{task.cpus} \
         --outdir fastqs/ \
         --group_by_experiment \
-        --is_experiment $ASPERA $ASPERA_KEY $ASPERA_SPEED $FTP_ONLY > ${LOG_DIR}/fastq-dl.out 2> ${LOG_DIR}/fastq-dl.err
+        --is_experiment $FTP_ONLY > ${LOG_DIR}/fastq-dl.out 2> ${LOG_DIR}/fastq-dl.err
     touch extra/empty.fna.gz    
 elif [ "!{is_assembly}" == "true" ]; then
     if [ "!{sample_type}" == "assembly_accession" ]; then
