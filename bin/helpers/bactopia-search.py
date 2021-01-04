@@ -162,6 +162,7 @@ def parse_query(q, exact_taxon=False):
 
 if __name__ == '__main__':
     import argparse as ap
+    import datetime
     import random
     import textwrap
 
@@ -249,7 +250,7 @@ if __name__ == '__main__':
               file=sys.stderr)
         sys.exit(1)
 
-
+    today = datetime.datetime.now().replace(microsecond=0).isoformat()
     results = []
     result_header = None
     accessions = []
@@ -291,6 +292,7 @@ if __name__ == '__main__':
             i += 1
         else:
             summary.append(f'QUERY: {query}')
+        summary.append(f'DATE: {today}')
         summary.append(f'LIMIT: {args.limit}')
         summary.append(f'RESULTS: {len(query_results)} ({results_file})')
         summary.append(f'ILLUMINA ACCESSIONS: {len(query_accessions)} ({accessions_file})')
