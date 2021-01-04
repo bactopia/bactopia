@@ -433,7 +433,7 @@
     },
     "Shovill": {
         "conda": {
-            "name": "shovill", 
+            "name": "shovill-se", 
             "yaml": "assemble_genome.yml"
         }, 
         "description": "Faster assembly of Illumina reads", 

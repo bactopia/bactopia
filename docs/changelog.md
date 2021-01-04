@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.5.4 bactopia/bactopia "" - 2021/??/??
+### `Added`
+- `--prefix` option for `bactopia prepare`
+
+### `Fixed`
+- removed usage personal (rpetit3) conda channel
+    - aspera connect no longer supported
+    - shovill-se is now used from Bioconda
+
 ## v1.5.4 bactopia/bactopia "Nemesis Earring" - 2020/12/17
 ### `Fixed`
 - quoted arguments being broken up (e.g. `--species "Staphylococcus aureus` -> `--species Staphylococcus`)
