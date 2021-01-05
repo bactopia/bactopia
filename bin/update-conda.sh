@@ -26,8 +26,7 @@ fi
 function update_environment {
     # 1: template, 2: programs, 3: conda dir, 4: version, 5: is_mac, 6: extra channel
     echo "Working on ${1}"
-    mkdir -p
-
+   
     if [ "$5" == 1 ]; then
         # Mac OS
         # Have to replace Mac versions of some programs (date, sed, etc...)
@@ -53,7 +52,11 @@ update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} 
 update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "assemble_genome" "shovill-se assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+if [ "${IS_MAC}" == "1" ]; then
+    update_environment "call_variants" "snippy vcf-annotator pigz vt" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+else
+    update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+fi
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "download_references" "ncbi-genome-download mash biopython python>3.6" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
