@@ -1,0 +1,5 @@
+name: bactopia-call_variants
+version: 1.5.4
+channels:
+  - defaults
+

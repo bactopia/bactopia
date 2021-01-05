@@ -1,0 +1,16 @@
+name: bactopia-count_31mers
+version: 1.5.4
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - coreutils=8.31
+  - gettext=0.19.8.1
+  - libcxx=11.0.0
+  - libffi=3.3
+  - libiconv=1.16
+  - mccortex=1.0
+  - sed=4.7
+  - zlib=1.2.11
+

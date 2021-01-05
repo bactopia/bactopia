@@ -1,0 +1,55 @@
+name: bactopia-download_references
+version: 1.5.4
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - appdirs=1.4.4
+  - biopython=1.78
+  - brotlipy=0.7.0
+  - ca-certificates=2020.12.5
+  - capnproto=0.6.1
+  - certifi=2020.12.5
+  - cffi=1.14.4
+  - chardet=4.0.0
+  - coreutils=8.31
+  - cryptography=3.3.1
+  - enum34=1.1.10
+  - gettext=0.19.8.1
+  - gsl=2.6
+  - idna=2.10
+  - libblas=3.9.0
+  - libcblas=3.9.0
+  - libcxx=11.0.0
+  - libffi=3.3
+  - libgfortran=5.0.0
+  - libgfortran5=9.3.0
+  - libiconv=1.16
+  - liblapack=3.9.0
+  - libopenblas=0.3.12
+  - llvm-openmp=11.0.0
+  - mash=2.2.2
+  - ncbi-genome-download=0.3.0
+  - ncurses=6.2
+  - numpy=1.19.4
+  - openssl=1.1.1i
+  - pip=20.3.3
+  - pycparser=2.20
+  - pyopenssl=20.0.1
+  - pysocks=1.7.1
+  - python=3.9.1
+  - python_abi=3.9
+  - readline=8.0
+  - requests=2.25.1
+  - sed=4.7
+  - setuptools=49.6.0
+  - six=1.15.0
+  - sqlite=3.34.0
+  - tk=8.6.10
+  - tzdata=2020f
+  - urllib3=1.26.2
+  - wheel=0.36.2
+  - xz=5.2.5
+  - zlib=1.2.11
+

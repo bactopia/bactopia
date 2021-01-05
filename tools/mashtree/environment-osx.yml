@@ -1,5 +1,5 @@
 name: bactopia-mashtree
-version: 1.4.11
+version: 1.5.4
 channels:
   - bioconda
   - conda-forge
@@ -7,14 +7,14 @@ channels:
 dependencies:
   - appdirs=1.4.4
   - brotlipy=0.7.0
-  - ca-certificates=2020.6.20
+  - ca-certificates=2020.12.5
   - capnproto=0.6.1
-  - certifi=2020.6.20
-  - cffi=1.14.3
-  - chardet=3.0.4
+  - certifi=2020.12.5
+  - cffi=1.14.4
+  - chardet=4.0.0
   - clustalw=2.1
   - coreutils=8.31
-  - cryptography=3.2.1
+  - cryptography=3.3.1
   - enum34=1.1.10
   - expat=2.2.9
   - fontconfig=2.13.1
@@ -29,25 +29,25 @@ dependencies:
   - libcblas=3.9.0
   - libcxx=11.0.0
   - libdb=6.2.32
-  - libffi=3.2.1
+  - libffi=3.3
   - libgd=2.2.5
   - libgfortran=5.0.0
   - libgfortran5=9.3.0
   - libiconv=1.16
   - libopenblas=0.3.12
   - libpng=1.6.37
-  - libtiff=4.1.0
+  - libtiff=4.2.0
   - libwebp=1.1.0
   - libwebp-base=1.1.0
   - libxml2=2.9.10
   - libxslt=1.1.33
   - llvm-openmp=11.0.0
-  - lz4-c=1.9.2
+  - lz4-c=1.9.3
   - mash=2.2.2
   - mashtree=1.2.0
   - ncbi-genome-download=0.3.0
   - ncurses=6.2
-  - openssl=1.1.1h
+  - openssl=1.1.1i
   - paml=4.9
   - perl=5.26.2
   - perl-aceperl=1.92
@@ -227,24 +227,25 @@ dependencies:
   - perl-xml-xpathengine=0.14
   - perl-xsloader=0.24
   - perl-yaml=1.29
-  - pip=20.2.4
+  - pip=20.3.3
   - pycparser=2.20
-  - pyopenssl=19.1.0
+  - pyopenssl=20.0.1
   - pysocks=1.7.1
-  - python=3.9.0
+  - python=3.9.1
   - python_abi=3.9
   - quicktree=2.5
   - readline=8.0
   - rename=1.601
-  - requests=2.24.0
+  - requests=2.25.1
   - setuptools=49.6.0
   - six=1.15.0
-  - sqlite=3.33.0
+  - sqlite=3.34.0
   - tidyp=1.04
   - tk=8.6.10
-  - tzdata=2020d
-  - urllib3=1.25.11
-  - wheel=0.35.1
+  - tzdata=2020f
+  - urllib3=1.26.2
+  - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
-  - zstd=1.4.5
+  - zstd=1.4.8
+

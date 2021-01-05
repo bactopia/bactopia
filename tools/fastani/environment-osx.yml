@@ -1,58 +1,61 @@
 name: bactopia-fastani
-version: 1.4.11
+version: 1.5.4
 channels:
   - bioconda
   - conda-forge
   - defaults
 dependencies:
   - appdirs=1.4.4
+  - blas=1.0
   - boost=1.70.0
   - boost-cpp=1.70.0
   - brotlipy=0.7.0
   - bzip2=1.0.8
-  - ca-certificates=2020.6.20
-  - certifi=2020.6.20
-  - cffi=1.14.3
-  - chardet=3.0.4
+  - ca-certificates=2020.12.5
+  - certifi=2020.12.5
+  - cffi=1.14.4
+  - chardet=4.0.0
   - coreutils=8.31
-  - cryptography=3.2.1
+  - cryptography=3.3.1
   - enum34=1.1.10
   - fastani=1.32
   - gettext=0.19.8.1
   - icu=67.1
   - idna=2.10
-  - libblas=3.8.0
-  - libcblas=3.8.0
+  - intel-openmp=2019.4
   - libcxx=11.0.0
-  - libffi=3.2.1
-  - libgfortran=3.0.1
+  - libffi=3.3
   - libiconv=1.16
-  - liblapack=3.8.0
-  - libopenblas=0.3.10
   - llvm-openmp=8.0.1
-  - lz4-c=1.9.2
+  - lz4-c=1.9.3
+  - mkl=2019.4
+  - mkl-service=2.3.0
+  - mkl_fft=1.2.0
+  - mkl_random=1.1.1
   - ncbi-genome-download=0.3.0
   - ncurses=6.2
   - numpy=1.19.2
+  - numpy-base=1.19.2
   - openmp=8.0.1
-  - openssl=1.1.1h
-  - perl=5.30.3
-  - pip=20.2.4
+  - openssl=1.1.1i
+  - perl=5.32.0
+  - pip=20.3.3
   - pycparser=2.20
-  - pyopenssl=19.1.0
+  - pyopenssl=20.0.1
   - pysocks=1.7.1
   - python=3.8.6
   - python_abi=3.8
   - readline=8.0
   - rename=1.601
-  - requests=2.24.0
+  - requests=2.25.1
   - sed=4.7
   - setuptools=49.6.0
   - six=1.15.0
-  - sqlite=3.33.0
+  - sqlite=3.34.0
   - tk=8.6.10
-  - urllib3=1.25.11
-  - wheel=0.35.1
+  - urllib3=1.26.2
+  - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
-  - zstd=1.4.5
+  - zstd=1.4.8
+
