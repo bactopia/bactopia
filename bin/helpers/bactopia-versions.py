@@ -17,6 +17,7 @@ VERSION = "1.5.4"
 PROGRAM = "bactopia versions"
 DESCRIPTION = 'Prints the version of tools used by Bactopia'
 
+
 def get_platform():
     from sys import platform
     if platform == "darwin":
@@ -26,6 +27,7 @@ def get_platform():
         print("Windows is not supported.", file=sys.stderr)
         sys.exit(1)
     return 'linux'
+
 
 def validate_args(bactopia_repo):
     import json 
@@ -41,6 +43,7 @@ def validate_args(bactopia_repo):
         with open(bactopia_json, 'rt') as json_fh:
             return json.load(json_fh)
 
+
 def read_yaml(yaml):
     versions = {}
     with open(yaml, 'rt') as yaml_fh:
@@ -50,6 +53,7 @@ def read_yaml(yaml):
                 program, version = line.replace('- ', '').split('=')[0:2]
                 versions[program] = version
     return versions
+
 
 if __name__ == '__main__':
     import argparse as ap

@@ -1,5 +1,5 @@
 name: bactopia-ismapper
-version: 1.4.11
+version: 1.5.4
 channels:
   - bioconda
   - conda-forge
@@ -14,21 +14,21 @@ dependencies:
   - boost-cpp=1.74.0
   - bwa=0.7.17
   - bzip2=1.0.8
-  - c-ares=1.16.1
-  - ca-certificates=2020.11.8
-  - certifi=2020.6.20
-  - htslib=1.11
-  - icu=67.1
+  - c-ares=1.17.1
+  - ca-certificates=2020.12.5
+  - certifi=2020.12.5
+  - curl=7.71.1
+  - icu=68.1
   - ismapper=2.0.1
-  - krb5=1.17.1
-  - ld_impl_linux-64=2.35
+  - krb5=1.17.2
+  - ld_impl_linux-64=2.35.1
   - libblas=3.9.0
   - libcblas=3.9.0
   - libcurl=7.71.1
-  - libdeflate=1.6
   - libedit=3.1.20191231
   - libev=4.33
-  - libffi=3.2.1
+  - libffi=3.3
+  - libgcc=7.2.0
   - libgcc-ng=9.3.0
   - libgfortran-ng=9.3.0
   - libgfortran5=9.3.0
@@ -38,22 +38,22 @@ dependencies:
   - libopenblas=0.3.12
   - libssh2=1.9.0
   - libstdcxx-ng=9.3.0
-  - lz4-c=1.9.2
+  - lz4-c=1.9.3
   - ncurses=6.2
   - numpy=1.19.4
-  - openssl=1.1.1h
+  - openssl=1.1.1i
   - perl=5.32.0
-  - pip=20.2.4
-  - python=3.9.0
+  - pip=20.3.3
+  - python=3.9.1
   - python_abi=3.9
   - readline=8.0
-  - samtools=1.11
+  - samtools=1.7
   - setuptools=49.6.0
-  - sqlite=3.33.0
+  - sqlite=3.34.0
   - tk=8.6.10
-  - tzdata=2020d
-  - wheel=0.35.1
+  - tzdata=2020f
+  - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
-  - zstd=1.4.5
+  - zstd=1.4.8
 

@@ -1,6 +1,5 @@
 #! /bin/bash
 # Updates the conda environment yamls for Bactopia Tools to bump to latest software versions.
-set -x
 
 if [[ $# == 0 ]]; then
     echo ""
@@ -22,7 +21,6 @@ fi
 function update_environment {
     # 1: template, 2: programs, 3: conda dir, 4: version, 5: is_mac, 6: extra channel, 7: extra mac programs
     echo "Working on ${1}"
-    mkdir -p
 
     YAML="${3}/${1}/environment"
     if [ "$5" == 1 ]; then
@@ -46,13 +44,13 @@ function update_environment {
 }
 
 # Bactopia environments
-update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
-update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
-update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+#update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
+#update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+#update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
+#update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+#update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+#update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+#update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
 update_environment "roary" "clonalframeml iqtree maskrc-svg ncbi-genome-download pigz prokka r-ggplot2 rename roary snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
 update_environment "summary" "executor jinja2" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
 

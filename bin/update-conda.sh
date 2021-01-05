@@ -1,6 +1,5 @@
 #! /bin/bash
 # Updates the conda environment yamls to bump to latest software versions.
-set -x
 
 if [[ $# == 0 ]]; then
     echo ""

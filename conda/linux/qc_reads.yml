@@ -1,0 +1,32 @@
+name: bactopia-qc_reads
+version: 1.5.4
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - bbmap=38.87
+  - bzip2=1.0.8
+  - fastq-scan=0.4.3
+  - fastqc=0.11.9
+  - font-ttf-dejavu-sans-mono=2.37
+  - fontconfig=2.13.1
+  - freetype=2.10.4
+  - icu=68.1
+  - libgcc-ng=9.3.0
+  - libgomp=9.3.0
+  - libiconv=1.16
+  - libpng=1.6.37
+  - libstdcxx-ng=9.3.0
+  - libuuid=2.32.1
+  - libxml2=2.9.10
+  - lighter=1.1.2
+  - openjdk=10.0.2
+  - pbzip2=1.1.13
+  - perl=5.32.0
+  - pigz=2.3.4
+  - xz=5.2.5
+  - zlib=1.2.11
+

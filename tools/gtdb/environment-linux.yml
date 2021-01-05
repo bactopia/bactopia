@@ -1,5 +1,5 @@
 name: bactopia-gtdb
-version: 1.4.11
+version: 1.5.4
 channels:
   - bioconda
   - conda-forge
@@ -10,20 +10,20 @@ dependencies:
   - boost=1.70.0
   - boost-cpp=1.70.0
   - bzip2=1.0.8
-  - ca-certificates=2020.11.8
+  - ca-certificates=2020.12.5
   - capnproto=0.6.1
-  - certifi=2020.6.20
+  - certifi=2020.12.5
   - dendropy=4.5.1
   - fastani=1.32
   - fasttree=2.1.10
   - gsl=2.6
-  - gtdbtk=1.3.0
+  - gtdbtk=1.4.0
   - hmmer=3.1b2
   - icu=67.1
-  - ld_impl_linux-64=2.35
+  - ld_impl_linux-64=2.35.1
   - libblas=3.9.0
   - libcblas=3.9.0
-  - libffi=3.2.1
+  - libffi=3.3
   - libgcc-ng=9.3.0
   - libgfortran-ng=9.3.0
   - libgfortran5=9.3.0
@@ -31,23 +31,23 @@ dependencies:
   - liblapack=3.9.0
   - libopenblas=0.3.12
   - libstdcxx-ng=9.3.0
-  - lz4-c=1.9.2
+  - lz4-c=1.9.3
   - mash=2.2.2
   - ncurses=6.2
   - numpy=1.19.4
-  - openssl=1.1.1h
-  - pip=20.2.4
+  - openssl=1.1.1i
+  - pip=20.3.3
   - pplacer=1.1.alpha19
   - prodigal=2.6.3
   - python=3.8.6
   - python_abi=3.8
   - readline=8.0
   - setuptools=49.6.0
-  - sqlite=3.33.0
+  - sqlite=3.34.0
   - tk=8.6.10
-  - tqdm=4.51.0
-  - wheel=0.35.1
+  - tqdm=4.55.1
+  - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
-  - zstd=1.4.5
+  - zstd=1.4.8
 
