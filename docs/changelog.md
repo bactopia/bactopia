@@ -1,13 +1,15 @@
 # Changelog
 
-## v1.5.4 bactopia/bactopia "" - 2021/??/??
+## v1.5.5 bactopia/bactopia "Avenger's Earring" - 2021/01/04
 ### `Added`
 - `--prefix` option for `bactopia prepare`
+- date is included in `bactopia summary` output
 
 ### `Fixed`
 - removed usage personal (rpetit3) conda channel
     - aspera connect no longer supported
     - shovill-se is now used from Bioconda
+- updated conda environments (phyloflash broken)
 
 ## v1.5.4 bactopia/bactopia "Nemesis Earring" - 2020/12/17
 ### `Fixed`
