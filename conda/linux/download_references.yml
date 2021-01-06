@@ -1,5 +1,5 @@
 name: bactopia-download_references
-version: 1.5.4
+version: 1.5.5
 channels:
   - bioconda
   - conda-forge
@@ -33,8 +33,9 @@ dependencies:
   - mash=2.2.2
   - ncbi-genome-download=0.3.0
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openssl=1.1.1i
+  - perl=5.32.0
   - pip=20.3.3
   - pycparser=2.20
   - pyopenssl=20.0.1
@@ -42,6 +43,7 @@ dependencies:
   - python=3.9.1
   - python_abi=3.9
   - readline=8.0
+  - rename=1.601
   - requests=2.25.1
   - setuptools=49.6.0
   - six=1.15.0

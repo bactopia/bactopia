@@ -58,7 +58,7 @@ else
     update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 fi
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "download_references" "ncbi-genome-download mash biopython python>3.6" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+update_environment "download_references" "ncbi-genome-download mash biopython python>3.6 rename" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
