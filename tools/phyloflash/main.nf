@@ -28,10 +28,7 @@ process download_phyloflash {
     file("ref/*") optional true
     file("SILVA*") optional true
     file 'phyloflash-downloaded.txt' into PHYLOFLASH_CHECK
-
-    when:
-    DOWNLOAD_PHYLOFLASH == true
-
+    
     shell:
     """
     if [ "!{DOWNLOAD_PHYLOFLASH}" == "true" ]; then
