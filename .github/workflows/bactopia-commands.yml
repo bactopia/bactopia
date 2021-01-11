@@ -18,16 +18,17 @@ jobs:
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
-      - name: Setupo miniconda
+      - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: bactopia
           auto-activate-base: false
       - name: Install Dependencies
-        run: bash setup-action-env.sh 
+        run: cd ${GITHUB_WORKSPACE}/ && bash setup-action-env.sh 
       - name: Staging
         run: |
           BACTOPIA=${CONDA}/envs/bactopia
+          cd ${GITHUB_WORKSPACE}
           chmod 755 bactopia bin/helpers/*
           cp bactopia bin/helpers/* ${BACTOPIA}/bin
           VERSION=`${CONDA}/envs/bactopia/bin/bactopia version | cut -d " " -f 2`
