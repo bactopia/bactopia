@@ -1,5 +1,4 @@
 name: bactopia
-version: 1.5.3
 channels:
   - bioconda
   - conda-forge
