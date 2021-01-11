@@ -8,7 +8,7 @@ on:
     
 jobs:
   bactopia-commands:
-    runs-on: ubuntu-latest
+    runs-on: [macos-latest, ubuntu-latest]
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
