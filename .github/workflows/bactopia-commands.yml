@@ -25,6 +25,10 @@ jobs:
           auto-activate-base: false
       - name: Install Dependencies
         run: cd ${GITHUB_WORKSPACE}/ && bash setup-action-env.sh 
+      - name: Environment Information
+        run: |
+          uname -a
+          env
       - name: Staging
         run: |
           BACTOPIA=${CONDA}/envs/bactopia
