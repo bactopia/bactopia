@@ -12,11 +12,18 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: conda env create -f ${GITHUB_WORKSPACE}/environment.yml --prefix ${CONDA}/envs/bactopia
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: bactopia
+          environment-file: environment.yml
+          auto-activate-base: false
       - name: Staging
         run: |
           BACTOPIA=${CONDA}/envs/bactopia
@@ -26,7 +33,6 @@ jobs:
           BACTOPIA_VERSION="${VERSION%.*}.x"
           mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
           cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-          echo "${CONDA}/envs/bactopia/bin" >> $GITHUB_PATH
       - name: Test bactopia version
         run: |
           echo "Testing bactopia version"
