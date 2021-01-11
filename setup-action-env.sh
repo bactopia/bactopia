@@ -3,7 +3,7 @@ conda install -y -c conda-forge -c bioconda \
   beautifulsoup4 \
   biopython \
   blast \
-  bowtie2 <2.4.0  \
+  "bowtie2<2.4.0"  \
   cd-hit \
   conda \
   coreutils \
@@ -12,8 +12,8 @@ conda install -y -c conda-forge -c bioconda \
   mash \
   ncbi-genome-download \
   nextflow \
-  pysam >=0.15.3 \
-  python >3.6 \
+  "pysam>=0.15.3" \
+  "python>3.6" \
   requests  \
   sed \
   unzip \
