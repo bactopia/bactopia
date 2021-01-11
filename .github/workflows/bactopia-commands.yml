@@ -18,12 +18,13 @@ jobs:
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
-      - name: Install Dependencies
+      - name: Setupo miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: bactopia
-          environment-file: environment.yml
           auto-activate-base: false
+      - name: Install Dependencies
+        run: bash setup-action-env.sh 
       - name: Staging
         run: |
           BACTOPIA=${CONDA}/envs/bactopia
