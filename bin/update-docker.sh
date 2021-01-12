@@ -22,11 +22,10 @@ function docker_build {
     fi
 }
 
-# Build Bactopia containers
-docker_build Dockerfile bactopia/bactopia:${VERSION} ${REPOSITORY}/bactopia/bactopia:latest
+# Build Bactopia Container
+docker_build Dockerfile ${REPOSITORY}/bactopia/bactopia:${VERSION} ${REPOSITORY}/bactopia/bactopia:latest
 
-# Build Docker
-docker_build Dockerfile bactopia/bactopia:${CONTAINER_VERSION} bactopia/bactopia:latest
+# Build Process Containers
 for recipe in $(ls "${BACTOPIA_DIR}/containers/docker" | grep ".Dockerfile"); do
     recipe_path="${BACTOPIA_DIR}/containers/docker/${recipe}"
     recipe_name=$(echo ${recipe} | sed 's/.Dockerfile//')
