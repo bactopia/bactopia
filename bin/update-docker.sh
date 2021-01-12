@@ -5,7 +5,7 @@
 REPOSITORY="quay.io"
 VERSION=1.5.5
 CONTAINER_VERSION="${VERSION%.*}.x"
-BACTOPIA_DIR=${0:-"./"}
+BACTOPIA_DIR=${1:-"./"}
 
 function docker_build {
     recipe=$1
