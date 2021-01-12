@@ -5,6 +5,7 @@
 REPOSITORY="quay.io"
 VERSION=1.5.5
 CONTAINER_VERSION="${VERSION%.*}.x"
+BACTOPIA_DIR=${0:-"./"}
 
 function docker_build {
     recipe=$1
@@ -20,25 +21,6 @@ function docker_build {
         docker push ${latest}
     fi
 }
-
-if [[ $# == 0 ]]; then
-    echo ""
-    echo "build-containers.sh BACTOPIA_DIR OUTPUT_DIR"
-    echo ""
-    echo "Example Command"
-    echo "build-containers.sh /home/bactopia/bactopia"
-    echo ""
-    exit
-fi
-
-BACTOPIA_DIR=$1
-if [ -z  ${BACTOPIA_DIR} ]; then
-    echo "Got ${#} arguement"
-    echo "Must give the path to Bactopia repository"
-    exit 1
-fi
-
-MAJOR_VERSION=${3:-"0"}
 
 # Build Bactopia containers
 docker_build Dockerfile bactopia/bactopia:${VERSION} ${REPOSITORY}/bactopia/bactopia:latest
