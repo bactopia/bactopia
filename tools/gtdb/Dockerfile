@@ -4,6 +4,6 @@ LABEL version="1.5.x"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Tool gtdb"
 
-COPY tools/gtdb/environment.yml /
-RUN conda env create -f /environment.yml && conda clean -a
+COPY tools/gtdb/environment-linux.yml /
+RUN conda env create -f /environment-linux.yml && conda clean -a
 ENV PATH /opt/conda/envs/bactopia-gtdb/bin:$PATH

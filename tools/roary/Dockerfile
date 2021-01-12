@@ -4,7 +4,7 @@ LABEL version="1.5.x"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Tool: roary"
 
-COPY tools/roary/environment.yml /
-RUN conda env create -f /environment.yml && conda clean -a 
+COPY tools/roary/environment-linux.yml /
+RUN conda env create -f /environment-linux.yml && conda clean -a 
 
 ENV PATH /opt/conda/envs/bactopia-roary/bin:$PATH

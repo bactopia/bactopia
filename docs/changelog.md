@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.6 bactopia/bactopia "" - 2021/01/??
+### `Added`
+- tweaks to the CI (via GitHub Actions)
+- docker containers use quay.io now
+
+### `Fixed`
+- phyloflash environment
+- download_reference environment
+- Bactopia Tools Dockerfile and Singularity recipes
+- moved version from conda yaml to conda version file
+- streamlined Docker recipes
+
 ## v1.5.5 bactopia/bactopia "Avenger's Earring" - 2021/01/04
 ### `Added`
 - `--prefix` option for `bactopia prepare`

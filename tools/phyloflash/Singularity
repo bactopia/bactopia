@@ -11,9 +11,9 @@ From: nfcore/base
     export PATH
 
 %files
-    tools/phyloflash/environment.yml /
+    tools/phyloflash/environment-linux.yml /
 
 %post
-    /opt/conda/bin/conda env create -f /environment.yml
+    /opt/conda/bin/conda env create -f /environment-linux.yml
     /opt/conda/bin/conda create -n python3 -c conda-forge python=3
     /opt/conda/bin/conda clean -a

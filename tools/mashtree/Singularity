@@ -11,7 +11,7 @@ From: nfcore/base
     export PATH
 
 %files
-    tools/mashtree/environment.yml /
+    tools/mashtree/environment-linux.yml /
 
 %post
     /opt/conda/bin/conda env create -f /environment.yml

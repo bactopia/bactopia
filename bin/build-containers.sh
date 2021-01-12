@@ -13,7 +13,7 @@ function singularity_build {
     latest=${5:-0}
 
     echo "Working on ${recipe}"
-    singularity build -F --remote ${image} ${recipe}
+    singularity build -F ${image} ${recipe}
     singularity sign ${image}
     singularity push ${image} library://rpetit3/bactopia/${name}:${version}
 
@@ -60,8 +60,8 @@ MAJOR_VERSION=${3:-"0"}
 mkdir -p ${OUTPUT_DIR}
 
 # Build Bactopia containers
-singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${VERSION}.simg ${VERSION} 1
-docker_build Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
+#singularity_build Singularity bactopia ${OUTPUT_DIR}/bactopia-${VERSION}.simg ${VERSION} 1
+#docker_build Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
 
 if [ "${MAJOR_VERSION}" == "1" ]; then
     # Build Singularity
@@ -78,7 +78,7 @@ if [ "${MAJOR_VERSION}" == "1" ]; then
         recipe_path="${BACTOPIA_DIR}/containers/docker/${recipe}"
         recipe_name=$(echo ${recipe} | sed 's/.Dockerfile//')
         recipe_image="bactopia/${recipe_name}:${CONTAINER_VERSION}"
-        docker_build ${recipe_path} ${recipe_image}
+        #docker_build ${recipe_path} ${recipe_image}
     done
 
     # Build Bactopia Tools containers
@@ -86,7 +86,7 @@ if [ "${MAJOR_VERSION}" == "1" ]; then
         recipe_path="${BACTOPIA_DIR}/tools/${tool}"
         docker_file="${recipe_path}/Dockerfile"
         docker_image="bactopia/tools-${tool}:${CONTAINER_VERSION}"
-        docker_build ${docker_file} ${docker_image}
+        #docker_build ${docker_file} ${docker_image}
 
         singularity_file="${recipe_path}/Singularity"
         singularity_image="${OUTPUT_DIR}/tools-${tool}-${CONTAINER_VERSION}.simg"

@@ -11,8 +11,8 @@ From: nfcore/base
     export PATH
 
 %files
-    tools/gtdb/environment.yml /
+    tools/gtdb/environment-linux.yml /
 
 %post
-    /opt/conda/bin/conda env create -f /environment.yml
+    /opt/conda/bin/conda env create -f /environment-linux.yml
     /opt/conda/bin/conda clean -a

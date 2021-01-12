@@ -24,7 +24,7 @@ jobs:
           activate-environment: bactopia
           auto-activate-base: false
       - name: Install Dependencies
-        run: cd ${GITHUB_WORKSPACE}/ && bash setup-action-env.sh 
+        run: cd ${GITHUB_WORKSPACE}/ && bash bin/setup-action-env.sh 
       - name: Environment Information
         run: |
           uname -a
@@ -73,5 +73,3 @@ jobs:
           echo "Testing bactopia build"
           bactopia build --version
           bactopia build --help
-
-          
