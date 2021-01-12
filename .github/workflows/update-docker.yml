@@ -9,7 +9,7 @@ jobs:
       - name: Login to Quay.io Container Registry
         uses: docker/login-action@v1 
         with:
-          registry: ${{ secrets.QUAY_SERVER }}
+          registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
           
