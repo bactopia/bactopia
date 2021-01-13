@@ -78,12 +78,8 @@ process gather_fastqs {
     is_compressed = false
     no_cache = params.no_cache ? '-N' : ''
     use_ena = params.use_ena
-    ftp_only = params.ftp_only
     if (task.attempt >= 4) {
         use_ena = true
-        if (task.attempt >= 6) {
-            ftp_only = true
-        }
     }
     if (extra) {
         is_compressed = extra.getName().endsWith('gz') ? true : false
@@ -1291,11 +1287,6 @@ def check_input_params() {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
             error += is_positive_integer(params.genome_size, 'genome_size')
         }
-    }
-
-    if (params.ftp_only && !params.use_ena) {
-        log.error "'--ftp_only' must be used along side '--use_ena'"
-        error += 1
     }
 
     if (params.adapters) {

@@ -11,6 +11,9 @@
 - Bactopia Tools Dockerfile and Singularity recipes
 - moved version from conda yaml to conda version file
 - streamlined Docker recipes
+- undefined `--ftp_only` message
+- typo in singularity profile
+
 
 ## v1.5.5 bactopia/bactopia "Avenger's Earring" - 2021/01/04
 ### `Added`

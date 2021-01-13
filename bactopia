@@ -106,7 +106,7 @@ elif [[ "$1" == "tools" ]]; then
     else
         # Check if Conda environments need to be built
         BUILD_CONDA=1
-        CHECKS=("condadir" "docker" "singularity" "slurm" "conda_help") 
+        CHECKS=("condadir" "docker" "singularity" "slurm" "conda_help" "nfconfig") 
         for check in "${CHECKS[@]}"; do
             if [[ "$*" == *"${check}"* ]]; then
                 BUILD_CONDA=0
@@ -170,7 +170,7 @@ elif [[ "$1" == "versions" ]]; then
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
-    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help") 
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig") 
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
