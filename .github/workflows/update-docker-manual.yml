@@ -1,4 +1,4 @@
-name: docker-build
+name: docker-build-quay-manual
 on: workflow_dispatch
 jobs:
   build:
