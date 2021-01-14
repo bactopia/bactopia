@@ -1,0 +1,27 @@
+name: docker-build-release
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+          
+      - name: Login to Quay.io Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Login to GitHubContainer Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }} 
+          password: ${{ secrets.GHCR_TOKEN }}
+          
+      - name: Build and publish image to each registry
+        run: bash bin/update-docker.sh ./ "quay.io ghcr.io" 1
