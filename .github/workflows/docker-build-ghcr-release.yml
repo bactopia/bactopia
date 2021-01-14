@@ -14,7 +14,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }} 
-          password: $${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GHCR_TOKEN }}
           
       - name: Build and publish image to GitHub Container Registry
         run: bash bin/update-docker.sh "ghcr.io/bactopia"
