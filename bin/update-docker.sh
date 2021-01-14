@@ -5,6 +5,7 @@
 set -e
 BACTOPIA_DIR=${1:-"./"}
 REPOSITORY=${2:-"quay.io/bactopia"}
+PRUNE=${3:-"0"}
 VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
 
@@ -21,6 +22,18 @@ function docker_build {
     if [[ "${latest}" != "0" ]]; then
         docker tag ${image} ${REPOSITORY}/${latest}
         docker push ${REPOSITORY}/${latest}
+
+        if [[ "${PRUNE}" == "1" ]]; then
+            echo "Untagging ${REPOSITORY}/${latest}"
+            docker untag ${REPOSITORY}/${latest}
+        fi
+    fi
+
+    if [[ "${PRUNE}" == "1" ]]; then
+        echo "Removing ${image}"
+        docker rmi -f ${image}
+        echo "Available Storage"
+        df -h
     fi
 }
 
