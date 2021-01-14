@@ -22,28 +22,19 @@ function docker_build {
         echo "Pushing ${repo}/${image}"
         docker tag ${image} ${repo}/${image}
         docker push ${repo}/${image}
-        if [[ "${PRUNE}" == "1" ]]; then
-            echo "Untagging ${repo}/${image}"
-            docker rmi -f ${repo}/${image}
-        fi
 
         if [[ "${latest}" != "0" ]]; then
             echo "Pushing ${repo}/${latest}"
             docker tag ${image} ${repo}/${latest}
             docker push ${repo}/${latest}
-
-            if [[ "${PRUNE}" == "1" ]]; then
-                echo "Untagging ${repo}/${latest}"
-                docker rmi -f ${repo}/${latest}
-            fi
         fi
     done
 
     if [[ "${PRUNE}" == "1" ]]; then
-        echo "Removing ${image}"
-        docker rmi -f ${image}
-        echo "Available Storage"
-        df -h
+        echo "Pruning Docker Cache (space before/after)"
+        df -h | grep sda1
+        docker image prune -a -f
+        df -h | grep sda1
     fi
 }
 
