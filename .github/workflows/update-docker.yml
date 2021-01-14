@@ -1,7 +1,8 @@
 name: docker-build
-release:
-  types: # This configuration does not affect the page_build event above
-    - created
+on:
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
 jobs:
   build:
     runs-on: ubuntu-latest
