@@ -3,10 +3,11 @@
 #
 # Automate the building of Bactopia related Docker containers
 set -e
-REPOSITORY="quay.io/bactopia"
+BACTOPIA_DIR=${1:-"./"}
+REPOSITORY=${2:-"quay.io/bactopia"}
 VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
-BACTOPIA_DIR=${1:-"./"}
+
 
 function docker_build {
     recipe=$1

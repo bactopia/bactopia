@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.5.6 bactopia/bactopia "" - 2021/01/??
+## v1.5.6 bactopia/bactopia "Metal Slime Earring" - 2021/01/13
 ### `Added`
 - tweaks to the CI (via GitHub Actions)
 - docker containers use quay.io now
