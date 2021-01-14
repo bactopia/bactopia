@@ -1,7 +1,7 @@
 name: docker-build
 on:
   release:
-    types: # This configuration does not affect the page_build event above
+    types:
       - created
 jobs:
   build:
