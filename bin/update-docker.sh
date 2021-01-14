@@ -24,7 +24,7 @@ function docker_build {
         docker push ${repo}/${image}
         if [[ "${PRUNE}" == "1" ]]; then
             echo "Untagging ${repo}/${image}"
-            docker untag ${repo}/${image}
+            docker rmi -f ${repo}/${image}
         fi
 
         if [[ "${latest}" != "0" ]]; then
@@ -34,7 +34,7 @@ function docker_build {
 
             if [[ "${PRUNE}" == "1" ]]; then
                 echo "Untagging ${repo}/${latest}"
-                docker untag ${repo}/${latest}
+                docker rmi -f ${repo}/${latest}
             fi
         fi
     done
