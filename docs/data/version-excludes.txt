@@ -1,0 +1,5 @@
+CONTAINER_VERSION
+CODE_OF_CONDUCT
+main.nf
+.yml
+.md
