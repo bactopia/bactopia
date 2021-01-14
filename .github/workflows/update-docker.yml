@@ -17,4 +17,4 @@ jobs:
           password: ${{ secrets.QUAY_PASSWORD }}
           
       - name: Build and publish image to Quay
-        run: bash bin/update-docker.sh "quay.io/bactopia" 1
+        run: bash bin/update-docker.sh ./ "quay.io/bactopia" 1
