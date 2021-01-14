@@ -4,7 +4,7 @@
 # Automate the building of Bactopia related Docker containers
 set -e
 BACTOPIA_DIR=${1:-"./"}
-REPOSITORY=${2:-"quay.io/bactopia"}
+REPOSITORY=${2:-"quay.io"}
 PRUNE=${3:-"0"}
 VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
@@ -12,22 +12,32 @@ CONTAINER_VERSION="${VERSION%.*}.x"
 
 function docker_build {
     recipe=$1
-    image=${REPOSITORY}/$2
+    image=$2
     latest=${3:-0}
 
     echo "Working on ${image}"
     docker build --rm -t ${image} -f ${recipe} .
-    docker push ${image}
 
-    if [[ "${latest}" != "0" ]]; then
-        docker tag ${image} ${REPOSITORY}/${latest}
-        docker push ${REPOSITORY}/${latest}
-
+    for repo in ${REPOSITORY}; do 
+        echo "Pushing ${repo}/${image}"
+        docker tag ${image} ${repo}/${image}
+        docker push ${repo}/${image}
         if [[ "${PRUNE}" == "1" ]]; then
-            echo "Untagging ${REPOSITORY}/${latest}"
-            docker untag ${REPOSITORY}/${latest}
+            echo "Untagging ${repo}/${image}"
+            docker untag ${repo}/${image}
         fi
-    fi
+
+        if [[ "${latest}" != "0" ]]; then
+            echo "Pushing ${repo}/${latest}"
+            docker tag ${image} ${repo}/${latest}
+            docker push ${repo}/${latest}
+
+            if [[ "${PRUNE}" == "1" ]]; then
+                echo "Untagging ${repo}/${latest}"
+                docker untag ${repo}/${latest}
+            fi
+        fi
+    done
 
     if [[ "${PRUNE}" == "1" ]]; then
         echo "Removing ${image}"
