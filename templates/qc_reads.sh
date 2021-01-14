@@ -8,6 +8,12 @@ ERROR=0
 GENOME_SIZE=`head -n 1 !{genome_size}`
 TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
 
+# Print captured STDERR incase of exit
+function print_stderr { 
+    cat .command.err ${LOG_DIR}/*.err 1>&2
+}
+trap print_stderr EXIT
+
 echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 echo "# BBMap (bbduk.sh, reformat.sh) Version" >> ${LOG_DIR}/!{task.process}.versions
@@ -47,7 +53,7 @@ else
     if [ "!{single_end}" == "false" ]; then
         # Paired-End Reads
         # Remove Adapters
-        bbduk.sh -Xmx4g \
+        bbduk.sh -Xmx!{qc_ram}g \
             in=!{fq[0]} in2=!{fq[1]} \
             out=adapter-r1.fq out2=adapter-r2.fq \
             ref=!{adapters} \
@@ -63,7 +69,7 @@ else
             stats=${LOG_DIR}/bbduk-adapter.log 1> ${LOG_DIR}/bbduk-adapter.out 2> ${LOG_DIR}/bbduk-adapter.err
 
         # Remove PhiX
-        bbduk.sh -Xmx!{params.xmx} \
+        bbduk.sh -Xmx!{qc_ram}g \
             in=adapter-r1.fq in2=adapter-r2.fq \
             out=phix-r1.fq out2=phix-r2.fq \
             ref=!{phix} \
@@ -94,7 +100,7 @@ else
 
         # Reduce Coverage
         if (( ${TOTAL_BP} > 0 )); then
-            reformat.sh -Xmx!{params.xmx} \
+            reformat.sh -Xmx!{qc_ram}g \
                 in=phix-r1.cor.fq in2=phix-r2.cor.fq \
                 out=subsample-r1.fq out2=subsample-r2.fq \
                 samplebasestarget=${TOTAL_BP} \
@@ -112,7 +118,7 @@ else
     else
         # Single-End Reads
         # Remove Adapters
-        bbduk.sh -Xmx4g \
+        bbduk.sh -Xmx!{qc_ram}g \
             in=!{fq[0]} \
             out=adapter-r1.fq \
             ref=!{adapters} \
@@ -128,7 +134,7 @@ else
             stats=${LOG_DIR}/bbduk-adapter.log 1> ${LOG_DIR}/bbduk-adapter.out 2> ${LOG_DIR}/bbduk-adapter.err
 
         # Remove PhiX
-        bbduk.sh -Xmx!{params.xmx} \
+        bbduk.sh -Xmx!{qc_ram}g \
             in=adapter-r1.fq \
             out=phix-r1.fq \
             ref=!{phix} \
@@ -158,7 +164,7 @@ else
 
         # Reduce Coverage
         if (( ${TOTAL_BP} > 0 )); then
-            reformat.sh -Xmx!{params.xmx} \
+            reformat.sh -Xmx!{qc_ram}g \
                 in=phix-r1.cor.fq \
                 out=subsample-r1.fq \
                 samplebasestarget=${TOTAL_BP} \

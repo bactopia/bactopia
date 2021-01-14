@@ -7,6 +7,12 @@ mkdir -p fastqs
 mkdir -p extra
 mkdir -p ${LOG_DIR}
 
+# Print captured STDERR incase of exit
+function print_stderr { 
+    cat .command.err ${LOG_DIR}/*.err 1>&2
+}
+trap print_stderr EXIT
+
 # Bactopia Version Info
 echo "# Timestamp" > bactopia.versions
 date --iso-8601=seconds >> bactopia.versions
@@ -14,7 +20,6 @@ echo "# Bactopia Version" >> bactopia.versions
 echo "bactopia !{bactopia_version}" >> bactopia.versions
 echo "# Nextflow Version" >> bactopia.versions
 echo "nextflow !{nextflow_version}" >> bactopia.versions
-
 echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 if [ "!{sample_type}" == "paired-end" ]; then

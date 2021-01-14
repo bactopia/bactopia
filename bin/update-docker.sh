@@ -4,7 +4,7 @@
 # Automate the building of Bactopia related Docker containers
 set -e
 REPOSITORY="quay.io/bactopia"
-VERSION=1.5.5
+VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
 BACTOPIA_DIR=${1:-"./"}
 

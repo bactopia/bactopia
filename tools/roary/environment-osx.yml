@@ -1,5 +1,4 @@
 name: bactopia-roary
-version: 1.5.4
 channels:
   - bioconda
   - conda-forge

@@ -1,5 +1,4 @@
 name: bactopia-antimicrobial_resistance
-version: 1.5.4
 channels:
   - conda-forge
   - bioconda

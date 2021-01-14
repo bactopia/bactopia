@@ -1,5 +1,4 @@
 name: bactopia-download_references
-version: 1.5.5
 channels:
   - bioconda
   - conda-forge

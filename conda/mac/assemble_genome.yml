@@ -1,5 +1,4 @@
 name: bactopia-assemble_genome
-version: 1.5.4
 channels:
   - conda-forge
   - bioconda

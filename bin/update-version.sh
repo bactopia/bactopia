@@ -10,7 +10,7 @@ function python_update {
     ${1} -r 's/VERSION = "'"${2}"'"/VERSION = "'"${3}"'"/' ${4}
 }
 
-function yaml_update {
+function conda_update {
     ${1} -r 's=version: '"${2}"'$=version: '"${3}"'=' ${4}
 }
 
@@ -51,36 +51,37 @@ fi
 
 # Test $DIRECTORY points to bactopia repo
 /bin/bash ${DIRECTORY}/bactopia 1> /dev/null 2> /dev/null
+
 if [ $? -eq 0 ]; then
-    # It is! Now update versions
-    # Conda Files
-    for file in $(find -not -path "*.git*" -name "*.yml" -and -not -name "mkdocs.yml" -and -not -name ".git*"); do
-        yaml_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
+    IGNORE=${DIRECTORY}/docs/data/version-ignore.txt
+    EXCLUDE=${DIRECTORY}/docs/data/version-excludes.txt
+    for file in $(find -type f | grep -v -f ${IGNORE} | xargs -I {} grep -i -H "version" {} | grep -v -f ${EXCLUDE} | cut -d ":" -f 1 | sort | uniq); do
+        if [[ "${file}" == *"bactopia" ]]; then
+            # bactopia
+            shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *".version" ]]; then
+            # Conda
+            conda_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
+        elif [[ "${file}" == *"Dockerfile" ]]; then
+            # Docker
+            generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *"nextflow.config" ]]; then
+            # Nextflow Config
+            generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+            generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
+        elif [[ "${file}" == *"Singularity" ]]; then
+            # Singularity
+            generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *".py" ]]; then
+            # Python
+            python_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *".sh" ]]; then
+            # Shell
+            shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        else
+            echo "Unknown: ${file}"
+        fi
     done
-
-    # Python Scripts
-    for file in $(find -name "*.py"); do
-        python_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
-    done
-
-    # Docker/Singularity
-    generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ./Singularity
-    generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ./Dockerfile
-    for file in $(find -mindepth 2 -not -path "*work*" -not -path "*.git*" -name "*Dockerfile" -or -name "*Singularity" -and -not -name ".git*"); do
-        generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
-    done
-
-    # Nextflow Configs
-    for file in $(find -not -path "*work*" -not -path "*.git*" -name "nextflow.config" -and -not -name ".git*"); do
-        generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
-        generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
-    done
-
-    # Bactopia/Nextflow
-    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bactopia
-    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bin/build-containers.sh
-    shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${DIRECTORY}/bin/create-tool.sh
-
 else
     echo "Unable to execute '${DIRECTORY}/bactopia"
     echo "Please verify '${DIRECTORY}' points to the bactopia repo."

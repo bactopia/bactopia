@@ -1,5 +1,4 @@
 name: bactopia-summary
-version: 1.5.4
 channels:
   - conda-forge
   - defaults

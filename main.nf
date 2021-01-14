@@ -170,6 +170,7 @@ process qc_reads {
     file "${task.process}/*" optional true
 
     shell:
+    qc_ram = task.memory.toString().split(' ')[0]
     is_assembly = sample_type.startsWith('assembly') ? true : false
     qin = sample_type.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapters = params.adapters ? file(params.adapters) : 'adapters'
@@ -1358,8 +1359,11 @@ def process_accessions(accession) {
     if (accession.length() > 0) {
         if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
             return tuple(accession.split(/\./)[0], "assembly_accession", false, [null], [null], null)
-        } else {
+        } else if (accession.startsWith('DRX') || accession.startsWith('ERX') || accession.startsWith('SRX')) {
             return tuple(accession, "sra_accession", false, [null], [null], null)
+        } else {
+            log.error("Invalid accession: ${accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
+            exit 1
         }
     }
 }
@@ -1852,12 +1856,6 @@ def full_help() {
                                         33 (PHRED33 offset quality scores, Default)
                                         64 (PHRED64 offset quality scores)
                                         auto (keeps the current input offset)
-
-        --xmx STR               This will be passed to Java to set memory usage
-                                    Examples:
-                                        '8g' will specify 8 gigs of RAM (Default)
-                                        '20g' will specify 20 gigs of RAM
-                                        '200m' will specify 200 megs of RAM
 
         --maxcor INT            Max number of corrections within a 20bp window
                                     Default: ${params.maxcor}

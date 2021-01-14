@@ -4,16 +4,20 @@
 ### `Added`
 - tweaks to the CI (via GitHub Actions)
 - docker containers use quay.io now
+- docker containers now use conda-pack
+- `--nfconfig` will skip the conda environment build step
+- input accessions are checked to be Assembly or Experiment accessions
+- improved version increment script
 
 ### `Fixed`
-- phyloflash environment
-- download_reference environment
-- Bactopia Tools Dockerfile and Singularity recipes
+- phyloflash and download_reference environment errors
+- environment path in Bactopia Tools Dockerfile and Singularity recipes
 - moved version from conda yaml to conda version file
 - streamlined Docker recipes
 - undefined `--ftp_only` message
 - typo in singularity profile
-
+- stderr logged to file is also printed to screen
+- `qc_reads` memory used now determined by base config
 
 ## v1.5.5 bactopia/bactopia "Avenger's Earring" - 2021/01/04
 ### `Added`

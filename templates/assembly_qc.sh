@@ -7,6 +7,12 @@ mkdir -p ${LOG_DIR}
 echo "# Timestamp" >> ${LOG_DIR}/!{task.process}-!{method}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
 
+# Print captured STDERR incase of exit
+function print_stderr { 
+    cat .command.err ${LOG_DIR}/*.err 1>&2
+}
+trap print_stderr EXIT
+
 # Verify AWS files were staged
 if [[ ! -L "!{fasta}" ]]; then
     check_staging.py --assembly !{fasta} --genome_size !{genome_size}
