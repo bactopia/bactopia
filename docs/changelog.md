@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.7 bactopia/bactopia "" - 2021/??/??
+### `Added`
+- `--singularity_cache` parameter to set location of image downloads
+- `--registry` to choose Docker registry to use
+
+### `Fixed`
+- redundant environment version files
+
+### `Removed`
+- `--containerPath` variable is replaced by `--singularity_cache`
+- Native Singularity recipes, will now convert Docker to Singularity
+
 ## v1.5.6 bactopia/bactopia "Metal Slime Earring" - 2021/01/13
 ### `Added`
 - tweaks to the CI (via GitHub Actions)
