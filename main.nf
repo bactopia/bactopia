@@ -1641,7 +1641,7 @@ def basic_help() {
         --cpus INT              Number of processors made available to a single task. 
                                     Default: ${params.cpus}
 
-        -qs                     Nextflow queue size. This parameter is very useful to limit the total number of 
+        -qs INT                 Nextflow queue size. This parameter is very useful to limit the total number of 
                                     processors used on desktops, laptops or shared resources.
                                     Default: Nextflow defaults to the total number of processors on your system.
 
@@ -1654,7 +1654,7 @@ def basic_help() {
                                     Default: Bactopia's Nextflow directory
 
         --registry STR          Docker registry to pull containers from.
-                                    Opeions: dockerhub, quay, or github
+                                    Available options: dockerhub, quay, or github
                                     Default: dockerhub
 
         --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
@@ -1668,7 +1668,7 @@ def basic_help() {
         --overwrite             Nextflow will overwrite existing output files.
                                     Default: ${params.overwrite}
 
-        --singularity_cache     Directory where remote Singularity images are stored. If using a cluster, it must
+        --singularity_cache STR Directory where remote Singularity images are stored. If using a cluster, it must
                                     be accessible from all compute nodes.
                                     Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
 

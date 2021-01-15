@@ -12,9 +12,11 @@ if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) pr
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 reference = [tuple(null, null)]
+local_reference = null
 if (params.reference) {
     if (file(params.reference).exists()) {
         reference = [tuple(true, file(params.reference))]
+        local_reference = file(params.reference).getSimpleName().replace(".gz", "")
     } else {
         log.error("Could not open ${params.reference}, please verify existence. Unable to continue.")
         exit 1
@@ -129,7 +131,13 @@ process calculate_ani {
     if [ -e "EMPTY_FILE.fna.reference" ]; then
         rm EMPTY_FILE.fna.reference
     else
-        cp -P *.reference reference/
+        if [ "!{params.local_reference_only}" == "true" ]; then
+            # Include only local reference
+            cp -P !{local_reference}.fna.reference reference/
+        else
+            # Include all downloaded references
+            cp -P *.reference reference/
+        fi
     fi
 
     cp -P *.fna* query/
@@ -312,9 +320,22 @@ def check_input_params() {
         error += 1
     }
 
+    if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
+            log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
+                      "'github' or 'quay'. Please correct to continue."
+            error += 1
+    }
+
     if (params.skip_pairwise) {
         if (!params.reference && !params.accession && !params.species) {
             log.error("'--skip_pairwise' requires a reference genome (--accession, --species, or --reference)")
+            error += 1
+        }
+    }
+
+    if (params.local_reference_only) {
+        if (!params.skip_pairwise || !params.reference) {
+            log.error("'--local_reference_only' requires a local reference genome (--reference) and --skip_pairwise")
             error += 1
         }
     }
@@ -472,12 +493,27 @@ def print_help() {
                                     the two is considered.
                                     Default: ${params.minFraction}
 
-        --skip_pairwise         Skip pairwise ANI's calculations for all samples including any 
+        --skip_pairwise         Skip pairwise ANI calculations for all samples including any 
                                     downloaded RefSeq genomes or user provided genomes.
+
+        --local_reference_only  ANI calculations will only be determined agains the provided 
+                                    (--reference) reference genome. Downloaded genomes will 
+                                    still be included, just not get pairwise ANI against all 
+                                    samples. The parameters `--reference` and `--skip_pairwise`
+                                    bust also be used.
 
     Nextflow Related Parameters:
         --condadir DIR          Directory to Nextflow should use for Conda environments
                                     Default: Bactopia's Nextflow directory
+
+        --registry STR          Docker registry to pull containers from. 
+                                    Available options: dockerhub, quay, or github
+                                    Default: dockerhub
+
+        --singularity_cache STR Directory where remote Singularity images are stored. If using a cluster, it must
+                                    be accessible from all compute nodes.
+                                    Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
+
 
         --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
                                     Warning: by doing this you lose the ability to resume workflows.
@@ -501,10 +537,6 @@ def print_help() {
 
         --force                 Nextflow will overwrite existing output files.
                                     Default: ${params.force}
-
-        --conatainerPath        Path to Singularity containers to be used by the 'slurm'
-                                    profile.
-                                    Default: ${params.containerPath}
 
         --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                     will wait before execution.
