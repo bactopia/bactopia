@@ -1290,9 +1290,16 @@ def check_input_params() {
         }
     }
 
+    if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
+            log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
+                      "'github' or 'quay'. Please correct to continue."
+            error += 1
+    }
+
     if (params.adapters) {
         error += file_exists(params.adapters, '--adapters')
     }
+
     if (params.phix) {
         error += file_exists(params.phix, '--phix')
     }
@@ -1644,6 +1651,10 @@ def basic_help() {
 
         --condadir DIR          Directory to Nextflow should use for Conda environments
                                     Default: Bactopia's Nextflow directory
+
+        --registry STR          Docker registry to pull containers from.
+                                    Opeions: dockerhub, quay, or github
+                                    Default: dockerhub
 
         --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
                                     you to create profiles specific to your environment (e.g. SGE,

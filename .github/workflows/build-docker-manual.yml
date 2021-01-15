@@ -8,7 +8,13 @@ jobs:
 
       - name: Free up Disk Space
         run: bash bin/gh-actions-cleanup.sh
-        
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Login to Quay.io Container Registry
         uses: docker/login-action@v1 
         with:

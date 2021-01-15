@@ -1,12 +1,9 @@
-# Build then use conda-pack
-FROM continuumio/miniconda3:4.9.2 AS build
-COPY . /bactopia
-RUN bash /bactopia/bin/setup-docker-env.sh annotate_genome
+FROM nfcore/base:1.12.1
 
-# Use the conda-pack version
-FROM debian:buster AS runtime
 LABEL version="1.5.x"
 LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia annotate_genome process"
-COPY --from=build /conda /opt/conda/envs/bactopia-annotate_genome
+
+COPY conda/linux/annotate_genome.yml /
+RUN conda env create -f -q annotate_genome.yml && conda clean -y -a 
 ENV PATH /opt/conda/envs/bactopia-annotate_genome/bin:$PATH

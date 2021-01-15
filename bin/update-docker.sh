@@ -4,11 +4,10 @@
 # Automate the building of Bactopia related Docker containers
 set -e
 BACTOPIA_DIR=${1:-"./"}
-REPOSITORY=${2:-"quay.io"}
+REPOSITORY=${2:-""}
 PRUNE=${3:-"0"}
 VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
-
 
 function docker_build {
     recipe=$1
@@ -18,6 +17,17 @@ function docker_build {
     echo "Working on ${image}"
     docker build --rm -t ${image} -f ${recipe} .
 
+    # Push to DockerHub
+    echo "Pushing ${image}"
+    docker push ${image}
+
+    if [[ "${latest}" != "0" ]]; then
+        echo "Pushing ${latest}"
+        docker tag ${image} ${latest}
+        docker push ${latest}
+    fi
+
+    # Push to optional repos
     for repo in ${REPOSITORY}; do 
         echo "Pushing ${repo}/${image}"
         docker tag ${image} ${repo}/${image}
@@ -31,10 +41,9 @@ function docker_build {
     done
 
     if [[ "${PRUNE}" == "1" ]]; then
-        echo "Pruning Docker Cache (space before/after)"
-        df -h | grep sda1
+        echo "Pruning Docker Cache"
         docker image prune -a -f
-        df -h | grep sda1
+        df -h
     fi
 }
 
