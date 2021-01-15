@@ -5,7 +5,7 @@ LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Tool phyloflash"
 
 COPY tools/phyloflash/environment-linux.yml /
-RUN conda env create -f /environment-linux.yml \
+RUN conda env create -q -f /environment-linux.yml \
     && conda create -n python3 -c conda-forge python=3 \
     && conda clean -y -a 
 

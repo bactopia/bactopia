@@ -5,5 +5,5 @@ LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image containing requirements for the Bactopia qc_reads process"
 
 COPY conda/linux/qc_reads.yml /
-RUN conda env create -f -q qc_reads.yml && conda clean -y -a
+RUN conda env create -q -f qc_reads.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-qc_reads/bin:$PATH

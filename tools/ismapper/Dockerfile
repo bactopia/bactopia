@@ -5,5 +5,5 @@ LABEL authors="robert.petit@emory.edu"
 LABEL description="Container image for Bactopia Tool ismapper"
 
 COPY tools/ismapper/environment.yml /
-RUN conda env create -f /environment.yml && conda clean -y -a
+RUN conda env create -q -f /environment.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-ismapper/bin:$PATH

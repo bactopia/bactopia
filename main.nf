@@ -32,6 +32,7 @@ outdir = params.outdir ? params.outdir : './'
 
 // Setup some defaults
 log.info "${PROGRAM_NAME} - ${VERSION}"
+
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
@@ -1667,9 +1668,9 @@ def basic_help() {
         --overwrite             Nextflow will overwrite existing output files.
                                     Default: ${params.overwrite}
 
-        --conatainerPath        Path to Singularity containers to be used by the 'slurm'
-                                    profile.
-                                    Default: ${params.containerPath}
+        --singularity_cache     Directory where remote Singularity images are stored. If using a cluster, it must
+                                    be accessible from all compute nodes.
+                                    Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
 
         --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                     will wait before execution.
