@@ -305,6 +305,12 @@ def check_input_params() {
         error += 1
     }
 
+    if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
+            log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
+                      "'github' or 'quay'. Please correct to continue."
+            error += 1
+    }
+
     // Check publish_mode
     ALLOWED_MODES = ['copy', 'copyNoFollow', 'link', 'rellink', 'symlink']
     if (!ALLOWED_MODES.contains(params.publish_mode)) {
@@ -522,6 +528,14 @@ def print_help() {
         --condadir DIR          Directory to Nextflow should use for Conda environments
                                     Default: Bactopia's Nextflow directory
 
+        --registry STR          Docker registry to pull containers from. 
+                                    Available options: dockerhub, quay, or github
+                                    Default: dockerhub
+
+        --singularity_cache STR Directory where remote Singularity images are stored. If using a cluster, it must
+                                    be accessible from all compute nodes.
+                                    Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
+
         --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
                                     Warning: by doing this you lose the ability to resume workflows.
                            
@@ -544,10 +558,6 @@ def print_help() {
 
         --force                 Nextflow will overwrite existing output files.
                                     Default: ${params.force}
-
-        --conatainerPath        Path to Singularity containers to be used by the 'slurm'
-                                    profile.
-                                    Default: ${params.containerPath}
 
         --sleep_time            After reading datases, the amount of time (seconds) Nextflow
                                     will wait before execution.

@@ -514,7 +514,6 @@ def print_help() {
                                     be accessible from all compute nodes.
                                     Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
 
-
         --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
                                     Warning: by doing this you lose the ability to resume workflows.
 
