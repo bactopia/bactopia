@@ -5,9 +5,12 @@
 - `--singularity_cache` parameter to set location of image downloads
 - `--registry` to choose Docker registry to use
 - `bactopia search` now uses POST requests, and groups accessions into single query
+- `--max_downloads` to set the maximum number of downloads allowed at once
 
 ### `Fixed`
 - redundant environment version files
+- failed FASTQ/Assembly downloads no longer stop whole run
+- `--max_retry` is honored now
 
 ### `Removed`
 - `--containerPath` variable is replaced by `--singularity_cache`

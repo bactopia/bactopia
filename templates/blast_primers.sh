@@ -16,7 +16,7 @@ for fasta in *.fasta; do
     type=`readlink -f ${fasta}`
     name="${fasta%.*}"
     mkdir -p ${OUTDIR} temp_json
-    cat ${fasta} |
+    cat ${fasta} | sed -e 's/<[^>]*>//g' |
     parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
     blastn -db !{sample} \
             -outfmt 15 \

@@ -10,7 +10,7 @@ mkdir -p ${LOG_DIR}
 # Print captured STDERR incase of exit
 function print_stderr {
     cat .command.err 1>&2
-    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat ${LOG_DIR}/{} 1>&2
 }
 trap print_stderr EXIT
 
@@ -117,6 +117,7 @@ elif [ "!{is_assembly}" == "true" ]; then
         ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
         if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
+            touch extra/empty.fna.gz
             echo "Unable to download !{sample} from NCBI Assembly !{params.max_retry} times. This may or may
                   not be a temporary connection issue. Rather than stop the whole Bactopia run, 
                   further analysis of !{sample} will be discontinued." | \

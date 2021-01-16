@@ -9,7 +9,7 @@ date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 # Print captured STDERR incase of exit
 function print_stderr {
     cat .command.err 1>&2
-    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat ${LOG_DIR}/{} 1>&2
 }
 trap print_stderr EXIT
 
