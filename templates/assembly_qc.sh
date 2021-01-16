@@ -8,8 +8,9 @@ echo "# Timestamp" >> ${LOG_DIR}/!{task.process}-!{method}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
 
 # Print captured STDERR incase of exit
-function print_stderr { 
-    cat .command.err ${LOG_DIR}/*.err 1>&2
+function print_stderr {
+    cat .command.err 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
 }
 trap print_stderr EXIT
 

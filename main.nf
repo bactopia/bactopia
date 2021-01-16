@@ -19,7 +19,8 @@ USING_MERGE = false
 // Validate parameters
 if (params.help || params.help_all || params.conda_help) print_usage();
 if (params.nfdir) print_basedir();
-if (params.available_datasets && params.datasets) print_available_datasets(params.datasets)
+if (params.nfdir) print_basedir();
+if (params.available_datasets && params.datasets) print_available_datasets(params.datasets);
 if (workflow.commandLine.trim().endsWith(workflow.scriptName)) print_usage();
 if (params.example_fastqs) print_example_fastqs();
 if (params.version) print_version();
@@ -80,7 +81,13 @@ process gather_fastqs {
     no_cache = params.no_cache ? '-N' : ''
     use_ena = params.use_ena
     if (task.attempt >= 4) {
-        use_ena = true
+        if (use_ena) {
+            // Try SRA
+            use_ena = false 
+        } else {
+            // Try ENA
+            use_ena = true
+        }
     }
     if (extra) {
         is_compressed = extra.getName().endsWith('gz') ? true : false
@@ -1279,6 +1286,7 @@ def check_input_params() {
     error += is_positive_integer(params.cpus, 'cpus')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
+    error += is_positive_integer(params.max_downloads, 'max_downloads')
     error += is_positive_integer(params.shovill_ram, 'shovill_ram')
     error += is_positive_integer(params.snippy_ram, 'snippy_ram')
     error += is_positive_integer(params.cortex_ram, 'cortex_ram')
@@ -1741,6 +1749,9 @@ def full_help() {
     ENA Download Parameters:
         --max_retry INT         Maximum times to retry downloads
                                     Default: ${params.max_retry}
+
+        --max_downloads INT     Maximum number of FASTQs to download at once
+                                    Default: ${params.max_downloads}
 
         --use_ena               Download FASTQs from ENA with Aspera Connect.
                                     Default: Download from SRA

@@ -8,8 +8,9 @@ mkdir -p extra
 mkdir -p ${LOG_DIR}
 
 # Print captured STDERR incase of exit
-function print_stderr { 
-    cat .command.err ${LOG_DIR}/*.err 1>&2
+function print_stderr {
+    cat .command.err 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
 }
 trap print_stderr EXIT
 
@@ -94,33 +95,49 @@ elif [ "!{sample_type}" == "sra_accession" ]; then
     echo "# fastq-dl Version" >> ${LOG_DIR}/!{task.process}.versions
     fastq-dl --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
-    # Download accession from ENA/SRA
-    fastq-dl !{sample} $ARCHIVE \
-        --cpus !{task.cpus} \
-        --outdir fastqs/ \
-        --group_by_experiment \
-        --is_experiment $FTP_ONLY > ${LOG_DIR}/fastq-dl.out 2> ${LOG_DIR}/fastq-dl.err
-    touch extra/empty.fna.gz    
+    if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
+        echo "Unable to download !{sample} from both SRA and ENA !{params.max_retry} times. This may or may 
+              not be a temporary connection issue. Rather than stop the whole Bactopia run, 
+              further analysis of !{sample} will be discontinued." | \
+        sed 's/^\s*//' > !{sample}-fastq-download-error.txt
+        exit
+    else
+        # Download accession from ENA/SRA
+        fastq-dl !{sample} $ARCHIVE \
+            --cpus !{task.cpus} \
+            --outdir fastqs/ \
+            --group_by_experiment \
+            --is_experiment $FTP_ONLY > ${LOG_DIR}/fastq-dl.out 2> ${LOG_DIR}/fastq-dl.err
+        touch extra/empty.fna.gz
+    fi 
 elif [ "!{is_assembly}" == "true" ]; then
     if [ "!{sample_type}" == "assembly_accession" ]; then
         # ncbi-genome-download Version
         echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
         ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
-        # Verify Assembly accession
-        check-assembly-accession.py !{sample} > accession.txt 2> ${LOG_DIR}/check-assembly-accession.txt
-
-        if [ -s "accession.txt" ]; then
-            # Download from NCBI assembly and simulate reads
-            mkdir fasta/
-            ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
-                                        -s !{section} -A accession.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
-            find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
-            rename 's/(GC[AF]_\d+).*/$1.fna.gz/' fasta/*
-            gzip -cd fasta/!{sample}.fna.gz > !{sample}-art.fna
-        else
-            cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt
+        if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
+            echo "Unable to download !{sample} from NCBI Assembly !{params.max_retry} times. This may or may
+                  not be a temporary connection issue. Rather than stop the whole Bactopia run, 
+                  further analysis of !{sample} will be discontinued." | \
+            sed 's/^\s*//' > !{sample}-assembly-download-error.txt
             exit
+        else
+            # Verify Assembly accession
+            check-assembly-accession.py !{sample} > accession.txt 2> ${LOG_DIR}/check-assembly-accession.txt
+
+            if [ -s "accession.txt" ]; then
+                # Download from NCBI assembly and simulate reads
+                mkdir fasta/
+                ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
+                                            -s !{section} -A accession.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
+                find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
+                rename 's/(GC[AF]_\d+).*/$1.fna.gz/' fasta/*
+                gzip -cd fasta/!{sample}.fna.gz > !{sample}-art.fna
+            else
+                cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt
+                exit
+            fi
         fi
     elif [ "!{sample_type}" == "assembly" ]; then
         if [ "!{is_compressed}" == "true" ]; then

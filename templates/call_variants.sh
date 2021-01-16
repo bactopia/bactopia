@@ -9,8 +9,9 @@ echo "# Snippy Version" >> ${LOG_DIR}/!{task.process}.versions
 snippy --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
 # Print captured STDERR incase of exit
-function print_stderr { 
-    cat .command.err ${LOG_DIR}/*.err 1>&2
+function print_stderr {
+    cat .command.err 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
 }
 trap print_stderr EXIT
 

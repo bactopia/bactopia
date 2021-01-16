@@ -7,8 +7,9 @@ echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
 date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 
 # Print captured STDERR incase of exit
-function print_stderr { 
-    cat .command.err ${LOG_DIR}/*.err 1>&2
+function print_stderr {
+    cat .command.err 1>&2
+    ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat {} 1>&2
 }
 trap print_stderr EXIT
 
@@ -36,7 +37,7 @@ grep -v distance mash-dist.txt | cut -f3 > download-list.txt
 # Download genomes
 echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
 ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
+ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r !{params.max_retry} !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
 
 # Move and uncompress genomes
 mkdir genbank_temp
