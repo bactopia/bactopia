@@ -6,6 +6,8 @@
 - `--registry` to choose Docker registry to use
 - `bactopia search` now uses POST requests, and groups accessions into single query
 - `--max_downloads` to set the maximum number of downloads allowed at once
+- strip HTML from FASTA headers used in BLAST
+- `bactopia build` will retry in case of HTTP connection issues
 
 ### `Fixed`
 - redundant environment version files

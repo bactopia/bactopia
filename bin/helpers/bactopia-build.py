@@ -20,6 +20,7 @@ optional arguments:
 """
 import logging
 import os
+import sys
 
 VERSION = "1.5.6"
 PROGRAM = "bactopia build"
@@ -27,6 +28,7 @@ STDOUT = 11
 STDERR = 12
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
+
 
 def get_platform():
     from sys import platform
@@ -38,9 +40,11 @@ def get_platform():
         sys.exit(1)
     return 'linux'
 
+
 def set_log_level(error, debug):
     """Set the output log level."""
     return logging.ERROR if error else logging.DEBUG if debug else logging.INFO
+
 
 def check_md5sum(expected_md5, current_md5):
     """Compare the two md5 files to see if a rebuild is needed."""
@@ -54,27 +58,37 @@ def check_md5sum(expected_md5, current_md5):
 
     return expected == current
 
+
 def get_log_level():
     """Return logging level name."""
     return logging.getLevelName(logging.getLogger().getEffectiveLevel())
 
 
 def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
-            stderr_file=None):
+            stderr_file=None, allow_fail=False):
     """A simple wrapper around executor."""
     from executor import ExternalCommand
-    command = ExternalCommand(
-        cmd, directory=directory, capture=True, capture_stderr=True,
-        stdout_file=stdout_file, stderr_file=stderr_file
-    )
+    try:
+        command = ExternalCommand(
+            cmd, directory=directory, capture=True, capture_stderr=True,
+            stdout_file=stdout_file, stderr_file=stderr_file
+        )
 
-    command.start()
-    if get_log_level() == 'DEBUG':
-        logging.log(STDOUT, command.decoded_stdout)
-        logging.log(STDERR, command.decoded_stderr)
+        command.start()
+        if get_log_level() == 'DEBUG':
+            logging.log(STDOUT, command.decoded_stdout)
+            logging.log(STDERR, command.decoded_stderr)
 
-    if capture:
-        return command.decoded_stdout
+        if capture:
+            return command.decoded_stdout
+        return True
+    except executor.ExternalCommandFailed as e:
+        if allow_fail:
+            print(e, file=sys.stderr)
+            sys.exit(e.returncode)
+        else:
+            return None
+
 
 if __name__ == '__main__':
     import argparse as ap
@@ -103,6 +117,8 @@ if __name__ == '__main__':
                         help='Build Conda environment with the given name')
     parser.add_argument('--default', action='store_true',
                         help='Builds Conda environments to the default Bactopia location.')
+    parser.add_argument('--max_retry', metavar='INT', type=int, default=5,
+                        help='Maximum times to attemp creating Conda environment. (Default: 5)')           
     parser.add_argument('--force', action='store_true',
                         help='Force overwrite of existing Conda environments.')
     parser.add_argument('--is_bactopia', action='store_true',
@@ -168,7 +184,19 @@ if __name__ == '__main__':
                     if args.is_bactopia:
                         force = '--force'
                     logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
-                    execute(f'conda env create -f {env_file} --prefix {prefix} {force}')
+                    retry = 0
+                    allow_fail = False
+                    success = False
+                    while not success:
+                        result = execute(f'conda env create -f {env_file} --prefix {prefix} {force}', allow_fail=allow_fail)
+                        if not result:
+                            if retry > args.max_retry:
+                                allow_fail = True
+                            retry += 1
+                            logging.log(STDERR, "Error creating Conda environment, retrying after short sleep.")
+                            sys.sleep(30 * retry)
+                        else:
+                            success = True
                     execute(f'cp {md5_file} {envbuilt_file}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:

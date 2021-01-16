@@ -21,7 +21,7 @@ fi
 file_size=`cat !{gunzip_genes} | wc -c`
 block_size=$(( file_size / !{task.cpus} / 2 ))
 mkdir -p temp_json
-cat !{gunzip_genes} | \
+cat !{gunzip_genes} | sed -e 's/<[^>]*>//g' | \
 parallel --gnu --plain -j !{task.cpus} --block ${block_size} --recstart '>' --pipe \
 blastn -db !{blastdb} \
        -outfmt 15 \
