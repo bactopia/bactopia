@@ -4,6 +4,7 @@
 ### `Added`
 - `--singularity_cache` parameter to set location of image downloads
 - `--registry` to choose Docker registry to use
+- `bactopia search` now uses POST requests, and groups accessions into single query
 
 ### `Fixed`
 - redundant environment version files

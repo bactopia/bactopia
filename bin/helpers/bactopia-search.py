@@ -31,7 +31,7 @@ import os
 import sys
 VERSION = "1.5.6"
 PROGRAM = "bactopia search"
-ENA_URL = ('https://www.ebi.ac.uk/ena/portal/api/search?result=read_run&format=tsv')
+ENA_URL = ('https://www.ebi.ac.uk/ena/portal/api/search')
 FIELDS = [
     'study_accession', 'secondary_study_accession', 'sample_accession',
     'secondary_sample_accession', 'experiment_accession', 'run_accession',
@@ -50,24 +50,35 @@ FIELDS = [
 ]
 
 
-def ena_search(query, limit=1000000):
+def ena_search(query, is_accession, limit=1000000):
     """USE ENA's API to retreieve the latest results."""
     import requests
     import time
 
     # ENA browser info: http://www.ebi.ac.uk/ena/about/browser
     query_original = query
-    query = (
-        f'"{query} AND library_source=GENOMIC AND '
-        '(library_strategy=OTHER OR library_strategy=WGS OR '
-        'library_strategy=WGA) AND (library_selection=MNase OR '
-        'library_selection=RANDOM OR library_selection=unspecified OR '
-        'library_selection="size fractionation")"'
-    )
-    limit = f'limit={limit}'
-    url = f'{ENA_URL}&query={query}&{limit}&fields={",".join(FIELDS)}'
-    headers = {'Content-type': 'application/x-www-form-urlencoded'}
-    response = requests.get(url, headers=headers)
+    data = {
+        'dataPortal': 'ena',
+        'dccDataOnly': 'false',
+        'download': 'false',
+        'result': 'read_run',
+        'format': 'tsv',
+        'limit': limit,
+        'fields': ",".join(FIELDS)
+    }
+    if is_accession:
+        data['includeAccessions'] = query
+    else:
+        data['query'] = (
+            f'"{query} AND library_source=GENOMIC AND '
+            '(library_strategy=OTHER OR library_strategy=WGS OR '
+            'library_strategy=WGA) AND (library_selection=MNase OR '
+            'library_selection=RANDOM OR library_selection=unspecified OR '
+            'library_selection="size fractionation")"'
+        )
+
+    headers = {'accept': '*/*', 'Content-type': 'application/x-www-form-urlencoded'}
+    response = requests.post(ENA_URL, headers=headers, data=data)
     time.sleep(1)
     if not response.text:
         print(f'WARNING: {query_original} did not return any results from ENA.', file=sys.stderr)
@@ -121,7 +132,24 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
     return [list(set(accessions)), filtered]
 
 
-def parse_query(q, exact_taxon=False):
+def is_biosample(accession):
+    """Check if input accession is a BioSample."""
+    import re
+    if re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', accession):
+        return True
+    return False
+
+
+def chunks(l, n):
+    """
+    Yield successive n-sized chunks from l.
+    https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks?page=1&tab=votes#tab-top
+    """
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
+def parse_query(q, accession_limit, exact_taxon=False):
     """Return the query based on if Taxon ID or BioProject/Study accession."""
     import re
     queries = []
@@ -137,6 +165,8 @@ def parse_query(q, exact_taxon=False):
         queries.append(q)
 
     results = []
+    accessions = []
+
     for query in queries:
         try:
             taxon_id = int(query)
@@ -149,14 +179,19 @@ def parse_query(q, exact_taxon=False):
             # Test Accession
             # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
             if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
-                results.append(['bioproject', f'(study_accession={query} OR secondary_study_accession={query})'])
+                accessions.append(query)
             elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
                 results.append(['biosample', f'(sample_accession={query} OR secondary_sample_accession={query})'])
             elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
-                results.append( ['run', f'(run_accession={query})'])
+                accessions.append(query)
             else:
                 # Assuming it is a scientific name
                 results.append(['taxon', f'tax_name("{query}")'])
+
+    # Split the accessions into set number
+    for chunk in chunks(accessions, accession_limit):
+        results.append(['accession', ','.join(chunk)])
+
     return results
 
 
@@ -202,6 +237,10 @@ if __name__ == '__main__':
     parser.add_argument(
         '--limit', metavar="INT", type=int, default=1000000,
         help='Maximum number of results (per query) to return. (Default: 1000000)'
+    )
+    parser.add_argument(
+        '--accession_limit', metavar="INT", type=int, default=5000,
+        help='Maximum number of accessions to query at once. (Default: 5000)'
     )
 
     parser.add_argument(
@@ -249,6 +288,12 @@ if __name__ == '__main__':
         print("--coverage and --genome_size must be used together. Exiting...",
               file=sys.stderr)
         sys.exit(1)
+    
+    if args.biosample_subset > 0:
+        if not is_biosample(args.query):
+            print("--biosample_subset requires a single BioSample. Input query: {args.query} is not a BioSample. Exiting...",
+                  file=sys.stderr)
+            sys.exit(1)
 
     today = datetime.datetime.now().replace(microsecond=0).isoformat()
     results = []
@@ -256,13 +301,14 @@ if __name__ == '__main__':
     accessions = []
     filtered = {'min_base_count':0, 'min_read_length':0, 'technical':0, 'filtered': {}}
     summary = []
-    queries = parse_query(args.query, exact_taxon=args.exact_taxon)
+    queries = parse_query(args.query, args.accession_limit, exact_taxon=args.exact_taxon)
     i = 1
     results_file = f'{args.outdir}/{args.prefix}-results.txt'
     accessions_file = f'{args.outdir}/{args.prefix}-accessions.txt'
     filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
     for query_type, query in queries:
-        query_header, query_results = ena_search(query, limit=args.limit)
+        is_accession = True if query_type == 'accession' else False
+        query_header, query_results = ena_search(query, is_accession, limit=args.limit)
         results = list(set(results + query_results))
         if not result_header:
             result_header = query_header
@@ -287,11 +333,18 @@ if __name__ == '__main__':
                 WARNING_MESSAGE = f'WARNING: {query} did not return any results from ENA.'
 
         # Create Summary
+        query_string = query
+        if query_type == 'accession':
+            total_accessions = len(query.split(','))
+            if total_accessions > 5:
+                query_string = f"{total_accessions} accessions were queried"
+            else:
+                query_string = query
         if len(queries) > 1:
-            summary.append(f'QUERY ({i} of {len(queries)}): {query}')
+            summary.append(f'QUERY ({i} of {len(queries)}): {query_string}')
             i += 1
         else:
-            summary.append(f'QUERY: {query}')
+            summary.append(f'QUERY: {query_string}')
         summary.append(f'DATE: {today}')
         summary.append(f'LIMIT: {args.limit}')
         summary.append(f'RESULTS: {len(query_results)} ({results_file})')
