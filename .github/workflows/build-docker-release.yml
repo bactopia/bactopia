@@ -37,18 +37,6 @@ jobs:
       - name: Free up Disk Space
         run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
 
-      - name: Setup miniconda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: bactopia
-          auto-activate-base: false
-
-      - name: Setup Bactopia Environment
-        run: conda install -y --quiet -c conda-forge python=3 executor
-
-      - name: Environment Information
-        run: uname -a && env && which python3
-
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
@@ -69,7 +57,17 @@ jobs:
           username: ${{ github.actor }} 
           password: ${{ secrets.GHCR_TOKEN }}
           
+      - name: Setup miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: bactopia
+          auto-activate-base: false
 
+      - name: Setup Bactopia Environment
+        run: conda install -y --quiet -c conda-forge python=3 executor
+
+      - name: Environment Information
+        run: uname -a && env && which python3
       
       - name: Build and publish image to each registry
         run: python3 ${GITHUB_WORKSPACE}/bin/gh-actions/setup-docker-builds.py ${GITHUB_WORKSPACE} release.json --github --quay --verbose
