@@ -9,6 +9,7 @@
 - strip HTML from FASTA headers used in BLAST
 - `bactopia build` will retry in case of HTTP connection issues
 - Dockerfiles now have conda.md5 label to determine if rebuild is necessary
+    - MD% is updated in Dockerfile when env is updated
 - AMRFinder+ database is now provided by `bactopia datasets`
 
 ### `Fixed`
@@ -31,6 +32,7 @@
 - `--nfconfig` will skip the conda environment build step
 - input accessions are checked to be Assembly or Experiment accessions
 - improved version increment script
+- profiles can be configured by parameters
 
 ### `Fixed`
 - phyloflash and download_reference environment errors

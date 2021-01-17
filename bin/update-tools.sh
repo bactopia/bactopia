@@ -19,14 +19,14 @@ if [ "$3" == "1" ]; then
 fi
 
 function update_environment {
-    # 1: template, 2: programs, 3: conda dir, 4: version, 5: is_mac, 6: extra channel, 7: extra mac programs
+    # 1: template, 2: programs, 3: conda dir, 4: version, 5: is_mac
     echo "Working on ${1}"
 
     YAML="${3}/${1}/environment"
     if [ "$5" == 1 ]; then
         # Mac OS
         # Have to replace Mac versions of some programs (date, sed, etc...)
-        conda create -y -n bactopia-${1} ${6} -c conda-forge -c bioconda ${2} ${7}
+        conda create -y -n bactopia-${1} ${6} -c conda-forge -c bioconda ${2} coreutils sed
         conda env export --no-builds -n bactopia-${1} | \
             grep -v "^prefix:" | \
             sed -E 's=channels:=version: '"${4}"'\'$'\nchannels:=' > ${YAML}-osx.yml
@@ -45,14 +45,14 @@ function update_environment {
 }
 
 # Bactopia environments
-update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
-update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" ""
-update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "roary" "clonalframeml iqtree maskrc-svg ncbi-genome-download pigz prokka r-ggplot2 rename roary snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
-update_environment "summary" "executor jinja2" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" "coreutils"
+update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "roary" "clonalframeml iqtree maskrc-svg ncbi-genome-download pigz prokka r-ggplot2 rename roary snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "summary" "executor jinja2" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 
 echo "Conda Last updated: " `date` > ${CONDA_DIR}/README.md

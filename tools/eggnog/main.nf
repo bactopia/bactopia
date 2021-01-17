@@ -518,6 +518,13 @@ def print_help() {
                                     be accessible from all compute nodes.
                                     Default: NXF_SINGULARITY_CACHEDIR evironment variable, otherwise ${params.singularity_cache}
 
+        --queue STR             The name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM).
+                                    If using multiple queues, please seperate queues by a comma without spaces.
+                                    Default: ${params.queue}
+
+        --disable_scratch       All intermediate files created on worker nodes of will be transferred to the head node.
+                                    Default: Only result files are transferred back
+
 
         --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
                                     Warning: by doing this you lose the ability to resume workflows.
@@ -554,6 +561,38 @@ def print_help() {
 
         -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
                                     only a single '-'
+
+    AWS Batch Related Parameters:
+        --aws_region STR        AWS Region to be used by Nextflow
+                                    Default: ${params.aws_region}
+
+        --aws_volumes STR       Volumes to be mounted from the EC2 instance to the Docker container
+                                    Default: ${params.aws_volumes}
+
+        --aws_cliPath STR       Path to the AWS CLI for Nextflow to use.
+                                    Default: ${params.aws_cliPath}
+
+        --aws_uploadStorageClass STR
+                                The S3 storage slass to use for storing files on S3
+                                    Default: ${params.aws_uploadStorageClass}
+
+        --aws_maxParallelTransfers INT
+                                The number of parallele transfers between EC2 and S3
+                                    Default: ${params.aws_maxParallelTransfers}
+
+        --aws_delayBetweenAttempts INT
+                                The duration of sleep (in seconds) between each transfer between EC2 and S3
+                                    Default: ${params.aws_delayBetweenAttempts}
+
+        --aws_maxTransferAttempts INT
+                                The maximum number of times to retry transferring a file between EC2 and S3
+                                    Default: ${params.aws_maxTransferAttempts}
+
+        --aws_max_retry INT     The maximum number of times to retry a process on AWS Batch
+                                    Default: ${params.aws_max_retry}
+
+        --aws_ecr_registry STR  The ECR registry containing Bactopia related containers.
+                                    Default: Use the registry given by --registry 
 
     Useful Parameters:
         --version               Print workflow version information
