@@ -6,6 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
     steps:
       - uses: actions/checkout@master
 
