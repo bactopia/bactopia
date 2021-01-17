@@ -9,6 +9,27 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Get Bactopia Releases
+        uses: octokit/graphql-action@v2.x
+        id: get_latest_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query {
+              repository(owner: "bactopia", name: "bactopia") {
+                releases(first: 2, orderBy: { field: CREATED_AT, direction: DESC}) {
+                  nodes {
+                    name
+                    createdAt
+                  }
+                }
+              }
+            }
+
+      - name: Output latest releases
+        run: echo '${{ steps.get_latest_release.outputs.data }}' > ${GITHUB_WORKSPACE}/releases.json
+
       - name: Free up Disk Space
         run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
 
@@ -41,25 +62,7 @@ jobs:
           username: ${{ github.actor }} 
           password: ${{ secrets.GHCR_TOKEN }}
           
-      - name: Get Bactopia Releases
-        uses: octokit/graphql-action@v2.x
-        id: get_latest_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          query: |
-            query {
-              repository(owner: "bactopia", name: "bactopia") {
-                releases(first: 2, orderBy: { field: CREATED_AT, direction: DESC}) {
-                  nodes {
-                    name
-                    createdAt
-                  }
-                }
-              }
-            }
+
       
       - name: Build and publish image to each registry
-        run: |
-          echo '${{ steps.get_latest_release.outputs.data }}' > releases.json
-          python3 ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh ${GITHUB_WORKSPACE} release.json --github --quay --verbose
+        run: python3 ${GITHUB_WORKSPACE}/bin/gh-actions/setup-docker-builds.py ${GITHUB_WORKSPACE} release.json --github --quay --verbose
