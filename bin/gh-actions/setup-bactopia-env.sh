@@ -4,8 +4,8 @@
 set -e
 set -x
 CONDA_PATH=${1:-"/opt/conda"}
-WORK_DIR=${1:-"/bactopia"}
-IS_GITHUB=${1:-"0"}
+WORK_DIR=${2:-"/bactopia"}
+IS_GITHUB=${3:-"0"}
 CONDA_CMD="create -n bactopia"
 if [[ "${IS_GITHUB}" == "1" ]]; then
   CONDA_CMD="install"
