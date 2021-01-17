@@ -40,7 +40,7 @@ jobs:
           auto-activate-base: false
 
       - name: Setup Bactopia Environment
-        run: conda install -y --quiet -c conda-forge python3 executor
+        run: conda install -y --quiet -c conda-forge "python>=3.6.0" executor
 
       - name: Login to DockerHub
         uses: docker/login-action@v1 
