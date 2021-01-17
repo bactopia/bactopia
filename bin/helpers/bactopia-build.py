@@ -94,6 +94,7 @@ if __name__ == '__main__':
     import argparse as ap
     import glob
     import sys
+    import time
 
     parser = ap.ArgumentParser(
         prog='bactopia build',
@@ -194,7 +195,7 @@ if __name__ == '__main__':
                                 allow_fail = True
                             retry += 1
                             logging.log(STDERR, "Error creating Conda environment, retrying after short sleep.")
-                            sys.sleep(30 * retry)
+                            time.sleep(30 * retry)
                         else:
                             success = True
                     execute(f'cp {md5_file} {envbuilt_file}')

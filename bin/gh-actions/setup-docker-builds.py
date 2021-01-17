@@ -105,6 +105,7 @@ def check_md5sum(current_md5, image):
 
 def docker_push(image):
     """Push Docker image, with multiple attempts incase of failure."""
+    import time
     retry = 0
     allow_fail = False
     success = False
@@ -116,7 +117,7 @@ def docker_push(image):
                 allow_fail = True
             retry += 1
             logging.log(STDERR, "Retrying after short sleep.")
-            sys.sleep(30 * retry)
+            time.sleep(30 * retry)
         else:
             success = True
     return True
@@ -207,7 +208,7 @@ if __name__ == '__main__':
 
     # Bactopia Dockerfile
     logging.info(f'Working on Bactopia Dockerfile')
-    docker_build(f'{bactopia_path}/Dockerfile', f'{REPO}/bactopia:{VERSION}', latest=f'${REPO}/bactopia:latest',
+    docker_build(f'{bactopia_path}/Dockerfile', f'{REPO}/bactopia:{VERSION}', latest=f'{REPO}/bactopia:latest',
                  github=args.github, quay=args.quay)
 
     # Bactopia Process Dockerfiles
