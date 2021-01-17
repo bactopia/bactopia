@@ -7,7 +7,16 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Free up Disk Space
-        run: bash bin/gh-actions-cleanup.sh
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
+
+      - name: Setup miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: bactopia
+          auto-activate-base: false
+
+      - name: Setup Bactopia Environment
+        run: conda install -y --quiet -c conda-forge executor
 
       - name: Login to DockerHub
         uses: docker/login-action@v1 
@@ -28,6 +37,26 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }} 
           password: ${{ secrets.GHCR_TOKEN }}
-          
+      
+      - name: Get Bactopia Releases
+        uses: octokit/graphql-action@v2.x
+        id: get_latest_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query {
+              repository(owner: "bactopia", name: "bactopia") {
+                releases(first: 2, orderBy: { field: CREATED_AT, direction: DESC}) {
+                  nodes {
+                    name
+                    createdAt
+                  }
+                }
+              }
+            }
+
       - name: Build and publish image to each registry
-        run: bash bin/update-docker.sh ./ "quay.io ghcr.io" 1
+        run: |
+          echo '${{ steps.get_latest_release.outputs.data }}' > releases.json
+          python3 ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh ${GITHUB_WORKSPACE} release.json --github --quay --verbose

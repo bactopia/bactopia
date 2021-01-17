@@ -17,7 +17,7 @@ date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
 
 # Verify AWS files were staged
 if [[ ! -L "!{genes} " ]]; then
-    check_staging.py --fq1 !{genes} --fq2 !{proteins} --extra !{amrdb}
+    check-staging.py --fq1 !{genes} --fq2 !{proteins} --extra !{amrdb}
 fi
 
 if [[ !{params.compress} == "true" ]]; then

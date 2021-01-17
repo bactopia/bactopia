@@ -16,6 +16,8 @@
 - failed FASTQ/Assembly downloads no longer stop whole run
 - `--max_retry` is honored now
 - antimicrobial_resistance process honors `amrdir` variable
+- change directory `antimicrobial_resistance` to `antimicrobial-resistance`
+- rename `check_staging.py` to `check-staging.py` for consistency
 
 ### `Removed`
 - `--containerPath` variable is replaced by `--singularity_cache`

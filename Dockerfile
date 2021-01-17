@@ -10,5 +10,5 @@ LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 
 COPY . /bactopia
-RUN bash /bactopia/bin/setup-docker-env.sh bactopia
+RUN bash /bactopia/bin/gh-actions/setup-bactopia-env.sh
 ENV PATH /opt/conda/envs/bactopia/bin:$PATH

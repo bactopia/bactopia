@@ -10,9 +10,9 @@ date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
 # Verify AWS files were staged
 if [[ ! -L "!{fq[0]}" ]]; then
     if [ "!{single_end}" == "true" ]; then
-        check_staging.py --fq1 !{fq[0]} --assembly !{assembly} --is_single
+        check-staging.py --fq1 !{fq[0]} --assembly !{assembly} --is_single
     else
-        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --assembly !{assembly}
+        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --assembly !{assembly}
     fi
 fi
 

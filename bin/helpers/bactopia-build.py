@@ -183,7 +183,7 @@ if __name__ == '__main__':
                 if needs_build:
                     if args.is_bactopia:
                         force = '--force'
-                    logging.info(f'Found {env_file} ({i+1} or {len(env_files)}), begin build to {prefix}')
+                    logging.info(f'Found {env_file} ({i+1} of {len(env_files)}), begin build to {prefix}')
                     retry = 0
                     allow_fail = False
                     success = False

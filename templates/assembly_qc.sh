@@ -16,7 +16,7 @@ trap print_stderr EXIT
 
 # Verify AWS files were staged
 if [[ ! -L "!{fasta}" ]]; then
-    check_staging.py --assembly !{fasta} --genome_size !{genome_size}
+    check-staging.py --assembly !{fasta} --genome_size !{genome_size}
 fi
 
 if [ "!{method}" == "checkm" ]; then

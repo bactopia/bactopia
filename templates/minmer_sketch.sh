@@ -14,9 +14,9 @@ sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 # Verify AWS files were staged
 if [[ ! -L "!{fq[0]}" ]]; then
     if [ "!{single_end}" == "true" ]; then
-        check_staging.py --fq1 !{fq[0]} --is_single
+        check-staging.py --fq1 !{fq[0]} --is_single
     else
-        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
+        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
     fi
 fi
 

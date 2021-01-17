@@ -23,9 +23,9 @@ bbduk.sh --version 2>&1 | grep " version" >> ${LOG_DIR}/!{task.process}.versions
 # Verify AWS files were staged
 if [[ ! -L "!{fq[0]}" ]]; then
     if [ "!{single_end}" == "true" ]; then
-        check_staging.py --fq1 !{fq[0]} --extra !{extra} --genome_size !{genome_size} --is_single
+        check-staging.py --fq1 !{fq[0]} --extra !{extra} --genome_size !{genome_size} --is_single
     else
-        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{extra} --genome_size !{genome_size}
+        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{extra} --genome_size !{genome_size}
     fi
 fi
 

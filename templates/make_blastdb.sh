@@ -11,7 +11,7 @@ makeblastdb -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
 
 # Verify AWS files were staged
 if [[ ! -L "!{fasta}" ]]; then
-    check_staging.py --assembly !{fasta}
+    check-staging.py --assembly !{fasta}
 fi
 
 if [[ !{params.compress} == "true" ]]; then

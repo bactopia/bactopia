@@ -18,9 +18,9 @@ trap print_stderr EXIT
 # Verify AWS files were staged
 if [[ ! -L "!{fq[0]}" ]]; then
     if [ "!{single_end}" == "true" ]; then
-        check_staging.py --fq1 !{fq[0]} --extra !{reference} --is_single
+        check-staging.py --fq1 !{fq[0]} --extra !{reference} --is_single
     else
-        check_staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{reference}
+        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{reference}
     fi
 fi
 

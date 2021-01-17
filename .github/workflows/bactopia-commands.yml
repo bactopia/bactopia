@@ -18,56 +18,53 @@ jobs:
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
+
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: bactopia
           auto-activate-base: false
-      - name: Install Dependencies
-        run: cd ${GITHUB_WORKSPACE}/ && bash bin/setup-action-env.sh 
+
+      - name: Setup Bactopia Environment
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
+
       - name: Environment Information
-        run: |
-          uname -a
-          env
-      - name: Staging
-        run: |
-          BACTOPIA=${CONDA}/envs/bactopia
-          cd ${GITHUB_WORKSPACE}
-          chmod 755 bactopia bin/helpers/*
-          cp bactopia bin/helpers/* ${BACTOPIA}/bin
-          VERSION=`${CONDA}/envs/bactopia/bin/bactopia version | cut -d " " -f 2`
-          BACTOPIA_VERSION="${VERSION%.*}.x"
-          mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-          cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
+        run: uname -a && env
+
       - name: Test bactopia version
         run: |
           echo "Testing bactopia version"
           bactopia version
           bactopia --version
           bactopia versions
+
       - name: Test bactopia citation
         run: |
           echo "Testing bactopia citation"
           bactopia citation
           bactopia --citation
           bactopia citations
+
       - name: Test bactopia search
         run: |
           echo "Testing bactopia search"
           bactopia search
           bactopia search --version
-          bactopia search --help         
+          bactopia search --help       
+
       - name: Test bactopia datasets
         run: |
           echo "Testing bactopia datasets"
           bactopia datasets --version
           bactopia datasets --help
+
       - name: Test bactopia prepare
         run: |
           echo "Testing bactopia prepare"
           bactopia prepare
           bactopia prepare --version
           bactopia prepare --help
+
       - name: Test bactopia build
         run: |
           echo "Testing bactopia build"
