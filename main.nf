@@ -34,6 +34,7 @@ outdir = params.outdir ? params.outdir : './'
 // Setup some defaults
 log.info "${PROGRAM_NAME} - ${VERSION}"
 
+AMR_DATABASES = []
 ARIBA_DATABASES = []
 MINMER_DATABASES = []
 MLST_DATABASES = []
@@ -594,22 +595,6 @@ process call_variants_auto {
 }
 
 
-process update_antimicrobial_resistance {
-    /*
-    Update amrfinders database a single time.
-    */
-    input:
-    val x from Channel.from(1)
-
-    output:
-    file("amrdb.tar.gz") into AMRDB
-
-    shell:
-    updated = true
-    template(task.ext.template)
-}
-
-
 process antimicrobial_resistance {
     /*
     Query nucleotides and proteins (SNPs/InDels) against one or more reference genomes selected based
@@ -622,14 +607,14 @@ process antimicrobial_resistance {
 
     input:
     set val(sample), file(genes), file(proteins) from ANTIMICROBIAL_RESISTANCE
-    each file(amrdb) from AMRDB
+    each file(amrdb) from AMR_DATABASES
 
     output:
     file "${amrdir}/*"
     file "logs/*" optional true
 
     shell:
-    amrdir = "antimicrobial_resistance"
+    amrdir = "antimicrobial-resistance"
     plus = params.amr_plus ? "--plus" : ""
     report_common = params.amr_report_common ? "--report_common" : ""
     organism_gene = ""
@@ -958,6 +943,16 @@ def setup_datasets() {
     if (params.datasets) {
         dataset_path = params.datasets
         available_datasets = read_json("${dataset_path}/summary.json")
+
+        // Antimicrobial Resistance Datasets
+        if (available_datasets.containsKey('antimicrobial-resistance')) {
+            available_datasets['antimicrobial-resistance'].each {
+                if (dataset_exists("${dataset_path}/antimicrobial-resistance/${it.name}")) {
+                    AMR_DATABASES << file("${dataset_path}/antimicrobial-resistance/${it.name}")
+                }
+            }
+            print_dataset_info(AMR_DATABASES, "Antimicrobial resistance datasets")
+        }
 
         // Ariba Datasets
         if (available_datasets.containsKey('ariba')) {

@@ -4,10 +4,24 @@
 # Automate the building of Bactopia related Docker containers
 set -e
 BACTOPIA_DIR=${1:-"./"}
-REPOSITORY=${2:-""}
-PRUNE=${3:-"0"}
+TYPE=${2:-""}
+NAME=${3:-""}
+REPOSITORY=$4:-""}
+PRUNE=${5:-"0"}
 VERSION=1.5.6
 CONTAINER_VERSION="${VERSION%.*}.x"
+
+function docker_push_latest {
+    image=$1
+    latest=$2
+    has_latest=${3:-0}
+
+    if [[ "${has_latest}" != "0" ]]; then
+        echo "Pushing ${latest}"
+        docker tag ${image} ${latest}
+        #docker push ${latest}
+    fi
+}
 
 function docker_build {
     recipe=$1
@@ -19,25 +33,15 @@ function docker_build {
 
     # Push to DockerHub
     echo "Pushing ${image}"
-    docker push ${image}
-
-    if [[ "${latest}" != "0" ]]; then
-        echo "Pushing ${latest}"
-        docker tag ${image} ${latest}
-        docker push ${latest}
-    fi
+    #docker push ${image}
+    docker_push_latest ${image} ${latest} ${latest}
 
     # Push to optional repos
     for repo in ${REPOSITORY}; do 
         echo "Pushing ${repo}/${image}"
         docker tag ${image} ${repo}/${image}
-        docker push ${repo}/${image}
-
-        if [[ "${latest}" != "0" ]]; then
-            echo "Pushing ${repo}/${latest}"
-            docker tag ${image} ${repo}/${latest}
-            docker push ${repo}/${latest}
-        fi
+        #docker push ${repo}/${image}
+        docker_push_latest ${image} ${repo}/${latest} ${latest}
     done
 
     if [[ "${PRUNE}" == "1" ]]; then
@@ -47,23 +51,24 @@ function docker_build {
     fi
 }
 
-# Build Bactopia Container
-docker_build Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
 
-# Build Process Containers
-for recipe in $(ls "${BACTOPIA_DIR}/containers/docker" | grep ".Dockerfile"); do
-    recipe_path="${BACTOPIA_DIR}/containers/docker/${recipe}"
-    recipe_name=$(echo ${recipe} | sed 's/.Dockerfile//')
-    recipe_image="bactopia/${recipe_name}:${CONTAINER_VERSION}"
+if [[ "${TYPE}" == "bactopia" ]]; then
+    # Build Bactopia Container
+    docker_build ${BACTOPIA_DIR}/Dockerfile bactopia/bactopia:${VERSION} bactopia/bactopia:latest
+elif [[ "${TYPE}" == "process" ]]; then
+    # Build Process Containers
+    recipe_path="${BACTOPIA_DIR}/containers/docker/${NAME}.Dockerfile"
+    recipe_image="bactopia/${NAME}:${CONTAINER_VERSION}"
     docker_build ${recipe_path} ${recipe_image}
-done
-
-# Build Bactopia Tools containers
-for tool in $(ls "${BACTOPIA_DIR}/tools"); do
-    recipe_path="${BACTOPIA_DIR}/tools/${tool}"
-    if [ -f "${BACTOPIA_DIR}/tools/${tool}/environment-linux.yml" ]; then
+elif [[ "${TYPE}" == "tools" ]]; then
+    # Build Bactopia Tools containers
+    recipe_path="${BACTOPIA_DIR}/tools/${NAME}"
+    if [ -f "${recipe_path}/environment-linux.yml" ]; then
         docker_file="${recipe_path}/Dockerfile"
-        docker_image="bactopia/tools-${tool}:${CONTAINER_VERSION}"
+        docker_image="bactopia/tools-${NAME}:${CONTAINER_VERSION}"
         docker_build ${docker_file} ${docker_image}
     fi
-done
+else
+    # Build Bactopia Tools containers
+    echo "Unknown type (${TYPE}), exiting..."
+fi

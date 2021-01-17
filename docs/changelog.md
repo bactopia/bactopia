@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.5.7 bactopia/bactopia "" - 2021/??/??
+## v1.6.0 bactopia/bactopia "" - 2021/??/??
 ### `Added`
 - `--singularity_cache` parameter to set location of image downloads
 - `--registry` to choose Docker registry to use
@@ -8,11 +8,14 @@
 - `--max_downloads` to set the maximum number of downloads allowed at once
 - strip HTML from FASTA headers used in BLAST
 - `bactopia build` will retry in case of HTTP connection issues
+- Dockerfiles now have conda.md5 label to determine if rebuild is necessary
+- AMRFinder+ database is now provided by `bactopia datasets`
 
 ### `Fixed`
 - redundant environment version files
 - failed FASTQ/Assembly downloads no longer stop whole run
 - `--max_retry` is honored now
+- antimicrobial_resistance process honors `amrdir` variable
 
 ### `Removed`
 - `--containerPath` variable is replaced by `--singularity_cache`

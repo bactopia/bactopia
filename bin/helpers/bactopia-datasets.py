@@ -704,6 +704,38 @@ def setup_prokka(request, available_datasets, outdir, force=False,
         logging.info("No valid species to setup, skipping")
 
 
+def setup_amr(outdir, force=False):
+    """Download the latest antimicrobial resistance datasets."""
+    datasets = ['amrfinder']
+    amr_dir = f'{outdir}/antimicrobial-resistance'
+    update_timestamp = False
+    execute(f'mkdir -p {amr_dir}')
+
+    for dataset in datasets:
+        dataset_file = f'{amr_dir}/{dataset}.tar.gz'
+        if os.path.exists(dataset_file):
+            if force:
+                logging.info(f'--force, removing existing {dataset_file} setup')
+                execute(f'rm -f {dataset_file}')
+                update_timestamp = True
+            else:
+                logging.info(f'{dataset_file} exists, skipping')
+                continue
+
+        if dataset == 'amrfinder':
+            logging.info(f'Setting up latest AMRFinder+ database')
+            prefix = 'amrfinderdb'
+            execute(f'rm -rf {prefix} {prefix}-temp', directory=amr_dir)
+            execute(f'mkdir -p {prefix} {prefix}-temp', directory=amr_dir)
+            execute(f'amrfinder_update -d {prefix}-temp', directory=amr_dir)
+            latest_db = os.readlink(f'{amr_dir}/{prefix}-temp/latest')
+            execute(f'mv {latest_db}/* {prefix}/', directory=amr_dir)
+            execute(f'tar -czvf {prefix}.tar.gz {prefix}/', directory=amr_dir)
+            execute(f'rm -rf {prefix} {prefix}-temp', directory=amr_dir)
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {prefix}-updated.txt', directory=amr_dir)
+            logging.info(f'AMRFinder+ database saved to {amr_dir}/{prefix}.tar.gz')
+
+
 def setup_minmer(outdir, force=False):
     """Download precomputed Refseq (Mash) and Genbank (Sourmash) datasets."""
     datasets = {
@@ -781,9 +813,23 @@ def create_summary(outdir, training_set=False):
     from collections import OrderedDict
     available_datasets = OrderedDict()
 
+    available_datasets['antimicrobial-resistance'] = []
     available_datasets['ariba'] = []
     available_datasets['minmer'] = {'sketches': [], 'last_update': None}
     available_datasets['plasmid'] = {'sketches': None, 'blastdb': None, 'last_update': None}
+
+    # Antimicrobial Resistance
+    if os.path.exists(f'{outdir}/antimicrobial-resistance'):
+        for db in sorted(os.listdir(f'{outdir}/antimicrobial-resistance')):
+            if db.endswith(".tar.gz"):
+                if db != 'EMPTY.tar.gz':
+                    name = db.replace(".tar.gz", "")
+                    available_datasets['antimicrobial-resistance'].append({
+                        'name': db,
+                        'last_update': execute(
+                            f'head -n 1 {outdir}/antimicrobial-resistance/{name}-updated.txt', capture=True
+                        ).rstrip()
+                    })
 
     # Ariba
     if os.path.exists(f'{outdir}/ariba'):
@@ -1043,84 +1089,92 @@ if __name__ == '__main__':
         help='Skip download of pre-computed PLSDB datbases (blast, mash)'
     )
 
-    group6 = parser.add_argument_group('Optional User Provided Datasets')
+    group6 = parser.add_argument_group('Antimicrobial Resistance Datasets')
     group6.add_argument(
+        '--skip_amr', action='store_true',
+        help='Skip download of antimicrobial resistance databases (e.g. AMRFinder+)'
+    )
+
+    group7 = parser.add_argument_group('Optional User Provided Datasets')
+    group7.add_argument(
         '--prodigal_tf', metavar="STR", type=str,
         help=("A pre-built Prodigal training file to add to the species "
               "annotation folder. Requires a single species (--species) and "
               "will replace existing training files.")
     )
 
-    group6.add_argument(
+    group7.add_argument(
         '--reference', metavar="STR", type=str,
         help=("A reference genome (FASTA/GenBank (preferred)) file or directory "
               "to be added to the optional folder for variant calling. Requires "
               "a single species (--species).")
     )
-    group6.add_argument(
+    group7.add_argument(
         '--mapping', metavar="STR", type=str,
         help=("A reference sequence (FASTA) file or directory to be added to the "
               "optional folder for mapping. Requires a single species (--species).")
     )
-    group6.add_argument(
+    group7.add_argument(
         '--genes', metavar="STR", type=str,
         help=("A gene sequence (FASTA) file or directory to be added to the "
               "optional folder for BLAST. Requires a single species (--species).")
     )
-    group6.add_argument(
+    group7.add_argument(
         '--proteins', metavar="STR", type=str,
         help=("A protein sequence (FASTA) file or directory to be added to the "
               "optional folder for BLAST. Requires a single species (--species).")
     )
-    group6.add_argument(
+    group7.add_argument(
         '--primers', metavar="STR", type=str,
         help=("A primer sequence (FASTA) file or directory to be added to the "
               "optional folder for BLAST. Requires a single species (--species).")
     )
-    group6.add_argument(
+    group7.add_argument(
         '--force_optional', action='store_true',
         help='Overwrite any existing files in the optional folders'
     )
 
-    group7 = parser.add_argument_group('Custom Options')
-    group7.add_argument(
+    group8 = parser.add_argument_group('Custom Options')
+    group8.add_argument(
         '--cpus', metavar="INT", type=int, default=1,
         help=('Number of cpus to use. (Default: 1)')
     )
-    group7.add_argument('--clear_cache', action='store_true',
+    group8.add_argument('--clear_cache', action='store_true',
                         help='Remove any existing cache.')
 
-    group7.add_argument('--force', action='store_true',
+    group8.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing datasets.')
-    group7.add_argument('--force_ariba', action='store_true',
+    group8.add_argument('--force_ariba', action='store_true',
                         help='Forcibly overwrite existing Ariba datasets.')
-    group7.add_argument('--force_mlst', action='store_true',
+    group8.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST datasets.')
-    group7.add_argument('--force_prokka', action='store_true',
+    group8.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka datasets.')
-    group7.add_argument('--force_minmer', action='store_true',
+    group8.add_argument('--force_minmer', action='store_true',
                         help='Forcibly overwrite existing minmer datasets.')
-    group7.add_argument('--force_plsdb', action='store_true',
+    group8.add_argument('--force_plsdb', action='store_true',
                         help='Forcibly overwrite existing PLSDB datasets.')
-    group7.add_argument(
+    group8.add_argument('--force_amr', action='store_true',
+                        help='Forcibly overwrite existing antimicrobial resistance datasets.')
+    group8.add_argument(
         '--keep_files', action='store_true',
         help=('Keep all downloaded and intermediate files.')
     )
-    group7.add_argument(
+    group8.add_argument(
         '--available_datasets', action='store_true',
         help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
 
-    group7.add_argument('--depends', action='store_true',
+    group8.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
 
-    group8 = parser.add_argument_group('Adjust Verbosity')
-    group8.add_argument('--version', action='version',
+    group9 = parser.add_argument_group('Adjust Verbosity')
+    group9.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
-    group8.add_argument('--verbose', action='store_true',
+    group9.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
-    group8.add_argument('--silent', action='store_true',
+    group9.add_argument('--silent', action='store_true',
                         help='Only critical errors will be printed.')
 
 
@@ -1204,6 +1258,12 @@ if __name__ == '__main__':
                     force=(args.force or args.force_plsdb))
     else:
         logging.info('Skipping PLSDB (plasmids) dataset step')
+
+    if not args.skip_amr:
+        logging.info('Setting up antimicrobial resistance datasets')
+        setup_amr(args.outdir, force=(args.force or args.force_amr))
+    else:
+        logging.info('Skipping antimicrobial resistance dataset step')
 
     # Organism datasets
     if args.species:
