@@ -31,6 +31,7 @@ from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "setup-docker-builds.py"
 VERSION = "1.5.6"
+REPO = "bactopia"
 MAX_RETRY = 5
 STDOUT = 11
 STDERR = 12
@@ -66,7 +67,7 @@ def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
         if capture:
             return command.decoded_stdout
         return True
-    except executor.ExternalCommandFailed as e:
+    except ExternalCommandFailed as e:
         if allow_fail:
             logging.log(STDERR, e)
             sys.exit(e.returncode)
@@ -81,7 +82,7 @@ def get_previous_version(json_file):
     with open(json_file, 'rt') as json_fh:
         json_data = json.load(json_fh)
 
-    for node in json_data['data']['repository']['releases']['nodes']:
+    for node in json_data['repository']['releases']['nodes']:
         this_version = node['name'].lstrip('v')
         if this_version != VERSION:
             return this_version
@@ -109,7 +110,7 @@ def docker_push(image):
     success = False
     logging.info(f'Push on {image}')
     while not success:
-        result = execute(f'docker push {image}')
+        result = execute(f'echo skip docker push {image}')
         if not result:
             if retry > MAX_RETRY:
                 allow_fail = True
@@ -145,7 +146,7 @@ def docker_tag(image, tag):
 def docker_build(recipe, image, latest=None, github=False, quay=False):
     """Build and push latest Docker container."""
     logging.info(f'Building on {image}')
-    execute(f'docker build --rm -t ${image} -f ${recipe} .')
+    execute(f'docker build --rm -t {image} -f {recipe} .')
     docker_push(f'{image}')
 
     if latest:
@@ -202,19 +203,21 @@ if __name__ == '__main__':
     FORMAT = '%(asctime)s:%(name)s:%(levelname)s - %(message)s'
     logging.basicConfig(format=FORMAT, datefmt='%Y-%m-%d %H:%M:%S',)
     logging.getLogger().setLevel(set_log_level(args.silent, args.verbose))
+    bactopia_path = args.bactopia.rstrip("/")
 
     # Bactopia Dockerfile
     logging.info(f'Working on Bactopia Dockerfile')
-    docker_build(f'{args.bactopia}/Dockerfile', f'bactopia:{VERSION}', latest=f'bactopia:latest', github=args.github, quay=args.quay)
+    docker_build(f'{bactopia_path}/Dockerfile', f'{REPO}/bactopia:{VERSION}', latest=f'${REPO}/bactopia:latest',
+                 github=args.github, quay=args.quay)
 
     # Bactopia Process Dockerfiles
-    process_files = sorted(glob.glob(f'{args.bactopia}/containers/*.Dockerfile'))
+    process_files = sorted(glob.glob(f'{bactopia_path}/containers/*.Dockerfile'))
     for i, dockerfile in enumerate(process_files):
         logging.info(f'Working on {dockerfile} ({i+1} of {len(process_files)})')
         process_name = os.path.splitext(os.path.basename(dockerfile))[0]
-        latest_image = f'{process_name}:{VERSION}'
-        previous_image = f'{process_name}:{previous_version}'
-        if check_md5sum(f"{args.bactopia}/conda/linux/{process_name}.md5", previous_image) and not args.force:
+        latest_image = f'{REPO}/{process_name}:{VERSION}'
+        previous_image = f'{REPO}/{process_name}:{previous_version}'
+        if check_md5sum(f"{bactopia_path}/conda/linux/{process_name}.md5", previous_image) and not args.force:
             # MD5s match, just need to retag
             logging.info(f'Conda environment did not change, adding tag to previous version')
             docker_retag(previous_image, latest_image, github=args.github, quay=args.quay)
@@ -224,16 +227,16 @@ if __name__ == '__main__':
             docker_build(dockerfile, latest_image, github=args.github, quay=args.quay)
 
     # Bactopia Tools Dockerfiles
-    tools = sorted(glob.glob(f'{args.bactopia}/tools/*/'))
+    tools = sorted(glob.glob(f'{bactopia_path}/tools/*/'))
     for i, tool in enumerate(tools):
+        tool = os.path.basename(os.path.dirname(tool))
         if not tool.startswith('.'):
-            tool = tool.rstrip('/')
-            tool_name = os.path.basename(tool)
-            dockerfile = f'{tool}/-Dockerfile'
-            latest_image = f'tools-{tool_name}:{VERSION}'
-            previous_image = f'tools-{tool_name}:{previous_version}'
+            tool_path = f"{bactopia_path}/tools/{tool}"
+            dockerfile = f'{tool_path}/Dockerfile'
+            latest_image = f'{REPO}/tools-{tool}:{VERSION}'
+            previous_image = f'{REPO}/tools-{tool}:{previous_version}'
             logging.info(f'Working on {dockerfile} ({i+1} of {len(tools)})')
-            if check_md5sum(f"{tool}/environment-linux.md5", previous_image) and not args.force:
+            if check_md5sum(f"{tool_path}/environment-linux.md5", previous_image) and not args.force:
                 # MD5s match, just need to retag
                 logging.info(f'Conda environment did not change, adding tag to previous version')
                 docker_retag(previous_image, latest_image, github=args.github, quay=args.quay)

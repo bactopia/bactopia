@@ -67,7 +67,7 @@ def get_log_level():
 def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
             stderr_file=None, allow_fail=False):
     """A simple wrapper around executor."""
-    from executor import ExternalCommand
+    from executor import ExternalCommand, ExternalCommandFailed
     try:
         command = ExternalCommand(
             cmd, directory=directory, capture=True, capture_stderr=True,
@@ -82,7 +82,7 @@ def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
         if capture:
             return command.decoded_stdout
         return True
-    except executor.ExternalCommandFailed as e:
+    except ExternalCommandFailed as e:
         if allow_fail:
             print(e, file=sys.stderr)
             sys.exit(e.returncode)
