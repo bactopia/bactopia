@@ -110,7 +110,7 @@ def docker_push(image):
     success = False
     logging.info(f'Push on {image}')
     while not success:
-        result = execute(f'echo skip docker push {image}')
+        result = execute(f'docker push {image}')
         if not result:
             if retry > MAX_RETRY:
                 allow_fail = True
