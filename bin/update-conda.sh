@@ -11,7 +11,9 @@ if [[ $# == 0 ]]; then
     exit
 fi
 
+
 CONDA_DIR=$1/conda
+DOCKER_DIR=$1/containers
 VERSION=$2
 IS_MAC=0
 if [ "$3" == "1" ]; then
@@ -24,7 +26,7 @@ else
 fi
 
 function update_environment {
-    # 1: template, 2: programs, 3: conda dir, 4: version, 5: is_mac, 6: extra channel
+    # 1: template, 2: programs, 3: conda dir, 4: docker dir, 5: version, 6: is_mac
     echo "Working on ${1}"
    
     if [ "$5" == 1 ]; then
@@ -40,26 +42,27 @@ function update_environment {
         conda env export --no-builds -n bactopia-${1} > ${3}/${1}.yml
         echo "Bactopia version: ${4}" > ${3}/${1}.version
         md5sum ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
+        head -n 1 ${3}/${1}.md5 | xargs -I {} sed -i -E 's/(LABEL conda.md5=")(.*)(")/\1{}\3/' ${4}/${1}.Dockerfile
     fi
     
     conda env remove -n bactopia-${1}
 }
 
-update_environment "annotate_genome" "prokka pigz tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC} "" 
-update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "assemble_genome" "shovill-se assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+update_environment "annotate_genome" "prokka pigz tbl2asn-forever" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "antimicrobial_resistance" "ncbi-amrfinderplus" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "assemble_genome" "shovill-se assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
-    update_environment "call_variants" "snippy vcf-annotator pigz vt" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+    update_environment "call_variants" "snippy vcf-annotator pigz vt" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 else
-    update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+    update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 fi
-update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "download_references" "ncbi-genome-download mash biopython python>3.6 rename" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
-update_environment "sequence_type" "ariba blast bowtie2=2.3.5.1" ${CONDA_DIR} ${VERSION} ${IS_MAC} ""
+update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "download_references" "ncbi-genome-download mash biopython python>3.6 rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "sequence_type" "ariba blast bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 
 echo "Last updated: " `date` > ${CONDA_DIR}/README.md
