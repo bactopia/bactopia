@@ -205,7 +205,7 @@ if __name__ == '__main__':
 
     # Bactopia Dockerfile
     logging.info(f'Working on Bactopia Dockerfile')
-    docker_build(f'{args.bactopia}/Dockerfile', f'bactopia:{VERSION}', latest=f'bactopia:latest' github=args.github, quay=args.quay)
+    docker_build(f'{args.bactopia}/Dockerfile', f'bactopia:{VERSION}', latest=f'bactopia:latest', github=args.github, quay=args.quay)
 
     # Bactopia Process Dockerfiles
     process_files = sorted(glob.glob(f'{args.bactopia}/containers/*.Dockerfile'))
