@@ -36,6 +36,7 @@ AVAILABLE_TOOLS = {
     'summary': {'info': 'A report summarizing Bactopia project', 'mac': True},
 }
 
+
 def get_platform():
     from sys import platform
     if platform == "darwin":
@@ -46,11 +47,13 @@ def get_platform():
         sys.exit(1)
     return 'linux'
 
+
 def print_available_tools():
     """Print the available Bactopia Tools."""
     print(f"{PROGRAM} (v{VERSION}) - {DESCRIPTION}")
     print("")
     print(available_tools())
+
 
 def available_tools():
     """Return a string of available tools."""
@@ -59,9 +62,11 @@ def available_tools():
         usage.append(f'  {k: <12}{v["info"]}')
     return '\n'.join(usage)
 
+
 def set_log_level(error, debug):
     """Set the output log level."""
     return logging.ERROR if error else logging.DEBUG if debug else logging.INFO
+
 
 def check_md5sum(expected_md5, current_md5):
     """Compare the two md5 files to see if a rebuild is needed."""
@@ -74,6 +79,7 @@ def check_md5sum(expected_md5, current_md5):
         current = f.readline().rstrip()
 
     return expected == current
+
 
 def get_log_level():
     """Return logging level name."""
@@ -109,8 +115,6 @@ def validate_args(tool, bactopia_repo, skip_conda=False, force_rebuild=False):
     elif platform == 'mac' and not AVAILABLE_TOOLS[tool]['mac']:
         print(f'"{tool}" is not available on Mac OSX.\n', file=sys.stderr)
         sys.exit(1)
-
-
     tool_nf = f'{bactopia_repo}/tools/{tool}/main.nf'
     if not os.path.exists(tool_nf):
         print(f"cannot access '{tool_nf}': No such file or directory\n",

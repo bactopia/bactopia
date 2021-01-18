@@ -59,6 +59,42 @@ def check_md5sum(expected_md5, current_md5):
     return expected == current
 
 
+def check_needs_build(observed_md5, expected_md5, prefix, force=False, is_bactopia=False):
+    """Check if a new environment needs to be built."""
+    needs_build = False
+    if os.path.exists(observed_md5) and not force:
+        if check_md5sum(expected_md5, observed_md5):
+            if not is_bactopia:
+                logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
+        else:
+            needs_build = True
+            logging.info(f'Existing env ({prefix}) is out of sync, it will be updated')                       
+    else:
+        needs_build = True
+    return needs_build
+
+
+def build_conda_env(env_file, prefix, max_retry=5, force=False, is_bactopia=False):
+    """Build Conda env, with chance to retry."""
+    force = '--force' if force else ''
+    if is_bactopia:
+        force = '--force'
+    retry = 0
+    allow_fail = False
+    success = False
+    while not success:
+        result = execute(f'conda env create -f {env_file} --prefix {prefix} {force}', allow_fail=allow_fail)
+        if not result:
+            if retry > max_retry:
+                allow_fail = True
+            retry += 1
+            logging.log(STDERR, "Error creating Conda environment, retrying after short sleep.")
+            time.sleep(30 * retry)
+        else:
+            success = True
+    return success
+
+
 def get_log_level():
     """Return logging level name."""
     return logging.getLevelName(logging.getLogger().getEffectiveLevel())
@@ -119,11 +155,13 @@ if __name__ == '__main__':
     parser.add_argument('--default', action='store_true',
                         help='Builds Conda environments to the default Bactopia location.')
     parser.add_argument('--max_retry', metavar='INT', type=int, default=5,
-                        help='Maximum times to attemp creating Conda environment. (Default: 5)')           
+                        help='Maximum times to attempt creating Conda environment. (Default: 5)')           
     parser.add_argument('--force', action='store_true',
                         help='Force overwrite of existing Conda environments.')
     parser.add_argument('--is_bactopia', action='store_true',
                         help='This is an automated call by bactopia not a user')
+    parser.add_argument('--include_tools', action='store_true',
+                        help='Builds Conda environments for Bactopia tools as well.')
     parser.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
     parser.add_argument('--silent', action='store_true',
@@ -162,46 +200,44 @@ if __name__ == '__main__':
             md5_file = env_file.replace('.yml', '.md5')
             prefix = f'{install_path}/{envname}-{CONTAINER_VERSION}'
             envbuilt_file = f'{install_path}/{envname}-{CONTAINER_VERSION}/env-built.txt'
-            force = '--force' if args.force else ''
             build = True
             if args.envname:
                 if not args.envname == envname:
                     build = False
             
             if build:
-                needs_build = False
-                if os.path.exists(envbuilt_file) and not args.force:
-                    build_is_current = check_md5sum(md5_file, envbuilt_file)
-                    if build_is_current:
-                        if not args.is_bactopia:
-                            logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
-                    else:
-                        needs_build = True
-                        logging.info(f'Existing env ({prefix}) is out of sync, it will be updated')                       
-                else:
-                    needs_build = True
-
-                if needs_build:
-                    if args.is_bactopia:
-                        force = '--force'
+                if check_needs_build(envbuilt_file, md5_file, prefix, force=args.force, is_bactopia=args.is_bactopia):
                     logging.info(f'Found {env_file} ({i+1} of {len(env_files)}), begin build to {prefix}')
-                    retry = 0
-                    allow_fail = False
-                    success = False
-                    while not success:
-                        result = execute(f'conda env create -f {env_file} --prefix {prefix} {force}', allow_fail=allow_fail)
-                        if not result:
-                            if retry > args.max_retry:
-                                allow_fail = True
-                            retry += 1
-                            logging.log(STDERR, "Error creating Conda environment, retrying after short sleep.")
-                            time.sleep(30 * retry)
-                        else:
-                            success = True
-                    execute(f'cp {md5_file} {envbuilt_file}')
+
+                    built = build_conda_env(env_file, prefix, max_retry=args.max_retry, force=args.force, is_bactopia=args.is_bactopia)
+                    if built:
+                        execute(f'cp {md5_file} {envbuilt_file}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
         logging.error(
             f'Unable to find Conda *.{args.ext} files in {env_path}, please verify'
         )
         sys.exit(1)
+
+    if args.include_tools:
+        tool_path = os.path.abspath(args.conda_envs).replace('conda', 'tools')
+        tools = sorted(glob.glob(f'{tool_path}/*/'))
+        for i, tool in enumerate(tools):
+            tool = os.path.basename(os.path.dirname(tool))
+            if not tool.startswith('.'):
+                env_file = f'{tool_path}/{tool}/environment-{ostype}.yml'
+                md5_file = f'{tool_path}/{tool}/environment-{ostype}.md5'
+                prefix = f'{install_path}/tools-{tool}-{CONTAINER_VERSION}'
+                envbuilt_file = f'{prefix}/env-built.txt'
+                force = '--force' if args.force else ''
+                build = True
+                if args.envname:
+                    if not args.envname == tool:
+                        build = False
+
+                if build:
+                    if check_needs_build(envbuilt_file, md5_file, prefix, force=args.force, is_bactopia=args.is_bactopia):
+                        logging.info(f'Found {env_file} ({i+1} of {len(tools)}), begin build to {prefix}')
+                        built = build_conda_env(env_file, prefix, max_retry=args.max_retry, force=args.force, is_bactopia=args.is_bactopia)
+                        if built:
+                            execute(f'cp {md5_file} {envbuilt_file}')

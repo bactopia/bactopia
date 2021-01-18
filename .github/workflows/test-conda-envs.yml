@@ -1,0 +1,36 @@
+name: test-conda-envs
+on:
+  schedule:
+    # At 04:30 on Sunday, Tuesday, and Thursday
+    - cron:  '30 4 * * 0,2,4'
+
+jobs:
+  bactopia-search:          
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout bactopia/bactopia
+        uses: actions/checkout@v2
+
+      - name: Setup miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: bactopia
+          auto-activate-base: false
+
+      - name: Setup Bactopia Environment
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
+
+      - name: Environment Information
+        run: uname -a && env
+
+      - name: Build Conda Environments
+        run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --include_tools --verbose
+
+      - name: List Conda Environments
+        run: conda env list

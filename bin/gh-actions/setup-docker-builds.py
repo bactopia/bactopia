@@ -95,11 +95,13 @@ def check_md5sum(current_md5, image):
         current = f.readline().rstrip()
 
     previous = None
-    #data = json.loads(execute(f'skopeo inspect docker://docker.io/bactopia/{image}'))
-    #if data:
-    #    if 'conda.md5' in data['Labels']:
-    #        previous = data['Labels']['conda.md5']
+    data = json.loads(execute(f'skopeo inspect docker://docker.io/{image}', capture=True))
+    if data:
+        if 'conda.md5' in data['Labels']:
+            previous = data['Labels']['conda.md5']
+            logging.info(f'Found {previous} from {image}')
 
+    logging.info(f'Testing {current} == {previous}')
     return previous == current
 
 
