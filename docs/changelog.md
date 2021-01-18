@@ -17,6 +17,8 @@
 - GitHub Actions
     - build Docker containers on new release (or manual trigger)
     - test that the Conda environment yamls are still valid
+    - test bactopia with conda on Linux and OSX
+    - test bactopia on Linux with Docker and Singularity
 
 ### `Fixed`
 - redundant environment version files

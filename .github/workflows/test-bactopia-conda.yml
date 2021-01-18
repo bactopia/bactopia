@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        accessions: [GCF_003431365, SRX4563634]
     defaults:
       run:
         shell: bash -l {0}
@@ -30,7 +29,7 @@ jobs:
           conda install -y -c conda-forge -c bioconda bactopia
           BACTOPIA_OPTS="--coverage 20 -ansi-log false --registry github"
           BACTOPIA_DATASETS="--datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets/"
-          STAPH_OPTS="--species "Staphylococcus aureus" --genome_size median"
+          STAPH_OPTS="--species 'Staphylococcus aureus' --genome_size median"
           PARIED="--R1 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R1.fastq.gz --R2 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R2.fastq.gz --sample SRX4563634-PE"
           SINGLE="--SE ${GITHUB_WORKSPACE}/fastqs/SRX4563634-SE.fastq.gz --sample SRX4563634-SE"
 
@@ -59,9 +58,13 @@ jobs:
           cp -r bactopia-datasets/species-specific/ datasets/
           rm -rf bactopia-datasets/
 
-      - name: Testing Accession
+      - name: Testing Assembly Accession
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia --accession ${{ matrix.accession }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+        run: bactopia --accession GCF_003431365 ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+
+      - name: Testing SRA Accession
+        working-directory: ./bactopia-testing/bactopia
+        run: bactopia --accession SRX4563634 ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
 
       - name: Testing Accessions
         working-directory: ./bactopia-testing/bactopia
