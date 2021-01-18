@@ -114,7 +114,7 @@ def validate_args(tool, bactopia_repo, skip_conda=False, force_rebuild=False):
         sys.exit(1)
     elif platform == 'mac' and not AVAILABLE_TOOLS[tool]['mac']:
         print(f'"{tool}" is not available on Mac OSX.\n', file=sys.stderr)
-        sys.exit(1)
+        sys.exit()
     tool_nf = f'{bactopia_repo}/tools/{tool}/main.nf'
     if not os.path.exists(tool_nf):
         print(f"cannot access '{tool_nf}': No such file or directory\n",
@@ -127,7 +127,6 @@ def validate_args(tool, bactopia_repo, skip_conda=False, force_rebuild=False):
     if platform == 'mac':
         conda_prefix = f'{bactopia_repo}/tools/{tool}/environment-osx'
 
-    
     if skip_conda:
         return f"{tool_nf}"
     else:

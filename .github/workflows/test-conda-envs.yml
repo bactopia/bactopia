@@ -37,3 +37,10 @@ jobs:
 
       - name: List Conda Environments
         run: conda env list
+
+      - name: Test Commands
+        run: |
+          VERSION=`${BACTOPIA}/bin/bactopia version | cut -d " " -f 2`
+          BACTOPIA_VERSION="${VERSION%.*}.x"
+          bactopia --help_all --condadir ${GITHUB_WORKSPACE}/envs
+          ls ${GITHUB_WORKSPACE}/tools | xargs -I {} bactopia tools {} --condadir ${GITHUB_WORKSPACE}/envs/tools-{}-{BACTOPIA_VERSION} --help

@@ -3,15 +3,20 @@
 ## v1.6.0 bactopia/bactopia "" - 2021/??/??
 ### `Added`
 - `--singularity_cache` parameter to set location of image downloads
-- `--registry` to choose Docker registry to use
+- `--registry` to choose Docker registry to use (DockerHub, GitHub, Quay)
+- `--max_downloads` sets maximum number of downloads (FASTQ/assembly) allowed at once
 - `bactopia search` now uses POST requests, and groups accessions into single query
-- `--max_downloads` to set the maximum number of downloads allowed at once
 - strip HTML from FASTA headers used in BLAST
-- `bactopia build` will retry in case of HTTP connection issues
 - Dockerfiles now have conda.md5 label to determine if rebuild is necessary
     - MD5 is updated in Dockerfile when env is updated
 - AMRFinder+ database is now provided by `bactopia datasets`
-- `--include_tool` to build Bactopia Tool envs with `bactopia build`
+- Parameterized profile (slurm, awsbatch, etc...) variables
+- `bactopia build`  
+    - will retry in case of HTTP connection issues
+    - `--include_tool` will build Bactopia Tool environments
+- GitHub Actions
+    - build Docker containers on new release (or manual trigger)
+    - test that the Conda environment yamls are still valid
 
 ### `Fixed`
 - redundant environment version files
