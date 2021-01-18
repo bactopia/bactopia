@@ -59,7 +59,7 @@ cp -r \
   ${BACTOPIA_SHARE}
 
 # Clean up
-if [[ "${IS_GITHUB}" == "0" && "${IS_GITLAB}" == "0"]]; then
+if [[ "${IS_GITHUB}" == "0" && "${IS_GITLAB}" == "0" ]]; then
   rm -rf /bactopia
   conda clean -y -a
 fi
