@@ -5,7 +5,7 @@ on:
     - cron:  '30 4 * * 0,2,4'
 
 jobs:
-  bactopia-search:          
+  test-conda-envs:          
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -32,7 +32,10 @@ jobs:
       - name: Environment Information
         run: uname -a && env
 
-      - name: Build Conda Environments
+      - name: Build Bactopia Environment
+        run: conda create -n bactopia-bioconda -y -c conda-forge -c bioconda bactopia
+
+      - name: Build Bactopia Process and Tool Environments
         run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --include_tools --verbose
 
       - name: List Conda Environments

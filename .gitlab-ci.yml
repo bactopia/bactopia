@@ -1,22 +1,5 @@
-image: bactopia/bactopia-ci:latest
-
 variables:
     GIT_CLONE_PATH: '$CI_BUILDS_DIR/$CI_PIPELINE_ID/$CI_JOB_NAME'
-
-.before_script_template: &docker_template
-  before_script:
-    - BACTOPIA=/opt/conda/envs/bactopia
-    - FQ_DIR=tests/real-fastqs/
-    - CONDA_DIR=/opt/bactopia-envs
-    - COVERAGE="--coverage 20"
-    - chmod 755 bactopia
-    - cp bactopia ${BACTOPIA}/bin
-    - chmod 755 bin/helpers/*
-    - cp bin/helpers/* ${BACTOPIA}/bin
-    - VERSION=`bactopia version | cut -d " " -f 2`
-    - BACTOPIA_VERSION="${VERSION%.*}.x"
-    - mkdir ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-    - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
 
 .before_script_template: &linux_template
     before_script:
@@ -25,118 +8,25 @@ variables:
       - FQ_DIR=$(pwd)/tests/real-fastqs/
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false -qs 4"
       - BACTOPIA_TOOL_OPTS="--bactopia ../${CI_JOB_NAME} -ansi-log false --condadir ${BACTOPIA_CI}/bactopia-envs"
-      - chmod 755 bactopia
-      - mkdir -p ${BACTOPIA}/bin
-      - cp bactopia ${BACTOPIA}/bin
-      - export PATH=${BACTOPIA}/bin:${BACTOPIA_CI}/miniconda3/bin:${PATH}
-      - chmod 755 bin/helpers/*
-      - cp bin/helpers/* ${BACTOPIA}/bin
-      - VERSION=`bactopia version | cut -d " " -f 2`
-      - BACTOPIA_VERSION="${VERSION%.*}.x"
-      - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-      - cp -r bin/ conda/ conf/ docs/ templates/ tools/ main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
       - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
-      - conda activate bactopia-ci
+      - mkdir ${BACTOPIA}/envs
+      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA}/envs ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
+      - conda activate bactopia-${CI_PIPELINE_ID}
 
 .before_script_template: &osx_template
-      before_script:
-        - BACTOPIA_CI=/Users/rpetit/bactopia-ci
-        - BACTOPIA=$(pwd)
-        - FQ_DIR=$(pwd)/tests/real-fastqs/
-        - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
-        - chmod 755 bactopia
-        - mkdir -p ${BACTOPIA}/bin
-        - cp bactopia ${BACTOPIA}/bin
-        - export PATH=${BACTOPIA}/bin:/Users/rpetit/miniconda3/bin:${PATH}
-        - export LC_ALL=en_US.UTF-8  
-        - export LANG=en_US.UTF-8
-        - chmod 755 bin/helpers/*
-        - cp bin/helpers/* ${BACTOPIA}/bin
-        - VERSION=`bactopia version | cut -d " " -f 2`
-        - BACTOPIA_VERSION="${VERSION%.*}.x"
-        - mkdir -p ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-        - cp -R bin conda conf docs templates tools main.nf nextflow.config ${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/
-        - source /Users/rpetit/miniconda3/etc/profile.d/conda.sh
-        - conda activate bactopia-ci
+    before_script:
+      - BACTOPIA_CI=/Users/rpetit/bactopia-ci
+      - BACTOPIA=$(pwd)
+      - FQ_DIR=$(pwd)/tests/real-fastqs/
+      - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
+      - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+      - mkdir ${BACTOPIA}/envs
+      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA}/envs ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
+      - conda activate bactopia-${CI_PIPELINE_ID}
 
 stages:
-    - subcommand_stage
     - test_stage
     - cleanup_stage
-
-bactopia-commands-docker:
-    stage: subcommand_stage
-    <<: *docker_template
-    only:
-        - master
-    script:
-        - which bactopia
-        - echo "Testing bactopia version"
-        - bactopia version
-        - bactopia --version
-        - bactopia versions
-        - echo "Testing bactopia citation"
-        - bactopia citation
-        - bactopia --citation
-        - bactopia citations
-        - echo "Testing bactopia search"
-        - bactopia search
-        - bactopia search --help
-        - bactopia search PRJNA480016 --limit 5
-        - bactopia search 1280 --exact_taxon --limit 5
-        - bactopia search "staphylococcus aureus" --limit 5
-        - bactopia search SAMN01737350 --limit 5
-        - bactopia search SRR578340 --limit 5
-        - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
-        - bactopia search tests/test-search-accessions.txt --limit 5
-        - echo "Testing bactopia datasets"
-        - bactopia datasets --help
-        - echo "Testing bactopia prepare"
-        - bactopia prepare
-        - bactopia prepare --help
-        - bactopia prepare ${FQ_DIR}
-        - echo "Testing bactopia build"
-        - bactopia build
-        - bactopia build --help
-        - bactopia build --default
-
-bactopia-commands-osx:
-    stage: subcommand_stage
-    <<: *osx_template
-    tags:
-        - osx
-    only:
-        - master
-    script:
-        - which bactopia
-        - echo "Testing bactopia version"
-        - bactopia version
-        - bactopia --version
-        - bactopia versions
-        - echo "Testing bactopia citation"
-        - bactopia citation
-        - bactopia --citation
-        - bactopia citations
-        - echo "Testing bactopia search"
-        - bactopia search
-        - bactopia search --help
-        - bactopia search PRJNA480016 --limit 5
-        - bactopia search 1280 --exact_taxon --limit 5
-        - bactopia search "staphylococcus aureus" --limit 5
-        - bactopia search SAMN01737350 --limit 5
-        - bactopia search SRR578340 --limit 5
-        - bactopia search SAMN01737350,SRR578340 --limit 5 --outdir test-search --prefix test
-        - bactopia search tests/test-search-accessions.txt --limit 5
-        - echo "Testing bactopia datasets"
-        - bactopia datasets --help
-        - echo "Testing bactopia prepare"
-        - bactopia prepare
-        - bactopia prepare --help
-        - bactopia prepare ${FQ_DIR}
-        - echo "Testing bactopia build"
-        - bactopia build
-        - bactopia build --help
-        - bactopia build --default
 
 run-bactopia-linux:
     stage: test_stage
@@ -200,7 +90,6 @@ run-bactopia-osx:
 
 cleanup-linux-runs:
     stage: cleanup_stage
-    <<: *linux_template
     tags:
         - local
     only:
@@ -213,7 +102,6 @@ cleanup-linux-runs:
 
 cleanup-osx-runs:
     stage: cleanup_stage
-    <<: *osx_template
     tags:
         - osx
     only:
