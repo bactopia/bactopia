@@ -17,6 +17,9 @@ jobs:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
 
+      - name: Free up Disk Space
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
+
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
