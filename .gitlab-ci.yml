@@ -10,7 +10,7 @@ variables:
       - BACTOPIA_TOOL_OPTS="--bactopia ../${CI_JOB_NAME} -ansi-log false --condadir ${BACTOPIA_CI}/bactopia-envs"
       - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
       - mkdir ${BACTOPIA}/envs
-      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA}/envs ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
+      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
       - conda activate bactopia-${CI_PIPELINE_ID}
 
 .before_script_template: &osx_template
@@ -21,7 +21,7 @@ variables:
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
       - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
       - mkdir ${BACTOPIA}/envs
-      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA}/envs ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
+      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
       - conda activate bactopia-${CI_PIPELINE_ID}
 
 stages:
