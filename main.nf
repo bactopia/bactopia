@@ -1758,19 +1758,19 @@ def full_help() {
         --aws_cliPath STR       Path to the AWS CLI for Nextflow to use.
                                     Default: ${params.aws_cliPath}
 
-        --aws_uploadStorageClass STR
+        --aws_upload_storage_class STR
                                 The S3 storage slass to use for storing files on S3
                                     Default: ${params.aws_uploadStorageClass}
 
-        --aws_maxParallelTransfers INT
+        --aws_max_parallel_transfers INT
                                 The number of parallele transfers between EC2 and S3
                                     Default: ${params.aws_maxParallelTransfers}
 
-        --aws_delayBetweenAttempts INT
+        --aws_delay_between_attempts INT
                                 The duration of sleep (in seconds) between each transfer between EC2 and S3
                                     Default: ${params.aws_delayBetweenAttempts}
 
-        --aws_maxTransferAttempts INT
+        --aws_max_transfer_attempts INT
                                 The maximum number of times to retry transferring a file between EC2 and S3
                                     Default: ${params.aws_maxTransferAttempts}
 

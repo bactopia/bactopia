@@ -155,6 +155,8 @@ elif [[ "$1" == "tools" ]]; then
                     echo "Bactopia Tool '$2' finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
                     rm -rf "${WORK_DIR}"
                 fi
+            else
+                exit $?
             fi
         fi
     fi
@@ -204,5 +206,7 @@ else
             echo "Bactopia finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
             rm -rf "${WORK_DIR}"
         fi
+    else
+        exit $?
     fi
 fi
