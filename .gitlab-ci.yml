@@ -12,6 +12,7 @@ variables:
       - mkdir ${BACTOPIA}/envs
       - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
       - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
+      - export PATH=${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}/bin:${PATH}
 
 .before_script_template: &osx_template
     before_script:
@@ -23,6 +24,7 @@ variables:
       - mkdir ${BACTOPIA}/envs
       - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
       - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
+      - export PATH=${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}/bin:${PATH}
 
 stages:
     - test_stage
