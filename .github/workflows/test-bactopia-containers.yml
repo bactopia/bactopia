@@ -40,7 +40,6 @@ jobs:
           bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
           echo BACTOPIA_OPTS=--coverage 20 -ansi-log false --registry github >> $GITHUB_ENV
           echo BACTOPIA_DATASETS=--datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets >> $GITHUB_ENV
-          echo STAPH_OPTS=--species 'Staphylococcus aureus' --genome_size median >> $GITHUB_ENV
           echo PAIRED=--R1 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R1.fastq.gz --R2 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R2.fastq.gz --sample SRX4563634-PE >> $GITHUB_ENV
           echo SINGLE=--SE ${GITHUB_WORKSPACE}/fastqs/SRX4563634-SE.fastq.gz --sample SRX4563634-SE >> $GITHUB_ENV
 
@@ -61,17 +60,17 @@ jobs:
 
       - name: Testing Assembly Accession
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia --accession GCF_003431365 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+        run: bactopia --accession GCF_003431365 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
 
       - name: Testing SRA Accession
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia --accession SRX4563634 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+        run: bactopia --accession SRX4563634 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
 
       - name: Testing Accessions
         working-directory: ./bactopia-testing/bactopia
         run: |
           bactopia search PRJNA480016 --limit 3 |
-          bactopia --accessions ${GITHUB_WORKSPACE}/ena-accessions.txt -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+          bactopia --accessions ${GITHUB_WORKSPACE}/ena-accessions.txt -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
 
       - name: Setup FASTQs
         working-directory: ./bactopia-testing
@@ -83,11 +82,11 @@ jobs:
 
       - name: Testing Paired-End
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia ${PAIRED} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+        run: bactopia ${PAIRED} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
 
       - name: Testing Single End
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia ${SINGLE} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} ${STAPH_OPTS}
+        run: bactopia ${SINGLE} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
 
       - name: Testing Bactopia Tool - fastani
         working-directory: ./bactopia-testing/bactopia
