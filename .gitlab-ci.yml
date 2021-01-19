@@ -57,7 +57,6 @@ run-bactopia-linux:
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
         - echo "Testing with datasets"
         - bactopia --accession GCF_003431365 --datasets ${DATASETS} --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
-        - bactopia -w test | grep -v "Can only specify option -w once."
 
 run-bactopia-osx:
     stage: test_stage
