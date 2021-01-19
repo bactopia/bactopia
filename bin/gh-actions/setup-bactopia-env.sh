@@ -28,6 +28,7 @@ conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   executor \
   lxml \
   mash \
+  ncbi-amrfinderplus \
   ncbi-genome-download \
   nextflow \
   "pysam>=0.15.3" \
