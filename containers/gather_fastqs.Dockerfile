@@ -13,11 +13,6 @@ LABEL conda.md5="1b36ee0296bd58e2bc5bd714d6e464ff"
 
 COPY conda/linux/gather_fastqs.yml /
 COPY bin/check-assembly-accession.py /
-RUN conda env create -q -f gather_fastqs.yml && \
-    conda clean -y -a && \
-    /opt/conda/envs/bactopia-gather_fastqs/bin/python3 check-assembly-accession.py GCF_003431365 && \
-    mv /root/.config /.config && \
-    chmod -R 775 /.config && \
-    ln -s /.config /root/.config
+RUN conda env create -q -f gather_fastqs.yml && conda clean -y -a
 
 ENV PATH /opt/conda/envs/bactopia-gather_fastqs/bin:$PATH

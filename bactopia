@@ -172,16 +172,23 @@ elif [[ "$1" == "versions" ]]; then
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
+    BUILD_SINGULARITY=0
     CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig") 
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
+            if [[ "${check}" == "singularity" || "${check}" == "slurm" ]]; then
+                BUILD_SINGULARITY=1
+            fi
         fi
     done
 
     if [[ "${BUILD_CONDA}" -eq 1 ]]; then
-        # Build conda envs, rebuild out of sync envs, skipp existing
+        # Build conda envs, rebuild out of sync envs, skip existing
         bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
+    elif [[ "${BUILD_SINGULARITY}" -eq 1 ]]; then
+        # Build Singularity images, rebuild out of sync, skip existing
+        bactopia-pull.py "${BACTOPIA_NF}/conda" --is_bactopia "${@:1}"
     fi
 
     # Create custom work dir

@@ -68,7 +68,7 @@ def check_needs_build(observed_md5, expected_md5, prefix, force=False, is_bactop
                 logging.info(f'Existing env ({prefix}) found, skipping unless --force is used')
         else:
             needs_build = True
-            logging.info(f'Existing env ({prefix}) is out of sync, it will be updated')                       
+            logging.info(f'Existing env ({prefix}) is out of sync, it will be updated')                    
     else:
         needs_build = True
     return needs_build
@@ -184,14 +184,11 @@ if __name__ == '__main__':
     logging.getLogger().setLevel(set_log_level(args.silent, args.verbose))
 
     # https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
-    env_path = f'{os.path.abspath(args.conda_envs)}/{ostype}'
-    install_path = os.path.abspath(args.install_path)
-    finish_file = f'{install_path}/envs-build-{CONTAINER_VERSION}.txt'
-    if not args.force and os.path.exists(finish_file):
-        logging.error(
-            f'Conda envs are already built in {install_path}, will not rebuild without --force'
-        )
-        sys.exit(1)
+    env_path = f'{os.path.abspath(os.path.expanduser(args.conda_envs))}/{ostype}'
+    install_path = os.path.abspath(os.path.expanduser(args.install_path))
+    finish_file = f'{install_path}/envs-built-{CONTAINER_VERSION}.txt'
+    if os.path.exists(finish_file):
+        print(f'Found Conda environments in {install_path}, if a complete rebuild is needed please use --force')
 
     env_files = sorted(glob.glob(f'{env_path}/*.{args.ext}'))
     if env_files:
@@ -214,9 +211,7 @@ if __name__ == '__main__':
                         execute(f'cp {md5_file} {envbuilt_file}')
         execute(f'touch {install_path}/envs-built-{CONTAINER_VERSION}.txt')
     else:
-        logging.error(
-            f'Unable to find Conda *.{args.ext} files in {env_path}, please verify'
-        )
+        logging.error(f'Unable to find Conda *.{args.ext} files in {env_path}, please verify')
         sys.exit(1)
 
     if args.include_tools:
