@@ -33,7 +33,7 @@ jobs:
           echo BACTOPIA_OPTS=--coverage 20 -ansi-log false --registry github >> $GITHUB_ENV
           echo BACTOPIA_DATASETS=--datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets >> $GITHUB_ENV
           echo STAPH_OPTS=--species 'Staphylococcus aureus' --genome_size median >> $GITHUB_ENV
-          echo PARIED=--R1 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R1.fastq.gz --R2 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R2.fastq.gz --sample SRX4563634-PE >> $GITHUB_ENV
+          echo PAIRED=--R1 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R1.fastq.gz --R2 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R2.fastq.gz --sample SRX4563634-PE >> $GITHUB_ENV
           echo SINGLE=--SE ${GITHUB_WORKSPACE}/fastqs/SRX4563634-SE.fastq.gz --sample SRX4563634-SE >> $GITHUB_ENV
 
       - name: Environment Information
