@@ -9,10 +9,15 @@ IS_GITHUB=${3:-"0"}
 IS_GITLAB=${4:-"0"}
 ENV=${5:-"bactopia"}
 CONDA_CMD="create -n ${ENV}"
+CPR="-r"
 if [[ "${IS_GITHUB}" == "1" ]]; then
   CONDA_CMD="install"
 elif [[ "${IS_GITLAB}" != "0" ]]; then
   CONDA_CMD="create --prefix ${IS_GITLAB}"
+fi
+
+if [ "$(uname)" == "Darwin" ]; then
+  CPR="-R"
 fi
 
 # Create environment
@@ -48,7 +53,7 @@ BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
 mkdir -p ${BACTOPIA_SHARE}
 
 # Copy files
-cp -r \
+cp ${CPR} \
   ${WORK_DIR}/bin/ \
   ${WORK_DIR}/conda/ \
   ${WORK_DIR}/conf/ \
