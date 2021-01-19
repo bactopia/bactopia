@@ -11,7 +11,7 @@ variables:
       - source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
       - mkdir ${BACTOPIA}/envs
       - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
-      - conda activate bactopia-${CI_PIPELINE_ID}
+      - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
 
 .before_script_template: &osx_template
     before_script:
@@ -22,7 +22,7 @@ variables:
       - source /Users/rpetit/miniconda3/etc/profile.d/conda.sh
       - mkdir ${BACTOPIA}/envs
       - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
-      - conda activate bactopia-${CI_PIPELINE_ID}
+      - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
 
 stages:
     - test_stage
