@@ -4,6 +4,7 @@ variables:
 .before_script_template: &linux_template
     before_script:
       - BACTOPIA_CI=/data/storage/bactopia-ci
+      - DATASETS=${BACTOPIA_CI}/datasets
       - BACTOPIA=$(pwd)
       - FQ_DIR=$(pwd)/tests/real-fastqs/
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false -qs 4"
@@ -17,6 +18,7 @@ variables:
 .before_script_template: &osx_template
     before_script:
       - BACTOPIA_CI=/Users/rpetit/bactopia-ci
+      - DATASETS=${BACTOPIA_CI}/datasets
       - BACTOPIA=$(pwd)
       - FQ_DIR=$(pwd)/tests/real-fastqs/
       - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
@@ -54,13 +56,7 @@ run-bactopia-linux:
         - echo "Testing multiple accessions"
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
         - echo "Testing with datasets"
-        - bactopia datasets --skip_mlst --skip_ariba --skip_plsdb
-        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba  --skip_plsdb
-        - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
-        - cp -r bactopia-datasets/species-specific/ datasets/
-        - rm -rf bactopia-datasets/
-        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
-        - mkdir test-tool && cd test-tool && bactopia tools summary ${BACTOPIA_TOOL_OPTS}/tools-summary-${BACTOPIA_VERSION}
+        - bactopia --accession GCF_003431365 --datasets ${DATASETS} --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
         - bactopia -w test | grep -v "Can only specify option -w once."
 
 run-bactopia-osx:
@@ -87,12 +83,7 @@ run-bactopia-osx:
         - echo "Testing multiple accessions"
         - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
         - echo "Testing with datasets"
-        - bactopia datasets --skip_mlst --skip_ariba --skip_plsdb
-        - bactopia datasets --species "Staphylococcus aureus" --limit 10 --skip_mlst --skip_ariba --skip_plsdb
-        - git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
-        - cp -r bactopia-datasets/species-specific/ datasets/
-        - rm -rf bactopia-datasets/
-        - bactopia --accession GCF_003431365 --datasets datasets/ --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
+        - bactopia --accession GCF_003431365 --datasets ${DATASETS} --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
 
 cleanup-linux-runs:
     stage: cleanup_stage
