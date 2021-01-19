@@ -36,6 +36,8 @@ run-bactopia-linux:
     only:
         - master
     script:
+        - env
+        - which bactopia
         - echo "Testing single end reads"
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
         - echo "Testing paired end reads"
@@ -67,6 +69,8 @@ run-bactopia-osx:
     only:
         - master
     script:
+        - env
+        - which bactopia
         - echo "Testing single end reads"
         - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
         - echo "Testing paired end reads"
