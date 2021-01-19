@@ -9,9 +9,9 @@ PROGRAM_NAME = workflow.manifest.name
 VERSION = workflow.manifest.version
 
 // Adjust memory/cpu requests for standard profile only
-MAX_MEMORY = ['standard', 'docker', 'singularity'].contains(params.profile) ? get_max_memory(params.max_memory).GB : (params.max_memory).GB
+MAX_MEMORY = ['standard', 'docker', 'singularity'].contains(workflow.profile) ? get_max_memory(params.max_memory).GB : (params.max_memory).GB
 MAX_MEMORY_INT = MAX_MEMORY.toString().split(" ")[0]
-MAX_CPUS = ['standard', 'docker', 'singularity'].contains(params.profile) ? get_max_cpus(params.cpus.toInteger()) : params.cpus.toInteger()
+MAX_CPUS = ['standard', 'docker', 'singularity'].contains(workflow.profile) ? get_max_cpus(params.cpus.toInteger()) : params.cpus.toInteger()
 MAX_CPUS_75 = Math.round(MAX_CPUS * 0.75)
 MAX_CPUS_50 = Math.round(MAX_CPUS * 0.50)
 USING_MERGE = false
@@ -1530,7 +1530,7 @@ def print_dataset_info(dataset_list, dataset_info) {
 }
 
 def print_efficiency() {
-    if (['standard', 'docker', 'singularity'].contains(params.profile)) {
+    if (['standard', 'docker', 'singularity'].contains(workflow.profile)) {
         // This is a local run on a single machine
         total_cpus = Runtime.runtime.availableProcessors()
         tasks = total_cpus / MAX_CPUS
