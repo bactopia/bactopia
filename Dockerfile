@@ -10,5 +10,11 @@ LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 
 COPY . /bactopia
-RUN bash /bactopia/bin/gh-actions/setup-bactopia-env.sh
+COPY bin/check-assembly-accession.py /
+RUN bash /bactopia/bin/gh-actions/setup-bactopia-env.sh && \
+    /opt/conda/envs/bactopia/bin/python3 check-assembly-accession.py GCF_003431365 && \
+    mv /root/.config /.config && \
+    chmod -R 775 /.config && \
+    ln -s /.config /root/.config
+
 ENV PATH /opt/conda/envs/bactopia/bin:$PATH

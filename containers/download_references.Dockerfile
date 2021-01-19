@@ -12,5 +12,12 @@ LABEL conda.env="bactopia/conda/linux/download_references.yml"
 LABEL conda.md5="5d9464e2bcb7effe1fbd138952c83910"
 
 COPY conda/linux/download_references.yml /
-RUN conda env create -q -f download_references.yml && conda clean -y -a
+COPY bin/check-assembly-accession.py /
+RUN conda env create -q -f download_references.yml && \
+    conda clean -y -a && \
+    /opt/conda/envs/bactopia-download_references/bin/python3 check-assembly-accession.py GCF_003431365 && \
+    mv /root/.config /.config && \
+    chmod -R 775 /.config && \
+    ln -s /.config /root/.config
+
 ENV PATH /opt/conda/envs/bactopia-download_references/bin:$PATH

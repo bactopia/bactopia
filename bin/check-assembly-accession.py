@@ -4,22 +4,23 @@
 PROGRAM = "check-assembly-accession"
 VERSION = "1.5.6"
 
+
 def check_assembly_version(accession):
     from Bio import Entrez
     import time
     import json
     Entrez.email = "robert.petit@emory.edu"
-    Entrez.tool = "BactopiaSelectReferences"
+    Entrez.tool = "BactopiaCheckAssemblyAccession"
 
     handle = Entrez.esearch(db="assembly", term=accession, retmax="500")
     record = Entrez.read(handle, validate=False)
-    time.sleep(1) # Be kind to NCBI
+    time.sleep(1)  # Be kind to NCBI
 
     if len(record["IdList"]):
         handle = Entrez.esummary(db="assembly", id=",".join(record["IdList"]))
         record = Entrez.read(handle, validate=False)
 
-        time.sleep(1) # Be kind to NCBI
+        time.sleep(1)  # Be kind to NCBI
 
         records = []
         excluded = set()
@@ -39,6 +40,7 @@ def check_assembly_version(accession):
     else:
 
         return [f'No records found for {accession}', True]
+
 
 if __name__ == '__main__':
     import argparse as ap

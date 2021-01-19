@@ -59,8 +59,6 @@ cp -R \
   ${WORK_DIR}/nextflow.config \
   ${BACTOPIA_SHARE}
 
-
-
 # Clean up
 if [[ "${IS_GITHUB}" == "0" && "${IS_GITLAB}" == "0" ]]; then
   rm -rf /bactopia
