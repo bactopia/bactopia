@@ -41,12 +41,7 @@ jobs:
           auto-activate-base: false
 
       - name: Setup Bactopia Environment
-        run: |
-          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
-          echo BACTOPIA_OPTS=--coverage 20 -ansi-log false --registry github >> $GITHUB_ENV
-          echo BACTOPIA_DATASETS=--datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets >> $GITHUB_ENV
-          echo PAIRED=--R1 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R1.fastq.gz --R2 ${GITHUB_WORKSPACE}/fastqs/SRX4563634_R2.fastq.gz --sample SRX4563634-PE >> $GITHUB_ENV
-          echo SINGLE=--SE ${GITHUB_WORKSPACE}/fastqs/SRX4563634-SE.fastq.gz --sample SRX4563634-SE >> $GITHUB_ENV
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
 
       - name: Environment Information
         run: uname -a && env
@@ -57,58 +52,21 @@ jobs:
       - name: Build Bactopia Datasets
         working-directory: ./bactopia-testing 
         run: | 
-          bactopia search PRJNA480016 --limit 3
           bactopia datasets --species "Staphylococcus aureus" --limit 5 
           git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
-          cp -r bactopia-datasets/species-specific/ datasets/
+          cp -R bactopia-datasets/species-specific datasets/
           rm -rf bactopia-datasets/
 
       - name: Testing Assembly Accession
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia --accession GCF_003431365 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
+        run: |
+          bactopia --accession GCF_003431365 -profile ${{ matrix.profile }} --coverage 20 -ansi-log false \
+                   --registry github --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
+                   --species "Staphylococcus aureus" --genome_size median
 
       - name: Testing SRA Accession
         working-directory: ./bactopia-testing/bactopia
-        run: bactopia --accession SRX4563634 -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
-
-      - name: Testing Accessions
-        working-directory: ./bactopia-testing/bactopia
         run: |
-          bactopia search PRJNA480016 --limit 3 |
-          bactopia --accessions ${GITHUB_WORKSPACE}/ena-accessions.txt -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
-
-      - name: Setup FASTQs
-        working-directory: ./bactopia-testing
-        run: |
-          mkdir fastqs |
-          cp bactopia/SRX4563634/quality-control/SRX4563634*.fastq.gz fastqs/
-          cat fastqs/SRX4563634*.fastq.gz > fastqs/SRX4563634-SE.fastq.gz
-          bactopia prepare fastqs/ > fastqs.txt
-
-      - name: Testing Paired-End
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia ${PAIRED} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
-
-      - name: Testing Single End
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia ${SINGLE} -profile ${{ matrix.profile }} ${BACTOPIA_OPTS} ${BACTOPIA_DATASETS} --species "Staphylococcus aureus" --genome_size median
-
-      - name: Testing Bactopia Tool - fastani
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia tools fastani -profile ${{ matrix.profile }} --bactopia ./ --accession GCF_003431365 --skip_pairwise
-
-      - name: Testing Bactopia Tool - mash
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia tools mashtree -profile ${{ matrix.profile }} --bactopia ./
-
-      - name: Testing Bactopia Tool - pirate
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia tools pirate -profile ${{ matrix.profile }} --bactopia ./
-
-      - name: Testing Bactopia Tool - roary
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia tools roary -profile ${{ matrix.profile }} --bactopia ./
-
-      - name: Testing Bactopia Tool - summary
-        working-directory: ./bactopia-testing/bactopia
-        run: bactopia tools summary -profile ${{ matrix.profile }} --bactopia ./ 
+          bactopia --accession SRX4563634 -profile ${{ matrix.profile }} --coverage 20 -ansi-log false \
+                   --registry github --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
+                   --species "Staphylococcus aureus" --genome_size median

@@ -170,7 +170,7 @@ if __name__ == '__main__':
 
     env_path = os.path.abspath(os.path.expanduser(args.docker))
     install_path = os.path.abspath(os.path.expanduser(args.singularity_cache))
-    finish_file = f'{install_path}/images-build-{VERSION}.txt'
+    finish_file = f'{install_path}/{args.registry}-images-built-{VERSION}.txt'
     if os.path.exists(finish_file):
         print(f'Found Singularity images in {install_path}, if a complete rebuild is needed please use --force')
     
@@ -179,18 +179,19 @@ if __name__ == '__main__':
         execute(f'mkdir -p {install_path}')
 
     registry = get_docker_prefix(args.registry)
+    print(args.registry, registry)
     docker_prefix = f'docker://{registry}/bactopia' if registry else f'docker://bactopia'
     env_files = sorted(glob.glob(f'{env_path}/linux/*.yml'))
     if env_files:
         for i, env_file in enumerate(env_files):
             envname = os.path.basename(env_file).replace(".yml", "")
-            img_name = f"{install_path}/bactopia-{envname}-{VERSION}.img"
-            pull_name = f"{docker_prefix}/{registry}-{envname}:{VERSION}" if registry else f"{docker_prefix}/{envname}:{VERSION}"
+            img_name = f"{install_path}/{registry}-bactopia-{envname}-{VERSION}.img"
+            pull_name = f"{docker_prefix}/{envname}:{VERSION}"
             build = True
             if args.envname:
                 if not args.envname == envname:
                     build = False
-
+                    
             if build:
                 if check_needs_build(img_name, force=args.force, is_bactopia=args.is_bactopia):
                     logging.info(f'Found {envname} ({i+1} of {len(env_files)}), begin build to {img_name}')
@@ -208,8 +209,8 @@ if __name__ == '__main__':
         for i, tool in enumerate(tools):
             tool = os.path.basename(os.path.dirname(tool))
             if not tool.startswith('.'):
-                img_name = f"{install_path}/bactopia-tools-{tool}-{VERSION}.img"
-                pull_name = f"{docker_prefix}/{registry}-tools-{tool}:{VERSION}" if registry else f"{docker_prefix}/tools-{tool}:{VERSION}"
+                img_name = f"{install_path}/{registry}-bactopia-tools-{tool}-{VERSION}.img"
+                pull_name = f"{docker_prefix}/tools-{tool}:{VERSION}"
                 build = True
                 if args.envname:
                     if not args.envname == tool:
