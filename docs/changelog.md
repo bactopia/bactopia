@@ -2,6 +2,7 @@
 
 ## v1.6.0 bactopia/bactopia "" - 2021/??/??
 ### `Added`
+- `bactopia pull` to pre-build Singularity images
 - `--singularity_cache` parameter to set location of image downloads
 - `--registry` to choose Docker registry to use (DockerHub, GitHub, Quay)
 - `--max_downloads` sets maximum number of downloads (FASTQ/assembly) allowed at once

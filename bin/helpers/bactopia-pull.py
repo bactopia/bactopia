@@ -80,11 +80,11 @@ def execute(cmd, directory=os.getcwd(), capture=False, stdout_file=None,
 def get_docker_prefix(registry):
     """Return the proper prefix based on registry."""
     if registry == "quay":
-        return 'docker://quay.io/bactopia'
+        return 'quay.io'
     elif registry == "github":
-        return 'docker://ghcr.io/bactopia'
+        return 'ghcr.io'
     else:
-        return 'docker://bactopia'
+        return ''
 
 
 def check_needs_build(image, force=False, is_bactopia=False):
@@ -178,13 +178,14 @@ if __name__ == '__main__':
         logging.info(f'Creating {install_path} to save images to')
         execute(f'mkdir -p {install_path}')
 
-    docker_prefix = get_docker_prefix(args.registry)
+    registry = get_docker_prefix(args.registry)
+    docker_prefix = f'docker://{registry}/bactopia' if registry else f'docker://bactopia'
     env_files = sorted(glob.glob(f'{env_path}/linux/*.yml'))
     if env_files:
         for i, env_file in enumerate(env_files):
             envname = os.path.basename(env_file).replace(".yml", "")
             img_name = f"{install_path}/bactopia-{envname}-{VERSION}.img"
-            pull_name = f"{docker_prefix}/{envname}:{VERSION}"
+            pull_name = f"{docker_prefix}/{registry}-{envname}:{VERSION}" if registry else f"{docker_prefix}/{envname}:{VERSION}"
             build = True
             if args.envname:
                 if not args.envname == envname:
@@ -208,7 +209,7 @@ if __name__ == '__main__':
             tool = os.path.basename(os.path.dirname(tool))
             if not tool.startswith('.'):
                 img_name = f"{install_path}/bactopia-tools-{tool}-{VERSION}.img"
-                pull_name = f"{docker_prefix}/tools-{tool}:{VERSION}"
+                pull_name = f"{docker_prefix}/{registry}-tools-{tool}:{VERSION}" if registry else f"{docker_prefix}/tools-{tool}:{VERSION}"
                 build = True
                 if args.envname:
                     if not args.envname == tool:
