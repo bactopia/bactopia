@@ -49,11 +49,11 @@ dependencies:
   - matplotlib-base=3.3.3
   - multiprocess=0.70.11.1
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - olefile=0.46
   - openssl=1.1.1i
   - packaging=20.8
-  - pandas=1.2.0
+  - pandas=1.2.1
   - pathos=0.2.7
   - pillow=8.1.0
   - pip=20.3.3
@@ -76,9 +76,10 @@ dependencies:
   - sqlite=3.34.0
   - tk=8.6.10
   - tornado=6.1
-  - tqdm=4.55.1
+  - tqdm=4.56.0
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /local/home/rpetit/miniconda3/envs/bactopia-minmers
 

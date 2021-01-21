@@ -23,7 +23,7 @@ dependencies:
   - libnghttp2=1.41.0
   - libssh2=1.9.0
   - libstdcxx-ng=9.3.0
-  - ncbi-amrfinderplus=3.9.3
+  - ncbi-amrfinderplus=3.9.8
   - ncurses=6.2
   - openssl=1.1.1i
   - pcre=8.44
@@ -93,4 +93,5 @@ dependencies:
   - perl-xsloader=0.24
   - tk=8.6.10
   - zlib=1.2.11
+prefix: /local/home/rpetit/miniconda3/envs/bactopia-antimicrobial_resistance
 

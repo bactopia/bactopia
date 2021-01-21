@@ -28,4 +28,5 @@ dependencies:
   - pigz=2.3.4
   - xz=5.2.5
   - zlib=1.2.11
+prefix: /local/home/rpetit/miniconda3/envs/bactopia-qc_reads
 

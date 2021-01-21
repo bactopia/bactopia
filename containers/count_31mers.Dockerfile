@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/count_31mers.yml"
-LABEL conda.md5="6dc09debb99bf51b0d3683b4040c39e3"
+LABEL conda.md5="6df2c69d4ef58c917acfab19b6e5fc46"
 
 COPY conda/linux/count_31mers.yml /
 RUN conda env create -q -f count_31mers.yml && conda clean -y -a

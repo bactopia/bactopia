@@ -53,7 +53,7 @@ dependencies:
   - matplotlib-base=3.3.3
   - mummer=3.23
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - olefile=0.46
   - openmp=8.0.1
   - openssl=1.1.1i
@@ -83,4 +83,5 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /local/home/rpetit/miniconda3/envs/bactopia-ariba_analysis
 

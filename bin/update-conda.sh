@@ -1,6 +1,7 @@
 #! /bin/bash
 # Updates the conda environment yamls to bump to latest software versions.
-
+set -x
+set -e
 if [[ $# == 0 ]]; then
     echo ""
     echo "update-conda.sh BACTOPIA_DIRECTORY VERSION IS_MAC"
@@ -29,18 +30,16 @@ function update_environment {
     # 1: template, 2: programs, 3: conda dir, 4: docker dir, 5: version, 6: is_mac
     echo "Working on ${1}"
    
-    if [ "$5" == 1 ]; then
+    if [ "$6" == 1 ]; then
         # Mac OS
         # Have to replace Mac versions of some programs (date, sed, etc...)
-        conda create -y -n bactopia-${1} ${6} -c conda-forge -c bioconda ${2} coreutils sed
+        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} coreutils sed
         conda env export --no-builds -n bactopia-${1} > ${3}/${1}.yml
-        echo "Bactopia version: ${5}" > ${3}/${1}.version
         md5 -r ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
     else
         # Linux
-        conda create -y -n bactopia-${1} ${6} -c conda-forge -c bioconda ${2} 
+        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} 
         conda env export --no-builds -n bactopia-${1} > ${3}/${1}.yml
-        echo "Bactopia version: ${5}" > ${3}/${1}.version
         md5sum ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
         head -n 1 ${3}/${1}.md5 | xargs -I {} sed -i -E 's/(LABEL conda.md5=")(.*)(")/\1{}\3/' ${4}/${1}.Dockerfile
     fi

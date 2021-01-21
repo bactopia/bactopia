@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/antimicrobial_resistance.yml"
-LABEL conda.md5="200c0f3889c083bd3d767d81c7939efd"
+LABEL conda.md5="e7eda072542179b95cb6702e6c76378e"
 
 COPY conda/linux/antimicrobial_resistance.yml /
 RUN conda env create -q -f antimicrobial_resistance.yml && conda clean -a
