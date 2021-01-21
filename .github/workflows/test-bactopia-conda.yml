@@ -47,6 +47,6 @@ jobs:
       - name: Testing SRA Accession
         working-directory: ./bactopia-testing/bactopia
         run: |
-          bactopia --accession SRX4563634 --coverage 20 -ansi-log false --registry github \
+          bactopia --accession SRX4563634 --coverage 10 -ansi-log false --registry github \
                    --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
                    --species "Staphylococcus aureus" --genome_size median
