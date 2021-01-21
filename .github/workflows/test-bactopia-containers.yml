@@ -52,7 +52,7 @@ jobs:
       - name: Build Bactopia Datasets
         working-directory: ./bactopia-testing 
         run: | 
-          bactopia datasets --species "Staphylococcus aureus" --limit 5 
+          bactopia datasets --species "Staphylococcus aureus" --limit 5 --ariba "card"
           git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
           cp -R bactopia-datasets/species-specific datasets/
           rm -rf bactopia-datasets/
@@ -62,4 +62,4 @@ jobs:
         run: |
           bactopia --accession SRX4563634 -profile ${{ matrix.profile }} --coverage 10 -ansi-log false \
                    --registry github --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
-                   --species "Staphylococcus aureus" --genome_size median
+                   --species "Staphylococcus aureus" --genome_size median --skip_checkm

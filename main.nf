@@ -1987,6 +1987,9 @@ def full_help() {
         --no_pilon              Do not use Pilon to polish the final assembly 
 
     Assembly Quality Control Parameters:
+        --skip_checkm           CheckM analysis will be skipped. This is useful for systems 
+                                    with less than 8GB of memory.
+
         --checkm_unique INT     Minimum number of unique phylogenetic markers required 
                                     to use lineage-specific marker set.
                                     Default: ${params.checkm_unique}

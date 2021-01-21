@@ -24,6 +24,8 @@ if [ "!{method}" == "checkm" ]; then
     mkdir checkm/
     if [ "$(uname)" = Darwin ]; then
         echo "checkm is not available due to pplacer not being available on MacOSX (via BioConda)" > checkm/checkm-not-available-on-macosx.txt
+    elif [[ "!{params.skip_checkm}" == "true" ]]
+        echo "checkm was skipped due to '--skip_checkm'" > checkm/checkm-was-skipped.txt
     else
         echo "# CheckM Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
         checkm -h | grep ":::" >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
