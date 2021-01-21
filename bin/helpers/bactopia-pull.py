@@ -178,7 +178,7 @@ if __name__ == '__main__':
         logging.info(f'Creating {install_path} to save images to')
         execute(f'mkdir -p {install_path}')
 
-    registry = get_docker_prefix(args.registry
+    registry = get_docker_prefix(args.registry)
     docker_prefix = f'docker://{registry}/bactopia' if registry else f'docker://bactopia'
     env_files = sorted(glob.glob(f'{env_path}/linux/*.yml'))
     if env_files:
