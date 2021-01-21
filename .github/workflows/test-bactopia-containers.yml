@@ -57,13 +57,6 @@ jobs:
           cp -R bactopia-datasets/species-specific datasets/
           rm -rf bactopia-datasets/
 
-      - name: Testing Assembly Accession
-        working-directory: ./bactopia-testing/bactopia
-        run: |
-          bactopia --accession GCF_003431365 -profile ${{ matrix.profile }} --coverage 20 -ansi-log false \
-                   --registry github --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
-                   --species "Staphylococcus aureus" --genome_size median
-
       - name: Testing SRA Accession
         working-directory: ./bactopia-testing/bactopia
         run: |

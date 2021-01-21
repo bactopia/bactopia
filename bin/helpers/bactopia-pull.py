@@ -178,14 +178,13 @@ if __name__ == '__main__':
         logging.info(f'Creating {install_path} to save images to')
         execute(f'mkdir -p {install_path}')
 
-    registry = get_docker_prefix(args.registry)
-    print(args.registry, registry)
+    registry = get_docker_prefix(args.registry
     docker_prefix = f'docker://{registry}/bactopia' if registry else f'docker://bactopia'
     env_files = sorted(glob.glob(f'{env_path}/linux/*.yml'))
     if env_files:
         for i, env_file in enumerate(env_files):
             envname = os.path.basename(env_file).replace(".yml", "")
-            img_name = f"{install_path}/{registry}-bactopia-{envname}-{VERSION}.img"
+            img_name = f"{install_path}/{registry}-bactopia-{envname}-{VERSION}.img" if registry else f"{install_path}/bactopia-{envname}-{VERSION}.img"
             pull_name = f"{docker_prefix}/{envname}:{VERSION}"
             build = True
             if args.envname:
@@ -209,7 +208,7 @@ if __name__ == '__main__':
         for i, tool in enumerate(tools):
             tool = os.path.basename(os.path.dirname(tool))
             if not tool.startswith('.'):
-                img_name = f"{install_path}/{registry}-bactopia-tools-{tool}-{VERSION}.img"
+                img_name = f"{install_path}/{registry}-bactopia-tools-{tool}-{VERSION}.img" if registry else f"{install_path}/bactopia-tools-{tool}-{VERSION}.img"
                 pull_name = f"{docker_prefix}/tools-{tool}:{VERSION}"
                 build = True
                 if args.envname:
