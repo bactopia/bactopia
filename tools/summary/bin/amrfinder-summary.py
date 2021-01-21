@@ -88,7 +88,7 @@ if __name__ == '__main__':
             if directory.is_dir():
                 if directory.name not in IGNORE_LIST and directory.name not in EXCLUDE_LIST:
                     logging.debug(f"{directory.name} found")
-                    amr_directory = f"{args.bactopia}/{directory.name}/antimicrobial_resistance"
+                    amr_directory = f"{args.bactopia}/{directory.name}/antimicrobial-resistance"
                     if os.path.exists(amr_directory):
                         datasets['gene'].append(directory.name)
                         datasets['protein'].append(directory.name)
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         logging.debug(f"Processing {dataset} ({len(samples)} total samples)")
         for sample in sorted(samples):
             sample_class[sample] = {}
-            amr_report = f"{args.bactopia}/{sample}/antimicrobial_resistance/{sample}-{dataset}-report.txt"
+            amr_report = f"{args.bactopia}/{sample}/antimicrobial-resistance/{sample}-{dataset}-report.txt"
             if os.path.exists(amr_report):
                 summary_results, classes, cols = parse_amr_report(amr_report, subclass=args.subclass)
                 if not columns:
