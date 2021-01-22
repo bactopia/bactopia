@@ -1,4 +1,5 @@
 name: bactopia-summary
+version: 1.5.6
 channels:
   - conda-forge
   - defaults
@@ -9,10 +10,12 @@ dependencies:
   - coreutils=8.31
   - executor=23.2
   - fasteners=0.14.1
+  - gettext=0.19.8.1
   - humanfriendly=9.1
   - jinja2=2.11.2
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
+  - libiconv=1.16
   - markupsafe=1.1.1
   - monotonic=1.5
   - ncurses=6.2
@@ -22,6 +25,7 @@ dependencies:
   - python=3.9.1
   - python_abi=3.9
   - readline=8.0
+  - sed=4.7
   - setuptools=49.6.0
   - six=1.15.0
   - sqlite=3.34.0

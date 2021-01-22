@@ -1,4 +1,5 @@
 name: bactopia-fastani
+version: 1.5.6
 channels:
   - bioconda
   - conda-forge
@@ -22,7 +23,7 @@ dependencies:
   - icu=67.1
   - idna=2.10
   - intel-openmp=2019.4
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
   - libiconv=1.16
   - llvm-openmp=8.0.1

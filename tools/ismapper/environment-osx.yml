@@ -1,4 +1,5 @@
 name: bactopia-ismapper
+version: 1.5.6
 channels:
   - conda-forge
   - bioconda
@@ -13,32 +14,36 @@ dependencies:
   - ca-certificates=2020.12.5
   - certifi=2020.12.5
   - coreutils=8.31
-  - curl=7.71.1
+  - gettext=0.19.8.1
+  - htslib=1.11
   - ismapper=2.0.1
   - krb5=1.17.2
   - libblas=3.9.0
   - libcblas=3.9.0
   - libcurl=7.71.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
+  - libdeflate=1.7
   - libedit=3.1.20191231
   - libev=4.33
   - libffi=3.3
   - libgfortran=5.0.0
   - libgfortran5=9.3.0
+  - libiconv=1.16
   - liblapack=3.9.0
   - libnghttp2=1.41.0
   - libopenblas=0.3.12
   - libssh2=1.9.0
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openssl=1.1.1i
   - perl=5.32.0
   - pip=20.3.3
   - python=3.9.1
   - python_abi=3.9
   - readline=8.0
-  - samtools=1.4.1
+  - samtools=1.11
+  - sed=4.7
   - setuptools=49.6.0
   - sqlite=3.34.0
   - tk=8.6.10

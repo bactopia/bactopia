@@ -45,12 +45,12 @@ function update_environment {
 }
 
 # Bactopia environments
-update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+#update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "roary" "clonalframeml iqtree maskrc-svg ncbi-genome-download pigz prokka r-ggplot2 rename roary snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "summary" "executor jinja2" ${CONDA_DIR} ${VERSION} ${IS_MAC}
