@@ -20,14 +20,14 @@ dependencies:
   - idna=2.10
   - libblas=3.9.0
   - libcblas=3.9.0
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
   - libgfortran=5.0.0
   - libgfortran5=9.3.0
   - libiconv=1.16
   - liblapack=3.9.0
   - libopenblas=0.3.12
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - mash=2.2.2
   - ncbi-genome-download=0.3.0
   - ncurses=6.2
@@ -53,4 +53,5 @@ dependencies:
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
+prefix: /Users/rpetit/miniconda3/envs/bactopia-download_references
 

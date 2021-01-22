@@ -28,7 +28,7 @@ dependencies:
   - libblas=3.9.0
   - libcblas=3.9.0
   - libcurl=7.71.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libdeflate=1.0
   - libedit=3.1.20191231
   - libev=4.33
@@ -45,12 +45,12 @@ dependencies:
   - libtiff=4.2.0
   - libunistring=0.9.10
   - libwebp-base=1.1.0
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - lz4-c=1.9.3
   - matplotlib-base=3.3.3
   - mummer=3.23
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - olefile=0.46
   - openssl=1.1.1i
   - perl=5.32.0
@@ -79,4 +79,5 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /Users/rpetit/miniconda3/envs/bactopia-sequence_type
 

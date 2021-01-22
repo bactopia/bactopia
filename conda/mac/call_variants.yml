@@ -32,7 +32,7 @@ dependencies:
   - libblas=3.9.0
   - libcblas=3.9.0
   - libcurl=7.71.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libdb=6.2.32
   - libdeflate=1.6
   - libedit=3.1.20191231
@@ -52,11 +52,11 @@ dependencies:
   - libwebp-base=1.1.0
   - libxml2=2.9.10
   - libxslt=1.1.33
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - lz4-c=1.9.3
   - minimap2=2.17
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openjdk=8.0.265
   - openssl=1.1.1i
   - paml=4.9
@@ -263,4 +263,5 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /Users/rpetit/miniconda3/envs/bactopia-call_variants
 

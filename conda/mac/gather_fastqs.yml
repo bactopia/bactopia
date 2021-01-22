@@ -7,7 +7,8 @@ dependencies:
   - appdirs=1.4.4
   - art=2016.06.05
   - biopython=1.78
-  - blas=2.106
+  - blas=2.107
+  - blas-devel=3.9.0
   - brotlipy=0.7.0
   - ca-certificates=2020.12.5
   - certifi=2020.12.5
@@ -28,7 +29,7 @@ dependencies:
   - idna=2.10
   - libblas=3.9.0
   - libcblas=3.9.0
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
   - libgfortran=5.0.0
   - libgfortran5=9.3.0
@@ -39,13 +40,15 @@ dependencies:
   - libopenblas=0.3.13
   - libunistring=0.9.10
   - libxml2=2.9.10
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - mkl=2020.4
+  - mkl-devel=2020.4
+  - mkl-include=2020.4
   - monotonic=1.5
   - ncbi-genome-download=0.3.0
   - ncbi-ngs-sdk=2.10.9
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openblas=0.3.13
   - openssl=1.1.1i
   - perl=5.26.2
@@ -92,4 +95,5 @@ dependencies:
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
+prefix: /Users/rpetit/miniconda3/envs/bactopia-gather_fastqs
 

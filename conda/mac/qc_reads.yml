@@ -14,7 +14,7 @@ dependencies:
   - freetype=2.10.4
   - gettext=0.19.8.1
   - icu=68.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
   - libiconv=1.16
   - libpng=1.6.37
@@ -27,4 +27,5 @@ dependencies:
   - sed=4.7
   - xz=5.2.5
   - zlib=1.2.11
+prefix: /Users/rpetit/miniconda3/envs/bactopia-qc_reads
 

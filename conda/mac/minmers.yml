@@ -27,7 +27,7 @@ dependencies:
   - libblas=3.9.0
   - libcblas=3.9.0
   - libcurl=7.71.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libdeflate=1.0
   - libedit=3.1.20191231
   - libev=4.33
@@ -42,17 +42,17 @@ dependencies:
   - libssh2=1.9.0
   - libtiff=4.2.0
   - libwebp-base=1.1.0
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - lz4-c=1.9.3
   - mash=2.2.2
   - matplotlib-base=3.3.3
   - multiprocess=0.70.11.1
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - olefile=0.46
   - openssl=1.1.1i
   - packaging=20.8
-  - pandas=1.2.0
+  - pandas=1.2.1
   - pathos=0.2.7
   - pillow=8.1.0
   - pip=20.3.3
@@ -76,9 +76,10 @@ dependencies:
   - sqlite=3.34.0
   - tk=8.6.10
   - tornado=6.1
-  - tqdm=4.55.1
+  - tqdm=4.56.0
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /Users/rpetit/miniconda3/envs/bactopia-minmers
 

@@ -27,7 +27,7 @@ dependencies:
   - jpeg=9d
   - krb5=1.17.2
   - libcurl=7.71.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libdb=6.2.32
   - libedit=3.1.20191231
   - libev=4.33
@@ -43,7 +43,7 @@ dependencies:
   - libwebp-base=1.1.0
   - libxml2=2.9.10
   - libxslt=1.1.33
-  - llvm-openmp=11.0.0
+  - llvm-openmp=11.0.1
   - lz4-c=1.9.3
   - minced=0.4.2
   - ncurses=6.2
@@ -246,4 +246,5 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
+prefix: /Users/rpetit/miniconda3/envs/bactopia-annotate_genome
 

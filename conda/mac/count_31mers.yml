@@ -6,10 +6,11 @@ channels:
 dependencies:
   - coreutils=8.31
   - gettext=0.19.8.1
-  - libcxx=11.0.0
+  - libcxx=11.0.1
   - libffi=3.3
   - libiconv=1.16
   - mccortex=1.0
   - sed=4.7
   - zlib=1.2.11
+prefix: /Users/rpetit/miniconda3/envs/bactopia-count_31mers
 
