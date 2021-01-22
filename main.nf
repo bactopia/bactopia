@@ -1650,11 +1650,11 @@ def basic_help() {
         --max_retry INT         Maximum times to retry a process before allowing it to fail.
                                     Default: ${params.max_retry}
 
-        --max_time INT          The maximum number of minutes a single task should run before being halted.
-                                    Default: ${params.max_time} minutes
-
         --min_time INT          The minimum number of minutes a single task should run before being halted.
                                     Default: ${params.min_time} minutes
+
+        --max_time INT          The maximum number of minutes a single task should run before being halted.
+                                    Default: ${params.max_time} minutes
 
         --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                     Default: ${params.max_memory} Gb
