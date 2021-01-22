@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.6.0 bactopia/bactopia "" - 2021/??/??
+## v1.6.0 bactopia/bactopia "Harpoon" - 2021/01/22
 ### `Added`
 - `bactopia pull` to pre-build Singularity images
 - `--singularity_cache` parameter to set location of image downloads
