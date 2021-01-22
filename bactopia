@@ -91,7 +91,7 @@ if [[ $# == 0 ]]; then
 fi
 
 if [[ "$1" == "datasets" ]]; then
-    bactopia-datasets.py "${BACTOPIA_NF}/docs/data/pubmlst.txt" "${@:2}"
+    bactopia-datasets.py "${BACTOPIA_NF}/data/pubmlst.txt" "${@:2}"
 elif [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then

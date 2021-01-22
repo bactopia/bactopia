@@ -11,7 +11,7 @@ Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The 
 
 Bactopia can be split into three main parts: [Bactopia Datasets](https://bactopia.github.io/datasets/), [Bactopia Analysis Pipeline](https://bactopia.github.io/#bactopia-workflow), and [Bactopia Tools](https://bactopia.github.io/bactopia-tools/).
 
-![Bactopia Overview](docs/data/bactopia-overview.png)
+![Bactopia Overview](data/bactopia-overview.png)
 
 Bactopia Datasets provide a framework for including many existing public datasets, as well as private datasets, into your analysis The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated.
 
@@ -73,7 +73,7 @@ If you have used Bactopia in your work, please be sure to cite any datasets or t
 
 *If a citation needs to be updated please let me know!*
 
-A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](docs/data/bactopia-datasets-software.bib)
+A BibTeX file of each citation is also available at [Bactopia Datasets and Software BibTeX](data/bactopia-datasets-software.bib)
 
 # Acknowledgements
 Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly every component of Bactopia was created by others and made freely available to the public.

@@ -52,7 +52,7 @@ cp -R \
   ${WORK_DIR}/bin \
   ${WORK_DIR}/conda \
   ${WORK_DIR}/conf \
-  ${WORK_DIR}/docs \
+  ${WORK_DIR}/data \
   ${WORK_DIR}/templates \
   ${WORK_DIR}/tools \
   ${WORK_DIR}/main.nf \

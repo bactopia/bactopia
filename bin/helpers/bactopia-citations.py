@@ -17,7 +17,7 @@ PROGRAM = "bactopia citations"
 DESCRIPTION = 'Prints the citations of datasets and tools used by Bactopia'
 
 def validate_args(bactopia_repo):
-    bactopia_citations = f'{bactopia_repo}/docs/data/bactopia-datasets-software.txt'
+    bactopia_citations = f'{bactopia_repo}/data/bactopia-datasets-software.txt'
     if not os.path.exists(bactopia_citations):
         print(f"cannot access '{bactopia_citations}': No such file or directory\n",
               file=sys.stderr)

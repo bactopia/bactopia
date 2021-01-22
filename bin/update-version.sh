@@ -53,8 +53,8 @@ fi
 /bin/bash ${DIRECTORY}/bactopia 1> /dev/null 2> /dev/null
 
 if [ $? -eq 0 ]; then
-    IGNORE=${DIRECTORY}/docs/data/version-ignore.txt
-    EXCLUDE=${DIRECTORY}/docs/data/version-excludes.txt
+    IGNORE=${DIRECTORY}/data/version-ignore.txt
+    EXCLUDE=${DIRECTORY}/data/version-excludes.txt
     for file in $(find -type f | grep -v -f ${IGNORE} | xargs -I {} grep -i -H "version" {} | grep -v -f ${EXCLUDE} | cut -d ":" -f 1 | sort | uniq); do
         if [[ "${file}" == *"bactopia" ]]; then
             # bactopia
