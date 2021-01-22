@@ -34,6 +34,7 @@
 ### `Removed`
 - `--containerPath` variable is replaced by `--singularity_cache`
 - Native Singularity recipes, will now convert Docker to Singularity
+- docs are now on bactopia.github.io repo
 
 ## v1.5.6 bactopia/bactopia "Metal Slime Earring" - 2021/01/13
 ### `Added`
