@@ -1,4 +1,5 @@
 name: bactopia-gtdb
+version: 1.5.6
 channels:
   - bioconda
   - conda-forge
@@ -33,7 +34,7 @@ dependencies:
   - lz4-c=1.9.3
   - mash=2.2.2
   - ncurses=6.2
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openssl=1.1.1i
   - pip=20.3.3
   - pplacer=1.1.alpha19
@@ -44,7 +45,7 @@ dependencies:
   - setuptools=49.6.0
   - sqlite=3.34.0
   - tk=8.6.10
-  - tqdm=4.55.1
+  - tqdm=4.56.0
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11

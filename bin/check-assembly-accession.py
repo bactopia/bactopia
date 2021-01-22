@@ -2,7 +2,7 @@
 """
 """
 PROGRAM = "check-assembly-accession"
-VERSION = "1.5.6"
+VERSION = "1.6.0"
 
 
 def check_assembly_version(accession):

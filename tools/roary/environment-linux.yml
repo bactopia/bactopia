@@ -1,4 +1,5 @@
 name: bactopia-roary
+version: 1.5.6
 channels:
   - bioconda
   - conda-forge
@@ -10,6 +11,7 @@ dependencies:
   - alsa-lib=1.2.3
   - appdirs=1.4.4
   - aragorn=1.2.38
+  - atk-1.0=2.36.0
   - barrnap=0.9
   - bcbio-gff=0.6.6
   - bedtools=2.29.2
@@ -38,11 +40,18 @@ dependencies:
   - ete3=3.1.2
   - expat=2.2.9
   - fasttree=2.1.10
+  - font-ttf-dejavu-sans-mono=2.37
+  - font-ttf-inconsolata=2.001
+  - font-ttf-source-code-pro=2.030
+  - font-ttf-ubuntu=0.83
   - fontconfig=2.13.1
+  - fonts-conda-ecosystem=1
+  - fonts-conda-forge=1
   - freetype=2.10.4
   - fribidi=1.0.10
   - gcc_impl_linux-64=9.3.0
   - gcc_linux-64=9.3.0
+  - gdk-pixbuf=2.42.2
   - gettext=0.19.8.1
   - gfortran_impl_linux-64=9.3.0
   - gfortran_linux-64=9.3.0
@@ -52,7 +61,9 @@ dependencies:
   - graphviz=2.42.3
   - gsl=2.6
   - gst-plugins-base=1.14.5
-  - gstreamer=1.18.2
+  - gstreamer=1.18.3
+  - gtk2=2.24.33
+  - gts=0.7.6
   - gxx_impl_linux-64=9.3.0
   - gxx_linux-64=9.3.0
   - harfbuzz=2.7.4
@@ -68,7 +79,7 @@ dependencies:
   - ld_impl_linux-64=2.35.1
   - libblas=3.9.0
   - libcblas=3.9.0
-  - libclang=11.0.0
+  - libclang=11.0.1
   - libcurl=7.71.1
   - libdb=6.2.32
   - libedit=3.1.20191231
@@ -85,7 +96,7 @@ dependencies:
   - libiconv=1.16
   - libidn11=1.34
   - liblapack=3.9.0
-  - libllvm11=11.0.0
+  - libllvm11=11.0.1
   - libnghttp2=1.41.0
   - libopenblas=0.3.12
   - libpng=1.6.37
@@ -116,7 +127,7 @@ dependencies:
   - ncurses=6.2
   - nspr=4.29
   - nss=3.60
-  - numpy=1.19.4
+  - numpy=1.19.5
   - openjdk=11.0.8
   - openssl=1.1.1i
   - paml=4.9
@@ -367,17 +378,17 @@ dependencies:
   - r-assertthat=0.2.1
   - r-backports=1.2.1
   - r-base=4.0.3
-  - r-brio=1.1.0
+  - r-brio=1.1.1
   - r-callr=3.5.1
   - r-cli=2.2.0
   - r-colorspace=2.0_0
   - r-crayon=1.3.4
   - r-desc=1.2.0
-  - r-diffobj=0.3.2
+  - r-diffobj=0.3.3
   - r-digest=0.6.27
   - r-ellipsis=0.3.1
   - r-evaluate=0.14
-  - r-fansi=0.4.1
+  - r-fansi=0.4.2
   - r-farver=2.0.3
   - r-ggplot2=3.3.3
   - r-glue=1.4.2
@@ -389,7 +400,7 @@ dependencies:
   - r-lifecycle=0.2.0
   - r-magrittr=2.0.1
   - r-mass=7.3_53
-  - r-matrix=1.3_0
+  - r-matrix=1.3_2
   - r-mgcv=1.8_33
   - r-munsell=0.5.0
   - r-nlme=3.1_151
@@ -403,19 +414,19 @@ dependencies:
   - r-ps=1.5.0
   - r-r6=2.5.0
   - r-rcolorbrewer=1.1_2
-  - r-rcpp=1.0.5
+  - r-rcpp=1.0.6
   - r-rematch2=2.1.2
   - r-rlang=0.4.10
   - r-rprojroot=2.0.2
   - r-rstudioapi=0.13
   - r-scales=1.1.1
   - r-testthat=3.0.1
-  - r-tibble=3.0.4
+  - r-tibble=3.0.5
   - r-utf8=1.1.4
   - r-vctrs=0.3.6
   - r-viridislite=0.3.0
   - r-waldo=0.2.3
-  - r-withr=2.3.0
+  - r-withr=2.4.0
   - r-zeallot=0.1.0
   - readline=8.0
   - rename=1.601
@@ -427,7 +438,7 @@ dependencies:
   - six=1.15.0
   - snp-dists=0.7.0
   - sqlite=3.34.0
-  - svgwrite=1.4
+  - svgwrite=1.4.1
   - sysroot_linux-64=2.12
   - t_coffee=11.0.8
   - tbl2asn-forever=25.7.2f
