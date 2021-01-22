@@ -6,6 +6,7 @@
 - `--singularity_cache` parameter to set location of image downloads
 - `--registry` to choose Docker registry to use (DockerHub, GitHub, Quay)
 - `--max_downloads` sets maximum number of downloads (FASTQ/assembly) allowed at once
+- `--min_time` sets the minimum amount of time a job should be given
 - `bactopia search` now uses POST requests, and groups accessions into single query
 - strip HTML from FASTA headers used in BLAST
 - Dockerfiles now have conda.md5 label to determine if rebuild is necessary

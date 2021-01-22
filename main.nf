@@ -1282,11 +1282,18 @@ def check_input_params() {
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.max_downloads, 'max_downloads')
+    error += is_positive_integer(params.max_retry, 'max_retry')
+    error += is_positive_integer(params.min_time, 'min_time')
     error += is_positive_integer(params.shovill_ram, 'shovill_ram')
     error += is_positive_integer(params.snippy_ram, 'snippy_ram')
     error += is_positive_integer(params.cortex_ram, 'cortex_ram')
     error += is_positive_integer(params.qc_ram, 'qc_ram')
     error += is_positive_integer(params.minmer_ram, 'minmer_ram')
+
+    if (params.max_downloads >= 10) {
+        log.warn "Please be aware the value you have set for --max_downloads (${params.max_downloads}) may cause NCBI " +
+                 "to temporarily block your IP address due to too many queries at once." 
+    }
 
     if (params.genome_size) {
         if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
@@ -1295,9 +1302,14 @@ def check_input_params() {
     }
 
     if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
-            log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
-                      "'github' or 'quay'. Please correct to continue."
-            error += 1
+        log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
+                    "'github' or 'quay'. Please correct to continue."
+        error += 1
+    }
+
+    if (params.min_time > params.max_time) {
+        log.error "The value for min_time (${params.min_time}) exceeds max_time (${params.max_time}), Please correct to continue."
+        error += 1
     }
 
     if (params.adapters) {
@@ -1635,8 +1647,14 @@ def basic_help() {
 
         When in doubt, "--cpus 4" is a safe bet, it is also the default value if you don't use "--cpus".
 
+        --max_retry INT         Maximum times to retry a process before allowing it to fail.
+                                    Default: ${params.max_retry}
+
         --max_time INT          The maximum number of minutes a single task should run before being halted.
                                     Default: ${params.max_time} minutes
+
+        --min_time INT          The minimum number of minutes a single task should run before being halted.
+                                    Default: ${params.min_time} minutes
 
         --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                     Default: ${params.max_memory} Gb
@@ -1781,10 +1799,10 @@ def full_help() {
                                     Default: Use the registry given by --registry 
 
     ENA Download Parameters:
-        --max_retry INT         Maximum times to retry downloads
-                                    Default: ${params.max_retry}
-
-        --max_downloads INT     Maximum number of FASTQs to download at once
+        --max_downloads INT     Maximum number of FASTQs to download at once.
+                                    Warning: Setting this value too high can lead to NCBI temporarily
+                                             blocking your IP addess. 3-5 is reasonable, >10 is likely
+                                             to be excessive.
                                     Default: ${params.max_downloads}
 
         --use_ena               Download FASTQs from ENA with Aspera Connect.

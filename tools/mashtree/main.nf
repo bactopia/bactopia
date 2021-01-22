@@ -244,6 +244,7 @@ def check_input_params() {
     } 
 
     error += is_positive_integer(params.cpus, 'cpus')
+    error += is_positive_integer(params.min_time, 'min_time')
     error += is_positive_integer(params.max_time, 'max_time')
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
@@ -270,9 +271,14 @@ def check_input_params() {
     }
 
     if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
-            log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
-                      "'github' or 'quay'. Please correct to continue."
-            error += 1
+        log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
+                    "'github' or 'quay'. Please correct to continue."
+        error += 1
+    }
+    
+    if (params.min_time > params.max_time) {
+        log.error "The value for min_time (${params.min_time}) exceeds max_time (${params.max_time}), Please correct to continue."
+        error += 1
     }
 
     // Check publish_mode
@@ -387,6 +393,9 @@ def print_help() {
 
         --outdir DIR            Directory to write results to
                                     Default: ${params.outdir}
+
+        --min_time INT          The minimum number of minutes a job should run before being halted.
+                                    Default: ${params.min_time} minutes
 
         --max_time INT          The maximum number of minutes a job should run before being halted.
                                     Default: ${params.max_time} minutes
