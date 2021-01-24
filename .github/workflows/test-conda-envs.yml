@@ -43,6 +43,8 @@ jobs:
           VERSION=`bactopia version | cut -d " " -f 2`
           BACTOPIA_VERSION="${VERSION%.*}.x"
           bactopia --help_all --condadir ${GITHUB_WORKSPACE}/envs
+          mkdir test-tools 
+          cd test-tools
           ls ${GITHUB_WORKSPACE}/tools | xargs -I {} bactopia tools {} --condadir ${GITHUB_WORKSPACE}/envs/tools-{}-{BACTOPIA_VERSION} --help
 
       - name: Build Bactopia Environment
