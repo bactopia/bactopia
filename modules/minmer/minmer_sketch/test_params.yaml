@@ -1,0 +1,32 @@
+outdir:
+  "test_output"
+
+sample:
+  "SRR2838702"
+
+single_end:
+  "false"
+
+fq:
+  "test_data/SRR2838702_R{1,2}.fastq.gz"
+
+publish_mode:
+  "copy"
+
+run_type:
+  "fastqs"
+
+version:
+  "1.6.0"
+
+overwrite:
+  false
+
+mash_sketch:
+  10000
+
+sourmash_scale:
+  10000
+
+skip_logs:
+  false

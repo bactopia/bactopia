@@ -1,0 +1,41 @@
+outdir:
+  "test_output"
+
+sample:
+  "SRR2838702"
+
+single_end:
+  false
+
+publish_mode:
+  "copy"
+
+run_type:
+  "fastqs"
+
+version:
+  "1.6.0"
+
+blastdb:
+  "test_data/SRR2838702*"
+
+query:
+  "test_data/dumb-protein.fasta"
+
+overwrite:
+  false
+
+compress:
+  false
+
+skip_logs:
+  false
+
+perc_identity:
+  50
+
+qcov_hsp_perc:
+  50
+
+max_target_seqs:
+  2000

@@ -1,4 +1,5 @@
 /datasets/
+test_data
 /conda/envs
 /conf/aws.config
 .nextflow*

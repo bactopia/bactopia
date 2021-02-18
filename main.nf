@@ -52,7 +52,7 @@ REFSEQ_SKETCH = []
 REFSEQ_SKETCH_FOUND = false
 SPECIES = format_species(params.species)
 SPECIES_GENOME_SIZE = null
-print_efficiency() 
+print_efficiency()
 setup_datasets()
 
 
@@ -85,7 +85,7 @@ process gather_fastqs {
     if (task.attempt >= 4) {
         if (use_ena) {
             // Try SRA
-            use_ena = false 
+            use_ena = false
         } else {
             // Try ENA
             use_ena = true
@@ -120,7 +120,7 @@ process fastq_status {
 
     output:
     file "*-error.txt" optional true
-    set val(sample), val(sample_type), val(single_end), 
+    set val(sample), val(sample_type), val(single_end),
         file("fastqs/${sample}*.fastq.gz"), file(extra) optional true into ESTIMATE_GENOME_SIZE
     file "${task.process}/*" optional true
 
@@ -143,7 +143,7 @@ process estimate_genome_size {
     output:
     file "${sample}-genome-size-error.txt" optional true
     file("${sample}-genome-size.txt") optional true
-    set val(sample), val(sample_type), val(single_end), 
+    set val(sample), val(sample_type), val(single_end),
         file("fastqs/${sample}*.fastq.gz"), file(extra), file("${sample}-genome-size.txt") optional true into QC_READS, QC_ORIGINAL_SUMMARY
     file "${task.process}/*" optional true
 
@@ -876,7 +876,7 @@ def get_max_cpus(requested) {
         log.warn "Maximum CPUs (${requested}) was adjusted to fit your system (${available})"
         return available
     }
-    
+
     return requested
 }
 
@@ -946,8 +946,8 @@ def setup_datasets() {
                     species_db = available_datasets['species-specific'][SPECIES]
                     if (species_db.containsKey('genome_size')) {
                         genome_size = species_db['genome_size']
-                    } 
-                    
+                    }
+
                     if (params.genome_size) {
                         if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
                             SPECIES_GENOME_SIZE = genome_size[params.genome_size]
@@ -1019,7 +1019,7 @@ def setup_datasets() {
                             }
                             print_dataset_info(REFERENCES, "reference genomes")
                         }
-                        
+
                         if (species_db['optional'].containsKey('mapping-sequences')) {
                             file("${dataset_path}/${species_db['optional']['mapping-sequences']}").list().each() {
                                 if (dataset_exists("${dataset_path}/${species_db['optional']['mapping-sequences']}/${it}")) {
@@ -1211,10 +1211,10 @@ def check_input_params() {
 
             ### For Downloading from SRA/ENA or NCBI Assembly
             **Note: Assemblies will have error free Illumina reads simulated for processing.**
-            --accessions            An input file containing ENA/SRA Experiment accessions or 
+            --accessions            An input file containing ENA/SRA Experiment accessions or
                                         NCBI Assembly accessions to be processed
 
-            --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession 
+            --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession
                                         to be processed
 
             ### For Processing an Assembly
@@ -1238,7 +1238,7 @@ def check_input_params() {
 
     if (params.max_downloads >= 10) {
         log.warn "Please be aware the value you have set for --max_downloads (${params.max_downloads}) may cause NCBI " +
-                 "to temporarily block your IP address due to too many queries at once." 
+                 "to temporarily block your IP address due to too many queries at once."
     }
 
     if (params.genome_size) {
@@ -1299,7 +1299,7 @@ def check_input_params() {
 def handle_multiple_fqs(read_set) {
     def fqs = []
     def String[] reads = read_set.split(",");
-    reads.each { fq -> 
+    reads.each { fq ->
         fqs << file(fq)
     }
     return fqs
@@ -1429,7 +1429,7 @@ def check_input_fastqs(run_type) {
                         }
                         count = count + 1
                     }
-                    if (count > 1) { 
+                    if (count > 1) {
                         USING_MERGE = true
                     }
                 }
@@ -1519,7 +1519,7 @@ def print_efficiency() {
         tasks = total_cpus / MAX_CPUS
         log.info ""
         log.info """
-            Each task will use ${MAX_CPUS} CPUs out of the available ${total_cpus} CPUs. At most ${tasks} task(s) will be run at 
+            Each task will use ${MAX_CPUS} CPUs out of the available ${total_cpus} CPUs. At most ${tasks} task(s) will be run at
             a time, this can affect the efficiency of Bactopia.
         """.stripIndent()
         log.info ""
@@ -1571,10 +1571,10 @@ def basic_help() {
 
         ### For Downloading from SRA/ENA or NCBI Assembly
         **Note: Assemblies will have error free Illumina reads simulated for processing.**
-        --accessions            An input file containing ENA/SRA Experiment accessions or 
+        --accessions            An input file containing ENA/SRA Experiment accessions or
                                     NCBI Assembly accessions to be processed
 
-        --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession 
+        --accession             A single ENA/SRA Experiment accession or NCBI Assembly accession
                                     to be processed
 
         ### For Processing an Assembly
@@ -1608,12 +1608,12 @@ def basic_help() {
                                     Default: ${params.outdir}
 
     Nextflow Queue Parameters:
-        At execution, Nextflow creates a queue and the number of slots in the queue is determined by the total number 
-        of cores on the system. When a task is submitted to the queue, the total number of slots it occupies is 
-        determined by the value set by "--cpus". 
+        At execution, Nextflow creates a queue and the number of slots in the queue is determined by the total number
+        of cores on the system. When a task is submitted to the queue, the total number of slots it occupies is
+        determined by the value set by "--cpus".
 
-        This can have a significant effect on the efficiency of the Nextflow's queue system. If "--cpus" is set to a 
-        value that is equal to the number of cores availabe, in most cases only a single task will be able to run 
+        This can have a significant effect on the efficiency of the Nextflow's queue system. If "--cpus" is set to a
+        value that is equal to the number of cores availabe, in most cases only a single task will be able to run
         because its occupying all available slots.
 
         When in doubt, "--cpus 4" is a safe bet, it is also the default value if you don't use "--cpus".
@@ -1630,10 +1630,10 @@ def basic_help() {
         --max_memory INT        The maximum amount of memory (Gb) allowed to a single task.
                                     Default: ${params.max_memory} Gb
 
-        --cpus INT              Number of processors made available to a single task. 
+        --cpus INT              Number of processors made available to a single task.
                                     Default: ${params.cpus}
 
-        -qs INT                 Nextflow queue size. This parameter is very useful to limit the total number of 
+        -qs INT                 Nextflow queue size. This parameter is very useful to limit the total number of
                                     processors used on desktops, laptops or shared resources.
                                     Default: Nextflow defaults to the total number of processors on your system.
 
@@ -1660,9 +1660,9 @@ def basic_help() {
         --disable_scratch       All intermediate files created on worker nodes of will be transferred to the head node.
                                     Default: Only result files are transferred back
 
-        --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows 
+        --nfconfig STR          A Nextflow compatible config file for custom profiles. This allows
                                     you to create profiles specific to your environment (e.g. SGE,
-                                    AWS, SLURM, etc...). This config file is loaded last and will 
+                                    AWS, SLURM, etc...). This config file is loaded last and will
                                     overwrite existing variables if set.
                                     Default: Bactopia's default configs
 
@@ -1678,16 +1678,16 @@ def basic_help() {
         --publish_mode          Set Nextflow's method for publishing output files. Allowed methods are:
                                     'copy' (default)    Copies the output files into the published directory.
 
-                                    'copyNoFollow' Copies the output files into the published directory 
+                                    'copyNoFollow' Copies the output files into the published directory
                                                    without following symlinks ie. copies the links themselves.
 
-                                    'link'    Creates a hard link in the published directory for each 
+                                    'link'    Creates a hard link in the published directory for each
                                               process output file.
 
                                     'rellink' Creates a relative symbolic link in the published directory
                                               for each process output file.
 
-                                    'symlink' Creates an absolute symbolic link in the published directory 
+                                    'symlink' Creates an absolute symbolic link in the published directory
                                               for each process output file.
 
                                     Default: ${params.publish_mode}
@@ -1695,7 +1695,7 @@ def basic_help() {
         --force                 Nextflow will overwrite existing output files.
                                     Default: ${params.force}
 
-        -resume                 Nextflow will attempt to resume a previous run. Please notice it is 
+        -resume                 Nextflow will attempt to resume a previous run. Please notice it is
                                     only a single '-'
 
         --cleanup_workdir       After Bactopia is successfully executed, the work directory will be deleted.
@@ -1767,7 +1767,7 @@ def full_help() {
                                     Default: ${params.aws_max_retry}
 
         --aws_ecr_registry STR  The ECR registry containing Bactopia related containers.
-                                    Default: Use the registry given by --registry 
+                                    Default: Use the registry given by --registry
 
     ENA Download Parameters:
         --max_downloads INT     Maximum number of FASTQs to download at once.
@@ -1794,16 +1794,16 @@ def full_help() {
                                     to continue downstream analyses.
                                     Default: ${params.min_reads}
 
-        --min_proportion FLOAT  The minimum proportion of basepairs for paired-end reads to continue 
-                                    downstream analyses. Example: If set to 0.75 the R1 and R2 must 
-                                    have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not 
+        --min_proportion FLOAT  The minimum proportion of basepairs for paired-end reads to continue
+                                    downstream analyses. Example: If set to 0.75 the R1 and R2 must
+                                    have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not
                                     R1 100bp, R2 50bp)
                                     Default: ${params.min_proportion}
 
         --skip_fastq_check      The input FASTQs will not be check to verify they meet the
-                                    minimum requirements to be processed. This parameter 
-                                    is useful if you are confident your sequences will 
-                                    pass the minimum requirements.                
+                                    minimum requirements to be processed. This parameter
+                                    is useful if you are confident your sequences will
+                                    pass the minimum requirements.
 
     Estimate Genome Size Parameters:
         Only applied if the genome size is estimated.
@@ -1950,54 +1950,54 @@ def full_help() {
                                     Default: ${params.unicycler_ram} GB
 
         --unicycler_mode STR    Bridging mode used by Unicycler, choices are:
-                                    conservative = smaller contigs, lowest 
+                                    conservative = smaller contigs, lowest
                                                    misassembly rate
-                                    normal = moderate contig size and 
+                                    normal = moderate contig size and
                                              misassembly rate (Default)
-                                    bold = longest contigs, higher misassembly 
+                                    bold = longest contigs, higher misassembly
                                            rate
 
-        --min_polish_size INT   Contigs shorter than this value (bp) will not be 
+        --min_polish_size INT   Contigs shorter than this value (bp) will not be
                                     polished using Pilon
                                     Default: ${params.min_polish_size}
 
         --min_component_size INT
-                                Graph components smaller than this size (bp) will 
+                                Graph components smaller than this size (bp) will
                                     be removed from the final graph
                                     Default: ${params.min_component_size}
 
-        --min_dead_end_size INT 
-                                Graph dead ends smaller than this size (bp) will 
+        --min_dead_end_size INT
+                                Graph dead ends smaller than this size (bp) will
                                     be removed from the final graph
                                     Default: ${params.min_dead_end_size}
 
-        --no_miniasm            Skip miniasm+Racon bridging 
+        --no_miniasm            Skip miniasm+Racon bridging
                                     Default: Produce long-read bridges
 
-        --no_rotate             Do not rotate completed replicons to start at a 
+        --no_rotate             Do not rotate completed replicons to start at a
                                     standard gene
 
-        --no_pilon              Do not use Pilon to polish the final assembly 
+        --no_pilon              Do not use Pilon to polish the final assembly
 
     Assembly Quality Control Parameters:
-        --skip_checkm           CheckM analysis will be skipped. This is useful for systems 
+        --skip_checkm           CheckM analysis will be skipped. This is useful for systems
                                     with less than 8GB of memory.
 
-        --checkm_unique INT     Minimum number of unique phylogenetic markers required 
+        --checkm_unique INT     Minimum number of unique phylogenetic markers required
                                     to use lineage-specific marker set.
                                     Default: ${params.checkm_unique}
-        
+
         --checkm_multi INT      Maximum number of multi-copy phylogenetic markers before
                                     defaulting to domain-level marker set.
                                     Default: ${params.checkm_multi}
-        
+
         --aai_strain FLOAT      AAI threshold used to identify strain heterogeneity
                                     Default: ${params.aai_strain}
-        
+
         --checkm_length FLOAT   Percent overlap between target and query
                                     Default: ${params.checkm_length}
 
-        --full_tree             Use the full tree (requires ~40GB of memory) for determining 
+        --full_tree             Use the full tree (requires ~40GB of memory) for determining
                                     lineage of each bin.
                                     Default: Use reduced tree (<16gb memory)
 
@@ -2014,17 +2014,17 @@ def full_help() {
 
         --no_refinement         Do not perform lineage-specific marker set refinement
 
-        --individual_markers    Treat marker as independent (i.e., ignore co-located 
+        --individual_markers    Treat marker as independent (i.e., ignore co-located
                                     set structure.
 
-        --skip_adj_correction   Do not exclude adjacent marker genes when estimating 
+        --skip_adj_correction   Do not exclude adjacent marker genes when estimating
                                     contamination
 
         --contig_thresholds STR Comma-separated list of contig length thresholds
                                     Default: ${params.contig_thresholds}
 
         --plots_format STR      Save plots in specified format.
-                                    Supported formats: emf, eps, pdf, png, ps, raw, 
+                                    Supported formats: emf, eps, pdf, png, ps, raw,
                                                         rgba, svg, svgz
                                     Default: ${params.plots_format}
 
@@ -2055,7 +2055,7 @@ def full_help() {
                                      Default: ${params.prokka_coverage}
 
         --nogenes               Do not add 'gene' features for each 'CDS' feature
-        
+
         --norrna                Don't run rRNA search
 
         --notrna                Don't run tRNA search
@@ -2213,7 +2213,7 @@ def full_help() {
                                     Default: ${params.bwa_n}
 
     Antimicrobial Resistance Parameters:
-        --skip_amr              AMRFinder+ analysis will be skipped. This is useful 
+        --skip_amr              AMRFinder+ analysis will be skipped. This is useful
                                     if the AMRFinder+ software and database versions are
                                     no longer compatible.
 
@@ -2235,6 +2235,6 @@ def full_help() {
         --amr_plus              Add the plus genes to the report
 
         --amr_report_common     Suppress proteins common to a taxonomy group
-        
+
     """
 }

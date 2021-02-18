@@ -1,0 +1,53 @@
+outdir:
+  "test_output"
+
+sample:
+  "SRR2838702"
+
+single_end:
+  "false"
+
+sample_type:
+  "single_end"
+
+fq:
+  "test_data/SRR2838702_R{1,2}.fastq.gz"
+
+query:
+  "test_data/dumb-gene.fasta"
+
+publish_mode:
+  "copy"
+
+run_type:
+  "fastqs"
+
+version:
+  "1.6.0"
+
+overwrite:
+  false
+
+skip_logs:
+  false
+
+bwa_mem_opts:
+  null
+
+bwa_aln_opts:
+  null
+
+bwa_samse_opts:
+  null
+
+bwa_sampe_opts:
+  null
+
+bwa_n:
+  9999
+
+keep_unmapped_reads:
+  false
+
+compress:
+  false

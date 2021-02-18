@@ -1,0 +1,47 @@
+genome_size:
+  "test_data/genome-size.txt"
+
+outdir:
+  "test_output"
+  
+sample:
+  "TEST_SAMPLE"
+
+single_end:
+  "test"
+
+fasta:
+  "test_data/test_database.fasta"
+
+publish_mode:
+  "copy"
+
+run_type:
+  "fastqs"
+
+version:
+  "1.6.0"
+
+genes:
+  "test_data/genes.fasta"
+
+blastdb_files:
+  "test_data/blastdb_files.{nhr,nin,nog,nsd,nsi,nsq}"
+
+overwrite:
+  false
+
+compress:
+  false
+
+skip_logs:
+  false
+
+perc_identity:
+  50
+
+qcov_hsp_perc:
+  50
+
+max_target_seqs:
+  2000
