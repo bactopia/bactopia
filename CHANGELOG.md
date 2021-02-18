@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.1 bactopia/bactopia "" - 2021/02/??
+### `Fixed`
+- sample names with "." in them breaking auto variant calling
+
 ## v1.6.0 bactopia/bactopia "Harpoon" - 2021/01/22
 ### `Added`
 - `bactopia pull` to pre-build Singularity images

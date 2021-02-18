@@ -587,7 +587,7 @@ process call_variants_auto {
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0]
-    reference_name = reference.getSimpleName().split("${sample}-")[1].split(/\./)[0]
+    reference_name = reference.getBaseName().split("${sample}-")[1].split(/\./)[0]
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
