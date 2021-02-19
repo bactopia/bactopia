@@ -3,6 +3,7 @@
 ## v1.6.1 bactopia/bactopia "" - 2021/02/??
 ### `Fixed`
 - sample names with "." in them breaking auto variant calling
+- contig naming incompatible with GenBank
 
 ## v1.6.0 bactopia/bactopia "Harpoon" - 2021/01/22
 ### `Added`

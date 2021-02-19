@@ -245,6 +245,7 @@ process assemble_genome {
     file "${task.process}/*" optional true
 
     shell:
+    contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${sample}_%05d"
     shovill_ram = task.memory.toString().split(' ')[0]
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
@@ -1955,7 +1956,7 @@ def full_help() {
                                     Default: ${params.min_contig_cov}
 
         --contig_namefmt STR    Format of contig FASTA IDs in 'printf' style
-                                    Default: ${params.contig_namefmt}
+                                    Default: "${SAMPLE_NAME}_%05d"
 
         --shovill_opts STR      Extra assembler options in quotes eg.
                                     spades: "--untrusted-contigs locus.fna" ...

@@ -37,7 +37,7 @@ if [ "!{sample_type}" == "hybrid" ]; then
         !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
         --min_component_size !{params.min_component_size} \
         --min_dead_end_size !{params.min_dead_end_size} > ${LOG_DIR}/unicycler.out 2> ${LOG_DIR}/unicycler.err
-    sed -r 's/^>([0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
+    sed -r 's/^>([0-9]+)(.*)/>!{sample}_\1\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
     if [[ !{params.compress} == "true" ]]; then
         pigz -n --best -p !{task.cpus} ${OUTDIR}/*.gfa
         pigz -n --best -p !{task.cpus} ${OUTDIR}/*.fasta
@@ -71,7 +71,7 @@ else
             --force \
             --minlen !{params.min_contig_len} \
             --mincov !{params.min_contig_cov} \
-            --namefmt "!{params.contig_namefmt}" \
+            --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
             --ram !{shovill_ram} \
@@ -84,17 +84,14 @@ else
             --force \
             --minlen !{params.min_contig_len} \
             --mincov !{params.min_contig_cov} \
-            --namefmt "!{params.contig_namefmt}" \
+            --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
             --ram !{shovill_ram} \
             --assembler !{params.assembler} !{opts} !{kmers} !{nocorr} > ${LOG_DIR}/shovill.out 2> ${LOG_DIR}/shovill.err
     fi
-    sed -r 's/^>(contig[0-9]+)(.*)/>gnl|\1|!{sample}\2/' ${OUTDIR}/contigs.fa > ${OUTDIR}/!{sample}.fna
-    if [[ !{params.compress} == "true" ]]; then
-        pigz -n --best -p !{task.cpus} ${OUTDIR}/contigs.fa
-    fi
-
+    mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{sample}.fna
+    
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate files
         rm -fv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz 
