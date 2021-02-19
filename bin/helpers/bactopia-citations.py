@@ -12,7 +12,7 @@ optional arguments:
 import os
 import sys
 
-VERSION = "1.6.0"
+VERSION = "1.6.1"
 PROGRAM = "bactopia citations"
 DESCRIPTION = 'Prints the citations of datasets and tools used by Bactopia'
 
