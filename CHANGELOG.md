@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.6.1 bactopia/bactopia "" - 2021/02/??
+## v1.6.1 bactopia/bactopia "Obelisk" - 2021/02/22
 ### `Fixed`
 - sample names with "." in them breaking auto variant calling
 - contig naming incompatible with GenBank
