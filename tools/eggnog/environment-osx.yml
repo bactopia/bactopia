@@ -1,5 +1,4 @@
 name: bactopia-eggnog
-version: 1.5.6
 channels:
   - bioconda
   - conda-forge
@@ -44,4 +43,3 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
-

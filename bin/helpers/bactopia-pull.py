@@ -132,8 +132,8 @@ if __name__ == '__main__':
         )
     )
 
-    parser.add_argument('docker', metavar="STR", type=str,
-                        help='Directory containing Dockerfiles.')
+    parser.add_argument('conda', metavar="STR", type=str,
+                        help='Directory containing conda yamls.')
     parser.add_argument('--envname', metavar='STR', type=str,
                         help='Build Singularity images with the given name')
     parser.add_argument('--singularity_cache', metavar='STR', type=str, default="~/.bactopia/singularity",
@@ -168,7 +168,7 @@ if __name__ == '__main__':
     logging.basicConfig(format=FORMAT, datefmt='%Y-%m-%d %H:%M:%S',)
     logging.getLogger().setLevel(set_log_level(args.silent, args.verbose))
 
-    env_path = os.path.abspath(os.path.expanduser(args.docker))
+    env_path = os.path.abspath(os.path.expanduser(args.conda))
     install_path = os.path.abspath(os.path.expanduser(args.singularity_cache))
     finish_file = f'{install_path}/{args.registry}-images-built-{VERSION}.txt'
     if os.path.exists(finish_file):
@@ -203,7 +203,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     if args.include_tools:
-        tool_path = os.path.abspath(args.conda_envs).replace('conda', 'tools')
+        tool_path = env_path.replace('conda', 'tools')
         tools = sorted(glob.glob(f'{tool_path}/*/'))
         for i, tool in enumerate(tools):
             tool = os.path.basename(os.path.dirname(tool))
