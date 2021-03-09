@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - bedtools=2.29.2
-  - biopython=1.78
+  - biopython=1.76
   - blast=2.6.0
   - bwa=0.7.17
   - bzip2=1.0.8
