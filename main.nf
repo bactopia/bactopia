@@ -1302,6 +1302,12 @@ def check_input_params() {
         }
     }
 
+    if (!['megahit', 'velvet', 'skesa', 'spades', 'unicycler'].contains(params.assembler)) {
+        log.error "Invalid assembler (--assembler ${params.assembler}), must be 'megahit', " +
+                  "'skesa', 'velvet', 'spades', or 'unicycler'. Please correct to continue."
+        error += 1
+    }
+
     if (!['dockerhub', 'github', 'quay'].contains(params.registry)) {
         log.error "Invalid registry (--registry ${params.registry}), must be 'dockerhub', " +
                     "'github' or 'quay'. Please correct to continue."
@@ -1946,7 +1952,7 @@ def full_help() {
         --shovill_ram INT       Try to keep RAM usage below this many GB
                                     Default: ${params.shovill_ram} GB
 
-        --assembler STR         Assembler: megahit velvet skesa spades
+        --assembler STR         Assembler: megahit velvet skesa spades unicycler
                                     Default: ${params.assembler}
 
         --min_contig_len INT    Minimum contig length <0=AUTO>

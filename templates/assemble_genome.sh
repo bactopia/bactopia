@@ -25,11 +25,15 @@ if [[ ! -L "!{fq[0]}" ]]; then
 fi
 
 GENOME_SIZE=`head -n 1 !{genome_size}`
-if [ "!{sample_type}" == "hybrid" ]; then
+if [[ "!{sample_type}" == "hybrid"  || "!{params.assembler}" == "unicycler" ]]; then
+    EXTRA=""
+    if [ "!{sample_type}" == "hybrid" ]; then
+        EXTRA="-l !{extra}"
+    fi
     echo "# unicycler Version" >> ${LOG_DIR}/!{task.process}.versions
     unicycler --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-    unicycler -1 !{fq[0]} -2 !{fq[1]} -l !{extra} \
-        -o ${OUTDIR} \
+    unicycler -1 !{fq[0]} -2 !{fq[1]} \
+        ${EXTRA} -o ${OUTDIR} \
         --no_correct \
         --min_fasta_length !{params.min_contig_len} \
         --threads !{task.cpus} \

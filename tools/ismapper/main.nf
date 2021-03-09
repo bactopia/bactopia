@@ -11,15 +11,15 @@ if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) pr
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time, params.insertions)
 
-process collect_reference {    
+process collect_reference {
+    tag "${reference_name}"
     publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "genbank/${reference_name}.gbk"
 
     input:
     file(reference) from Channel.fromPath(params.reference).ifEmpty { "EMPTY.gbk" }
 
     output:
-    file "genbank/${reference_name}.gbk" optional true
-    file("genbank/${reference_name}.gbk") into ISMAPPER_REFERENCE
+    file "genbank/*.gbk" into ISMAPPER_REFERENCE
 
     shell:
     is_compressed = null
@@ -286,7 +286,7 @@ def build_fastq_tuple(sample, dir, insertions) {
     pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
 
     if (file(se).exists()) {
-        log.info "Excluding ${sample} from the analysis, must be paired-end"
+        return false
     } else if (file(pe1).exists() && file(pe2).exists()) {
         return tuple(sample, [file(pe1), file(pe2)], file(insertions))
     } else {
@@ -302,7 +302,7 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time, inse
     IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
     if (include_list) {
         new File(include_list).eachLine { line -> 
-            inclusions << line.trim()
+            inclusions << line.trim().split('\t')[0]
         }
         include_all = false
         log.info "Including ${inclusions.size} samples for analysis"
@@ -313,7 +313,7 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time, inse
         }
         log.info "Excluding ${exclusions.size} samples from the analysis"
     }
-    
+
     sample_list = []
     file(bactopia_dir).eachFile { item ->
         if( item.isDirectory() ) {
@@ -322,7 +322,12 @@ def gather_sample_set(bactopia_dir, exclude_list, include_list, sleep_time, inse
                 if (inclusions.contains(sample) || include_all) {
                     if (!exclusions.contains(sample)) {
                         if (is_sample_dir(sample, bactopia_dir)) {
-                            sample_list << build_fastq_tuple(sample, bactopia_dir, insertions)
+                            sample_files = build_fastq_tuple(sample, bactopia_dir, insertions)
+                            if (sample_files) {
+                                sample_list << sample_files
+                            } else {
+                                log.info "Excluding ${sample} from the analysis, must be paired-end"
+                            }
                         } else {
                             log.info "${sample} is missing genome size estimate file"
                         }
