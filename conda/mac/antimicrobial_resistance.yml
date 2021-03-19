@@ -92,5 +92,3 @@ dependencies:
   - sed=4.7
   - tk=8.6.10
   - zlib=1.2.11
-prefix: /Users/rpetit/miniconda3/envs/bactopia-antimicrobial_resistance
-

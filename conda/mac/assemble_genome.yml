@@ -76,5 +76,3 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.8
-prefix: /Users/rpetit/miniconda3/envs/bactopia-assemble_genome
-

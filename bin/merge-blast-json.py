@@ -4,13 +4,15 @@
 import json
 
 PROGRAM = "merge-blast-json"
-VERSION = "1.5.5"
+VERSION = "1.6.1"
+
 
 def read_json(json_file):
     json_data = None
     with open(json_file, 'rt') as json_fh:
         json_data = json.load(json_fh)
     return json_data
+
 
 if __name__ == '__main__':
     import argparse as ap

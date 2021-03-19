@@ -19,6 +19,7 @@ optional arguments:
 PROGRAM = "mlst-blast"
 VERSION = "1.6.1"
 
+
 def pipe_command(cmd_1, cmd_2, stdout=False, stderr=False, verbose=True,
                  shell=False):
     """

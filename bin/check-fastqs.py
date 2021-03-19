@@ -28,16 +28,20 @@ def check_reads(fq1, sample, min_reads, fq2=None):
     total_reads = fq1 + fq2 if fq2 else fq1
 
     if total_reads < min_reads:
-        error_msg = (f"{sample} FASTQ(s) contain {total_reads} total reads. This does not \n"
-                    f"exceed the required minimum {min_reads} read count. Further analysis is \n"
-                    "discontinued.\n")
+        error_msg = "".join([
+            f"{sample} FASTQ(s) contain {total_reads} total reads. This does not \n",
+            f"exceed the required minimum {min_reads} read count. Further analysis is \n",
+            "discontinued.\n"
+        ])
         error += write_error(f'{sample}-low-read-count-error.txt', error_msg)
 
     if fq2:
         if fq1 != fq2:
             # different number of reads in the pair
-            error_msg = (f"{sample} FASTQs have different read counts (R1: {fq1}, R2: {fq2}). Please \n"
-                        "investigate these FASTQs. Further analysis is discontinued.\n")
+            error_msg = "".join([
+                f"{sample} FASTQs have different read counts (R1: {fq1}, R2: {fq2}). Please \n",
+                "investigate these FASTQs. Further analysis is discontinued.\n"
+            ])
             error += write_error(f'{sample}-different-read-count-error.txt', error_msg)
 
     return error
@@ -45,21 +49,25 @@ def check_reads(fq1, sample, min_reads, fq2=None):
 
 def check_basepairs(fq1, sample, min_basepairs, fq2=None, min_proportion=None):
     error = 0
-    total_bp= fq1 + fq2 if fq2 else fq1
+    total_bp = fq1 + fq2 if fq2 else fq1
 
     if total_bp < min_basepairs:
-        error_msg = (f"{sample} FASTQ(s) contain {total_bp} total basepairs. This does not \n"
-                    f"exceed the required minimum {min_basepairs} bp. Further analysis is \n"
-                    "discontinued.\n")
+        error_msg = "".join([
+            f"{sample} FASTQ(s) contain {total_bp} total basepairs. This does not \n",
+            f"exceed the required minimum {min_basepairs} bp. Further analysis is \n",
+            "discontinued.\n"
+        ])
         error += write_error(f'{sample}-low-sequence-depth-error.txt', error_msg)
             
     if fq2:
         proportion = float(fq1) / float(fq2) if fq1 < fq2 else float(fq2) / float(fq1)
         if proportion < min_proportion:
             # More basepairs in one sample that exceeds minimum proportion
-            error_msg = (f"{sample} FASTQs failed to meet the minimum shared basepairs ({min_proportion}). \n"
-                        f"They shared {proportion:.4f} basepairs, with R1 having {fq1} bp and \n"
-                        f"R2 having {fq2} bp. Further analysis is discontinued.\n")
+            error_msg = "".join([
+                f"{sample} FASTQs failed to meet the minimum shared basepairs ({min_proportion}). \n",
+                f"They shared {proportion:.4f} basepairs, with R1 having {fq1} bp and \n",
+                f"R2 having {fq2} bp. Further analysis is discontinued.\n"
+            ])
             error += write_error(f'{sample}-low-basepair-proportion-error.txt', error_msg)
 
     return error

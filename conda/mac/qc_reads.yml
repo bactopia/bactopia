@@ -27,5 +27,3 @@ dependencies:
   - sed=4.7
   - xz=5.2.5
   - zlib=1.2.11
-prefix: /Users/rpetit/miniconda3/envs/bactopia-qc_reads
-

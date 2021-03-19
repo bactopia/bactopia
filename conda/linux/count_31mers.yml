@@ -11,5 +11,3 @@ dependencies:
   - libstdcxx-ng=9.3.0
   - mccortex=1.0
   - zlib=1.2.11
-prefix: /local/home/rpetit/miniconda3/envs/bactopia-count_31mers
-

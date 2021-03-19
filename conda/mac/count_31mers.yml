@@ -12,5 +12,3 @@ dependencies:
   - mccortex=1.0
   - sed=4.7
   - zlib=1.2.11
-prefix: /Users/rpetit/miniconda3/envs/bactopia-count_31mers
-
