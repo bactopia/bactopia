@@ -949,7 +949,7 @@ def setup_datasets() {
 
         // Antimicrobial Resistance Datasets
         if (params.skip_amr) {
-            log.warn "Found '--skip_amr', datasets for AMRFinder+ will not be used for analysis."
+            log.info "Found '--skip_amr', datasets for AMRFinder+ will not be used for analysis."
         } else {
             if (available_datasets.containsKey('antimicrobial-resistance')) {
                 available_datasets['antimicrobial-resistance'].each {
