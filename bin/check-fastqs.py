@@ -3,9 +3,9 @@
 Sometimes with AWS, files might fail to download but not cause an error.
 This script checks to verify all expected inputs are staged.
 """
+import sys
 PROGRAM = "check-staging"
 VERSION = "1.6.1"
-import sys
 
 
 def read_json(json_file):
@@ -27,13 +27,14 @@ def check_reads(fq1, sample, min_reads, fq2=None):
     error = 0
     total_reads = fq1 + fq2 if fq2 else fq1
 
-    if total_reads < min_reads:
-        error_msg = "".join([
-            f"{sample} FASTQ(s) contain {total_reads} total reads. This does not \n",
-            f"exceed the required minimum {min_reads} read count. Further analysis is \n",
-            "discontinued.\n"
-        ])
-        error += write_error(f'{sample}-low-read-count-error.txt', error_msg)
+    if min_reads:
+        if total_reads < min_reads:
+            error_msg = "".join([
+                f"{sample} FASTQ(s) contain {total_reads} total reads. This does not \n",
+                f"exceed the required minimum {min_reads} read count. Further analysis is \n",
+                "discontinued.\n"
+            ])
+            error += write_error(f'{sample}-low-read-count-error.txt', error_msg)
 
     if fq2:
         if fq1 != fq2:
@@ -51,24 +52,26 @@ def check_basepairs(fq1, sample, min_basepairs, fq2=None, min_proportion=None):
     error = 0
     total_bp = fq1 + fq2 if fq2 else fq1
 
-    if total_bp < min_basepairs:
-        error_msg = "".join([
-            f"{sample} FASTQ(s) contain {total_bp} total basepairs. This does not \n",
-            f"exceed the required minimum {min_basepairs} bp. Further analysis is \n",
-            "discontinued.\n"
-        ])
-        error += write_error(f'{sample}-low-sequence-depth-error.txt', error_msg)
+    if min_basepairs:
+        if total_bp < min_basepairs:
+            error_msg = "".join([
+                f"{sample} FASTQ(s) contain {total_bp} total basepairs. This does not \n",
+                f"exceed the required minimum {min_basepairs} bp. Further analysis is \n",
+                "discontinued.\n"
+            ])
+            error += write_error(f'{sample}-low-sequence-depth-error.txt', error_msg)
             
     if fq2:
-        proportion = float(fq1) / float(fq2) if fq1 < fq2 else float(fq2) / float(fq1)
-        if proportion < min_proportion:
-            # More basepairs in one sample that exceeds minimum proportion
-            error_msg = "".join([
-                f"{sample} FASTQs failed to meet the minimum shared basepairs ({min_proportion}). \n",
-                f"They shared {proportion:.4f} basepairs, with R1 having {fq1} bp and \n",
-                f"R2 having {fq2} bp. Further analysis is discontinued.\n"
-            ])
-            error += write_error(f'{sample}-low-basepair-proportion-error.txt', error_msg)
+        if min_proportion:
+            proportion = float(fq1) / float(fq2) if fq1 < fq2 else float(fq2) / float(fq1)
+            if proportion < min_proportion:
+                # More basepairs in one sample that exceeds minimum proportion
+                error_msg = "".join([
+                    f"{sample} FASTQs failed to meet the minimum shared basepairs ({min_proportion}). \n",
+                    f"They shared {proportion:.4f} basepairs, with R1 having {fq1} bp and \n",
+                    f"R2 having {fq2} bp. Further analysis is discontinued.\n"
+                ])
+                error += write_error(f'{sample}-low-basepair-proportion-error.txt', error_msg)
 
     return error
 
@@ -90,7 +93,7 @@ if __name__ == '__main__':
     parser.add_argument('--min_proportion', metavar="FLOAT", type=float, 
                         help='The proportion of sequenced basepairs that R1 and R2 must be')
     parser.add_argument('--min_reads', metavar="INT", type=int, help='Minimum number of reads.')
-    parser.add_argument('--min_basepairs',metavar="INT", type=int, help='Minimum number of seqeunced basepairs')
+    parser.add_argument('--min_basepairs', metavar="INT", type=int, help='Minimum number of seqeunced basepairs')
     parser.add_argument('--version', action='version', version=f'{PROGRAM} {VERSION}')
 
     if len(sys.argv) == 1:
