@@ -948,14 +948,19 @@ def setup_datasets() {
         available_datasets = read_json("${dataset_path}/summary.json")
 
         // Antimicrobial Resistance Datasets
-        if (available_datasets.containsKey('antimicrobial-resistance')) {
-            available_datasets['antimicrobial-resistance'].each {
-                if (dataset_exists("${dataset_path}/antimicrobial-resistance/${it.name}")) {
-                    AMR_DATABASES << file("${dataset_path}/antimicrobial-resistance/${it.name}")
+        if (params.skip_amr) {
+            log.warn "Found '--skip_amr', datasets for AMRFinder+ will not be used for analysis."
+        else {
+            if (available_datasets.containsKey('antimicrobial-resistance')) {
+                available_datasets['antimicrobial-resistance'].each {
+                    if (dataset_exists("${dataset_path}/antimicrobial-resistance/${it.name}")) {
+                        AMR_DATABASES << file("${dataset_path}/antimicrobial-resistance/${it.name}")
+                    }
                 }
+                print_dataset_info(AMR_DATABASES, "Antimicrobial resistance datasets")
             }
-            print_dataset_info(AMR_DATABASES, "Antimicrobial resistance datasets")
         }
+
 
         // Ariba Datasets
         if (available_datasets.containsKey('ariba')) {
@@ -2277,7 +2282,9 @@ def full_help() {
                                     Default: ${params.bwa_n}
 
     Antimicrobial Resistance Parameters:
-        --update_amr            Force amrfinder to update its database.
+        --skip_amr              AMRFinder+ analysis will be skipped. This is useful 
+                                    if the AMRFinder+ software and database versions are
+                                    no longer compatible.
 
         --amr_ident_min         Minimum identity for nucleotide hit (0..1). -1
                                     means use a curated threshold if it exists and
