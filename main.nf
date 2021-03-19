@@ -2,6 +2,8 @@
 import groovy.json.JsonSlurper
 import groovy.text.SimpleTemplateEngine
 import groovy.util.FileNameByRegexFinder
+import java.io.RandomAccessFile;
+import java.util.zip.GZIPInputStream;
 import java.nio.file.Path
 import java.nio.file.Paths
 import nextflow.util.SysHelper
@@ -1183,6 +1185,11 @@ def file_exists(file_name, parameter) {
     if (!file(file_name).exists()) {
         log.error('Invalid input ('+ parameter +'), please verify "' + file_name + '" exists.')
         return 1
+    } else if (['--R1', '--R2', '--SE', '--assembly'].contains(parameter)) {
+        if (!isGzipped(file_name)) {
+            log.error('Invalid input ('+ parameter +'), please verify "' + file_name + '" is GZIP compressed.')
+            return 1
+        }
     }
     return 0
 }
@@ -1421,6 +1428,7 @@ def create_input_channel(run_type) {
     }
 }
 
+
 def create_reference_channel(channel_input) {
     return channel_input.map { it ->
         def split_references = []
@@ -1438,8 +1446,26 @@ def create_reference_channel(channel_input) {
      }.flatMap { it -> L:{ it.collect { it } } }
 }
 
+
+def isGzipped(f) {
+    /* https://github.com/ConnectedPlacesCatapult/TomboloDigitalConnector/blob/master/src/main/java/uk/org/tombolo/importer/ZipUtils.java */
+    int magic = 0;
+    try {
+        RandomAccessFile raf = new RandomAccessFile(f, "r");
+        magic = raf.read() & 0xff | ((raf.read() << 8) & 0xff00);
+        raf.close();
+    } catch (Throwable e) {
+        log.error("Failed to check if gzipped " + e.getMessage());
+        return false;
+    }
+
+    return magic == GZIPInputStream.GZIP_MAGIC;
+}
+
+
 def check_input_fastqs(run_type) {
     /* Read through --fastqs and verify each input exists. */
+
     if (run_type == "fastqs") {
         samples = [:]
         error = false
@@ -1462,6 +1488,9 @@ def check_input_fastqs(run_type) {
                         if (!file(fq).exists()) {
                             log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
                             error = true
+                        } else if (!isGzipped(fq)) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' is GZipped, and try again'
+                            error = true
                         }
                         count = count + 1
                     }
@@ -1473,6 +1502,9 @@ def check_input_fastqs(run_type) {
                     cols[3].split(',').each{ fq ->
                         if (!file(fq).exists()) {
                             log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
+                            error = true
+                        } else if (!isGzipped(fq)) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' is GZipped, and try again'
                             error = true
                         }
                     }
@@ -1615,7 +1647,7 @@ def basic_help() {
 
         ### For Processing an Assembly
         **Note: The assembly will have error free Illumina reads simulated for processing.**
-        --assembly STR          A assembled genome in compressed FASTA format.
+        --assembly STR          A assembled genome in compressed (gzip) FASTA format.
 
         --reassemble            The simulated reads will be used to create a new assembly.
                                     Default: Use the original assembly, do not reassemble
