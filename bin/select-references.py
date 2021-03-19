@@ -2,7 +2,7 @@
 """
 """
 PROGRAM = "select-references"
-VERSION = "1.6.1"
+VERSION = "1.6.2"
 
 
 def use_eutils(accession):

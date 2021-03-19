@@ -29,7 +29,7 @@ example usage:
 """
 import os
 import sys
-VERSION = "1.6.1"
+VERSION = "1.6.2"
 PROGRAM = "bactopia search"
 ENA_URL = ('https://www.ebi.ac.uk/ena/portal/api/search')
 FIELDS = [

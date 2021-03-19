@@ -1493,9 +1493,6 @@ def check_input_fastqs(run_type) {
                         if (!file(fq).exists()) {
                             log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
                             error = true
-                        } else if (!isGzipped(fq)) {
-                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' is GZipped, and try again'
-                            error = true
                         }
                         count = count + 1
                     }
@@ -1507,9 +1504,6 @@ def check_input_fastqs(run_type) {
                     cols[3].split(',').each{ fq ->
                         if (!file(fq).exists()) {
                             log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
-                            error = true
-                        } else if (!isGzipped(fq)) {
-                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' is GZipped, and try again'
                             error = true
                         }
                     }

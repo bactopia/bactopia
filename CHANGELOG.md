@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.6.2 bactopia/bactopia "Fuscina" - 2021/03/19
+### `Added`
+- inputs are checked to be gzipped (this does not include FOFN)
+- `--skip_amr` to skip AMRFinder+ analysis
+- new  `bactopia tool` for `hicap`
+- `unicycler` can be used for Illumina reads only (`--assembler unicycler`)
+
+### `Fixed`
+- AMRFinder+ software and database version mismatch
+- check-fastqs.py syntax errors with prints
+- `ismapper` tool processing of include/exclude files
+
 ## v1.6.1 bactopia/bactopia "Obelisk" - 2021/02/22
 ### `Fixed`
 - sample names with "." in them breaking auto variant calling

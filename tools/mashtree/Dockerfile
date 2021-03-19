@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - mashtree"
-LABEL software.version="1.6.1"
+LABEL software.version="1.6.2"
 LABEL description="Trees based on Mash distances"
 LABEL website="https://bactopia.github.io/bactopia-tools/mashtree/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
