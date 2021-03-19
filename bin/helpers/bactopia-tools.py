@@ -28,6 +28,7 @@ AVAILABLE_TOOLS = {
     'eggnog': {'info': 'Functional annotation using orthologous groups', 'mac': True},
     'fastani': {'info': 'Pairwise average nucleotide identity', 'mac': True},
     'gtdb': {'info': 'Identify marker genes and assign taxonomic classifications', 'mac': False},
+    'hicap': {'info': 'in silico typing of the H. influenzae cap locus', 'mac': True},
     'ismapper': {'info': 'Identify positions of insertion sites', 'mac': True},
     'mashtree': {'info': 'Trees based on Mash distances', 'mac': True},
     'pirate': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},

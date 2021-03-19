@@ -34,12 +34,12 @@ function update_environment {
         # Mac OS
         # Have to replace Mac versions of some programs (date, sed, etc...)
         conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} coreutils sed
-        conda env export --no-builds -n bactopia-${1} > ${3}/${1}.yml
+        conda env export --no-builds -n bactopia-${1} | grep -v "^prefix:" > ${3}/${1}.yml
         md5 -r ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
     else
         # Linux
         conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} 
-        conda env export --no-builds -n bactopia-${1} > ${3}/${1}.yml
+        conda env export --no-builds -n bactopia-${1} | grep -v "^prefix:" > ${3}/${1}.yml
         md5sum ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
         head -n 1 ${3}/${1}.md5 | xargs -I {} sed -i -E 's/(LABEL conda.md5=")(.*)(")/\1{}\3/' ${4}/${1}.Dockerfile
     fi

@@ -26,7 +26,6 @@ fi
 if [ ! -d "${BACTOPIA_DIR}/tools/${TOOL}" ]; then
     cp -r ${BACTOPIA_DIR}/tools/.skeleton ${BACTOPIA_DIR}/tools/${TOOL}
     sed -i -r 's/TOOL_NAME/'"${TOOL}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/Dockerfile
-    sed -i -r 's/TOOL_NAME/'"${TOOL}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/Singularity
     sed -i -r 's/TOOL_NAME/'"${TOOL}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/nextflow.config
     sed -i -r 's/DESCRIPTION/'"${DESCRIPTION}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/nextflow.config
 else
