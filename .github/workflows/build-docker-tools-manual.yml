@@ -1,4 +1,4 @@
-name: build-docker-manual
+name: build-docker-tools-manual
 on: workflow_dispatch
 jobs:
   build:
