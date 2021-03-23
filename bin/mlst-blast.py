@@ -48,30 +48,14 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
 
     outfmt = "6 sseqid bitscore slen length nident mismatch pident evalue"
     results = {}
-
-    profile = {}
-    with open(f'{blast}/profile.txt', 'r') as profile_fh:
-        for line in profile_fh:
-            cols = line.rstrip().split('\t')
-            if line.startswith('ST'):
-                col_names = cols
-            else:
-                ST = None
-                alleles = []
-                for i, name in enumerate(col_names):
-                    if name == 'ST':
-                        st = cols[i]
-                    elif name != 'clonal_complex':
-                        alleles.append(f'{name}.{cols[i]}')
-                profile[';'.join(sorted(alleles))] = st
-
+    loci = {}
     perfect_matches = []
     total_loci = 0
     for tfa in sorted(glob.glob(f'{blast}/*.tfa')):
         total_loci += 1
         blastdb = splitext(tfa)[0]
         allele = basename(blastdb)
-        print(allele)
+        loci[allele] = True
         blastn = pipe_command(
             ['zcat' if compressed else 'cat', input_file],
             ['blastn', '-db', blastdb, '-query', '-', '-outfmt', outfmt,
@@ -79,7 +63,6 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
              '-evalue', '10000', '-ungapped', '-dust', 'no',
              '-word_size', '28'], verbose=verbose
         )
-        print("finished")
         max_bitscore = 0
         top_hits = []
         not_first = False
@@ -103,7 +86,6 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
                             top_hits.append(cols)
                         else:
                             break
-
         top_hit = []
         if not top_hits:
             # Did not return a hit
@@ -141,10 +123,45 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
     results['ST'] = OrderedDict((
         ('st', 'ND'), ('perfect_matches', len(perfect_matches))
     ))
+
+    # Read Profile
+    profile = {}
+    extra = OrderedDict()
+    extra_cols = OrderedDict()
+    with open(f'{blast}/profile.txt', 'r') as profile_fh:
+        for line in profile_fh:
+            cols = line.rstrip('\n').split('\t')
+            if line.startswith('ST'):
+                col_names = cols
+                for col_name in col_names:
+                    if col_name != "ST" and col_name not in loci:
+                        extra_cols[col_name] = True
+            else:
+                ST = None
+                alleles = []
+                extra = OrderedDict()
+                for i, val in enumerate(cols):
+                    if val:
+                        col_name = col_names[i]
+                        if col_name == "ST":
+                            ST = val
+                        elif col_name in loci:
+                            alleles.append(f'{col_name}.{val}')
+                        else:
+                            extra[col_name] = val
+                profile[';'.join(sorted(alleles))] = {'st': ST, 'extra': extra}
+
+    for extra_col in extra_cols:
+        if extra_col not in results['ST']:
+            results['ST'][extra_col] = ''
+
     if len(perfect_matches) == total_loci:
         pattern = ';'.join(sorted(perfect_matches))
         if pattern in profile:
-            results['ST']['st'] = profile[pattern]
+            results['ST']['st'] = profile[pattern]['st']
+            for extra_col in extra_cols:
+                if extra_col in profile[pattern]['extra']:
+                    results['ST'][extra_col] = profile[pattern]['extra'][extra_col]
         else:
             results['ST']['st'] = 'Novel'
 
