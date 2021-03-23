@@ -1,8 +1,5 @@
-name: build-docker-release
-on:
-  release:
-    types:
-      - created
+name: build-docker-tools-manual
+on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -70,4 +67,4 @@ jobs:
         run: uname -a && env && which python3
       
       - name: Build and publish image to each registry
-        run: python3 ${GITHUB_WORKSPACE}/bin/gh-actions/setup-docker-builds.py ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/releases.json --github --quay --verbose
+        run: python3 ${GITHUB_WORKSPACE}/bin/gh-actions/setup-docker-builds.py ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/releases.json --github --quay --verbose --skip_process

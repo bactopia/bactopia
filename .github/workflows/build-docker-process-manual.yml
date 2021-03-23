@@ -1,0 +1,70 @@
+name: build-docker-process-manual
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Free up Disk Space
+        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Quay.io Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Login to GitHubContainer Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }} 
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Get Bactopia Releases
+        uses: octokit/graphql-action@v2.x
+        id: get_latest_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          query: |
+            query {
+              repository(owner: "bactopia", name: "bactopia") {
+                releases(first: 2, orderBy: { field: CREATED_AT, direction: DESC}) {
+                  nodes {
+                    name
+                    createdAt
+                  }
+                }
+              }
+            }
+
+      - name: Output latest releases
+        run: echo '${{ steps.get_latest_release.outputs.data }}' > ${GITHUB_WORKSPACE}/releases.json
+
+      - name: Setup miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: true
+          activate-environment: ""
+
+      - name: Setup Bactopia Environment
+        run: conda install -y --quiet -c conda-forge python=3 executor
+
+      - name: Environment Information
+        run: uname -a && env && which python3
+      
+      - name: Build and publish image to each registry
+        run: python3 ${GITHUB_WORKSPACE}/bin/gh-actions/setup-docker-builds.py ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/releases.json --github --quay --verbose --skip_tools
