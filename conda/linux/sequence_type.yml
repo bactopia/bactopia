@@ -142,7 +142,7 @@ dependencies:
   - soupsieve=2.0.1
   - spades=3.14.1
   - sqlite=3.35.2
-  - tbb=2021.1.1
+  - tbb=2020.2
   - tk=8.6.10
   - tornado=6.1
   - wget=1.20.1

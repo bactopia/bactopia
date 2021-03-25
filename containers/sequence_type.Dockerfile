@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/sequence_type.yml"
-LABEL conda.md5="af428a4458b17dd5346cda6626ee0ef2"
+LABEL conda.md5="a3a060c6042be33d548a0670341606a7"
 
 COPY conda/linux/sequence_type.yml /
 RUN conda env create -q -f sequence_type.yml && conda clean -y -a

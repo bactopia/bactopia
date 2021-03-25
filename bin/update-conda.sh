@@ -49,7 +49,7 @@ function update_environment {
 
 update_environment "annotate_genome" "prokka pigz tbl2asn-forever" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "antimicrobial_resistance" "ncbi-amrfinderplus blast=2.11.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "ariba_analysis" "ariba bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "assemble_genome" "shovill-se assembly-scan unicycler pigz bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "assembly_qc" "checkm-genome quast pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
@@ -62,6 +62,6 @@ update_environment "download_references" "ncbi-genome-download mash biopython py
 update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "sequence_type" "ariba blast=2.11.0 bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "sequence_type" "ariba blast=2.11.0 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 
 echo "Last updated: " `date` > ${CONDA_DIR}/README.md
