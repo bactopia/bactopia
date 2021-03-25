@@ -109,8 +109,10 @@ elif [[ "$1" == "pull" ]]; then
         bactopia-pull.py "${@:2}"
     fi
 elif [[ "$1" == "tools" ]]; then
-    if [[ -z "$2" ]]; then
+    if [[ -z "$2" ]] || [[ "$2" == "--help" ]] || [[ "$2" == "-h" ]]; then
         bactopia-tools.py
+    elif [[ "$2" == "--version" ]]; then
+        bactopia-tools.py --version
     else
         # Check if Conda environments need to be built
         BUILD_CONDA=1

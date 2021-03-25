@@ -3,9 +3,13 @@
 ## v1.6.3 bactopia/bactopia "" - 2021/03/??
 ### `Added`
 - extra fields to `mlst-blast.py` outputs
+- added Python3 to `qc_reads` environment
 
 ### `Fixed`
 - rstrip on empty extra fields in mlst profile
+- different BLAST+ software versions mismatch
+- tbb pinnings
+- `--help` and `--version` for `bactopia tools`
 
 ## v1.6.2 bactopia/bactopia "Fuscina" - 2021/03/19
 ### `Added`
