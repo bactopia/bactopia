@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.6.3 bactopia/bactopia "" - 2021/03/??
+### `Added`
+- extra fields to `mlst-blast.py` outputs
+
+### `Fixed`
+- rstrip on empty extra fields in mlst profile
+
 ## v1.6.2 bactopia/bactopia "Fuscina" - 2021/03/19
 ### `Added`
 - inputs are checked to be gzipped (this does not include FOFN)
