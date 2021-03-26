@@ -37,7 +37,7 @@ optional arguments:
                         Default: Use absolute path
   --version             show program's version number and exit
 """
-VERSION = "1.6.2"
+VERSION = "1.6.3"
 PROGRAM = "bactopia prepare"
 
 

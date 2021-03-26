@@ -5,7 +5,7 @@ This script checks to verify all expected inputs are staged.
 """
 import sys
 PROGRAM = "check-staging"
-VERSION = "1.6.2"
+VERSION = "1.6.3"
 
 
 def read_json(json_file):

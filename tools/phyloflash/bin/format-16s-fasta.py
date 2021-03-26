@@ -23,7 +23,7 @@ example usage:
   format-16s-fasta ./
 """
 PROGRAM = "format-16s-fasta"
-VERSION = "1.6.2"
+VERSION = "1.6.3"
 
 def read_fasta(fasta):
     """ Kudos: https://www.biostars.org/p/710/ """
