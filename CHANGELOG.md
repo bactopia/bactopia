@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.6.3 bactopia/bactopia "" - 2021/03/??
+## v1.6.3 bactopia/bactopia "Trident" - 2021/03/25
 ### `Added`
 - extra fields to `mlst-blast.py` outputs
 - added Python3 to `qc_reads` environment
