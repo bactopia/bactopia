@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.4 bactopia/bactopia "Trident +1" - 2021/03/26
+### `Added`
+- added Python3.6+ to all environments
+
 ## v1.6.3 bactopia/bactopia "Trident" - 2021/03/25
 ### `Added`
 - extra fields to `mlst-blast.py` outputs

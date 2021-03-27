@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - gtdb"
-LABEL software.version="1.6.3"
+LABEL software.version="1.6.4"
 LABEL description="Identify marker genes and assign taxonomic classifications"
 LABEL website="https://bactopia.github.io/bactopia-tools/gtdb/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"

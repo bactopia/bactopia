@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - hicap"
-LABEL software.version="1.6.3"
+LABEL software.version="1.6.4"
 LABEL description="in silico typing of the H. influenzae cap locus"
 LABEL website="https://bactopia.github.io/bactopia-tools/hicap/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
