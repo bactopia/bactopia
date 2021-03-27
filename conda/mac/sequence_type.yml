@@ -138,7 +138,7 @@ dependencies:
   - six=1.15.0
   - soupsieve=2.0.1
   - spades=3.15.2
-  - sqlite=3.35.2
+  - sqlite=3.35.3
   - tbb=2020.2
   - tk=8.6.10
   - tornado=6.1

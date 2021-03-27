@@ -4,11 +4,26 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - ca-certificates=2020.12.5
+  - certifi=2020.12.5
   - coreutils=8.31
   - gettext=0.19.8.1
-  - libcxx=11.0.1
+  - libcxx=11.1.0
   - libffi=3.3
   - libiconv=1.16
   - mccortex=1.0
+  - ncurses=6.2
+  - openssl=1.1.1k
+  - pip=21.0.1
+  - python=3.9.2
+  - python_abi=3.9
+  - readline=8.1
   - sed=4.7
+  - setuptools=49.6.0
+  - sqlite=3.35.3
+  - tk=8.6.10
+  - tzdata=2021a
+  - wheel=0.36.2
+  - xz=5.2.5
   - zlib=1.2.11
+

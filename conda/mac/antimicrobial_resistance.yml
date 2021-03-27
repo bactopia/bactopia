@@ -8,6 +8,7 @@ dependencies:
   - bzip2=1.0.8
   - c-ares=1.17.1
   - ca-certificates=2020.12.5
+  - certifi=2020.12.5
   - coreutils=8.31
   - curl=7.75.0
   - entrez-direct=13.9
@@ -92,7 +93,16 @@ dependencies:
   - perl-xml-sax-expat=0.51
   - perl-xml-simple=2.25
   - perl-xsloader=0.24
+  - pip=21.0.1
+  - python=3.9.2
+  - python_abi=3.9
+  - readline=8.1
   - sed=4.7
+  - setuptools=49.6.0
+  - sqlite=3.35.3
   - tk=8.6.10
+  - tzdata=2021a
+  - wheel=0.36.2
+  - xz=5.2.5
   - zlib=1.2.11
 

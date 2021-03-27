@@ -34,7 +34,7 @@ dependencies:
   - readline=8.1
   - sed=4.7
   - setuptools=49.6.0
-  - sqlite=3.35.2
+  - sqlite=3.35.3
   - tk=8.6.10
   - tzdata=2021a
   - wheel=0.36.2
