@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/qc_reads.yml"
-LABEL conda.md5="3c0be3e5b769b4cabb253af857c415b5"
+LABEL conda.md5="9200497715822fe0e99183edbe8aa480"
 
 COPY conda/linux/qc_reads.yml /
 RUN conda env create -q -f qc_reads.yml && conda clean -y -a

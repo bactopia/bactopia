@@ -29,16 +29,17 @@ fi
 function update_environment {
     # 1: template, 2: programs, 3: conda dir, 4: docker dir, 5: version, 6: is_mac
     echo "Working on ${1}"
+    EXTRAS="coreutils sed python>=3.6"
    
     if [ "$6" == 1 ]; then
         # Mac OS
         # Have to replace Mac versions of some programs (date, sed, etc...)
-        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} coreutils sed
+        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} ${EXTRAS}
         conda env export --no-builds -n bactopia-${1} | grep -v "^prefix:" > ${3}/${1}.yml
         md5 -r ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
     else
         # Linux
-        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} 
+        conda create --quiet -y -n bactopia-${1} -c conda-forge -c bioconda ${2} ${EXTRAS}
         conda env export --no-builds -n bactopia-${1} | grep -v "^prefix:" > ${3}/${1}.yml
         md5sum ${3}/${1}.yml | cut -d " " -f 1 > ${3}/${1}.md5
         head -n 1 ${3}/${1}.md5 | xargs -I {} sed -i -E 's/(LABEL conda.md5=")(.*)(")/\1{}\3/' ${4}/${1}.Dockerfile
@@ -58,10 +59,10 @@ else
     update_environment "call_variants" "snippy vcf-annotator pigz vt=2015.11.10=he941832_3" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 fi
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "download_references" "ncbi-genome-download mash biopython python>3.6 rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "download_references" "ncbi-genome-download mash biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz python>=3.6" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "sequence_type" "ariba blast=2.11.0 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 
 echo "Last updated: " `date` > ${CONDA_DIR}/README.md

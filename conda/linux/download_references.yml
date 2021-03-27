@@ -1,7 +1,7 @@
 name: bactopia-download_references
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
@@ -12,9 +12,10 @@ dependencies:
   - ca-certificates=2020.12.5
   - capnproto=0.6.1
   - certifi=2020.12.5
-  - cffi=1.14.4
+  - cffi=1.14.5
   - chardet=4.0.0
-  - cryptography=3.3.1
+  - coreutils=8.31
+  - cryptography=3.4.6
   - enum34=1.1.10
   - gsl=2.6
   - idna=2.10
@@ -29,27 +30,28 @@ dependencies:
   - liblapack=3.9.0
   - libopenblas=0.3.12
   - libstdcxx-ng=9.3.0
-  - mash=2.2.2
+  - mash=2.3
   - ncbi-genome-download=0.3.0
   - ncurses=6.2
-  - numpy=1.19.5
-  - openssl=1.1.1i
+  - numpy=1.20.1
+  - openssl=1.1.1k
   - perl=5.32.0
-  - pip=20.3.3
+  - pip=21.0.1
   - pycparser=2.20
   - pyopenssl=20.0.1
   - pysocks=1.7.1
-  - python=3.9.1
+  - python=3.9.2
   - python_abi=3.9
   - readline=8.0
   - rename=1.601
   - requests=2.25.1
+  - sed=4.8
   - setuptools=49.6.0
   - six=1.15.0
-  - sqlite=3.34.0
+  - sqlite=3.35.3
   - tk=8.6.10
-  - tzdata=2020f
-  - urllib3=1.26.2
+  - tzdata=2021a
+  - urllib3=1.26.4
   - wheel=0.36.2
   - xz=5.2.5
   - zlib=1.2.11

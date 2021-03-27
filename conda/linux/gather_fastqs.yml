@@ -1,7 +1,7 @@
 name: bactopia-gather_fastqs
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
@@ -9,17 +9,18 @@ dependencies:
   - appdirs=1.4.4
   - art=2016.06.05
   - biopython=1.78
-  - blas=2.107
+  - blas=2.108
   - blas-devel=3.9.0
   - brotlipy=0.7.0
   - c-ares=1.17.1
   - ca-certificates=2020.12.5
   - certifi=2020.12.5
-  - cffi=1.14.4
+  - cffi=1.14.5
   - chardet=4.0.0
   - coloredlogs=15.0
-  - cryptography=3.3.1
-  - curl=7.71.1
+  - coreutils=8.31
+  - cryptography=3.4.6
+  - curl=7.75.0
   - enum34=1.1.10
   - executor=23.2
   - fasteners=0.14.1
@@ -34,7 +35,7 @@ dependencies:
   - ld_impl_linux-64=2.35.1
   - libblas=3.9.0
   - libcblas=3.9.0
-  - libcurl=7.71.1
+  - libcurl=7.75.0
   - libedit=3.1.20191231
   - libev=4.33
   - libffi=3.3
@@ -45,13 +46,13 @@ dependencies:
   - libidn2=2.3.0
   - liblapack=3.9.0
   - liblapacke=3.9.0
-  - libnghttp2=1.41.0
+  - libnghttp2=1.43.0
   - libopenblas=0.3.13
   - libssh2=1.9.0
   - libstdcxx-ng=9.3.0
   - libunistring=0.9.10
   - libxml2=2.9.10
-  - llvm-openmp=11.0.1
+  - llvm-openmp=11.1.0
   - mkl=2020.4
   - mkl-devel=2020.4
   - mkl-include=2020.4
@@ -59,9 +60,9 @@ dependencies:
   - ncbi-genome-download=0.3.0
   - ncbi-ngs-sdk=2.10.9
   - ncurses=6.2
-  - numpy=1.19.5
+  - numpy=1.20.1
   - openblas=0.3.13
-  - openssl=1.1.1i
+  - openssl=1.1.1k
   - ossuuid=1.6.2
   - perl=5.26.2
   - perl-app-cpanminus=1.7044
@@ -83,24 +84,25 @@ dependencies:
   - perl-xml-sax=1.02
   - perl-xml-sax-base=1.09
   - perl-xsloader=0.24
-  - pigz=2.3.4
-  - pip=20.3.3
+  - pigz=2.6
+  - pip=21.0.1
   - property-manager=3.0
   - pycparser=2.20
   - pyopenssl=20.0.1
   - pysocks=1.7.1
-  - python=3.9.1
+  - python=3.9.2
   - python_abi=3.9
   - readline=8.0
   - rename=1.601
   - requests=2.25.1
+  - sed=4.8
   - setuptools=49.6.0
   - six=1.15.0
-  - sqlite=3.34.0
+  - sqlite=3.35.3
   - sra-tools=2.10.9
   - tk=8.6.10
-  - tzdata=2020f
-  - urllib3=1.26.2
+  - tzdata=2021a
+  - urllib3=1.26.4
   - verboselogs=1.7
   - wget=1.20.1
   - wheel=0.36.2

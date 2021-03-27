@@ -16,6 +16,7 @@ dependencies:
   - ca-certificates=2020.12.5
   - cd-hit=4.8.1
   - certifi=2020.12.5
+  - coreutils=8.31
   - cycler=0.10.0
   - dendropy=4.5.2
   - freetype=2.10.4
@@ -68,11 +69,12 @@ dependencies:
   - python_abi=3.6
   - readline=8.0
   - samtools=1.12
+  - sed=4.8
   - setuptools=49.6.0
   - six=1.15.0
   - soupsieve=2.0.1
   - spades=3.13.0
-  - sqlite=3.35.2
+  - sqlite=3.35.3
   - tbb=2020.2
   - tk=8.6.10
   - tornado=6.1

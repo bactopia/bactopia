@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/minmers.yml"
-LABEL conda.md5="4c8687db3fcd9991f9bd7faa22c2cead"
+LABEL conda.md5="988130bd0ea34ad4c103d47587d39651"
 
 COPY conda/linux/minmers.yml /
 RUN conda env create -q -f minmers.yml && conda clean -y -a
