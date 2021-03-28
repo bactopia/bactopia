@@ -61,7 +61,7 @@ fi
 update_environment "count_31mers" "mccortex" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "download_references" "ncbi-genome-download mash biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "gather_fastqs" "art rename ncbi-genome-download fastq-dl biopython" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "minmers" "mash sourmash" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "minmers" "mash sourmash>=4" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "qc_reads" "bbmap fastqc fastq-scan lighter pigz" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "sequence_type" "ariba blast=2.11.0 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 

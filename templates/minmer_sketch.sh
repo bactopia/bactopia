@@ -22,8 +22,7 @@ fi
 
 gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
 gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
-sourmash compute --scaled !{params.sourmash_scale} -o !{sample}.sig -p !{task.cpus} \
-                    --track-abundance --merge !{sample} -k 21,31,51 !{fastq}
+sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{sample} -o !{sample}.sig !{fastq}
 
 # pass the FASTQs along
 mkdir -p fastqs

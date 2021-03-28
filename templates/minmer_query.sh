@@ -41,15 +41,15 @@ elif [ "!{dataset_name}" == "plsdb.msh" ]; then
 elif [ "!{dataset_name}" == "genbank-k21.json.gz" ]; then
     echo "# Sourmash Version" >> ${LOG_DIR}/!{task.process}.versions
     sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-    sourmash lca gather !{sourmash} !{dataset} > !{sample}-genbank-k21.txt 2> ${LOG_DIR}/sourmash.err
+    sourmash lca classify --query !{sourmash} --db !{dataset} > !{sample}-genbank-k21.txt 2> ${LOG_DIR}/sourmash.err
 elif [ "!{dataset_name}" == "genbank-k31.json.gz" ]; then
     echo "# Sourmash Version" >> ${LOG_DIR}/!{task.process}.versions
     sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-    sourmash lca gather !{sourmash} !{dataset} > !{sample}-genbank-k31.txt 2> ${LOG_DIR}/sourmash.err
+    sourmash lca classify --query !{sourmash} --db !{dataset} > !{sample}-genbank-k31.txt 2> ${LOG_DIR}/sourmash.err
 else
     echo "# Sourmash Version" >> ${LOG_DIR}/!{task.process}.versions
     sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-    sourmash lca gather !{sourmash} !{dataset} > !{sample}-genbank-k51.txt 2> ${LOG_DIR}/sourmash.err
+    sourmash lca classify --query !{sourmash} --db !{dataset}  > !{sample}-genbank-k51.txt 2> ${LOG_DIR}/sourmash.err
 fi
 
 if [ "!{params.skip_logs}" == "false" ]; then 
