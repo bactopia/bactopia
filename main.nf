@@ -1993,7 +1993,7 @@ def full_help() {
                                     Default: ${params.min_contig_cov}
 
         --contig_namefmt STR    Format of contig FASTA IDs in 'printf' style
-                                    Default: "${SAMPLE_NAME}_%05d"
+                                    Default: "SAMPLE_NAME_%05d"
 
         --shovill_opts STR      Extra assembler options in quotes eg.
                                     spades: "--untrusted-contigs locus.fna" ...
