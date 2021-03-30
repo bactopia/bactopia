@@ -12,15 +12,15 @@ dependencies:
   - bowtie2=2.3.5.1
   - bzip2=1.0.8
   - c-ares=1.17.1
-  - ca-certificates=2020.12.5
+  - ca-certificates=2021.1.19
   - cd-hit=4.8.1
   - certifi=2020.12.5
-  - coreutils=8.31
+  - coreutils=8.32
   - curl=7.75.0
   - cycler=0.10.0
   - dendropy=4.5.2
   - entrez-direct=13.9
-  - expat=2.2.10
+  - expat=2.3.0
   - freetype=2.10.4
   - gettext=0.19.8.1
   - gsl=2.6
@@ -34,7 +34,7 @@ dependencies:
   - libcurl=7.75.0
   - libcxx=11.1.0
   - libdeflate=1.7
-  - libedit=3.1.20191231
+  - libedit=3.1.20210216
   - libev=4.33
   - libffi=3.3
   - libgfortran=5.0.0
@@ -54,7 +54,7 @@ dependencies:
   - matplotlib-base=3.3.4
   - mummer=3.23
   - ncurses=6.2
-  - numpy=1.20.1
+  - numpy=1.20.2
   - olefile=0.46
   - openssl=1.1.1k
   - pcre=8.44
@@ -122,6 +122,7 @@ dependencies:
   - perl-xml-sax-expat=0.51
   - perl-xml-simple=2.25
   - perl-xsloader=0.24
+  - pigz=2.6
   - pillow=8.1.2
   - pip=21.0.1
   - pyfastaq=3.17.0
@@ -133,10 +134,10 @@ dependencies:
   - python_abi=3.7
   - readline=8.1
   - samtools=1.12
-  - sed=4.7
-  - setuptools=49.6.0
+  - sed=4.8
+  - setuptools=52.0.0
   - six=1.15.0
-  - soupsieve=2.0.1
+  - soupsieve=2.2.1
   - spades=3.15.2
   - sqlite=3.35.3
   - tbb=2020.2
@@ -147,4 +148,3 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.9
-

@@ -5,12 +5,12 @@ channels:
   - defaults
 dependencies:
   - bz2file=0.98
-  - ca-certificates=2020.12.5
+  - ca-certificates=2021.1.19
   - cachetools=4.2.1
   - capnproto=0.6.1
   - certifi=2020.12.5
   - cffi=1.14.5
-  - coreutils=8.31
+  - coreutils=8.32
   - cycler=0.10.0
   - deprecation=2.1.0
   - freetype=2.10.4
@@ -36,10 +36,11 @@ dependencies:
   - mash=2.3
   - matplotlib-base=3.3.4
   - ncurses=6.2
-  - numpy=1.20.1
+  - numpy=1.20.2
   - olefile=0.46
   - openssl=1.1.1k
   - packaging=20.9
+  - pigz=2.6
   - pillow=8.1.2
   - pip=21.0.1
   - pycparser=2.20
@@ -48,10 +49,10 @@ dependencies:
   - python-dateutil=2.8.1
   - python_abi=3.9
   - readline=8.1
-  - scipy=1.6.1
+  - scipy=1.6.2
   - screed=1.0.5
-  - sed=4.7
-  - setuptools=49.6.0
+  - sed=4.8
+  - setuptools=52.0.0
   - six=1.15.0
   - sourmash=4.0.0
   - sourmash-minimal=4.0.0
@@ -63,4 +64,3 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.4.9
-
