@@ -6,7 +6,7 @@
 import os
 import sys
 
-VERSION = "1.6.4"
+VERSION = "1.6.5"
 PROGRAM = "bactopia summary"
 DESCRIPTION = 'Create a summary report for samples'
 

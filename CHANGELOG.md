@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.6.5 bactopia/bactopia "Z's Trident" - 2021/03/30
+### `Added`
+- version pins to process envs
+
+### `Fixed`
+- syntax for sourmash 4.0
+
 ## v1.6.4 bactopia/bactopia "Trident +1" - 2021/03/26
 ### `Added`
 - added Python3.6+ to all environments
