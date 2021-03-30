@@ -94,12 +94,15 @@ if __name__ == '__main__':
             else:
                 versions[yaml] = read_yaml(f'{conda_dir}/{yaml}')
 
-        final_versions[tool.lower()] = {
-            'name': tool,
-            'version': versions[yaml][info['conda']['name']],
-            'description': info['description'],
-            'link': info['link']
-        }
+        if ostype == 'mac' and info['conda']['name'] == 'checkm-genome':
+            continue
+        else:
+            final_versions[tool.lower()] = {
+                'name': tool,
+                'version': versions[yaml][info['conda']['name']],
+                'description': info['description'],
+                'link': info['link']
+            }
 
     print(f'name\tversion\tdescription\tlink')
     for tool, cols in sorted(final_versions.items()):
