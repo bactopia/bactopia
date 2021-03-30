@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/gather_fastqs.yml"
-LABEL conda.md5="28969b1154cc6aa06c1fe0d9c1df11e1"
+LABEL conda.md5="ec669442ee6dae0d3ddedf2d887fe567"
 
 COPY conda/linux/gather_fastqs.yml /
 COPY bin/check-assembly-accession.py /

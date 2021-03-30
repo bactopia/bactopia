@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/ariba_analysis.yml"
-LABEL conda.md5="5441ddf095176672c2a47c8d079fdc45"
+LABEL conda.md5="9612da6e987bbc02d7a421fabdbf6da0"
 
 COPY conda/linux/ariba_analysis.yml /
 RUN conda env create -q -f ariba_analysis.yml && conda clean -y -a

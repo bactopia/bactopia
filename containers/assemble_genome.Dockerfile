@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/assemble_genome.yml"
-LABEL conda.md5="8def5f6757c5fff9a0689ae0238a6dd2"
+LABEL conda.md5="ea7b0b9fb236fed9af971fb2d5dc0cac"
 
 COPY conda/linux/assemble_genome.yml /
 RUN conda env create -q -f assemble_genome.yml && conda clean -y -a

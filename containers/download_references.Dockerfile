@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/download_references.yml"
-LABEL conda.md5="e5789bcc880aac778f7ae33c59ef0004"
+LABEL conda.md5="ede8a6897ea0f6a0d60f027dccd8e32c"
 
 COPY conda/linux/download_references.yml /
 COPY bin/check-assembly-accession.py /
