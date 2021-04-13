@@ -1853,6 +1853,10 @@ def full_help() {
                                     to continue downstream analyses.
                                     Default: ${params.min_basepairs}
 
+        --min_basepairs INT     The minimum coverage of input sequences required
+                                    to continue downstream analyses.
+                                    Default: ${params.min_coverage}
+
         --min_reads INT         The minimum amount of input sequenced reads required
                                     to continue downstream analyses.
                                     Default: ${params.min_reads}

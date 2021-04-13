@@ -6,6 +6,7 @@ mkdir -p quality-control
 mkdir -p ${LOG_DIR}
 ERROR=0
 GENOME_SIZE=`head -n 1 !{genome_size}`
+MIN_BASEPAIRS=$(( !{params.min_coverage}*${GENOME_SIZE} ))
 TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
 
 # Print captured STDERR incase of exit
@@ -189,6 +190,15 @@ fi
 echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
 fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
 FINAL_BP=`gzip -cd quality-control/*.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:[ ]*([0-9]+),/\1/'`
+
+if [ ${FINAL_BP} -lt ${MIN_BASEPAIRS} ]; then
+    ERROR=1
+    echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
+            not exceed the required minimum ${MIN_BASEPAIRS} bp (!{params.min_coverage}x coverage). Further analysis 
+            is discontinued." | \
+    sed 's/^\s*//' > !{sample}-low-sequence-depth-error.txt
+fi
+
 if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
     ERROR=1
     echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
