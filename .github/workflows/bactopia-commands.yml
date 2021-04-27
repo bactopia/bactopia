@@ -70,3 +70,9 @@ jobs:
           echo "Testing bactopia build"
           bactopia build --version
           bactopia build --help
+
+      - name: Test bactopia tools
+        run: |
+          echo "Testing bactopia tools"
+          bactopia tools --version
+          bactopia tools --help
