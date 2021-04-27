@@ -62,7 +62,7 @@ Below is a description of `staph-typer` outputs.
 
 #### Per Sample
 
-| Extension | Description |
+| Filename | Description |
 |-----------|-------------|
 | ${SAMPLE_NAME}-spatyper.txt | Predicted *spa* type from `spaTyper` |
 | ${SAMPLE_NAME}-sccmec.txt | Predicted SCCmec type from `staphopia-sccmec` |
