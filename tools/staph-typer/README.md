@@ -1,9 +1,9 @@
 # Bactopia Tools - *staph-typer*
 The `staph-typer` tool includes multiple tools that are specific for typing certain features of *Staphylococcus aureus*. Currently `staph-typer` includes
 
-    1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
-    2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
-    3. [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) - SCCmec type
+1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
+2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
+3. [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) - SCCmec type
 
 This tool will evolve with *S. aureus* genomics, so you can expect it to add more typing methods (maybe even replace current methods) in the future. If a certain typing method for *S. aureus* please feel free to suggest it be added!~
 
@@ -227,7 +227,6 @@ _Raghuram V., [AgrVATE: Rapid identification of Staphylococcus aureus agr locus 
 
 * __[spaTyper](https://github.com/HCGB-IGTP/spaTyper)__  
 Computational method for finding spa types.  
-
 _Harmsen D., Claus H., Witte W., Rothgänger J., Claus H., Turnwald D., and Vogel U.. [Typing of methicillin-resistant Staphylococcus aureus in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) J. Clin. Microbiol. 41:5442-5448 (2003)._  
 _Sanchez-Herrero J.F., & mjsull. (2020, October 2). [spaTyper: Staphylococcal protein A (spa) characterization pipeline](http://doi.org/10.5281/zenodo.4063625). Zenodo._  
 
