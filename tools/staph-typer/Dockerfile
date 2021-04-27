@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - staph-typer"
-LABEL software.version="1.6.5"
+LABEL software.version="1.7.0"
 LABEL description="A workflow with set of tools specific to typing Staphylococcus aureus (e.g. agr, SCCmec, spa)."
 LABEL website="https://bactopia.github.io/bactopia-tools/staph-typer/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"

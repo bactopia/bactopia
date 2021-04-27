@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.7.0 bactopia/bactopia "Chocobo Wand" - 2021/04/27
+### `Added`
+- Bactopia Tool `staph_typer` for agr, spa, and sccmec typing
+- `--min_coverage` parameter to filter based on min coverage
+
+### 'Removed'
+- `plasmid_blast` no longer apart of main workflow
+
 ## v1.6.5 bactopia/bactopia "Z's Trident" - 2021/03/30
 ### `Added`
 - version pins to process envs

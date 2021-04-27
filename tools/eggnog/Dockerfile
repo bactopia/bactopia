@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - eggnog"
-LABEL software.version="1.6.5"
+LABEL software.version="1.7.0"
 LABEL description="Functional annotation using orthologous groups"
 LABEL website="https://bactopia.github.io/bactopia-tools/eggnog/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"

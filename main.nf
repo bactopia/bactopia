@@ -1786,7 +1786,7 @@ def full_help() {
                                     to continue downstream analyses.
                                     Default: ${params.min_basepairs}
 
-        --min_basepairs INT     The minimum coverage of input sequences required
+        --min_coverage INT      The minimum coverage of input sequences required
                                     to continue downstream analyses.
                                     Default: ${params.min_coverage}
 

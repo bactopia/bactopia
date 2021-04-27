@@ -22,7 +22,7 @@ import logging
 import os
 import sys
 
-VERSION = "1.6.5"
+VERSION = "1.7.0"
 PROGRAM = "bactopia build"
 STDOUT = 11
 STDERR = 12
