@@ -34,6 +34,7 @@ AVAILABLE_TOOLS = {
     'pirate': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
     'phyloflash': {'info': '16s assembly, alignment and tree', 'mac': True},
     'roary': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
+    'staph-typer': {'info': 'Tools for typing Staphylococcus aureus.', 'mac': True}
     'summary': {'info': 'A report summarizing Bactopia project', 'mac': True},
 }
 
