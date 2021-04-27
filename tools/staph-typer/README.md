@@ -223,12 +223,14 @@ conda create -n staph-typer -c conda-forge -c bioconda agrvate spatyper staphopi
 ## References
 * __[AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)__  
 Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.  
-_Raghuram V, [AgrVATE: Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.](https://github.com/VishnuRaghuram94/AgrVATE)_  
+_Raghuram V., [AgrVATE: Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.](https://github.com/VishnuRaghuram94/AgrVATE)_  
 
 * __[spaTyper](https://github.com/HCGB-IGTP/spaTyper)__  
 Computational method for finding spa types.  
-_Sanchez-Herrero JF, & mjsull. (2020, October 2). [spaTyper: Staphylococcal protein A (spa) characterization pipeline](http://doi.org/10.5281/zenodo.4063625). Zenodo._   
+
+_Harmsen D., Claus H., Witte W., Rothgänger J., Claus H., Turnwald D., and Vogel U.. [Typing of methicillin-resistant Staphylococcus aureus in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) J. Clin. Microbiol. 41:5442-5448 (2003)._  
+_Sanchez-Herrero J.F., & mjsull. (2020, October 2). [spaTyper: Staphylococcal protein A (spa) characterization pipeline](http://doi.org/10.5281/zenodo.4063625). Zenodo._  
 
 * __[staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)__  
 A standalone version of Staphopia's SCCmec typing method.  
-_Petit III RA, Read TD, [Staphylococcus aureus viewed from the perspective of 40,000+ genomes.](http://dx.doi.org/10.7717/peerj.5261) PeerJ 6, e5261 (2018)._  
+_Petit III R.A., Read T.D., [Staphylococcus aureus viewed from the perspective of 40,000+ genomes.](http://dx.doi.org/10.7717/peerj.5261) PeerJ 6, e5261 (2018)._  
