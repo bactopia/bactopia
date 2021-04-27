@@ -792,12 +792,12 @@ def setup_plsdb(outdir, keep_files=False, force=False):
     execute('ls > plsdb-orginal-names.txt', directory=plsdb_dir)
 
     # Rename files to generic prefix
-    mash_file = os.path.basename(glob.glob(f'{plsdb_dir}/*.msh')[0])
-    prefix = mash_file.replace('.msh', '')
     for plsdb_file in os.listdir(plsdb_dir):
-        if plsdb_file.startswith(prefix) and prefix != 'plsdb':
-            new_name = plsdb_file.replace(prefix, 'plsdb')
-            execute(f'mv {plsdb_file} {new_name}', directory=plsdb_dir)
+        if plsdb_file.endswith('.msh'):
+            if plsdb_file != "plsdb.msh":
+                execute(f'mv {plsdb_file} plsdb.msh', directory=plsdb_dir)
+        else:
+            execute(f'rm {plsdb_file}', directory=plsdb_dir)
 
     # Clean up
     if not keep_files:
@@ -860,7 +860,6 @@ def create_summary(outdir, training_set=False):
     if os.path.exists(f'{outdir}/plasmid/plsdb-updated.txt'):
         available_datasets['plasmid'] = {
             'sketches': 'plsdb.msh',
-            'blastdb': 'plsdb.fna',
             'last_update': execute(
                 f'head -n 1 {outdir}/plasmid/plsdb-updated.txt', capture=True
             ).rstrip()

@@ -46,7 +46,6 @@ BLAST_GENE_FASTAS = []
 BLAST_PRIMER_FASTAS = []
 BLAST_PROTEIN_FASTAS = []
 MAPPING_FASTAS = []
-PLASMID_BLASTDB = []
 PROKKA_PROTEINS = file(params.empty_proteins)
 PRODIGAL_TF = file(params.empty_tf)
 REFSEQ_SKETCH = []
@@ -629,58 +628,6 @@ process antimicrobial_resistance {
     template(task.ext.template)
 }
 
-
-process plasmid_blast {
-    /*
-    BLAST a set of predicted genes against the PLSDB BLAST database.
-    */
-    tag "${sample}"
-
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{json,json.gz}"
-
-    input:
-    set val(sample), file(genes) from PLASMID_BLAST
-    file(blastdb_files) from Channel.from(PLASMID_BLASTDB).toList()
-
-    output:
-    file("${sample}-plsdb.{json,json.gz}")
-    file "${task.process}/*" optional true
-
-    when:
-    PLASMID_BLASTDB.isEmpty() == false
-
-    shell:
-    gunzip_genes = genes.getName().replace('.gz', '')
-    blastdb = blastdb_files[0].getBaseName()
-    template(task.ext.template)
-}
-
-
-process blast_genes {
-    /*
-    Query gene FASTA files against annotated assembly using BLAST
-    */
-    tag "${sample}"
-
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{json,json.gz}"
-
-    input:
-    set val(sample), file(blastdb) from BLAST_GENES
-    file(query) from Channel.from(BLAST_GENE_FASTAS).collect()
-
-    output:
-    file("genes/*.{json,json.gz}")
-    file "${task.process}/*" optional true
-
-    when:
-    BLAST_GENE_FASTAS.isEmpty() == false
-
-    shell:
-    template(task.ext.template)
-}
-
 process blast_primers {
     /*
     Query primer FASTA files against annotated assembly using BLAST
@@ -990,19 +937,6 @@ def setup_datasets() {
                     MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
                 }
             }
-
-            if (available_datasets['plasmid'].containsKey('blastdb')) {
-                all_exist = true
-                file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*").each {
-                    if (!dataset_exists(it)) {
-                        all_exist = false
-                    }
-                }
-                if (all_exist) {
-                    PLASMID_BLASTDB = tuple(file("${dataset_path}/plasmid/${available_datasets['plasmid']['blastdb']}*"))
-                    print_dataset_info(PLASMID_BLASTDB, "PLSDB (plasmid) BLAST files")
-                }
-            }
         }
         print_dataset_info(MINMER_DATABASES, "minmer sketches/signatures")
 
@@ -1144,7 +1078,6 @@ def setup_datasets() {
         log.info "\tsequence_type"
         log.info "\tariba_analysis"
         log.info "\tminmer_query"
-        log.info "\tplasmid_blast"
         log.info "\tcall_variants"
         log.info "\tprimer_query"
     }
