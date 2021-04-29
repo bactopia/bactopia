@@ -23,7 +23,7 @@ process hicap {
     file("${sample}.tsv") into MERGE_HICAP
 
     shell:
-    sample = fasta.getSimpleName()
+    sample = fasta.getBaseName()
     log_fp = params.log_fp ? "--log_fp" : ""
     debug = params.debug ? "--debug" : ""
     full_sequence = params.full_sequence ? "--full_sequence" : ""

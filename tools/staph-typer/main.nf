@@ -22,7 +22,7 @@ process spatyper {
     file("${sample}-spatyper.txt") into MERGE_SPATYPER
 
     shell:
-    sample = fasta.getSimpleName()
+    sample = fasta.getBaseName()
     do_enrich = params.do_enrich ? '--do_enrich' : ''
     is_gzipped = fasta.getName().endsWith('gz') ? true : false
     """
@@ -36,6 +36,7 @@ process spatyper {
 
 process merge_spatyper {
     publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "spatyper-results.txt"
+    beforeScript 'ulimit -Ss unlimited'
 
     input:
     file(tsv) from MERGE_SPATYPER.collect()
@@ -63,7 +64,7 @@ process staphopia_sccmec {
     file("${sample}-sccmec.txt") into MERGE_SCCMEC
 
     shell:
-    sample = fasta.getSimpleName()
+    sample = fasta.getBaseName()
     hamming = params.hamming ? '--hamming' : ''
     is_gzipped = fasta.getName().endsWith('gz') ? true : false
     """
@@ -78,6 +79,7 @@ process staphopia_sccmec {
 
 process merge_sccmec {
     publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "sccmec-results.txt"
+    beforeScript 'ulimit -Ss unlimited'
 
     input:
     file(tsv) from MERGE_SCCMEC.collect()
@@ -106,7 +108,7 @@ process agrvate {
     file("agrvate/${sample}-summary.tab") into MERGE_AGRVATE
 
     shell:
-    sample = fasta.getSimpleName()
+    sample = fasta.getBaseName()
     typing_only = params.typing_only ? '--typing_only' : ''
     is_gzipped = fasta.getName().endsWith('gz') ? true : false
     """
@@ -122,6 +124,7 @@ process agrvate {
 
 process merge_agrvate {
     publishDir "${OUTDIR}", mode: "${params.publish_mode}", overwrite: OVERWRITE, pattern: "agrvate-results.txt"
+    beforeScript 'ulimit -Ss unlimited'
 
     input:
     file(tsv) from MERGE_AGRVATE.collect()
