@@ -1,8 +1,6 @@
 name: Close Stale Issues and Pull Requests
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: workflow_dispatch
 
 jobs:
   stale:
