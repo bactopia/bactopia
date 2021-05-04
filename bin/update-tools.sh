@@ -44,7 +44,7 @@ function update_environment {
 update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "ismapper" "hicap" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "hicap" "hicap" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC}

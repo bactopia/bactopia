@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/tools/gtdb/environment-linux.md5"
-LABEL conda.md5="436c5041ef4414c73a24e828988804d1"
+LABEL conda.md5="0e84e1c6e2602f5dbb4d440e0ad27077"
 
 COPY tools/gtdb/environment-linux.yml /
 RUN conda env create -q -f /environment-linux.yml && conda clean -y -a
