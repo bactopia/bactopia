@@ -15,19 +15,6 @@ variables:
       - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
       - export PATH=${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}/bin:${PATH}
 
-.before_script_template: &osx_template
-    before_script:
-      - BACTOPIA_CI=/Users/rpetit/bactopia-ci
-      - DATASETS=${BACTOPIA_CI}/datasets
-      - BACTOPIA=$(pwd)
-      - FQ_DIR=$(pwd)/tests/real-fastqs/
-      - BACTOPIA_OPTS="--outdir ${CI_JOB_NAME} --coverage 20 --condadir ${BACTOPIA_CI}/bactopia-envs -ansi-log false"
-      - source /Users/rpetit/miniconda3/etc/profile.d/conda.sh
-      - mkdir ${BACTOPIA}/envs
-      - bash ${BACTOPIA}/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA} ${BACTOPIA} 0 "${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}" "bactopia-${CI_PIPELINE_ID}"
-      - conda activate ${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}
-      - export PATH=${BACTOPIA}/envs/bactopia-${CI_PIPELINE_ID}/bin:${PATH}
-
 stages:
     - test_stage
     - cleanup_stage
@@ -58,32 +45,6 @@ run-bactopia-linux:
         - echo "Testing with datasets"
         - bactopia --accession GCF_003431365 --datasets ${DATASETS} --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
 
-run-bactopia-osx:
-    stage: test_stage
-    <<: *osx_template
-    tags:
-        - osx
-    only:
-        - master
-    script:
-        - env
-        - which bactopia
-        - echo "Testing single end reads"
-        - bactopia --SE ${FQ_DIR}/SRR2838702SE.fastq.gz --sample SRR2838702SE ${BACTOPIA_OPTS}
-        - echo "Testing paired end reads"
-        - bactopia --R1 ${FQ_DIR}/SRR2838702_R1.fastq.gz --R2 ${FQ_DIR}/SRR2838702_R2.fastq.gz --sample SRR2838702PE ${BACTOPIA_OPTS}
-        - echo "Testing FOFN input"
-        - bactopia prepare ${FQ_DIR} > fastqs.txt
-        - bactopia --fastqs fastqs.txt ${BACTOPIA_OPTS}
-        - echo "Testing SRA accession"
-        - bactopia --accession SRX1390608 ${BACTOPIA_OPTS}
-        - echo "Testing Assembly accession"
-        - bactopia --accession GCF_000292685 ${BACTOPIA_OPTS}
-        - echo "Testing multiple accessions"
-        - bactopia --accessions tests/test-bactopia-accessions.txt ${BACTOPIA_OPTS}
-        - echo "Testing with datasets"
-        - bactopia --accession GCF_003431365 --datasets ${DATASETS} --species "Staphylococcus aureus" ${BACTOPIA_OPTS}
-
 cleanup-linux-runs:
     stage: cleanup_stage
     tags:
@@ -95,15 +56,3 @@ cleanup-linux-runs:
         - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
     dependencies:
         - run-bactopia-linux
-
-cleanup-osx-runs:
-    stage: cleanup_stage
-    tags:
-        - osx
-    only:
-        - master
-    script:
-        - echo "Cleaning up Bactopia runs"
-        - rm -rf ${CI_BUILDS_DIR}/${CI_PIPELINE_ID}
-    dependencies:
-        - run-bactopia-osx
