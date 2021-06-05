@@ -6,12 +6,12 @@ usage: bactopia datasets [-h] [--outdir STR] [--skip_ariba] [--ariba STR]
                          [--asssembly_level {all,complete,chromosome,scaffold,contig}]
                          [--limit INT] [--accessions STR] [--identity FLOAT]
                          [--overlap FLOAT] [--max_memory INT] [--fast_cluster]
-                         [--skip_minmer] [--skip_plsdb] [--prodigal_tf STR]
+                         [--skip_minmer] [--prodigal_tf STR]
                          [--reference STR] [--mapping STR] [--genes STR]
                          [--proteins STR] [--primers STR] [--force_optional]
                          [--cpus INT] [--clear_cache] [--force]
                          [--force_ariba] [--force_mlst] [--force_prokka]
-                         [--force_minmer] [--force_plsdb] [--keep_files]
+                         [--force_minmer][--keep_files]
                          [--available_datasets] [--depends] [--version]
                          [--verbose] [--silent]
                          PUBMLST
@@ -62,10 +62,6 @@ Minmer Datasets:
   --skip_minmer         Skip download of pre-computed minmer datasets (mash,
                         sourmash)
 
-PLSDB (Plasmid) BLAST/Sketch:
-  --skip_plsdb          Skip download of pre-computed PLSDB datbases (blast,
-                        mash)
-
 Optional User Provided Datasets:
   --prodigal_tf STR     A pre-built Prodigal training file to add to the
                         species annotation folder. Requires a single species
@@ -96,7 +92,6 @@ Custom Options:
   --force_mlst          Forcibly overwrite existing MLST datasets.
   --force_prokka        Forcibly overwrite existing Prokka datasets.
   --force_minmer        Forcibly overwrite existing minmer datasets.
-  --force_plsdb         Forcibly overwrite existing PLSDB datasets.
   --keep_files          Keep all downloaded and intermediate files.
   --available_datasets  List Ariba reference datasets and MLST schemas
                         available for setup.
@@ -774,40 +769,6 @@ def setup_minmer(outdir, force=False):
                 directory=minmer_dir)
 
 
-def setup_plsdb(outdir, keep_files=False, force=False):
-    """Download precomputed PLSDB datasets."""
-    url = 'https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/?zip'
-    plsdb_dir = f'{outdir}/plasmid'
-    if os.path.exists(plsdb_dir):
-        if force:
-            logging.info(f'--force, removing existing {plsdb_dir} setup')
-            execute(f'rm -rf {plsdb_dir}')
-        else:
-            logging.info(f'{plsdb_dir} exists, skipping')
-            return None
-
-    execute(f'mkdir -p {plsdb_dir}')
-    execute(f'wget --quiet -O plsdb.zip {url}', directory=plsdb_dir)
-    execute('unzip plsdb.zip', directory=plsdb_dir)
-    execute('ls > plsdb-orginal-names.txt', directory=plsdb_dir)
-
-    # Rename files to generic prefix
-    for plsdb_file in os.listdir(plsdb_dir):
-        if plsdb_file.endswith('.msh'):
-            if plsdb_file != "plsdb.msh":
-                execute(f'mv {plsdb_file} plsdb.msh', directory=plsdb_dir)
-        else:
-            execute(f'rm {plsdb_file}', directory=plsdb_dir)
-
-    # Clean up
-    if not keep_files:
-        execute('rm plsdb.zip', directory=plsdb_dir)
-
-    # Finish up
-    execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > plsdb-updated.txt',
-            directory=plsdb_dir)
-
-
 def create_summary(outdir, training_set=False):
     """Create a summary of available datasets in JSON format."""
     from collections import OrderedDict
@@ -855,15 +816,6 @@ def create_summary(outdir, training_set=False):
         for sketch in sorted(os.listdir(f'{outdir}/minmer')):
             if sketch != 'minmer-updated.txt':
                 available_datasets['minmer']['sketches'].append(sketch)
-
-    # PLSDB (plasmids)
-    if os.path.exists(f'{outdir}/plasmid/plsdb-updated.txt'):
-        available_datasets['plasmid'] = {
-            'sketches': 'plsdb.msh',
-            'last_update': execute(
-                f'head -n 1 {outdir}/plasmid/plsdb-updated.txt', capture=True
-            ).rstrip()
-        }
 
     # Organism Specific
     if os.path.exists(f'{outdir}/species-specific'):
@@ -1082,12 +1034,6 @@ if __name__ == '__main__':
         help='Skip download of pre-computed minmer datasets (mash, sourmash)'
     )
 
-    group5 = parser.add_argument_group('PLSDB (Plasmid) BLAST/Sketch')
-    group5.add_argument(
-        '--skip_plsdb', action='store_true',
-        help='Skip download of pre-computed PLSDB datbases (blast, mash)'
-    )
-
     group6 = parser.add_argument_group('Antimicrobial Resistance Datasets')
     group6.add_argument(
         '--skip_amr', action='store_true',
@@ -1151,8 +1097,6 @@ if __name__ == '__main__':
                         help='Forcibly overwrite existing Prokka datasets.')
     group8.add_argument('--force_minmer', action='store_true',
                         help='Forcibly overwrite existing minmer datasets.')
-    group8.add_argument('--force_plsdb', action='store_true',
-                        help='Forcibly overwrite existing PLSDB datasets.')
     group8.add_argument('--force_amr', action='store_true',
                         help='Forcibly overwrite existing antimicrobial resistance datasets.')
     group8.add_argument(
@@ -1250,13 +1194,6 @@ if __name__ == '__main__':
         setup_minmer(args.outdir, force=(args.force or args.force_minmer))
     else:
         logging.info('Skipping minmer dataset step')
-
-    if not args.skip_plsdb:
-        logging.info('Setting up pre-computed PLSDB (plasmids) datasets')
-        setup_plsdb(args.outdir, keep_files=args.keep_files,
-                    force=(args.force or args.force_plsdb))
-    else:
-        logging.info('Skipping PLSDB (plasmids) dataset step')
 
     if not args.skip_amr:
         logging.info('Setting up antimicrobial resistance datasets')
