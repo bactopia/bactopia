@@ -2,7 +2,7 @@ FROM nfcore/base:1.12.1
 
 LABEL base.image="nfcore/base:1.12.1"
 LABEL software="Bactopia Tools - pirate"
-LABEL software.version="1.7.0"
+LABEL software.version="1.7.1"
 LABEL description="Pan-genome with optional core-genome tree"
 LABEL website="https://bactopia.github.io/bactopia-tools/pirate/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"

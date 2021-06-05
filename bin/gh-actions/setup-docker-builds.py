@@ -30,7 +30,7 @@ import sys
 from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "setup-docker-builds.py"
-VERSION = "1.7.0"
+VERSION = "1.7.1"
 REPO = "bactopia"
 MAX_RETRY = 5
 STDOUT = 11

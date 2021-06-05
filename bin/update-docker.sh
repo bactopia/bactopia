@@ -6,7 +6,7 @@ set -e
 BACTOPIA_DIR=${1:-"./"}
 REPOSITORY=${2:-""}
 PRUNE=${3:-"0"}
-VERSION=1.7.0
+VERSION=1.7.1
 CONTAINER_VERSION="${VERSION%.*}.x"
 
 function docker_build {

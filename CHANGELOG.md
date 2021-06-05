@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.7.1 bactopia/bactopia "Shellbuster" - 2021/06/04
+### `Added`
+- bumped GTDB to v1.5.0
+- added soft ulimit for `staph-typer`
+
+### `Fixed`
+- Matched PIRATE's parameter syntax for the tools
+- `staph-typer` now uses GetBaseName
+
+### 'Removed'
+- PLSDB references in `bactopia datasets`
+
+
 ## v1.7.0 bactopia/bactopia "Chocobo Wand" - 2021/04/27
 ### `Added`
 - Bactopia Tool `staph_typer` for agr, spa, and sccmec typing
