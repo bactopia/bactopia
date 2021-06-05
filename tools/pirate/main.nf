@@ -154,7 +154,8 @@ process build_pangenome {
     shell:
     nucl = params.nucl ? "--nucl" : ""
     para_off = params.para_off ? "--para-off" : ""
-    keep_all_files = params.keep_all_files ? "-z 2" : ""
+    keep_all_files = params.z ? "-z 2" : ""
+    pan_options = params.pan_opt ? "--pan-opt '${params.pan_opt}'"
     use_diamond = params.use_diamond ? "--diamond" : ""
     split_diamond = params.split_diamond ? "--diamond-split" : ""
     """
@@ -166,11 +167,7 @@ process build_pangenome {
         --features "!{params.features}" \
         !{nucl} !{para_off} !{keep_all_files} --threads !{task.cpus} \
         --align \
-        --rplots \
-        --pan-opt "--cd-low !{params.cd_low} --cd-step !{params.cd_step} --evalue '!{params.evalue}' !{use_diamond} !{split_diamond} --perc !{params.perc} --hsp-len !{params.hsp_len} --flat !{params.mcl_inflation}" 
-    
-    ls -lh pirate
-
+        !{pan_options} --rplots
     cp pirate/core_alignment.fasta alignment.fa
     pigz -n --best -p !{task.cpus} pirate/*.fasta
     """
@@ -615,31 +612,11 @@ def print_help() {
 
         --para_off                  Switch off paralog identification
 
-        --keep_all_files            Retain all intermediate files
+        --z                         Retain all intermediate files
 
-    PIRATE Advanced Parameters:
-        --perc INT                  Single percent identity threshold to use for pangenome 
-                                        Default: ${params.perc} %
-
-        --cd_low INT                CDHIT lowest percentage identity threshold
-                                        Default: ${params.cd_low} %
-
-        --cd_step FLOAT             CDHIT step size
-                                        Default: ${params.cd_step}
-
-        --evalue STR                E-value used for BLAST hit filtering
-                                        Default: ${params.evalue}
-
-        --hsp_len FLOAT             Remove BLAST hsps that are < hsp_len proportion of query length
-                                        Default: ${params.hsp_len}
-
-        --mcl_inflation FLOAT       MCL inflation value
-                                        Default: ${params.mcl_inflation}
-
-        --use_diamond               Use Diamond instead of BLAST - incompatible with --nucl
-
-        --split_diamond             Split diamond files into batches for processing 
-
+        --pan_opt                   Additional arguments to pass to pangenome contruction. PLease see
+                                        the following link for details on how to use this.
+                                        https://github.com/SionBayliss/PIRATE#advanced-examples
 
     IQ-TREE Related Parameters:
         --skip_phylogeny        Skip the creation a core-genome based phylogeny
