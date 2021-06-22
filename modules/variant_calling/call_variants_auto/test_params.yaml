@@ -1,0 +1,56 @@
+outdir:
+  "test_output"
+
+sample:
+  "SRR2838702"
+
+single_end:
+  false
+
+fq:
+  "test_data/SRR2838702_R{1,2}.fastq.gz"
+
+reference:
+  "test_data/SRR2838702-GCF_000009005.gbk"
+
+publish_mode:
+  "copy"
+
+run_type:
+  "fastqs"
+
+version:
+  "1.6.0"
+
+overwrite:
+  false
+
+mapqual:
+  60
+
+basequal:
+  13
+
+mincov:
+  10
+
+minfrac:
+  0
+
+minqual:
+  100
+
+maxsoft:
+  10
+
+bwaopt:
+  null
+
+fbopt:
+  null
+
+compress:
+  false
+
+skip_logs:
+  false
