@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """
-usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_seperator STR]
+usage: bactopia prepare [-h] [-f STR] [-a STR] [--fastq_separator STR]
                         [--fastq_pattern STR] [--pe1_pattern STR]
                         [--pe2_pattern STR] [--assembly_pattern STR] [-r]
                         [--long_reads] [--merge] [--prefix STR] [--version]
@@ -18,7 +18,7 @@ optional arguments:
                         Extension of the FASTQs. Default: .fastq.gz
   -a STR, --assembly_ext STR
                         Extension of the FASTA assemblies. Default: .fna.gz
-  --fastq_seperator STR
+  --fastq_separator STR
                         Split FASTQ name on the last occurrence of the
                         separator. Default: _
   --fastq_pattern STR   Glob pattern to match FASTQs. Default: *.fastq.gz
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         help='Extension of the FASTA assemblies. Default: .fna.gz'
     )
     parser.add_argument(
-        '--fastq_seperator', metavar='STR', type=str,
+        '--fastq_separator', metavar='STR', type=str,fix typo
         default="_",
         help='Split FASTQ name on the last occurrence of the separator. Default: _'
     )
