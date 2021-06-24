@@ -149,7 +149,7 @@ if __name__ == '__main__':
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
         # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
-        split_vals = fastq_name.rsplit(args.fastq_seperator, 1)
+        split_vals = fastq_name.rsplit(args.fastq_separator, 1)
         sample_name = split_vals[0]
         if sample_name not in SAMPLES:
             SAMPLES[sample_name] = {'pe': {'r1': [], 'r2': []}, 'se': [], 'assembly': []}
