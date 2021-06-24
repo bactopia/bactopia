@@ -84,8 +84,7 @@ if __name__ == '__main__':
         help='Extension of the FASTA assemblies. Default: .fna.gz'
     )
     parser.add_argument(
-        '--fastq_separator', metavar='STR', type=str,fix typo
-        default="_",
+        '--fastq_separator', metavar='STR', type=str, default="_",
         help='Split FASTQ name on the last occurrence of the separator. Default: _'
     )
 
@@ -96,13 +95,13 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--pe1_pattern', metavar='STR', type=str, default="[Aa]|[Rr]1",
-        help='Designates difference first set of paired-end reads. Default: ([Aa]|[Rr]1) (R1, r1, 1, A, a)'
+        '--pe1_pattern', metavar='STR', type=str, default="[Aa]|[Rr]1|1",
+        help='Designates difference first set of paired-end reads. Default: ([Aa]|[Rr]1|1) (R1, r1, 1, A, a)'
     )
 
     parser.add_argument(
-        '--pe2_pattern', metavar='STR', type=str, default="[Bb]|[Rr]2",
-        help='Designates difference second set of paired-end reads. Default: ([Bb]|[Rr]2) (R2, r2, 2, AB b)'
+        '--pe2_pattern', metavar='STR', type=str, default="[Bb]|[Rr]2|2",
+        help='Designates difference second set of paired-end reads. Default: ([Bb]|[Rr]2|2) (R2, r2, 2, AB b)'
     )
 
     parser.add_argument(
