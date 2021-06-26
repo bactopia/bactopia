@@ -1,0 +1,7 @@
+- name: assembly_qc
+  command: nextflow run ./tests/modules/bactopia/assembly_qc -entry assembly_qc -c tests/config/nextflow.config
+  tags:
+    - assembly_qc
+  files:
+    - path: 
+      md5sum: 

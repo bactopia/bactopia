@@ -1,0 +1,7 @@
+- name: qc_final_summary
+  command: nextflow run ./tests/modules/bactopia/qc_final_summary -entry qc_final_summary -c tests/config/nextflow.config
+  tags:
+    - qc_final_summary
+  files:
+    - path: 
+      md5sum: 

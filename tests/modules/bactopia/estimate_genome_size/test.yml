@@ -1,0 +1,7 @@
+- name: estimate_genome_size
+  command: nextflow run ./tests/modules/bactopia/estimate_genome_size -entry estimate_genome_size -c tests/config/nextflow.config
+  tags:
+    - estimate_genome_size
+  files:
+    - path: 
+      md5sum: 

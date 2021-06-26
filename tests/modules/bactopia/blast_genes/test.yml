@@ -1,0 +1,7 @@
+- name: blast_genes
+  command: nextflow run ./tests/modules/bactopia/blast_genes -entry blast_genes -c tests/config/nextflow.config
+  tags:
+    - blast_genes
+  files:
+    - path: 
+      md5sum: 

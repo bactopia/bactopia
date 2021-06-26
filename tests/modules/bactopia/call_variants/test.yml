@@ -1,0 +1,7 @@
+- name: call_variants
+  command: nextflow run ./tests/modules/bactopia/call_variants -entry call_variants -c tests/config/nextflow.config
+  tags:
+    - call_variants
+  files:
+    - path: 
+      md5sum: 
