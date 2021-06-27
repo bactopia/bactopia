@@ -1,4 +1,5 @@
 - name: download_references
-  command: nextflow run ./tests/modules/bactopia/download_references -entry download_references -c tests/config/nextflow.config
+  command: nextflow run ./tests/modules/bactopia/download_references -entry download_references -c nextflow.config
   tags:
     - download_references
+

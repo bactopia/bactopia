@@ -6,7 +6,7 @@ include { ANNOTATE_GENOME } from '../../../../modules/bactopia/annotate_genome/m
 workflow test_annotate_genome {
 
     inputs = tuple(
-        "TEST_GENOME",
+        "test_annotate_genome",
         false,
         [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
         file(params.test_data['reference_fna']),

@@ -3,9 +3,10 @@ nextflow.enable.dsl = 2
 process ANNOTATE_GENOME {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
+    label "annotate_genome"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "annotation/${sample}*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${process_name}/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "annotation/${sample}*"
 
     input:
     tuple val(sample), val(single_end), file(fq), file(fasta), file(total_contigs)
@@ -18,9 +19,10 @@ process ANNOTATE_GENOME {
     tuple val(sample),
         file("annotation/${sample}.{ffn,ffn.gz}"),
         file("annotation/${sample}.{faa,faa.gz}"),emit: ANTIMICROBIAL_RESISTANCE, optional: true
-    file "${task.process}/*" optional true
+    file "${process_name}/*" optional true
 
     shell:
+    process_name = "annotate_genome"
     gunzip_fasta = fasta.getName().replace('.gz', '')
     contig_count = total_contigs.getName().replace('total_contigs_', '')
     genus = "Genus"
@@ -60,7 +62,7 @@ process ANNOTATE_GENOME {
     rnammer = params.rnammer ? "--rnammer" : ""
     rfam = params.rnammer ? "--rfam" : ""
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{process_name}"
     mkdir -p ${LOG_DIR}/
 
     # Print captured STDERR incase of exit
@@ -70,8 +72,8 @@ process ANNOTATE_GENOME {
     }
     trap print_stderr EXIT
 
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{process_name}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{process_name}.versions
     if [[ !{params.compress} == "true" ]]; then
         gunzip -f !{fasta}
     fi
@@ -90,8 +92,8 @@ process ANNOTATE_GENOME {
     fi
 
     # Prokka Version
-    echo "# Prokka Version" >> ${LOG_DIR}/!{task.process}.versions
-    prokka --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Prokka Version" >> ${LOG_DIR}/!{process_name}.versions
+    prokka --version >> ${LOG_DIR}/!{process_name}.versions 2>&1
     prokka --outdir annotation \
         --force \
         --prefix '!{sample}' \
@@ -122,10 +124,10 @@ process ANNOTATE_GENOME {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{process_name}.err
+        cp .command.out ${LOG_DIR}/!{process_name}.out
+        cp .command.sh ${LOG_DIR}/!{process_name}.sh || :
+        cp .command.trace ${LOG_DIR}/!{process_name}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -134,12 +136,12 @@ process ANNOTATE_GENOME {
     stub:
     """
     mkdir annotation
-    mkdir ${task.process}
+    mkdir ${process_name}
     touch annotation/${sample}
     touch annotation/${sample}.ffn
     touch annotation/${sample}.ffn.gz
     touch annotation/${sample}.faa
     touch annotation/${sample}.faa.gz
-    touch "${task.process}/${sample}"
+    touch "${process_name}/${sample}"
     """
 }
