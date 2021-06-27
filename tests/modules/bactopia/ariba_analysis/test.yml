@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/ariba_analysis -entry ariba_analysis -c tests/config/nextflow.config
   tags:
     - ariba_analysis
-  files:
-    - path: 
-      md5sum: 

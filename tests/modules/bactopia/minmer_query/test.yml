@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/minmer_query -entry minmer_query -c tests/config/nextflow.config
   tags:
     - minmer_query
-  files:
-    - path: 
-      md5sum: 

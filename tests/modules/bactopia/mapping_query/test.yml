@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/mapping_query -entry mapping_query -c tests/config/nextflow.config
   tags:
     - mapping_query
-  files:
-    - path: 
-      md5sum: 

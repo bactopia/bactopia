@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/blast_primers -entry blast_primers -c tests/config/nextflow.config
   tags:
     - blast_primers
-  files:
-    - path: 
-      md5sum: 

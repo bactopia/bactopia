@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/count_31mers -entry count_31mers -c tests/config/nextflow.config
   tags:
     - count_31mers
-  files:
-    - path: 
-      md5sum: 

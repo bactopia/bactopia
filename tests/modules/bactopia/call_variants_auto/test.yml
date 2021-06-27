@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/call_variants_auto -entry call_variants_auto -c tests/config/nextflow.config
   tags:
     - call_variants_auto
-  files:
-    - path: 
-      md5sum: 

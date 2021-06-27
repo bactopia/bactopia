@@ -1,7 +1,4 @@
 - name: annotate_genome
-  command: nextflow run ./tests/modules/bactopia/annotate_genome -entry annotate_genome -c tests/config/nextflow.config
+  command: nextflow run ./tests/modules/bactopia/annotate_genome -entry test_annotate_genome -c tests/config/nextflow.config
   tags:
     - annotate_genome
-  files:
-    - path: 
-      md5sum: 

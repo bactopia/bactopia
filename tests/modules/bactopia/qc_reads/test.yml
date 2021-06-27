@@ -2,6 +2,3 @@
   command: nextflow run ./tests/modules/bactopia/qc_reads -entry qc_reads -c tests/config/nextflow.config
   tags:
     - qc_reads
-  files:
-    - path: 
-      md5sum: 
