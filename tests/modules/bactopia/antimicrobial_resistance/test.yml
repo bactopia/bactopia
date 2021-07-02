@@ -1,4 +1,0 @@
-- name: antimicrobial_resistance
-  command: nextflow run ./tests/modules/bactopia/antimicrobial_resistance -entry antimicrobial_resistance -c tests/config/nextflow.config
-  tags:
-    - antimicrobial_resistance

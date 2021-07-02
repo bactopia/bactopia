@@ -1,4 +1,0 @@
-- name: gather_fastqs
-  command: nextflow run ./tests/modules/bactopia/gather_fastqs -entry gather_fastqs -c tests/config/nextflow.config
-  tags:
-    - gather_fastqs

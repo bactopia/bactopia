@@ -1,4 +1,0 @@
-- name: call_variants_auto
-  command: nextflow run ./tests/modules/bactopia/call_variants_auto -entry call_variants_auto -c tests/config/nextflow.config
-  tags:
-    - call_variants_auto

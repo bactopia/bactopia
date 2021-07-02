@@ -6,9 +6,10 @@ process ANTIMICROBIAL_RESISTANCE {
     on their Mash distance from the input.
     */
     tag "${sample}"
+    label "antimicrobial_resistance"
 
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${amrdir}/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${amrdir}/*"
 
     input:
     tuple val(sample), path(genes), path(proteins)
@@ -51,6 +52,8 @@ process ANTIMICROBIAL_RESISTANCE {
         gzip -cd !{genes} > !{sample}.ffn
         gzip -cd !{proteins} > !{sample}.faa
     fi
+    echo !{amrdb}
+    ls -lha !{amrdb}
 
     tar -xzvf !{amrdb}
     mkdir !{amrdir}
@@ -96,20 +99,4 @@ process ANTIMICROBIAL_RESISTANCE {
     touch ${amrdir}/${sample}
     touch logs/${sample}
     """
-}
-
-//###############
-//Module testing
-//###############
-
-workflow test {
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        path(params.genes),
-        path(params.proteins)
-        ])
-    TEST_PARAMS_CH2 = Channel.of(
-        path(params.amrdb)
-        )
-    antimicrobial_resistance(TEST_PARAMS_CH,TEST_PARAMS_CH2.collect())
 }

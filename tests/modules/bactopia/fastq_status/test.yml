@@ -1,4 +1,0 @@
-- name: fastq_status
-  command: nextflow run ./tests/modules/bactopia/fastq_status -entry fastq_status -c tests/config/nextflow.config
-  tags:
-    - fastq_status

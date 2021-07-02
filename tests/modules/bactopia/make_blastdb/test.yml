@@ -1,4 +1,0 @@
-- name: make_blastdb
-  command: nextflow run ./tests/modules/bactopia/make_blastdb -entry make_blastdb -c tests/config/nextflow.config
-  tags:
-    - make_blastdb

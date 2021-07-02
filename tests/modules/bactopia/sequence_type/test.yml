@@ -1,4 +1,0 @@
-- name: sequence_type
-  command: nextflow run ./tests/modules/bactopia/sequence_type -entry sequence_type -c tests/config/nextflow.config
-  tags:
-    - sequence_type

@@ -1,3 +1,0 @@
-annotate_genome:
-  - modules/bactopia/annotate_genome/**
-  - tests/modules/bactopia/annotate_genome/**

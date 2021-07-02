@@ -1,4 +1,0 @@
-- name: minmer_sketch
-  command: nextflow run ./tests/modules/bactopia/minmer_sketch -entry minmer_sketch -c tests/config/nextflow.config
-  tags:
-    - minmer_sketch

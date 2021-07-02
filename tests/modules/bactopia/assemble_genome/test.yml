@@ -1,4 +1,0 @@
-- name: assemble_genome
-  command: nextflow run ./tests/modules/bactopia/assemble_genome -entry assemble_genome -c tests/config/nextflow.config
-  tags:
-    - assemble_genome

@@ -1,0 +1,9 @@
+- name: antimicrobial_resistance
+  command: bash -c 'nextflow run ./modules/bactopia/antimicrobial_resistance/tests.nf -entry test_antimicrobial_resistance -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - antimicrobial_resistance
+  files:
+    - path: 'GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt'
+      md5sum: b4d261ace9be7d013c19d1f5c0005bfe
+    - path: 'GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt'
+      md5sum: e269209401df356bdfd9123d35940afd
