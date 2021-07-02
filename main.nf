@@ -56,12 +56,37 @@ print_efficiency()
 setup_datasets()
 
 // Module inclusion
+include { gather_fastqs } from './modules/bactopia/gather_fastqs/gather_fastqs.nf'
+include { fastq_status } from './modules/bactopia/fastq_status/fastq_status.nf'
+include { estimate_genome_size } from './modules/bactopia/estimate_genome_size/estimate_genome_size.nf'
+include { qc_reads } from './modules/bactopia/qc_reads/qc_reads.nf'
+include { qc_original_summary } from './modules/bactopia/qc_original_summary/qc_original_summary.nf'
+include { qc_final_summary } from './modules/bactopia/qc_final_summary/qc_final_summary.nf'
+include { assemble_genome } from './modules/bactopia/assemble_genome/assemble_genome.nf'
+include { assembly_qc } from './modules/bactopia/assembly_qc/assembly_qc.nf'
+include { make_blastdb } from './modules/bactopia/make_blastdb/make_blastdb.nf'
+include { annotate_genome } from './modules/bactopia/annotate_genome/annotate_genome.nf'
+include { count_31mers } from './modules/bactopia/count_31mers/count_31mers.nf'
+include { sequence_type } from './modules/bactopia/sequence_type/sequence_type.nf'
+include { ariba_analysis } from './modules/bactopia/ariba_analysis/ariba_analysis.nf'
+include { minmer_sketch } from './modules/bactopia/minmer_sketch/minmer_sketch.nf'
+include { minmer_query } from './modules/bactopia/minmer_query/minmer_query.nf'
+include { call_variants } from './modules/bactopia/call_variants/call_variants.nf'
+include { download_references } from './modules/bactopia/download_references/download_references.nf'
+include { call_variants_auto } from './modules/bactopia/call_variants_auto/call_variants_auto.nf'
+include { antimicrobial_resistance } from './modules/bactopia/antimicrobial_resistance/antimicrobial_resistance.nf'
+include { plasmid_blast } from './modules/bactopia/plasmid_blast/plasmid_blast.nf'
+include { blast_genes } from './modules/bactopia/blast_genes/blast_genes.nf'
+include { blast_primers } from './modules/bactopia/blast_primers/blast_primers.nf'
+include { blast_proteins } from './modules/bactopia/blast_proteins/blast_proteins.nf'
+include { mapping_query } from './modules/bactopia/mapping_query/mapping_query.nf'
 
 // Main wf
 workflow { 
-
-
-
+     gather_fastqs(create_input_channel(run_type))
+    fastq_status(gather_fastqs.out.FASTQ_PE_STATUS)
+    estimate_genome_size(fastq_status.out.ESTIMATE_GENOME_SIZE)
+    qc_reads(estimate_genome_size.out.QUALITY_CONTROL)
     qc_original_summary(estimate_genome_size.out.QUALITY_CONTROL)
     qc_final_summary(qc_reads.out.QC_FINAL_SUMMARY)
     assemble_genome(qc_reads.out.ASSEMBLY)
