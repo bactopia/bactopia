@@ -55,7 +55,35 @@ SPECIES_GENOME_SIZE = null
 print_efficiency()
 setup_datasets()
 
+// Module inclusion
 
+// Main wf
+workflow { 
+
+
+
+    qc_original_summary(estimate_genome_size.out.QUALITY_CONTROL)
+    qc_final_summary(qc_reads.out.QC_FINAL_SUMMARY)
+    assemble_genome(qc_reads.out.ASSEMBLY)
+    make_blastdb(assemble_genome.out.MAKE_BLASTDB)
+    assembly_qc(assemble_genome.out.ASSEMBLY_QC, METHODS) // Needs Fix???
+    annotate_genome(assemble_genome.out.ANNOTATION,Channel.from(PROKKA_PROTEINS),Channel.from(PRODIGAL_TF))
+    count_31mers(qc_reads.out.READS)
+    sequence_type(assemble_genome.out.SEQUENCE_TYPE,Channel.from(MLST_DATABASES)
+    ariba_analysis(qc_reads.out.READS,Channel.from(ARIBA_DATABASES))
+    minmer_sketch(qc_reads.out.READS)
+    minmer_query(minmer_sketch.out.MINMER_QUERY,Channel.from(MINMER_DATABASES))
+    call_variants(qc_reads.out.READS,Channel.from(REFERENCES))
+    download_references(minmer_sketch.out.DOWNLOAD_REFERENCES,Channel.from(REFSEQ_SKETCH))
+    call_variants_auto(download_references.out.CALL_VARIANTS_AUTO)
+    antimicrobial_resistance(annotate_genome.out.ANTIMICROBIAL_RESISTANCE,Channel.from(AMR_DATABASES))
+    plasmid_blast(annotate_genome.out.PLASMID_BLAST,Channel.from(PLASMID_BLASTDB))
+    blast_genes(make_blastdb.out.BLAST_DB,Channel.from(BLAST_GENE_FASTAS).collect())
+    blast_primers(make_blastdb.out.BLAST_DB,Channel.from(BLAST_PRIMER_FASTAS).collect())
+    blast_proteins(make_blastdb.out.BLAST_DB,Channel.from(BLAST_PROTEIN_FASTAS).collect())
+    mapping_query(qc_reads.out.READS,Channel.from(MAPPING_FASTAS).collect())
+
+}
 
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
