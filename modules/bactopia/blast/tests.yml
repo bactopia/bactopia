@@ -27,3 +27,22 @@
       md5sum: 8a210fae38df9bd0c4ae9cc9f2cb6248
     - path: 'GCF_000292685/blast/proteins/proteins.json'
       md5sum: 61550d63a75783e41c18a2fdd7c2d966
+
+- name: makeblastdb
+  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_makeblastdb -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - makeblastdb
+  files:
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.ndb
+      md5sum: 8b1c09f2bde1b60a1f18c0785074deae
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.nhr
+      md5sum: c4b8b85216f58efe90c154fc7d3884d2
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.nin
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.not
+      md5sum: 1e53e9d08f1d23af0299cfa87478a7bb
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.nsq
+      md5sum: 46fedd4c790b83dcb9f0d2000fc9212e
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.ntf
+      md5sum: b4c81b0f2d9a6a9bebf0845063782564
+    - path: GCF_000292685/blast/blastdb/GCF_000292685.nto
+      md5sum: 33cdeccccebe80329f1fdbee7f5874cb
