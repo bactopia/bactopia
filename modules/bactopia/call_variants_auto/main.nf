@@ -6,6 +6,8 @@ process CALL_VARIANTS_AUTO {
     on their Mash distance from the input.
     */
     tag "${sample} - ${reference_name}"
+    label "max_cpu_75"
+    label "call_variants_auto"
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"

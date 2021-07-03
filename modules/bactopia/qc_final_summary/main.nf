@@ -3,7 +3,9 @@ nextflow.enable.dsl = 2
 process QC_FINAL_SUMMARY {
     /* Run FASTQC on the cleaned up FASTQ files. */
     tag "${sample}"
-
+    label "max_cpu_50"
+    label "qc_final_summary"
+    
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
 

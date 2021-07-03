@@ -3,9 +3,10 @@ nextflow.enable.dsl = 2
 process ARIBA_ANALYSIS {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
+    label "ariba_analysis"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/ariba", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${dataset_name}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/ariba", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${dataset_name}/*"
 
     input:
     tuple val(sample), val(single_end), path(fq)
@@ -16,10 +17,10 @@ process ARIBA_ANALYSIS {
     file "${task.process}/*" optional true
 
     when:
-    single_end == false && ARIBA_DATABASES.isEmpty() == false
+    single_end == false
 
     shell:
-    dataset_tarball = path(dataset).getName()
+    dataset_tarball = dataset.getName()
     dataset_name = dataset_tarball.replace('.tar.gz', '')
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     noclean = params.ariba_no_clean ? "--noclean" : ""
@@ -38,11 +39,7 @@ process ARIBA_ANALYSIS {
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
-        fi
+        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
     fi
 
     tar -xzvf !{dataset_tarball}
@@ -93,18 +90,4 @@ process ARIBA_ANALYSIS {
     touch ${dataset_name}/${sample}
     touch ${task.process}/${sample}
     """
-}
-
-//###############
-//Module testing
-//###############
-
-workflow test {
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.single_end,
-        path(params.fq)
-        ])
-    TEST_PARAMS_CH2 = Channel.of(path(params.card),path(params.vfdb))
-    ariba_analysis(TEST_PARAMS_CH,TEST_PARAMS_CH2.collect())
 }

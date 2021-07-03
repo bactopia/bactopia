@@ -1,8 +1,13 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+
 process ANNOTATE_GENOME {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${sample}"
+    label "max_cpus"
     label "annotate_genome"
 
     publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${process_name}/*"

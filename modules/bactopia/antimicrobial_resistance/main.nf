@@ -1,11 +1,16 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+
 process ANTIMICROBIAL_RESISTANCE {
     /*
     Query nucleotides and proteins (SNPs/InDels) against one or more reference genomes selected based
     on their Mash distance from the input.
     */
     tag "${sample}"
+    label "max_cpus"
     label "antimicrobial_resistance"
 
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "logs/*"

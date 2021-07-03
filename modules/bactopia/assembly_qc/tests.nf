@@ -1,17 +1,15 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { ASSEMBLY_QC } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_assembly_qc {
 
     inputs = tuple(
-        "test_annotate_genome",
-        false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        "test_assembly_qc",
+        file(params.test_data['reference']['fna'], checkIfExists: true),
+        file(params.test_data['reference']['genome_size'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    ASSEMBLY_QC ( inputs, ['checkm', 'quast'] )
 }

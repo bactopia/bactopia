@@ -6,6 +6,9 @@ process CALL_VARIANTS {
     using Snippy.
     */
     tag "${sample} - ${reference_name}"
+    label "max_cpu_75"
+    label "call_variants"
+
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/variants/user", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"

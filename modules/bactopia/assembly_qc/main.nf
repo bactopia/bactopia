@@ -1,11 +1,17 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+
 process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
     tag "${sample} - ${method}"
+    label "max_cpu_75"
+    label "assembly_qc"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
     tuple val(sample), path(fasta), path(genome_size)
@@ -98,21 +104,4 @@ process ASSEMBLY_QC {
     fi
     '''
 
-}
-
-//###############
-//Module testing
-//###############
-
-
-workflow test{
-
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        path(params.fasta),
-        path(params.genome_size)
-        ])
-    TEST_PARAMS_CH2 = Channel.of('checkm', 'quast')
-
-    assembly_qc(TEST_PARAMS_CH,TEST_PARAMS_CH2)
 }

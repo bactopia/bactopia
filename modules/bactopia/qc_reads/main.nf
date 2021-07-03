@@ -4,6 +4,8 @@ nextflow.enable.dsl = 2
 process QC_READS {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
+    label "max_cpus"
+    label "qc_reads"
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"

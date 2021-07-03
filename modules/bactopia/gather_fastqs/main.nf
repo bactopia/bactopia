@@ -7,6 +7,9 @@ process GATHER_FASTQS {
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     tag "${sample}"
+    label "max_cpus"
+    label "gather_fastqs"
+
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(r1: '*???-r1'), path(r2: '*???-r2'), path(extra)

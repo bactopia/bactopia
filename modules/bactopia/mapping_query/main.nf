@@ -5,6 +5,8 @@ process MAPPING_QUERY {
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
     tag "${sample}"
+    label "max_cpus"
+    label "mapping_query"
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "mapping/*"

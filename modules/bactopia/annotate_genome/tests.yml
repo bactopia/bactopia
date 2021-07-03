@@ -1,5 +1,5 @@
 - name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - annotate_genome
   files:

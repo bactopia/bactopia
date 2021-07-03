@@ -1,0 +1,29 @@
+- name: blast_genes
+  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_genes -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blast_genes
+  files:
+    - path: 'GCF_000292685/blast/genes/GCF_000292685.json'
+      md5sum: cabfea41bce2e58750c76fa27d8e1c21
+    - path: 'GCF_000292685/blast/genes/genes.json'
+      md5sum: ef403419df9448dd465e95e4004f1112
+
+- name: blast_primers
+  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_primers -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blast_primers
+  files:
+    - path: 'GCF_000292685/blast/primers/GCF_000292685.json'
+      md5sum: 5d74779ee3e651e0489f5d579fd85b53
+    - path: 'GCF_000292685/blast/primers/primers.json'
+      md5sum: 25cccf0391f1837ada3f95d9b3463fc9
+
+- name: blast_proteins
+  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_proteins -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blast_proteins
+  files:
+    - path: 'GCF_000292685/blast/proteins/GCF_000292685.json'
+      md5sum: 8a210fae38df9bd0c4ae9cc9f2cb6248
+    - path: 'GCF_000292685/blast/proteins/proteins.json'
+      md5sum: 61550d63a75783e41c18a2fdd7c2d966

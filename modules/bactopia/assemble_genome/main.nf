@@ -1,12 +1,18 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+
 process ASSEMBLE_GENOME {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${sample}"
+    label "max_cpu_75"
+    label "assemble_genome"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "assembly/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "assembly/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra), path(genome_size)
@@ -21,6 +27,7 @@ process ASSEMBLE_GENOME {
     path "${task.process}/*" optional true
 
     shell:
+    contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${sample}_%05d"
     shovill_ram = task.memory.toString().split(' ')[0]
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""

@@ -6,6 +6,8 @@ process MINMER_QUERY {
     GenBank (Sourmash, k=21,31,51)
     */
     tag "${sample} - ${dataset_name}"
+    label "max_cpus"
+    label "cminmer_query"
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.txt"

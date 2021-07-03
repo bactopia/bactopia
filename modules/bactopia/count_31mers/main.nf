@@ -3,6 +3,8 @@ nextflow.enable.dsl = 2
 process COUNT_31MERS {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
+    label "max_cpus"
+    label "count_31mers"
 
     publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
     publishDir "${outdir}/${sample}/kmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.ctx"

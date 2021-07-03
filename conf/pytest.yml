@@ -1,6 +1,11 @@
 annotate_genome:
   - modules/bactopia/annotate_genome/**
-  - tests/modules/bactopia/annotate_genome/**
 
 antimicrobial_resistance:
   - modules/bactopia/antimicrobial_resistance/**
+
+ariba_analysis:
+  - modules/bactopia/ariba_analysis/**
+
+assemble_genome:
+  - modules/bactopia/assemble_genome/**
