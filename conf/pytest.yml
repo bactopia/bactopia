@@ -9,3 +9,9 @@ ariba_analysis:
 
 assemble_genome:
   - modules/bactopia/assemble_genome/**
+
+assembly_qc:
+  - modules/bactopia/assembly_qc/**
+
+blast:
+  - modules/bactopia/blast/**

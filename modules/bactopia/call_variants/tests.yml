@@ -1,30 +1,148 @@
-- name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: call_variants_pe
+  command: bash -c 'nextflow run ./modules/bactopia/call_variants/tests.nf -entry test_call_variants_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - annotate_genome
+    - call_variants_pe
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: d7780bb876ab53494c590baaf1508e8c
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
-      md5sum: 2b0f22edf244aacae511f2465ea63b17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
-      md5sum: 1e5c13e410dcd67ad69846e67f9434c8
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna'
-      md5sum: 1910194c2a8969c20f14d1c1916207fa
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa'
-      md5sum: 18d119d2f3d4b23fdcdf5a68bf884534
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff'
-      md5sum: 3d835e114fc7fe065ed049ebf31eab17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl'
-      md5sum: 004967040a6f6d1545159fab8bf64d21
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
-      md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.sh'
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.versions'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.err'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.out'
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: c37013a83f9f56eeba519f34dee21adc
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam
+      md5sum: 661d6f89de7c0a453a5ec58968a89d38
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam.bai
+      md5sum: b9563974e33628f1bba6261dc32d7675
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bed
+      md5sum: 2721538bc96e9a4a17bc89e032460ac0
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 44068997781ca246d7123ec0bd9a4553
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 38397cc5ca9c121644b60326553a9431
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.masked.fa
+      md5sum: aff9ba225a27876d1435dc97c1ab36d9
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 221cd48da5a73fa119700a60eadb0f21
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.csv
+      md5sum: 10ee6af0f0748ba689f5f9c60abaac19
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.gff
+      md5sum: 73ebfe064a560bbf4acaf5c318ca998c
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.html
+      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: 47044f0a2fbed9dda197619bcceb1d8f
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.tab
+      md5sum: 29e756e93b925b108d8a50c595cdfdf5
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.vcf
+
+- name: call_variants_se
+  command: bash -c 'nextflow run ./modules/bactopia/call_variants/tests.nf -entry test_call_variants_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants_se
+  files:
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: 5307c45c33b6816e11460262e2dffacd
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam
+      md5sum: b90e48a418bbdab0326ea5833a2e81f7
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam.bai
+      md5sum: 4c4428b2713c7b281136b130b8145e52
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bed
+      md5sum: 22d56d683ed2dc4cea75e4bd2831e002
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 5bb865e5a8dd11a50a9111735e22ef4c
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 6848411e9d3d2dc39bf67708b5d20e15
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.masked.fa
+      md5sum: c21a089b5a488d8a6d35e224a88ecf71
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 6d9480517e4167a246c51edbb049ad57
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.csv
+      md5sum: f5e32042dd7047d41a0260df0cb01dd1
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.gff
+      md5sum: 63be6793206bc2f84ad0aeda74afb49a
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.html
+      md5sum: 4f73761cb36254b99a6cce39da5fc25c
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: 363198eaec61ed5bbda50fa45f7e2068
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.tab
+      md5sum: 5e01a1d05a655a8175b17c07b031cae8
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.vcf
+
+- name: call_variants_auto_pe
+  command: bash -c 'nextflow run ./modules/bactopia/call_variants/tests.nf -entry test_call_variants_auto_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants_auto_pe
+  files:
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: c37013a83f9f56eeba519f34dee21adc
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam
+      md5sum: 661d6f89de7c0a453a5ec58968a89d38
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam.bai
+      md5sum: b9563974e33628f1bba6261dc32d7675
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bed
+      md5sum: 2721538bc96e9a4a17bc89e032460ac0
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 44068997781ca246d7123ec0bd9a4553
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 38397cc5ca9c121644b60326553a9431
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 221cd48da5a73fa119700a60eadb0f21
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.csv
+      md5sum: 10ee6af0f0748ba689f5f9c60abaac19
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.gff
+      md5sum: 73ebfe064a560bbf4acaf5c318ca998c
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.html
+      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: 47044f0a2fbed9dda197619bcceb1d8f
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.tab
+      md5sum: 29e756e93b925b108d8a50c595cdfdf5
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.vcf
+
+- name: call_variants_auto_se 
+  command: bash -c 'nextflow run ./modules/bactopia/call_variants/tests.nf -entry test_call_variants_auto_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants_auto_se 
+  files:
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: 5307c45c33b6816e11460262e2dffacd
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam
+      md5sum: b90e48a418bbdab0326ea5833a2e81f7
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam.bai
+      md5sum: 4c4428b2713c7b281136b130b8145e52
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bed
+      md5sum: 22d56d683ed2dc4cea75e4bd2831e002
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 5bb865e5a8dd11a50a9111735e22ef4c
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 6848411e9d3d2dc39bf67708b5d20e15
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 6d9480517e4167a246c51edbb049ad57
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.csv
+      md5sum: f5e32042dd7047d41a0260df0cb01dd1
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.gff
+      md5sum: 63be6793206bc2f84ad0aeda74afb49a
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.html
+      md5sum: 4f73761cb36254b99a6cce39da5fc25c
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: 363198eaec61ed5bbda50fa45f7e2068
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.tab
+      md5sum: 5e01a1d05a655a8175b17c07b031cae8
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.vcf
+
