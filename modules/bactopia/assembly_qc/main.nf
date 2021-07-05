@@ -104,4 +104,10 @@ process ASSEMBLY_QC {
     fi
     '''
 
+    stub:
+    """
+    mkdir ${method}
+    touch ${method}/${sample}
+    touch "${task.process}/${sample}" optional true
+    """
 }
