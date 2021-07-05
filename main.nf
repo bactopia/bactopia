@@ -1144,7 +1144,7 @@ def check_unknown_params() {
 
     params.each { k,v ->
         if (!valid_params.contains(k)) {
-            if (k != "container-path") {
+            if (k != "container-path" || k != "test_data") {
                 log.error("'--${k}' is not a known parameter")
                 error = 1
             }
