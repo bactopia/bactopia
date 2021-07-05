@@ -1134,7 +1134,7 @@ def file_exists(file_name, parameter) {
 
 
 def check_unknown_params() {
-    valid_params = []
+    valid_params = ['container-path', 'test_data']
     error = 0
     new File("${baseDir}/conf/params.config").eachLine { line ->
         if (line.contains("=")) {
@@ -1144,10 +1144,8 @@ def check_unknown_params() {
 
     params.each { k,v ->
         if (!valid_params.contains(k)) {
-            if (k != "container-path" || k != "test_data") {
-                log.error("'--${k}' is not a known parameter")
-                error = 1
-            }
+            log.error("'--${k}' is not a known parameter")
+            error = 1
         }
     }
 
