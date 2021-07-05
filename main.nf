@@ -83,7 +83,7 @@ include { mapping_query } from './modules/bactopia/mapping_query/mapping_query.n
 
 // Main wf
 workflow { 
-     gather_fastqs(create_input_channel(run_type))
+    gather_fastqs(create_input_channel(run_type))
     fastq_status(gather_fastqs.out.FASTQ_PE_STATUS)
     estimate_genome_size(fastq_status.out.ESTIMATE_GENOME_SIZE)
     qc_reads(estimate_genome_size.out.QUALITY_CONTROL)
@@ -94,7 +94,7 @@ workflow {
     assembly_qc(assemble_genome.out.ASSEMBLY_QC, METHODS) // Needs Fix???
     annotate_genome(assemble_genome.out.ANNOTATION,Channel.from(PROKKA_PROTEINS),Channel.from(PRODIGAL_TF))
     count_31mers(qc_reads.out.READS)
-    sequence_type(assemble_genome.out.SEQUENCE_TYPE,Channel.from(MLST_DATABASES)
+    sequence_type(assemble_genome.out.SEQUENCE_TYPE,Channel.from(MLST_DATABASES))
     ariba_analysis(qc_reads.out.READS,Channel.from(ARIBA_DATABASES))
     minmer_sketch(qc_reads.out.READS)
     minmer_query(minmer_sketch.out.MINMER_QUERY,Channel.from(MINMER_DATABASES))
