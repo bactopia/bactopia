@@ -86,7 +86,7 @@ process ESTIMATE_GENOME_SIZE {
                     investigate !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...).
                     Otherwise, adjust the --max_genome_size parameter to fit your need. Further analysis
                     of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-genome-size-error.txt
+            sed 's/^\\s*//' > !{sample}-genome-size-error.txt
         elif [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
             rm ${OUTPUT}
             echo "!{sample} estimated genome size (${ESTIMATED_GENOME_SIZE} bp) is less than the minimum
@@ -94,7 +94,7 @@ process ESTIMATE_GENOME_SIZE {
                     investigate !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...).
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further analysis
                     of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-genome-size-error.txt
+            sed 's/^\\s*//' > !{sample}-genome-size-error.txt
         fi
     else
         # Use the genome size given by the user. (Should be >= 0)

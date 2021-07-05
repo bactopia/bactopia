@@ -230,7 +230,7 @@ process QC_READS {
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
                 not exceed the required minimum ${MIN_BASEPAIRS} bp (!{params.min_coverage}x coverage). Further analysis 
                 is discontinued." | \
-        sed 's/^\s*//' > !{sample}-low-sequence-depth-error.txt
+        sed 's/^\\s*//' > !{sample}-low-sequence-depth-error.txt
     fi
 
     if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
@@ -238,7 +238,7 @@ process QC_READS {
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
                 not exceed the required minimum !{params.min_basepairs} bp. Further analysis
                 is discontinued." | \
-        sed 's/^\s*//' > !{sample}-low-sequence-depth-error.txt
+        sed 's/^\\s*//' > !{sample}-low-sequence-depth-error.txt
     fi
 
     FINAL_READS=`gzip -cd quality-control/*.gz | fastq-scan | grep "read_total" | sed -r 's/.*:[ ]*([0-9]+),/\1/'`
@@ -247,7 +247,7 @@ process QC_READS {
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_READS} total reads. This does
                 not exceed the required minimum !{params.min_reads} reads count. Further analysis
                 is discontinued." | \
-        sed 's/^\s*//' > !{sample}-low-read-count-error.txt
+        sed 's/^\\s*//' > !{sample}-low-read-count-error.txt
     fi
 
     if [ "!{is_assembly}" == "true" ]; then

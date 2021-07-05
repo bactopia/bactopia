@@ -153,7 +153,7 @@ process GATHER_FASTQS {
             echo "Unable to download !{sample} from both SRA and ENA !{params.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 
                 further analysis of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-fastq-download-error.txt
+            sed 's/^\\s*//' > !{sample}-fastq-download-error.txt
             exit
         else
             # Download accession from ENA/SRA
@@ -175,7 +175,7 @@ process GATHER_FASTQS {
                 echo "Unable to download !{sample} from NCBI Assembly !{params.max_retry} times. This may or may
                     not be a temporary connection issue. Rather than stop the whole Bactopia run, 
                     further analysis of !{sample} will be discontinued." | \
-                sed 's/^\s*//' > !{sample}-assembly-download-error.txt
+                sed 's/^\\s*//' > !{sample}-assembly-download-error.txt
                 exit
             else
                 # Verify Assembly accession
@@ -187,7 +187,7 @@ process GATHER_FASTQS {
                     ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
                                                 -s !{section} -A accession.txt -r 50 !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
                     find . -name "*!{sample}*.fna.gz" | xargs -I {} mv {} fasta/
-                    rename 's/(GC[AF]_\d+).*/$1.fna.gz/' fasta/*
+                    rename 's/(GC[AF]_\\d+).*/$1.fna.gz/' fasta/*
                     gzip -cd fasta/!{sample}.fna.gz > !{sample}-art.fna
                 else
                     cp ${LOG_DIR}/check-assembly-accession.txt !{sample}-assembly-accession-error.txt

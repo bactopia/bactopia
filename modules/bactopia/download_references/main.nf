@@ -71,7 +71,7 @@ process DOWNLOAD_REFERENCES {
     # Move and uncompress genomes
     mkdir genbank_temp
     find refseq -name "*.gbff.gz" | xargs -I {} mv {} genbank_temp/
-    rename 's/(GC[AF]_\d+).*/$1/' genbank_temp/*
+    rename 's/(GC[AF]_\\d+).*/$1/' genbank_temp/*
     mkdir genbank
     ls genbank_temp/ | xargs -I {} sh -c 'gzip -cd genbank_temp/{} > genbank/!{sample}-{}.gbk'
     rm -rf genbank_temp

@@ -82,7 +82,7 @@ process ASSEMBLE_GENOME {
             !{no_miniasm} !{no_rotate} !{no_pilon} --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
             --min_dead_end_size !{params.min_dead_end_size} > ${LOG_DIR}/unicycler.out 2> ${LOG_DIR}/unicycler.err
-        sed -r 's/^>([0-9]+)(.*)/>!{sample}_\1\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
+        sed -r 's/^>([0-9]+)(.*)/>!{sample}_\\1\\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{sample}.fna
         if [[ !{params.compress} == "true" ]]; then
             pigz -n --best -p !{task.cpus} ${OUTDIR}/*.gfa
             pigz -n --best -p !{task.cpus} ${OUTDIR}/*.fasta
@@ -156,7 +156,7 @@ process ASSEMBLE_GENOME {
                     determine a cause (e.g. metagenomic, contaminants, etc...) for the poor assembly.
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-assembly-error.txt
+            sed 's/^\\s*//' > !{sample}-assembly-error.txt
         fi
 
         if [[ !{params.compress} == "true" ]]; then
@@ -166,7 +166,7 @@ process ASSEMBLE_GENOME {
         echo "!{sample} assembled successfully, but 0 contigs were formed. Please investigate
                 !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...) for this
                 outcome. Further assembly-based analysis of !{sample} will be discontinued." | \
-        sed 's/^\s*//' > !{sample}-assembly-error.txt
+        sed 's/^\\s*//' > !{sample}-assembly-error.txt
     fi
 
     # pass the FASTQs along

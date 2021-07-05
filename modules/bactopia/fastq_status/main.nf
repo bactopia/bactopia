@@ -45,7 +45,7 @@ process FASTQ_STATUS {
                 ERROR=1
                 echo "!{sample} FASTQs contains an error. Please check the input FASTQs.
                     Further analysis is discontinued." | \
-                sed 's/^\s*//' >> !{sample}-paired-end-error.txt
+                sed 's/^\\s*//' >> !{sample}-paired-end-error.txt
             else
                 rm -f !{sample}-paired-end-error.txt
             fi

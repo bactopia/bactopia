@@ -49,7 +49,7 @@ process MAPPING_QUERY {
         fi
     fi
 
-    avg_len=`seqtk fqchk !{fq[0]} | head -n 1 | sed -r 's/.*avg_len: ([0-9]+).*;.*/\1/'`
+    avg_len=`seqtk fqchk !{fq[0]} | head -n 1 | sed -r 's/.*avg_len: ([0-9]+).*;.*/\\1/'`
     ls *.fasta | xargs -I {} grep -H "^>" {} | awk '{print $1}' | sed 's/.fasta:>/\t/' > mapping.txt
     cat *.fasta > multifasta.fa
 
