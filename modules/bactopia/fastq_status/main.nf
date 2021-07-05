@@ -1,27 +1,36 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "fastq_status"
+
 process FASTQ_STATUS {
     /* Determine if FASTQs are PE or SE, and if they meet minimum basepair/read counts. */
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
+
+    tag "${sample}"
+    label "fastq_status"
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra)
+    
     output:
     file "*-error.txt" optional true
     tuple val(sample), val(sample_type), val(single_end), 
         path("fastqs/${sample}*.fastq.gz"), path(extra),emit: ESTIMATE_GENOME_SIZE, optional: true
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
     single_end = fq[1] == null ? true : false
     qin = sample_type.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     ERROR=0
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -34,8 +43,8 @@ process FASTQ_STATUS {
 
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         # Not completely sure about the inputs, so make sure they meet minimum requirements
-        echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
-        fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# fastq-scan Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        fastq-scan -v >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
         # Check paired-end reads have same read counts
         gzip -cd !{fq[0]} | fastq-scan > r1.json
@@ -45,7 +54,7 @@ process FASTQ_STATUS {
                 ERROR=1
                 echo "!{sample} FASTQs contains an error. Please check the input FASTQs.
                     Further analysis is discontinued." | \
-                sed 's/^\s*//' >> !{sample}-paired-end-error.txt
+                sed 's/^\\s*//' >> !{sample}-paired-end-error.txt
             else
                 rm -f !{sample}-paired-end-error.txt
             fi
@@ -87,10 +96,10 @@ process FASTQ_STATUS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -98,27 +107,10 @@ process FASTQ_STATUS {
 
     stub:
     """
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     mkdir fastqs
     touch ${sample}-error.txt
     touch fastqs/${sample}.fastq.gz
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
-}
-
-//###############
-//Module testing 
-//###############
-
-workflow test{
-    
-    TEST_PARAMS_CH = Channel.of([
-        params.sample, 
-        params.sample_type, 
-        params.single_end,
-        path(params.fq),
-        path(params.extra)             
-        ])
-
-    fastq_status(TEST_PARAMS_CH)
 }

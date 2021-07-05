@@ -1,30 +1,36 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "estimate_genome_size"
+
 process ESTIMATE_GENOME_SIZE {
     /* Estimate the input genome size if not given. */
     tag "${sample}"
+    label "estimate_genome_size"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra)
+    val genome_size
 
     output:
     path "${sample}-genome-size-error.txt" optional true
     path("${sample}-genome-size.txt") optional true
     tuple val(sample), val(sample_type), val(single_end), 
         path("fastqs/${sample}*.fastq.gz"), path(extra), path("${sample}-genome-size.txt"),emit: QUALITY_CONTROL, optional: true
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
-    genome_size = SPECIES_GENOME_SIZE
     '''
     OUTPUT="!{sample}-genome-size.txt"
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -35,19 +41,19 @@ process ESTIMATE_GENOME_SIZE {
         fi
     fi
 
-    if [ "!{genome_size}" == "null" ]; then
+    if [ "!{genome_size}" == "0" ]; then
         # Use mash to estimate the genome size, if a genome size cannot be
         # estimated set the genome size to 0
-        echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
-        mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         if [ "!{single_end}" == "false" ]; then
             mash sketch -o test -k 31 -m 3 -r !{fq[0]} !{fq[1]} 2>&1 | \
                 grep "Estimated genome size:" | \
-                awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
         else
             mash sketch -o test -k 31 -m 3 !{fq[0]} 2>&1 | \
                 grep "Estimated genome size:" | \
-                awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
         fi
         rm -rf test.msh
         ESTIMATED_GENOME_SIZE=`head -n1 ${OUTPUT}`
@@ -57,11 +63,11 @@ process ESTIMATE_GENOME_SIZE {
             if [ "!{single_end}" == "false" ]; then
                 mash sketch -o test -k 31 -m 10 -r !{fq[0]} !{fq[1]} 2>&1 | \
                     grep "Estimated genome size:" | \
-                    awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                    awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             else
                 mash sketch -o test -k 31 -m 10 !{fq[0]} 2>&1 | \
                     grep "Estimated genome size:" | \
-                    awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                    awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             fi
             rm -rf test.msh
         elif [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
@@ -69,11 +75,11 @@ process ESTIMATE_GENOME_SIZE {
             if [ "!{single_end}" == "false" ]; then
                 mash sketch -o test -k 31 -m 1 -r !{fq[0]} !{fq[1]} 2>&1 | \
                     grep "Estimated genome size:" | \
-                    awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                    awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             else
                 mash sketch -o test -k 31 -m 1 !{fq[0]} 2>&1 | \
                     grep "Estimated genome size:" | \
-                    awk '{if($4){printf("%d\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
+                    awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${OUTPUT}
             fi
             rm -rf test.msh
         fi
@@ -86,7 +92,7 @@ process ESTIMATE_GENOME_SIZE {
                     investigate !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...).
                     Otherwise, adjust the --max_genome_size parameter to fit your need. Further analysis
                     of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-genome-size-error.txt
+            sed 's/^\\s*//' > !{sample}-genome-size-error.txt
         elif [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
             rm ${OUTPUT}
             echo "!{sample} estimated genome size (${ESTIMATED_GENOME_SIZE} bp) is less than the minimum
@@ -94,7 +100,7 @@ process ESTIMATE_GENOME_SIZE {
                     investigate !{sample} to determine a cause (e.g. metagenomic, contaminants, etc...).
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further analysis
                     of !{sample} will be discontinued." | \
-            sed 's/^\s*//' > !{sample}-genome-size-error.txt
+            sed 's/^\\s*//' > !{sample}-genome-size-error.txt
         fi
     else
         # Use the genome size given by the user. (Should be >= 0)
@@ -125,10 +131,10 @@ process ESTIMATE_GENOME_SIZE {
 
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -137,26 +143,10 @@ process ESTIMATE_GENOME_SIZE {
     stub:
     """
     mkdir fastqs
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${sample}-genome-size-error.txt
     touch ${sample}-genome-size.txt
     touch fastqs/${sample}.fastq.gz
-    touch ${task.process}/*
+    touch ${PROCESS_NAME}/*
     """
-}
-
-//###############
-//Module testing 
-//###############
-
-workflow test {
-    TEST_PARAMS_CH = Channel.of([
-        params.sample, 
-        params.sample_type, 
-        params.single_end,
-        path(params.fq),
-        path(params.extra)             
-        ])
-
-    estimate_genome_size(TEST_PARAMS_CH)
 }

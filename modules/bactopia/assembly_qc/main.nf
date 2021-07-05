@@ -3,6 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "assembly_qc"
 
 process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
@@ -10,7 +11,7 @@ process ASSEMBLY_QC {
     label "max_cpu_75"
     label "assembly_qc"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
 
     input:
@@ -19,7 +20,7 @@ process ASSEMBLY_QC {
 
     output:
     file "${method}/*"
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
     //CheckM Related
@@ -34,10 +35,10 @@ process ASSEMBLY_QC {
     ignore_thresholds = params.ignore_thresholds ? '--ignore_thresholds' : ''
     '''
     OUTDIR=!{method}
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" >> ${LOG_DIR}/!{task.process}-!{method}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}-!{method}.versions
+    echo "# Timestamp" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -59,8 +60,8 @@ process ASSEMBLY_QC {
         elif [[ "!{params.skip_checkm}" == "true" ]]; then
             echo "checkm was skipped due to '--skip_checkm'" > checkm/checkm-was-skipped.txt
         else
-            echo "# CheckM Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
-            checkm -h | grep ":::" >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
+            echo "# CheckM Version" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
+            checkm -h | grep ":::" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions 2>&1
 
             checkm lineage_wf ./ checkm/ \
                 !{full_tree} --alignment_file checkm/checkm-genes.aln \
@@ -79,8 +80,8 @@ process ASSEMBLY_QC {
         fi
     else
         # QUAST
-        echo "# QUAST Version" >> ${LOG_DIR}/!{task.process}-!{method}.versions
-        quast --version >> ${LOG_DIR}/!{task.process}-!{method}.versions 2>&1
+        echo "# QUAST Version" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
+        quast --version >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions 2>&1
         GENOME_SIZE=`head -n 1 !{genome_size}`
         est_ref_size=""
         if [ "${GENOME_SIZE}" != "0" ]; then
@@ -95,10 +96,10 @@ process ASSEMBLY_QC {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}-!{method}.err
-        cp .command.out ${LOG_DIR}/!{task.process}-!{method}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}-!{method}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}-!{method}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}-!{method}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}-!{method}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}-!{method}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}-!{method}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

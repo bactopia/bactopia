@@ -3,6 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "annotate_genome"
 
 process ANTIMICROBIAL_RESISTANCE {
     /*
@@ -35,7 +36,7 @@ process ANTIMICROBIAL_RESISTANCE {
         organism_protein = "-O ${params.amr_organism} --point_mut_all ${amrdir}/${sample}-protein-point-mutations.txt"
     }
     '''
-    LOG_DIR="logs/!{task.process}"
+    LOG_DIR="logs/!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
 
     # Print captured STDERR incase of exit
@@ -45,8 +46,8 @@ process ANTIMICROBIAL_RESISTANCE {
     }
     trap print_stderr EXIT
 
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Verify AWS files were staged
     if [[ ! -L "!{genes} " ]]; then
@@ -64,8 +65,8 @@ process ANTIMICROBIAL_RESISTANCE {
     mkdir !{amrdir}
 
     # amrfinder Version
-    echo "# amrfinder Version" >> ${LOG_DIR}/!{task.process}.versions
-    amrfinder --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# amrfinder Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    amrfinder --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     amrfinder -n !{sample}.ffn \
             -d amrfinderdb/ \
             -o !{amrdir}/!{sample}-gene-report.txt \
@@ -87,10 +88,10 @@ process ANTIMICROBIAL_RESISTANCE {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi

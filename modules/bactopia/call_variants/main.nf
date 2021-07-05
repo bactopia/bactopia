@@ -13,7 +13,7 @@ process CALL_VARIANTS {
     label "max_cpu_75"
     label "call_variants"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/variants/user", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
@@ -22,21 +22,22 @@ process CALL_VARIANTS {
 
     output:
     path "${reference_name}/*"
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
+    PROCESS_NAME = "call_variants"
     snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName()
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# Snippy Version" >> ${LOG_DIR}/!{task.process}.versions
-    snippy --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# Snippy Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    snippy --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -68,13 +69,13 @@ process CALL_VARIANTS {
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > ${LOG_DIR}/snippy.out 2> ${LOG_DIR}/snippy.err
 
     # Add GenBank annotations
-    echo "# vcf-annotator Version" >> ${LOG_DIR}/!{task.process}.versions
-    vcf-annotator --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# vcf-annotator Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    vcf-annotator --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}.annotated.vcf 2> ${LOG_DIR}/vcf-annotator.err
 
     # Get per-base coverage
-    echo "# bedtools Version" >> ${LOG_DIR}/!{task.process}.versions
-    bedtools --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# bedtools Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    bedtools --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.full-coverage.txt
     genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d >> !{reference_name}/!{sample}.full-coverage.txt 2> ${LOG_DIR}/genomeCoverageBed.err
     cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
@@ -97,10 +98,10 @@ process CALL_VARIANTS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -110,9 +111,9 @@ process CALL_VARIANTS {
     reference_name = reference.getSimpleName()
     """
     mkdir ${reference_name}
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${reference_name}/*
-    touch ${task.process}/*
+    touch ${PROCESS_NAME}/*
     """
 }
 
@@ -126,7 +127,7 @@ process CALL_VARIANTS_AUTO {
     label "max_cpu_75"
     label "call_variants"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"
 
     input:
@@ -134,21 +135,22 @@ process CALL_VARIANTS_AUTO {
 
     output:
     path "${reference_name}/*"
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
+    PROCESS_NAME = "call_variants_auto"
     snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName().split("${sample}-")[1].split(/\./)[0]
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# Snippy Version" >> ${LOG_DIR}/!{task.process}.versions
-    snippy --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# Snippy Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    snippy --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -180,13 +182,13 @@ process CALL_VARIANTS_AUTO {
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > ${LOG_DIR}/snippy.out 2> ${LOG_DIR}/snippy.err
 
     # Add GenBank annotations
-    echo "# vcf-annotator Version" >> ${LOG_DIR}/!{task.process}.versions
-    vcf-annotator --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# vcf-annotator Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    vcf-annotator --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}.annotated.vcf 2> ${LOG_DIR}/vcf-annotator.err
 
     # Get per-base coverage
-    echo "# bedtools Version" >> ${LOG_DIR}/!{task.process}.versions
-    bedtools --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# bedtools Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    bedtools --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.full-coverage.txt
     genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d >> !{reference_name}/!{sample}.full-coverage.txt 2> ${LOG_DIR}/genomeCoverageBed.err
     cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
@@ -210,10 +212,10 @@ process CALL_VARIANTS_AUTO {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -224,8 +226,8 @@ process CALL_VARIANTS_AUTO {
     """
     echo True
     mkdir ${reference_name}
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${reference_name}/*
-    touch ${task.process}/*
+    touch ${PROCESS_NAME}/*
     """
 }

@@ -1,17 +1,26 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { COUNT_31MERS } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_count_31mers_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        "test_count_31mers_pe",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    COUNT_31MERS ( inputs )
+}
+
+workflow test_count_31mers_se {
+
+    inputs = tuple(
+        "test_count_31mers_se",
+        true,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)]
+    )
+
+    COUNT_31MERS ( inputs )
 }

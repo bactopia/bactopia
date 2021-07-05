@@ -1,17 +1,28 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { DOWNLOAD_REFERENCES } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_download_references_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        "test_download_references_pe",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['illumina']['msh'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    DOWNLOAD_REFERENCES ( inputs, file(params.test_data['reference']['msh'], checkIfExists: true) )
+}
+
+workflow test_download_references_se {
+
+    inputs = tuple(
+        "test_download_references_se",
+        true,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        file(params.test_data['illumina']['msh'], checkIfExists: true)
+    )
+
+    DOWNLOAD_REFERENCES ( inputs, file(params.test_data['reference']['msh'], checkIfExists: true) )
 }
