@@ -73,7 +73,7 @@ include { MINMER_SKETCH } from './modules/bactopia/minmer_sketch/main.nf'
 include { MINMER_QUERY } from './modules/bactopia/minmer_query/main.nf'
 include { CALL_VARIANTS } from './modules/bactopia/call_variants/main.nf'
 include { DOWNLOAD_REFERENCES } from './modules/bactopia/download_references/main.nf'
-include { CALL_VARIANTS } from './modules/bactopia/call_variants/main.nf'
+include { CALL_VARIANTS_AUTO } from './modules/bactopia/call_variants/main.nf'
 include { ANTIMICROBIAL_RESISTANCE } from './modules/bactopia/antimicrobial_resistance/main.nf'
 include { BLAST } from './modules/bactopia/blast/main.nf'
 include { MAPPING_QUERY } from './modules/bactopia/mapping_query/main.nf'
@@ -81,27 +81,27 @@ include { MAPPING_QUERY } from './modules/bactopia/mapping_query/main.nf'
 // Main wf
 workflow { 
     GATHER_FASTQS(create_input_channel(run_type))
-    FASTQ_STATUS(gather_fastqs.out.FASTQ_PE_STATUS)
-    ESTIMATE_GENOME_SIZE(fastq_status.out.ESTIMATE_GENOME_SIZE)
-    QC_READS(estimate_genome_size.out.QUALITY_CONTROL)
-    QC_ORIGINAL_SUMMARY(estimate_genome_size.out.QUALITY_CONTROL)
-    QC_FINAL_SUMMARY(qc_reads.out.QC_FINAL_SUMMARY)
-    ASSEMBLE_GENOME(qc_reads.out.ASSEMBLY)
-    MAKE_BLASTDB(assemble_genome.out.MAKE_BLASTDB)
-    ASSEMBLY_QC(assemble_genome.out.ASSEMBLY_QC, METHODS) // Needs Fix???
-    ANNOTATE_GENOME(assemble_genome.out.ANNOTATION,Channel.from(PROKKA_PROTEINS),Channel.from(PRODIGAL_TF))
-    COUNT_31MERS(qc_reads.out.READS)
-    SEQUENCE_TYPE(assemble_genome.out.SEQUENCE_TYPE,Channel.from(MLST_DATABASES))
-    ARIBA_ANALYSIS(qc_reads.out.READS,Channel.from(ARIBA_DATABASES))
-    MINMER_SKETCH(qc_reads.out.READS)
-    MINMER_QUERY(minmer_sketch.out.MINMER_QUERY,Channel.from(MINMER_DATABASES))
-    CALL_VARIANTS(qc_reads.out.READS,Channel.from(REFERENCES))
-    DOWNLOAD_REFERENCES(minmer_sketch.out.DOWNLOAD_REFERENCES,Channel.from(REFSEQ_SKETCH))
-    CALL_VARIANTS_AUTO(download_references.out.CALL_VARIANTS_AUTO)
-    ANTIMICROBIAL_RESISTANCE(annotate_genome.out.ANTIMICROBIAL_RESISTANCE,Channel.from(AMR_DATABASES))
-    PLASMID_BLAST(annotate_genome.out.PLASMID_BLAST,Channel.from(PLASMID_BLASTDB))
-    BLAST(make_blastdb.out.BLAST_DB,Channel.from(BLAST_GENE_FASTAS).collect())
-    MAPPING_QUERY(qc_reads.out.READS,Channel.from(MAPPING_FASTAS).collect())
+    FASTQ_STATUS(GATHER_FASTQS.out.FASTQ_PE_STATUS)
+    ESTIMATE_GENOME_SIZE(FASTQ_STATUS.out.ESTIMATE_GENOME_SIZE)
+    QC_READS(ESTIMATE_GENOME_SIZE.out.QUALITY_CONTROL)
+    QC_ORIGINAL_SUMMARY(ESTIMATE_GENOME_SIZE.out.QUALITY_CONTROL)
+    QC_FINAL_SUMMARY(QC_READS.out.QC_FINAL_SUMMARY)
+    ASSEMBLE_GENOME(QC_READS.out.ASSEMBLY)
+    MAKE_BLASTDB(ASSEMBLE_GENOME.out.MAKE_BLASTDB)
+    ASSEMBLY_QC(ASSEMBLE_GENOME.out.ASSEMBLY_QC, METHODS) // Needs Fix???
+    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.ANNOTATION,Channel.from(PROKKA_PROTEINS),Channel.from(PRODIGAL_TF))
+    COUNT_31MERS(QC_READS.out.READS)
+    SEQUENCE_TYPE(ASSEMBLE_GENOME.out.SEQUENCE_TYPE,Channel.from(MLST_DATABASES))
+    ARIBA_ANALYSIS(QC_READS.out.READS,Channel.from(ARIBA_DATABASES))
+    MINMER_SKETCH(QC_READS.out.READS)
+    MINMER_QUERY(MINMER_SKETCH.out.MINMER_QUERY,Channel.from(MINMER_DATABASES))
+    CALL_VARIANTS(QC_READS.out.READS,Channel.from(REFERENCES))
+    DOWNLOAD_REFERENCES(MINMER_SKETCH.out.DOWNLOAD_REFERENCES,Channel.from(REFSEQ_SKETCH))
+    CALL_VARIANTS_AUTO(DOWNLOAD_REFERENCES.out.CALL_VARIANTS_AUTO)
+    ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.ANTIMICROBIAL_RESISTANCE,Channel.from(AMR_DATABASES))
+    PLASMID_BLAST(ANNOTATE_GENOME.out.PLASMID_BLAST,Channel.from(PLASMID_BLASTDB))
+    BLAST(MAKE_BLASTDB.out.BLAST_DB,Channel.from(BLAST_GENE_FASTAS).collect())
+    MAPPING_QUERY(QC_READS.out.READS,Channel.from(MAPPING_FASTAS).collect())
 
 }
 
