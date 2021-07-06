@@ -1,14 +1,20 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "minmer_sketch"
+
 process MINMER_SKETCH {
     /*
     Create minmer sketches of the input FASTQs using Mash (k=21,31) and
     Sourmash (k=21,31,51)
     */
     tag "${sample}"
+    label "minmer_sketch"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{msh,sig}"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
+    publishDir "${params.outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{msh,sig}"
 
     input:
     tuple val(sample), val(single_end), path(fq)
@@ -17,20 +23,20 @@ process MINMER_SKETCH {
     path("${sample}*.{msh,sig}")
     tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("${sample}.sig"),emit: MINMER_QUERY
     tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("${sample}-k31.msh"),emit: DOWNLOAD_REFERENCES
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
-    mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
-    echo "# Sourmash Version" >> ${LOG_DIR}/!{task.process}.versions
-    sourmash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -68,10 +74,10 @@ process MINMER_SKETCH {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -80,24 +86,10 @@ process MINMER_SKETCH {
     stub:
     """
     mkdir fastqs
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch fastqs/${sample}.fastq.gz
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     touch ${sample}.sig
     touch ${sample}-k31.msh
     """
-}
-
-//###############
-//Module testing
-//###############
-
-workflow test {
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.single_end,
-        path(params.fq)
-        ])
-
-    minmer_sketch(TEST_PARAMS_CH)
 }

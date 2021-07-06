@@ -1,17 +1,25 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { MAPPING_QUERY } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_mapping_query_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        "test_mapping_query_pe",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    MAPPING_QUERY ( inputs, params.test_data['datasets']['mapping'] )
+}
+
+workflow test_mapping_query_se {
+    inputs = tuple(
+        "test_mapping_query_se",
+        false,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)]
+    )
+
+    MAPPING_QUERY ( inputs, params.test_data['datasets']['mapping']  )
 }

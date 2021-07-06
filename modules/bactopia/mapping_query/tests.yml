@@ -1,30 +1,59 @@
-- name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: mapping_query_pe
+  command: bash -c 'nextflow run ./modules/bactopia/mapping_query/tests.nf -entry test_mapping_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - annotate_genome
+    - mapping_query_pe
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: d7780bb876ab53494c590baaf1508e8c
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
-      md5sum: 2b0f22edf244aacae511f2465ea63b17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
-      md5sum: 1e5c13e410dcd67ad69846e67f9434c8
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna'
-      md5sum: 1910194c2a8969c20f14d1c1916207fa
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa'
-      md5sum: 18d119d2f3d4b23fdcdf5a68bf884534
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff'
-      md5sum: 3d835e114fc7fe065ed049ebf31eab17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl'
-      md5sum: 004967040a6f6d1545159fab8bf64d21
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
-      md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.sh'
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.versions'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.err'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.out'
+    - path: test_mapping_query_pe/logs/mapping_query/bwa-index.err
+    - path: test_mapping_query_pe/logs/mapping_query/bwa-index.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_pe/logs/mapping_query/genomeCoverageBed.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_pe/logs/mapping_query/mapping.txt
+      md5sum: 53f0378e8d8e557d556f21193e68a402
+    - path: test_mapping_query_pe/logs/mapping_query/mapping_query.err
+    - path: test_mapping_query_pe/logs/mapping_query/mapping_query.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_pe/logs/mapping_query/mapping_query.sh
+      md5sum: aa9cecd0e7506da02bbb88a102bcd4b0
+    - path: test_mapping_query_pe/logs/mapping_query/mapping_query.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_pe/logs/mapping_query/mapping_query.versions
+    - path: test_mapping_query_pe/logs/mapping_query/samtools.err
+    - path: test_mapping_query_pe/logs/mapping_query/samtools.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_pe/mapping/B186_RS01460-coverage.txt
+      md5sum: c0deca971068327c9d39f9a12ecc3fd3
+    - path: test_mapping_query_pe/mapping/B186_RS01465-coverage.txt
+      md5sum: 34a14b522269d5839593c6572328bb09
+    - path: test_mapping_query_pe/mapping/B186_RS01470-coverage.txt
+      md5sum: c92fd51acb3d167d1aad6981a48b4ccb
+
+- name: mapping_query_se
+  command: bash -c 'nextflow run ./modules/bactopia/mapping_query/tests.nf -entry test_mapping_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - mapping_query_se
+  files:
+    - path: test_mapping_query_se/logs/mapping_query/bwa-index.err
+    - path: test_mapping_query_se/logs/mapping_query/bwa-index.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_se/logs/mapping_query/genomeCoverageBed.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_se/logs/mapping_query/mapping.txt
+      md5sum: 53f0378e8d8e557d556f21193e68a402
+    - path: test_mapping_query_se/logs/mapping_query/mapping_query.err
+    - path: test_mapping_query_se/logs/mapping_query/mapping_query.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_se/logs/mapping_query/mapping_query.sh
+      md5sum: 46d028a05caf01417bb0b7e8ac477afc
+    - path: test_mapping_query_se/logs/mapping_query/mapping_query.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_se/logs/mapping_query/mapping_query.versions
+    - path: test_mapping_query_se/logs/mapping_query/samtools.err
+    - path: test_mapping_query_se/logs/mapping_query/samtools.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_mapping_query_se/mapping/B186_RS01460-coverage.txt
+      md5sum: b3fe5dacd527e51278fe4aaca7a15efe
+    - path: test_mapping_query_se/mapping/B186_RS01465-coverage.txt
+      md5sum: 30e0d4dfd92f61c0344668df365b7a66
+    - path: test_mapping_query_se/mapping/B186_RS01470-coverage.txt
+      md5sum: 3555e6244d74c4b4147d50d252002ac2

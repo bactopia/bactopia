@@ -1,5 +1,10 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "mapping_query"
+
 process MAPPING_QUERY {
     /*
     Map FASTQ reads against a given set of FASTA files using BWA.
@@ -8,19 +13,16 @@ process MAPPING_QUERY {
     label "max_cpus"
     label "mapping_query"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "mapping/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "mapping/*"
 
     input:
     tuple val(sample), val(single_end), path(fq)
-    each path(query)
+    path(query)
 
     output:
     file "mapping/*"
-    file "${task.process}/*" optional true
-
-    when:
-    MAPPING_FASTAS.isEmpty() == false
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
     bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
@@ -28,10 +30,10 @@ process MAPPING_QUERY {
     bwa_samse_opts = params.bwa_samse_opts ? params.bwa_samse_opts : ""
     bwa_sampe_opts = params.bwa_sampe_opts ? params.bwa_sampe_opts : ""
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -49,12 +51,13 @@ process MAPPING_QUERY {
         fi
     fi
 
-    avg_len=`seqtk fqchk !{fq[0]} | head -n 1 | sed -r 's/.*avg_len: ([0-9]+).*;.*/\1/'`
-    ls *.fasta | xargs -I {} grep -H "^>" {} | awk '{print $1}' | sed 's/.fasta:>/\t/' > mapping.txt
-    cat *.fasta > multifasta.fa
+    avg_len=`seqtk fqchk !{fq[0]} | head -n 1 | sed -r 's/.*avg_len: ([0-9]+).*;.*/\\1/'`
+    ls !{query}/* | xargs -I {} grep -H "^>" {} | awk '{print $1}' | sed 's/:>/\\t/; s=.*/==; s/\\..*\\t/\\t/' > mapping.txt
+    cat !{query}/* > multifasta.fa
 
-    echo "# bwa Version" >> ${LOG_DIR}/!{task.process}.versions
-    bwa 2>&1 | grep "Version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# bwa Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    bwa 2>&1 | grep "Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
+    
     bwa index multifasta.fa > ${LOG_DIR}/bwa-index.out 2> ${LOG_DIR}/bwa-index.err
     if [ "${avg_len}" -gt "70" ]; then
         bwa mem -M -t !{task.cpus} !{bwa_mem_opts} multifasta.fa !{fq} > bwa.sam
@@ -68,13 +71,14 @@ process MAPPING_QUERY {
             bwa sampe -n !{params.bwa_n} !{bwa_sampe_opts} multifasta.fa  r1.sai r2.sai !{fq[0]} !{fq[1]} > bwa.sam 2> ${LOG_DIR}/bwa-sampe.err
         fi
     fi
+
     # Write per-base coverage
-    echo "# samtools Version" >> ${LOG_DIR}/!{task.process}.versions
-    samtools 2>&1 | grep "Version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# samtools Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    samtools 2>&1 | grep "Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     samtools view -bS bwa.sam | samtools sort -o cov.bam - > ${LOG_DIR}/samtools.out 2> ${LOG_DIR}/samtools.err
 
-    echo "# bedtools Version" >> ${LOG_DIR}/!{task.process}.versions
-    bedtools --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# bedtools Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    bedtools --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     genomeCoverageBed -ibam cov.bam -d > cov.txt 2> ${LOG_DIR}/genomeCoverageBed.err
     split-coverages.py mapping.txt cov.txt --outdir mapping
 
@@ -83,10 +87,11 @@ process MAPPING_QUERY {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp mapping.txt ${LOG_DIR}/
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -94,25 +99,9 @@ process MAPPING_QUERY {
 
     stub:
     """
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     mkdir mapping
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     touch mapping/${sample}
     """
-}
-
-//###############
-//Module testing
-//###############
-
-workflow test{
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.single_end,
-        path(params.fq)
-        ])
-    TEST_PARAMS_CH2 = Channel.of(
-        path(params.query)
-        )
-    mapping_query(TEST_PARAMS_CH,TEST_PARAMS_CH2.collect())
 }

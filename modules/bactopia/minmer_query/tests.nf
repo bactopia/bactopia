@@ -1,17 +1,49 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { MINMER_QUERY } from './main.nf' 
 
-workflow test_annotate_genome {
-
+workflow test_mash_query_pe {
     inputs = tuple(
-        "test_annotate_genome",
+        "test_mash_query_pe",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['illumina']['sig'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    MINMER_QUERY ( inputs, Channel.fromPath("${params.test_data['datasets']['minmer']}/*.msh") )
 }
+
+workflow test_mash_query_se {
+    inputs = tuple(
+        "test_mash_query_se",
+        true,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)],
+        file(params.test_data['illumina']['sig'], checkIfExists: true)
+    )
+
+    MINMER_QUERY ( inputs, Channel.fromPath("${params.test_data['datasets']['minmer']}/*.msh") )
+}
+
+workflow test_sourmash_query_pe {
+    inputs = tuple(
+        "test_sourmash_query_pe",
+        false,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['illumina']['sig'], checkIfExists: true)
+    )
+
+    MINMER_QUERY ( inputs, Channel.fromPath("${params.test_data['datasets']['minmer']}/*.json.gz") )
+}
+
+workflow test_sourmash_query_se {
+    inputs = tuple(
+        "test_sourmash_query_se",
+        true,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)],
+        file(params.test_data['illumina']['sig'], checkIfExists: true)
+    )
+
+    MINMER_QUERY ( inputs, Channel.fromPath("${params.test_data['datasets']['minmer']}/*.json.gz") )
+}
+
