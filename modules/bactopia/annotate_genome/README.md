@@ -1,17 +1,31 @@
-# annotate process testing:
+# `annotate_genome` module
 
 This process annotate the assembly using Prokka, use a proteins FASTA if available
 
-## About testing this process:
-
 Using DSL2 each module can be tested separately, using a test workflow inside the process.nf file, testing requires 3 itens:  
-- the local files in `test_data` 
-- params in  `test_params.yaml`
-- `test` profile in `nextflow.config`
+    - the local files in `test_data` 
+    - params in  `test_params.yaml`
+    - `test` profile in `nextflow.config`
 
-## How to test it:
+## Testing `annotate_genome`
 
-$ nextflow run annotate_genome.nf -params-file test_params.yaml -profile test,docker -entry test
+### Conda
 
+```{bash}
+BACTOPIA_ARGS="--test_data_dir /path/to/repos/bactopia-tests/data --condadir /path/to/conda/envs" \
+    pytest --tag annotate_genome --symlink --keep-workflow-wd
+```
 
-if you've used `bactopia conda activate` you can also trade `docker` by conda to test with conda. 
+### Docker
+
+```{bash}
+BACTOPIA_ARGS="-profile docker --test_data_dir /path/to/repos/bactopia-tests/data --condadir /path/to/conda/envs" \
+    pytest --tag annotate_genome --symlink --keep-workflow-wd
+```
+
+### Singularity
+
+```{bash}
+BACTOPIA_ARGS="-profile singularity --test_data_dir /path/to/repos/bactopia-tests/data --condadir /path/to/conda/envs" \
+    pytest --tag annotate_genome --symlink --keep-workflow-wd
+```
