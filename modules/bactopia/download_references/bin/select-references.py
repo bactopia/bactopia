@@ -46,7 +46,7 @@ def use_http(accession):
     """
     import re
     import requests
-    accession, version = accession.split('.')
+    accession = accession.split('.')[0]
     db, digits = accession.split("_")
     digits_split = '/'.join(re.findall('.{1,3}', digits))
     url = f'https://ftp.ncbi.nlm.nih.gov/genomes/all/{db}/{digits_split}'
@@ -141,7 +141,6 @@ if __name__ == '__main__':
 
         for reference in references:
             if reference:
-                print(use_http(reference))
                 current_accession, excluded = check_assembly_version(reference)
                 if excluded:
                     print(

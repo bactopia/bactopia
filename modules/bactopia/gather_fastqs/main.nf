@@ -1,8 +1,13 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "gather_fastqs"
+
 process GATHER_FASTQS {
     /* Gather up input FASTQs for analysis. */
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "bactopia.versions"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: '*.txt'
 
@@ -10,20 +15,19 @@ process GATHER_FASTQS {
     label "max_cpus"
     label "gather_fastqs"
 
-
     input:
-    tuple val(sample), val(sample_type), val(single_end), path(r1: '*???-r1'), path(r2: '*???-r2'), path(extra)
+    tuple val(sample), val(sample_type), val(single_end), file(r1: '*???-r1'), file(r2: '*???-r2'), path(extra)
 
     output:
     path("*-error.txt") optional true
     tuple val(sample), val(final_sample_type), val(single_end),
         path("fastqs/${sample}*.fastq.gz"), path("extra/*.gz"), emit: FASTQ_PE_STATUS, optional: true
-    path("${task.process}/*") optional true
+    path("${PROCESS_NAME}/*") optional true
     path("bactopia.versions") optional true
     path("multiple-read-sets-merged.txt") optional true
 
     shell:
-    bactopia_version = VERSION
+    bactopia_version = workflow.manifest.version
     nextflow_version = nextflow.version
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = false
@@ -42,7 +46,7 @@ process GATHER_FASTQS {
         is_compressed = extra.getName().endsWith('gz') ? true : false
     }
     section = null
-    if (sample_type == 'assembly_accession') {
+    if (sample_type == 'assembly-accession') {
         section = sample.startsWith('GCF') ? 'refseq' : 'genbank'
     }
     fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
@@ -55,7 +59,7 @@ process GATHER_FASTQS {
         final_sample_type = 'single-end'
     }
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     MERGED="multiple-read-sets-merged.txt"
     mkdir -p fastqs
     mkdir -p extra
@@ -75,8 +79,8 @@ process GATHER_FASTQS {
     echo "bactopia !{bactopia_version}" >> bactopia.versions
     echo "# Nextflow Version" >> bactopia.versions
     echo "nextflow !{nextflow_version}" >> bactopia.versions
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     if [ "!{sample_type}" == "paired-end" ]; then
         # Paired-End Reads
         ln -s `readlink !{r1[0]}` fastqs/!{sample}_R1.fastq.gz
@@ -133,7 +137,7 @@ process GATHER_FASTQS {
         ls -l fastqs/!{sample}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         touch extra/empty.fna.gz
-    elif [ "!{sample_type}" == "sra_accession" ]; then
+    elif [ "!{sample_type}" == "sra-accession" ]; then
         # Download accession from ENA/SRA
         FTP_ONLY="--ftp_only"
         ARCHIVE=""
@@ -146,8 +150,8 @@ process GATHER_FASTQS {
         fi
 
         # fastq-dl Version
-        echo "# fastq-dl Version" >> ${LOG_DIR}/!{task.process}.versions
-        fastq-dl --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# fastq-dl Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        fastq-dl --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
         if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
             echo "Unable to download !{sample} from both SRA and ENA !{params.max_retry} times. This may or may 
@@ -165,10 +169,10 @@ process GATHER_FASTQS {
             touch extra/empty.fna.gz
         fi 
     elif [ "!{is_assembly}" == "true" ]; then
-        if [ "!{sample_type}" == "assembly_accession" ]; then
+        if [ "!{sample_type}" == "assembly-accession" ]; then
             # ncbi-genome-download Version
-            echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
-            ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+            ncbi-genome-download --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
             if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
                 touch extra/empty.fna.gz
@@ -202,8 +206,8 @@ process GATHER_FASTQS {
             fi
         fi
         # ART Version
-        echo "# ART Version" >> ${LOG_DIR}/!{task.process}.versions
-        art_illumina --help | head -n 6 | tail -n 5 >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# ART Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        art_illumina --help | head -n 6 | tail -n 5 >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
         # Simulate reads from assembly, reads are 250bp without errors
         art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov !{fcov} \
@@ -219,10 +223,10 @@ process GATHER_FASTQS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -233,30 +237,12 @@ process GATHER_FASTQS {
     """
     mkdir fastqs
     mkdir extra
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${sample}-error.txt
     touch fastqs/${sample}.fastq.gz
     touch extra/${sample}.gz
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     touch bactopia.versions
     touch multiple-read-sets-merged.txt
     """
-}
-
-//###############
-//Module testing 
-//###############
-
-workflow test{
-    
-    test_params_input = Channel.of([
-        params.sample, 
-        params.sample_type, 
-        params.single_end,
-        params.r1,
-        params.r2,
-        params.extra           
-        ])
-
-    gather_fastqs(test_params_input)
 }

@@ -12,7 +12,7 @@ process BLAST {
     label "max_cpus"
     label "blast"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "blast/${query}/*.{json,json.gz}"
 
     input:
@@ -21,25 +21,25 @@ process BLAST {
 
     output:
     path("blast/${query}/*.{json,json.gz}")
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
-
+    PROCESS_NAME = "blast_${query}"
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     OUTDIR=blast/!{query}
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     if [ "!{query}" == "proteins" ]; then
-        echo "# tblastn Version" >> ${LOG_DIR}/!{task.process}.versions
-        tblastn -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# tblastn Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        tblastn -version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     else
-        echo "# blastn Version" >> ${LOG_DIR}/!{task.process}.versions
-        blastn -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# blastn Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        blastn -version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     fi
-    echo "# Parallel Version" >> ${LOG_DIR}/!{task.process}.versions
-    parallel --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Parallel Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    parallel --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     mkdir -p ${OUTDIR}
 
     for fasta in !{query}/*; do
@@ -88,10 +88,10 @@ process BLAST {
     done
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -99,9 +99,9 @@ process BLAST {
 
     stub:
     """
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     mkdir blast/${query}
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     touch blast/${query}/${sample}.json
     touch blast/${query}/${sample}.json.gz
     """
@@ -112,7 +112,7 @@ process MAKE_BLASTDB {
     tag "${sample}"
     label "blast"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "blastdb/*"
 
     input:
@@ -121,17 +121,18 @@ process MAKE_BLASTDB {
     output:
     path("blastdb/*")
     tuple val(sample), path("blastdb/*"), emit: BLAST_DB, optional:true
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
+    PROCESS_NAME = "blast_makeblastdb"
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir blastdb
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# makeblastdb Version" >> ${LOG_DIR}/!{task.process}.versions
-    makeblastdb -version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# makeblastdb Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    makeblastdb -version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Verify AWS files were staged
     if [[ ! -L "!{fasta}" ]]; then
@@ -147,10 +148,10 @@ process MAKE_BLASTDB {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -159,8 +160,8 @@ process MAKE_BLASTDB {
     stub:
     """
     mkdir blastdb
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch blastdb/${sample}
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
 }

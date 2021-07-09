@@ -1,15 +1,20 @@
 
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "qc_reads"
+
 process QC_READS {
     /* Cleanup the reads using Illumina-Cleanup */
     tag "${sample}"
     label "max_cpus"
     label "qc_reads"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
-    publishDir "${outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*error.txt"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "quality-control/*"
+    publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*error.txt"
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra), path(genome_size)
@@ -26,7 +31,7 @@ process QC_READS {
     tuple val(sample), val(single_end),
         path("quality-control/${sample}*.{fastq,error-fq}.gz"),
         path(genome_size),emit: QC_FINAL_SUMMARY, optional: true
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
     qc_ram = task.memory.toString().split(' ')[0]
@@ -35,9 +40,8 @@ process QC_READS {
     adapters = params.adapters ? path(params.adapters) : 'adapters'
     phix = params.phix ? path(params.phix) : 'phix'
     '''
-    LOG_DIR="!{task.process}"
-    mkdir -p quality-control
-    mkdir -p ${LOG_DIR}
+    LOG_DIR="!{PROCESS_NAME}"
+    mkdir -p quality-control ${LOG_DIR}
     ERROR=0
     GENOME_SIZE=`head -n 1 !{genome_size}`
     MIN_BASEPAIRS=$(( !{params.min_coverage}*${GENOME_SIZE} ))
@@ -50,10 +54,10 @@ process QC_READS {
     }
     trap print_stderr EXIT
 
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# BBMap (bbduk.sh, reformat.sh) Version" >> ${LOG_DIR}/!{task.process}.versions
-    bbduk.sh --version 2>&1 | grep " version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# BBMap (bbduk.sh, reformat.sh) Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    bbduk.sh --version 2>&1 | grep " version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -125,8 +129,8 @@ process QC_READS {
 
             # Error Correction
             if [ "!{params.skip_error_correction}" == "false" ]; then
-                echo "# Lighter Version" >> ${LOG_DIR}/!{task.process}.versions
-                lighter -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+                echo "# Lighter Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+                lighter -v >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
                 lighter -od . -r phix-r1.fq -r phix-r2.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> ${LOG_DIR}/lighter.out 2> ${LOG_DIR}/lighter.err
             else
                 echo "Skipping error correction"
@@ -190,8 +194,8 @@ process QC_READS {
 
             # Error Correction
             if [ "!{params.skip_error_correction}" == "false" ]; then
-                echo "# Lighter Version" >> ${LOG_DIR}/!{task.process}.versions
-                lighter -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
+                echo "# Lighter Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+                lighter -v >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
                 lighter -od . -r phix-r1.fq -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> ${LOG_DIR}/lighter.out 2> ${LOG_DIR}/lighter.err
             else
                 echo "Skipping error correction"
@@ -221,10 +225,42 @@ process QC_READS {
         fi
     fi
 
-    echo "# fastq-scan Version" >> ${LOG_DIR}/!{task.process}.versions
-    fastq-scan -v >> ${LOG_DIR}/!{task.process}.versions 2>&1
-    FINAL_BP=`gzip -cd quality-control/*.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:[ ]*([0-9]+),/\1/'`
+    echo "# FastQC Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    fastqc -version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
+    echo "# fastq-scan Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    fastq-scan -v >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
+
+    # Quality stats before and after QC
+    mkdir quality-control/summary/
+    if [ "!{single_end}" == "false" ]; then
+        # Paired-End Reads
+        # fastq-scan
+        gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}_R1-original.json
+        gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}_R2-original.json
+        gzip -cd quality-control/!{sample}_R1.fastq.gz | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}_R1-final.json
+        gzip -cd quality-control/!{sample}_R2.fastq.gz | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}_R2-final.json
+
+        # FastQC
+        ln -s !{fq[0]} !{sample}_R1-original.fastq.gz
+        ln -s !{fq[1]} !{sample}_R2-original.fastq.gz
+        ln -s quality-control/!{sample}_R1.fastq.gz !{sample}_R1-final.fastq.gz
+        ln -s quality-control/!{sample}_R2.fastq.gz !{sample}_R2-final.fastq.gz
+        fastqc --noextract -f fastq -t !{task.cpus} !{sample}_R1-original.fastq.gz !{sample}_R2-original.fastq.gz !{sample}_R1-final.fastq.gz !{sample}_R2-final.fastq.gz
+    else
+        # Single-End Reads
+        # fastq-scan
+        gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}-original.json
+        gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > quality-control/summary/!{sample}-final.json
+
+        # FastQC 
+        ln -s !{fq[0]} !{sample}-original.fastq.gz
+        ln -s quality-control/!{sample}.fastq.gz !{sample}-final.fastq.gz
+        fastqc --noextract -f fastq -t !{task.cpus} !{sample}-original.fastq.gz !{sample}-final.fastq.gz
+    fi
+    mv *_fastqc.html *_fastqc.zip quality-control/summary/
+
+    FINAL_BP=`gzip -cd quality-control/*.fastq.gz | fastq-scan | grep "total_bp" | sed -r 's/.*:[ ]*([0-9]+),/\1/'`
     if [ ${FINAL_BP} -lt ${MIN_BASEPAIRS} ]; then
         ERROR=1
         echo "After QC, !{sample} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
@@ -264,10 +300,10 @@ process QC_READS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -276,11 +312,11 @@ process QC_READS {
     stub:
     """
     mkdir quality-control
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${sample}-error.txt
     touch quality-control/${sample}.fastq.gz
     touch quality-control/${sample}.error-fq.gz
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
 }
 

@@ -1,11 +1,16 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "ariba_analysis"
+
 process ARIBA_ANALYSIS {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${sample} - ${dataset_name}"
     label "ariba_analysis"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/ariba", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${dataset_name}/*"
 
     input:
@@ -14,7 +19,7 @@ process ARIBA_ANALYSIS {
 
     output:
     file "${dataset_name}/*"
-    file "${task.process}/*" optional true
+    file "${PROCESS_NAME}/*" optional true
 
     when:
     single_end == false
@@ -25,10 +30,10 @@ process ARIBA_ANALYSIS {
     spades_options = params.spades_options ? "--spades_options '${params.spades_options}'" : ""
     noclean = params.ariba_no_clean ? "--noclean" : ""
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -45,8 +50,8 @@ process ARIBA_ANALYSIS {
     tar -xzvf !{dataset_tarball}
     mv !{dataset_name} !{dataset_name}db
     # ariba Version
-    echo "# Ariba Version" >> ${LOG_DIR}/!{task.process}.versions
-    ariba version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Ariba Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    ariba version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     ariba run !{dataset_name}db !{fq} !{dataset_name} \
             --nucmer_min_id !{params.nucmer_min_id} \
             --nucmer_min_len !{params.nucmer_min_len} \
@@ -72,10 +77,10 @@ process ARIBA_ANALYSIS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -86,8 +91,8 @@ process ARIBA_ANALYSIS {
     dataset_name = dataset_tarball.replace('.tar.gz', '')
     """
     mkdir ${dataset_name}
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${dataset_name}/${sample}
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
 }

@@ -1,17 +1,102 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { GATHER_FASTQS } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_gather_fastqs_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        'test_gather_fastqs_pe',
+        'paired-end',
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        [file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_merge_pe {
+
+    inputs = tuple(
+        'test_gather_fastqs_merge_pe',
+        'merge-pe',
+        false,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        [file(params.test_data['illumina']['r2'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_se {
+
+    inputs = tuple(
+        'test_gather_fastqs_se',
+        'single-end',
+        false,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_merge_se {
+
+    inputs = tuple(
+        'test_gather_fastqs_merge_se',
+        'merge-se',
+        false,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_sra_accession {
+
+    inputs = tuple(
+        params.test_data['accessions']['srx'],
+        'sra-accession',
+        false,
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_assembly_accession {
+
+    inputs = tuple(
+        params.test_data['accessions']['gcf'],
+        'assembly-accession',
+        false,
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
+}
+
+workflow test_gather_fastqs_assembly {
+
+    inputs = tuple(
+        params.test_data['reference']['name'],
+        'assembly',
+        false,
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['reference']['fna'], checkIfExists: true)
+    )
+
+    GATHER_FASTQS ( inputs )
 }

@@ -1,5 +1,10 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "download_references"
+
 process DOWNLOAD_REFERENCES {
     /*
     Download the nearest RefSeq genomes (based on Mash) to have variants called against.
@@ -9,9 +14,10 @@ process DOWNLOAD_REFERENCES {
     variants will not be called against the nearest completed genome.
     */
     tag "${sample} - ${params.max_references} reference(s)"
+    label "download_references"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: 'mash-dist.txt'
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
+    publishDir "${params.outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: 'mash-dist.txt'
 
     input:
     tuple val(sample), val(single_end), path(fq), path(sample_sketch)
@@ -20,20 +26,17 @@ process DOWNLOAD_REFERENCES {
     output:
     tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("genbank/*.gbk"), emit:CALL_VARIANTS_AUTO, optional: true
     path("mash-dist.txt")
-    file "${task.process}/*" optional true
-
-    when:
-    REFSEQ_SKETCH_FOUND == true
+    file "${PROCESS_NAME}/*" optional true
 
     shell:
     no_cache = params.no_cache ? '-N' : ''
     tie_break = params.random_tie_break ? "--random_tie_break" : ""
     total = params.max_references
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Print captured STDERR incase of exit
     function print_stderr {
@@ -52,20 +55,20 @@ process DOWNLOAD_REFERENCES {
     fi
 
     # Get Mash distance
-    echo "# Mash Version" >> ${LOG_DIR}/!{task.process}.versions
-    mash --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     mash dist -t !{sample_sketch} !{refseq_sketch} | grep -v "query" | sort -k 2,2 > distances.txt
 
     # Pick genomes to download
-    printf "accession\tdistance\tlatest_accession\tupdated\n" > mash-dist.txt
+    printf "accession\\tdistance\\tlatest_accession\\tupdated\\n" > mash-dist.txt
     select-references.py distances.txt !{total} !{tie_break} >> mash-dist.txt
 
     # Pick only latest accessions
     grep -v distance mash-dist.txt | cut -f3 > download-list.txt
 
     # Download genomes
-    echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{task.process}.versions
-    ncbi-genome-download --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# ncbi-genome-download Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    ncbi-genome-download --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
     ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt -r !{params.max_retry} !{no_cache} > ${LOG_DIR}/ncbi-genome-download.out 2> ${LOG_DIR}/ncbi-genome-download.err
 
     # Move and uncompress genomes
@@ -104,10 +107,10 @@ process DOWNLOAD_REFERENCES {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -117,28 +120,10 @@ process DOWNLOAD_REFERENCES {
     """
     mkdir fastqs
     mkdir genbank
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch fastqs/${sample}.fastq.gz
     touch genbank/*.gbk
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     touch mash-dist.txt
     """
 }
-
-//###############
-//Module testing
-//###############
-
-workflow test {
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.single_end,
-        path(params.fq),
-        path(params.sample_sketch)
-        ])
-    TEST_PARAMS_CH2 = Channel.of(
-        path(params.refseq_sketch)
-        )
-    download_references(TEST_PARAMS_CH,TEST_PARAMS_CH2)
-}
-

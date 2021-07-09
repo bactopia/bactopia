@@ -1,30 +1,66 @@
-- name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: sequence_type_pe
+  command: bash -c 'nextflow run ./modules/bactopia/sequence_type/tests.nf -entry test_sequence_type_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - annotate_genome
+    - sequence_type_pe
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: d7780bb876ab53494c590baaf1508e8c
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
-      md5sum: 2b0f22edf244aacae511f2465ea63b17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
-      md5sum: 1e5c13e410dcd67ad69846e67f9434c8
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna'
-      md5sum: 1910194c2a8969c20f14d1c1916207fa
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa'
-      md5sum: 18d119d2f3d4b23fdcdf5a68bf884534
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff'
-      md5sum: 3d835e114fc7fe065ed049ebf31eab17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl'
-      md5sum: 004967040a6f6d1545159fab8bf64d21
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
-      md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.sh'
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.versions'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.err'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.out'
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-ariba.err
+      md5sum: d39f0dbf8375f8e96240746d60a0ef82
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-ariba.out
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-ariba.sh
+      md5sum: 0254bd579976817659c70481a5d7d373
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-ariba.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-ariba.versions
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-blast.out
+      md5sum: 0a9a50c0297ad8e223cf97508bf1d329
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-blast.sh
+      md5sum: 76476205d2583a9e1196a08223e94c99
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-blast.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_pe/logs/seqeunce_type/seqeunce_type-blast.versions
+    - path: test_sequence_type_pe/mlst/default/ariba/assembled_genes.fa.gz
+    - path: test_sequence_type_pe/mlst/default/ariba/assembled_seqs.fa.gz
+    - path: test_sequence_type_pe/mlst/default/ariba/assemblies.fa.gz
+    - path: test_sequence_type_pe/mlst/default/ariba/debug.report.tsv
+      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+    - path: test_sequence_type_pe/mlst/default/ariba/mlst_report.details.tsv
+      md5sum: 4f4e0af08c19dad027d0f34bd07030ad
+    - path: test_sequence_type_pe/mlst/default/ariba/mlst_report.tsv
+      md5sum: be6d401d28aa3d0ffac09cc07147f221
+    - path: test_sequence_type_pe/mlst/default/ariba/report.tsv
+      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+    - path: test_sequence_type_pe/mlst/default/ariba/version_info.txt
+    - path: test_sequence_type_pe/mlst/default/blast/test_sequence_type_pe-blast.json
+      md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
+
+- name: sequence_type_se
+  command: bash -c 'nextflow run ./modules/bactopia/sequence_type/tests.nf -entry test_sequence_type_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - sequence_type_se
+  files:
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-ariba.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-ariba.out
+      md5sum: 481263a0a5589e140e483e0da9b929c7
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-ariba.sh
+      md5sum: 36f46ad9e5279a581778416923cfaa2f
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-ariba.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-ariba.versions
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-blast.out
+      md5sum: 0a9a50c0297ad8e223cf97508bf1d329
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-blast.sh
+      md5sum: 38d1d43014677c5762f240bdaf96b337
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-blast.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_sequence_type_se/logs/seqeunce_type/seqeunce_type-blast.versions
+    - path: test_sequence_type_se/mlst/default/ariba/ariba-not-run.txt
+      md5sum: 333cbba3485fd644bffb152989ddd5a1
+    - path: test_sequence_type_se/mlst/default/ariba/clusters.tsv
+      md5sum: cc1eb25ae381e426f64dd61485bdd227
+    - path: test_sequence_type_se/mlst/default/blast/test_sequence_type_se-blast.json
+      md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72

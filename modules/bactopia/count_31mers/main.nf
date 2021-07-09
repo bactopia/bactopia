@@ -1,29 +1,35 @@
 nextflow.enable.dsl = 2
 
+// Assess cpu and memory of current system
+include { get_resources } from '../../utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "count_31mers"
+
 process COUNT_31MERS {
     /* Count 31mers in the reads using McCortex */
     tag "${sample}"
     label "max_cpus"
     label "count_31mers"
 
-    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
-    publishDir "${outdir}/${sample}/kmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.ctx"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
+    publishDir "${params.outdir}/${sample}/kmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.ctx"
 
     input:
     tuple val(sample), val(single_end), path(fq)
+
     output:
     path "${sample}.ctx"
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
     m = task.memory.toString().split(' ')[0].toInteger() * 1000 - 500
     '''
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
-    echo "# mccortex31 Version" >> ${LOG_DIR}/!{task.process}.versions
-    mccortex31 2>&1 | grep "version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    echo "# mccortex31 Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+    mccortex31 2>&1 | grep "version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -51,10 +57,10 @@ process COUNT_31MERS {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -62,23 +68,8 @@ process COUNT_31MERS {
 
     stub:
     """
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch ${sample}.ctx
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
-}
-
-//###############
-//Module testing
-//###############
-
-workflow test{
-
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.single_end,
-        path(params.fq)
-        ])
-
-    count_31mers(TEST_PARAMS_CH)
 }

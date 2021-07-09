@@ -1,17 +1,30 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { FASTQ_STATUS } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_fastq_status_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        "test_fastq_status_pe",
+        "paired-end",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'])
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    FASTQ_STATUS ( inputs )
+}
+
+workflow test_fastq_status_se {
+
+    inputs = tuple(
+        "test_fastq_status_se",
+        "single-end",
+        true,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'])
+    )
+
+    FASTQ_STATUS ( inputs )
 }

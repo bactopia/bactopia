@@ -1,17 +1,28 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ANNOTATE_GENOME } from './main.nf' 
+include { SEQUENCE_TYPE } from './main.nf' 
 
-workflow test_annotate_genome {
+workflow test_sequence_type_pe {
 
     inputs = tuple(
-        "test_annotate_genome",
+        "test_sequence_type_pe",
         false,
-        [file(params.test_data['illumina_r1'], checkIfExists: true), file(params.test_data['illumina_r2'], checkIfExists: true)],
-        file(params.test_data['reference_fna']),
-        file(params.test_data['total_contigs'])
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['reference']['fna'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['prokka_proteins']), file(params.test_data['prodigal_tf']) )
+    SEQUENCE_TYPE ( inputs, Channel.fromPath("${params.test_data['datasets']['mlst']}/*.tar.gz") )
+}
+
+workflow test_sequence_type_se {
+
+    inputs = tuple(
+        "test_sequence_type_se",
+        true,
+        [file(params.test_data['illumina']['se'], checkIfExists: true)],
+        file(params.test_data['reference']['fna'], checkIfExists: true)
+    )
+
+    SEQUENCE_TYPE ( inputs, Channel.fromPath("${params.test_data['datasets']['mlst']}/*.tar.gz") )
 }

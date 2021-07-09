@@ -3,6 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+PROCESS_NAME = "assemble_genome"
 
 process ASSEMBLE_GENOME {
     /* Assemble the genome using Shovill, SKESA is used by default */
@@ -10,7 +11,7 @@ process ASSEMBLE_GENOME {
     label "max_cpu_75"
     label "assemble_genome"
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "assembly/*"
     publishDir "${params.outdir}/${sample}", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${sample}-assembly-error.txt"
 
@@ -24,7 +25,7 @@ process ASSEMBLE_GENOME {
     tuple val(sample), val(single_end), path("assembly/${sample}.{fna,fna.gz}"), emit: MAKE_BLASTDB, optional: true
     tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("assembly/${sample}.{fna,fna.gz}"), path("total_contigs_*"),emit: ANNOTATION, optional:true
     tuple val(sample), path("assembly/${sample}.{fna,fna.gz}"), path(genome_size),emit: ASSEMBLY_QC, optional: true
-    path "${task.process}/*" optional true
+    path "${PROCESS_NAME}/*" optional true
 
     shell:
     contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${sample}_%05d"
@@ -43,7 +44,7 @@ process ASSEMBLE_GENOME {
     }
     '''
     OUTDIR=assembly
-    LOG_DIR="!{task.process}"
+    LOG_DIR="!{PROCESS_NAME}"
     mkdir -p ${LOG_DIR}
 
     # Print captured STDERR incase of exit
@@ -53,8 +54,8 @@ process ASSEMBLE_GENOME {
     }
     trap print_stderr EXIT
 
-    echo "# Timestamp" > ${LOG_DIR}/!{task.process}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{task.process}.versions
+    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
+    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
     # Verify AWS files were staged
     if [[ ! -L "!{fq[0]}" ]]; then
@@ -71,8 +72,8 @@ process ASSEMBLE_GENOME {
         if [ "!{sample_type}" == "hybrid" ]; then
             EXTRA="-l !{extra}"
         fi
-        echo "# unicycler Version" >> ${LOG_DIR}/!{task.process}.versions
-        unicycler --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# unicycler Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        unicycler --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         unicycler -1 !{fq[0]} -2 !{fq[1]} \
             ${EXTRA} -o ${OUTDIR} \
             --no_correct \
@@ -91,22 +92,22 @@ process ASSEMBLE_GENOME {
         mkdir ${OUTDIR}
         gzip -cd !{extra} > ${OUTDIR}/!{sample}.fna
     else
-        echo "# shovill Version" >> ${LOG_DIR}/!{task.process}.versions
-        shovill --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
-        shovill --check >> ${LOG_DIR}/!{task.process}.versions 2>&1
+        echo "# shovill Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+        shovill --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
+        shovill --check >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
         if [ "!{params.assembler}" == "spades" ]; then
-            echo "# SPAdes Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
-            spades.py --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            echo "# SPAdes Version (this assembler was used)" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+            spades.py --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         elif [ "!{params.assembler}" == "skesa" ]; then
-            echo "# SKESA Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
-            skesa --version 2>&1 | tail -n 1 >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            echo "# SKESA Version (this assembler was used)" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+            skesa --version 2>&1 | tail -n 1 >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         elif [ "!{params.assembler}" == "velvet" ]; then
-            echo "# Velvet Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
-            velvetg | grep "^Version" >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            echo "# Velvet Version (this assembler was used)" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+            velvetg | grep "^Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         else
-            echo "# MEGAHIT Version (this assembler was used)" >> ${LOG_DIR}/!{task.process}.versions
-            megahit --version >> ${LOG_DIR}/!{task.process}.versions 2>&1
+            echo "# MEGAHIT Version (this assembler was used)" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
+            megahit --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
         fi
 
         if [ "!{single_end}" == "false" ]; then
@@ -192,10 +193,10 @@ process ASSEMBLE_GENOME {
     fi
 
     if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{task.process}.err
-        cp .command.out ${LOG_DIR}/!{task.process}.out
-        cp .command.sh ${LOG_DIR}/!{task.process}.sh || :
-        cp .command.trace ${LOG_DIR}/!{task.process}.trace || :
+        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
+        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
+        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
+        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
     else
         rm -rf ${LOG_DIR}/
     fi
@@ -205,14 +206,14 @@ process ASSEMBLE_GENOME {
     """
     mkdir assembly
     mkdir fastqs
-    mkdir ${task.process}
+    mkdir ${PROCESS_NAME}
     touch total_contigs_${sample}
     touch ${sample}-assembly-error.txt
     touch fastqs/${sample}.fastq.gz
     touch assembly/${sample}
     touch assembly/${sample}.fna
     touch assembly/${sample}.fna.gz
-    touch ${task.process}/${sample}
+    touch ${PROCESS_NAME}/${sample}
     """
 }
 

@@ -1,30 +1,41 @@
-- name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: minmer_sketch_pe
+  command: bash -c 'nextflow run ./modules/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - annotate_genome
+    - minmer_sketch_pe
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: d7780bb876ab53494c590baaf1508e8c
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
-      md5sum: 2b0f22edf244aacae511f2465ea63b17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
-      md5sum: 1e5c13e410dcd67ad69846e67f9434c8
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna'
-      md5sum: 1910194c2a8969c20f14d1c1916207fa
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa'
-      md5sum: 18d119d2f3d4b23fdcdf5a68bf884534
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff'
-      md5sum: 3d835e114fc7fe065ed049ebf31eab17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl'
-      md5sum: 004967040a6f6d1545159fab8bf64d21
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
-      md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.sh'
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.versions'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.err'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.out'
+    - path: test_minmer_sketch_pe/logs/minmer_sketch/minmer_sketch.err
+      md5sum: b09af7ccf1a4f6766cd1b217c01a9fa7
+    - path: test_minmer_sketch_pe/logs/minmer_sketch/minmer_sketch.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_minmer_sketch_pe/logs/minmer_sketch/minmer_sketch.sh
+      md5sum: fda1ca7d2ee3a47ecbb9980eeae1b6c6
+    - path: test_minmer_sketch_pe/logs/minmer_sketch/minmer_sketch.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_minmer_sketch_pe/logs/minmer_sketch/minmer_sketch.versions
+    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k21.msh
+      md5sum: c8bcc71befab49c30c5fcdaa432a2b79
+    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k31.msh
+      md5sum: 233521f8fe7eb56a40beba081f0c0842
+    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe.sig
+      md5sum: d433f60ebbc0c332e085261398c6d37d
+
+- name: minmer_sketch_se
+  command: bash -c 'nextflow run ./modules/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - minmer_sketch_se
+  files:
+    - path: test_minmer_sketch_se/logs/minmer_sketch/minmer_sketch.err
+      md5sum: 63a12f74cdd2a65c4cd186576edaceb0
+    - path: test_minmer_sketch_se/logs/minmer_sketch/minmer_sketch.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_minmer_sketch_se/logs/minmer_sketch/minmer_sketch.sh
+      md5sum: 475d824115605d13f01d68711dad4c5e
+    - path: test_minmer_sketch_se/logs/minmer_sketch/minmer_sketch.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_minmer_sketch_se/logs/minmer_sketch/minmer_sketch.versions
+    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k21.msh
+      md5sum: af17317885feeaeb47d183a465211451
+    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k31.msh
+      md5sum: 6d46feb639587bc57dd28cd4fb855eb0
+    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se.sig
+      md5sum: dd9e4ae787e4eb5f6fccad820fbf853b
