@@ -327,7 +327,6 @@ process annotate_genome {
 
     output:
     file "annotation/${sample}*"
-    set val(sample), file("annotation/${sample}.{ffn,ffn.gz}") optional true into PLASMID_BLAST
     set val(sample),
         file("annotation/${sample}.{ffn,ffn.gz}"),
         file("annotation/${sample}.{faa,faa.gz}") optional true into ANTIMICROBIAL_RESISTANCE
@@ -628,6 +627,30 @@ process antimicrobial_resistance {
     template(task.ext.template)
 }
 
+process blast_genes {
+    /*
+    Query gene FASTA files against annotated assembly using BLAST
+    */
+    tag "${sample}"
+
+    publishDir "${outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${task.process}/*"
+    publishDir "${outdir}/${sample}/blast", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "genes/*.{json,json.gz}"
+
+    input:
+    set val(sample), file(blastdb) from BLAST_GENES
+    file(query) from Channel.from(BLAST_GENE_FASTAS).collect()
+
+    output:
+    file("genes/*.{json,json.gz}")
+    file "${task.process}/*" optional true
+
+    when:
+    BLAST_GENE_FASTAS.isEmpty() == false
+
+    shell:
+    template(task.ext.template)
+}
+
 process blast_primers {
     /*
     Query primer FASTA files against annotated assembly using BLAST
@@ -726,7 +749,6 @@ workflow.onComplete {
     Launch Dir      : ${workflow.launchDir}
     Working Dir     : ${workflow.workDir} (Total Size: ${workDirSize})
     Working Dir Size: ${workDirSize}
-
     """
 }
 
@@ -794,7 +816,7 @@ def print_available_datasets(dataset) {
             log.info ''
             if (available_datasets.size() > 0) {
                 IGNORE = ['species-specific']
-                GENERAL = ['ariba', 'minmer', 'plasmid']
+                GENERAL = ['ariba', 'minmer']
                 available_datasets.each { key, value ->
                     if (GENERAL.contains(key) == 'ariba') {
                         log.info "${key.capitalize()}"
@@ -908,7 +930,6 @@ def setup_datasets() {
             }
         }
 
-
         // Ariba Datasets
         if (available_datasets.containsKey('ariba')) {
             available_datasets['ariba'].each {
@@ -926,15 +947,6 @@ def setup_datasets() {
                     if (dataset_exists("${dataset_path}/minmer/${it}")) {
                         MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
                     }
-                }
-            }
-        }
-
-        // PLSDB Check
-        if (available_datasets.containsKey('plasmid')) {
-            if (available_datasets['plasmid'].containsKey('sketches')) {
-                if (dataset_exists("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")) {
-                    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
                 }
             }
         }

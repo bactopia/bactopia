@@ -25,6 +25,7 @@ VERSION = "1.7.1"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
+    'ectyper': {'info': 'In silico prediction of Escherichia coli serotype', 'mac': False},
     'eggnog': {'info': 'Functional annotation using orthologous groups', 'mac': True},
     'fastani': {'info': 'Pairwise average nucleotide identity', 'mac': True},
     'gtdb': {'info': 'Identify marker genes and assign taxonomic classifications', 'mac': False},
