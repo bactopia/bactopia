@@ -31,6 +31,7 @@ AVAILABLE_TOOLS = {
     'gtdb': {'info': 'Identify marker genes and assign taxonomic classifications', 'mac': False},
     'hicap': {'info': 'in silico typing of the H. influenzae cap locus', 'mac': True},
     'ismapper': {'info': 'Identify positions of insertion sites', 'mac': True},
+    'kleborate': {'info': 'Characterize virulence and resistance in Klebsiella', 'mac': False},
     'mashtree': {'info': 'Trees based on Mash distances', 'mac': True},
     'pirate': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
     'phyloflash': {'info': '16s assembly, alignment and tree', 'mac': True},
