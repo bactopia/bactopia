@@ -8,7 +8,7 @@ authors:
   given-names: "Timothy D."
   orcid: "https://orcid.org/0000-0001-8966-9680"
 title: "Bactopia: a Flexible Pipeline for Complete Analysis of Bacterial Genomes"
-version: 1.4.1
+version: mSystems. 5 (2020)
 doi: 10.1128/mSystems.00190-20
 date-released: 2020-08-04
 url: "https://github.com/bactopia/bactopia"
