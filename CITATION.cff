@@ -10,3 +10,4 @@ authors:
 title: "Bactopia: a Flexible Pipeline for Complete Analysis of Bacterial Genomes. mSystems. 5 (2020)"
 doi: 10.1128/mSystems.00190-20
 url: "https://github.com/bactopia/bactopia"
+version: 1.4.1
