@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use Bactopia, please cite it as below."
+authors:
+- family-names: "Petit III"
+  given-names: "Robert A. "
+  orcid: "https://orcid.org/0000-0002-1350-9426"
+- family-names: "Read"
+  given-names: "Timothy D."
+  orcid: "https://orcid.org/0000-0001-8966-9680"
+title: "Bactopia: a Flexible Pipeline for Complete Analysis of Bacterial Genomes. mSystems. 5 (2020)"
+doi: 10.1128/mSystems.00190-20
+url: "https://github.com/bactopia/bactopia"
+version: 1.4.1

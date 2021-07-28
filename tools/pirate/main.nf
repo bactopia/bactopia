@@ -155,7 +155,7 @@ process build_pangenome {
     nucl = params.nucl ? "--nucl" : ""
     para_off = params.para_off ? "--para-off" : ""
     keep_all_files = params.z ? "-z 2" : ""
-    pan_options = params.pan_opt ? "--pan-opt '${params.pan_opt}'"
+    pan_options = params.pan_opt ? "--pan-opt '${params.pan_opt}'" : ""
     use_diamond = params.use_diamond ? "--diamond" : ""
     split_diamond = params.split_diamond ? "--diamond-split" : ""
     """

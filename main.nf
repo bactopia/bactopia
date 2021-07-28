@@ -102,7 +102,6 @@ workflow {
     PLASMID_BLAST(ANNOTATE_GENOME.out.PLASMID_BLAST,Channel.from(PLASMID_BLASTDB))
     BLAST(MAKE_BLASTDB.out.BLAST_DB,Channel.from(BLAST_GENE_FASTAS).collect())
     MAPPING_QUERY(QC_READS.out.READS,Channel.from(MAPPING_FASTAS).collect())
-
 }
 
 workflow.onComplete {
@@ -125,7 +124,6 @@ workflow.onComplete {
     Launch Dir      : ${workflow.launchDir}
     Working Dir     : ${workflow.workDir} (Total Size: ${workDirSize})
     Working Dir Size: ${workDirSize}
-
     """
 }
 
@@ -193,7 +191,7 @@ def print_available_datasets(dataset) {
             log.info ''
             if (available_datasets.size() > 0) {
                 IGNORE = ['species-specific']
-                GENERAL = ['ariba', 'minmer', 'plasmid']
+                GENERAL = ['ariba', 'minmer']
                 available_datasets.each { key, value ->
                     if (GENERAL.contains(key) == 'ariba') {
                         log.info "${key.capitalize()}"
@@ -307,7 +305,6 @@ def setup_datasets() {
             }
         }
 
-
         // Ariba Datasets
         if (available_datasets.containsKey('ariba')) {
             available_datasets['ariba'].each {
@@ -325,15 +322,6 @@ def setup_datasets() {
                     if (dataset_exists("${dataset_path}/minmer/${it}")) {
                         MINMER_DATABASES << file("${dataset_path}/minmer/${it}")
                     }
-                }
-            }
-        }
-
-        // PLSDB Check
-        if (available_datasets.containsKey('plasmid')) {
-            if (available_datasets['plasmid'].containsKey('sketches')) {
-                if (dataset_exists("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")) {
-                    MINMER_DATABASES << file("${dataset_path}/plasmid/${available_datasets['plasmid']['sketches']}")
                 }
             }
         }

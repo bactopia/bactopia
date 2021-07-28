@@ -41,11 +41,13 @@ function update_environment {
 }
 
 # Bactopia environments
+update_environment "ectyper" "ectyper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "eggnog" "eggnog-mapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "fastani" "fastani ncbi-genome-download rename sed" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "gtdb" "gtdbtk" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "hicap" "hicap" ${CONDA_DIR} ${VERSION} ${IS_MAC}
-update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}
+update_environment "ismapper" "ismapper" ${CONDA_DIR} ${VERSION} ${IS_MAC}.
+update_environment "kleborate" "kleborate" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "mashtree" "mashtree ncbi-genome-download rename" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "phyloflash" "phyloflash mafft iqtree pigz" ${CONDA_DIR} ${VERSION} ${IS_MAC}
 update_environment "pirate" "bioconductor-ggtree clonalframeml iqtree maskrc-svg ncbi-genome-download pigz pirate prokka r-dplyr r-ggplot2 r-gridextra r-phangorn rename snp-dists tbl2asn-forever" ${CONDA_DIR} ${VERSION} ${IS_MAC}

@@ -25,11 +25,13 @@ VERSION = "1.7.1"
 PROGRAM = "bactopia tools"
 DESCRIPTION = 'A suite of comparative analyses for Bactopia outputs'
 AVAILABLE_TOOLS = {
+    'ectyper': {'info': 'In silico prediction of Escherichia coli serotype', 'mac': False},
     'eggnog': {'info': 'Functional annotation using orthologous groups', 'mac': True},
     'fastani': {'info': 'Pairwise average nucleotide identity', 'mac': True},
     'gtdb': {'info': 'Identify marker genes and assign taxonomic classifications', 'mac': False},
     'hicap': {'info': 'in silico typing of the H. influenzae cap locus', 'mac': True},
     'ismapper': {'info': 'Identify positions of insertion sites', 'mac': True},
+    'kleborate': {'info': 'Characterize virulence and resistance in Klebsiella', 'mac': False},
     'mashtree': {'info': 'Trees based on Mash distances', 'mac': True},
     'pirate': {'info': 'Pan-genome with optional core-genome tree', 'mac': True},
     'phyloflash': {'info': '16s assembly, alignment and tree', 'mac': True},
