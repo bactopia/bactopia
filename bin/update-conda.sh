@@ -50,7 +50,6 @@ function update_environment {
 
 update_environment "annotate_genome" "prokka=1.14.6 tbl2asn-forever=25.7.2f" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "antimicrobial_resistance" "ncbi-amrfinderplus=3.10.1 blast=2.11.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "ariba_analysis" "ariba=2.14.6 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "assemble_genome" "shovill-se=1.1.0se assembly-scan=0.3.0 unicycler=0.4.8 bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
     update_environment "assembly_qc" "quast=5.0.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
@@ -59,10 +58,8 @@ else
     update_environment "assembly_qc" "checkm-genome=1.1.3 quast=5.0.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6 vt=2015.11.10=he941832_3" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 fi
-update_environment "count_31mers" "mccortex=1.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "download_references" "ncbi-genome-download=0.3.0 mash=2.3 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "gather_fastqs" "art=2016.06.05 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "minmers" "mash=2.3 sourmash=4.0.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "gather_samples" "art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "minmers" "mccortex=1.0 mash=2.3 sourmash=4.0.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "qc_reads" "bbmap=38.90 fastqc=0.11.9 fastq-scan=0.4.3 lighter=1.1.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "sequence_type" "ariba=2.14.6 blast=2.11.0 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 

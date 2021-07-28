@@ -3,9 +3,9 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
-PROCESS_NAME = "gather_fastqs"
+PROCESS_NAME = "gather_samples"
 
-process GATHER_FASTQS {
+process GATHER_SAMPLES {
     /* Gather up input FASTQs for analysis. */
     publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
     publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "bactopia.versions"
@@ -13,7 +13,7 @@ process GATHER_FASTQS {
 
     tag "${sample}"
     label "max_cpus"
-    label "gather_fastqs"
+    label "gather_samples"
 
     input:
     tuple val(sample), val(sample_type), val(single_end), file(r1: '*???-r1'), file(r2: '*???-r2'), path(extra)

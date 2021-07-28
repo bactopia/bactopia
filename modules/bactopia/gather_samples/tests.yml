@@ -1,0 +1,122 @@
+- name: gather_samples_pe
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_pe
+  files:
+    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.sh
+      md5sum: b73e0801fde5097210c006c9b89eece0
+    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.versions
+
+- name: gather_samples_merge_pe
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_merge_pe
+  files:
+    - path: "test_gather_samples_merge_pe/multiple-read-sets-merged.txt"
+      md5sum: "256081cd311e6fd85ad10c249435b158"
+    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.sh
+      md5sum: 7d3f8432d89760e962cee5df04bfca88
+    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.versions
+
+- name: gather_samples_se
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_se
+  files:
+    - path: test_gather_samples_se/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_se/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_se/logs/gather_samples/gather_samples.sh
+      md5sum: 16d3ec923744ddc3adebe0665ca54f8d
+    - path: test_gather_samples_se/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_se/logs/gather_samples/gather_samples.versions
+
+- name: gather_samples_merge_se
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_merge_se
+  files:
+    - path: test_gather_samples_merge_se/multiple-read-sets-merged.txt
+      md5sum: 496371378b386b6daaf2d49fc9f8e750
+    - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.sh
+    - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.versions
+
+- name: gather_samples_sra_accession
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_sra_accession
+  files:
+    - path: SRX1390609/logs/gather_samples/fastq-dl.err
+    - path: SRX1390609/logs/gather_samples/fastq-dl.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRX1390609/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRX1390609/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRX1390609/logs/gather_samples/gather_samples.sh
+      md5sum: 214884e6e14360e4306331381c30c838
+    - path: SRX1390609/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRX1390609/logs/gather_samples/gather_samples.versions
+
+- name: gather_samples_assembly_accession
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly_accession nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_assembly_accession
+  files:
+    - path: GCF_000292685/logs/gather_samples/art.err
+      md5sum: e5fca53f48aaa303432e448e73d8d78a
+    - path: GCF_000292685/logs/gather_samples/art.out
+    - path: GCF_000292685/logs/gather_samples/check-assembly-accession.txt
+      md5sum: e9f9ec1aaa4769a1b322d6ff09bafa0d
+    - path: GCF_000292685/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.sh
+      md5sum: b669a2f3a34b1a62ad2750a6b6852e90
+    - path: GCF_000292685/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.versions
+    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+
+- name: gather_samples_assembly
+  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_assembly
+  files:
+    - path: GCF_000292685/logs/gather_samples/art.err
+      md5sum: e5fca53f48aaa303432e448e73d8d78a
+    - path: GCF_000292685/logs/gather_samples/art.out
+    - path: GCF_000292685/logs/gather_samples/gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.sh
+      md5sum: c8cad738e3bf6a761b95e7ce7c28d19b
+    - path: GCF_000292685/logs/gather_samples/gather_samples.trace
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/gather_samples/gather_samples.versions

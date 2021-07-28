@@ -1,12 +1,12 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { GATHER_FASTQS } from './main.nf' 
+include { GATHER_SAMPLES } from './main.nf' 
 
-workflow test_gather_fastqs_pe {
+workflow test_gather_samples_pe {
 
     inputs = tuple(
-        'test_gather_fastqs_pe',
+        'test_gather_samples_pe',
         'paired-end',
         false,
         [file(params.test_data['illumina']['r1'], checkIfExists: true)],
@@ -14,13 +14,13 @@ workflow test_gather_fastqs_pe {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_merge_pe {
+workflow test_gather_samples_merge_pe {
 
     inputs = tuple(
-        'test_gather_fastqs_merge_pe',
+        'test_gather_samples_merge_pe',
         'merge-pe',
         false,
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
@@ -28,13 +28,13 @@ workflow test_gather_fastqs_merge_pe {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_se {
+workflow test_gather_samples_se {
 
     inputs = tuple(
-        'test_gather_fastqs_se',
+        'test_gather_samples_se',
         'single-end',
         false,
         [file(params.test_data['illumina']['r1'], checkIfExists: true)],
@@ -42,13 +42,13 @@ workflow test_gather_fastqs_se {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_merge_se {
+workflow test_gather_samples_merge_se {
 
     inputs = tuple(
-        'test_gather_fastqs_merge_se',
+        'test_gather_samples_merge_se',
         'merge-se',
         false,
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
@@ -56,10 +56,10 @@ workflow test_gather_fastqs_merge_se {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_sra_accession {
+workflow test_gather_samples_sra_accession {
 
     inputs = tuple(
         params.test_data['accessions']['srx'],
@@ -70,10 +70,10 @@ workflow test_gather_fastqs_sra_accession {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_assembly_accession {
+workflow test_gather_samples_assembly_accession {
 
     inputs = tuple(
         params.test_data['accessions']['gcf'],
@@ -84,10 +84,10 @@ workflow test_gather_fastqs_assembly_accession {
         file(params.test_data['empty']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }
 
-workflow test_gather_fastqs_assembly {
+workflow test_gather_samples_assembly {
 
     inputs = tuple(
         params.test_data['reference']['name'],
@@ -98,5 +98,5 @@ workflow test_gather_fastqs_assembly {
         file(params.test_data['reference']['fna'], checkIfExists: true)
     )
 
-    GATHER_FASTQS ( inputs )
+    GATHER_SAMPLES ( inputs )
 }

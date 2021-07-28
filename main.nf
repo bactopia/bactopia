@@ -56,7 +56,7 @@ print_efficiency()
 setup_datasets()
 
 // Module inclusion
-include { GATHER_FASTQS } from './modules/bactopia/gather_fastqs/main.nf'
+include { GATHER_SAMPLES } from './modules/bactopia/gather_samples/main.nf'
 include { FASTQ_STATUS } from './modules/bactopia/fastq_status/main.nf'
 include { ESTIMATE_GENOME_SIZE } from './modules/bactopia/estimate_genome_size/main.nf'
 include { QC_READS } from './modules/bactopia/qc_reads/main.nf'
@@ -80,8 +80,8 @@ include { MAPPING_QUERY } from './modules/bactopia/mapping_query/main.nf'
 
 // Main wf
 workflow { 
-    GATHER_FASTQS(create_input_channel(run_type))
-    FASTQ_STATUS(GATHER_FASTQS.out.FASTQ_PE_STATUS)
+    GATHER_SAMPLES(create_input_channel(run_type))
+    FASTQ_STATUS(GATHER_SAMPLES.out.FASTQ_PE_STATUS)
     ESTIMATE_GENOME_SIZE(FASTQ_STATUS.out.ESTIMATE_GENOME_SIZE)
     QC_READS(ESTIMATE_GENOME_SIZE.out.QUALITY_CONTROL)
     QC_ORIGINAL_SUMMARY(ESTIMATE_GENOME_SIZE.out.QUALITY_CONTROL)

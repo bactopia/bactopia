@@ -216,21 +216,3 @@ process ASSEMBLE_GENOME {
     touch ${PROCESS_NAME}/${sample}
     """
 }
-
-//###############
-//Module testing
-//###############
-
-workflow test{
-
-    TEST_PARAMS_CH = Channel.of([
-        params.sample,
-        params.sample_type,
-        params.single_end,
-        path(params.fq),
-        path(params.extra),
-        path(params.genome_size)
-        ])
-
-    assemble_genome(TEST_PARAMS_CH)
-}
