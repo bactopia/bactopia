@@ -215,7 +215,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     if args.include_tools:
-        tool_path = os.path.abspath(args.conda_envs).replace('conda', 'tools')
+        tool_path = os.path.abspath(args.conda_envs).replace('/conda', '/tools')
         tools = sorted(glob.glob(f'{tool_path}/*/'))
         for i, tool in enumerate(tools):
             tool = os.path.basename(os.path.dirname(tool))
