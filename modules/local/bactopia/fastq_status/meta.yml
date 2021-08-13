@@ -9,6 +9,10 @@ tools:
       homepage: ${TOOL_HOME}
       documentation: ${TOOL_DOCS}
       tool_dev_url: ${TOOL_DEV}
+      citation: ""
+      conda:
+        - name: ""
+        - yaml: ""
       doi: ""
       licence: ['LICENCE']
 input:
