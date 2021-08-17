@@ -49,11 +49,6 @@ process ANTIMICROBIAL_RESISTANCE {
     echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{genes} " ]]; then
-        check-staging.py --fq1 !{genes} --fq2 !{proteins} --extra !{amrdb}
-    fi
-
     if [[ !{params.compress} == "true" ]]; then
         gzip -cd !{genes} > !{sample}.ffn
         gzip -cd !{proteins} > !{sample}.faa

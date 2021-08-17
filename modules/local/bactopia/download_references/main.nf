@@ -45,15 +45,6 @@ process DOWNLOAD_REFERENCES {
     }
     trap print_stderr EXIT
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{sample_sketch} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{sample_sketch}
-        fi
-    fi
-
     # Get Mash distance
     echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1

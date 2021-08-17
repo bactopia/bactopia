@@ -87,15 +87,6 @@ process ANNOTATE_GENOME {
         echo "Original sample name (!{sample}) not used due to creating a contig ID >37 characters"
     fi
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --assembly !{gunzip_fasta} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --assembly !{gunzip_fasta}
-        fi
-    fi
-
     # Prokka Version
     echo "# Prokka Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     prokka --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1

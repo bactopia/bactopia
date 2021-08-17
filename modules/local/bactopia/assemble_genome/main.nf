@@ -57,15 +57,6 @@ process ASSEMBLE_GENOME {
     echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{extra} --genome_size !{genome_size} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{extra} --genome_size !{genome_size}
-        fi
-    fi
-
     GENOME_SIZE=`head -n 1 !{genome_size}`
     if [[ "!{sample_type}" == "hybrid"  || "!{params.assembler}" == "unicycler" ]]; then
         EXTRA=""

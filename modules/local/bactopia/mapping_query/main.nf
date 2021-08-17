@@ -42,15 +42,6 @@ process MAPPING_QUERY {
     }
     trap print_stderr EXIT
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{query} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{query}
-        fi
-    fi
-
     avg_len=`seqtk fqchk !{fq[0]} | head -n 1 | sed -r 's/.*avg_len: ([0-9]+).*;.*/\\1/'`
     ls !{query}/* | xargs -I {} grep -H "^>" {} | awk '{print $1}' | sed 's/:>/\\t/; s=.*/==; s/\\..*\\t/\\t/' > mapping.txt
     cat !{query}/* > multifasta.fa

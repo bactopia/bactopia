@@ -59,15 +59,6 @@ process QC_READS {
     echo "# BBMap (bbduk.sh, reformat.sh) Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     bbduk.sh --version 2>&1 | grep " version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{extra} --genome_size !{genome_size} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{extra} --genome_size !{genome_size}
-        fi
-    fi
-
     if [ "!{params.skip_qc}" == "true" ]; then
         echo "Sequence QC was skipped for !{sample}" > quality-control/!{sample}-qc-skipped.txt
         if [[ -L "!{fq[0]}" ]]; then

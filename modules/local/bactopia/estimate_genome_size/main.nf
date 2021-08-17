@@ -32,15 +32,6 @@ process ESTIMATE_GENOME_SIZE {
     echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{extra} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{extra}
-        fi
-    fi
-
     if [ "!{genome_size}" == "0" ]; then
         # Use mash to estimate the genome size, if a genome size cannot be
         # estimated set the genome size to 0

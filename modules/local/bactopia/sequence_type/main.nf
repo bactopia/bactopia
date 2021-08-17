@@ -36,15 +36,6 @@ process SEQUENCE_TYPE {
     echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
     date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --assembly !{assembly} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --assembly !{assembly}
-        fi
-    fi
-
     if [ "!{method}" == "blast" ]; then
         echo "# mlst-blast.py Version" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
         mlst-blast.py --version >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions 2>&1

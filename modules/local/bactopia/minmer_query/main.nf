@@ -43,15 +43,6 @@ process MINMER_QUERY {
     }
     trap print_stderr EXIT
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{sourmash} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{sourmash}
-        fi
-    fi
-
     if [ "!{dataset_name}" == "refseq-k21-s1000.msh" ]; then
         echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
         mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1

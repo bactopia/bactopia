@@ -38,15 +38,6 @@ process MINMER_SKETCH {
     echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
     sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
-        fi
-    fi
-
     gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
     gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
     sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{sample} -o !{sample}.sig !{fastq}

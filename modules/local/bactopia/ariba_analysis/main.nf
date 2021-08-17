@@ -42,11 +42,6 @@ process ARIBA_ANALYSIS {
     }
     trap print_stderr EXIT
 
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]}
-    fi
-
     tar -xzvf !{dataset_tarball}
     mv !{dataset_name} !{dataset_name}db
     # ariba Version
