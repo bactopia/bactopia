@@ -14,7 +14,7 @@ process ANNOTATE_GENOME {
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, skip:["${sample}.faa", "${sample}.ffn"]) }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
     tuple val(sample), val(single_end), file(fq), file(fasta), file(total_contigs)
@@ -22,9 +22,9 @@ process ANNOTATE_GENOME {
     file prodigal_tf
 
     output:
-    tuple val(sample), path("results/*"), emit: results
     tuple val(sample), path("${sample}.faa"), emit: faa
     tuple val(sample), path("${sample}.ffn"), emit: ffn
+    path "results/*", emit: results
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
     path "*.version.txt", emit: version
