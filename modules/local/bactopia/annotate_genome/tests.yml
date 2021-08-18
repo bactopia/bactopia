@@ -1,10 +1,10 @@
 - name: annotate_genome
-  command: bash -c 'nextflow run ./modules/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - annotate_genome
   files:
     - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: d7780bb876ab53494c590baaf1508e8c
+      md5sum: bdb5e8f0642b7fa12044ec070732e129
     - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
       md5sum: 2b0f22edf244aacae511f2465ea63b17
     - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
@@ -24,7 +24,18 @@
       md5sum: a07f544a940c0fc48448fa7dbb4362ff
     - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
       md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.sh'
-    - path: 'test_annotate_genome/logs/annotate_genome/annotate_genome.versions'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.err'
-    - path: 'test_annotate_genome/logs/annotate_genome/prokka.out'
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.err
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.log
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.run
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.sh
+      md5sum: ecd847b67fe98f38c4ee578f49e560c1
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.trace
+    - path: test_annotate_genome/logs/annotate_genome/prokka.stderr.txt
+    - path: test_annotate_genome/logs/annotate_genome/prokka.stdout.txt
+      md5sum: 1676cb23998c0b7e03997f2e43ca2cfb
+    - path: test_annotate_genome/logs/annotate_genome/prokka.version.txt
+      md5sum: 5954a02636687fd64afb6a4dc04d2aa5
