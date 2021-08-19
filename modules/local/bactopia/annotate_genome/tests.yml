@@ -2,6 +2,49 @@
   command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - annotate_genome
+    - annotate_genome_compressed
+  files:
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
+      md5sum: bdb5e8f0642b7fa12044ec070732e129
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa.gz'
+      md5sum: 6b359712cd19696fe25d25ebdeb91a49
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn.gz'
+      md5sum: 4fbc65d079d3bd571bebdb1dcba90484
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna.gz'
+      md5sum: 171f19cc781cc41428948ceadf4f04f5
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa.gz'
+      md5sum: 74886d789be2967b1160e47bf01e0292
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk.gz'
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff.gz'
+      md5sum: 416373426184322c3e5605e9d749dd0a
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn.gz'
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl.gz'
+      md5sum: acd33156890fd5c1f94133c8a25bb555
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
+      md5sum: a07f544a940c0fc48448fa7dbb4362ff
+    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
+      md5sum: 632134e309eb861002a5ddf7ac726004
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.err
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.log
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.run
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.sh
+      md5sum: dd76499d705ac79f71d06b4bf1938c8a
+    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.trace
+    - path: test_annotate_genome/logs/annotate_genome/prokka.stderr.txt
+    - path: test_annotate_genome/logs/annotate_genome/prokka.stdout.txt
+    - path: test_annotate_genome/logs/annotate_genome/prokka.version.txt
+      md5sum: 5954a02636687fd64afb6a4dc04d2aa5
+
+- name: annotate_genome_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - annotate_genome
+    - annotate_genome_uncompressed
   files:
     - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
       md5sum: bdb5e8f0642b7fa12044ec070732e129
@@ -32,10 +75,9 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.run
     - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: ecd847b67fe98f38c4ee578f49e560c1
+      md5sum: 108f5f5d04af6aaab34909659e0df0c7
     - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.trace
     - path: test_annotate_genome/logs/annotate_genome/prokka.stderr.txt
     - path: test_annotate_genome/logs/annotate_genome/prokka.stdout.txt
-      md5sum: 1676cb23998c0b7e03997f2e43ca2cfb
     - path: test_annotate_genome/logs/annotate_genome/prokka.version.txt
       md5sum: 5954a02636687fd64afb6a4dc04d2aa5

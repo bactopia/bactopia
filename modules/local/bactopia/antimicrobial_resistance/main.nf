@@ -39,6 +39,12 @@ process ANTIMICROBIAL_RESISTANCE {
         organism_protein = "-O ${params.amr_organism} --point_mut_all ${sample}-protein-point-mutations.txt"
     }
     '''
+    if [[ !{params.skip_compression} == "false" ]]; then
+        # Files passed to other modules
+        gunzip -c !{sample}.faa.gz > !{sample}.faa
+        gunzip -c !{sample}.ffn.gz > !{sample}.ffn
+    fi
+
     tar -xzvf !{amrdb}
     amrfinder -n !{sample}.ffn \
             -d amrfinderdb/ \

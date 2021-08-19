@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/tests.nf -entry test_antimicrobial_resistance -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - antimicrobial_resistance
+    - antimicrobial_resistance_compressed
   files:
     - path: 'GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt'
       md5sum: b4d261ace9be7d013c19d1f5c0005bfe
@@ -23,5 +24,34 @@
       md5sum: 404975b3b55318cc5702f8de602dcc6f
     - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
     - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
-      md5sum: 3f45282332d8224c825b6a9a05d599e6
+      md5sum: ae9800019843436d72aa297053f3eaf5
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
+
+- name: antimicrobial_resistance_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/tests.nf -entry test_antimicrobial_resistance_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - antimicrobial_resistance
+    - antimicrobial_resistance_uncompressed
+  files:
+    - path: 'GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt'
+      md5sum: b4d261ace9be7d013c19d1f5c0005bfe
+    - path: 'GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt'
+      md5sum: e269209401df356bdfd9123d35940afd
+    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
+    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
+    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder.version.txt
+      md5sum: ca497450a423b9fe09fc60bd6ed3264c
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
+      md5sum: 404975b3b55318cc5702f8de602dcc6f
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
+    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
+      md5sum: 567e41897979339f9072123b5c0581af
     - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace

@@ -22,8 +22,8 @@ process ANNOTATE_GENOME {
     file prodigal_tf
 
     output:
-    tuple val(sample), path("${sample}.faa"), emit: faa
-    tuple val(sample), path("${sample}.ffn"), emit: ffn
+    tuple val(sample), path("${sample}.{faa,faa.gz}"), emit: faa
+    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), emit: ffn
     path "results/*", emit: results
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
@@ -96,12 +96,22 @@ process ANNOTATE_GENOME {
         !{rfam} \
         !{fasta} > prokka.stdout.txt 2> prokka.stderr.txt
 
-    # Files passed to other modules
-    ln -s results/!{sample}.faa
-    ln -s results/!{sample}.ffn
+    if [[ "!{params.skip_compression}" == "false" ]]; then
+        find results/ -type f | \
+            grep -v -E "\\.err$|\\.log$|\\.tsv$|\\.txt$"| \
+            xargs -I {} pigz -n --best -p !{task.cpus} {}
+
+        # Files passed to other modules
+        ln -s results/!{sample}.faa.gz !{sample}.faa.gz
+        ln -s results/!{sample}.ffn.gz !{sample}.ffn.gz
+    else
+        # Files passed to other modules
+        ln -s results/!{sample}.faa !{sample}.faa
+        ln -s results/!{sample}.ffn !{sample}.ffn
+    fi
 
     # Capture version
-    prokka --version >> prokka.version.txt 2>&1
+    prokka --version > prokka.version.txt 2>&1
     '''
 
     stub:

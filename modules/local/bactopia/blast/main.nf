@@ -82,7 +82,7 @@ process BLAST {
         merge-blast-json.py temp_json > ${OUTDIR}/${name}.json
         rm -rf temp_json
 
-        if [[ !{params.compress} == "true" ]]; then
+        if [[ !{params.skip_compression} == "false" ]]; then
             pigz -n --best -p !{task.cpus} ${OUTDIR}/${name}.json
         fi
     done
