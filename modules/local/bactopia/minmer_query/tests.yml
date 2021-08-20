@@ -1,75 +1,95 @@
 - name: mash_query_pe
-  command: bash -c 'nextflow run ./modules/bactopia/minmer_query/tests.nf -entry test_mash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_mash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - minmer_query
+    - mash_query
     - mash_query_pe
   files:
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/mash.err
+    - path: test_mash_query_pe/logs/minmer_query/mash-refseq-k21.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/minmer_query.err
-      md5sum: 82f875bb1f1fddb517ef6ceee8aeda7c
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/minmer_query.out
+    - path: test_mash_query_pe/logs/minmer_query/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/minmer_query.sh
-      md5sum: 85a4b97beac1722b83e742a0cd0cfcea
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/minmer_query.trace
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.err
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.log
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_pe/logs/minmer_query/refseq-k21-s1000/minmer_query.versions
-    - path: test_mash_query_pe/minmers/test_mash_query_pe-refseq-k21.txt
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.run
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.sh
+      md5sum: 7eef1bbb586863f5ba12ede25775317b
+    - path: test_mash_query_pe/logs/minmer_query/nf-minmer_query.trace
+    - path: test_mash_query_pe/minmers/test_mash_query_pe-mash-refseq-k21.txt
       md5sum: f095a76d9e71aa814be756ef413b626c
 
 - name: mash_query_se
-  command: bash -c 'nextflow run ./modules/bactopia/minmer_query/tests.nf -entry test_mash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_mash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - minmer_query
+    - mash_query
     - mash_query_se
   files:
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/mash.err
+    - path: test_mash_query_se/logs/minmer_query/mash-refseq-k21.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/minmer_query.err
-      md5sum: d42f2de657b220783bc95467464c140e
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/minmer_query.out
+    - path: test_mash_query_se/logs/minmer_query/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/minmer_query.sh
-      md5sum: 33b5ca965023a5f5c6e8c83d927b92a2
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/minmer_query.trace
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.err
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.log
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_mash_query_se/logs/minmer_query/refseq-k21-s1000/minmer_query.versions
-    - path: test_mash_query_se/minmers/test_mash_query_se-refseq-k21.txt
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.run
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.sh
+      md5sum: a92e1f7d50710fa5fdb56c6a30ea0054
+    - path: test_mash_query_se/logs/minmer_query/nf-minmer_query.trace
+    - path: test_mash_query_se/minmers/test_mash_query_se-mash-refseq-k21.txt
       md5sum: 063e00f7f761e2087c4ba02a45e9bafa
 
 - name: sourmash_query_pe
-  command: bash -c 'nextflow run ./modules/bactopia/minmer_query/tests.nf -entry test_sourmash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_sourmash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - minmer_query
+    - sourmash_query
     - sourmash_query_pe
   files:
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/minmer_query.err
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/minmer_query.out
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.err
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.log
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/minmer_query.sh
-      md5sum: 7008d3cc4e0b7428c9957673ce83b0fe
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/minmer_query.trace
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/minmer_query.versions
-    - path: test_sourmash_query_pe/logs/minmer_query/genbank-k21/sourmash.err
-      md5sum: ad2424540525227f44ceb5ed3f3f0164
-    - path: test_sourmash_query_pe/minmers/test_sourmash_query_pe-genbank-k21.txt
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.run
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.sh
+      md5sum: 4ec0d055c07e20df31b756ca74ac10c3
+    - path: test_sourmash_query_pe/logs/minmer_query/nf-minmer_query.trace
+    - path: test_sourmash_query_pe/logs/minmer_query/sourmash-genbank-k21.stderr.txt
+      md5sum: 7c53acc109ce4597a03becf7973fa7bd
+    - path: test_sourmash_query_pe/logs/minmer_query/sourmash.version.txt
+      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
+    - path: test_sourmash_query_pe/minmers/test_sourmash_query_pe-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9
 
 - name: sourmash_query_se
-  command: bash -c 'nextflow run ./modules/bactopia/minmer_query/tests.nf -entry test_sourmash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_sourmash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - minmer_query
+    - sourmash_query
     - sourmash_query_se
   files:
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/minmer_query.err
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/minmer_query.out
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.err
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.log
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/minmer_query.sh
-      md5sum: 38d0bfc20ac6d7387670c552a9c58e47
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/minmer_query.trace
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/minmer_query.versions
-    - path: test_sourmash_query_se/logs/minmer_query/genbank-k21/sourmash.err
-      md5sum: ad2424540525227f44ceb5ed3f3f0164
-    - path: test_sourmash_query_se/minmers/test_sourmash_query_se-genbank-k21.txt
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.run
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.sh
+      md5sum: 2b9f499c3d62007377f59d1ed5276d98
+    - path: test_sourmash_query_se/logs/minmer_query/nf-minmer_query.trace
+    - path: test_sourmash_query_se/logs/minmer_query/sourmash-genbank-k21.stderr.txt
+      md5sum: 7c53acc109ce4597a03becf7973fa7bd
+    - path: test_sourmash_query_se/logs/minmer_query/sourmash.version.txt
+      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
+    - path: test_sourmash_query_se/minmers/test_sourmash_query_se-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9

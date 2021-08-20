@@ -188,23 +188,13 @@ process CALL_VARIANTS_AUTO {
         pigz -n --best -p !{task.cpus} !{reference_name}/!{sample}.coverage.txt
     fi
 
-    if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
-        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
-        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
-        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
-    else
-        rm -rf ${LOG_DIR}/
-    fi
+
     '''
 
     stub:
     reference_name = "ref_name"
     """
-    echo True
     mkdir ${reference_name}
-    mkdir ${PROCESS_NAME}
     touch ${reference_name}/*
-    touch ${PROCESS_NAME}/*
     """
 }

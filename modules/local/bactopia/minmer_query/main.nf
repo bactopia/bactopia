@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources } from '../../utilities/functions'
+include { get_resources; save_files } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
 PROCESS_NAME = "minmer_query"
 
@@ -12,82 +12,55 @@ process MINMER_QUERY {
     */
     tag "${sample} - ${dataset_basename}"
     label "max_cpus"
-    label "minmer_query"
+    label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
-    publishDir "${params.outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.txt"
+    publishDir "${params.outdir}/${sample}",
+        mode: params.publish_mode,
+        overwrite: params.overwrite,
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
     tuple val(sample), val(single_end), path(fq), path(sourmash)
     each path(dataset)
 
     output:
-    path "*.txt"
-    path "${PROCESS_NAME}/*" optional true
+    path "${sample}-${program}-${database}-${kmer}.txt", emit: result
+    path "*.std{out,err}.txt", emit: logs
+    path ".command.*", emit: nf_logs
+    path "*.version.txt", emit: version
 
     shell:
     dataset_name = dataset.getName()
     dataset_basename = dataset.getSimpleName()
+    dataset_info = dataset_basename.split("-") // mash-refseq-k21 --> mash, refseq, k21
+    program = dataset_info[0]
+    database = dataset_info[1]
+    kmer = dataset_info[2]
     mash_w = params.screen_w ? "-w" : ""
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     '''
-    LOG_DIR="!{PROCESS_NAME}/!{dataset_basename}"
-    mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-
-    # Print captured STDERR incase of exit
-    function print_stderr {
-        cat .command.err 1>&2
-        ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat ${LOG_DIR}/{} 1>&2
-    }
-    trap print_stderr EXIT
-
-    if [ "!{dataset_name}" == "refseq-k21-s1000.msh" ]; then
-        echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-        mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-
-        printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > !{sample}-refseq-k21.txt
+    OUTPUT="!{sample}-!{program}-!{database}-!{kmer}.txt"
+    OUTPUT_ERR="!{program}-!{database}-!{kmer}.stderr.txt"
+    if [ "!{program}" == "mash" ]; then
+        printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > ${OUTPUT}
         gzip -cd !{fastq} | \
-        mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
-        sort -gr >> !{sample}-refseq-k21.txt 2> ${LOG_DIR}/mash.err
-    elif [ "!{dataset_name}" == "plsdb.msh" ]; then
-        echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-        mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
+            mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
+            sort -gr >> ${OUTPUT} 2> ${OUTPUT_ERR}
 
-        printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > !{sample}-plsdb-k21.txt
-        gzip -cd !{fastq} | \
-        mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
-        sort -gr >> !{sample}-plsdb-k21.txt 2> ${LOG_DIR}/mash.err
-    elif [ "!{dataset_name}" == "genbank-k21.json.gz" ]; then
-        echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-        sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-        sourmash lca classify --query !{sourmash} --db !{dataset} > !{sample}-genbank-k21.txt 2> ${LOG_DIR}/sourmash.err
-    elif [ "!{dataset_name}" == "genbank-k31.json.gz" ]; then
-        echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-        sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-        sourmash lca classify --query !{sourmash} --db !{dataset} > !{sample}-genbank-k31.txt 2> ${LOG_DIR}/sourmash.err
-    else
-        echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-        sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-        sourmash lca classify --query !{sourmash} --db !{dataset}  > !{sample}-genbank-k51.txt 2> ${LOG_DIR}/sourmash.err
-    fi
+        # Capture version
+        mash --version > mash.version.txt 2>&1
+    elif [ "!{program}" == "sourmash" ]; then
+        sourmash lca classify --query !{sourmash} --db !{dataset} > ${OUTPUT} 2> ${OUTPUT_ERR}
 
-    if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
-        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
-        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
-        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
-    else
-        rm -rf ${LOG_DIR}/
+        # Capture version
+        sourmash --version > sourmash.version.txt 2>&1
     fi
     '''
 
     stub:
     dataset_name = dataset.getName()
     """
-    mkdir ${PROCESS_NAME}
-    touch ${sample}.txt
-    touch ${PROCESS_NAME}/${sample}
+    touch ${sample}-mash-refseq-k21.txt
+    touch ${sample}-mash-k21.stderr.txt
     """
 }
