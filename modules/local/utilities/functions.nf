@@ -38,14 +38,14 @@ def _get_max_cpus(requested) {
 
 def save_files(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
-    
+    final_output = ""
     if (args.filename.endsWith('.version.txt') || args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt')) {
         // Its a version file or  program specific log files
-        return "logs/${args.process_name}/${args.filename}"
+        final_output = "logs/${args.process_name}/${args.logs_subdir}/${args.filename}"
     } else if (args.filename.startsWith('.command')) {
         // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
         ext = args.filename.replace(".command.", "")
-        return "logs/${args.process_name}/nf-${args.process_name}.${ext}"
+        final_output = "logs/${args.process_name}/${args.logs_subdir}/nf-${args.process_name}.${ext}"
     } else {
         // Its a program output
         publish_dir = params.publish_dir[args.process_name]
@@ -53,6 +53,7 @@ def save_files(Map args) {
         if (filename.startsWith("results/")) {
             filename = args.filename.replace("results/","")
         }
-        return "${publish_dir}/${filename}"
+        final_output = "${publish_dir}/${filename}"
     }
+    return final_output.replace("//","/")
 }

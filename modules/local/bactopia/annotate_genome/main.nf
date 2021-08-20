@@ -14,7 +14,7 @@ process ANNOTATE_GENOME {
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:"") }
 
     input:
     tuple val(sample), val(single_end), file(fq), file(fasta), file(total_contigs)

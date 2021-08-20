@@ -56,7 +56,7 @@ if [ "${IS_MAC}" == "1" ]; then
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 else
     update_environment "assembly_qc" "checkm-genome=1.1.3 quast=5.0.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-    update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6 vt=2015.11.10=he941832_3" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+    update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6 vt=2015.11.10=he941832_3 mash=2.3 ncbi-genome-download=0.3.0 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 fi
 update_environment "gather_samples" "art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "minmers" "mccortex=1.0 mash=2.3 sourmash=4.0.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}

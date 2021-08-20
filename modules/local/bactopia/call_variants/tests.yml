@@ -4,64 +4,131 @@
     - call_variants
     - call_variants_pe
   files:
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.csv.gz
-      md5sum: 444f1c3600e098b166a52b213271fc40
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam
-      md5sum: 661d6f89de7c0a453a5ec58968a89d38
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.coverage.txt.gz
-      md5sum: b5085921bdfca3cf31b476f36900de32
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.tab
-      md5sum: 29e756e93b925b108d8a50c595cdfdf5
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.txt
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.gff.gz
-      md5sum: 38954bd3047154ebec46aebd252f11c1
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.fa.gz
-      md5sum: be1ff5262a6efc4e011269662a05a361
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.fa.gz
-      md5sum: ef0f677c2b04b6a840737784afd7792d
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.filt.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam.bai.gz
-      md5sum: a81b5d794d81113488c107eb415215e6
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.html
-      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.annotated.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bed.gz
-      md5sum: 45505b2cd4811d10741da9e9c4ee19fa
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.masked.fa.gz
-      md5sum: 46fff9e09cac46e6266e5e2d7405872d
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.raw.vcf.gz
-      md5sum: 37b5f18f575069b6dc12f4139dd08daa
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.log
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.subs.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.aligned.fa.gz
-    - path: SRR2838702/logs/call_variants/vcf-annotator.version.txt
-      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
-    - path: SRR2838702/logs/call_variants/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.version.txt
-      md5sum: dcf4c595deb01bcadd4d1344f995308b
-    - path: SRR2838702/logs/call_variants/nf-call_variants.sh
-      md5sum: 880ce3018ac578f651adae10aa38c305
-    - path: SRR2838702/logs/call_variants/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/bedtools.version.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/bedtools.version.txt
       md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
-    - path: SRR2838702/logs/call_variants/nf-call_variants.out
+    - path: SRR2838702/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.err
+    - path: SRR2838702/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/genomeCoverageBed.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.stderr.txt
-    - path: SRR2838702/logs/call_variants/nf-call_variants.trace
-    - path: SRR2838702/logs/call_variants/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.sh
+      md5sum: ed86e2369a25ffb95303c635b6bd75b6
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.aligned.fa.gz
+      md5sum: 42291a7954af1905b7fc3739b5776680
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
+      md5sum: 8e7693d0bb59d0d0df3ab90f28f6974a
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
+      md5sum: b9563974e33628f1bba6261dc32d7675
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed.gz
+      md5sum: 45505b2cd4811d10741da9e9c4ee19fa
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa.gz
+      md5sum: be1ff5262a6efc4e011269662a05a361
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.fa.gz
+      md5sum: ef0f677c2b04b6a840737784afd7792d
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.masked.fa.gz
+      md5sum: 46fff9e09cac46e6266e5e2d7405872d
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.coverage.txt.gz
+      md5sum: b5085921bdfca3cf31b476f36900de32
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.csv.gz
+      md5sum: 444f1c3600e098b166a52b213271fc40
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.filt.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.gff.gz
+      md5sum: 38954bd3047154ebec46aebd252f11c1
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.html
+      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf.gz
+      md5sum: 7a79982b271d0e9b4a10345dcaf7f341
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
+      md5sum: 29e756e93b925b108d8a50c595cdfdf5
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.vcf.gz
+
+- name: call_variants_pe_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_pe -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants
+    - call_variants_pe_uncompressed
+  files:
+    - path: SRR2838702/logs/call_variants/GCF_000292685/bedtools.version.txt
+      md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
+    - path: SRR2838702/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.sh
+      md5sum: 398c09bb0f1f053c535c8401c3ec9045
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: c37013a83f9f56eeba519f34dee21adc
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
+      md5sum: 8e7693d0bb59d0d0df3ab90f28f6974a
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
+      md5sum: b9563974e33628f1bba6261dc32d7675
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed
+      md5sum: 2721538bc96e9a4a17bc89e032460ac0
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 44068997781ca246d7123ec0bd9a4553
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 38397cc5ca9c121644b60326553a9431
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.masked.fa
+      md5sum: aff9ba225a27876d1435dc97c1ab36d9
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 221cd48da5a73fa119700a60eadb0f21
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.csv
+      md5sum: 10ee6af0f0748ba689f5f9c60abaac19
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.gff
+      md5sum: 73ebfe064a560bbf4acaf5c318ca998c
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.html
+      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: 15c60e4115840cd1b32b2fa697474d55
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
+      md5sum: 29e756e93b925b108d8a50c595cdfdf5
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.vcf
 
 - name: call_variants_se
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -69,172 +136,440 @@
     - call_variants
     - call_variants_se
   files:
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.csv.gz
-      md5sum: 7c5b1de2f61c4540f64c0f193a0223dd
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam
-      md5sum: b90e48a418bbdab0326ea5833a2e81f7
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.coverage.txt.gz
-      md5sum: 6ac6586a231435c8bbb8c34dd345266c
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.tab
-      md5sum: 5e01a1d05a655a8175b17c07b031cae8
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.txt
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.gff.gz
-      md5sum: 04c421dd881f72949a77db8d45d05c53
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.fa.gz
-      md5sum: 81069e4d674f2d66b64a913abc2aba0b
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.fa.gz
-      md5sum: a5b4fd531a161a57e503711ff5bc33cf
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.filt.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam.bai.gz
-      md5sum: d68af24a042fd46cb86f4e3f9718282e
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.html
-      md5sum: 4f73761cb36254b99a6cce39da5fc25c
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.annotated.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bed.gz
-      md5sum: c1b02e768012d505e38ea11ca60f1d17
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.masked.fa.gz
-      md5sum: 9701c0cfa46a34f6d80fee6e979c8f30
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.raw.vcf.gz
-      md5sum: a45c252baecae35e1aa5f3290bb27fd2
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.log
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.subs.vcf.gz
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.aligned.fa.gz
-      md5sum: 21b4b416249e0ae4e4a64c9fa8212474
-    - path: SRR2838702/logs/call_variants/vcf-annotator.version.txt
-      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
-    - path: SRR2838702/logs/call_variants/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.version.txt
-      md5sum: dcf4c595deb01bcadd4d1344f995308b
-    - path: SRR2838702/logs/call_variants/nf-call_variants.sh
-      md5sum: 6816aa6682891c7ac5168dba3fca7fa3
-    - path: SRR2838702/logs/call_variants/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/bedtools.version.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/bedtools.version.txt
       md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
-    - path: SRR2838702/logs/call_variants/nf-call_variants.out
+    - path: SRR2838702/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.err
+    - path: SRR2838702/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/genomeCoverageBed.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.stderr.txt
-    - path: SRR2838702/logs/call_variants/nf-call_variants.trace
-    - path: SRR2838702/logs/call_variants/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.sh
+      md5sum: 3944257b32e382b298f2f651e895c143
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.aligned.fa.gz
+      md5sum: 21b4b416249e0ae4e4a64c9fa8212474
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
+      md5sum: 7ffdf85968cf8d4dd6c13ebe1dceae5e
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
+      md5sum: 4c4428b2713c7b281136b130b8145e52
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed.gz
+      md5sum: c1b02e768012d505e38ea11ca60f1d17
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa.gz
+      md5sum: 81069e4d674f2d66b64a913abc2aba0b
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.fa.gz
+      md5sum: a5b4fd531a161a57e503711ff5bc33cf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.masked.fa.gz
+      md5sum: 9701c0cfa46a34f6d80fee6e979c8f30
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.coverage.txt.gz
+      md5sum: 6ac6586a231435c8bbb8c34dd345266c
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.csv.gz
+      md5sum: 7c5b1de2f61c4540f64c0f193a0223dd
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.filt.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.gff.gz
+      md5sum: 04c421dd881f72949a77db8d45d05c53
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.html
+      md5sum: 4f73761cb36254b99a6cce39da5fc25c
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf.gz
+      md5sum: d8acae60faf33ae541c52c336699b447
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf.gz
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
+      md5sum: 5e01a1d05a655a8175b17c07b031cae8
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.vcf.gz
+
+- name: call_variants_se_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_se -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants
+    - call_variants_se_uncompressed
+  files:
+    - path: SRR2838702/logs/call_variants/GCF_000292685/bedtools.version.txt
+      md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
+    - path: SRR2838702/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.sh
+      md5sum: 96facbcd45a9457d466c8259dd2eb9cf
+    - path: SRR2838702/logs/call_variants/GCF_000292685/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/GCF_000292685/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.aligned.fa
+      md5sum: 5307c45c33b6816e11460262e2dffacd
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
+      md5sum: 7ffdf85968cf8d4dd6c13ebe1dceae5e
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
+      md5sum: 4c4428b2713c7b281136b130b8145e52
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed
+      md5sum: 22d56d683ed2dc4cea75e4bd2831e002
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa
+      md5sum: 5bb865e5a8dd11a50a9111735e22ef4c
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.fa
+      md5sum: 6848411e9d3d2dc39bf67708b5d20e15
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.subs.masked.fa
+      md5sum: c21a089b5a488d8a6d35e224a88ecf71
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.coverage.txt
+      md5sum: 6d9480517e4167a246c51edbb049ad57
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.csv
+      md5sum: f5e32042dd7047d41a0260df0cb01dd1
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.gff
+      md5sum: 63be6793206bc2f84ad0aeda74afb49a
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.html
+      md5sum: 4f73761cb36254b99a6cce39da5fc25c
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf
+      md5sum: e428a49ac5abbfb668cde75b0b371b94
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
+      md5sum: 5e01a1d05a655a8175b17c07b031cae8
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000292685/SRR2838702.vcf
 
 - name: call_variants_auto_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - call_variants
     - call_variants_auto_pe
   files:
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.aligned.fa
-      md5sum: c37013a83f9f56eeba519f34dee21adc
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.annotated.vcf
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam
-      md5sum: 661d6f89de7c0a453a5ec58968a89d38
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bam.bai
-      md5sum: b9563974e33628f1bba6261dc32d7675
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.bed
-      md5sum: 2721538bc96e9a4a17bc89e032460ac0
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.fa
-      md5sum: 44068997781ca246d7123ec0bd9a4553
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.consensus.subs.fa
-      md5sum: 38397cc5ca9c121644b60326553a9431
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.coverage.txt
-      md5sum: 221cd48da5a73fa119700a60eadb0f21
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.csv
-      md5sum: 10ee6af0f0748ba689f5f9c60abaac19
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.filt.vcf
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.gff
-      md5sum: 73ebfe064a560bbf4acaf5c318ca998c
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.html
-      md5sum: 29d508cf8c0706e61a221b76fddd3ebd
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.log
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.raw.vcf
-      md5sum: 47044f0a2fbed9dda197619bcceb1d8f
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.subs.vcf
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.tab
-      md5sum: 29e756e93b925b108d8a50c595cdfdf5
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.txt
-    - path: SRR2838702/variants/auto/GCF_000292685/SRR2838702.vcf
+    - path: SRR2838702/logs/call_variants/refseq-genomes/bedtools.version.txt
+      md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
+    - path: SRR2838702/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.version.txt
+      md5sum: 4fffddb6513a9771e1baf27c2893d97f
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.err
+      md5sum: 1a52f9691907780ffca2400ac8338928
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.log
+      md5sum: 1a52f9691907780ffca2400ac8338928
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.sh
+      md5sum: 998399bc32727bf083a84780cb00baf2
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000827855/GCF_000827855.gbk.gz
+      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.aligned.fa.gz
+      md5sum: 1f74547f6ae6679d9059240473467997
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
+      md5sum: 9efbf8fb450866a5e078ff41fdd421d8
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
+      md5sum: c6fc0cb809922499ba31130b19d98ff3
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed.gz
+      md5sum: 37361f1be758a5158664069e19919931
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa.gz
+      md5sum: a84cc9b85eac63906ba5a5b7080f2dbb
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.fa.gz
+      md5sum: 31a1b6eb6dedb3cfa46ea0f16a0a4060
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.masked.fa.gz
+      md5sum: 3b53b6296657690e276d9ca960f3a6c3
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.coverage.txt.gz
+      md5sum: e74a404882bddeef5cb22d8db685aad6
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.csv.gz
+      md5sum: 20eb34f464763a2528c9a6946e06de81
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.filt.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.gff.gz
+      md5sum: f53eb4e1f9f7aab8a90e0a8fc19797c4
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.html
+      md5sum: f5742c525738de053c0e12f1be5fe6c4
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf.gz
+      md5sum: 667c781e6ac9ec48c8c3027192bda420
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
+      md5sum: e2d80017625de7893fa9941c99bfc3f6
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/mash-distances.txt
+      md5sum: cd920942f23a2543e4de6a158e303492
+
+- name: call_variants_auto_pe_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_pe -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants
+    - call_variants_auto_pe_uncompressed
+  files:
+    - path: SRR2838702/logs/call_variants/refseq-genomes/bedtools.version.txt
+      md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
+    - path: SRR2838702/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.version.txt
+      md5sum: 4fffddb6513a9771e1baf27c2893d97f
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.err
+      md5sum: 1a52f9691907780ffca2400ac8338928
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.log
+      md5sum: 1a52f9691907780ffca2400ac8338928
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.sh
+      md5sum: 28449d2d0f7a7609c507b6260becb3f0
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000827855/GCF_000827855.gbk
+      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.aligned.fa
+      md5sum: 1a7b8e4cbc2a574d9ecbdcecabd08c58
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
+      md5sum: 9efbf8fb450866a5e078ff41fdd421d8
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
+      md5sum: c6fc0cb809922499ba31130b19d98ff3
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed
+      md5sum: 174a2d8944270d74dec4e29f9e10c00c
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa
+      md5sum: 76502028976e56d724e3759b49e9d601
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.fa
+      md5sum: de9dce8c5d5eeb99be1418de40d113ba
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.masked.fa
+      md5sum: 8c49a8feadd4be5664461f2c7173e84b
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.coverage.txt
+      md5sum: 4fa591190ca68a5decfbe45254e3810f
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.csv
+      md5sum: 7078a14f93e4387de412c87619f43a4d
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.gff
+      md5sum: e189dd9a8752bc4a384ac81c319f65db
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.html
+      md5sum: f5742c525738de053c0e12f1be5fe6c4
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf
+      md5sum: 277358a0f99511f4410465bd4cd67e0e
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
+      md5sum: e2d80017625de7893fa9941c99bfc3f6
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.vcf
+    - path: SRR2838702/variants/GCF_000827855/mash-distances.txt
+      md5sum: cd920942f23a2543e4de6a158e303492
 
 - name: call_variants_auto_se 
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - call_variants
     - call_variants_auto_se 
   files:
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.csv.gz
-      md5sum: 7c5b1de2f61c4540f64c0f193a0223dd
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam
-      md5sum: b90e48a418bbdab0326ea5833a2e81f7
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.coverage.txt.gz
-      md5sum: 6ac6586a231435c8bbb8c34dd345266c
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.tab
-      md5sum: 5e01a1d05a655a8175b17c07b031cae8
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.txt
-      md5sum: 370d44a11fb0f8e4f6462d86f27b9dbd
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.gff.gz
-      md5sum: 04c421dd881f72949a77db8d45d05c53
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.fa.gz
-      md5sum: 81069e4d674f2d66b64a913abc2aba0b
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.fa.gz
-      md5sum: a5b4fd531a161a57e503711ff5bc33cf
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.filt.vcf.gz
-      md5sum: 36dce1d46c82eee93d49cb76d3dcd38a
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bam.bai.gz
-      md5sum: d68af24a042fd46cb86f4e3f9718282e
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.html
-      md5sum: 4f73761cb36254b99a6cce39da5fc25c
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.vcf.gz
-      md5sum: d0f93b8d0e70ea3814eb5f729b1fcd0b
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.annotated.vcf.gz
-      md5sum: ac8dc20cccfe22324daf03c4d2fc6973
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.bed.gz
-      md5sum: c1b02e768012d505e38ea11ca60f1d17
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.consensus.subs.masked.fa.gz
-      md5sum: 9701c0cfa46a34f6d80fee6e979c8f30
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.raw.vcf.gz
-      md5sum: a45c252baecae35e1aa5f3290bb27fd2
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.log
-      md5sum: 210b2a95e25e3bc9c8961b7ee82bee23
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.subs.vcf.gz
-      md5sum: 378eafdc3965ee2729217e14d9459d8d
-    - path: SRR2838702/variants/user/GCF_000292685/SRR2838702.aligned.fa.gz
-      md5sum: 21b4b416249e0ae4e4a64c9fa8212474
-    - path: SRR2838702/logs/call_variants/vcf-annotator.version.txt
-      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
-    - path: SRR2838702/logs/call_variants/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.version.txt
-      md5sum: dcf4c595deb01bcadd4d1344f995308b
-    - path: SRR2838702/logs/call_variants/nf-call_variants.sh
-      md5sum: 6816aa6682891c7ac5168dba3fca7fa3
-    - path: SRR2838702/logs/call_variants/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/bedtools.version.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/bedtools.version.txt
       md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
-    - path: SRR2838702/logs/call_variants/nf-call_variants.out
+    - path: SRR2838702/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/nf-call_variants.err
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/genomeCoverageBed.stderr.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRR2838702/logs/call_variants/snippy.stderr.txt
-      md5sum: 28bab8c812ff365748c5ee60cd88f60a
-    - path: SRR2838702/logs/call_variants/nf-call_variants.trace
-      md5sum: 01309b02b6642d80777c8448ef3dc35a
-    - path: SRR2838702/logs/call_variants/nf-call_variants.run
-      md5sum: ed679b1cea3c796d5cd5b88f4810a6c9
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.version.txt
+      md5sum: 4fffddb6513a9771e1baf27c2893d97f
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.err
+      md5sum: 3745609a22e14694b34e18b360c67991
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.log
+      md5sum: 3745609a22e14694b34e18b360c67991
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.sh
+      md5sum: f36b00db082bc2917a767cf961c7b574
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000827855/GCF_000827855.gbk.gz
+      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.aligned.fa.gz
+      md5sum: f275501fdf8d59d79e53930df4190ba7
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
+      md5sum: 3897bb9388bdc1c75b2c37525a8b8e05
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
+      md5sum: 84f995a7e0504e94d7bcd4cf3988aceb
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed.gz
+      md5sum: 37361f1be758a5158664069e19919931
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa.gz
+      md5sum: a84cc9b85eac63906ba5a5b7080f2dbb
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.fa.gz
+      md5sum: 31a1b6eb6dedb3cfa46ea0f16a0a4060
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.masked.fa.gz
+      md5sum: 6fc3186a6abb1e67f8896683b23f80be
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.coverage.txt.gz
+      md5sum: 83f7230e31de1e8b663567a2611da726
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.csv.gz
+      md5sum: 5ea92f3243ba1ba12d24ff1177f2e1fd
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.filt.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.gff.gz
+      md5sum: 066301cb58daab516ff2a8c2cf2f1878
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.html
+      md5sum: cf7e5820471c41e4fe667720834127ec
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf.gz
+      md5sum: b168c5fc600fcc3e85458d0ebf4f3661
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
+      md5sum: 5010e7f200b3d1a377a8cd1cf8e23ab6
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.vcf.gz
+    - path: SRR2838702/variants/GCF_000827855/mash-distances.txt
+      md5sum: cd920942f23a2543e4de6a158e303492
+
+- name: call_variants_auto_se_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_se -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  tags:
+    - call_variants
+    - call_variants_auto_se_uncompressed 
+  files:
+    - path: SRR2838702/logs/call_variants/refseq-genomes/bedtools.version.txt
+      md5sum: aa11f7a82ac4fbc0b5db556d33a9d7f6
+    - path: SRR2838702/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: SRR2838702/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/ncbi-genome-download.version.txt
+      md5sum: 4fffddb6513a9771e1baf27c2893d97f
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.err
+      md5sum: 3745609a22e14694b34e18b360c67991
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.log
+      md5sum: 3745609a22e14694b34e18b360c67991
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.run
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.sh
+      md5sum: 41686992f11a46af3d53ca5bffdf6a4f
+    - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.trace
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stderr.txt
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.version.txt
+      md5sum: dcf4c595deb01bcadd4d1344f995308b
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: SRR2838702/logs/call_variants/refseq-genomes/vcf-annotator.version.txt
+      md5sum: 2ed3b39c8142081fe3cf4010a364bfcb
+    - path: SRR2838702/variants/GCF_000827855/GCF_000827855.gbk
+      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.aligned.fa
+      md5sum: a9a702d4ab4200487dca64dc6ebaf9a7
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
+      md5sum: 3897bb9388bdc1c75b2c37525a8b8e05
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
+      md5sum: 84f995a7e0504e94d7bcd4cf3988aceb
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed
+      md5sum: 174a2d8944270d74dec4e29f9e10c00c
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa
+      md5sum: 76502028976e56d724e3759b49e9d601
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.fa
+      md5sum: de9dce8c5d5eeb99be1418de40d113ba
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.subs.masked.fa
+      md5sum: 8fd247347542aeb531365799945f72fd
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.coverage.txt
+      md5sum: f944d005d2185b5895f02ee76b1c9af5
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.csv
+      md5sum: a279e4cc626061b52efdfc8555453ada
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.filt.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.gff
+      md5sum: f58f8248b22955e53bf5de6bf60b41d2
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.html
+      md5sum: cf7e5820471c41e4fe667720834127ec
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf
+      md5sum: 8abb024dda7ee46de6d88ffe2bbcd2e1
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
+      md5sum: 5010e7f200b3d1a377a8cd1cf8e23ab6
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.txt
+    - path: SRR2838702/variants/GCF_000827855/SRR2838702.vcf
+    - path: SRR2838702/variants/GCF_000827855/mash-distances.txt
+      md5sum: cd920942f23a2543e4de6a158e303492

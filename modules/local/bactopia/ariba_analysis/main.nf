@@ -13,7 +13,7 @@ process ARIBA_ANALYSIS {
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:dataset_name) }
 
     input:
     tuple val(sample), val(single_end), path(fq)

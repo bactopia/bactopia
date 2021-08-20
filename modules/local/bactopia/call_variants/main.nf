@@ -9,23 +9,28 @@ process CALL_VARIANTS {
     /*
     Identify variants (SNPs/InDels) against a set of reference genomes
     using Snippy.
+
+    If applicable, download the nearest RefSeq genomes (based on Mash) to have variants called against.
+
+    Exitcode 75 is due to being unable to download from NCBI (e.g. FTP down at the time)
+    Downloads will be attempted 300 times total before giving up. On failure to download
+    variants will not be called against the nearest completed genome.
     */
     tag "${sample} - ${reference_name}"
     label "max_cpu_75"
     label PROCESS_NAME
 
-
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:reference_name) }
 
     input:
     tuple val(sample), val(single_end), path(fq)
     each path(reference)
 
     output:
-    path "user/*"
+    path "results/*"
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
     path "*.version.txt", emit: version
@@ -37,12 +42,43 @@ process CALL_VARIANTS {
     fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
+    no_cache = params.no_cache ? '-N' : ''
+    tie_break = params.random_tie_break ? "--random_tie_break" : ""
     '''
+    REFERENCE="!{reference}"
+    REFERENCE_NAME="!{reference_name}"
+    if [[ "!{reference}" == "refseq-genomes.msh" ]]; then
+        # Get Mash distance (For paired-end, use just R1)
+        mash dist -k 31 -s 10000 -t !{fq[0]} ${REFERENCE} | grep -v "query" | sort -k 2,2 > distances.txt
+
+        # Pick top genome and download
+        printf "accession\\tdistance\\tlatest_accession\\tupdated\\n" > mash-dist.txt
+        select-references.py distances.txt 1 !{tie_break} >> mash-dist.txt
+        grep -v distance mash-dist.txt | cut -f3 > download-list.txt
+        ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
+            -r !{params.max_retry} !{no_cache} > ncbi-genome-download.stdout.txt 2> ncbi-genome-download.stderr.txt
+
+        # Move and uncompress genomes
+        mkdir genbank_temp
+        find refseq -name "*.gbff.gz" | xargs -I {} mv {} genbank_temp/
+        rename 's/(GC[AF]_\\d+).*/$1/' genbank_temp/*
+        ls genbank_temp/ | xargs -I {} sh -c 'gzip -cd genbank_temp/{} > {}.gbk'
+        rm -rf genbank_temp/ refseq/
+
+        # Update variables
+        REFERENCE=$(ls *.gbk)
+        REFERENCE_NAME=$(basename ${REFERENCE} .gbk)
+
+        # Capture version
+        mash --version > mash.version.txt 2>&1
+        ncbi-genome-download --version > ncbi-genome-download.version.txt 2>&1
+    fi
+
     snippy !{fastq} \
-        --ref !{reference} \
+        --ref ${REFERENCE} \
         --cpus !{task.cpus} \
         --ram !{snippy_ram} \
-        --outdir !{reference_name} \
+        --outdir ${REFERENCE_NAME} \
         --prefix !{sample} \
         --mapqual !{params.mapqual} \
         --basequal !{params.basequal} \
@@ -52,33 +88,38 @@ process CALL_VARIANTS {
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > snippy.stdout.txt 2> snippy.stderr.txt
 
     # Add GenBank annotations
-    vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}.annotated.vcf 2> vcf-annotator.stderr.txt
+    vcf-annotator ${REFERENCE_NAME}/!{sample}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{sample}.annotated.vcf 2> vcf-annotator.stderr.txt
 
     # Get per-base coverage
-    grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.full-coverage.txt
-    genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d >> !{reference_name}/!{sample}.full-coverage.txt 2> genomeCoverageBed.stderr.txt
-    cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
-    rm !{reference_name}/!{sample}.full-coverage.txt
+    grep "^##contig" ${REFERENCE_NAME}/!{sample}.vcf > ${REFERENCE_NAME}/!{sample}.full-coverage.txt
+    genomeCoverageBed -ibam ${REFERENCE_NAME}/!{sample}.bam -d >> ${REFERENCE_NAME}/!{sample}.full-coverage.txt 2> genomeCoverageBed.stderr.txt
+    cleanup-coverage.py ${REFERENCE_NAME}/!{sample}.full-coverage.txt > ${REFERENCE_NAME}/!{sample}.coverage.txt
+    rm ${REFERENCE_NAME}/!{sample}.full-coverage.txt
 
     # Mask low coverage regions
-    mask-consensus.py !{sample} !{reference_name} \
-                        !{reference_name}/!{sample}.consensus.subs.fa \
-                        !{reference_name}/!{sample}.subs.vcf \
-                        !{reference_name}/!{sample}.coverage.txt \
-                        --mincov !{params.mincov} > !{reference_name}/!{sample}.consensus.subs.masked.fa 2> mask-consensus.stderr.txt
+    mask-consensus.py !{sample} ${REFERENCE_NAME} \
+        ${REFERENCE_NAME}/!{sample}.consensus.subs.fa \
+        ${REFERENCE_NAME}/!{sample}.subs.vcf \
+        ${REFERENCE_NAME}/!{sample}.coverage.txt \
+        --mincov !{params.mincov} > ${REFERENCE_NAME}/!{sample}.consensus.subs.masked.fa 2> mask-consensus.stderr.txt
 
     # Clean Up
-    rm -rf !{reference_name}/reference !{reference_name}/ref.fa* !{reference_name}/!{sample}.vcf.gz*
+    rm -rf ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{sample}.vcf.gz*
 
-    if [[ !{params.skip_compression} == "false" ]]; then
-        find !{reference_name}/ -type f | \
-            grep -v -E "\\.bam$|\\.log$|\\.txt$|\\.html$|\\.tab$" | \
-            xargs -I {} pigz -n --best -p !{task.cpus} {}
-        pigz -n --best -p !{task.cpus} !{reference_name}/!{sample}.coverage.txt
+    if [[ "!{reference}" == "refseq-genomes.msh" ]]; then
+        mv distances.txt ${REFERENCE_NAME}/mash-distances.txt
+        mv ${REFERENCE} ${REFERENCE_NAME}/
     fi
 
-    mkdir user
-    mv !{reference_name}/ user/
+    if [[ !{params.skip_compression} == "false" ]]; then
+        find ${REFERENCE_NAME}/ -type f | \
+            grep -v -E "\\.bam$|\\.bai$|\\.log$|\\.txt$|\\.html$|\\.tab$" | \
+            xargs -I {} pigz -n --best -p !{task.cpus} {}
+        pigz -n --best -p !{task.cpus} ${REFERENCE_NAME}/!{sample}.coverage.txt
+    fi
+
+    mkdir results
+    mv ${REFERENCE_NAME}/ results/
 
     # Capture verisons
     snippy --version > snippy.version.txt 2>&1
@@ -88,111 +129,6 @@ process CALL_VARIANTS {
 
     stub:
     reference_name = reference.getSimpleName()
-    """
-    mkdir ${reference_name}
-    touch ${reference_name}/*
-    """
-}
-
-
-process CALL_VARIANTS_AUTO {
-    /*
-    Identify variants (SNPs/InDels) against one or more reference genomes selected based
-    on their Mash distance from the input.
-    */
-    tag "${sample} - ${reference_name}"
-    label "max_cpu_75"
-    label "call_variants"
-
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
-    publishDir "${params.outdir}/${sample}/variants/auto", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${reference_name}/*"
-
-    input:
-    tuple val(sample), val(single_end), path(fq), path(reference)
-
-    output:
-    path "${reference_name}/*"
-    path "${PROCESS_NAME}/*" optional true
-
-    shell:
-    PROCESS_NAME = "call_variants_auto"
-    snippy_ram = task.memory.toString().split(' ')[0]
-    reference_name = reference.getSimpleName().split("${sample}-")[1].split(/\./)[0]
-    fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
-    bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
-    fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
-    '''
-    LOG_DIR="!{PROCESS_NAME}"
-    mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    echo "# Snippy Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    snippy --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-
-    # Print captured STDERR incase of exit
-    function print_stderr {
-        cat .command.err 1>&2
-        ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat ${LOG_DIR}/{} 1>&2
-    }
-    trap print_stderr EXIT
-
-    # Verify AWS files were staged
-    if [[ ! -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "true" ]; then
-            check-staging.py --fq1 !{fq[0]} --extra !{reference} --is_single
-        else
-            check-staging.py --fq1 !{fq[0]} --fq2 !{fq[1]} --extra !{reference}
-        fi
-    fi
-
-    snippy !{fastq} \
-        --ref !{reference} \
-        --cpus !{task.cpus} \
-        --ram !{snippy_ram} \
-        --outdir !{reference_name} \
-        --prefix !{sample} \
-        --mapqual !{params.mapqual} \
-        --basequal !{params.basequal} \
-        --mincov !{params.mincov} \
-        --minfrac !{params.minfrac} \
-        --minqual !{params.minqual} \
-        --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > ${LOG_DIR}/snippy.out 2> ${LOG_DIR}/snippy.err
-
-    # Add GenBank annotations
-    echo "# vcf-annotator Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    vcf-annotator --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-    vcf-annotator !{reference_name}/!{sample}.vcf !{reference} > !{reference_name}/!{sample}.annotated.vcf 2> ${LOG_DIR}/vcf-annotator.err
-
-    # Get per-base coverage
-    echo "# bedtools Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    bedtools --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-    grep "^##contig" !{reference_name}/!{sample}.vcf > !{reference_name}/!{sample}.full-coverage.txt
-    genomeCoverageBed -ibam !{reference_name}/!{sample}.bam -d >> !{reference_name}/!{sample}.full-coverage.txt 2> ${LOG_DIR}/genomeCoverageBed.err
-    cleanup-coverage.py !{reference_name}/!{sample}.full-coverage.txt > !{reference_name}/!{sample}.coverage.txt
-    rm !{reference_name}/!{sample}.full-coverage.txt
-
-    echo "here 6"
-    # Mask low coverage regions
-    mask-consensus.py !{sample} !{reference_name} \
-                    !{reference_name}/!{sample}.consensus.subs.fa \
-                    !{reference_name}/!{sample}.subs.vcf \
-                    !{reference_name}/!{sample}.coverage.txt \
-                    --mincov !{params.mincov}
-    echo "here 7"
-    # Clean Up
-    rm -rf !{reference_name}/reference !{reference_name}/ref.fa* !{reference_name}/!{sample}.vcf.gz*
-    echo "here 8"
-    if [[ !{params.compress} == "true" ]]; then
-        find !{reference_name}/ -type f -not -name "*.bam*" -and -not -name "*.log*" -and -not -name "*.txt*" | \
-            xargs -I {} pigz -n --best -p !{task.cpus} {}
-        pigz -n --best -p !{task.cpus} !{reference_name}/!{sample}.coverage.txt
-    fi
-
-
-    '''
-
-    stub:
-    reference_name = "ref_name"
     """
     mkdir ${reference_name}
     touch ${reference_name}/*
