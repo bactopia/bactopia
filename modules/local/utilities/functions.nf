@@ -39,13 +39,15 @@ def _get_max_cpus(requested) {
 def save_files(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
     final_output = ""
+    found_ignore = false
+    logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
     if (args.filename.endsWith('.version.txt') || args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt')) {
         // Its a version file or  program specific log files
-        final_output = "logs/${args.process_name}/${args.logs_subdir}/${args.filename}"
+        final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
     } else if (args.filename.startsWith('.command')) {
         // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
         ext = args.filename.replace(".command.", "")
-        final_output = "logs/${args.process_name}/${args.logs_subdir}/nf-${args.process_name}.${ext}"
+        final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
     } else {
         // Its a program output
         publish_dir = params.publish_dir[args.process_name]
@@ -54,6 +56,15 @@ def save_files(Map args) {
             filename = args.filename.replace("results/","")
         }
         final_output = "${publish_dir}/${filename}"
+
+        if (args.containsKey('ignore')) {
+            args.ignore.each {
+                if (filename.endsWith("${it}")) {
+                    final_output = null
+                }
+            }
+        }
     }
-    return final_output.replace("//","/")
+
+    return final_output ? final_output.replace("//", "/") : final_output
 }

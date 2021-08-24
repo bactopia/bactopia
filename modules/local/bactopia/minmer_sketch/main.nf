@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources } from '../../utilities/functions'
+include { get_resources; save_files } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
 PROCESS_NAME = "minmer_sketch"
 
@@ -25,19 +25,17 @@ process MINMER_SKETCH {
     tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("${sample}-k31.msh"),emit: DOWNLOAD_REFERENCES
     path "${PROCESS_NAME}/*" optional true
 
+
+    tuple val(sample), path(fq), path("${sample}.{faa,faa.gz}"), emit: faa
+    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), emit: ffn
+    path "results/*", emit: results
+    path "*.std{out,err}.txt", emit: logs
+    path ".command.*", emit: nf_logs
+    path "*.version.txt", emit: version
+
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     '''
-    LOG_DIR="!{PROCESS_NAME}"
-    mkdir -p ${LOG_DIR}
-    echo "# Timestamp" > ${LOG_DIR}/!{PROCESS_NAME}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    echo "# Mash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    mash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-
-    echo "# Sourmash Version" >> ${LOG_DIR}/!{PROCESS_NAME}.versions
-    sourmash --version >> ${LOG_DIR}/!{PROCESS_NAME}.versions 2>&1
-
     gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
     gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
     sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{sample} -o !{sample}.sig !{fastq}
@@ -64,14 +62,9 @@ process MINMER_SKETCH {
         fi
     fi
 
-    if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}.err
-        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}.out
-        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}.sh || :
-        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}.trace || :
-    else
-        rm -rf ${LOG_DIR}/
-    fi
+    # Capture versions
+    mash --version > mash.version.txt 2>&1
+    sourmash --version > sourmash.version.txt 2>&1
     '''
 
     stub:
