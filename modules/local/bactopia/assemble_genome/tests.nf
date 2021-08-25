@@ -37,7 +37,7 @@ workflow test_assemble_genome_hybrid {
         'hybrid',
         false,
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
-        file(params.test_data['ont']['se'], checkIfExists: true),
+        file(params.test_data['nanopore']['se'], checkIfExists: true),
         file(params.test_data['reference']['genome_size'])
     )
 

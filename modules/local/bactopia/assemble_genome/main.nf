@@ -122,7 +122,8 @@ process ASSEMBLE_GENOME {
     # Cleanup and compress
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate files
-        rm -rfv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa
+        rm -rfv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* \
+                ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa ${OUTDIR}/pilon_polish*
     fi
 
     if [[ !{params.skip_compression} == "false" ]]; then
