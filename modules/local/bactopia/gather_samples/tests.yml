@@ -1,39 +1,185 @@
-- name: gather_samples_pe
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe -c nextflow.config ${BACTOPIA_ARGS}'
+- name: gather_samples_pe_estimate
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_pe
+    - estimate_genome_size
   files:
-    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.err
+    - path: test_gather_samples_pe/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_pe/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_pe/logs/gather_samples/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: test_gather_samples_pe/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.out
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.sh
-      md5sum: b73e0801fde5097210c006c9b89eece0
-    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.trace
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_pe/logs/gather_samples/gather_samples.versions
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.sh
+      md5sum: 6c86b1a2a087f9fb7d628a940f9795da
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_pe/test_gather_samples_pe-genome-size.txt
+      md5sum: ca7a438ae8c4ce0beabea6b275d19545
 
-- name: gather_samples_merge_pe
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe -c nextflow.config ${BACTOPIA_ARGS}'
+- name: gather_samples_pe
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_pe
+    - known_genome_size
+  files:
+    - path: test_gather_samples_pe/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_pe/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_pe/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.sh
+      md5sum: a5130740f02134db6bab1cbc550e5d31
+    - path: test_gather_samples_pe/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_pe/test_gather_samples_pe-genome-size.txt
+      md5sum: f58dc1272a49e4eebe213d95ca57af80
+
+
+- name: gather_samples_merge_pe_estimate
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_merge_pe
+    - estimate_genome_size
   files:
-    - path: "test_gather_samples_merge_pe/multiple-read-sets-merged.txt"
-      md5sum: "256081cd311e6fd85ad10c249435b158"
-    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.err
+    - path: test_gather_samples_merge_pe/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_merge_pe/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_merge_pe/logs/gather_samples/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.out
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.sh
-      md5sum: 7d3f8432d89760e962cee5df04bfca88
-    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.trace
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_gather_samples_merge_pe/logs/gather_samples/gather_samples.versions
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.sh
+      md5sum: c2077f9f033604e21a5517587c1b55d1
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_merge_pe/multiple-read-sets-merged.txt
+      md5sum: a30d3c3fc1c8e24a2dd204d49cb363f9
+    - path: test_gather_samples_merge_pe/test_gather_samples_merge_pe-genome-size.txt
+      md5sum: 0615afacc002f6192ba2153b68d4919b
+
+- name: gather_samples_merge_pe
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_merge_pe
+    - known_genome_size
+  files:
+    - path: test_gather_samples_merge_pe/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_merge_pe/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.sh
+      md5sum: ccc9f9fbf86bf057de84774b14e72859
+    - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_merge_pe/multiple-read-sets-merged.txt
+      md5sum: a30d3c3fc1c8e24a2dd204d49cb363f9
+    - path: test_gather_samples_merge_pe/test_gather_samples_merge_pe-genome-size.txt
+      md5sum: f58dc1272a49e4eebe213d95ca57af80
+
+- name: gather_samples_merge_pe_hybrid_estimate
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_merge_pe_hybrid
+    - estimate_genome_size
+  files:
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/mash.version.txt
+      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.sh
+      md5sum: f4061d07e37014375bea54f08ecfa6ea
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_merge_pe_hybrid/multiple-read-sets-merged.txt
+      md5sum: c31453741d40c60f3e8d88ea6df9985a
+    - path: test_gather_samples_merge_pe_hybrid/test_gather_samples_merge_pe_hybrid-genome-size.txt
+      md5sum: 0615afacc002f6192ba2153b68d4919b
+
+- name: gather_samples_merge_pe_hybrid
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe_hybrid --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gather_samples_merge_pe_hybrid
+    - known_genome_size
+  files:
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/bactopia.version.txt
+      md5sum: c22064c96e3b994df7cf8819e409ff4c
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/fastq-scan.version.txt
+      md5sum: f245843ba715e87d84bbe10ee7de0bbe
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nextflow.version.txt
+      md5sum: a7a9854d7d9ca38eecaa9e713c11c559
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.run
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.sh
+      md5sum: 994a321a614a59253bf0ece90ebf975a
+    - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.trace
+    - path: test_gather_samples_merge_pe_hybrid/multiple-read-sets-merged.txt
+      md5sum: c31453741d40c60f3e8d88ea6df9985a
+    - path: test_gather_samples_merge_pe_hybrid/test_gather_samples_merge_pe_hybrid-genome-size.txt
+      md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 - name: gather_samples_se
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_se
+    - known_genome
   files:
     - path: test_gather_samples_se/logs/gather_samples/gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -46,7 +192,7 @@
     - path: test_gather_samples_se/logs/gather_samples/gather_samples.versions
 
 - name: gather_samples_merge_se
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_merge_se
   files:
@@ -62,7 +208,7 @@
     - path: test_gather_samples_merge_se/logs/gather_samples/gather_samples.versions
 
 - name: gather_samples_sra_accession
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_sra_accession
   files:
@@ -80,7 +226,7 @@
     - path: SRX1390609/logs/gather_samples/gather_samples.versions
 
 - name: gather_samples_assembly_accession
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly_accession nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly_accession nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_assembly_accession
   files:
@@ -104,7 +250,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
 
 - name: gather_samples_assembly
-  command: bash -c 'nextflow run ./modules/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gather_samples_assembly
   files:

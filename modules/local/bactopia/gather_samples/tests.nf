@@ -8,7 +8,7 @@ workflow test_gather_samples_pe {
     inputs = tuple(
         'test_gather_samples_pe',
         'paired-end',
-        false,
+        params.genome_size,
         [file(params.test_data['illumina']['r1'], checkIfExists: true)],
         [file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['empty']['fna'], checkIfExists: true)
@@ -22,10 +22,24 @@ workflow test_gather_samples_merge_pe {
     inputs = tuple(
         'test_gather_samples_merge_pe',
         'merge-pe',
-        false,
+        params.genome_size,
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
         [file(params.test_data['illumina']['r2'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER_SAMPLES ( inputs )
+}
+
+workflow test_gather_samples_merge_pe_hybrid {
+
+    inputs = tuple(
+        'test_gather_samples_merge_pe_hybrid',
+        'hybrid-merge-pe',
+        params.genome_size,
+        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r1'], checkIfExists: true)],
+        [file(params.test_data['illumina']['r2'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
+        file(params.test_data['nanopore']['se'], checkIfExists: true)
     )
 
     GATHER_SAMPLES ( inputs )

@@ -17,7 +17,7 @@ process ANTIMICROBIAL_RESISTANCE {
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:"") }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
     tuple val(sample), path(genes), path(proteins)

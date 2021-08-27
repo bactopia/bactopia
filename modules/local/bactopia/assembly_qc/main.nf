@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources } from '../../utilities/functions'
+include { get_resources; save_files } from '../../utilities/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
 PROCESS_NAME = "assembly_qc"
 
@@ -9,18 +9,22 @@ process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
     tag "${sample} - ${method}"
     label "max_cpu_75"
-    label "assembly_qc"
+    label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
-    publishDir "${params.outdir}/${sample}/assembly", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${method}/*"
+    publishDir "${params.outdir}/${sample}",
+        mode: params.publish_mode,
+        overwrite: params.overwrite,
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
     tuple val(sample), path(fasta), path(genome_size)
     each method
 
     output:
-    file "${method}/*"
-    file "${PROCESS_NAME}/*" optional true
+    path "${method}/*"
+    path "*.std{out,err}.txt", emit: logs
+    path ".command.*", emit: nf_logs
+    path "*.version.txt", emit: version
 
     shell:
     //CheckM Related
@@ -33,20 +37,9 @@ process ASSEMBLY_QC {
     skip_adj_correction = params.skip_adj_correction ? '--skip_adj_correction' : ''
     skip_pseudogene_correction = params.skip_pseudogene_correction ? '--skip_pseudogene_correction' : ''
     ignore_thresholds = params.ignore_thresholds ? '--ignore_thresholds' : ''
+    checkm_opts = [full_tree, checkm_ali, checkm_nt, force_domain, no_refinement, individual_markers, 
+                   skip_adj_correction, skip_pseudogene_correction, ignore_thresholds].join(" ")
     '''
-    OUTDIR=!{method}
-    LOG_DIR="!{PROCESS_NAME}"
-    mkdir -p ${LOG_DIR}
-    echo "# Timestamp" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
-    date --iso-8601=seconds >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
-
-    # Print captured STDERR incase of exit
-    function print_stderr {
-        cat .command.err 1>&2
-        ls ${LOG_DIR}/ | grep ".err" | xargs -I {} cat ${LOG_DIR}/{} 1>&2
-    }
-    trap print_stderr EXIT
-
     if [ "!{method}" == "checkm" ]; then
         # CheckM
         mkdir checkm/
@@ -55,28 +48,26 @@ process ASSEMBLY_QC {
         elif [[ "!{params.skip_checkm}" == "true" ]]; then
             echo "checkm was skipped due to '--skip_checkm'" > checkm/checkm-was-skipped.txt
         else
-            echo "# CheckM Version" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
-            checkm -h | grep ":::" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions 2>&1
-
             checkm lineage_wf ./ checkm/ \
-                !{full_tree} --alignment_file checkm/checkm-genes.aln \
+                --alignment_file checkm/checkm-genes.aln \
                 --tab_table \
                 --file checkm/checkm-results.txt \
                 --threads !{task.cpus} \
-                !{checkm_ali} !{checkm_nt}  --pplacer_threads !{task.cpus} \
-                !{force_domain} !{no_refinement} --unique !{params.checkm_unique} \
-                !{individual_markers} !{skip_adj_correction}  --multi !{params.checkm_multi} \
-                !{skip_pseudogene_correction} !{ignore_thresholds} --aai_strain !{params.aai_strain} \
-                --length !{params.checkm_length} > ${LOG_DIR}/checkm.out 2> ${LOG_DIR}/checkm.err
+                --pplacer_threads !{task.cpus} \
+                --unique !{params.checkm_unique} \
+                --multi !{params.checkm_multi} \
+                --aai_strain !{params.aai_strain} \
+                --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.out
 
             if [[ !{params.compress} == "true" ]]; then
                 find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
             fi
+
+            # Capture Version
+            checkm -h | grep ":::" > checkm.version.txt 2>&1
         fi
     else
         # QUAST
-        echo "# QUAST Version" >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions
-        quast --version >> ${LOG_DIR}/!{PROCESS_NAME}-!{method}.versions 2>&1
         GENOME_SIZE=`head -n 1 !{genome_size}`
         est_ref_size=""
         if [ "${GENOME_SIZE}" != "0" ]; then
@@ -87,16 +78,10 @@ process ASSEMBLY_QC {
             --threads !{task.cpus} \
             --glimmer \
             --contig-thresholds !{params.contig_thresholds} \
-            --plots-format !{params.plots_format} > ${LOG_DIR}/quast.out 2> ${LOG_DIR}/quast.err
-    fi
+            --plots-format !{params.plots_format} > quast.stdout.txt 2> quast.stderr.txt
 
-    if [ "!{params.skip_logs}" == "false" ]; then 
-        cp .command.err ${LOG_DIR}/!{PROCESS_NAME}-!{method}.err
-        cp .command.out ${LOG_DIR}/!{PROCESS_NAME}-!{method}.out
-        cp .command.sh ${LOG_DIR}/!{PROCESS_NAME}-!{method}.sh || :
-        cp .command.trace ${LOG_DIR}/!{PROCESS_NAME}-!{method}.trace || :
-    else
-        rm -rf ${LOG_DIR}/
+        # Capture version
+        quast --version > quast.version.txt 2>&1
     fi
     '''
 
@@ -104,6 +89,5 @@ process ASSEMBLY_QC {
     """
     mkdir ${method}
     touch ${method}/${sample}
-    touch "${task.process}/${sample}" optional true
     """
 }

@@ -50,12 +50,13 @@ def save_files(Map args) {
         final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
     } else {
         // Its a program output
-        publish_dir = params.publish_dir[args.process_name]
         filename = args.filename
         if (filename.startsWith("results/")) {
             filename = args.filename.replace("results/","")
         }
-        final_output = "${publish_dir}/${filename}"
+
+        // *-error.txt should be at the base dir
+        final_output = filename.endsWith("-error.txt") ? filename : "${params.publish_dir[args.process_name]}/${filename}"
 
         if (args.containsKey('ignore')) {
             args.ignore.each {
