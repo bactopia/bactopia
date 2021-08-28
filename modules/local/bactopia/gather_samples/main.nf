@@ -208,34 +208,39 @@ process GATHER_SAMPLES {
     # Estimate Genome Size
     GENOME_SIZE_OUTPUT="!{sample}-genome-size.txt"
     if [ "!{genome_size}" == "0" ]; then
-        FASTQS=""
-        if [ -f  "fastqs/!{sample}_R2.fastq.gz" ]; then
-            FASTQS="-r fastqs/!{sample}_R1.fastq.gz fastqs/!{sample}_R2.fastq.gz"
+        if [ "!{is_assembly}" == "true" ]; then
+            # Use the total assembly size as the genome size
+            stats.sh in=extra/!{sample}.fna.gz | grep All | awk '{print $5}' | sed 's/,//g' > ${GENOME_SIZE_OUTPUT}
         else
-            FASTQS="fastqs/!{sample}.fastq.gz"
-        fi
-        # Use mash to estimate the genome size, if a genome size cannot be estimated set the genome size to 0
-        mash --version > mash.version.txt 2>&1
-
-        # First Pass
-        mash sketch -o test -k 31 -m 3 ${FASTQS} 2>&1 | \
-            grep "Estimated genome size:" | \
-            awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${GENOME_SIZE_OUTPUT}
-        rm -rf test.msh
-        ESTIMATED_GENOME_SIZE=`head -n1 ${GENOME_SIZE_OUTPUT}`
-
-        # Check if second pass is needed
-        if [ ${ESTIMATED_GENOME_SIZE} -gt "!{params.max_genome_size}" ] || [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
-            # Probably high coverage, try increasing number of kmer copies to 10
-            M="-m 10"
-            if [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
-                # Probably low coverage, try decreasing the number of kmer copies to 1
-                M="-m 1"
+            FASTQS=""
+            if [ -f  "fastqs/!{sample}_R2.fastq.gz" ]; then
+                FASTQS="-r fastqs/!{sample}_R1.fastq.gz fastqs/!{sample}_R2.fastq.gz"
+            else
+                FASTQS="fastqs/!{sample}.fastq.gz"
             fi
-            mash sketch -o test -k 31 ${M} ${FASTQS} 2>&1 | \
+            # Use mash to estimate the genome size, if a genome size cannot be estimated set the genome size to 0
+            mash --version > mash.version.txt 2>&1
+
+            # First Pass
+            mash sketch -o test -k 31 -m 3 ${FASTQS} 2>&1 | \
                 grep "Estimated genome size:" | \
                 awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${GENOME_SIZE_OUTPUT}
             rm -rf test.msh
+            ESTIMATED_GENOME_SIZE=`head -n1 ${GENOME_SIZE_OUTPUT}`
+
+            # Check if second pass is needed
+            if [ ${ESTIMATED_GENOME_SIZE} -gt "!{params.max_genome_size}" ] || [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
+                # Probably high coverage, try increasing number of kmer copies to 10
+                M="-m 10"
+                if [ ${ESTIMATED_GENOME_SIZE} -lt "!{params.min_genome_size}" ]; then
+                    # Probably low coverage, try decreasing the number of kmer copies to 1
+                    M="-m 1"
+                fi
+                mash sketch -o test -k 31 ${M} ${FASTQS} 2>&1 | \
+                    grep "Estimated genome size:" | \
+                    awk '{if($4){printf("%d\\n", $4)}} END {if (!NR) print "0"}' > ${GENOME_SIZE_OUTPUT}
+                rm -rf test.msh
+            fi
         fi
 
         # Check final estimate
