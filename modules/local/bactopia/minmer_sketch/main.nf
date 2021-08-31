@@ -7,59 +7,48 @@ PROCESS_NAME = "minmer_sketch"
 
 process MINMER_SKETCH {
     /*
-    Create minmer sketches of the input FASTQs using Mash (k=21,31) and
-    Sourmash (k=21,31,51)
+    Create minmer sketches of the input FASTQs using Mash (k=21,31),
+    Sourmash (k=21,31,51), and McCortex (k=31)
     */
     tag "${sample}"
-    label "minmer_sketch"
+    label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}/logs", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "${PROCESS_NAME}/*"
-    publishDir "${params.outdir}/${sample}/minmers", mode: "${params.publish_mode}", overwrite: params.overwrite, pattern: "*.{msh,sig}"
+    publishDir "${params.outdir}/${sample}",
+        mode: params.publish_mode,
+        overwrite: params.overwrite,
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz"]) }
 
     input:
     tuple val(sample), val(single_end), path(fq)
 
     output:
+    tuple val(sample), val(single_end), path(fq), path("${sample}.sig"), emit: sketch
     path("${sample}*.{msh,sig}")
-    tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("${sample}.sig"),emit: MINMER_QUERY
-    tuple val(sample), val(single_end), path("fastqs/${sample}*.fastq.gz"), path("${sample}-k31.msh"),emit: DOWNLOAD_REFERENCES
-    path "${PROCESS_NAME}/*" optional true
-
-
-    tuple val(sample), path(fq), path("${sample}.{faa,faa.gz}"), emit: faa
-    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), emit: ffn
-    path "results/*", emit: results
+    path("${sample}.ctx"), optional: true
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
     path "*.version.txt", emit: version
 
     shell:
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
+    mccortex_fq = single_end ? "-1 ${fq[0]}" : "-2 ${fq[0]}:${fq[1]}"
+    m = task.memory.toString().split(' ')[0].toInteger() * 1000 - 500
     '''
-    gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} -
-    gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} -
-    sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{sample} -o !{sample}.sig !{fastq}
+    gzip -cd !{fastq} | mash sketch -o !{sample}-k21 -k 21 -s !{params.mash_sketch} -r -I !{sample} - > mash.stdout.txt 2> mash.stderr.txt
+    gzip -cd !{fastq} | mash sketch -o !{sample}-k31 -k 31 -s !{params.mash_sketch} -r -I !{sample} - >> mash.stdout.txt 2>> mash.stderr.txt
+    sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{sample} -o !{sample}.sig !{fastq} > sourmash.stdout.txt 2> sourmash.stderr.txt
 
-    # pass the FASTQs along
-    mkdir -p fastqs
-    if [[ -L "!{fq[0]}" ]]; then
-        if [ "!{single_end}" == "false" ]; then
-            # Paired-End Reads
-            ln -s `readlink !{fq[0]}` fastqs/!{sample}_R1.fastq.gz
-            ln -s `readlink !{fq[1]}` fastqs/!{sample}_R2.fastq.gz
+    if [[ "!{params.count_31mers}" == "true" ]]; then
+        mccortex31 build -f -k 31 -s !{sample} !{mccortex_fq} -t !{task.cpus} -m !{m}mb -q temp_counts > mccortex.stdout.txt 2> mccortex.stderr.txt
+
+        if [ "!{params.keep_singletons}" == "false" ]; then
+            # Clean up Cortex file (mostly remove singletons)
+            mccortex31 clean -q -B 2 -U2 -T2 -m !{m}mb -o !{sample}.ctx temp_counts >> mccortex.stdout.txt 2>> mccortex.stderr.txt
+            rm temp_counts
         else
-            # Single-End Reads
-            ln -s `readlink !{fq[0]}` fastqs/!{sample}.fastq.gz
+            mv temp_counts !{sample}.ctx
         fi
-    else
-        if [ "!{single_end}" == "false" ]; then
-            # Paired-End Reads
-            cp !{fq[0]} fastqs/!{sample}_R1.fastq.gz
-            cp !{fq[1]} fastqs/!{sample}_R2.fastq.gz
-        else
-            # Single-End Reads
-            cp  !{fq[0]} fastqs/!{sample}.fastq.gz
-        fi
+        mccortex31 2>&1 | grep "version" > mccortex31.version.txt 2>&1
     fi
 
     # Capture versions
@@ -69,10 +58,6 @@ process MINMER_SKETCH {
 
     stub:
     """
-    mkdir fastqs
-    mkdir ${PROCESS_NAME}
-    touch fastqs/${sample}.fastq.gz
-    touch ${PROCESS_NAME}/${sample}
     touch ${sample}.sig
     touch ${sample}-k31.msh
     """

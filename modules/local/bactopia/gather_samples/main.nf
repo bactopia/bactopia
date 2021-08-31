@@ -7,14 +7,14 @@ PROCESS_NAME = "gather_samples"
 
 process GATHER_SAMPLES {
     /* Gather up input FASTQs for analysis. */
+    tag "${sample}"
+    label "max_cpus"
+    label PROCESS_NAME
+
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
         overwrite: params.overwrite,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz", ".fna.gz"]) }
-
-    tag "${sample}"
-    label "max_cpus"
-    label PROCESS_NAME
 
     input:
     tuple val(sample), val(sample_type), val(genome_size), file(r1: '*???-r1'), file(r2: '*???-r2'), path(extra)

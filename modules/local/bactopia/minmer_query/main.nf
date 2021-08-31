@@ -44,7 +44,7 @@ process MINMER_QUERY {
     if [ "!{program}" == "mash" ]; then
         printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > ${OUTPUT}
         gzip -cd !{fastq} | \
-            mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset}  - | \
+            mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset} - | \
             sort -gr >> ${OUTPUT} 2> ${OUTPUT_ERR}
 
         # Capture version
