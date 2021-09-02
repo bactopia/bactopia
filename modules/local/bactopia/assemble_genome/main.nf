@@ -22,6 +22,7 @@ process ASSEMBLE_GENOME {
     output:
     tuple val(sample), path(genome_size), path("results/${sample}.{fna,fna.gz}"), emit: fna, optional: true
     tuple val(sample), val(single_end), path(fq), path("results/${sample}.{fna,fna.gz}"), emit: fna_fastq, optional: true
+    tuple val(sample), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${sample}-assembly-error.txt", optional: true
     path "*.std{out,err}.txt", emit: logs
@@ -101,6 +102,7 @@ process ASSEMBLE_GENOME {
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
     if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
         assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json 2> assembly-scan.stderr.txt
+        assembly-scan --version > assembly-scan.version.txt 2>&1
         TOTAL_CONTIG_SIZE=`grep "total_contig_length" ${OUTDIR}/!{sample}.fna.json | sed -r 's/.*: ([0-9]+)/\1/'`
         if [ ${TOTAL_CONTIG_SIZE} -lt "!{params.min_genome_size}" ]; then
             mv ${OUTDIR}/!{sample}.fna ${OUTDIR}/!{sample}-error.fna
@@ -111,6 +113,11 @@ process ASSEMBLE_GENOME {
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of !{sample} will be discontinued." | \
             sed 's/^\\s*//' > !{sample}-assembly-error.txt
+        else
+            # Make BLASTDB
+            mkdir blastdb
+            cat ${OUTDIR}/!{sample}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{sample}" -out blastdb/!{sample}
+            makeblastdb -version > makeblastdb.version.txt 2>&1
         fi
     else
         echo "!{sample} assembled successfully, but 0 contigs were formed. Please investigate

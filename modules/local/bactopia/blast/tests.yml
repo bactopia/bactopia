@@ -1,48 +1,131 @@
 - name: blast_genes
-  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_genes -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_genes -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - blast
     - blast_genes
   files:
-    - path: 'GCF_000292685/blast/genes/GCF_000292685.json'
-      md5sum: cabfea41bce2e58750c76fa27d8e1c21
-    - path: 'GCF_000292685/blast/genes/genes.json'
-      md5sum: ef403419df9448dd465e95e4004f1112
+    - path: GCF_000292685/blast/genes/GCF_000292685.json.gz
+      md5sum: c0aa2a03771dbfb4d1c19ad6c2c6b58c
+    - path: GCF_000292685/blast/genes/genes.json.gz
+      md5sum: d1ead836cab7dfebe96b3cd8f5207de2
+    - path: GCF_000292685/logs/blast/genes/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/blastn.version.txt
+      md5sum: fb75b5066e277d956642fe0abce4f6fd
+    - path: GCF_000292685/logs/blast/genes/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/genes/nf-blast.run
+    - path: GCF_000292685/logs/blast/genes/nf-blast.sh
+      md5sum: 1390c583fc1ee91513b04a5238d6ad08
+    - path: GCF_000292685/logs/blast/genes/nf-blast.trace
+    - path: GCF_000292685/logs/blast/genes/parallel.version.txt
+      md5sum: b2f0c087d5553383f8a8b7156bb9ef52
 
 - name: blast_primers
-  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_primers -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_primers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - blast
     - blast_primers
   files:
-    - path: 'GCF_000292685/blast/primers/GCF_000292685.json'
+    - path: GCF_000292685/blast/primers/GCF_000292685.json.gz
+      md5sum: 2c0777fb029201157376280fa87bc215
+    - path: GCF_000292685/blast/primers/primers.json.gz
+      md5sum: 2a548375c59a838d6ff0675775544606
+    - path: GCF_000292685/logs/blast/primers/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/blastn.version.txt
+      md5sum: fb75b5066e277d956642fe0abce4f6fd
+    - path: GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.run
+    - path: GCF_000292685/logs/blast/primers/nf-blast.sh
+      md5sum: 635dc8bc0b22cab7103e627cd41c40c8
+    - path: GCF_000292685/logs/blast/primers/nf-blast.trace
+    - path: GCF_000292685/logs/blast/primers/parallel.version.txt
+      md5sum: b2f0c087d5553383f8a8b7156bb9ef52
+
+- name: blast_primers_uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_primers --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blast
+    - blast_primers_uncompressed
+  files:
+    - path: GCF_000292685/blast/primers/GCF_000292685.json
       md5sum: 5d74779ee3e651e0489f5d579fd85b53
-    - path: 'GCF_000292685/blast/primers/primers.json'
+    - path: GCF_000292685/blast/primers/primers.json
       md5sum: 25cccf0391f1837ada3f95d9b3463fc9
+    - path: GCF_000292685/logs/blast/primers/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/blastn.version.txt
+      md5sum: fb75b5066e277d956642fe0abce4f6fd
+    - path: GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.run
+    - path: GCF_000292685/logs/blast/primers/nf-blast.sh
+      md5sum: a867a41fdef7d39915daf742724ef70e
+    - path: GCF_000292685/logs/blast/primers/nf-blast.trace
+    - path: GCF_000292685/logs/blast/primers/parallel.version.txt
+      md5sum: b2f0c087d5553383f8a8b7156bb9ef52
 
 - name: blast_proteins
-  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_blast_proteins -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_proteins -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - blast
     - blast_proteins
   files:
-    - path: 'GCF_000292685/blast/proteins/GCF_000292685.json'
-      md5sum: 8a210fae38df9bd0c4ae9cc9f2cb6248
-    - path: 'GCF_000292685/blast/proteins/proteins.json'
-      md5sum: 61550d63a75783e41c18a2fdd7c2d966
-
-- name: makeblastdb
-  command: bash -c 'nextflow run ./modules/bactopia/blast/tests.nf -entry test_makeblastdb -c nextflow.config ${BACTOPIA_ARGS}'
-  tags:
-    - makeblastdb
-  files:
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.ndb
-      md5sum: 8b1c09f2bde1b60a1f18c0785074deae
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.nhr
-      md5sum: c4b8b85216f58efe90c154fc7d3884d2
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.nin
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.not
-      md5sum: 1e53e9d08f1d23af0299cfa87478a7bb
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.nsq
-      md5sum: 46fedd4c790b83dcb9f0d2000fc9212e
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.ntf
-      md5sum: b4c81b0f2d9a6a9bebf0845063782564
-    - path: GCF_000292685/blast/blastdb/GCF_000292685.nto
-      md5sum: 33cdeccccebe80329f1fdbee7f5874cb
+    - path: GCF_000292685/blast/proteins/GCF_000292685.json.gz
+      md5sum: 49a59a6e90005f5e259cc38f2f728f3f
+    - path: GCF_000292685/blast/proteins/proteins.json.gz
+      md5sum: d9644cd2f3d08b6096f3fdde8c295862
+    - path: GCF_000292685/logs/blast/proteins/blastn.version.txt
+      md5sum: fb75b5066e277d956642fe0abce4f6fd
+    - path: GCF_000292685/logs/blast/proteins/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.run
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.sh
+      md5sum: d4143687ab5e2975826ef76069925be8
+    - path: GCF_000292685/logs/blast/proteins/nf-blast.trace
+    - path: GCF_000292685/logs/blast/proteins/parallel.version.txt
+      md5sum: b2f0c087d5553383f8a8b7156bb9ef52
+    - path: GCF_000292685/logs/blast/proteins/tblastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: GCF_000292685/logs/blast/proteins/tblastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e

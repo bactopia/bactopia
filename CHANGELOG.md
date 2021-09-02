@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.0 bactopia/bactopia "" - 2021/08/??
+### 
+
 ## v1.7.1 bactopia/bactopia "Shellbuster" - 2021/06/04
 ### `Added`
 - bumped GTDB to v1.5.0

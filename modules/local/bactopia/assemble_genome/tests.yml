@@ -14,17 +14,35 @@
     - path: test_assemble_genome_se/assembly/test_assemble_genome_se.fna.gz
     - path: test_assemble_genome_se/assembly/test_assemble_genome_se.fna.json
       md5sum: 528e2982f3460795b61dd569b62a37cd
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.ndb
+      md5sum: f90c47aecf56cae8b1cdcd108e17cdbf
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nhr
+      md5sum: f1881efe4bf9da734b25e95f1350dbce
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nin
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.not
+      md5sum: 3dee10e6db8bf58ba97c39e6ce751cc0
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nsq
+      md5sum: 417b9124d576ca838e21cd10bab05a77
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.ntf
+      md5sum: b4c81b0f2d9a6a9bebf0845063782564
+    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nto
+      md5sum: b5507d23de61b52c625a4337a110d534
     - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.version.txt
+      md5sum: 82227ac55ef512a1afb59ae590e845bf
+    - path: test_assemble_genome_se/logs/assemble_genome/makeblastdb.version.txt
+      md5sum: a647f88e69d6d254c84e2bf805e2a925
+    - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.version.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.err
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.log
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.out
-      md5sum: d1b4899874ee8cdff209e76e9d1025c3
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.run
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 6fe153cd5c42d7c57916168ec3c6aed1
+      md5sum: e911fcf2d60a2284d9d99d9c911248da
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.trace
     - path: test_assemble_genome_se/logs/assemble_genome/shovil-depends.version.txt
       md5sum: 29025d8d5d7abe6c75ac18a545f67bea
@@ -53,17 +71,33 @@
     - path: test_assemble_genome_pe/assembly/test_assemble_genome_pe.fna.gz
     - path: test_assemble_genome_pe/assembly/test_assemble_genome_pe.fna.json
       md5sum: f3ad1d432bbccc73bb0418bc9a73210d
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ndb
+      md5sum: a3b647dda88d10fb71973b0b0281c150
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nhr
+      md5sum: 6f54695231e3cc509b93b48a3dca3b91
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nin
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.not
+      md5sum: 72f111cda9ab1962e1950bcb8ba3760c
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nsq
+      md5sum: 2a943d6a46ae6b84367e094d7e3f58db
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ntf
+      md5sum: b4c81b0f2d9a6a9bebf0845063782564
+    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nto
+      md5sum: 2bcd712690da4e7412208560b346fac8
     - path: test_assemble_genome_pe/logs/assemble_genome/assembly-scan.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_assemble_genome_pe/logs/assemble_genome/assembly-scan.version.txt
+      md5sum: 82227ac55ef512a1afb59ae590e845bf
+    - path: test_assemble_genome_pe/logs/assemble_genome/makeblastdb.version.txt
+      md5sum: a647f88e69d6d254c84e2bf805e2a925
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.err
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.log
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.out
-      md5sum: 8aa753ab289d579c58b02b4cd42d13a4
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.run
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 4d85168d6e1b02bdaa50dca84a22dd88
+      md5sum: 1563e1032866efbab6317b20e3ed10eb
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.trace
     - path: test_assemble_genome_pe/logs/assemble_genome/shovil-depends.version.txt
       md5sum: 29025d8d5d7abe6c75ac18a545f67bea
@@ -89,8 +123,25 @@
     - path: test_assemble_genome_hybrid/assembly/test_assemble_genome_hybrid.fna.json
       md5sum: 5ae29345d3fae33f5c0bd198761a2a53
     - path: test_assemble_genome_hybrid/assembly/unicycler.log
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.ndb
+      md5sum: e8083821bc55bfad986d1c7f6b46b6e9
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nhr
+      md5sum: 8ecfb64aa5dece9d3a63abee1f85a63b
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nin
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.not
+      md5sum: e1265366b3fa5ba1889a87fe113caa8b
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nsq
+      md5sum: a8d36a217ac7227e38838985ff69ef9b
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.ntf
+      md5sum: b4c81b0f2d9a6a9bebf0845063782564
+    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nto
+      md5sum: 81ab27bb907c8ec32ae7ba657ab75cb2
     - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.version.txt
+      md5sum: 82227ac55ef512a1afb59ae590e845bf
+    - path: test_assemble_genome_hybrid/logs/assemble_genome/makeblastdb.version.txt
+      md5sum: a647f88e69d6d254c84e2bf805e2a925
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.err
