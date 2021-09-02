@@ -24,7 +24,7 @@ workflow test_qc_reads_se {
         "single-end",
         true,
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
-        file(params.test_data['empty']['fna'], checkIfExists: true),
+        file(params.test_data['nanopore']['se'], checkIfExists: true),
         file(params.test_data['reference']['genome_size'], checkIfExists: true)
     )
 
