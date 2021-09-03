@@ -1,0 +1,1476 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/nextflow_schema.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "input_parameters": {
+            "title": "Required Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "",
+            "properties": {
+                "fastqs": {
+                    "type": "string",
+                    "description": "A FOFN with sample names and paths to FASTQ/FASTAs to process\n",
+                    "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-file-alt",
+                    "header": "### For Procesessing Multiple Samples"
+                },
+                "R1": {
+                    "type": "string",
+                    "description": "First set of compressed (gzip) paired-end FASTQ reads (requires --R2 and --sample)",
+                    "help": "Requires `--R2` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive",
+                    "header": "### For Processing A Single Sample"
+                },
+                "R2": {
+                    "type": "string",
+                    "description": "Second set of compressed (gzip) paired-end FASTQ reads (requires --R1 and --sample)",
+                    "help": "Requires `--R1` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "SE": {
+                    "type": "string",
+                    "description": "Compressed (gzip) single-end FASTQ reads  (requires --sample)",
+                    "help": "Requires `--sample`. Cannot be used with `--fastqs` or `--R1|--R2` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "hybrid": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Treat `--SE` as long reads for hybrid assembly.  (requires --R1, --R2, --SE and --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
+                "sample": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-file"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "A file containing ENA/SRA Experiment accessions or NCBI Assembly accessions to processed",
+                    "fa_icon": "fas fa-file-text-o",
+                    "header": "### For Downloading from SRA/ENA or NCBI Assembly\n  **Note: Downloaded assemblies will have error free Illumina reads simulated for processing.**"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-font"
+                },
+                "assembly": {
+                    "type": "string",
+                    "description": "A assembled genome in compressed FASTA format. (requires --sample)",
+                    "help": "Error-free Illumina reads will be simulated for down stream processing",
+                    "fa_icon": "fas fa-file-archive",
+                    "header": "### For Processing an Assembly\n  **Note: Assemblies will have error free Illumina reads simulated for processing.**"
+                },
+                "reassemble": {
+                    "type": "boolean",
+                    "default": false,
+                    "hidden": true,
+                    "description": "The simulated reads will be used to create a new assembly.",
+                    "fa_icon": "fas fa-redo"
+                },
+            }
+        },
+        "dataset_parameters": {
+            "title": "Dataset Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "datasets": {
+                    "type": "string",
+                    "fa_icon": "fas fa-folder",
+                    "description": "The path to datasets that have already been set up",
+                    "help": "Bactopia Datasets are setup using `bactopia datasets`"
+                },
+                "species": {
+                    "type": "string",
+                    "description": "Name of species for species-specific dataset to use",
+                    "help": "These datasets include MLST schemas, reference genomes, protein sets, etc...",
+                    "fa_icon": "fas fa-bacterium"
+                }
+            }
+        },
+        "optional_parameters": {
+            "title": "Optional Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "coverage": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Reduce samples to a given coverage",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "genome_size": {
+                    "type": "string",
+                    "default": "0",
+                    "description": "Expected genome size (bp) for all samples, a value of '0' will disable read error correction and read subsampling, otherwise estimate with Mash",
+                    "help": "If `--species` is used, `min`, `median`, `mean`, or `max` can be used for `--genome_size`",
+                    "fa_icon": "fas fa-arrows-alt-h"
+                },
+                "outdir": {
+                    "type": "string",
+                    "default": "./",
+                    "description": "Directory to write results to",
+                    "fa_icon": "fas fa-folder"
+                },
+                "skip_compression": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ouput files will not be compressed",
+                    "help": "Using this parameter can lead to a significant increase in the size of the outputs",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "keep_all_files": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keeps all analysis files created",
+                    "help": "By default, intermediate files are removed. This will not affect the ability to resume Nextflow runs, and only occurs at the end of the process.",
+                    "fa_icon": "fas fa-trash-restore",
+                    "hidden": true
+                }
+            }
+        },
+        "max_job_request_options": {
+            "title": "Max Job Request Parameters",
+            "type": "object",
+            "fa_icon": "fab fa-acquisitions-incorporated",
+            "description": "Set the top limit for requested resources for any single job.",
+            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "properties": {
+                "max_retry": {
+                    "type": "integer",
+                    "description": "Maximum times to retry a process before allowing it to fail.",
+                    "default": 3,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of retry attempts for each process. Should be an integer e.g. `--max_retry 1`"
+                },
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum number of CPUs that can be requested for any single job.",
+                    "default": 4,
+                    "fa_icon": "fas fa-microchip",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
+                },
+                "max_memory": {
+                    "type": "integer",
+                    "description": "Maximum amount of memory (in GB) that can be requested for any single job.",
+                    "default": 32,
+                    "fa_icon": "fas fa-memory",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory 8`"
+                },
+                "max_time": {
+                    "type": "integer",
+                    "description": "Maximum amount of time (in minutes) that can be requested for any single job.",
+                    "default": 120,
+                    "fa_icon": "far fa-clock",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time 60`"
+                }
+            }
+        },
+        "nextflow_parameters": {
+            "title": "Nextflow Configuration Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nfconfig": {
+                    "type": "string",
+                    "description": "A Nextflow compatible config file for custom profiles, loaded last and will overwrite existing variables if set.",
+                    "help": "This allows you to create profiles specific to your environment (e.g. SGE, AWS, SLURM, etc...).",
+                    "fa_icon": "fas fa-cog",
+                    "hidden": true
+                },
+                "publish_mode": {
+                    "type": "string",
+                    "default": "copy",
+                    "hidden": true,
+                    "description": "Method used to save pipeline results to output directory.",
+                    "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
+                    "fa_icon": "fas fa-copy",
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ]
+                },
+                "infodir": {
+                    "type": "string",
+                    "description": "Directory to keep pipeline Nextflow logs and reports.",
+                    "default": "${params.outdir}/pipeline_info",
+                    "fa_icon": "fas fa-cogs",
+                    "hidden": true
+                },
+                "force": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Nextflow will overwrite existing output files.",
+                    "fa_icon": "fas fa-recycle",
+                    "hidden": true
+                },
+                "cleanup_workdir": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "After Bactopia is successfully executed, the `work` directory will be deleted.",
+                    "help": "Warning: by doing this you lose the ability to resume workflows.",
+                    "fa_icon": "fas fa-trash-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "nextflow_profile_parameters": {
+            "title": "Nextflow Profile Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "condadir": {
+                    "type": "string",
+                    "description": "Directory to Nextflow should use for Conda environments",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "registry": {
+                    "type": "string",
+                    "default": "dockerhub",
+                    "hidden": true,
+                    "description": "Docker registry to pull containers from.",
+                    "fa_icon": "fas fa-docker",
+                    "enum": [
+                        "dockerhub",
+                        "quay",
+                        "github"
+                    ]
+                },
+                "singularity_cache": {
+                    "type": "string",
+                    "description": "Directory where remote Singularity images are stored.",
+                    "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR evironment variable overrides this parameter",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "queue": {
+                    "type": "string",
+                    "default": "general,high-memory",
+                    "description": "Comma-separated name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM)",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "disable_scratch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "All intermediate files created on worker nodes of will be transferred to the head node.",
+                    "help": "Typically with clusters intermediate results are written to a 'scratch' space and only published result files are transferred back",
+                    "fa_icon": "fas fa-file-import",
+                    "hidden": true
+                }
+            }
+        },
+        "awsbatch_profile_parameters": {
+            "title": "AWS Batch Profile (-profile awsbatch) Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your AWS Batch setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "aws_region": {
+                    "type": "string",
+                    "description": "AWS Region to be used by Nextflow",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_volumes": {
+                    "type": "string",
+                    "description": "Volumes to be mounted from the EC2 instance to the Docker container",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_cli_path": {
+                    "type": "string",
+                    "description": "Path to the AWS CLI for Nextflow to use.",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_upload_storage_class": {
+                    "type": "string",
+                    "description": "The S3 storage slass to use for storing files on S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_parallel_transfers": {
+                    "type": "integer",
+                    "default": 8,
+                    "description": "The number of parallele transfers between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_delay_between_attempts": {
+                    "type": "integer",
+                    "default": 15,
+                    "description": "The duration of sleep (in seconds) between each transfer between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_transfer_attempts": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The maximum number of times to retry transferring a file between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_retry": {
+                    "type": "integer",
+                    "default": 4,
+                    "description": "The maximum number of times to retry a process on AWS Batch",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_ecr_registry": {
+                    "type": "string",
+                    "description": "The ECR registry containing Bactopia related containers.",
+                    "help": "This is useful if you've placed the Bactopia containers on a ECR registry",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                }
+            }
+        },
+        "generic_parameters": {
+            "title": "Helpful Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Uncommonly used parameters that might be useful.",
+            "properties": {
+                "available_datasets": {
+                    "type": "boolean",
+                    "description": "Print a list of available datasets found based on location given by `--datasets`",
+                    "fa_icon": "fab fa-print",
+                },
+                "example_fastqs": {
+                    "type": "boolean",
+                    "description": "Print an example FOFN expected from `--fastqs`",
+                    "fa_icon": "fab fa-check-circle"
+                },
+                "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "fa_icon": "fas fa-palette",
+                    "hidden": true,
+                    "help_text": "Set to disable colourful command line output and live life in monochrome."
+                },
+                "nfdir": {
+                    "type": "boolean",
+                    "description": "Print directory Nextflow has pulled Bactopia to",
+                    "fa_icon": "fas fa-remove-format",
+                    "hidden": true,
+                },
+                "sleep_time": {
+                    "type": "integer",
+                    "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
+                    "default": 5,
+                    "fa_icon": "fas fa-clock",
+                    "hidden": true
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-tasks",
+                    "description": "Boolean whether to validate parameters against the schema at runtime",
+                    "hidden": true
+                },
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "show_hidden_params": {
+                    "type": "boolean",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "fas fa-eye-slash",
+                    "hidden": true
+                },
+                "help_all": {
+                    "type": "boolean",
+                    "description": "An alias for --help --show_hidden_params",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "version": {
+                    "type": "boolean",
+                    "description": "Display version text.",
+                    "fa_icon": "fas fa-info"
+                },
+            }
+        },
+        "gather_samples_parameters": {
+            "title": "Gather Samples Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_fastq_check": {
+                    "type": "boolean",
+                    "description": "Skip minimum requirement checks for input FASTQs",
+                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "max_downloads": {
+                    "type": "integer",
+                    "description": "Maximum number of samples to download at a time",
+                    "default": 3,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of downloads at a time"
+                },
+                "min_basepairs": {
+                    "type": "integer",
+                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
+                    "default": 2241820,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_reads": {
+                    "type": "integer",
+                    "description": "The minimum amount of reads required to continue downstream analyses.",
+                    "default": 7472,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_coverage": {
+                    "type": "integer",
+                    "description": "The minimum amount of coverage required to continue downstream analyses.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_proportion": {
+                    "type": "number",
+                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
+                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-balance-scale-left",
+                    "hidden": true
+                },
+                "min_genome_size": {
+                    "type": "integer",
+                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 100000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "max_genome_size": {
+                    "type": "integer",
+                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 18040666,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "attempts": {
+                    "type": "integer",
+                    "description": "Maximum times to attempt downloads",
+                    "default": 10,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true
+                },
+                "use_ena": {
+                    "type": "boolean",
+                    "description": "Download FASTQs from ENA",
+                    "fa_icon": "fas fa-globe-europe",
+                    "hidden": true
+                },
+                "no_cache": {
+                    "type": "boolean",
+                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
+                    "fa_icon": "fas fa-save",
+                    "hidden": true
+                }
+            }
+        },
+        "qc_reads_parameters": {
+            "title": "QC Reads Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_qc": {
+                    "type": "boolean",
+                    "description": "The QC step qill be skipped and it will be assumed the inputs sequences have already been QCed.",
+                    "help": "This is really only useful if you have already QC'd your reads, or have a specific need",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "skip_error_correction": {
+                    "type": "boolean",
+                    "description": "FLASH error correction of reads will be skipped.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "qc_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 4,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "adapters": {
+                    "type": "string",
+                    "description": "A FASTA file containing adapters to remove",
+                    "help": "By default, Bactopia will use the adapters provided by BBmap",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "adapter_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding adapters.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 23,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "phix": {
+                    "type": "string",
+                    "description": "phiX174 reference genome to remove",
+                    "help": "By default, use the phiX genome provided by BBmap",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "phix_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding phiX174.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 31,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "ktrim": {
+                    "type": "string",
+                    "default": "r",
+                    "description": "Trim reads to remove bases matching reference kmers",
+                    "help": "Choices are: 'f' - do not trim, 'r' - trim ot the right, 'l' - trim to the left",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "r",
+                        "l"
+                    ]
+                },
+                "mink": {
+                    "type": "integer",
+                    "description": "Look for shorter kmers at read tips down to this length, when k-trimming or masking.",
+                    "help": "0 means disabled. Enabling this will disable maskmiddle",
+                    "default": 11,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "hdist": {
+                    "type": "integer",
+                    "description": "Maximum Hamming distance for ref kmers (subs only)",
+                    "help": "Memory use is proportional to (3*K)^hdist",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "tpe": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "When kmer right-trimming, trim both reads to the minimum length of either",
+                    "help": "Choices are: 'f' - do not equally trim, 't' - equally trim ot the right",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "tbo": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Trim adapters based on where paired reads overlap",
+                    "help": "Choices are: 'f' - do not trim by overlap, 't' - trim by overlap",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qtrim": {
+                    "type": "string",
+                    "default": "rl",
+                    "description": "Trim read ends to remove bases with quality below trimq.",
+                    "help": "Performed AFTER looking for kmers. Choices are: \n\n\t'rl' (trim both ends, Default)\n\t'f' (neither end)\n\t'r' (right end only)\n\t'l' (left end only)\n\t'w' (sliding window)",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "rl",
+                        "f",
+                        "r",
+                        "l",
+                        "w"
+                    ]
+                },
+                "trimq": {
+                    "type": "integer",
+                    "description": "Regions with average quality BELOW this will be trimmed if qtrim is set to something other than f",
+                    "default": 6,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "maq": {
+                    "type": "integer",
+                    "description": "Reads with average quality (after trimming) below this will be discarded",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minlength": {
+                    "type": "integer",
+                    "description": "Reads shorter than this after trimming will be discarded",
+                    "help": "Pairs will be discarded if both are shorter",
+                    "default": 35,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ftm": {
+                    "type": "integer",
+                    "description": "If positive, right-trim length to be equal to zero, modulo this number",
+                    "default": 5,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "tossjunk": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Discard reads with invalid characters as bases",
+                    "help": "Choices are: 'f' - keep all reads, 't' - toss reads with ambiguous bases",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qout": {
+                    "type": "string",
+                    "default": "33",
+                    "description": "PHRED offset to use for output FASTQs",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "33",
+                        "64"
+                    ]
+                },
+                "xmx": {
+                    "type": "string",
+                    "default": "8g",
+                    "description": "This will be passed to Java to set memory usage",
+                    "help": "'8g' will specify 8 gigs of RAM (Default)",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "maxcor": {
+                    "type": "integer",
+                    "description": "Max number of corrections within a 20bp window",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "sampleseed": {
+                    "type": "integer",
+                    "description": "Set to a positive number to use as the random number generator seed for sampling",
+                    "default": 42,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        },
+        "assemble_genome_parameters": {
+            "title": "AssemblE Genome Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "shovill_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 8,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "assembler": {
+                    "type": "string",
+                    "default": "skesa",
+                    "description": "Assembler to be used by Shovill",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "skesa",
+                        "megahit",
+                        "spades",
+                        "velvet"
+                    ]
+                },
+                "min_contig_len": {
+                    "type": "integer",
+                    "description": "Minimum contig length <0=AUTO>",
+                    "default": 500,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_contig_cov": {
+                    "type": "integer",
+                    "description": "Minimum contig coverage <0=AUTO>",
+                    "default": 2,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "contig_namefmt": {
+                    "type": "string",
+                    "description": "Format of contig FASTA IDs in 'printf' style",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes",
+                    "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_kmers": {
+                    "type": "string",
+                    "description": "K-mers to use <blank=AUTO>",
+                    "help": "This would allow you to specify the kmer lengths to be used",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "trim": {
+                    "type": "boolean",
+                    "description": "Enable adaptor trimming",
+                    "fa_icon": "fas fa-cut",
+                    "hidden": true
+                },
+                "nostitch": {
+                    "type": "boolean",
+                    "description": "Disable read stitching for paired-end reads",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "nocorr": {
+                    "type": "boolean",
+                    "description": "Disable post-assembly correction",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "unicycler_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 32,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "unicycler_mode": {
+                    "type": "string",
+                    "default": "normal",
+                    "description": "Bridging mode used by Unicycler",
+                    "help": "Choices are:\n\n\tconservative = smaller contigs, lowest misassembly rate\n\tnormal = moderate contig size and misassembly rate (Default)\n\tbold = longest contigs, higher misassembly rate",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "conservative",
+                        "normal",
+                        "bold"
+                    ]
+                },
+                "min_polish_size": {
+                    "type": "integer",
+                    "description": "Contigs shorter than this value (bp) will not be polished using Pilon",
+                    "default": 10000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_component_size": {
+                    "type": "integer",
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_dead_end_size": {
+                    "type": "integer",
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "no_miniasm": {
+                    "type": "boolean",
+                    "description": "Skip miniasm+Racon bridging",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "no_rotate": {
+                    "type": "boolean",
+                    "description": "Do not rotate completed replicons to start at a standard gene",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "no_pilon": {
+                    "type": "boolean",
+                    "description": "Do not use Pilon to polish the final assembly",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        },
+        "assembly_qc_parameters": {
+            "title": "Assembly QC Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_checkm": {
+                    "type": "boolean",
+                    "description": "Skip running CheckM in the assembly QC step",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "checkm_unique": {
+                    "type": "integer",
+                    "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "checkm_multi": {
+                    "type": "integer",
+                    "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "aai_strain": {
+                    "type": "number",
+                    "description": "AAI threshold used to identify strain heterogeneity",
+                    "default": 0.9,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "checkm_length": {
+                    "type": "number",
+                    "description": "Percent overlap between target and query",
+                    "default": 0.7,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "full_tree": {
+                    "type": "boolean",
+                    "description": "Use the full tree (requires ~40GB of memory) for determining lineage of each bin.",
+                    "fa_icon": "fas fa-tree",
+                    "hidden": true
+                },
+                "skip_pseudogene_correction": {
+                    "type": "boolean",
+                    "description": "Skip identification and filtering of pseudogene",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "ignore_thresholds": {
+                    "type": "boolean",
+                    "description": "Ignore model-specific score thresholds",
+                    "fa_icon": "fas fa-eye-slash",
+                    "hidden": true
+                },
+                "checkm_ali": {
+                    "type": "boolean",
+                    "description": "Generate HMMER alignment file for each bin",
+                    "fa_icon": "fas fa-hard-hat",
+                    "hidden": true
+                },
+                "checkm_nt": {
+                    "type": "boolean",
+                    "description": "Generate nucleotide gene sequences for each bin",
+                    "fa_icon": "fas fa-hard-hat",
+                    "hidden": true
+                },
+                "force_domain": {
+                    "type": "boolean",
+                    "description": "Use domain-level sets for all bins",
+                    "fa_icon": "fas fa-hammer",
+                    "hidden": true
+                },
+                "no_refinement": {
+                    "type": "boolean",
+                    "description": "Do not perform lineage-specific marker set refinement",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "individual_markers": {
+                    "type": "boolean",
+                    "description": "Treat marker as independent",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "skip_adj_correction": {
+                    "type": "boolean",
+                    "description": "Do not exclude adjacent marker genes when estimating contamination",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "contig_thresholds": {
+                    "type": "string",
+                    "default": "0,1000,10000,100000,250000,1000000",
+                    "description": "Comma-separated list of contig length thresholds",
+                    "fa_icon": "fas fa-align-justify",
+                    "hidden": true
+                },
+                "plots_format": {
+                    "type": "string",
+                    "default": "pdf",
+                    "description": "Save plots in specified format",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "emf",
+                        "eps",
+                        "pdf",
+                        "png",
+                        "ps",
+                        "raw",
+                        "rgba",
+                        "svg",
+                        "svgz"
+                    ]
+                }
+            }
+        },
+        "annotate_genome_parameters": {
+            "title": "`annotate_genome` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "centre": {
+                    "type": "string",
+                    "default": "Bactopia",
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
+                    "hidden": true
+                },
+                "addmrna": {
+                    "type": "boolean",
+                    "description": "Add 'mRNA' features for each 'CDS' feature",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "rawproduct": {
+                    "type": "boolean",
+                    "description": "Do not clean up /product annotation",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "cdsrnaolap": {
+                    "type": "boolean",
+                    "description": "Allow [tr]RNA to overlap CDS",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "prokka_coverage": {
+                    "type": "integer",
+                    "description": "Minimum coverage on query protein",
+                    "default": 80,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "nogenes": {
+                    "type": "boolean",
+                    "description": "Do not add 'gene' features for each 'CDS' feature",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "norrna": {
+                    "type": "boolean",
+                    "description": "Don't run rRNA search",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "notrna": {
+                    "type": "boolean",
+                    "description": "Don't run tRNA search",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "rnammer": {
+                    "type": "boolean",
+                    "description": "Prefer RNAmmer over Barrnap for rRNA prediction",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "rfam": {
+                    "type": "boolean",
+                    "description": "Enable searching for ncRNAs with Infernal+Rfam",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "skip_prodigal_tf": {
+                    "type": "boolean",
+                    "description": "If a Prodigal training file was found, it will not be used",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        },
+        "minmer_sketch_parameters": {
+            "title": "`minmer_sketch` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "count_31mers": {
+                    "type": "boolean",
+                    "description": "Enable 31-mer counting with McCortex",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "cortex_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 8,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "keep_singletons": {
+                    "type": "boolean",
+                    "description": "Keep all counted 31-mers",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "mash_sketch": {
+                    "type": "integer",
+                    "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "sourmash_scale": {
+                    "type": "integer",
+                    "description": "Choose number of hashes as 1 in FRACTION of input k-mers",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        },
+        "minmer_query_parameters": {
+            "title": "`minmer_query` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "minmer_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 5,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "no_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Disable winner-takes-all strategy for identity estimates",
+                    "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "screen_i": {
+                    "type": "number",
+                    "description": "Minimum identity to report.",
+                    "help": "Inclusive unless set to zero, in which case only identities greater than zero (i.e. with at least one shared hash) will be reported. Set to -1 to output everything.",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        },
+        "ariba_analysis_parameters": {
+            "title": "`ariba_analysis` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "nucmer_min_id": {
+                    "type": "integer",
+                    "description": "Minimum alignment identity (delta-filter -i)",
+                    "default": 90,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "nucmer_min_len": {
+                    "type": "integer",
+                    "description": "Minimum alignment identity (delta-filter -i)",
+                    "default": 20,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "nucmer_breaklen": {
+                    "type": "integer",
+                    "description": "Value to use for -breaklen when running nucmer",
+                    "default": 200,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "assembly_cov": {
+                    "type": "integer",
+                    "description": "Target read coverage when sampling reads for assembly",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "min_scaff_depth": {
+                    "type": "integer",
+                    "description": "Minimum number of read pairs needed as evidence for scaffold link between two contigs",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "spades_options": {
+                    "type": "string",
+                    "description": "Extra options to pass to Spades assembler",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "assembled_threshold": {
+                    "type": "number",
+                    "description": "If proportion of gene assembled (regardless of into how many contigs) is at least this value then the flag gene_assembled is set",
+                    "default": 0.95,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "gene_nt_extend": {
+                    "type": "integer",
+                    "description": "Max number of nucleotides to extend ends of gene matches to look for start/stop codons",
+                    "default": 30,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "unique_threshold": {
+                    "type": "number",
+                    "description": "If proportion of bases in gene assembled more than once is <= this value, then the flag unique_contig is set",
+                    "default": 0.03,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ariba_no_clean": {
+                    "type": "boolean",
+                    "description": "Do not clean up intermediate files created by Ariba.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        },
+        "call_variants_parameters": {
+            "title": "`call_variants` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "snippy_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 4,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "mapqual": {
+                    "type": "integer",
+                    "description": "Minimum read mapping quality to consider",
+                    "default": 60,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "basequal": {
+                    "type": "integer",
+                    "description": "Minimum base quality to consider",
+                    "default": 13,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "mincov": {
+                    "type": "integer",
+                    "description": "Minimum site depth to for calling alleles",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minfrac": {
+                    "type": "integer",
+                    "description": "Minimum proportion for variant evidence (0=AUTO)",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minqual": {
+                    "type": "integer",
+                    "description": "Minimum QUALITY in VCF column 6",
+                    "default": 100,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "maxsoft": {
+                    "type": "integer",
+                    "description": "Maximum soft clipping to allow",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "bwaopt": {
+                    "type": "string",
+                    "description": "Extra BWA MEM options, eg. -x pacbio",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "fbopt": {
+                    "type": "string",
+                    "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "random_tie_break": {
+                    "type": "boolean",
+                    "description": "On references with matching distances, randomly select one.",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "disable_auto_variants": {
+                    "type": "boolean",
+                    "description": "Disable automatic selection of reference genome based on Mash distances",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        },
+        "blast_parameters": {
+            "title": "`blast` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "perc_identity": {
+                    "type": "integer",
+                    "description": "Percent identity",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
+            }
+        },
+        "mapping_query_parameters": {
+            "title": "`mapping_query` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "keep_unmapped_reads": {
+                    "type": "boolean",
+                    "description": "Keep unmapped reads, this does not affect variant calling.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "bwa_mem_opts": {
+                    "type": "string",
+                    "description": "Extra BWA MEM options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_aln_opts": {
+                    "type": "string",
+                    "description": "Extra BWA ALN options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_samse_opts": {
+                    "type": "string",
+                    "description": "Extra BWA SAMSE options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_sampe_opts": {
+                    "type": "string",
+                    "description": "Extra BWA SAMPE options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_n": {
+                    "type": "integer",
+                    "description": "Maximum number of alignments to output in the XA tag for reads paired properly.",
+                    "help": "If a read has more than INT hits, the XA tag will not be written.",
+                    "default": 9999,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
+            }
+        },
+        "antimicrobial_resistance_parameters": {
+            "title": "`antimicrobial_resistance` Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_amr": {
+                    "type": "boolean",
+                    "description": "Skip running AMRFinder+.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "amr_plus": {
+                    "type": "boolean",
+                    "description": "Add the plus genes to the report",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "amr_report_common": {
+                    "type": "boolean",
+                    "description": "Suppress proteins common to a taxonomy group",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "amr_organism": {
+                    "type": "string",
+                    "description": "Taxonomy group: Campylobacter, Escherichia, Klebsiella Salmonella, Staphylococcus, Vibrio",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "amr_ident_min": {
+                    "type": "integer",
+                    "description": "Minimum identity for nucleotide hit (0..1). -1 means use a curated threshold if it exists and 0.9 otherwise",
+                    "default": -1,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "amr_coverage_min": {
+                    "type": "number",
+                    "description": "Minimum coverage of the reference protein",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "amr_translation_table": {
+                    "type": "integer",
+                    "description": "NCBI genetic code for translated BLAST",
+                    "default": 11,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_parameters"
+        },
+        {
+            "$ref": "#/definitions/dataset_parameters"
+        },
+        {
+            "$ref": "#/definitions/optional_parameters"
+        },
+        {
+            "$ref": "#/definitions/nextflow_parameters"
+        },
+        {
+            "$ref": "#/definitions/nextflow_profile_parameters"
+        },
+        {
+            "$ref": "#/definitions/awsbatch_profile_parameters"
+        },
+        {
+            "$ref": "#/definitions/generic_parameters"
+        },
+        {
+            "$ref": "#/definitions/gather_samples_parameters"
+        },
+        {
+            "$ref": "#/definitions/qc_reads_parameters"
+        },
+        {
+            "$ref": "#/definitions/assemble_genome_parameters"
+        },
+        {
+            "$ref": "#/definitions/assembly_qc_parameters"
+        },
+        {
+            "$ref": "#/definitions/annotate_genome_parameters"
+        },
+        {
+            "$ref": "#/definitions/minmer_sketch_parameters"
+        },
+        {
+            "$ref": "#/definitions/minmer_query_parameters"
+        },
+        {
+            "$ref": "#/definitions/ariba_analysis_parameters"
+        },
+        {
+            "$ref": "#/definitions/call_variants_parameters"
+        },
+        {
+            "$ref": "#/definitions/blast_parameters"
+        },
+        {
+            "$ref": "#/definitions/mapping_query_parameters"
+        },
+        {
+            "$ref": "#/definitions/antimicrobial_resistance_parameters"
+        }
+    ]
+}

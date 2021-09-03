@@ -1,7 +1,12 @@
 # Changelog
 
 ## v2.0.0 bactopia/bactopia "" - 2021/08/??
-### 
+### Process Consolidation
+
+`makeblastdb` -> `assemble_genome`
+`call_variants`, `download_reference` -> `call_variants`
+`fastq_status`, `estiamte_genome_size` -> `gather_samples`
+`count_31mers` -> `minmer_sketch`
 
 ## v1.7.1 bactopia/bactopia "Shellbuster" - 2021/06/04
 ### `Added`
