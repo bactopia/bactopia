@@ -106,9 +106,13 @@ class NfcoreSchema {
 
         // Collect expected parameters from the schema
         def expectedParams = []
+        def enums = [:]
         for (group in schemaParams) {
             for (p in group.value['properties']) {
                 expectedParams.push(p.key)
+                if (group.value['properties'][p.key].containsKey('enum')) {
+                    enums[p.key] = group.value['properties'][p.key]['enum']
+                }
             }
         }
 
@@ -156,7 +160,7 @@ class NfcoreSchema {
             println ''
             log.error 'ERROR: Validation of pipeline parameters failed!'
             JSONObject exceptionJSON = e.toJSON()
-            printExceptions(exceptionJSON, params_json, log)
+            printExceptions(exceptionJSON, params_json, log, enums)
             println ''
             has_error = true
         }
@@ -182,7 +186,7 @@ class NfcoreSchema {
     //
     // Beautify parameters for --help
     //
-    public static String paramsHelp(workflow, params, command, schema_filename='nextflow_schema.json') {
+    public static String paramsHelp(workflow, params, command, schema_filename='nextflow_schema.json', print_required=false) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
         String output  = ''
@@ -193,12 +197,81 @@ class NfcoreSchema {
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
         for (group in params_map.keySet()) {
+            if (print_required == true && group != "Required Parameters") {
+                continue
+            }
+
             Integer num_params = 0
             String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
             for (param in group_params.keySet()) {
                 if (!params.help_all) {
                     if (group_params.get(param).hidden && (!params.show_hidden_params || !params.help_all)) {
+                        num_hidden += 1
+                        continue;
+                    }
+                }
+                if (group_params.get(param).containsKey('header')) {
+                    group_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
+                }
+
+                def type = '[' + group_params.get(param).type + ']'
+                def description = group_params.get(param).description
+                def defaultValue = group_params.get(param).default ? " [default: " + group_params.get(param).default.toString() + "]" : ''
+                def description_default = description + colors.dim + defaultValue + colors.reset
+                // Wrap long description texts
+                // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
+                if (description_default.length() > dec_linewidth){
+                    List olines = []
+                    String oline = "" // " " * indent
+                    description_default.split(" ").each() { wrd ->
+                        if ((oline.size() + wrd.size()) <= dec_linewidth) {
+                            oline += wrd + " "
+                        } else {
+                            olines += oline
+                            oline = wrd + " "
+                        }
+                    }
+                    olines += oline
+                    description_default = olines.join("\n" + " " * desc_indent)
+                }
+                group_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
+                num_params += 1
+            }
+            group_output += '\n'
+            if (num_params > 0){
+                output += group_output
+            }
+        }
+        if (num_hidden > 0){
+            output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
+        }
+        output += NfcoreTemplate.dashedLine(params.monochrome_logs)
+        return output
+    }
+
+    //
+    // Beautify parameters for --help
+    //
+    public static String paramsRequired(workflow, params, schema_filename='nextflow_schema.json') {
+        Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
+        Integer num_hidden = 0
+        String output  = ''
+        Map params_map = paramsLoad(getSchemaPath(workflow, schema_filename=schema_filename))
+        Integer max_chars  = paramsMaxChars(params_map) + 1
+        Integer desc_indent = max_chars + 14
+        Integer dec_linewidth = 160 - desc_indent
+        for (group in params_map.keySet()) {
+            if (group != "Required Parameters") {
+                continue
+            }
+
+            Integer num_params = 0
+            String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
+            def group_params = params_map.get(group)  // This gets the parameters of that particular group
+            for (param in group_params.keySet()) {
+                if (!params.help_all) {
+                    if (group_params.get(param).hidden && !params.show_hidden_params) {
                         num_hidden += 1
                         continue;
                     }
@@ -314,10 +387,10 @@ class NfcoreSchema {
     //
     // Beautify parameters for summary and return as string
     //
-    public static String paramsSummaryLog(workflow, params) {
+    public static String paramsSummaryLog(workflow, params, schema_filename) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         String output  = ''
-        def params_map = paramsSummaryMap(workflow, params)
+        def params_map = paramsSummaryMap(workflow, params, schema_filename=schema_filename)
         def max_chars  = paramsMaxChars(params_map)
         for (group in params_map.keySet()) {
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
@@ -337,7 +410,7 @@ class NfcoreSchema {
     //
     // Loop over nested exceptions and print the causingException
     //
-    private static void printExceptions(ex_json, params_json, log) {
+    private static void printExceptions(ex_json, params_json, log, enums) {
         def causingExceptions = ex_json['causingExceptions']
         if (causingExceptions.length() == 0) {
             def m = ex_json['message'] =~ /required key \[([^\]]+)\] not found/
@@ -353,11 +426,15 @@ class NfcoreSchema {
             else {
                 def param = ex_json['pointerToViolation'] - ~/^#\//
                 def param_val = params_json[param].toString()
-                log.error "* --${param}: ${ex_json['message']} (${param_val})"
+                if (enums.containsKey(param)) {
+                    log.error "* --${param}: '${param_val}' is not a valid choice (Available choices: ${enums[param].join(', ')})"
+                } else {
+                    log.error "* --${param}: ${ex_json['message']} (${param_val})"
+                }
             }
         }
         for (ex in causingExceptions) {
-            printExceptions(ex, params_json, log)
+            printExceptions(ex, params_json, log, enums)
         }
     }
 

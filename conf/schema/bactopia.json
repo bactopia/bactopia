@@ -122,7 +122,13 @@
                 "outdir": {
                     "type": "string",
                     "default": "./",
-                    "description": "Directory to write results to",
+                    "description": "Base directory to write results and Nextflow related outputs to",
+                    "fa_icon": "fas fa-folder"
+                },
+                "run_name": {
+                    "type": "string",
+                    "default": "bactopia",
+                    "description": "Name of the directory to hold results (e.g. ${params.outdir}/${params.run_name}/<SAMPLE_NAME>",
                     "fa_icon": "fas fa-folder"
                 },
                 "skip_compression": {
@@ -296,24 +302,28 @@
             "properties": {
                 "aws_region": {
                     "type": "string",
+                    "default": "us-east-1",
                     "description": "AWS Region to be used by Nextflow",
                     "fa_icon": "fas fa-folder",
                     "hidden": true
                 },
                 "aws_volumes": {
                     "type": "string",
+                    "default": "/opt/conda:/mnt/conda",
                     "description": "Volumes to be mounted from the EC2 instance to the Docker container",
                     "fa_icon": "fas fa-folder",
                     "hidden": true
                 },
                 "aws_cli_path": {
                     "type": "string",
+                    "default": "/home/ec2-user/conda/bin/aws",
                     "description": "Path to the AWS CLI for Nextflow to use.",
                     "fa_icon": "fas fa-folder",
                     "hidden": true
                 },
                 "aws_upload_storage_class": {
                     "type": "string",
+                    "default": "STANDARD",
                     "description": "The S3 storage slass to use for storing files on S3",
                     "fa_icon": "fas fa-folder",
                     "hidden": true
@@ -490,7 +500,7 @@
                 "attempts": {
                     "type": "integer",
                     "description": "Maximum times to attempt downloads",
-                    "default": 10,
+                    "default": 3,
                     "fa_icon": "fas fa-redo",
                     "hidden": true
                 },
