@@ -431,7 +431,7 @@ class NfcoreSchema {
                     if (enums[param].size() > limit) {
                         log.error "${error_msg} (${limit} of ${enums[param].size()}): ${enums[param][0..limit-1].join(', ')}, ... )"
                     } else {
-                        log.error "${error_msg}: ${enums[param][].join(', ')})"
+                        log.error "${error_msg}: ${enums[param].join(', ')})"
                     }
                 } else {
                     log.error "* --${param}: ${ex_json['message']} (${param_val})"
