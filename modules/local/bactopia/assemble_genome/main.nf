@@ -2,7 +2,7 @@ nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
 include { get_resources; save_files } from '../../utilities/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "assemble_genome"
 
 process ASSEMBLE_GENOME {
@@ -13,14 +13,14 @@ process ASSEMBLE_GENOME {
 
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
-        overwrite: params.overwrite,
+        overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: ["-genome-size.txt", ".fastq.gz"]) }
 
     input:
     tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra), path(genome_size)
 
     output:
-    tuple val(sample), path(genome_size), path("results/${sample}.{fna,fna.gz}"), emit: fna, optional: true
+    tuple val(sample), path(genome_size), path("results/${sample}.{fna,fna.gz}"), file("total_contigs_*"), emit: fna, optional: true
     tuple val(sample), val(single_end), path(fq), path("results/${sample}.{fna,fna.gz}"), emit: fna_fastq, optional: true
     tuple val(sample), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
@@ -100,6 +100,7 @@ process ASSEMBLE_GENOME {
 
     # Check quality of assembly
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{sample}.fna || true`
+    touch "total_contigs_${TOTAL_CONTIGS}"
     if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
         assembly-scan ${OUTDIR}/!{sample}.fna > ${OUTDIR}/!{sample}.fna.json 2> assembly-scan.stderr.txt
         assembly-scan --version > assembly-scan.version.txt 2>&1

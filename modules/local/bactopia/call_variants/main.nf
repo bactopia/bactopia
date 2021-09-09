@@ -2,7 +2,7 @@ nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
 include { get_resources; save_files } from '../../utilities/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "call_variants"
 
 process CALL_VARIANTS {
@@ -22,7 +22,7 @@ process CALL_VARIANTS {
 
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
-        overwrite: params.overwrite,
+        overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:reference_name) }
 
     input:

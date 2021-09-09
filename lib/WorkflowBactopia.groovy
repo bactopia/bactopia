@@ -8,7 +8,7 @@ class WorkflowBactopia {
     //
     // Check and validate parameters
     //
-    public static void initialise(workflow, params, log, schema_filename='conf/schema/bactopia.json') {
+    public static String initialise(workflow, params, log, schema_filename='conf/schema/bactopia.json') {
         def Integer error = 0
         def String run_type = ""
 
@@ -88,7 +88,6 @@ class WorkflowBactopia {
             log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue").trim()
             exit 1
         }
-
+        return run_type
     }
-
 }

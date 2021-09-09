@@ -3,7 +3,7 @@ nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
 include { get_resources; save_files } from '../../utilities/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "qc_reads"
 
 process QC_READS {
@@ -14,11 +14,11 @@ process QC_READS {
 
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
-        overwrite: params.overwrite,
+        overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore:[ '-genome-size.txt', extra]) }
 
     input:
-    tuple val(sample), val(sample_type), val(single_end), path(fq), path(extra), path(genome_size)
+    tuple val(sample), val(sample_type), path(fq), path(extra), path(genome_size)
 
     output:
     tuple val(sample), val(single_end), path("results/${sample}*.fastq.gz"), emit: fastq, optional: true
@@ -31,6 +31,7 @@ process QC_READS {
 
 
     shell:
+    single_end = fq[1] == null ? true : false
     qc_ram = task.memory.toString().split(' ')[0]
     is_assembly = sample_type.startsWith('assembly') ? true : false
     qin = sample_type.startsWith('assembly') ? 'qin=33' : 'qin=auto'

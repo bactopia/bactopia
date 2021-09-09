@@ -7,8 +7,6 @@ workflow test_annotate_genome {
 
     inputs = tuple(
         "test_annotate_genome",
-        false,
-        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['reference']['fna']),
         file(params.test_data['reference']['total_contigs'])
     )

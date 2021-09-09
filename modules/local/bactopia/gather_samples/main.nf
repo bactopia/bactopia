@@ -2,7 +2,7 @@ nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
 include { get_resources; save_files } from '../../utilities/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "gather_samples"
 
 process GATHER_SAMPLES {
@@ -13,7 +13,7 @@ process GATHER_SAMPLES {
 
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
-        overwrite: params.overwrite,
+        overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz", ".fna.gz"]) }
 
     input:

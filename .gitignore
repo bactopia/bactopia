@@ -1,9 +1,10 @@
-/datasets/
+temp/
+datasets/
 test_data
-/conda/envs
-/conf/aws.config
+conda/envs
+conf/aws.config
 .nextflow*
-/work/
+work/
 trace.txt*
 *.simg
 

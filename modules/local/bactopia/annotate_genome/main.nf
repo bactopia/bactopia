@@ -2,7 +2,7 @@ nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
 include { get_resources; save_files } from '../../utilities/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.cpus)
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "annotate_genome"
 
 process ANNOTATE_GENOME {
@@ -13,13 +13,13 @@ process ANNOTATE_GENOME {
 
     publishDir "${params.outdir}/${sample}",
         mode: params.publish_mode,
-        overwrite: params.overwrite,
+        overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), val(single_end), file(fq), file(fasta), file(total_contigs)
-    file prokka_proteins
-    file prodigal_tf
+    tuple val(sample), path(genome_size), path(fasta), path(total_contigs)
+    path prokka_proteins
+    path prodigal_tf
 
     output:
     tuple val(sample), path("${sample}.{faa,faa.gz}"), emit: faa
@@ -72,6 +72,10 @@ process ANNOTATE_GENOME {
         echo "Original sample name (!{sample}) not used due to creating a contig ID >37 characters"
     fi
 
+    if [[ "!{params.skip_compression}" == "false" ]]; then
+        gunzip -c !{sample}.fna.gz > !{sample}.fna
+    fi
+
     prokka --outdir results \
         --force \
         --prefix '!{sample}' \
@@ -94,7 +98,7 @@ process ANNOTATE_GENOME {
         !{notrna} \
         !{rnammer} \
         !{rfam} \
-        !{fasta} > prokka.stdout.txt 2> prokka.stderr.txt
+        !{sample}.fna > prokka.stdout.txt 2> prokka.stderr.txt
 
     if [[ "!{params.skip_compression}" == "false" ]]; then
         find results/ -type f | \
