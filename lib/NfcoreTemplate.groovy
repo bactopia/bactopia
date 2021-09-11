@@ -253,20 +253,36 @@ class NfcoreTemplate {
     //
     // nf-core logo
     //
-    public static String logo(workflow, monochrome_logs) {
+    public static String logo(workflow, monochrome_logs, is_staphopia=false) {
         Map colors = logColours(monochrome_logs)
-        String.format(
-            """\n
-            ${dashedLine(monochrome_logs)}
-            ${colors.blue}   _                _              _             ${colors.reset}
-            ${colors.blue}  | |__   __ _  ___| |_ ___  _ __ (_) __ _       ${colors.reset}
-            ${colors.blue}  | '_ \\ / _` |/ __| __/ _ \\| '_ \\| |/ _` |   ${colors.reset}
-            ${colors.blue}  | |_) | (_| | (__| || (_) | |_) | | (_| |      ${colors.reset}
-            ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_| ${colors.reset}
-            ${colors.blue}                            |_|                  ${colors.reset}
-            ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
-            ${dashedLine(monochrome_logs)}
-            """.stripIndent()
-        )
+        if (is_staphopia) {
+            String.format(
+                """\n
+                ${dashedLine(monochrome_logs)}
+                ${colors.blue}     _              _                 _            ${colors.reset}
+                ${colors.blue} ___| |_ __ _ _ __ | |__   ___  _ __ (_) __ _      ${colors.reset}
+                ${colors.blue}/ __| __/ _` | '_ \\| '_ \\ / _ \\| '_ \\| |/ _` | ${colors.reset}
+                ${colors.blue}\\__ \\ || (_| | |_) | | | | (_) | |_) | | (_| |   ${colors.reset}
+                ${colors.blue}|___/\\__\\__,_| .__/|_| |_|\\___/| .__/|_|\\__,_| ${colors.reset}
+                ${colors.blue}             |_|               |_|                 ${colors.reset}
+                ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
+                ${dashedLine(monochrome_logs)}
+                """.stripIndent()
+            )
+        } else {
+            String.format(
+                """\n
+                ${dashedLine(monochrome_logs)}
+                ${colors.blue}   _                _              _             ${colors.reset}
+                ${colors.blue}  | |__   __ _  ___| |_ ___  _ __ (_) __ _       ${colors.reset}
+                ${colors.blue}  | '_ \\ / _` |/ __| __/ _ \\| '_ \\| |/ _` |   ${colors.reset}
+                ${colors.blue}  | |_) | (_| | (__| || (_) | |_) | | (_| |      ${colors.reset}
+                ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_| ${colors.reset}
+                ${colors.blue}                            |_|                  ${colors.reset}
+                ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
+                ${dashedLine(monochrome_logs)}
+                """.stripIndent()
+            )
+        }
     }
 }

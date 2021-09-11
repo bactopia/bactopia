@@ -36,7 +36,7 @@ process MINMER_QUERY {
     program = dataset_info[0]
     database = dataset_info[1]
     kmer = dataset_info[2]
-    mash_w = params.screen_w ? "-w" : ""
+    mash_w = params.no_winner_take_all ? "" : "-w"
     fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     '''
     OUTPUT="!{sample}-!{program}-!{database}-!{kmer}.txt"

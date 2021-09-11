@@ -13,26 +13,33 @@ run_type = WorkflowBactopia.initialise(workflow, params, log)
     CONFIG FILES
 ========================================================================================
 */
-include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main.nf'
-include { QC_READS } from '../modules/local/bactopia/qc_reads/main.nf'
-include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main.nf'
-include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main.nf'
-include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main.nf'
-include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main.nf'
-include { ARIBA_ANALYSIS } from '../modules/local/bactopia/ariba_analysis/main.nf'
-include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main.nf'
-include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main.nf'
-include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main.nf'
-include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main.nf'
-include { BLAST } from '../modules/local/bactopia/blast/main.nf'
-include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main.nf'
-include { create_input_channel } from '../modules/local/utilities/bactopia-channels.nf'
+include { create_input_channel; setup_datasets } from '../modules/local/bactopia/inputs.nf'
+include { get_resources; print_efficiency } from '../modules/local/utilities/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+
 /*
 ========================================================================================
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ========================================================================================
 */
 
+
+// Core
+include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main.nf'
+include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main.nf'
+include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main.nf'
+include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main.nf'
+include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main.nf'
+include { QC_READS } from '../modules/local/bactopia/qc_reads/main.nf'
+
+// Require Datasets
+include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main.nf'
+include { ARIBA_ANALYSIS } from '../modules/local/bactopia/ariba_analysis/main.nf'
+include { BLAST } from '../modules/local/bactopia/blast/main.nf'
+include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main.nf'
+include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main.nf'
+include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main.nf'
+include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main.nf'
 
 /*
 ========================================================================================
@@ -46,14 +53,28 @@ include { create_input_channel } from '../modules/local/utilities/bactopia-chann
 ========================================================================================
 */
 workflow BACTOPIA {
-    SPECIES_GENOME_SIZE = params.genome_size
-    PROKKA_PROTEINS = params.empty_proteins
-    PRODIGAL_TF = params.empty_tf
-    GATHER_SAMPLES(create_input_channel(run_type, params.genome_size))
+    print_efficiency(RESOURCES.MAX_CPUS) 
+    datasets = setup_datasets()
+
+    // Core steps
+    GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
     QC_READS(GATHER_SAMPLES.out.raw_fastq)
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
-    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna, Channel.fromPath(params.empty_proteins), Channel.fromPath(params.empty_tf))
+    ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna, Channel.fromList(['checkm', 'quast']))
+    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna, Channel.fromPath(datasets['proteins']), Channel.fromPath(datasets['training_set']))
     MINMER_SKETCH(QC_READS.out.fastq)
+
+    // Optional steps that require datasets
+    // Species agnostic
+    ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
+    ARIBA_ANALYSIS(QC_READS.out.fastq, datasets['ariba'])
+    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
+
+    // Species Specific
+    BLAST(ASSEMBLE_GENOME.out.blastdb, datasets['blast'])
+    CALL_VARIANTS(QC_READS.out.fastq, datasets['references'])
+    MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
+    SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
 }
 
 /*
@@ -67,14 +88,16 @@ workflow.onComplete {
     println """
     Bactopia Execution Summary
     ---------------------------
-    Command Line    : ${workflow.commandLine}
-    Resumed         : ${workflow.resume}
-    Completed At    : ${workflow.complete}
-    Duration        : ${workflow.duration}
-    Success         : ${workflow.success}
-    Exit Code       : ${workflow.exitStatus}
-    Error Report    : ${workflow.errorReport ?: '-'}
-    Launch Dir      : ${workflow.launchDir}
+    Bactopia Version : ${workflow.manifest.version}
+    Nextflow Version : ${nextflow.version}
+    Command Line     : ${workflow.commandLine}
+    Resumed          : ${workflow.resume}
+    Completed At     : ${workflow.complete}
+    Duration         : ${workflow.duration}
+    Success          : ${workflow.success}
+    Exit Code        : ${workflow.exitStatus}
+    Error Report     : ${workflow.errorReport ?: '-'}
+    Launch Dir       : ${workflow.launchDir}
     """
 }
 

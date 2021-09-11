@@ -1,6 +1,10 @@
 # Changelog
 
 ## v2.0.0 bactopia/bactopia "" - 2021/08/??
+
+### `Fixed`
+- Cache issue causeing `-resume` to fail
+
 ### Process Consolidation
 
 `makeblastdb` -> `assemble_genome`

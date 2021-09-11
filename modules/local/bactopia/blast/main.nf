@@ -19,8 +19,8 @@ process BLAST {
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir: query) }
 
     input:
-    tuple val(sample), path(blastdb)
-    path(query)
+    tuple val(sample), path(blastdb, stageAs: 'blastdb/*')
+    each path(query)
 
     output:
     path "results/*"

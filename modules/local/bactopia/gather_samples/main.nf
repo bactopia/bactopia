@@ -17,7 +17,7 @@ process GATHER_SAMPLES {
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz", ".fna.gz"]) }
 
     input:
-    tuple val(sample), val(sample_type), val(genome_size), file(r1: '*???-r1'), file(r2: '*???-r2'), path(extra)
+    tuple val(sample), val(sample_type), val(genome_size), path(r1, stageAs: '*???-r1'), path(r2, stageAs: '*???-r2'), path(extra)
 
     output:
     tuple val(sample), val(final_sample_type), path("fastqs/${sample}*.fastq.gz"),
@@ -28,8 +28,6 @@ process GATHER_SAMPLES {
     path "*-{error,merged}.txt", optional:true
 
     shell:
-    bactopia_version = workflow.manifest.version
-    nextflow_version = nextflow.version
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = extra ? (extra.getName().endsWith('gz') ? true : false) : false
     no_cache = params.no_cache ? '-N' : ''
@@ -94,7 +92,7 @@ process GATHER_SAMPLES {
         ls -l fastqs/!{sample}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         touch extra/empty.fna.gz
-    elif [ "!{sample_type}" == "sra-accession" ]; then
+    elif [ "!{sample_type}" == "sra_accession" ]; then
         # fastq-dl Version
         fastq-dl --version > fastq-dl.version.txt 2>&1
 
@@ -266,10 +264,6 @@ process GATHER_SAMPLES {
         # Use the genome size given by the user. (Should be >= 0)
         echo "!{genome_size}" > ${GENOME_SIZE_OUTPUT}
     fi
-
-    # Capture versions
-    echo "bactopia !{bactopia_version}" > bactopia.version.txt
-    echo "nextflow !{nextflow_version}" > nextflow.version.txt
     '''
 
     stub:

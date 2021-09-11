@@ -22,8 +22,7 @@ process ANNOTATE_GENOME {
     path prodigal_tf
 
     output:
-    tuple val(sample), path("${sample}.{faa,faa.gz}"), emit: faa
-    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), emit: ffn
+    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), path("${sample}.{faa,faa.gz}"), emit: annotations
     path "results/*", emit: results
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
@@ -36,11 +35,12 @@ process ANNOTATE_GENOME {
     proteins = ""
     if (prokka_proteins.getName() != 'EMPTY_PROTEINS') {
         proteins = "--proteins ${prokka_proteins}"
-        if (SPECIES.contains("-")) {
-            genus = SPECIES.split('-')[0].capitalize()
-            species = SPECIES.split('-')[1]
+        proteins_name = prokka_proteins.getName()
+        if(proteins_name.contains("-")) {
+            genus = proteins_name.split('-')[0].capitalize()
+            species = proteins_name.split('-')[1]
         } else {
-            genus = SPECIES.capitalize()
+            genus = proteins_name.capitalize()
             species = "spp."
         }
     }

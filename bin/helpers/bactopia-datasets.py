@@ -392,13 +392,15 @@ def setup_mlst(request, available_datasets, outdir, force=False, species_key=Non
 
             species = re.sub(r'[ /()]', "-", species.lower())
             species = species.replace('--', '-').strip('-')
-            mlst_dir = f'{outdir}/{species}/mlst/{schema}'
-            if os.path.exists(f'{mlst_dir}/mlst-updated.txt'):
+            mlst_dir = f'{outdir}/{species}/mlst'
+            schema_dir = f'{mlst_dir}/{schema}'
+            if os.path.exists(f'{mlst_dir}/{schema}-updated.txt'):
                 if force:
                     logging.info(f'--force, removing existing {request["species"]} setup')
-                    execute(f'rm -rf {mlst_dir}')
+                    execute(f'rm -rf {mlst_dir}/{schema}-updated.txt')
+                    execute(f'rm -rf {mlst_dir}/{schema}.tar.gz')
                 else:
-                    logging.info((f'{request["species"]} MLST Schema ({mlst_dir}) exists'
+                    logging.info((f'{request["species"]} MLST Schema ({schema}) exists'
                                   ', skipping'))
                     continue
             elif force:
@@ -407,30 +409,28 @@ def setup_mlst(request, available_datasets, outdir, force=False, species_key=Non
 
             # Setup MLST dataset
             logging.info(f'Setting up {schema} MLST schema for {request["species"]}')
-            execute(f'mkdir -p {mlst_dir}')
+            execute(f'mkdir -p {schema_dir}')
 
             # Ariba
             species_request = request['ariba']
             logging.info(f'Creating Ariba MLST dataset')
-            ariba_dir = f'{mlst_dir}/ariba'
+            ariba_dir = f'{schema_dir}/ariba'
             execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
 
             # BLAST
             logging.info(f'Creating BLAST MLST dataset')
-            blast_dir = f'{mlst_dir}/blastdb'
+            blast_dir = f'{schema_dir}/blastdb'
             for fasta in glob.glob(f'{ariba_dir}/pubmlst_download/*.tfa'):
                 output = os.path.splitext(fasta)[0]
                 execute(f'makeblastdb -in {fasta} -dbtype nucl -out {output}')
             execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
 
             # Tarball directories
-            execute(f'tar -zcvf {schema}-ariba.tar.gz ariba/', directory=mlst_dir)
-            execute(f'rm -rf {ariba_dir}')
-            execute(f'tar -zcvf {schema}-blastdb.tar.gz blastdb/', directory=mlst_dir)
-            execute(f'rm -rf {blast_dir}')
+            execute(f'tar -zcvf {schema}.tar.gz {schema}/', directory=mlst_dir)
+            execute(f'rm -rf {schema_dir}')
 
             # Finish up
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > mlst-updated.txt',
+            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {schema}-updated.txt',
                     directory=mlst_dir)
     else:
         logging.info("No valid MLST schemas to setup, skipping")
@@ -497,7 +497,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             genome_sizes = []
             skip_genome_size = False
 
-            if os.path.exists(f'{prokka_dir}/proteins.faa'):
+            if os.path.exists(f'{prokka_dir}/{species}.faa'):
                 if force:
                     logging.info(f'--force, delete existing {prokka_dir}')
                     clean_up = True
@@ -647,7 +647,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                 logging.info(
                     f'Median genome size: {median_genome} (n={total_genome})'
                 )
-            cdhit_cds = f'{prokka_dir}/proteins.faa'
+            cdhit_cds = f'{prokka_dir}/{species}.faa'
             logging.info(f'Running CD-HIT on {count} proteins')
             g = 0 if fast_cluster else 1
             execute((f'cd-hit -i {passing_cds} -o {cdhit_cds} -s {overlap} '
@@ -685,7 +685,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
             execute(f'sed -i "s=passing-cds.faa:=original\t=" cdhit-stats.txt',
                     directory=prokka_dir)
             execute(
-                f'sed -i "s=proteins.faa:=after_cd-hit\t=" cdhit-stats.txt',
+                f'sed -i "s={species}.faa:=after_cd-hit\t=" cdhit-stats.txt',
                 directory=prokka_dir
             )
             execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
@@ -735,10 +735,10 @@ def setup_minmer(outdir, force=False):
     """Download precomputed Refseq (Mash) and Genbank (Sourmash) datasets."""
     datasets = {
         # Last updated: 2019-03-04
-        'genbank-k21.json.gz': 'https://osf.io/d7rv8/download',
-        'genbank-k31.json.gz': 'https://osf.io/4f8n3/download',
-        'genbank-k51.json.gz': 'https://osf.io/nemkw/download',
-        'refseq-k21-s1000.msh': (
+        'sourmash-genbank-k21.json.gz': 'https://osf.io/d7rv8/download',
+        'sourmash-genbank-k31.json.gz': 'https://osf.io/4f8n3/download',
+        'sourmash-genbank-k51.json.gz': 'https://osf.io/nemkw/download',
+        'mash-refseq-k21.msh': (
             'https://gembox.cbcb.umd.edu/mash/refseq.genomes.k21s1000.msh'
         )
     }
@@ -837,19 +837,20 @@ def create_summary(outdir, training_set=False):
 
             prokka = f'{species_dir}/annotation'
             new_species['annotation'] = { 'proteins': None, 'training_set': None, 'last_updated': None}
-            if os.path.exists(f'{prokka}/proteins.faa'):
+            if os.path.exists(f'{prokka}/{species}.faa'):
                 new_species['annotation'] = {
-                    'proteins': f'species-specific/{species}/annotation/proteins.faa',
+                    'proteins': f'species-specific/{species}/annotation/{species}.faa',
                     'last_updated': execute(
                         f'head -n 1 {prokka}/proteins-updated.txt',
                         capture=True
                     ).rstrip()
                 }
 
-            if training_set:
+            if training_set or os.path.exists(f'{prokka}/prodigal.tf'):
                 if not os.path.exists(prokka):
                     execute(f'mkdir -p {prokka}')
-                execute(f'cp {training_set} {prokka}/prodigal.tf')
+                if training_set:
+                    execute(f'cp {training_set} {prokka}/prodigal.tf')
                 new_species['annotation']['training_set'] = f'species-specific/{species}/annotation/prodigal.tf'
 
             new_species['genome_size'] = {'min': None, 'median': None, 'mean': None, 'max': None}
@@ -861,14 +862,12 @@ def create_summary(outdir, training_set=False):
             mlst = f'{species_dir}/mlst'
             new_species['mlst'] = {} 
             if os.path.exists(f'{mlst}'):
-                for schema in sorted(os.listdir(f'{mlst}')):
-                    if os.path.exists(f'{mlst}/{schema}/{schema}-ariba.tar.gz'):
+                for mlst_file in sorted(os.listdir(f'{mlst}')):
+                    if mlst_file.endswith("tar.gz"):
+                        schema = mlst_file.replace(".tar.gz", "")
                         new_species['mlst'][schema] = {
-                            'ariba': f'species-specific/{species}/mlst/{schema}/{schema}-ariba.tar.gz',
-                            'blast': f'species-specific/{species}/mlst/{schema}/{schema}-blastdb.tar.gz',
-                            'last_updated': execute(
-                                f'head -n 1 {mlst}/{schema}/mlst-updated.txt', capture=True
-                            ).rstrip()
+                            'data': f'species-specific/{species}/mlst/{schema}.tar.gz',
+                            'last_updated': execute(f'head -n 1 {mlst}/{schema}-updated.txt', capture=True).rstrip()
                         }
 
             optionals = sorted([

@@ -59,7 +59,7 @@ process ASSEMBLY_QC {
                 --aai_strain !{params.aai_strain} \
                 --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.out
 
-            if [[ !{params.compress} == "true" ]]; then
+            if [[ !{params.skip_compression} == "false" ]]; then
                 find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
             fi
 
