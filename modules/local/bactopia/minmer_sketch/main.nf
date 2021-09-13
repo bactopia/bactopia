@@ -14,7 +14,7 @@ process MINMER_SKETCH {
     label PROCESS_NAME
 
     publishDir "${params.outdir}/${sample}",
-        mode: params.publish_mode,
+        mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz"]) }
 

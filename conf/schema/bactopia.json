@@ -204,7 +204,7 @@
                     "fa_icon": "fas fa-cog",
                     "hidden": true
                 },
-                "publish_mode": {
+                "publish_dir_mode": {
                     "type": "string",
                     "default": "copy",
                     "hidden": true,
