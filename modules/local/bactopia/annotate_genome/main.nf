@@ -7,22 +7,22 @@ PROCESS_NAME = "annotate_genome"
 
 process ANNOTATE_GENOME {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
-    tag "${sample}"
+    tag "${meta.id}"
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), path(genome_size), path(fasta), path(total_contigs)
+    tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
     path prokka_proteins
     path prodigal_tf
 
     output:
-    tuple val(sample), path("${sample}.{ffn,ffn.gz}"), path("${sample}.{faa,faa.gz}"), emit: annotations
+    tuple val(meta), path("${meta.id}.{ffn,ffn.gz}"), path("${meta.id}.{faa,faa.gz}"), emit: annotations
     path "results/*", emit: results
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
@@ -51,10 +51,10 @@ process ANNOTATE_GENOME {
     }
 
     compliant = params.compliant ? "--compliant" : ""
-    locustag = "--locustag ${sample}"
+    locustag = "--locustag ${meta.id}"
     renamed = false
     // Contig ID must <= 37 characters
-    if ("gnl|${params.centre}|${sample}_${contig_count}".length() > 37) {
+    if ("gnl|${params.centre}|${meta.id}_${contig_count}".length() > 37) {
         locustag = ""
         compliant = "--compliant"
         renamed = true
@@ -69,16 +69,16 @@ process ANNOTATE_GENOME {
     rfam = params.rnammer ? "--rfam" : ""
     '''
     if [ "!{renamed}" == "true" ]; then
-        echo "Original sample name (!{sample}) not used due to creating a contig ID >37 characters"
+        echo "Original sample name (!{meta.id}) not used due to creating a contig ID >37 characters"
     fi
 
     if [[ "!{params.skip_compression}" == "false" ]]; then
-        gunzip -c !{sample}.fna.gz > !{sample}.fna
+        gunzip -c !{fasta} > !{meta.id}.fna
     fi
 
     prokka --outdir results \
         --force \
-        --prefix '!{sample}' \
+        --prefix '!{meta.id}' \
         --genus '!{genus}' \
         --species '!{species}' \
         --evalue '!{params.prokka_evalue}' \
@@ -98,7 +98,7 @@ process ANNOTATE_GENOME {
         !{notrna} \
         !{rnammer} \
         !{rfam} \
-        !{sample}.fna > prokka.stdout.txt 2> prokka.stderr.txt
+        !{meta.id}.fna > prokka.stdout.txt 2> prokka.stderr.txt
 
     if [[ "!{params.skip_compression}" == "false" ]]; then
         find results/ -type f | \
@@ -106,12 +106,12 @@ process ANNOTATE_GENOME {
             xargs -I {} pigz -n --best -p !{task.cpus} {}
 
         # Files passed to other modules
-        ln -s results/!{sample}.faa.gz !{sample}.faa.gz
-        ln -s results/!{sample}.ffn.gz !{sample}.ffn.gz
+        ln -s results/!{meta.id}.faa.gz !{meta.id}.faa.gz
+        ln -s results/!{meta.id}.ffn.gz !{meta.id}.ffn.gz
     else
         # Files passed to other modules
-        ln -s results/!{sample}.faa !{sample}.faa
-        ln -s results/!{sample}.ffn !{sample}.ffn
+        ln -s results/!{meta.id}.faa !{meta.id}.faa
+        ln -s results/!{meta.id}.ffn !{meta.id}.ffn
     fi
 
     # Capture version
@@ -121,8 +121,8 @@ process ANNOTATE_GENOME {
     stub:
     """
     mkdir annotation
-    touch annotation/${sample}
-    touch annotation/${sample}.ffn
-    touch annotation/${sample}.faa
+    touch annotation/${meta.id}
+    touch annotation/${meta.id}.ffn
+    touch annotation/${meta.id}.faa
     """
 }

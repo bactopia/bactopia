@@ -4,80 +4,80 @@
     - annotate_genome
     - annotate_genome_compressed
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: bdb5e8f0642b7fa12044ec070732e129
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa.gz'
-      md5sum: 6b359712cd19696fe25d25ebdeb91a49
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn.gz'
-      md5sum: 4fbc65d079d3bd571bebdb1dcba90484
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna.gz'
-      md5sum: 171f19cc781cc41428948ceadf4f04f5
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa.gz'
-      md5sum: 74886d789be2967b1160e47bf01e0292
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk.gz'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff.gz'
-      md5sum: 416373426184322c3e5605e9d749dd0a
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn.gz'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl.gz'
-      md5sum: acd33156890fd5c1f94133c8a25bb555
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
+    - path: 'GCF_000292685/annotation/GCF_000292685.err'
+      md5sum: 80396c6ea78c89232ac0503b50d9e51f
+    - path: 'GCF_000292685/annotation/GCF_000292685.faa.gz'
+      md5sum: 9ec46448666602c3040e418b8175539b
+    - path: 'GCF_000292685/annotation/GCF_000292685.ffn.gz'
+      md5sum: c091f9a40e2bd1dada27fecca5dfdb9c
+    - path: 'GCF_000292685/annotation/GCF_000292685.fna.gz'
+      md5sum: e5c1b7cee50d2bbb6a5a5145e50f5446
+    - path: 'GCF_000292685/annotation/GCF_000292685.fsa.gz'
+      md5sum: 0469187abd59c67f1fa233dfbd55dc8c
+    - path: 'GCF_000292685/annotation/GCF_000292685.gbk.gz'
+    - path: 'GCF_000292685/annotation/GCF_000292685.gff.gz'
+      md5sum: 3afc65353cc8dcf0fa4cfc00f9ac38d9
+    - path: 'GCF_000292685/annotation/GCF_000292685.log'
+    - path: 'GCF_000292685/annotation/GCF_000292685.sqn.gz'
+    - path: 'GCF_000292685/annotation/GCF_000292685.tbl.gz'
+      md5sum: 9ec4b1bde92fd3c531a68a26ee5a3f53
+    - path: 'GCF_000292685/annotation/GCF_000292685.tsv'
+      md5sum: 69609fdaf4425e72d6fd6f5d0d66532c
+    - path: 'GCF_000292685/annotation/GCF_000292685.txt'
       md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.begin
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.err
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.log
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.out
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.run
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: dd76499d705ac79f71d06b4bf1938c8a
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.trace
-    - path: test_annotate_genome/logs/annotate_genome/prokka.stderr.txt
-    - path: test_annotate_genome/logs/annotate_genome/prokka.stdout.txt
-    - path: test_annotate_genome/logs/annotate_genome/prokka.version.txt
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
+      md5sum: 72357c75787b9815e5a678d5fd083204
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
+    - path: GCF_000292685/logs/annotate_genome/prokka.stderr.txt
+    - path: GCF_000292685/logs/annotate_genome/prokka.stdout.txt
+    - path: GCF_000292685/logs/annotate_genome/prokka.version.txt
       md5sum: 5954a02636687fd64afb6a4dc04d2aa5
 
 - name: annotate_genome_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
     - annotate_genome
     - annotate_genome_uncompressed
   files:
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.err'
-      md5sum: bdb5e8f0642b7fa12044ec070732e129
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.faa'
-      md5sum: 2b0f22edf244aacae511f2465ea63b17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.ffn'
-      md5sum: 1e5c13e410dcd67ad69846e67f9434c8
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fna'
-      md5sum: 1910194c2a8969c20f14d1c1916207fa
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.fsa'
-      md5sum: 18d119d2f3d4b23fdcdf5a68bf884534
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gbk'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.gff'
-      md5sum: 3d835e114fc7fe065ed049ebf31eab17
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.log'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.sqn'
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tbl'
-      md5sum: 004967040a6f6d1545159fab8bf64d21
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.tsv'
-      md5sum: a07f544a940c0fc48448fa7dbb4362ff
-    - path: 'test_annotate_genome/annotation/test_annotate_genome.txt'
+    - path: 'GCF_000292685/annotation/GCF_000292685.err'
+      md5sum: 80396c6ea78c89232ac0503b50d9e51f
+    - path: 'GCF_000292685/annotation/GCF_000292685.faa'
+      md5sum: 342c59e03457a0d3c6c0e3ee3c08af8a
+    - path: 'GCF_000292685/annotation/GCF_000292685.ffn'
+      md5sum: f3ce0b8a2b28190e19f27777a294412f
+    - path: 'GCF_000292685/annotation/GCF_000292685.fna'
+      md5sum: 595f4bad06e06b7dcd6584aea444bc22
+    - path: 'GCF_000292685/annotation/GCF_000292685.fsa'
+      md5sum: 899a5228b9d1adc9cba269471c2050f7
+    - path: 'GCF_000292685/annotation/GCF_000292685.gbk'
+    - path: 'GCF_000292685/annotation/GCF_000292685.gff'
+      md5sum: 0fb908754203a810715f28822125625a
+    - path: 'GCF_000292685/annotation/GCF_000292685.log'
+    - path: 'GCF_000292685/annotation/GCF_000292685.sqn'
+    - path: 'GCF_000292685/annotation/GCF_000292685.tbl'
+      md5sum: af666ac6700eb7faf5cd6ebafac06f50
+    - path: 'GCF_000292685/annotation/GCF_000292685.tsv'
+      md5sum: 69609fdaf4425e72d6fd6f5d0d66532c
+    - path: 'GCF_000292685/annotation/GCF_000292685.txt'
       md5sum: 632134e309eb861002a5ddf7ac726004
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.begin
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.err
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.log
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.out
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.run
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: 108f5f5d04af6aaab34909659e0df0c7
-    - path: test_annotate_genome/logs/annotate_genome/nf-annotate_genome.trace
-    - path: test_annotate_genome/logs/annotate_genome/prokka.stderr.txt
-    - path: test_annotate_genome/logs/annotate_genome/prokka.stdout.txt
-    - path: test_annotate_genome/logs/annotate_genome/prokka.version.txt
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
+      md5sum: 876c729ee243381cba4a7f035d5f98eb
+    - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
+    - path: GCF_000292685/logs/annotate_genome/prokka.stderr.txt
+    - path: GCF_000292685/logs/annotate_genome/prokka.stdout.txt
+    - path: GCF_000292685/logs/annotate_genome/prokka.version.txt
       md5sum: 5954a02636687fd64afb6a4dc04d2aa5
