@@ -3,11 +3,9 @@ nextflow.enable.dsl = 2
 include { ASSEMBLE_GENOME } from './main.nf' 
 
 workflow test_assemble_genome_se {
-    // sample, sample_type, single_end, fastqs, extra, genome_size
+    // [sample, runtype, single_end], fastqs, extra, genome_size
     inputs = tuple(
-        "test_assemble_genome_se",
-        'single-end',
-        true,
+        [ id:"test_assemble_genome_se", runtype:'single-end', single_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
         file(params.test_data['empty']['fna']),
         file(params.test_data['reference']['genome_size'])
@@ -17,11 +15,9 @@ workflow test_assemble_genome_se {
 }
 
 workflow test_assemble_genome_pe {
-    // sample, sample_type, single_end, fastqs, extra, genome_size
+    // [sample, runtype, single_end], fastqs, extra, genome_size
     inputs = tuple(
-        "test_assemble_genome_pe",
-        'paired-end',
-        false,
+        [ id:"test_assemble_genome_pe", runtype:'paired-end', single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['empty']['fna']),
         file(params.test_data['reference']['genome_size'])
@@ -31,11 +27,9 @@ workflow test_assemble_genome_pe {
 }
 
 workflow test_assemble_genome_hybrid {
-    // sample, sample_type, single_end, fastqs, extra, genome_size
+    // [sample, runtype, single_end], fastqs, extra, genome_size
     inputs = tuple(
-        "test_assemble_genome_hybrid",
-        'hybrid',
-        false,
+        [ id:"test_assemble_genome_hybrid", runtype:'hybrid', single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['nanopore']['se'], checkIfExists: true),
         file(params.test_data['reference']['genome_size'])

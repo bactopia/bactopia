@@ -7,8 +7,7 @@ workflow test_ariba_analysis {
 
     // sample, single_end, fastqs
     inputs = tuple(
-        "test_ariba_analysis",
-        false,
+        [ id:"test_ariba_analysis", single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 

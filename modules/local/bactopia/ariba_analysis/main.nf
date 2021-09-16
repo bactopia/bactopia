@@ -7,16 +7,16 @@ PROCESS_NAME = "ariba_analysis"
 
 process ARIBA_ANALYSIS {
     /* Run reads against all available (if any) ARIBA datasets */
-    tag "${sample} - ${dataset_name}"
+    tag "${meta.id} - ${dataset_name}"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:dataset_name) }
 
     input:
-    tuple val(sample), val(single_end), path(fq)
+    tuple val(meta), path(fq)
     each path(dataset)
 
     output:
@@ -26,7 +26,7 @@ process ARIBA_ANALYSIS {
     path "*.version.txt", emit: version
 
     when:
-    single_end == false
+    meta.single_end == false
 
     shell:
     dataset_tarball = dataset.getName()
@@ -66,6 +66,6 @@ process ARIBA_ANALYSIS {
     dataset_name = dataset_tarball.replace('.tar.gz', '')
     """
     mkdir ${dataset_name}
-    touch ${dataset_name}/${sample}
+    touch ${dataset_name}/${meta.id}
     """
 }

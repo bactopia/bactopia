@@ -16,7 +16,7 @@ def get_resources(profile, max_memory, max_cpus) {
 
 /* Get the maximum available memory for the given system */
 def _get_max_memory(requested) {
-    available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toString().split(" ")[0])).toInteger()
+    available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toGiga().toString().split(" ")[0])).toInteger()
     if (available < requested) {
         log.warn "Maximum memory (${requested}) was adjusted to fit your system (${available})"
         return available

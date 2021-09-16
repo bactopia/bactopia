@@ -28,18 +28,18 @@ process GATHER_SAMPLES {
 
     shell:
     meta.original_runtype = meta.runtype
-    sample_type = meta.original_runtype
-    is_assembly = sample_type.startsWith('assembly') ? true : false
+    runtype = meta.original_runtype
+    is_assembly = runtype.startsWith('assembly') ? true : false
     is_compressed = extra ? (extra.getName().endsWith('gz') ? true : false) : false
     no_cache = params.no_cache ? '-N' : ''
     archive = params.use_ena ? (task.attempt >= 4 ? "SRA" : "ENA") : "SRA"
-    section = sample_type == 'assembly_accession' ? (meta.id.startsWith('GCF') ? 'refseq' : 'genbank') : null
+    section = runtype == 'assembly_accession' ? (meta.id.startsWith('GCF') ? 'refseq' : 'genbank') : null
     fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
-    if (sample_type == 'hybrid-merge-pe') {
+    if (runtype == 'hybrid-merge-pe') {
         meta.runtype = 'hybrid'
-    } else if (sample_type == 'merge-pe') {
+    } else if (runtype == 'merge-pe') {
         meta.runtype = 'paired-end'
-    } else if (sample_type == 'merge-se') {
+    } else if (runtype == 'merge-se') {
         meta.runtype = 'single-end'
     }
     qin = is_assembly ? 'qin=33' : 'qin=auto'
@@ -48,21 +48,21 @@ process GATHER_SAMPLES {
     mkdir -p fastqs
     mkdir -p extra
 
-    if [ "!{sample_type}" == "paired-end" ]; then
+    if [ "!{runtype}" == "paired-end" ]; then
         # Paired-End Reads
         ln -s `readlink !{r1[0]}` fastqs/!{meta.id}_R1.fastq.gz
         ln -s `readlink !{r2[0]}` fastqs/!{meta.id}_R2.fastq.gz
         touch extra/empty.fna.gz
-    elif [ "!{sample_type}" == "single-end" ]; then
+    elif [ "!{runtype}" == "single-end" ]; then
         # Single-End Reads
         ln -s `readlink !{r1[0]}` fastqs/!{meta.id}.fastq.gz
         touch extra/empty.fna.gz
-    elif  [ "!{sample_type}" == "hybrid" ]; then
+    elif  [ "!{runtype}" == "hybrid" ]; then
         # Paired-End Reads
         ln -s `readlink !{r1[0]}` fastqs/!{meta.id}_R1.fastq.gz
         ln -s `readlink !{r2[0]}` fastqs/!{meta.id}_R2.fastq.gz
         ln -s `readlink !{extra}` extra/!{meta.id}.fastq.gz
-    elif [ "!{sample_type}" == "merge-pe" ] || [ "!{sample_type}" == "hybrid-merge-pe" ]; then 
+    elif [ "!{runtype}" == "merge-pe" ] || [ "!{runtype}" == "hybrid-merge-pe" ]; then 
         # Merge Paired-End Reads
         echo "This sample had reads merged." > ${MERGED}
         echo "R1:" >> ${MERGED}
@@ -77,12 +77,12 @@ process GATHER_SAMPLES {
         echo "Merged R2:" >> ${MERGED}
         ls -l fastqs/!{meta.id}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
-        if [ "!{sample_type}" == "hybrid-merge-pe" ]; then
+        if [ "!{runtype}" == "hybrid-merge-pe" ]; then
             ln -s `readlink !{extra}` extra/!{meta.id}.fastq.gz
         else
             touch extra/empty.fna.gz
         fi
-    elif [ "!{sample_type}" == "merge-se" ]; then 
+    elif [ "!{runtype}" == "merge-se" ]; then 
         # Merge Single-End Reads
         echo "This sample had reads merged." > ${MERGED}
         echo "SE:" >> ${MERGED}
@@ -92,7 +92,7 @@ process GATHER_SAMPLES {
         ls -l fastqs/!{meta.id}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         touch extra/empty.fna.gz
-    elif [ "!{sample_type}" == "sra_accession" ]; then
+    elif [ "!{runtype}" == "sra_accession" ]; then
         # fastq-dl Version
         fastq-dl --version > fastq-dl.version.txt 2>&1
 
@@ -113,7 +113,7 @@ process GATHER_SAMPLES {
             touch extra/empty.fna.gz
         fi 
     elif [ "!{is_assembly}" == "true" ]; then
-        if [ "!{sample_type}" == "assembly_accession" ]; then
+        if [ "!{runtype}" == "assembly_accession" ]; then
             # ncbi-genome-download Version
             ncbi-genome-download --version > ncbi-genome-download.version.txt 2>&1
 
@@ -141,7 +141,7 @@ process GATHER_SAMPLES {
                     exit
                 fi
             fi
-        elif [ "!{sample_type}" == "assembly" ]; then
+        elif [ "!{runtype}" == "assembly" ]; then
             if [ "!{is_compressed}" == "true" ]; then
                 gzip -cd !{extra} > !{meta.id}-art.fna
             else 

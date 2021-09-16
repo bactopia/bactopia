@@ -10,21 +10,21 @@ process ANTIMICROBIAL_RESISTANCE {
     Query nucleotides and proteins (SNPs/InDels) against one or more reference genomes selected based
     on their Mash distance from the input.
     */
-    tag "${sample}"
+    tag "${meta.id}"
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), path(genes), path(proteins)
+    tuple val(meta), path(genes), path(proteins)
     each path(amrdb)
 
     output:
-    tuple val(sample), path("*{gene,protein}-{point-mutations,report}.txt"), emit: results
+    tuple val(meta), path("*{gene,protein}-{point-mutations,report}.txt"), emit: results
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
     path "*.version.txt", emit: version
@@ -35,28 +35,28 @@ process ANTIMICROBIAL_RESISTANCE {
     organism_gene = ""
     organism_protein = ""
     if (params.amr_organism) {
-        organism_gene = "-O ${params.amr_organism} --point_mut_all ${sample}-gene-point-mutations.txt"
-        organism_protein = "-O ${params.amr_organism} --point_mut_all ${sample}-protein-point-mutations.txt"
+        organism_gene = "-O ${params.amr_organism} --point_mut_all ${meta.id}-gene-point-mutations.txt"
+        organism_protein = "-O ${params.amr_organism} --point_mut_all ${meta.id}-protein-point-mutations.txt"
     }
     '''
     if [[ !{params.skip_compression} == "false" ]]; then
         # Files passed to other modules
-        gunzip -c !{sample}.faa.gz > !{sample}.faa
-        gunzip -c !{sample}.ffn.gz > !{sample}.ffn
+        gunzip -c !{meta.id}.faa.gz > !{meta.id}.faa
+        gunzip -c !{meta.id}.ffn.gz > !{meta.id}.ffn
     fi
 
     tar -xzvf !{amrdb}
-    amrfinder -n !{sample}.ffn \
+    amrfinder -n !{meta.id}.ffn \
             -d amrfinderdb/ \
-            -o !{sample}-gene-report.txt \
+            -o !{meta.id}-gene-report.txt \
             --ident_min !{params.amr_ident_min} \
             --coverage_min !{params.amr_coverage_min} \
             --translation_table !{params.amr_translation_table} \
             --threads !{task.cpus} !{organism_gene} !{plus} !{report_common} > amrfinder-gene.stdout.txt 2> amrfinder-gene.stderr.txt
 
-    amrfinder -p !{sample}.faa \
+    amrfinder -p !{meta.id}.faa \
             -d amrfinderdb/ \
-            -o !{sample}-protein-report.txt \
+            -o !{meta.id}-protein-report.txt \
             --ident_min !{params.amr_ident_min} \
             --coverage_min !{params.amr_coverage_min} \
             --translation_table !{params.amr_translation_table} \
@@ -69,6 +69,6 @@ process ANTIMICROBIAL_RESISTANCE {
     stub:
     """
     mkdir ${PUBLISH_DIR}
-    touch ${PUBLISH_DIR}/${sample}
+    touch ${PUBLISH_DIR}/${meta.id}
     """
 }

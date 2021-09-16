@@ -8,6 +8,12 @@
             },
             "prokka": {
                 "git_sha": "e937c7950af70930d1f34bb961403d9d2aa81c7d"
+            },
+            "snpdists": {
+                "git_sha": "1bc3f6cf39dc0365cf1453814cfa0d89b0465de2"
+            },
+            "staphopiasccmec": {
+                "git_sha": "073bbf1b265beff4d45516148aa2b074ad4426d8"
             }
         }
     }
