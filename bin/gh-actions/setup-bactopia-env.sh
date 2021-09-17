@@ -50,16 +50,7 @@ BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
 mkdir -p ${BACTOPIA_SHARE}
 
 # Copy files
-cp -R \
-  ${WORK_DIR}/bin \
-  ${WORK_DIR}/conda \
-  ${WORK_DIR}/conf \
-  ${WORK_DIR}/data \
-  ${WORK_DIR}/templates \
-  ${WORK_DIR}/tools \
-  ${WORK_DIR}/main.nf \
-  ${WORK_DIR}/nextflow.config \
-  ${BACTOPIA_SHARE}
+cp -R ${WORK_DIR} ${BACTOPIA_SHARE}
 
 # Clean up
 if [[ "${IS_GITHUB}" == "0" && "${IS_GITLAB}" == "0" ]]; then
