@@ -37,10 +37,10 @@ jobs:
         run: |
           conda install -c conda-forge -c bioconda -y mamba
           bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
-          bactopia build
+          bactopia build --default
 
       - name: Environment Information
         run: uname -a && env
 
       - name: Run Pytests
-        run: BACTOPIA_ARGS="--test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" pytest --symlink --keep-workflow-wd --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+        run: BACTOPIA_ARGS="--conda_dir  /usr/share/miniconda/envs/bactopia/share/bactopia-1.7.x/conda/envs --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" pytest --symlink --keep-workflow-wd --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
