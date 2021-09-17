@@ -9,17 +9,17 @@ process MAPPING_QUERY {
     /*
     Map FASTQ reads against a given set of FASTA files using BWA.
     */
-    tag "${sample}"
+    tag "${meta.id}"
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), val(single_end), path(fq)
+    tuple val(meta), path(fq)
     path(query)
 
     output:
@@ -42,7 +42,7 @@ process MAPPING_QUERY {
     if [ "${avg_len}" -gt "70" ]; then
         bwa mem -M -t !{task.cpus} !{bwa_mem_opts} multifasta.fa !{fq} > bwa.sam 2> bwa-mem.stderr.txt
     else
-        if [ "!{single_end}" == "true" ]; then
+        if [ "!{meta.single_end}" == "true" ]; then
             bwa aln -f bwa.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[0]} > bwa-aln.stdout.txt 2> bwa-aln.stderr.txt
             bwa samse -n !{params.bwa_n} !{bwa_samse_opts} multifasta.fa bwa.sai !{fq[0]} > bwa.sam 2> bwa-samse.stderr.txt
         else

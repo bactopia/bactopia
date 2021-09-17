@@ -1,6 +1,7 @@
 - name: antimicrobial_resistance
   command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/tests.nf -entry test_antimicrobial_resistance -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_compressed
   files:
@@ -30,6 +31,7 @@
 - name: antimicrobial_resistance_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/tests.nf -entry test_antimicrobial_resistance_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_uncompressed
   files:

@@ -6,8 +6,7 @@ include { SEQUENCE_TYPE } from './main.nf'
 workflow test_sequence_type_pe {
 
     inputs = tuple(
-        "test_sequence_type_pe",
-        false,
+        [id:"test_sequence_type_pe", single_end:false],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['reference']['fna_gz'], checkIfExists: true)
     )
@@ -18,8 +17,7 @@ workflow test_sequence_type_pe {
 workflow test_sequence_type_pe_uncompressed {
 
     inputs = tuple(
-        "test_sequence_type_pe",
-        false,
+        [id:"test_sequence_type_pe", single_end:false],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['reference']['fna'], checkIfExists: true)
     )
@@ -30,8 +28,7 @@ workflow test_sequence_type_pe_uncompressed {
 workflow test_sequence_type_se {
 
     inputs = tuple(
-        "test_sequence_type_se",
-        true,
+        [id:"test_sequence_type_se", single_end:true],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
         file(params.test_data['reference']['fna_gz'], checkIfExists: true)
     )
@@ -42,8 +39,7 @@ workflow test_sequence_type_se {
 workflow test_sequence_type_se_uncompressed {
 
     inputs = tuple(
-        "test_sequence_type_se",
-        true,
+        [id:"test_sequence_type_se", single_end:true],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
         file(params.test_data['reference']['fna'], checkIfExists: true)
     )

@@ -18,6 +18,12 @@ jobs:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
 
+      - name: Checkout bactopia/bactopia-tests
+        uses: actions/checkout@v2
+        with:
+          repository: bactopia/bactopia-tests
+          path: bactopia-tests
+
       - name: Free up Disk Space
         run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
 
@@ -28,25 +34,13 @@ jobs:
           auto-activate-base: false
 
       - name: Setup Bactopia Environment
-        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
+        run: |
+          conda install -c conda-forge -c bioconda -y mamba
+          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
+          bactopia build
 
       - name: Environment Information
         run: uname -a && env
 
-      - name: Prepare for Bactopia Test
-        run: mkdir -p ${GITHUB_WORKSPACE}/bactopia-testing/bactopia
-
-      - name: Build Bactopia Datasets
-        working-directory: ./bactopia-testing 
-        run: | 
-          bactopia datasets --species "Staphylococcus aureus" --limit 5  --ariba "card"
-          git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
-          cp -r bactopia-datasets/species-specific/ datasets/
-          rm -rf bactopia-datasets/
-
-      - name: Testing SRA Accession
-        working-directory: ./bactopia-testing/bactopia
-        run: |
-          bactopia --accession SRX4563634 --coverage 10 -ansi-log false --registry github \
-                   --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
-                   --species "Staphylococcus aureus" --genome_size median --skip_checkm
+      - name: Run Pytests
+        run: BACTOPIA_ARGS="--test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" pytest --symlink --keep-workflow-wd --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia

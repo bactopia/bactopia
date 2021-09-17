@@ -5,8 +5,7 @@ include { MINMER_QUERY } from './main.nf'
 
 workflow test_mash_query_pe {
     inputs = tuple(
-        "test_mash_query_pe",
-        false,
+        [ id:"test_mash_query_pe", singple_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['illumina']['sig'], checkIfExists: true)
     )
@@ -16,8 +15,7 @@ workflow test_mash_query_pe {
 
 workflow test_mash_query_se {
     inputs = tuple(
-        "test_mash_query_se",
-        true,
+        [ id:"test_mash_query_se", singple_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
         file(params.test_data['illumina']['sig'], checkIfExists: true)
     )
@@ -27,8 +25,7 @@ workflow test_mash_query_se {
 
 workflow test_sourmash_query_pe {
     inputs = tuple(
-        "test_sourmash_query_pe",
-        false,
+        [ id:"test_sourmash_query_pe", singple_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['illumina']['sig'], checkIfExists: true)
     )
@@ -38,8 +35,7 @@ workflow test_sourmash_query_pe {
 
 workflow test_sourmash_query_se {
     inputs = tuple(
-        "test_sourmash_query_se",
-        true,
+        [ id:"test_sourmash_query_se", singple_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
         file(params.test_data['illumina']['sig'], checkIfExists: true)
     )

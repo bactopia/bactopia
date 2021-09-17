@@ -7,16 +7,16 @@ PROCESS_NAME = "sequence_type"
 
 process SEQUENCE_TYPE {
     /* Determine MLST types using ARIBA and BLAST */
-    tag "${sample} - ${schema}"
+    tag "${meta.id} - ${schema}"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir: schema) }
 
     input:
-    tuple val(sample), val(single_end), path(fq), path(assembly)
+    tuple val(meta), path(fq), path(assembly)
     each path(dataset)
 
     output:
@@ -37,11 +37,11 @@ process SEQUENCE_TYPE {
     # Run BLAST
     OUTDIR="results/!{schema}"
     mkdir -p ${OUTDIR}/blast
-    mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{sample}-blast.json --cpu !{task.cpus} !{blast_opts} 1> mlst-blast.stdout.txt 2> mlst-blast.stderr.txt
+    mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{meta.id}-blast.json --cpu !{task.cpus} !{blast_opts} 1> mlst-blast.stdout.txt 2> mlst-blast.stderr.txt
     mlst-blast.py --version > mlst-blast.version.txt 2>&1
 
     # Run Ariba
-    if [ "!{single_end}" == "false" ]; then
+    if [ "!{meta.single_end}" == "false" ]; then
         mv !{schema}/ariba/ref_db ./
         ariba run ref_db !{fq[0]} !{fq[1]} ariba \
             --nucmer_min_id !{params.nucmer_min_id} \

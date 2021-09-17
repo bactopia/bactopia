@@ -1,6 +1,7 @@
 - name: qc_reads_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_pe
   files:
@@ -56,6 +57,7 @@
 - name: qc_reads_se
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_se
   files:
@@ -101,6 +103,7 @@
 - name: qc_reads_pe_skip_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_pe_skip_qc
   files:
@@ -142,6 +145,7 @@
 - name: qc_reads_se_skip_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_se_skip_qc
   files:
@@ -173,6 +177,7 @@
 - name: qc_reads_pe_error
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_pe_error
   files:
@@ -232,6 +237,7 @@
 - name: qc_reads_se_error
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc_reads
     - qc_reads_se_error
   files:

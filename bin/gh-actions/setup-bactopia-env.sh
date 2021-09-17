@@ -16,24 +16,26 @@ elif [[ "${IS_GITLAB}" != "0" ]]; then
 fi
 
 # Create environment
-conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
+mamba ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   ariba \
   beautifulsoup4 \
   biopython \
   "blast>=2.10.0" \
   "bowtie2<2.4.0"  \
   cd-hit \
-  conda \
   coreutils \
   executor \
   lxml \
+  mamba \
   mash \
   ncbi-amrfinderplus \
   ncbi-genome-download \
   nextflow \
   "pysam>=0.15.3" \
   "python>3.6" \
-  requests  \
+  pytest \
+  pytest-workflow \
+  requests \
   sed \
   unzip \
   wget

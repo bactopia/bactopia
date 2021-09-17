@@ -6,8 +6,7 @@ include { MAPPING_QUERY } from './main.nf'
 workflow test_mapping_query_pe {
 
     inputs = tuple(
-        "test_mapping_query_pe",
-        false,
+        [ id:"test_mapping_query_pe", single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 
@@ -16,8 +15,7 @@ workflow test_mapping_query_pe {
 
 workflow test_mapping_query_se {
     inputs = tuple(
-        "test_mapping_query_se",
-        false,
+        [ id:"test_mapping_query_se", single_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)]
     )
 

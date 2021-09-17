@@ -7,17 +7,17 @@ PROCESS_NAME = "assembly_qc"
 
 process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
-    tag "${sample} - ${method}"
+    tag "${meta.id} - ${method}"
     label "max_cpu_75"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), path(genome_size), path(fasta), path(total_contigs)
+    tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
     each method
 
     output:
@@ -88,6 +88,6 @@ process ASSEMBLY_QC {
     stub:
     """
     mkdir ${method}
-    touch ${method}/${sample}
+    touch ${method}/${meta.id}
     """
 }

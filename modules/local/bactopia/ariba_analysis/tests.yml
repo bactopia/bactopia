@@ -1,6 +1,7 @@
 - name: ariba_analysis
   command: bash -c 'nextflow run ./modules/local/bactopia/ariba_analysis/tests.nf -entry test_ariba_analysis -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - ariba_analysis
   files:
     - path: 'test_ariba_analysis/ariba/card/assembled_genes.fa.gz'
@@ -18,22 +19,41 @@
     - path: 'test_ariba_analysis/ariba/vfdb_core/report.tsv'
     - path: 'test_ariba_analysis/ariba/vfdb_core/summary.csv'
     - path: 'test_ariba_analysis/ariba/vfdb_core/version_info.txt'
-    - path: test_ariba_analysis/logs/ariba_analysis/ariba-summary.stderr.txt
+    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba-summary.stderr.txt
       md5sum: ab4c49fcb47994595913fb86ed744afe
-    - path: test_ariba_analysis/logs/ariba_analysis/ariba-summary.stdout.txt
+    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba-summary.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/ariba.stderr.txt
-      md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: test_ariba_analysis/logs/ariba_analysis/ariba.stdout.txt
-    - path: test_ariba_analysis/logs/ariba_analysis/ariba.version.txt
+    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.stdout.txt
+    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.version.txt
       md5sum: 0c5082606bb3299717a3c9ab0da738d8
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.begin
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.err
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.log
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.out
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.err
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.log
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.out
+      md5sum: 31d8b05b891a38a4e3d8875ace26fa1f
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.run
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.sh
+      md5sum: 0b10471941af7df90c043a21f00f8636
+    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.trace
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba-summary.stderr.txt
+      md5sum: ab4c49fcb47994595913fb86ed744afe
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba-summary.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.stderr.txt
+      md5sum: d39f0dbf8375f8e96240746d60a0ef82
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.stdout.txt
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.version.txt
+      md5sum: 0c5082606bb3299717a3c9ab0da738d8
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
       md5sum: c34c7dc3cfcb2b10ae231159495cfdd2
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.run
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.sh
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.sh
       md5sum: 67194840d2af9c235053f1ef188f6526
-    - path: test_ariba_analysis/logs/ariba_analysis/nf-ariba_analysis.trace
+    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.trace

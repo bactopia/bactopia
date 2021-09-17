@@ -1,6 +1,7 @@
 - name: mapping_query_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - mapping_query
     - mapping_query_pe
   files:
@@ -40,6 +41,7 @@
 - name: mapping_query_pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_pe --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - mapping_query
     - mapping_query_pe_uncompressed
   files:
@@ -81,6 +83,7 @@
 - name: mapping_query_se
   command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - mapping_query
     - mapping_query_se
   files:
@@ -104,7 +107,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.run
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.sh
-      md5sum: 3d41211d13cef93d9e881eff079fd27f
+      md5sum: 2460792cf703b70f48efd5f3fc7fc7d7
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.trace
     - path: test_mapping_query_se/logs/mapping_query/samtools.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -122,6 +125,7 @@
 - name: mapping_query_se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_se --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - mapping_query
     - mapping_query_se_uncompressed
   files:
@@ -145,7 +149,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.run
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.sh
-      md5sum: 0fd375fb9bf823abcf0bf1ff06346bc2
+      md5sum: ca047fb8961b7a428054801ce0b94426
     - path: test_mapping_query_se/logs/mapping_query/nf-mapping_query.trace
     - path: test_mapping_query_se/logs/mapping_query/samtools.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e

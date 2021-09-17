@@ -1,6 +1,7 @@
 - name: assemble_genome_se
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - assemble_genome
     - assemble_genome_se
   files:
@@ -17,7 +18,6 @@
     - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.ndb
       md5sum: f90c47aecf56cae8b1cdcd108e17cdbf
     - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nhr
-      md5sum: f1881efe4bf9da734b25e95f1350dbce
     - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nin
     - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.not
       md5sum: 3dee10e6db8bf58ba97c39e6ce751cc0
@@ -33,7 +33,7 @@
       md5sum: 82227ac55ef512a1afb59ae590e845bf
     - path: test_assemble_genome_se/logs/assemble_genome/makeblastdb.version.txt
       md5sum: a647f88e69d6d254c84e2bf805e2a925
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.version.txt
+    - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.version.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -42,7 +42,7 @@
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.out
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.run
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: e911fcf2d60a2284d9d99d9c911248da
+      md5sum: c40af355cc54235b5f0d3499ac756df8
     - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.trace
     - path: test_assemble_genome_se/logs/assemble_genome/shovil-depends.version.txt
       md5sum: 29025d8d5d7abe6c75ac18a545f67bea
@@ -56,6 +56,7 @@
 - name: assemble_genome_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - assemble_genome
     - assemble_genome_pe
   files:
@@ -74,7 +75,6 @@
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ndb
       md5sum: a3b647dda88d10fb71973b0b0281c150
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nhr
-      md5sum: 6f54695231e3cc509b93b48a3dca3b91
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nin
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.not
       md5sum: 72f111cda9ab1962e1950bcb8ba3760c
@@ -97,7 +97,7 @@
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.out
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.run
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 1563e1032866efbab6317b20e3ed10eb
+      md5sum: 8e5cb166febfa82b6e85d4fbb81f02d5
     - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.trace
     - path: test_assemble_genome_pe/logs/assemble_genome/shovil-depends.version.txt
       md5sum: 29025d8d5d7abe6c75ac18a545f67bea
@@ -111,6 +111,7 @@
 - name: assemble_genome_hybrid
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - assemble_genome
     - assemble_genome_hybrid
   files:
@@ -126,7 +127,6 @@
     - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.ndb
       md5sum: e8083821bc55bfad986d1c7f6b46b6e9
     - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nhr
-      md5sum: 8ecfb64aa5dece9d3a63abee1f85a63b
     - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nin
     - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.not
       md5sum: e1265366b3fa5ba1889a87fe113caa8b
@@ -149,6 +149,7 @@
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.out
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.run
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 24dc24c0fc9e24e044e15d8937f08c21
     - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.trace
     - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.stderr.txt
       md5sum: a471c70889168f8ea31568e65e7faa04

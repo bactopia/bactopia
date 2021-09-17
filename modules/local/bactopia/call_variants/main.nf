@@ -16,17 +16,17 @@ process CALL_VARIANTS {
     Downloads will be attempted 300 times total before giving up. On failure to download
     variants will not be called against the nearest completed genome.
     */
-    tag "${sample} - ${reference_name}"
+    tag "${meta.id} - ${reference_name}"
     label "max_cpu_75"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:reference_name) }
 
     input:
-    tuple val(sample), val(single_end), path(fq)
+    tuple val(meta), path(fq)
     each path(reference)
 
     output:
@@ -39,7 +39,7 @@ process CALL_VARIANTS {
     PROCESS_NAME = "call_variants"
     snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName()
-    fastq = single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
+    fastq = meta.single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""
     fbopt = params.fbopt ? "--fbopt 'params.fbopt'" : ""
     no_cache = params.no_cache ? '-N' : ''
@@ -79,7 +79,7 @@ process CALL_VARIANTS {
         --cpus !{task.cpus} \
         --ram !{snippy_ram} \
         --outdir ${REFERENCE_NAME} \
-        --prefix !{sample} \
+        --prefix !{meta.id} \
         --mapqual !{params.mapqual} \
         --basequal !{params.basequal} \
         --mincov !{params.mincov} \
@@ -88,23 +88,23 @@ process CALL_VARIANTS {
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > snippy.stdout.txt 2> snippy.stderr.txt
 
     # Add GenBank annotations
-    vcf-annotator ${REFERENCE_NAME}/!{sample}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{sample}.annotated.vcf 2> vcf-annotator.stderr.txt
+    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf 2> vcf-annotator.stderr.txt
 
     # Get per-base coverage
-    grep "^##contig" ${REFERENCE_NAME}/!{sample}.vcf > ${REFERENCE_NAME}/!{sample}.full-coverage.txt
-    genomeCoverageBed -ibam ${REFERENCE_NAME}/!{sample}.bam -d >> ${REFERENCE_NAME}/!{sample}.full-coverage.txt 2> genomeCoverageBed.stderr.txt
-    cleanup-coverage.py ${REFERENCE_NAME}/!{sample}.full-coverage.txt > ${REFERENCE_NAME}/!{sample}.coverage.txt
-    rm ${REFERENCE_NAME}/!{sample}.full-coverage.txt
+    grep "^##contig" ${REFERENCE_NAME}/!{meta.id}.vcf > ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
+    genomeCoverageBed -ibam ${REFERENCE_NAME}/!{meta.id}.bam -d >> ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt 2> genomeCoverageBed.stderr.txt
+    cleanup-coverage.py ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt > ${REFERENCE_NAME}/!{meta.id}.coverage.txt
+    rm ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
 
     # Mask low coverage regions
-    mask-consensus.py !{sample} ${REFERENCE_NAME} \
-        ${REFERENCE_NAME}/!{sample}.consensus.subs.fa \
-        ${REFERENCE_NAME}/!{sample}.subs.vcf \
-        ${REFERENCE_NAME}/!{sample}.coverage.txt \
-        --mincov !{params.mincov} > ${REFERENCE_NAME}/!{sample}.consensus.subs.masked.fa 2> mask-consensus.stderr.txt
+    mask-consensus.py !{meta.id} ${REFERENCE_NAME} \
+        ${REFERENCE_NAME}/!{meta.id}.consensus.subs.fa \
+        ${REFERENCE_NAME}/!{meta.id}.subs.vcf \
+        ${REFERENCE_NAME}/!{meta.id}.coverage.txt \
+        --mincov !{params.mincov} > ${REFERENCE_NAME}/!{meta.id}.consensus.subs.masked.fa 2> mask-consensus.stderr.txt
 
     # Clean Up
-    rm -rf ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{sample}.vcf.gz*
+    rm -rf ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{meta.id}.vcf.gz*
 
     if [[ "!{reference}" == "refseq-genomes.msh" ]]; then
         mv distances.txt ${REFERENCE_NAME}/mash-distances.txt
@@ -115,7 +115,7 @@ process CALL_VARIANTS {
         find ${REFERENCE_NAME}/ -type f | \
             grep -v -E "\\.bam$|\\.bai$|\\.log$|\\.txt$|\\.html$|\\.tab$" | \
             xargs -I {} pigz -n --best -p !{task.cpus} {}
-        pigz -n --best -p !{task.cpus} ${REFERENCE_NAME}/!{sample}.coverage.txt
+        pigz -n --best -p !{task.cpus} ${REFERENCE_NAME}/!{meta.id}.coverage.txt
     fi
 
     mkdir results

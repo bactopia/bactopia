@@ -10,21 +10,21 @@ process MINMER_QUERY {
     Query minmer sketches against pre-computed RefSeq (Mash, k=21) and
     GenBank (Sourmash, k=21,31,51)
     */
-    tag "${sample} - ${dataset_basename}"
+    tag "${meta.id} - ${dataset_basename}"
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
 
     input:
-    tuple val(sample), val(single_end), path(fq), path(sourmash)
+    tuple val(meta), path(fq), path(sourmash)
     each path(dataset)
 
     output:
-    path "${sample}-${program}-${database}-${kmer}.txt", emit: result
+    path "${meta.id}-${program}-${database}-${kmer}.txt", emit: result
     path "*.std{out,err}.txt", emit: logs
     path ".command.*", emit: nf_logs
     path "*.version.txt", emit: version
@@ -37,9 +37,9 @@ process MINMER_QUERY {
     database = dataset_info[1]
     kmer = dataset_info[2]
     mash_w = params.no_winner_take_all ? "" : "-w"
-    fastq = single_end ? fq[0] : "${fq[0]} ${fq[1]}"
+    fastq = meta.single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     '''
-    OUTPUT="!{sample}-!{program}-!{database}-!{kmer}.txt"
+    OUTPUT="!{meta.id}-!{program}-!{database}-!{kmer}.txt"
     OUTPUT_ERR="!{program}-!{database}-!{kmer}.stderr.txt"
     if [ "!{program}" == "mash" ]; then
         printf "identity\tshared-hashes\tmedian-multiplicity\tp-value\tquery-ID\tquery-comment\n" > ${OUTPUT}
@@ -60,7 +60,7 @@ process MINMER_QUERY {
     stub:
     dataset_name = dataset.getName()
     """
-    touch ${sample}-mash-refseq-k21.txt
-    touch ${sample}-mash-k21.stderr.txt
+    touch ${meta.id}-mash-refseq-k21.txt
+    touch ${meta.id}-mash-k21.stderr.txt
     """
 }

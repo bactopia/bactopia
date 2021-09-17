@@ -83,7 +83,7 @@ def build_conda_env(env_file, prefix, max_retry=5, force=False, is_bactopia=Fals
     allow_fail = False
     success = False
     while not success:
-        result = execute(f'conda env create -f {env_file} --prefix {prefix} {force}', allow_fail=allow_fail)
+        result = execute(f'mamba env create -f {env_file} --prefix {prefix} {force}', allow_fail=allow_fail)
         if not result:
             if retry > max_retry:
                 allow_fail = True

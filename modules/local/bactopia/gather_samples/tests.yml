@@ -1,6 +1,7 @@
 - name: gather_samples_pe_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_pe
     - estimate_genome_size
@@ -27,6 +28,7 @@
 - name: gather_samples_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_pe
     - known_genome_size
@@ -52,6 +54,7 @@
 - name: gather_samples_merge_pe_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_pe
     - estimate_genome_size
@@ -80,6 +83,7 @@
 - name: gather_samples_merge_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_pe
     - known_genome_size
@@ -106,6 +110,7 @@
 - name: gather_samples_merge_pe_hybrid_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
     - estimate_genome_size
@@ -134,6 +139,7 @@
 - name: gather_samples_merge_pe_hybrid
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_pe_hybrid --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
     - known_genome_size
@@ -160,6 +166,7 @@
 - name: gather_samples_se_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_se
     - estimate_genome_size
@@ -186,6 +193,7 @@
 - name: gather_samples_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_se
     - known_genome_size
@@ -210,6 +218,7 @@
 - name: gather_samples_merge_se_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_se
     - estimate_genome_size
@@ -238,6 +247,7 @@
 - name: gather_samples_merge_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_merge_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_merge_se
     - known_genome_size
@@ -264,6 +274,7 @@
 - name: gather_samples_sra_accession_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_sra_accession
     - estimate_genome_size
@@ -295,6 +306,7 @@
 - name: gather_samples_sra_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_sra_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_sra_accession
     - known_genome_size
@@ -324,6 +336,7 @@
 - name: gather_samples_assembly_accession_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly_accession -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_assembly_accession
     - estimate_genome_size
@@ -361,6 +374,7 @@
 - name: gather_samples_assembly_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_assembly_accession
     - known_genome_size
@@ -399,6 +413,7 @@
 - name: gather_samples_assembly_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_assembly
     - estimate_genome_size
@@ -428,6 +443,7 @@
 - name: gather_samples_assembly
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_assembly
     - known_genome_size
@@ -458,6 +474,7 @@
 - name: gather_samples_error_low_read_count_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_error_low_read_count_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -487,6 +504,7 @@
 - name: gather_samples_error_low_read_count_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_error_low_read_count_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -516,6 +534,7 @@
 - name: gather_samples_error_low_depth_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_error_low_depth_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -545,6 +564,7 @@
 - name: gather_samples_error_low_depth_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_error_low_depth_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -574,6 +594,7 @@
 - name: gather_samples_error_low_proportion
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_error_low_proportion -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -601,6 +622,7 @@
 - name: gather_samples_error_min_genome_size
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly --min_genome_size 1000000 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:
@@ -629,6 +651,7 @@
 - name: gather_samples_error_max_genome_size
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/tests.nf -entry test_gather_samples_assembly --max_genome_size 1000 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - gather_samples
     - gather_samples_errors
   files:

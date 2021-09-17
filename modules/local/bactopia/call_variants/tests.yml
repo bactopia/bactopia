@@ -1,6 +1,7 @@
 - name: call_variants_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_pe
   files:
@@ -57,7 +58,6 @@
       md5sum: 29d508cf8c0706e61a221b76fddd3ebd
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf.gz
-      md5sum: 7a79982b271d0e9b4a10345dcaf7f341
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf.gz
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
       md5sum: 29e756e93b925b108d8a50c595cdfdf5
@@ -67,6 +67,7 @@
 - name: call_variants_pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_pe -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_pe_uncompressed
   files:
@@ -123,7 +124,6 @@
       md5sum: 29d508cf8c0706e61a221b76fddd3ebd
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf
-      md5sum: 15c60e4115840cd1b32b2fa697474d55
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
       md5sum: 29e756e93b925b108d8a50c595cdfdf5
@@ -133,6 +133,7 @@
 - name: call_variants_se
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_se
   files:
@@ -189,7 +190,6 @@
       md5sum: 4f73761cb36254b99a6cce39da5fc25c
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf.gz
-      md5sum: d8acae60faf33ae541c52c336699b447
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf.gz
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
       md5sum: 5e01a1d05a655a8175b17c07b031cae8
@@ -199,6 +199,7 @@
 - name: call_variants_se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_se -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_se_uncompressed
   files:
@@ -255,7 +256,6 @@
       md5sum: 4f73761cb36254b99a6cce39da5fc25c
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.log
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.raw.vcf
-      md5sum: e428a49ac5abbfb668cde75b0b371b94
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.subs.vcf
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.tab
       md5sum: 5e01a1d05a655a8175b17c07b031cae8
@@ -265,6 +265,7 @@
 - name: call_variants_auto_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_auto_pe
   files:
@@ -331,7 +332,6 @@
       md5sum: f5742c525738de053c0e12f1be5fe6c4
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf.gz
-      md5sum: 667c781e6ac9ec48c8c3027192bda420
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf.gz
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
       md5sum: e2d80017625de7893fa9941c99bfc3f6
@@ -343,6 +343,7 @@
 - name: call_variants_auto_pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_pe -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_auto_pe_uncompressed
   files:
@@ -409,7 +410,6 @@
       md5sum: f5742c525738de053c0e12f1be5fe6c4
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf
-      md5sum: 277358a0f99511f4410465bd4cd67e0e
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
       md5sum: e2d80017625de7893fa9941c99bfc3f6
@@ -421,6 +421,7 @@
 - name: call_variants_auto_se 
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_auto_se 
   files:
@@ -487,7 +488,6 @@
       md5sum: cf7e5820471c41e4fe667720834127ec
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf.gz
-      md5sum: b168c5fc600fcc3e85458d0ebf4f3661
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf.gz
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
       md5sum: 5010e7f200b3d1a377a8cd1cf8e23ab6
@@ -499,6 +499,7 @@
 - name: call_variants_auto_se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/tests.nf -entry test_call_variants_auto_se -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - call_variants
     - call_variants_auto_se_uncompressed 
   files:
@@ -565,7 +566,6 @@
       md5sum: cf7e5820471c41e4fe667720834127ec
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.log
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.raw.vcf
-      md5sum: 8abb024dda7ee46de6d88ffe2bbcd2e1
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.subs.vcf
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.tab
       md5sum: 5010e7f200b3d1a377a8cd1cf8e23ab6

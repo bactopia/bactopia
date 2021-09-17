@@ -45,7 +45,7 @@ process ASSEMBLE_GENOME {
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.nostitch ? "--nostitch" : ""
     nocorr = params.nocorr ? "--nocorr" : ""
-    shovill_mode = single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} --noreadcorr ${nostitch}" : "shovill-se --SE ${fq[0]}"
+    shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} --noreadcorr ${nostitch}" : "shovill-se --SE ${fq[0]}"
     shovill_opts = "${opts} ${kmers} ${nocorr}"
 
     // Assembly inputs
@@ -153,6 +153,6 @@ process ASSEMBLE_GENOME {
     touch assembly/${meta.id}
     touch assembly/${meta.id}.fna
     touch assembly/${meta.id}.fna.gz
-    touch ${PROCESS_NAME}/${sampmeta.idle}
+    touch ${PROCESS_NAME}/${meta.id}
     """
 }

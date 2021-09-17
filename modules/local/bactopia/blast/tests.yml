@@ -1,6 +1,7 @@
 - name: blast_genes
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_genes -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - blast
     - blast_genes
   files:
@@ -34,6 +35,7 @@
 - name: blast_primers
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_primers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - blast
     - blast_primers
   files:
@@ -67,6 +69,7 @@
 - name: blast_primers_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_primers --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - blast
     - blast_primers_uncompressed
   files:
@@ -100,6 +103,7 @@
 - name: blast_proteins
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/tests.nf -entry test_blast_proteins -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - blast
     - blast_proteins
   files:

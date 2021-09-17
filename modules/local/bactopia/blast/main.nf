@@ -9,17 +9,17 @@ process BLAST {
     /*
     Query gene FASTA files against annotated assembly using BLAST
     */
-    tag "${sample} - ${blast_exe}"
+    tag "${meta.id} - ${blast_exe}"
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${sample}",
+    publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir: query) }
 
     input:
-    tuple val(sample), path(blastdb, stageAs: 'blastdb/*')
+    tuple val(meta), path(blastdb, stageAs: 'blastdb/*')
     each path(query)
 
     output:
@@ -40,7 +40,7 @@ process BLAST {
         if [ "!{query}" == "genes" ]; then
             cat ${fasta} | sed -e 's/<[^>]*>//g' |
             parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
-            blastn -db blastdb/!{sample} \
+            blastn -db blastdb/!{meta.id} \
                 -outfmt 15 \
                 -evalue 1 \
                 -perc_identity !{params.perc_identity} \
@@ -50,7 +50,7 @@ process BLAST {
         elif [ "!{query}" == "primers" ]; then
             cat ${fasta} | sed -e 's/<[^>]*>//g' |
             parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
-            blastn -db blastdb/!{sample} \
+            blastn -db blastdb/!{meta.id} \
                 -outfmt 15 \
                 -task blastn \
                 -dust no \
@@ -62,7 +62,7 @@ process BLAST {
         else
             cat ${fasta} | sed -e 's/<[^>]*>//g' |
             parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
-            tblastn -db blastdb/!{sample} \
+            tblastn -db blastdb/!{meta.id} \
                 -outfmt 15 \
                 -evalue 0.0001 \
                 -qcov_hsp_perc !{params.qcov_hsp_perc} \
@@ -86,7 +86,7 @@ process BLAST {
     stub:
     """
     mkdir results/${query}
-    touch results/${query}/${sample}.json
-    touch results/${query}/${sample}.json.gz
+    touch results/${query}/${meta.id}.json
+    touch results/${query}/${meta.id}.json.gz
     """
 }

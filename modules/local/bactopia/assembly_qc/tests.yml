@@ -1,13 +1,14 @@
 - name: assembly_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/assembly_qc/tests.nf -entry test_assembly_qc -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - assembly_qc
   files:
-    - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/genes.faa
-      md5sum: 8166471fc5f08c82fd5643ab42327f9d
+    - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/genes.faa.gz
+      md5sum: d3a4f82e93edfdea8cb490125ee03df9
     - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/genes.gff
       md5sum: 50752acb1c5a20be886bfdfc06635bcb
-    - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/hmmer.analyze.txt
+    - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/hmmer.analyze.txt.gz
     - path: test_assembly_qc/assembly/checkm/bins/GCF_000292685/hmmer.tree.txt
     - path: test_assembly_qc/assembly/checkm/checkm-genes.aln
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -16,90 +17,91 @@
     - path: test_assembly_qc/assembly/checkm/checkm.log
     - path: test_assembly_qc/assembly/checkm/lineage.ms
     - path: test_assembly_qc/assembly/checkm/storage/bin_stats.analyze.tsv
+      md5sum: 19adfab14620acac2a1f2557946cf2f3
     - path: test_assembly_qc/assembly/checkm/storage/bin_stats.tree.tsv
       md5sum: 19adfab14620acac2a1f2557946cf2f3
     - path: test_assembly_qc/assembly/checkm/storage/bin_stats_ext.tsv
     - path: test_assembly_qc/assembly/checkm/storage/checkm_hmm_info.pkl.gz
     - path: test_assembly_qc/assembly/checkm/storage/marker_gene_stats.tsv
     - path: test_assembly_qc/assembly/checkm/storage/phylo_hmm_info.pkl.gz
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00164.20.masked.faa
-      md5sum: bf17fd0351c81c775195a3fa3355748e
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00177.16.masked.faa
-      md5sum: 3f5904669de302d10478abdc3211bb27
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00181.18.masked.faa
-      md5sum: a42eb92099d20a4dd9d8a173c6bd49b4
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00189.15.masked.faa
-      md5sum: 268189109c2cb996ef117454ee1955b2
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00203.16.masked.faa
-      md5sum: 81da21d077a7e7000dfbdc4a9afc5ea4
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00237.14.masked.faa
-      md5sum: b83c614eaad0fb1c8ccf6f77dbaadc3b
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00238.14.masked.faa
-      md5sum: e0d433dced48aa09e65079e3c74e3b24
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00252.13.masked.faa
-      md5sum: 727d8fd33d4d1c9830e6c76555470432
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00276.15.masked.faa
-      md5sum: cbdbb5a3cae38a2b8dc42641c3b212ae
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00281.14.masked.faa
-      md5sum: c27c8b210a42756897a8e22d7fd2f408
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00297.17.masked.faa
-      md5sum: 0feef10ebb9bef6b583bb6d945ac0bfd
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00298.14.masked.faa
-      md5sum: 9c4b7e926082e30bd4054280a968dd7b
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00312.17.masked.faa
-      md5sum: 4def5cf6fe62836665745d504c3338f7
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00318.15.masked.faa
-      md5sum: d36428de4cea7001b56efa07e8ab371c
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00333.15.masked.faa
-      md5sum: 576e559de21641bfd8a195fee0ed8754
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00366.15.masked.faa
-      md5sum: d85a07600f877eb729028a732955cefb
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00380.14.masked.faa
-      md5sum: 1b0cbffd4bf36a6c509523a35178d05c
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00410.14.masked.faa
-      md5sum: 9c0bc5752b8d5ed5240c41da8f43bdb3
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00411.14.masked.faa
-      md5sum: 1d5ec722b06236755369b574396b0034
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00466.15.masked.faa
-      md5sum: 39076e1450e424f8efa24f54f971cb5b
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00562.23.masked.faa
-      md5sum: 73f4dfe4a61b6364ef266a3655a9cef2
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00572.13.masked.faa
-      md5sum: c2b12518d52905a61609bf3cb2206d07
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00573.17.masked.faa
-      md5sum: 5c1a88b2344a8cd0eab64ba47665e23d
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00623.15.masked.faa
-      md5sum: bd982f57b3c974017a5235169bb48207
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00673.16.masked.faa
-      md5sum: 9e23d4d5fe62b8a841a5ecc04f262e7f
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00687.16.masked.faa
-      md5sum: 1a5a0b1e9aacffc5bc18e5d1a5f5993f
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00831.18.masked.faa
-      md5sum: 2e20fc353fbc903e4407acebe9382588
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00861.17.masked.faa
-      md5sum: 64f67f80a4fbd9140d17746dd7a23f76
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03719.10.masked.faa
-      md5sum: 4d6f3cb02e140ae95a3d57bec176f105
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03946.9.masked.faa
-      md5sum: 45eaa9b6b3dbc2e5077839626c6b73de
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03947.13.masked.faa
-      md5sum: 3c6a2e7c0759a5e2c0e6a544c13dceea
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04560.15.masked.faa
-      md5sum: e245bfdbe8c8f996f1bac9c3b2a408f4
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04561.9.masked.faa
-      md5sum: 2114a451330e55e029c7e7c2980f63c8
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04563.10.masked.faa
-      md5sum: 8c14aa564a7646782b8f11336d323d31
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04565.11.masked.faa
-      md5sum: b6bd4b813010c908b4dfd54c40430db1
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04997.7.masked.faa
-      md5sum: 208e15a75788e809f197b081d6498869
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF05000.12.masked.faa
-      md5sum: 6ae831010bef1fc02e96280f5561c123
-    - path: test_assembly_qc/assembly/checkm/storage/tree/PF11987.3.masked.faa
-      md5sum: 7c2f0f71ecea2e11cbb1e5a7fb6606b2
-    - path: test_assembly_qc/assembly/checkm/storage/tree/TIGR00422.masked.faa
-      md5sum: 2fd1da62450873c87a1acadd4f1270d0
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00164.20.masked.faa.gz
+      md5sum: 97e68347d78744dcea508f74ff603804
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00177.16.masked.faa.gz
+      md5sum: f8fa622c823ba21062af0d5400b9d68d
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00181.18.masked.faa.gz
+      md5sum: c52afe2aecd5d9c774cd1cb6fb1232b7
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00189.15.masked.faa.gz
+      md5sum: 9dda0b0f893118d2526281a2c0da17bb
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00203.16.masked.faa.gz
+      md5sum: e4dddae696c1abe10ab4b2f2da87c969
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00237.14.masked.faa.gz
+      md5sum: f22775e84de1abee6a93acfc19795bd9
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00238.14.masked.faa.gz
+      md5sum: 364ca8831782f5050c634629e9332723
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00252.13.masked.faa.gz
+      md5sum: 5259ec85057dde39fa6ed3b2f33b3d08
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00276.15.masked.faa.gz
+      md5sum: 61fd166342e7453745bfecf568f4d031
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00281.14.masked.faa.gz
+      md5sum: a69fefe171e9965bf8d03af32d75b916
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00297.17.masked.faa.gz
+      md5sum: 630750605bd41b483856cc4639c7f67c
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00298.14.masked.faa.gz
+      md5sum: 0942e8adc3a6911de00c92c67008ee66
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00312.17.masked.faa.gz
+      md5sum: 7b181f5d37ab19b8ab3d098a81837eb5
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00318.15.masked.faa.gz
+      md5sum: c719861cb204327b43f6851a86dc0609
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00333.15.masked.faa.gz
+      md5sum: 2e10e92b17b1ead86be94dc64271a4c1
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00366.15.masked.faa.gz
+      md5sum: 5e15e3c00da7054a7537fa7241ec27f9
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00380.14.masked.faa.gz
+      md5sum: 3b2fa6db05ea346d38dbd05b3d5265d9
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00410.14.masked.faa.gz
+      md5sum: 250d448e170aa2fa54c506cd901c2021
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00411.14.masked.faa.gz
+      md5sum: 39ae7fb82db7000fa3c7ecb24bf31712
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00466.15.masked.faa.gz
+      md5sum: 1e66b295246ea7868f46d694fb488bda
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00562.23.masked.faa.gz
+      md5sum: 5f6b0767ceb5866e372fc9bb155bc64a
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00572.13.masked.faa.gz
+      md5sum: 2715d63e67339057991bfc24104eef20
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00573.17.masked.faa.gz
+      md5sum: 3fb8d66d6134328ffb77994c59144066
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00623.15.masked.faa.gz
+      md5sum: 615a74be5d54d9f1cd512078a9dc3520
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00673.16.masked.faa.gz
+      md5sum: a422dad2afc0b8c8ab4b7945a58a10db
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00687.16.masked.faa.gz
+      md5sum: dc8c449316d80df410f885128b0d4c7d
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00831.18.masked.faa.gz
+      md5sum: 1807cd35b51e98cd2021400903b32f8c
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF00861.17.masked.faa.gz
+      md5sum: edb99044781de65cc9fed7f1434724c2
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03719.10.masked.faa.gz
+      md5sum: 491869329f88ecafe0ac63d3c001b031
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03946.9.masked.faa.gz
+      md5sum: dd3542eed0de70a8be7f02787ff8bfe2
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF03947.13.masked.faa.gz
+      md5sum: f986ab4e196104593458ac2d575e73f5
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04560.15.masked.faa.gz
+      md5sum: 2ad2fbd48d9ae40870fc30e2cc9527af
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04561.9.masked.faa.gz
+      md5sum: 98293af243f353573d2254e8f71cb25c
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04563.10.masked.faa.gz
+      md5sum: 78a6bbd375ad8670a0f376ad3504acb2
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04565.11.masked.faa.gz
+      md5sum: c120a507cc8c6fbce7864e2993b4c0c9
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF04997.7.masked.faa.gz
+      md5sum: 5d933fa4364cb9ba0e7438cdd26a27c7
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF05000.12.masked.faa.gz
+      md5sum: f2022ee30778219f8c768dcb2fd077a8
+    - path: test_assembly_qc/assembly/checkm/storage/tree/PF11987.3.masked.faa.gz
+      md5sum: b094674c4d89300b9a9e552af119a3d1
+    - path: test_assembly_qc/assembly/checkm/storage/tree/TIGR00422.masked.faa.gz
+      md5sum: e3945c540ece93861df2369145be1c2e
     - path: test_assembly_qc/assembly/checkm/storage/tree/concatenated.fasta
       md5sum: 4c170fc0a6734a821bf3b443f0b33bef
     - path: test_assembly_qc/assembly/checkm/storage/tree/concatenated.pplacer.json
@@ -146,7 +148,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assembly_qc/logs/assembly_qc/nf-assembly_qc.run
     - path: test_assembly_qc/logs/assembly_qc/nf-assembly_qc.sh
-      md5sum: 0aed59832680b776a0862d17b597a3ea
+      md5sum: c465f81da3f79845eacd9ad82bc4e1bd
     - path: test_assembly_qc/logs/assembly_qc/nf-assembly_qc.trace
     - path: test_assembly_qc/logs/assembly_qc/quast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
