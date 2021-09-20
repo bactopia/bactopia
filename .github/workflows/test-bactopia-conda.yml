@@ -43,7 +43,7 @@ jobs:
         run: uname -a && env
 
       - name: Run Pytests
-        run: BACTOPIA_ARGS="--conda_dir  /usr/share/miniconda/envs/bactopia/share/bactopia-1.7.x/conda/envs --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+        run: BACTOPIA_ARGS="--conda_dir  /usr/share/miniconda/envs/bactopia/share/bactopia-1.7.x/conda/envs --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" TMPDIR=~  pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
