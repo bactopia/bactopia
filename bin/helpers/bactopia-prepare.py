@@ -172,13 +172,13 @@ if __name__ == '__main__':
                 sys.exit(1)
 
     # Match assemblies
-    for assembly in glob.glob(f'{abspath}/**/*{args.assembly_pattern}', recursive=args.recursive):
+    for assembly in search_path(abspath, args.assembly_pattern, recursive=args.recursive):
         sample_name = os.path.basename(assembly).replace(args.assembly_ext, "")
         # Split the fastq file name on separator
         # Example MY_FASTQ_R1.rsplit('_', 1) becomes ['MY_FASTQ', 'R1'] (PE)
         # Example MY_FASTQ.rsplit('_', 1) becomes ['MY_FASTQ'] (SE)
         if sample_name not in SAMPLES:
-            SAMPLES[sample_name] = {'pe': [], 'se': [], 'assembly': []}
+            SAMPLES[sample_name] = {'pe': {'r1': [], 'r2': []}, 'se': [], 'assembly': []}
         SAMPLES[sample_name]['assembly'].append(get_path(assembly, abspath, args.prefix))
 
     FOFN = []
