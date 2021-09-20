@@ -12,11 +12,9 @@ if (params.help || workflow.commandLine.trim().endsWith(workflow.scriptName)) pr
 check_input_params()
 samples = gather_sample_set(params.bactopia, params.exclude, params.include, params.sleep_time)
 reference = [tuple(null, null)]
-local_reference = null
 if (params.reference) {
     if (file(params.reference).exists()) {
         reference = [tuple(true, file(params.reference))]
-        local_reference = file(params.reference).getSimpleName().replace(".gz", "")
     } else {
         log.error("Could not open ${params.reference}, please verify existence. Unable to continue.")
         exit 1
@@ -55,6 +53,7 @@ process collect_assemblies {
         reference_name = reference_fasta.getSimpleName().replace(".gz", "")
         reference_file = reference_fasta.getName()
     }
+
     """
     mkdir reference
     if [ "!{params.species}" != "null" ]; then
@@ -125,6 +124,7 @@ process calculate_ani {
     file "references/*.tsv"
 
     shell:
+    local_reference = params.reference ? file(params.reference).getSimpleName().replace(".gz", "") : 'false'
     """
     # Setup refs and queries
     mkdir query reference
@@ -162,11 +162,6 @@ process calculate_ani {
 
         find query/ -name "*.fna*" > query-list.txt  
         echo "fastANI --ql query-list.txt -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/output.tsv" >> fastani.sh
-        #for q in query/*; do
-        #    q_name=\${q##*/}
-        #    q_name=\${q_name%.*}
-        #    echo "fastANI -q \${q} -r \${r} --kmer !{params.kmer} --fragLen !{params.fragLen} --minFraction !{params.minFraction} -o outputs/\${r_name}/\${q_name}.tsv" >> fastani.sh
-        #done
     done
 
     # Run FastANI (one-to-one) in parallel with xargs
