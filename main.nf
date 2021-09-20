@@ -76,8 +76,6 @@ process gather_fastqs {
     file "multiple-read-sets-merged.txt" optional true
 
     shell:
-    bactopia_version = VERSION
-    nextflow_version = nextflow.version
     is_assembly = sample_type.startsWith('assembly') ? true : false
     is_compressed = false
     no_cache = params.no_cache ? '-N' : ''
