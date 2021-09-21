@@ -39,6 +39,6 @@ jobs:
             ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.out
             ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.err
             
-      #- name: Cleanup
-      #  if: always()
-      #  run: rm -rf ${{ github.run_id }}
+      - name: Cleanup
+        if: always()
+        run: rm -rf ${{ github.run_id }} /tmp/${{ github.run_id }}
