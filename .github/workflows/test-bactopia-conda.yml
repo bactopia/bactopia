@@ -11,11 +11,10 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+        working-directory: ${{ github.run_id }}
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
-        with:
-          path: bactopia
 
       - name: Run Bactopia Tests
         run: |
@@ -39,3 +38,8 @@ jobs:
           path: |
             ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.out
             ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.err
+            
+      - name: Cleanup
+        if: always()
+        run: |
+          cd ../ && rm -rf ${{ github.run_id }}
