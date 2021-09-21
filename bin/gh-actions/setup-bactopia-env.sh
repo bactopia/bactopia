@@ -35,6 +35,7 @@ mamba ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   "python>3.6" \
   pytest \
   pytest-workflow \
+  pytest-xdist \
   requests \
   sed \
   unzip \
