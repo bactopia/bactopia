@@ -30,7 +30,7 @@ jobs:
           export PATH=${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_RUN_ID}/bin:${PATH}
           uname -a && env
           cd ${BACTOPIA_WORKSPACE}/bactopia
-          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=${BACTOPIA_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=${BACTOPIA_WORKSPACE}/pytest pytest -n 12 --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
