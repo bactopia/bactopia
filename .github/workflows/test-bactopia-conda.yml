@@ -1,4 +1,4 @@
-name: pytest-bactopia
+name: test-bactopia-conda
 
 on: workflow_dispatch
   #schedule:
