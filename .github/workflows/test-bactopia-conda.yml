@@ -26,6 +26,7 @@ jobs:
           BACTOPIA_CI=/data/storage/bactopia-ci
           BACTOPIA=$(pwd)
           source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+          conda activate base
           env
           which mamba
           which conda
