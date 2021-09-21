@@ -50,7 +50,8 @@ BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
 mkdir -p ${BACTOPIA_SHARE}
 
 # Copy files
-cp -R ${WORK_DIR} \
+cp -R \
+  ${WORK_DIR}/bin \
   ${WORK_DIR}/conda \
   ${WORK_DIR}/conf \
   ${WORK_DIR}/data \
