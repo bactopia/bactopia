@@ -11,18 +11,18 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
-        working-directory: ${{ github.run_id }}
+
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
         with:
-          path: bactopia
+          path: ${{ github.run_id }}/bactopia
 
       - name: Run Bactopia Tests
         run: |
-          cd bactopia
+          cd ${{ github.run_id }}/bactopia
           BACTOPIA_CI=/data/storage/bactopia-ci
-          BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/bactopia"
+          BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia"
           source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
           mkdir ${BACTOPIA_WORKSPACE}/envs ${GITHUB_WORKSPACE}/pytest
           bash ${BACTOPIA_WORKSPACE}/bactopia/bin/gh-actions/setup-bactopia-env.sh ${BACTOPIA_WORKSPACE} ${BACTOPIA_WORKSPACE} 0 "${BACTOPIA_WORKSPACE}/envs/bactopia-${GITHUB_RUN_ID}" "bactopia-${GITHUB_RUN_ID}"
@@ -43,5 +43,4 @@ jobs:
             
       - name: Cleanup
         if: always()
-        run: |
-          cd ../ && rm -rf ${{ github.run_id }}
+        run: rm -rf ${{ github.run_id }}
