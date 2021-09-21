@@ -24,6 +24,7 @@ jobs:
           BACTOPIA_CI=/data/storage/bactopia-ci
           BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/${{ github.run_id }}"
           source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+          conda activate bactopia-ci
           uname -a && env
           mkdir ${BACTOPIA_WORKSPACE}/pytest
           cd ${BACTOPIA_WORKSPACE}/bactopia
