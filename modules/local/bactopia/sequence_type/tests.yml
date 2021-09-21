@@ -9,7 +9,6 @@
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
     - path: test_sequence_type_pe/logs/sequence_type/default/ariba.stdout.txt
     - path: test_sequence_type_pe/logs/sequence_type/default/ariba.version.txt
-      md5sum: 0c5082606bb3299717a3c9ab0da738d8
     - path: test_sequence_type_pe/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_sequence_type_pe/logs/sequence_type/default/mlst-blast.stdout.txt
@@ -54,7 +53,6 @@
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
     - path: test_sequence_type_pe/logs/sequence_type/default/ariba.stdout.txt
     - path: test_sequence_type_pe/logs/sequence_type/default/ariba.version.txt
-      md5sum: 0c5082606bb3299717a3c9ab0da738d8
     - path: test_sequence_type_pe/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_sequence_type_pe/logs/sequence_type/default/mlst-blast.stdout.txt

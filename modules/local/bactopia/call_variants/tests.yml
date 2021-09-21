@@ -36,9 +36,7 @@
       md5sum: 42291a7954af1905b7fc3739b5776680
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf.gz
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
-      md5sum: 8e7693d0bb59d0d0df3ab90f28f6974a
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
-      md5sum: b9563974e33628f1bba6261dc32d7675
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed.gz
       md5sum: 45505b2cd4811d10741da9e9c4ee19fa
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa.gz
@@ -102,9 +100,7 @@
       md5sum: c37013a83f9f56eeba519f34dee21adc
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
-      md5sum: 8e7693d0bb59d0d0df3ab90f28f6974a
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
-      md5sum: b9563974e33628f1bba6261dc32d7675
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed
       md5sum: 2721538bc96e9a4a17bc89e032460ac0
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa
@@ -168,9 +164,7 @@
       md5sum: 21b4b416249e0ae4e4a64c9fa8212474
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf.gz
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
-      md5sum: 7ffdf85968cf8d4dd6c13ebe1dceae5e
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
-      md5sum: 4c4428b2713c7b281136b130b8145e52
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed.gz
       md5sum: c1b02e768012d505e38ea11ca60f1d17
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa.gz
@@ -234,9 +228,7 @@
       md5sum: 5307c45c33b6816e11460262e2dffacd
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.annotated.vcf
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam
-      md5sum: 7ffdf85968cf8d4dd6c13ebe1dceae5e
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bam.bai
-      md5sum: 4c4428b2713c7b281136b130b8145e52
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.bed
       md5sum: 22d56d683ed2dc4cea75e4bd2831e002
     - path: SRR2838702/variants/GCF_000292685/SRR2838702.consensus.fa
@@ -310,9 +302,7 @@
       md5sum: 1f74547f6ae6679d9059240473467997
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf.gz
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
-      md5sum: 9efbf8fb450866a5e078ff41fdd421d8
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
-      md5sum: c6fc0cb809922499ba31130b19d98ff3
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed.gz
       md5sum: 37361f1be758a5158664069e19919931
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa.gz
@@ -388,9 +378,7 @@
       md5sum: 1a7b8e4cbc2a574d9ecbdcecabd08c58
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
-      md5sum: 9efbf8fb450866a5e078ff41fdd421d8
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
-      md5sum: c6fc0cb809922499ba31130b19d98ff3
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed
       md5sum: 174a2d8944270d74dec4e29f9e10c00c
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa
@@ -466,9 +454,7 @@
       md5sum: f275501fdf8d59d79e53930df4190ba7
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf.gz
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
-      md5sum: 3897bb9388bdc1c75b2c37525a8b8e05
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
-      md5sum: 84f995a7e0504e94d7bcd4cf3988aceb
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed.gz
       md5sum: 37361f1be758a5158664069e19919931
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa.gz
@@ -544,9 +530,7 @@
       md5sum: a9a702d4ab4200487dca64dc6ebaf9a7
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.annotated.vcf
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam
-      md5sum: 3897bb9388bdc1c75b2c37525a8b8e05
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bam.bai
-      md5sum: 84f995a7e0504e94d7bcd4cf3988aceb
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.bed
       md5sum: 174a2d8944270d74dec4e29f9e10c00c
     - path: SRR2838702/variants/GCF_000827855/SRR2838702.consensus.fa

@@ -6,9 +6,7 @@
     - blast_genes
   files:
     - path: GCF_000292685/blast/genes/GCF_000292685.json.gz
-      md5sum: c0aa2a03771dbfb4d1c19ad6c2c6b58c
     - path: GCF_000292685/blast/genes/genes.json.gz
-      md5sum: d1ead836cab7dfebe96b3cd8f5207de2
     - path: GCF_000292685/logs/blast/genes/blastn.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/blast/genes/blastn.stdout.txt
@@ -40,9 +38,7 @@
     - blast_primers
   files:
     - path: GCF_000292685/blast/primers/GCF_000292685.json.gz
-      md5sum: 2c0777fb029201157376280fa87bc215
     - path: GCF_000292685/blast/primers/primers.json.gz
-      md5sum: 2a548375c59a838d6ff0675775544606
     - path: GCF_000292685/logs/blast/primers/blastn.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/blast/primers/blastn.stdout.txt
@@ -74,9 +70,7 @@
     - blast_primers_uncompressed
   files:
     - path: GCF_000292685/blast/primers/GCF_000292685.json
-      md5sum: 5d74779ee3e651e0489f5d579fd85b53
     - path: GCF_000292685/blast/primers/primers.json
-      md5sum: 25cccf0391f1837ada3f95d9b3463fc9
     - path: GCF_000292685/logs/blast/primers/blastn.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/blast/primers/blastn.stdout.txt
@@ -108,9 +102,7 @@
     - blast_proteins
   files:
     - path: GCF_000292685/blast/proteins/GCF_000292685.json.gz
-      md5sum: 49a59a6e90005f5e259cc38f2f728f3f
     - path: GCF_000292685/blast/proteins/proteins.json.gz
-      md5sum: d9644cd2f3d08b6096f3fdde8c295862
     - path: GCF_000292685/logs/blast/proteins/blastn.version.txt
       md5sum: fb75b5066e277d956642fe0abce4f6fd
     - path: GCF_000292685/logs/blast/proteins/merge-blast-json.stderr.txt

@@ -201,7 +201,6 @@
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.out
-      md5sum: f169d22c26bd06696ba9a5ce837bc650
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.sh
       md5sum: 74c51aff5054d80f0fece8b11dcc380c

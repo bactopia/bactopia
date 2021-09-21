@@ -105,7 +105,6 @@
     - path: test_assembly_qc/assembly/checkm/storage/tree/concatenated.fasta
       md5sum: 4c170fc0a6734a821bf3b443f0b33bef
     - path: test_assembly_qc/assembly/checkm/storage/tree/concatenated.pplacer.json
-      md5sum: 2aaf157839255d0bcbc277a3b038733d
     - path: test_assembly_qc/assembly/checkm/storage/tree/concatenated.tre
       md5sum: 478880ccdff6d05c9e7f130773f717c3
     - path: test_assembly_qc/assembly/checkm/storage/tree/pplacer.out
@@ -154,4 +153,4 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_assembly_qc/logs/assembly_qc/quast.stdout.txt
     - path: test_assembly_qc/logs/assembly_qc/quast.version.txt
-      md5sum: 394706290e763e56cd139019c4fd3ec9
+      md5sum: 2c7df92842ce15d90ae7c85aef9bd610

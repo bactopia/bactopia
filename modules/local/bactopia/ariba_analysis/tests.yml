@@ -27,7 +27,6 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.stdout.txt
     - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.version.txt
-      md5sum: 0c5082606bb3299717a3c9ab0da738d8
     - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.err
@@ -46,7 +45,6 @@
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
     - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.stdout.txt
     - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.version.txt
-      md5sum: 0c5082606bb3299717a3c9ab0da738d8
     - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
