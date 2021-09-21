@@ -294,7 +294,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 486e6eb0657bedc9f134a5e161ee12dc
+      md5sum: f09360add76336b14dcf9b3014cc12c0
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
 
 - name: gather_samples_sra_accession
@@ -324,7 +324,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 515fb21137e978bfb2a8f2c6d728c216
+      md5sum: 29ec2d1fafcd607835913e850c8e3cd7
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
 
 - name: gather_samples_assembly_accession_estimate
