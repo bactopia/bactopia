@@ -28,7 +28,7 @@ jobs:
           uname -a && env
           mkdir ${BACTOPIA_WORKSPACE}/pytest
           cd ${BACTOPIA_WORKSPACE}/bactopia
-          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=${BACTOPIA_WORKSPACE}/pytest pytest --workers 12 --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data --cpus 8" TMPDIR=${BACTOPIA_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
