@@ -11,6 +11,7 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+        working-directory: bactopia-${GITHUB_ACTION}-${GITHUB_JOB}
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
@@ -21,24 +22,16 @@ jobs:
           repository: bactopia/bactopia-tests
           path: bactopia-tests
 
-      - name: Setup miniconda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: bactopia
-          auto-activate-base: false
-
-      - name: Setup Bactopia Environment
+      - name: Run Bactopia Tests
         run: |
-          conda install -c conda-forge -c bioconda -y mamba
-          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
-
-      - name: Run Pytests
-        env:
-          SINGULARITY_CACHE: /data/storage/bactopia-ci/
-          CONDA_CACHE: /data/storage/bactopia-ci/envs/conda
-        run: |
+          BACTOPIA_CI=/data/storage/bactopia-ci
+          BACTOPIA=$(pwd)
+          source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+          mkdir ${GITHUB_WORKSPACE}/envs ${GITHUB_WORKSPACE}/pytest
+          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE} 0 "${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_JOB}" "bactopia-${GITHUB_JOB}"
+          conda activate ${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_JOB}
+          export PATH=${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_JOB}/bin:${PATH}
           uname -a && env
-          mkdir ${GITHUB_WORKSPACE}/pytest
           BACTOPIA_ARGS="--condadir ${CONDA_CACHE} --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" TMPDIR=${GITHUB_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
@@ -47,5 +40,5 @@ jobs:
         with:
           name: logs-debian
           path: |
-            ${GITHUB_ACTION_PATH}/pytest/pytest_workflow_*/*/log.out
-            ${GITHUB_ACTION_PATH}/pytest/pytest_workflow_*/*/log.err
+            ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.out
+            ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.err
