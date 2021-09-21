@@ -36,8 +36,8 @@ jobs:
         with:
           name: logs-debian
           path: |
-            ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.out
-            ${GITHUB_WORKSPACE}/pytest/pytest_workflow_*/*/log.err
+            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.out
+            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.err
             
       - name: Cleanup
         if: always()
