@@ -76,7 +76,6 @@
       md5sum: cac29f9b434007e3de4fad67f3030055
     - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_pe/multiple-read-sets-merged.txt
-      md5sum: a30d3c3fc1c8e24a2dd204d49cb363f9
     - path: test_gather_samples_merge_pe/test_gather_samples_merge_pe-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
@@ -103,7 +102,6 @@
       md5sum: 84e34d6b12d88288ad3a7fe5bf5ddfc0
     - path: test_gather_samples_merge_pe/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_pe/multiple-read-sets-merged.txt
-      md5sum: a30d3c3fc1c8e24a2dd204d49cb363f9
     - path: test_gather_samples_merge_pe/test_gather_samples_merge_pe-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -132,7 +130,6 @@
       md5sum: a191b54ba1d1f22c44b98adbd96c41a5
     - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_pe_hybrid/multiple-read-sets-merged.txt
-      md5sum: c31453741d40c60f3e8d88ea6df9985a
     - path: test_gather_samples_merge_pe_hybrid/test_gather_samples_merge_pe_hybrid-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
@@ -159,7 +156,6 @@
       md5sum: 5aa96375dd9cff0df40fa50b3cb74ec8
     - path: test_gather_samples_merge_pe_hybrid/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_pe_hybrid/multiple-read-sets-merged.txt
-      md5sum: c31453741d40c60f3e8d88ea6df9985a
     - path: test_gather_samples_merge_pe_hybrid/test_gather_samples_merge_pe_hybrid-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -240,7 +236,6 @@
       md5sum: fbffec5daff484d54ad7ee8c3c5abcd4
     - path: test_gather_samples_merge_se/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_se/multiple-read-sets-merged.txt
-      md5sum: 53c7900de508402841a0b35157f18393
     - path: test_gather_samples_merge_se/test_gather_samples_merge_se-genome-size.txt
       md5sum: 80f199049c540d58d1e5968a62f3482f
 
@@ -267,7 +262,6 @@
       md5sum: b0371b7f4649333e9003d3765b222715
     - path: test_gather_samples_merge_se/logs/gather_samples/nf-gather_samples.trace
     - path: test_gather_samples_merge_se/multiple-read-sets-merged.txt
-      md5sum: 53c7900de508402841a0b35157f18393
     - path: test_gather_samples_merge_se/test_gather_samples_merge_se-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -300,7 +294,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: f09360add76336b14dcf9b3014cc12c0
+      md5sum: 486e6eb0657bedc9f134a5e161ee12dc
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
 
 - name: gather_samples_sra_accession
@@ -330,7 +324,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 29ec2d1fafcd607835913e850c8e3cd7
+      md5sum: 515fb21137e978bfb2a8f2c6d728c216
     - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
 
 - name: gather_samples_assembly_accession_estimate

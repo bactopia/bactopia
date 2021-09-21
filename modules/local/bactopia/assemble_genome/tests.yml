@@ -69,7 +69,6 @@
     - path: test_assemble_genome_pe/assembly/test_assemble_genome_pe.fna.json
       md5sum: f3ad1d432bbccc73bb0418bc9a73210d
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ndb
-      md5sum: a3b647dda88d10fb71973b0b0281c150
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nhr
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nin
     - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.not

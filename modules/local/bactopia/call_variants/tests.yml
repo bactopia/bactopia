@@ -285,7 +285,7 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.run
     - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.sh
-      md5sum: 998399bc32727bf083a84780cb00baf2
+      md5sum: aa88121a187805f376b1516d86717e60
     - path: SRR2838702/logs/call_variants/refseq-genomes/nf-call_variants.trace
     - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stderr.txt
     - path: SRR2838702/logs/call_variants/refseq-genomes/snippy.stdout.txt
