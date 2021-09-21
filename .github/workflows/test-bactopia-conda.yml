@@ -7,10 +7,7 @@ on: workflow_dispatch
 
 jobs:
   bactopia-testing-conda:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: olaf
     defaults:
       run:
         shell: bash -l {0}
@@ -24,9 +21,6 @@ jobs:
           repository: bactopia/bactopia-tests
           path: bactopia-tests
 
-      - name: Free up Disk Space
-        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
-
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
@@ -37,19 +31,21 @@ jobs:
         run: |
           conda install -c conda-forge -c bioconda -y mamba
           bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
-          bactopia build --default
-
-      - name: Environment Information
-        run: uname -a && env
 
       - name: Run Pytests
-        run: BACTOPIA_ARGS="--condadir  /usr/share/miniconda/envs/bactopia/share/bactopia-1.7.x/conda/envs --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" TMPDIR=~  pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+        env:
+          SINGULARITY_CACHE: /data/storage/bactopia-ci/
+          CONDA_CACHE: /data/storage/bactopia-ci/envs/conda
+        run: |
+          uname -a && env
+          mkdir ${GITHUB_WORKSPACE}/pytest
+          BACTOPIA_ARGS="--condadir ${CONDA_CACHE} --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" TMPDIR=${GITHUB_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: logs-${{ matrix.os }}
+          name: logs-debian
           path: |
-            /home/runner/pytest_workflow_*/*/log.out
-            /home/runner/pytest_workflow_*/*/log.err
+            ${GITHUB_ACTION_PATH}/pytest/pytest_workflow_*/*/log.out
+            ${GITHUB_ACTION_PATH}/pytest/pytest_workflow_*/*/log.err
