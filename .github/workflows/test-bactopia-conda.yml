@@ -15,27 +15,17 @@ jobs:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
 
-      - name: Checkout bactopia/bactopia-tests
-        uses: actions/checkout@v2
-        with:
-          repository: bactopia/bactopia-tests
-          path: bactopia-tests
-
       - name: Run Bactopia Tests
         run: |
           BACTOPIA_CI=/data/storage/bactopia-ci
           BACTOPIA=$(pwd)
           source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
-          conda activate base
-          env
-          which mamba
-          which conda
           mkdir ${GITHUB_WORKSPACE}/envs ${GITHUB_WORKSPACE}/pytest
-          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE} 0 "${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_ID}" "bactopia-${GITHUB_ID}"
-          conda activate ${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_ID}
-          export PATH=${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_JOB}/bin:${PATH}
+          bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE} 0 "${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_RUN_ID}" "bactopia-${GITHUB_RUN_ID}"
+          conda activate ${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_RUN_ID}
+          export PATH=${GITHUB_WORKSPACE}/envs/bactopia-${GITHUB_RUN_ID}/bin:${PATH}
           uname -a && env
-          BACTOPIA_ARGS="--condadir ${CONDA_CACHE} --test_data_dir ${GITHUB_WORKSPACE}/bactopia-tests/data" TMPDIR=${GITHUB_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+          BACTOPIA_ARGS="--condadir ${CONDA_CACHE} --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=${GITHUB_WORKSPACE}/pytest pytest --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
