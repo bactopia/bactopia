@@ -96,7 +96,7 @@ def process_fastqs(line, genome_size) {
     meta.id = line.sample
     meta.runtype = line.runtype
     meta.genome_size = line.genome_size
-    if (line.runtype == 'single-end') {
+    if (line.runtype == 'single-end' || line.runtype == 'ont') {
         return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
     } else if (line.runtype == 'paired-end') {
         return tuple(meta, [file(line.r1)], [file(line.r2)], file(params.empty_extra))

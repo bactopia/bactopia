@@ -28,7 +28,7 @@ class WorkflowBactopia {
             run_type = "paired-end"
         } else if (params.SE && params.sample) {
             error += Utils.fileNotGzipped(params.SE, 'SE', log)
-            run_type = "single-end"
+            run_type = params.ont ? "ont" : "single-end"
         } else if (params.assembly && params.sample) {
             error += Utils.fileNotGzipped(params.assembly, 'assembly', log)
             run_type = "assembly"

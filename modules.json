@@ -3,8 +3,14 @@
     "homePage": "https://github.com/bactopia/bactopia",
     "repos": {
         "nf-core/modules": {
+            "agrvate": {
+                "git_sha": "8e9d6cd5e43ff1f4bd8314f52e989d7b2c92625f"
+            },
             "iqtree": {
                 "git_sha": "c5235a983d454787fa0c3247b02086969217163b"
+            },
+            "kleborate": {
+                "git_sha": "77a2895785587219ee2b9d0ea16fa0d71ad14f3a"
             },
             "prokka": {
                 "git_sha": "e937c7950af70930d1f34bb961403d9d2aa81c7d"

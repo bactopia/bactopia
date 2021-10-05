@@ -38,6 +38,12 @@
                     "help": "Requires `--sample`. Cannot be used with `--fastqs` or `--R1|--R2` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
+                "ont": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Treat `--SE` as long reads for analysis. (requires --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
                 "hybrid": {
                     "type": "boolean",
                     "default": false,
@@ -715,11 +721,39 @@
                     "default": 42,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
+                },
+                "ont_minlength": {
+                    "type": "integer",
+                    "description": "ONT Reads shorter than this will be discarded",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ont_minqual": {
+                    "type": "integer",
+                    "description": "Minimum average read quality filter of ONT reads",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "porechop_opts": {
+                    "type": "integer",
+                    "description": "Extra Porechop options in quotes",
+                    "help": "Example would be: '--adapter_threshold 50'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "nanoplot_opts": {
+                    "type": "integer",
+                    "description": "Extra NanoPlot options in quotes",
+                    "help": "Example would be: '--maxlength 10000'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
         "assemble_genome_parameters": {
-            "title": "AssemblE Genome Parameters",
+            "title": "Assemble Genome Parameters",
             "type": "object",
             "description": "",
             "default": "",

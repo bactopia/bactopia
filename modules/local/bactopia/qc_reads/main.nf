@@ -26,7 +26,7 @@ process QC_READS {
     path "results/*"
     path "*.std{out,err}.txt", emit: logs, optional: true
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
     path "*-error.txt", optional: true
 
 
@@ -70,59 +70,82 @@ process QC_READS {
             fi
         fi
     else
-        bbduk.sh --version 2>&1 | grep " version" > bbduk.version.txt 2>&1
+        if [[ "!{meta.runtype}" == "ont" ]]; then
+            # Remove Adapters
+            porechop --input !{fq[0]} !{params.porechop_opts} \
+                --format fastq \
+                -v 3 \
+                --threads !{task.cpus} > adapter-r1.fq 2> porechop.stderr.txt
 
-        # Remove Adapters
-        bbduk.sh -Xmx!{qc_ram}g \
-            in=!{fq[0]} out=adapter-r1.fq !{adapter_opts} \
-            ref=!{adapters} \
-            k=!{params.adapter_k} \
-            ktrim=!{params.ktrim} \
-            mink=!{params.mink} \
-            hdist=!{params.hdist} \
-            tpe=!{params.tpe} \
-            tbo=!{params.tbo} \
-            threads=!{task.cpus} \
-            ftm=!{params.ftm} \
-            !{qin} ordered=t \
-            stats=bbduk-adapter.stdout.txt 2> bbduk-adapter.stderr.txt
+            # Quality filter
+            nanoq --min_length !{params.ont_minlength} \
+                  --fastx adapter-r1.fq \
+                  --min_quality !{params.ont_minqual}
+                  --detail 1> filt-r1.fq 2> nanoq.stderr.txt
+        else
+            # Illumina Reads
+            # Remove Adapters
+            bbduk.sh -Xmx!{qc_ram}g \
+                in=!{fq[0]} out=adapter-r1.fq !{adapter_opts} \
+                ref=!{adapters} \
+                k=!{params.adapter_k} \
+                ktrim=!{params.ktrim} \
+                mink=!{params.mink} \
+                hdist=!{params.hdist} \
+                tpe=!{params.tpe} \
+                tbo=!{params.tbo} \
+                threads=!{task.cpus} \
+                ftm=!{params.ftm} \
+                !{qin} ordered=t \
+                stats=bbduk-adapter.stdout.txt 2> bbduk-adapter.stderr.txt
 
-        # Remove PhiX
-        bbduk.sh -Xmx!{qc_ram}g \
-            in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
-            ref=!{phix} \
-            k=!{params.phix_k} \
-            hdist=!{params.hdist} \
-            tpe=!{params.tpe} \
-            tbo=!{params.tbo} \
-            qtrim=!{params.qtrim} \
-            trimq=!{params.trimq} \
-            minlength=!{params.minlength} \
-            minavgquality=!{params.maq} \
-            !{qin} qout=!{params.qout} \
-            tossjunk=!{params.tossjunk} \
-            threads=!{task.cpus} \
-            ordered=t stats=bbduk-phix.stdout.txt 2> bbduk-phix.stderr.txt
+            # Remove PhiX
+            bbduk.sh -Xmx!{qc_ram}g \
+                in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
+                ref=!{phix} \
+                k=!{params.phix_k} \
+                hdist=!{params.hdist} \
+                tpe=!{params.tpe} \
+                tbo=!{params.tbo} \
+                qtrim=!{params.qtrim} \
+                trimq=!{params.trimq} \
+                minlength=!{params.minlength} \
+                minavgquality=!{params.maq} \
+                !{qin} qout=!{params.qout} \
+                tossjunk=!{params.tossjunk} \
+                threads=!{task.cpus} \
+                ordered=t stats=bbduk-phix.stdout.txt 2> bbduk-phix.stderr.txt
+        fi
 
         # Error Correction
-        if [ "!{params.skip_error_correction}" == "false" ]; then
-            lighter -v > lighter.version.txt 2>&1
-            lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> lighter.stdout.txt 2> lighter.stderr.txt
+        if [[ "!{meta.runtype}" == "ont" ]]; then
+            echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
         else
-            echo "Skipping error correction"
-            ln -s phix-r1.fq phix-r1.cor.fq
-            if [ "!{meta.single_end}" == "false" ]; then
-                ln -s phix-r2.fq phix-r2.cor.fq
+            if [ "!{params.skip_error_correction}" == "false" ]; then
+                lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> lighter.stdout.txt 2> lighter.stderr.txt
+            else
+                echo "Skipping error correction"
+                ln -s phix-r1.fq phix-r1.cor.fq
+                if [ "!{meta.single_end}" == "false" ]; then
+                    ln -s phix-r2.fq phix-r2.cor.fq
+                fi
             fi
         fi
 
         # Reduce Coverage
         if (( ${TOTAL_BP} > 0 )); then
-            reformat.sh -Xmx!{qc_ram}g \
-                in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
-                samplebasestarget=${TOTAL_BP} \
-                sampleseed=!{params.sampleseed} \
-                overwrite=t 1> reformat.stdout.txt 2> reformat.stderr.txt
+            if [[ "!{meta.runtype}" == "ont" ]]; then
+                rasusa -i filt-r1.fq \
+                       -c !{params.coverage} \
+                       -g ${GENOME_SIZE} \
+                       -s !{params.sampleseed} 1> subsample-r1.fq 2> rasusa.stderr.txt
+            else
+                reformat.sh -Xmx!{qc_ram}g \
+                    in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
+                    samplebasestarget=${TOTAL_BP} \
+                    sampleseed=!{params.sampleseed} \
+                    overwrite=t 1> reformat.stdout.txt 2> reformat.stderr.txt
+            fi
         else
             echo "Skipping coverage reduction"
             ln -s phix-r1.cor.fq subsample-r1.fq
@@ -130,57 +153,71 @@ process QC_READS {
                 ln -s phix-r2.cor.fq subsample-r2.fq
             fi
         fi
+    fi
 
-        # Compress
-        if [ "!{meta.single_end}" == "false" ]; then
-            pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}_R1.fastq.gz
-            pigz -p !{task.cpus} -c -n subsample-r2.fq > results/!{meta.id}_R2.fastq.gz
-        else
-            pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}.fastq.gz
-        fi
+    # Compress
+    if [ "!{meta.single_end}" == "false" ]; then
+        pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}_R1.fastq.gz
+        pigz -p !{task.cpus} -c -n subsample-r2.fq > results/!{meta.id}_R2.fastq.gz
+    else
+        pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}.fastq.gz
+    fi
 
-        if [ "!{params.keep_all_files}" == "false" ]; then
-            # Remove intermediate FASTQ files
-            rm *.fq
-        fi
+    if [ "!{params.keep_all_files}" == "false" ]; then
+        # Remove intermediate FASTQ files
+        rm *.fq
     fi
 
     # Quality stats before and after QC
-    fastqc -version > fastqc.version.txt 2>&1
-    fastq-scan -v fastq-scan.version.txt 2>&1
     mkdir results/summary/
-    if [ "!{meta.single_end}" == "false" ]; then
-        # Paired-End Reads
-        # fastq-scan
-        gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-original.json
-        gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-original.json
-        gzip -cd results/!{meta.id}_R1.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-final.json
-        gzip -cd results/!{meta.id}_R2.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-final.json
-
-        # FastQC
-        ln -s !{fq[0]} !{meta.id}_R1-original.fastq.gz
-        ln -s !{fq[1]} !{meta.id}_R2-original.fastq.gz
-        ln -s results/!{meta.id}_R1.fastq.gz !{meta.id}_R1-final.fastq.gz
-        ln -s results/!{meta.id}_R2.fastq.gz !{meta.id}_R2-final.fastq.gz
-        fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}_R1-original.fastq.gz !{meta.id}_R2-original.fastq.gz !{meta.id}_R1-final.fastq.gz !{meta.id}_R2-final.fastq.gz
-    else
-        # Single-End Reads
-        # fastq-scan
+    if [[ "!{}" == "ont" ]]; then
         gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-original.json
-        gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
+        NanoPlot !{params.nanoplot_opts} \
+            --threads !{task.cpus} \
+            --fastq !{fq[0]} \
+            --outdir results/summary/ \
+            --prefix !{meta.id}-original
 
-        # FastQC 
-        ln -s !{fq[0]} !{meta.id}-original.fastq.gz
-        ln -s results/!{meta.id}.fastq.gz !{meta.id}-final.fastq.gz
-        fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}-original.fastq.gz !{meta.id}-final.fastq.gz
+        gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
+        NanoPlot !{params.nanoplot_opts} \
+            --threads !{task.cpus} \
+            --fastq results/!{meta.id}.fastq.gz \
+            --outdir results/summary/ \
+            --prefix !{meta.id}-final
+    else
+        if [ "!{meta.single_end}" == "false" ]; then
+            # Paired-End Reads
+            # fastq-scan
+            gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-original.json
+            gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-original.json
+            gzip -cd results/!{meta.id}_R1.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-final.json
+            gzip -cd results/!{meta.id}_R2.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-final.json
+
+            # FastQC
+            ln -s !{fq[0]} !{meta.id}_R1-original.fastq.gz
+            ln -s !{fq[1]} !{meta.id}_R2-original.fastq.gz
+            ln -s results/!{meta.id}_R1.fastq.gz !{meta.id}_R1-final.fastq.gz
+            ln -s results/!{meta.id}_R2.fastq.gz !{meta.id}_R2-final.fastq.gz
+            fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}_R1-original.fastq.gz !{meta.id}_R2-original.fastq.gz !{meta.id}_R1-final.fastq.gz !{meta.id}_R2-final.fastq.gz
+        else
+            # Single-End Reads
+            # fastq-scan
+            gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-original.json
+            gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
+
+            # FastQC 
+            ln -s !{fq[0]} !{meta.id}-original.fastq.gz
+            ln -s results/!{meta.id}.fastq.gz !{meta.id}-final.fastq.gz
+            fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}-original.fastq.gz !{meta.id}-final.fastq.gz
+        fi
+        mv *_fastqc.html *_fastqc.zip results/summary/
     fi
-    mv *_fastqc.html *_fastqc.zip results/summary/
 
     # Final QC check
     gzip -cd results/*.fastq.gz | fastq-scan > temp.json
     FINAL_BP=$(grep "total_bp" temp.json | sed -r 's/.*:[ ]*([0-9]+),/\\1/')
     FINAL_READS=$(grep "read_total" temp.json | sed -r 's/.*:[ ]*([0-9]+),/\\1/')
-    # rm temp.json
+    rm temp.json
 
     if [ ${FINAL_BP} -lt ${MIN_BASEPAIRS} ]; then
         ERROR=1
@@ -218,6 +255,16 @@ process QC_READS {
             mv results/!{meta.id}.fastq.gz results/!{meta.id}.error-fastq.gz
         fi
     fi
+
+    # Capture versions
+    bbduk.sh --version 2>&1 | grep " version" > bbduk.version.txt 2>&1
+    fastqc -version > fastqc.version.txt 2>&1
+    fastq-scan -v fastq-scan.version.txt 2>&1
+    lighter -v > lighter.version.txt 2>&1
+    NanoPlot
+    nanoq
+    porechop
+    rasusa
     '''
 
     stub:
