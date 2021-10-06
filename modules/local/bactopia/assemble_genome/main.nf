@@ -25,9 +25,9 @@ process ASSEMBLE_GENOME {
     tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${meta.id}-assembly-error.txt", optional: true
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     // Unicycler
@@ -45,8 +45,18 @@ process ASSEMBLE_GENOME {
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.nostitch ? "--nostitch" : ""
     nocorr = params.nocorr ? "--nocorr" : ""
-    shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} --noreadcorr ${nostitch}" : "shovill-se --SE ${fq[0]}"
-    shovill_opts = "${opts} ${kmers} ${nocorr}"
+    shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} ${nostitch}" : "shovill-se --SE ${fq[0]}"
+    shovill_opts = "--assembler ${params.shovill_assembler} --depth 0 --noreadcorr ${opts} ${kmers} ${nocorr}"
+    
+    // Dragonflye
+    nopolish = params.nopolish ? "--nopolish" : ""
+    medaka_model = params.medaka_model ? "--model ${params.medaka_model}" : ""
+    dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish}"
+
+    // Merge Shovill/Dragonfly opts
+    assembler_wf = meta.runtype == "ont" ? "dragonflye" : "shovill"
+    assembler_mode = meta.runtype == "ont" ? "dragonflye --reads ${fq[0]}" : shovill_mode
+    assemnber_opts = meta.runtype == "ont" ? dragonflye_opts : shovill_opts
 
     // Assembly inputs
     use_original_assembly = null
@@ -68,11 +78,9 @@ process ASSEMBLE_GENOME {
             --min_component_size !{params.min_component_size} \
             --min_dead_end_size !{params.min_dead_end_size} !{unicycler_opts} > unicycler.stdout.txt 2> unicycler.stderr.txt
         sed -r 's/^>([0-9]+)(.*)/>!{meta.id}_\\1\\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{meta.id}.fna
-
-        # Capture Version
-        unicycler --version > unicycler.version.txt 2>&1
     else
-        !{shovill_mode} --depth 0 --gsize ${GENOME_SIZE} \
+        # Shovill or Dragonflye
+        !{assembler_mode} --gsize ${GENOME_SIZE} \
             --outdir ${OUTDIR} \
             --force \
             --minlen !{params.min_contig_len} \
@@ -80,34 +88,23 @@ process ASSEMBLE_GENOME {
             --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
-            --ram !{shovill_ram} \
-            --assembler !{params.assembler} !{shovill_opts} > shovill.stdout.txt 2> shovill.stderr.txt
+            --ram !{shovill_ram} !{assemnber_opts} > !{assembler_wf}.stdout.txt 2> !{assembler_wf}.stderr.txt
         mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{meta.id}.fna
 
-        # Capture version
-        shovill --version > shovill.version.txt
-        shovill --check > shovil-depends.version.txt 2>&1
-        if [ "!{params.assembler}" == "spades" ]; then
-            spades.py --version > spades.version.txt 2>&1
-        elif [ "!{params.assembler}" == "skesa" ]; then
-            skesa --version 2>&1 | tail -n 1 > skesa.version.txt 2>&1
-        elif [ "!{params.assembler}" == "velvet" ]; then
-            velvetg | grep "^Version" > velvet.version.txt 2>&1
-        else
-            megahit --version > megahit.version.txt 2>&1
+        if [ -f "${OUTDIR}/flye-info.txt" ]; then
+            mv ${OUTDIR}/flye-info.txt ${OUTDIR}/flye.log
         fi
     fi
 
     # Check quality of assembly
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{meta.id}.fna || true`
     touch "total_contigs_${TOTAL_CONTIGS}"
-    if [ "${TOTAL_CONTIGS}" -gt "0" ]; then
-        assembly-scan ${OUTDIR}/!{meta.id}.fna > ${OUTDIR}/!{meta.id}.fna.json 2> assembly-scan.stderr.txt
-        assembly-scan --version > assembly-scan.version.txt 2>&1
-        TOTAL_CONTIG_SIZE=`grep "total_contig_length" ${OUTDIR}/!{meta.id}.fna.json | sed -r 's/.*: ([0-9]+)/\1/'`
-        if [ ${TOTAL_CONTIG_SIZE} -lt "!{params.min_genome_size}" ]; then
+    if [ "${TOTAL_CONTIGS}" -gt 0 ]; then
+        assembly-scan ${OUTDIR}/!{meta.id}.fna > ${OUTDIR}/!{meta.id}.json 2> assembly-scan.stderr.txt
+        TOTAL_CONTIG_SIZE=$(grep "total_contig_length" ${OUTDIR}/!{meta.id}.json | sed -r 's/.*: ([0-9]+),/\\1/')
+        if [ "${TOTAL_CONTIG_SIZE}" -lt !{params.min_genome_size} ]; then
             mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna
-            mv ${OUTDIR}/!{meta.id}.fna.json ${OUTDIR}/!{meta.id}-error.fna.json
+            mv ${OUTDIR}/!{meta.id}.json ${OUTDIR}/!{meta.id}-error.json
             echo "!{meta.id} assembled size (${TOTAL_CONTIG_SIZE} bp) is less than the minimum allowed genome
                     size (!{params.min_genome_size} bp). If this is unexpected, please investigate !{meta.id} to
                     determine a cause (e.g. metagenomic, contaminants, etc...) for the poor assembly.
@@ -118,7 +115,6 @@ process ASSEMBLE_GENOME {
             # Make BLASTDB
             mkdir blastdb
             cat ${OUTDIR}/!{meta.id}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}
-            makeblastdb -version > makeblastdb.version.txt 2>&1
         fi
     else
         echo "!{meta.id} assembled successfully, but 0 contigs were formed. Please investigate
@@ -131,7 +127,9 @@ process ASSEMBLE_GENOME {
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate files
         rm -rfv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* \
-                ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa ${OUTDIR}/pilon_polish*
+                ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa ${OUTDIR}/pilon_polish* \
+                ${OUTDIR}/flye/ ${OUTDIR}/flye.fasta* ${OUTDIR}/raven/ ${OUTDIR}/raven.fasta* \
+                ${OUTDIR}/raven.cereal ${OUTDIR}/miniasm/ ${OUTDIR}/miniasm.fasta*
     fi
 
     if [[ !{params.skip_compression} == "false" ]]; then
@@ -140,6 +138,37 @@ process ASSEMBLE_GENOME {
             grep -E "\\.fna$|\\.fasta$|\\.fa$|\\.gfa$|\\.fastg$|\\.LastGraph$" | \
             xargs -I {} pigz -n --best -p !{task.cpus} {}
     fi
+    mv ${OUTDIR}/*.log ./
+
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    assemble_genome:
+        any2fasta:  $(echo $(any2fasta -v 2>&1) | sed 's/any2fasta //')
+        assembly-scan: $(echo $(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
+        bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
+        flash: $(echo $(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*$//')
+        flye: $(echo $(flye --version))
+        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        medaka: $(echo $(medaka --version 2>&1) | sed 's/medaka //')
+        megahit: $(echo $(megahit --version 2>&1) | sed 's/MEGAHIT v//')
+        miniasm: $(echo $(miniasm -V))
+        minimap2: $(echo $(minimap2 --version))
+        nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        pilon: $(echo $(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*$//')
+        racon: $(echo $(racon --version 2>&1) | sed 's/v//')
+        rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
+        raven: $(echo $(raven --version))
+        samclip: $(echo $(samclip --version 2>&1) | sed 's/samclip //')
+        samtools: $(echo $(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*$//')
+        shovill: $(echo $(shovill --version 2>&1) | sed 's/shovill //')
+        shovill-se: $(echo $(shovill-se --version 2>&1) | sed 's/shovill-se //')
+        skesa: $(echo $(skesa --version 2>&1) | sed 's/^.*SKESA //;s/ .*$//')
+        spades.py: $(echo $(spades.py --version 2>&1) | sed 's/SPAdes genome assembler v//')
+        velvetg: $(echo $(velvetg 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        velveth: $(echo $(velveth 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
+    END_VERSIONS
     '''
 
     stub:

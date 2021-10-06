@@ -10,21 +10,25 @@ import yaml
 import re
 from textwrap import dedent
 
-
 def _get_workflow_names():
     """Get all names of all workflows which have a test.yml in the tests directory.
-
     To do so, recursively finds all test.yml files and parses their content.
     """
-    yield 'pass'
+    here = Path(__file__).parent.parent.resolve()
+    pytest_workflow_files = here.glob("**/test.yml")
+    for f in pytest_workflow_files:
+        test_config = yaml.load(f.read_text(), Loader=yaml.BaseLoader)
+        if test_config:
+            for workflow in test_config:
+                yield workflow["name"]
 
 @pytest.mark.workflow(*_get_workflow_names())
 def test_ensure_valid_version_yml(workflow_dir):
     workflow_dir = Path(workflow_dir)
+    process_name = workflow_dir.name.split("-")[0]
     try:
-        for versions_yml_file in workflow_dir.rglob('*versions.yml'):
-            if 'work' not in versions_yml_file:
-                versions_yml = versions_yml_file.read_text()
+        versions_yml_file = workflow_dir / f"output/logs/{process_name}/versions.yml"
+        versions_yml = versions_yml_file.read_text()
     except FileNotFoundError:
         raise AssertionError(
             dedent(

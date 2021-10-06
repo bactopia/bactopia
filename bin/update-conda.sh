@@ -50,7 +50,7 @@ function update_environment {
 
 update_environment "annotate_genome" "prokka=1.14.6 tbl2asn-forever=25.7.2f" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "antimicrobial_resistance" "ncbi-amrfinderplus=3.10.1 blast=2.11.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "assemble_genome" "shovill-se=1.1.0se assembly-scan=0.3.0 unicycler=0.4.8 bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "assemble_genome" "shovill-se=1.1.0se dragonflye=1.0.5 nanoq=0.8.2 unicycler=0.4.8 bowtie2=2.3.5.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
     update_environment "assembly_qc" "quast=5.0.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}

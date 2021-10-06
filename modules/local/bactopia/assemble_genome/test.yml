@@ -1,5 +1,5 @@
-- name: assemble_genome_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS}'
+- name: assemble_genome-se
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assemble_genome
@@ -47,8 +47,8 @@
     - path: test_assemble_genome_se/logs/assemble_genome/skesa.version.txt
       md5sum: 1f554de45568530729bea3d4a4874302
 
-- name: assemble_genome_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS}'
+- name: assemble_genome-pe
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assemble_genome
@@ -96,8 +96,8 @@
     - path: test_assemble_genome_pe/logs/assemble_genome/skesa.version.txt
       md5sum: 1f554de45568530729bea3d4a4874302
 
-- name: assemble_genome_hybrid
-  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/tests.nf -entry test_assemble_genome_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
+- name: assemble_genome-hybrid
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assemble_genome
@@ -139,3 +139,126 @@
     - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.stdout.txt
     - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.version.txt
       md5sum: 8d4ca87edce43dbcad0a8385ba4bdef1
+
+- name: assemble_genome-flye
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_flye
+  files:
+    - path: output/assembly/flye-unpolished.gfa.gz
+    - path: output/assembly/output.fna.gz
+    - path: output/assembly/output.json
+      contains: ["total_contig"]
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","flye"]
+    - path: output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","flye"]
+    - path: output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["flye"]
+    - path: output/logs/assemble_genome/flye.log
+      contains: ["seq_name"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 987ede123f862f238ccf015a52aa2274
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-miniasm 
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler miniasm'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_miniasm
+  files:
+    - path: output/assembly/miniasm-unpolished.gfa.gz
+      md5sum: 4cefcc6b08cf614b4c7cbc8ad5ee4912
+    - path: output/assembly/output-error.fna.gz
+      md5sum: 976ef10fff06c925ff8b5e95807783e4
+    - path: output/assembly/output-error.json
+      md5sum: dfe24cfffd3f1b66363b5039efa85781
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","miniasm"]
+    - path: output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","miniasm"]
+    - path: output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["miniasm"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: de11ac573b4acfc9e1abe729e2b35119
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: output/output-assembly-error.txt
+      md5sum: d7562adfa3147c1742ae8cb2635bcc2e
+
+- name: assemble_genome-raven
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler raven'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_raven
+  files:
+    - path: output/assembly/output.fna.gz
+      md5sum: 2be09bd9ece24a22d69b0209cbd747ec
+    - path: output/assembly/output.json
+      md5sum: dd8fe87695d44101b925184b6b443541
+    - path: output/assembly/raven-unpolished.gfa.gz
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","raven"]
+    - path: output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","raven"]
+    - path: output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["raven"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: fb9431e9cfd1ce82ff0dcd93ed0ceb80
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4

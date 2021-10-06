@@ -12,5 +12,7 @@ LABEL conda.env="bactopia/conda/linux/assemble_genome.yml"
 LABEL conda.md5="ea7b0b9fb236fed9af971fb2d5dc0cac"
 
 COPY conda/linux/assemble_genome.yml /
-RUN conda env create -q -f assemble_genome.yml && conda clean -y -a
+RUN conda env create -q -f assemble_genome.yml && conda clean -y -a && \
+    wget -O /opt/conda/envs/bactopia-assemble_genome/bin/dragonflye https://raw.githubusercontent.com/rpetit3/dragonflye/main/bin/dragonflye && \
+    chmod 755 /opt/conda/envs/bactopia-assemble_genome/bin/dragonflye
 ENV PATH /opt/conda/envs/bactopia-assemble_genome/bin:$PATH

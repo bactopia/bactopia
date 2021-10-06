@@ -177,4 +177,3 @@ dependencies:
   - xz=5.2.5
   - zlib=1.2.11
   - zstd=1.5.0
-prefix: /home/robert_petit/miniconda3/envs/bactopia-gather_samples

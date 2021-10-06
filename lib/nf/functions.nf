@@ -62,13 +62,13 @@ def save_files(Map args) {
             // Do not publish versions.yml unless running from pytest workflow
             // Adapted from nf-core/modules
             return null
-        } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt')) {
-            // Its a version file or  program specific log files
-            final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
         } else if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
             final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
+        } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt') || args.filename.endsWith('.log') || args.filename.equals('versions.yml')) {
+            // Its a version file or  program specific log files
+            final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
             filename = args.filename
@@ -82,6 +82,8 @@ def save_files(Map args) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
                 final_output = "blast/${filename}"
+            } else if (filename.startsWith("total_contigs_")) {
+                final_output = null
             } else {
                 final_output = "${params.publish_dir[args.process_name]}/${filename}"
             }

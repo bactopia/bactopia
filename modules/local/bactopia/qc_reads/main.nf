@@ -29,7 +29,6 @@ process QC_READS {
     path "versions.yml", emit: versions
     path "*-error.txt", optional: true
 
-
     shell:
     meta.single_end = fq[1] == null ? true : false
     qc_ram = task.memory.toString().split(' ')[0]
@@ -156,8 +155,6 @@ process QC_READS {
         fi
     fi
 
-
-
     # Quality stats before and after QC
     mkdir results/summary/
     # fastq-scan
@@ -262,6 +259,7 @@ process QC_READS {
         lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
         nanoplot: $(echo $(NanoPlot -v 2>&1) | sed 's/NanoPlot //')
         nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
         porechop: $(echo $(porechop --version 2>&1))
         rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
     END_VERSIONS
