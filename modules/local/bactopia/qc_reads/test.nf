@@ -20,7 +20,19 @@ workflow test_qc_reads_se {
     inputs = tuple(
         [id:"test_qc_reads_se", runtype:"single-end"],
         [file(params.test_data['illumina']['se'], checkIfExists: true)],
-        file(params.test_data['nanopore']['se'], checkIfExists: true),
+        file(params.test_data['empty']['fna'], checkIfExists: true),
+        file(params.test_data['reference']['genome_size'], checkIfExists: true)
+    )
+
+    QC_READS ( inputs )
+}
+
+workflow test_qc_reads_nanopore {
+
+    inputs = tuple(
+        [id:"test_qc_reads_nanopore", runtype:"ont"],
+        [file(params.test_data['nanopore']['se'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true),
         file(params.test_data['reference']['genome_size'], checkIfExists: true)
     )
 

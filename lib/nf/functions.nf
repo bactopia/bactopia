@@ -57,7 +57,12 @@ def save_files(Map args) {
     found_ignore = false
     logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
     if (args.filename) {
-        if (args.filename.endsWith('.version.txt') || args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt')) {
+
+        if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
+            // Do not publish versions.yml unless running from pytest workflow
+            // Adapted from nf-core/modules
+            return null
+        } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt')) {
             // Its a version file or  program specific log files
             final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
         } else if (args.filename.startsWith('.command')) {

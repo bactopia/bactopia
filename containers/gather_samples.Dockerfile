@@ -1,6 +1,6 @@
-FROM nfcore/base:1.12.1
+FROM nfcore/base:2.1
 
-LABEL base.image="nfcore/base:1.12.1"
+LABEL base.image="nfcore/base:2.1"
 LABEL software="Bactopia - gather_samples"
 LABEL software.version="1.7.1"
 LABEL description="A flexible pipeline for complete analysis of bacterial genomes"
@@ -12,7 +12,6 @@ LABEL conda.env="bactopia/conda/linux/gather_samples.yml"
 LABEL conda.md5="ec669442ee6dae0d3ddedf2d887fe567"
 
 COPY conda/linux/gather_samples.yml /
-COPY bin/check-assembly-accession.py /
 RUN conda env create -q -f gather_samples.yml && conda clean -y -a
 
 ENV PATH /opt/conda/envs/bactopia-gather_samples/bin:$PATH

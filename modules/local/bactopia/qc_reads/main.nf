@@ -45,29 +45,18 @@ process QC_READS {
     mkdir -p results
     ERROR=0
     GENOME_SIZE=`head -n 1 !{genome_size}`
-    MIN_BASEPAIRS=$(( !{params.min_coverage}*${GENOME_SIZE} ))
+    MIN_COVERAGE=$(( !{params.min_coverage}*${GENOME_SIZE} ))
     TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
 
     if [ "!{params.skip_qc}" == "true" ]; then
         echo "Sequence QC was skipped for !{meta.id}" > results/!{meta.id}-qc-skipped.txt
-        if [[ -L "!{fq[0]}" ]]; then
-            if [ "!{meta.single_end}" == "false" ]; then
-                # Paired-End Reads
-                ln -s `readlink !{fq[0]}` results/!{meta.id}_R1.fastq.gz
-                ln -s `readlink !{fq[1]}` results/!{meta.id}_R2.fastq.gz
-            else
-                # Single-End Reads
-                ln -s `readlink !{fq[0]}` results/!{meta.id}.fastq.gz
-            fi
+        if [ "!{meta.single_end}" == "false" ]; then
+            # Paired-End Reads
+            cp !{fq[0]} results/!{meta.id}_R1.fastq.gz
+            cp !{fq[1]} results/!{meta.id}_R2.fastq.gz
         else
-            if [ "!{meta.single_end}" == "false" ]; then
-                # Paired-End Reads
-                cp !{fq[0]} results/!{meta.id}_R1.fastq.gz
-                cp !{fq[1]} results/!{meta.id}_R2.fastq.gz
-            else
-                # Single-End Reads
-                cp !{fq[0]} results/!{meta.id}.fastq.gz
-            fi
+            # Single-End Reads
+            cp !{fq[0]} results/!{meta.id}.fastq.gz
         fi
     else
         if [[ "!{meta.runtype}" == "ont" ]]; then
@@ -78,10 +67,9 @@ process QC_READS {
                 --threads !{task.cpus} > adapter-r1.fq 2> porechop.stderr.txt
 
             # Quality filter
-            nanoq --min_length !{params.ont_minlength} \
-                  --fastx adapter-r1.fq \
-                  --min_quality !{params.ont_minqual}
-                  --detail 1> filt-r1.fq 2> nanoq.stderr.txt
+            nanoq --min-len !{params.ont_minlength} \
+                  --min-qual !{params.ont_minqual} \
+                  --input adapter-r1.fq 1> filt-r1.fq 2> nanoq.stderr.txt
         else
             # Illumina Reads
             # Remove Adapters
@@ -153,47 +141,60 @@ process QC_READS {
                 ln -s phix-r2.cor.fq subsample-r2.fq
             fi
         fi
+
+        # Compress
+        if [ "!{meta.single_end}" == "false" ]; then
+            pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}_R1.fastq.gz
+            pigz -p !{task.cpus} -c -n subsample-r2.fq > results/!{meta.id}_R2.fastq.gz
+        else
+            pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}.fastq.gz
+        fi
+
+        if [ "!{params.keep_all_files}" == "false" ]; then
+            # Remove intermediate FASTQ files
+            rm *.fq
+        fi
     fi
 
-    # Compress
-    if [ "!{meta.single_end}" == "false" ]; then
-        pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}_R1.fastq.gz
-        pigz -p !{task.cpus} -c -n subsample-r2.fq > results/!{meta.id}_R2.fastq.gz
-    else
-        pigz -p !{task.cpus} -c -n subsample-r1.fq > results/!{meta.id}.fastq.gz
-    fi
 
-    if [ "!{params.keep_all_files}" == "false" ]; then
-        # Remove intermediate FASTQ files
-        rm *.fq
-    fi
 
     # Quality stats before and after QC
     mkdir results/summary/
-    if [[ "!{}" == "ont" ]]; then
+    # fastq-scan
+    if [ "!{meta.single_end}" == "false" ]; then
+        # Paired-End Reads
+        gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-original.json
+        gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-original.json
+        gzip -cd results/!{meta.id}_R1.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-final.json
+        gzip -cd results/!{meta.id}_R2.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-final.json
+    else
+        # Single-End Reads
         gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-original.json
+        gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
+    fi
+
+    # FastQC and NanoPlot
+    if [[ "!{meta.runtype}" == "ont" ]]; then
+        mkdir results/summary/!{meta.id}-original results/summary/!{meta.id}-final
         NanoPlot !{params.nanoplot_opts} \
             --threads !{task.cpus} \
             --fastq !{fq[0]} \
-            --outdir results/summary/ \
-            --prefix !{meta.id}-original
+            --outdir results/summary/!{meta.id}-original/ \
+            --prefix !{meta.id}-original_
+        cp results/summary/!{meta.id}-original/!{meta.id}-original_NanoPlot-report.html results/summary/!{meta.id}-original_NanoPlot-report.html
+        tar -cvf - results/summary/!{meta.id}-original/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-original_NanoPlot.tar.gz
 
-        gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
         NanoPlot !{params.nanoplot_opts} \
             --threads !{task.cpus} \
             --fastq results/!{meta.id}.fastq.gz \
-            --outdir results/summary/ \
-            --prefix !{meta.id}-final
+            --outdir results/summary/!{meta.id}-final/ \
+            --prefix !{meta.id}-final_
+        cp results/summary/!{meta.id}-final/!{meta.id}-final_NanoPlot-report.html results/summary/!{meta.id}-final_NanoPlot-report.html
+        tar -cvf - results/summary/!{meta.id}-final/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-final_NanoPlot.tar.gz
+        rm -rf results/summary/!{meta.id}-original/ results/summary/!{meta.id}-final/
     else
         if [ "!{meta.single_end}" == "false" ]; then
             # Paired-End Reads
-            # fastq-scan
-            gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-original.json
-            gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-original.json
-            gzip -cd results/!{meta.id}_R1.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-final.json
-            gzip -cd results/!{meta.id}_R2.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-final.json
-
-            # FastQC
             ln -s !{fq[0]} !{meta.id}_R1-original.fastq.gz
             ln -s !{fq[1]} !{meta.id}_R2-original.fastq.gz
             ln -s results/!{meta.id}_R1.fastq.gz !{meta.id}_R1-final.fastq.gz
@@ -201,11 +202,6 @@ process QC_READS {
             fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}_R1-original.fastq.gz !{meta.id}_R2-original.fastq.gz !{meta.id}_R1-final.fastq.gz !{meta.id}_R2-final.fastq.gz
         else
             # Single-End Reads
-            # fastq-scan
-            gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-original.json
-            gzip -cd results/!{meta.id}.fastq.gz | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}-final.json
-
-            # FastQC 
             ln -s !{fq[0]} !{meta.id}-original.fastq.gz
             ln -s results/!{meta.id}.fastq.gz !{meta.id}-final.fastq.gz
             fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}-original.fastq.gz !{meta.id}-final.fastq.gz
@@ -214,33 +210,34 @@ process QC_READS {
     fi
 
     # Final QC check
-    gzip -cd results/*.fastq.gz | fastq-scan > temp.json
+    gzip -cd results/*.fastq.gz | fastq-scan -g ${GENOME_SIZE} > temp.json
     FINAL_BP=$(grep "total_bp" temp.json | sed -r 's/.*:[ ]*([0-9]+),/\\1/')
     FINAL_READS=$(grep "read_total" temp.json | sed -r 's/.*:[ ]*([0-9]+),/\\1/')
     rm temp.json
 
-    if [ ${FINAL_BP} -lt ${MIN_BASEPAIRS} ]; then
+    if [ ${FINAL_BP} -lt ${MIN_COVERAGE} ]; then
         ERROR=1
         echo "After QC, !{meta.id} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
-                not exceed the required minimum ${MIN_BASEPAIRS} bp (!{params.min_coverage}x coverage). Further analysis 
+                not exceed the required minimum ${MIN_COVERAGE} bp (!{params.min_coverage}x coverage). Further analysis 
                 is discontinued." | \
         sed 's/^\\s*//' > !{meta.id}-low-sequence-depth-error.txt
-    fi
-
-    if [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
+    elif [ ${FINAL_BP} -lt "!{params.min_basepairs}" ]; then
         ERROR=1
         echo "After QC, !{meta.id} FASTQ(s) contain ${FINAL_BP} total basepairs. This does
                 not exceed the required minimum !{params.min_basepairs} bp. Further analysis
                 is discontinued." | \
-        sed 's/^\\s*//' >> !{meta.id}-low-sequence-depth-error.txt
+        sed 's/^\\s*//' > !{meta.id}-low-sequence-depth-error.txt
     fi
 
     if [ ${FINAL_READS} -lt "!{params.min_reads}" ]; then
-        ERROR=1
-        echo "After QC, !{meta.id} FASTQ(s) contain ${FINAL_READS} total reads. This does
-                not exceed the required minimum !{params.min_reads} reads count. Further analysis
-                is discontinued." | \
-        sed 's/^\\s*//' > !{meta.id}-low-read-count-error.txt
+        # Prevent ONT samples from being caught by this
+        if [ ${FINAL_BP} -lt ${MIN_COVERAGE} ]; then
+            ERROR=1
+            echo "After QC, !{meta.id} FASTQ(s) contain ${FINAL_READS} total reads. This does
+                    not exceed the required minimum !{params.min_reads} reads count. Further analysis
+                    is discontinued." | \
+            sed 's/^\\s*//' > !{meta.id}-low-read-count-error.txt
+        fi
     fi
 
     if [ "!{is_assembly}" == "true" ]; then
@@ -257,14 +254,17 @@ process QC_READS {
     fi
 
     # Capture versions
-    bbduk.sh --version 2>&1 | grep " version" > bbduk.version.txt 2>&1
-    fastqc -version > fastqc.version.txt 2>&1
-    fastq-scan -v fastq-scan.version.txt 2>&1
-    lighter -v > lighter.version.txt 2>&1
-    NanoPlot
-    nanoq
-    porechop
-    rasusa
+    cat <<-END_VERSIONS > versions.yml
+    qc_reads:
+        bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
+        fastqc: $(echo $(fastqc --version 2>&1) | sed 's/FastQC v//')
+        fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
+        lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
+        nanoplot: $(echo $(NanoPlot -v 2>&1) | sed 's/NanoPlot //')
+        nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
+        porechop: $(echo $(porechop --version 2>&1))
+        rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
+    END_VERSIONS
     '''
 
     stub:

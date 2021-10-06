@@ -58,9 +58,9 @@ else
     update_environment "assembly_qc" "checkm-genome=1.1.3 quast=5.0.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.6 vt=2015.11.10=he941832_3 mash=2.3 ncbi-genome-download=0.3.0 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 fi
-update_environment "gather_samples" "bbmap=38.90 art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 fastq-scan=0.4.3 fastqc=0.11.9 lighter=1.1.2 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "gather_samples" "bbmap=38.90 art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 fastq-scan=0.4.3 fastqc=0.11.9 lighter=1.1.2 porechop=0.2.4 naoq=0.8.2 nanoplot=1.38.1 biopython rename" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "minmers" "mccortex=1.0 mash=2.3 sourmash=4.0.0" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
-update_environment "qc_reads" "bbmap=38.90 fastqc=0.11.9 fastq-scan=0.4.3 lighter=1.1.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
+update_environment "qc_reads" "bbmap=38.93 fastqc=0.11.9 fastq-scan=0.4.4 lighter=1.1.2 porechop=0.2.4 naoq=0.8.2 nanoplot=1.38.1" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 update_environment "sequence_type" "ariba=2.14.6 blast=2.11.0 bowtie2=2.3.5.1 tbb=2020.2" ${CONDA_DIR} ${DOCKER_DIR} ${VERSION} ${IS_MAC}
 
 echo "Last updated: " `date` > ${CONDA_DIR}/README.md

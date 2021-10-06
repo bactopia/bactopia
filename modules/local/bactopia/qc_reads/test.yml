@@ -1,5 +1,5 @@
 - name: qc_reads_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
@@ -11,24 +11,18 @@
     - path: test_qc_reads_pe/logs/qc_reads/bbduk-phix.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/bbduk-phix.stdout.txt
       md5sum: 43eb6f485814981f165b8f36ee16ec54
-    - path: test_qc_reads_pe/logs/qc_reads/bbduk.version.txt
-      md5sum: 3e0bd5bfabe87d897ebf7081fb76febb
-    - path: test_qc_reads_pe/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_pe/logs/qc_reads/lighter.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/lighter.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_qc_reads_pe/logs/qc_reads/lighter.version.txt
-      md5sum: e2ad67b35ec68910fdcb42eeccb6dbb2
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.out
-      md5sum: ce7c78150be34918744790a4c501f618
+      md5sum: aaf50f817c9b3e1ece0f58e11839a32c
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 1b2a2b14b3c035523deb04b349936724
+      md5sum: f1b77507b6a3a171281091c24bae4796
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_pe/logs/qc_reads/reformat.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/reformat.stdout.txt
@@ -53,9 +47,11 @@
       md5sum: 5d90f0b7f99b9c92de7286e2e90fe395
     - path: test_qc_reads_pe/quality-control/test_qc_reads_pe_R2.fastq.gz
       md5sum: 5712d61173b7b91d5cbcd4cb4b32cbcb
+    - path: test_qc_reads_pe/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
 
 - name: qc_reads_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
@@ -67,24 +63,18 @@
     - path: test_qc_reads_se/logs/qc_reads/bbduk-phix.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/bbduk-phix.stdout.txt
       md5sum: db0fd8580218de1fdeb831e62b9b6b29
-    - path: test_qc_reads_se/logs/qc_reads/bbduk.version.txt
-      md5sum: 3e0bd5bfabe87d897ebf7081fb76febb
-    - path: test_qc_reads_se/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_se/logs/qc_reads/lighter.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/lighter.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_qc_reads_se/logs/qc_reads/lighter.version.txt
-      md5sum: e2ad67b35ec68910fdcb42eeccb6dbb2
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.out
-      md5sum: aa5222977424456a3a1fef00735204c8
+      md5sum: 5a94e3cefc2201ddc10f15a4a228c0ca
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 4337e1029c7b872bec61fdc33e3f5bd5
+      md5sum: b46799bd65d524aa4413c91ab4b91e13
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_se/logs/qc_reads/reformat.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/reformat.stdout.txt
@@ -99,25 +89,25 @@
     - path: test_qc_reads_se/quality-control/summary/test_qc_reads_se-original_fastqc.zip
     - path: test_qc_reads_se/quality-control/test_qc_reads_se.fastq.gz
       md5sum: 2a5116c5d7ba15fb752c3dc1209692cc
+    - path: test_qc_reads_se/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
 
 - name: qc_reads_pe_skip_qc
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
     - qc_reads_pe_skip_qc
   files:
-    - path: test_qc_reads_pe/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.out
-      md5sum: ce7c78150be34918744790a4c501f618
+      md5sum: aaf50f817c9b3e1ece0f58e11839a32c
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 27aa1bbf8d8bfbc3d64fefbd644eb77f
+      md5sum: df51613245ad40482d2300ffdf8918a4
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_pe/quality-control/summary/test_qc_reads_pe_R1-final.json
       md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
@@ -141,25 +131,25 @@
       md5sum: 09b49117941d1f7165feaad81a5b29df
     - path: test_qc_reads_pe/quality-control/test_qc_reads_pe_R2.fastq.gz
       md5sum: 5e0f67c51291e10338f77ab414e69719
+    - path: test_qc_reads_pe/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
 
 - name: qc_reads_se_skip_qc
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
     - qc_reads_se_skip_qc
   files:
-    - path: test_qc_reads_se/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.out
-      md5sum: aa5222977424456a3a1fef00735204c8
+      md5sum: 5a94e3cefc2201ddc10f15a4a228c0ca
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 67a5787eb212ef7ca5e052c84d737432
+      md5sum: 6f4801d5e1f8d85989b616e26354bd1f
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_se/quality-control/summary/test_qc_reads_se-final.json
       md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
@@ -173,9 +163,11 @@
       md5sum: 15c2300a418c185d3ba65edb30e677cb
     - path: test_qc_reads_se/quality-control/test_qc_reads_se.fastq.gz
       md5sum: 09b49117941d1f7165feaad81a5b29df
+    - path: test_qc_reads_se/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
 
 - name: qc_reads_pe_error
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_pe -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
@@ -187,15 +179,9 @@
     - path: test_qc_reads_pe/logs/qc_reads/bbduk-phix.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/bbduk-phix.stdout.txt
       md5sum: 43eb6f485814981f165b8f36ee16ec54
-    - path: test_qc_reads_pe/logs/qc_reads/bbduk.version.txt
-      md5sum: 3e0bd5bfabe87d897ebf7081fb76febb
-    - path: test_qc_reads_pe/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_pe/logs/qc_reads/lighter.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/lighter.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_qc_reads_pe/logs/qc_reads/lighter.version.txt
-      md5sum: e2ad67b35ec68910fdcb42eeccb6dbb2
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.err
@@ -203,7 +189,7 @@
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.out
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 74c51aff5054d80f0fece8b11dcc380c
+      md5sum: 6ed874a905062dd02e53351e07143f90
     - path: test_qc_reads_pe/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_pe/logs/qc_reads/reformat.stderr.txt
     - path: test_qc_reads_pe/logs/qc_reads/reformat.stdout.txt
@@ -231,10 +217,12 @@
     - path: test_qc_reads_pe/test_qc_reads_pe-low-read-count-error.txt
       md5sum: 78646c360cc41b49082de693a1b34085
     - path: test_qc_reads_pe/test_qc_reads_pe-low-sequence-depth-error.txt
-      md5sum: 02f73de8aa8bf8c72dbfe9c3cc111d2d
+      md5sum: de0352d97a3d0922128d61e2071dfc23
+    - path: test_qc_reads_pe/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
 
 - name: qc_reads_se_error
-  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/tests.nf -entry test_qc_reads_se -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - qc_reads
@@ -246,24 +234,18 @@
     - path: test_qc_reads_se/logs/qc_reads/bbduk-phix.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/bbduk-phix.stdout.txt
       md5sum: db0fd8580218de1fdeb831e62b9b6b29
-    - path: test_qc_reads_se/logs/qc_reads/bbduk.version.txt
-      md5sum: 3e0bd5bfabe87d897ebf7081fb76febb
-    - path: test_qc_reads_se/logs/qc_reads/fastqc.version.txt
-      md5sum: c02f14b7beaef5e613864b9b448aeafd
     - path: test_qc_reads_se/logs/qc_reads/lighter.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/lighter.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_qc_reads_se/logs/qc_reads/lighter.version.txt
-      md5sum: e2ad67b35ec68910fdcb42eeccb6dbb2
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.err
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.log
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.out
-      md5sum: 9c6e0af7954f84a888aea6ea7b114f14
+      md5sum: 1f20511ef19f8aa4e7d4bdf3d66e238e
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.run
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 4edadb12ab2cf751f99ebf09e1abdca3
+      md5sum: 1837a8505f5639411f5723f2f527bd71
     - path: test_qc_reads_se/logs/qc_reads/nf-qc_reads.trace
     - path: test_qc_reads_se/logs/qc_reads/reformat.stderr.txt
     - path: test_qc_reads_se/logs/qc_reads/reformat.stdout.txt
@@ -281,4 +263,41 @@
     - path: test_qc_reads_se/test_qc_reads_se-low-read-count-error.txt
       md5sum: 9fd7166392247a64385fec894996496d
     - path: test_qc_reads_se/test_qc_reads_se-low-sequence-depth-error.txt
-      md5sum: 28c90bd82eb7f56581c4c06ada054182
+      md5sum: 304eeaa14cd90eeff1f82763ed362dcf
+    - path: test_qc_reads_se/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
+
+- name: test_qc_reads_nanopore
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_nanopore -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc_reads
+    - qc_reads_nanopore
+  files:
+    - path: test_qc_reads_nanopore/logs/qc_reads/nanoq.stderr.txt
+      md5sum: 8d16bc864a6ee9da1c845a44ad9b7196
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.err
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.log
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.out
+      md5sum: d0fa8eae6b20159f2be7f33771a4ccf7
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.run
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 1dcd20c27aa51f2c7473bcd675a38745
+    - path: test_qc_reads_nanopore/logs/qc_reads/nf-qc_reads.trace
+    - path: test_qc_reads_nanopore/logs/qc_reads/porechop.stderr.txt
+      md5sum: 422d83b54936faae032010d4c5efd6f7
+    - path: test_qc_reads_nanopore/logs/qc_reads/rasusa.stderr.txt
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-final.json
+      md5sum: 2b56a3d1f4bb69dd83c10931c5a7f663
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-final_NanoPlot-report.html
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-final_NanoPlot.tar.gz
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-original.json
+      md5sum: 90c40309552e95c5a9d84b515778aa3f
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-original_NanoPlot-report.html
+    - path: test_qc_reads_nanopore/quality-control/summary/test_qc_reads_nanopore-original_NanoPlot.tar.gz
+    - path: test_qc_reads_nanopore/quality-control/test_qc_reads_nanopore.fastq.gz
+      md5sum: bdb67257dda938ab977956940b860480
+    - path: test_qc_reads_nanopore/quality-control/versions.yml
+      md5sum: 61c69f971b76c2e39570f421a49621f8
