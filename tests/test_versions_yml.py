@@ -10,6 +10,12 @@ import yaml
 import re
 from textwrap import dedent
 
+# 'output' should be the preferred sample name, but it's not always possible
+ACCEPTED_IDS = ['output', 'GCF_000292685', 'SRX1390609']
+
+# some processes have versions in subdirs (e.g. database names)
+HAS_SUBDIRS = ['ariba_analysis', 'assembly_qc', 'blast', 'call_variants']
+
 def _get_workflow_names():
     """Get all names of all workflows which have a test.yml in the tests directory.
     To do so, recursively finds all test.yml files and parses their content.
@@ -22,27 +28,10 @@ def _get_workflow_names():
             for workflow in test_config:
                 yield workflow["name"]
 
-@pytest.mark.workflow(*_get_workflow_names())
-def test_ensure_valid_version_yml(workflow_dir):
-    workflow_dir = Path(workflow_dir)
-    process_name = workflow_dir.name.split("-")[0]
-    try:
-        versions_yml_file = workflow_dir / f"output/logs/{process_name}/versions.yml"
-        versions_yml = versions_yml_file.read_text()
-    except FileNotFoundError:
-        raise AssertionError(
-            dedent(
-                f"""\
-                `versions.yml` not found in the output directory.
-                Expected path: `{versions_yml_file}`
+def validate_versions_yml(versions_yml):
+    """
 
-                This can have multiple reasons:
-                * The test-workflow failed before a `versions.yml` could be generated.
-                * The workflow name in `test.yml` does not start with the tool name.
-                """
-            )
-        )
-
+    """
     assert (
         "END_VERSIONS" not in versions_yml
     ), "END_VERSIONS detected in versions.yml. This is a sign of an ill-formatted HEREDOC"
@@ -58,3 +47,37 @@ def test_ensure_valid_version_yml(workflow_dir):
         assert re.match(
             r"^\d+.*", str(version)
         ), f"Version number for {tool} must start with a number. "
+
+
+@pytest.mark.workflow(*_get_workflow_names())
+def test_ensure_valid_version_yml(workflow_dir):
+    workflow_dir = Path(workflow_dir)
+    process_name = workflow_dir.name.split("-")[0]
+    try:
+        if process_name in HAS_SUBDIRS:
+            subdirs = Path(workflow_dir / f"output/logs/{process_name}").glob("*/")
+            for subdir in subdirs:
+                versions_yml_file = subdir / f"versions.yml"
+                versions_yml = versions_yml_file.read_text()
+                validate_versions_yml(versions_yml)
+        else:
+            for accepted_id in ACCEPTED_IDS:
+                versions_yml_file = workflow_dir / f"{accepted_id}/logs/{process_name}/versions.yml"
+                if Path(versions_yml_file).exists():
+                    break
+            versions_yml = versions_yml_file.read_text()
+            validate_versions_yml(versions_yml)
+    except FileNotFoundError:
+        raise AssertionError(
+            dedent(
+                f"""\
+                `versions.yml` not found in the output directory.
+                Expected path: `{versions_yml_file}`
+
+                This can have multiple reasons:
+                * The test-workflow failed before a `versions.yml` could be generated.
+                * The workflow name in `test.yml` does not start with the tool name.
+                """
+            )
+        )
+

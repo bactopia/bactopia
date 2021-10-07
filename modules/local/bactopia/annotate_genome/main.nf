@@ -24,9 +24,9 @@ process ANNOTATE_GENOME {
     output:
     tuple val(meta), path("${meta.id}.{ffn,ffn.gz}"), path("${meta.id}.{faa,faa.gz}"), emit: annotations
     path "results/*", emit: results
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     contig_count = total_contigs.getName().replace('total_contigs_', '')
@@ -99,6 +99,8 @@ process ANNOTATE_GENOME {
         !{rnammer} \
         !{rfam} \
         !{meta.id}.fna > prokka.stdout.txt 2> prokka.stderr.txt
+    mv results/!{meta.id}.err ./
+    mv results/!{meta.id}.log ./
 
     if [[ "!{params.skip_compression}" == "false" ]]; then
         find results/ -type f | \
@@ -114,8 +116,11 @@ process ANNOTATE_GENOME {
         ln -s results/!{meta.id}.ffn !{meta.id}.ffn
     fi
 
-    # Capture version
-    prokka --version > prokka.version.txt 2>&1
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    annotate_genome:
+        prokka:  $(echo $(prokka --version 2>&1) | sed 's/prokka //')
+    END_VERSIONS
     '''
 
     stub:

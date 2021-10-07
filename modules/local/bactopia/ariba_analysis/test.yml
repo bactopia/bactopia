@@ -1,57 +1,75 @@
 - name: ariba_analysis
-  command: bash -c 'nextflow run ./modules/local/bactopia/ariba_analysis/tests.nf -entry test_ariba_analysis -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/ariba_analysis/test.nf -entry test_ariba_analysis -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - ariba_analysis
   files:
-    - path: 'test_ariba_analysis/ariba/card/assembled_genes.fa.gz'
-    - path: 'test_ariba_analysis/ariba/card/assembled_seqs.fa.gz'
-    - path: 'test_ariba_analysis/ariba/card/assemblies.fa.gz'
-    - path: 'test_ariba_analysis/ariba/card/debug.report.tsv'
-    - path: 'test_ariba_analysis/ariba/card/log.clusters.gz'
-    - path: 'test_ariba_analysis/ariba/card/report.tsv'
-    - path: 'test_ariba_analysis/ariba/card/summary.csv'
-    - path: 'test_ariba_analysis/ariba/card/version_info.txt'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/assembled_genes.fa.gz'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/assembled_seqs.fa.gz'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/assemblies.fa.gz'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/debug.report.tsv'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/report.tsv'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/summary.csv'
-    - path: 'test_ariba_analysis/ariba/vfdb_core/version_info.txt'
-    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba-summary.stderr.txt
+    - path: output/ariba/card/assembled_genes.fa.gz
+    - path: output/ariba/card/assembled_seqs.fa.gz
+    - path: output/ariba/card/assemblies.fa.gz
+    - path: output/ariba/card/debug.report.tsv
+      md5sum: cc841cd409f231e9690812092652a627
+    - path: output/ariba/card/log.clusters.gz
+    - path: output/ariba/card/report.tsv
+      md5sum: f01ae75f69bac8563b2a7b49054bd499
+    - path: output/ariba/card/summary.csv
+      md5sum: 2b88c678dc4e0bf94b9c51ba60872506
+    - path: output/ariba/card/version_info.txt
+      contains: ['ARIBA', 'Everything looks OK: True']
+    - path: output/ariba/vfdb_core/assembled_genes.fa.gz
+    - path: output/ariba/vfdb_core/assembled_seqs.fa.gz
+    - path: output/ariba/vfdb_core/assemblies.fa.gz
+    - path: output/ariba/vfdb_core/debug.report.tsv
+      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+    - path: output/ariba/vfdb_core/report.tsv
+      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+    - path: output/ariba/vfdb_core/summary.csv
+      md5sum: ed9d4dfe42d93ea13f26bf3dc5957bb5
+    - path: output/ariba/vfdb_core/version_info.txt
+      contains: ['ARIBA', 'Everything looks OK: True']
+    - path: output/logs/ariba_analysis/card/ariba-summary.stderr.txt
       md5sum: ab4c49fcb47994595913fb86ed744afe
-    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba-summary.stdout.txt
+    - path: output/logs/ariba_analysis/card/ariba-summary.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.stderr.txt
+    - path: output/logs/ariba_analysis/card/ariba.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.stdout.txt
-    - path: test_ariba_analysis/logs/ariba_analysis/card/ariba.version.txt
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.begin
+    - path: output/logs/ariba_analysis/card/ariba.stdout.txt
+      contains: ['All done!']
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.err
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.log
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.out
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.err
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.log
+      contains: ['card']
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.out
       md5sum: 31d8b05b891a38a4e3d8875ace26fa1f
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.run
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.sh
-      md5sum: 0b10471941af7df90c043a21f00f8636
-    - path: test_ariba_analysis/logs/ariba_analysis/card/nf-ariba_analysis.trace
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba-summary.stderr.txt
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.sh
+      md5sum: a0ca8405f6fbd4d2b80567cb62c50455
+    - path: output/logs/ariba_analysis/card/nf-ariba_analysis.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/ariba_analysis/card/versions.yml
+      md5sum: 663b0c0a05b58268aa4d30f8e40120dd
+    - path: output/logs/ariba_analysis/vfdb_core/ariba-summary.stderr.txt
       md5sum: ab4c49fcb47994595913fb86ed744afe
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba-summary.stdout.txt
+    - path: output/logs/ariba_analysis/vfdb_core/ariba-summary.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.stderr.txt
+    - path: output/logs/ariba_analysis/vfdb_core/ariba.stderr.txt
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.stdout.txt
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/ariba.version.txt
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
+    - path: output/logs/ariba_analysis/vfdb_core/ariba.stdout.txt
+      contains: ['All done!']
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
+      contains: ['vfdb']
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
       md5sum: c34c7dc3cfcb2b10ae231159495cfdd2
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.sh
-      md5sum: 67194840d2af9c235053f1ef188f6526
-    - path: test_ariba_analysis/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.trace
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.sh
+      md5sum: bca79333ced7c7632ecbdb3fa783d479
+    - path: output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/ariba_analysis/vfdb_core/versions.yml
+      md5sum: 663b0c0a05b58268aa4d30f8e40120dd

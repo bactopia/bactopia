@@ -21,9 +21,9 @@ process GATHER_SAMPLES {
 
     output:
     tuple val(meta), path("fastqs/${meta.id}*.fastq.gz"), path("extra/*.gz"), path("${meta.id}-genome-size.txt"), emit: raw_fastq, optional: true
-    path "*.std{out,err}.txt", emit: logs, optional: true
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
     path "*-{error,merged}.txt", optional:true
 
     shell:
@@ -55,6 +55,10 @@ process GATHER_SAMPLES {
         touch extra/empty.fna.gz
     elif [ "!{runtype}" == "single-end" ]; then
         # Single-End Reads
+        ln -s `readlink !{r1[0]}` fastqs/!{meta.id}.fastq.gz
+        touch extra/empty.fna.gz
+    elif [ "!{runtype}" == "ont" ]; then
+        # Nanopore reads
         ln -s `readlink !{r1[0]}` fastqs/!{meta.id}.fastq.gz
         touch extra/empty.fna.gz
     elif  [ "!{runtype}" == "hybrid" ]; then
@@ -93,9 +97,6 @@ process GATHER_SAMPLES {
 
         touch extra/empty.fna.gz
     elif [ "!{runtype}" == "sra_accession" ]; then
-        # fastq-dl Version
-        fastq-dl --version > fastq-dl.version.txt 2>&1
-
         if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
             echo "Unable to download !{meta.id} from both SRA and ENA !{params.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 
@@ -114,9 +115,6 @@ process GATHER_SAMPLES {
         fi 
     elif [ "!{is_assembly}" == "true" ]; then
         if [ "!{runtype}" == "assembly_accession" ]; then
-            # ncbi-genome-download Version
-            ncbi-genome-download --version > ncbi-genome-download.version.txt 2>&1
-
             if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
                 touch extra/empty.fna.gz
                 echo "Unable to download !{meta.id} from NCBI Assembly !{params.max_retry} times. This may or may
@@ -158,17 +156,11 @@ process GATHER_SAMPLES {
         pigz -p !{task.cpus} --fast fastqs/*.fastq
         cp !{meta.id}-art.fna extra/!{meta.id}.fna
         pigz -p !{task.cpus} --best extra/!{meta.id}.fna
-
-        # ART Version
-        art_illumina --help | head -n 6 | tail -n 5 > art.version.txt 2>&1
     fi
 
     # Validate input FASTQs
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         ERROR=0
-        # Not completely sure about the inputs, so make sure they meet minimum requirements
-        fastq-scan -v > fastq-scan.version.txt 2>&1
-
         # Check paired-end reads have same read counts
         OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion}"
         if [ -f  "fastqs/!{meta.id}_R2.fastq.gz" ]; then
@@ -216,8 +208,6 @@ process GATHER_SAMPLES {
             else
                 FASTQS="fastqs/!{meta.id}.fastq.gz"
             fi
-            # Use mash to estimate the genome size, if a genome size cannot be estimated set the genome size to 0
-            mash --version > mash.version.txt 2>&1
 
             # First Pass
             mash sketch -o test -k 31 -m 3 ${FASTQS} 2>&1 | \
@@ -264,6 +254,17 @@ process GATHER_SAMPLES {
         # Use the genome size given by the user. (Should be >= 0)
         echo "!{meta.genome_size}" > ${GENOME_SIZE_OUTPUT}
     fi
+
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    gather_samples:
+        art: $(echo $(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        fastq-dl: $(echo $(fastq-dl --version 2>&1) | sed 's/fastq-dl //')
+        fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
+        mash: $(echo $(mash --version 2>&1))
+        ncbi-genome-download: $(echo $(ncbi-genome-download --version 2>&1))
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+    END_VERSIONS
     '''
 
     stub:

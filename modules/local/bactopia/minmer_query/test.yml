@@ -1,5 +1,5 @@
 - name: mash_query_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_mash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_mash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_query
@@ -24,7 +24,7 @@
       md5sum: f095a76d9e71aa814be756ef413b626c
 
 - name: mash_query_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_mash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_mash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_query
@@ -49,7 +49,7 @@
       md5sum: 063e00f7f761e2087c4ba02a45e9bafa
 
 - name: sourmash_query_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_sourmash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_sourmash_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_query
@@ -74,7 +74,7 @@
       md5sum: e49fdc0439765cef44f3aff1b17c15f9
 
 - name: sourmash_query_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/tests.nf -entry test_sourmash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_sourmash_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_query

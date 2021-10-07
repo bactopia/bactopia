@@ -31,9 +31,9 @@ process CALL_VARIANTS {
 
     output:
     path "results/*"
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     PROCESS_NAME = "call_variants"
@@ -86,6 +86,7 @@ process CALL_VARIANTS {
         --minfrac !{params.minfrac} \
         --minqual !{params.minqual} \
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > snippy.stdout.txt 2> snippy.stderr.txt
+    mv ${REFERENCE_NAME}/!{meta.id}.log ./
 
     # Add GenBank annotations
     vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf 2> vcf-annotator.stderr.txt
@@ -121,10 +122,16 @@ process CALL_VARIANTS {
     mkdir results
     mv ${REFERENCE_NAME}/ results/
 
-    # Capture verisons
-    snippy --version > snippy.version.txt 2>&1
-    vcf-annotator --version > vcf-annotator.version.txt 2>&1
-    bedtools --version > bedtools.version.txt 2>&1
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    call_variants:
+        bedtools: $(echo $(bedtools --version 2>&1) | sed 's/bedtools v//')
+        mash: $(echo $(mash --version 2>&1))
+        ncbi-genome-download: $(echo $(ncbi-genome-download --version 2>&1))
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        snippy: $(echo $(snippy --version 2>&1) | sed 's/snippy //')
+        vcf-annotator: $(echo $(vcf-annotator --version 2>&1) | sed 's/vcf-annotator.py //')
+    END_VERSIONS
     '''
 
     stub:

@@ -14,7 +14,7 @@ process ASSEMBLY_QC {
     publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
+        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:method) }
 
     input:
     tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
@@ -22,9 +22,9 @@ process ASSEMBLY_QC {
 
     output:
     path "${method}/*"
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     //CheckM Related
@@ -40,6 +40,7 @@ process ASSEMBLY_QC {
     checkm_opts = [full_tree, checkm_ali, checkm_nt, force_domain, no_refinement, individual_markers, 
                    skip_adj_correction, skip_pseudogene_correction, ignore_thresholds].join(" ")
     '''
+    RAN_CHECKM="0"
     if [ "!{method}" == "checkm" ]; then
         # CheckM
         mkdir checkm/
@@ -48,6 +49,7 @@ process ASSEMBLY_QC {
         elif [[ "!{params.skip_checkm}" == "true" ]]; then
             echo "checkm was skipped due to '--skip_checkm'" > checkm/checkm-was-skipped.txt
         else
+            RAN_CHECKM="1"
             checkm lineage_wf ./ checkm/ \
                 --alignment_file checkm/checkm-genes.aln \
                 --tab_table \
@@ -58,13 +60,11 @@ process ASSEMBLY_QC {
                 --multi !{params.checkm_multi} \
                 --aai_strain !{params.aai_strain} \
                 --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.out
+            mv checkm/checkm.log ./
 
             if [[ !{params.skip_compression} == "false" ]]; then
                 find . -name "*.faa" -or -name "*hmmer.analyze.txt" | xargs -I {} pigz -n --best -p !{task.cpus} {}
             fi
-
-            # Capture Version
-            checkm -h | grep ":::" > checkm.version.txt 2>&1
         fi
     else
         # QUAST
@@ -73,15 +73,31 @@ process ASSEMBLY_QC {
         if [ "${GENOME_SIZE}" != "0" ]; then
             est_ref_size="--est-ref-size ${GENOME_SIZE}"
         fi
+
         quast !{fasta} ${est_ref_size} \
             -o quast \
             --threads !{task.cpus} \
             --glimmer \
             --contig-thresholds !{params.contig_thresholds} \
             --plots-format !{params.plots_format} > quast.stdout.txt 2> quast.stderr.txt
+        mv quast/quast.log ./
+    fi
 
-        # Capture version
-        quast --version > quast.version.txt 2>&1
+    # Capture versions (no indent or it'll break)
+    if [ "!{method}" == "quast" ]; then
+
+    cat <<-END_VERSIONS > versions.yml
+    assembly_qc:
+        quast: $(echo $(quast --version 2>&1) | sed 's/.*QUAST v//;s/ .*$//')
+    END_VERSIONS
+
+    elif [ "${RAN_CHECKM}" == "1" ]; then
+
+    cat <<-END_VERSIONS > versions.yml
+    assembly_qc:
+        checkm: $(echo $(checkm -h 2>&1) | sed 's/.*CheckM v//;s/ .*$//')
+    END_VERSIONS
+
     fi
     '''
 

@@ -1,5 +1,5 @@
 - name: mapping_query_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/test.nf -entry test_mapping_query_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - mapping_query
@@ -39,7 +39,7 @@
       md5sum: c3e52f69d7efebe59c6b3a5fb5077566
 
 - name: mapping_query_pe_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_pe --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/test.nf -entry test_mapping_query_pe --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - mapping_query
@@ -81,7 +81,7 @@
       md5sum: c92fd51acb3d167d1aad6981a48b4ccb
 
 - name: mapping_query_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/test.nf -entry test_mapping_query_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - mapping_query
@@ -123,7 +123,7 @@
       md5sum: 7d798e059feaff6668b8918d8b34e6d2
 
 - name: mapping_query_se_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/tests.nf -entry test_mapping_query_se --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/mapping_query/test.nf -entry test_mapping_query_se --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - mapping_query

@@ -21,9 +21,9 @@ process ARIBA_ANALYSIS {
 
     output:
     path "${dataset_name}/*", emit: results
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     when:
     meta.single_end == false
@@ -57,8 +57,11 @@ process ARIBA_ANALYSIS {
     rm -rf ariba.tmp*
     rm -rf !{dataset_name}db
 
-    # Capture version
-    ariba version >> ariba.version.txt 2>&1
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    ariba_analysis:
+        ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
+    END_VERSIONS
     '''
 
     stub:

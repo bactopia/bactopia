@@ -24,9 +24,9 @@ process BLAST {
 
     output:
     path "results/*"
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     blast_exe = query == "proteins" ? 'tblastn' : 'blastn'
@@ -78,9 +78,12 @@ process BLAST {
         fi
     done
 
-    # Capture version
-    !{blast_exe} -version > !{blast_exe}.version.txt 2>&1
-    parallel --version > parallel.version.txt 2>&1
+    cat <<-END_VERSIONS > versions.yml
+    blast:
+        !{blast_exe}: $(echo $(!{blast_exe} -version 2>&1) | sed 's/^.*!{blast_exe}: //;s/ .*$//')
+        parallel: $(echo $(parallel --version 2>&1) | sed 's/^GNU parallel //;s/ .*$//')
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+    END_VERSIONS
     '''
 
     stub:

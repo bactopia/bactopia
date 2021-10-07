@@ -6,7 +6,7 @@ include { ASSEMBLY_QC } from './main.nf'
 workflow test_assembly_qc {
 
     inputs = tuple(
-        [id:"test_assembly_qc"],
+        [id:"output"],
         file(params.test_data['reference']['genome_size'], checkIfExists: true),
         file(params.test_data['reference']['fna'], checkIfExists: true),
         file(params.test_data['reference']['total_contigs'], checkIfExists: true)

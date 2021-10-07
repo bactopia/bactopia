@@ -1,5 +1,5 @@
 - name: sequence_type_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/tests.nf -entry test_sequence_type_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - sequence_type
@@ -43,7 +43,7 @@
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type_pe_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/tests.nf -entry test_sequence_type_pe_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - sequence_type
@@ -87,7 +87,7 @@
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/tests.nf -entry test_sequence_type_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - sequence_type
@@ -117,7 +117,7 @@
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type_se_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/tests.nf -entry test_sequence_type_se_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - sequence_type

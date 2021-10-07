@@ -6,7 +6,7 @@ include { ANNOTATE_GENOME } from './main.nf'
 workflow test_annotate_genome {
 
     inputs = tuple(
-        [ id:"${params.test_data['reference']['name']}" ],
+        [ id:'output' ],
         file(params.test_data['reference']['genome_size']),
         file(params.test_data['reference']['fna_gz']),
         file(params.test_data['reference']['total_contigs'])
@@ -18,7 +18,7 @@ workflow test_annotate_genome {
 workflow test_annotate_genome_uncompressed {
 
     inputs = tuple(
-        [ id:"${params.test_data['reference']['name']}" ],
+        [ id:'output' ],
         file(params.test_data['reference']['genome_size']),
         file(params.test_data['reference']['fna']),
         file(params.test_data['reference']['total_contigs'])

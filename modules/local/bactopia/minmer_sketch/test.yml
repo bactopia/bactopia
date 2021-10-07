@@ -1,5 +1,5 @@
 - name: minmer_sketch_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
@@ -34,7 +34,7 @@
       md5sum: d433f60ebbc0c332e085261398c6d37d
 
 - name: minmer_sketch_pe_31mers
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_pe --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
@@ -76,7 +76,7 @@
       md5sum: d433f60ebbc0c332e085261398c6d37d
 
 - name: minmer_sketch_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
@@ -111,7 +111,7 @@
       md5sum: dd9e4ae787e4eb5f6fccad820fbf853b
 
 - name: minmer_sketch_se_31mers
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/tests.nf -entry test_minmer_sketch_se --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch

@@ -6,7 +6,7 @@ include { CALL_VARIANTS } from './main.nf'
 workflow test_call_variants_pe {
 
     inputs = tuple(
-        [ id:params.test_data['illumina']['name'], single_end:false ],
+        [ id:'output', single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 
@@ -20,7 +20,7 @@ workflow test_call_variants_pe {
 workflow test_call_variants_se {
 
     inputs = tuple(
-        [ id:params.test_data['illumina']['name'], single_end:true ],
+        [ id:'output', single_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)]
     )
 
@@ -34,7 +34,7 @@ workflow test_call_variants_se {
 workflow test_call_variants_auto_pe {
 
     inputs = tuple(
-        [ id:params.test_data['illumina']['name'], single_end:false ],
+        [ id:'output', single_end:false ],
         [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
     )
 
@@ -48,7 +48,7 @@ workflow test_call_variants_auto_pe {
 workflow test_call_variants_auto_se {
 
     inputs = tuple(
-        [ id:params.test_data['illumina']['name'], single_end:true ],
+        [ id:'output', single_end:true ],
         [file(params.test_data['illumina']['se'], checkIfExists: true)]
     )
 

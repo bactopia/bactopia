@@ -25,9 +25,9 @@ process ANTIMICROBIAL_RESISTANCE {
 
     output:
     tuple val(meta), path("*{gene,protein}-{point-mutations,report}.txt"), emit: results
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     plus = params.amr_plus ? "--plus" : ""
@@ -63,7 +63,10 @@ process ANTIMICROBIAL_RESISTANCE {
             --threads !{task.cpus} !{organism_protein} !{plus} !{report_common} > amrfinder-protein.stdout.txt 2> amrfinder-protein.stderr.txt
 
     # Capture versions
-    amrfinder --version >> amrfinder.version.txt 2>&1
+    cat <<-END_VERSIONS > versions.yml
+    antimicrobial_resistance:
+        amrfinder:  $(echo $(amrfinder --version 2>&1))
+    END_VERSIONS
     '''
 
     stub:

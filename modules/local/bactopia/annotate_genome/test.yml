@@ -1,31 +1,34 @@
-- name: annotate_genome
-  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: annotate_genome-compressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/test.nf -entry test_annotate_genome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - annotate_genome
     - annotate_genome_compressed
   files:
-    - path: 'GCF_000292685/annotation/GCF_000292685.err'
-      md5sum: 80396c6ea78c89232ac0503b50d9e51f
-    - path: 'GCF_000292685/annotation/GCF_000292685.faa.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.faa.gz
       md5sum: 9ec46448666602c3040e418b8175539b
-    - path: 'GCF_000292685/annotation/GCF_000292685.ffn.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.ffn.gz
       md5sum: c091f9a40e2bd1dada27fecca5dfdb9c
-    - path: 'GCF_000292685/annotation/GCF_000292685.fna.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.fna.gz
       md5sum: e5c1b7cee50d2bbb6a5a5145e50f5446
-    - path: 'GCF_000292685/annotation/GCF_000292685.fsa.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.fsa.gz
       md5sum: 0469187abd59c67f1fa233dfbd55dc8c
-    - path: 'GCF_000292685/annotation/GCF_000292685.gbk.gz'
-    - path: 'GCF_000292685/annotation/GCF_000292685.gff.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.gbk.gz
+      md5sum: 3146de7a37579c7ebcc0515106e1b354
+    - path: GCF_000292685/annotation/GCF_000292685.gff.gz
       md5sum: 3afc65353cc8dcf0fa4cfc00f9ac38d9
-    - path: 'GCF_000292685/annotation/GCF_000292685.log'
-    - path: 'GCF_000292685/annotation/GCF_000292685.sqn.gz'
-    - path: 'GCF_000292685/annotation/GCF_000292685.tbl.gz'
+    - path: GCF_000292685/annotation/GCF_000292685.sqn.gz
+      md5sum: 72570743694701f1f7d44aa9bb8ffb87
+    - path: GCF_000292685/annotation/GCF_000292685.tbl.gz
       md5sum: 9ec4b1bde92fd3c531a68a26ee5a3f53
-    - path: 'GCF_000292685/annotation/GCF_000292685.tsv'
+    - path: GCF_000292685/annotation/GCF_000292685.tsv
       md5sum: 69609fdaf4425e72d6fd6f5d0d66532c
-    - path: 'GCF_000292685/annotation/GCF_000292685.txt'
+    - path: GCF_000292685/annotation/GCF_000292685.txt
       md5sum: 632134e309eb861002a5ddf7ac726004
+    - path: GCF_000292685/logs/annotate_genome/GCF_000292685.err
+      contains: ['GCF_000292685']
+    - path: GCF_000292685/logs/annotate_genome/GCF_000292685.log
+      contains: ['prokka', 'Annotation finished successfully']
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
@@ -33,42 +36,49 @@
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: 72357c75787b9815e5a678d5fd083204
+      md5sum: b8eda6688509bb7ba62d652319802758
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
+      contains: ['nextflow.trace']
     - path: GCF_000292685/logs/annotate_genome/prokka.stderr.txt
+      contains: ['prokka', 'Annotation finished successfully']
     - path: GCF_000292685/logs/annotate_genome/prokka.stdout.txt
-    - path: GCF_000292685/logs/annotate_genome/prokka.version.txt
-      md5sum: 5954a02636687fd64afb6a4dc04d2aa5
+      contains: ['tbl2asn-forever', 'Correcting dates']
+    - path: GCF_000292685/logs/annotate_genome/versions.yml
+      md5sum: 5cb8ff6f1e52ad66823304ac75304da5
 
-- name: annotate_genome_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/tests.nf -entry test_annotate_genome_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+- name: annotate_genome-uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/test.nf -entry test_annotate_genome_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - annotate_genome
     - annotate_genome_uncompressed
   files:
-    - path: 'GCF_000292685/annotation/GCF_000292685.err'
-      md5sum: 80396c6ea78c89232ac0503b50d9e51f
-    - path: 'GCF_000292685/annotation/GCF_000292685.faa'
+    - path: GCF_000292685/annotation/GCF_000292685.faa
       md5sum: 342c59e03457a0d3c6c0e3ee3c08af8a
-    - path: 'GCF_000292685/annotation/GCF_000292685.ffn'
+    - path: GCF_000292685/annotation/GCF_000292685.ffn
       md5sum: f3ce0b8a2b28190e19f27777a294412f
-    - path: 'GCF_000292685/annotation/GCF_000292685.fna'
+    - path: GCF_000292685/annotation/GCF_000292685.fna
       md5sum: 595f4bad06e06b7dcd6584aea444bc22
-    - path: 'GCF_000292685/annotation/GCF_000292685.fsa'
+    - path: GCF_000292685/annotation/GCF_000292685.fsa
       md5sum: 899a5228b9d1adc9cba269471c2050f7
-    - path: 'GCF_000292685/annotation/GCF_000292685.gbk'
-    - path: 'GCF_000292685/annotation/GCF_000292685.gff'
+    - path: GCF_000292685/annotation/GCF_000292685.gbk
+      md5sum: bdad13aa429342e9da9a0bcef59149b9
+    - path: GCF_000292685/annotation/GCF_000292685.gff
       md5sum: 0fb908754203a810715f28822125625a
-    - path: 'GCF_000292685/annotation/GCF_000292685.log'
-    - path: 'GCF_000292685/annotation/GCF_000292685.sqn'
-    - path: 'GCF_000292685/annotation/GCF_000292685.tbl'
+    - path: GCF_000292685/annotation/GCF_000292685.sqn
+      md5sum: cafb5b14d1d207aa38f78c9ae13a4a3d
+    - path: GCF_000292685/annotation/GCF_000292685.tbl
       md5sum: af666ac6700eb7faf5cd6ebafac06f50
-    - path: 'GCF_000292685/annotation/GCF_000292685.tsv'
+    - path: GCF_000292685/annotation/GCF_000292685.tsv
       md5sum: 69609fdaf4425e72d6fd6f5d0d66532c
-    - path: 'GCF_000292685/annotation/GCF_000292685.txt'
+    - path: GCF_000292685/annotation/GCF_000292685.txt
       md5sum: 632134e309eb861002a5ddf7ac726004
+    - path: GCF_000292685/logs/annotate_genome/GCF_000292685.err
+      contains: ['GCF_000292685']
+    - path: GCF_000292685/logs/annotate_genome/GCF_000292685.log
+      contains: ['prokka', 'Annotation finished successfully']
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
@@ -76,10 +86,14 @@
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: 876c729ee243381cba4a7f035d5f98eb
+      md5sum: 64d055214a9bc6f4176f2e3289b29328
     - path: GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
+      contains: ['nextflow.trace']
     - path: GCF_000292685/logs/annotate_genome/prokka.stderr.txt
+      contains: ['prokka', 'Annotation finished successfully']
     - path: GCF_000292685/logs/annotate_genome/prokka.stdout.txt
-    - path: GCF_000292685/logs/annotate_genome/prokka.version.txt
-      md5sum: 5954a02636687fd64afb6a4dc04d2aa5
+      contains: ['tbl2asn-forever', 'Correcting dates']
+    - path: GCF_000292685/logs/annotate_genome/versions.yml
+      md5sum: 5cb8ff6f1e52ad66823304ac75304da5
