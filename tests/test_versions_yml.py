@@ -14,7 +14,7 @@ from textwrap import dedent
 ACCEPTED_IDS = ['output', 'GCF_000292685', 'SRX1390609']
 
 # some processes have versions in subdirs (e.g. database names)
-HAS_SUBDIRS = ['ariba_analysis', 'assembly_qc', 'blast', 'call_variants']
+HAS_SUBDIRS = ['ariba_analysis', 'assembly_qc', 'blast', 'call_variants', 'sequence_type']
 
 def _get_workflow_names():
     """Get all names of all workflows which have a test.yml in the tests directory.
@@ -53,6 +53,7 @@ def validate_versions_yml(versions_yml):
 def test_ensure_valid_version_yml(workflow_dir):
     workflow_dir = Path(workflow_dir)
     process_name = workflow_dir.name.split("-")[0]
+    tested = False
     try:
         if process_name in HAS_SUBDIRS:
             subdirs = Path(workflow_dir / f"output/logs/{process_name}").glob("*/")
@@ -60,13 +61,15 @@ def test_ensure_valid_version_yml(workflow_dir):
                 versions_yml_file = subdir / f"versions.yml"
                 versions_yml = versions_yml_file.read_text()
                 validate_versions_yml(versions_yml)
+                tested = True
         else:
             for accepted_id in ACCEPTED_IDS:
                 versions_yml_file = workflow_dir / f"{accepted_id}/logs/{process_name}/versions.yml"
                 if Path(versions_yml_file).exists():
+                    versions_yml = versions_yml_file.read_text()
+                    validate_versions_yml(versions_yml)
+                    tested = True
                     break
-            versions_yml = versions_yml_file.read_text()
-            validate_versions_yml(versions_yml)
     except FileNotFoundError:
         raise AssertionError(
             dedent(
@@ -80,4 +83,9 @@ def test_ensure_valid_version_yml(workflow_dir):
                 """
             )
         )
+
+    assert (
+            tested == True
+        ), f"No versions.yml was tested. This is a sign the test name is not correctly formatted (got {process_name})"
+
 

@@ -24,9 +24,9 @@ process MAPPING_QUERY {
 
     output:
     path "results/*"
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     bwa_mem_opts = params.bwa_mem_opts ? params.bwa_mem_opts : ""
@@ -61,10 +61,14 @@ process MAPPING_QUERY {
         pigz --best -n -p !{task.cpus} results/*.txt
     fi
 
-    # Capture version
-    bwa 2>&1 | grep "Version" > bwa.version.txt 2>&1
-    samtools 2>&1 | grep "Version" > samtools.version.txt 2>&1
-    bedtools --version > bedtools.version.txt 2>&1
+    # Capture versions
+    cat <<-END_VERSIONS > versions.yml
+    mapping_query:
+        bedtools: $(echo $(bedtools --version 2>&1) | sed 's/bedtools v//')
+        bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        samtools: $(echo $(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*$//')
+    END_VERSIONS
     '''
 
     stub:

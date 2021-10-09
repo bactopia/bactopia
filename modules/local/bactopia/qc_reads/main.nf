@@ -24,7 +24,7 @@ process QC_READS {
     tuple val(meta), path("results/${meta.id}*.fastq.gz"), emit: fastq, optional: true
     tuple val(meta), path("results/${meta.id}*.fastq.gz"), path(extra), path(genome_size), emit: fastq_assembly, optional: true
     path "results/*"
-    path "*.std{out,err}.txt", emit: logs, optional: true
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
     path "*-error.txt", optional: true

@@ -1,153 +1,153 @@
-- name: minmer_sketch_pe
+- name: minmer_sketch-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
     - minmer_sketch_pe
   files:
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.stderr.txt
-      md5sum: 5dd5018cfff1d696f4ca30f0d7c42b03
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.stdout.txt
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.version.txt
-      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: output/logs/minmer_sketch/mash.stderr.txt
+      md5sum: 4d094a3e8c5ae95ff0e65985b75ca251
+    - path: output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.run
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 4f5374a754971e85fd715881605f6e30
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.trace
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: faad268c431eb513fc4c404511e0d856
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.stdout.txt
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.version.txt
-      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k21.msh
-      md5sum: c8bcc71befab49c30c5fcdaa432a2b79
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k31.msh
-      md5sum: 233521f8fe7eb56a40beba081f0c0842
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe.sig
-      md5sum: d433f60ebbc0c332e085261398c6d37d
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+      md5sum: b14b7f35866b3222e693ef5774f5d21d
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+      md5sum: 871739bfe7750bfb9606ac411d4b3b90
+    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/minmer_sketch/versions.yml
+      md5sum: fea7342c707346efbf2e72a57b7be241
+    - path: output/minmers/output-k21.msh
+      md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
+    - path: output/minmers/output-k31.msh
+      md5sum: be29569635c95b4adc756a49368db479
+    - path: output/minmers/output.sig
+      md5sum: 59b29391dee7905a2b28d897bd4d141d
 
-- name: minmer_sketch_pe_31mers
+- name: minmer_sketch-pe_31mers
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
     - count_31mers
   files:
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.stderr.txt
-      md5sum: 5dd5018cfff1d696f4ca30f0d7c42b03
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.stdout.txt
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mash.version.txt
-      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mccortex.stderr.txt
+    - path: output/logs/minmer_sketch/mash.stderr.txt
+      md5sum: 4d094a3e8c5ae95ff0e65985b75ca251
+    - path: output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mccortex.stdout.txt
+    - path: output/logs/minmer_sketch/mccortex.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/mccortex31.version.txt
-      md5sum: 07a78a5c11f96598a8757eb309a41b43
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: output/logs/minmer_sketch/mccortex.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.run
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 2298cfbda3ade22f580dd0a086882688
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/nf-minmer_sketch.trace
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: faad268c431eb513fc4c404511e0d856
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.stdout.txt
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_pe/logs/minmer_sketch/sourmash.version.txt
-      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k21.msh
-      md5sum: c8bcc71befab49c30c5fcdaa432a2b79
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe-k31.msh
-      md5sum: 233521f8fe7eb56a40beba081f0c0842
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe.ctx
-    - path: test_minmer_sketch_pe/minmers/test_minmer_sketch_pe.sig
-      md5sum: d433f60ebbc0c332e085261398c6d37d
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+      md5sum: 8091617693ff3da4f69f3fb4b4bb96ca
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+      md5sum: 871739bfe7750bfb9606ac411d4b3b90
+    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/minmer_sketch/versions.yml
+      md5sum: fea7342c707346efbf2e72a57b7be241
+    - path: output/minmers/output-k21.msh
+      md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
+    - path: output/minmers/output-k31.msh
+      md5sum: be29569635c95b4adc756a49368db479
+    - path: output/minmers/output.ctx
+    - path: output/minmers/output.sig
+      md5sum: 59b29391dee7905a2b28d897bd4d141d
 
-- name: minmer_sketch_se
+- name: minmer_sketch-se
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
     - minmer_sketch_se
   files:
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.stderr.txt
-      md5sum: 6f9718231e6641b3b66cded9bff9f21f
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.stdout.txt
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.version.txt
-      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: output/logs/minmer_sketch/mash.stderr.txt
+      md5sum: f002cc5da5f7fd75096d89fe557341ce
+    - path: output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.run
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: b118dacbb3b7d4118e2e1c39b2c38afb
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.trace
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 57ce4c6f9ed7ef98c9440f3e875f52a0
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.stdout.txt
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.version.txt
-      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k21.msh
-      md5sum: af17317885feeaeb47d183a465211451
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k31.msh
-      md5sum: 6d46feb639587bc57dd28cd4fb855eb0
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se.sig
-      md5sum: dd9e4ae787e4eb5f6fccad820fbf853b
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+      md5sum: 43ce677fb343019b6fa048eb641c82aa
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+      md5sum: 3d43e1e72502faa07220cd38348ed606
+    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/minmer_sketch/versions.yml
+      md5sum: fea7342c707346efbf2e72a57b7be241
+    - path: output/minmers/output-k21.msh
+      md5sum: d584b5b950803a3501ef5703ef883266
+    - path: output/minmers/output-k31.msh
+      md5sum: 72445cc7d56ba21f75d17627af6873f6
+    - path: output/minmers/output.sig
+      md5sum: 8b00b55b46190b83373f3ed863d00228
 
-- name: minmer_sketch_se_31mers
+- name: minmer_sketch-se_31mers
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - minmer_sketch
     - count_31mers
   files:
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.stderr.txt
-      md5sum: 6f9718231e6641b3b66cded9bff9f21f
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.stdout.txt
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mash.version.txt
-      md5sum: cbf0d536d4c7c0f2dde4478ebe43f4e0
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mccortex.stderr.txt
+    - path: output/logs/minmer_sketch/mash.stderr.txt
+      md5sum: f002cc5da5f7fd75096d89fe557341ce
+    - path: output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mccortex.stdout.txt
+    - path: output/logs/minmer_sketch/mccortex.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/mccortex31.version.txt
-      md5sum: 07a78a5c11f96598a8757eb309a41b43
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: output/logs/minmer_sketch/mccortex.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.run
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 303d67d44296096c70ad02673379b271
-    - path: test_minmer_sketch_se/logs/minmer_sketch/nf-minmer_sketch.trace
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 57ce4c6f9ed7ef98c9440f3e875f52a0
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.stdout.txt
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_minmer_sketch_se/logs/minmer_sketch/sourmash.version.txt
-      md5sum: bb422dae5bfc5e1ae6ecfc04880ea42c
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k21.msh
-      md5sum: af17317885feeaeb47d183a465211451
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se-k31.msh
-      md5sum: 6d46feb639587bc57dd28cd4fb855eb0
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se.ctx
-    - path: test_minmer_sketch_se/minmers/test_minmer_sketch_se.sig
-      md5sum: dd9e4ae787e4eb5f6fccad820fbf853b
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+      md5sum: 7b5812cfb99b509a3e5e2437c3bbf687
+    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+      md5sum: 3d43e1e72502faa07220cd38348ed606
+    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/minmer_sketch/versions.yml
+      md5sum: fea7342c707346efbf2e72a57b7be241
+    - path: output/minmers/output-k21.msh
+      md5sum: d584b5b950803a3501ef5703ef883266
+    - path: output/minmers/output-k31.msh
+      md5sum: 72445cc7d56ba21f75d17627af6873f6
+    - path: output/minmers/output.ctx
+    - path: output/minmers/output.sig
+      md5sum: 8b00b55b46190b83373f3ed863d00228

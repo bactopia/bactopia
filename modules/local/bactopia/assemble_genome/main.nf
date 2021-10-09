@@ -78,6 +78,7 @@ process ASSEMBLE_GENOME {
             --min_component_size !{params.min_component_size} \
             --min_dead_end_size !{params.min_dead_end_size} !{unicycler_opts} > unicycler.stdout.txt 2> unicycler.stderr.txt
         sed -r 's/^>([0-9]+)(.*)/>!{meta.id}_\\1\\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{meta.id}.fna
+        mv ${OUTDIR}/assembly.gfa ${OUTDIR}/unicycler.gfa
     else
         # Shovill or Dragonflye
         !{assembler_mode} --gsize ${GENOME_SIZE} \
@@ -90,6 +91,17 @@ process ASSEMBLE_GENOME {
             --cpus !{task.cpus} \
             --ram !{shovill_ram} !{assemnber_opts} > !{assembler_wf}.stdout.txt 2> !{assembler_wf}.stderr.txt
         mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{meta.id}.fna
+
+        # Rename Graphs
+        if [ "!{assembler_wf}" == "shovill" ]; then 
+            if [ -f "${OUTDIR}/contigs.gfa" ]; then
+                mv ${OUTDIR}/contigs.gfa ${OUTDIR}/!{params.shovill_assembler}-unpolished.gfa
+            elif [ -f "${OUTDIR}/contigs.fastg" ]; then
+                mv ${OUTDIR}/contigs.fastg ${OUTDIR}/!{params.shovill_assembler}-unpolished.gfa
+            elif [ -f "${OUTDIR}/contigs.LastGraph" ]; then
+                mv ${OUTDIR}/contigs.LastGraph ${OUTDIR}/!{params.shovill_assembler}-unpolished.gfa
+            fi
+        fi
 
         if [ -f "${OUTDIR}/flye-info.txt" ]; then
             mv ${OUTDIR}/flye-info.txt ${OUTDIR}/flye.log
@@ -117,6 +129,7 @@ process ASSEMBLE_GENOME {
             cat ${OUTDIR}/!{meta.id}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}
         fi
     else
+        mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna
         echo "!{meta.id} assembled successfully, but 0 contigs were formed. Please investigate
                 !{meta.id} to determine a cause (e.g. metagenomic, contaminants, etc...) for this
                 outcome. Further assembly-based analysis of !{meta.id} will be discontinued." | \
@@ -126,16 +139,18 @@ process ASSEMBLE_GENOME {
     # Cleanup and compress
     if [ "!{params.keep_all_files}" == "false" ]; then
         # Remove intermediate files
-        rm -rfv ${OUTDIR}/shovill.bam* ${OUTDIR}/flash.extendedFrags* ${OUTDIR}/flash.notCombined* \
-                ${OUTDIR}/skesa.fasta.* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa ${OUTDIR}/pilon_polish* \
-                ${OUTDIR}/flye/ ${OUTDIR}/flye.fasta* ${OUTDIR}/raven/ ${OUTDIR}/raven.fasta* \
-                ${OUTDIR}/raven.cereal ${OUTDIR}/miniasm/ ${OUTDIR}/miniasm.fasta*
+        rm -rfv ${OUTDIR}/shovill.bam* ${OUTDIR}/shovill-se.bam* ${OUTDIR}/flash.extendedFrags*  \
+                ${OUTDIR}/flash.notCombined* ${OUTDIR}/skesa.fasta* ${OUTDIR}/*.fq.gz ${OUTDIR}/00*.gfa \
+                ${OUTDIR}/pilon_polish* ${OUTDIR}/flye/ ${OUTDIR}/flye.fasta* ${OUTDIR}/raven/  \
+                ${OUTDIR}/raven.fasta* ${OUTDIR}/raven.cereal ${OUTDIR}/miniasm/ ${OUTDIR}/miniasm.fasta* \
+                ${OUTDIR}/spades/ ${OUTDIR}/spades.fasta* ${OUTDIR}/megahit/ ${OUTDIR}/megahit.fasta* \
+                ${OUTDIR}/velvet.fasta* ${OUTDIR}/velvet/
     fi
 
     if [[ !{params.skip_compression} == "false" ]]; then
         # Compress based on matched extensions
         find ${OUTDIR}/ -type f | \
-            grep -E "\\.fna$|\\.fasta$|\\.fa$|\\.gfa$|\\.fastg$|\\.LastGraph$" | \
+            grep -E "\\.fna$|\\.fasta$|\\.fa$|\\.gfa$" | \
             xargs -I {} pigz -n --best -p !{task.cpus} {}
     fi
     mv ${OUTDIR}/*.log ./

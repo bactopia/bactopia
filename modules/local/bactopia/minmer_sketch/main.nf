@@ -25,9 +25,9 @@ process MINMER_SKETCH {
     tuple val(meta), path(fq), path("${meta.id}.sig"), emit: sketch
     path("${meta.id}*.{msh,sig}")
     path("${meta.id}.ctx"), optional: true
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     fastq = meta.single_end ? fq[0] : "${fq[0]} ${fq[1]}"
@@ -40,7 +40,6 @@ process MINMER_SKETCH {
 
     if [[ "!{params.count_31mers}" == "true" ]]; then
         mccortex31 build -f -k 31 -s !{meta.id} !{mccortex_fq} -t !{task.cpus} -m !{m}mb -q temp_counts > mccortex.stdout.txt 2> mccortex.stderr.txt
-
         if [ "!{params.keep_singletons}" == "false" ]; then
             # Clean up Cortex file (mostly remove singletons)
             mccortex31 clean -q -B 2 -U2 -T2 -m !{m}mb -o !{meta.id}.ctx temp_counts >> mccortex.stdout.txt 2>> mccortex.stderr.txt
@@ -48,12 +47,15 @@ process MINMER_SKETCH {
         else
             mv temp_counts !{meta.id}.ctx
         fi
-        mccortex31 2>&1 | grep "version" > mccortex31.version.txt 2>&1
     fi
 
     # Capture versions
-    mash --version > mash.version.txt 2>&1
-    sourmash --version > sourmash.version.txt 2>&1
+    cat <<-END_VERSIONS > versions.yml
+    minmer_query:
+        mash: $(echo $(mash --version 2>&1))
+        mccortex: $(echo $(mccortex31 2>&1) | sed 's/^.*mccortex=v//;s/ .*$//')
+        sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')
+    END_VERSIONS
     '''
 
     stub:

@@ -1,100 +1,348 @@
-- name: assemble_genome-se
+- name: assemble_genome-se_skesa
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assemble_genome
     - assemble_genome_se
   files:
-    - path: test_assemble_genome_se/assembly/shovill-se.bam
-    - path: test_assemble_genome_se/assembly/shovill-se.bam.bai
-    - path: test_assemble_genome_se/assembly/shovill-se.log
-    - path: test_assemble_genome_se/assembly/shovill.corrections
+    - path: output/assembly/output.fna.gz
+      md5sum: f8d1bb392c7122a742afc94cc1a760a9
+    - path: output/assembly/output.json
+      md5sum: 1749246b8891667653351fa8c2af4c5c
+    - path: output/assembly/shovill.corrections
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_se/assembly/skesa.fasta.gz
-      md5sum: b33255d4db2e2b7f26357f66fdaab66d
-    - path: test_assemble_genome_se/assembly/test_assemble_genome_se.fna.gz
-    - path: test_assemble_genome_se/assembly/test_assemble_genome_se.fna.json
-      md5sum: e1b4cac6177e16e331ee637d0d47f5b4
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.ndb
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nhr
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nin
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.not
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nsq
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.ntf
-    - path: test_assemble_genome_se/blast/blastdb/test_assemble_genome_se.nto
-    - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.stderr.txt
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.version.txt
-      md5sum: 82227ac55ef512a1afb59ae590e845bf
-    - path: test_assemble_genome_se/logs/assemble_genome/makeblastdb.version.txt
-      md5sum: a647f88e69d6d254c84e2bf805e2a925
-    - path: test_assemble_genome_se/logs/assemble_genome/assembly-scan.version.txt
-      md5sum: 82227ac55ef512a1afb59ae590e845bf
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.begin
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.err
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.log
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.out
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.run
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: c40af355cc54235b5f0d3499ac756df8
-    - path: test_assemble_genome_se/logs/assemble_genome/nf-assemble_genome.trace
-    - path: test_assemble_genome_se/logs/assemble_genome/shovil-depends.version.txt
-    - path: test_assemble_genome_se/logs/assemble_genome/shovill.stderr.txt
-    - path: test_assemble_genome_se/logs/assemble_genome/shovill.stdout.txt
-    - path: test_assemble_genome_se/logs/assemble_genome/shovill.version.txt
-      md5sum: aa587ff96ec9446114124a405f192173
-    - path: test_assemble_genome_se/logs/assemble_genome/skesa.version.txt
-      md5sum: 1f554de45568530729bea3d4a4874302
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['skesa', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 74eda1816eded7a94500395a9131ed0e
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill-se.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['skesa', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
 
-- name: assemble_genome-pe
+- name: assemble_genome-se_spades
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: output/assembly/output.fna.gz
+    - path: output/assembly/output.json
+      md5sum: 0c1db84a410b26a0979acd06c448279b
+    - path: output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/assembly/spades-unpolished.gfa.gz
+      md5sum: 68a1d9f115493936eac0668c7abad4ea
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['spades', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 3011dc86e4b90164dc258e74a58170d2
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill-se.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['spades', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-se_megahit
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: output/assembly/output-error.fna.gz
+      md5sum: 4a4dd3598707603b3f76a2378a4504aa
+    - path: output/assembly/megahit-unpolished.gfa.gz
+    - path: output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['megahit', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 4bfdbacc45531734e98212cda97ef135
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: f3fc1e84297f094e3d025ab63154c4d9
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill-se.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['megahit', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['megahit', 'Extract', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: output/output-assembly-error.txt
+      contains: ['0 contigs', 'determine', 'discontinued']
+
+- name: assemble_genome-se_velvet
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: output/assembly/output-error.fna.gz
+    - path: output/assembly/output-error.json
+      contains: ['fasta', 'total_contig', 'contigs_greater_10k']
+    - path: output/assembly/shovill.corrections
+    - path: output/assembly/velvet-unpolished.gfa.gz
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['velvet', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 52d127f00e62e388391b5166ff53d0ac
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 4f8b529c62761de7a9994be5000dd4dc
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill-se.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['velvet', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: output/output-assembly-error.txt
+      contains: ['less', 'minimum', 'discontinued']
+
+- name: assemble_genome-pe_skesa
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assemble_genome
     - assemble_genome_pe
   files:
-    - path: test_assemble_genome_pe/assembly/flash.hist
+    - path: output/assembly/flash.hist
       md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
-    - path: test_assemble_genome_pe/assembly/flash.histogram
+    - path: output/assembly/flash.histogram
       md5sum: f45cd0764ec250094a43a050fabca9be
-    - path: test_assemble_genome_pe/assembly/shovill.corrections
+    - path: output/assembly/output.fna.gz
+      md5sum: aa0528e5559d0cf01deacd05e1b54690
+    - path: output/assembly/output.json
+      md5sum: 0b7c921a863d961be6a1406e78a5b031
+    - path: output/assembly/shovill.corrections
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_pe/assembly/shovill.log
-    - path: test_assemble_genome_pe/assembly/skesa.fasta.gz
-      md5sum: 46c0fcc2739ec36499676d7f7ad4b129
-    - path: test_assemble_genome_pe/assembly/test_assemble_genome_pe.fna.gz
-    - path: test_assemble_genome_pe/assembly/test_assemble_genome_pe.fna.json
-      md5sum: f3ad1d432bbccc73bb0418bc9a73210d
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ndb
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nhr
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nin
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.not
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nsq
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.ntf
-    - path: test_assemble_genome_pe/blast/blastdb/test_assemble_genome_pe.nto
-    - path: test_assemble_genome_pe/logs/assemble_genome/assembly-scan.stderr.txt
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_pe/logs/assemble_genome/assembly-scan.version.txt
-      md5sum: 82227ac55ef512a1afb59ae590e845bf
-    - path: test_assemble_genome_pe/logs/assemble_genome/makeblastdb.version.txt
-      md5sum: a647f88e69d6d254c84e2bf805e2a925
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.begin
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.err
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.log
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.out
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.run
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 8e5cb166febfa82b6e85d4fbb81f02d5
-    - path: test_assemble_genome_pe/logs/assemble_genome/nf-assemble_genome.trace
-    - path: test_assemble_genome_pe/logs/assemble_genome/shovil-depends.version.txt
-    - path: test_assemble_genome_pe/logs/assemble_genome/shovill.stderr.txt
-    - path: test_assemble_genome_pe/logs/assemble_genome/shovill.stdout.txt
-    - path: test_assemble_genome_pe/logs/assemble_genome/shovill.version.txt
-      md5sum: aa587ff96ec9446114124a405f192173
-    - path: test_assemble_genome_pe/logs/assemble_genome/skesa.version.txt
-      md5sum: 1f554de45568530729bea3d4a4874302
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['skesa', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 95ef5d6877ce5cc570b89bb66b0c9b90
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['skesa', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-pe_spades
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: output/assembly/output.fna.gz
+    - path: output/assembly/output.json
+      md5sum: ebcd6dccff1f02413b66486f9dcbb30d
+    - path: output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/assembly/spades-unpolished.gfa.gz
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['spades', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: d469ef06594914d70789d5bd3315df45
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['spades', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-pe_megahit
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: output/assembly/megahit-unpolished.gfa.gz
+    - path: output/assembly/output-error.fna.gz
+    - path: output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['megahit', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 597c7566f8832bcae4b115e030feccfb
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: c69e68a076642b53c12301c917b128b1
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['megahit', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['megahit', 'Extract', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: output/output-assembly-error.txt
+      md5sum: 529600ab45895b3960981c57fa52037b
+
+- name: assemble_genome-pe_velvet
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: output/assembly/output.fna.gz
+    - path: output/assembly/output.json
+      contains: ['fasta', 'total_contig', 'contigs_greater_10k']
+    - path: output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/assembly/velvet-unpolished.gfa.gz
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['velvet', 'fasta', 'removed']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 130217151ad8107fb150ff809902df5e
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/shovill.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['velvet', 'shovill', 'Done']
+    - path: output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
 
 - name: assemble_genome-hybrid
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
@@ -103,42 +351,41 @@
     - assemble_genome
     - assemble_genome_hybrid
   files:
-    - path: test_assemble_genome_hybrid/assembly/assembly.fasta.gz
-      md5sum: 6bb74295fc48ab52d65cfad598e7fe2e
-    - path: test_assemble_genome_hybrid/assembly/assembly.gfa.gz
+    - path: output/assembly/output.fna.gz
+      md5sum: aadea421b9f6ed41e52aca7ce777328c
+    - path: output/assembly/output.json
+      md5sum: 4836ccf1aa2227395e87d889c15f95d5
+    - path: output/assembly/unicycler.gfa.gz
       md5sum: 7a3b003de928550c1d0e17b984ca8f91
-    - path: test_assemble_genome_hybrid/assembly/test_assemble_genome_hybrid.fna.gz
-      md5sum: 4ccaaa98c3686963f80a017cd97ebd37
-    - path: test_assemble_genome_hybrid/assembly/test_assemble_genome_hybrid.fna.json
-      md5sum: 5ae29345d3fae33f5c0bd198761a2a53
-    - path: test_assemble_genome_hybrid/assembly/unicycler.log
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.ndb
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nhr
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nin
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.not
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nsq
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.ntf
-    - path: test_assemble_genome_hybrid/blast/blastdb/test_assemble_genome_hybrid.nto
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.stderr.txt
+    - path: output/blast/blastdb/output.ndb
+    - path: output/blast/blastdb/output.nhr
+    - path: output/blast/blastdb/output.nin
+    - path: output/blast/blastdb/output.not
+    - path: output/blast/blastdb/output.nsq
+    - path: output/blast/blastdb/output.ntf
+    - path: output/blast/blastdb/output.nto
+    - path: output/logs/assemble_genome/assembly-scan.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/assembly-scan.version.txt
-      md5sum: 82227ac55ef512a1afb59ae590e845bf
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/makeblastdb.version.txt
-      md5sum: a647f88e69d6d254c84e2bf805e2a925
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.begin
+    - path: output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.err
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.log
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.out
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.run
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 24dc24c0fc9e24e044e15d8937f08c21
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/nf-assemble_genome.trace
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.stderr.txt
-      md5sum: a471c70889168f8ea31568e65e7faa04
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.stdout.txt
-    - path: test_assemble_genome_hybrid/logs/assemble_genome/unicycler.version.txt
-      md5sum: 8d4ca87edce43dbcad0a8385ba4bdef1
+    - path: output/logs/assemble_genome/nf-assemble_genome.err
+    - path: output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['Building', 'DB', 'Adding']
+    - path: output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'DB', 'Adding']
+    - path: output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: f0612b817e51c285aafacd14280e7701
+    - path: output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/assemble_genome/unicycler.log
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: output/logs/assemble_genome/unicycler.stderr.txt
+    - path: output/logs/assemble_genome/unicycler.stdout.txt
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
 
 - name: assemble_genome-flye
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore -c nextflow.config ${BACTOPIA_ARGS}'
@@ -178,7 +425,7 @@
       contains: ["Building a new DB", "Adding", "removed"]
     - path: output/logs/assemble_genome/nf-assemble_genome.run
     - path: output/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 987ede123f862f238ccf015a52aa2274
+      md5sum: 3a7f90f4c17e1c2742a0aa67ada3aa15
     - path: output/logs/assemble_genome/nf-assemble_genome.trace
     - path: output/logs/assemble_genome/versions.yml
       md5sum: 17b0b491ec1f5714537e43f18620b1b4
@@ -194,7 +441,6 @@
     - path: output/assembly/miniasm-unpolished.gfa.gz
       md5sum: 4cefcc6b08cf614b4c7cbc8ad5ee4912
     - path: output/assembly/output-error.fna.gz
-      md5sum: 976ef10fff06c925ff8b5e95807783e4
     - path: output/assembly/output-error.json
       md5sum: dfe24cfffd3f1b66363b5039efa85781
     - path: output/logs/assemble_genome/assembly-scan.stderr.txt
@@ -214,7 +460,7 @@
       contains: ["removed"]
     - path: output/logs/assemble_genome/nf-assemble_genome.run
     - path: output/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: de11ac573b4acfc9e1abe729e2b35119
+      md5sum: 42841f590e0557e590bd890b14c33ffe
     - path: output/logs/assemble_genome/nf-assemble_genome.trace
     - path: output/logs/assemble_genome/versions.yml
       md5sum: 17b0b491ec1f5714537e43f18620b1b4
@@ -230,7 +476,6 @@
     - assemble_genome_raven
   files:
     - path: output/assembly/output.fna.gz
-      md5sum: 2be09bd9ece24a22d69b0209cbd747ec
     - path: output/assembly/output.json
       md5sum: dd8fe87695d44101b925184b6b443541
     - path: output/assembly/raven-unpolished.gfa.gz
@@ -258,7 +503,7 @@
       contains: ["Building a new DB", "Adding", "removed"]
     - path: output/logs/assemble_genome/nf-assemble_genome.run
     - path: output/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: fb9431e9cfd1ce82ff0dcd93ed0ceb80
+      md5sum: 6462b3b8c4dd390227774efb717a15bc
     - path: output/logs/assemble_genome/nf-assemble_genome.trace
     - path: output/logs/assemble_genome/versions.yml
       md5sum: 17b0b491ec1f5714537e43f18620b1b4

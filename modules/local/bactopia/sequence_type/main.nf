@@ -21,9 +21,9 @@ process SEQUENCE_TYPE {
 
     output:
     path "results/*", emit: results
-    path "*.std{out,err}.txt", emit: logs
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     shell:
     dataset_tarball = dataset.getName()
@@ -38,7 +38,6 @@ process SEQUENCE_TYPE {
     OUTDIR="results/!{schema}"
     mkdir -p ${OUTDIR}/blast
     mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{meta.id}-blast.json --cpu !{task.cpus} !{blast_opts} 1> mlst-blast.stdout.txt 2> mlst-blast.stderr.txt
-    mlst-blast.py --version > mlst-blast.version.txt 2>&1
 
     # Run Ariba
     if [ "!{meta.single_end}" == "false" ]; then
@@ -56,11 +55,16 @@ process SEQUENCE_TYPE {
             --force \
             --verbose !{noclean} !{spades_options} 1> ariba.stdout.txt 2> ariba.stderr.txt
         mv ariba ${OUTDIR}/
-        ariba version > ariba.version.txt 2>&1
     else
         mkdir -p ${OUTDIR}/ariba
         echo "Ariba cannot be run on single end reads" >${OUTDIR}/ariba/ariba-not-run.txt
     fi
+
+    cat <<-END_VERSIONS > versions.yml
+    sequence_type:
+        ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
+        blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
+    END_VERSIONS
     '''
 
     stub:
