@@ -156,8 +156,6 @@ process build_pangenome {
     para_off = params.para_off ? "--para-off" : ""
     keep_all_files = params.z ? "-z 2" : ""
     pan_options = params.pan_opt ? "--pan-opt '${params.pan_opt}'" : ""
-    use_diamond = params.use_diamond ? "--diamond" : ""
-    split_diamond = params.split_diamond ? "--diamond-split" : ""
     """
     rm -rf !{DUMMY_NAME}.gff
     find . -name "*.gff.gz" | xargs -I {} gunzip {}
@@ -390,12 +388,6 @@ def check_input_params() {
     error += is_positive_integer(params.max_memory, 'max_memory')
     error += is_positive_integer(params.sleep_time, 'sleep_time')
     
-    error += is_positive_integer(params.perc, 'perc')
-    error += is_positive_integer(params.cd_low, 'cd_low')
-    error += is_positive_integer(params.cd_step, 'cd_step')
-    error += is_positive_integer(params.hsp_len, 'hsp_len')
-    error += is_positive_integer(params.mcl_inflation, 'mcl_inflation')
-
     error += is_positive_integer(params.emsim, 'emsim')
     error += is_positive_integer(params.bb, 'bb')
     error += is_positive_integer(params.alrt, 'alrt')
@@ -403,16 +395,6 @@ def check_input_params() {
     
     if (params.limit) {
         error += is_positive_integer(params.limit, 'limit')
-    }
-
-    if (params.use_diamond && params.nucl) {
-        log.error("'--use_diamond' and '--nucl' cannot be used together.")
-        error += 1
-    }
-
-    if (!params.use_diamond && params.split_diamond) {
-        log.error("Must use '--use_diamond' inorder to use '--split_diamond'.")
-        error += 1
     }
 
     // Check for existing output directory
