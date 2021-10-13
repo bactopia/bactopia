@@ -1,0 +1,59 @@
+name: hicap
+description: Identify cap locus serotype and structure in your Haemophilus influenzae assemblies
+keywords:
+  - fasta
+  - serotype
+  - Haemophilus influenzae
+tools:
+  - hicap:
+      description: In silico typing of the H. influenzae capsule locus
+      homepage: https://github.com/scwatts/hicap
+      documentation: https://github.com/scwatts/hicap
+      tool_dev_url: https://github.com/scwatts/hicap
+      doi: "https://doi.org/10.1128/JCM.00190-19"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA formatted assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+  - database_dir:
+      type: directory
+      description: Optional - Directory containing locus database
+      pattern: "*/*"
+  - model_fp:
+      type: file
+      description: Optional - Prodigal model to use for gene prediction
+      pattern: "*.{bin}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - gbk:
+      type: file
+      description: GenBank file and cap locus annotations
+      pattern: "*.gbk"
+  - svg:
+      type: file
+      description: Visualization of annotated cap locus
+      pattern: "*.svg"
+  - tsv:
+      type: file
+      description: Detailed summary of cap locus annotations
+      pattern: "*.tsv"
+
+authors:
+  - "@rpetit3"

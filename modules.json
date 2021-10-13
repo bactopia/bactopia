@@ -4,22 +4,40 @@
     "repos": {
         "nf-core/modules": {
             "agrvate": {
-                "git_sha": "8e9d6cd5e43ff1f4bd8314f52e989d7b2c92625f"
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
+            },
+            "csvtk/concat": {
+                "git_sha": "ad0f4d2e2431183881983460f616eb3af2f02606"
+            },
+            "fastani": {
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
+            },
+            "hicap": {
+                "git_sha": "bb7beff49740a7b92e851208b7e25875a909fe5c"
             },
             "iqtree": {
-                "git_sha": "c5235a983d454787fa0c3247b02086969217163b"
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
             },
             "kleborate": {
-                "git_sha": "77a2895785587219ee2b9d0ea16fa0d71ad14f3a"
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
+            },
+            "mashtree": {
+                "git_sha": "7d98bf1d7dc67c8e578aab81c8ec5f7fb209cb56"
+            },
+            "pirate": {
+                "git_sha": "053797510df35ec45a97f3cdafeb53d6fe39b225"
             },
             "prokka": {
                 "git_sha": "e937c7950af70930d1f34bb961403d9d2aa81c7d"
             },
-            "snpdists": {
-                "git_sha": "1bc3f6cf39dc0365cf1453814cfa0d89b0465de2"
+            "roary": {
+                "git_sha": "0ba88fb8699ab1d94ca748ca1c5a903cbbc30602"
+            },
+            "spatyper": {
+                "git_sha": "e77b3d72f3357462376695585e88a598809cf0ed"
             },
             "staphopiasccmec": {
-                "git_sha": "073bbf1b265beff4d45516148aa2b074ad4426d8"
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
             }
         }
     }

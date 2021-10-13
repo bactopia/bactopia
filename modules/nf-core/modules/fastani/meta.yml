@@ -1,0 +1,43 @@
+name: fastani
+description: write your description here
+keywords:
+  - fastani
+tools:
+  - fastani:
+      description: FastANI is developed for fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI).
+      homepage: https://github.com/ParBLiSS/FastANI
+      documentation: https://github.com/ParBLiSS/FastANI
+      tool_dev_url: https://github.com/ParBLiSS/FastANI
+      doi: 10.1038/s41467-018-07641-9
+      licence: ['Apache-2.0']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - query:
+      type: file
+      description: Fasta file(s) to be queried
+      pattern: "*.fasta"
+  - reference:
+      type: file
+      description: Fasta file(s) to be used as reference for the query
+      pattern: "*.fasta"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ani:
+      type: file
+      description: Results of the query
+      pattern: "*.ani.txt"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@abhi18av"
