@@ -7,7 +7,8 @@ workflow test_call_variants_pe {
 
     inputs = tuple(
         [ id:'output', single_end:false ],
-        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
     )
 
     references = [
@@ -21,7 +22,7 @@ workflow test_call_variants_se {
 
     inputs = tuple(
         [ id:'output', single_end:true ],
-        [file(params.test_data['illumina']['se'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)]
     )
 
     references = [
@@ -35,7 +36,8 @@ workflow test_call_variants_auto_pe {
 
     inputs = tuple(
         [ id:'output', single_end:false ],
-        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
     )
 
     references = [
@@ -49,7 +51,7 @@ workflow test_call_variants_auto_se {
 
     inputs = tuple(
         [ id:'output', single_end:true ],
-        [file(params.test_data['illumina']['se'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)]
     )
 
     references = [

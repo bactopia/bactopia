@@ -8,7 +8,8 @@ workflow test_ariba_analysis {
     // sample, single_end, fastqs
     inputs = tuple(
         [ id:'output', single_end:false ],
-        [file(params.test_data['illumina']['r1'], checkIfExists: true), file(params.test_data['illumina']['r2'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
     )
 
     ariba_dbs = [

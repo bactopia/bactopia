@@ -7,9 +7,9 @@ workflow test_assembly_qc {
 
     inputs = tuple(
         [id:"output"],
-        file(params.test_data['reference']['genome_size'], checkIfExists: true),
-        file(params.test_data['reference']['fna'], checkIfExists: true),
-        file(params.test_data['reference']['total_contigs'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['fna'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true)
     )
 
     ASSEMBLY_QC ( inputs, ['checkm', 'quast'] )
