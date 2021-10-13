@@ -1,0 +1,50 @@
+name: ismapper
+description: Identify insertion sites positions in bacterial genomes
+keywords:
+  - fastq
+  - insertion sequences
+tools:
+  - ismapper:
+      description: A mapping-based tool for identification of the site and orientation of IS insertions in bacterial genomes.
+      homepage: https://github.com/jhawkey/IS_mapper
+      documentation: https://github.com/jhawkey/IS_mapper
+      tool_dev_url: https://github.com/jhawkey/IS_mapper
+      doi: "https://doi.org/10.1186/s12864-015-1860-2"
+      licence: ['BSD']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: A set of paired-end FASTQ files
+      pattern: "*.{fastq.gz,fq.gz}"
+  - reference:
+      type: file
+      description: Reference genome in GenBank format
+      pattern: "*.{gbk}"
+  - query:
+      type: file
+      description: Insertion sequences to query in FASTA format
+      pattern: "*.{fasta,fa}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: directory
+      description: Directory containing ISMapper result files
+      pattern: "*/*"
+
+authors:
+  - "@rpetit3"

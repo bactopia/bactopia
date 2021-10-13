@@ -9,14 +9,23 @@
             "csvtk/concat": {
                 "git_sha": "ad0f4d2e2431183881983460f616eb3af2f02606"
             },
+            "custom/dumpsoftwareversions": {
+                "git_sha": "84f2302920078b0cf7716b2a2e5fcc0be5c4531d"
+            },
             "fastani": {
                 "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
+            },
+            "gtdbtk/classifywf": {
+                "git_sha": "3868c3ab4bce121bde7f15b9137a0beef59e5d98"
             },
             "hicap": {
                 "git_sha": "bb7beff49740a7b92e851208b7e25875a909fe5c"
             },
             "iqtree": {
                 "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
+            },
+            "ismapper": {
+                "git_sha": "8d04c34934c371bd17eda052bfea403b95e26c7f"
             },
             "kleborate": {
                 "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
@@ -32,6 +41,9 @@
             },
             "roary": {
                 "git_sha": "0ba88fb8699ab1d94ca748ca1c5a903cbbc30602"
+            },
+            "snpdists": {
+                "git_sha": "49da8642876ae4d91128168cd0db4f1c858d7792"
             },
             "spatyper": {
                 "git_sha": "e77b3d72f3357462376695585e88a598809cf0ed"
