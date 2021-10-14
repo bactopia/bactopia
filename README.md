@@ -1,4 +1,3 @@
-[![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/bactopia/bactopia/master?style=flat-square&logo=appveyor)](https://gitlab.com/bactopia/bactopia/pipelines/latest)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/bactopia/bactopia)](https://github.com/bactopia/bactopia/releases)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://bioconda.github.io/recipes/bactopia/README.html) 
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
