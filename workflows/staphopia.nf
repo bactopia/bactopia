@@ -3,14 +3,19 @@ nextflow.enable.dsl = 2
 
 /*
 ========================================================================================
+    CONFIG FILES
+========================================================================================
+*/
+include { create_input_channel; setup_datasets } from '../lib/nf/bactopia'
+include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
+RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+
+/*
+========================================================================================
     VALIDATE INPUTS
 ========================================================================================
 */
-SCHEMAS = []
-params.workflows[params.wf]['includes'].each { it ->
-    SCHEMAS << "${params.workflows[it].schema}"
-}
-SCHEMAS << 'conf/schema/generic.json'
+SCHEMAS = get_schemas()
 WorkflowMain.initialise(workflow, params, log, schema_filename=SCHEMAS)
 run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SCHEMAS)
 

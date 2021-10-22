@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/minmer_sketch/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "minmer_sketch_parameters": {
+            "title": "Minmer Sketch Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "count_31mers": {
+                    "type": "boolean",
+                    "description": "Enable 31-mer counting with McCortex",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "cortex_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 8,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "keep_singletons": {
+                    "type": "boolean",
+                    "description": "Keep all counted 31-mers",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "mash_sketch": {
+                    "type": "integer",
+                    "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "sourmash_scale": {
+                    "type": "integer",
+                    "description": "Choose number of hashes as 1 in FRACTION of input k-mers",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/minmer_sketch_parameters"
+        }
+    ]
+}

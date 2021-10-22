@@ -6,7 +6,7 @@ VERSION=1.7.1
 
 if [[ $# == 0 ]]; then
     echo ""
-    echo "create-tool.sh BACTOPIA_DIR TOOL_NAME TOOL_DESCRIPTION"
+    echo "create-tool.sh BACTOPIA_DIR SUBWORKFLOW_NAME SUBWORKFLOW_DESCRIPTION"
     echo ""
     echo "Example Command"
     echo "create-tool.sh /home/bactopia/bactopia roary 'Create a pan-genome with Roary and an optional core-genome phylogeny with IQTree.' "
@@ -15,20 +15,22 @@ if [[ $# == 0 ]]; then
 fi
 
 BACTOPIA_DIR=$1
-TOOL=$2
+SUBWORKFLOW=$2
 DESCRIPTION=$3
-if [ -z "${BACTOPIA_DIR}" ] || [ -z "${TOOL}" ] || [ -z "${DESCRIPTION}" ]; then
+if [ -z "${BACTOPIA_DIR}" ] || [ -z "${SUBWORKFLOW}" ] || [ -z "${DESCRIPTION}" ]; then
     echo "Got ${#} arguement"
     echo "Must give a path to Bactopia repository, tool name and tool description."
     exit 1
 fi
 
-if [ ! -d "${BACTOPIA_DIR}/tools/${TOOL}" ]; then
-    cp -r ${BACTOPIA_DIR}/tools/.skeleton ${BACTOPIA_DIR}/tools/${TOOL}
-    sed -i -r 's/TOOL_NAME/'"${TOOL}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/Dockerfile
-    sed -i -r 's/TOOL_NAME/'"${TOOL}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/nextflow.config
-    sed -i -r 's/DESCRIPTION/'"${DESCRIPTION}"'/' ${BACTOPIA_DIR}/tools/${TOOL}/nextflow.config
+if [ ! -d "${BACTOPIA_DIR}/sobworkflows/local/${SUBWORKFLOW}" ]; then
+    cp -r ${BACTOPIA_DIR}/.skeleton/subworkflows ${BACTOPIA_DIR}/subworkflows/local/${TOOL}
+    filenames=( "main.nf" "meta.yml" "test.nf" "test.yml" )
+    for filename in "${filenames[@]}"; do
+        sed -i -r 's/SUBWORKFLOW_NAME/'"${SUBWORKFLOW}"'/' ${BACTOPIA_DIR}/tools/${SUBWORKFLOW}/${filename}
+        sed -i -r 's/SUBWORKFLOW_DESCRIPTION/'"${DESCRIPTION}"'/' ${BACTOPIA_DIR}/tools/${SUBWORKFLOW}/${filename}
+    done
 else
-    echo "${TOOL} exists already, please verify. Not going to replace, exiting..."
+    echo "${SUBWORKFLOW} exists already, please verify. Not going to replace, exiting..."
     exit 1
 fi

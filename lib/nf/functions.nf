@@ -5,6 +5,51 @@
 */
 import nextflow.util.SysHelper
 
+def get_schemas() {
+    def schemas = []
+    def is_workflow = params.workflows[params.wf].containsKey('is_workflow')
+
+    if (is_workflow == true) {
+        // Named workflow based of Bactopia
+        schemas << 'conf/schema/bactopia.json'
+    } else {
+        // Bactopia Tool
+        schemas << 'conf/schema/bactopia-tools.json'
+    }
+
+    if (params.workflows[params.wf].containsKey('includes')) {
+        // Wrapper around multiple workflows
+        schemas += _get_include_schemas(params.workflows[params.wf]["includes"])
+    } else if (params.workflows[params.wf].containsKey('modules')) {
+        // Workflow or Subworkflow
+        schemas += _get_module_schemas(params.workflows[params.wf]["modules"])
+    } else if (params.workflows[params.wf].containsKey('path')) {
+        // Module
+        schemas << params.workflows[params.wf].path
+    }
+
+    schemas << 'conf/schema/generic.json'
+    return schemas
+}
+
+def _get_include_schemas(includes) {
+    def include_schemas = []
+    includes.each { it ->
+        if (params.workflows[it].containsKey('modules')) {
+            include_schemas += _get_module_schemas(params.workflows[it]['modules'])
+        }
+    }
+    return include_schemas
+}
+
+def _get_module_schemas(modules) {
+    def module_schemas = []
+    modules.each { it ->
+        module_schemas << "${params.workflows[it].path}/params.json"
+    }
+    return module_schemas
+}
+
 def get_resources(profile, max_memory, max_cpus) {
     /* Adjust memory/cpu requests for standard profile only */
     def Map resources = [:]

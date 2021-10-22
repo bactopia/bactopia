@@ -1,7 +1,7 @@
-- name: SUBWORKFLOW-test
-  command: bash -c 'nextflow run ./subworkflows/local/bactopia-tools/SUBWORKFLOW/test.nf -entry test_SUBWORKFLOW -c nextflow.config ${BACTOPIA_ARGS}'
+- name: SUBWORKFLOW_NAME-test
+  command: bash -c 'nextflow run ./subworkflows/local/SUBWORKFLOW_NAME/test.nf -entry test_SUBWORKFLOW_NAME -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - SUBWORKFLOW
+    - SUBWORKFLOW_NAME
   files:
     - path: OUTPUTFILE
       contains: ['TEXT_A', 'TEXT_B']

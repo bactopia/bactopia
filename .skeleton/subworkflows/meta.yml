@@ -1,5 +1,5 @@
-name: SUBWORKFLOW
-description: DESCRIPTION_OF_SUBWORKFLOW
+name: SUBWORKFLOW_NAME
+description: SUBWORKFLOW_DESCRIPTION
 keywords:
   - TAGS
 modules:

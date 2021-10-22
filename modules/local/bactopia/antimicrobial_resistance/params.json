@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/antimicrobial_resistance/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "antimicrobial_resistance_parameters": {
+            "title": "Antimicrobial Resistance Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_amr": {
+                    "type": "boolean",
+                    "description": "Skip running AMRFinder+.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "amr_plus": {
+                    "type": "boolean",
+                    "description": "Add the plus genes to the report",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "amr_report_common": {
+                    "type": "boolean",
+                    "description": "Suppress proteins common to a taxonomy group",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "amr_organism": {
+                    "type": "string",
+                    "description": "Taxonomy group: Campylobacter, Escherichia, Klebsiella Salmonella, Staphylococcus, Vibrio",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "amr_ident_min": {
+                    "type": "integer",
+                    "description": "Minimum identity for nucleotide hit (0..1). -1 means use a curated threshold if it exists and 0.9 otherwise",
+                    "default": -1,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "amr_coverage_min": {
+                    "type": "number",
+                    "description": "Minimum coverage of the reference protein",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "amr_translation_table": {
+                    "type": "integer",
+                    "description": "NCBI genetic code for translated BLAST",
+                    "default": 11,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/antimicrobial_resistance_parameters"
+        }
+    ]
+}

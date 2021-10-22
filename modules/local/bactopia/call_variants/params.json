@@ -1,0 +1,95 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/call_variants/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "call_variants_parameters": {
+            "title": "Call Variants Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "snippy_ram": {
+                    "type": "integer",
+                    "description": "Try to keep RAM usage below this many GB",
+                    "default": 4,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "mapqual": {
+                    "type": "integer",
+                    "description": "Minimum read mapping quality to consider",
+                    "default": 60,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "basequal": {
+                    "type": "integer",
+                    "description": "Minimum base quality to consider",
+                    "default": 13,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "mincov": {
+                    "type": "integer",
+                    "description": "Minimum site depth to for calling alleles",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minfrac": {
+                    "type": "integer",
+                    "description": "Minimum proportion for variant evidence (0=AUTO)",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minqual": {
+                    "type": "integer",
+                    "description": "Minimum QUALITY in VCF column 6",
+                    "default": 100,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "maxsoft": {
+                    "type": "integer",
+                    "description": "Maximum soft clipping to allow",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "bwaopt": {
+                    "type": "string",
+                    "description": "Extra BWA MEM options, eg. -x pacbio",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "fbopt": {
+                    "type": "string",
+                    "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "random_tie_break": {
+                    "type": "boolean",
+                    "description": "On references with matching distances, randomly select one.",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "disable_auto_variants": {
+                    "type": "boolean",
+                    "description": "Disable automatic selection of reference genome based on Mash distances",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/call_variants_parameters"
+        }
+    ]
+}
