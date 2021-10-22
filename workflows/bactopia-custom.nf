@@ -6,8 +6,15 @@ nextflow.enable.dsl = 2
     VALIDATE INPUTS
 ========================================================================================
 */
-WorkflowMain.initialise(workflow, params, log, schema_filename=['conf/schema/bactopia.json','conf/schema/generic.json'])
-run_type = WorkflowBactopia.initialise(workflow, params, log)
+SCHEMAS = []
+CUSTOM_STEPS = [:]
+params.workflows[params.wf]['includes'].each { it ->
+    SCHEMAS << "${params.workflows[it].schema}"
+    CUSTOM_STEPS[it] = true
+}
+SCHEMAS << 'conf/schema/generic.json'
+WorkflowMain.initialise(workflow, params, log, schema_filename=SCHEMAS)
+run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SCHEMAS)
 
 /*
 ========================================================================================
@@ -41,12 +48,16 @@ include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
 
+// Custom Steps (based on includes)
+if (CUSTOM_STEPS.containsKey("staphtyper") {
+    include { STAPHTYPER } from '../subworkflows/local/staphtyper/main'
+}
+
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
 
 /*
 ========================================================================================
@@ -56,7 +67,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 workflow BACTOPIA {
     print_efficiency(RESOURCES.MAX_CPUS) 
     datasets = setup_datasets()
-    
 
     // Core steps
     GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
@@ -78,21 +88,11 @@ workflow BACTOPIA {
     MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
     SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
 
-    // Collect Versions
-    ch_versions = Channel.empty()
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
-    ch_versions = ch_versions.mix(QC_READS.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions.first())
-    ch_versions = ch_versions.mix(ANNOTATE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_SKETCH.out.versions.first())
-    ch_versions = ch_versions.mix(ANTIMICROBIAL_RESISTANCE.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(BLAST.out.versions.first())
-    ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
-    ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(SEQUENCE_TYPE.out.versions.first())
-    CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
+    // Run Custom Steps
+    if (CUSTOM_STEPS.containsKey("staphtyper") {
+        // Staphylococcus aureus specific
+        STAPHTYPER(ASSEMBLE_GENOME.out.fna_only)
+    }
 }
 
 /*

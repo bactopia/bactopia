@@ -1,0 +1,337 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/generic.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "optional_parameters": {
+            "title": "Optional Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "outdir": {
+                    "type": "string",
+                    "default": "./",
+                    "description": "Base directory to write results and Nextflow related outputs to",
+                    "fa_icon": "fas fa-folder"
+                },
+                "run_name": {
+                    "type": "string",
+                    "default": "bactopia",
+                    "description": "Name of the directory to hold results (e.g. ${params.outdir}/${params.run_name}/<SAMPLE_NAME>",
+                    "fa_icon": "fas fa-folder"
+                },
+                "skip_compression": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ouput files will not be compressed",
+                    "help": "Using this parameter can lead to a significant increase in the size of the outputs",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "keep_all_files": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keeps all analysis files created",
+                    "help": "By default, intermediate files are removed. This will not affect the ability to resume Nextflow runs, and only occurs at the end of the process.",
+                    "fa_icon": "fas fa-trash-restore",
+                    "hidden": true
+                }
+            }
+        },
+        "max_job_request_options": {
+            "title": "Max Job Request Parameters",
+            "type": "object",
+            "fa_icon": "fab fa-acquisitions-incorporated",
+            "description": "Set the top limit for requested resources for any single job.",
+            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "properties": {
+                "max_retry": {
+                    "type": "integer",
+                    "description": "Maximum times to retry a process before allowing it to fail.",
+                    "default": 3,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of retry attempts for each process. Should be an integer e.g. `--max_retry 1`"
+                },
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum number of CPUs that can be requested for any single job.",
+                    "default": 4,
+                    "fa_icon": "fas fa-microchip",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
+                },
+                "max_memory": {
+                    "type": "integer",
+                    "description": "Maximum amount of memory (in GB) that can be requested for any single job.",
+                    "default": 32,
+                    "fa_icon": "fas fa-memory",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory 8`"
+                },
+                "max_time": {
+                    "type": "integer",
+                    "description": "Maximum amount of time (in minutes) that can be requested for any single job.",
+                    "default": 120,
+                    "fa_icon": "far fa-clock",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time 60`"
+                }
+            }
+        },
+        "nextflow_parameters": {
+            "title": "Nextflow Configuration Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nfconfig": {
+                    "type": "string",
+                    "description": "A Nextflow compatible config file for custom profiles, loaded last and will overwrite existing variables if set.",
+                    "help": "This allows you to create profiles specific to your environment (e.g. SGE, AWS, SLURM, etc...).",
+                    "fa_icon": "fas fa-cog",
+                    "hidden": true
+                },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "copy",
+                    "hidden": true,
+                    "description": "Method used to save pipeline results to output directory.",
+                    "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
+                    "fa_icon": "fas fa-copy",
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ]
+                },
+                "infodir": {
+                    "type": "string",
+                    "description": "Directory to keep pipeline Nextflow logs and reports.",
+                    "default": "${params.outdir}/pipeline_info",
+                    "fa_icon": "fas fa-cogs",
+                    "hidden": true
+                },
+                "force": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Nextflow will overwrite existing output files.",
+                    "fa_icon": "fas fa-recycle",
+                    "hidden": true
+                },
+                "cleanup_workdir": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "After Bactopia is successfully executed, the `work` directory will be deleted.",
+                    "help": "Warning: by doing this you lose the ability to resume workflows.",
+                    "fa_icon": "fas fa-trash-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "nextflow_profile_parameters": {
+            "title": "Nextflow Profile Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "condadir": {
+                    "type": "string",
+                    "description": "Directory to Nextflow should use for Conda environments",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "registry": {
+                    "type": "string",
+                    "default": "dockerhub",
+                    "hidden": true,
+                    "description": "Docker registry to pull containers from.",
+                    "fa_icon": "fas fa-docker",
+                    "enum": [
+                        "dockerhub",
+                        "quay",
+                        "github"
+                    ]
+                },
+                "singularity_cache": {
+                    "type": "string",
+                    "description": "Directory where remote Singularity images are stored.",
+                    "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR evironment variable overrides this parameter",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "queue": {
+                    "type": "string",
+                    "default": "general,high-memory",
+                    "description": "Comma-separated name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM)",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "disable_scratch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "All intermediate files created on worker nodes of will be transferred to the head node.",
+                    "help": "Typically with clusters intermediate results are written to a 'scratch' space and only published result files are transferred back",
+                    "fa_icon": "fas fa-file-import",
+                    "hidden": true
+                }
+            }
+        },
+        "awsbatch_profile_parameters": {
+            "title": "AWS Batch Profile (-profile awsbatch) Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your AWS Batch setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "aws_region": {
+                    "type": "string",
+                    "default": "us-east-1",
+                    "description": "AWS Region to be used by Nextflow",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_volumes": {
+                    "type": "string",
+                    "default": "/opt/conda:/mnt/conda",
+                    "description": "Volumes to be mounted from the EC2 instance to the Docker container",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_cli_path": {
+                    "type": "string",
+                    "default": "/home/ec2-user/conda/bin/aws",
+                    "description": "Path to the AWS CLI for Nextflow to use.",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_upload_storage_class": {
+                    "type": "string",
+                    "default": "STANDARD",
+                    "description": "The S3 storage slass to use for storing files on S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_parallel_transfers": {
+                    "type": "integer",
+                    "default": 8,
+                    "description": "The number of parallele transfers between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_delay_between_attempts": {
+                    "type": "integer",
+                    "default": 15,
+                    "description": "The duration of sleep (in seconds) between each transfer between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_transfer_attempts": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The maximum number of times to retry transferring a file between EC2 and S3",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_max_retry": {
+                    "type": "integer",
+                    "default": 4,
+                    "description": "The maximum number of times to retry a process on AWS Batch",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "aws_ecr_registry": {
+                    "type": "string",
+                    "description": "The ECR registry containing Bactopia related containers.",
+                    "help": "This is useful if you've placed the Bactopia containers on a ECR registry",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                }
+            }
+        },
+        "generic_parameters": {
+            "title": "Helpful Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Uncommonly used parameters that might be useful.",
+            "properties": {
+                "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "fa_icon": "fas fa-palette",
+                    "hidden": true,
+                    "help_text": "Set to disable colourful command line output and live life in monochrome."
+                },
+                "nfdir": {
+                    "type": "boolean",
+                    "description": "Print directory Nextflow has pulled Bactopia to",
+                    "fa_icon": "fas fa-remove-format",
+                    "hidden": true
+                },
+                "sleep_time": {
+                    "type": "integer",
+                    "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
+                    "default": 5,
+                    "fa_icon": "fas fa-clock",
+                    "hidden": true
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-tasks",
+                    "description": "Boolean whether to validate parameters against the schema at runtime",
+                    "hidden": true
+                },
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "show_hidden_params": {
+                    "type": "boolean",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "fas fa-eye-slash",
+                    "hidden": true
+                },
+                "help_all": {
+                    "type": "boolean",
+                    "description": "An alias for --help --show_hidden_params",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "version": {
+                    "type": "boolean",
+                    "description": "Display version text.",
+                    "fa_icon": "fas fa-info"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/optional_parameters"
+        },
+        {
+            "$ref": "#/definitions/nextflow_parameters"
+        },
+        {
+            "$ref": "#/definitions/nextflow_profile_parameters"
+        },
+        {
+            "$ref": "#/definitions/awsbatch_profile_parameters"
+        },
+        {
+            "$ref": "#/definitions/generic_parameters"
+        }
+    ]
+}

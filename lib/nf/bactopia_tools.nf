@@ -15,7 +15,7 @@
     include_list -> a text file with a subset of samples to only include from analysis
 ========================================================================================
 */
-def collect_samples(bactopia_dir, extension, exclude_list, include_list) {
+def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     include_all = true
     inclusions = []
     exclusions = []
@@ -55,6 +55,7 @@ def collect_samples(bactopia_dir, extension, exclude_list, include_list) {
     log.info "Found ${sample_list.size} samples to process"
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for 5 seconds..."
+    log.info "--------------------------------------------------------------------"
     sleep(5000)
     return sample_list
 }
@@ -99,10 +100,10 @@ def _collect_inputs(sample, dir, extension) {
         pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
         pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
 
-        if (path(se).exists()) {
-            return tuple([id:sample, single_end:true], [path(se)])
-        } else if (path(pe1).exists() && path(pe2).exists()) {
-            return tuple([id:sample, single_end:false], [path(pe1), path(pe2)])
+        if (file(se).exists()) {
+            return tuple([id:sample, single_end:true], [file(se)])
+        } else if (file(pe1).exists() && file(pe2).exists()) {
+            return tuple([id:sample, single_end:false], [file(pe1), file(pe2)])
         } else {
             log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
             exit 1
@@ -110,9 +111,9 @@ def _collect_inputs(sample, dir, extension) {
     } else {
         input = "${dir}/${sample}/${PATHS[extension]}/${sample}.${extension}"
         if (file("${input}.gz").exists()) {
-            return tuple([id:sample, is_compressed:true], ("${input}.gz")
+            return tuple([id:sample, is_compressed:true], [file("${input}.gz")])
         } else if (file(assembly).exists()) {
-            return tuple([id:sample, is_compressed:false], ("${input}.gz")
+            return tuple([id:sample, is_compressed:false], [file("${input}")])
         } else {
             log.error("Could not locate ${input} for ${sample}, please verify existence. Unable to continue.")
             exit 1

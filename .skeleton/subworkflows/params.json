@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/subworkflows/local/SUBWORKFLOW_NAME/params.json",
+    "title": "Bactopia SUBWORKFLOW_NAME Subworkflow",
+    "description": "SUBWORKFLOW_DESCRIPTION",
+    "type": "object",
+    "definitions": {
+        "input_parameters": {
+            "title": "Required Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "",
+            "properties": {
+                "bactopia": {
+                    "type": "string",
+                    "description": "The path to bactopia results to use as inputs\n",
+                    "help": "The required inputs will be automatically selected by the subworkflow.",
+                    "fa_icon": "fas fa-file-alt"
+                }
+            }
+        },
+        "filter_parameters": {
+            "title": "Filtering Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "include": {
+                    "type": "string",
+                    "description": "A text file containing sample names (one per line) to include from the analysis",
+                    "help": "The expected format is a single sample per line.",
+                    "fa_icon": "fas fa-angle-double-up"
+                },
+                "exclude": {
+                    "type": "string",
+                    "description": "A text file containing sample names (one per line) to exclude from the analysis",
+                    "help": "The expected format is a single sample per line.",
+                    "fa_icon": "fas fa-angle-double-down"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_parameters"
+        },
+        {
+            "$ref": "#/definitions/filter_parameters"
+        }
+    ]
+}

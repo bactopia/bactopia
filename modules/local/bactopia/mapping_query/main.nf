@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; save_files } from '../../../../lib/nf/functions'
+include { get_resources; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "mapping_query"
 
@@ -16,11 +16,11 @@ process MAPPING_QUERY {
     publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME) }
 
     input:
     tuple val(meta), path(fq)
-    path(query)
+    each path(query)
 
     output:
     path "results/*"

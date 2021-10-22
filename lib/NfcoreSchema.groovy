@@ -17,8 +17,8 @@ class NfcoreSchema {
     //
     // Resolve Schema path relative to main workflow directory
     //
-    public static String getSchemaPath(workflow, schema_filename='nextflow_schema.json') {
-        return "${workflow.projectDir}/${schema_filename}"
+    public static String getSchemaPath(projectdir, schema_filename='nextflow_schema.json') {
+        return "${projectdir}/${schema_filename}"
     }
 
     //
@@ -26,12 +26,16 @@ class NfcoreSchema {
     // whether the given parameters adhere to the specifications
     //
     /* groovylint-disable-next-line UnusedPrivateMethodParameter */
-    public static void validateParameters(workflow, params, log, schema_filename='nextflow_schema.json') {
+    public static void validateParameters(workflow, params, log, schema_filename=['nextflow_schema.json']) {
         def has_error = false
+        def Map schemaParams = [:]
         //=====================================================================//
         // Check for nextflow core params and unexpected params
-        def json = new File(getSchemaPath(workflow, schema_filename=schema_filename)).text
-        def Map schemaParams = (Map) new JsonSlurper().parseText(json).get('definitions')
+        for (schema in schema_filename) {
+            def json = new File(getSchemaPath("${workflow.projectDir}", schema_filename=schema)).text
+            schemaParams += (Map) new JsonSlurper().parseText(json).get('definitions')
+        }
+
         def nf_params = [
             // Options for base `nextflow` command
             'bg',
@@ -138,7 +142,7 @@ class NfcoreSchema {
 
         //=====================================================================//
         // Validate parameters against the schema
-        InputStream input_stream = new File(getSchemaPath(workflow, schema_filename=schema_filename)).newInputStream()
+        InputStream input_stream = new File(getSchemaPath(workflow.projectDir, schema_filename=schema_filename)).newInputStream()
         JSONObject raw_schema = new JSONObject(new JSONTokener(input_stream))
 
         // Remove anything that's in params.schema_ignore_params
@@ -186,13 +190,15 @@ class NfcoreSchema {
     //
     // Beautify parameters for --help
     //
-    public static String paramsHelp(workflow, params, command, schema_filename='nextflow_schema.json', print_required=false) {
+    public static Map paramsHelp(workflow, params, command, schema_filename=['nextflow_schema.json'], print_example=true, print_required=false) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
-        String output  = ''
-        output        += 'Typical pipeline command:\n\n'
-        output        += "  ${colors.cyan}${command}${colors.reset}\n\n"
-        Map params_map = paramsLoad(getSchemaPath(workflow, schema_filename=schema_filename))
+        String output = ''
+        if (print_example == true) {
+            output += 'Typical pipeline command:\n\n'
+            output += "  ${colors.cyan}${command}${colors.reset}\n\n"
+        }
+        Map params_map = paramsLoad("${workflow.projectDir}", schema_filename)
         Integer max_chars  = paramsMaxChars(params_map) + 1
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
@@ -243,21 +249,20 @@ class NfcoreSchema {
                 output += group_output
             }
         }
-        if (num_hidden > 0){
-            output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
-        }
-        output += NfcoreTemplate.dashedLine(params.monochrome_logs)
-        return output
+        def Map help = [:]
+        help['output'] = output
+        help['num_hidden'] = num_hidden
+        return help
     }
 
     //
     // Beautify parameters for --help
     //
-    public static String paramsRequired(workflow, params, schema_filename='nextflow_schema.json') {
+    public static String paramsRequired(workflow, params, schema_filename=['nextflow_schema.json']) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
         String output  = ''
-        Map params_map = paramsLoad(getSchemaPath(workflow, schema_filename=schema_filename))
+        Map params_map = paramsLoad("${workflow.projectDir}", schema_filename)
         Integer max_chars  = paramsMaxChars(params_map) + 1
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
@@ -318,7 +323,7 @@ class NfcoreSchema {
     //
     // Groovy Map summarising parameters/workflow options used by the pipeline
     //
-    public static LinkedHashMap paramsSummaryMap(workflow, params, schema_filename='nextflow_schema.json') {
+    public static LinkedHashMap paramsSummaryMap(workflow, params, schema_filename=['nextflow_schema.json']) {
         // Get a selection of core Nextflow workflow options
         def Map workflow_summary = [:]
         if (workflow.revision) {
@@ -341,7 +346,7 @@ class NfcoreSchema {
         // Get pipeline parameters defined in JSON Schema
         def Map params_summary = [:]
         def blacklist  = ['hostnames']
-        def params_map = paramsLoad(getSchemaPath(workflow, schema_filename=schema_filename))
+        def params_map = paramsLoad("${workflow.projectDir}", schema_filename)
         for (group in params_map.keySet()) {
             def sub_params = new LinkedHashMap()
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
@@ -518,10 +523,10 @@ class NfcoreSchema {
     //
     // This function tries to read a JSON params file
     //
-    private static LinkedHashMap paramsLoad(String json_schema) {
+    private static LinkedHashMap paramsLoad(String projectdir, ArrayList json_schema) {
         def params_map = new LinkedHashMap()
         try {
-            params_map = paramsRead(json_schema)
+            params_map = paramsRead(projectdir, json_schema)
         } catch (Exception e) {
             println "Could not read parameters settings from JSON. $e"
             params_map = new LinkedHashMap()
@@ -537,10 +542,15 @@ class NfcoreSchema {
     //    ....
     // Group
     //    -
-    private static LinkedHashMap paramsRead(String json_schema) throws Exception {
-        def json = new File(json_schema).text
-        def Map schema_definitions = (Map) new JsonSlurper().parseText(json).get('definitions')
-        def Map schema_properties = (Map) new JsonSlurper().parseText(json).get('properties')
+    private static LinkedHashMap paramsRead(String projectdir, ArrayList json_schema) throws Exception {
+         def Map schema_definitions = [:]
+         def Map schema_properties = [:]
+
+        for (schema in json_schema) {
+            def json = new File(getSchemaPath(projectdir, schema)).text
+            schema_definitions += (Map) new JsonSlurper().parseText(json).get('definitions')
+            //schema_properties += (Map) new JsonSlurper().parseText(json).get('properties')
+        }
         /* Tree looks like this in nf-core schema
         * definitions <- this is what the first get('definitions') gets us
                 group 1

@@ -8,7 +8,7 @@ class WorkflowBactopia {
     //
     // Check and validate parameters
     //
-    public static String initialise(workflow, params, log, schema_filename='conf/schema/bactopia.json') {
+    public static String initialise(workflow, params, log, schema_filename=['conf/schema/bactopia.json']) {
         def Integer error = 0
         def String run_type = ""
 
@@ -78,15 +78,21 @@ class WorkflowBactopia {
         // Check for existing output directory
         if (!workflow.resume) {
             def run_dir = "${params.outdir}/${params.run_name}"
-            if (Utils.fileExists(run_dir) && !params.force) {
-                log.error("Output directory (${run_dir}) exists, Bactopia will not continue unless '--force' is used.")
+            def Integer files_found = 0
+            new File(run_dir).eachFile { item ->
+                if (item.getName() != "nf-reports") {
+                    files_found += 1
+                }
+            }
+            if (files_found > 0 && !params.force) {
+                log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
                 error += 1
             }
         }
 
         if (error > 0) {
-            log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue").trim()
-            exit 1
+            log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue")
+            System.exit(1)
         }
         return run_type
     }

@@ -1,10 +1,12 @@
 /*
-  Utility functions used in Bactopia DSL2 module files
+========================================================================================
+    Nextflow Functions specific to Bactopia
+========================================================================================
 */
 import nextflow.util.SysHelper
 
 def get_resources(profile, max_memory, max_cpus) {
-        // Adjust memory/cpu requests for standard profile only
+    /* Adjust memory/cpu requests for standard profile only */
     def Map resources = [:]
     resources.MAX_MEMORY = ['standard', 'docker', 'singularity'].contains(profile) ? _get_max_memory(max_memory).GB : (max_memory).GB
     resources.MAX_MEMORY_INT = resources.MAX_MEMORY.toString().split(" ")[0]
@@ -14,8 +16,8 @@ def get_resources(profile, max_memory, max_cpus) {
     return resources
 }
 
-/* Get the maximum available memory for the given system */
 def _get_max_memory(requested) {
+    /* Get the maximum available memory for the given system */
     available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toGiga().toString().split(" ")[0])).toInteger()
     if (available < requested) {
         log.warn "Maximum memory (${requested}) was adjusted to fit your system (${available})"
@@ -25,8 +27,8 @@ def _get_max_memory(requested) {
     return requested
 }
 
-/* Get the maximum available cpus for the given system */
 def _get_max_cpus(requested) {
+    /* Get the maximum available cpus for the given system */
     available = SysHelper.getAvailCpus()
     if (available < requested) {
         log.warn "Maximum CPUs (${requested}) was adjusted to fit your system (${available})"
@@ -36,28 +38,30 @@ def _get_max_cpus(requested) {
     return requested
 }
 
-/* Inform user how local bactiopia run will use resources */
 def print_efficiency(cpus) {
+    /* Inform user how local bactiopia run will use resources */
     if (['standard', 'docker', 'singularity'].contains(workflow.profile)) {
         // This is a local run on a single machine
         available = SysHelper.getAvailCpus()
         tasks = available / cpus
-        log.info ""
         log.info """
-            Each task will use ${cpus} CPUs out of the available ${available} CPUs. At most ${tasks} task(s) will be run at 
-            a time, this can affect the efficiency of Bactopia.
+            Each task will use ${cpus} CPUs out of the available ${available} CPUs. At most 
+            ${tasks} task(s) will be run at a time, this can affect the efficiency 
+            of Bactopia. You can use the '-qs' parameter to alter the number of 
+            tasks to run at a time (e.g. '-qs 2', means only 2 tasks or a maximum 
+            of ${2 * cpus} CPUs will be used at once)
         """.stripIndent()
         log.info ""
     }
 }
 
-def save_files(Map args) {
+def saveFiles(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
     final_output = ""
     found_ignore = false
     logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
+    subworkflow = args.containsKey('subworkflow') ? args.subworkflow : ""
     if (args.filename) {
-
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
             // Do not publish versions.yml unless running from pytest workflow
             // Adapted from nf-core/modules
@@ -65,10 +69,10 @@ def save_files(Map args) {
         } else if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
+            final_output = "logs/${subworkflow}/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
         } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt') || args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
             // Its a version file or  program specific log files
-            final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
+            final_output = "logs/${subworkflow}/${args.process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
             filename = args.filename
@@ -78,7 +82,7 @@ def save_files(Map args) {
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
             final_output = null
-            if (filename.endsWith("-error.txt")) {
+            if (filename.endsWith("-error.txt") || args.publish_to_base == true) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
                 final_output = "blast/${filename}"
@@ -99,4 +103,41 @@ def save_files(Map args) {
 
         return final_output ? final_output.replace("//", "/") : final_output
     }
+}
+
+/*
+========================================================================================
+    Nextflow Functions specific to nf-core/modules
+    Taken from nf-vore/modules functions.nf
+========================================================================================
+*/
+
+def getSoftwareName(task_process, full_name) {
+    /* Extract name of software tool from process name using $task.process */
+    if (full_name == true) {
+        return task_process.tokenize(':')[-1].toLowerCase()
+    } else {
+        return task_process.tokenize(':')[-1].tokenize('_')[0].toLowerCase()
+    }
+}
+
+def getProcessName(task_process) {
+    /* Extract name of module from process name using $task.process */
+    return task_process.tokenize(':')[-1].toLowerCase()
+}
+
+def initOptions(Map args) {
+    /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */
+    def Map options = [:]
+    options.args            = args.args ?: ''
+    options.args2           = args.args2 ?: ''
+    options.args3           = args.args3 ?: ''
+    options.publish_by_meta = args.publish_by_meta ?: []
+    options.publish_dir     = args.publish_dir ?: ''
+    options.publish_files   = args.publish_files
+    options.suffix          = args.suffix ?: ''
+    options.subworkflow     = args.subworkflow ?: ''
+    options.publish_to_base = args.publish_to_base ?: false
+    options.full_software_name = args.full_software_name ?: false
+    return options
 }

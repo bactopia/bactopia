@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; save_files } from '../../../../lib/nf/functions'
+include { get_resources; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "assemble_genome"
 
@@ -14,13 +14,14 @@ process ASSEMBLE_GENOME {
     publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, ignore: ["-genome-size.txt", ".fastq.gz"]) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, ignore: ["-genome-size.txt", ".fastq.gz"]) }
 
     input:
     tuple val(meta), path(fq), path(extra), path(genome_size)
 
     output:
     tuple val(meta), path(genome_size), path("results/${meta.id}.{fna,fna.gz}"), file("total_contigs_*"), emit: fna, optional: true
+    tuple val(meta), path("results/${meta.id}.{fna,fna.gz}"), emit: fna_only, optional: true
     tuple val(meta), path(fq), path("results/${meta.id}.{fna,fna.gz}"), emit: fna_fastq, optional: true
     tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
@@ -33,7 +34,7 @@ process ASSEMBLE_GENOME {
     // Unicycler
     no_miniasm = params.no_miniasm ? "--no_miniasm" : ""
     no_rotate = params.no_rotate ? "--no_rotate" : ""
-    no_pilon = params.no_pilon ? "--no_pilon" : ""
+    no_pilon = params.no_polish ? "--no_pilon" : ""
     keep = params.keep_all_files ? "--keep 3" : "--keep 1"
     is_hybrid = meta.runtype == "hybrid" ? "-l ${extra}" : ""
     unicycler_opts = "${no_miniasm} ${no_rotate} ${no_pilon} ${is_hybrid} ${keep}"
@@ -69,7 +70,7 @@ process ASSEMBLE_GENOME {
     if [ "!{use_original_assembly}" == "true" ]; then
         mkdir ${OUTDIR}
         gzip -cd !{extra} > ${OUTDIR}/!{meta.id}.fna
-    elif [[ "!{meta.runtype}" == "hybrid"  || "!{params.assembler}" == "unicycler" ]]; then
+    elif [[ "!{meta.runtype}" == "hybrid"  || "!{params.use_unicycler}" == "true" ]]; then
         unicycler -1 !{fq[0]} -2 !{fq[1]} -o ${OUTDIR}/ --no_correct \
             --min_fasta_length !{params.min_contig_len} \
             --threads !{task.cpus} \
@@ -153,7 +154,7 @@ process ASSEMBLE_GENOME {
             grep -E "\\.fna$|\\.fasta$|\\.fa$|\\.gfa$" | \
             xargs -I {} pigz -n --best -p !{task.cpus} {}
     fi
-    mv ${OUTDIR}/*.log ./
+    find ${OUTDIR} -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml

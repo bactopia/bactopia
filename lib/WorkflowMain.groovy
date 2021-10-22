@@ -23,10 +23,29 @@ class WorkflowMain {
     // Print help to screen if required
     //
     public static String help(workflow, params, log, schema_filename) {
-        def command = "${workflow.manifest.name} --fastqs samples.txt --datasets datasets/ --species 'Staphylococcus aureus' -profile singularity"
+        Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         def help_string = ''
-        help_string += NfcoreTemplate.logo(workflow, params.monochrome_logs)
-        help_string += NfcoreSchema.paramsHelp(workflow, params, command, schema_filename)
+        def num_hidden = 0
+        def logo_name = "bactopia"
+        def command = "${workflow.manifest.name} --fastqs samples.txt --datasets datasets/ --species 'Staphylococcus aureus' -profile singularity"
+        if (params.wf != "bactopia") {
+            if (params.wf == "staphopia") {
+                logo_name = "staphopia"
+                command = "staphopia --fastqs samples.txt --datasets datasets/ --species 'Staphylococcus aureus' -profile singularity"
+            } else {
+                logo_name = "tools"
+                command = "${workflow.manifest.name} tools ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
+            }
+        }
+        help_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
+        def print_example = true
+        Map parsed_help = NfcoreSchema.paramsHelp(workflow, params, command, schema_filename, print_example)
+        help_string += parsed_help['output']
+        num_hidden += parsed_help['num_hidden']
+        if (num_hidden > 0){
+            help_string += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
+        }
+        help_string += NfcoreTemplate.dashedLine(params.monochrome_logs)
         help_string += '\n' + citation(workflow) + '\n'
         help_string += NfcoreTemplate.dashedLine(params.monochrome_logs)
         return help_string
@@ -37,7 +56,15 @@ class WorkflowMain {
     //
     public static String paramsSummaryLog(workflow, params, log, schema_filename) {
         def summary_log = ''
-        summary_log += NfcoreTemplate.logo(workflow, params.monochrome_logs)
+        def logo_name = "bactopia"
+        if (params.wf != "bactopia") {
+            if (params.wf == "staphopia") {
+                logo_name = "staphopia"
+            } else {
+                logo_name = "tools"
+            }
+        }
+        summary_log += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
         summary_log += NfcoreSchema.paramsSummaryLog(workflow, params, schema_filename)
         summary_log += '\n' + citation(workflow) + '\n'
         summary_log += NfcoreTemplate.dashedLine(params.monochrome_logs)
@@ -47,25 +74,33 @@ class WorkflowMain {
     //
     // Validate parameters and print summary to screen
     //
-    public static void initialise(workflow, params, log, schema_filename='nextflow_schema.json') {
+    public static void initialise(workflow, params, log, schema_filename=['nextflow_schema.json']) {
         // Print help to screen if required
         if (params.help || params.help_all) {
             log.info help(workflow, params, log, schema_filename)
             System.exit(0)
         }
 
-        // Validate workflow parameters via the JSON schema
         if (params.validate_params) {
+            // Validate workflow parameters via the JSON schema
             NfcoreSchema.validateParameters(workflow, params, log, schema_filename)
         }
-
         // Print parameter summary log to screen
         log.info paramsSummaryLog(workflow, params, log, schema_filename)
 
         // Check that conda channels are set-up correctly
-        //if (params.enable_conda) {
-        //    Utils.checkCondaChannels(log)
-        //}
+        if (params.enable_conda) {
+            log.warn "Conda Disclaimer"
+            log.warn "If you have access to Docker or Singularity, please consider"
+            log.warn "running Bactopia using containers. The containers are less"
+            log.warn "susceptible to Conda environment related issues (e.g. version"
+            log.warn "conflicts)."
+            log.warn ""
+            log.warn "To use containers, you can use the profile parameter"
+            log.warn "    Docker: -profile docker"
+            log.warn "    Singularity: -profile singularity"
+            log.info NfcoreTemplate.dashedLine(params.monochrome_logs)
+        }
 
         // Check AWS batch settings
         NfcoreTemplate.awsBatch(workflow, params)

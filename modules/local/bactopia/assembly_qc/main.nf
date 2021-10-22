@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; save_files } from '../../../../lib/nf/functions'
+include { get_resources; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "assembly_qc"
 
@@ -14,7 +14,7 @@ process ASSEMBLY_QC {
     publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir:method) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir:method) }
 
     input:
     tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
@@ -39,7 +39,13 @@ process ASSEMBLY_QC {
     ignore_thresholds = params.ignore_thresholds ? '--ignore_thresholds' : ''
     checkm_opts = [full_tree, checkm_ali, checkm_nt, force_domain, no_refinement, individual_markers, 
                    skip_adj_correction, skip_pseudogene_correction, ignore_thresholds].join(" ")
+    is_compressed = fasta.getName().endsWith(".gz") ? true : false
+    fasta_name = fasta.getName().replace(".gz", "")
     '''
+    if [ "!{is_compressed}" == "true" ]; then
+        gzip -c -d !{fasta} > !{fasta_name}
+    fi
+
     RAN_CHECKM="0"
     if [ "!{method}" == "checkm" ]; then
         # CheckM
@@ -59,7 +65,7 @@ process ASSEMBLY_QC {
                 --unique !{params.checkm_unique} \
                 --multi !{params.checkm_multi} \
                 --aai_strain !{params.aai_strain} \
-                --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.out
+                --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.txt
             mv checkm/checkm.log ./
 
             if [[ !{params.skip_compression} == "false" ]]; then
@@ -74,7 +80,7 @@ process ASSEMBLY_QC {
             est_ref_size="--est-ref-size ${GENOME_SIZE}"
         fi
 
-        quast !{fasta} ${est_ref_size} \
+        quast !{fasta_name} ${est_ref_size} \
             -o quast \
             --threads !{task.cpus} \
             --glimmer \

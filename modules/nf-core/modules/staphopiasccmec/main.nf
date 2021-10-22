@@ -1,15 +1,18 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from './functions'
+include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
 
 params.options = [:]
 options        = initOptions(params.options)
+publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process STAPHOPIASCCMEC {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${params.outdir}",
+
+    publishDir "${publish_dir}/${meta.id}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
+        overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
 
     conda (params.enable_conda ? "bioconda::staphopia-sccmec=1.0.0" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -23,6 +26,8 @@ process STAPHOPIASCCMEC {
 
     output:
     tuple val(meta), path("*.tsv"), emit: tsv
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
     path "versions.yml"           , emit: versions
 
     script:
@@ -32,7 +37,7 @@ process STAPHOPIASCCMEC {
 
     cat <<-END_VERSIONS > versions.yml
     ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$(staphopia-sccmec --version 2>&1 | sed 's/^.*staphopia-sccmec //')
+        staphopia-sccmec: \$(staphopia-sccmec --version 2>&1 | sed 's/^.*staphopia-sccmec //')
     END_VERSIONS
     """
 }

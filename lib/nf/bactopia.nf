@@ -348,7 +348,7 @@ def setup_datasets() {
                             log.info "${mapping_path}"
                             mapping_total = file(mapping_path).list().size()
                             if (mapping_total > 0) {
-                                datasets['mapping'] = mapping_path
+                                datasets['mapping'] << mapping_path
                             }
                             log.info "Found ${mapping_total} FASTAs to align reads against"
                         }
@@ -410,5 +410,6 @@ def setup_datasets() {
     log.info "\nIf something looks wrong, now's your chance to back out (CTRL+C 3 times). "
     log.info "Sleeping for ${params.sleep_time} seconds..."
     sleep(params.sleep_time * 1000)
+    log.info "--------------------------------------------------------------------"
     return datasets
 }

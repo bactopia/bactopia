@@ -247,32 +247,46 @@ class NfcoreTemplate {
     //
     public static String dashedLine(monochrome_logs) {
         Map colors = logColours(monochrome_logs)
-        return "-${colors.dim}----------------------------------------------------${colors.reset}-"
+        return "-${colors.dim}------------------------------------------------------------------${colors.reset}-"
     }
 
     //
     // nf-core logo
     //
-    public static String logo(workflow, monochrome_logs, is_staphopia=false) {
+    public static String logo(workflow, monochrome_logs, logo_name="bactopia", worflow_name="bactopia") {
         Map colors = logColours(monochrome_logs)
-        if (is_staphopia) {
+        if (logo_name == "staphopia") {
             String.format(
                 """\n
-                ${dashedLine(monochrome_logs)}
-                ${colors.blue}     _              _                 _            ${colors.reset}
-                ${colors.blue} ___| |_ __ _ _ __ | |__   ___  _ __ (_) __ _      ${colors.reset}
-                ${colors.blue}/ __| __/ _` | '_ \\| '_ \\ / _ \\| '_ \\| |/ _` | ${colors.reset}
-                ${colors.blue}\\__ \\ || (_| | |_) | | | | (_) | |_) | | (_| |   ${colors.reset}
-                ${colors.blue}|___/\\__\\__,_| .__/|_| |_|\\___/| .__/|_|\\__,_| ${colors.reset}
-                ${colors.blue}             |_|               |_|                 ${colors.reset}
-                ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
-                ${dashedLine(monochrome_logs)}
+                -${colors.dim}------------------------------------------------${colors.reset}-
+                ${colors.blue}       _              _                 _            ${colors.reset}
+                ${colors.blue}   ___| |_ __ _ _ __ | |__   ___  _ __ (_) __ _      ${colors.reset}
+                ${colors.blue}  / __| __/ _` | '_ \\| '_ \\ / _ \\| '_ \\| |/ _` | ${colors.reset}
+                ${colors.blue}  \\__ \\ || (_| | |_) | | | | (_) | |_) | | (_| |   ${colors.reset}
+                ${colors.blue}  |___/\\__\\__,_| .__/|_| |_|\\___/| .__/|_|\\__,_| ${colors.reset}
+                ${colors.blue}               |_|               |_|                 ${colors.reset}
+                ${colors.purple}  staphopia v${workflow.manifest.version}${colors.reset}
+                -${colors.dim}------------------------------------------------${colors.reset}-
+                """.stripIndent()
+            )
+        } else if (logo_name == "tools") {
+            String.format(
+                """\n
+                -${colors.dim}------------------------------------------------------------------${colors.reset}-
+                ${colors.blue}   _                _              _         _              _              ${colors.reset}
+                ${colors.blue}  | |__   __ _  ___| |_ ___  _ __ (_) __ _  | |_ ___   ___ | |___          ${colors.reset}
+                ${colors.blue}  | '_ \\ / _` |/ __| __/ _ \\| '_ \\| |/ _` | | __/ _ \\ / _ \\| / __|    ${colors.reset}
+                ${colors.blue}  | |_) | (_| | (__| || (_) | |_) | | (_| | | || (_) | (_) | \\__ \\        ${colors.reset}
+                ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_|  \\__\\___/ \\___/|_|___/ ${colors.reset}
+                ${colors.blue}                            |_|                                            ${colors.reset}
+                ${colors.purple}  ${workflow.manifest.name} tools ${worflow_name} v${workflow.manifest.version}${colors.reset}
+                -${colors.dim}------------------------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
         } else {
             String.format(
                 """\n
-                ${dashedLine(monochrome_logs)}
+                -${colors.dim}-------------------------------------------${colors.reset}-
                 ${colors.blue}   _                _              _             ${colors.reset}
                 ${colors.blue}  | |__   __ _  ___| |_ ___  _ __ (_) __ _       ${colors.reset}
                 ${colors.blue}  | '_ \\ / _` |/ __| __/ _ \\| '_ \\| |/ _` |   ${colors.reset}
@@ -280,7 +294,7 @@ class NfcoreTemplate {
                 ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}                            |_|                  ${colors.reset}
                 ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
-                ${dashedLine(monochrome_logs)}
+                -${colors.dim}-------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
         }

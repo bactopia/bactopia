@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources;save_files } from '../../../../lib/nf/functions'
+include { get_resources;saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 PROCESS_NAME = "blast"
 
@@ -9,14 +9,14 @@ process BLAST {
     /*
     Query gene FASTA files against annotated assembly using BLAST
     */
-    tag "${meta.id} - ${blast_exe}"
+    tag "${meta.id} - ${query}"
     label "max_cpus"
     label PROCESS_NAME
 
     publishDir "${params.outdir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> save_files(filename:filename, process_name:PROCESS_NAME, logs_subdir: query) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir: query) }
 
     input:
     tuple val(meta), path(blastdb, stageAs: 'blastdb/*')
@@ -29,7 +29,6 @@ process BLAST {
     path "versions.yml", emit: versions
 
     shell:
-    blast_exe = query == "proteins" ? 'tblastn' : 'blastn'
     '''
     OUTDIR=results/!{query}
     mkdir -p ${OUTDIR}
@@ -80,9 +79,10 @@ process BLAST {
 
     cat <<-END_VERSIONS > versions.yml
     blast:
-        !{blast_exe}: $(echo $(!{blast_exe} -version 2>&1) | sed 's/^.*!{blast_exe}: //;s/ .*$//')
+        blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
         parallel: $(echo $(parallel --version 2>&1) | sed 's/^GNU parallel //;s/ .*$//')
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        tblastn: $(echo $(tblastn -version 2>&1) | sed 's/^.*tblastn: //;s/ .*$//') 
     END_VERSIONS
     '''
 

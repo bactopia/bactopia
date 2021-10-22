@@ -6,15 +6,16 @@ nextflow.enable.dsl = 2
     VALIDATE INPUTS
 ========================================================================================
 */
-WorkflowMain.initialise(workflow, params, log, schema_filename=['conf/schema/bactopia.json','conf/schema/generic.json'])
-run_type = WorkflowBactopia.initialise(workflow, params, log)
+SCHEMAS = ['conf/schema/bactopia-tools.json', params.workflows[params.wf].schema,'conf/schema/generic.json']
+WorkflowMain.initialise(workflow, params, log, schema_filename=SCHEMAS)
+WorkflowBactopiaTools.initialise(workflow, params, log, schema_filename=SCHEMAS)
 
 /*
 ========================================================================================
     CONFIG FILES
 ========================================================================================
 */
-include { create_input_channel; setup_datasets } from '../lib/nf/bactopia'
+include { collect_samples } from '../lib/nf/bactopia_tools'
 include { get_resources; print_efficiency } from '../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 
@@ -24,22 +25,19 @@ RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 ========================================================================================
 */
 
-// Core
+/* All certain steps to be rerun
 include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
 include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
-include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main'
-include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
-include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main'
-include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
-
-// Require Datasets
 include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
-include { ARIBA_ANALYSIS } from '../modules/local/bactopia/ariba_analysis/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
 include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
-include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
+*/
+// Subworkflows
+if (params.wf == 'staphtyper') {
+    include { STAPHTYPER } from '../subworkflows/local/staphtyper/main'
+}
 
 /*
 ========================================================================================
@@ -47,51 +45,40 @@ include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
 ========================================================================================
 */
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
-
+/*
+include { AGRVATE } from '../modules/nf-core/modules/agrvate/main'
+include { CSVTK_CONCAT } from '../modules/nf-core/modules/csvtk/concat/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+include { FASTANI } from '../modules/nf-core/modules/fastani/main'
+include { GTDBTK_CLASSIFYWF } from '../modules/nf-core/modules/gtdbtk/classifywf/main'
+include { HICAP } from '../modules/nf-core/modules/hicap/main'
+include { IQTREE } from '../modules/nf-core/modules/iqtree/main'
+include { ISMAPPER } from '../modules/nf-core/modules/ismapper/main'
+include { KLEBORATE } from '../modules/nf-core/modules/kleborate/main'
+include { MASHTREE } from '../modules/nf-core/modules/mashtree/main'
+include { PIRATE } from '../modules/nf-core/modules/pirate/main'
+include { PROKKA } from '../modules/nf-core/modules/prokka/main'
+include { ROARY } from '../modules/nf-core/modules/roary/main'
+include { SNPDISTS } from '../modules/nf-core/modules/snpdists/main'
+include { SPATYPER } from '../modules/nf-core/modules/spatyper/main'
+include { STAPHOPIASCCMEC } from '../modules/nf-core/modules/staphopiasccmec/main'
+*/
 /*
 ========================================================================================
     RUN MAIN WORKFLOW
 ========================================================================================
 */
-workflow BACTOPIA {
-    print_efficiency(RESOURCES.MAX_CPUS) 
-    datasets = setup_datasets()
-    
+workflow BACTOPIATOOLS {
+    print_efficiency(RESOURCES.MAX_CPUS)
+    samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
+    ch_versions = Channel.empty()
 
-    // Core steps
-    GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
-    QC_READS(GATHER_SAMPLES.out.raw_fastq)
-    ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
-    ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna, Channel.fromList(['checkm', 'quast']))
-    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna, Channel.fromPath(datasets['proteins']), Channel.fromPath(datasets['training_set']))
-    MINMER_SKETCH(QC_READS.out.fastq)
-
-    // Optional steps that require datasets
-    // Species agnostic
-    ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
-    ARIBA_ANALYSIS(QC_READS.out.fastq, datasets['ariba'])
-    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
-
-    // Species Specific
-    BLAST(ASSEMBLE_GENOME.out.blastdb, datasets['blast'])
-    CALL_VARIANTS(QC_READS.out.fastq, datasets['references'])
-    MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
-    SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
+    if (params.wf == 'staphtyper') {
+        STAPHTYPER(samples)
+        ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
+    }
 
     // Collect Versions
-    ch_versions = Channel.empty()
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
-    ch_versions = ch_versions.mix(QC_READS.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions.first())
-    ch_versions = ch_versions.mix(ANNOTATE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_SKETCH.out.versions.first())
-    ch_versions = ch_versions.mix(ANTIMICROBIAL_RESISTANCE.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(BLAST.out.versions.first())
-    ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
-    ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(SEQUENCE_TYPE.out.versions.first())
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 
@@ -104,7 +91,7 @@ workflow.onComplete {
     workDir = new File("${workflow.workDir}")
 
     println """
-    Bactopia Execution Summary
+    Bactopia Tools: `${params.wf} Execution Summary
     ---------------------------
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}

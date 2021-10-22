@@ -1,14 +1,18 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from './functions'
+include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../../lib/nf/functions'
 
 params.options = [:]
 options        = initOptions(params.options)
+publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'
-    publishDir "${params.outdir}",
+    publishDir "${publish_dir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:'pipeline_info', meta:[:], publish_by_meta:[]) }
+        overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name),
+                                        subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
+
 
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
     conda (params.enable_conda ? "bioconda::multiqc=1.11" : null)
@@ -22,9 +26,12 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     path versions
 
     output:
-    path "software_versions.yml"    , emit: yml
+    path "software_versions.yml", emit: yml
     path "software_versions_mqc.yml", emit: mqc_yml
-    path "versions.yml"             , emit: versions
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
+
 
     script:
     """

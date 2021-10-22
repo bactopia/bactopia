@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/subworkflows/local/staphtyper/params.json",
+    "title": "Bactopia StaphTyper Subworkflow",
+    "description": "A subworkflow for typing certain features of Staphylococcus aureus",
+    "type": "object",
+    "definitions": {
+        "agrvate_parameters": {
+            "title": "AgrVATE Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "typing_only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "spatyper_parameters": {
+            "title": "spaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "repeats": {
+                    "type": "string",
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "repeat_order": {
+                    "type": "string",
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "do_enrich": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "sccmec_parameters": {
+            "title": "staphopia-sccmec Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "hamming": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report the results as hamming distances",
+                    "help": "This is useful to determine how similar the hit was, the default is either perfect match or not",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/agrvate_parameters"
+        },
+        {
+            "$ref": "#/definitions/spatyper_parameters"
+        },
+        {
+            "$ref": "#/definitions/sccmec_parameters"
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+- name: staphtyper-test
+  command: bash -c 'nextflow run ./subworkflows/local/bactopia-tools/staphtyper/test.nf -entry test_staphtyper -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - staphtyper
+  files:
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.log
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.out
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.sh
+      md5sum: cf0c4bd5a792afb0bd1cdfc5460a6454
+    - path: output/logs/staphtyper/spatyper/nf-spatyper.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/staphtyper/spatyper/versions.yml
+      md5sum: a29aff79dd4171fc5d1af70d448e9a67
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.sh
+      md5sum: d876f58029a329c6e54d23af5264b6f3
+    - path: output/logs/staphtyper/staphopiasccmec/nf-staphopiasccmec.trace
+      contains: ['nextflow.trace']
+    - path: output/logs/staphtyper/staphopiasccmec/versions.yml
+      md5sum: cca7216c9b2a322f9f97b49ccf487cc9
+    - path: output/staphtyper/spatyper/output.tsv
+      md5sum: 6afe7a90c591e32107d86c0e81029f54
+    - path: output/staphtyper/staphopiasccmec/output.tsv
+      md5sum: f631e5f4c80dc8ce004d72d9a3c56f58

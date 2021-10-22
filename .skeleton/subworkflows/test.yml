@@ -1,5 +1,5 @@
 - name: SUBWORKFLOW-test
-  command: bash -c 'nextflow run ./suborkflows/local/bactopia-tools/SUBWORKFLOW/test.nf -entry test_SUBWORKFLOW -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/bactopia-tools/SUBWORKFLOW/test.nf -entry test_SUBWORKFLOW -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - SUBWORKFLOW
   files:
