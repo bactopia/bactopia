@@ -263,7 +263,7 @@ class NfcoreSchema {
         Integer num_hidden = 0
         String output  = ''
         Map params_map = paramsLoad("${workflow.projectDir}", schema_filename)
-        Integer max_chars  = paramsMaxChars(params_map) + 1
+        Integer max_chars = paramsMaxChars(params_map) + 1
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
         for (group in params_map.keySet()) {
@@ -315,6 +315,45 @@ class NfcoreSchema {
         }
         if (num_hidden > 0){
             output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
+        }
+        output += NfcoreTemplate.dashedLine(params.monochrome_logs)
+        return output
+    }
+
+    //
+    // Beautify parameters for --list_wfs
+    //
+    public static String listWorkflows(workflow, params) {
+        Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
+        Integer num_hidden = 0
+        String output  = ''
+        Integer max_chars = params.workflows.keySet().sort({ a, b -> b.length() <=> a.length() })[0].length() + 1
+        Integer desc_indent = max_chars + 14
+        Integer dec_linewidth = 160 - desc_indent
+        for (group in params.available_workflows.keySet()) {
+            output += colors.underlined + colors.bold + group + colors.reset + '\n'
+            for (wf in params.available_workflows[group]) {
+                def description = params.workflows[wf].description
+                def description_default = description 
+                // Wrap long description texts
+                // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
+                if (description_default.length() > dec_linewidth){
+                    List olines = []
+                    String oline = "" // " " * indent
+                    description_default.split(" ").each() { wrd ->
+                        if ((oline.size() + wrd.size()) <= dec_linewidth) {
+                            oline += wrd + " "
+                        } else {
+                            olines += oline
+                            oline = wrd + " "
+                        }
+                    }
+                    olines += oline
+                    description_default = olines.join("\n" + " " * desc_indent)
+                }
+                output += "  " +  wf.padRight(max_chars) + description_default.padRight(10) + '\n'
+            }
+            output += '\n'
         }
         output += NfcoreTemplate.dashedLine(params.monochrome_logs)
         return output

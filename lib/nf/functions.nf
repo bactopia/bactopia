@@ -25,7 +25,7 @@ def get_schemas() {
         schemas += _get_module_schemas(params.workflows[params.wf]["modules"])
     } else if (params.workflows[params.wf].containsKey('path')) {
         // Module
-        schemas << params.workflows[params.wf].path
+        schemas << "${params.workflows[params.wf].path}/params.json"
     }
 
     schemas << 'conf/schema/generic.json'

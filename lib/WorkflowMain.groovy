@@ -52,6 +52,23 @@ class WorkflowMain {
     }
 
     //
+    // Print available workflows
+    //
+    public static String workflows(workflow, params) {
+        Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
+        def wf_string = ''
+        def num_hidden = 0
+        def logo_name = "bactopia"
+        def command = ""
+        wf_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
+        wf_string += NfcoreSchema.listWorkflows(workflow, params)
+        wf_string += NfcoreTemplate.dashedLine(params.monochrome_logs)
+        wf_string += '\n' + citation(workflow) + '\n'
+        wf_string += NfcoreTemplate.dashedLine(params.monochrome_logs)
+        return wf_string
+    }
+
+    //
     // Print parameter summary log to screen
     //
     public static String paramsSummaryLog(workflow, params, log, schema_filename) {
@@ -78,6 +95,9 @@ class WorkflowMain {
         // Print help to screen if required
         if (params.help || params.help_all) {
             log.info help(workflow, params, log, schema_filename)
+            System.exit(0)
+        } else if (params.list_wfs) {
+            log.info workflows(workflow, params)
             System.exit(0)
         }
 
