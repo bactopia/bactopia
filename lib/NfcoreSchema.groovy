@@ -327,11 +327,13 @@ class NfcoreSchema {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
         String output  = ''
+        output += "Below are a list of workflows you can call using the ${colors.cyan}--wf${colors.reset} parameter.\n\n"
         Integer max_chars = params.workflows.keySet().sort({ a, b -> b.length() <=> a.length() })[0].length() + 1
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
         for (group in params.available_workflows.keySet()) {
-            output += colors.underlined + colors.bold + group + colors.reset + '\n'
+            String group_name = group == 'bactopia' ? 'Bactopia' : 'Bactopia Tools'
+            output += colors.underlined + colors.bold + group_name + colors.reset + '\n'
             for (wf in params.available_workflows[group]) {
                 def description = params.workflows[wf].description
                 def description_default = description 
@@ -351,11 +353,11 @@ class NfcoreSchema {
                     olines += oline
                     description_default = olines.join("\n" + " " * desc_indent)
                 }
-                output += "  " +  wf.padRight(max_chars) + description_default.padRight(10) + '\n'
+                String wf_name = wf == 'bactopia' ? 'bactopia (default)' : wf
+                output += "  " +  wf_name.padRight(max_chars) + description_default.padRight(10) + '\n'
             }
             output += '\n'
         }
-        output += NfcoreTemplate.dashedLine(params.monochrome_logs)
         return output
     }
 
