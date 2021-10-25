@@ -334,7 +334,7 @@ class NfcoreSchema {
         for (group in params.available_workflows.keySet()) {
             String group_name = group == 'bactopia' ? 'Bactopia' : 'Bactopia Tools'
             output += colors.underlined + colors.bold + group_name + colors.reset + '\n'
-            for (wf in params.available_workflows[group]) {
+            for (wf in params.available_workflows[group].sort()) {
                 def description = params.workflows[wf].description
                 def description_default = description 
                 // Wrap long description texts
