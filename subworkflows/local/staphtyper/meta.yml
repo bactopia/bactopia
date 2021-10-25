@@ -1,25 +1,55 @@
-name: SUBWORKFLOW
-description: DESCRIPTION_OF_SUBWORKFLOW
+name: staphtyper
+description: staphtyper - Determine the agr, spa and SCCMEC types for S. aureus assemblies
 keywords:
-  - TAGS
+  - resistance
+  - Staphylococcus aureus
+  - virulence
 modules:
-  - LIST_OF_MODULES
+  - agrvate
+  - spatyper
+  - staphopiasccmec
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
 
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - agrvate_tsv:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: A summary of the agrvate assessement
+      pattern: "*-summary.tab"
+  - agrvate_all_tsv:
+      type: file
+      description: A merged TSV of all agrvate summary files
+      pattern: "agrvate.tsv"
+  - spatyper_tsv:
+      type: file
+      description: Tab-delimited SpaTyper results
+      pattern: "*.tsv"
+  - spatyper_all_tsv:
+      type: file
+      description: A merged TSV all SpaTyper results
+      pattern: "spatyper.tsv"
+  - staphopiasccmec_tsv:
+      type: file
+      description: Tab-delimited staphopia-sccmec results
+      pattern: "*.tsv"
+  - staphopiasccmec_all_tsv:
+      type: file
+      description: A merged TSV all staphopia-sccmec results
+      pattern: "staphopiasccmec.tsv"
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"

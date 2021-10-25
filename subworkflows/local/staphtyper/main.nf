@@ -55,7 +55,10 @@ workflow STAPHTYPER {
 
     emit:
     agrvate_tsv = AGRVATE.out.summary
+    agrvate_all_tsv = CSVTK_CONCAT_AGRVATE.out.csv
     spatyper_tsv = SPATYPER.out.tsv
+    spatyper_all_tsv = CSVTK_CONCAT_SPATYPER.out.csv
     staphopiasccmec_tsv = STAPHOPIASCCMEC.out.tsv
+    staphopiasccmec_all_tsv = CSVTK_CONCAT_STAPHOPIASCCMEC.out.csv
     versions = ch_versions // channel: [ versions.yml ]
 }
