@@ -35,20 +35,18 @@ include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
 // Subworkflows
-if (params.wf == 'staphtyper') {
-    include { STAPHTYPER } from '../subworkflows/local/staphtyper/main'
-}
+if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
+if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
+
 
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
+
 /*
-include { AGRVATE } from '../modules/nf-core/modules/agrvate/main'
-include { CSVTK_CONCAT } from '../modules/nf-core/modules/csvtk/concat/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 include { FASTANI } from '../modules/nf-core/modules/fastani/main'
 include { GTDBTK_CLASSIFYWF } from '../modules/nf-core/modules/gtdbtk/classifywf/main'
 include { HICAP } from '../modules/nf-core/modules/hicap/main'
@@ -76,6 +74,9 @@ workflow BACTOPIATOOLS {
     if (params.wf == 'staphtyper') {
         STAPHTYPER(samples)
         ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
+    } else if (params.wf == 'agrvate') {
+        AGRVATE(samples)
+        ch_versions = ch_versions.mix(AGRVATE.out.versions)
     }
 
     // Collect Versions

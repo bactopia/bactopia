@@ -105,7 +105,6 @@ def saveFiles(Map args) {
     final_output = ""
     found_ignore = false
     logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
-    subworkflow = args.containsKey('subworkflow') ? args.subworkflow : ""
     if (args.filename) {
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
             // Do not publish versions.yml unless running from pytest workflow
@@ -114,10 +113,10 @@ def saveFiles(Map args) {
         } else if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "logs/${subworkflow}/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
+            final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
         } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt') || args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
             // Its a version file or  program specific log files
-            final_output = "logs/${subworkflow}/${args.process_name}/${logs_subdir}/${args.filename}"
+            final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
             filename = args.filename
@@ -133,8 +132,14 @@ def saveFiles(Map args) {
                 final_output = "blast/${filename}"
             } else if (filename.startsWith("total_contigs_")) {
                 final_output = null
-            } else {
+            } else if (params.publish_dir.containsKey(args.process_name)) {
                 final_output = "${params.publish_dir[args.process_name]}/${filename}"
+            } else {
+                if (args.is_module) {
+                    final_output = "${filename}"
+                } else {
+                    final_output = "${args.process_name}/${filename}"
+                }
             }
             
             if (args.containsKey('ignore')) {
@@ -181,7 +186,7 @@ def initOptions(Map args) {
     options.publish_dir     = args.publish_dir ?: ''
     options.publish_files   = args.publish_files
     options.suffix          = args.suffix ?: ''
-    options.subworkflow     = args.subworkflow ?: ''
+    options.is_module       = args.is_module ?: false
     options.publish_to_base = args.publish_to_base ?: false
     options.full_software_name = args.full_software_name ?: false
     return options

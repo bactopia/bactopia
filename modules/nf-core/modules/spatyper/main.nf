@@ -11,7 +11,7 @@ process SPATYPER {
     publishDir "${publish_dir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
 
     conda (params.enable_conda ? "bioconda::spatyper=0.3.3" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {

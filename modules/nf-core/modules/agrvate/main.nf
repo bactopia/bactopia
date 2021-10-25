@@ -11,21 +11,21 @@ process AGRVATE {
     publishDir "${publish_dir}/${meta.id}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
 
     conda (params.enable_conda ? "bioconda::agrvate=1.0.1" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/agrvate:1.0.1--hdfd78af_1"
+        container "https://depot.galaxyproject.org/singularity/agrvate:1.0.1--hdfd78af_2"
     } else {
-        container "quay.io/biocontainers/agrvate:1.0.1--hdfd78af_1"
+        container "quay.io/biocontainers/agrvate:1.0.1--hdfd78af_2"
     }
 
     input:
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("${fasta.baseName}-results/${fasta.baseName}-summary.tab"), emit: summary
-    path "${fasta.baseName}-results"                                                , emit: results_dir
+    tuple val(meta), path("${meta.id}-summary.tab"), emit: summary
+    path "results/", emit: results_dir
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
@@ -43,8 +43,11 @@ process AGRVATE {
         $options.args \\
         -i $fasta_name -m
 
+    mv $meta.id-results/ results/
+    mv results/$meta.id-summary.tab ./
+
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
+    agrvate:
         agrvate: \$(echo \$(agrvate -v 2>&1) | sed 's/agrvate v//;')
     END_VERSIONS
     """

@@ -1,0 +1,49 @@
+- name: spatyper-test
+  command: bash -c 'nextflow run ./subworkflows/local/spatyper/test.nf -entry test_spatyper --wf spatyper -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - spatyper
+  files:
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/GCF_000017085.tsv
+      md5sum: 6afe7a90c591e32107d86c0e81029f54
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.log
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.out
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.sh
+      md5sum: 4791cd7f30d0f14dff9b42915e746997
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/versions.yml
+      md5sum: c8b2819c485ac47c0e04767fd227c5ab
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.sh
+      md5sum: 7bafc0dee7bb6c6818769d3eab83a15a
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/nf-csvtk.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/spatyper/spatyper/logs/csvtk/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-dag.dot
+      md5sum: f973084a0af901b2eb8c355678d18aea
+    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/spatyper/spatyper/spatyper.tsv
+      md5sum: 6afe7a90c591e32107d86c0e81029f54

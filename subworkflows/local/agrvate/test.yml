@@ -1,0 +1,145 @@
+- name: agrvate-test
+  command: bash -c 'nextflow run ./subworkflows/local/agrvate/test.nf -entry test_agrvate --wf agrvate -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - agrvate
+  files:
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/GCF_000017085-summary.tab
+      md5sum: e86969f1623c16960033d87322759a89
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.log
+      md5sum: 9f06cfeb14897c0b6a3dd5dc8168b960
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.out
+      md5sum: 9f06cfeb14897c0b6a3dd5dc8168b960
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.sh
+      md5sum: 2ed5d714afabee80951a2ffd564a1852
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/versions.yml
+      md5sum: 5a0f1b78f27a0d325db6123501755f1e
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-agr_gp.tab
+      md5sum: 04031d5b20fabcc4b3ddeef707e94029
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-agr_operon.fna
+      md5sum: 23adc3353d71d9763aa3010fdfa4e967
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-agr_operon_frameshifts.tab
+      md5sum: fa7275da05e7b3d18a104fb34131f5bd
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-blastn_log.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer-log.txt
+      contains: ['PREPARING', 'reading']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.1coords
+      md5sum: bf7efacff9652f6e5160ffee249c3331
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.1delta
+      contains: ['NUCMER']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.delta
+      contains: ['NUCMER']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.mcoords
+      md5sum: bf7efacff9652f6e5160ffee249c3331
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.mdelta
+      contains: ['NUCMER']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.qdiff
+      md5sum: f97c885e1066fc682749fe9936ccc417
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.rdiff
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.report
+      contains: ['NUCMER']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.snps
+      md5sum: 159b9404b37bd14b103714a12b9dcb4d
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-mummer/out.unqry
+      contains: ['UNI']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy-log.txt
+      contains: ['snippy', 'Found', 'Done']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/ref.fa
+      md5sum: 75a485060a65bc1b29b6889c5026d6cc
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/ref.fa.fai
+      md5sum: 7383758ba86825ab47f47bf7751615fe
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/genomes/ref.fa
+      md5sum: 75a485060a65bc1b29b6889c5026d6cc
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa
+      md5sum: 75a485060a65bc1b29b6889c5026d6cc
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.amb
+      md5sum: 688167d3bf77ff672e48eb254832d0ee
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.ann
+      md5sum: 7ab544e7091a3694852c44aef944f39a
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.bwt
+      md5sum: ef1f3f95b713732b7f171eee21463f4a
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.fai
+      md5sum: 7383758ba86825ab47f47bf7751615fe
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.pac
+      md5sum: 20a01f0b38fb478eb3761c474990a5e7
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.fa.sa
+      md5sum: d94329fa9284223a52986c7efdb47ece
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.gff
+      md5sum: 499dd8177f4d4a13fc9577bc6e172c63
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref.txt
+      md5sum: 5c96543b3a7c0c9ec545d5baf3a6d5ac
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref/genes.gff.gz
+      md5sum: f3859a9b478a1ebf00393445d972383c
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/ref/snpEffectPredictor.bin
+      md5sum: 95bffe78375ba45cb43742be616e456b
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/reference/snpeff.config
+      md5sum: a63df863fe9bfe3ac769ccc704d2590f
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.aligned.fa
+      md5sum: a60c1ef69994309d93a2a4d40c272043
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bam
+      md5sum: 6fb5e7f398562f03faba23f10ec80dba
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bam.bai
+      md5sum: a31bcd0150e802e0cde9dd637473a836
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bed
+      md5sum: 4a053f48cb89f978bded00f9f53421e2
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.consensus.fa
+      md5sum: cda979d1055f261abcaa88683d564549
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.consensus.subs.fa
+      md5sum: cda979d1055f261abcaa88683d564549
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.csv
+      md5sum: a7b02460690077bbe7309193147dfb65
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.filt.vcf
+      contains: ['freebayes', 'commandline']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.gff
+      md5sum: f1b934ea38c6f227100b74439cd6b587
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.html
+      md5sum: 20df7614f5a6604dbefdcfbc3e7f4795
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.log
+      contains: ['snippy', 'echo']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.raw.vcf
+      contains: ['freebayes', 'commandline']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.subs.vcf
+      contains: ['freebayes', 'commandline']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.tab
+      md5sum: 468a969794d67b71e7402da860f649e5
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.txt
+      contains: ['DateTime', 'ReadFiles']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.vcf
+      contains: ['freebayes', 'commandline']
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.vcf.gz
+    - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.vcf.gz.csi
+    - path: bactopia-tools/agrvate/agrvate/agrvate.tsv
+      md5sum: 7d5b10f1029e7e55630eb18ccc2aeb95
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.sh
+      md5sum: 842dce8b4a348dccbc188bb055891262
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-dag.dot
+      md5sum: 0a186d6fe297c34a88a0cac6175b2511
+    - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-trace.txt
+      contains: ['task_id']

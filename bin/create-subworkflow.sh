@@ -24,11 +24,11 @@ if [ -z "${BACTOPIA_DIR}" ] || [ -z "${SUBWORKFLOW}" ] || [ -z "${DESCRIPTION}" 
 fi
 
 if [ ! -d "${BACTOPIA_DIR}/sobworkflows/local/${SUBWORKFLOW}" ]; then
-    cp -r ${BACTOPIA_DIR}/.skeleton/subworkflows ${BACTOPIA_DIR}/subworkflows/local/${TOOL}
+    cp -r ${BACTOPIA_DIR}/.skeleton/subworkflows ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}
     filenames=( "main.nf" "meta.yml" "test.nf" "test.yml" )
     for filename in "${filenames[@]}"; do
-        sed -i -r 's/SUBWORKFLOW_NAME/'"${SUBWORKFLOW}"'/' ${BACTOPIA_DIR}/tools/${SUBWORKFLOW}/${filename}
-        sed -i -r 's/SUBWORKFLOW_DESCRIPTION/'"${DESCRIPTION}"'/' ${BACTOPIA_DIR}/tools/${SUBWORKFLOW}/${filename}
+        sed -i -r 's/SUBWORKFLOW_NAME/'"${SUBWORKFLOW}"'/g' ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}/${filename}
+        sed -i -r 's/SUBWORKFLOW_DESCRIPTION/'"${DESCRIPTION}"'/g' ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}/${filename}
     done
 else
     echo "${SUBWORKFLOW} exists already, please verify. Not going to replace, exiting..."

@@ -1,14 +1,14 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { STAPHTYPER } from './main.nf' 
+include { STAPHOPIASCCMEC } from './main.nf' 
 
-workflow test_staphtyper {
+workflow test_staphopiasccmec {
 
     inputs = tuple(
         [ id:"GCF_000017085" ],
         file(params.test_data['species']['staphylococcus_aureus']['genome']['fna'], checkIfExists: true)
     )
 
-    STAPHTYPER ( inputs )
+    STAPHOPIASCCMEC ( inputs )
 }
