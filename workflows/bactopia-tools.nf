@@ -36,8 +36,11 @@ include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
 // Subworkflows
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
+if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
+if (params.wf == 'mashtree') include { SPATYPER } from '../subworkflows/local/mashtree/main';
+if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
-
+if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 
 /*
 ========================================================================================
@@ -52,14 +55,11 @@ include { GTDBTK_CLASSIFYWF } from '../modules/nf-core/modules/gtdbtk/classifywf
 include { HICAP } from '../modules/nf-core/modules/hicap/main'
 include { IQTREE } from '../modules/nf-core/modules/iqtree/main'
 include { ISMAPPER } from '../modules/nf-core/modules/ismapper/main'
-include { KLEBORATE } from '../modules/nf-core/modules/kleborate/main'
-include { MASHTREE } from '../modules/nf-core/modules/mashtree/main'
 include { PIRATE } from '../modules/nf-core/modules/pirate/main'
 include { PROKKA } from '../modules/nf-core/modules/prokka/main'
 include { ROARY } from '../modules/nf-core/modules/roary/main'
 include { SNPDISTS } from '../modules/nf-core/modules/snpdists/main'
 include { SPATYPER } from '../modules/nf-core/modules/spatyper/main'
-include { STAPHOPIASCCMEC } from '../modules/nf-core/modules/staphopiasccmec/main'
 */
 /*
 ========================================================================================
@@ -71,11 +71,20 @@ workflow BACTOPIATOOLS {
     samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     ch_versions = Channel.empty()
 
-    if (params.wf == 'staphtyper') {
+    if (params.wf == 'agrvate') {
+        AGRVATE(samples)
+        ch_versions = ch_versions.mix(AGRVATE.out.versions)
+    } else if (params.wf == 'kleborate') {
+        KLEBORATE(samples)
+        ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
+    }  else if (params.wf == 'spatyper') {
+        SPATYPER(samples)
+        ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
+    }  else if (params.wf == 'staphtyper') {
         STAPHTYPER(samples)
         ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
-    } else if (params.wf == 'agrvate') {
-        AGRVATE(samples)
+    } else if (params.wf == 'staphopiasccmec') {
+        STAPHOPIASCCMEC(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
     }
 
