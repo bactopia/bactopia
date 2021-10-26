@@ -28,7 +28,7 @@ output:
       type: file
       description: A summary of the per-sample agrvate assessement
       pattern: "*-summary.tab"
-  - agrvate_all_tsv:
+  - agrvate_merged_tsv:
       type: file
       description: A merged TSV of all agrvate summary files
       pattern: "agrvate.tsv"
@@ -36,7 +36,7 @@ output:
       type: file
       description: Tab-delimited per-sample SpaTyper results
       pattern: "*.tsv"
-  - spatyper_all_tsv:
+  - spatyper_merged_tsv:
       type: file
       description: A merged TSV all SpaTyper results
       pattern: "spatyper.tsv"
@@ -44,7 +44,7 @@ output:
       type: file
       description: Tab-delimited per-sample staphopia-sccmec results
       pattern: "*.tsv"
-  - staphopiasccmec_all_tsv:
+  - staphopiasccmec_merged_tsv:
       type: file
       description: A merged TSV all staphopia-sccmec results
       pattern: "staphopiasccmec.tsv"

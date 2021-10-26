@@ -25,7 +25,7 @@ workflow AGRVATE {
     }
 
     emit:
-    agrvate_tsv = AGRVATE_MODULE.out.summary
-    agrvate_all_tsv = CSVTK_CONCAT.out.csv
+    tsv = AGRVATE_MODULE.out.summary
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }

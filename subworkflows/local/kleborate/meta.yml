@@ -25,14 +25,14 @@ output:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - kleborate_tsv:
+  - tsv:
       type: file
       description: A summary of the per-sample kleborate result
       pattern: "*-summary.tab"
-  - kleborate_all_tsv:
+  - merged_tsv:
       type: file
       description: A merged TSV of all Kleborate result files
-      pattern: "agrvate.tsv"
+      pattern: "kleborate.tsv"
   - versions:
       type: file
       description: File containing software versions

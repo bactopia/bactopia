@@ -33,7 +33,7 @@ workflow KLEBORATE {
     }
 
     emit:
-    kleborate_tsv = KLEBORATE_MODULE.out.txt
-    kleborate_all_tsv = CSVTK_CONCAT.out.csv
+    tsv = KLEBORATE_MODULE.out.txt
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }

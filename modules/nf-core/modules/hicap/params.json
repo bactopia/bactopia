@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/hicap/params.json",
+    "title": "hicap Module",
+    "description": "A module for in-silico typing of the H. influenzae capsule locus",
+    "type": "object",
+    "definitions": {
+        "hicap_parameters": {
+            "title": "hicap Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "database_dir": {
+                    "type": "string",
+                    "description": "Directory containing locus database",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true
+                },
+                "model_fp": {
+                    "type": "string",
+                    "description": "Path to prodigal model",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true
+                },
+                "full_sequence": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Write the full input sequence out to the genbank file rather than just the region surrounding and including the locus",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "hicap_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "hicap will print debug messages",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "gene_coverage": {
+                    "type": "number",
+                    "description": "Minimum percentage coverage to consider a single gene complete",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "gene_identity": {
+                    "type": "number",
+                    "description": "Minimum percentage identity to consider a single gene complete",
+                    "default": 0.7,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "broken_gene_length": {
+                    "type": "integer",
+                    "description": "Minimum length to consider a broken gene",
+                    "default": 60,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "broken_gene_identity": {
+                    "type": "number",
+                    "description": "Minimum percentage identity to consider a broken gene",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-angle-double-down"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/hicap_parameters"
+        }
+    ]
+}

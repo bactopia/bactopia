@@ -1,0 +1,71 @@
+- name: hicap-test
+  command: bash -c 'nextflow run ./subworkflows/local/hicap/test.nf -entry test_hicap --wf hicap -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - hicap
+  files:
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/GCA_000027305.tsv
+      md5sum: a4ffb126a74f38f0d7409027c982a84a
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.err
+      contains: ['dependencies', 'ORFs', 'No hits']
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.log
+      contains: ['dependencies', 'ORFs', 'No hits']
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.sh
+      md5sum: a0831dafb092f9f0d229118ada192568
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/versions.yml
+      md5sum: 07c39264839a5a9c52479a8d67a38eb2
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/GCF_900478275.gbk
+      md5sum: 562d026956903354ac80721f501335d4
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/GCF_900478275.svg
+      md5sum: 4fb94871dd0fdd8b4496049668176631
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/GCF_900478275.tsv
+      md5sum: 52c7c28a47111a27722b3c36a83d7172
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.err
+      contains: ['dependencies', 'ORFs', 'Collecting']
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.log
+      contains: ['dependencies', 'ORFs', 'Collecting']
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.sh
+      md5sum: 2f810bb79cfaa74a429262412ab43427
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/versions.yml
+      md5sum: 07c39264839a5a9c52479a8d67a38eb2
+    - path: bactopia-tools/hicap/hicap/hicap.tsv
+      md5sum: fdbf89f0a652b1186e6348eadb7fd4cb
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.sh
+      md5sum: 728b7a27f0e3882aba08ca6d0c599005
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/hicap/hicap/logs/csvtk/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/hicap/hicap/nf-reports/hicap-dag.dot
+      md5sum: f9c070b8d0859933fe1206d9f00194f5
+    - path: bactopia-tools/hicap/hicap/nf-reports/hicap-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/hicap/hicap/nf-reports/hicap-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/hicap/hicap/nf-reports/hicap-trace.txt
+      contains: ['task_id']

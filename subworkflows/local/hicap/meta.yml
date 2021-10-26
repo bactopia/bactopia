@@ -1,18 +1,11 @@
 name: hicap
 description: Identify cap locus serotype and structure in your Haemophilus influenzae assemblies
 keywords:
-  - fasta
-  - serotype
+  - capsule
   - Haemophilus influenzae
-tools:
-  - hicap:
-      description: In silico typing of the H. influenzae capsule locus
-      homepage: https://github.com/scwatts/hicap
-      documentation: https://github.com/scwatts/hicap
-      tool_dev_url: https://github.com/scwatts/hicap
-      doi: "https://doi.org/10.1128/JCM.00190-19"
-      licence: ['GPL v3']
-
+  - serotype
+modules:
+  - hicap
 input:
   - meta:
       type: map
@@ -21,8 +14,8 @@ input:
         e.g. [ id:'test', single_end:false ]
   - fasta:
       type: file
-      description: FASTA formatted assembly file
-      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
   - database_dir:
       type: directory
       description: Optional - Directory containing locus database
@@ -38,26 +31,27 @@ output:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - versions:
+  - kleborate_tsv:
       type: file
-      description: File containing software versions
-      pattern: "versions.yml"
+      description: A summary of the per-sample kleborate result
+      pattern: "*-summary.tab"
+  - kleborate_all_tsv:
+      type: file
+      description: A merged TSV of all Kleborate result files
+      pattern: "agrvate.tsv"
   - gbk:
       type: file
-      description: Per-sample GenBank file and cap locus annotations
+      description: GenBank file and cap locus annotations
       pattern: "*.gbk"
   - svg:
       type: file
-      description: Per-sample visualization of annotated cap locus
+      description: Visualization of annotated cap locus
       pattern: "*.svg"
   - tsv:
       type: file
-      description: Per-sample detailed summary of cap locus annotations
+      description: Detailed summary of cap locus annotations
       pattern: "*.tsv"
-  - merged_tsv:
+  - versions:
       type: file
-      description: Merged summary of cap locus annotations for all samples
-      pattern: "hicap.tsv"
-
-authors:
-  - "@rpetit3"
+      description: File containing software versions
+      pattern: 'versions.yml'

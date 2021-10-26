@@ -22,7 +22,7 @@ workflow STAPHOPIASCCMEC {
     }
 
     emit:
-    staphopiasccmec_tsv = STAPHOPIASCCMEC_MODULE.out.tsv
-    staphopiasccmec_all_tsv = CSVTK_CONCAT.out.csv
+    tsv = STAPHOPIASCCMEC_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }

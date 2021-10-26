@@ -36,8 +36,9 @@ include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
 // Subworkflows
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
+if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
-if (params.wf == 'mashtree') include { SPATYPER } from '../subworkflows/local/mashtree/main';
+if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
@@ -52,7 +53,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 /*
 include { FASTANI } from '../modules/nf-core/modules/fastani/main'
 include { GTDBTK_CLASSIFYWF } from '../modules/nf-core/modules/gtdbtk/classifywf/main'
-include { HICAP } from '../modules/nf-core/modules/hicap/main'
 include { IQTREE } from '../modules/nf-core/modules/iqtree/main'
 include { ISMAPPER } from '../modules/nf-core/modules/ismapper/main'
 include { PIRATE } from '../modules/nf-core/modules/pirate/main'
@@ -74,18 +74,24 @@ workflow BACTOPIATOOLS {
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
-    } else if (params.wf == 'kleborate') {
+    } else if (params.wf == 'hicap') {
+        HICAP(samples)
+        ch_versions = ch_versions.mix(HICAP.out.versions)
+    }  else if (params.wf == 'kleborate') {
         KLEBORATE(samples)
-        ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
-    }  else if (params.wf == 'spatyper') {
+        ch_versions = ch_versions.mix(KLEBORATE.out.versions)
+    } else if (params.wf == 'mashtree') {
+        MASHTREE(samples)
+        ch_versions = ch_versions.mix(MASHTREE.out.versions)
+    } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
-        ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
-    }  else if (params.wf == 'staphtyper') {
+        ch_versions = ch_versions.mix(SPATYPER.out.versions)
+    } else if (params.wf == 'staphtyper') {
         STAPHTYPER(samples)
         ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
     } else if (params.wf == 'staphopiasccmec') {
         STAPHOPIASCCMEC(samples)
-        ch_versions = ch_versions.mix(AGRVATE.out.versions)
+        ch_versions = ch_versions.mix(STAPHOPIASCCMEC.out.versions)
     }
 
     // Collect Versions

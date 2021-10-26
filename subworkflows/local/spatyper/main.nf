@@ -27,7 +27,7 @@ workflow SPATYPER {
     }
 
     emit:
-    spatyper_tsv = SPATYPER_MODULE.out.tsv
-    spatyper_all_tsv = CSVTK_CONCAT.out.csv
+    tsv = SPATYPER_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }
