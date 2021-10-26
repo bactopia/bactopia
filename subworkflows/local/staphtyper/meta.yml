@@ -18,7 +18,6 @@ input:
       type: file
       description: A Staphylococcus aureus fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -27,7 +26,7 @@ output:
         e.g. [ id:'test', single_end:false ]
   - agrvate_tsv:
       type: file
-      description: A summary of the agrvate assessement
+      description: A summary of the per-sample agrvate assessement
       pattern: "*-summary.tab"
   - agrvate_all_tsv:
       type: file
@@ -35,7 +34,7 @@ output:
       pattern: "agrvate.tsv"
   - spatyper_tsv:
       type: file
-      description: Tab-delimited SpaTyper results
+      description: Tab-delimited per-sample SpaTyper results
       pattern: "*.tsv"
   - spatyper_all_tsv:
       type: file
@@ -43,7 +42,7 @@ output:
       pattern: "spatyper.tsv"
   - staphopiasccmec_tsv:
       type: file
-      description: Tab-delimited staphopia-sccmec results
+      description: Tab-delimited per-sample staphopia-sccmec results
       pattern: "*.tsv"
   - staphopiasccmec_all_tsv:
       type: file

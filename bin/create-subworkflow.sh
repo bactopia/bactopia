@@ -16,6 +16,7 @@ fi
 
 BACTOPIA_DIR=$1
 SUBWORKFLOW=$2
+SUBWORKFLOW_UPPER=${SUBWORKFLOW^^}
 DESCRIPTION=$3
 if [ -z "${BACTOPIA_DIR}" ] || [ -z "${SUBWORKFLOW}" ] || [ -z "${DESCRIPTION}" ]; then
     echo "Got ${#} arguement"
@@ -28,6 +29,7 @@ if [ ! -d "${BACTOPIA_DIR}/sobworkflows/local/${SUBWORKFLOW}" ]; then
     filenames=( "main.nf" "meta.yml" "test.nf" "test.yml" )
     for filename in "${filenames[@]}"; do
         sed -i -r 's/SUBWORKFLOW_NAME/'"${SUBWORKFLOW}"'/g' ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}/${filename}
+        sed -i -r 's/SUBWORKFLOW_UPPER/'"${SUBWORKFLOW_UPPER}"'/g' ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}/${filename}
         sed -i -r 's/SUBWORKFLOW_DESCRIPTION/'"${DESCRIPTION}"'/g' ${BACTOPIA_DIR}/subworkflows/local/${SUBWORKFLOW}/${filename}
     done
 else

@@ -6,7 +6,7 @@ params.OPTS = [:]
 
 include { MODULE } from '../../../path/to/module/main' addParams( options: params.OPTS )
 
-workflow SUBWORKFLOW {
+workflow SUBWORKFLOW_UPPER {
     take:
     reads // channel: [ val(meta), [ reads ] ]
 

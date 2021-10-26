@@ -1,0 +1,49 @@
+- name: kleborate-test
+  command: bash -c 'nextflow run ./subworkflows/local/kleborate/test.nf -entry test_kleborate --wf kleborate -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - kleborate
+  files:
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/GCF_000009885.results.txt
+      md5sum: 78a6919410cbce520e757aca8f51a508
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.err
+      md5sum: cdc146dc5375d3be6f8749c246c05f01
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.log
+      md5sum: c6fee036fdc6c9c7cb3af9c2e1419b0b
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.out
+      md5sum: a452d4a0f8186164b59d689e23e16aa2
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.sh
+      md5sum: 058220ef099649ffd863c93e925c0151
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/versions.yml
+      md5sum: a610ad8f4c2f9f7239d1db71c0da3d19
+    - path: bactopia-tools/kleborate/kleborate/kleborate.tsv
+      md5sum: 78a6919410cbce520e757aca8f51a508
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.sh
+      md5sum: 1e20837c035b65d61ce44cfb1f982868
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/nf-csvtk.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/kleborate/kleborate/logs/csvtk/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-dag.dot
+      md5sum: 1beb086e3e9e90f9464cb3eb37d85172
+    - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-trace.txt
+      contains: ['task_id']
