@@ -45,7 +45,7 @@ output:
   - txt:
       type: file
       description: Allele report generated from BLAST results
-      pattern: "*.tst"
+      pattern: "*.txt"
 
 authors:
   - "@rpetit3"

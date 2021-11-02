@@ -28,7 +28,7 @@ process ECTYPER {
     tuple val(meta), path("*.txt"), emit: txt
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
-    path "versions.yml"              , emit: versions
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
@@ -47,8 +47,8 @@ process ECTYPER {
     mv output.tsv ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$(echo \$(ectyper --version 2>&1)  | sed 's/.*ectyper //; s/ .*\$//')
+    ectyper:
+        ectyper: \$(echo \$(ectyper --version 2>&1)  | sed 's/.*ectyper //; s/ .*\$//')
     END_VERSIONS
     """
 }

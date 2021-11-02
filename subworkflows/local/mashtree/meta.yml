@@ -14,7 +14,7 @@ input:
         e.g. [ id:'test', single_end:false ]
   - fasta:
       type: file
-      description: FASTAfiles
+      description: FASTA files to build tree from
       pattern: "*.{fna,fna.gz,fasta,fasta.gz,fa,fa.gz}"
 output:
   - meta:
@@ -25,11 +25,11 @@ output:
   - tree:
       type: file
       description: A Newick formatted tree file
-      pattern: "*.{dnd}"
+      pattern: "*.dnd"
   - matrix:
       type: file
       description: A TSV matrix of pair-wise Mash distances
-      pattern: "*.{tsv}"
+      pattern: "*.tsv"
   - versions:
       type: file
       description: File containing software versions

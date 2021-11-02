@@ -334,29 +334,61 @@ class NfcoreSchema {
         for (group in params.available_workflows.keySet()) {
             String group_name = group == 'bactopia' ? 'Bactopia' : 'Bactopia Tools'
             output += colors.underlined + colors.bold + group_name + colors.reset + '\n'
-            for (wf in params.available_workflows[group].sort()) {
-                def description = params.workflows[wf].description
-                def description_default = description 
-                // Wrap long description texts
-                // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
-                if (description_default.length() > dec_linewidth){
-                    List olines = []
-                    String oline = "" // " " * indent
-                    description_default.split(" ").each() { wrd ->
-                        if ((oline.size() + wrd.size()) <= dec_linewidth) {
-                            oline += wrd + " "
-                        } else {
-                            olines += oline
-                            oline = wrd + " "
+            if (group == 'bactopia') {
+                for (wf in params.available_workflows[group].sort()) {
+                    def description = params.workflows[wf].description
+                    def description_default = description 
+                    // Wrap long description texts
+                    // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
+                    if (description_default.length() > dec_linewidth){
+                        List olines = []
+                        String oline = "" // " " * indent
+                        description_default.split(" ").each() { wrd ->
+                            if ((oline.size() + wrd.size()) <= dec_linewidth) {
+                                oline += wrd + " "
+                            } else {
+                                olines += oline
+                                oline = wrd + " "
+                            }
                         }
+                        olines += oline
+                        description_default = olines.join("\n" + " " * desc_indent)
                     }
-                    olines += oline
-                    description_default = olines.join("\n" + " " * desc_indent)
+                    String wf_name = wf == 'bactopia' ? 'bactopia (default)' : wf
+                    output += "  " +  wf_name.padRight(max_chars) + description_default.padRight(10) + '\n'
                 }
-                String wf_name = wf == 'bactopia' ? 'bactopia (default)' : wf
-                output += "  " +  wf_name.padRight(max_chars) + description_default.padRight(10) + '\n'
+                output += '\n'
+            } else {
+                output += 'Bactopia Tools can include multiple tools (Subworkflows) or a single tool (Modules).\n\n'
+                for (wf_type in ['subworkflows', 'modules']) {
+                    String wf_desc = wf_type == 'subworkflows' ? 'Subworkflows' : 'Modules'
+                    output += colors.bold + wf_desc + colors.reset + '\n'
+                    for (wf in params.available_workflows[group][wf_type].sort()) {
+
+                        def description = params.workflows[wf].description
+                        def description_default = description 
+                        // Wrap long description texts
+                        // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
+                        if (description_default.length() > dec_linewidth){
+                            List olines = []
+                            String oline = "" // " " * indent
+                            description_default.split(" ").each() { wrd ->
+                                if ((oline.size() + wrd.size()) <= dec_linewidth) {
+                                    oline += wrd + " "
+                                } else {
+                                    olines += oline
+                                    oline = wrd + " "
+                                }
+                            }
+                            olines += oline
+                            description_default = olines.join("\n" + " " * desc_indent)
+                        }
+                        String wf_name = wf == 'bactopia' ? 'bactopia (default)' : wf
+                        output += "  " +  wf_name.padRight(max_chars) + description_default.padRight(10) + '\n'
+                    }
+                    output += '\n'
+                }
             }
-            output += '\n'
         }
         return output
     }

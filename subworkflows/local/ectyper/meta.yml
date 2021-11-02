@@ -1,11 +1,11 @@
-name: hicap
-description: Identify cap locus serotype and structure in your Haemophilus influenzae assemblies
+name: ectyper
+description: In-silico prediction of Escherichia coli serotype
 keywords:
-  - capsule
-  - Haemophilus influenzae
+  - escherichia coli
+  - fasta
   - serotype
 modules:
-  - hicap
+  - ectyper
 input:
   - meta:
       type: map
@@ -14,16 +14,8 @@ input:
         e.g. [ id:'test', single_end:false ]
   - fasta:
       type: file
-      description: A Haemophilus influenzae fasta file.
+      description: A Staphylococcus aureus fasta file.
       pattern: "*.{fna,fna.gz}"
-  - database_dir:
-      type: directory
-      description: Optional - Directory containing locus database
-      pattern: "*/*"
-  - model_fp:
-      type: file
-      description: Optional - Prodigal model to use for gene prediction
-      pattern: "*.{bin}"
 
 output:
   - meta:
@@ -38,15 +30,11 @@ output:
   - merged_tsv:
       type: file
       description: A merged TSV of all hicap result files
-      pattern: "hicap.tsv"
-  - gbk:
+      pattern: "ectyper.tsv"
+  - txt:
       type: file
-      description: GenBank file and cap locus annotations
-      pattern: "*.gbk"
-  - svg:
-      type: file
-      description: Visualization of annotated cap locus
-      pattern: "*.svg"
+      description: Allele report generated from BLAST results
+      pattern: "*.txt"
   - versions:
       type: file
       description: File containing software versions
