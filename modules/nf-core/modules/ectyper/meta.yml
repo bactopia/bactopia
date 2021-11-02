@@ -1,0 +1,51 @@
+name: ectyper
+description: In silico prediction of E. coli serotype
+keywords:
+  - escherichia coli
+  - fasta
+  - serotype
+tools:
+  - ectyper:
+      description: ECtyper is a python program for serotyping E. coli genomes
+      homepage: https://github.com/phac-nml/ecoli_serotyping
+      documentation: https://github.com/phac-nml/ecoli_serotyping
+      tool_dev_url: https://github.com/phac-nml/ecoli_serotyping
+      doi: ""
+      licence: ['Apache 2']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA formatted assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - log:
+      type: file
+      description: ectyper log output
+      pattern: "*.log"
+  - tsv:
+      type: file
+      description: ectyper serotyping results in TSV format
+      pattern: "*.tsv"
+  - txt:
+      type: file
+      description: Allele report generated from BLAST results
+      pattern: "*.tst"
+
+authors:
+  - "@rpetit3"

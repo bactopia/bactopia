@@ -1,5 +1,5 @@
 name: fastani
-description: write your description here
+description: Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
 keywords:
   - fastani
 tools:

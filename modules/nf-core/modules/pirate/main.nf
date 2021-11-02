@@ -1,15 +1,17 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from './functions'
+include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
 
 params.options = [:]
 options        = initOptions(params.options)
+publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process PIRATE {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${params.outdir}",
+    publishDir "${publish_dir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
+        overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
 
     conda (params.enable_conda ? "bioconda::pirate=1.0.4" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -22,9 +24,11 @@ process PIRATE {
     tuple val(meta), path(gff)
 
     output:
-    tuple val(meta), path("results/*")                                   , emit: results
-    tuple val(meta), path("results/core_alignment.fasta"), optional: true, emit: aln
-    path "versions.yml"                                                  , emit: versions
+    tuple val(meta), path("results/*")           , emit: results
+    tuple val(meta), path("core_alignment.fasta"), emit: aln, optional: true
+    path "*.{stdout.txt,stderr.txt,log,err}"     , emit: logs, optional: true
+    path ".command.*"                            , emit: nf_logs
+    path "versions.yml"                          , emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
@@ -34,10 +38,13 @@ process PIRATE {
         --threads $task.cpus \\
         --input ./ \\
         --output results/
+    
+    cp results/core_alignment.fasta ./
+    gzip results/core_alignment.fasta
 
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( echo \$( PIRATE --version 2>&1) | sed 's/PIRATE //' )
+    pirate:
+        pirate: \$( echo \$( PIRATE --version 2>&1) | sed 's/PIRATE //' )
     END_VERSIONS
     """
 }

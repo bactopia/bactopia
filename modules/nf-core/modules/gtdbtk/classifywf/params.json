@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/fastani/params.json",
+    "title": "fastANI Module",
+    "description": "A module for alignment-free computation Average Nucleotide Identity (ANI)",
+    "type": "object",
+    "definitions": {
+        "fastani_parameters": {
+            "title": "fastANI Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "min_perc_aa": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Filter genomes with an insufficient percentage of AA in the MSA",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "recalculate_red": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Recalculate RED values based on the reference tree and all added user genomes",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/fastani_parameters"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ncbigenomedownload/params.json",
+    "title": "NCBI Genome Download Module",
+    "description": "A module to download assemblies from NCBI's Assembly database",
+    "type": "object",
+    "definitions": {
+        "ncbigenomedownload_parameters": {
+            "title": "NCBI Genome Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "species": {
+                    "type": "string",
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-italic"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "fa_icon": "fas fa-italic"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-italic"
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Limit the number of assemblies to download",
+                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/ncbigenomedownload_parameters"
+        }
+    ]
+}

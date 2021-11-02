@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/prokka/params.json",
+    "title": "Prokka Module",
+    "description": "A module for annotating small genomes (bacterial, archeal, viral)",
+    "type": "object",
+    "definitions": {
+        "prokka_parameters": {
+            "title": "Prokka Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "proteins": {
+                    "type": "string",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "prodigal_tf": {
+                    "type": "string",
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "prokka_coverage": {
+                    "type": "integer",
+                    "description": "Minimum coverage on query protein",
+                    "default": 80,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "prokka_opts": {
+                    "type": "string",
+                    "description": "Extra Prokka options in quotes.",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/prokka_parameters"
+        }
+    ]
+}
