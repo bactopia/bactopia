@@ -1,24 +1,32 @@
 //
 // ngmaster - Multi-antigen sequence typing for Neisseria gonorrhoeae
 //
+ngmaster_opts = [
+    params.csv ? "--csv" : ""
+].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-params.OPTS = [:]
-
-include { MODULE } from '../../../path/to/module/main' addParams( options: params.OPTS )
+include { NGMASTER as NGMASTER_MODULE } from '../../../modules/nf-core/modules/ngmaster/main' addParams( options: [ args: "${ngmaster_opts}", is_module: true] )
+if (params.is_subworkflow) {
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+}
 
 workflow NGMASTER {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
+    fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
     ch_versions = Channel.empty()
 
-    //
-    // MODULE DESCRIPTION
-    //
-    MODULE ( INPUTS )
-    ch_versions = ch_versions.mix(MODULE.out.versions.first())
+    NGMASTER_MODULE(fasta)
+    ch_versions = ch_versions.mix(NGMASTER_MODULE.out.versions.first())
+
+    if (params.is_subworkflow) {
+        NGMASTER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}.set{ ch_merge_ngmaster }
+        CSVTK_CONCAT(ch_merge_ngmaster, 'tsv', 'tsv')
+    }
 
     emit:
-    versions = ch_versions // channel: [ versions.yml ]
+    tsv = NGMASTER_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
+    versions = ch_versions
 }

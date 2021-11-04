@@ -15,9 +15,9 @@ process NGMASTER {
 
     conda (params.enable_conda ? "bioconda::ngmaster=0.5.8" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/YOUR-TOOL-HERE"
+        container "https://depot.galaxyproject.org/singularity/ngmaster:0.5.8--pyhdfd78af_1"
     } else {
-        container "quay.io/biocontainers/YOUR-TOOL-HERE"
+        container "quay.io/biocontainers/ngmaster:0.5.8--pyhdfd78af_1"
     }
 
     input:
@@ -31,10 +31,16 @@ process NGMASTER {
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.getName().replace(".gz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        gzip -c -d $fasta > $fasta_name
+    fi
+
     ngmaster \\
         $options.args \\
-        $fasta \\
+        $fasta_name \\
         > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml

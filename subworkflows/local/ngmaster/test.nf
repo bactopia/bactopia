@@ -5,7 +5,10 @@ include { NGMASTER } from './main.nf'
 
 workflow test_ngmaster {
 
-    inputs = tuple( )
+    inputs = tuple(
+        [ id:"GCF_001047255" ],
+        file(params.test_data['species']['neisseria_gonorrhoeae']['genome']['fna_gz'], checkIfExists: true)
+    )
 
     NGMASTER ( inputs )
 }

@@ -1,24 +1,36 @@
 name: emmtyper
 description: emm-typing of Streptococcus pyogenes assemblies
 keywords:
-  - TAGS
+  - fasta
+  - Streptococcus pyogenes
+  - typing
 modules:
-  - LIST_OF_MODULES
+  - emmtyper
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: A Streptococcus pyogenes fasta file.
+      pattern: "*.{fna,fna.gz}"
 
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: A summary of the per-sample emmtyper result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all emmtyper result files
+      pattern: "emmtyper.tsv"
   - versions:
       type: file
       description: File containing software versions

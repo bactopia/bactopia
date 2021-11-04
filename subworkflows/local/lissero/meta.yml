@@ -1,24 +1,36 @@
 name: lissero
 description: Serogroup typing prediction for Listeria monocytogenes
 keywords:
-  - TAGS
+  - fasta
+  - Listeria monocytogenes
+  - serogroup
 modules:
-  - LIST_OF_MODULES
+  - lissero
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: A Listeria monocytogenes fasta file.
+      pattern: "*.{fna,fna.gz}"
 
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: A summary of the per-sample lissero result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all lissero result files
+      pattern: "lissero.tsv"
   - versions:
       type: file
       description: File containing software versions

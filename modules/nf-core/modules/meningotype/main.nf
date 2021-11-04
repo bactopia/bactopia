@@ -31,10 +31,16 @@ process MENINGOTYPE {
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.getName().replace(".gz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        gzip -c -d $fasta > $fasta_name
+    fi
+
     meningotype \\
         $options.args \\
-        $fasta \\
+        $fasta_name \\
         > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml

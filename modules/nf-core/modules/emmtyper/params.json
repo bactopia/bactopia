@@ -26,8 +26,8 @@
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "percid": {
-                    "type": "number",
-                    "default": 95.0,
+                    "type": "integer",
+                    "default": 95,
                     "description": "Minimal percent identity of sequence",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },

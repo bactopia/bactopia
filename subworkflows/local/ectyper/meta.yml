@@ -25,11 +25,11 @@ output:
         e.g. [ id:'test', single_end:false ]
   - tsv:
       type: file
-      description: A summary of the per-sample hicap result
+      description: A summary of the per-sample ectyper result
       pattern: "*.tsv"
   - merged_tsv:
       type: file
-      description: A merged TSV of all hicap result files
+      description: A merged TSV of all ectyper result files
       pattern: "ectyper.tsv"
   - txt:
       type: file
