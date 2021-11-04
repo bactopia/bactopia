@@ -34,14 +34,24 @@ include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
+
 // Subworkflows
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
+if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
+//if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
+//if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
+//if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fastani/main';
+//if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
+//if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
+//if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
+//if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
+//if (params.wf == 'tbprofiler') include { SEQSERO2 } from '../subworkflows/local/tbprofiler/main';
 
 /*
 ========================================================================================
@@ -50,17 +60,6 @@ if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subwork
 */
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
 
-/*
-include { FASTANI } from '../modules/nf-core/modules/fastani/main'
-include { GTDBTK_CLASSIFYWF } from '../modules/nf-core/modules/gtdbtk/classifywf/main'
-include { IQTREE } from '../modules/nf-core/modules/iqtree/main'
-include { ISMAPPER } from '../modules/nf-core/modules/ismapper/main'
-include { PIRATE } from '../modules/nf-core/modules/pirate/main'
-include { PROKKA } from '../modules/nf-core/modules/prokka/main'
-include { ROARY } from '../modules/nf-core/modules/roary/main'
-include { SNPDISTS } from '../modules/nf-core/modules/snpdists/main'
-include { SPATYPER } from '../modules/nf-core/modules/spatyper/main'
-*/
 /*
 ========================================================================================
     RUN MAIN WORKFLOW

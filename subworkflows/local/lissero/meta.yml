@@ -1,0 +1,25 @@
+name: lissero
+description: Serogroup typing prediction for Listeria monocytogenes
+keywords:
+  - TAGS
+modules:
+  - LIST_OF_MODULES
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - INPUT_FILE:
+      type: file
+      description: Description of input file
+
+output:
+  - FILETYPE:
+      type: file
+      description: Output file description
+      pattern: '*.{bam}'
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'

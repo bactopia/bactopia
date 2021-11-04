@@ -24,23 +24,29 @@ process PIRATE {
     tuple val(meta), path(gff)
 
     output:
-    tuple val(meta), path("results/*")           , emit: results
-    tuple val(meta), path("core_alignment.fasta"), emit: aln, optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}"     , emit: logs, optional: true
-    path ".command.*"                            , emit: nf_logs
-    path "versions.yml"                          , emit: versions
+    tuple val(meta), path("results/*")                , emit: results
+    tuple val(meta), path("core_alignment.fasta")     , emit: aln
+    tuple val(meta), path("gene_presence_absence.csv"), emit: csv
+    path "*.{stdout.txt,stderr.txt,log,err}"          , emit: logs, optional: true
+    path ".command.*"                                 , emit: nf_logs
+    path "versions.yml"                               , emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
     PIRATE \\
         $options.args \\
+        --align \\
+        --rplots \\
         --threads $task.cpus \\
         --input ./ \\
         --output results/
-    
+    PIRATE_to_roary.pl -i results.*.tsv -o results/gene_presence_absence.csv
+
     cp results/core_alignment.fasta ./
-    gzip results/core_alignment.fasta
+    gzip results/*.fasta
+    cp results/gene_presence_absence.csv ./
+
 
     cat <<-END_VERSIONS > versions.yml
     pirate:

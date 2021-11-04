@@ -361,8 +361,9 @@ class NfcoreSchema {
             } else {
                 output += 'Bactopia Tools can include multiple tools (Subworkflows) or a single tool (Modules).\n\n'
                 for (wf_type in ['subworkflows', 'modules']) {
+                    Integer wf_total = params.available_workflows[group][wf_type].size()
                     String wf_desc = wf_type == 'subworkflows' ? 'Subworkflows' : 'Modules'
-                    output += colors.bold + wf_desc + colors.reset + '\n'
+                    output += colors.bold + wf_desc + ' (' + wf_total + ')' + colors.reset + '\n'
                     for (wf in params.available_workflows[group][wf_type].sort()) {
 
                         def description = params.workflows[wf].description

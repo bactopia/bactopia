@@ -41,7 +41,11 @@ output:
   - aln:
       type: file
       description: Core-genome alignment produced by PIRATE (Optional)
-      pattern: "*.{fasta}"
+      pattern: "*.fasta"
+  - csv:
+      type: file
+      description: Gene presence/absence CSV compatible with Scoary
+      pattern: "*.csv"
 
 authors:
   - "@rpetit3"

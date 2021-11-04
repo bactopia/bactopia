@@ -30,7 +30,7 @@
                     "description": "Install the MMseqs2 database",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "isntall_pfam": {
+                "install_pfam": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the Pfam database, required for de novo annotation or realignment",
