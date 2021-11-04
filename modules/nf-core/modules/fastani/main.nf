@@ -6,9 +6,9 @@ options        = initOptions(params.options)
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process FASTANI {
-    tag "$meta.id"
+    tag "${reference_name}"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}",
+    publishDir "${publish_dir}/${reference_name}",
         mode: params.publish_dir_mode,
         overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
@@ -21,41 +21,41 @@ process FASTANI {
     }
 
     input:
-    tuple val(meta), path(query)
-    path reference
+    tuple val(meta), path(query, stageAs: 'query-tmp/*')
+    each path(reference)
 
     output:
-    tuple val(meta), path("*.ani.txt")      , emit: ani
+    tuple val(meta), path("*.tsv")          , emit: tsv
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def is_compressed = reference.getName().endsWith(".gz") ? true : false
+    reference_fasta = reference.getName().replace(".gz", "")
+    reference_name = reference_fasta.replace(".fna", "")
+    """
+    if [ "$is_compressed" == "true" ]; then
+        gzip -c -d $reference > $reference_fasta
+    fi
 
-    if (meta.batch_input) {
-        """
-        fastANI \\
-            -ql $query \\
-            -rl $reference \\
-            -o ${prefix}.ani.txt
+    mkdir query
+    cp -P query-tmp/* query/
+    find query/ -name "*.gz" | xargs gunzip
+    find query/ -name "*" -type f > query-list.txt
 
-        cat <<-END_VERSIONS > versions.yml
-        fastani:
-            fastani: \$(fastANI --version 2>&1 | sed 's/version//;')
-        END_VERSIONS
-        """
-    } else {
-        """
-        fastANI \\
-            -q $query \\
-            -r $reference \\
-            -o ${prefix}.ani.txt
+    fastANI \\
+        --ql query-list.txt \\
+        -r $reference_fasta \\
+        -o fastani-result.tmp
 
-        cat <<-END_VERSIONS > versions.yml
-        fastani:
-            fastani: \$(fastANI --version 2>&1 | sed 's/version//;')
-        END_VERSIONS
-        """
-    }
+    echo "query<TAB>reference<TAB>ani<TAB>mapped_fragments<TAB>total_fragments" | sed 's/<TAB>/\t/g' > ${reference_name}.tsv
+    sed 's=^query/==' fastani-result.tmp>> ${reference_name}.tsv
+
+    cat <<-END_VERSIONS > versions.yml
+    fastani:
+        fastani: \$(fastANI --version 2>&1 | sed 's/version//;')
+    END_VERSIONS
+    """
 }

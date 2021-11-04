@@ -3,7 +3,65 @@
   tags:
     - fastani
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/GCA_000027305.tsv
+      md5sum: f0f4a8707c75a5b9c780ab9a0975f108
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.err
+      contains: ['Sketch', 'GCA_000027305', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.log
+      contains: ['Sketch', 'GCA_000027305', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.sh
+      md5sum: e3579359dfd2bdf330baac335c7c1904
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/versions.yml
+      md5sum: 2821134092b85c80aac02245e4d85a16
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/GCF_900478275.tsv
+      md5sum: 8d23163c06a7b3f78bbfc0ea38495468
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.err
+      contains: ['Sketch', 'GCF_900478275', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.log
+      contains: ['Sketch', 'GCF_900478275', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.sh
+      md5sum: 46330b4c80bd009973b8411044548163
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/versions.yml
+      md5sum: 2821134092b85c80aac02245e4d85a16
+    - path: bactopia-tools/fastani/fastani/fastani.tsv
+      contains: ['query', 'GCF_900478275', 'GCA_000027305']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.sh
+      contains: ['concat', 'GCF_900478275', 'GCA_000027305']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-dag.dot
+      md5sum: 65aa1c48fbdb5e33fda7c49aea7dfa56
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-trace.txt
+      contains: ['task_id']
