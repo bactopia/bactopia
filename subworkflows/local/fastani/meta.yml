@@ -1,24 +1,39 @@
 name: fastani
 description: fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
 keywords:
-  - TAGS
+  - fastani
 modules:
-  - LIST_OF_MODULES
+  - average nucleotide identity
+  - fastani
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+ - query:
       type: file
-      description: Description of input file
+      description: FASTA files to query against a reference
+      pattern: "*.{fna,fna.gz}"
+ - reference:
+      type: file
+      description: Reference FASTA to be queried against
+      pattern: "*.{fna,fna.gz}"
 
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: A summary of the per-reference fastANI result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all fastANI result files
+      pattern: "fastani.tsv"
   - versions:
       type: file
       description: File containing software versions

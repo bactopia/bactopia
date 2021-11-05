@@ -1,15 +1,17 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from './functions'
+include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
 
 params.options = [:]
 options        = initOptions(params.options)
+publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process ISMAPPER {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${params.outdir}",
+    publishDir "${publish_dir}/${meta.id}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
+        overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base,  logs_subdir: query_base) }
 
     conda (params.enable_conda ? "bioconda::ismapper=2.0.2" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -19,26 +21,46 @@ process ISMAPPER {
     }
 
     input:
-    tuple val(meta), path(reads), path(reference), path(query)
+    tuple val(meta), path(reads)
+    path(reference)
+    path(query)
 
     output:
-    tuple val(meta), path("results/*"), emit: results
-    path "versions.yml"               , emit: versions
+    tuple val(meta), path("${query_base}/*"), emit: results
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml",emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def ref_compressed = reference.getName().endsWith(".gz") ? true : false
+    def reference_name = reference.getName().replace(".gz", "")
+    def query_compressed = query.getName().endsWith(".gz") ? true : false
+    def query_name = query.getName().replace(".gz", "")
+    query_base = query.getSimpleName()
     """
+    if [ "$ref_compressed" == "true" ]; then
+        gzip -c -d $reference > $reference_name
+    fi
+    if [ "$ref_compressed" == "true" ]; then
+        gzip -c -d $reference > $reference_name
+    fi
+    
     ismap \\
         $options.args \\
         --t $task.cpus \\
-        --output_dir results \\
-        --queries $query \\
-        --reference $reference \\
+        --output_dir results/ \\
+        --queries $query_name \\
+        --log ${prefix} \\
+        --reference $reference_name \\
         --reads $reads
 
+    mkdir ${query_base}
+    mv results/${meta.id}/* ${query_base}
+
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( echo \$( ismap --version 2>&1 ) | sed 's/^.*ismap //' )
+    ismapper:
+        ismapper: \$( echo \$( ismap --version 2>&1 ) | sed 's/^.*ismap //' )
     END_VERSIONS
     """
 }
