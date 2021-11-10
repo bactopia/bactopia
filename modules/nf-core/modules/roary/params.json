@@ -19,11 +19,12 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "n": {
+                "use_prank": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Execute a fast core gene alignment with MAFFT",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Use PRANK instead of MAFFT for core gene",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "i": {
                     "type": "integer",

@@ -1,24 +1,20 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'tbprofiler')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process TBPROFILER_PROFILE {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::tb-profiler=3.0.8" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/tb-profiler:3.0.8--pypyh5e36f6f_0"
-    } else {
-        container "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/tb-profiler:3.0.8--pypyh5e36f6f_0' :
+        'quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0' }"
 
     input:
     tuple val(meta), path(reads)
@@ -45,8 +41,8 @@ process TBPROFILER_PROFILE {
         $input_reads
 
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}:  \$( echo \$(tb-profiler --version 2>&1) | sed 's/TBProfiler version //')
+    tbprofiler:
+        tb-profiler:  \$( echo \$(tb-profiler --version 2>&1) | sed 's/TBProfiler version //')
     END_VERSIONS
     """
 }

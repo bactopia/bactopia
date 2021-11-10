@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/agrvate/test.nf -entry test_agrvate --wf agrvate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - agrvate
+    - bactopia-tools
   files:
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/GCF_000017085-summary.tab
       md5sum: e86969f1623c16960033d87322759a89
@@ -119,24 +120,23 @@
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.vcf.gz.csi
     - path: bactopia-tools/agrvate/agrvate/agrvate.tsv
       md5sum: 7d5b10f1029e7e55630eb18ccc2aeb95
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: 842dce8b4a348dccbc188bb055891262
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/agrvate/agrvate/logs/csvtk/versions.yml
+    - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-dag.dot
-      md5sum: 0a186d6fe297c34a88a0cac6175b2511
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-timeline.html

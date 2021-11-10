@@ -1,24 +1,20 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'pirate')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process PIRATE {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${publish_dir}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::pirate=1.0.4" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/pirate%3A1.0.4--hdfd78af_1"
-    } else {
-        container "quay.io/biocontainers/pirate:1.0.4--hdfd78af_1"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/pirate%3A1.0.4--hdfd78af_1' :
+        'quay.io/biocontainers/pirate:1.0.4--hdfd78af_1' }"
 
     input:
     tuple val(meta), path(gff)
@@ -46,7 +42,6 @@ process PIRATE {
     cp results/core_alignment.fasta ./
     gzip results/*.fasta
     cp results/gene_presence_absence.csv ./
-
 
     cat <<-END_VERSIONS > versions.yml
     pirate:

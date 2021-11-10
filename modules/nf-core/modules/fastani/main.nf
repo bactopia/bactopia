@@ -1,24 +1,21 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'fastani')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process FASTANI {
     tag "${reference_name}"
     label 'process_medium'
-    publishDir "${publish_dir}/${reference_name}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}/${reference_name}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::fastani=1.32" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/fastani:1.32--he1c1bb9_0"
-    } else {
-        container "quay.io/biocontainers/fastani:1.32--he1c1bb9_0"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/fastani:1.32--he1c1bb9_0' :
+        'quay.io/biocontainers/fastani:1.32--he1c1bb9_0' }"
+
 
     input:
     tuple val(meta), path(query, stageAs: 'query-tmp/*')

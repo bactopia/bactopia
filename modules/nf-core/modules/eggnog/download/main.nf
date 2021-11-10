@@ -1,27 +1,20 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'eggnog_download')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process EGGNOG_DOWNLOAD {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::eggnog-mapper=2.1.6" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.6--pyhdfd78af_0"
-    } else {
-        container "quay.io/biocontainers/eggnog-mapper:2.1.6--pyhdfd78af_0"
-    }
-
-    input:
-    val(meta)
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.6--pyhdfd78af_0' :
+        'quay.io/biocontainers/eggnog-mapper:2.1.6--pyhdfd78af_0' }"
 
     output:
     path("*.db*")                           , emit: db
@@ -44,18 +37,6 @@ process EGGNOG_DOWNLOAD {
     cat <<-END_VERSIONS > versions.yml
     eggnog_download:
         eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
-    END_VERSIONS
-    """
-
-    stub:
-    """
-    touch eggnog.db
-    touch eggnog.taxa.db
-    touch eggnog.taxa.db.traverse.pkl
-
-    cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
     END_VERSIONS
     """
 }

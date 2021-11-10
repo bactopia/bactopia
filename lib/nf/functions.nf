@@ -100,11 +100,18 @@ def print_efficiency(cpus) {
     }
 }
 
+/*
+========================================================================================
+    Functions modeled from nf-core/modules
+========================================================================================
+*/
+
 def saveFiles(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
     final_output = ""
     found_ignore = false
     logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
+    process_name = args.opts.process_name
     if (args.filename) {
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
             // Do not publish versions.yml unless running from pytest workflow
@@ -113,10 +120,10 @@ def saveFiles(Map args) {
         } else if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "logs/${args.process_name}/${logs_subdir}/nf-${args.process_name}.${ext}"
+            final_output = "logs/${process_name}/${logs_subdir}/nf-${process_name}.${ext}"
         } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt') || args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
             // Its a version file or  program specific log files
-            final_output = "logs/${args.process_name}/${logs_subdir}/${args.filename}"
+            final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
             filename = args.filename
@@ -126,19 +133,19 @@ def saveFiles(Map args) {
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
             final_output = null
-            if (filename.endsWith("-error.txt") || args.publish_to_base == true) {
+            if (filename.endsWith("-error.txt") || args.opts.publish_to_base == true) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
                 final_output = "blast/${filename}"
             } else if (filename.startsWith("total_contigs_")) {
                 final_output = null
-            } else if (params.publish_dir.containsKey(args.process_name)) {
-                final_output = "${params.publish_dir[args.process_name]}/${filename}"
+            } else if (params.publish_dir.containsKey(process_name)) {
+                final_output = "${params.publish_dir[process_name]}/${filename}"
             } else {
-                if (args.is_module) {
+                if (args.opts.is_module) {
                     final_output = "${filename}"
                 } else {
-                    final_output = "${args.process_name}/${filename}"
+                    final_output = "${process_name}/${filename}"
                 }
             }
             
@@ -155,39 +162,14 @@ def saveFiles(Map args) {
     }
 }
 
-/*
-========================================================================================
-    Nextflow Functions specific to nf-core/modules
-    Taken from nf-vore/modules functions.nf
-========================================================================================
-*/
-
-def getSoftwareName(task_process, full_name) {
-    /* Extract name of software tool from process name using $task.process */
-    if (full_name == true) {
-        return task_process.tokenize(':')[-1].toLowerCase()
-    } else {
-        return task_process.tokenize(':')[-1].tokenize('_')[0].toLowerCase()
-    }
-}
-
-def getProcessName(task_process) {
-    /* Extract name of module from process name using $task.process */
-    return task_process.tokenize(':')[-1].toLowerCase()
-}
-
-def initOptions(Map args) {
+def initOptions(Map args, String process_name) {
     /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */
     def Map options = [:]
     options.args            = args.args ?: ''
-    options.args2           = args.args2 ?: ''
-    options.args3           = args.args3 ?: ''
-    options.publish_by_meta = args.publish_by_meta ?: []
-    options.publish_dir     = args.publish_dir ?: ''
-    options.publish_files   = args.publish_files
-    options.suffix          = args.suffix ?: ''
     options.is_module       = args.is_module ?: false
+    options.process_name    = process_name ?: ''
     options.publish_to_base = args.publish_to_base ?: false
-    options.full_software_name = args.full_software_name ?: false
+    options.suffix          = args.suffix ?: ''
+
     return options
 }

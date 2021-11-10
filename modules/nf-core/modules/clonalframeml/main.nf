@@ -1,24 +1,20 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'clonalframeml')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process CLONALFRAMEML {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::clonalframeml=1.12" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/clonalframeml:1.12--h7d875b9_1"
-    } else {
-        container "quay.io/biocontainers/clonalframeml:1.12--h7d875b9_1"
-    }
+    conda (params.enable_conda ? "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5" : null)
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' :
+        'quay.io/biocontainers/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' }"
 
     input:
     tuple val(meta), path(newick), path(msa)
@@ -30,6 +26,7 @@ process CLONALFRAMEML {
     tuple val(meta), path("*.labelled_tree.newick")        , emit: newick
     tuple val(meta), path("*.ML_sequence.fasta")           , emit: fasta
     tuple val(meta), path("*.position_cross_reference.txt"), emit: pos_ref
+    tuple val(meta), path("*.masked.fasta.gz")             , emit: masked_aln
     path "*.{stdout.txt,stderr.txt,log,err}"               , emit: logs, optional: true
     path ".command.*"                                      , emit: nf_logs
     path "versions.yml"                                    , emit: versions
@@ -49,9 +46,13 @@ process CLONALFRAMEML {
         $prefix \\
         $options.args
 
+    maskrc-svg.py clonalframe --aln !{msa_name} --symbol '-' --out ${prefix}.masked.fasta
+    gzip ${prefix}.masked.fasta
+
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( echo \$(ClonalFrameML -version 2>&1) | sed 's/^.*ClonalFrameML v//' )
+    clonalframeml:
+        clonalframeml: \$( echo \$(ClonalFrameML -version 2>&1) | sed 's/^.*ClonalFrameML v//' )
+        maskrc-svg: \$( echo \$(maskrc-svg -version 2>&1) | sed 's/^.*maskrc-svg v//' )
     END_VERSIONS
     """
 }

@@ -1,30 +1,30 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from './functions'
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'scoary')
+publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process SCOARY {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${params.outdir}",
-        mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::scoary=1.6.16" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/scoary:1.6.16--py_2"
-    } else {
-        container "quay.io/biocontainers/scoary:1.6.16--py_2"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/scoary:1.6.16--py_2' :
+        'quay.io/biocontainers/scoary:1.6.16--py_2' }"
 
     input:
     tuple val(meta), path(genes), path(traits)
     path(tree)
 
     output:
-    tuple val(meta), path("*.csv"), emit: csv
-    path "versions.yml"           , emit: versions
+    tuple val(meta), path("*.csv")          , emit: csv
+    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path ".command.*"                       , emit: nf_logs
+    path "versions.yml"                     , emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
@@ -38,8 +38,8 @@ process SCOARY {
         --genes $genes
 
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( scoary --version 2>&1 )
+    scoary:
+        scoary: \$( scoary --version 2>&1 )
     END_VERSIONS
     """
 }

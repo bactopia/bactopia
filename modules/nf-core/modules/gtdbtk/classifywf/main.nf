@@ -1,8 +1,8 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'gtdb')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 def VERSION = '1.5.0' // When using stubs for the GTDB database, the version info isn't printed.
@@ -10,17 +10,13 @@ def VERSION = '1.5.0' // When using stubs for the GTDB database, the version inf
 process GTDBTK_CLASSIFYWF {
     tag "${meta.assembler}-${meta.id}"
     label 'process_high'
-    publishDir "${publish_dir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name), is_module: options.is_module, publish_to_base: options.publish_to_base) }
+    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::gtdbtk=1.5.0" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/gtdbtk:1.5.0--pyhdfd78af_0"
-    } else {
-        container "quay.io/biocontainers/gtdbtk:1.5.0--pyhdfd78af_0"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/gtdbtk:1.5.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/gtdbtk:1.5.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path("bins/*")
@@ -64,24 +60,6 @@ process GTDBTK_CLASSIFYWF {
     cat <<-END_VERSIONS > versions.yml
     gtdbtk_classifywf:
         gtdb-tk: \$(echo \$(gtdbtk --version -v 2>&1) | sed "s/gtdbtk: version //; s/ Copyright.*//")
-    END_VERSIONS
-    """
-
-    stub:
-    """
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.summary.tsv
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.classify.tree.gz
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.markers_summary.tsv
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.msa.fasta.gz
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.user_msa.fasta
-    touch gtdbtk.${meta.assembler}-${meta.id}.stub.filtered.tsv
-    touch gtdbtk.${meta.assembler}-${meta.id}.log
-    touch gtdbtk.${meta.assembler}-${meta.id}.warnings.log
-    touch gtdbtk.${meta.assembler}-${meta.id}.failed_genomes.tsv
-
-    cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$(echo "$VERSION")
     END_VERSIONS
     """
 }

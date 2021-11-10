@@ -27,6 +27,33 @@
                     "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
                     "fa_icon": "fas fa-italic"
                 },
+                "format": {
+                    "type": "string",
+                    "default": "fasta",
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic"
+                },
+                "section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "NCBI section to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "assembly_level": {
+                    "type": "string",
+                    "default": "complete",
+                    "description": "Comma separated list of assembly levels to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "kingdom": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
                 "limit": {
                     "type": "string",
                     "description": "Limit the number of assemblies to download",

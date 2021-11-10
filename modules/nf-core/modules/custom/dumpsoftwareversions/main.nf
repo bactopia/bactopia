@@ -1,26 +1,20 @@
 // Import generic module functions
-include { initOptions; saveFiles; getSoftwareName; getProcessName } from '../../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../../../lib/nf/functions'
 
 params.options = [:]
-options        = initOptions(params.options)
+options        = initOptions(params.options, 'custom_dumpsoftwareversions')
 publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'
-    publishDir "${publish_dir}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:getSoftwareName(task.process, options.full_software_name),
-                                        subworkflow: options.subworkflow, publish_to_base: options.publish_to_base) }
-
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
     conda (params.enable_conda ? "bioconda::multiqc=1.11" : null)
-    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/multiqc:1.11--pyhdfd78af_0"
-    } else {
-        container "quay.io/biocontainers/multiqc:1.11--pyhdfd78af_0"
-    }
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/multiqc:1.11--pyhdfd78af_0' :
+        'quay.io/biocontainers/multiqc:1.11--pyhdfd78af_0' }"
 
     input:
     path versions
@@ -80,7 +74,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
         return "\\n".join(html)
 
     module_versions = {}
-    module_versions["${getProcessName(task.process)}"] = {
+    module_versions["custom_dumpsoftwareversions"] = {
         'python': platform.python_version(),
         'yaml': yaml.__version__
     }

@@ -1,0 +1,9 @@
+- name: ncbigenomedownload-test
+  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - ncbigenomedownload
+  files:
+    - path: OUTPUTFILE
+      contains: ['TEXT_A', 'TEXT_B']
+    - path: OUTPUTFILE
+      md5sum: a1000000000000000000000000000000

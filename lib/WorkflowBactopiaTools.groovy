@@ -28,6 +28,18 @@ class WorkflowBactopiaTools {
             error += Utils.fileNotFound(params.exclude, 'exclude', log)
         }
 
+        // Check file exists for certain parameters
+        def Map check_file = [
+            'accessions': params.accessions,
+            'assemblies': params.assemblies,
+            'traits': params.traits
+        ]
+        for ( f in check_file ) {
+            if (f.value) {
+                error += Utils.fileNotFound(f.value, f.key, log)
+            }
+        }
+
         // Check for existing output directory
         if (!workflow.resume) {
             def run_dir = "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}"
