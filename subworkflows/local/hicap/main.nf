@@ -30,6 +30,7 @@ workflow HICAP {
     if (params.is_subworkflow) {
         HICAP_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'hicap'], tsv]}.set{ ch_merge_hicap }
         CSVTK_CONCAT(ch_merge_hicap, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

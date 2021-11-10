@@ -19,6 +19,7 @@ workflow STAPHOPIASCCMEC {
     if (params.is_subworkflow) {
         STAPHOPIASCCMEC_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}.set{ ch_merge_sccmec }
         CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

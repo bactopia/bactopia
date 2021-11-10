@@ -24,6 +24,7 @@ workflow FASTANI {
     if (params.is_subworkflow) {
         FASTANI_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}.set{ ch_merge_fastani }
         CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     ch_versions = ch_versions.mix(FASTANI_MODULE.out.versions.first())

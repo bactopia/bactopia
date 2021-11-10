@@ -22,6 +22,7 @@ workflow AGRVATE {
     if (params.is_subworkflow) {
         AGRVATE_MODULE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
         CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

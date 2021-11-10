@@ -24,18 +24,18 @@ workflow NCBIGENOMEDOWNLOAD {
     ch_versions = ch_versions.mix(NCBIGENOMEDOWNLOAD_MODULE.out.versions.first())
 
     emit:
-    NCBIGENOMEDOWNLOAD_MODULE.out.gbk
-    NCBIGENOMEDOWNLOAD_MODULE.out.fna
-    NCBIGENOMEDOWNLOAD_MODULE.out.rm
-    NCBIGENOMEDOWNLOAD_MODULE.out.features
-    NCBIGENOMEDOWNLOAD_MODULE.out.gff
-    NCBIGENOMEDOWNLOAD_MODULE.out.faa
-    NCBIGENOMEDOWNLOAD_MODULE.out.gpff
-    NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
-    NCBIGENOMEDOWNLOAD_MODULE.out.cds
-    NCBIGENOMEDOWNLOAD_MODULE.out.rna
-    NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
-    NCBIGENOMEDOWNLOAD_MODULE.out.report
-    NCBIGENOMEDOWNLOAD_MODULE.out.stats
+    gbk = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
+    fna = NCBIGENOMEDOWNLOAD_MODULE.out.fna
+    rm = NCBIGENOMEDOWNLOAD_MODULE.out.rm
+    features = NCBIGENOMEDOWNLOAD_MODULE.out.features
+    gff = NCBIGENOMEDOWNLOAD_MODULE.out.gff
+    faa = NCBIGENOMEDOWNLOAD_MODULE.out.faa
+    gpff = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
+    wgs_gbk = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
+    cds = NCBIGENOMEDOWNLOAD_MODULE.out.cds
+    rna = NCBIGENOMEDOWNLOAD_MODULE.out.rna
+    rna_fna = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
+    report = NCBIGENOMEDOWNLOAD_MODULE.out.report
+    stats = NCBIGENOMEDOWNLOAD_MODULE.out.stats
     versions = ch_versions // channel: [ versions.yml ]
 }

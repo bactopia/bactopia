@@ -26,6 +26,7 @@ workflow SEQSERO2 {
     if (params.is_subworkflow) {
         SEQSERO2_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'seqsero2'], tsv]}.set{ ch_merge_seqsero2 }
         CSVTK_CONCAT(ch_merge_seqsero2, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

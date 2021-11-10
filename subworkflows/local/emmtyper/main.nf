@@ -32,6 +32,7 @@ workflow EMMTYPER {
     if (params.is_subworkflow) {
         EMMTYPER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'emmtyper'], tsv]}.set{ ch_merge_emmtyper }
         CSVTK_CONCAT(ch_merge_emmtyper, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

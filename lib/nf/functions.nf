@@ -1,6 +1,6 @@
 /*
 ========================================================================================
-    Nextflow Functions specific to Bactopia
+    Functions specific to Bactopia
 ========================================================================================
 */
 import nextflow.util.SysHelper
@@ -105,7 +105,6 @@ def print_efficiency(cpus) {
     Functions modeled from nf-core/modules
 ========================================================================================
 */
-
 def saveFiles(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
     final_output = ""

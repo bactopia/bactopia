@@ -30,6 +30,7 @@ workflow KLEBORATE {
     if (params.is_subworkflow) {
         KLEBORATE_MODULE.out.txt.collect{meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}.set{ ch_merge_kleborate }
         CSVTK_CONCAT(ch_merge_kleborate, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

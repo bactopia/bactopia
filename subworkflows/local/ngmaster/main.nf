@@ -23,6 +23,7 @@ workflow NGMASTER {
     if (params.is_subworkflow) {
         NGMASTER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}.set{ ch_merge_ngmaster }
         CSVTK_CONCAT(ch_merge_ngmaster, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

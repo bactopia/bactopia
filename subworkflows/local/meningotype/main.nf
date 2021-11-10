@@ -27,6 +27,7 @@ workflow MENINGOTYPE {
     if (params.is_subworkflow) {
         MENINGOTYPE_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'meningotype'], tsv]}.set{ ch_merge_meningotype }
         CSVTK_CONCAT(ch_merge_meningotype, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:

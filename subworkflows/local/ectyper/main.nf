@@ -28,6 +28,7 @@ workflow ECTYPER {
     if (params.is_subworkflow) {
         ECTYPER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}.set{ ch_merge_ectyper }
         CSVTK_CONCAT(ch_merge_ectyper, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
     }
 
     emit:
