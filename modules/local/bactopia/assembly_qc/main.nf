@@ -1,20 +1,19 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "assembly_qc"
+params.options = [:]
+options        = initOptions(params.options, 'assembly_qc')
 
 process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
     tag "${meta.id} - ${method}"
     label "max_cpu_75"
-    label PROCESS_NAME
+    label "assembly_qc"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir:method) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir:method) }
 
     input:
     tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
@@ -106,10 +105,4 @@ process ASSEMBLY_QC {
 
     fi
     '''
-
-    stub:
-    """
-    mkdir ${method}
-    touch ${method}/${meta.id}
-    """
 }

@@ -1,9 +1,10 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "call_variants"
+params.options = [:]
+options = initOptions(params.options, 'call_variants')
 
 process CALL_VARIANTS {
     /*
@@ -18,12 +19,10 @@ process CALL_VARIANTS {
     */
     tag "${meta.id} - ${reference_name}"
     label "max_cpu_75"
-    label PROCESS_NAME
+    label "call_variants"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir:reference_name) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir:reference_name) }
 
     input:
     tuple val(meta), path(fq)
@@ -36,7 +35,6 @@ process CALL_VARIANTS {
     path "versions.yml", emit: versions
 
     shell:
-    PROCESS_NAME = "call_variants"
     snippy_ram = task.memory.toString().split(' ')[0]
     reference_name = reference.getSimpleName()
     fastq = meta.single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
@@ -133,11 +131,4 @@ process CALL_VARIANTS {
         vcf-annotator: $(echo $(vcf-annotator --version 2>&1) | sed 's/vcf-annotator.py //')
     END_VERSIONS
     '''
-
-    stub:
-    reference_name = reference.getSimpleName()
-    """
-    mkdir ${reference_name}
-    touch ${reference_name}/*
-    """
 }

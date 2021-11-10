@@ -1,9 +1,10 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "minmer_query"
+params.options = [:]
+options = initOptions(params.options, 'minmer_query')
 
 process MINMER_QUERY {
     /*
@@ -12,12 +13,10 @@ process MINMER_QUERY {
     */
     tag "${meta.id} - ${dataset_basename}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "minmer_query"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(fq), path(sourmash)
@@ -30,7 +29,6 @@ process MINMER_QUERY {
     path "versions.yml", emit: versions
 
     shell:
-    dataset_name = dataset.getName()
     dataset_basename = dataset.getSimpleName()
     dataset_info = dataset_basename.split("-") // mash-refseq-k21 --> mash, refseq, k21
     program = dataset_info[0]
@@ -57,11 +55,4 @@ process MINMER_QUERY {
         sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')
     END_VERSIONS
     '''
-
-    stub:
-    dataset_name = dataset.getName()
-    """
-    touch ${meta.id}-mash-refseq-k21.txt
-    touch ${meta.id}-mash-k21.stderr.txt
-    """
 }

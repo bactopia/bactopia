@@ -1,9 +1,11 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "minmer_sketch"
+params.options = [:]
+options = initOptions(params.options, 'minmer_sketch')
+options.ignore = [".fastq.gz"]
 
 process MINMER_SKETCH {
     /*
@@ -11,12 +13,10 @@ process MINMER_SKETCH {
     Sourmash (k=21,31,51), and McCortex (k=31)
     */
     tag "${meta.id}"
-    label PROCESS_NAME
+    label "minmer_sketch"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz"]) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(fq)
@@ -57,10 +57,4 @@ process MINMER_SKETCH {
         sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')
     END_VERSIONS
     '''
-
-    stub:
-    """
-    touch ${sample}.sig
-    touch ${sample}-k31.msh
-    """
 }

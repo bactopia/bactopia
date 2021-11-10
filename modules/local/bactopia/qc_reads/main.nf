@@ -2,20 +2,19 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "qc_reads"
+params.options = [:]
+options = initOptions(params.options, 'qc_reads')
 
 process QC_READS {
     /* Clean up Illumina reads */
     tag "${meta.id}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "qc_reads"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, ignore:[ '-genome-size.txt', extra]) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts: options) }
 
     input:
     tuple val(meta), path(fq), path(extra), path(genome_size)
@@ -30,6 +29,7 @@ process QC_READS {
     path "*-error.txt", optional: true
 
     shell:
+    options.ignore = [ '-genome-size.txt', extra]
     meta.single_end = fq[1] == null ? true : false
     qc_ram = task.memory.toString().split(' ')[0]
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
@@ -264,12 +264,4 @@ process QC_READS {
         rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir results
-    touch ${meta.id}-error.txt
-    touch results/${meta.id}.fastq.gz
-    touch results/${meta.id}.error-fastq.gz
-    """
 }

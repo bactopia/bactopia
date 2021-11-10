@@ -149,11 +149,10 @@ def saveFiles(Map args) {
                 }
             }
             
-            if (args.containsKey('ignore')) {
-                args.ignore.each {
-                    if (filename.endsWith("${it}")) {
-                        final_output = null
-                    }
+            // Exclude files that should be ignored
+            args.opts.ignore.each {
+                if (filename.endsWith("${it}")) {
+                    final_output = null
                 }
             }
         }
@@ -166,6 +165,7 @@ def initOptions(Map args, String process_name) {
     /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */
     def Map options = [:]
     options.args            = args.args ?: ''
+    options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
     options.process_name    = process_name ?: ''
     options.publish_to_base = args.publish_to_base ?: false

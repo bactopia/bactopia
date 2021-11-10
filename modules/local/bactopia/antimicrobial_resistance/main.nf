@@ -1,9 +1,10 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "antimicrobial_resistance"
+params.options = [:]
+options        = initOptions(params.options, 'antimicrobial_resistance')
 
 process ANTIMICROBIAL_RESISTANCE {
     /*
@@ -14,10 +15,8 @@ process ANTIMICROBIAL_RESISTANCE {
     label "max_cpus"
     label PROCESS_NAME
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(genes), path(proteins)
@@ -68,10 +67,4 @@ process ANTIMICROBIAL_RESISTANCE {
         amrfinder:  $(echo $(amrfinder --version 2>&1))
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir ${PUBLISH_DIR}
-    touch ${PUBLISH_DIR}/${meta.id}
-    """
 }

@@ -1,19 +1,18 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "sequence_type"
+params.options = [:]
+options = initOptions(params.options, 'sequence_type')
 
 process SEQUENCE_TYPE {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${meta.id} - ${schema}"
-    label PROCESS_NAME
+    label "sequence_type"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir: schema) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: schema) }
 
     input:
     tuple val(meta), path(fq), path(assembly)
@@ -66,12 +65,4 @@ process SEQUENCE_TYPE {
         blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
     END_VERSIONS
     '''
-
-    stub:
-    dataset_tarball = path(dataset).getName()
-    schema = dataset_tarball.replace('.tar.gz', '')
-    """
-    mkdir -p results/${schema}/ariba
-    touch results/${schema}/ariba/ariba-not-run.txt
-    """
 }

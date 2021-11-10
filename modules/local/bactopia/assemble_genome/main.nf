@@ -1,20 +1,20 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "assemble_genome"
+params.options = [:]
+options        = initOptions(params.options, 'assemble_genome')
+options.ignore = ["-genome-size.txt", ".fastq.gz"]
 
 process ASSEMBLE_GENOME {
     /* Assemble the genome using Shovill, SKESA is used by default */
     tag "${meta.id}"
     label "max_cpu_75"
-    label PROCESS_NAME
+    label "assemble_genome"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, ignore: ["-genome-size.txt", ".fastq.gz"]) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode,  overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(fq), path(extra), path(genome_size)
@@ -186,18 +186,4 @@ process ASSEMBLE_GENOME {
         unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir assembly
-    mkdir fastqs
-    mkdir ${PROCESS_NAME}
-    touch total_contigs_${meta.id}
-    touch ${meta.id}-assembly-error.txt
-    touch fastqs/${meta.id}.fastq.gz
-    touch assembly/${meta.id}
-    touch assembly/${meta.id}.fna
-    touch assembly/${meta.id}.fna.gz
-    touch ${PROCESS_NAME}/${meta.id}
-    """
 }

@@ -1,20 +1,20 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "gather_samples"
+params.options = [:]
+options = initOptions(params.options, 'gather_samples')
+options.ignore = [".fastq.gz", ".fna.gz"]
 
 process GATHER_SAMPLES {
     /* Gather up input FASTQs for analysis. */
     tag "${meta.id}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "gather_samples"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, ignore: [".fastq.gz", ".fna.gz"]) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(r1, stageAs: '*???-r1'), path(r2, stageAs: '*???-r2'), path(extra)
@@ -266,15 +266,4 @@ process GATHER_SAMPLES {
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir fastqs
-    mkdir extra
-    touch ${meta.id}-error.txt
-    touch fastqs/${meta.id}.fastq.gz
-    touch extra/${meta.id}.gz
-    touch bactopia.versions
-    touch multiple-read-sets-merged.txt
-    """
 }

@@ -1,9 +1,10 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "mapping_query"
+params.options = [:]
+options = initOptions(params.options, 'mapping_query')
 
 process MAPPING_QUERY {
     /*
@@ -11,12 +12,10 @@ process MAPPING_QUERY {
     */
     tag "${meta.id}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "mapping_query"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(fq)
@@ -70,12 +69,4 @@ process MAPPING_QUERY {
         samtools: $(echo $(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*$//')
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir ${PROCESS_NAME}
-    mkdir mapping
-    touch ${PROCESS_NAME}/${sample}
-    touch mapping/${sample}
-    """
 }

@@ -1,9 +1,10 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources;saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "blast"
+params.options = [:]
+options        = initOptions(params.options, 'blast')
 
 process BLAST {
     /*
@@ -11,12 +12,10 @@ process BLAST {
     */
     tag "${meta.id} - ${query}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "blast"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir: query) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: query) }
 
     input:
     tuple val(meta), path(blastdb, stageAs: 'blastdb/*')
@@ -85,11 +84,4 @@ process BLAST {
         tblastn: $(echo $(tblastn -version 2>&1) | sed 's/^.*tblastn: //;s/ .*$//') 
     END_VERSIONS
     '''
-
-    stub:
-    """
-    mkdir results/${query}
-    touch results/${query}/${meta.id}.json
-    touch results/${query}/${meta.id}.json.gz
-    """
 }

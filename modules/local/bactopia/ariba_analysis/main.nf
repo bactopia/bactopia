@@ -1,19 +1,18 @@
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system
-include { get_resources; saveFiles } from '../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-PROCESS_NAME = "ariba_analysis"
+params.options = [:]
+options        = initOptions(params.options, 'ariba_analysis')
 
 process ARIBA_ANALYSIS {
     /* Run reads against all available (if any) ARIBA datasets */
     tag "${meta.id} - ${dataset_name}"
-    label PROCESS_NAME
+    label "ariba_analysis"
 
-    publishDir "${params.outdir}/${meta.id}",
-        mode: params.publish_dir_mode,
-        overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, process_name:PROCESS_NAME, logs_subdir:dataset_name) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
     tuple val(meta), path(fq)
@@ -63,12 +62,4 @@ process ARIBA_ANALYSIS {
         ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
     END_VERSIONS
     '''
-
-    stub:
-    dataset_tarball = path(dataset).getName()
-    dataset_name = dataset_tarball.replace('.tar.gz', '')
-    """
-    mkdir ${dataset_name}
-    touch ${dataset_name}/${meta.id}
-    """
 }
