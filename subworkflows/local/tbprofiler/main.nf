@@ -1,22 +1,21 @@
 //
 // tbprofiler - Detect resistance and lineages of Mycobacterium  tuberculosis genomes
 //
-
 tbprofiler_args = [
-    params.skip_resistance ? "" : "--resistance",
-    params.skip_kaptive ? "" : "--kaptive",
-    params.force_index ? "--force_index" : "",
-    "--min_identity ${params.min_identity}",
-    "--min_coverage ${params.min_coverage}",
-    "--min_spurious_identity ${params.min_spurious_identity}",
-    "--min_spurious_coverage ${params.min_spurious_coverage}",
-    "--min_kaptive_confidence ${params.min_kaptive_confidence}"
+    params.call_whole_genome ? "--call_whole_genome" : "",
+    params.calling_params ? "--calling_params ${params.calling_params}" : "",
+    params.suspect ? "--suspect" : "",
+    params.no_flagstat ? "--no_flagstat" : "",
+    params.no_delly ? "--no_delly" : "",
+    "--mapper ${params.mapper}",
+    "--caller ${params.caller}",
+    "--min_depth ${params.tb_min_depth}",
+    "--af ${params.tb_af}",
+    "--reporting_af ${params.tb_reporting_af}",
+    "--coverage_fraction_threshold ${params.coverage_fraction_threshold}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { TBPROFILER as TBPROFILER_MODULE }  from '../../../modules/nf-core/modules/tbprofiler/profile/main' addParams( options: [args: "${tbprofiler_args}", is_module: true] )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true] )
-}
+include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/modules/tbprofiler/profile/main' addParams( options: [args: "${tbprofiler_args}", is_module: true] )
 
 workflow TBPROFILER {
     take:
@@ -26,18 +25,13 @@ workflow TBPROFILER {
     ch_versions = Channel.empty()
 
     TBPROFILER_MODULE(reads)
-    if (params.is_subworkflow) {
-        TBPROFILER_MODULE.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'tbprofiler'], csv]}.set{ ch_merge_tbprofiler }
-        CSVTK_CONCAT(ch_merge_tbprofiler, 'csv', 'csv')
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
-    }
     ch_versions = ch_versions.mix(TBPROFILER_MODULE.out.versions.first())
 
     emit:
     bam = TBPROFILER_MODULE.out.bam
     csv = TBPROFILER_MODULE.out.csv
-    merged_csv = CSVTK_CONCAT.out.csv
     json = TBPROFILER_MODULE.out.json
+    txt = TBPROFILER_MODULE.out.txt
     vcf = TBPROFILER_MODULE.out.vcf
     versions = ch_versions // channel: [ versions.yml ]
 }

@@ -1,18 +1,21 @@
 name: tbprofiler
-description: Detect resistance and lineages of Mycobacterium  tuberculosis genomes
+description: Detect resistance and lineages of Mycobacterium tuberculosis genomes
 keywords:
-  - TAGS
+  - Mycobacterium tuberculosis
+  - resistance
+  - serotype
 modules:
-  - LIST_OF_MODULES
+  - tbprofiler
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - reads:
       type: file
-      description: Description of input file
+      description: FASTQ file
+      pattern: "*.{fastq.gz,fq.gz}"
 
 output:
   - FILETYPE:
@@ -23,3 +26,23 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+  - bam:
+      type: file
+      description: BAM file with alignment details
+      pattern: "*.bam"
+  - csv:
+      type: file
+      description: Optional CSV formated result file of resistance and strain type
+      pattern: "*.csv"
+  - json:
+      type: file
+      description: JSON formated result file of resistance and strain type
+      pattern: "*.json"
+  - txt:
+      type: file
+      description: Optional text file of resistance and strain type
+      pattern: "*.txt"
+  - vcf:
+      type: file
+      description: VCF with variant info again refernce genomes
+      pattern: "*.vcf"

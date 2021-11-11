@@ -32,12 +32,17 @@ process TBPROFILER_PROFILE {
     script:
     prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
+    def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """
     tb-profiler \\
         profile \\
         $options.args \\
+        $platform \\
+        --csv \\
+        --txt \\
         --prefix ${prefix} \\
         --threads $task.cpus \\
+        --no_trim \\
         $input_reads
 
     cat <<-END_VERSIONS > versions.yml
