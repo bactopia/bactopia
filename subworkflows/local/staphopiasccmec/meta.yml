@@ -1,25 +1,38 @@
 name: staphopiasccmec
 description: Primer based SCCmec typing of Staphylococcus aureus genomes
 keywords:
-  - TAGS
+  - amr
+  - fasta
+  - sccmec
+  - Staphylococcus aureus
 modules:
-  - LIST_OF_MODULES
+  - staphopiasccmec
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
 
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+  - tsv:
+      type: file
+      description: Per-sample summary of the staphopia-sccmec assessement
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the staphopia-sccmec assessement
+      pattern: "staphopiasccmec.tsv"

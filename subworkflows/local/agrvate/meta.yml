@@ -1,25 +1,37 @@
 name: agrvate
 description: Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
 keywords:
-  - TAGS
+  - fasta
+  - virulence
+  - Staphylococcus aureus
 modules:
-  - LIST_OF_MODULES
+  - agrvate
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.fasta"
 
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: Per-sample summary of the agrvate assessement
+      pattern: "*-summary.tab"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the agrvate assessement
+      pattern: "agrvate.tsv"
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"

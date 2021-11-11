@@ -1,25 +1,40 @@
 name: ismapper
 description: Identify insertion sites positions in bacterial genomes
 keywords:
-  - TAGS
+  - fastq
+  - insertion sequences
 modules:
-  - LIST_OF_MODULES
+  - ismapper
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - reads:
       type: file
-      description: Description of input file
+      description: A set of paired-end FASTQ files
+      pattern: "*.{fastq.gz,fq.gz}"
+  - reference:
+      type: file
+      description: Reference genome in GenBank format
+      pattern: "*.{gbk}"
+  - query:
+      type: file
+      description: Insertion sequences to query in FASTA format
+      pattern: "*.{fasta,fa}"
 
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+  - results:
+      type: directory
+      description: Directory containing ISMapper result files
+      pattern: "*/*"

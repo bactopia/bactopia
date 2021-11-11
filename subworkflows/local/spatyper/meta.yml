@@ -1,25 +1,45 @@
 name: spatyper
 description: Computational method for finding spa types in Staphylococcus aureus
 keywords:
-  - TAGS
+  - fasta
+  - spatype
+  - Staphylococcus aureus
 modules:
-  - LIST_OF_MODULES
+  - spatyper
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+  - repeats:
+      type: file
+      description: spa repeat sequences in FASTA format (Optional)
+      pattern: "*.{fasta}"
+  - repeat_order:
+      type: file
+      description: spa types and order of repeats (Optional)
+      pattern: "*.{txt}"
 
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+  - tsv:
+      type: file
+      description: Per-sample summary of the spaTyper assessement
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the spaTyper assessement
+      pattern: "spatyper.tsv"
