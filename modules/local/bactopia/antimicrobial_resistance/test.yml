@@ -1,69 +1,89 @@
 - name: antimicrobial_resistance-compressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_compressed
   files:
-    - path: GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt
+    - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt
       md5sum: b4d261ace9be7d013c19d1f5c0005bfe
-    - path: GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
+    - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
       md5sum: e269209401df356bdfd9123d35940afd
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
       contains: ['amrfinder', 'Database', 'nucleotide']
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
       contains: ['amrfinder', 'Database', 'protein']
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
       contains: ['amrfinderdb']
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
-      md5sum: 404975b3b55318cc5702f8de602dcc6f
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
+      contains: ['amrfinderdb']
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
       md5sum: 0f20d8e9c0716f452c83f5d36608f682
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/antimicrobial_resistance/versions.yml
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml
       md5sum: 521fb2c504df0c9bcc2282aa907af7d5
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: ae19f37096471603584f4b98a6c96fa5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
 
 - name: antimicrobial_resistance-uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance_uncompressed -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance_uncompressed --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_uncompressed
   files:
-    - path: GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt
+    - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-gene-report.txt
       md5sum: b4d261ace9be7d013c19d1f5c0005bfe
-    - path: GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
+    - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
       md5sum: e269209401df356bdfd9123d35940afd
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
       contains: ['amrfinder', 'Database', 'nucleotide']
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
       contains: ['amrfinder', 'Database', 'protein']
-    - path: GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
       contains: ['amrfinderdb']
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
-      md5sum: 404975b3b55318cc5702f8de602dcc6f
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
+      contains: ['amrfinderdb']
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
       md5sum: 33f1e250a277f738460f8aa5a67c5de1
-    - path: GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/antimicrobial_resistance/versions.yml
+    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml
       md5sum: 521fb2c504df0c9bcc2282aa907af7d5
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 4851ab4adadaf80b88ad3a4be205e5d5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']

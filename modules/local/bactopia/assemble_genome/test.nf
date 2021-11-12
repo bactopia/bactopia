@@ -6,7 +6,7 @@ workflow test_assemble_genome_se {
     // [sample, runtype, single_end], fastqs, extra, genome_size
     inputs = tuple(
         [ id:"output", runtype:'single-end', single_end:true ],
-        [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)]
+        [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)],
         file(params.test_data['empty']['fna']),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
     )
@@ -18,7 +18,7 @@ workflow test_assemble_genome_pe {
     inputs = tuple(
         [ id:"output", runtype:'paired-end', single_end:false ],
         [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
-         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['empty']['fna']),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
     )
@@ -30,7 +30,7 @@ workflow test_assemble_genome_hybrid {
     inputs = tuple(
         [ id:"output", runtype:'hybrid', single_end:false ],
         [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
-         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['species']['portiera']['nanopore']['se'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
     )

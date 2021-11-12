@@ -65,15 +65,16 @@ def test_ensure_valid_version_yml(workflow_dir):
         else:
             # Treat as main workflow
             if process_name in HAS_SUBDIRS:
-                subdirs = Path(workflow_dir / f"output/logs/{process_name}").glob("*/")
-                for subdir in subdirs:
-                    versions_yml_file = subdir / f"versions.yml"
-                    versions_yml = versions_yml_file.read_text()
-                    validate_versions_yml(versions_yml)
-                    tested = True
+                for accepted_id in ACCEPTED_IDS:
+                    subdirs = Path(workflow_dir / f"pytest/{accepted_id}/logs/{process_name}").glob("*/")
+                    for subdir in subdirs:
+                        versions_yml_file = subdir / f"versions.yml"
+                        versions_yml = versions_yml_file.read_text()
+                        validate_versions_yml(versions_yml)
+                        tested = True
             else:
                 for accepted_id in ACCEPTED_IDS:
-                    versions_yml_file = workflow_dir / f"{accepted_id}/logs/{process_name}/versions.yml"
+                    versions_yml_file = workflow_dir / f"pytest/{accepted_id}/logs/{process_name}/versions.yml"
                     if Path(versions_yml_file).exists():
                         versions_yml = versions_yml_file.read_text()
                         validate_versions_yml(versions_yml)

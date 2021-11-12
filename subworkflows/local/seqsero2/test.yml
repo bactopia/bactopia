@@ -1,7 +1,9 @@
 - name: seqsero2-test
   command: bash -c 'nextflow run ./subworkflows/local/seqsero2/test.nf -entry test_seqsero2 --wf seqsero2 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - seqsero2
+    - bactopia-tools
   files:
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/SeqSero_log.txt
       md5sum: 67a633ace7d179f8debd89e17de69fe7
@@ -25,24 +27,24 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/versions.yml
       md5sum: eee2c0fa6e7420f340ddc9923b22196b
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: 7f7204165bbb75c0a1be7e80281170ba
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk/versions.yml
+    - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/seqsero2/seqsero2/nf-reports/seqsero2-dag.dot
-      md5sum: d50a23b127753aa2521b0e0ca0aae6c5
+      contains: ['seqsero2dag', 'SEQSERO2', 'versions']
     - path: bactopia-tools/seqsero2/seqsero2/nf-reports/seqsero2-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/seqsero2/seqsero2/nf-reports/seqsero2-timeline.html

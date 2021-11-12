@@ -1,6 +1,7 @@
 - name: agrvate-test
   command: bash -c 'nextflow run ./subworkflows/local/agrvate/test.nf -entry test_agrvate --wf agrvate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - agrvate
     - bactopia-tools
   files:
@@ -137,6 +138,7 @@
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-dag.dot
+      contains: ['agrvatedag', 'AGRVATE', 'versions']
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-timeline.html

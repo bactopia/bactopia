@@ -1,7 +1,9 @@
 - name: lissero-test
   command: bash -c 'nextflow run ./subworkflows/local/lissero/test.nf -entry test_lissero --wf lissero -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - lissero
+    - bactopia-tools
   files:
     - path: bactopia-tools/lissero/lissero/GCF_002285835/GCF_002285835.tsv
       md5sum: f3fedfb8fe6789eaa389129d25c88d5f
@@ -23,24 +25,24 @@
       md5sum: 6fbff2dbedebc201f680a605be273337
     - path: bactopia-tools/lissero/lissero/lissero.tsv
       md5sum: f3fedfb8fe6789eaa389129d25c88d5f
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: e2bc5d1665cf048e52a3d709b394e70c
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/lissero/lissero/logs/csvtk/versions.yml
+    - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/lissero/lissero/nf-reports/lissero-dag.dot
-      md5sum: 9c9380b56aafa84c60de48322cc39892
+      contains: ['lisserodag', 'LISSERO', 'versions']
     - path: bactopia-tools/lissero/lissero/nf-reports/lissero-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/lissero/lissero/nf-reports/lissero-timeline.html

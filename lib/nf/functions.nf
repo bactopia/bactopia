@@ -109,7 +109,7 @@ def saveFiles(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
     final_output = ""
     found_ignore = false
-    logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : ""
+    logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
     process_name = args.opts.process_name
     if (args.filename) {
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
@@ -166,6 +166,7 @@ def initOptions(Map args, String process_name) {
     options.args            = args.args ?: ''
     options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
+    options.logs_subdir     = args.logs_subdir ?: ''
     options.process_name    = process_name ?: ''
     options.publish_to_base = args.publish_to_base ?: false
     options.suffix          = args.suffix ?: ''

@@ -1,157 +1,193 @@
 - name: sequence_type-pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_pe
   files:
-    - path: output/logs/sequence_type/default/ariba.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 28dd46ddfb6391861fd7bb04a200aae4
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/sequence_type/default/ariba.stderr.txt
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: output/logs/sequence_type/default/ariba.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/ariba.stdout.txt
       contains: ['ARIBA', 'OK', 'True', 'done!']
-    - path: output/logs/sequence_type/default/mlst-blast.stderr.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/mlst-blast.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
       md5sum: e9d38f19a593b9c6166f00decdd7fcd7
-    - path: output/logs/sequence_type/default/nf-sequence_type.begin
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.err
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.log
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.out
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.run
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/sequence_type/default/nf-sequence_type.sh
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
       md5sum: 4102aac7565fb1e2a15d037aab2eb4a4
-    - path: output/logs/sequence_type/default/nf-sequence_type.trace
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
-    - path: output/logs/sequence_type/default/versions.yml
+    - path: pytest/output/logs/sequence_type/default/versions.yml
       md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
-    - path: output/mlst/default/ariba/assembled_genes.fa.gz
-    - path: output/mlst/default/ariba/assembled_seqs.fa.gz
-    - path: output/mlst/default/ariba/assemblies.fa.gz
-    - path: output/mlst/default/ariba/debug.report.tsv
+    - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
+    - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
+    - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
+    - path: pytest/output/mlst/default/ariba/debug.report.tsv
       md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: output/mlst/default/ariba/mlst_report.details.tsv
+    - path: pytest/output/mlst/default/ariba/mlst_report.details.tsv
       md5sum: 4f4e0af08c19dad027d0f34bd07030ad
-    - path: output/mlst/default/ariba/mlst_report.tsv
+    - path: pytest/output/mlst/default/ariba/mlst_report.tsv
       md5sum: be6d401d28aa3d0ffac09cc07147f221
-    - path: output/mlst/default/ariba/report.tsv
+    - path: pytest/output/mlst/default/ariba/report.tsv
       md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: output/mlst/default/ariba/version_info.txt
+    - path: pytest/output/mlst/default/ariba/version_info.txt
       contains: ['ARIBA', 'OK', 'True']
-    - path: output/mlst/default/blast/output-blast.json
+    - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type-pe_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe_uncompressed --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_pe_uncompressed
   files:
-    - path: output/logs/sequence_type/default/ariba.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 2d0674e1c5407a22de06cdfdd6f41cbb
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/sequence_type/default/ariba.stderr.txt
       md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: output/logs/sequence_type/default/ariba.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/ariba.stdout.txt
       contains: ['ARIBA', 'OK', 'True', 'done!']
-    - path: output/logs/sequence_type/default/mlst-blast.stderr.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/mlst-blast.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
       md5sum: e0588ef3e3039007a33cbe6b8a934fe7
-    - path: output/logs/sequence_type/default/nf-sequence_type.begin
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.err
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.log
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.out
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.run
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/sequence_type/default/nf-sequence_type.sh
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
       md5sum: c6b83dbe4188d6f615f1f33ecf2ec80e
-    - path: output/logs/sequence_type/default/nf-sequence_type.trace
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
-    - path: output/logs/sequence_type/default/versions.yml
+    - path: pytest/output/logs/sequence_type/default/versions.yml
       md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
-    - path: output/mlst/default/ariba/assembled_genes.fa.gz
-    - path: output/mlst/default/ariba/assembled_seqs.fa.gz
-    - path: output/mlst/default/ariba/assemblies.fa.gz
-    - path: output/mlst/default/ariba/debug.report.tsv
+    - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
+    - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
+    - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
+    - path: pytest/output/mlst/default/ariba/debug.report.tsv
       md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: output/mlst/default/ariba/mlst_report.details.tsv
+    - path: pytest/output/mlst/default/ariba/mlst_report.details.tsv
       md5sum: 4f4e0af08c19dad027d0f34bd07030ad
-    - path: output/mlst/default/ariba/mlst_report.tsv
+    - path: pytest/output/mlst/default/ariba/mlst_report.tsv
       md5sum: be6d401d28aa3d0ffac09cc07147f221
-    - path: output/mlst/default/ariba/report.tsv
+    - path: pytest/output/mlst/default/ariba/report.tsv
       md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: output/mlst/default/ariba/version_info.txt
+    - path: pytest/output/mlst/default/ariba/version_info.txt
       contains: ['ARIBA', 'OK', 'True']
-    - path: output/mlst/default/blast/output-blast.json
+    - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type-se
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_se
   files:
-    - path: output/logs/sequence_type/default/mlst-blast.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 934df6556d093fe3d996a888260f08e9
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/mlst-blast.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
       md5sum: e9d38f19a593b9c6166f00decdd7fcd7
-    - path: output/logs/sequence_type/default/nf-sequence_type.begin
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.err
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.log
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.out
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.run
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/sequence_type/default/nf-sequence_type.sh
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
       md5sum: 3fd3cc16b40135dae69de5e6485752ed
-    - path: output/logs/sequence_type/default/nf-sequence_type.trace
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
-    - path: output/logs/sequence_type/default/versions.yml
+    - path: pytest/output/logs/sequence_type/default/versions.yml
       md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
-    - path: output/mlst/default/ariba/ariba-not-run.txt
+    - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
       md5sum: 333cbba3485fd644bffb152989ddd5a1
-    - path: output/mlst/default/blast/output-blast.json
+    - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
 - name: sequence_type-se_uncompressed
-  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se_uncompressed --skip_compression -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se_uncompressed --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_se_uncompressed
   files:
-    - path: output/logs/sequence_type/default/mlst-blast.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: cf318c8f2a7c88230b8cb34e6776fba2
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/mlst-blast.stdout.txt
+    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
       md5sum: e0588ef3e3039007a33cbe6b8a934fe7
-    - path: output/logs/sequence_type/default/nf-sequence_type.begin
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.err
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/sequence_type/default/nf-sequence_type.log
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.out
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
       md5sum: 5357f571bd17420bf1f64f61c31d112d
-    - path: output/logs/sequence_type/default/nf-sequence_type.run
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/sequence_type/default/nf-sequence_type.sh
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
       md5sum: 8f753529054289b4e4ccd4c6ce9993f8
-    - path: output/logs/sequence_type/default/nf-sequence_type.trace
+    - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
-    - path: output/logs/sequence_type/default/versions.yml
+    - path: pytest/output/logs/sequence_type/default/versions.yml
       md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
-    - path: output/mlst/default/ariba/ariba-not-run.txt
+    - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
       md5sum: 333cbba3485fd644bffb152989ddd5a1
-    - path: output/mlst/default/blast/output-blast.json
+    - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72

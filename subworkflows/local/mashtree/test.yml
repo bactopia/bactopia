@@ -1,7 +1,9 @@
 - name: mashtree-test
   command: bash -c 'nextflow run ./subworkflows/local/mashtree/test.nf -entry test_mashtree --wf mashtree -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - mashtree
+    - bactopia-tools
   files:
     - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -24,7 +26,7 @@
     - path: bactopia-tools/mashtree/mashtree/mashtree.tsv
       contains: ['GCF_000009885', 'GCF_000017085']
     - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-dag.dot
-      md5sum: 46c62cc26aa6176ece69fa27cc87abdf
+      contains: ['mashtreedag', 'MASHTREE', 'versions']
     - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-timeline.html

@@ -14,9 +14,9 @@ include { SPATYPER } from '../../../modules/nf-core/modules/spatyper/main' addPa
 include { STAPHOPIASCCMEC } from '../../../modules/nf-core/modules/staphopiasccmec/main' addParams( options: [args: "${staphopiasccmec_args}", is_subworkflow: true] )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts )
-    include { CSVTK_CONCAT as CSVTK_CONCAT_SPATYPER } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts )
-    include { CSVTK_CONCAT as CSVTK_CONCAT_STAPHOPIASCCMEC } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts )
+    include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'agrvate'])
+    include { CSVTK_CONCAT as CSVTK_CONCAT_SPATYPER } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'spatyper'])
+    include { CSVTK_CONCAT as CSVTK_CONCAT_STAPHOPIASCCMEC } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'staphopiasccmec'])
 }
 
 workflow STAPHTYPER {

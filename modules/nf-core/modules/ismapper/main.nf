@@ -9,7 +9,7 @@ process ISMAPPER {
     tag "$meta.id"
     label 'process_medium'
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: query_base) }
 
     conda (params.enable_conda ? "bioconda::ismapper=2.0.2" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?

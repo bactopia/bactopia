@@ -1,7 +1,9 @@
 - name: ectyper-test
   command: bash -c 'nextflow run ./subworkflows/local/ectyper/test.nf -entry test_ectyper --wf ectyper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - ectyper
+    - bactopia-tools
   files:
     - path: bactopia-tools/ectyper/ectyper/GCF_001695515/GCF_001695515.tsv
       md5sum: cc5b424c0877cd56de8c304aaf3ff1aa
@@ -27,24 +29,24 @@
       md5sum: 5202e1700efb96dc497bc3f1381c9ca2
     - path: bactopia-tools/ectyper/ectyper/ectyper.tsv
       md5sum: cc5b424c0877cd56de8c304aaf3ff1aa
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: 44af9288b38b4efc36ca4457841be2fd
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/ectyper/ectyper/logs/csvtk/versions.yml
+    - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-dag.dot
-      md5sum: 9e861e187ce8cdb99e0378cf125dfcbb
+      contains: ['ectyperdag', 'ECTYPER', 'versions']
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-timeline.html

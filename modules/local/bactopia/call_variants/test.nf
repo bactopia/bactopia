@@ -12,7 +12,7 @@ workflow test_call_variants_pe {
     )
 
     references = [
-        file(params.test_data['reference']['gbk'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['gbk'], checkIfExists: true)
     ]
 
     CALL_VARIANTS ( inputs, references )
@@ -26,7 +26,7 @@ workflow test_call_variants_se {
     )
 
     references = [
-        file(params.test_data['reference']['gbk'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['gbk'], checkIfExists: true)
     ]
 
     CALL_VARIANTS ( inputs, references )

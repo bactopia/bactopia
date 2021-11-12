@@ -1,153 +1,189 @@
 - name: minmer_sketch-pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - minmer_sketch
     - minmer_sketch_pe
   files:
-    - path: output/logs/minmer_sketch/mash.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 5d1df162dc52b56a8ec1549f820bde0d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/minmer_sketch/mash.stderr.txt
       md5sum: 4d094a3e8c5ae95ff0e65985b75ca251
-    - path: output/logs/minmer_sketch/mash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
       md5sum: b14b7f35866b3222e693ef5774f5d21d
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
-    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
       md5sum: 871739bfe7750bfb9606ac411d4b3b90
-    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/versions.yml
+    - path: pytest/output/logs/minmer_sketch/versions.yml
       md5sum: fea7342c707346efbf2e72a57b7be241
-    - path: output/minmers/output-k21.msh
+    - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
-    - path: output/minmers/output-k31.msh
+    - path: pytest/output/minmers/output-k31.msh
       md5sum: be29569635c95b4adc756a49368db479
-    - path: output/minmers/output.sig
+    - path: pytest/output/minmers/output.sig
       md5sum: 59b29391dee7905a2b28d897bd4d141d
 
 - name: minmer_sketch-pe_31mers
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --count_31mers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - minmer_sketch
     - count_31mers
   files:
-    - path: output/logs/minmer_sketch/mash.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 5d1df162dc52b56a8ec1549f820bde0d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/minmer_sketch/mash.stderr.txt
       md5sum: 4d094a3e8c5ae95ff0e65985b75ca251
-    - path: output/logs/minmer_sketch/mash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/mccortex.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/mccortex.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/mccortex.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mccortex.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
       md5sum: 8091617693ff3da4f69f3fb4b4bb96ca
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
-    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
       md5sum: 871739bfe7750bfb9606ac411d4b3b90
-    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/versions.yml
+    - path: pytest/output/logs/minmer_sketch/versions.yml
       md5sum: fea7342c707346efbf2e72a57b7be241
-    - path: output/minmers/output-k21.msh
+    - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
-    - path: output/minmers/output-k31.msh
+    - path: pytest/output/minmers/output-k31.msh
       md5sum: be29569635c95b4adc756a49368db479
-    - path: output/minmers/output.ctx
-    - path: output/minmers/output.sig
+    - path: pytest/output/minmers/output.ctx
+    - path: pytest/output/minmers/output.sig
       md5sum: 59b29391dee7905a2b28d897bd4d141d
 
 - name: minmer_sketch-se
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - minmer_sketch
     - minmer_sketch_se
   files:
-    - path: output/logs/minmer_sketch/mash.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: b819323cfe6b7510c9a10d25d206fb2d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/minmer_sketch/mash.stderr.txt
       md5sum: f002cc5da5f7fd75096d89fe557341ce
-    - path: output/logs/minmer_sketch/mash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
       md5sum: 43ce677fb343019b6fa048eb641c82aa
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
-    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
       md5sum: 3d43e1e72502faa07220cd38348ed606
-    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/versions.yml
+    - path: pytest/output/logs/minmer_sketch/versions.yml
       md5sum: fea7342c707346efbf2e72a57b7be241
-    - path: output/minmers/output-k21.msh
+    - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
-    - path: output/minmers/output-k31.msh
+    - path: pytest/output/minmers/output-k31.msh
       md5sum: 72445cc7d56ba21f75d17627af6873f6
-    - path: output/minmers/output.sig
+    - path: pytest/output/minmers/output.sig
       md5sum: 8b00b55b46190b83373f3ed863d00228
 
 - name: minmer_sketch-se_31mers
-  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --count_31mers -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --count_31mers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - minmer_sketch
     - count_31mers
   files:
-    - path: output/logs/minmer_sketch/mash.stderr.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: b819323cfe6b7510c9a10d25d206fb2d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/minmer_sketch/mash.stderr.txt
       md5sum: f002cc5da5f7fd75096d89fe557341ce
-    - path: output/logs/minmer_sketch/mash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/mccortex.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/mccortex.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/mccortex.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/mccortex.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.begin
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.err
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.log
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.out
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.run
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.sh
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
       md5sum: 7b5812cfb99b509a3e5e2437c3bbf687
-    - path: output/logs/minmer_sketch/nf-minmer_sketch.trace
+    - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
-    - path: output/logs/minmer_sketch/sourmash.stderr.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
       md5sum: 3d43e1e72502faa07220cd38348ed606
-    - path: output/logs/minmer_sketch/sourmash.stdout.txt
+    - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/minmer_sketch/versions.yml
+    - path: pytest/output/logs/minmer_sketch/versions.yml
       md5sum: fea7342c707346efbf2e72a57b7be241
-    - path: output/minmers/output-k21.msh
+    - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
-    - path: output/minmers/output-k31.msh
+    - path: pytest/output/minmers/output-k31.msh
       md5sum: 72445cc7d56ba21f75d17627af6873f6
-    - path: output/minmers/output.ctx
-    - path: output/minmers/output.sig
+    - path: pytest/output/minmers/output.ctx
+    - path: pytest/output/minmers/output.sig
       md5sum: 8b00b55b46190b83373f3ed863d00228

@@ -1,7 +1,9 @@
 - name: fastani-test
   command: bash -c 'nextflow run ./subworkflows/local/fastani/test.nf -entry test_fastani --wf fastani -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - fastani
+    - bactopia-tools
   files:
     - path: bactopia-tools/fastani/fastani/GCA_000027305/GCA_000027305.tsv
       md5sum: f0f4a8707c75a5b9c780ab9a0975f108
@@ -41,24 +43,24 @@
       md5sum: 2821134092b85c80aac02245e4d85a16
     - path: bactopia-tools/fastani/fastani/fastani.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.sh
       contains: ['concat', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk/versions.yml
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/fastani/fastani/nf-reports/fastani-dag.dot
-      md5sum: 65aa1c48fbdb5e33fda7c49aea7dfa56
+      contains: ['fastanidag', 'FASTANI', 'versions']
     - path: bactopia-tools/fastani/fastani/nf-reports/fastani-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/fastani/fastani/nf-reports/fastani-timeline.html

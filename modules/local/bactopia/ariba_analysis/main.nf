@@ -12,7 +12,7 @@ process ARIBA_ANALYSIS {
     label "ariba_analysis"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir:dataset_name) }
 
     input:
     tuple val(meta), path(fq)

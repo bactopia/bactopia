@@ -1,7 +1,9 @@
 - name: hicap-test
   command: bash -c 'nextflow run ./subworkflows/local/hicap/test.nf -entry test_hicap --wf hicap -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - hicap
+    - bactopia-tools
   files:
     - path: bactopia-tools/hicap/hicap/GCA_000027305/GCA_000027305.tsv
       md5sum: a4ffb126a74f38f0d7409027c982a84a
@@ -45,24 +47,24 @@
       md5sum: 07c39264839a5a9c52479a8d67a38eb2
     - path: bactopia-tools/hicap/hicap/hicap.tsv
       md5sum: fdbf89f0a652b1186e6348eadb7fd4cb
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: 728b7a27f0e3882aba08ca6d0c599005
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/hicap/hicap/logs/csvtk/versions.yml
+    - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/hicap/hicap/nf-reports/hicap-dag.dot
-      md5sum: f9c070b8d0859933fe1206d9f00194f5
+      contains: ['hicapdag', 'HICAP', 'versions']
     - path: bactopia-tools/hicap/hicap/nf-reports/hicap-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/hicap/hicap/nf-reports/hicap-timeline.html

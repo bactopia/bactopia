@@ -1,690 +1,897 @@
 - name: gather_samples-pe_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_pe
     - estimate_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: cb25c2d9bdb567d49a63d4505bc75a7d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: bb67fc8fed2fc749e7bd60464c2e0162
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size.txt
+    - path: pytest/output/output-genome-size.txt
       md5sum: ca7a438ae8c4ce0beabea6b275d19545
 
 - name: gather_samples-pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_pe
     - known_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: cb25c2d9bdb567d49a63d4505bc75a7d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 3ec8a79f56d0728b497eba27bd64d7e3
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size.txt
+    - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 
 - name: gather_samples-merge_pe_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe
     - estimate_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 5f5132f4de8a14893bb963a28527053a
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 778d5023f2a6a59f95f4ebaf98533cb0
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: fab38de55b0190c663de7b11c5bbcc93
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: a84614cac43591838cc77b13953a2071
+    - path: pytest/output/output-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
 - name: gather_samples-merge_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe
     - known_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 5f5132f4de8a14893bb963a28527053a
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: cff9aac349a22b5fe8c09de9670c3f52
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: fab38de55b0190c663de7b11c5bbcc93
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: a84614cac43591838cc77b13953a2071
+    - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 - name: gather_samples-merge_pe_hybrid_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
     - estimate_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: c7dd83c814cebd648eab31d76a858bf2
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 48a0f4b239e44995290037ffa78e5d3a
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: fab38de55b0190c663de7b11c5bbcc93
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: a84614cac43591838cc77b13953a2071
+    - path: pytest/output/output-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
 - name: gather_samples-merge_pe_hybrid
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
     - known_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: c7dd83c814cebd648eab31d76a858bf2
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 7dc56279139e636235edcef3accad3bb
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: fab38de55b0190c663de7b11c5bbcc93
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: a84614cac43591838cc77b13953a2071
+    - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 - name: gather_samples-se_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_se
     - estimate_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 45cd736bb842fcb67bbc70d683b35742
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 5b25871fa312f34ca35a5c8750b16323
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size.txt
+    - path: pytest/output/output-genome-size.txt
       md5sum: 3bbba81645ccae5459e9634fc6fe77af
 
 - name: gather_samples-se
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_se
     - known_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 45cd736bb842fcb67bbc70d683b35742
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: c0c8e6292b99e392ef8ca047dd7e41ce
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size.txt
+    - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 - name: gather_samples-merge_se_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_se
     - estimate_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 9644ce690d8162b1aa2ef8a8f328ac00
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 2cdb41f470b71d131430f90a268ea0b0
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: dd849a7d2730ba77578dc3f5e32d5d18
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: aee73103d71b3383d5d24d2d81ce3e97
+    - path: pytest/output/output-genome-size.txt
       md5sum: 80f199049c540d58d1e5968a62f3482f
 
 - name: gather_samples-merge_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_se
     - known_genome_size
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 9644ce690d8162b1aa2ef8a8f328ac00
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 97ab7e101468df38a4a1495a6fe821cf
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/multiple-read-sets-merged.txt
-      md5sum: dd849a7d2730ba77578dc3f5e32d5d18
-    - path: output/output-genome-size.txt
+    - path: pytest/output/multiple-read-sets-merged.txt
+      md5sum: aee73103d71b3383d5d24d2d81ce3e97
+    - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
 - name: gather_samples-sra_accession_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_sra_accession
     - estimate_genome_size
   files:
-    - path: SRX1390609/SRX1390609-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: c4bfee0752bd24b7c9029ec3a67029a5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/SRX1390609/SRX1390609-genome-size.txt
       md5sum: ca7a438ae8c4ce0beabea6b275d19545
-    - path: SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
+    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
       contains: ['SRX1390609', 'Archive']
-    - path: SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
+    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.sh
       md5sum: dff8a5340169fcbf8adb061714544a10
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: SRX1390609/logs/gather_samples/versions.yml
+    - path: pytest/SRX1390609/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 - name: gather_samples-sra_accession
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_sra_accession
     - known_genome_size
   files:
-    - path: SRX1390609/SRX1390609-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: c4bfee0752bd24b7c9029ec3a67029a5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/SRX1390609/SRX1390609-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
+    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
       contains: ['SRX1390609', 'Archive']
-    - path: SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
+    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.sh
       md5sum: 142fae3058cbed836a96ce669a40c863
-    - path: SRX1390609/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: SRX1390609/logs/gather_samples/versions.yml
+    - path: pytest/SRX1390609/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 - name: gather_samples-assembly_accession_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly_accession
     - estimate_genome_size
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 0193c6947064f19afccaf7ded305197e
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
       md5sum: e9f9ec1aaa4769a1b322d6ff09bafa0d
-    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: ab1ad9a7ecb80020b90847fdedcda4e5
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 - name: gather_samples-assembly_accession
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly_accession
     - known_genome_size
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 0193c6947064f19afccaf7ded305197e
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
       md5sum: e9f9ec1aaa4769a1b322d6ff09bafa0d
-    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: 054701ec735a65ae8a9a7ae0ea594290
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 
 - name: gather_samples-assembly_estimate
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly
     - estimate_genome_size
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 38a9c66cc4c0e4cbd7be04bab8732a9f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: 2745a9ecbe8930ec423fc7fb768c25bc
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 - name: gather_samples-assembly
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly
     - known_genome_size
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 38a9c66cc4c0e4cbd7be04bab8732a9f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: efa37062b84c964ae46695c6c7f8cf8b
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 
 - name: gather_samples-error_low_read_count_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 50de389c26c11957024bef4e23fdacd3
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: 7a66d3bc039918f9c17556308049c209
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: 7a66d3bc039918f9c17556308049c209
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: bb67fc8fed2fc749e7bd60464c2e0162
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size-error.txt
+    - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
-    - path: output/output-low-read-count-error.txt
+    - path: pytest/output/output-low-read-count-error.txt
       md5sum: 6b83dbca009dbe0ad944d8124ce49cba
-    - path: output/output-low-sequence-depth-error.txt
+    - path: pytest/output/output-low-sequence-depth-error.txt
       md5sum: 98c27c437d8f8e369cd58daa6ced7bf8
 
 - name: gather_samples-error_low_read_count_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: ca5fe3ca9e4ffdbe5f7e21ea43b6c6f5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: b5bcccdd6b3788aa91e24ac772383b1a
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: b5bcccdd6b3788aa91e24ac772383b1a
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 5b25871fa312f34ca35a5c8750b16323
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size-error.txt
+    - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
-    - path: output/output-low-read-count-error.txt
+    - path: pytest/output/output-low-read-count-error.txt
       md5sum: 62b184563e501178b47ef5790e9d54e9
-    - path: output/output-low-sequence-depth-error.txt
+    - path: pytest/output/output-low-sequence-depth-error.txt
       md5sum: d27e499c1b41268dcf83bd21a658d8fa
 
 - name: gather_samples-error_low_depth_pe
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: d5226c586e5ab1727313518063316cc0
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: ca0a8d9cb939a5e76409556412256612
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: ca0a8d9cb939a5e76409556412256612
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: bb67fc8fed2fc749e7bd60464c2e0162
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size-error.txt
+    - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
-    - path: output/output-low-read-count-error.txt
+    - path: pytest/output/output-low-read-count-error.txt
       md5sum: 6be3c78d51a74c0086e03d47bf5db34b
-    - path: output/output-low-sequence-depth-error.txt
+    - path: pytest/output/output-low-sequence-depth-error.txt
       md5sum: f5610617e8492c4f6f5e21bf4bd24796
 
 - name: gather_samples-error_low_depth_se
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_se -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 7a36ab435750d9b459e0831e5106faf5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: 13e7a1ca291968269f3e87d04f68af4f
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: 13e7a1ca291968269f3e87d04f68af4f
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: 5b25871fa312f34ca35a5c8750b16323
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size-error.txt
+    - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
-    - path: output/output-low-read-count-error.txt
+    - path: pytest/output/output-low-read-count-error.txt
       md5sum: 427061b788c00b7b8c3abcb6e9b96001
-    - path: output/output-low-sequence-depth-error.txt
+    - path: pytest/output/output-low-sequence-depth-error.txt
       md5sum: 0cb539f77000d294e87864e714693587
 
 - name: gather_samples-error_low_proportion
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_proportion -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_proportion --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: output/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 8811ca5de10ba19e20e5693f352a789d
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.err
       md5sum: 1905bd1ec0aa832d828cf73b24387e27
-    - path: output/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.log
       md5sum: 1905bd1ec0aa832d828cf73b24387e27
-    - path: output/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: output/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: output/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
       md5sum: bb67fc8fed2fc749e7bd60464c2e0162
-    - path: output/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: output/logs/gather_samples/versions.yml
+    - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
-    - path: output/output-genome-size-error.txt
+    - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
-    - path: output/output-low-basepair-proportion-error.txt
+    - path: pytest/output/output-low-basepair-proportion-error.txt
       md5sum: a6da65656318f5b21a5024330c8591d3
 
 - name: gather_samples-error_min_genome_size
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --min_genome_size 1000000 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --min_genome_size 1000000 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size-error.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 38a9c66cc4c0e4cbd7be04bab8732a9f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size-error.txt
       md5sum: 3fcde9b157e3fc599cf86ac74dd2420f
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: 6d6f77bfd0dbc3dfc4548f73b29e2d7c
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b
 
 - name: gather_samples-error_max_genome_size
-  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --max_genome_size 1000 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --max_genome_size 1000 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
   files:
-    - path: GCF_000292685/GCF_000292685-genome-size-error.txt
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 38a9c66cc4c0e4cbd7be04bab8732a9f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/GCF_000292685-genome-size-error.txt
       md5sum: b3c7e9b2af2d198598b903187cc7eef1
-    - path: GCF_000292685/logs/gather_samples/art.stderr.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
       md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: GCF_000292685/logs/gather_samples/art.stdout.txt
+    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
       contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.begin
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.err
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.log
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.out
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.run
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.sh
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
       md5sum: a76e74fc47a34751ce3e5b1df92bacc2
-    - path: GCF_000292685/logs/gather_samples/nf-gather_samples.trace
+    - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
-    - path: GCF_000292685/logs/gather_samples/versions.yml
+    - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
       md5sum: 961e6c41cd0e28811eb78ebe82503a4b

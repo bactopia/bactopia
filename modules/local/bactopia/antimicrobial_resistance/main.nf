@@ -13,7 +13,7 @@ process ANTIMICROBIAL_RESISTANCE {
     */
     tag "${meta.id}"
     label "max_cpus"
-    label PROCESS_NAME
+    label "antimicrobial_resistance"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }

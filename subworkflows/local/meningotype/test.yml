@@ -1,7 +1,9 @@
 - name: meningotype-test
   command: bash -c 'nextflow run ./subworkflows/local/meningotype/test.nf -entry test_meningotype --wf meningotype -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - meningotype
+    - bactopia-tools
   files:
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/GCF_003355215.tsv
       md5sum: cdf1cbd9f28a9ce2138f072c6d0ab391
@@ -21,26 +23,26 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/logs/meningotype/versions.yml
       md5sum: c5d8246e3dd977102064d8be67e17f0d
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.begin
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.err
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.log
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.out
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.run
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.sh
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.sh
       md5sum: ab31432f53a8af6c557444f36d3a54eb
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/nf-csvtk.trace
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/meningotype/meningotype/logs/csvtk/versions.yml
+    - path: bactopia-tools/meningotype/meningotype/logs/csvtk_concat/versions.yml
       md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/meningotype/meningotype/meningotype.tsv
       md5sum: cdf1cbd9f28a9ce2138f072c6d0ab391
     - path: bactopia-tools/meningotype/meningotype/nf-reports/meningotype-dag.dot
-      md5sum: 2e87ac7f059c95b681f3782c039ab418
+      contains: ['meningotypedag', 'MENINGOTYPE', 'versions']
     - path: bactopia-tools/meningotype/meningotype/nf-reports/meningotype-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/meningotype/meningotype/nf-reports/meningotype-timeline.html

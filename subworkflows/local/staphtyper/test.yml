@@ -1,7 +1,9 @@
 - name: staphtyper-test
   command: bash -c 'nextflow run ./subworkflows/local/staphtyper/test.nf -entry test_staphtyper --wf staphtyper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - all_tests
     - staphtyper
+    - bactopia-tools
   files:
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-summary.tab
       md5sum: e86969f1623c16960033d87322759a89
@@ -155,56 +157,56 @@
       md5sum: f631e5f4c80dc8ce004d72d9a3c56f58
     - path: bactopia-tools/staphtyper/staphtyper/agrvate.tsv
       md5sum: 7d5b10f1029e7e55630eb18ccc2aeb95
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.begin
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.err
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.log
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.out
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.run
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.sh
-      md5sum: c5d8d97c4c5eb3a37c35bc567b467714
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/nf-csvtk_concat_agrvate.trace
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.sh
+      md5sum: 842dce8b4a348dccbc188bb055891262
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_agrvate/versions.yml
-      md5sum: 868ee6c8af61da3f49d137c0266d3d3e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.begin
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.err
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.log
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.out
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.run
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.sh
-      md5sum: 905125874df06ba36fe96a799e97535d
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/nf-csvtk_concat_spatyper.trace
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.sh
+      md5sum: 7bafc0dee7bb6c6818769d3eab83a15a
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_spatyper/versions.yml
-      md5sum: f010671c36a5849c0d2d45e51cad3141
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.begin
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.err
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.log
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.out
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.run
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.sh
-      md5sum: 073100ecfce4361a7f162553dbdeb138
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/nf-csvtk_concat_staphopiasccmec.trace
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.sh
+      md5sum: 9fa8b5aa14175a96aaf9bb5e8ee9078a
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat_staphopiasccmec/versions.yml
-      md5sum: 48378ef3bbd1948b4f669307a76daff8
+    - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
     - path: bactopia-tools/staphtyper/staphtyper/nf-reports/staphtyper-dag.dot
-      md5sum: 119ebfe8ef3c9ee4c50c25fb33541d7f
+      contains: ['staphtyperdag', 'STAPHTYPER', 'versions']
     - path: bactopia-tools/staphtyper/staphtyper/nf-reports/staphtyper-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/staphtyper/staphtyper/nf-reports/staphtyper-timeline.html
