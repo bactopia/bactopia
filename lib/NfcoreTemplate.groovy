@@ -253,7 +253,7 @@ class NfcoreTemplate {
     //
     // nf-core logo
     //
-    public static String logo(workflow, monochrome_logs, logo_name="bactopia", worflow_name="bactopia") {
+    public static String logo(workflow, monochrome_logs, logo_name="bactopia", worflow_name="bactopia", worflow_description="bactopia") {
         Map colors = logColours(monochrome_logs)
         if (logo_name == "staphopia") {
             String.format(
@@ -266,6 +266,7 @@ class NfcoreTemplate {
                 ${colors.blue}  |___/\\__\\__,_| .__/|_| |_|\\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}               |_|               |_|                 ${colors.reset}
                 ${colors.purple}  staphopia v${workflow.manifest.version}${colors.reset}
+                ${colors.purple}  ${worflow_description} ${colors.reset}
                 -${colors.dim}------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
@@ -280,6 +281,7 @@ class NfcoreTemplate {
                 ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_|  \\__\\___/ \\___/|_|___/ ${colors.reset}
                 ${colors.blue}                            |_|                                            ${colors.reset}
                 ${colors.purple}  ${workflow.manifest.name} tools ${worflow_name} v${workflow.manifest.version}${colors.reset}
+                ${colors.purple}  ${worflow_description} ${colors.reset}
                 -${colors.dim}------------------------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
@@ -294,6 +296,7 @@ class NfcoreTemplate {
                 ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}                            |_|                  ${colors.reset}
                 ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
+                ${colors.purple}  ${worflow_description} ${colors.reset}
                 -${colors.dim}-------------------------------------------${colors.reset}-
                 """.stripIndent()
             )

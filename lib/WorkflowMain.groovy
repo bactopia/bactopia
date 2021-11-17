@@ -37,7 +37,7 @@ class WorkflowMain {
                 command = "${workflow.manifest.name} tools ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
             }
         }
-        help_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
+        help_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf, params.workflows[params.wf].description)
         def print_example = true
         Map parsed_help = NfcoreSchema.paramsHelp(workflow, params, command, schema_filename, print_example)
         help_string += parsed_help['output']
@@ -60,7 +60,7 @@ class WorkflowMain {
         def num_hidden = 0
         def logo_name = "bactopia"
         def command = ""
-        wf_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
+        wf_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf, params.workflows[params.wf].description)
         wf_string += NfcoreSchema.listWorkflows(workflow, params)
         wf_string += NfcoreTemplate.dashedLine(params.monochrome_logs)
         wf_string += '\n' + citation(workflow) + '\n'
@@ -81,7 +81,8 @@ class WorkflowMain {
                 logo_name = "tools"
             }
         }
-        summary_log += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf)
+
+        summary_log += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf, params.workflows[params.wf].description)
         summary_log += NfcoreSchema.paramsSummaryLog(workflow, params, schema_filename)
         summary_log += '\n' + citation(workflow) + '\n'
         summary_log += NfcoreTemplate.dashedLine(params.monochrome_logs)

@@ -38,7 +38,7 @@
                 "prokka_opts": {
                     "type": "string",
                     "description": "Extra Prokka options in quotes.",
-                    "default": "1e-09",
+                    "default": "",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 }
