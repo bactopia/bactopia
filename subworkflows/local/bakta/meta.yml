@@ -1,25 +1,75 @@
 name: bakta
 description: Rapid annotation of bacterial genomes SUBWORKFLOW_DESCRIPTION plasmids
 keywords:
-  - TAGS
+  - annotation
+  - fasta
+  - prokaryote
 modules:
-  - LIST_OF_MODULES
+  - bakta
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: |
+        FASTA file to be annotated. Has to contain at least a non-empty string dummy value.
+  - db:
+      type: file
+      description: |
+        Path to the Bakta database
+  - proteins:
+      type: file
+      description: FASTA file of trusted proteins to first annotate from (optional)
+  - prodigal_tf:
+      type: file
+      description: Training file to use for Prodigal (optional)
 
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: annotations as simple human readble tab separated values
+      pattern: "*.tsv"
+  - gff:
+      type: file
+      description: annotations & sequences in GFF3 format
+      pattern: "*.gff3"
+  - gbff:
+      type: file
+      description: annotations & sequences in (multi) GenBank format
+      pattern: "*.gbff"
+  - embl:
+      type: file
+      description: annotations & sequences in (multi) EMBL format
+      pattern: "*.embl"
+  - fna:
+      type: file
+      description: replicon/contig DNA sequences as FASTA
+      pattern: "*.fna"
+  - faa:
+      type: file
+      description: CDS/sORF amino acid sequences as FASTA
+      pattern: "*.faa"
+  - ffn:
+      type: file
+      description: feature nucleotide sequences as FASTA
+      pattern: "*.ffn"
+  - hypotheticals_tsv:
+      type: file
+      description: further information on hypothetical protein CDS as simple human readble tab separated values
+      pattern: "*.hypotheticals.tsv"
+  - hypotheticals_faa:
+      type: file
+      description: hypothetical protein CDS amino acid sequences as FASTA
+      pattern: "*.hypotheticals.faa"
