@@ -4,8 +4,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-params.options = [:]
-options = initOptions(params.options, 'qc_reads')
+options = initOptions(params.containsKey('options') ? params.options : [:], 'qc_reads')
 
 process QC_READS {
     /* Clean up Illumina reads */
@@ -13,8 +12,7 @@ process QC_READS {
     label "max_cpus"
     label "qc_reads"
 
-    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts: options) }
+    publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force, saveAs: { filename -> saveFiles(filename:filename, opts: options) }
 
     input:
     tuple val(meta), path(fq), path(extra), path(genome_size)

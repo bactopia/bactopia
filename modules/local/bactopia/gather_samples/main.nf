@@ -3,8 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-params.options = [:]
-options = initOptions(params.options, 'gather_samples')
+options = initOptions(params.containsKey('options') ? params.options : [:], 'gather_samples')
 options.ignore = [".fastq.gz", ".fna.gz"]
 
 process GATHER_SAMPLES {

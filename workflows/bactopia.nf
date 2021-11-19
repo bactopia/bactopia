@@ -64,7 +64,7 @@ workflow BACTOPIA {
     QC_READS(GATHER_SAMPLES.out.raw_fastq)
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
     ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna, Channel.fromList(['checkm', 'quast']))
-    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna, Channel.fromPath(datasets['proteins']), Channel.fromPath(datasets['training_set']))
+    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
     MINMER_SKETCH(QC_READS.out.fastq)
 
     // Optional steps that require datasets

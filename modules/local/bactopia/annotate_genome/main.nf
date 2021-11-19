@@ -3,8 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-params.options = [:]
-options        = initOptions(params.options, 'annotate_genome')
+options = initOptions(params.containsKey('options') ? params.options : [:], 'annotate_genome')
 
 process ANNOTATE_GENOME {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
@@ -16,9 +15,7 @@ process ANNOTATE_GENOME {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     input:
-    tuple val(meta), path(genome_size), path(fasta), path(total_contigs)
-    path prokka_proteins
-    path prodigal_tf
+    tuple val(meta), path(genome_size), path(fasta), path(total_contigs), path(prokka_proteins), path(prodigal_tf)
 
     output:
     tuple val(meta), path("${meta.id}.{ffn,ffn.gz}"), path("${meta.id}.{faa,faa.gz}"), emit: annotations

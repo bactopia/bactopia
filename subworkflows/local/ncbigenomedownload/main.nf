@@ -7,20 +7,21 @@ download_opts = [
     "--formats ${params.format}",
     "--assembly-levels ${params.assembly_level}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
+META = [
+    id: "",
+    limit: params.limit,
+    has_accessions: params.accessions ? true : false,
+    accession: params.accession,
+    species: params.species
+]
+ACCESSIONS = params.accessions ? file(params.accessions) : []
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../../modules/nf-core/modules/ncbigenomedownload/main' addParams( options: [ args: "${download_opts}", is_module: true] )
 
 workflow NCBIGENOMEDOWNLOAD {
     main:
     ch_versions = Channel.empty()
 
-    inputs = [[
-        limit: params.limit,
-        has_accessions: (params.accessions ? true, false),
-        accession: params.accession,
-        species: params.species
-    ]]
-    accessions = params.accessions ? file(params.accessions), []
-    NCBIGENOMEDOWNLOAD_MODULE(inputs, accessions)
+    NCBIGENOMEDOWNLOAD_MODULE(META, ACCESSIONS)
     ch_versions = ch_versions.mix(NCBIGENOMEDOWNLOAD_MODULE.out.versions.first())
 
     emit:

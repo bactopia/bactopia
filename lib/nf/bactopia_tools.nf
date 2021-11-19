@@ -112,7 +112,7 @@ def _collect_inputs(sample, dir, extension) {
         input = "${dir}/${sample}/${PATHS[extension]}/${sample}.${extension}"
         if (file("${input}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${input}.gz")])
-        } else if (file(assembly).exists()) {
+        } else if (file(input).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${input}")])
         } else {
             log.error("Could not locate ${input} for ${sample}, please verify existence. Unable to continue.")

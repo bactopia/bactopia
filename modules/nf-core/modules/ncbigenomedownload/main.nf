@@ -1,14 +1,13 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
-params.options = [:]
-options        = initOptions(params.options, 'ncbigenomedownload')
-publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+options     = initOptions(params.options ? params.options : [:], 'ncbigenomedownload')
+publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process NCBIGENOMEDOWNLOAD {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::ncbi-genome-download=0.3.0" : null)
@@ -17,8 +16,8 @@ process NCBIGENOMEDOWNLOAD {
         'quay.io/biocontainers/ncbi-genome-download:0.3.0--pyh864c0ab_1' }"
 
     input:
-    val(meta)
-    path(accessions)
+    val meta
+    path accessions
 
     output:
     path("*_genomic.gbff.gz")               , emit: gbk     , optional: true
@@ -58,7 +57,7 @@ process NCBIGENOMEDOWNLOAD {
     fi
 
     if [ "${meta.has_accessions}" == "true" ]; then
-        ncbi-genome-download $opts -A ${accession}
+        ncbi-genome-download $opts -A ${accessions}
     fi
 
     cat <<-END_VERSIONS > versions.yml

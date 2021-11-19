@@ -1,9 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 
-params.options = [:]
-options        = initOptions(params.options, 'agrvate')
-publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+options     = initOptions(params.options ? params.options : [:], 'agrvate')
+publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process AGRVATE {
     tag "$meta.id"

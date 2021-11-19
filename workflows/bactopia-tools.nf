@@ -48,6 +48,7 @@ if (params.wf == 'lissero') include { MENINGOTYPE } from '../subworkflows/local/
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 //if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 //if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
+if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 //if (params.wf == 'prokka') include { PROKKA } from '../subworkflows/local/prokka/main';
 //if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
@@ -84,6 +85,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'mashtree') {
         MASHTREE(samples)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
+    } else if (params.wf == 'pangenome') {
+        PANGENOME(samples)
+        ch_versions = ch_versions.mix(PANGENOME.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
         ch_versions = ch_versions.mix(SPATYPER.out.versions)

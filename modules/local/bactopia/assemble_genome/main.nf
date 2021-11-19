@@ -3,8 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-params.options = [:]
-options        = initOptions(params.options, 'assemble_genome')
+options = initOptions(params.containsKey('options') ? params.options : [:], 'assemble_genome')
 options.ignore = ["-genome-size.txt", ".fastq.gz"]
 
 process ASSEMBLE_GENOME {
@@ -44,13 +43,13 @@ process ASSEMBLE_GENOME {
     shovill_ram = task.memory.toString().split(' ')[0]
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
-    nostitch = params.nostitch ? "--nostitch" : ""
-    nocorr = params.nocorr ? "--nocorr" : ""
+    nostitch = params.no_stitch ? "--nostitch" : ""
+    nocorr = params.no_corr ? "--nocorr" : ""
     shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} ${nostitch}" : "shovill-se --SE ${fq[0]}"
     shovill_opts = "--assembler ${params.shovill_assembler} --depth 0 --noreadcorr ${opts} ${kmers} ${nocorr}"
     
     // Dragonflye
-    nopolish = params.nopolish ? "--nopolish" : ""
+    nopolish = params.no_polish ? "--nopolish" : ""
     medaka_model = params.medaka_model ? "--model ${params.medaka_model}" : ""
     dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish}"
 

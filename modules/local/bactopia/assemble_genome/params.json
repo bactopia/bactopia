@@ -89,13 +89,13 @@
                     "fa_icon": "fas fa-cut",
                     "hidden": true
                 },
-                "nostitch": {
+                "no_stitch": {
                     "type": "boolean",
                     "description": "Disable read stitching for paired-end reads",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "nocorr": {
+                "no_corr": {
                     "type": "boolean",
                     "description": "Disable post-assembly correction",
                     "fa_icon": "fas fa-fast-forward",

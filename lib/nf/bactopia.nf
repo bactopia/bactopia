@@ -138,11 +138,11 @@ def process_accessions(accession, genome_size) {
 
 def create_input_channel(runtype, genome_size) {
     if (runtype == "fastqs") {
-        return Channel.fromfile( file(params.fastqs) )
+        return Channel.fromPath( params.fastqs )
             .splitCsv(header: true, sep: '\t')
             .map { row -> process_fastqs(row, genome_size) }
     } else if (runtype == "is_accessions") {
-        return Channel.fromfile( file(params.accessions) )
+        return Channel.fromPath( params.accessions )
             .splitText()
             .map { line -> process_accessions(line.trim(), genome_size) }
     } else if (runtype == "is_accession") {

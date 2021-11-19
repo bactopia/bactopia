@@ -6,7 +6,7 @@
     "type": "object",
     "definitions": {
         "snpdists_parameters": {
-            "title": "AgrVATE Parameters",
+            "title": "SNP-Dists Parameters",
             "type": "object",
             "description": "",
             "default": "",
@@ -21,11 +21,11 @@
                 "b": {
                     "type": "boolean",
                     "default": false,
-                    "description": " Keep top left corner cell",
+                    "description": "Keep top left corner cell",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "c": {
+                "csv": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output CSV instead of TSV",

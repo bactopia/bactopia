@@ -63,7 +63,7 @@ def get_resources(profile, max_memory, max_cpus) {
 
 def _get_max_memory(requested) {
     /* Get the maximum available memory for the given system */
-    available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toGiga().toString().split(" ")[0])).toInteger()
+    def available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toGiga().toString().split(" ")[0])).toInteger()
     if (available < requested) {
         log.warn "Maximum memory (${requested}) was adjusted to fit your system (${available})"
         return available
@@ -74,7 +74,7 @@ def _get_max_memory(requested) {
 
 def _get_max_cpus(requested) {
     /* Get the maximum available cpus for the given system */
-    available = SysHelper.getAvailCpus()
+    def available = SysHelper.getAvailCpus()
     if (available < requested) {
         log.warn "Maximum CPUs (${requested}) was adjusted to fit your system (${available})"
         return available
@@ -107,10 +107,12 @@ def print_efficiency(cpus) {
 */
 def saveFiles(Map args) {
     /* Modeled after nf-core/modules saveFiles function */
-    final_output = ""
-    found_ignore = false
-    logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
-    process_name = args.opts.process_name
+    def final_output = null
+    def filename = ""
+    def found_ignore = false
+    def logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
+    def process_name = args.opts.process_name
+    def here = "0"
     if (args.filename) {
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
             // Do not publish versions.yml unless running from pytest workflow
@@ -125,9 +127,10 @@ def saveFiles(Map args) {
             final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
+            here = "3"
             filename = args.filename
             if (filename.startsWith("results/")) {
-                filename = args.filename.replace("results/","")
+                filename = filename.replace("results/","")
             }
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
@@ -154,9 +157,9 @@ def saveFiles(Map args) {
                     final_output = null
                 }
             }
-        }
 
-        return final_output ? final_output.replace("//", "/") : final_output
+        }
+        return final_output == null ? null : final_output.replace("//", "/")
     }
 }
 

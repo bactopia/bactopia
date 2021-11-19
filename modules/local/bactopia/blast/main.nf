@@ -3,8 +3,7 @@ nextflow.enable.dsl = 2
 // Assess cpu and memory of current system
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-params.options = [:]
-options        = initOptions(params.options, 'blast')
+options = initOptions(params.containsKey('options') ? params.options : [:], 'blast')
 
 process BLAST {
     /*

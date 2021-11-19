@@ -31,7 +31,6 @@ class WorkflowBactopiaTools {
         // Check file exists for certain parameters
         def Map check_file = [
             'accessions': params.accessions,
-            'assemblies': params.assemblies,
             'traits': params.traits
         ]
         for ( f in check_file ) {
