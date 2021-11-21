@@ -1,37 +1,18 @@
 //
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
-roary_args = [
-    params.asr ? "" : "-asr",
-    "-m ${params.m}",
-    "-bb ${params.bb}",
-    "-alrt ${params.alrt}",
-    "-wbt -wbtl -alninfo ${params.iqtree_opts}",
-].join(' ').replaceAll("\\s{2,}", " ").trim()
-
-pirate_args = [
-    params.asr ? "" : "-asr", "-m ${params.m}", "-bb ${params.bb}", "-alrt ${params.alrt}", "-wbt -wbtl -alninfo ${params.iqtree_opts}",
-].join(' ').replaceAll("\\s{2,}", " ").trim()
-
-iqtree_args = [
-    params.asr ? "" : "-asr",
-    "-m ${params.m}",
-    "-bb ${params.bb}",
-    "-alrt ${params.alrt}",
-    "-wbt -wbtl -alninfo ${params.iqtree_opts}",
-].join(' ').replaceAll("\\s{2,}", " ").trim()
 include { NCBIGENOMEDOWNLOAD } from '../ncbigenomedownload/main'
 //include { PROKKA } from '../../../modules/nf-core/modules/prokka/main' addParams( options: [] )
 
 if (params.use_roary) {
-    include { ROARY as PG_TOOL } from '../../../modules/nf-core/modules/roary/main' addParams( options: [] )
+    include { ROARY as PG_TOOL } from '../roary/main' addParams( options: [] )
 } else {
-    include { PIRATE as PG_TOOL } from '../../../modules/nf-core/modules/pirate/main' addParams( options: [ args: "", publish_to_base: [".aln.gz"]] )
+    include { PIRATE as PG_TOOL } from '../pirate/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 }
 
 include { IQTREE as START_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "-m ${params.m} -fast", suffix: 'start-tree', process_name: 'clonalframeml'])
-include { CLONALFRAMEML } from '../../../modules/nf-core/modules/clonalframeml/main' addParams( options: [args: "", publish_to_base: [".masked.aln.gz"]] )
-include { IQTREE as FINAL_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "${iqtree_args}", suffix: 'core-genome', publish_to_base: [".iqtree"]] )
+include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [publish_to_base: [".masked.aln.gz"]] )
+include { IQTREE as FINAL_TREE } from '../iqtree/main' addParams( options: [suffix: 'core-genome', publish_to_base: [".iqtree"]] )
 include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true] )
 include { SCOARY } from '../../../modules/nf-core/modules/scoary/main' addParams( options: [] )
                                                                        
