@@ -1,0 +1,136 @@
+- name: pirate-test
+  command: bash -c 'nextflow run ./subworkflows/local/pirate/test.nf -entry test_pirate --wf pirate -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - pirate
+  files:
+    - path: bactopia-tools/pirate/pirate/PIRATE.gene_families.ordered.tsv
+      contains: ['allele_name']
+    - path: bactopia-tools/pirate/pirate/PIRATE.gene_families.tsv
+      contains: ['allele_name']
+    - path: bactopia-tools/pirate/pirate/PIRATE.genomes_per_allele.tsv
+      contains: ['g0197']
+    - path: bactopia-tools/pirate/pirate/PIRATE.pangenome_summary.txt
+      md5sum: 4551c291bc06b21f984f25c09329ed7d
+    - path: bactopia-tools/pirate/pirate/PIRATE.unique_alleles.tsv
+      contains: ['allele_name']
+    - path: bactopia-tools/pirate/pirate/binary_presence_absence.fasta.gz
+    - path: bactopia-tools/pirate/pirate/binary_presence_absence.nwk
+      md5sum: 5b5d86bf97d97de37bb9db514abb7762
+    - path: bactopia-tools/pirate/pirate/cluster_alleles.tab
+      contains: ['g0001']
+    - path: bactopia-tools/pirate/pirate/co-ords/GCF_000292685.co-ords.tab
+      md5sum: d5ca0f06ca7ea1f5486683d5859bc9b8
+    - path: bactopia-tools/pirate/pirate/co-ords/GCF_000298385.co-ords.tab
+      md5sum: a24d6048b3074242bb558c7fa27a8b03
+    - path: bactopia-tools/pirate/pirate/co-ords/GCF_002849995.co-ords.tab
+      md5sum: 0c08228585f4fa95686e9b025e0fe9c1
+    - path: bactopia-tools/pirate/pirate/core-genome.aln.gz
+    - path: bactopia-tools/pirate/pirate/core_alignment.fasta.gz
+    - path: bactopia-tools/pirate/pirate/core_alignment.gff
+      contains: ['Pangenome', 'CDS', 'tRNA']
+    - path: bactopia-tools/pirate/pirate/feature_sequences/g0001.aa.fasta.gz
+    - path: bactopia-tools/pirate/pirate/feature_sequences/g0001.nucleotide.fasta.gz
+    - path: bactopia-tools/pirate/pirate/feature_sequences/g0272.aa.fasta.gz
+    - path: bactopia-tools/pirate/pirate/feature_sequences/g0272.nucleotide.fasta.gz
+    - path: bactopia-tools/pirate/pirate/gene_presence_absence.csv
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/pirate/pirate/genome2loci.tab
+      md5sum: bbcea5bfcdcafe14a9aa7261c8e931b8
+    - path: bactopia-tools/pirate/pirate/genome_list.txt
+      md5sum: 6534b1635c258ad92b829077addc1ff5
+    - path: bactopia-tools/pirate/pirate/loci_list.tab
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/loci_paralog_categories.tab
+      md5sum: 6404d2a32526a398f42d7da768a389bd
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.log
+      contains: ['PIRATE', 'completed']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.out
+      contains: ['PIRATE', 'completed']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.sh
+      md5sum: 830319e95ce60c6f7124e6b73538b4ad
+    - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/results/PIRATE.log
+      contains: ['PIRATE input options']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/results/link_clusters.log
+      contains: ['parsing paralog file']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/results/split_groups.log
+      contains: ['g0213']
+    - path: bactopia-tools/pirate/pirate/logs/pirate/versions.yml
+      md5sum: 80d09e12c3dee650c874a0ff0b3d4a85
+    - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_000292685.gff
+      md5sum: 2b73bda2f84dc634303dc90e641040ca
+    - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_000298385.gff
+      md5sum: b1a9d6557d47e09249f08a7acdbbd618
+    - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_002849995.gff
+      md5sum: 68532fc9bb639e6d83c731a069f60cf8
+    - path: bactopia-tools/pirate/pirate/nf-reports/pirate-dag.dot
+      md5sum: b6839a213dd41b0f1711770f58e2dcaa
+    - path: bactopia-tools/pirate/pirate/nf-reports/pirate-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/pirate/pirate/nf-reports/pirate-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/pirate/pirate/nf-reports/pirate-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/pirate/pirate/pan_sequences.fasta.gz
+    - path: bactopia-tools/pirate/pirate/pangenome.connected_blocks.tsv
+      contains: ['block_number']
+    - path: bactopia-tools/pirate/pirate/pangenome.edges
+      contains: ['g0259']
+    - path: bactopia-tools/pirate/pirate/pangenome.gfa
+      contains: ['g0001']
+    - path: bactopia-tools/pirate/pirate/pangenome.order.tsv
+      contains: ['g0172']
+    - path: bactopia-tools/pirate/pirate/pangenome.reversed.tsv
+      md5sum: b2396ce09a6e4178761eca6dc7f4434f
+    - path: bactopia-tools/pirate/pirate/pangenome.syntenic_blocks.tsv
+      contains: ['g0091']
+    - path: bactopia-tools/pirate/pirate/pangenome.temp
+    - path: bactopia-tools/pirate/pirate/pangenome_alignment.fasta.gz
+    - path: bactopia-tools/pirate/pirate/pangenome_alignment.gff
+      contains: ['Pangenome', 'CDS', 'tRNA']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.50.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.60.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.70.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.80.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.90.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.95.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.98.reclustered.reinflated
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.blast.output
+      md5sum: 9da25d27684bfcc5488987ab2d1fd3a1
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
+      contains: ['GCF_000298385_00081']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
+      contains: ['GCF_000298385_00242']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.mcl_log.txt
+      contains: ['chaos']
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.gz
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.pdb
+      md5sum: 5c11834b00a04dc2fc382713a64d622b
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.pot
+      md5sum: 6d5ff8846a3d43f85a6e5455842d987f
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.ptf
+      md5sum: b4c81b0f2d9a6a9bebf0845063782564
+    - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.pto
+      md5sum: d57882281293cd7e25f5affad68966db
+    - path: bactopia-tools/pirate/pirate/pangenome_log.txt
+      contains: ['Creating pangenome on amino acid']
+    - path: bactopia-tools/pirate/pirate/paralog_clusters.tab
+      contains: ['g0216']
+    - path: bactopia-tools/pirate/pirate/representative_sequences.faa
+      contains: ['representative_genome']
+    - path: bactopia-tools/pirate/pirate/representative_sequences.ffn
+      contains: ['representative_genome']

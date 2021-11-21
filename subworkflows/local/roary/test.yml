@@ -1,0 +1,66 @@
+- name: roary-test
+  command: bash -c 'nextflow run ./subworkflows/local/roary/test.nf -entry test_roary --wf roary -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - roary
+  files:
+    - path: bactopia-tools/roary/roary/accessory.header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia-tools/roary/roary/accessory.tab
+      contains: ['FT']
+    - path: bactopia-tools/roary/roary/accessory_binary_genes.fa.gz
+    - path: bactopia-tools/roary/roary/accessory_binary_genes.fa.newick
+      md5sum: b1f8c76ab231bd38b850c1f8d3c1584b
+    - path: bactopia-tools/roary/roary/accessory_graph.dot
+      contains: ['/* list of nodes */']
+    - path: bactopia-tools/roary/roary/blast_identity_frequency.Rtab
+      md5sum: 829baa25c3fad94b1af207265452a692
+    - path: bactopia-tools/roary/roary/clustered_proteins
+      contains: ['JKHLNHAL_00087']
+    - path: bactopia-tools/roary/roary/core-genome.aln.gz
+    - path: bactopia-tools/roary/roary/core_accessory.header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia-tools/roary/roary/core_accessory.tab
+      contains: ['FT                   /taxa="GCF_000292685 GCF_000298385 GCF_002849995"']
+    - path: bactopia-tools/roary/roary/core_accessory_graph.dot
+      contains: ['/* list of nodes */']
+    - path: bactopia-tools/roary/roary/core_alignment_header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia-tools/roary/roary/gene_presence_absence.Rtab
+      contains: ['Gene']
+    - path: bactopia-tools/roary/roary/gene_presence_absence.csv
+      contains: ['"Gene","Non-unique Gene name","Annotation","No. isolates","No. sequences"']
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.err
+      md5sum: 3c0c5b8968a2ea7f64bc450885fc0568
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.log
+      md5sum: 99838a415b032d7b2f1ec918926098c8
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.out
+      md5sum: 83ad38aafa5e06a2118bc6a25622ecf2
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.sh
+      md5sum: 5660f75cc95c4cda1dc39df124efa662
+    - path: bactopia-tools/roary/roary/logs/roary/nf-roary.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/roary/roary/logs/roary/versions.yml
+      md5sum: 984f1e35ec1bedeef9fee96b5d8c5bc8
+    - path: bactopia-tools/roary/roary/nf-reports/roary-dag.dot
+      md5sum: 62e03a9261bd3365e19d4962329245ff
+    - path: bactopia-tools/roary/roary/nf-reports/roary-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/roary/roary/nf-reports/roary-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/roary/roary/nf-reports/roary-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/roary/roary/number_of_conserved_genes.Rtab
+      contains: ['279']
+    - path: bactopia-tools/roary/roary/number_of_genes_in_pan_genome.Rtab
+      contains: ['279']
+    - path: bactopia-tools/roary/roary/number_of_new_genes.Rtab
+      contains: ['279']
+    - path: bactopia-tools/roary/roary/number_of_unique_genes.Rtab
+      contains: ['279']
+    - path: bactopia-tools/roary/roary/pan_genome_reference.fa.gz
+    - path: bactopia-tools/roary/roary/summary_statistics.txt
+      md5sum: 3921b5445df6a7ed59408119b8860a58

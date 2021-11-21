@@ -112,6 +112,8 @@ def saveFiles(Map args) {
     def found_ignore = false
     def logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
     def process_name = args.opts.process_name
+    def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
+    def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
     def here = "0"
     if (args.filename) {
         if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
@@ -135,7 +137,7 @@ def saveFiles(Map args) {
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
             final_output = null
-            if (filename.endsWith("-error.txt") || args.opts.publish_to_base == true) {
+            if (filename.endsWith("-error.txt") || publish_to_base == true) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
                 final_output = "blast/${filename}"
@@ -158,6 +160,13 @@ def saveFiles(Map args) {
                 }
             }
 
+            // Publish specific files to base
+            publish_to_base_list.each {
+                if (filename.endsWith("${it}")) {
+                    final_output = filename
+                }
+            }
+
         }
         return final_output == null ? null : final_output.replace("//", "/")
     }
@@ -170,7 +179,7 @@ def initOptions(Map args, String process_name) {
     options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
     options.logs_subdir     = args.logs_subdir ?: ''
-    options.process_name    = process_name ?: ''
+    options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false
     options.suffix          = args.suffix ?: ''
 

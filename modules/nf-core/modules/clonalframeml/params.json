@@ -25,7 +25,7 @@
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 },
-                "skip_clonalframe": {
+                "skip_recombination": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip ClonalFrameML execution in subworkflows",

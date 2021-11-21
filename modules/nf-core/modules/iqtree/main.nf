@@ -5,7 +5,7 @@ options     = initOptions(params.options ? params.options : [:], 'iqtree')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process IQTREE {
-    tag "$alignment"
+    tag "$prefix"
     label 'process_medium'
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
@@ -16,26 +16,25 @@ process IQTREE {
         'quay.io/biocontainers/iqtree:2.1.4_beta--hdcc8f71_0' }"
 
     input:
-    path alignment
-    val constant_sites
+    tuple val(meta), path(alignment)
 
     output:
-    path "*.treefile", emit: phylogeny
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*", emit: nf_logs
-    path "versions.yml", emit: versions
+    tuple val(meta), path("${prefix}*")        , emit: results
+    tuple val(meta), path("${prefix}.treefile"), emit: phylogeny
+    path "*.{stdout.txt,stderr.txt,log,err}"   , emit: logs, optional: true
+    path ".command.*"                          , emit: nf_logs
+    path "versions.yml"                        , emit: versions
 
     script:
-    def fconst_args = constant_sites ? "-fconst $constant_sites" : ''
-    def memory      = task.memory.toString().replaceAll(' ', '')
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def memory = task.memory.toString().replaceAll(' ', '')
     """
     iqtree \\
-        $fconst_args \\
         $options.args \\
         -s $alignment \\
         -nt AUTO \\
         -ntmax $task.cpus \\
-        -mem $memory \\
+        -pre $prefix
 
     cat <<-END_VERSIONS > versions.yml
     iqtree:

@@ -12,17 +12,17 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "o": {
-                    "type": "string",
-                    "default": "clustered_proteins",
-                    "description": "Prefix to use for Roary outputs",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
                 "use_prank": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use PRANK instead of MAFFT for core gene",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "use_roary": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },

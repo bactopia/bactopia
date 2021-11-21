@@ -25,7 +25,7 @@ process CLONALFRAMEML {
     tuple val(meta), path("*.labelled_tree.newick")        , emit: newick
     tuple val(meta), path("*.ML_sequence.fasta")           , emit: fasta
     tuple val(meta), path("*.position_cross_reference.txt"), emit: pos_ref
-    tuple val(meta), path("*.masked.fasta.gz")             , emit: masked_aln
+    tuple val(meta), path("*.masked.aln.gz")               , emit: masked_aln
     path "*.{stdout.txt,stderr.txt,log,err}"               , emit: logs, optional: true
     path ".command.*"                                      , emit: nf_logs
     path "versions.yml"                                    , emit: versions
@@ -45,8 +45,8 @@ process CLONALFRAMEML {
         $prefix \\
         $options.args
 
-    maskrc-svg.py clonalframe --aln !{msa_name} --symbol '-' --out ${prefix}.masked.fasta
-    gzip ${prefix}.masked.fasta
+    maskrc-svg.py clonalframe --aln !{msa_name} --symbol '-' --out ${prefix}.masked.aln
+    gzip ${prefix}.masked.aln
 
     cat <<-END_VERSIONS > versions.yml
     clonalframeml:

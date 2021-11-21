@@ -1,20 +1,38 @@
 //
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
+roary_args = [
+    params.asr ? "" : "-asr",
+    "-m ${params.m}",
+    "-bb ${params.bb}",
+    "-alrt ${params.alrt}",
+    "-wbt -wbtl -alninfo ${params.iqtree_opts}",
+].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { NCBIGENOMEDOWNLOAD } from '../ncbigenomedownload/main' addParams( options: [] )
+pirate_args = [
+    params.asr ? "" : "-asr", "-m ${params.m}", "-bb ${params.bb}", "-alrt ${params.alrt}", "-wbt -wbtl -alninfo ${params.iqtree_opts}",
+].join(' ').replaceAll("\\s{2,}", " ").trim()
+
+iqtree_args = [
+    params.asr ? "" : "-asr",
+    "-m ${params.m}",
+    "-bb ${params.bb}",
+    "-alrt ${params.alrt}",
+    "-wbt -wbtl -alninfo ${params.iqtree_opts}",
+].join(' ').replaceAll("\\s{2,}", " ").trim()
+include { NCBIGENOMEDOWNLOAD } from '../ncbigenomedownload/main'
 //include { PROKKA } from '../../../modules/nf-core/modules/prokka/main' addParams( options: [] )
 
 if (params.use_roary) {
     include { ROARY as PG_TOOL } from '../../../modules/nf-core/modules/roary/main' addParams( options: [] )
 } else {
-    include { PIRATE as PG_TOOL } from '../../../modules/nf-core/modules/pirate/main' addParams( options: [ args: "", is_module: false] )
+    include { PIRATE as PG_TOOL } from '../../../modules/nf-core/modules/pirate/main' addParams( options: [ args: "", publish_to_base: [".aln.gz"]] )
 }
 
-include { IQTREE as START_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [] )
-include { CLONALFRAMEML } from '../../../modules/nf-core/modules/clonalframeml/main' addParams( options: [] )
-include { IQTREE as FINAL_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [] )
-include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [] )
+include { IQTREE as START_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "-m ${params.m} -fast", suffix: 'start-tree', process_name: 'clonalframeml'])
+include { CLONALFRAMEML } from '../../../modules/nf-core/modules/clonalframeml/main' addParams( options: [args: "", publish_to_base: [".masked.aln.gz"]] )
+include { IQTREE as FINAL_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "${iqtree_args}", suffix: 'core-genome', publish_to_base: [".iqtree"]] )
+include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true] )
 include { SCOARY } from '../../../modules/nf-core/modules/scoary/main' addParams( options: [] )
                                                                        
 workflow PANGENOME {
@@ -71,18 +89,25 @@ workflow PANGENOME {
     //}
 
     // Create Pangenome
-    PG_TOOL(gff)
-    ch_versions.mix(PG_TOOL.out.versions.first())
+    gff.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
+    PG_TOOL(ch_merge_gff)
+    ch_versions.mix(PG_TOOL.out.versions)
 
     // Per-sample SNP distances
     SNPDISTS(PG_TOOL.out.aln)
-    ch_versions.mix(PG_TOOL.out.versions.first())
+    ch_versions.mix(SNPDISTS.out.versions)
     
     // Identify Recombination
     if (!params.skip_recombination) {
-        START_TREE(PG_TOOL.out.aln)
-        CLONALFRAMEML(START_TREE.out.tree, PG_TOOL.out.aln)
-        ch_versions.mix(CLONALFRAMEML.out.versions.first())
+        // Create quick tree for ClonalFrameML
+        PG_TOOL.out.aln.collect{meta, aln -> aln}.map{ aln -> [[id: 'start-tree'], aln]}.set{ ch_start_tree }
+        START_TREE(ch_start_tree)
+
+        // Run ClonalFrameML
+        PG_TOOL.out.aln.collect{meta, aln -> aln}.map{ aln -> [ aln ]}.set{ ch_aln }
+        START_TREE.out.phylogeny.collect{meta, phylogeny -> phylogeny}.map{ phylogeny -> [ phylogeny ]}.set{ ch_phylogeny }
+        CLONALFRAMEML(Channel.fromList([[id:'clonalframeml']]).combine(ch_phylogeny).combine(ch_aln))
+        ch_versions.mix(CLONALFRAMEML.out.versions)
     }
 
     // Create core-genome phylogeny
@@ -92,13 +117,13 @@ workflow PANGENOME {
         } else {
             FINAL_TREE(CLONALFRAMEML.out.masked_aln)
         }
-        ch_versions.mix(FINAL_TREE.out.versions.first())
+        ch_versions.mix(FINAL_TREE.out.versions)
     }
 
     // Pan-genome GWAS
     if (params.traits) {
         SCOARY([id:'scoary'], PG_TOOL.out.csv, file(params.traits))
-        ch_versions.mix(SCOARY.out.versions.first())
+        ch_versions.mix(SCOARY.out.versions)
     }
 
     emit:
