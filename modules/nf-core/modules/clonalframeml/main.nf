@@ -31,7 +31,6 @@ process CLONALFRAMEML {
     path "versions.yml"                                    , emit: versions
 
     script:
-    log.info "${meta}"
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")
@@ -46,7 +45,7 @@ process CLONALFRAMEML {
         $prefix \\
         $options.args
 
-    maskrc-svg.py clonalframe --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
+    maskrc-svg.py $prefix --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
     gzip ${prefix}.masked.aln
 
     cat <<-END_VERSIONS > versions.yml

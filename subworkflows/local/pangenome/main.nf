@@ -10,9 +10,8 @@ if (params.use_roary) {
     include { PIRATE as PG_TOOL } from '../pirate/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 }
 
-include { IQTREE as START_TREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "-m ${params.m} -fast", suffix: 'start-tree', process_name: 'clonalframeml'])
-include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [publish_to_base: [".masked.aln.gz"]] )
-include { IQTREE as FINAL_TREE } from '../iqtree/main' addParams( options: [suffix: 'core-genome', publish_to_base: [".iqtree"]] )
+include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".masked.aln.gz"]] )
+include { IQTREE as FINAL_TREE } from '../iqtree/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".iqtree"]] )
 include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true] )
 include { SCOARY } from '../../../modules/nf-core/modules/scoary/main' addParams( options: [] )
                                                                        
@@ -70,8 +69,8 @@ workflow PANGENOME {
     //}
 
     // Create Pangenome
-    gff.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
-    PG_TOOL(ch_merge_gff)
+    //gff.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
+    PG_TOOL(gff)
     ch_versions.mix(PG_TOOL.out.versions)
 
     // Per-sample SNP distances
@@ -80,14 +79,8 @@ workflow PANGENOME {
     
     // Identify Recombination
     if (!params.skip_recombination) {
-        // Create quick tree for ClonalFrameML
-        PG_TOOL.out.aln.collect{meta, aln -> aln}.map{ aln -> [[id: 'start-tree'], aln]}.set{ ch_start_tree }
-        START_TREE(ch_start_tree)
-
         // Run ClonalFrameML
-        PG_TOOL.out.aln.collect{meta, aln -> aln}.map{ aln -> [ aln ]}.set{ ch_aln }
-        START_TREE.out.phylogeny.collect{meta, phylogeny -> phylogeny}.map{ phylogeny -> [ phylogeny ]}.set{ ch_phylogeny }
-        CLONALFRAMEML(Channel.fromList([[id:'clonalframeml']]).combine(ch_phylogeny).combine(ch_aln))
+        CLONALFRAMEML(PG_TOOL.out.aln)
         ch_versions.mix(CLONALFRAMEML.out.versions)
     }
 

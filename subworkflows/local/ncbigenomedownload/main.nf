@@ -1,7 +1,10 @@
 //
 // ncbigenomedownload - Quickly download assemblies from NCBI's Assembly database
 //
-download_opts = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'ncbigenomedownload')
+options.is_module = params.wf == 'ncbigenomedownload' ? true : false
+options.args = [
     params.kingdom,
     "--section ${params.section}",
     "--formats ${params.format}",
@@ -15,7 +18,7 @@ META = [
     species: params.species
 ]
 ACCESSIONS = params.accessions ? file(params.accessions) : []
-include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../../modules/nf-core/modules/ncbigenomedownload/main' addParams( options: [ args: "${download_opts}", is_module: true] )
+include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../../modules/nf-core/modules/ncbigenomedownload/main' addParams( options: options )
 
 workflow NCBIGENOMEDOWNLOAD {
     main:

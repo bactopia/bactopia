@@ -1,7 +1,10 @@
 //
 // pirate - Pangenome toolbox for bacterial genomes
 //
-pirate_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'pirate')
+options.is_module = params.wf == 'pirate' ? true : false
+options.args = [
     params.para_off ? "--para_off" : "",
     params.pan_opt ? "--pan-opt '${params.pan_opt}'" : "",
     params.z ? "-z 2" : "",
@@ -9,7 +12,7 @@ pirate_args = [
     "--features ${params.features}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { PIRATE as PIRATE_MODULE } from '../../../modules/nf-core/modules/pirate/main' addParams( options: [ args: "${pirate_args}", is_module: true] )
+include { PIRATE as PIRATE_MODULE } from '../../../modules/nf-core/modules/pirate/main' addParams( options: options )
 
 workflow PIRATE {
     take:

@@ -1,7 +1,10 @@
 //
 // iqtree - Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm
 //
-iqtree_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'iqtree')
+options.is_module = params.wf == 'iqtree' ? true : false
+options.args = [
     params.asr ? "-asr" : "",
     "-m ${params.m}",
     "-bb ${params.bb}",
@@ -9,7 +12,7 @@ iqtree_args = [
     "-wbt -wbtl -alninfo ${params.iqtree_opts}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { IQTREE as IQTREE_MODULE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [ args: "${iqtree_args}", is_module: true] )
+include { IQTREE as IQTREE_MODULE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: options )
 
 workflow IQTREE {
     take:

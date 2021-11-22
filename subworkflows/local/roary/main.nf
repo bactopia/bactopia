@@ -1,7 +1,10 @@
 //
 // roary - Rapid large-scale prokaryote pangenome analysis
 //
-roary_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'roary')
+options.is_module = params.wf == 'roary' ? true : false
+options.args = [
     params.use_prank  ? "-e" : "-e -n",
     params.s ? "-s" : "",
     params.ap ? "-ap" : "",
@@ -11,7 +14,7 @@ roary_args = [
     "-iv ${params.iv}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { ROARY as ROARY_MODULE } from '../../../modules/nf-core/modules/roary/main' addParams( options: [ args: "${roary_args}", is_module: true] )
+include { ROARY as ROARY_MODULE } from '../../../modules/nf-core/modules/roary/main' addParams( options: options )
 
 workflow ROARY {
     take:
