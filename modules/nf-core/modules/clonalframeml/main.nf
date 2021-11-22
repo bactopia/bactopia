@@ -7,7 +7,7 @@ publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.
 process CLONALFRAMEML {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5" : null)
@@ -16,7 +16,7 @@ process CLONALFRAMEML {
         'quay.io/biocontainers/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' }"
 
     input:
-    tuple val(meta), path(newick), path(msa)
+    tuple val(meta), path(msa), path(newick)
 
     output:
     tuple val(meta), path("*.emsim.txt")                   , emit: emsim, optional: true
@@ -31,7 +31,8 @@ process CLONALFRAMEML {
     path "versions.yml"                                    , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    log.info "${meta}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")
     """
@@ -45,13 +46,13 @@ process CLONALFRAMEML {
         $prefix \\
         $options.args
 
-    maskrc-svg.py clonalframe --aln !{msa_name} --symbol '-' --out ${prefix}.masked.aln
+    maskrc-svg.py clonalframe --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
     gzip ${prefix}.masked.aln
 
     cat <<-END_VERSIONS > versions.yml
     clonalframeml:
         clonalframeml: \$( echo \$(ClonalFrameML -version 2>&1) | sed 's/^.*ClonalFrameML v//' )
-        maskrc-svg: \$( echo \$(maskrc-svg -version 2>&1) | sed 's/^.*maskrc-svg v//' )
+        maskrc-svg: \$( echo \$(maskrc-svg.py --version 2>&1) | sed 's/^.*maskrc-svg.py //' )
     END_VERSIONS
     """
 }
