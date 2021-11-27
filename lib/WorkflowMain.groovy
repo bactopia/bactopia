@@ -106,6 +106,7 @@ class WorkflowMain {
             // Validate workflow parameters via the JSON schema
             NfcoreSchema.validateParameters(workflow, params, log, schema_filename)
         }
+
         // Print parameter summary log to screen
         log.info paramsSummaryLog(workflow, params, log, schema_filename)
 

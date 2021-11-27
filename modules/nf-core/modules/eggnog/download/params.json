@@ -6,17 +6,17 @@
     "type": "object",
     "definitions": {
         "eggnog_download_parameters": {
-            "title": "eggNOG Downloader  Parameters",
+            "title": "eggNOG Downloader Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "eggnog_db": {
-                    "type": "boolean",
-                    "default": false,
+                    "type": "string",
                     "description": "Location to save downloaded databases",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "skip_diamond": {
                     "type": "boolean",

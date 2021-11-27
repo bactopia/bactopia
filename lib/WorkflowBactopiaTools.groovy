@@ -10,13 +10,11 @@ class WorkflowBactopiaTools {
     //
     public static String initialise(workflow, params, log, schema_filename=['conf/schema/bactopiatools.json']) {
         def Integer error = 0
+        def Integer missing_required = 0
 
         if (params.bactopia) {
             error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
-        } else {
-            log.error "Required parameters are missing, please check and try again."
-            log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)
-            error += 1
+            missing_required += 1
         }
 
         if (params.include && params.exclude) {
@@ -28,14 +26,14 @@ class WorkflowBactopiaTools {
             error += Utils.fileNotFound(params.exclude, 'exclude', log)
         }
 
-        // Check file exists for certain parameters
-        def Map check_file = [
-            'accessions': params.accessions,
-            'traits': params.traits
-        ]
-        for ( f in check_file ) {
-            if (f.value) {
-                error += Utils.fileNotFound(f.value, f.key, log)
+        // Workflow specific databases
+        if (params.wf == "bakta") {
+            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+        } else if (params.wf == "eggnog") {
+            if (params.eggnog_db) {
+                error += Utils.fileNotFound(params.eggnog_db, 'eggnog_db', log)
+            } else {
+                missing_required += 1
             }
         }
 
@@ -52,6 +50,12 @@ class WorkflowBactopiaTools {
                 log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
                 error += 1
             }
+        }
+
+        if (missing_required > 0) {
+            log.error "Required parameters are missing, please check and try again."
+            log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)
+            error += 1
         }
 
         if (error > 0) {

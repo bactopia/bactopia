@@ -193,6 +193,8 @@ class NfcoreSchema {
     public static Map paramsHelp(workflow, params, command, schema_filename=['nextflow_schema.json'], print_example=true, print_required=false) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
+        String required_output = ''
+        String optional_output = ''
         String output = ''
         if (print_example == true) {
             output += 'Typical pipeline command:\n\n'
@@ -203,14 +205,21 @@ class NfcoreSchema {
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
         for (group in params_map.keySet()) {
+            Boolean is_required = false
             if (print_required == true && group != "Required Parameters") {
                 continue
             }
 
             Integer num_params = 0
-            String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
+            String group_output = ''
+            if (group != 'Required Parameters') {
+                group_output += colors.underlined + colors.bold + group + colors.reset + '\n'
+            }
+            String group_optional = ''
+            String group_required = ''
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
             for (param in group_params.keySet()) {
+                String param_output = ''
                 if (!params.help_all) {
                     if (group_params.get(param).hidden && (!params.show_hidden_params || !params.help_all)) {
                         num_hidden += 1
@@ -218,7 +227,7 @@ class NfcoreSchema {
                     }
                 }
                 if (group_params.get(param).containsKey('header')) {
-                    group_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
+                    param_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
                 }
 
                 def type = '[' + group_params.get(param).type + ']'
@@ -241,16 +250,25 @@ class NfcoreSchema {
                     olines += oline
                     description_default = olines.join("\n" + " " * desc_indent)
                 }
-                group_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
+
+                param_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
                 num_params += 1
+                
+                if (group_params.get(param).containsKey('is_required') || group == "Required Parameters") {
+                    group_required += param_output
+                } else {
+                    group_optional += param_output
+                }
             }
-            group_output += '\n'
-            if (num_params > 0){
-                output += group_output
+
+            if (num_params > 0) {
+                required_output += group_required
+                optional_output += group_output + group_optional + '\n'
             }
         }
         def Map help = [:]
-        help['output'] = output
+        required_output = colors.underlined + colors.bold + 'Required Parameters' + colors.reset + '\n' + required_output
+        help['output'] = output + required_output + optional_output
         help['num_hidden'] = num_hidden
         return help
     }
@@ -261,20 +279,18 @@ class NfcoreSchema {
     public static String paramsRequired(workflow, params, schema_filename=['nextflow_schema.json']) {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
-        String output  = ''
+        String required_output = ''
+        String output = ''
         Map params_map = paramsLoad("${workflow.projectDir}", schema_filename)
         Integer max_chars = paramsMaxChars(params_map) + 1
         Integer desc_indent = max_chars + 14
         Integer dec_linewidth = 160 - desc_indent
         for (group in params_map.keySet()) {
-            if (group != "Required Parameters") {
-                continue
-            }
-
             Integer num_params = 0
-            String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
+            String group_output = ''
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
             for (param in group_params.keySet()) {
+                String param_output = ''
                 if (!params.help_all) {
                     if (group_params.get(param).hidden && !params.show_hidden_params) {
                         num_hidden += 1
@@ -282,7 +298,7 @@ class NfcoreSchema {
                     }
                 }
                 if (group_params.get(param).containsKey('header')) {
-                    group_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
+                    param_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
                 }
 
                 def type = '[' + group_params.get(param).type + ']'
@@ -305,19 +321,26 @@ class NfcoreSchema {
                     olines += oline
                     description_default = olines.join("\n" + " " * desc_indent)
                 }
-                group_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
+                param_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
                 num_params += 1
+
+                if (group_params.get(param).containsKey('is_required') || group == "Required Parameters") {
+                    group_output += param_output
+                }
             }
-            group_output += '\n'
+
             if (num_params > 0){
-                output += group_output
+                required_output += group_output
             }
         }
+
+        required_output
         if (num_hidden > 0){
             output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
         }
-        output += NfcoreTemplate.dashedLine(params.monochrome_logs)
-        return output
+        required_output = colors.underlined + colors.bold + 'Required Parameters' + colors.reset + '\n' + required_output + '\n'
+        required_output += NfcoreTemplate.dashedLine(params.monochrome_logs)
+        return required_output
     }
 
     //
