@@ -138,7 +138,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/versions.yml
       md5sum: b1bf9c5a7c7c27a8a593e9fef7900d05
     - path: bactopia-tools/pangenome/pangenome/nf-reports/pangenome-dag.dot
-      md5sum: e6ebaa966a8f6c8b4cdae263fa9a32b2
+      contains: ['pangenomedag', 'shape', 'digraph']
     - path: bactopia-tools/pangenome/pangenome/nf-reports/pangenome-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/pangenome/pangenome/nf-reports/pangenome-timeline.html
