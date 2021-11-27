@@ -1,11 +1,20 @@
 name: kleborate
-description: Screening Klebsiella genome assemblies for MLST, sub-species, and other Klebsiella related genes of interest
-keywords:
+description: Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
+introduction: |
+  The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of 
+  _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
+
+  - MLST, species,
+  - ICEKp associated virulence loci
+  - virulence plasmid associated loci
+  - antimicrobial resistance determinants,
+  - K (capsule) and O antigen (LPS) serotype prediction.
+icon: false
+tags:
   - enterics
   - fasta
   - klebsiella
-  - resistance
-  - virulence
+  - serotype
 modules:
   - kleborate
 input:
@@ -18,7 +27,6 @@ input:
       type: file
       description: A Staphylococcus aureus fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -37,3 +45,6 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+citations:
+  - kleborate
+  - kaptive

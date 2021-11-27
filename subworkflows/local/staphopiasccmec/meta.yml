@@ -1,6 +1,10 @@
 name: staphopiasccmec
-description: Primer based SCCmec typing of Staphylococcus aureus genomes
-keywords:
+description: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
+introduction:
+  The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) to assign
+  SCCmec types to _Staphylococcus aureus_ assemblies.
+icon: false
+tags:
   - amr
   - fasta
   - sccmec
@@ -36,3 +40,5 @@ output:
       type: file
       description: A merged summary of the staphopia-sccmec assessement
       pattern: "staphopiasccmec.tsv"
+citations:
+  - staphopiasccmec

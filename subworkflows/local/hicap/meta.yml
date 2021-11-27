@@ -1,6 +1,10 @@
 name: hicap
-description: Identify cap locus serotype and structure in your Haemophilus influenzae assemblies
-keywords:
+description: Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
+introduction: |
+  The `hicap` module uses [hicap](https://github.com/scwatts/hicap) allong wih an assembly for
+  the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
+icon: false
+tags:
   - capsule
   - Haemophilus influenzae
   - serotype
@@ -24,7 +28,6 @@ input:
       type: file
       description: Optional - Prodigal model to use for gene prediction
       pattern: "*.{bin}"
-
 output:
   - meta:
       type: map
@@ -51,3 +54,5 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - hicap

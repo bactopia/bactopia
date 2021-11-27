@@ -1,6 +1,10 @@
 name: emmtyper
-description: emm-typing of Streptococcus pyogenes assemblies
-keywords:
+description: emm-typing of _Streptococcus pyogenes_ assemblies
+introduction: |
+  The `emmtyper` module uses [emmtyper](https://github.com/MDU-PHL/emmtyper) for 
+  emm-typing of _Streptococcus pyogenes_ using a de novo or complete assembly.
+icon: false
+tags:
   - fasta
   - Streptococcus pyogenes
   - typing
@@ -35,3 +39,5 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - emmtyper

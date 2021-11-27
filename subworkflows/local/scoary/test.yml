@@ -1,0 +1,9 @@
+- name: scoary-test
+  command: bash -c 'nextflow run ./subworkflows/local/scoary/test.nf -entry test_scoary --wf scoary -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - scoary
+  files:
+    - path: OUTPUTFILE
+      contains: ['TEXT_A', 'TEXT_B']
+    - path: OUTPUTFILE
+      md5sum: a1000000000000000000000000000000

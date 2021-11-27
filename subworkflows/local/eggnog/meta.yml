@@ -1,6 +1,11 @@
 name: eggnog
 description: Functional annotation of proteins using orthologous groups and phylogenies
-keywords:
+introduction: |
+  The `eggnog` module uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign 
+  functional annotation to protein sequences. eggNOG-mapper uses orthologous groups and phylogenies
+  from the eggNOG database to more precisely functionally annotate than traditional homology methods.
+icon: false
+tags:
   - annotation
   - fasta
   - prokaryote
@@ -21,7 +26,6 @@ input:
       type: folder
       description: directory containing eggNOG databases
       pattern: "*"
-
 output:
   - meta:
       type: map
@@ -32,3 +36,6 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+citations:
+  - eggnog_mapper
+  - eggnog_db

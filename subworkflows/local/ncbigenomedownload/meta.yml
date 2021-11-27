@@ -1,6 +1,11 @@
 name: ncbigenomedownload
 description: Quickly download assemblies from NCBI's Assembly database
-keywords:
+introduction: |
+  The `ncbi-genome-download` module uses [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) to 
+  download genomes from NCBI Assembly database. This allows you to easily supplement your analyses with 
+  publicly available genomes. 
+icon: false
+tags:
   - fasta
   - download
   - assembly
@@ -79,3 +84,5 @@ output:
       type: file
       description: Tab-delimited text file reporting statistics for the assembly
       pattern: "*_assembly_stats.txt"
+citations:
+  - ncbigenomedownload

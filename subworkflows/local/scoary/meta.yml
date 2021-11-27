@@ -1,0 +1,47 @@
+name: scoary
+description: GWAS analysis using pangenome outputs
+introduction: |
+  The `scoary` module uses [Scoary](https://github.com/AdmiralenOla/Scoary) to conduct
+  pan-genome wide association studies of [PIRATE](https://github.com/SionBayliss/PIRATE)
+  and [Roary](https://github.com/sanger-pathogens/Roary) outputs.
+icon: false
+keywords:
+  - gwas
+  - pangenome
+  - prokaryote
+modules:
+  - scoary
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - genes:
+      type: file
+      description: A presence/absence matrix of genes in the pan-genome
+      pattern: "*.csv"
+  - traits:
+      type: file
+      description: A CSV file containing trait information per-sample
+      pattern: "*.csv"
+  - tree:
+      type: file
+      description: A Newick formtted tree for phylogenetic analyses
+      pattern: "*.{dnd,nwk,treefile}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - csv:
+      type: file
+      description: Gene associations in a CSV file per trait
+      pattern: "*.csv"
+citations:
+  - scoary

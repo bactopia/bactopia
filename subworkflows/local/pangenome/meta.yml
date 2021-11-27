@@ -1,9 +1,36 @@
 name: pangenome
 description: Pangenome analysis with optional core-genome phylogeny
+introduction:
+  The `pangenome` subworkflow allows you to create a pan-genome with [PIRATE](https://github.com/SionBayliss/PIRATE)
+  (or [Roary](https://github.com/sanger-pathogens/Roary)) of your samples.
+
+  You can further supplement your pan-genome by including completed genomes. This is possible using the `--species` 
+  or `--accessions` parameters. If used, [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will 
+  download available completed genomes available from RefSeq. Any downloaded genomes will be annotated with 
+  [Prokka](https://github.com/tseemann/prokka) to create compatible GFF3 files.
+
+  A phylogeny, based on the core-genome alignment, will be created by [IQ-Tree](https://github.com/Cibiv/IQ-TREE). Optionally
+  a recombination-masked core-genome alignment can be created with [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML)
+  and [maskrc-svg](https://github.com/kwongj/maskrc-svg).
+
+  Finally, the core genome pair-wise SNP distance for each sample is also calculated with 
+  [snp-dists](https://github.com/tseemann/snp-dists) and additional pan-genome wide association studies can be conducted 
+  using [Scoary](https://github.com/AdmiralenOla/Scoary).
+icon: false
 keywords:
-  - TAGS
+  - alignment
+  - core-genome
+  - pan-genome
+  - phylogeny
 modules:
-  - LIST_OF_MODULES
+  - clonalframeml
+  - iqtree
+  - ncbigenomedownload
+  - pirate
+  - prokka
+  - roary
+  - scoary
+  - snpdists
 input:
   - meta:
       type: map
@@ -13,7 +40,6 @@ input:
   - INPUT_FILE:
       type: file
       description: Description of input file
-
 output:
   - FILETYPE:
       type: file
@@ -23,3 +49,14 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - clonalframeml
+  - iqtree
+  - iqtree_modelfinder
+  - iqtree_ufboot
+  - ncbigenomedownload
+  - pirate
+  - prokka
+  - roary
+  - scoary
+  - snpdists

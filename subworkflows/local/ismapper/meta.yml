@@ -1,6 +1,10 @@
 name: ismapper
 description: Identify insertion sites positions in bacterial genomes
-keywords:
+introduction: |
+  The `ismapper` module uses [ISMapper](https://github.com/jhawkey/IS_mapper) to search for 
+  insertion sites in your samples.
+icon: false
+tags:
   - fastq
   - insertion sequences
 modules:
@@ -23,7 +27,6 @@ input:
       type: file
       description: Insertion sequences to query in FASTA format
       pattern: "*.{fasta,fa}"
-
 output:
   - meta:
       type: map
@@ -38,3 +41,5 @@ output:
       type: directory
       description: Directory containing ISMapper result files
       pattern: "*/*"
+citations:
+  - ismapper

@@ -1,9 +1,13 @@
 name: lissero
-description: Serogroup typing prediction for Listeria monocytogenes
-keywords:
+description: Serogroup typing prediction for _Listeria monocytogenes_
+introduction: |
+  The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
+  _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
+icon: false
+tags:
   - fasta
   - Listeria monocytogenes
-  - serogroup
+  - serotype
 modules:
   - lissero
 input:
@@ -35,3 +39,5 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - lissero

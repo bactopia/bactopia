@@ -23,7 +23,7 @@
         "filter_parameters": {
             "title": "Filtering Parameters",
             "type": "object",
-            "description": "",
+            "description": "Use these parameters to specify which samples to include or exclude.",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {

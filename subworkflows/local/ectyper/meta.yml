@@ -1,7 +1,12 @@
 name: ectyper
-description: In-silico prediction of Escherichia coli serotype
-keywords:
-  - escherichia coli
+description: In-silico prediction of _Escherichia coli_ serotype
+introduction: |
+  The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
+  _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
+  tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
+icon: false
+tags:
+  - Escherichia coli
   - fasta
   - serotype
 modules:
@@ -16,7 +21,6 @@ input:
       type: file
       description: A Staphylococcus aureus fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -39,3 +43,5 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - ectyper

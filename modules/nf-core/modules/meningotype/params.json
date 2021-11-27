@@ -8,7 +8,7 @@
         "meningotype_parameters": {
             "title": "meningotype Parameters",
             "type": "object",
-            "description": "",
+            "description": "You can use these parameters to fine-tune your meningotype analysis",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {

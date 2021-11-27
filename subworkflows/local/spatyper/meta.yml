@@ -1,8 +1,12 @@
 name: spatyper
-description: Computational method for finding spa types in Staphylococcus aureus
-keywords:
+description: Computational method for finding spa types in _Staphylococcus aureus_
+introduction:
+  The `spatyper` module uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign
+  _spa_ types to _Staphylococcus aureus_ assemblies.
+icon: false
+tags:
   - fasta
-  - spatype
+  - serotype
   - Staphylococcus aureus
 modules:
   - spatyper
@@ -24,7 +28,6 @@ input:
       type: file
       description: spa types and order of repeats (Optional)
       pattern: "*.{txt}"
-
 output:
   - meta:
       type: map
@@ -43,3 +46,6 @@ output:
       type: file
       description: A merged summary of the spaTyper assessement
       pattern: "spatyper.tsv"
+citations:
+  - spatyper
+  - spatyper_db

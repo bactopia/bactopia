@@ -1,11 +1,15 @@
 name: tbprofiler
-description: Detect resistance and lineages of Mycobacterium tuberculosis genomes
-keywords:
+description: Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
+introduction: |
+  The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) for 
+  for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
+icon: false
+tags:
   - Mycobacterium tuberculosis
   - resistance
   - serotype
 modules:
-  - tbprofiler
+  - tbprofiler_profile
 input:
   - meta:
       type: map
@@ -16,12 +20,7 @@ input:
       type: file
       description: FASTQ file
       pattern: "*.{fastq.gz,fq.gz}"
-
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
   - versions:
       type: file
       description: File containing software versions
@@ -46,3 +45,5 @@ output:
       type: file
       description: VCF with variant info again refernce genomes
       pattern: "*.vcf"
+citations:
+  - tbprofiler

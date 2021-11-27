@@ -1,25 +1,34 @@
 name: iqtree
 description: Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm
-keywords:
-  - TAGS
+introduction: |
+  The `iqtree` module uses [IQ-TREE](https://github.com/Cibiv/IQ-TREE) to create phylogenetic trees
+  based on a multiple sequence alignment. In most cases the `iqtree` module will be used in a 
+  subworkflow where an alignment is created.
+tags:
+  - alignment
+  - phylogeny
 modules:
-  - LIST_OF_MODULES
+  - iqtree
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - alignment:
       type: file
-      description: Description of input file
-
+      description: A FASTA format multiple sequence alignment file
+      pattern: "*.{fasta,fas,fa,mfa,aln,aln.gz}"
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+  - phylogeny:
+      type: file
+      description: A phylogeny in Newick format
+      pattern: "*.{treefile}"
+citations:
+  - iqtree
+  - iqtree_modelfinder
+  - iqtree_ufboot

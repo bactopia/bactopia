@@ -1,0 +1,50 @@
+name: phyloflash
+description: phyloFlash is a pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset.
+keywords:
+  - metagenomics
+  - illumina datasets
+  - phylogenetic composition
+tools:
+  - phyloflash:
+      description: phyloFlash is a pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset.
+      homepage: https://hrgv.github.io/phyloFlash/
+      documentation: https://hrgv.github.io/phyloFlash/usage.html
+      tool_dev_url: https://github.com/HRGV/phyloFlash
+      doi: "10.1128/mSystems.00920-20"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Channel containing single or paired-end reads
+      pattern: "*.{fastq.gz,fq.gz}"
+  - sliva_db:
+      type: folder
+      description: Folder containing the SILVA database
+      pattern: "ref"
+  - univec_db:
+      type: folder
+      description: Folder containing UniVec database
+      pattern: "UniVec"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - results:
+      type: folder
+      description: Folder containing the results of phyloFlash analysis
+      pattern: "${prefix}*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@abhi18av"

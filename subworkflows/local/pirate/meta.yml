@@ -1,6 +1,10 @@
 name: pirate
 description: Pangenome toolbox for bacterial genomes
-keywords:
+introduction: |
+  The `pirate` module uses [PIRATE](https://github.com/SionBayliss/PIRATE) to create a pan-genome of 
+  your samples.
+icon: false
+tags:
   - gff
   - pan-genome
   - alignment
@@ -34,3 +38,5 @@ output:
       type: file
       description: Gene presence/absence CSV compatible with Scoary
       pattern: "*.csv"
+citations:
+  - pirate

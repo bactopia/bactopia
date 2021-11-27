@@ -1,6 +1,12 @@
 name: meningotype
 description: Serotyping of Neisseria meningitidis
-keywords:
+introduction: |
+  The `meningotype` module uses [meningotype](https://github.com/MDU-PHL/meningotype) 
+  for _in silico_ typing of _Neisseria meningitidis_ genomes. It uses the contigs from 
+  assemblies to determine the serotype, MLST, finetyping  (_porA_, _fetA_, _porB_), and 
+  Bexsero antigen sequence typing (BAST) (_fHbp_, _NHBA_, _NadA_, _PorA_).
+icon: false
+tags:
   - fasta
   - Neisseria meningitidis
   - serotype
@@ -16,7 +22,6 @@ input:
       type: file
       description: A Neisseria meningitidis fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -35,3 +40,5 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+citations:
+  - meningotype
