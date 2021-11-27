@@ -3,7 +3,33 @@
   tags:
     - eggnog
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.annotations
+      contains: ['emapper', 'Gammaproteobacteria', 'scanned']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.hits
+      md5sum: 683ea77a134ea2bfe8b95e87be8a96c6
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.seed_orthologs
+      contains: ['emapper', 'diamond', 'scanned']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.err
+      contains: ['Functional']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.log
+      contains: ['Functional', 'eggNOG', 'FINISHED']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.out
+      contains: ['Functional', 'eggNOG', 'FINISHED']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.sh
+      md5sum: 2819c4269ac974fd226a9c360f3022df
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/versions.yml
+      md5sum: 8a257a16386377f3d82393c5ce3e6625
+    - path: bactopia-tools/eggnog/eggnog/nf-reports/eggnog-dag.dot
+      md5sum: 90328b8c1b81062c060ecd524f6308bb
+    - path: bactopia-tools/eggnog/eggnog/nf-reports/eggnog-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/eggnog/eggnog/nf-reports/eggnog-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/eggnog/eggnog/nf-reports/eggnog-trace.txt
+      contains: ['task_id']

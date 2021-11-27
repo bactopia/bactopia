@@ -12,11 +12,17 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "eggnog_db": {
+                "eggnog": {
                     "type": "string",
-                    "description": "Location to save downloaded databases",
+                    "description": "Path to existing or destination for eggNOG databases",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "is_required": true
+                },
+                "download_eggnog": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Required if downloading latest eggNOG database, will overwrite existing databases.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_diamond": {
                     "type": "boolean",

@@ -39,7 +39,7 @@ process EGGNOG_MAPPER {
     emapper.py \\
         $options.args \\
         --cpu $task.cpus \\
-        --data_dir $db \\
+        --data_dir ./ \\
         --output $prefix \\
         -i $fasta
 

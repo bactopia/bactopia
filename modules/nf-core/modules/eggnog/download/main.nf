@@ -16,11 +16,7 @@ process EGGNOG_DOWNLOAD {
         'quay.io/biocontainers/eggnog-mapper:2.1.6--pyhdfd78af_0' }"
 
     output:
-    path("*.db*")                           , emit: db
-    path("*.dmnd")                          , emit: proteins, optional: true
-    path("hmmer/")                          , emit: hmmer   , optional: true
-    path("mmseqs/")                         , emit: mmseqs  , optional: true
-    path("pfam/")                           , emit: pfam    , optional: true
+    path("eggnog/*")                           , emit: db
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs    , optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
@@ -28,10 +24,11 @@ process EGGNOG_DOWNLOAD {
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
+    mkdir eggnog
     download_eggnog_data.py \\
         $options.args \\
         -y \\
-        --data_dir ./
+        --data_dir eggnog/
 
     cat <<-END_VERSIONS > versions.yml
     eggnog_download:

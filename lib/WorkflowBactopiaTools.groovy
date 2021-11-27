@@ -11,10 +11,14 @@ class WorkflowBactopiaTools {
     public static String initialise(workflow, params, log, schema_filename=['conf/schema/bactopiatools.json']) {
         def Integer error = 0
         def Integer missing_required = 0
+        def Integer missing_file = 0
+
 
         if (params.bactopia) {
             error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
-            missing_required += 1
+            if (error > 0) {
+                missing_required += 1
+            }
         }
 
         if (params.include && params.exclude) {
@@ -28,10 +32,17 @@ class WorkflowBactopiaTools {
 
         // Workflow specific databases
         if (params.wf == "bakta") {
-            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+            if (params.bakta_db) {
+                error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+            } else {
+                missing_required += 1
+            }
         } else if (params.wf == "eggnog") {
-            if (params.eggnog_db) {
-                error += Utils.fileNotFound(params.eggnog_db, 'eggnog_db', log)
+            if (params.eggnog) {
+                missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
+                if (missing_file > 0 && params.download_eggnog == false) {
+                    missing_required += 1
+                }
             } else {
                 missing_required += 1
             }

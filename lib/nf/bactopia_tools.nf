@@ -93,6 +93,7 @@ def _collect_inputs(sample, dir, extension) {
     PATHS = [:]
     PATHS.fastq = "quality-control"
     PATHS.fna = "assembly"
+    PATHS.faa = "annotation"
     PATHS.gff = "annotation"
 
     if (extension == 'fastq') {
