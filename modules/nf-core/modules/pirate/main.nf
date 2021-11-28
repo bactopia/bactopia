@@ -12,8 +12,8 @@ process PIRATE {
 
     conda (params.enable_conda ? "bioconda::pirate=1.0.4" : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/pirate%3A1.0.4--hdfd78af_1' :
-        'quay.io/biocontainers/pirate:1.0.4--hdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/pirate%3A1.0.4--hdfd78af_2' :
+        'quay.io/biocontainers/pirate:1.0.4--hdfd78af_2' }"
 
     input:
     tuple val(meta), path(gff)
@@ -37,10 +37,10 @@ process PIRATE {
         --threads $task.cpus \\
         --input ./ \\
         --output results/
-    # PIRATE_to_roary.pl -i results.*.tsv -o results/gene_presence_absence.csv
+    PIRATE_to_roary.pl -i results.*.tsv -o results/gene_presence_absence.csv
     find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
     cp results/core_alignment.fasta.gz ./core-genome.aln.gz
-    # cp results/gene_presence_absence.csv ./
+    cp results/gene_presence_absence.csv ./
     touch gene_presence_absence.csv
 
     cat <<-END_VERSIONS > versions.yml

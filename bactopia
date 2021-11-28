@@ -75,6 +75,7 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "Example Commands"
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
+    echo "bactopia --wf pangenome --bactopia /path/to/bactopia/results"
     echo ""
     echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
     echo ""
@@ -108,70 +109,8 @@ elif [[ "$1" == "pull" ]]; then
     else
         bactopia-pull.py "${@:2}"
     fi
-elif [[ "$1" == "tools" ]]; then
-    if [[ -z "$2" ]] || [[ "$2" == "--help" ]] || [[ "$2" == "-h" ]]; then
-        bactopia-tools.py
-    elif [[ "$2" == "--version" ]]; then
-        bactopia-tools.py --version
-    else
-        # Check if Conda environments need to be built
-        BUILD_CONDA=1
-        CHECKS=("condadir" "docker" "singularity" "slurm" "conda_help" "nfconfig") 
-        for check in "${CHECKS[@]}"; do
-            if [[ "$*" == *"${check}"* ]]; then
-                BUILD_CONDA=0
-            fi
-        done
-
-        TOOL_NF=""
-        if [[ "${BUILD_CONDA}" -eq 1 ]]; then
-            # Build conda envs, rebuild out of sync envs, skipp existing
-            REBUILD=0
-            CHECKS=("force_rebuild") 
-            for check in "${CHECKS[@]}"; do
-                if [[ "$*" == *"${check}"* ]]; then
-                    REBUILD=1
-                fi
-            done
-
-            if [[ "${REBUILD}" -eq 1 ]]; then
-                TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" "--force_rebuild" | tail -n 1)
-            else
-                TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" | tail -n 1)
-            fi
-        else
-            TOOL_NF=$(bactopia-tools.py "${2}" --bactopia "${BACTOPIA_NF}" "--skip_conda" | tail -n 1)
-        fi
-
-        # Create custom work dir
-        WORK_DIR=""
-        WORK_ARG=""
-        CAN_CLEAN_UP=1
-        if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir"; then
-            # User specified a work directory
-            CAN_CLEAN_UP=0
-        else
-            # User did not specify a work directory, we'll use custom one
-            WORK_DIR="$(pwd)/work/$2"
-            WORK_ARG="-w ${WORK_DIR}"
-        fi
-
-        if [[ -n "$TOOL_NF" ]]; then
-            OPTS="${TOOL_NF} ${WORK_ARG}"
-            if nextflow run ${OPTS} "${@:3}"; then
-                # bactopia finished successfully
-                if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
-                    # user asked for work dir to be cleaned up
-                    echo "Bactopia Tool '$2' finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
-                    rm -rf "${WORK_DIR}"
-                fi
-            else
-                exit $?
-            fi
-        fi
-    fi
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
-    echo "Petit III, R. A. & Read, T. D. Bactopia: a flexible pipeline for complete analysis of bacterial "
+    echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
     bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
@@ -183,7 +122,7 @@ else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
     BUILD_SINGULARITY=0
-    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig") 
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig" "list_wfs") 
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             BUILD_CONDA=0
@@ -193,12 +132,22 @@ else
         fi
     done
 
-    if [[ "${BUILD_CONDA}" -eq 1 ]]; then
-        # Build conda envs, rebuild out of sync envs, skip existing
-        bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
-    elif [[ "${BUILD_SINGULARITY}" -eq 1 ]]; then
-        # Build Singularity images, rebuild out of sync, skip existing
-        bactopia-pull.py "${BACTOPIA_NF}/conda" --is_bactopia "${@:1}"
+    # Determine which WF is running
+    WF="bactopia"
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf"; then
+        # User specified a wf, get name
+        WF=$(echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" | sed 's/--wf //')
+    fi
+
+    if [[ "${WF}" == "bactopia"]] || [[ "${WF}" == "bactopia"]]; then
+        # Running main Bactopia or Staphopia workflow
+        if [[ "${BUILD_CONDA}" -eq 1 ]]; then
+            # Build conda envs, rebuild out of sync envs, skip existing
+            bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
+        elif [[ "${BUILD_SINGULARITY}" -eq 1 ]]; then
+            # Build Singularity images, rebuild out of sync, skip existing
+            bactopia-pull.py "${BACTOPIA_NF}/conda" --is_bactopia "${@:1}"
+        fi
     fi
 
     # Create custom work dir
@@ -209,8 +158,8 @@ else
         # User specified a work directory
         CAN_CLEAN_UP=0
     else
-        # User did not specify a work directory, we'll use custom one
-        WORK_DIR="$(pwd)/work/bactopia"
+        # User did not specify a work directory, we'll use custom one based on workflow name
+        WORK_DIR="$(pwd)/work/${WF}"
         WORK_ARG="-w ${WORK_DIR}"
     fi
 
