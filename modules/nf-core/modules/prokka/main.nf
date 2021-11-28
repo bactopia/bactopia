@@ -21,33 +21,49 @@ process PROKKA {
     path prodigal_tf
 
     output:
-    tuple val(meta), path("${prefix}/*.gff"), emit: gff
-    tuple val(meta), path("${prefix}/*.gbk"), emit: gbk
-    tuple val(meta), path("${prefix}/*.fna"), emit: fna
-    tuple val(meta), path("${prefix}/*.faa"), emit: faa
-    tuple val(meta), path("${prefix}/*.ffn"), emit: ffn
-    tuple val(meta), path("${prefix}/*.sqn"), emit: sqn
-    tuple val(meta), path("${prefix}/*.fsa"), emit: fsa
-    tuple val(meta), path("${prefix}/*.tbl"), emit: tbl
+    tuple val(meta), path("${prefix}/*.{gff,gff.gz}"), emit: gff
+    tuple val(meta), path("${prefix}/*.{gbk,gbk.gz}"), emit: gbk
+    tuple val(meta), path("${prefix}/*.{fna,fna.gz}"), emit: fna
+    tuple val(meta), path("${prefix}/*.{faa,faa.gz}"), emit: faa
+    tuple val(meta), path("${prefix}/*.{ffn,ffn.gz}"), emit: ffn
+    tuple val(meta), path("${prefix}/*.{sqn,sqn.gz}"), emit: sqn
+    tuple val(meta), path("${prefix}/*.{fsa,fsa.gz}"), emit: fsa
+    tuple val(meta), path("${prefix}/*.{tbl,tbl.gz}"), emit: tbl
     tuple val(meta), path("${prefix}/*.txt"), emit: txt
     tuple val(meta), path("${prefix}/*.tsv"), emit: tsv
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
-    path "*.version.txt", emit: version
+    path "versions.yml", emit: versions
 
     script:
-    def software = getSoftwareName(task.process)
     prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
+    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.getName().replace(".gz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        gzip -c -d $fasta > $fasta_name
+    fi
+
     prokka \\
         $options.args \\
         --cpus $task.cpus \\
         --prefix $prefix \\
         $proteins_opt \\
         $prodigal_tf \\
-        $fasta
+        $fasta_name
+
+    if [[ "${params.skip_compression}" == "false" ]]; then
+        gzip ${prefix}/*.gff
+        gzip ${prefix}/*.gbk
+        gzip ${prefix}/*.fna
+        gzip ${prefix}/*.faa
+        gzip ${prefix}/*.ffn
+        gzip ${prefix}/*.sqn
+        gzip ${prefix}/*.fsa
+        gzip ${prefix}/*.tbl
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     prokka:

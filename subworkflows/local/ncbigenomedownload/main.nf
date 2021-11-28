@@ -25,9 +25,13 @@ workflow NCBIGENOMEDOWNLOAD {
     ch_versions = Channel.empty()
 
     NCBIGENOMEDOWNLOAD_MODULE(META, ACCESSIONS)
+    NCBIGENOMEDOWNLOAD_MODULE.out.all.map{ seq ->
+        return [[id: file(seq).getSimpleName()], seq]
+    }.set{ ch_to_bactopia_tools }
     ch_versions = ch_versions.mix(NCBIGENOMEDOWNLOAD_MODULE.out.versions.first())
 
     emit:
+    bactopia_tools = ch_to_bactopia_tools
     gbk = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
     fna = NCBIGENOMEDOWNLOAD_MODULE.out.fna
     rm = NCBIGENOMEDOWNLOAD_MODULE.out.rm

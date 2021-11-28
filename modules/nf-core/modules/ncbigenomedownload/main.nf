@@ -20,6 +20,7 @@ process NCBIGENOMEDOWNLOAD {
     path accessions
 
     output:
+    path("*.gz")                            , emit: all     , optional: true
     path("*_genomic.gbff.gz")               , emit: gbk     , optional: true
     path("*_genomic.fna.gz")                , emit: fna     , optional: true
     path("*_rm.out.gz")                     , emit: rm      , optional: true

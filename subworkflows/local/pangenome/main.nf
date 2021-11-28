@@ -1,9 +1,6 @@
 //
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
-include { NCBIGENOMEDOWNLOAD } from '../ncbigenomedownload/main'
-//include { PROKKA } from '../../../modules/nf-core/modules/prokka/main' addParams( options: [] )
-
 if (params.use_roary) {
     include { ROARY as PG_TOOL } from '../roary/main' addParams( options: [] )
 } else {
@@ -22,16 +19,6 @@ workflow PANGENOME {
     main:
     ch_versions = Channel.empty()
     ch_needs_prokka = Channel.empty()
-
-    // Include public genomes (optional)
-    /*
-    if (params.accession || params.accessions || params.species) {
-        NCBIGENOMEDOWNLOAD()
-        NCBIGENOMEDOWNLOAD.out.fna.collect{fna -> fna}.map{ fna -> [[id:fna.getSimpleName()], fna]}.set{ ch_to_prokka }
-        ch_needs_prokka.mix(ch_to_prokka)
-        ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
-    }
-    */
 
     // Collect local assemblies
     /*
@@ -60,13 +47,6 @@ workflow PANGENOME {
         log.info("Found ${assemblies.size()} local assemblies.")
     }
     */
-
-    // Annotate non-Bactopia genomes
-    //if (ch_needs_prokka.count()) {
-    //    PROKKA(ch_needs_prokka)
-    ///    gff.mix(PROKKA.out.gff)
-    //    ch_versions.mix(PROKKA.out.versions.first())
-    //}
 
     // Create Pangenome
     //gff.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }

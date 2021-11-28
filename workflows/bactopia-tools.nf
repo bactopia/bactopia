@@ -36,6 +36,7 @@ include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
 
 // Subworkflows
+include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -50,6 +51,7 @@ if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/ma
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
+if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
@@ -70,9 +72,24 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 */
 workflow BACTOPIATOOLS {
     print_efficiency(RESOURCES.MAX_CPUS)
-    samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     ch_versions = Channel.empty()
-
+    local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
+    downloads = Channel.empty()
+    // Include public genomes (optional)
+    if (params.accession || params.accessions || params.species) {
+        NCBIGENOMEDOWNLOAD()
+        ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
+        if (params.wf == 'pangenome') {
+            PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+            ch_versions.mix(PROKKA.out.versions.first())
+            downloads = PROKKA.out.gff
+        } else {
+            downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools
+        }
+    }
+ 
+    samples = local_samples.mix(downloads)
+    samples.view()
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
@@ -110,7 +127,8 @@ workflow BACTOPIATOOLS {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
     } else if (params.wf == 'pangenome') {
-        PANGENOME(samples)
+        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
+        PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
