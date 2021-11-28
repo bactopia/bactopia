@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { PANGENOME } from './main.nf' addParams( accession: 'GCF_000953395.1' )
+include { PANGENOME } from './main.nf'
 
 workflow test_pangenome {
 
