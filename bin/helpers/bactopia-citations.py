@@ -18,24 +18,24 @@ DESCRIPTION = 'Prints the citations of datasets and tools used by Bactopia'
 
 
 def validate_args(bactopia_repo):
-    bactopia_citations = f'{bactopia_repo}/data/bactopia-datasets-software.txt'
+    import yaml
+    bactopia_citations = f'{bactopia_repo}/citations.yml'
     if not os.path.exists(bactopia_citations):
-        print(f"cannot access '{bactopia_citations}': No such file or directory\n",
+        print(f"Cannot access '{bactopia_citations}': No such file or directory\n",
               file=sys.stderr)
         print("Please make sure the correct path to Bactopia's repo is given.",
               file=sys.stderr)
         sys.exit(1)
     else:
         citations = {}
-        with open(bactopia_citations, 'rt') as citation_fh:
-            for line in citation_fh:
-                line.rstrip()
-                if not line.startswith('name'):
-                    name, ref_type, citation = line.split('\t')
-                    if ref_type not in citations:
-                        citations[ref_type] = []
-                    citations[ref_type].append({'name':name, 'citation': citation})
-        return citations
+        module_citations = {}
+        counts = {}
+        with open(bactopia_citations, "rt") as citations_fh:
+            citations = yaml.safe_load(citations_fh)
+            for group, refs in citations.items():
+                for ref, vals in refs.items():
+                    module_citations[ref] = vals
+        return [citations, module_citations]
 
 if __name__ == '__main__':
     import argparse as ap
@@ -51,6 +51,8 @@ if __name__ == '__main__':
     )
     parser.add_argument('--bactopia', metavar="STR", type=str,
                         help='Directory where Bactopia repository is stored.')
+    parser.add_argument('--name', metavar="STR", type=str,
+                        help='Only print citation matching a given name.')
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -59,12 +61,17 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
-    citations = validate_args(args.bactopia)
+    citations, module_citations = validate_args(args.bactopia)
 
-    for ref_type, entries in sorted(citations.items()):
-        print(f'# {ref_type} potentially used by Bactopia')
-        print('# ----------')
-        for entry in entries:
-            print(f'## {entry["name"]}')
-            print(textwrap.fill(entry['citation'], width=100))
-            print()
+    if args.name:
+        if args.name in module_citations:
+            print(module_citations[args.name]['cite'].rstrip())
+        else:
+            print(f'"{args.name}" does not match available citations', file=sys.stderr)
+    else:
+        for group, refs in citations.items():
+            print(f'# {group} potentially used by Bactopia')
+            print('# ----------')
+            for ref, vals in refs.items():
+                print(f'## {vals["name"]}')
+                print(textwrap.fill(vals['cite'], width=100))

@@ -139,7 +139,7 @@ else
         WF=$(echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" | sed 's/--wf //')
     fi
 
-    if [[ "${WF}" == "bactopia"]] || [[ "${WF}" == "bactopia"]]; then
+    if [[ "${WF}" == "bactopia" ]] || [[ "${WF}" == "staphopia" ]]; then
         # Running main Bactopia or Staphopia workflow
         if [[ "${BUILD_CONDA}" -eq 1 ]]; then
             # Build conda envs, rebuild out of sync envs, skip existing
