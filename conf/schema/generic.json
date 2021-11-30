@@ -15,13 +15,13 @@
                 "outdir": {
                     "type": "string",
                     "default": "./",
-                    "description": "Base directory to write results and Nextflow related outputs to",
+                    "description": "Base directory to write results to",
                     "fa_icon": "fas fa-folder"
                 },
                 "run_name": {
                     "type": "string",
                     "default": "bactopia",
-                    "description": "Name of the directory to hold results (e.g. ${params.outdir}/${params.run_name}/<SAMPLE_NAME>",
+                    "description": "Name of the directory to hold results",
                     "fa_icon": "fas fa-folder"
                 },
                 "skip_compression": {
@@ -81,6 +81,14 @@
                     "fa_icon": "far fa-clock",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time 60`"
+                },
+                "max_downloads": {
+                    "type": "integer",
+                    "description": "Maximum number of samples to download at a time",
+                    "default": 3,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of downloads at a time"
                 }
             }
         },
@@ -299,6 +307,17 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "hidden": true,
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "wf": {
+                    "type": "string",
+                    "description": "Specify which workflow or Bactopia Tool to execute",
+                    "default": "bactopia",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "list_wfs": {
+                    "type": "boolean",
+                    "description": "List the available workflows and Bactopia Tools to use with '--wf'",
                     "fa_icon": "fas fa-question-circle"
                 },
                 "show_hidden_params": {

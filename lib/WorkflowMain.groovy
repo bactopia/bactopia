@@ -16,7 +16,7 @@ class WorkflowMain {
             "* The nf-core framework\n" +
             "  https://doi.org/10.1038/s41587-020-0439-x\n\n" +
             "* Software dependencies\n" +
-            "  https://github.com/bactopia/bactopia/blob/master/CITATIONS.md"
+            "  https://bactopia.github.io/acknowledgements/"
     }
 
     //

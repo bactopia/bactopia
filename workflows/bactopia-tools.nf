@@ -36,7 +36,10 @@ include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
 
 // Subworkflows
-include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
+if (params.containsKey('accession')) {
+    // Only import when made available
+    include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
+}
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -76,18 +79,21 @@ workflow BACTOPIATOOLS {
     local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     downloads = Channel.empty()
     // Include public genomes (optional)
-    if (params.accession || params.accessions || params.species) {
-        NCBIGENOMEDOWNLOAD()
-        ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
-        if (params.wf == 'pangenome') {
-            PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
-            ch_versions.mix(PROKKA.out.versions.first())
-            downloads = PROKKA.out.gff
-        } else {
-            downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools
+    if (params.containsKey('accession')) {
+        log.info "FOUND IT"
+        if (params.accession || params.accessions || params.species) {
+            NCBIGENOMEDOWNLOAD()
+            ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
+            if (params.wf == 'pangenome') {
+                PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+                ch_versions.mix(PROKKA.out.versions.first())
+                downloads = PROKKA.out.gff
+            } else {
+                downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools
+            }
         }
     }
- 
+
     samples = local_samples.mix(downloads)
     samples.view()
     if (params.wf == 'agrvate') {

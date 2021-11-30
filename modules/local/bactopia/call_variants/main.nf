@@ -106,6 +106,8 @@ process CALL_VARIANTS {
 
     if [[ "!{reference}" == "refseq-genomes.msh" ]]; then
         mv distances.txt ${REFERENCE_NAME}/mash-distances.txt
+        mv mash-dist.txt ${REFERENCE_NAME}/mash-selected.txt
+        mv download-list.txt ${REFERENCE_NAME}/mash-downloaded.txt
         mv ${REFERENCE} ${REFERENCE_NAME}/
     fi
 

@@ -28,13 +28,15 @@ def use_eutils(accession):
             # https://www.ncbi.nlm.nih.gov/assembly/help/anomnotrefseq/
             for reason in assembly["ExclFromRefSeq"]:
                 excluded.add(reason)
+        elif 'suppressed_refseq' in assembly["PropertyList"] or 'suppressed_refseq' in assembly["PropertyList"]:
+            # Genome is suppressed for some reason (not giving), exclude it
+            excluded.add('"suppressed_refseq" or "supressed" found in "PropertyList"')
         else:
             records.append(assembly["AssemblyAccession"])
-
-    if excluded:
-        return [','.join(list(excluded)), True]
-    else:
+    if records:
         return [sorted(records, reverse=True)[0], False]
+    else:
+        return [','.join(list(excluded)), True]
 
 
 def use_http(accession):
@@ -141,15 +143,14 @@ if __name__ == '__main__':
 
         for reference in references:
             if reference:
-                print(use_http(reference))
                 current_accession, excluded = check_assembly_version(reference)
                 if excluded:
                     print(
-                        f'Skipping {reference}, it no longer in RefSeq. Reason: {current_accession}',
+                        f'Skipping {reference}, it no longer in RefSeq or suppressed. Reason: {current_accession}',
                         file=sys.stderr
                     )
                 else:
-                    difference = False if reference == current_accession else True
+                    difference = 'no change in assembly version' if reference == current_accession else f'{reference} replaced with {current_accession}'
                     print(f'{reference}\t{distance}\t{current_accession}\t{difference}')
                     remaining -= 1
                     if not remaining:

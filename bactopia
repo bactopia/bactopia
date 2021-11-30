@@ -19,10 +19,6 @@
 #
 #    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
 #
-#    bactopia tools - Execute existing Bactopia Tools
-#
-#    bactopia versions - Print versions of tools used by Bactopia
-#
 #    bactopia --citation - Print the Bactopia citation
 #    bactopia --version - Print the Bactopia version
 #
@@ -32,7 +28,6 @@
 # bactopia datasets --help
 # bactopia prepare --help
 # bactopia search --help
-# bactopia tools --help
 # bactopia version
 # bactopia --help
 VERSION=1.7.1
@@ -58,10 +53,6 @@ if [[ $# == 0 ]]; then
     echo "bactopia pull - Build Bactopia Singularity images"
     echo ""
     echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
-    echo ""
-    echo "bactopia tools - Execute existing Bactopia Tools"
-    echo ""
-    echo "bactopia versions - Print versions of tools and Bactopia"
     echo ""
     echo "bactopia --citation - Print the Bactopia citation"
     echo "bactopia --version - Print the Bactopia version"
@@ -116,8 +107,6 @@ elif [[ "$1" == "citations" ]]; then
     bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
-elif [[ "$1" == "versions" ]]; then
-    bactopia-versions.py --bactopia "${BACTOPIA_NF}" "${@:2}"
 else
     # Check if Conda environments need to be built
     BUILD_CONDA=1
@@ -134,7 +123,7 @@ else
 
     # Determine which WF is running
     WF="bactopia"
-    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf"; then
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" > /dev/null; then
         # User specified a wf, get name
         WF=$(echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" | sed 's/--wf //')
     fi
@@ -154,7 +143,7 @@ else
     WORK_DIR=""
     WORK_ARG=""
     CAN_CLEAN_UP=1
-    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir"; then
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir" > /dev/null; then
         # User specified a work directory
         CAN_CLEAN_UP=0
     else

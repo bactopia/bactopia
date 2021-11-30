@@ -95,7 +95,7 @@ def process_fastqs(line, genome_size) {
     def meta = [:]
     meta.id = line.sample
     meta.runtype = line.runtype
-    meta.genome_size = line.genome_size
+    meta.genome_size = genome_size
     if (line.runtype == 'single-end' || line.runtype == 'ont') {
         return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
     } else if (line.runtype == 'paired-end') {
@@ -345,12 +345,11 @@ def setup_datasets() {
                         // Sequences for per-base mapping
                         if (species_db['optional'].containsKey('mapping-sequences')) {
                             mapping_path = "${dataset_path}/${species_db['optional']['mapping-sequences']}"
-                            log.info "${mapping_path}"
                             mapping_total = file(mapping_path).list().size()
                             if (mapping_total > 0) {
-                                datasets['mapping'] << mapping_path
+                                datasets['mapping'] << file(mapping_path)
                             }
-                            log.info "Found ${mapping_total} FASTAs to align reads against"
+                            print_dataset_info(datasets['mapping'], "dir(s) of FASTAs to align reads against")
                         }
 
                         // FASTAs to BLAST
@@ -359,11 +358,11 @@ def setup_datasets() {
                                 blast_path = "${dataset_path}/${it}"
                                 if (dataset_exists(blast_path)) {
                                     if (file(blast_path).list().size() > 0) {
-                                        datasets['blast'] << blast_path
+                                        datasets['blast'] << file(blast_path)
                                     }
                                 }
                             }
-                            print_dataset_info(datasets['blast'], "FASTA types to query with BLAST")
+                            print_dataset_info(datasets['blast'], "dir(s) of FASTAs to query with BLAST")
                         }
                     }
                 } else {

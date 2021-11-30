@@ -1,4 +1,3 @@
-
 nextflow.enable.dsl = 2
 
 // Assess cpu and memory of current system

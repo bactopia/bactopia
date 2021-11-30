@@ -12,7 +12,7 @@ if (params.workflows.containsKey(params.wf)) {
         include { BACTOPIATOOLS } from './workflows/bactopia-tools'
     }
 } else {
-    log.error "${params.wf} is not an available Bactopia Tool. Use --available_tools to see full list"
+    log.error "${params.wf} is not an available workflow or Bactopia Tool. Use --list_wfs to see full list"
     exit 1
 }
 

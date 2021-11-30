@@ -17,14 +17,6 @@
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "max_downloads": {
-                    "type": "integer",
-                    "description": "Maximum number of samples to download at a time",
-                    "default": 3,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the number of downloads at a time"
-                },
                 "min_basepairs": {
                     "type": "integer",
                     "description": "The minimum amount of basepairs required to continue downstream analyses.",
