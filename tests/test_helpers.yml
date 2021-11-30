@@ -79,24 +79,22 @@
       contains: ['prokka', 'bactopia', 'datasets', 'include_genus']
 
 - name: bactopia-datasets
-  command: bash -c 'bin/bactopia/bactopia-datasets.py data/pubmlst.txt --ariba card --species 'Staphylococcus aureus' --limit 5'
+  command: bash -c 'bin/bactopia/bactopia-datasets.py data/pubmlst.txt --ariba card --limit 2 --species "Staphylococcus aureus"'
   tags:
     - bactopia
     - bactopia_help
     - bactopia_subcommand
   files:
     - path: datasets/antimicrobial-resistance/amrfinderdb-updated.txt
-      md5sum: 26bdef7ff08b8523786f788374eb4ce3
+      contains: ["T", "Z"]
     - path: datasets/antimicrobial-resistance/amrfinderdb.tar.gz
-      md5sum: 357b8bff151c575be9509cc8aa980a11
     - path: datasets/ariba/card-updated.txt
-      md5sum: d685d05de9346868f67e0d4dde2fe030
+      contains: ["T", "Z"]
     - path: datasets/ariba/card.tar.gz
-      md5sum: e680077f87282680ec2aa372d29d1ccf
     - path: datasets/minmer/mash-refseq-k21.msh
       md5sum: 494efd071010b1e23f163512f8f0eacd
     - path: datasets/minmer/minmer-updated.txt
-      md5sum: f23291f4fc23c7cbae277399e8c41e09
+      contains: ["T", "Z"]
     - path: datasets/minmer/sourmash-genbank-k21.json.gz
       md5sum: 74232458b4b35db6258714fc5e11895d
     - path: datasets/minmer/sourmash-genbank-k31.json.gz
@@ -104,27 +102,25 @@
     - path: datasets/minmer/sourmash-genbank-k51.json.gz
       md5sum: 93617dbbac160c725715c16eb2b14de4
     - path: datasets/species-specific/staphylococcus-aureus/annotation/cdhit-stats.txt
-      md5sum: fc81ce17f1355eaab81d5031145bd0ab
+      contains: ["original", "after_cd"]
     - path: datasets/species-specific/staphylococcus-aureus/annotation/genome_size.json
-      md5sum: bfad470aad9c4aedda701f0f4806ce82
+      contains: ["min", "median", "max", "total"]
     - path: datasets/species-specific/staphylococcus-aureus/annotation/ncbi-metadata.txt
-      md5sum: 6738049af1d215c99f4a3e325a873303
+      contains: ["Staphylococcus", "aureus", "Complete"]
     - path: datasets/species-specific/staphylococcus-aureus/annotation/proteins-updated.txt
-      md5sum: 5aa29cd3e00ffa8a3a57de0302b8c282
+      contains: ["T", "Z"]
     - path: datasets/species-specific/staphylococcus-aureus/annotation/staphylococcus-aureus.faa
-      md5sum: 8ba8e5ada7191fa8c3928fd7680a6211
+      contains: [">", "Dna", "DNA", "ase"]
     - path: datasets/species-specific/staphylococcus-aureus/annotation/staphylococcus-aureus.faa.clstr
-      md5sum: 9541697ab5191c05f8200f74d64192e6
+      contains: [">", "Cluster", "aa"]
     - path: datasets/species-specific/staphylococcus-aureus/minmer/minmer-updated.txt
-      md5sum: 5aa29cd3e00ffa8a3a57de0302b8c282
+      contains: ["T", "Z"]
     - path: datasets/species-specific/staphylococcus-aureus/minmer/refseq-genomes.msh
-      md5sum: 87d5e7ecb438172c46adc8dd2b7f1ed0
     - path: datasets/species-specific/staphylococcus-aureus/mlst/default-updated.txt
-      md5sum: d5c78ca5db0c3724948006ed02ca859d
+      contains: ["T", "Z"]
     - path: datasets/species-specific/staphylococcus-aureus/mlst/default.tar.gz
-      md5sum: 039502297358f6ac62e5edc6765fd678
     - path: datasets/summary.json
-      md5sum: fbc7a7de93b80c5e312b90d7d8f6cb3a
+      contains: ["ariba", "genome_size", "genbank", "refseq"]
 
 - name: bactopia-prepare_help
   command: bash -c 'bin/bactopia/bactopia-prepare.py --help > bactopia-prepare.txt'

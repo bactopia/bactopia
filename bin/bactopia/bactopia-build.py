@@ -15,7 +15,8 @@ optional arguments:
   -e STR, --ext STR  Extension of the Conda environment files. Default: .yml
   --force            Force overwrite of existing Conda environments.
   --verbose          Print debug related text.
-  --silent           Only critical errors will be printed
+  --silent           Only critical errors will be printed.
+  --version          show program's version number and exit
 """
 import logging
 import os
