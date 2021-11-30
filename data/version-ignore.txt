@@ -1,8 +1,9 @@
 .git
 conf/
 docs/
-publication/
-templates/
+lib/
 .simg
 .js
 template.txt
+.pytest_cache/
+workflows/

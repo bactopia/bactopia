@@ -50,7 +50,7 @@ else
 fi
 
 # Test $DIRECTORY points to bactopia repo
-/bin/bash ${DIRECTORY}/bactopia 1> /dev/null 2> /dev/null
+/bin/bash ${DIRECTORY}/bin/bactopia/bactopia 1> /dev/null 2> /dev/null
 
 if [ $? -eq 0 ]; then
     IGNORE=${DIRECTORY}/data/version-ignore.txt

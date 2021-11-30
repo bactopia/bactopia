@@ -33,7 +33,7 @@ import logging
 import os
 import sys
 
-VERSION = "1.7.1"
+VERSION = "2.0.0"
 PROGRAM = "bactopia pull"
 STDOUT = 11
 STDERR = 12

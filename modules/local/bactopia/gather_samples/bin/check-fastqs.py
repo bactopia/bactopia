@@ -1,10 +1,9 @@
 #! /usr/bin/env python3
 """
-Sometimes with AWS, files might fail to download but not cause an error.
-This script checks to verify all expected inputs are staged.
+Verifies input FASTQs meet minimum requirements.'
 """
-PROGRAM = "check-staging"
-VERSION = "1.6.0"
+PROGRAM = "check-fastqs"
+VERSION = "2.0.0"
 import sys
 
 
@@ -72,7 +71,7 @@ if __name__ == '__main__':
         prog=PROGRAM,
         conflict_handler='resolve',
         description=(
-            f'{PROGRAM} (v{VERSION}) - Verifies inputs for a process are available.'
+            f'{PROGRAM} (v{VERSION}) - Verifies input FASTQs meet minimum requirements.'
         )
     )
 
