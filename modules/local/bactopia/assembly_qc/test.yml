@@ -1,0 +1,191 @@
+- name: assembly_qc
+  command: bash -c 'nextflow run ./modules/local/bactopia/assembly_qc/test.nf -entry test_assembly_qc --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - assembly_qc
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 149189dc9981d5d2b80d478c699e8905
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/checkm/bins/GCF_000292685/genes.faa.gz
+      md5sum: d3a4f82e93edfdea8cb490125ee03df9
+    - path: pytest/output/assembly/checkm/bins/GCF_000292685/genes.gff
+      md5sum: 50752acb1c5a20be886bfdfc06635bcb
+    - path: pytest/output/assembly/checkm/bins/GCF_000292685/hmmer.analyze.txt.gz
+    - path: pytest/output/assembly/checkm/bins/GCF_000292685/hmmer.tree.txt
+      contains: ['accession']
+    - path: pytest/output/assembly/checkm/checkm-genes.aln
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/assembly/checkm/checkm-results.txt
+      md5sum: 3a76623c675e0e6e12a987da198c6f5d
+    - path: pytest/output/assembly/checkm/lineage.ms
+      contains: ['Lineage Marker File']
+    - path: pytest/output/assembly/checkm/storage/bin_stats.analyze.tsv
+      md5sum: 19adfab14620acac2a1f2557946cf2f3
+    - path: pytest/output/assembly/checkm/storage/bin_stats.tree.tsv
+      md5sum: 19adfab14620acac2a1f2557946cf2f3
+    - path: pytest/output/assembly/checkm/storage/bin_stats_ext.tsv
+      contains: ['marker lineage']
+    - path: pytest/output/assembly/checkm/storage/checkm_hmm_info.pkl.gz
+    - path: pytest/output/assembly/checkm/storage/marker_gene_stats.tsv
+      contains: ['GCF_000292685']
+    - path: pytest/output/assembly/checkm/storage/phylo_hmm_info.pkl.gz
+    - path: pytest/output/assembly/checkm/storage/tree/PF00164.20.masked.faa.gz
+      md5sum: 97e68347d78744dcea508f74ff603804
+    - path: pytest/output/assembly/checkm/storage/tree/PF00177.16.masked.faa.gz
+      md5sum: f8fa622c823ba21062af0d5400b9d68d
+    - path: pytest/output/assembly/checkm/storage/tree/PF00181.18.masked.faa.gz
+      md5sum: c52afe2aecd5d9c774cd1cb6fb1232b7
+    - path: pytest/output/assembly/checkm/storage/tree/PF00189.15.masked.faa.gz
+      md5sum: 9dda0b0f893118d2526281a2c0da17bb
+    - path: pytest/output/assembly/checkm/storage/tree/PF00203.16.masked.faa.gz
+      md5sum: e4dddae696c1abe10ab4b2f2da87c969
+    - path: pytest/output/assembly/checkm/storage/tree/PF00237.14.masked.faa.gz
+      md5sum: f22775e84de1abee6a93acfc19795bd9
+    - path: pytest/output/assembly/checkm/storage/tree/PF00238.14.masked.faa.gz
+      md5sum: 364ca8831782f5050c634629e9332723
+    - path: pytest/output/assembly/checkm/storage/tree/PF00252.13.masked.faa.gz
+      md5sum: 5259ec85057dde39fa6ed3b2f33b3d08
+    - path: pytest/output/assembly/checkm/storage/tree/PF00276.15.masked.faa.gz
+      md5sum: 61fd166342e7453745bfecf568f4d031
+    - path: pytest/output/assembly/checkm/storage/tree/PF00281.14.masked.faa.gz
+      md5sum: a69fefe171e9965bf8d03af32d75b916
+    - path: pytest/output/assembly/checkm/storage/tree/PF00297.17.masked.faa.gz
+      md5sum: 630750605bd41b483856cc4639c7f67c
+    - path: pytest/output/assembly/checkm/storage/tree/PF00298.14.masked.faa.gz
+      md5sum: 0942e8adc3a6911de00c92c67008ee66
+    - path: pytest/output/assembly/checkm/storage/tree/PF00312.17.masked.faa.gz
+      md5sum: 7b181f5d37ab19b8ab3d098a81837eb5
+    - path: pytest/output/assembly/checkm/storage/tree/PF00318.15.masked.faa.gz
+      md5sum: c719861cb204327b43f6851a86dc0609
+    - path: pytest/output/assembly/checkm/storage/tree/PF00333.15.masked.faa.gz
+      md5sum: 2e10e92b17b1ead86be94dc64271a4c1
+    - path: pytest/output/assembly/checkm/storage/tree/PF00366.15.masked.faa.gz
+      md5sum: 5e15e3c00da7054a7537fa7241ec27f9
+    - path: pytest/output/assembly/checkm/storage/tree/PF00380.14.masked.faa.gz
+      md5sum: 3b2fa6db05ea346d38dbd05b3d5265d9
+    - path: pytest/output/assembly/checkm/storage/tree/PF00410.14.masked.faa.gz
+      md5sum: 250d448e170aa2fa54c506cd901c2021
+    - path: pytest/output/assembly/checkm/storage/tree/PF00411.14.masked.faa.gz
+      md5sum: 39ae7fb82db7000fa3c7ecb24bf31712
+    - path: pytest/output/assembly/checkm/storage/tree/PF00466.15.masked.faa.gz
+      md5sum: 1e66b295246ea7868f46d694fb488bda
+    - path: pytest/output/assembly/checkm/storage/tree/PF00562.23.masked.faa.gz
+      md5sum: 5f6b0767ceb5866e372fc9bb155bc64a
+    - path: pytest/output/assembly/checkm/storage/tree/PF00572.13.masked.faa.gz
+      md5sum: 2715d63e67339057991bfc24104eef20
+    - path: pytest/output/assembly/checkm/storage/tree/PF00573.17.masked.faa.gz
+      md5sum: 3fb8d66d6134328ffb77994c59144066
+    - path: pytest/output/assembly/checkm/storage/tree/PF00623.15.masked.faa.gz
+      md5sum: 615a74be5d54d9f1cd512078a9dc3520
+    - path: pytest/output/assembly/checkm/storage/tree/PF00673.16.masked.faa.gz
+      md5sum: a422dad2afc0b8c8ab4b7945a58a10db
+    - path: pytest/output/assembly/checkm/storage/tree/PF00687.16.masked.faa.gz
+      md5sum: dc8c449316d80df410f885128b0d4c7d
+    - path: pytest/output/assembly/checkm/storage/tree/PF00831.18.masked.faa.gz
+      md5sum: 1807cd35b51e98cd2021400903b32f8c
+    - path: pytest/output/assembly/checkm/storage/tree/PF00861.17.masked.faa.gz
+      md5sum: edb99044781de65cc9fed7f1434724c2
+    - path: pytest/output/assembly/checkm/storage/tree/PF03719.10.masked.faa.gz
+      md5sum: 491869329f88ecafe0ac63d3c001b031
+    - path: pytest/output/assembly/checkm/storage/tree/PF03946.9.masked.faa.gz
+      md5sum: dd3542eed0de70a8be7f02787ff8bfe2
+    - path: pytest/output/assembly/checkm/storage/tree/PF03947.13.masked.faa.gz
+      md5sum: f986ab4e196104593458ac2d575e73f5
+    - path: pytest/output/assembly/checkm/storage/tree/PF04560.15.masked.faa.gz
+      md5sum: 2ad2fbd48d9ae40870fc30e2cc9527af
+    - path: pytest/output/assembly/checkm/storage/tree/PF04561.9.masked.faa.gz
+      md5sum: 98293af243f353573d2254e8f71cb25c
+    - path: pytest/output/assembly/checkm/storage/tree/PF04563.10.masked.faa.gz
+      md5sum: 78a6bbd375ad8670a0f376ad3504acb2
+    - path: pytest/output/assembly/checkm/storage/tree/PF04565.11.masked.faa.gz
+      md5sum: c120a507cc8c6fbce7864e2993b4c0c9
+    - path: pytest/output/assembly/checkm/storage/tree/PF04997.7.masked.faa.gz
+      md5sum: 5d933fa4364cb9ba0e7438cdd26a27c7
+    - path: pytest/output/assembly/checkm/storage/tree/PF05000.12.masked.faa.gz
+      md5sum: f2022ee30778219f8c768dcb2fd077a8
+    - path: pytest/output/assembly/checkm/storage/tree/PF11987.3.masked.faa.gz
+      md5sum: b094674c4d89300b9a9e552af119a3d1
+    - path: pytest/output/assembly/checkm/storage/tree/TIGR00422.masked.faa.gz
+      md5sum: e3945c540ece93861df2369145be1c2e
+    - path: pytest/output/assembly/checkm/storage/tree/concatenated.fasta
+      md5sum: 4c170fc0a6734a821bf3b443f0b33bef
+    - path: pytest/output/assembly/checkm/storage/tree/concatenated.pplacer.json
+      md5sum: 2aaf157839255d0bcbc277a3b038733d
+    - path: pytest/output/assembly/checkm/storage/tree/concatenated.tre
+      md5sum: 478880ccdff6d05c9e7f130773f717c3
+    - path: pytest/output/assembly/checkm/storage/tree/pplacer.out
+      md5sum: b05218cb147fc154b530d23ab9d5d8ed
+    - path: pytest/output/assembly/quast/basic_stats/GCF_000292685_GC_content_plot.pdf
+    - path: pytest/output/assembly/quast/basic_stats/GC_content_plot.pdf
+    - path: pytest/output/assembly/quast/basic_stats/NGx_plot.pdf
+    - path: pytest/output/assembly/quast/basic_stats/Nx_plot.pdf
+    - path: pytest/output/assembly/quast/basic_stats/cumulative_plot.pdf
+    - path: pytest/output/assembly/quast/icarus.html
+      md5sum: 3451cb987bfde7964ecd7a26af99e0d8
+    - path: pytest/output/assembly/quast/icarus_viewers/contig_size_viewer.html
+      md5sum: 5ff8cabe55f3ccf6f7cd8c2ae8953296
+    - path: pytest/output/assembly/quast/predicted_genes/GCF_000292685_glimmer.stderr
+      md5sum: 390dc7df727903e33d8127f8f12d9cf5
+    - path: pytest/output/assembly/quast/predicted_genes/GCF_000292685_glimmer_genes.gff.gz
+    - path: pytest/output/assembly/quast/report.html
+      contains: ['QUAST']
+    - path: pytest/output/assembly/quast/report.pdf
+    - path: pytest/output/assembly/quast/report.tex
+      md5sum: 08ab3fb84331cb407bfe20d3e7f829a6
+    - path: pytest/output/assembly/quast/report.tsv
+      md5sum: c412d46f8cf503963e46922e5d027217
+    - path: pytest/output/assembly/quast/report.txt
+      md5sum: a825bef4dc763c1a6011d6ea17be876f
+    - path: pytest/output/assembly/quast/transposed_report.tex
+      md5sum: 1d44515ba936e0cc998629804d012dd4
+    - path: pytest/output/assembly/quast/transposed_report.tsv
+      md5sum: 0336f49984e49afe9e72c8632504775f
+    - path: pytest/output/assembly/quast/transposed_report.txt
+      md5sum: 1ec5352cb44deb1d6c701e6cf06a6a48
+    - path: pytest/output/logs/assembly_qc/checkm/checkm.log
+      contains: ['CheckM', 'Parsing', 'written']
+    - path: pytest/output/logs/assembly_qc/checkm/checkm.stderr.txt
+      contains: ['Finished', 'parsing', 'hits']
+    - path: pytest/output/logs/assembly_qc/checkm/checkm.stdout.txt
+      contains: ['CheckM', 'Parsing', 'written']
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.err
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.log
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.sh
+      md5sum: 43ec7c4340a7cf9076072dc3ceb7d92d
+    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assembly_qc/checkm/versions.yml
+      md5sum: b132c5ee92a34953e6bd0d126f486e6b
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.err
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.log
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.sh
+      md5sum: 9210e7c0cef90c9407e2be332f8f3e12
+    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assembly_qc/quast/quast.log
+      contains: ['Version', 'QUAST']
+    - path: pytest/output/logs/assembly_qc/quast/quast.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/quast/quast.stdout.txt
+      contains: ['Version', 'QUAST']
+    - path: pytest/output/logs/assembly_qc/quast/versions.yml
+      md5sum: cb97ca5e47b1a503dee2663c9f9bb2f0

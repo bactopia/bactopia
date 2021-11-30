@@ -1,0 +1,49 @@
+- name: iqtree-test
+  command: bash -c 'nextflow run ./subworkflows/local/iqtree/test.nf -entry test_iqtree --wf iqtree -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - iqtree
+  files:
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.out
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.sh
+      md5sum: 894d17b32e1dc4bafe16e60249e12655
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/nf-iqtree.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/test.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/iqtree/iqtree/logs/iqtree/versions.yml
+      md5sum: d2d342e82bbd8745619511c0fa55cd18
+    - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-dag.dot
+      md5sum: d4a340b6a80d55f1855efae335ac93f7
+    - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/iqtree/iqtree/test.alninfo
+      md5sum: 4e3bfd442dad9d4b8469e03039cadb4c
+    - path: bactopia-tools/iqtree/iqtree/test.bionj
+      md5sum: 5b8f7bc42db341b3e330dd63bda4d6e3
+    - path: bactopia-tools/iqtree/iqtree/test.ckp.gz
+    - path: bactopia-tools/iqtree/iqtree/test.contree
+      md5sum: 33d13b8152e2884fea456a88e73e02f9
+    - path: bactopia-tools/iqtree/iqtree/test.iqtree
+      contains: ['REFERENCES', 'GCF_000292685', 'Total']
+    - path: bactopia-tools/iqtree/iqtree/test.mldist
+      md5sum: 8911a67ed8e329837f6673d9ad422c89
+    - path: bactopia-tools/iqtree/iqtree/test.model.gz
+    - path: bactopia-tools/iqtree/iqtree/test.splits.nex
+      md5sum: a257e91b7d51e5ce30e9c052428ce147
+    - path: bactopia-tools/iqtree/iqtree/test.treefile
+      md5sum: 04c85b4487bbc6d4b4c7ea8ad4fcd14b
+    - path: bactopia-tools/iqtree/iqtree/test.ufboot
+      contains: ['GCF_000292685', 'GCF_002849995', 'GCF_000300075']

@@ -1,0 +1,167 @@
+#!/usr/bin/env bash
+# bactopia
+#
+# This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
+# been inspired by a similar wrapper in Will Rowe's DRAX pipeline
+# (https://github.com/will-rowe/drax).
+#
+# By default `bactopia` will attempt to execute the main Nextflow pipeline.
+# There are additional sub-commands available to help make Bactopia easier to
+# use. They are:
+#
+#    bactopia build - Build Bactopia Conda environments
+#
+#    bactopia citations - Print citation for datasets, tools and Bactopia
+#
+#    bactopia datasets - Download/setup useful datasets for Bactopia
+#
+#    bactopia prepare - Create a 'file of filenames' for input FASTQ files
+#
+#    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
+#
+#    bactopia --citation - Print the Bactopia citation
+#    bactopia --version - Print the Bactopia version
+#
+# Examples:
+#
+# bactopia build
+# bactopia datasets --help
+# bactopia prepare --help
+# bactopia search --help
+# bactopia version
+# bactopia --help
+VERSION=2.0.0
+CONTAINER_VERSION="${VERSION%.*}.x"
+CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
+BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}" 
+
+# If no user input, print usage
+if [[ $# == 0 ]]; then
+    echo "bactopia - v${VERSION}"
+    echo ""
+    echo "Available Commands"
+    echo "bactopia - Execute the Bactopia Nextflow pipeline"
+    echo ""
+    echo "bactopia build - Build Bactopia Conda environments"
+    echo ""
+    echo "bactopia citations - Print citation for datasets, tools and Bactopia"
+    echo ""
+    echo "bactopia datasets - Download/setup useful datasets for Bactopia"
+    echo ""
+    echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
+    echo ""
+    echo "bactopia pull - Build Bactopia Singularity images"
+    echo ""
+    echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
+    echo ""
+    echo "bactopia --citation - Print the Bactopia citation"
+    echo "bactopia --version - Print the Bactopia version"
+    echo ""
+    echo "Print Usages:"
+    echo "bactopia --help"
+    echo "bactopia datasets --help"
+    echo "bactopia prepare --help"
+    echo "bactopia search --help"
+    echo "bactopia tools --help"
+    echo ""
+    echo "Example Commands"
+    echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
+    echo "bactopia --wf pangenome --bactopia /path/to/bactopia/results"
+    echo ""
+    echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
+    echo ""
+    echo "bactopia datasets --species 'Staphylococcus aureus'"
+    echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
+    echo ""
+    echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
+    echo "bactopia --fastqs my-fastqs.txt"
+    echo ""
+    echo "bactopia search PRJNA480016 --limit 20"
+    echo "bactopia --accessions ena-accessions.txt"
+    echo ""
+    exit
+fi
+
+if [[ "$1" == "datasets" ]]; then
+    bactopia-datasets.py "${BACTOPIA_NF}/data/pubmlst.txt" "${@:2}"
+elif [[ "$1" == "prepare" ]]; then
+    bactopia-prepare.py "${@:2}"
+elif [[ "$1" == "search" ]]; then
+    bactopia-search.py "${@:2}"
+elif [[ "$1" == "build" ]]; then
+    if [[ "$2" == "--default" ]]; then
+        bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" "${@:2}"
+    else
+        bactopia-build.py "${@:2}"
+    fi
+elif [[ "$1" == "pull" ]]; then
+    if [[ "$2" == "--default" ]]; then
+        bactopia-pull.py "${BACTOPIA_NF}/conda" "${@:2}"
+    else
+        bactopia-pull.py "${@:2}"
+    fi
+elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
+    echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
+    echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
+elif [[ "$1" == "citations" ]]; then
+    bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
+elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
+    echo "bactopia ${VERSION}"
+else
+    # Check if Conda environments need to be built
+    BUILD_CONDA=1
+    BUILD_SINGULARITY=0
+    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig" "list_wfs") 
+    for check in "${CHECKS[@]}"; do
+        if [[ "$*" == *"${check}"* ]]; then
+            BUILD_CONDA=0
+            if [[ "${check}" == "singularity" || "${check}" == "slurm" ]]; then
+                BUILD_SINGULARITY=1
+            fi
+        fi
+    done
+
+    # Determine which WF is running
+    WF="bactopia"
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" > /dev/null; then
+        # User specified a wf, get name
+        WF=$(echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" | sed 's/--wf //')
+    fi
+
+    if [[ "${WF}" == "bactopia" ]] || [[ "${WF}" == "staphopia" ]]; then
+        # Running main Bactopia or Staphopia workflow
+        if [[ "${BUILD_CONDA}" -eq 1 ]]; then
+            # Build conda envs, rebuild out of sync envs, skip existing
+            bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
+        elif [[ "${BUILD_SINGULARITY}" -eq 1 ]]; then
+            # Build Singularity images, rebuild out of sync, skip existing
+            bactopia-pull.py "${BACTOPIA_NF}/conda" --is_bactopia "${@:1}"
+        fi
+    fi
+
+    # Create custom work dir
+    WORK_DIR=""
+    WORK_ARG=""
+    CAN_CLEAN_UP=1
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir" > /dev/null; then
+        # User specified a work directory
+        CAN_CLEAN_UP=0
+    else
+        # User did not specify a work directory, we'll use custom one based on workflow name
+        WORK_DIR="$(pwd)/work/${WF}"
+        WORK_ARG="-w ${WORK_DIR}"
+    fi
+
+    # Execute Bactopia Nextflow pipeline
+    OPTS="${WORK_ARG}"
+    if nextflow run "${BACTOPIA_NF}/main.nf" ${OPTS} "${@:1}"; then
+        # bactopia finished successfully
+        if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
+            # user asked for work dir to be cleaned up
+            echo "Bactopia finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
+            rm -rf "${WORK_DIR}"
+        fi
+    else
+        exit $?
+    fi
+fi

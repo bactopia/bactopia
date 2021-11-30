@@ -1,0 +1,42 @@
+name: roary
+description: Rapid large-scale prokaryote pangenome analysis
+introduction: |
+  The `roary` module uses [Roary](https://github.com/sanger-pathogens/Roary) to create a pan-genome of 
+  your samples.
+icon: false
+keywords:
+  - gff
+  - pan-genome
+  - alignment
+modules:
+  - roary
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - gff:
+      type: file
+      description: A set of GFF3 formatted files
+      pattern: "*.{gff,gff.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - aln:
+      type: file
+      description: Core-genome alignment produced by PIRATE
+      pattern: "*.aln.gz"
+  - csv:
+      type: file
+      description: Gene presence/absence CSV compatible with Scoary
+      pattern: "*.csv"
+citations:
+  - roary

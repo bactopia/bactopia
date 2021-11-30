@@ -1,0 +1,615 @@
+- name: assemble_genome-se_skesa
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 6c7de18d5f89249dcce6df208bf4500f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      md5sum: 1749246b8891667653351fa8c2af4c5c
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['skesa', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: f2baaa368fe38aa74aeec9392eea348c
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill-se.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['skesa', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-se_spades
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 6c7de18d5f89249dcce6df208bf4500f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      md5sum: 0c1db84a410b26a0979acd06c448279b
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/assembly/spades-unpolished.gfa.gz
+      md5sum: 68a1d9f115493936eac0668c7abad4ea
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['spades', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 510f7d692757649f64ac37ea2499f9c3
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill-se.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['spades', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-se_megahit
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 6c7de18d5f89249dcce6df208bf4500f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output-error.fna.gz
+      md5sum: 4a4dd3598707603b3f76a2378a4504aa
+    - path: pytest/output/assembly/megahit-unpolished.gfa.gz
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['megahit', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 4bfdbacc45531734e98212cda97ef135
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 0e360a8ab6e722233dd32364ebef3ea5
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill-se.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['megahit', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['megahit', 'Extract', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: pytest/output/output-assembly-error.txt
+      contains: ['0 contigs', 'determine', 'discontinued']
+
+- name: assemble_genome-se_velvet
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_se
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 6c7de18d5f89249dcce6df208bf4500f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output-error.fna.gz
+    - path: pytest/output/assembly/output-error.json
+      contains: ['fasta', 'total_contig', 'contigs_greater_10k']
+    - path: pytest/output/assembly/shovill.corrections
+    - path: pytest/output/assembly/velvet-unpolished.gfa.gz
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['velvet', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 52d127f00e62e388391b5166ff53d0ac
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: d2e7e1af5ffdc89674cd8ec02973a43c
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill-se.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['velvet', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: pytest/output/output-assembly-error.txt
+      contains: ['less', 'minimum', 'discontinued']
+
+- name: assemble_genome-pe_skesa
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: be611c76560537f54559ac2f8f88721b
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: pytest/output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      md5sum: 0b7c921a863d961be6a1406e78a5b031
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['skesa', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 64506399b9ed1e08c66517974c5a5b14
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['skesa', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-pe_spades
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: be611c76560537f54559ac2f8f88721b
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: pytest/output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      md5sum: ebcd6dccff1f02413b66486f9dcbb30d
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/assembly/spades-unpolished.gfa.gz
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['spades', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 3ea0fa0cf843a9ce74f1ce6b21892aa1
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['spades', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-pe_megahit
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: be611c76560537f54559ac2f8f88721b
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: pytest/output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: pytest/output/assembly/megahit-unpolished.gfa.gz
+    - path: pytest/output/assembly/output-error.fna.gz
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['megahit', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      md5sum: 597c7566f8832bcae4b115e030feccfb
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: c247b5fe5439f33999631a952955e1ab
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['megahit', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['megahit', 'Extract', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: pytest/output/output-assembly-error.txt
+      md5sum: 529600ab45895b3960981c57fa52037b
+
+- name: assemble_genome-pe_velvet
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_pe
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: be611c76560537f54559ac2f8f88721b
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: pytest/output/assembly/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      contains: ['fasta', 'total_contig', 'contigs_greater_10k']
+    - path: pytest/output/assembly/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/assembly/velvet-unpolished.gfa.gz
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['velvet', 'fasta', 'removed']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'Adding', 'DB']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: fa002d674942d15c2780425725cef14b
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/shovill.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
+      contains: ['velvet', 'shovill', 'Done']
+    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-hybrid
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_hybrid --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_hybrid
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: fde478d6195ecba7e83b2beb181fd7d5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output.fna.gz
+      md5sum: aadea421b9f6ed41e52aca7ce777328c
+    - path: pytest/output/assembly/output.json
+      md5sum: 4836ccf1aa2227395e87d889c15f95d5
+    - path: pytest/output/assembly/unicycler.gfa.gz
+      md5sum: 7a3b003de928550c1d0e17b984ca8f91
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ['Building', 'DB', 'Adding']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ['Building', 'DB', 'Adding']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 7f7e48668e9da8972b30ef1c0564b315
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/unicycler.log
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: pytest/output/logs/assemble_genome/unicycler.stderr.txt
+    - path: pytest/output/logs/assemble_genome/unicycler.stdout.txt
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-flye
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_flye
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 70cc6e41f06035f521982bc95ce5c7a6
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flye-unpolished.gfa.gz
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      contains: ["total_contig"]
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","flye"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","flye"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["flye"]
+    - path: pytest/output/logs/assemble_genome/flye.log
+      contains: ["seq_name"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 7b3a10002cea4505c249f0246b184b18
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+
+- name: assemble_genome-miniasm 
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler miniasm'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_miniasm
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 70cc6e41f06035f521982bc95ce5c7a6
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/miniasm-unpolished.gfa.gz
+      md5sum: 4cefcc6b08cf614b4c7cbc8ad5ee4912
+    - path: pytest/output/assembly/output-error.fna.gz
+    - path: pytest/output/assembly/output-error.json
+      md5sum: dfe24cfffd3f1b66363b5039efa85781
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","miniasm"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","miniasm"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["miniasm"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: 26a91ffdccd29e784f0bf82696a3c530
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4
+    - path: pytest/output/output-assembly-error.txt
+      md5sum: d7562adfa3147c1742ae8cb2635bcc2e
+
+- name: assemble_genome-raven
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler raven'
+  tags:
+    - all_tests
+    - bactopia
+    - assemble_genome
+    - assemble_genome_nanopore
+    - assemble_genome_raven
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 70cc6e41f06035f521982bc95ce5c7a6
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      md5sum: dd8fe87695d44101b925184b6b443541
+    - path: pytest/output/assembly/raven-unpolished.gfa.gz
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye","raven"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
+      contains: ["dragonflye","raven"]
+    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
+      contains: ["raven"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["Building a new DB", "Adding", "removed"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      md5sum: f1f37dd1148cb1eeb4023e9aba19a529
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 17b0b491ec1f5714537e43f18620b1b4

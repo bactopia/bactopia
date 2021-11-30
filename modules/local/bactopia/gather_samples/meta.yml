@@ -1,0 +1,37 @@
+name: ${MODULE_NAME}
+description: |
+    ${$MODULE_DESCRIPTION}
+keywords:
+  - ${MODULE_KEYWORDS}
+tools:
+  - ${TOOL_NAME}:
+      description: ${TOOL_DESCRIPTION}
+      homepage: ${TOOL_HOME}
+      documentation: ${TOOL_DOCS}
+      tool_dev_url: ${TOOL_DEV}
+      citation: ""
+      conda:
+        - name: ""
+        - yaml: ""
+      doi: ""
+      licence: ['LICENCE']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ${TOOL_INPUT}:
+      type: ${INPUT_TYPE}
+      description: ${INPUT_DESCRIPTION}
+      pattern: "${INPUT_PATTERN}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ${TOOL_OUTPUT}:
+      type: ${OUTPUT_TYPE}
+      description: ${OUTPUT_DESCRIPTION}
+      pattern: "${OUTPUT_PATTERN}"

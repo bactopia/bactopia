@@ -1,0 +1,39 @@
+- name: tbprofiler-test
+  command: bash -c 'nextflow run ./subworkflows/local/tbprofiler/test.nf -entry test_tbprofiler --wf tbprofiler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - tbprofiler
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/tbprofiler/tbprofiler/nf-reports/tbprofiler-dag.dot
+      contains: ['tbprofilerdag', 'TBPROFILER', 'versions']
+    - path: bactopia-tools/tbprofiler/tbprofiler/nf-reports/tbprofiler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/tbprofiler/tbprofiler/nf-reports/tbprofiler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/tbprofiler/tbprofiler/nf-reports/tbprofiler-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/bam/test.bam
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.err
+      contains: ['tbprofiler', 'Running', 'finished']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.log
+      contains: ['tbprofiler', 'Running', 'finished']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.sh
+      md5sum: 5e3c095e1b0b8f60d762302d2ec37f19
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/versions.yml
+      md5sum: 44a3b760d338784363e90e1564e5680c
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.csv
+      contains: ['gid', 'Analysis', 'freebayes']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.json
+      contains: ['variant_annotations', 'tbdb', 'freebayes']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.txt
+      contains: ['gid', 'Analysis', 'freebayes']
+    - path: bactopia-tools/tbprofiler/tbprofiler/test/vcf/test.targets.csq.vcf.gz

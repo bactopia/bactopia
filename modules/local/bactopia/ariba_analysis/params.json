@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/ariba_analysis/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "ariba_analysis_parameters": {
+            "title": "Ariba Analysis Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "nucmer_min_id": {
+                    "type": "integer",
+                    "description": "Minimum alignment identity (delta-filter -i)",
+                    "default": 90,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "nucmer_min_len": {
+                    "type": "integer",
+                    "description": "Minimum alignment identity (delta-filter -i)",
+                    "default": 20,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "nucmer_breaklen": {
+                    "type": "integer",
+                    "description": "Value to use for -breaklen when running nucmer",
+                    "default": 200,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "assembly_cov": {
+                    "type": "integer",
+                    "description": "Target read coverage when sampling reads for assembly",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "min_scaff_depth": {
+                    "type": "integer",
+                    "description": "Minimum number of read pairs needed as evidence for scaffold link between two contigs",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "spades_options": {
+                    "type": "string",
+                    "description": "Extra options to pass to Spades assembler",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "assembled_threshold": {
+                    "type": "number",
+                    "description": "If proportion of gene assembled (regardless of into how many contigs) is at least this value then the flag gene_assembled is set",
+                    "default": 0.95,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "gene_nt_extend": {
+                    "type": "integer",
+                    "description": "Max number of nucleotides to extend ends of gene matches to look for start/stop codons",
+                    "default": 30,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "unique_threshold": {
+                    "type": "number",
+                    "description": "If proportion of bases in gene assembled more than once is <= this value, then the flag unique_contig is set",
+                    "default": 0.03,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ariba_no_clean": {
+                    "type": "boolean",
+                    "description": "Do not clean up intermediate files created by Ariba.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/ariba_analysis_parameters"
+        }
+    ]
+}

@@ -1,0 +1,43 @@
+name: seqsero2
+description: Salmonella serotype prediction from reads or assemblies
+introduction: |
+  The `seqsero2` module uses [SeqSero2](https://github.com/denglab/SeqSero2) for Salmonella
+  serotype prediction from reads and assemblies .
+icon: false
+tags:
+  - fasta
+  - fastq
+  - Salmonella
+  - sertotype
+modules:
+  - seqsero2
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: FASTQ or FASTA formated sequences
+      pattern: "*.{fq.gz,fastq.gz,fna.gz,fna,fasta.gz,fasta,fa.gz,fa}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Per-sample TSV summary of the SeqSero2 results
+      pattern: "*_result.tsv"
+  - merged_tsv:
+      type: file
+      description: Merged TSV summary of all SeqSero2 results
+      pattern: "seqsero2.tsv"
+citations:
+  - seqsero2

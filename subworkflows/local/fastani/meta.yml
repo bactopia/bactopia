@@ -1,0 +1,51 @@
+name: fastani
+description: fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
+introduction: |
+  The `fastani` module uses [FastANI](https://github.com/ParBLiSS/FastANI) to calculate the average 
+  nucleotide identity (ANI) between your samples. Although, sometimes you might be more interested 
+  in calculating the ANI of your samples against a reference genome. Fortunately, using 
+  [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download), the `fastani` module allows 
+  you specify either a specific NCBI Assembly RefSeq accession (`--accession`) or a species name 
+  (`--species`) for which to download all RefSeq genomes.
+icon: false
+tags:
+  - ani
+  - fastani
+  - simularity
+modules:
+  - fastani
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - query:
+      type: file
+      description: FASTA files to query against a reference
+      pattern: "*.{fna,fna.gz}"
+  - reference:
+      type: file
+      description: Reference FASTA to be queried against
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-reference fastANI result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all fastANI result files
+      pattern: "fastani.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - fastani
+  - ncbigenomedownload

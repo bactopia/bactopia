@@ -1,0 +1,37 @@
+name: clonalframeml
+description: Predict recomination events in bacterial genomes
+introduction: |
+  The `clonalframeml` module uses [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML) to predict 
+  recombination in bacterial genomes. A starting tree is first created with [IQ-TREE](https://github.com/Cibiv/IQ-TREE) 
+  (`-fast` mode) using the input alignment. Then the alignment and tree are provided ClonalFrameML which uses 
+  maximum likelihood to predict recombinant regions in the alignment. Finally, [maskrc-svg](https://github.com/kwongj/maskrc-svg) 
+  is used to create and additional alignment with the recombinant regions masked.
+icon: false
+tags:
+  - alignment
+  - recombination
+modules:
+  - clonalframeml
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - INPUT_FILE:
+      type: file
+      description: Description of input file
+output:
+  - FILETYPE:
+      type: file
+      description: Output file description
+      pattern: '*.{bam}'
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - clonalframeml
+  - iqtree
+  - iqtree_modelfinder
+  - maskrc_svg

@@ -1,0 +1,58 @@
+name: hicap
+description: Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
+introduction: |
+  The `hicap` module uses [hicap](https://github.com/scwatts/hicap) allong wih an assembly for
+  the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
+icon: false
+tags:
+  - capsule
+  - Haemophilus influenzae
+  - serotype
+modules:
+  - hicap
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Haemophilus influenzae fasta file.
+      pattern: "*.{fna,fna.gz}"
+  - database_dir:
+      type: directory
+      description: Optional - Directory containing locus database
+      pattern: "*/*"
+  - model_fp:
+      type: file
+      description: Optional - Prodigal model to use for gene prediction
+      pattern: "*.{bin}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample hicap result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all hicap result files
+      pattern: "hicap.tsv"
+  - gbk:
+      type: file
+      description: GenBank file and cap locus annotations
+      pattern: "*.gbk"
+  - svg:
+      type: file
+      description: Visualization of annotated cap locus
+      pattern: "*.svg"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - hicap

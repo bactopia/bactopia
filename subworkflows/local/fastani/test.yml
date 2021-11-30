@@ -1,0 +1,69 @@
+- name: fastani-test
+  command: bash -c 'nextflow run ./subworkflows/local/fastani/test.nf -entry test_fastani --wf fastani -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - fastani
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/GCA_000027305.tsv
+      md5sum: f0f4a8707c75a5b9c780ab9a0975f108
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.err
+      contains: ['Sketch', 'GCA_000027305', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.log
+      contains: ['Sketch', 'GCA_000027305', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.sh
+      md5sum: e3579359dfd2bdf330baac335c7c1904
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/versions.yml
+      md5sum: 2821134092b85c80aac02245e4d85a16
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/GCF_900478275.tsv
+      md5sum: 8d23163c06a7b3f78bbfc0ea38495468
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.err
+      contains: ['Sketch', 'GCF_900478275', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.log
+      contains: ['Sketch', 'GCF_900478275', 'finished']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.sh
+      md5sum: 46330b4c80bd009973b8411044548163
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/versions.yml
+      md5sum: 2821134092b85c80aac02245e4d85a16
+    - path: bactopia-tools/fastani/fastani/fastani.tsv
+      contains: ['query', 'GCF_900478275', 'GCA_000027305']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ['concat', 'GCF_900478275', 'GCA_000027305']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-dag.dot
+      contains: ['fastanidag', 'FASTANI', 'versions']
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-trace.txt
+      contains: ['task_id']

@@ -1,0 +1,44 @@
+name: staphopiasccmec
+description: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
+introduction:
+  The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) to assign
+  SCCmec types to _Staphylococcus aureus_ assemblies.
+icon: false
+tags:
+  - amr
+  - fasta
+  - sccmec
+  - Staphylococcus aureus
+modules:
+  - staphopiasccmec
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - tsv:
+      type: file
+      description: Per-sample summary of the staphopia-sccmec assessement
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the staphopia-sccmec assessement
+      pattern: "staphopiasccmec.tsv"
+citations:
+  - staphopiasccmec

@@ -1,0 +1,48 @@
+- name: bakta-test
+  command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bakta
+  files:
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.embl
+      contains: ['contig_1', 'Bakta', 'DnaK', '//']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.faa
+      md5sum: 90f2ca01a8e64a2e43eef18bf52f3ee4
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.ffn
+      md5sum: bb52d38a85bd57e6a18db919b34b3355
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.fna
+      md5sum: 714d5ab267bd640e20c217827108ad45
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
+      contains: ['contig_1', 'Bakta', 'DnaK', '//']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
+      md5sum: a17006cdeaa9b5c918f086cc74377b4e
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
+      md5sum: 97c4f57c7dee5cc22628b390d37fa32a
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
+      md5sum: cfe4c2bb52801e493405b58783f7882b
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
+      md5sum: f17eb57ebb908ca1438b1d69a4652cad
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/GCF_000292685.log
+      contains: ['INFO', 'threads', 'removed', 'MAIN']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.err
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.log
+      contains: ['predict', 'filtered', 'write', 'JSON']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.out
+      md5sum: 3a5993aec17e652aecd9da04bf4e1a1d
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.sh
+      md5sum: e65ab2ce1cff18f16c2d71c0c4bf4a95
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
+      md5sum: 08cf5dac816e9ea9c07f0639c6314f9e
+    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
+      md5sum: f28ae433b724cbc98dca7f2f707a3876
+    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-trace.txt
+      contains: ['task_id']

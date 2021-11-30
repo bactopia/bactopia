@@ -1,0 +1,51 @@
+- name: emmtyper-test
+  command: bash -c 'nextflow run ./subworkflows/local/emmtyper/test.nf -entry test_emmtyper --wf emmtyper -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - emmtyper
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/GCF_006364235.tsv
+      md5sum: 38f46cf186d95a5602ff33144a3b105e
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.err
+      md5sum: 8335c3255b2e09abe90d4fef0a6f0960
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.log
+      md5sum: 8335c3255b2e09abe90d4fef0a6f0960
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.sh
+      md5sum: 27f5ea4f8894672f11325683c73c6918
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/versions.yml
+      md5sum: 6999b41926dc2a0920fdb82ddac42854
+    - path: bactopia-tools/emmtyper/emmtyper/emmtyper.tsv
+      md5sum: 38f46cf186d95a5602ff33144a3b105e
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.sh
+      md5sum: 5695bc5657ded3bc26e1677049288e68
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/versions.yml
+      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+    - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-dag.dot
+      contains: ['emmtyperdag', 'EMMTYPER', 'versions']
+    - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-trace.txt
+      contains: ['task_id']

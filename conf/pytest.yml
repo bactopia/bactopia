@@ -1,0 +1,50 @@
+annotate_genome:
+  - modules/bactopia/annotate_genome/**
+
+antimicrobial_resistance:
+  - modules/bactopia/antimicrobial_resistance/**
+
+ariba_analysis:
+  - modules/bactopia/ariba_analysis/**
+
+assemble_genome:
+  - modules/bactopia/assemble_genome/**
+
+assembly_qc:
+  - modules/bactopia/assembly_qc/**
+
+blast:
+  - modules/bactopia/blast/**
+
+call_variants:
+  - modules/bactopia/call_variants/**
+
+count_31mers:
+  - modules/bactopia/count_31mers/**
+
+download_references:
+  - modules/bactopia/download_references/**
+
+estimate_genome_size:
+  - modules/bactopia/estimate_genome_size/**
+
+fastq_status:
+  - modules/bactopia/fastq_status/**
+
+gather_fastqs:
+  - modules/bactopia/gather_fastqs/**
+
+mapping_query:
+  - modules/bactopia/mapping_query/**
+
+minmer_query:
+  - modules/bactopia/minmer_query/**
+
+minmer_sketch:
+  - modules/bactopia/minmer_sketch/**
+
+qc_reads:
+  - modules/bactopia/qc_reads/**
+
+sequence_type:
+  - modules/bactopia/sequence_type/**

@@ -1,0 +1,79 @@
+name: eggnog_mapper
+description: Genome annotation using orthologous groups and phylogenies
+keywords:
+  - annotation
+  - fasta
+  - prokaryote
+tools:
+  - eggnog:
+      description: Fast genome-wide functional annotation through orthology assignment.
+      homepage: http://eggnog-mapper.embl.de/
+      documentation: https://github.com/eggnogdb/eggnog-mapper/wiki
+      tool_dev_url: https://github.com/eggnogdb/eggnog-mapper
+      doi: "10.1093/molbev/msab293"
+      licence: ['AGPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+  - db:
+      type: folder
+      description: directory containing eggNOG databases
+      pattern: "*"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - hits:
+      type: file
+      description: Results from the search phase, from HMMER, Diamond or MMseqs2
+      pattern: "*.emapper.hits"
+  - seed_orthologs:
+      type: file
+      description: Results from parsing the hits
+      pattern: "*.emapper.seed_orthologs"
+  - annotations:
+      type: file
+      description: Results from the annotation phase
+      pattern: "*.emapper.annotations"
+  - xlsx:
+      type: file
+      description: Annotations in .xlsx format
+      pattern: "*.emapper.annotations.xlsx"
+  - orthologs:
+      type: file
+      description: List of orthologs found for each query
+      pattern: "*.emapper.orthologs"
+  - genepred:
+      type: file
+      description: Sequences of predicted CDS
+      pattern: "*.emapper.genepred.fasta"
+  - gff:
+      type: file
+      description: GFF of predicted CDS
+      pattern: "*.emapper.gff"
+  - no_anno:
+      type: file
+      description: Sequences without annotation
+      pattern: "*.emapper.no_annotations.fasta"
+  - pfam:
+      type: file
+      description: Positions of the PFAM domains identified
+      pattern: "*.emapper.pfam"
+
+authors:
+  - "@rpetit3"

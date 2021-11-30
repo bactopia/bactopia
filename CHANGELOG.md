@@ -1,5 +1,62 @@
 # Changelog
 
+## v2.0.0 bactopia/bactopia "" - 2021/08/??
+With Bactopia v2 comes __a lot__ of changes! 
+
+
+### `Added`
+- support for Nanopore reads
+- `staphopia` as a named pipeline (alias for `bactopia --wf staphopia`) for _S. aureus_ genomes
+- `bactopia/bactopia-tests` repo with test data
+- `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
+- per-module testing via `pytest`
+- per-module `meta.yml` and `params.json` for auto-building docs site
+- 19 total Bactopia Tools (`bactopia --wf <NAME>`)
+    - Subworkflows (3)
+        - `eggnog`: Functional annotation of proteins using orthologous groups and phylogenies
+        - `pangenome`: Pangenome analysis with optional core-genome phylogeny
+        - `staphtyper`: Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
+    - Modules (16): 
+        - `agrvate`: Rapid identification of _Staphylococcus aureus_ agr locus type and agr operon variants.
+        - `bakta`: Rapid annotation of bacterial genomes and plasmids
+        - `ectyper`: In-silico prediction of _Escherichia coli_ serotype
+        - `emmtyper`: emm-typing of _Streptococcus pyogenes_ assemblies
+        - `fastani`: fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
+        - `hicap`: Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
+        - `ismapper`: Identify insertion sites positions in bacterial genomes
+        - `kleborate`: Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
+        - `lissero`: Serogroup typing prediction for _Listeria monocytogenes_
+        - `mashtree`: Quickly create a tree using Mash distances
+        - `meningotype`: Serotyping of _Neisseria meningitidis_
+        - `ngmaster`: Multi-antigen sequence typing for _Neisseria gonorrhoeae_
+        - `seqsero2`: Salmonella serotype prediction from reads or assemblies
+        - `spatyper`: Computational method for finding spa types in _Staphylococcus aureus_
+        - `staphopiasccmec`: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
+        - `tbprofiler`: Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
+
+### `Fixed`
+- Cache issue causing `-resume` to fail
+- amrfinder+ database not compatible error
+- incorrectly parsed system memory
+
+### Adapted from `nf-core`
+- nf-core pytest setup
+- nf-core/modules for bactopia tools
+    - Bactopia v2 release contributed 20+ modules to nf-core/modules
+- nf-core/tools arg parser
+    - adapted to import params and usage based on config file
+
+### Process Consolidation
+- `makeblastdb` -> `assemble_genome`
+- `call_variants`, `download_reference` -> `call_variants`
+- `fastq_status`, `estiamte_genome_size` -> `gather_samples`
+- `count_31mers` -> `minmer_sketch`
+
+### `Removed`
+- `bactopia tools` -> Handled by Nextflow now (`bactopia --wf <NAME>`)
+- `bactopia versions` -> Program versions are output ever run now.
+
+
 ## v1.7.1 bactopia/bactopia "Shellbuster" - 2021/06/04
 ### `Added`
 - bumped GTDB to v1.5.0

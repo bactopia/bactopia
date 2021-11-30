@@ -1,0 +1,45 @@
+name: ismapper
+description: Identify insertion sites positions in bacterial genomes
+introduction: |
+  The `ismapper` module uses [ISMapper](https://github.com/jhawkey/IS_mapper) to search for 
+  insertion sites in your samples.
+icon: false
+tags:
+  - fastq
+  - insertion sequences
+modules:
+  - ismapper
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: A set of paired-end FASTQ files
+      pattern: "*.{fastq.gz,fq.gz}"
+  - reference:
+      type: file
+      description: Reference genome in GenBank format
+      pattern: "*.{gbk}"
+  - query:
+      type: file
+      description: Insertion sequences to query in FASTA format
+      pattern: "*.{fasta,fa}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: directory
+      description: Directory containing ISMapper result files
+      pattern: "*/*"
+citations:
+  - ismapper

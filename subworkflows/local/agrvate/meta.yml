@@ -1,0 +1,43 @@
+name: agrvate
+description: Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
+introduction: |
+  The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) 
+  to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ genomes. It uses the contigs from 
+  assemblies to determine _agr_ type and any possible variants in the _agr_ operon.
+icon: false
+tags:
+  - fasta
+  - virulence
+  - Staphylococcus aureus
+modules:
+  - agrvate
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.fasta"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: Per-sample summary of the agrvate assessement
+      pattern: "*-summary.tab"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the agrvate assessement
+      pattern: "agrvate.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+citations:
+  - agrvate

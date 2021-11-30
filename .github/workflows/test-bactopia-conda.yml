@@ -6,47 +6,39 @@ on: workflow_dispatch
     #- cron:  '30 1 * * 1,4'
 
 jobs:
-  bactopia-testing-conda:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
+  pytest-bactopia:
+    runs-on: olaf
     defaults:
       run:
         shell: bash -l {0}
+
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
-
-      - name: Free up Disk Space
-        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/free-disk-space.sh
-
-      - name: Setup miniconda
-        uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: bactopia
-          auto-activate-base: false
+          path: ${{ github.run_id }}/bactopia
 
-      - name: Setup Bactopia Environment
-        run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
-
-      - name: Environment Information
-        run: uname -a && env
-
-      - name: Prepare for Bactopia Test
-        run: mkdir -p ${GITHUB_WORKSPACE}/bactopia-testing/bactopia
-
-      - name: Build Bactopia Datasets
-        working-directory: ./bactopia-testing 
-        run: | 
-          bactopia datasets --species "Staphylococcus aureus" --limit 5  --ariba "card"
-          git clone -b staphopia-v1 https://github.com/bactopia/bactopia-datasets.git
-          cp -r bactopia-datasets/species-specific/ datasets/
-          rm -rf bactopia-datasets/
-
-      - name: Testing SRA Accession
-        working-directory: ./bactopia-testing/bactopia
+      - name: Run Bactopia Tests (per module)
         run: |
-          bactopia --accession SRX4563634 --coverage 10 -ansi-log false --registry github \
-                   --datasets ${GITHUB_WORKSPACE}/bactopia-testing/datasets \
-                   --species "Staphylococcus aureus" --genome_size median --skip_checkm
+          cd ${{ github.run_id }}/bactopia
+          BACTOPIA_CI=/data/storage/bactopia-ci
+          BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/${{ github.run_id }}"
+          source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          uname -a && env
+          mkdir /tmp/${{ github.run_id }}
+          cd ${BACTOPIA_WORKSPACE}/bactopia
+          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof --ignore conda/ --ignore modules/local/bactopia-tools/ --tag bactopia
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-debian
+          path: |
+            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.out
+            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.err
+            
+      - name: Cleanup
+        if: always()
+        run: rm -rf ${{ github.run_id }} /tmp/${{ github.run_id }}

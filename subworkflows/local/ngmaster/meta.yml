@@ -1,0 +1,43 @@
+name: ngmaster
+description: Multi-antigen sequence typing for _Neisseria gonorrhoeae_
+introduction: |
+  The `ngmaster` module uses [ngmaster](https://github.com/MDU-PHL/ngmaster) for 
+  _in silico_ multi-antigen sequence typing for _Neisseria gonorrhoeae_ (NG-MAST).
+icon: false
+tags:
+  - fasta
+  - Neisseria gonorrhoeae
+  - serotype
+modules:
+  - ngmaster
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Neisseria gonorrhoeae fasta file.
+      pattern: "*.{fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample ngmaster result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all ngmaster result files
+      pattern: "ngmaster.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - ngmaster

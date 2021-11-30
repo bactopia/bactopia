@@ -1,0 +1,85 @@
+name: bakta
+description: Rapid annotation of bacterial genomes & plasmids.
+keywords:
+  - annotation
+  - fasta
+  - prokaryote
+tools:
+  - bakta:
+      description: Rapid & standardized annotation of bacterial genomes & plasmids.
+      homepage: https://github.com/oschwengers/bakta
+      documentation: https://github.com/oschwengers/bakta
+      tool_dev_url: https://github.com/oschwengers/bakta
+      doi: "10.1099/mgen.0.000685"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: |
+        FASTA file to be annotated. Has to contain at least a non-empty string dummy value.
+  - db:
+      type: file
+      description: |
+        Path to the Bakta database
+  - proteins:
+      type: file
+      description: FASTA file of trusted proteins to first annotate from (optional)
+  - prodigal_tf:
+      type: file
+      description: Training file to use for Prodigal (optional)
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: annotations as simple human readble tab separated values
+      pattern: "*.tsv"
+  - gff:
+      type: file
+      description: annotations & sequences in GFF3 format
+      pattern: "*.gff3"
+  - gbff:
+      type: file
+      description: annotations & sequences in (multi) GenBank format
+      pattern: "*.gbff"
+  - embl:
+      type: file
+      description: annotations & sequences in (multi) EMBL format
+      pattern: "*.embl"
+  - fna:
+      type: file
+      description: replicon/contig DNA sequences as FASTA
+      pattern: "*.fna"
+  - faa:
+      type: file
+      description: CDS/sORF amino acid sequences as FASTA
+      pattern: "*.faa"
+  - ffn:
+      type: file
+      description: feature nucleotide sequences as FASTA
+      pattern: "*.ffn"
+  - hypotheticals_tsv:
+      type: file
+      description: further information on hypothetical protein CDS as simple human readble tab separated values
+      pattern: "*.hypotheticals.tsv"
+  - hypotheticals_faa:
+      type: file
+      description: hypothetical protein CDS amino acid sequences as FASTA
+      pattern: "*.hypotheticals.faa"
+
+authors:
+  - "@rpetit3"

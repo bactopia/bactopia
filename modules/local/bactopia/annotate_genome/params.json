@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/annotate_genome/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "annotate_genome_parameters": {
+            "title": "Annotate Genome Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "centre": {
+                    "type": "string",
+                    "default": "Bactopia",
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
+                    "hidden": true
+                },
+                "addmrna": {
+                    "type": "boolean",
+                    "description": "Add 'mRNA' features for each 'CDS' feature",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "rawproduct": {
+                    "type": "boolean",
+                    "description": "Do not clean up /product annotation",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "cdsrnaolap": {
+                    "type": "boolean",
+                    "description": "Allow [tr]RNA to overlap CDS",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "prokka_coverage": {
+                    "type": "integer",
+                    "description": "Minimum coverage on query protein",
+                    "default": 80,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "nogenes": {
+                    "type": "boolean",
+                    "description": "Do not add 'gene' features for each 'CDS' feature",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "norrna": {
+                    "type": "boolean",
+                    "description": "Don't run rRNA search",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "notrna": {
+                    "type": "boolean",
+                    "description": "Don't run tRNA search",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "rnammer": {
+                    "type": "boolean",
+                    "description": "Prefer RNAmmer over Barrnap for rRNA prediction",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "rfam": {
+                    "type": "boolean",
+                    "description": "Enable searching for ncRNAs with Infernal+Rfam",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "skip_prodigal_tf": {
+                    "type": "boolean",
+                    "description": "If a Prodigal training file was found, it will not be used",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/annotate_genome_parameters"
+        }
+    ]
+}

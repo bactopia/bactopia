@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/gather_samples/params.json",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "gather_samples_parameters": {
+            "title": "Gather Samples Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "skip_fastq_check": {
+                    "type": "boolean",
+                    "description": "Skip minimum requirement checks for input FASTQs",
+                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "min_basepairs": {
+                    "type": "integer",
+                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
+                    "default": 2241820,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_reads": {
+                    "type": "integer",
+                    "description": "The minimum amount of reads required to continue downstream analyses.",
+                    "default": 7472,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_coverage": {
+                    "type": "integer",
+                    "description": "The minimum amount of coverage required to continue downstream analyses.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_proportion": {
+                    "type": "number",
+                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
+                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-balance-scale-left",
+                    "hidden": true
+                },
+                "min_genome_size": {
+                    "type": "integer",
+                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 100000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "max_genome_size": {
+                    "type": "integer",
+                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 18040666,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "attempts": {
+                    "type": "integer",
+                    "description": "Maximum times to attempt downloads",
+                    "default": 3,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true
+                },
+                "use_ena": {
+                    "type": "boolean",
+                    "description": "Download FASTQs from ENA",
+                    "fa_icon": "fas fa-globe-europe",
+                    "hidden": true
+                },
+                "no_cache": {
+                    "type": "boolean",
+                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
+                    "fa_icon": "fas fa-save",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/gather_samples_parameters"
+        }
+    ]
+}

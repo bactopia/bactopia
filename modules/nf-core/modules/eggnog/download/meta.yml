@@ -1,0 +1,49 @@
+name: eggnog_download
+description: Assists in downloading eggNOG fomatted databases
+keywords:
+  - annotation
+  - download
+tools:
+  - eggnog:
+      description: Fast genome-wide functional annotation through orthology assignment.
+      homepage: http://eggnog-mapper.embl.de/
+      documentation: https://github.com/eggnogdb/eggnog-mapper/wiki
+      tool_dev_url: https://github.com/eggnogdb/eggnog-mapper
+      doi: "10.1093/molbev/msab293"
+      licence: ['AGPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+
+output:
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - db:
+      type: file
+      description: the eggNOG annotation databases
+      pattern: "*.db*"
+  - proteins:
+      type: file
+      description: Diamond database of eggNOG sequences
+      pattern: "*.dmnd"
+  - hmmer:
+      type: folder
+      description: HMMER database of eggNOG sequences
+      pattern: "hmmer/"
+  - mmseqs:
+      type: folder
+      description: MMseqs2 database of eggNOG sequences
+      pattern: "mmseqs/"
+  - pfam:
+      type: folder
+      description: PFAM database of eggNOG sequences
+      pattern: "pfam/"
+
+authors:
+  - "@rpetit3"

@@ -1,0 +1,43 @@
+name: emmtyper
+description: emm-typing of _Streptococcus pyogenes_ assemblies
+introduction: |
+  The `emmtyper` module uses [emmtyper](https://github.com/MDU-PHL/emmtyper) for 
+  emm-typing of _Streptococcus pyogenes_ using a de novo or complete assembly.
+icon: false
+tags:
+  - fasta
+  - Streptococcus pyogenes
+  - typing
+modules:
+  - emmtyper
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Streptococcus pyogenes fasta file.
+      pattern: "*.{fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample emmtyper result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all emmtyper result files
+      pattern: "emmtyper.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - emmtyper

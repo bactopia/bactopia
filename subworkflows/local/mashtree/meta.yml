@@ -1,0 +1,47 @@
+name: mashtree
+description: Quickly create a tree using Mash distances
+introduction: |
+  The `mashtree` module uses [Mashtree](https://github.com/lskatz/mashtree) to create a tree of your samples
+  using [Mash](https://github.com/marbl/Mash) distance. You can use use `--species` or `-accessions` to to
+  see how your samples compare to completed genomes. If used, 
+  [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will download available completed 
+  genomes available from RefSeq and they will be included in your tree.
+icon: false
+tags:
+  - tree
+  - mash
+  - fasta
+modules:
+  - mashtree
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA files to build tree from
+      pattern: "*.{fna,fna.gz,fasta,fasta.gz,fa,fa.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tree:
+      type: file
+      description: A Newick formatted tree file
+      pattern: "*.dnd"
+  - matrix:
+      type: file
+      description: A TSV matrix of pair-wise Mash distances
+      pattern: "*.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - mashtree
+  - mash
+  - ncbigenomedownload

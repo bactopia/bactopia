@@ -1,0 +1,9 @@
+- name: staphopia-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf staphopia --help > staphopia-help.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - staphopia
+  files:
+    - path: staphopia-help.txt
+      contains: ['staphopia', 'bactopia', 'version', 'dependencies']

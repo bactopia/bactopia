@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/mapping_query/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "mapping_query_parameters": {
+            "title": "Mapping Query Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "keep_unmapped_reads": {
+                    "type": "boolean",
+                    "description": "Keep unmapped reads, this does not affect variant calling.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "bwa_mem_opts": {
+                    "type": "string",
+                    "description": "Extra BWA MEM options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_aln_opts": {
+                    "type": "string",
+                    "description": "Extra BWA ALN options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_samse_opts": {
+                    "type": "string",
+                    "description": "Extra BWA SAMSE options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_sampe_opts": {
+                    "type": "string",
+                    "description": "Extra BWA SAMPE options",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bwa_n": {
+                    "type": "integer",
+                    "description": "Maximum number of alignments to output in the XA tag for reads paired properly.",
+                    "help": "If a read has more than INT hits, the XA tag will not be written.",
+                    "default": 9999,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/mapping_query_parameters"
+        }
+    ]
+}

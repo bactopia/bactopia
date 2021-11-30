@@ -1,0 +1,63 @@
+name: staphtyper
+description: Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
+introduction:
+  The `staphytyper` subworkflows combines multiple _Staphylococcus aureus_ specific tools 
+  to Determine the _agr_ ([AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)), _spa_ 
+  ([spaTyper](https://github.com/HCGB-IGTP/spaTyper)) and SCCmec 
+  ([staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)) types of assemblies.
+tags:
+  - resistance
+  - Staphylococcus aureus
+  - virulence
+modules:
+  - agrvate
+  - spatyper
+  - staphopiasccmec
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - agrvate_tsv:
+      type: file
+      description: A summary of the per-sample agrvate assessement
+      pattern: "*-summary.tab"
+  - agrvate_merged_tsv:
+      type: file
+      description: A merged TSV of all agrvate summary files
+      pattern: "agrvate.tsv"
+  - spatyper_tsv:
+      type: file
+      description: Tab-delimited per-sample SpaTyper results
+      pattern: "*.tsv"
+  - spatyper_merged_tsv:
+      type: file
+      description: A merged TSV all SpaTyper results
+      pattern: "spatyper.tsv"
+  - staphopiasccmec_tsv:
+      type: file
+      description: Tab-delimited per-sample staphopia-sccmec results
+      pattern: "*.tsv"
+  - staphopiasccmec_merged_tsv:
+      type: file
+      description: A merged TSV all staphopia-sccmec results
+      pattern: "staphopiasccmec.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+citations:
+  - agrvate
+  - spatyper
+  - staphopiasccmec

@@ -1,0 +1,96 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ismapper/params.json",
+    "title": "ISMapper Module",
+    "description": "A module for identifying insertion sites",
+    "type": "object",
+    "definitions": {
+        "ismapper_parameters": {
+            "title": "ISMapper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "reference": {
+                    "type": "string",
+                    "description": "Reference genome for typing against in GenBank format",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "insertions": {
+                    "type": "string",
+                    "description": "Multifasta file with insertion sequence(s) to be mapped to",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "min_clip": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Minimum size for softclipped region to be extracted from initial mapping",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "max_clip": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "Maximum size for softclipped regions to be included",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "cutoff": {
+                    "type": "integer",
+                    "default": 6,
+                    "description": "Minimum depth for mapped region to be kept in bed file",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "novel_gap_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "description": "Distance in base pairs between left and right flanks to be called a novel hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "min_range": {
+                    "type": "number",
+                    "default": 0.9,
+                    "description": "Minimum percent size of the gap to be called a known hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "max_range": {
+                    "type": "number",
+                    "default": 1.1,
+                    "description": "Maximum percent size of the gap to be called a known hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "merging": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Value for merging left and right hits in bed files together to simply calculation of closest and intersecting regions",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "ismap_all": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Switch on all alignment reporting for bwa",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "ismap_minqual": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "Mapping quality score for bwa",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/ismapper_parameters"
+        }
+    ]
+}

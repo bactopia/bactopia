@@ -1,0 +1,91 @@
+name: prokka
+description: Whole genome annotation of small genomes (bacterial, archeal, viral)
+keywords:
+  - annotation
+  - fasta
+  - prokka
+tools:
+  - prokka:
+      description: Rapid annotation of prokaryotic genomes
+      homepage: https://github.com/tseemann/prokka
+      doi: "10.1093/bioinformatics/btu153"
+      licence: ['GPL v2']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: |
+        FASTA file to be annotated. Has to contain at least a non-empty string dummy value.
+  - proteins:
+      type: file
+      description: FASTA file of trusted proteins to first annotate from (optional)
+  - prodigal_tf:
+      type: file
+      description: Training file to use for Prodigal (optional)
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - version:
+      type: file
+      description: File containing software version
+      pattern: "*.{version.txt}"
+  - gff:
+      type: file
+      description: annotation in GFF3 format, containing both sequences and annotations
+      pattern: "*.{gff}"
+  - gbk:
+      type: file
+      description: annotation in GenBank format, containing both sequences and annotations
+      pattern: "*.{gbk}"
+  - fna:
+      type: file
+      description: nucleotide FASTA file of the input contig sequences
+      pattern: "*.{fna}"
+  - faa:
+      type: file
+      description: protein FASTA file of the translated CDS sequences
+      pattern: "*.{faa}"
+  - ffn:
+      type: file
+      description: nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+      pattern: "*.{ffn}"
+  - sqn:
+      type: file
+      description: an ASN1 format "Sequin" file for submission to Genbank
+      pattern: "*.{sqn}"
+  - fsa:
+      type: file
+      description: nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file
+      pattern: "*.{fsa}"
+  - tbl:
+      type: file
+      description: feature Table file, used by "tbl2asn" to create the .sqn file
+      pattern: "*.{tbl}"
+  - err:
+      type: file
+      description: unacceptable annotations - the NCBI discrepancy report.
+      pattern: "*.{err}"
+  - log:
+      type: file
+      description: contains all the output that Prokka produced during its run
+      pattern: "*.{log}"
+  - txt:
+      type: file
+      description: statistics relating to the annotated features found
+      pattern: "*.{txt}"
+  - tsv:
+      type: file
+      description: tab-separated file of all features (locus_tag,ftype,len_bp,gene,EC_number,COG,product)
+      pattern: "*.{tsv}"
+
+authors:
+  - "@rpetit3"

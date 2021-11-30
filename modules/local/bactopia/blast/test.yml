@@ -1,0 +1,171 @@
+- name: blast-genes
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_genes --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - blast
+    - blast_genes
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 940fc9a9a227559f5962c55c12465fb6
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/blast/genes/GCF_000292685.json.gz
+      md5sum: c0aa2a03771dbfb4d1c19ad6c2c6b58c
+    - path: pytest/GCF_000292685/blast/genes/genes.json.gz
+      md5sum: d1ead836cab7dfebe96b3cd8f5207de2
+    - path: pytest/GCF_000292685/logs/blast/genes/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.sh
+      md5sum: 29e2a2849f9ce4af76a6edf7b508478e
+    - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.trace
+      contains: ['nextflow.trace']
+    - path: pytest/GCF_000292685/logs/blast/genes/versions.yml
+      md5sum: d175edebb2fce503e49d7627c6a89d50
+
+- name: blast-primers
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_primers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - blast
+    - blast_primers
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: db06055fc9e9da911bab344837540425
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/blast/primers/GCF_000292685.json.gz
+      md5sum: 2c0777fb029201157376280fa87bc215
+    - path: pytest/GCF_000292685/blast/primers/primers.json.gz
+      md5sum: 2a548375c59a838d6ff0675775544606
+    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.sh
+      md5sum: c4aeaefcd4319a99b3cc1196d569af85
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.trace
+      contains: ['nextflow.trace']
+    - path: pytest/GCF_000292685/logs/blast/primers/versions.yml
+      md5sum: d175edebb2fce503e49d7627c6a89d50
+
+- name: blast-primers-uncompressed
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_primers --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - blast
+    - blast_primers_uncompressed
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: db06055fc9e9da911bab344837540425
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/blast/primers/GCF_000292685.json
+      md5sum: 5d74779ee3e651e0489f5d579fd85b53
+    - path: pytest/GCF_000292685/blast/primers/primers.json
+      md5sum: 25cccf0391f1837ada3f95d9b3463fc9
+    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.sh
+      md5sum: 0a7a5743861575e086324c78a6bff583
+    - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.trace
+      contains: ['nextflow.trace']
+    - path: pytest/GCF_000292685/logs/blast/primers/versions.yml
+      md5sum: d175edebb2fce503e49d7627c6a89d50
+
+- name: blast-proteins
+  command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_proteins --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - blast
+    - blast_proteins
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 60b734dd4b153cc0b4e89a32139c9ce5
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/GCF_000292685/blast/proteins/GCF_000292685.json.gz
+      md5sum: 49a59a6e90005f5e259cc38f2f728f3f
+    - path: pytest/GCF_000292685/blast/proteins/proteins.json.gz
+      md5sum: d9644cd2f3d08b6096f3fdde8c295862
+    - path: pytest/GCF_000292685/logs/blast/proteins/merge-blast-json.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.sh
+      md5sum: b3d4a7ea877d55fb2e8bec8153f5299c
+    - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.trace
+      contains: ['nextflow.trace']
+    - path: pytest/GCF_000292685/logs/blast/proteins/tblastn.stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/tblastn.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/GCF_000292685/logs/blast/proteins/versions.yml
+      md5sum: d175edebb2fce503e49d7627c6a89d50

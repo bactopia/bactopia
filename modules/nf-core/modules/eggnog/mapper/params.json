@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/eggnog/mapper/params.json",
+    "title": "eggNOG Mapper Module",
+    "description": "A module for annotating proteins using eggNOG databases",
+    "type": "object",
+    "definitions": {
+        "eggnog_mapper_parameters": {
+            "title": "eggNOG Mapper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "genepred": {
+                    "type": "string",
+                    "default": "search",
+                    "description": "Method to use for gene prediction",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": ["search", "prodigal"]
+                },
+                "mode": {
+                    "type": "string",
+                    "default": "diamond",
+                    "description": "Method to search against eggNOG sequences",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": ["diamond", "hmmer", "mmseqs", "cache", "no_search"]
+                },
+                "eggnog_opts": {
+                    "type": "string",
+                    "description": "Extra eggNOG Mapper options in quotes",
+                    "help": "Useful if you would like to fine tune your eggnog-mapper analysis. Example: '--dmnd_algo 1 --pident 99'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/eggnog_mapper_parameters"
+        }
+    ]
+}

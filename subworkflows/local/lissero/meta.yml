@@ -1,0 +1,43 @@
+name: lissero
+description: Serogroup typing prediction for _Listeria monocytogenes_
+introduction: |
+  The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
+  _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
+icon: false
+tags:
+  - fasta
+  - Listeria monocytogenes
+  - serotype
+modules:
+  - lissero
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Listeria monocytogenes fasta file.
+      pattern: "*.{fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample lissero result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all lissero result files
+      pattern: "lissero.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - lissero

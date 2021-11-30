@@ -1,0 +1,414 @@
+- name: qc_reads-pe
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_pe
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: bb7634ae61c30f11eeb470e8a7ed4cbf
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
+      md5sum: 568b25c782021ad7615261d7184388cf
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
+      md5sum: 43eb6f485814981f165b8f36ee16ec54
+    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
+      contains: ['Scanning', 'error', 'Finish']
+    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: 9e5bd2a3dc4fd2aa04cc354ca6ea19d1
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 99a89ab5ec806c52690f32a1bd5038c9
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
+      contains: ['ReformatReads', 'Processed']
+    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/quality-control/output_R1.fastq.gz
+      md5sum: 5d90f0b7f99b9c92de7286e2e90fe395
+    - path: pytest/output/quality-control/output_R2.fastq.gz
+      md5sum: 5712d61173b7b91d5cbcd4cb4b32cbcb
+    - path: pytest/output/quality-control/summary/output_R1-final.json
+      md5sum: 3f80ae4507c67eee9fa3880f0ca92a3e
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R1-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-final.json
+      md5sum: a8169c87d9424baec553e53163d62b07
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-original.json
+      md5sum: 5c532d5a13f5b3eaf1e60c9dc409cb04
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.zip
+
+- name: qc_reads-se
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_se
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: aaec85758c6c68ead9d09988b32194fd
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
+      md5sum: 994932cf6d7331321e29e2b8c3e7d1d3
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
+      md5sum: db0fd8580218de1fdeb831e62b9b6b29
+    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
+      contains: ['Scanning', 'error', 'Finish']
+    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: da740b754eb5d551074868946f5f94bb
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 7eaa0602274e4c203ffcd8f8f2416482
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
+      contains: ['ReformatReads', 'Processed']
+    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/quality-control/output.fastq.gz
+      md5sum: 2a5116c5d7ba15fb752c3dc1209692cc
+    - path: pytest/output/quality-control/summary/output-final.json
+      md5sum: dc4e1bcb17a421176d0b10b7379974f8
+    - path: pytest/output/quality-control/summary/output-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output-original_fastqc.zip
+
+- name: qc_reads-pe_skip_qc
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_pe_skip_qc
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: bb7634ae61c30f11eeb470e8a7ed4cbf
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: 9e5bd2a3dc4fd2aa04cc354ca6ea19d1
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 3afca1ef8408d56a4dc5d3aacd487a7d
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/quality-control/output-qc-skipped.txt
+      md5sum: 81538b5573ca3720b779bf3bcf0945af
+    - path: pytest/output/quality-control/output_R1.fastq.gz
+      md5sum: 09b49117941d1f7165feaad81a5b29df
+    - path: pytest/output/quality-control/output_R2.fastq.gz
+      md5sum: 5e0f67c51291e10338f77ab414e69719
+    - path: pytest/output/quality-control/summary/output_R1-final.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R1-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-final.json
+      md5sum: 5c532d5a13f5b3eaf1e60c9dc409cb04
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-original.json
+      md5sum: 5c532d5a13f5b3eaf1e60c9dc409cb04
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.zip
+
+- name: qc_reads-se_skip_qc
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_se_skip_qc
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: aaec85758c6c68ead9d09988b32194fd
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: da740b754eb5d551074868946f5f94bb
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 3124d008cfa6725e8d35d184f3dfffb3
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/quality-control/output-qc-skipped.txt
+      md5sum: 81538b5573ca3720b779bf3bcf0945af
+    - path: pytest/output/quality-control/output.fastq.gz
+      md5sum: 09b49117941d1f7165feaad81a5b29df
+    - path: pytest/output/quality-control/summary/output-final.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output-original_fastqc.zip
+
+- name: qc_reads-pe_error
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_pe_error
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: bb7634ae61c30f11eeb470e8a7ed4cbf
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
+      md5sum: 568b25c782021ad7615261d7184388cf
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
+      md5sum: 43eb6f485814981f165b8f36ee16ec54
+    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
+      contains: ['Scanning', 'error', 'Finish']
+    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      contains: ['Analysis', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: d1fad4d41866c78a3f635de879a81fbe
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
+      contains: ['ReformatReads', 'Processed']
+    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/output-low-read-count-error.txt
+      md5sum: 19c7e4e4f08de5030a3764227a312b28
+    - path: pytest/output/output-low-sequence-depth-error.txt
+      md5sum: 0caecb549ac592c665f30f99cdfbae34
+    - path: pytest/output/quality-control/output_R1.error-fastq.gz
+      md5sum: 061b9f9c781ef83434a31c3376787b01
+    - path: pytest/output/quality-control/output_R2.error-fastq.gz
+      md5sum: dcc49d88483b8aed31d1e711d91a835a
+    - path: pytest/output/quality-control/summary/output_R1-final.json
+      md5sum: 9a5d1a15d77bbb7c0e069df10d788867
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R1-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R1-original_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-final.json
+      md5sum: a0eb15fd347dc31257df76355aa4572c
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output_R2-original.json
+      md5sum: 5c532d5a13f5b3eaf1e60c9dc409cb04
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output_R2-original_fastqc.zip
+
+- name: qc_reads-se_error
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_se_error
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: aaec85758c6c68ead9d09988b32194fd
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
+      md5sum: 994932cf6d7331321e29e2b8c3e7d1d3
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
+      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
+    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
+      md5sum: db0fd8580218de1fdeb831e62b9b6b29
+    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
+      contains: ['Scanning', 'error', 'Finish']
+    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['Approx', 'complete']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: 21741b777705cceef4a2f207c5e52954
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: c74b8eeb3e42362d954db81b098400e3
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
+      contains: ['ReformatReads', 'Processed']
+    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/output-low-read-count-error.txt
+      md5sum: 730a825c835f4e0ee7964d48805b33e7
+    - path: pytest/output/output-low-sequence-depth-error.txt
+      md5sum: b634e0b95079673ff5ddc2f52ad7697e
+    - path: pytest/output/quality-control/output.error-fastq.gz
+      md5sum: df39deff28b3fec68817a5cb8591ca51
+    - path: pytest/output/quality-control/summary/output-final.json
+      md5sum: 3da04c47f62cf27ccc73bbab384f8ba1
+    - path: pytest/output/quality-control/summary/output-final_fastqc.html
+    - path: pytest/output/quality-control/summary/output-final_fastqc.zip
+    - path: pytest/output/quality-control/summary/output-original.json
+      md5sum: 5032c0e65afef74dc282f2ce8b18f3d1
+    - path: pytest/output/quality-control/summary/output-original_fastqc.html
+    - path: pytest/output/quality-control/summary/output-original_fastqc.zip
+
+- name: qc_reads-nanopore
+  command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - all_tests
+    - bactopia
+    - qc_reads
+    - qc_reads_nanopore
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: 8587ae55b78683a5cc71efd6fa469e0f
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/logs/qc_reads/nanoq.stderr.txt
+      md5sum: 8d16bc864a6ee9da1c845a44ad9b7196
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.err
+      contains: ['results', 'summary', 'original', 'final']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.log
+      contains: ['results', 'summary', 'original', 'final']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.out
+      md5sum: d0fa8eae6b20159f2be7f33771a4ccf7
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
+      md5sum: 1a3b33cfae362e9767ba398748879f99
+    - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/qc_reads/porechop.stderr.txt
+      md5sum: 422d83b54936faae032010d4c5efd6f7
+    - path: pytest/output/logs/qc_reads/rasusa.stderr.txt
+      contains: ['rasusa', 'Target', 'Done']
+    - path: pytest/output/logs/qc_reads/versions.yml
+      md5sum: 874656d3b6e51b81dfa9138b6e0a12b7
+    - path: pytest/output/quality-control/output.fastq.gz
+      md5sum: bdb67257dda938ab977956940b860480
+    - path: pytest/output/quality-control/summary/output-final.json
+      md5sum: 2b56a3d1f4bb69dd83c10931c5a7f663
+    - path: pytest/output/quality-control/summary/output-final_NanoPlot-report.html
+      contains: ['html', '/html']
+    - path: pytest/output/quality-control/summary/output-final_NanoPlot.tar.gz
+    - path: pytest/output/quality-control/summary/output-original.json
+      md5sum: 90c40309552e95c5a9d84b515778aa3f
+    - path: pytest/output/quality-control/summary/output-original_NanoPlot-report.html
+      contains: ['html', '/html']
+    - path: pytest/output/quality-control/summary/output-original_NanoPlot.tar.gz
