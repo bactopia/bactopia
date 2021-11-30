@@ -6,3 +6,12 @@
   files:
     - path: bactopia-help.txt
       contains: ['Required', 'bactopia', 'version', 'dependencies']
+
+- name: bactopia-bactopia_wfs
+  command: bash -c 'nextflow run ./main.nf --list_wfs > bactopia-wfs.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+  files:
+    - path: bactopia-wfs.txt
+      contains: ['staphopia', 'Subworkflows', 'Modules', 'tbprofiler']
