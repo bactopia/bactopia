@@ -163,7 +163,6 @@ def parse_query(q, accession_limit, exact_taxon=False):
         queries = q.split(',')
     else:
         queries.append(q)
-
     results = []
     accessions = []
 
@@ -179,7 +178,7 @@ def parse_query(q, accession_limit, exact_taxon=False):
             # Test Accession
             # Thanks! https://ena-docs.readthedocs.io/en/latest/submit/general-guide/accessions.html#accession-numbers
             if re.match(r'PRJ[E|D|N][A-Z][0-9]+|[E|D|S]RP[0-9]{6,}', query):
-                accessions.append(query)
+                results.append(['bioproject', f'(study_accession={query} OR secondary_study_accession={query})'])
             elif re.match(r'SAM(E|D|N)[A-Z]?[0-9]+|(E|D|S)RS[0-9]{6,}', query):
                 results.append(['biosample', f'(sample_accession={query} OR secondary_sample_accession={query})'])
             elif re.match(r'(E|D|S)RR[0-9]{6,}', query):
