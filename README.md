@@ -1,4 +1,3 @@
-[![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/bactopia/bactopia/master?style=flat-square&logo=appveyor)](https://gitlab.com/bactopia/bactopia/pipelines/latest)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/bactopia/bactopia)](https://github.com/bactopia/bactopia/releases)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/installer/conda.svg)](https://bioconda.github.io/recipes/bactopia/README.html) 
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
@@ -32,17 +31,17 @@ bactopia datasets
 
 # Paired-end
 bactopia --R1 R1.fastq.gz --R2 R2.fastq.gz --sample SAMPLE_NAME \
-         --dataset datasets/ --outdir OUTDIR
+         --datasets datasets/ --outdir OUTDIR
 
 # Single-End
-bactopia --SE SAMPLE.fastq.gz --sample SAMPLE --dataset datasets/ --outdir OUTDIR
+bactopia --SE SAMPLE.fastq.gz --sample SAMPLE --datasets datasets/ --outdir OUTDIR
 
 # Multiple Samples
 bactopia prepare MY-FASTQS/ > fastqs.txt
-bactopia --fastqs fastqs.txt --dataset datasets --outdir OUTDIR
+bactopia --fastqs fastqs.txt --datasets datasets --outdir OUTDIR
 
 # Single ENA/SRA Experiment
-bactopia --accession SRX000000 --dataset datasets --outdir OUTDIR
+bactopia --accession SRX000000 --datasets datasets --outdir OUTDIR
 
 # Multiple ENA/SRA Experiments
 bactopia search "staphylococcus aureus" > accessions.txt

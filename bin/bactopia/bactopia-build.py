@@ -160,8 +160,6 @@ if __name__ == '__main__':
                         help='Force overwrite of existing Conda environments.')
     parser.add_argument('--is_bactopia', action='store_true',
                         help='This is an automated call by bactopia not a user')
-    parser.add_argument('--include_tools', action='store_true',
-                        help='Builds Conda environments for Bactopia tools as well.')
     parser.add_argument('--verbose', action='store_true',
                         help='Print debug related text.')
     parser.add_argument('--silent', action='store_true',
@@ -213,27 +211,3 @@ if __name__ == '__main__':
     else:
         logging.error(f'Unable to find Conda *.{args.ext} files in {env_path}, please verify')
         sys.exit(1)
-
-    if args.include_tools:
-        tool_path = os.path.abspath(args.conda_envs).replace('conda', 'tools')
-        tools = sorted(glob.glob(f'{tool_path}/*/'))
-        for i, tool in enumerate(tools):
-            tool = os.path.basename(os.path.dirname(tool))
-            if not tool.startswith('.'):
-                env_file = f'{tool_path}/{tool}/environment-{ostype}.yml'
-                if os.path.exists(env_file):
-                    md5_file = f'{tool_path}/{tool}/environment-{ostype}.md5'
-                    prefix = f'{install_path}/tools-{tool}-{CONTAINER_VERSION}'
-                    envbuilt_file = f'{prefix}/env-built.txt'
-                    force = '--force' if args.force else ''
-                    build = True
-                    if args.envname:
-                        if not args.envname == tool:
-                            build = False
-
-                    if build:
-                        if check_needs_build(envbuilt_file, md5_file, prefix, force=args.force, is_bactopia=args.is_bactopia):
-                            logging.info(f'Found {env_file} ({i+1} of {len(tools)}), begin build to {prefix}')
-                            built = build_conda_env(env_file, prefix, max_retry=args.max_retry, force=args.force, is_bactopia=args.is_bactopia)
-                            if built:
-                                execute(f'cp {md5_file} {envbuilt_file}')
