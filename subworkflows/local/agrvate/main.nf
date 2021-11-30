@@ -6,7 +6,7 @@ argvate_args = params.typing_only ? '--typing_only' : ''
 include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/modules/agrvate/main' addParams( options: [args: "${argvate_args}", is_module: true] )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true] )
 }
 
 workflow AGRVATE {

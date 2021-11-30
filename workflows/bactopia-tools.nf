@@ -80,7 +80,6 @@ workflow BACTOPIATOOLS {
     downloads = Channel.empty()
     // Include public genomes (optional)
     if (params.containsKey('accession')) {
-        log.info "FOUND IT"
         if (params.accession || params.accessions || params.species) {
             NCBIGENOMEDOWNLOAD()
             ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
@@ -95,7 +94,6 @@ workflow BACTOPIATOOLS {
     }
 
     samples = local_samples.mix(downloads)
-    samples.view()
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)

@@ -19,7 +19,7 @@ process AGRVATE {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("${meta.id}-summary.tab"), emit: summary
+    tuple val(meta), path("results/${meta.id}-summary.tab"), emit: summary
     path "results/", emit: results_dir
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -39,7 +39,6 @@ process AGRVATE {
         -i $fasta_name -m
 
     mv $meta.id-results/ results/
-    mv results/$meta.id-summary.tab ./
 
     cat <<-END_VERSIONS > versions.yml
     agrvate:
