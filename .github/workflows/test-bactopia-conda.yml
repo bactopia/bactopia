@@ -18,7 +18,7 @@ jobs:
         with:
           path: ${{ github.run_id }}/bactopia
 
-      - name: Run Bactopia Tests
+      - name: Run Bactopia Tests (per module)
         run: |
           cd ${{ github.run_id }}/bactopia
           BACTOPIA_CI=/data/storage/bactopia-ci

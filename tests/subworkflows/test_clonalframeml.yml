@@ -1,0 +1,19 @@
+- name: clonalframeml-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf clonalframeml -c nextflow.config --help > clonalframeml-help.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - clonalframeml
+  files:
+    - path: clonalframeml-help.txt
+      contains: ['clonalframeml', 'bactopia', 'version', 'dependencies']
+
+- name: clonalframeml-test
+  command: bash -c 'nextflow run ./main.nf --wf clonalframeml -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - clonalframeml
+  files:
+    - path: OUTPUTFILE
+      contains: ['TEXT_A', 'TEXT_B']
+    - path: OUTPUTFILE
+      md5sum: a1000000000000000000000000000000

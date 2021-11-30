@@ -1,0 +1,19 @@
+- name: staphtyper-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf staphtyper -c nextflow.config --help > staphtyper-help.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - staphtyper
+  files:
+    - path: staphtyper-help.txt
+      contains: ['staphtyper', 'bactopia', 'version', 'dependencies']
+
+- name: staphtyper-test
+  command: bash -c 'nextflow run ./main.nf --wf staphtyper -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - staphtyper
+  files:
+    - path: OUTPUTFILE
+      contains: ['TEXT_A', 'TEXT_B']
+    - path: OUTPUTFILE
+      md5sum: a1000000000000000000000000000000

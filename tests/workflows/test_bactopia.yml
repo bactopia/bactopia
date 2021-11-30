@@ -1,0 +1,8 @@
+- name: bactopia-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --help > bactopia-help.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+  files:
+    - path: bactopia-help.txt
+      contains: ['Required', 'bactopia', 'version', 'dependencies']
