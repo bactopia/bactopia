@@ -1,6 +1,6 @@
-FROM nfcore/base:1.12.1
+FROM nfcore/base:2.1
 
-LABEL base.image="nfcore/base:1.12.1"
+LABEL base.image="nfcore/base:2.1"
 LABEL software="Bactopia - minmers"
 LABEL software.version="2.0.0"
 LABEL description="A flexible pipeline for complete analysis of bacterial genomes"

@@ -16,26 +16,24 @@ elif [[ "${IS_GITLAB}" != "0" ]]; then
 fi
 
 # Create environment
-mamba ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
+conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   ariba \
-  beautifulsoup4 \
   biopython \
   "blast>=2.10.0" \
   "bowtie2<2.4.0"  \
   cd-hit \
   coreutils \
   executor \
-  lxml \
   mamba \
   mash \
   ncbi-amrfinderplus \
   ncbi-genome-download \
   nextflow \
-  "pysam>=0.15.3" \
   "python>3.6" \
   pytest \
   pytest-workflow \
   pytest-xdist \
+  pyyaml \
   requests \
   sed \
   unzip \
@@ -43,8 +41,8 @@ mamba ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
 
 # Setup variables
 BACTOPIA=${CONDA_PATH}/envs/${ENV}
-chmod 755 ${WORK_DIR}/bactopia ${WORK_DIR}/bin/helpers/*
-cp ${WORK_DIR}/bactopia ${WORK_DIR}/bin/helpers/* ${BACTOPIA}/bin
+chmod 755 ${WORK_DIR}/bin* ${WORK_DIR}/bin/bactopia/* ${WORK_DIR}/bin/helpers/*
+cp ${WORK_DIR}/bin* ${WORK_DIR}/bin/bactopia/* ${WORK_DIR}/bin/helpers/* ${BACTOPIA}/bin
 VERSION=`${BACTOPIA}/bin/bactopia version | cut -d " " -f 2`
 BACTOPIA_VERSION="${VERSION%.*}.x"
 BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
@@ -61,7 +59,6 @@ cp -R \
   ${WORK_DIR}/subworkflows \
   ${WORK_DIR}/workflows \
   ${WORK_DIR}/main.nf \
-  ${WORK_DIR}/modules.json \
   ${WORK_DIR}/nextflow.config \
   ${BACTOPIA_SHARE}
 
