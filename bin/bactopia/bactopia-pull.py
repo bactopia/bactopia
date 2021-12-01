@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 """
 usage: bactopia pull [-h] [--envname STR] [--singularity_cache STR]
-                     [--registry STR] [--max_retry INT] [--include_tools]
+                     [--registry STR] [--max_retry INT]
                      [--default] [--is_bactopia] [--force] [--verbose]
                      [--silent] [--version]
                      STR
@@ -19,8 +19,6 @@ optional arguments:
   --registry STR        Docker registry to pull containers from
   --max_retry INT       Maximum times to attempt creating Conda environment.
                         (Default: 5)
-  --include_tools       Singularity images for Bactopia Tools will also be
-                        built.
   --default             Builds Singularity images to the default Bactopia
                         location.
   --is_bactopia         This is an automated call by bactopia not a user
@@ -33,7 +31,7 @@ import logging
 import os
 import sys
 
-VERSION = "2.0.0"
+VERSION = "1.7.1"
 PROGRAM = "bactopia pull"
 STDOUT = 11
 STDERR = 12
@@ -142,8 +140,6 @@ if __name__ == '__main__':
                         help='Docker registry to pull containers from')
     parser.add_argument('--max_retry', metavar='INT', type=int, default=5,
                         help='Maximum times to attempt creating Conda environment. (Default: 5)')
-    parser.add_argument('--include_tools', action='store_true',
-                        help='Singularity images for Bactopia Tools will also be built.')
     parser.add_argument('--default', action='store_true',
                         help='Builds Singularity images to the default Bactopia location.')
     parser.add_argument('--is_bactopia', action='store_true',
@@ -201,23 +197,3 @@ if __name__ == '__main__':
     else:
         logging.error(f'Unable to find *.Dockerfiles in {env_path}, please verify')
         sys.exit(1)
-
-    if args.include_tools:
-        tool_path = env_path.replace('conda', 'tools')
-        tools = sorted(glob.glob(f'{tool_path}/*/'))
-        for i, tool in enumerate(tools):
-            tool = os.path.basename(os.path.dirname(tool))
-            if not tool.startswith('.'):
-                img_name = f"{install_path}/{registry}-bactopia-tools-{tool}-{VERSION}.img" if registry else f"{install_path}/bactopia-tools-{tool}-{VERSION}.img"
-                pull_name = f"{docker_prefix}/tools-{tool}:{VERSION}"
-                build = True
-                if args.envname:
-                    if not args.envname == tool:
-                        build = False
-
-                if build:
-                    if check_needs_build(img_name, force=args.force, is_bactopia=args.is_bactopia):
-                        logging.info(f'Found {tool} ({i+1} of {len(env_files)}), begin build to {img_name}')
-
-                        build_singularity_image(img_name, pull_name, max_retry=args.max_retry, force=args.force,
-                                                is_bactopia=args.is_bactopia)

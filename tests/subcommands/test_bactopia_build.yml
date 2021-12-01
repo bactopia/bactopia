@@ -1,0 +1,19 @@
+- name: bactopia-build_help
+  command: bash -c 'bin/bactopia/bactopia-build.py --help > bactopia-build.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_build
+  files:
+    - path: bactopia-build.txt
+      contains: ['exit', 'bactopia', 'build', 'Conda']
+
+- name: bactopia-build_example
+  command: bash -c 'bin/bactopia/bactopia-build.py conda/ envs/'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_build
+  files:
+    - path: log.err
+      contains: ['annotate_genome', 'variants', 'minmer', 'sequence_type']

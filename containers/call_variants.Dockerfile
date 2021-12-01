@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robert.petit@emory.edu"
 LABEL conda.env="bactopia/conda/linux/call_variants.yml"
-LABEL conda.md5="6ece009c337788e30a7cdf384d315a68"
+LABEL conda.md5="7eaf4ee87cf324bf6b8a13be27a4f992"
 
 COPY conda/linux/call_variants.yml /
 RUN conda env create -q -f call_variants.yml && conda clean -y -a

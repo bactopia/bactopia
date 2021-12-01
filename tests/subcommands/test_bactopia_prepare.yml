@@ -1,0 +1,19 @@
+- name: bactopia-prepare_help
+  command: bash -c 'bin/bactopia/bactopia-prepare.py --help > bactopia-prepare.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_prepare
+  files:
+    - path: bactopia-prepare.txt
+      contains: ['exit', 'bactopia', 'prepare', 'FASTQs']
+
+- name: bactopia-prepare_example
+  command: bash -c 'bin/bactopia/bactopia-prepare.py bactopia-tests/data/species/portiera/nanopore/ --long_reads > fastqs.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_prepare
+  files:
+    - path: fastqs.txt
+      contains: ['sample', 'ERR3772599', 'ont', 'portiera']

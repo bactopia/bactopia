@@ -1,0 +1,119 @@
+- name: bactopia-pull_help
+  command: bash -c 'bin/bactopia/bactopia-search.py --help > bactopia-search.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_search
+  files:
+    - path: bactopia-search.txt
+      contains: ['exit', 'bactopia', 'search', 'ENA']
+
+- name: bactopia-multiple_accessions
+  command: bash -c 'bin/bactopia/bactopia-search.py PRJNA480016,SAMN01737350,SRR578340 --limit 5' 
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+      contains: ['SRX456']
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['PRJNA176393', 'Staphylococcus', 'ABI_SOLID', 'PAIRED', 'ILLUMINA']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-bioproject
+  command: bash -c 'bin/bactopia/bactopia-search.py PRJNA480016 --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+      contains: ['RX']
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['PRJNA480016', 'Staphylococcus', 'fastq', 'PAIRED', 'ILLUMINA']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-taxid
+  command: bash -c 'bin/bactopia/bactopia-search.py 1280 --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+      contains: ['RX']
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['sra', 'Staphylococcus', 'aureus', 'fastq', 'WGS']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-species
+  command: bash -c 'bin/bactopia/bactopia-search.py "Staphylococcus aureus" --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+      contains: ['RX']
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['sra', 'Staphylococcus', 'aureus', 'fastq', 'WGS']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-biosample
+  command: bash -c 'bin/bactopia/bactopia-search.py SAMN01737350 --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['study_accession', 'Staphylococcus', 'ABI_SOLID', 'PAIRED', 'SAMN01737350']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-run_accession
+  command: bash -c 'bin/bactopia/bactopia-search.py SRR578340 --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['PRJNA176393', 'Staphylococcus', 'ABI_SOLID', 'PAIRED', 'study_accession']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
+
+- name: bactopia-accession_file
+  command: bash -c 'bin/bactopia/bactopia-search.py ./bactopia-tests/data/test-search-accessions.txt --limit 5'
+  tags:
+    - bactopia
+    - bactopia_subcommand
+    - bactopia_search
+  files:
+    - path: ena-accessions.txt
+      contains: ['SRX456']
+    - path: ena-filtered.txt
+      contains: ['accession', 'reason']
+    - path: ena-results.txt
+      contains: ['PRJNA176393', 'Staphylococcus', 'ABI_SOLID', 'PAIRED', 'ILLUMINA']
+    - path: ena-summary.txt
+      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']

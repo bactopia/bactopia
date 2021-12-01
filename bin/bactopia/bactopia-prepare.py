@@ -209,8 +209,6 @@ if __name__ == '__main__':
 
         if args.long_reads:
             if not pe_count and len(se_reads):
-                # Long reads must also have short PE reads
-                print(f'WARNING: "{sample}" does not have paired-end reads, treating as single-end short reads, please verify.', file=sys.stderr)
                 is_single_end = True
         else:
             if len(se_reads) > 1:
@@ -252,6 +250,9 @@ if __name__ == '__main__':
                 if args.long_reads and not is_single_end:
                     runtype = 'hybrid'
                     extra = se_reads[0]
+                elif args.long_reads and is_single_end:
+                    runtype = 'ont'
+                    r1 = se_reads[0]
                 else:
                     if multiple_read_sets:
                         runtype = 'merge-se'

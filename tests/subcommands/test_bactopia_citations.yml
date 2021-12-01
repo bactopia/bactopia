@@ -1,0 +1,49 @@
+- name: bactopia-citations_help
+  command: bash -c 'bin/bactopia/bactopia-citations.py --help > bactopia-citations.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_citations
+  files:
+    - path: bactopia-citations.txt
+      contains: ['name', 'bactopia', 'citations', 'exit']
+
+- name: bactopia-citation
+  command: bash -c 'bin/bactopia/bactopia --citation > bactopia-citation.txt'
+  tags:
+    - bactopia
+    - bactopia_subcommands
+    - bactopia_citations
+  files:
+    - path: bactopia-citation.txt
+      contains: ['Petit', 'Read', 'mSystems', 'pipeline']
+
+- name: bactopia-citation2
+  command: bash -c 'bin/bactopia/bactopia citation > bactopia-citation.txt'
+  tags:
+    - bactopia
+    - bactopia_subcommands
+    - bactopia_citations
+  files:
+    - path: bactopia-citation.txt
+      contains: ['Petit', 'Read', 'mSystems', 'pipeline']
+
+- name: bactopia-citations
+  command: bash -c 'bin/bactopia/bactopia-citations.py --bactopia ./ > bactopia-citations.txt'
+  tags:
+    - bactopia
+    - bactopia_subcommands
+    - bactopia_citations
+  files:
+    - path: bactopia-citations.txt
+      contains: ['Petit', 'Seemann', 'annotator', 'staphopia-sccmec']
+
+- name: bactopia-citations_single
+  command: bash -c 'bin/bactopia/bactopia-citations.py --bactopia ./ --name staphopiasccmec > bactopia-citations.txt'
+  tags:
+    - bactopia
+    - bactopia_subcommands
+    - bactopia_citations
+  files:
+    - path: bactopia-citations.txt
+      contains: ['Petit', 'Read', 'Staphylococcus', 'PeerJ']

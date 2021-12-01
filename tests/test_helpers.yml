@@ -3,157 +3,28 @@
   tags:
     - bactopia
     - bactopia_help
-    - helpers
+    - bactopia_
   files:
     - path: bactopia-help.txt
       contains: ['accessions', 'bactopia', 'wf', 'citation']
 
 - name: bactopia-version
-  command: bash -c 'bin/bactopia/bactopia --version  > bactopia-version.txt'
+  command: bash -c 'bin/bactopia/bactopia --version > bactopia-version.txt'
   tags:
     - bactopia
     - bactopia_help
-    - helpers
+    - bactopia_version
   files:
     - path: bactopia-version.txt
       contains: ['bactopia']
 
-- name: bactopia-citation
-  command: bash -c 'bin/bactopia/bactopia --citation > bactopia-citation.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-citation.txt
-      contains: ['Petit', 'Read', 'mSystems', 'pipeline']
-
-- name: bactopia-citation2
-  command: bash -c 'bin/bactopia/bactopia citation > bactopia-citation.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-citation.txt
-      contains: ['Petit', 'Read', 'mSystems', 'pipeline']
-
-- name: bactopia-citations
-  command: bash -c 'bin/bactopia/bactopia-citations.py --bactopia ./ > bactopia-citations.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-citations.txt
-      contains: ['Petit', 'Seemann', 'annotator', 'staphopia-sccmec']
-
-- name: bactopia-citations_single
-  command: bash -c 'bin/bactopia/bactopia-citations.py --bactopia ./ --name staphopiasccmec > bactopia-citations.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-citations.txt
-      contains: ['Petit', 'Read', 'Staphylococcus', 'PeerJ']
-
-- name: bactopia-citations_help
-  command: bash -c 'bin/bactopia/bactopia-citations.py --help > bactopia-citations.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-citations.txt
-      contains: ['name', 'bactopia', 'citations', 'exit']
-
-- name: bactopia-datasets_help
-  command: bash -c 'bin/bactopia/bactopia-datasets.py --help > bactopia-datasets.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-datasets.txt
-      contains: ['prokka', 'bactopia', 'datasets', 'include_genus']
-
-- name: bactopia-datasets
-  command: bash -c 'bin/bactopia/bactopia-datasets.py data/pubmlst.txt --ariba card --limit 2 --species "Staphylococcus aureus"'
-  tags:
-    - bactopia
-    - bactopia_help
-    - bactopia_subcommand
-  files:
-    - path: datasets/antimicrobial-resistance/amrfinderdb-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/antimicrobial-resistance/amrfinderdb.tar.gz
-    - path: datasets/ariba/card-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/ariba/card.tar.gz
-    - path: datasets/minmer/mash-refseq-k21.msh
-      md5sum: 494efd071010b1e23f163512f8f0eacd
-    - path: datasets/minmer/minmer-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/minmer/sourmash-genbank-k21.json.gz
-      md5sum: 74232458b4b35db6258714fc5e11895d
-    - path: datasets/minmer/sourmash-genbank-k31.json.gz
-      md5sum: 3d2ce7c0ddf72118066fddb4de271156
-    - path: datasets/minmer/sourmash-genbank-k51.json.gz
-      md5sum: 93617dbbac160c725715c16eb2b14de4
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/cdhit-stats.txt
-      contains: ["original", "after_cd"]
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/genome_size.json
-      contains: ["min", "median", "max", "total"]
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/ncbi-metadata.txt
-      contains: ["Staphylococcus", "aureus", "Complete"]
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/proteins-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/staphylococcus-aureus.faa
-      contains: [">", "Dna", "DNA", "ase"]
-    - path: datasets/species-specific/staphylococcus-aureus/annotation/staphylococcus-aureus.faa.clstr
-      contains: [">", "Cluster", "aa"]
-    - path: datasets/species-specific/staphylococcus-aureus/minmer/minmer-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/species-specific/staphylococcus-aureus/minmer/refseq-genomes.msh
-    - path: datasets/species-specific/staphylococcus-aureus/mlst/default-updated.txt
-      contains: ["T", "Z"]
-    - path: datasets/species-specific/staphylococcus-aureus/mlst/default.tar.gz
-    - path: datasets/summary.json
-      contains: ["ariba", "genome_size", "genbank", "refseq"]
-
-- name: bactopia-prepare_help
-  command: bash -c 'bin/bactopia/bactopia-prepare.py --help > bactopia-prepare.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - helpers
-  files:
-    - path: bactopia-prepare.txt
-      contains: ['exit', 'bactopia', 'prepare', 'FASTQs']
 
 - name: bactopia-pull_help
   command: bash -c 'bin/bactopia/bactopia-pull.py --help > bactopia-pull.txt'
   tags:
     - bactopia
     - bactopia_help
-    - helpers
+    - bactopia_pull
   files:
     - path: bactopia-pull.txt
       contains: ['exit', 'bactopia', 'pull', 'Singularity']
-
-- name: bactopia-search_ena
-  command: bash -c 'bin/bactopia/bactopia-search.py PRJNA480016,SAMN01737350,SRR578340'
-  tags:
-    - bactopia
-    - bactopia_help
-    - bactopia_subcommand
-  files:
-    - path: ena-accessions.txt
-      contains: ['SRX456']
-    - path: ena-filtered.txt
-      contains: ['accession', 'reason']
-    - path: ena-results.txt
-      contains: ['PRJNA176393', 'Staphylococcus', 'ABI_SOLID', 'PAIRED', 'ILLUMINA']
-    - path: ena-summary.txt
-      contains: ['QUERY', 'FILTERED', 'MISSING', 'FASTQS']
