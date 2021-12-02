@@ -1,4 +1,4 @@
-name: All Bactopia Tests (Conda)
+name: All Bactopia Tests (Docker)
 
 on: workflow_dispatch
   #schedule:
@@ -28,21 +28,7 @@ jobs:
           uname -a && env
           mkdir /tmp/${{ github.run_id }}
           cd ${BACTOPIA_WORKSPACE}/bactopia
-          ls modules/local/bactopia | xargs -I {} \ 
-          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof -o "testpaths=modules/local/bactopia" --tag {}
-
-      - name: Run Bactopia Tools Tests (per tools)
-        run: |
-          cd ${{ github.run_id }}/bactopia
-          BACTOPIA_CI=/data/storage/bactopia-ci
-          BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/${{ github.run_id }}"
-          source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
-          conda activate bactopia-ci
-          uname -a && env
-          mkdir /tmp/${{ github.run_id }}
-          cd ${BACTOPIA_WORKSPACE}/bactopia
-          ls subworkflows/local/bactopia | xargs -I {} \ 
-          BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof "testpaths=subworkflows/local/" --tag {}
+          BACTOPIA_ARGS="-profile docker --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof --ignore conda/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
