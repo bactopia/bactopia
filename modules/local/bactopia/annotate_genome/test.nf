@@ -9,10 +9,12 @@ workflow test_annotate_genome {
         [ id:"${params.test_data['species']['portiera']['genome']['name']}" ],
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['fna_gz'], checkIfExists: true),
-        file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true),
+        file(params.test_data['empty']['proteins'], checkIfExists: true),
+        file(params.test_data['empty']['prodigal_tf'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['empty']['proteins']), file(params.test_data['empty']['prodigal_tf']) )
+    ANNOTATE_GENOME ( inputs )
 }
 
 workflow test_annotate_genome_uncompressed {
@@ -21,8 +23,10 @@ workflow test_annotate_genome_uncompressed {
         [ id:"${params.test_data['species']['portiera']['genome']['name']}" ],
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['fna'], checkIfExists: true),
-        file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true)
+        file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true),
+        file(params.test_data['empty']['proteins'], checkIfExists: true),
+        file(params.test_data['empty']['prodigal_tf'], checkIfExists: true)
     )
 
-    ANNOTATE_GENOME ( inputs, file(params.test_data['empty']['proteins']), file(params.test_data['empty']['prodigal_tf']) )
+    ANNOTATE_GENOME ( inputs )
 }
