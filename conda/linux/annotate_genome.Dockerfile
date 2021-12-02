@@ -14,3 +14,4 @@ LABEL conda.md5="9a5d66dffdc522656a63fa3e73018d19"
 COPY conda/linux/annotate_genome.yml /
 RUN conda env create -q -f annotate_genome.yml && conda clean -y -a 
 ENV PATH /opt/conda/envs/bactopia-annotate_genome/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-annotate_genome/bin/

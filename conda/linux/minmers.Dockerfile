@@ -14,3 +14,4 @@ LABEL conda.md5="a5fd6f5f7aee34522aad90367ef465bc"
 COPY conda/linux/minmers.yml /
 RUN conda env create -q -f minmers.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-minmers/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-minmers/bin/

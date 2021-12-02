@@ -14,3 +14,4 @@ LABEL conda.md5="fa55736e4cf46d33f2bf2edf2da519fd"
 COPY conda/linux/assemble_genome.yml /
 RUN conda env create -q -f assemble_genome.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-assemble_genome/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-assemble_genome/bin/

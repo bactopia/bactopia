@@ -16,13 +16,12 @@
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: pytest/output/logs/minmer_query/mash-refseq-k21.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
-      contains: ['Loading', 'winners', 'output']
+      contains: ['Loading']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.log
-      contains: ['Loading', 'winners', 'output']
+      contains: ['Loading']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.run
@@ -32,9 +31,9 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 0068d640151fc1bf3ea43fd43e0cf928
+      md5sum: bd04b4e3baba1d39544069b56962452f
     - path: pytest/output/minmers/output-mash-refseq-k21.txt
-      md5sum: f095a76d9e71aa814be756ef413b626c
+      contains: ['identity']
 
 - name: minmer_query-mash_se
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_mash_query_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -54,13 +53,12 @@
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: pytest/output/logs/minmer_query/mash-refseq-k21.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
-      contains: ['Loading', 'winners', 'output']
+      contains: ['Loading']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.log
-      contains: ['Loading', 'winners', 'output']
+      contains: ['Loading']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.run
@@ -70,9 +68,9 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 0068d640151fc1bf3ea43fd43e0cf928
+      md5sum: bd04b4e3baba1d39544069b56962452f
     - path: pytest/output/minmers/output-mash-refseq-k21.txt
-      md5sum: 063e00f7f761e2087c4ba02a45e9bafa
+      contains: ['identity']
 
 - name: minmer_query-sourmash_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_query/test.nf -entry test_sourmash_query_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -104,9 +102,9 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/sourmash-genbank-k21.stderr.txt
-      md5sum: 7c53acc109ce4597a03becf7973fa7bd
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 0068d640151fc1bf3ea43fd43e0cf928
+      md5sum: bd04b4e3baba1d39544069b56962452f
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9
 
@@ -140,8 +138,8 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/sourmash-genbank-k21.stderr.txt
-      md5sum: 7c53acc109ce4597a03becf7973fa7bd
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 0068d640151fc1bf3ea43fd43e0cf928
+      md5sum: bd04b4e3baba1d39544069b56962452f
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9

@@ -17,23 +17,23 @@
     - path: pytest/output/ariba/card/assembled_seqs.fa.gz
     - path: pytest/output/ariba/card/assemblies.fa.gz
     - path: pytest/output/ariba/card/debug.report.tsv
-      md5sum: cc841cd409f231e9690812092652a627
+      contains: ['ref_name', 'Clostridioides']
     - path: pytest/output/ariba/card/log.clusters.gz
     - path: pytest/output/ariba/card/report.tsv
-      md5sum: f01ae75f69bac8563b2a7b49054bd499
+      contains: ['ref_name', 'Clostridioides']
     - path: pytest/output/ariba/card/summary.csv
-      md5sum: 2b88c678dc4e0bf94b9c51ba60872506
+      contains: ['name', 'Clostridioides', 'yes']
     - path: pytest/output/ariba/card/version_info.txt
       contains: ['ARIBA', 'Everything looks OK: True']
     - path: pytest/output/ariba/vfdb_core/assembled_genes.fa.gz
     - path: pytest/output/ariba/vfdb_core/assembled_seqs.fa.gz
     - path: pytest/output/ariba/vfdb_core/assemblies.fa.gz
     - path: pytest/output/ariba/vfdb_core/debug.report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+      contains: ['ref_name']
     - path: pytest/output/ariba/vfdb_core/report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
+      contains: ['ref_name']
     - path: pytest/output/ariba/vfdb_core/summary.csv
-      md5sum: ed9d4dfe42d93ea13f26bf3dc5957bb5
+      contains: ['name']
     - path: pytest/output/ariba/vfdb_core/version_info.txt
       contains: ['ARIBA', 'Everything looks OK: True']
     - path: pytest/output/logs/ariba_analysis/card/ariba-summary.stderr.txt
@@ -47,7 +47,6 @@
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.log
       contains: ['card']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.out
@@ -71,9 +70,8 @@
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
-      md5sum: 3b18b24593b00eb3946632a1c85b2321
+      contains: ['vfdb']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
       contains: ['vfdb']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run

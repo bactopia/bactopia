@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0 bactopia/bactopia "" - 2021/08/??
+## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/02
 With Bactopia v2 comes __a lot__ of changes! But first I would really like to
 thank Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your 
 efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much
@@ -14,6 +14,7 @@ for taking your time to make such a siginificant contribution!
 - `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
 - per-module testing via `pytest`
 - per-module `meta.yml` and `params.json` for auto-building docs site
+- framefork for adding new Bactopia Tools
 - 19 total Bactopia Tools (`bactopia --wf <NAME>`)
     - Subworkflows (3)
         - `eggnog`: Functional annotation of proteins using orthologous groups and phylogenies

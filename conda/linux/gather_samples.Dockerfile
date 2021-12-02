@@ -13,4 +13,12 @@ LABEL conda.md5="7395ebca7b6daeae969f5b0535677c60"
 
 COPY conda/linux/gather_samples.yml /
 RUN conda env create -q -f gather_samples.yml && conda clean -y -a
+RUN apt-get update && apt-get --quiet install --yes curl uuid-runtime && apt-get clean
+RUN chmod -R 777 /root && \
+    mkdir -p /root/.ncbi/ && \
+    mkdir /.ncbi && \
+    printf '/LIBS/GUID = "%s"\n' $(uuidgen) > /root/.ncbi/user-settings.mkfg && \
+    cp /root/.ncbi/user-settings.mkfg /.ncbi/user-settings.mkfg
+
 ENV PATH /opt/conda/envs/bactopia-gather_samples/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-gather_samples/bin/

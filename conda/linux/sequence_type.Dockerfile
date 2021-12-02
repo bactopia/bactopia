@@ -14,3 +14,4 @@ LABEL conda.md5="db723a8a5bc44e5524db8a7993a47302"
 COPY conda/linux/sequence_type.yml /
 RUN conda env create -q -f sequence_type.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-sequence_type/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-sequence_type/bin/

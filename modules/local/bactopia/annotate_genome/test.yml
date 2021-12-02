@@ -15,11 +15,9 @@
     - path: pytest/GCF_000292685/annotation/GCF_000292685.fsa.gz
       md5sum: 0469187abd59c67f1fa233dfbd55dc8c
     - path: pytest/GCF_000292685/annotation/GCF_000292685.gbk.gz
-      md5sum: 6e3bc093f54c18aa63d12e31a74ada84
     - path: pytest/GCF_000292685/annotation/GCF_000292685.gff.gz
       md5sum: 3afc65353cc8dcf0fa4cfc00f9ac38d9
     - path: pytest/GCF_000292685/annotation/GCF_000292685.sqn.gz
-      md5sum: 0b9e8c9decf1328237afe1396033a4ff
     - path: pytest/GCF_000292685/annotation/GCF_000292685.tbl.gz
       md5sum: 9ec4b1bde92fd3c531a68a26ee5a3f53
     - path: pytest/GCF_000292685/annotation/GCF_000292685.tsv
@@ -51,7 +49,6 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
       md5sum: 5cb8ff6f1e52ad66823304ac75304da5
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
-      md5sum: 78fb9eae7ebcd070d088117e86287170
     - path: pytest/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: pytest/bactopia/nf-reports/bactopia-timeline.html
@@ -76,11 +73,9 @@
     - path: pytest/GCF_000292685/annotation/GCF_000292685.fsa
       md5sum: 899a5228b9d1adc9cba269471c2050f7
     - path: pytest/GCF_000292685/annotation/GCF_000292685.gbk
-      md5sum: 5be060f2a9d6db36b381d9d56b26a1c8
     - path: pytest/GCF_000292685/annotation/GCF_000292685.gff
       md5sum: 0fb908754203a810715f28822125625a
     - path: pytest/GCF_000292685/annotation/GCF_000292685.sqn
-      md5sum: 0915c1daf974627bc0fb1df26c4349a9
     - path: pytest/GCF_000292685/annotation/GCF_000292685.tbl
       md5sum: af666ac6700eb7faf5cd6ebafac06f50
     - path: pytest/GCF_000292685/annotation/GCF_000292685.tsv
@@ -112,7 +107,6 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
       md5sum: 5cb8ff6f1e52ad66823304ac75304da5
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
-      md5sum: 3d1c8a1d050a43c8616eefbbc685a631
     - path: pytest/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: pytest/bactopia/nf-reports/bactopia-timeline.html

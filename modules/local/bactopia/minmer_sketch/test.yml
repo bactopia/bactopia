@@ -31,11 +31,11 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 871739bfe7750bfb9606ac411d4b3b90
+      md5sum: 2fec2b614cb4af3f50c110732cb877cd
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: fea7342c707346efbf2e72a57b7be241
+      md5sum: 71b9784514082ae99188911e46421ee6
     - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
     - path: pytest/output/minmers/output-k31.msh
@@ -80,11 +80,11 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 871739bfe7750bfb9606ac411d4b3b90
+      md5sum: 2fec2b614cb4af3f50c110732cb877cd
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: fea7342c707346efbf2e72a57b7be241
+      md5sum: 71b9784514082ae99188911e46421ee6
     - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
     - path: pytest/output/minmers/output-k31.msh
@@ -126,11 +126,11 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 3d43e1e72502faa07220cd38348ed606
+      md5sum: e65e8c50a9583ed409fe7b1ab5e7749e
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: fea7342c707346efbf2e72a57b7be241
+      md5sum: 71b9784514082ae99188911e46421ee6
     - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
     - path: pytest/output/minmers/output-k31.msh
@@ -175,11 +175,11 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
-      md5sum: 3d43e1e72502faa07220cd38348ed606
+      md5sum: e65e8c50a9583ed409fe7b1ab5e7749e
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: fea7342c707346efbf2e72a57b7be241
+      md5sum: 71b9784514082ae99188911e46421ee6
     - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
     - path: pytest/output/minmers/output-k31.msh

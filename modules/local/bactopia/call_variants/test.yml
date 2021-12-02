@@ -21,15 +21,13 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.sh
-      md5sum: 6a8ecf8872dc5d9312998a1fc201868d
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
@@ -41,7 +39,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
       md5sum: 42291a7954af1905b7fc3739b5776680
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf.gz
@@ -95,15 +93,13 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.sh
-      md5sum: b07eabb137d28b7e54936193d7fa392f
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
@@ -115,7 +111,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
       md5sum: c37013a83f9f56eeba519f34dee21adc
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf
@@ -173,15 +169,13 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.sh
-      md5sum: 5f39ef90647ffddb4d4f38ac2f486e01
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
@@ -193,7 +187,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
       md5sum: 21b4b416249e0ae4e4a64c9fa8212474
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf.gz
@@ -247,15 +241,13 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.sh
-      md5sum: 3dcb631b4bd07537b07bbe0d18d89767
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
@@ -267,7 +259,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
       md5sum: 5307c45c33b6816e11460262e2dffacd
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf
@@ -329,15 +321,13 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
-      md5sum: 1a52f9691907780ffca2400ac8338928
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
-      md5sum: 1a52f9691907780ffca2400ac8338928
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.sh
-      md5sum: f2253db861929647758793715f18f7f1
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
@@ -349,7 +339,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
       md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
@@ -411,15 +401,13 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
-      md5sum: 1a52f9691907780ffca2400ac8338928
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
-      md5sum: 1a52f9691907780ffca2400ac8338928
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.sh
-      md5sum: 2663999cca7dd0084cb9f85cd5c9d5f0
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
@@ -431,7 +419,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
       md5sum: 576e8ad082a3af8ba5a4653d2034fc54
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
@@ -497,15 +485,13 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
-      md5sum: 3745609a22e14694b34e18b360c67991
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
-      md5sum: 3745609a22e14694b34e18b360c67991
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.sh
-      md5sum: dfce6775d15a60ab73f436fbd9fa600e
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
@@ -517,7 +503,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
       md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
@@ -579,15 +565,13 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
-      md5sum: 3745609a22e14694b34e18b360c67991
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
-      md5sum: 3745609a22e14694b34e18b360c67991
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.sh
-      md5sum: 9be058fe745550bb8ec5aa320c571095
+      contains: ['REFERENCE', 'END_VERSIONS']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
@@ -599,7 +583,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: c1e0dfbb9be86a644acbeaaa05835d82
+      md5sum: bf705ff4beb081c4e20160cfdad3831f
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
       md5sum: 576e8ad082a3af8ba5a4653d2034fc54
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt

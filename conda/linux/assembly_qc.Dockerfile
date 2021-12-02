@@ -14,3 +14,4 @@ LABEL conda.md5="a099e62e50d9420289afebc5ca375eea"
 COPY conda/linux/assembly_qc.yml /
 RUN conda env create -q -f assembly_qc.yml && conda clean -y -a
 ENV PATH /opt/conda/envs/bactopia-assembly_qc/bin:$PATH
+COPY bin/*.py /opt/conda/envs/bactopia-assembly_qc/bin/
