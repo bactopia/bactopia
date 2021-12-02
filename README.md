@@ -25,7 +25,7 @@ Documentation for Bactopia is available at https://bactopia.github.io/. The docu
 
 # Quick Start
 ```
-conda create -y -n bactopia -c conda-forge -c bioconda bactopia
+mamba create -y -n bactopia -c conda-forge -c bioconda bactopia
 conda activate bactopia
 bactopia datasets
 
@@ -53,9 +53,10 @@ Bactopia has **a lot** of tools built into its workflow. As you can imagine, all
 
 Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. In other words, it makes it super easy to get the tools you need installed! The [official Conda documentation](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) is a good starting point for getting started with Conda. Bactopia has been tested using the [Miniconda installer](https://conda.io/en/latest/miniconda.html), but the [Anaconda installer](https://www.anaconda.com/distribution/) should work the same.
 
-Once you have Conda all set up, you are ready to create an environment for Bactopia. To do so, you can use the following command:
+Once you have Conda all set up, you are ready to create an environment for Bactopia. I personally recommend you used [mamba](https://github.com/mamba-org/mamba) (_soooo fast!_) to install Bactopia, but either of these commands should work:
 
 ```
+# Recommended
 mamba create -n bactopia -c conda-forge -c bioconda bactopia
 
 # or with standard conda
@@ -81,7 +82,7 @@ Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly ev
 I would like to personally extend my many thanks and gratitude to the authors of these software packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. Really, thank you very much!
 
 # Alternatives
-In case Bactopia doesn't fit your needs, here are some alternatives you can checkout. I personally haven't used them, but you might find them to fit your needs!
+In case Bactopia doesn't fit your needs, here are some alternatives you can checkout. I personally haven't used them, but you might find them to fit your needs! If you ran into issues using Bactopia, please feel free to [reach out](https://github.com/bactopia/bactopia/issues/new/choose)!
 
 * __[AQUAMIS](https://gitlab.com/bfr_bioinformatics/AQUAMIS)__  
 Deneke C, Brendebach H, Uelze L, Borowiak M, Malorny B, Tausch SH. *Species-Specific Quality Control, Assembly and Contamination Detection in Microbial Isolate Sequences with AQUAMIS.* __Genes__. 2021;12. doi:10.3390/genes12050644
