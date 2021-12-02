@@ -27,6 +27,9 @@ process CALL_VARIANTS {
     tuple val(meta), path(fq)
     each path(reference)
 
+    when:
+    meta.runtype != "ont"
+
     output:
     path "results/*"
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs

@@ -1,13 +1,16 @@
 # Changelog
 
 ## v2.0.0 bactopia/bactopia "" - 2021/08/??
-With Bactopia v2 comes __a lot__ of changes! 
-
+With Bactopia v2 comes __a lot__ of changes! But first I would really like to
+thank Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your 
+efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much
+for taking your time to make such a siginificant contribution!
 
 ### `Added`
 - support for Nanopore reads
 - `staphopia` as a named pipeline (alias for `bactopia --wf staphopia`) for _S. aureus_ genomes
 - `bactopia/bactopia-tests` repo with test data
+- walkthrough for testing
 - `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
 - per-module testing via `pytest`
 - per-module `meta.yml` and `params.json` for auto-building docs site
@@ -33,6 +36,11 @@ With Bactopia v2 comes __a lot__ of changes!
         - `spatyper`: Computational method for finding spa types in _Staphylococcus aureus_
         - `staphopiasccmec`: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
         - `tbprofiler`: Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
+- Use `mamba` instead of conda for env building
+- Reduced total Conda envs/Docker containers down to 7 (previously 12 not including bactopia tools)
+- default to compressed outputs (`--skip_compression` to output uncompressed outputs)
+- Tutorial outputs made available
+- update github actions
 
 ### `Fixed`
 - Cache issue causing `-resume` to fail

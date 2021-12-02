@@ -17,6 +17,9 @@ process MAPPING_QUERY {
     tuple val(meta), path(fq)
     each path(query)
 
+    when:
+    meta.runtype != "ont"
+
     output:
     path "results/*"
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs

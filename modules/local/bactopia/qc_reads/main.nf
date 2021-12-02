@@ -59,7 +59,6 @@ process QC_READS {
             # Remove Adapters
             porechop --input !{fq[0]} !{params.porechop_opts} \
                 --format fastq \
-                -v 3 \
                 --threads !{task.cpus} > adapter-r1.fq 2> porechop.stderr.txt
 
             # Quality filter

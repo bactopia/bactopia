@@ -116,11 +116,7 @@ def saveFiles(Map args) {
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
     def here = "0"
     if (args.filename) {
-        if (args.filename.equals('versions.yml') && !System.getenv("BACTOPIA_TEST")) {
-            // Do not publish versions.yml unless running from pytest workflow
-            // Adapted from nf-core/modules
-            return null
-        } else if (args.filename.startsWith('.command')) {
+        if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
             final_output = "logs/${process_name}/${logs_subdir}/nf-${process_name}.${ext}"
