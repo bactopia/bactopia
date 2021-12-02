@@ -40,7 +40,7 @@ conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
 # Setup variables
 BACTOPIA=${CONDA_PATH}/envs/${ENV}
 chmod 755 ${WORK_DIR}/bin* ${WORK_DIR}/bin/bactopia/* ${WORK_DIR}/bin/helpers/*
-cp ${WORK_DIR}/bin* ${WORK_DIR}/bin/bactopia/* ${WORK_DIR}/bin/helpers/* ${BACTOPIA}/bin
+cp -r ${WORK_DIR}/bin/* ${WORK_DIR}/bin/bactopia/* ${WORK_DIR}/bin/helpers/* ${BACTOPIA}/bin
 VERSION=`${BACTOPIA}/bin/bactopia version | cut -d " " -f 2`
 BACTOPIA_VERSION="${VERSION%.*}.x"
 BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
