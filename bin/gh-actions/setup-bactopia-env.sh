@@ -18,8 +18,6 @@ fi
 # Create environment
 conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   ariba \
-  biopython \
-  cd-hit \
   coreutils \
   executor \
   mamba \
@@ -30,12 +28,10 @@ conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   "python>3.6" \
   pytest \
   pytest-workflow \
-  pytest-xdist \
   pyyaml \
   requests \
   sed \
-  unzip \
-  wget
+  unzip
 
 # Setup variables
 BACTOPIA=${CONDA_PATH}/envs/${ENV}

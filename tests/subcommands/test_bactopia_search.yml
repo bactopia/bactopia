@@ -1,4 +1,4 @@
-- name: bactopia-pull_help
+- name: bactopia-search_help
   command: bash -c 'bin/bactopia/bactopia-search.py --help > bactopia-search.txt'
   tags:
     - bactopia
