@@ -19,8 +19,6 @@ fi
 conda ${CONDA_CMD} --quiet -y -c conda-forge -c bioconda \
   ariba \
   biopython \
-  "blast>=2.10.0" \
-  "bowtie2<2.4.0"  \
   cd-hit \
   coreutils \
   executor \

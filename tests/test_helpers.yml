@@ -3,7 +3,7 @@
   tags:
     - bactopia
     - bactopia_help
-    - bactopia_
+    - bactopia_version
   files:
     - path: bactopia-help.txt
       contains: ['accessions', 'bactopia', 'wf', 'citation']
@@ -19,12 +19,3 @@
       contains: ['bactopia']
 
 
-- name: bactopia-pull_help
-  command: bash -c 'bin/bactopia/bactopia-pull.py --help > bactopia-pull.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - bactopia_pull
-  files:
-    - path: bactopia-pull.txt
-      contains: ['exit', 'bactopia', 'pull', 'Singularity']
