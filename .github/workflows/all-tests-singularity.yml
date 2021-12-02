@@ -1,4 +1,4 @@
-name: All Bactopia Tests (Conda)
+name: All Bactopia Tests (Singularity)
 
 on: workflow_dispatch
   #schedule:
@@ -28,7 +28,7 @@ jobs:
           uname -a && env
           mkdir /tmp/${{ github.run_id }}
           cd ${BACTOPIA_WORKSPACE}/bactopia
-          BACTOPIA_ARGS="-profile singularity --singularity_cache ${BACTOPIA_CI}/envs/singularity --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof --ignore conda/ --tag bactopia
+          BACTOPIA_ARGS="-profile singularity --singularity_cache ${BACTOPIA_CI}/envs/singularity --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof --ignore conda/ --ignore .git/ --ignore .github/ --tag bactopia
 
       - name: Upload logs on failure
         if: failure()
