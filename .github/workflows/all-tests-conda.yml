@@ -27,7 +27,10 @@ jobs:
           uname -a && env
           mkdir /tmp/gh-runner-${{ github.run_id }}
           cd ${BACTOPIA_WORKSPACE}/bactopia
-          ls modules/local/bactopia | xargs -I {} bash -c 'BACTOPIA_ARGS="--condadir ${BACTOPIA_CI}/envs/conda --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/gh-runner-${{ github.run_id }} pytest --wt 20 --symlink --kwdof -o "testpaths=modules/local/bactopia" --tag {}'
+          ls modules/local/bactopia | xargs -I {} \
+              bash -c 'BACTOPIA_ARGS="--condadir /data/storage/bactopia-ci/envs/conda --test_data_dir/data/storage/bactopia-ci/bactopia-tests/data" \
+                       TMPDIR=/tmp/gh-runner-${{ github.run_id }} \
+                       pytest --wt 20 --symlink --kwdof -o "testpaths=modules/local/bactopia" --tag {}'
 
       - name: Run Bactopia Tools Tests (per tools)
         run: |
