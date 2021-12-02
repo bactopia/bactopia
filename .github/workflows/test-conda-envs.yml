@@ -33,19 +33,10 @@ jobs:
         run: uname -a && env
 
       - name: Build Bactopia Process and Tool Environments
-        run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --include_tools --verbose
+        run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --verbose
+
+      - name: Build Bactopia Environment
+        run: mamba create -n bactopia-bioconda -y -c conda-forge -c bioconda bactopia
 
       - name: List Conda Environments
         run: conda env list
-
-      - name: Test Commands
-        run: |
-          VERSION=`bactopia version | cut -d " " -f 2`
-          BACTOPIA_VERSION="${VERSION%.*}.x"
-          bactopia --help_all --condadir ${GITHUB_WORKSPACE}/envs
-          mkdir test-tools 
-          cd test-tools
-          ls ${GITHUB_WORKSPACE}/tools | xargs -I {} bactopia tools {} --condadir ${GITHUB_WORKSPACE}/envs/tools-{}-{BACTOPIA_VERSION} --help
-
-      - name: Build Bactopia Environment
-        run: conda create -n bactopia-bioconda -y -c conda-forge -c bioconda bactopia

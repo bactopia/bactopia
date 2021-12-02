@@ -35,16 +35,25 @@ jobs:
         run: bash ${GITHUB_WORKSPACE}/bin/gh-actions/setup-bactopia-env.sh ${CONDA} ${GITHUB_WORKSPACE} 1
 
       - name: Environment Information
-        run: uname -a && env
+        run: uname -a && env && bactopia --version
 
       - name: Test bactopia commands
         run: |
-          TMPDIR=~ pytest --symlink --kwdof --tag bactopia_help
+          TMPDIR=~ pytest --symlink --kwdof --ignore conda/ --tag bactopia_help
 
       - name: Test bactopia search
         run: |
-          TMPDIR=~ pytest --symlink --kwdof --tag bactopia_search
+          TMPDIR=~ pytest --symlink --kwdof --ignore conda/ --tag bactopia_search
 
       - name: Test bactopia prepare
         run: |
-          TMPDIR=~ pytest --symlink --kwdof --tag bactopia_prepare
+          TMPDIR=~ pytest --symlink --kwdof --ignore conda/ --tag bactopia_prepare
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-debian
+          path: |
+            ~/pytest_workflow_*/*/log.out
+            ~/pytest_workflow_*/*/log.err
