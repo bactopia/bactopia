@@ -7,13 +7,3 @@
   files:
     - path: fastani-help.txt
       contains: ['fastani', 'bactopia', 'version', 'dependencies']
-
-- name: fastani-test
-  command: bash -c 'nextflow run ./main.nf --wf fastani -c nextflow.config ${BACTOPIA_ARGS}'
-  tags:
-    - fastani
-  files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000

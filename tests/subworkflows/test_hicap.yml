@@ -7,13 +7,3 @@
   files:
     - path: hicap-help.txt
       contains: ['hicap', 'bactopia', 'version', 'dependencies']
-
-- name: hicap-test
-  command: bash -c 'nextflow run ./main.nf --wf hicap -c nextflow.config ${BACTOPIA_ARGS}'
-  tags:
-    - hicap
-  files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000

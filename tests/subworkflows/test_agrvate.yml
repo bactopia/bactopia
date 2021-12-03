@@ -7,13 +7,3 @@
   files:
     - path: agrvate-help.txt
       contains: ['agrvate', 'bactopia', 'version', 'dependencies']
-
-- name: agrvate-bactopia_test
-  command: bash -c 'bactopia --wf agrvate -c nextflow.config ${BACTOPIA_ARGS}'
-  tags:
-    - bactopia
-    - bactopia_cmd
-    - agrvate
-  files:
-    - path: agrvate_help.txt
-      contains: ['TEXT_A', 'TEXT_B']
