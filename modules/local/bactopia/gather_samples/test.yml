@@ -105,7 +105,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: a84614cac43591838cc77b13953a2071
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
@@ -143,7 +143,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: a84614cac43591838cc77b13953a2071
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -181,7 +181,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: a84614cac43591838cc77b13953a2071
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: 0615afacc002f6192ba2153b68d4919b
 
@@ -219,7 +219,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: a84614cac43591838cc77b13953a2071
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -329,7 +329,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: aee73103d71b3383d5d24d2d81ce3e97
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: 80f199049c540d58d1e5968a62f3482f
 
@@ -367,7 +367,7 @@
     - path: pytest/output/logs/gather_samples/versions.yml
       md5sum: fc0ae33091f83339f75ae984dddd73d1
     - path: pytest/output/multiple-read-sets-merged.txt
-      md5sum: aee73103d71b3383d5d24d2d81ce3e97
+      contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
