@@ -18,17 +18,32 @@ jobs:
         with:
           path: ${{ github.run_id }}/bactopia
 
+      - name: Setup ENV variables
+        run: |
+          echo "BACTOPIA_CI=/data/storage/bactopia-ci" >> $GITHUB_ENV
+          echo "BACTOPIA_SINGULARITY=/data/storage/bactopia-ci/singularity" >> $GITHUB_ENV
+          echo "BACTOPIA_TESTS=/data/storage/bactopia-ci/bactopia-tests/data" >> $GITHUB_ENV
+          echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
+          echo "BACTOPIA_TMP=/tmp/gh-runner-${{ github.run_id }}" >> $GITHUB_ENV
+          mkdir /tmp/gh-runner-${{ github.run_id }}
+
       - name: Run Bactopia Tests (per module)
         run: |
-          cd ${{ github.run_id }}/bactopia
-          BACTOPIA_CI=/data/storage/bactopia-ci
-          BACTOPIA_WORKSPACE="${GITHUB_WORKSPACE}/${{ github.run_id }}"
-          source ${BACTOPIA_CI}/miniconda3/etc/profile.d/conda.sh
+          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
-          uname -a && env
-          mkdir /tmp/${{ github.run_id }}
-          cd ${BACTOPIA_WORKSPACE}/bactopia
-          BACTOPIA_ARGS="-profile singularity --singularity_cache ${BACTOPIA_CI}/envs/singularity --test_data_dir ${BACTOPIA_CI}/bactopia-tests/data" TMPDIR=/tmp/${{ github.run_id }} pytest --wt 20 --symlink --kwdof --ignore conda/ --ignore .git/ --ignore .github/ --tag bactopia
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls modules/local/bactopia | xargs -I {} -P 15 -n 1\
+              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
+
+      - name: Run Bactopia Tools Tests (per subworkflow)
+        run: |
+          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls subworkflows/local/ | xargs -I {} \
+              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Upload logs on failure
         if: failure()
@@ -36,9 +51,9 @@ jobs:
         with:
           name: logs-debian
           path: |
-            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.out
-            /tmp/${{ github.run_id }}/pytest_workflow_*/*/log.err
+            /tmp/gh-runner-${{ github.run_id }}/pytest_workflow_*/*/log.out
+            /tmp/gh-runner-${{ github.run_id }}/pytest_workflow_*/*/log.err
             
       - name: Cleanup
         if: always()
-        run: rm -rf ${{ github.run_id }} /tmp/${{ github.run_id }}
+        run: rm -rf ${{ github.run_id }} /tmp/gh-runner-${{ github.run_id }}
