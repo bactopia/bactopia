@@ -34,7 +34,7 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 20 -n 1\
               bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --symlink --kwdof -o "testpaths=modules/local/bactopia" --tag {}'
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=modules/local/bactopia" --tag {}'
 
       - name: Run Bactopia Tools Tests (per subworkflow)
         run: |
@@ -43,7 +43,7 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/bactopia | xargs -I {} -P 20 -n 1 \
               bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --symlink --kwdof "testpaths=subworkflows/local/" --tag {}'
+                       pytest --wt 3 --symlink --kwdof -o "testpaths=subworkflows/local/" --tag {}'
 
       - name: Upload logs on failure
         if: failure()
