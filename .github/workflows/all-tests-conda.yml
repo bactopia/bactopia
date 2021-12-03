@@ -41,7 +41,7 @@ jobs:
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/bactopia | xargs -I {} -P 20 -n 1 \
+          ls subworkflows/local/ | xargs -I {} -P 20 -n 1 \
               bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
