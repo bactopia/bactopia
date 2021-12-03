@@ -28,16 +28,7 @@ jobs:
           echo "BACTOPIA_TMP=/tmp/gh-runner-${{ github.run_id }}" >> $GITHUB_ENV
           mkdir /tmp/gh-runner-${{ github.run_id }}
 
-      - name: Bactopia Tools Tests (Conda)
-        run: |
-          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
-          conda activate bactopia-ci
-          cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} \
-              bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
-
-      - name: Bactopia Tools Tests (Docker)
+      - name: Docker Profile
         run: |
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
@@ -46,7 +37,7 @@ jobs:
               bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
-      - name: Run Bactopia Tools Tests (Singularity)
+      - name: Singularity Profile
         run: |
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
@@ -54,6 +45,16 @@ jobs:
           ls subworkflows/local/ | xargs -I {} \
               bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
+
+      - name: Conda Profile
+        run: |
+          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          conda clean --all -y
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls subworkflows/local/ | xargs -I {} \
+              bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Upload logs on failure
         if: failure()
