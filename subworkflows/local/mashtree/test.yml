@@ -16,7 +16,7 @@
     - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.sh
-      md5sum: a8b291f3e07aec4f3204114e14d35e7e
+      contains: ['mashtree', 'END_VERSIONS']
     - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mashtree/mashtree/logs/mashtree/versions.yml

@@ -40,7 +40,7 @@
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/nf-ismapper.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/nf-ismapper.sh
-      md5sum: ec93b98af3b505fcecb2c25efb877e57
+      contains: ['ismap', 'END_VERSIONS']
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/nf-ismapper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/versions.yml

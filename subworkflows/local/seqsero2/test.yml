@@ -22,7 +22,7 @@
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.sh
-      md5sum: 058d40ff6da39f9de24302092123d946
+      contains: ['SeqSero2', 'END_VERSIONS']
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/versions.yml
@@ -38,7 +38,7 @@
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.sh
-      md5sum: 7f7204165bbb75c0a1be7e80281170ba
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/versions.yml

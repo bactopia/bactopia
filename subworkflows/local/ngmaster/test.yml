@@ -34,7 +34,7 @@
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.sh
-      md5sum: f80b942d8e356d3503fdf07f4e3067ca
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/versions.yml

@@ -36,7 +36,7 @@
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.sh
-      md5sum: e2bc5d1665cf048e52a3d709b394e70c
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/versions.yml

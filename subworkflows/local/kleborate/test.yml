@@ -36,7 +36,7 @@
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.sh
-      md5sum: 1e20837c035b65d61ce44cfb1f982868
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/versions.yml

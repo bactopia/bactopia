@@ -114,7 +114,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.sh
-      md5sum: 2ed5d714afabee80951a2ffd564a1852
+      contains: ['agrvate', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/versions.yml
@@ -168,7 +168,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.sh
-      md5sum: 842dce8b4a348dccbc188bb055891262
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/versions.yml
@@ -184,7 +184,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.sh
-      md5sum: 7bafc0dee7bb6c6818769d3eab83a15a
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/versions.yml
@@ -200,7 +200,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.sh
-      md5sum: 9fa8b5aa14175a96aaf9bb5e8ee9078a
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/versions.yml
