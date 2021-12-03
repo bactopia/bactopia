@@ -537,7 +537,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 054701ec735a65ae8a9a7ae0ea594290
+      contains: ['MERGED', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
