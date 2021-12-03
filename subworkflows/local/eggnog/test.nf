@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { EGGNOG } from './main.nf' addParams( eggnog: params.test_data['datasets']['eggnog'], download_eggnog : true )
+include { EGGNOG } from './main.nf' addParams( eggnog: params.test_data['datasets']['eggnog'] )
 
 workflow test_eggnog {
 
