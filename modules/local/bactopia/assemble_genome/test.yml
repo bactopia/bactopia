@@ -511,7 +511,7 @@
       contains: ["Building a new DB", "Adding", "removed"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
-      md5sum: 7b3a10002cea4505c249f0246b184b18
+      md5sum: 178c0baa3ddd06d7bc1d93dcabcf0080
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: e5adb5de724143260a9a51e3b484d319
