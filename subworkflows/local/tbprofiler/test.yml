@@ -1,7 +1,6 @@
 - name: tbprofiler-test
   command: bash -c 'nextflow run ./subworkflows/local/tbprofiler/test.nf -entry test_tbprofiler --wf tbprofiler -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - tbprofiler
     - bactopia-tools
   files:

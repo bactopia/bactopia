@@ -1,7 +1,6 @@
 - name: staphtyper-test
   command: bash -c 'nextflow run ./subworkflows/local/staphtyper/test.nf -entry test_staphtyper --wf staphtyper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - staphtyper
     - bactopia-tools
   files:
@@ -130,7 +129,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.sh
-      md5sum: 7db187459e5b53fba2ee87ec6a23a764
+      contains: ['spaTyper', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/versions.yml
@@ -146,7 +145,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.sh
-      md5sum: 5a0b092c481add44e0783b361d8c9f37
+      contains: ['staphopia-sccmec', 'END_VERSIONS']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/versions.yml

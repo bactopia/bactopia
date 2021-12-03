@@ -1,7 +1,6 @@
 - name: fastani-test
   command: bash -c 'nextflow run ./subworkflows/local/fastani/test.nf -entry test_fastani --wf fastani -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - fastani
     - bactopia-tools
   files:
@@ -18,7 +17,7 @@
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.sh
-      md5sum: e3579359dfd2bdf330baac335c7c1904
+      contains: ['fastANI', 'END_VERSIONS']
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/versions.yml
@@ -36,7 +35,7 @@
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.sh
-      md5sum: 46330b4c80bd009973b8411044548163
+      contains: ['fastANI', 'END_VERSIONS']
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/versions.yml

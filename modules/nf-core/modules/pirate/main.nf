@@ -1,6 +1,6 @@
 // Import generic module functions
-include { initOptions; saveFiles } from '../../../../lib/nf/functions'
-
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
+RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'pirate')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
@@ -37,7 +37,7 @@ process PIRATE {
         --threads $task.cpus \\
         --input ./ \\
         --output results/
-    PIRATE_to_roary.pl -i results.*.tsv -o results/gene_presence_absence.csv
+    PIRATE_to_roary.pl -i results/ -o results/gene_presence_absence.csv
     find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
     cp results/core_alignment.fasta.gz ./core-genome.aln.gz
     cp results/gene_presence_absence.csv ./

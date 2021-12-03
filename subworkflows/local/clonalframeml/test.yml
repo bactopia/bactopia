@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/clonalframeml/test.nf -entry test_clonalframeml --wf clonalframeml -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - clonalframeml
+    - bactopia-tools
   files:
     - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta
       md5sum: 78864175ed8ebd617121837e2624a5f8
@@ -30,31 +31,31 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.sh
-      md5sum: f70ea71fa61c009a4e7be15ac065b4d6
+      contains: ['ClonalFrameML', 'END_VERSIONS']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/versions.yml
       md5sum: 15b3c403eb94ea9dc632192c2e0f7f53
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.begin
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.err
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.log
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.out
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.out
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.run
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.sh
-      md5sum: 02000f08715cc265a3bf2fb72e89374f
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/nf-iqtree-cfml.trace
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/start-tree.log
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-cfml/versions.yml
+    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/versions.yml
       md5sum: d2d342e82bbd8745619511c0fa55cd18
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-dag.dot
-      md5sum: a76230d399461d179cb42c5fc282b67f
+      contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-timeline.html
@@ -70,4 +71,4 @@
       md5sum: 8911a67ed8e329837f6673d9ad422c89
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.model.gz
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.treefile
-      md5sum: 15566ff30560ded403f6f4884ecd7119
+      contains: ['GCF_902713755']

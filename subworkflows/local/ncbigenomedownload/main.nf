@@ -8,7 +8,9 @@ options.args = [
     params.kingdom,
     "--section ${params.section}",
     "--formats ${params.format}",
-    "--assembly-levels ${params.assembly_level}"
+    "--assembly-levels ${params.assembly_level}",
+    "--verbose",
+    params.enable_conda ? "" : "--no-cache" 
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 META = [
     id: "",

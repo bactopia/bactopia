@@ -1,7 +1,6 @@
 - name: agrvate-test
   command: bash -c 'nextflow run ./subworkflows/local/agrvate/test.nf -entry test_agrvate --wf agrvate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - agrvate
     - bactopia-tools
   files:

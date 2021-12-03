@@ -1,7 +1,6 @@
 - name: seqsero2-test
   command: bash -c 'nextflow run ./subworkflows/local/seqsero2/test.nf -entry test_seqsero2 --wf seqsero2 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - seqsero2
     - bactopia-tools
   files:

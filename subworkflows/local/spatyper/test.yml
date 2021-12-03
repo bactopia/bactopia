@@ -1,7 +1,6 @@
 - name: spatyper-test
   command: bash -c 'nextflow run ./subworkflows/local/spatyper/test.nf -entry test_spatyper --wf spatyper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - spatyper
     - bactopia-tools
   files:
@@ -18,7 +17,7 @@
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.sh
-      md5sum: 7db187459e5b53fba2ee87ec6a23a764
+      contains: ['spaTyper', 'END_VERSIONS']
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/versions.yml

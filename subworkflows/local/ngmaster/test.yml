@@ -1,7 +1,6 @@
 - name: ngmaster-test
   command: bash -c 'nextflow run ./subworkflows/local/ngmaster/test.nf -entry test_ngmaster --wf ngmaster -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - ngmaster
     - bactopia-tools
   files:
@@ -18,7 +17,7 @@
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.sh
-      md5sum: 8c103acbfdd8a14c5163a882fd9f072f
+      contains: ['ngmaster', 'END_VERSIONS']
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/versions.yml

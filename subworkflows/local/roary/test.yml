@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/roary/test.nf -entry test_roary --wf roary -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - roary
+    - bactopia-tools
   files:
     - path: bactopia-tools/roary/roary/accessory.header.embl
       contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
@@ -40,13 +41,13 @@
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.sh
-      md5sum: 5660f75cc95c4cda1dc39df124efa662
+      contains: ['roary', 'END_VERSIONS']
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/roary/roary/logs/roary/versions.yml
       md5sum: 984f1e35ec1bedeef9fee96b5d8c5bc8
     - path: bactopia-tools/roary/roary/nf-reports/roary-dag.dot
-      md5sum: 62e03a9261bd3365e19d4962329245ff
+      contains: ['roarydag', 'ROARY', 'versions']
     - path: bactopia-tools/roary/roary/nf-reports/roary-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/roary/roary/nf-reports/roary-timeline.html

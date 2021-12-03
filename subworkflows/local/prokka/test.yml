@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/prokka/test.nf -entry test_prokka --wf prokka -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - prokka
+    - bactopia-tools
   files:
     - path: bactopia-tools/prokka/prokka/GCF_000292685/GCF_000292685/GCF_000292685.faa.gz
     - path: bactopia-tools/prokka/prokka/GCF_000292685/GCF_000292685/GCF_000292685.ffn.gz
@@ -22,17 +23,17 @@
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.log
       contains: ['prokka', 'finished', 'Torsten']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.out
-      md5sum: a15b115542d1d4a088db2e9fa7b9aa50
+      contains: ['tbl2asn-forever', 'changed', 'dates']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.sh
-      md5sum: e1e539e5048f3cf236ba4d4b76efbc5d
+      contains: ['prokka', 'END_VERSIONS']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/versions.yml
       md5sum: 38e7df04da90afe757d0fa63d81d36f4
     - path: bactopia-tools/prokka/prokka/nf-reports/prokka-dag.dot
-      md5sum: e54440e533c0e4461d749d36b5be63f5
+      contains: ['prokkadag', 'PROKKA', 'versions']
     - path: bactopia-tools/prokka/prokka/nf-reports/prokka-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/prokka/prokka/nf-reports/prokka-timeline.html

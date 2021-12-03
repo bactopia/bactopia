@@ -1,7 +1,6 @@
 - name: ectyper-test
   command: bash -c 'nextflow run ./subworkflows/local/ectyper/test.nf -entry test_ectyper --wf ectyper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - ectyper
     - bactopia-tools
   files:

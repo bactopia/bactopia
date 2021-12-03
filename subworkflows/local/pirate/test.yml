@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/pirate/test.nf -entry test_pirate --wf pirate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - pirate
+    - bactopia-tools
   files:
     - path: bactopia-tools/pirate/pirate/PIRATE.gene_families.ordered.tsv
       contains: ['allele_name']
@@ -53,7 +54,7 @@
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.sh
-      md5sum: 830319e95ce60c6f7124e6b73538b4ad
+      contains: ['pirate', 'END_VERSIONS']
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pirate/pirate/logs/pirate/results/PIRATE.log
@@ -71,7 +72,7 @@
     - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_002849995.gff
       md5sum: 68532fc9bb639e6d83c731a069f60cf8
     - path: bactopia-tools/pirate/pirate/nf-reports/pirate-dag.dot
-      md5sum: b6839a213dd41b0f1711770f58e2dcaa
+      contains: ['piratedag', 'PIRATE', 'versions']
     - path: bactopia-tools/pirate/pirate/nf-reports/pirate-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/pirate/pirate/nf-reports/pirate-timeline.html
@@ -114,7 +115,6 @@
     - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
       contains: ['GCF_000298385_00081']
     - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
-      contains: ['GCF_000298385_00242']
     - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.mcl_log.txt
       contains: ['chaos']
     - path: bactopia-tools/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.gz

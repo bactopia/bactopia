@@ -1,7 +1,6 @@
 - name: meningotype-test
   command: bash -c 'nextflow run ./subworkflows/local/meningotype/test.nf -entry test_meningotype --wf meningotype -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - meningotype
     - bactopia-tools
   files:
@@ -18,7 +17,7 @@
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/logs/meningotype/nf-meningotype.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/logs/meningotype/nf-meningotype.sh
-      md5sum: f0ce2ffb445e678daab7eb6ebaa60a98
+      contains: ['meningotype', 'END_VERSIONS']
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/logs/meningotype/nf-meningotype.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/meningotype/meningotype/GCF_003355215/logs/meningotype/versions.yml

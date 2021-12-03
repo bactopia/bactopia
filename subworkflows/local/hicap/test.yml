@@ -1,7 +1,6 @@
 - name: hicap-test
   command: bash -c 'nextflow run ./subworkflows/local/hicap/test.nf -entry test_hicap --wf hicap -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - hicap
     - bactopia-tools
   files:

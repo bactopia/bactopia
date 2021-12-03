@@ -1,7 +1,6 @@
 - name: kleborate-test
   command: bash -c 'nextflow run ./subworkflows/local/kleborate/test.nf -entry test_kleborate --wf kleborate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - kleborate
     - bactopia-tools
   files:
@@ -18,7 +17,7 @@
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.sh
-      md5sum: 058220ef099649ffd863c93e925c0151
+      contains: ['kleborate', 'END_VERSIONS']
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/versions.yml

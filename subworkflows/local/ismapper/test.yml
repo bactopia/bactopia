@@ -1,7 +1,6 @@
 - name: ismapper-test
   command: bash -c 'nextflow run ./subworkflows/local/ismapper/test.nf -entry test_ismapper --wf ismapper -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - ismapper
     - bactopia-tools
   files:

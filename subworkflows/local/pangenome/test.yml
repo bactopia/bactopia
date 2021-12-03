@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/pangenome/test.nf -entry test_pangenome --wf pangenome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - pangenome
+    - bactopia-tools
   files:
     - path: bactopia-tools/pangenome/pangenome/clonalframeml/core-genome.ML_sequence.fasta
       contains: ['GCF_00029838', 'GCF_002849995']
@@ -58,7 +59,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/nf-clonalframeml.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/nf-clonalframeml.sh
-      md5sum: 28bc1c6a4610e07a85afae137ff92362
+      contains: ['ClonalFrameML', 'END_VERSIONS']
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/nf-clonalframeml.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/versions.yml
@@ -74,7 +75,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.sh
-      md5sum: 74a72e1850a9b21252e79ef29b039c16
+      contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/start-tree.log
@@ -94,7 +95,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.sh
-      md5sum: cefeff7bf1055f2bf883dceee6948176
+      contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/versions.yml
@@ -110,7 +111,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.sh
-      md5sum: 830319e95ce60c6f7124e6b73538b4ad
+      contains: ['PIRATE', 'END_VERSIONS']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/results/PIRATE.log
@@ -132,7 +133,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.sh
-      md5sum: 068213e6197c514f5faccfdbadcf2081
+      contains: ['snp-dists', 'END_VERSIONS']
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/versions.yml

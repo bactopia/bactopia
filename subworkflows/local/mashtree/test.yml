@@ -1,7 +1,6 @@
 - name: mashtree-test
   command: bash -c 'nextflow run ./subworkflows/local/mashtree/test.nf -entry test_mashtree --wf mashtree -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - mashtree
     - bactopia-tools
   files:
