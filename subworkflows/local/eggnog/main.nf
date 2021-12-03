@@ -27,7 +27,7 @@ workflow EGGNOG {
     if (params.download_eggnog) {
         // Force EGGNOG_MAPPER to wait
         EGGNOG_DOWNLOAD()
-        EGGNOG_MAPPER(faa, EGGNOG_DOWNLOAD.out.db))
+        EGGNOG_MAPPER(faa, EGGNOG_DOWNLOAD.out.db)
     } else {
         EGGNOG_MAPPER(faa, file("${params.eggnog}/*"))
     }
