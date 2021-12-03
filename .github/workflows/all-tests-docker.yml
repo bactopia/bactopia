@@ -23,8 +23,6 @@ jobs:
           echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
           echo "BACTOPIA_TMP=/tmp/gh-runner-${{ github.run_id }}" >> $GITHUB_ENV
           mkdir /tmp/gh-runner-${{ github.run_id }}
-          env
-          groups
 
       - name: Run Bactopia Tests (per module)
         run: |
