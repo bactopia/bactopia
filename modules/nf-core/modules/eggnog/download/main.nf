@@ -5,7 +5,6 @@ options     = initOptions(params.options ? params.options : [:], 'eggnog_downloa
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process EGGNOG_DOWNLOAD {
-    tag "$meta.id"
     label 'process_low'
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
@@ -16,13 +15,12 @@ process EGGNOG_DOWNLOAD {
         'quay.io/biocontainers/eggnog-mapper:2.1.6--pyhdfd78af_0' }"
 
     output:
-    path("eggnog/*")                           , emit: db
+    path("eggnog/*")                        , emit: db
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs    , optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
     mkdir eggnog
     download_eggnog_data.py \\
