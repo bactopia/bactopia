@@ -8,7 +8,6 @@ on: workflow_dispatch
 jobs:
   pytest-bactopia:
     runs-on: olaf
-    defaults:
 
     steps:
       - name: Checkout bactopia/bactopia
@@ -31,7 +30,7 @@ jobs:
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls modules/local/bactopia | xargs -I {} -P 15 -n 1\
+          ls modules/local/bactopia | xargs -I {} -P 15 -n 1 \
               bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
 
