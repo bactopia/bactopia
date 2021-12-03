@@ -33,7 +33,7 @@ jobs:
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} \
+          ls subworkflows/local/ | xargs -I {} -P 10 \
               bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
@@ -42,7 +42,7 @@ jobs:
           source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} \
+          ls subworkflows/local/ | xargs -I {} -P 10 \
               bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
