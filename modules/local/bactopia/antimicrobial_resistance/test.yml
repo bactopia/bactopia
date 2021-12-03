@@ -21,7 +21,6 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
       contains: ['amrfinderdb']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
@@ -66,7 +65,6 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
       contains: ['amrfinderdb']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out

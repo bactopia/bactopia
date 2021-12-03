@@ -31,9 +31,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
@@ -89,9 +87,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
