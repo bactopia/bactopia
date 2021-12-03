@@ -131,7 +131,7 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
       contains: ['megahit', 'fasta', 'removed']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      md5sum: 4bfdbacc45531734e98212cda97ef135
+      contains: ["removed"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -178,7 +178,7 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
       contains: ['velvet', 'fasta', 'removed']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      md5sum: 52d127f00e62e388391b5166ff53d0ac
+      contains: ["removed"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -339,7 +339,7 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
       contains: ['megahit', 'fasta', 'removed']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      md5sum: 597c7566f8832bcae4b115e030feccfb
+      contains: ["removed"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh

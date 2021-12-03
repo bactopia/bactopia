@@ -117,7 +117,6 @@
     - path: pytest/output/assembly/checkm/storage/tree/concatenated.fasta
       md5sum: 4c170fc0a6734a821bf3b443f0b33bef
     - path: pytest/output/assembly/checkm/storage/tree/concatenated.pplacer.json
-      md5sum: 2aaf157839255d0bcbc277a3b038733d
     - path: pytest/output/assembly/checkm/storage/tree/concatenated.tre
       md5sum: 478880ccdff6d05c9e7f130773f717c3
     - path: pytest/output/assembly/checkm/storage/tree/pplacer.out
