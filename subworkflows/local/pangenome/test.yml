@@ -119,7 +119,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/results/link_clusters.log
       contains: ['parsing paralog file']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/results/split_groups.log
-      contains: ['g0007', 'g0070']
+      contains: ['g0']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/versions.yml
       md5sum: 80d09e12c3dee650c874a0ff0b3d4a85
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.begin
@@ -181,13 +181,13 @@
     - path: bactopia-tools/pangenome/pangenome/pirate/gene_presence_absence.csv
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/pirate/genome2loci.tab
-      md5sum: 83c780aa4bfd7f06cfa32347a793a80c
+      contains: ['GCF_000', 'hypothetical']
     - path: bactopia-tools/pangenome/pangenome/pirate/genome_list.txt
-      md5sum: d602c36d62de2fb0e0e54c04c1a91a31
+      contains: ['GCF_002849995', 'GCF_000292685']
     - path: bactopia-tools/pangenome/pangenome/pirate/loci_list.tab
       contains: ['GCF_000298385_00242']
     - path: bactopia-tools/pangenome/pangenome/pirate/loci_paralog_categories.tab
-      md5sum: 5d104435478033a8585bb5e2d31f39a2
+      contains: ['GCF_000', 'g0']
     - path: bactopia-tools/pangenome/pangenome/pirate/modified_gffs/GCF_000292685.gff
       md5sum: 2b73bda2f84dc634303dc90e641040ca
     - path: bactopia-tools/pangenome/pangenome/pirate/modified_gffs/GCF_000298385.gff
@@ -230,7 +230,7 @@
     - path: bactopia-tools/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.98.reclustered.reinflated
       contains: ['GCF_000298385_00242']
     - path: bactopia-tools/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.blast.output
-      md5sum: 889c61bb4bc8efb3e2556a0c034242c2
+      contains: ['GCF_002849995', 'GCF_000292685']
     - path: bactopia-tools/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
       contains: ['GCF_000298385_00081']
     - path: bactopia-tools/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
