@@ -124,7 +124,7 @@
     - path: bactopia-tools/pirate/pirate/pangenome_log.txt
       contains: ['Creating pangenome on amino acid']
     - path: bactopia-tools/pirate/pirate/paralog_clusters.tab
-      contains: ['g0011', 'g0023']
+      contains: ['g0']
     - path: bactopia-tools/pirate/pirate/representative_sequences.faa
       contains: ['representative_genome']
     - path: bactopia-tools/pirate/pirate/representative_sequences.ffn
