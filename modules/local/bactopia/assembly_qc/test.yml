@@ -1,7 +1,6 @@
 - name: assembly_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/assembly_qc/test.nf -entry test_assembly_qc --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - assembly_qc
   files:
@@ -177,7 +176,7 @@
     - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.sh
-      md5sum: 9210e7c0cef90c9407e2be332f8f3e12
+      contains: ['checkm', 'quast', 'END_VERSIONS']
     - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assembly_qc/quast/quast.log

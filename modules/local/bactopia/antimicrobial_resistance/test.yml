@@ -1,7 +1,6 @@
 - name: antimicrobial_resistance-compressed
   command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_compressed
@@ -28,7 +27,7 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
-      md5sum: 0f20d8e9c0716f452c83f5d36608f682
+      contains: ['amrfinder', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml
@@ -45,7 +44,6 @@
 - name: antimicrobial_resistance-uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/antimicrobial_resistance/test.nf -entry test_antimicrobial_resistance_uncompressed --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - antimicrobial_resistance
     - antimicrobial_resistance_uncompressed
@@ -72,7 +70,7 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.sh
-      md5sum: 33f1e250a277f738460f8aa5a67c5de1
+      contains: ['amrfinder', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml

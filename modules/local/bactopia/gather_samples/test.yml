@@ -1,7 +1,6 @@
 - name: gather_samples-pe_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_pe
@@ -26,7 +25,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: bb67fc8fed2fc749e7bd60464c2e0162
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -37,7 +36,6 @@
 - name: gather_samples-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_pe --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_pe
@@ -62,7 +60,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 3ec8a79f56d0728b497eba27bd64d7e3
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -74,7 +72,6 @@
 - name: gather_samples-merge_pe_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe
@@ -99,7 +96,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 778d5023f2a6a59f95f4ebaf98533cb0
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -112,7 +109,6 @@
 - name: gather_samples-merge_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe
@@ -137,7 +133,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: cff9aac349a22b5fe8c09de9670c3f52
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -150,7 +146,6 @@
 - name: gather_samples-merge_pe_hybrid_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
@@ -175,7 +170,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 48a0f4b239e44995290037ffa78e5d3a
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -188,7 +183,6 @@
 - name: gather_samples-merge_pe_hybrid
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_pe_hybrid --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_pe_hybrid
@@ -213,7 +207,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 7dc56279139e636235edcef3accad3bb
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -226,7 +220,6 @@
 - name: gather_samples-se_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_se
@@ -251,7 +244,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 5b25871fa312f34ca35a5c8750b16323
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -262,7 +255,6 @@
 - name: gather_samples-se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_se --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_se
@@ -287,7 +279,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: c0c8e6292b99e392ef8ca047dd7e41ce
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -298,7 +290,6 @@
 - name: gather_samples-merge_se_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_se
@@ -323,7 +314,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 2cdb41f470b71d131430f90a268ea0b0
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -336,7 +327,6 @@
 - name: gather_samples-merge_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_merge_se --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_merge_se
@@ -361,7 +351,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 97ab7e101468df38a4a1495a6fe821cf
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -374,7 +364,6 @@
 - name: gather_samples-sra_accession_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_sra_accession
@@ -405,7 +394,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: dff8a5340169fcbf8adb061714544a10
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/SRX1390609/logs/gather_samples/versions.yml
@@ -414,7 +403,6 @@
 - name: gather_samples-sra_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_sra_accession
@@ -445,7 +433,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 142fae3058cbed836a96ce669a40c863
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/SRX1390609/logs/gather_samples/versions.yml
@@ -454,7 +442,6 @@
 - name: gather_samples-assembly_accession_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly_accession
@@ -491,7 +478,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: ab1ad9a7ecb80020b90847fdedcda4e5
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
@@ -500,7 +487,6 @@
 - name: gather_samples-assembly_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly_accession
@@ -547,7 +533,6 @@
 - name: gather_samples-assembly_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly
@@ -578,7 +563,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 2745a9ecbe8930ec423fc7fb768c25bc
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
@@ -587,7 +572,6 @@
 - name: gather_samples-assembly
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_assembly
@@ -618,7 +602,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: efa37062b84c964ae46695c6c7f8cf8b
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
@@ -628,7 +612,6 @@
 - name: gather_samples-error_low_read_count_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -652,7 +635,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: bb67fc8fed2fc749e7bd60464c2e0162
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -667,7 +650,6 @@
 - name: gather_samples-error_low_read_count_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_read_count_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -691,7 +673,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 5b25871fa312f34ca35a5c8750b16323
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -706,7 +688,6 @@
 - name: gather_samples-error_low_depth_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -730,7 +711,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: bb67fc8fed2fc749e7bd60464c2e0162
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -745,7 +726,6 @@
 - name: gather_samples-error_low_depth_se
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_depth_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -769,7 +749,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 5b25871fa312f34ca35a5c8750b16323
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -784,7 +764,6 @@
 - name: gather_samples-error_low_proportion
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_error_low_proportion --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -808,7 +787,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.sh
-      md5sum: bb67fc8fed2fc749e7bd60464c2e0162
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
@@ -821,7 +800,6 @@
 - name: gather_samples-error_min_genome_size
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --min_genome_size 1000000 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -851,7 +829,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: 6d6f77bfd0dbc3dfc4548f73b29e2d7c
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
@@ -860,7 +838,6 @@
 - name: gather_samples-error_max_genome_size
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --max_genome_size 1000 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - gather_samples
     - gather_samples_errors
@@ -890,7 +867,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.sh
-      md5sum: a76e74fc47a34751ce3e5b1df92bacc2
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml

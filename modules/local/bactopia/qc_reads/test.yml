@@ -1,7 +1,6 @@
 - name: qc_reads-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_pe
@@ -37,7 +36,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: cc7f7aa7107bc77ede0d0d45731b89e4
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/reformat.stderr.txt
@@ -70,7 +69,6 @@
 - name: qc_reads-se
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_se
@@ -106,7 +104,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 3b67271e03563c48a3d688debef4f3ad
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/reformat.stderr.txt
@@ -129,7 +127,6 @@
 - name: qc_reads-pe_skip_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_pe_skip_qc
@@ -153,7 +150,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 9896020c5d3199d9bb46acc69757f3bd
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
@@ -184,7 +181,6 @@
 - name: qc_reads-se_skip_qc
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_se_skip_qc
@@ -208,7 +204,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 1e795696eb52a5bea23b557469e599ac
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
@@ -229,7 +225,6 @@
 - name: qc_reads-pe_error
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_pe --outdir pytest -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_pe_error
@@ -265,7 +260,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 528f342f1be1eeedff72ce75f6dbe4ce
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/reformat.stderr.txt
@@ -302,7 +297,6 @@
 - name: qc_reads-se_error
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_se --outdir pytest -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_se_error
@@ -338,7 +332,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: 6cb7e847bbb238c426b4a4be112154be
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/reformat.stderr.txt
@@ -365,7 +359,6 @@
 - name: qc_reads-nanopore
   command: bash -c 'nextflow run ./modules/local/bactopia/qc_reads/test.nf -entry test_qc_reads_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - qc_reads
     - qc_reads_nanopore
@@ -390,7 +383,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
-      md5sum: a2e0a76a64195d59373b34f53cfc5d7e
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/porechop.stderr.txt

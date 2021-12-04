@@ -1,7 +1,6 @@
 - name: call_variants-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_pe
@@ -73,7 +72,6 @@
 - name: call_variants-pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_pe --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_pe_uncompressed
@@ -149,7 +147,6 @@
 - name: call_variants-se
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_se
@@ -221,7 +218,6 @@
 - name: call_variants-se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_se --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_se_uncompressed
@@ -297,7 +293,6 @@
 - name: call_variants-auto_pe
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_auto_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_auto_pe
@@ -377,7 +372,6 @@
 - name: call_variants-auto_pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_auto_pe --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_auto_pe_uncompressed
@@ -461,7 +455,6 @@
 - name: call_variants-auto_se 
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_auto_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_auto_se 
@@ -541,7 +534,6 @@
 - name: call_variants-auto_se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/call_variants/test.nf -entry test_call_variants_auto_se --outdir pytest -c nextflow.config --skip_compression ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - call_variants
     - call_variants_auto_se_uncompressed 

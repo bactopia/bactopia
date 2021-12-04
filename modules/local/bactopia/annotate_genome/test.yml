@@ -1,7 +1,6 @@
 - name: annotate_genome-compressed
   command: bash -c 'nextflow run ./modules/local/bactopia/annotate_genome/test.nf -entry test_annotate_genome --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - annotate_genome
     - annotate_genome_compressed
@@ -37,7 +36,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: b8eda6688509bb7ba62d652319802758
+      contains: ['prokka', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stderr.txt
@@ -93,7 +92,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
-      md5sum: 64d055214a9bc6f4176f2e3289b29328
+      contains: ['prokka', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stderr.txt

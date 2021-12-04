@@ -1,7 +1,6 @@
 - name: sequence_type-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_pe
@@ -33,7 +32,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      md5sum: 4102aac7565fb1e2a15d037aab2eb4a4
+      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
@@ -57,7 +56,6 @@
 - name: sequence_type-pe_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_pe_uncompressed --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_pe_uncompressed
@@ -89,7 +87,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      md5sum: c6b83dbe4188d6f615f1f33ecf2ec80e
+      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
@@ -113,7 +111,6 @@
 - name: sequence_type-se
   command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_se
@@ -141,7 +138,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      md5sum: 3fd3cc16b40135dae69de5e6485752ed
+      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
@@ -154,7 +151,6 @@
 - name: sequence_type-se_uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/sequence_type/test.nf -entry test_sequence_type_se_uncompressed --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - sequence_type
     - sequence_type_se_uncompressed
@@ -182,7 +178,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      md5sum: 8f753529054289b4e4ccd4c6ce9993f8
+      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml

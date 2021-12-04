@@ -1,7 +1,6 @@
 - name: minmer_sketch-pe
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - minmer_sketch
     - minmer_sketch_pe
@@ -27,7 +26,7 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: b14b7f35866b3222e693ef5774f5d21d
+      contains: ['mash', 'sourmash', 'mccortex', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
@@ -46,7 +45,6 @@
 - name: minmer_sketch-pe_31mers
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_pe --count_31mers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - minmer_sketch
     - count_31mers
@@ -76,7 +74,7 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 8091617693ff3da4f69f3fb4b4bb96ca
+      contains: ['mash', 'sourmash', 'mccortex', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
@@ -96,7 +94,6 @@
 - name: minmer_sketch-se
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - minmer_sketch
     - minmer_sketch_se
@@ -122,7 +119,7 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 43ce677fb343019b6fa048eb641c82aa
+      contains: ['mash', 'sourmash', 'mccortex', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt
@@ -141,7 +138,6 @@
 - name: minmer_sketch-se_31mers
   command: bash -c 'nextflow run ./modules/local/bactopia/minmer_sketch/test.nf -entry test_minmer_sketch_se --count_31mers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - minmer_sketch
     - count_31mers
@@ -171,7 +167,7 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.sh
-      md5sum: 7b5812cfb99b509a3e5e2437c3bbf687
+      contains: ['mash', 'sourmash', 'mccortex', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_sketch/sourmash.stderr.txt

@@ -1,7 +1,6 @@
 - name: ariba_analysis
-  command: bash -c 'nextflow run ./modules/local/bactopia/ariba_analysis/test.nf -entry test_ariba_analysis --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/ariba_analysis/test.nf -entry test_ariba_analysis --max_cpus 1 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - ariba_analysis
   files:
@@ -54,7 +53,7 @@
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.sh
-      md5sum: a0ca8405f6fbd4d2b80567cb62c50455
+      contains: ['ariba', 'card', 'END_VERSIONS']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/ariba_analysis/card/versions.yml
@@ -77,7 +76,7 @@
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.sh
-      md5sum: bca79333ced7c7632ecbdb3fa783d479
+      contains: ['ariba', 'vfdb', 'END_VERSIONS']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/versions.yml

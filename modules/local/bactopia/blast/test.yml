@@ -1,7 +1,6 @@
 - name: blast-genes
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_genes --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - blast
     - blast_genes
@@ -33,7 +32,7 @@
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.sh
-      md5sum: 29e2a2849f9ce4af76a6edf7b508478e
+      contains: ['blastn', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/blast/genes/versions.yml
@@ -42,7 +41,6 @@
 - name: blast-primers
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_primers --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - blast
     - blast_primers
@@ -74,7 +72,7 @@
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.sh
-      md5sum: c4aeaefcd4319a99b3cc1196d569af85
+      contains: ['blastn', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/blast/primers/versions.yml
@@ -83,7 +81,6 @@
 - name: blast-primers-uncompressed
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_primers --skip_compression --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - blast
     - blast_primers_uncompressed
@@ -115,7 +112,7 @@
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.sh
-      md5sum: 0a7a5743861575e086324c78a6bff583
+      contains: ['blastn', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/blast/primers/versions.yml
@@ -124,7 +121,6 @@
 - name: blast-proteins
   command: bash -c 'nextflow run ./modules/local/bactopia/blast/test.nf -entry test_blast_proteins --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - all_tests
     - bactopia
     - blast
     - blast_proteins
@@ -152,7 +148,7 @@
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.sh
-      md5sum: b3d4a7ea877d55fb2e8bec8153f5299c
+      contains: ['tblastn', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/blast/proteins/tblastn.stderr.txt
