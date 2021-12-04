@@ -46,7 +46,6 @@
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.log
       contains: ['PIRATE', 'completed']
     - path: bactopia-tools/pirate/pirate/logs/pirate/nf-pirate.out

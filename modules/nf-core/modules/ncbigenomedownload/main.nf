@@ -11,9 +11,7 @@ process NCBIGENOMEDOWNLOAD {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::ncbi-genome-download=0.3.0" : null)
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ncbi-genome-download:0.3.0--pyh864c0ab_1' :
-        'quay.io/biocontainers/ncbi-genome-download:0.3.0--pyh864c0ab_1' }"
+    container 'quay.io/bactopia/bactopia:1.7.1'
 
     input:
     val meta

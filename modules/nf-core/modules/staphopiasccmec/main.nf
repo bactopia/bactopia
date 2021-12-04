@@ -13,7 +13,7 @@ process STAPHOPIASCCMEC {
 
     conda (params.enable_conda ? "bioconda::staphopia-sccmec=1.0.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/spatyper%3A0.3.3--pyhdfd78af_3' :
+        'https://depot.galaxyproject.org/singularity/staphopia-sccmec:1.0.0--hdfd78af_0' :
         'quay.io/biocontainers/staphopia-sccmec:1.0.0--hdfd78af_0' }"
 
     input:

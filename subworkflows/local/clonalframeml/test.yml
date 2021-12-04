@@ -23,7 +23,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.err
-      md5sum: e4c72b4116afe3a6e2a3207c283a776c
+      contains: ['Checking', 'Reading']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.log
       contains: ['newick', 'Reading', 'Done']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.out
@@ -39,7 +39,6 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.out

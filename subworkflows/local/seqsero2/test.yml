@@ -13,7 +13,6 @@
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.log
       contains: ['GCF_016028495', 'Salmonella', 'Typhimurium', 'Note']
     - path: bactopia-tools/seqsero2/seqsero2/GCF_016028495/logs/seqsero2/nf-seqsero2.out

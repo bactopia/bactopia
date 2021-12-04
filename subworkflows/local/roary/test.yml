@@ -33,9 +33,8 @@
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.err
-      md5sum: 3c0c5b8968a2ea7f64bc450885fc0568
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.log
-      md5sum: 99838a415b032d7b2f1ec918926098c8
+      contains: ['cite', 'Roary']
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.out
       md5sum: 83ad38aafa5e06a2118bc6a25622ecf2
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.run

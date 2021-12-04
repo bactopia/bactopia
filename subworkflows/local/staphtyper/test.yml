@@ -71,9 +71,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/results/GCF_000017085-snippy/snps.aligned.fa
       md5sum: a60c1ef69994309d93a2a4d40c272043
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/results/GCF_000017085-snippy/snps.bam
-      md5sum: 6fb5e7f398562f03faba23f10ec80dba
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/results/GCF_000017085-snippy/snps.bam.bai
-      md5sum: a31bcd0150e802e0cde9dd637473a836
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/results/GCF_000017085-snippy/snps.bed
       md5sum: 4a053f48cb89f978bded00f9f53421e2
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/results/GCF_000017085-snippy/snps.consensus.fa
@@ -105,7 +103,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.log
       md5sum: 9f06cfeb14897c0b6a3dd5dc8168b960
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.out
@@ -121,7 +118,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.log
       contains: ['Spa', 'Repeats', 'spatyper']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.out
@@ -137,7 +133,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.out
@@ -159,7 +154,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.out
@@ -175,7 +169,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.out
@@ -191,7 +184,6 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.out

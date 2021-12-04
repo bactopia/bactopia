@@ -9,7 +9,6 @@
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.out

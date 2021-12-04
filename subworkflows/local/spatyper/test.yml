@@ -9,7 +9,6 @@
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.log
       contains: ['Spa', 'Repeats', 'spatyper']
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.out

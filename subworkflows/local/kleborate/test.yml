@@ -9,9 +9,8 @@
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.err
-      md5sum: cdc146dc5375d3be6f8749c246c05f01
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.log
-      md5sum: c6fee036fdc6c9c7cb3af9c2e1419b0b
+      contains: ['strain', 'GCF_000009885']
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.out
       md5sum: a452d4a0f8186164b59d689e23e16aa2
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.run

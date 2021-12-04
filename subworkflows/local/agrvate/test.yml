@@ -87,9 +87,7 @@
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.aligned.fa
       md5sum: a60c1ef69994309d93a2a4d40c272043
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bam
-      md5sum: 6fb5e7f398562f03faba23f10ec80dba
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bam.bai
-      md5sum: a31bcd0150e802e0cde9dd637473a836
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.bed
       md5sum: 4a053f48cb89f978bded00f9f53421e2
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/results/GCF_000017085-snippy/snps.consensus.fa
