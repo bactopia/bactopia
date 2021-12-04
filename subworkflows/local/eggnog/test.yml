@@ -7,7 +7,7 @@
     - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.annotations
       contains: ['emapper', 'Gammaproteobacteria', 'scanned']
     - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.hits
-      md5sum: 683ea77a134ea2bfe8b95e87be8a96c6
+      contains: ['WP_014894920']
     - path: bactopia-tools/eggnog/eggnog/GCF_000292685/eggnog_mapper/GCF_000292685.emapper.seed_orthologs
       contains: ['emapper', 'diamond', 'scanned']
     - path: bactopia-tools/eggnog/eggnog/GCF_000292685/logs/eggnog_mapper/nf-eggnog_mapper.begin

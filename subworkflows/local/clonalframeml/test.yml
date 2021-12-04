@@ -15,11 +15,8 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.labelled_tree.newick
       md5sum: 66634ad58496ac73b7752ce0a7c02dad
     - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.masked.aln.gz
-      md5sum: 466fdbc7cbef7dcb738df0423440c797
     - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt
       md5sum: b4cbfac7ceaa2558f33d97a64694c32c
-    - path: bactopia-tools/clonalframeml/clonalframeml/genome.aln.gz
-      md5sum: 7e0c99a9803be09adbc644f533db593a
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.err

@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { CLONALFRAMEML } from './main.nf' 
+include { CLONALFRAMEML } from './main.nf' addParams( options: [ignore: ["genome.aln.gz"]] )
 
 workflow test_clonalframeml {
 

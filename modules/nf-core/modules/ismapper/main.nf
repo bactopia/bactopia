@@ -37,8 +37,8 @@ process ISMAPPER {
     if [ "$ref_compressed" == "true" ]; then
         gzip -c -d $reference > $reference_name
     fi
-    if [ "$ref_compressed" == "true" ]; then
-        gzip -c -d $reference > $reference_name
+    if [ "$query_compressed" == "true" ]; then
+        gzip -c -d $query > $query_name
     fi
     
     ismap \\

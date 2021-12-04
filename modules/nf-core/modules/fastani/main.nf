@@ -37,7 +37,7 @@ process FASTANI {
     fi
 
     mkdir query
-    cp -P query-tmp/* query/
+    cp -L query-tmp/* query/
     find query/ -name "*.gz" | xargs gunzip
     find query/ -name "*" -type f > query-list.txt
 

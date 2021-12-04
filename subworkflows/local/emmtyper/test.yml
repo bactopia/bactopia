@@ -9,9 +9,9 @@
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.err
-      md5sum: 8335c3255b2e09abe90d4fef0a6f0960
+      contains: ['emmtyper', 'Finished']
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.log
-      md5sum: 8335c3255b2e09abe90d4fef0a6f0960
+      contains: ['emmtyper', 'Finished']
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.run

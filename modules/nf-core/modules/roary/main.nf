@@ -30,7 +30,7 @@ process ROARY {
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
     mkdir gff
-    cp -P gff-tmp/* gff/
+    cp -L gff-tmp/* gff/
     find gff/ -name "*.gff.gz" | xargs gunzip
     roary \\
         $options.args \\
