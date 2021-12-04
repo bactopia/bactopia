@@ -18,7 +18,7 @@ process NCBIGENOMEDOWNLOAD {
     path accessions
 
     output:
-    path("*.gz")                            , emit: all     , optional: true
+    path("*.gz")                            , emit: all
     path("*_genomic.gbff.gz")               , emit: gbk     , optional: true
     path("*_genomic.fna.gz")                , emit: fna     , optional: true
     path("*_rm.out.gz")                     , emit: rm      , optional: true
@@ -39,7 +39,7 @@ process NCBIGENOMEDOWNLOAD {
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     def has_accessions = accessions ? true : false
-    def opts = "${options.args} --output-folder ./ --flat-output -p ${task.cpus} -r 50"
+    def opts = "${options.args} --output-folder ./ --flat-output -p ${task.cpus} -r ${params.max_retry}"
     """
     if [ "${meta.species}" != "null" ]; then
         if [ "${meta.limit}" != "null" ]; then
