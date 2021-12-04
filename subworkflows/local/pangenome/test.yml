@@ -23,7 +23,7 @@
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
     - path: bactopia-tools/pangenome/pangenome/core-genome.masked.aln.gz
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.bionj
-      md5sum: 5b8f7bc42db341b3e330dd63bda4d6e3
+      contains: ['GCF_000292685']
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.ckp.gz
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']

@@ -63,7 +63,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-trace.txt
       contains: ['task_id']
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.bionj
-      md5sum: 5b8f7bc42db341b3e330dd63bda4d6e3
+      contains: ['GCF_000292685']
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.ckp.gz
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.iqtree
       contains: ['REFERENCES', 'Date', 'GCF_002849995']
