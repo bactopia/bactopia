@@ -63,6 +63,7 @@ jobs:
           path: |
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.out
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.err
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/.nextflow.log
             
       - name: Cleanup
         if: always()
