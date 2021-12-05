@@ -64,11 +64,11 @@ jobs:
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.out
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.err
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/.nextflow.log
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/*/*.log
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/*/*.err
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/*/*.out
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/*/*stderr.txt
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/*/*stdout.txt
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/**/*.log
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/**/*.err
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/**/*.out
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/**/*stderr.txt
+            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/work/**/*stdout.txt
            
       - name: Cleanup
         if: always()
