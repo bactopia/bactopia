@@ -25,8 +25,8 @@ jobs:
           echo "BACTOPIA_SINGULARITY=/data/storage/bactopia-ci/singularity" >> $GITHUB_ENV
           echo "BACTOPIA_TESTS=/data/storage/bactopia-ci/bactopia-tests/data" >> $GITHUB_ENV
           echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
-          echo "BACTOPIA_TMP=${GITHUB_WORKSPACE}/${{ github.run_id }}/" >> $GITHUB_ENV
-          mkdir "${GITHUB_WORKSPACE}/${{ github.run_id }}/"
+          echo "BACTOPIA_TMP=/data/storage/bactopia-tmp/${{ github.run_id }}" >> $GITHUB_ENV
+          mkdir "/data/storage/bactopia-tmp/${{ github.run_id }}"
 
       - name: Conda Profile
         run: |
@@ -59,7 +59,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: logs-debian
+          name: logs-bactopia
           path: |
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.out
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.err
@@ -72,4 +72,4 @@ jobs:
            
       - name: Cleanup
         if: always()
-        run: rm -rf ${GITHUB_WORKSPACE}/${{ github.run_id }}
+        run: rm -rf ${GITHUB_WORKSPACE}/${{ github.run_id }} ${{ env.BACTOPIA_TMP }}
