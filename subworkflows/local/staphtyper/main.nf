@@ -25,6 +25,9 @@ workflow STAPHTYPER {
 
     main:
     ch_versions = Channel.empty()
+    ch_merged_agrvate = Channel.empty()
+    ch_merged_spatyper = Channel.empty()
+    ch_merged_sccmec = Channel.empty()
 
     // agrvate - agr locus type and agr operon variants
     // spatyper - spa typing
@@ -42,23 +45,26 @@ workflow STAPHTYPER {
         // Merge AgrVATE
         AGRVATE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
         CSVTK_CONCAT_AGRVATE(ch_merge_agrvate, 'tsv', 'tsv')
+        ch_merged_agrvate = ch_merged_agrvate.mix(CSVTK_CONCAT_AGRVATE.out.csv)
 
         // Merge spaTyper
         SPATYPER.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'spatyper'], tsv]}.set{ ch_merge_spatyper }
         CSVTK_CONCAT_SPATYPER(ch_merge_spatyper, 'tsv', 'tsv')
+        ch_merged_spatyper = ch_merged_spatyper.mix(CSVTK_CONCAT_SPATYPER.out.csv)
 
         // Merge Staphopia SCCmec
         STAPHOPIASCCMEC.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}.set{ ch_merge_sccmec }
         CSVTK_CONCAT_STAPHOPIASCCMEC(ch_merge_sccmec, 'tsv', 'tsv')
-        ch_versions = ch_versions.mix(CSVTK_CONCAT_SPATYPER.out.versions)
+        ch_merged_sccmec = ch_merged_sccmec.mix(CSVTK_CONCAT_STAPHOPIASCCMEC.out.csv)
+        ch_versions = ch_versions.mix(CSVTK_CONCAT_STAPHOPIASCCMEC.out.versions)
     }
 
     emit:
     agrvate_tsv = AGRVATE.out.summary
-    agrvate_merged_tsv = CSVTK_CONCAT_AGRVATE.out.csv
+    agrvate_merged_tsv = ch_merged_agrvate
     spatyper_tsv = SPATYPER.out.tsv
-    spatyper_merged_tsv = CSVTK_CONCAT_SPATYPER.out.csv
+    spatyper_merged_tsv = ch_merged_spatyper
     staphopiasccmec_tsv = STAPHOPIASCCMEC.out.tsv
-    staphopiasccmec_merged_tsv = CSVTK_CONCAT_STAPHOPIASCCMEC.out.csv
+    staphopiasccmec_merged_tsv = ch_merged_sccmec
     versions = ch_versions // channel: [ versions.yml ]
 }

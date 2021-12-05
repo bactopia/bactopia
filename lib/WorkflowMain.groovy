@@ -112,15 +112,19 @@ class WorkflowMain {
 
         // Check that conda channels are set-up correctly
         if (params.enable_conda) {
+            log.warn ""
             log.warn "Conda Disclaimer"
+            log.warn ""
             log.warn "If you have access to Docker or Singularity, please consider"
             log.warn "running Bactopia using containers. The containers are less"
             log.warn "susceptible to Conda environment related issues (e.g. version"
-            log.warn "conflicts)."
+            log.warn "conflicts) and errors caused by creation of conda environments"
+            log.warn "in parallel (use '--max_cpus 1' to over come this error)."
             log.warn ""
             log.warn "To use containers, you can use the profile parameter"
             log.warn "    Docker: -profile docker"
             log.warn "    Singularity: -profile singularity"
+            log.warn ""
             log.info NfcoreTemplate.dashedLine(params.monochrome_logs)
         }
 

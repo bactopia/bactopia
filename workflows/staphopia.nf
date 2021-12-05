@@ -21,15 +21,6 @@ run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SC
 
 /*
 ========================================================================================
-    CONFIG FILES
-========================================================================================
-*/
-include { create_input_channel; setup_datasets } from '../lib/nf/bactopia'
-include { get_resources; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-
-/*
-========================================================================================
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ========================================================================================
 */
@@ -75,7 +66,7 @@ workflow STAPHOPIA {
     QC_READS(GATHER_SAMPLES.out.raw_fastq)
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
     ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna, Channel.fromList(['checkm', 'quast']))
-    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna, Channel.fromPath(datasets['proteins']), Channel.fromPath(datasets['training_set']))
+    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
     MINMER_SKETCH(QC_READS.out.fastq)
 
     // Optional steps that require datasets

@@ -1,4 +1,4 @@
-name: bactopia-commands
+name: Test Bactopia Commands
 
 on:
   push:
@@ -57,3 +57,18 @@ jobs:
           path: |
             ~/pytest_workflow_*/*/log.out
             ~/pytest_workflow_*/*/log.err
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-bactopia-tools
+          path: |
+            ~/pytest_workflow_*/*/log.out
+            ~/pytest_workflow_*/*/log.err
+            ~/pytest_workflow_*/*/.nextflow.log
+            ~/pytest_workflow_*/*/work/**/*.log
+            ~/pytest_workflow_*/*/work/**/*.err
+            ~/pytest_workflow_*/*/work/**/*.out
+            ~/pytest_workflow_*/*/work/**/*stderr.txt
+            ~/pytest_workflow_*/*/work/**/*stdout.txt

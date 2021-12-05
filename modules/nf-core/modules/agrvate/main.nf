@@ -10,10 +10,10 @@ process AGRVATE {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::agrvate=1.0.1" : null)
+    conda (params.enable_conda ? "bioconda::agrvate=1.0.2" : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/agrvate:1.0.1--hdfd78af_2' :
-        'quay.io/biocontainers/agrvate:1.0.1--hdfd78af_2' }"
+        'https://depot.galaxyproject.org/singularity/agrvate:1.0.2--hdfd78af_0' :
+        'quay.io/biocontainers/agrvate:1.0.2--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -36,9 +36,9 @@ process AGRVATE {
 
     agrvate \\
         $options.args \\
-        -i $fasta_name -m
+        -i $fasta_name
 
-    mv $meta.id-results/ results/
+    mv ${meta.id}-results/ results/
 
     cat <<-END_VERSIONS > versions.yml
     agrvate:
