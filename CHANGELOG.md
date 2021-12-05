@@ -1,10 +1,7 @@
 # Changelog
 
-## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/02
-With Bactopia v2 comes __a lot__ of changes! But first I would really like to
-thank Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your 
-efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much
-for taking your time to make such a siginificant contribution!
+## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/05
+With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a siginificant contribution!
 
 ### `Added`
 - support for Nanopore reads
@@ -12,7 +9,7 @@ for taking your time to make such a siginificant contribution!
 - `bactopia/bactopia-tests` repo with test data
 - walkthrough for testing
 - `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
-- per-module testing via `pytest`
+- per-module testing via `pytest` (100+ tests and 7000+ outputs tested)
 - per-module `meta.yml` and `params.json` for auto-building docs site
 - framefork for adding new Bactopia Tools
 - 19 total Bactopia Tools (`bactopia --wf <NAME>`)
@@ -64,7 +61,6 @@ for taking your time to make such a siginificant contribution!
 ### `Removed`
 - `bactopia tools` -> Handled by Nextflow now (`bactopia --wf <NAME>`)
 - `bactopia versions` -> Program versions are output ever run now.
-
 
 ## v1.7.1 bactopia/bactopia "Shellbuster" - 2021/06/04
 ### `Added`
