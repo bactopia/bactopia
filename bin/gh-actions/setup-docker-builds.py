@@ -214,7 +214,7 @@ if __name__ == '__main__':
                  github=args.github, quay=args.quay)
 
     # Bactopia Process Dockerfiles
-    process_files = sorted(glob.glob(f'{bactopia_path}/containers/*.Dockerfile'))
+    process_files = sorted(glob.glob(f'{bactopia_path}/conda/linux/*.Dockerfile'))
     for i, dockerfile in enumerate(process_files):
         logging.info(f'Working on {dockerfile} ({i+1} of {len(process_files)})')
         process_name = os.path.splitext(os.path.basename(dockerfile))[0]
