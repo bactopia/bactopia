@@ -56,7 +56,7 @@ else
     update_environment "assembly_qc" "checkm-genome=1.1.3 quast=5.0.2" ${CONDA_DIR} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.7 vt=2015.11.10=he941832_3 mash=2.3 ncbi-genome-download=0.3.0 biopython rename" ${CONDA_DIR} ${IS_MAC}
 fi
-update_environment "gather_samples" "bbmap=38.93 art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 fastq-scan=0.4.4 fastqc=0.11.9 lighter=1.1.2 porechop=0.2.4 nanoq=0.8.3 nanoplot=1.39.0 rasusa=0.6.0 biopython rename" ${CONDA_DIR} ${IS_MAC}
+update_environment "gather_samples" "sra-tools=2.11.0 bbmap=38.93 art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.0 fastq-dl=1.0.6 fastq-scan=0.4.4 fastqc=0.11.9 lighter=1.1.2 porechop=0.2.4 nanoq=0.8.3 nanoplot=1.39.0 rasusa=0.6.0 biopython rename" ${CONDA_DIR} ${IS_MAC}
 update_environment "minmers" "mccortex=1.0 mash=2.3 sourmash=4.2.2" ${CONDA_DIR} ${IS_MAC}
 update_environment "sequence_type" "ariba=2.14.6 ncbi-amrfinderplus=3.10.18 blast=2.11.0" ${CONDA_DIR} ${IS_MAC}
 
