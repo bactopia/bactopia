@@ -8,7 +8,6 @@ options = initOptions(params.containsKey('options') ? params.options : [:], 'ann
 process ANNOTATE_GENOME {
     /* Annotate the assembly using Prokka, use a proteins FASTA if available */
     tag "${meta.id}"
-    label "max_cpus"
     label 'annotate_genome'
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

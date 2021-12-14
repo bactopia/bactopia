@@ -11,13 +11,6 @@
             "description": "",
             "default": "",
             "properties": {
-                "snippy_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 4,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
                 "mapqual": {
                     "type": "integer",
                     "description": "Minimum read mapping quality to consider",

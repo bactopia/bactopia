@@ -17,6 +17,7 @@ process CALL_VARIANTS {
     variants will not be called against the nearest completed genome.
     */
     tag "${meta.id} - ${reference_name}"
+    label "base_mem_4gb"
     label "max_cpu_75"
     label "call_variants"
 
@@ -37,7 +38,7 @@ process CALL_VARIANTS {
     path "versions.yml", emit: versions
 
     shell:
-    snippy_ram = task.memory.toString().split(' ')[0]
+    snippy_ram = task.memory.toString().split(' ')[0].toInteger()-1
     reference_name = reference.getSimpleName()
     fastq = meta.single_end ? "--se ${fq[0]}" : "--R1 ${fq[0]} --R2 ${fq[1]}"
     bwaopt = params.bwaopt ? "--bwaopt 'params.bwaopt'" : ""

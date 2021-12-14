@@ -11,7 +11,6 @@ process ANTIMICROBIAL_RESISTANCE {
     on their Mash distance from the input.
     */
     tag "${meta.id}"
-    label "max_cpus"
     label "antimicrobial_resistance"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

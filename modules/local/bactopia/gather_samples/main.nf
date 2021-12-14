@@ -9,7 +9,6 @@ options.ignore = [".fastq.gz", ".fna.gz"]
 process GATHER_SAMPLES {
     /* Gather up input FASTQs for analysis. */
     tag "${meta.id}"
-    label "max_cpus"
     label "gather_samples"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

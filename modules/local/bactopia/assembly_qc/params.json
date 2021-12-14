@@ -11,9 +11,9 @@
             "description": "",
             "default": "",
             "properties": {
-                "skip_checkm": {
+                "run_checkm": {
                     "type": "boolean",
-                    "description": "Skip running CheckM in the assembly QC step",
+                    "description": "Run CheckM in the assembly QC step",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },

@@ -378,10 +378,10 @@ def setup_datasets() {
             }
         } else {
             log.info "--species not given, skipping the following processes (analyses):"
-            log.info "\tsequence_type"
-            log.info "\tcall_variants"
             log.info "\tblast (genes, proteins, primers)"
+            log.info "\tcall_variants"
             log.info "\tmapping_query"
+            log.info "\tsequence_type"
             if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
                 log.error "Asked for genome size '${params.genome_size}' which requires a " +
                           "species to be given. Please give a species or specify " +
@@ -391,13 +391,13 @@ def setup_datasets() {
         }
     } else {
         log.info "--datasets not given, skipping the following processes (analyses):"
-        log.info "\tsequence_type"
         log.info "\tantimicrobial resistance"
         log.info "\tariba_analysis"
-        log.info "\tminmer_query"
-        log.info "\tcall_variants"
         log.info "\tblast (genes, proteins, primers)"
+        log.info "\tcall_variants"
         log.info "\tmapping_query"
+        log.info "\tminmer_query"
+        log.info "\tsequence_type"
     }
 
     if (datasets['genome_size'] > 0) {

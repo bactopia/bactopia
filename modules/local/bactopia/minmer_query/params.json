@@ -11,13 +11,6 @@
             "description": "",
             "default": "",
             "properties": {
-                "minmer_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 5,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
                 "no_winner_take_all": {
                     "type": "boolean",
                     "description": "Disable winner-takes-all strategy for identity estimates",

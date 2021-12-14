@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.1 bactopia/bactopia "" - 2021/??/??
+
+### `Added`
+- `--skip_qc_plots` to skip FastQC and Nanoplot
+- Disable CheckM by default, must use `--run_checkm`
+
+### `Fixed`
+- Resource over allocation for java related programs (-Xmx)
+- ordering of skipped steps when `--datasets` not used
+
 ## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/05
 With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a siginificant contribution!
 

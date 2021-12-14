@@ -1,5 +1,5 @@
 - name: assembly_qc
-  command: bash -c 'nextflow run ./modules/local/bactopia/assembly_qc/test.nf -entry test_assembly_qc --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./modules/local/bactopia/assembly_qc/test.nf -entry test_assembly_qc --outdir pytest --run_checkm -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bactopia
     - assembly_qc

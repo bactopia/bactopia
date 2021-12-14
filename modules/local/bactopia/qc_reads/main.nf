@@ -8,7 +8,7 @@ options = initOptions(params.containsKey('options') ? params.options : [:], 'qc_
 process QC_READS {
     /* Clean up Illumina reads */
     tag "${meta.id}"
-    label "max_cpus"
+    label "base_mem_4gb"
     label "qc_reads"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force, saveAs: { filename -> saveFiles(filename:filename, opts: options) }
@@ -28,7 +28,6 @@ process QC_READS {
     shell:
     options.ignore = [ '-genome-size.txt', extra]
     meta.single_end = fq[1] == null ? true : false
-    qc_ram = task.memory.toString().split(' ')[0]
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapters = params.adapters ? path(params.adapters) : 'adapters'
@@ -37,6 +36,9 @@ process QC_READS {
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
     reformat_opts = meta.single_end ? "" : "in2=phix-r2.cor.fq out2=subsample-r2.fq"
+
+    // set Xmx to 95% of what was allocated, to avoid going over
+    xmx = Math.round(task.memory.toBytes()*0.95)
     '''
     mkdir -p results
     ERROR=0
@@ -68,7 +70,7 @@ process QC_READS {
         else
             # Illumina Reads
             # Remove Adapters
-            bbduk.sh -Xmx!{qc_ram}g \
+            bbduk.sh -Xmx!{xmx} \
                 in=!{fq[0]} out=adapter-r1.fq !{adapter_opts} \
                 ref=!{adapters} \
                 k=!{params.adapter_k} \
@@ -83,7 +85,7 @@ process QC_READS {
                 stats=bbduk-adapter.stdout.txt 2> bbduk-adapter.stderr.txt
 
             # Remove PhiX
-            bbduk.sh -Xmx!{qc_ram}g \
+            bbduk.sh -Xmx!{xmx} \
                 in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
                 ref=!{phix} \
                 k=!{params.phix_k} \
@@ -123,7 +125,7 @@ process QC_READS {
                        -g ${GENOME_SIZE} \
                        -s !{params.sampleseed} 1> subsample-r1.fq 2> rasusa.stderr.txt
             else
-                reformat.sh -Xmx!{qc_ram}g \
+                reformat.sh -Xmx!{xmx} \
                     in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
                     samplebasestarget=${TOTAL_BP} \
                     sampleseed=!{params.sampleseed} \
@@ -167,39 +169,41 @@ process QC_READS {
     fi
 
     # FastQC and NanoPlot
-    if [[ "!{meta.runtype}" == "ont" ]]; then
-        mkdir results/summary/!{meta.id}-original results/summary/!{meta.id}-final
-        NanoPlot !{params.nanoplot_opts} \
-            --threads !{task.cpus} \
-            --fastq !{fq[0]} \
-            --outdir results/summary/!{meta.id}-original/ \
-            --prefix !{meta.id}-original_
-        cp results/summary/!{meta.id}-original/!{meta.id}-original_NanoPlot-report.html results/summary/!{meta.id}-original_NanoPlot-report.html
-        tar -cvf - results/summary/!{meta.id}-original/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-original_NanoPlot.tar.gz
+    if [[ "!{params.skip_qc_plots}" == "false" ]]; then
+        if [[ "!{meta.runtype}" == "ont" ]]; then
+            mkdir results/summary/!{meta.id}-original results/summary/!{meta.id}-final
+            NanoPlot !{params.nanoplot_opts} \
+                --threads !{task.cpus} \
+                --fastq !{fq[0]} \
+                --outdir results/summary/!{meta.id}-original/ \
+                --prefix !{meta.id}-original_
+            cp results/summary/!{meta.id}-original/!{meta.id}-original_NanoPlot-report.html results/summary/!{meta.id}-original_NanoPlot-report.html
+            tar -cvf - results/summary/!{meta.id}-original/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-original_NanoPlot.tar.gz
 
-        NanoPlot !{params.nanoplot_opts} \
-            --threads !{task.cpus} \
-            --fastq results/!{meta.id}.fastq.gz \
-            --outdir results/summary/!{meta.id}-final/ \
-            --prefix !{meta.id}-final_
-        cp results/summary/!{meta.id}-final/!{meta.id}-final_NanoPlot-report.html results/summary/!{meta.id}-final_NanoPlot-report.html
-        tar -cvf - results/summary/!{meta.id}-final/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-final_NanoPlot.tar.gz
-        rm -rf results/summary/!{meta.id}-original/ results/summary/!{meta.id}-final/
-    else
-        if [ "!{meta.single_end}" == "false" ]; then
-            # Paired-End Reads
-            ln -s !{fq[0]} !{meta.id}_R1-original.fastq.gz
-            ln -s !{fq[1]} !{meta.id}_R2-original.fastq.gz
-            ln -s results/!{meta.id}_R1.fastq.gz !{meta.id}_R1-final.fastq.gz
-            ln -s results/!{meta.id}_R2.fastq.gz !{meta.id}_R2-final.fastq.gz
-            fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}_R1-original.fastq.gz !{meta.id}_R2-original.fastq.gz !{meta.id}_R1-final.fastq.gz !{meta.id}_R2-final.fastq.gz
+            NanoPlot !{params.nanoplot_opts} \
+                --threads !{task.cpus} \
+                --fastq results/!{meta.id}.fastq.gz \
+                --outdir results/summary/!{meta.id}-final/ \
+                --prefix !{meta.id}-final_
+            cp results/summary/!{meta.id}-final/!{meta.id}-final_NanoPlot-report.html results/summary/!{meta.id}-final_NanoPlot-report.html
+            tar -cvf - results/summary/!{meta.id}-final/ | pigz --best -p !{task.cpus} > results/summary/!{meta.id}-final_NanoPlot.tar.gz
+            rm -rf results/summary/!{meta.id}-original/ results/summary/!{meta.id}-final/
         else
-            # Single-End Reads
-            ln -s !{fq[0]} !{meta.id}-original.fastq.gz
-            ln -s results/!{meta.id}.fastq.gz !{meta.id}-final.fastq.gz
-            fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}-original.fastq.gz !{meta.id}-final.fastq.gz
+            if [ "!{meta.single_end}" == "false" ]; then
+                # Paired-End Reads
+                ln -s !{fq[0]} !{meta.id}_R1-original.fastq.gz
+                ln -s !{fq[1]} !{meta.id}_R2-original.fastq.gz
+                ln -s results/!{meta.id}_R1.fastq.gz !{meta.id}_R1-final.fastq.gz
+                ln -s results/!{meta.id}_R2.fastq.gz !{meta.id}_R2-final.fastq.gz
+                fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}_R1-original.fastq.gz !{meta.id}_R2-original.fastq.gz !{meta.id}_R1-final.fastq.gz !{meta.id}_R2-final.fastq.gz
+            else
+                # Single-End Reads
+                ln -s !{fq[0]} !{meta.id}-original.fastq.gz
+                ln -s results/!{meta.id}.fastq.gz !{meta.id}-final.fastq.gz
+                fastqc --noextract -f fastq -t !{task.cpus} !{meta.id}-original.fastq.gz !{meta.id}-final.fastq.gz
+            fi
+            mv *_fastqc.html *_fastqc.zip results/summary/
         fi
-        mv *_fastqc.html *_fastqc.zip results/summary/
     fi
 
     # Final QC check
@@ -247,6 +251,7 @@ process QC_READS {
     fi
 
     # Capture versions
+    if [[ "!{params.skip_qc_plots}" == "false" ]]; then
     cat <<-END_VERSIONS > versions.yml
     qc_reads:
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
@@ -259,5 +264,17 @@ process QC_READS {
         porechop: $(echo $(porechop --version 2>&1))
         rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
     END_VERSIONS
+    else
+    cat <<-END_VERSIONS > versions.yml
+    qc_reads:
+        bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
+        fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
+        lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
+        nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        porechop: $(echo $(porechop --version 2>&1))
+        rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
+    END_VERSIONS
+    fi
     '''
 }

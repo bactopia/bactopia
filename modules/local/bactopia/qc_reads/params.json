@@ -13,8 +13,14 @@
             "properties": {
                 "skip_qc": {
                     "type": "boolean",
-                    "description": "The QC step qill be skipped and it will be assumed the inputs sequences have already been QCed.",
+                    "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",
                     "help": "This is really only useful if you have already QC'd your reads, or have a specific need",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "skip_qc_plots": {
+                    "type": "boolean",
+                    "description": "QC Plot creation by FastQC or Nanoplot will be skipped",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
@@ -22,13 +28,6 @@
                     "type": "boolean",
                     "description": "FLASH error correction of reads will be skipped.",
                     "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "qc_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 4,
-                    "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
                 "adapters": {
@@ -180,14 +179,6 @@
                         "33",
                         "64"
                     ]
-                },
-                "xmx": {
-                    "type": "string",
-                    "default": "8g",
-                    "description": "This will be passed to Java to set memory usage",
-                    "help": "'8g' will specify 8 gigs of RAM (Default)",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
                 },
                 "maxcor": {
                     "type": "integer",

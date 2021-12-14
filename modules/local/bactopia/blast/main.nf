@@ -10,7 +10,6 @@ process BLAST {
     Query gene FASTA files against annotated assembly using BLAST
     */
     tag "${meta.id} - ${query}"
-    label "max_cpus"
     label "blast"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

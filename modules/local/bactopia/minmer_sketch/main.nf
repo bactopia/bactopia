@@ -12,6 +12,7 @@ process MINMER_SKETCH {
     Sourmash (k=21,31,51), and McCortex (k=31)
     */
     tag "${meta.id}"
+    label "base_mem_8gb"
     label "minmer_sketch"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

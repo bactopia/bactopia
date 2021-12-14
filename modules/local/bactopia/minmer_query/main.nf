@@ -11,7 +11,7 @@ process MINMER_QUERY {
     GenBank (Sourmash, k=21,31,51)
     */
     tag "${meta.id} - ${dataset_basename}"
-    label "max_cpus"
+    label "base_mem_8gb"
     label "minmer_query"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

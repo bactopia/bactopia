@@ -40,7 +40,7 @@ process ASSEMBLE_GENOME {
 
     // Shovill
     contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${meta.id}_%05d"
-    shovill_ram = task.memory.toString().split(' ')[0]
+    shovill_ram = task.memory.toString().split(' ')[0].toInteger()-1
     opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.no_stitch ? "--nostitch" : ""

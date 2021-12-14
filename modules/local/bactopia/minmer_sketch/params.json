@@ -17,13 +17,6 @@
                     "fa_icon": "fas fa-check",
                     "hidden": true
                 },
-                "cortex_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 8,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
                 "keep_singletons": {
                     "type": "boolean",
                     "description": "Keep all counted 31-mers",

@@ -65,7 +65,7 @@ workflow STAPHOPIA {
     GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
     QC_READS(GATHER_SAMPLES.out.raw_fastq)
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
-    ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna, Channel.fromList(['checkm', 'quast']))
+    ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna)
     ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
     MINMER_SKETCH(QC_READS.out.fastq)
 

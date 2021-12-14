@@ -8,7 +8,6 @@ options = initOptions(params.containsKey('options') ? params.options : [:], 'map
 process MAPPING_QUERY {
     /* Map FASTQ reads against a given set of FASTA files using BWA. */
     tag "${meta.id}"
-    label "max_cpus"
     label "mapping_query"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force, saveAs: { filename -> saveFiles(filename:filename, opts:options) }

@@ -8,6 +8,7 @@ options = initOptions(params.containsKey('options') ? params.options : [:], 'seq
 process SEQUENCE_TYPE {
     /* Determine MLST types using ARIBA and BLAST */
     tag "${meta.id} - ${schema}"
+    label "max_cpus_1"
     label "sequence_type"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,

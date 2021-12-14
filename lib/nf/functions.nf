@@ -58,6 +58,7 @@ def get_resources(profile, max_memory, max_cpus) {
     resources.MAX_CPUS = ['standard', 'docker', 'singularity'].contains(profile) ? _get_max_cpus(max_cpus.toInteger()) : max_cpus.toInteger()
     resources.MAX_CPUS_75 = Math.round(resources.MAX_CPUS * 0.75)
     resources.MAX_CPUS_50 = Math.round(resources.MAX_CPUS * 0.50)
+    resources.MAX_CPUS_1 = 1
     return resources
 }
 

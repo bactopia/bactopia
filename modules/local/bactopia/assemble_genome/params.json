@@ -11,13 +11,6 @@
             "description": "",
             "default": "",
             "properties": {
-                "shovill_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 8,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
                 "shovill_assembler": {
                     "type": "string",
                     "default": "skesa",
@@ -99,13 +92,6 @@
                     "type": "boolean",
                     "description": "Disable post-assembly correction",
                     "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "unicycler_ram": {
-                    "type": "integer",
-                    "description": "Try to keep RAM usage below this many GB",
-                    "default": 32,
-                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "unicycler_mode": {
