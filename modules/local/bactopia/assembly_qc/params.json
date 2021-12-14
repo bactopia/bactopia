@@ -14,7 +14,7 @@
                 "run_checkm": {
                     "type": "boolean",
                     "description": "Run CheckM in the assembly QC step",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-play",
                     "hidden": true
                 },
                 "checkm_unique": {

@@ -14,7 +14,7 @@
                 "count_31mers": {
                     "type": "boolean",
                     "description": "Enable 31-mer counting with McCortex",
-                    "fa_icon": "fas fa-check",
+                    "fa_icon": "fas fa-play",
                     "hidden": true
                 },
                 "keep_singletons": {

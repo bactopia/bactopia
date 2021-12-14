@@ -132,21 +132,21 @@
                     "type": "string",
                     "description": "The model to use for Medaka polishing",
                     "help": "This should be the same model used for base calling",
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "medaka_steps": {
                     "type": "integer",
                     "description": "The number of Medaka polishing steps to conduct",
                     "default": 0,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "racon_steps": {
                     "type": "integer",
                     "description": "The number of Racon polishing steps to conduct",
                     "default": 1,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "no_polish": {

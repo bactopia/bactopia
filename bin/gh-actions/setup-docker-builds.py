@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 """
-usage: bactopia build [-h] [--github] [--quay] [--max_retry INT] [--force]
-                      [--verbose] [--silent] [--version]
-                      STR STR
+usage: setup-docker-builds.py [-h] [--github] [--quay] [--max_retry INT] [--force]
+                              [--verbose] [--silent] [--version]
+                              STR STR
 
 setup-docker-builds.py - Build Docker containers for use by Bactopia
 
@@ -170,7 +170,7 @@ if __name__ == '__main__':
     import argparse as ap
 
     parser = ap.ArgumentParser(
-        prog='bactopia build',
+        prog='setup-docker-builds.py',
         conflict_handler='resolve',
         description=(
             f'{PROGRAM} (v{VERSION}) - Build Docker containers for use by Bactopia'

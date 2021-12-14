@@ -59,7 +59,7 @@
                 "accessions": {
                     "type": "string",
                     "description": "A file containing ENA/SRA Experiment accessions or NCBI Assembly accessions to processed",
-                    "fa_icon": "fas fa-file-text-o",
+                    "fa_icon": "fas fa-file-alt",
                     "header": "### For Downloading from SRA/ENA or NCBI Assembly\n  **Note: Downloaded assemblies will have error free Illumina reads simulated for processing.**"
                 },
                 "accession": {
@@ -112,7 +112,8 @@
                 "available_datasets": {
                     "type": "boolean",
                     "description": "Print a list of available datasets found based on location given by `--datasets`",
-                    "fa_icon": "fab fa-print"
+                    "fa_icon": "fas fa-print",
+                    "hidden": true
                 }
             }
         }

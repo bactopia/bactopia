@@ -42,7 +42,7 @@
                 }
             }
         },
-        "max_job_request_options": {
+        "max_job_request_parameters": {
             "title": "Max Job Request Parameters",
             "type": "object",
             "fa_icon": "fab fa-acquisitions-incorporated",
@@ -350,6 +350,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/optional_parameters"
+        },
+        {
+            "$ref": "#/definitions/max_job_request_parameters"
         },
         {
             "$ref": "#/definitions/nextflow_parameters"
