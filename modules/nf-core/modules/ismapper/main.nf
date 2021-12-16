@@ -11,7 +11,7 @@ process ISMAPPER {
         saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: query_base) }
 
     conda (params.enable_conda ? "bioconda::ismapper=2.0.2" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ismapper:2.0.2--pyhdfd78af_1' :
         'quay.io/biocontainers/ismapper:2.0.2--pyhdfd78af_1' }"
 

@@ -11,7 +11,7 @@ process EMMTYPER {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::emmtyper=0.2.0" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/emmtyper:0.2.0--py_0' :
         'quay.io/biocontainers/emmtyper:0.2.0--py_0' }"
 

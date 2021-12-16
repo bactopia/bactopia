@@ -270,6 +270,21 @@ class NfcoreTemplate {
                 -${colors.dim}------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
+        } else if (logo_name == "enteropia") {
+            String.format(
+                """\n
+                -${colors.dim}---------------------------------------------------------------------------------------${colors.reset}-
+                ${colors.blue}              _                       _             ${colors.reset}
+                ${colors.blue}    ___ _ __ | |_ ___ _ __ ___  _ __ (_) __ _       ${colors.reset}
+                ${colors.blue}   / _ \\ '_ \\| __/ _ \\ '__/ _ \\| '_ \\| |/ _` | ${colors.reset}
+                ${colors.blue}  |  __/ | | | ||  __/ | | (_) | |_) | | (_| |      ${colors.reset}
+                ${colors.blue}   \\___|_| |_|\\__\\___|_|  \\___/| .__/|_|\\__,_| ${colors.reset}
+                ${colors.blue}                               |_|                  ${colors.reset}
+                ${colors.purple}  enteropia v${workflow.manifest.version}${colors.reset}
+                ${colors.purple}  ${worflow_description} ${colors.reset}
+                -${colors.dim}---------------------------------------------------------------------------------------${colors.reset}-
+                """.stripIndent()
+            )
         } else if (logo_name == "tools") {
             String.format(
                 """\n

@@ -194,6 +194,13 @@
                     "fa_icon": "fas fa-clipboard-list",
                     "hidden": true
                 },
+                "cluster_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to the executor. (e.g. SLURM: '--account=my_acct_name'",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
                 "disable_scratch": {
                     "type": "boolean",
                     "default": false,

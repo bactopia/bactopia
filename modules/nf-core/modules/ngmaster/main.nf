@@ -11,7 +11,7 @@ process NGMASTER {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::ngmaster=0.5.8" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ngmaster:0.5.8--pyhdfd78af_1' :
         'quay.io/biocontainers/ngmaster:0.5.8--pyhdfd78af_1' }"
 

@@ -11,7 +11,7 @@ process IQTREE {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? 'bioconda::iqtree=2.1.4_beta' : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/iqtree:2.1.4_beta--hdcc8f71_0' :
         'quay.io/biocontainers/iqtree:2.1.4_beta--hdcc8f71_0' }"
 

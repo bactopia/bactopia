@@ -11,7 +11,7 @@ process CLONALFRAMEML {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' :
         'quay.io/biocontainers/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' }"
 

@@ -11,7 +11,7 @@ process EGGNOG_MAPPER {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::eggnog-mapper=2.1.6" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.6--pyhdfd78af_0' :
         'quay.io/biocontainers/eggnog-mapper:2.1.6--pyhdfd78af_0' }"
 

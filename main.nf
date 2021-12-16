@@ -5,6 +5,8 @@ if (params.workflows.containsKey(params.wf)) {
     if (params.workflows[params.wf].containsKey('is_workflow')) {
         if (params.wf == "staphopia") {
             include { STAPHOPIA } from './workflows/staphopia'
+        } else if (params.wf == "enteropia") {
+            include { ENTEROPIA } from './workflows/enteropia'
         } else {
             include { BACTOPIA } from './workflows/bactopia'
         }
@@ -26,7 +28,9 @@ workflow {
     if (params.workflows[params.wf].containsKey('is_workflow')) {
         if (params.wf == "staphopia") {
             STAPHOPIA()
-        } else {
+        } else if (params.wf == "enteropia") {
+            ENTEROPIA()
+        }else {
             BACTOPIA()
         }
     } else {

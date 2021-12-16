@@ -20,10 +20,12 @@ def get_schemas() {
     if (params.workflows[params.wf].containsKey('includes')) {
         // Wrapper around multiple workflows
         schemas += _get_include_schemas(params.workflows[params.wf]["includes"])
-    } else if (params.workflows[params.wf].containsKey('modules')) {
+    } 
+    if (params.workflows[params.wf].containsKey('modules')) {
         // Workflow or Subworkflow
         schemas += _get_module_schemas(params.workflows[params.wf]["modules"])
-    } else if (params.workflows[params.wf].containsKey('path')) {
+    } 
+    if (params.workflows[params.wf].containsKey('path')) {
         // Module
         schemas << "${params.workflows[params.wf].path}/params.json"
     }

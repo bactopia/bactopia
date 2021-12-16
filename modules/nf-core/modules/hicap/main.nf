@@ -11,7 +11,7 @@ process HICAP {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::hicap=1.0.3" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/hicap:1.0.3--py_0' :
         'quay.io/biocontainers/hicap:1.0.3--py_0' }"
 

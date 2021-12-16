@@ -11,7 +11,7 @@ process CSVTK_CONCAT {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::csvtk=0.23.0" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/csvtk:0.23.0--h9ee0642_0' :
         'quay.io/biocontainers/csvtk:0.23.0--h9ee0642_0' }"
 
