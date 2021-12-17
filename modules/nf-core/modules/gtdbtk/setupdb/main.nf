@@ -5,9 +5,8 @@ options     = initOptions(params.options ? params.options : [:], 'gtdb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
 process GTDBTK_SETUPDB {
-    tag "${meta.assembler}-${meta.id}"
     label 'process_high'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+    publishDir "${params.gtdb}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::gtdbtk=1.7.0" : null)
@@ -15,17 +14,15 @@ process GTDBTK_SETUPDB {
         'https://depot.galaxyproject.org/singularity/gtdbtk:1.7.0--pyhdfd78af_0' :
         'quay.io/biocontainers/gtdbtk:1.7.0--pyhdfd78af_0' }"
 
-    input:
-    env GTDBTK_DATA_PATH from params.gtdb
-
     output:
-    path "gtdb-setup.txt"                   , emit: setup
+    path("${params.gtdb}/*")                , emit: db
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 
     script:
     """
+    export GTDBTK_DATA_PATH="${params.gtdb}"
     if [ "${params.download_gtdb}" == "true" ]; then
         rm -rf !{params.gtdb}/*.tar.gz
         download-db.sh
@@ -37,7 +34,6 @@ process GTDBTK_SETUPDB {
         gtdbtk check_install && touch gtdb-setup.txt
     else
         echo "skipping GTDB database checks"
-        touch gtdb-setup.txt
     fi
 
     cat <<-END_VERSIONS > versions.yml

@@ -24,12 +24,6 @@
                     "description": "Filter genomes with an insufficient percentage of AA in the MSA",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "recalculate_red": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Recalculate RED values based on the reference tree and all added user genomes",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
                 "gtdb_tmp": {
                     "type": "boolean",
                     "default": "/tmp",

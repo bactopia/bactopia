@@ -7,7 +7,7 @@ publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.
 process GTDBTK_CLASSIFYWF {
     tag "${meta.id}"
     label 'process_high'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? "bioconda::gtdbtk=1.5.0" : null)
@@ -17,7 +17,7 @@ process GTDBTK_CLASSIFYWF {
 
     input:
     tuple val(meta), path(fna, stageAs: 'fna-tmp/*')
-    env GTDBTK_DATA_PATH from params.gtdb
+    path db, stageAs: 'gtdb/*'
 
     output:
     path "results/*"                        , emit: results
@@ -28,6 +28,7 @@ process GTDBTK_CLASSIFYWF {
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
+    export GTDBTK_DATA_PATH="${params.gtdb}"
     mkdir fna
     cp -L fna-tmp/* fna/
     find fna/ -name "*.fna.gz" | xargs gunzip
@@ -36,7 +37,7 @@ process GTDBTK_CLASSIFYWF {
         $options.args \\
         --cpus $task.cpus \\
         --pplacer_cpus $task.cpus \\
-        --genome_dir ./genomes \\
+        --genome_dir ./fna \\
         --out_dir results \\
         --prefix ${prefix}
 
