@@ -30,7 +30,6 @@ process BLAST {
     OUTDIR=results/!{query}
     mkdir -p ${OUTDIR}
     for fasta in !{query}/*; do
-        type=`readlink -f ${fasta}`
         name=$(basename "${fasta%.*}")
         mkdir -p temp_json
         if [ "!{query}" == "genes" ]; then

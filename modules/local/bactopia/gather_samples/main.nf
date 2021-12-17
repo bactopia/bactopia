@@ -48,22 +48,22 @@ process GATHER_SAMPLES {
 
     if [ "!{runtype}" == "paired-end" ]; then
         # Paired-End Reads
-        ln -s `readlink !{r1[0]}` fastqs/!{meta.id}_R1.fastq.gz
-        ln -s `readlink !{r2[0]}` fastqs/!{meta.id}_R2.fastq.gz
+        cp -L !{r1[0]} fastqs/!{meta.id}_R1.fastq.gz
+        cp -L !{r2[0]} fastqs/!{meta.id}_R2.fastq.gz
         touch extra/empty.fna.gz
     elif [ "!{runtype}" == "single-end" ]; then
         # Single-End Reads
-        ln -s `readlink !{r1[0]}` fastqs/!{meta.id}.fastq.gz
+        cp -L !{r1[0]} fastqs/!{meta.id}.fastq.gz
         touch extra/empty.fna.gz
     elif [ "!{runtype}" == "ont" ]; then
         # Nanopore reads
-        ln -s `readlink !{r1[0]}` fastqs/!{meta.id}.fastq.gz
+        cp -L !{r1[0]} fastqs/!{meta.id}.fastq.gz
         touch extra/empty.fna.gz
     elif  [ "!{runtype}" == "hybrid" ]; then
         # Paired-End Reads
-        ln -s `readlink !{r1[0]}` fastqs/!{meta.id}_R1.fastq.gz
-        ln -s `readlink !{r2[0]}` fastqs/!{meta.id}_R2.fastq.gz
-        ln -s `readlink !{extra}` extra/!{meta.id}.fastq.gz
+        cp -L !{r1[0]} fastqs/!{meta.id}_R1.fastq.gz
+        cp -L !{r2[0]} fastqs/!{meta.id}_R2.fastq.gz
+        cp -L !{extra} extra/!{meta.id}.fastq.gz
     elif [ "!{runtype}" == "merge-pe" ] || [ "!{runtype}" == "hybrid-merge-pe" ]; then 
         # Merge Paired-End Reads
         echo "This sample had reads merged." > ${MERGED}
@@ -80,7 +80,7 @@ process GATHER_SAMPLES {
         ls -l fastqs/!{meta.id}_R2.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         if [ "!{runtype}" == "hybrid-merge-pe" ]; then
-            ln -s `readlink !{extra}` extra/!{meta.id}.fastq.gz
+            cp -L !{extra} extra/!{meta.id}.fastq.gz
         else
             touch extra/empty.fna.gz
         fi

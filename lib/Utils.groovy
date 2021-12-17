@@ -78,6 +78,15 @@ class Utils {
     }
 
     //
+    // Check if file is remote (e.g. AWS, Azure, GCP)
+    //
+    public static Boolean isLocal(filename) {
+        if (filename.startsWith('gs://') || filename.startsWith('s3://') || filename.startsWith('az://')) {
+            return false
+        }
+        return true
+    }
+    //
     //  Verify input file exists
     //
     public static Integer fileNotFound(filename, parameter, log) {

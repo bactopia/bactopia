@@ -136,7 +136,7 @@ def saveFiles(Map args) {
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
             final_output = null
-            if (filename.endsWith("-error.txt") || publish_to_base == true) {
+            if (filename.endsWith("-error.txt") || filename.endsWith("-genome-size.txt") || publish_to_base == true) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
                 final_output = "blast/${filename}"
@@ -167,7 +167,7 @@ def saveFiles(Map args) {
             }
 
         }
-        return final_output == null ? null : final_output.replace("//", "/").replace('/./', '/')
+        return final_output == null ? null : final_output.replace("//", "/")
     }
 }
 

@@ -15,9 +15,11 @@ class WorkflowBactopiaTools {
 
 
         if (params.bactopia) {
-            error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
-            if (error > 0) {
-                missing_required += 1
+            if (Utils.isLocal(params.bactopia)) {
+                error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
+                if (error > 0) {
+                    missing_required += 1
+                }
             }
         }
 
@@ -25,23 +27,39 @@ class WorkflowBactopiaTools {
             log.error "'--include' and '--exclude' cannot be used together"
             error += 1
         } else if (params.include) {
-            error += Utils.fileNotFound(params.include, 'include', log)
+            if (Utils.isLocal(params.include)) {
+                error += Utils.fileNotFound(params.include, 'include', log)
+            }
         } else if (params.exclude) {
-            error += Utils.fileNotFound(params.exclude, 'exclude', log)
+            if (Utils.isLocal(params.exclude)) {
+                error += Utils.fileNotFound(params.exclude, 'exclude', log)
+            }
         }
 
         // Workflow specific databases
         if (params.wf == "bakta") {
             if (params.bakta_db) {
-                error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                if (Utils.isLocal(params.backta_db)) {
+                    error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                }
             } else {
                 missing_required += 1
             }
         } else if (params.wf == "eggnog") {
             if (params.eggnog) {
-                missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
-                if (missing_file > 0 && params.download_eggnog == false) {
-                    missing_required += 1
+                if (Utils.isLocal(params.eggnog)) {
+                    missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
+                    if (missing_file > 0 && params.download_eggnog == false) {
+                        missing_required += 1
+                    }
+                }
+            } else {
+                missing_required += 1
+            }
+        } else if (params.wf == "gtdb") {
+            if (params.gtdb) {
+                if (Utils.isLocal(params.gtdb)) {
+                    error += Utils.fileNotFound(params.gtdb, 'gtdb', log)
                 }
             } else {
                 missing_required += 1
@@ -49,17 +67,19 @@ class WorkflowBactopiaTools {
         }
 
         // Check for existing output directory
-        if (!workflow.resume) {
-            def run_dir = "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}"
-            def Integer files_found = 0
-            new File(run_dir).eachFile { item ->
-                if (item.getName() != "nf-reports") {
-                    files_found += 1
+        if (Utils.isLocal(params.outdir)) {
+            if (!workflow.resume) {
+                def run_dir = "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}"
+                def Integer files_found = 0
+                new File(run_dir).eachFile { item ->
+                    if (item.getName() != "nf-reports") {
+                        files_found += 1
+                    }
                 }
-            }
-            if (files_found > 0 && !params.force) {
-                log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
-                error += 1
+                if (files_found > 0 && !params.force) {
+                    log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
+                    error += 1
+                }
             }
         }
 

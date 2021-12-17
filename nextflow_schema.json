@@ -14,6 +14,8 @@
             "properties": {
                 "fastqs": {
                     "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
                     "description": "A FOFN with sample names and paths to FASTQ/FASTAs to process\n",
                     "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
                     "fa_icon": "fas fa-file-alt",

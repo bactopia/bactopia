@@ -13,27 +13,45 @@ class WorkflowBactopia {
         def String run_type = ""
 
         if (params.fastqs) {
-            error += Utils.fileNotFound(params.fastqs, 'fastqs', log)
+            if (Utils.isLocal(params.fastqs)) {
+                error += Utils.fileNotFound(params.fastqs, 'fastqs', log)
+            }
             run_type = "fastqs"
         } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
-            error += Utils.fileNotGzipped(params.R1, 'R1', log)
-            error += Utils.fileNotGzipped(params.R2, 'R2', log)
-            error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            if (Utils.isLocal(params.R1)) {
+                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+            }
+            if (Utils.isLocal(params.R2)) {
+                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            }
+            if (Utils.isLocal(params.SE)) {
+                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            }
             run_type = "hybrid"
         } else if  (params.R1 && params.R2 && params.SE) {
             log.error "Cannot use --R1, --R2, and --SE together, unless --hybrid is used."
         } else if  (params.R1 && params.R2 && params.sample) {
-            error += Utils.fileNotGzipped(params.R1, 'R1', log)
-            error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            if (Utils.isLocal(params.R1)) {
+                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+            }
+            if (Utils.isLocal(params.R2)) {
+                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            }
             run_type = "paired-end"
         } else if (params.SE && params.sample) {
-            error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            if (Utils.isLocal(params.SE)) {
+                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            }
             run_type = params.ont ? "ont" : "single-end"
         } else if (params.assembly && params.sample) {
-            error += Utils.fileNotGzipped(params.assembly, 'assembly', log)
+            if (Utils.isLocal(params.assembly)) {
+                error += Utils.fileNotGzipped(params.assembly, 'assembly', log)
+            }
             run_type = "assembly"
         } else if (params.accessions) {
-            error += Utils.fileNotFound(params.accessions, 'accessions', log)
+            if (Utils.isLocal(params.accessions)) {
+                error += Utils.fileNotGzipped(params.accessions, 'accessions', log)
+            }
             run_type = "is_accessions"
         } else if (params.accession) {
             run_type = "is_accession"
@@ -60,23 +78,29 @@ class WorkflowBactopia {
         }
 
         if (params.adapters) {
-            error += Utils.fileNotFound(params.adapters, 'adapters', log)
+            if (Utils.isLocal(params.adapters)) {
+                error += Utils.fileNotFound(params.adapters, 'adapters', log)
+            }
         }
 
         if (params.phix) {
-            error += Utils.fileNotFound(params.phix, 'phix', log)
+            if (Utils.isLocal(params.phix)) {
+                error += Utils.fileNotFound(params.phix, 'phix', log)
+            }
         }
 
         if (params.datasets) {
-            if (!Utils.fileExists("${params.datasets}/summary.json")) {
-                log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                        "to open ${params.datasets}/summary.json"
-                error += 1
+            if (Utils.isLocal(params.datasets)) {
+                if (!Utils.fileExists("${params.datasets}/summary.json")) {
+                    log.error "Please verify the PATH is correct for '--datasets'. Unable " +
+                            "to open ${params.datasets}/summary.json"
+                    error += 1
+                }
             }
         }
 
         // Check for existing output directory
-        if (!params.outdir.startsWith('gs://') && !params.outdir.startsWith('s3://') && !params.outdir.startsWith('az://')) {
+        if (Utils.isLocal(params.outdir)) {
             // Only run this if local files
             if (!workflow.resume) {
                 def run_dir = "${params.outdir}/${params.run_name}"
