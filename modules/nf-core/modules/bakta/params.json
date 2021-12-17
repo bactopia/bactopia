@@ -15,7 +15,8 @@
                 "bakta_db": {
                     "type": "string",
                     "description": "Path to the Bakta database",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "proteins": {
                     "type": "string",

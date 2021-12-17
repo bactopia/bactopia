@@ -4,45 +4,45 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'gtdb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
-process GTDBTK_CLASSIFYWF {
-    tag "${meta.id}"
+process GTDBTK_SETUPDB {
+    tag "${meta.assembler}-${meta.id}"
     label 'process_high'
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::gtdbtk=1.5.0" : null)
+    conda (params.enable_conda ? "bioconda::gtdbtk=1.7.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gtdbtk:1.7.0--pyhdfd78af_0' :
         'quay.io/biocontainers/gtdbtk:1.7.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(fna, stageAs: 'fna-tmp/*')
     env GTDBTK_DATA_PATH from params.gtdb
 
     output:
-    path "results/*"                        , emit: results
+    path "gtdb-setup.txt"                   , emit: setup
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     """
-    mkdir fna
-    cp -L fna-tmp/* fna/
-    find fna/ -name "*.fna.gz" | xargs gunzip
+    if [ "${params.download_gtdb}" == "true" ]; then
+        rm -rf !{params.gtdb}/*.tar.gz
+        download-db.sh
+    else
+        echo "skipping GTDB database download"
+    fi
 
-    gtdbtk classify_wf \\
-        $options.args \\
-        --cpus $task.cpus \\
-        --pplacer_cpus $task.cpus \\
-        --genome_dir ./genomes \\
-        --out_dir results \\
-        --prefix ${prefix}
+    if [ "${params.skip_check}" == "false" ]; then
+        gtdbtk check_install && touch gtdb-setup.txt
+    else
+        echo "skipping GTDB database checks"
+        touch gtdb-setup.txt
+    fi
 
     cat <<-END_VERSIONS > versions.yml
-    gtdbtk_classifywf:
-        gtdb-tk: \$(echo \$(gtdbtk --version -v 2>&1) | sed "s/gtdbtk: version //; s/ Copyright.*//")
+    gtdbtk_setupdb:
+        gtdbtk: \$(echo \$(gtdbtk --version -v 2>&1) | sed "s/gtdbtk: version //; s/ Copyright.*//")
     END_VERSIONS
     """
 }

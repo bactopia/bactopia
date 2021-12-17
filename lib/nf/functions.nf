@@ -167,7 +167,7 @@ def saveFiles(Map args) {
             }
 
         }
-        return final_output == null ? null : final_output.replace("//", "/")
+        return final_output == null ? null : final_output.replace("//", "/").replace('/./', '/')
     }
 }
 

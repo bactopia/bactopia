@@ -1,17 +1,23 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/fastani/params.json",
-    "title": "fastANI Module",
-    "description": "A module for alignment-free computation Average Nucleotide Identity (ANI)",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/gtdbtk/classifywf/params.json",
+    "title": "GTDB Classify Module",
+    "description": "Identify marker genes and assign taxonomic classifications",
     "type": "object",
     "definitions": {
-        "fastani_parameters": {
-            "title": "fastANI Parameters",
+        "gtdb_classifywf_parameters": {
+            "title": "GTDB Classify Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "min_af": {
+                    "type": "number",
+                    "default": 0.65,
+                    "description": "Minimum alignment fraction to consider closest genome",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "min_perc_aa": {
                     "type": "integer",
                     "default": 10,
@@ -23,13 +29,40 @@
                     "default": false,
                     "description": "Recalculate RED values based on the reference tree and all added user genomes",
                     "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "gtdb_tmp": {
+                    "type": "boolean",
+                    "default": "/tmp",
+                    "description": "Specify alternative directory for temporary files",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "gtdb_use_scratch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Reduce pplacer memory usage by writing to --gtdb_tmp location (slower)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "gtdb_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Create intermediate files for debugging purposes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "force_gtdb": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Continue processing if an error occurs on a single genome",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/fastani_parameters"
+            "$ref": "#/definitions/gtdb_classifywf_parameters"
         }
     ]
 }

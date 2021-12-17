@@ -76,17 +76,20 @@ class WorkflowBactopia {
         }
 
         // Check for existing output directory
-        if (!workflow.resume) {
-            def run_dir = "${params.outdir}/${params.run_name}"
-            def Integer files_found = 0
-            new File(run_dir).eachFile { item ->
-                if (item.getName() != "nf-reports") {
-                    files_found += 1
+        if (!params.outdir.startsWith('gs://') && !params.outdir.startsWith('s3://') && !params.outdir.startsWith('az://')) {
+            // Only run this if local files
+            if (!workflow.resume) {
+                def run_dir = "${params.outdir}/${params.run_name}"
+                def Integer files_found = 0
+                new File(run_dir).eachFile { item ->
+                    if (item.getName() != "nf-reports") {
+                        files_found += 1
+                    }
                 }
-            }
-            if (files_found > 0 && !params.force) {
-                log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
-                error += 1
+                if (files_found > 0 && !params.force) {
+                    log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
+                    error += 1
+                }
             }
         }
 
