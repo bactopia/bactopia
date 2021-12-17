@@ -10,7 +10,7 @@ process GTDBTK_CLASSIFYWF {
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::gtdbtk=1.5.0" : null)
+    conda (params.enable_conda ? "bioconda::gtdbtk=1.7.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gtdbtk:1.7.0--pyhdfd78af_0' :
         'quay.io/biocontainers/gtdbtk:1.7.0--pyhdfd78af_0' }"
