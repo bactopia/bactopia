@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/profiles/aws.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "gcp_profile_parameters": {
+            "title": "GCP Profile (-profile gcp) Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your AWS Batch setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gcp_region": {
+                    "type": "string",
+                    "default": "'us-central1",
+                    "description": "GCP Region to be used by Nextflow",
+                    "fa_icon": "fas fa-folder"
+                },
+                "gcp_bucket": {
+                    "type": "string",
+                    "description": "GCP bucket to use for the work directory",
+                    "fa_icon": "fas fa-folder"
+                },
+                "gcp_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Capture all GCP debug logs",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "gcp_preemptible": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Run GCP instances in preempt mode",
+                    "fa_icon": "fas fa-folder"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/gcp_profile_parameters"
+        }
+    ]
+}

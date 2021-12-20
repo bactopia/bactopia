@@ -18,23 +18,23 @@
                     "description": "kmer size (<= 16) for ANI calculation ",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "fragLen": {
-                    "type": "integer",
-                    "default": 3000,
-                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "minFraction ": {
+                "min_fraction": {
                     "type": "number",
                     "default": 0.2,
                     "description": "Minimum fraction of genome that must be shared for trusting ANI.",
                     "help": "If reference and query genome size differ, smaller one among the two is considered.",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
+                "frag_len": {
+                    "type": "integer",
+                    "default": 3000,
+                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "skip_pairwise": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip pairwise ANI calculations for all samples",
+                    "description": "Only use RefSeq or local assemblies for ANI calculations",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }

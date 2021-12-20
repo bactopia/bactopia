@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/profiles/slurm.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "slurm_profile_parameters": {
+            "title": "SLURM Profile (-profile slurm) Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your SLURM setup.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "slurm_queue": {
+                    "type": "string",
+                    "default": "general,high-memory",
+                    "description": "Comma-separated name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM)",
+                    "fa_icon": "fas fa-clipboard-list"
+                },
+                "slurm_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to SLURM. (e.g. '--account=my_acct_name'",
+                    "fa_icon": "fas fa-clipboard-list"
+                },
+                "slurm_use_scratch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "All intermediate files will stay on the on worker nodes.",
+                    "help": "This can help reduce transfer times, but can affect the ability to resume",
+                    "fa_icon": "fas fa-file-import"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/slurm_profile_parameters"
+        }
+    ]
+}

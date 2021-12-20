@@ -3,8 +3,8 @@
 //
 fastani_opts = [
     "--kmer ${params.kmer}",
-    "--fragLen ${params.fragLen}",
-    "--minFraction ${params.minFraction}"
+    "--fragLen ${params.frag_len}",
+    "--minFraction ${params.min_fraction}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/modules/fastani/main' addParams( options: [ args: "${fastani_opts}", is_module: true] )
@@ -19,8 +19,17 @@ workflow FASTANI {
 
     main:
     ch_versions = Channel.empty()
+    ch_fastani_reference = Channel.empty()
     query.collect{meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}.set{ ch_fastani_query }
-    FASTANI_MODULE ( ch_fastani_query, reference )
+    if (params.skip_pairwise) {
+        // All against each reference
+        ch_fastani_reference = reference.map{meta, fasta -> fasta}
+    } else {
+        // All by All
+        ch_fastani_reference = query.map{meta, fasta -> fasta}
+    }
+
+    FASTANI_MODULE ( ch_fastani_query, ch_fastani_reference )
     if (params.is_subworkflow) {
         FASTANI_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}.set{ ch_merge_fastani }
         CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')

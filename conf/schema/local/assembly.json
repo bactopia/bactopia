@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools-local.json",
+    "title": "Bactopia Tools ",
+    "description": "Parameters for workflows associated with Bactopia Tools",
+    "type": "object",
+    "definitions": {
+        "local_file_parameters": {
+            "title": "Local Files Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Include additional files in you analysis",
+            "help_text": "",
+            "properties": {
+                "assembly": {
+                    "type": "string",
+                    "description": "A single assembly, or directory of assemblies to be included.",
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "assembly_pattern": {
+                    "type": "string",
+                    "default": ".fna.gz",
+                    "description": "If a directory is given, use the given pattern to match assemblies.",
+                    "fa_icon": "fas fa-file-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/local_file_parameters"
+        }
+    ]
+}

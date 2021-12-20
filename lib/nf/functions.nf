@@ -17,17 +17,27 @@ def get_schemas() {
         schemas << 'conf/schema/bactopia-tools.json'
     }
 
+    if (params.workflows[params.wf].containsKey('use_local')) {
+        // Some work flows should include local files
+        schemas << "conf/schema/local/${params.workflows[params.wf]['use_local']}.json"
+    }
+
     if (params.workflows[params.wf].containsKey('includes')) {
         // Wrapper around multiple workflows
         schemas += _get_include_schemas(params.workflows[params.wf]["includes"])
-    } 
+    }
     if (params.workflows[params.wf].containsKey('modules')) {
         // Workflow or Subworkflow
         schemas += _get_module_schemas(params.workflows[params.wf]["modules"])
-    } 
+    }
     if (params.workflows[params.wf].containsKey('path')) {
         // Module
         schemas << "${params.workflows[params.wf].path}/params.json"
+    }
+
+    // Load profile specific schemas
+    if (['aws', 'gcp', 'slurm'].contains(workflow.profile)) {
+        schemas << "conf/schema/profiles/${workflow.profile}.json"
     }
 
     schemas << 'conf/schema/generic.json'

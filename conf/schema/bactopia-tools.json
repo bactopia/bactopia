@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/subworkflows/local/staphtyper/params.json",
-    "title": "Bactopia StaphTyper Subworkflow",
-    "description": "A subworkflow for typing certain features of Staphylococcus aureus",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
+    "title": "Bactopia Tools ",
+    "description": "Parameters for workflows associated with Bactopia Tools",
     "type": "object",
     "definitions": {
         "input_parameters": {

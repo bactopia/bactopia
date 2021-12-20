@@ -76,24 +76,55 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 workflow BACTOPIATOOLS {
     print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
-    local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
-    downloads = Channel.empty()
+    ch_local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
+    ch_downloads = Channel.empty()
+    ch_local_files = Channel.empty()
+
+    // Include local assembly files (optional)
+    if (params.containsKey('assembly')) {
+        if (file(params.assembly).exists()) {
+            if (file(params.assembly).isDirectory()) {
+                ch_local_files = Channel.fromPath( "${params.assembly}/${params.assembly_pattern}" ).map{ assembly ->
+                    return [tuple([id: file(assembly).getSimpleName()], assembly)]
+                }
+            } else {
+                ch_local_files = Channel.fromList([tuple([id: file(params.assembly).getSimpleName()], file(params.assembly))])
+            }
+        }
+    }
+
     // Include public genomes (optional)
     if (params.containsKey('accession')) {
         if (params.accession || params.accessions || params.species) {
             NCBIGENOMEDOWNLOAD()
             ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
             if (params.wf == 'pangenome') {
-                PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+                PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files))
                 ch_versions.mix(PROKKA.out.versions.first())
-                downloads = PROKKA.out.gff
+                ch_downloads = PROKKA.out.gff
             } else {
-                downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools
+                ch_downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files)
+            }
+        } else {
+            ch_downloads = ch_local_files
+        }
+    } else {
+        ch_downloads = ch_local_files
+    }
+
+    // Include local GFF files (optional)
+    if (params.containsKey('gff')) {
+        if (file(params.gff).exists()) {
+            if (file(params.gff).isDirectory()) {
+                ch_downloads = ch_downloads.mix(Channel.fromPath( "${params.gff}/${params.gff_pattern}" ).map{ gff ->
+                    return [tuple([id: file(gff).getSimpleName()], gff)]
+                })
+            } else {
+                ch_downloads = ch_downloads.mix(Channel.fromList([tuple([id: file(params.gff).getSimpleName()], file(params.gff))]))
             }
         }
     }
-
-    samples = local_samples.mix(downloads)
+    samples = ch_local_samples.mix(ch_downloads)
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
@@ -109,6 +140,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'emmtyper') {
         EMMTYPER(samples)
         ch_versions = ch_versions.mix(EMMTYPER.out.versions)
+    } else if (params.wf == 'fastani') {
+        FASTANI(samples, ch_downloads)
+        ch_versions = ch_versions.mix(FASTANI.out.versions)
     } else if (params.wf == 'gtdb') {
         GTDB(samples)
         ch_versions = ch_versions.mix(GTDB.out.versions)
