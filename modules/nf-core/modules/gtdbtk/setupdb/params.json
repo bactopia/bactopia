@@ -14,7 +14,6 @@
             "properties": {
                 "gtdb": {
                     "type": "string",
-                    "default": 10,
                     "description": "Location of a GTDB database. If a database is not found, you must use '--download_gtdb'",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "is_required": true
