@@ -85,7 +85,7 @@ workflow BACTOPIATOOLS {
         ch_downloads = Channel.empty()
         if (params.accession || params.accessions || params.species) {
             NCBIGENOMEDOWNLOAD()
-            ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
+            ch_versions = ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
             ch_downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files)
         } else {
             ch_downloads = ch_local_files
@@ -94,7 +94,7 @@ workflow BACTOPIATOOLS {
         if (params.wf == 'pangenome') {
             // Create prokka gff3 files for PIRATE/Roary
             PROKKA(ch_downloads)
-            ch_versions.mix(PROKKA.out.versions.first())
+            ch_versions = ch_versions.mix(PROKKA.out.versions.first())
             ch_gather_files = PROKKA.out.gff
         } else {
             ch_gather_files = ch_downloads
