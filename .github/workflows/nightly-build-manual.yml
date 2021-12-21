@@ -18,7 +18,7 @@ jobs:
 
       - name: Build and Push 
         run: |
-          conda install -c conda-forge -c bioconda conda-build
+          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
           cd conda/recipe/ && conda build -c conda-forge -c bioconda -c defaults --output-folder . .
           anaconda upload conda/recipe/linux-64/*.tar.bz2
         env:
