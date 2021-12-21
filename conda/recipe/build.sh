@@ -7,7 +7,7 @@ chmod 775 bin/*.py
 cp bin/*.py ${PREFIX}/bin
 
 chmod 775 bin/bactopia/*
-mv bin/bactopia/* ${PREFIX}/bin
+cp bin/bactopia/* ${PREFIX}/bin
 
 # Move bactopia nextflow
-mv bin/ conda/ conf/ data/ lib/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config ${BACTOPIA}
+cp bin/ conda/ conf/ data/ lib/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config ${BACTOPIA}
