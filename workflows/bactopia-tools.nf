@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
     CONFIG FILES
 ========================================================================================
 */
-include { collect_samples } from '../lib/nf/bactopia_tools'
+include { collect_samples; collect_local_files } from '../lib/nf/bactopia_tools'
 include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 
@@ -77,54 +77,36 @@ workflow BACTOPIATOOLS {
     print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     ch_local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
-    ch_downloads = Channel.empty()
-    ch_local_files = Channel.empty()
-
-    // Include local assembly files (optional)
-    if (params.containsKey('assembly')) {
-        if (file(params.assembly).exists()) {
-            if (file(params.assembly).isDirectory()) {
-                ch_local_files = Channel.fromPath( "${params.assembly}/${params.assembly_pattern}" ).map{ assembly ->
-                    return [tuple([id: file(assembly).getSimpleName()], assembly)]
-                }
-            } else {
-                ch_local_files = Channel.fromList([tuple([id: file(params.assembly).getSimpleName()], file(params.assembly))])
-            }
-        }
-    }
-
+    ch_local_files = Channel.fromList(collect_local_files(params.containsKey('assembly') ? params.assembly : null , params.containsKey('assembly_pattern') ? params.assembly_pattern : null))
+    
     // Include public genomes (optional)
+    ch_gather_files = Channel.empty()
     if (params.containsKey('accession')) {
+        ch_downloads = Channel.empty()
         if (params.accession || params.accessions || params.species) {
             NCBIGENOMEDOWNLOAD()
             ch_versions.mix(NCBIGENOMEDOWNLOAD.out.versions.first())
-            if (params.wf == 'pangenome') {
-                PROKKA(NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files))
-                ch_versions.mix(PROKKA.out.versions.first())
-                ch_downloads = PROKKA.out.gff
-            } else {
-                ch_downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files)
-            }
+            ch_downloads = NCBIGENOMEDOWNLOAD.out.bactopia_tools.mix(ch_local_files)
         } else {
             ch_downloads = ch_local_files
         }
+
+        if (params.wf == 'pangenome') {
+            // Create prokka gff3 files for PIRATE/Roary
+            PROKKA(ch_downloads)
+            ch_versions.mix(PROKKA.out.versions.first())
+            ch_gather_files = PROKKA.out.gff
+        } else {
+            ch_gather_files = ch_downloads
+        }
     } else {
-        ch_downloads = ch_local_files
+        ch_gather_files = ch_local_files
     }
 
     // Include local GFF files (optional)
-    if (params.containsKey('gff')) {
-        if (file(params.gff).exists()) {
-            if (file(params.gff).isDirectory()) {
-                ch_downloads = ch_downloads.mix(Channel.fromPath( "${params.gff}/${params.gff_pattern}" ).map{ gff ->
-                    return [tuple([id: file(gff).getSimpleName()], gff)]
-                })
-            } else {
-                ch_downloads = ch_downloads.mix(Channel.fromList([tuple([id: file(params.gff).getSimpleName()], file(params.gff))]))
-            }
-        }
-    }
-    samples = ch_local_samples.mix(ch_downloads)
+    ch_final_downloads = ch_gather_files.mix(Channel.fromList(collect_local_files(params.containsKey('gff') ? params.gff : null , params.containsKey('gff_pattern') ? params.gff_pattern : null)))
+
+    samples = ch_local_samples.mix(ch_final_downloads)
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)

@@ -61,6 +61,32 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
 }
 
 
+
+/*
+========================================================================================
+    Public: collect_samples(file_path)
+
+    key -> parameter that represents the filr
+    local_file -> path to the files to collect
+    local_pattern -> Pattern to match incase `local_file` is a directory
+========================================================================================
+*/
+def collect_local_files(local_file, local_pattern) {
+    local_list = []
+    if (local_file) {
+        if (file(local_file).exists()) {
+            if (file(local_file).isDirectory()) {
+                file("${local_file}/${local_pattern}" ).each{ 
+                    local_list << tuple([[id: it.getSimpleName()], it])                    
+                }
+            } else {
+                local_list << tuple([id: file(local_file).getSimpleName()], file(local_file))
+            }
+        }
+    }
+    return local_list
+}
+
 /*
 ========================================================================================
     Private: _is_sample_dir(sample, dir)
