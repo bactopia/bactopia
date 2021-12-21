@@ -20,4 +20,4 @@ jobs:
         run: |
           conda install -c conda-forge -c bioconda conda-build
           conda config --set anaconda_upload yes
-          cd conda/recipe && conda build -c conda-forge -c bioconda --label nightly --user rpetit3 --token ${{ secrets.ANACONDA_TOKEN }}
+          conda build -c conda-forge -c bioconda --label nightly --user rpetit3 --token ${{ secrets.ANACONDA_TOKEN }} ./conda/recipe/
