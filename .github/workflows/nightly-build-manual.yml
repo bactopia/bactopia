@@ -1,0 +1,23 @@
+name: Build Personal Conda (Manual)
+on: workflow_dispatch
+jobs:
+  conda-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout bactopia/bactopia
+        uses: actions/checkout@v2
+
+      - name: Setup miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: conda-build
+          auto-activate-base: false
+
+      - name: Build and Push 
+        run: |
+          conda install -c conda-forge -c bioconda conda-build
+          conda config --set anaconda_upload yes
+          cd conda/recipe && conda build -c conda-forge -c bioconda --label nightly --user rpetit3 --token ${{ secrets.ANACONDA_TOKEN }}
