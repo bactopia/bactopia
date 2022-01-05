@@ -156,9 +156,7 @@
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.run

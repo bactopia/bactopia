@@ -24,9 +24,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -74,9 +72,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -124,9 +120,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -174,9 +168,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run

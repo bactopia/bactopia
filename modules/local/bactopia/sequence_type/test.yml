@@ -24,11 +24,10 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -79,11 +78,10 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -130,11 +128,10 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -170,11 +167,10 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      md5sum: 5357f571bd17420bf1f64f61c31d112d
+      contains: ['default', 'blast', 'ariba']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh

@@ -17,9 +17,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -52,9 +50,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -88,9 +84,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -125,9 +119,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -162,9 +154,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -199,9 +189,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -236,9 +224,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -271,9 +257,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -306,9 +290,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -343,9 +325,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -386,9 +366,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
@@ -425,9 +403,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
@@ -470,9 +446,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
@@ -515,9 +489,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
@@ -555,9 +527,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
@@ -594,9 +564,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
@@ -627,9 +595,8 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: 7a66d3bc039918f9c17556308049c209
+      contains: ['output', 'FASTQ', 'discontinued']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: 7a66d3bc039918f9c17556308049c209
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -665,9 +632,8 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: b5bcccdd6b3788aa91e24ac772383b1a
+      contains: ['output', 'FASTQ', 'discontinued']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: b5bcccdd6b3788aa91e24ac772383b1a
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -703,9 +669,8 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: ca0a8d9cb939a5e76409556412256612
+      contains: ['output', 'FASTQ', 'discontinued']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: ca0a8d9cb939a5e76409556412256612
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -741,9 +706,8 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: 13e7a1ca291968269f3e87d04f68af4f
+      contains: ['output', 'FASTQ', 'discontinued']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: 13e7a1ca291968269f3e87d04f68af4f
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -779,9 +743,8 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.err
-      md5sum: 1905bd1ec0aa832d828cf73b24387e27
+      contains: ['output', 'FASTQ', 'discontinued']
     - path: pytest/output/logs/gather_samples/nf-gather_samples.log
-      md5sum: 1905bd1ec0aa832d828cf73b24387e27
     - path: pytest/output/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/gather_samples/nf-gather_samples.run
@@ -821,9 +784,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
@@ -859,9 +820,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run

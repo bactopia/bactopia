@@ -24,9 +24,7 @@
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.run
@@ -64,9 +62,7 @@
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
@@ -104,9 +100,7 @@
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.run
@@ -140,9 +134,7 @@
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.run

@@ -9,6 +9,7 @@ process ASSEMBLY_QC {
     /* Assess the quality of the assembly using QUAST and CheckM */
     tag "${meta.id}"
     label "max_cpu_75"
+    label "process_medium"
     label "assembly_qc"
 
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
