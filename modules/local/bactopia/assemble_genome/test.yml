@@ -547,9 +547,9 @@
       contains: ['miniasm', 'END_VERSIONS']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
-    - path: pytest/output/output-assembly-error.txt
       md5sum: 9bf555133158d20a0b1b447f06377d02
+    - path: pytest/output/output-assembly-error.txt
+      md5sum: d7562adfa3147c1742ae8cb2635bcc2e
 
 - name: assemble_genome-raven
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler raven'
