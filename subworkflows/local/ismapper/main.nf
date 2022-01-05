@@ -1,7 +1,10 @@
 //
 // ismapper - Identify insertion sites positions in bacterial genomes
 //
-ismapper_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'ismapper')
+options.is_module = params.wf == 'ismapper' ? true : false
+options.args = [
     params.ismap_all ? "-all" : "",
     "--min_clip ${params.min_clip}",
     "--max_clip ${params.max_clip}",
@@ -13,7 +16,7 @@ ismapper_args = [
     "--T ${params.ismap_minqual}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { ISMAPPER as ISMAPPER_MODULE } from '../../../modules/nf-core/modules/ismapper/main' addParams( options: [ args: "${ismapper_args}", is_module: true] )
+include { ISMAPPER as ISMAPPER_MODULE } from '../../../modules/nf-core/modules/ismapper/main' addParams( options: options )
 
 workflow ISMAPPER {
     take:

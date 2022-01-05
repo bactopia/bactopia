@@ -15,7 +15,7 @@ process SEQUENCE_TYPE {
         saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: schema) }
 
     input:
-    tuple val(meta), path(fq), path(assembly)
+    tuple val(meta), path(assembly), path(fq)
     each path(dataset)
 
     output:
@@ -60,7 +60,7 @@ process SEQUENCE_TYPE {
     fi
 
     cat <<-END_VERSIONS > versions.yml
-    sequence_type:
+    "!{task.process}":
         ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
         blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
     END_VERSIONS

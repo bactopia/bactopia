@@ -64,6 +64,14 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += 1
             }
+        } else if (params.wf == "mashdist" || params.wf == "merlin") {
+            if (params.mash_sketch) {
+                if (Utils.isLocal(params.mash_sketch)) {
+                    error += Utils.fileNotFound(params.mash_sketch, 'mash_sketch', log)
+                }
+            } else {
+                missing_required += 1
+            }
         }
 
         // Check for existing output directory

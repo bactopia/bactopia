@@ -1,0 +1,34 @@
+- name: mashdist-test
+  command: bash -c 'nextflow run ./subworkflows/local/mashdist/test.nf -entry test_mashdist --wf mashdist -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - mashdist
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/GCF_000292685-dist.txt
+      md5sum: ba9d178c2f9598e4c8d2dde49d59be50
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/mash.stderr.txt
+      md5sum: 944f13d698d714d8f3e3a419c3699d98
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.sh
+      md5sum: fae0cad30ce27e14d4d9e319938c6ef9
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/versions.yml
+      md5sum: 69672baee5da33f7b9b4e722a797a109
+    - path: bactopia-tools/mashdist/mashdist/nf-reports/mashdist-dag.dot
+      contains: ['mashdistdag', 'MASHDIST', 'versions']
+    - path: bactopia-tools/mashdist/mashdist/nf-reports/mashdist-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/mashdist/mashdist/nf-reports/mashdist-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/mashdist/mashdist/nf-reports/mashdist-trace.txt
+      contains: ['task_id']

@@ -49,7 +49,7 @@ process MINMER_QUERY {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    minmer_query:
+    "!{task.process}":
         mash: $(echo $(mash --version 2>&1))
         sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')
     END_VERSIONS

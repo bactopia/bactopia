@@ -31,7 +31,7 @@
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "min_coverage": {
+                "kleborate_min_coverage": {
                     "type": "number",
                     "description": "Minimum alignment percent coverage for main results",
                     "default": 80.0,

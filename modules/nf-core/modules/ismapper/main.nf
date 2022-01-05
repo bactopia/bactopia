@@ -27,7 +27,7 @@ process ISMAPPER {
     path "versions.yml",emit: versions
 
     script:
-    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
     def query_compressed = query.getName().endsWith(".gz") ? true : false
@@ -54,7 +54,7 @@ process ISMAPPER {
     mv results/${meta.id}/* ${query_base}
 
     cat <<-END_VERSIONS > versions.yml
-    ismapper:
+    "${task.process}":
         ismapper: \$( echo \$( ismap --version 2>&1 ) | sed 's/^.*ismap //' )
     END_VERSIONS
     """

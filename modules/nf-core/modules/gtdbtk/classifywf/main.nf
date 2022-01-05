@@ -26,7 +26,7 @@ process GTDBTK_CLASSIFYWF {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     export GTDBTK_DATA_PATH="${params.gtdb}"
     mkdir fna
@@ -42,7 +42,7 @@ process GTDBTK_CLASSIFYWF {
         --prefix ${prefix}
 
     cat <<-END_VERSIONS > versions.yml
-    gtdbtk_classifywf:
+    "${task.process}":
         gtdb-tk: \$(echo \$(gtdbtk --version -v 2>&1) | sed "s/gtdbtk: version //; s/ Copyright.*//")
     END_VERSIONS
     """

@@ -26,7 +26,7 @@ process MASHTREE {
     path "versions.yml",emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     mashtree \\
         $options.args \\
@@ -36,7 +36,7 @@ process MASHTREE {
         $seqs
 
     cat <<-END_VERSIONS > versions.yml
-    mashtree:
+    "${task.process}":
         mash: \$(echo \$(mash --version 2>&1))
         mashtree: \$( echo \$( mashtree --version 2>&1 ) | sed 's/^.*Mashtree //' )
     END_VERSIONS

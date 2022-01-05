@@ -3,7 +3,7 @@
 //
 REPEATS = params.repeats ? file(params.repeats, checkIfExists: true) : []
 REPEAT_ORDER = params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
-opts =  [subworkflow: "staphtyper", publish_to_base: true, full_software_name: true]
+opts = [subworkflow: "staphtyper", publish_to_base: true]
 
 argvate_args = params.typing_only ? '--typing_only' : ''
 spatyper_args = params.do_enrich ? '--do_enrich' : ''
@@ -14,7 +14,7 @@ include { SPATYPER } from '../../../modules/nf-core/modules/spatyper/main' addPa
 include { STAPHOPIASCCMEC } from '../../../modules/nf-core/modules/staphopiasccmec/main' addParams( options: [args: "${staphopiasccmec_args}", is_subworkflow: true] )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'agrvate'])
+    include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [args: '-C "$"', logs_subdir: 'agrvate'])
     include { CSVTK_CONCAT as CSVTK_CONCAT_SPATYPER } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'spatyper'])
     include { CSVTK_CONCAT as CSVTK_CONCAT_STAPHOPIASCCMEC } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: opts + [logs_subdir: 'staphopiasccmec'])
 }

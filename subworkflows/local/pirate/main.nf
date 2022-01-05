@@ -21,7 +21,7 @@ workflow PIRATE {
     main:
     ch_versions = Channel.empty()
     PIRATE_MODULE(gff)
-    ch_versions = ch_versions.mix(PIRATE_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(PIRATE_MODULE.out.versions)
 
     emit:
     aln = PIRATE_MODULE.out.aln

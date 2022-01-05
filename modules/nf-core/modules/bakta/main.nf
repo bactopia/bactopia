@@ -38,7 +38,7 @@ process BAKTA {
 
 
     script:
-    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigal-tf ${prodigal_tf[0]}" : ""
     def replicons_opt = replicons ? "--replicons ${replicons[0]}" : ""
@@ -73,8 +73,8 @@ process BAKTA {
     touch ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    ${getProcessName(task.process)}:
-        ${getSoftwareName(task.process)}: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
+    "${task.process}":
+        bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
     END_VERSIONS
     """
 }

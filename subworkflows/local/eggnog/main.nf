@@ -1,6 +1,10 @@
 //
 // eggnog - Functional annotation of proteins using orthologous groups and phylogenies
 //
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'eggnog')
+options.is_module = params.wf == 'eggnog' ? true : false
+
 downloader_opts = [
     params.skip_diamond ? "-D" : "",
     params.install_hmm ? "-H -d ${hmmer_taxid} " : "",
@@ -14,8 +18,8 @@ mapper_opts = [
     "${params.eggnog_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { EGGNOG_DOWNLOAD } from '../../../modules/nf-core/modules/eggnog/download/main' addParams( options: [ args: "${downloader_opts}", publish_dir: params.eggnog] )
-include { EGGNOG_MAPPER } from '../../../modules/nf-core/modules/eggnog/mapper/main' addParams( options: [ args: "${mapper_opts}"] )
+include { EGGNOG_DOWNLOAD } from '../../../modules/nf-core/modules/eggnog/download/main' addParams( options: options + [ args: "${downloader_opts}", publish_dir: params.eggnog] )
+include { EGGNOG_MAPPER } from '../../../modules/nf-core/modules/eggnog/mapper/main' addParams( options:  options +  [ args: "${mapper_opts}"] )
 
 workflow EGGNOG {
     take:

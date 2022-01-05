@@ -27,7 +27,7 @@ process CSVTK_CONCAT {
     path "versions.yml",emit: versions
 
     script:
-    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def delimiter = in_format == "tsv" ? "\t" : (in_format == "csv" ? "," : in_format)
     def out_delimiter = out_format == "tsv" ? "\t" : (out_format == "csv" ? "," : out_format)
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
@@ -42,7 +42,7 @@ process CSVTK_CONCAT {
         $csv
 
     cat <<-END_VERSIONS > versions.yml
-    csvtk_concat:
+    "${task.process}":
         csvtk: \$(echo \$( csvtk version | sed -e "s/csvtk v//g" ))
     END_VERSIONS
     """

@@ -74,7 +74,7 @@ process BLAST {
     done
 
     cat <<-END_VERSIONS > versions.yml
-    blast:
+    "!{task.process}":
         blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
         parallel: $(echo $(parallel --version 2>&1) | sed 's/^GNU parallel //;s/ .*$//')
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')

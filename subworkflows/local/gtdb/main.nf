@@ -1,6 +1,10 @@
 //
 // gtdb - Identify marker genes and assign taxonomic classifications
 //
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
+options.is_module = params.wf == 'gtdb' ? true : false
+
 classify_args = [
     params.gtdb_use_scratch ? "--scratch_dir ${params.gtdb_tmp}" : "",
     params.gtdb_debug ? "--debug" : "",
@@ -10,8 +14,8 @@ classify_args = [
     "--min_af ${params.min_af}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/modules/gtdbtk/setupdb/main' addParams( options: [publish_to_base: true, is_module: true] )
-include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/modules/gtdbtk/classifywf/main' addParams( options: [args: "${classify_args}", is_module: true] )
+include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/modules/gtdbtk/setupdb/main' addParams( options: options + [publish_to_base: true] )
+include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/modules/gtdbtk/classifywf/main' addParams( options: options + [args: "${classify_args}"] )
 
 workflow GTDB {
     take:

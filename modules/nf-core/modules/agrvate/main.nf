@@ -26,7 +26,7 @@ process AGRVATE {
     path "versions.yml"                                    , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -41,7 +41,7 @@ process AGRVATE {
     mv ${meta.id}-results/ results/
 
     cat <<-END_VERSIONS > versions.yml
-    agrvate:
+    "${task.process}":
         agrvate: \$(echo \$(agrvate -v 2>&1) | sed 's/agrvate v//;')
     END_VERSIONS
     """

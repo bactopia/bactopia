@@ -1,0 +1,8 @@
+- name: merlin-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf merlin -c nextflow.config --help > merlin-help.txt'
+  tags:
+    - bactopia_help
+    - merlin
+  files:
+    - path: merlin-help.txt
+      contains: ['merlin', 'bactopia', 'version', 'dependencies']

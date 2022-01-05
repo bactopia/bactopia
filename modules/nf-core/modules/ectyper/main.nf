@@ -26,7 +26,7 @@ process ECTYPER {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -42,7 +42,7 @@ process ECTYPER {
     mv output.tsv ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    ectyper:
+    "${task.process}":
         ectyper: \$(echo \$(ectyper --version 2>&1)  | sed 's/.*ectyper //; s/ .*\$//')
     END_VERSIONS
     """

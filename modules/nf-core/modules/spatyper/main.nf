@@ -27,7 +27,7 @@ process SPATYPER {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def input_args = repeats && repeat_order ? "-r ${repeats} -o ${repeat_order}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
@@ -43,7 +43,7 @@ process SPATYPER {
         --output ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    spatyper:
+    "${task.process}":
         spatyper: \$( echo \$(spaTyper --version 2>&1) | sed 's/^.*spaTyper //' )
     END_VERSIONS
     """

@@ -50,8 +50,10 @@ if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main'
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
 if (params.wf == 'lissero') include { LISSERO } from '../subworkflows/local/lissero/main';
+if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/mashdist/main';
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
+if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
@@ -137,12 +139,18 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'lissero') {
         LISSERO(samples)
         ch_versions = ch_versions.mix(LISSERO.out.versions)
+    } else if (params.wf == 'mashdist') {
+        MASHDIST(samples)
+        ch_versions = ch_versions.mix(MASHDIST.out.versions)
     } else if (params.wf == 'mashtree') {
         MASHTREE(samples)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
     } else if (params.wf == 'meningotype') {
         MENINGOTYPE(samples)
         ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)
+    } else if (params.wf == 'merlin') {
+        MERLIN(samples)
+        ch_versions = ch_versions.mix(MERLIN.out.versions)
     } else if (params.wf == 'ngmaster') {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)

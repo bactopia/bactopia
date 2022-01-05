@@ -25,7 +25,7 @@ process KLEBORATE {
     path "versions.yml",emit: versions
 
     script:
-    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     kleborate \\
         $options.args \\
@@ -33,7 +33,7 @@ process KLEBORATE {
         --assemblies $fastas
 
     cat <<-END_VERSIONS > versions.yml
-    kleborate:
+    "${task.process}":
         kleborate: \$( echo \$(kleborate --version | sed 's/Kleborate v//;'))
     END_VERSIONS
     """

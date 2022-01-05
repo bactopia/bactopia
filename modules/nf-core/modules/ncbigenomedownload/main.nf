@@ -37,7 +37,7 @@ process NCBIGENOMEDOWNLOAD {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def has_accessions = accessions ? true : false
     def opts = "${options.args} --output-folder ./ --flat-output -p ${task.cpus} -r ${params.max_retry}"
     """
@@ -60,7 +60,7 @@ process NCBIGENOMEDOWNLOAD {
     fi
 
     cat <<-END_VERSIONS > versions.yml
-    ncbigenomedownload:
+    "${task.process}":
         ncbi-genome-download: \$( ncbi-genome-download --version )
     END_VERSIONS
     """

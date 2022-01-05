@@ -196,7 +196,7 @@ def validate_requirements():
 def validate_species(species):
     """Query input species against ENA to determine if it exists."""
     import requests
-    ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/scientific-name'
+    ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/any-name'
     checks = []
 
     if os.path.exists(species):
@@ -217,15 +217,16 @@ def validate_species(species):
         if r.status_code == requests.codes.ok:
             try:
                 json_data = r.json()
-                if json_data[0]['scientificName'].lower() != species.lower():
+                scientific_name = json_data[0]['scientificName'].replace('[', '').replace(']', '')
+                if scientific_name.lower() != species.lower():
                     # Error! Species/Organism found, but doesn't match input. This shouldn't
                     # (query is case-insensitive exact match) happen, but my grandma could "
                     # probably trigger it, so here it is!
                     logging.error((f'Input species ({species}) does not match return result '
-                                f'({json_data[0]["scientificName"]}), please check spelling.'))
+                                f'({scientific_name}), please check spelling.'))
                     sys.exit(1)
                 
-                species_key[species.lower()] = json_data[0]['scientificName']
+                species_key[species.lower()] = scientific_name
                 logging.info(f'{species} verified in ENA Taxonomy database')
             except json.decoder.JSONDecodeError:
                 if r.text == "No results.":

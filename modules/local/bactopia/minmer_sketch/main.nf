@@ -34,8 +34,8 @@ process MINMER_SKETCH {
     mccortex_fq = meta.single_end ? "-1 ${fq[0]}" : "-2 ${fq[0]}:${fq[1]}"
     m = task.memory.toString().split(' ')[0].toInteger() * 1000 - 500
     '''
-    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k21 -k 21 -s !{params.mash_sketch} -r -I !{meta.id} - > mash.stdout.txt 2> mash.stderr.txt
-    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k31 -k 31 -s !{params.mash_sketch} -r -I !{meta.id} - >> mash.stdout.txt 2>> mash.stderr.txt
+    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k21 -k 21 -s !{params.sketch_size} -r -I !{meta.id} - > mash.stdout.txt 2> mash.stderr.txt
+    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k31 -k 31 -s !{params.sketch_size} -r -I !{meta.id} - >> mash.stdout.txt 2>> mash.stderr.txt
     sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{meta.id} -o !{meta.id}.sig !{fastq} > sourmash.stdout.txt 2> sourmash.stderr.txt
 
     if [[ "!{params.count_31mers}" == "true" ]]; then
@@ -51,7 +51,7 @@ process MINMER_SKETCH {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    minmer_query:
+    "!{task.process}":
         mash: $(echo $(mash --version 2>&1))
         mccortex: $(echo $(mccortex31 2>&1) | sed 's/^.*mccortex=v//;s/ .*$//')
         sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')

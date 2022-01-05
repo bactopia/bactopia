@@ -37,7 +37,7 @@ process GTDBTK_SETUPDB {
     fi
 
     cat <<-END_VERSIONS > versions.yml
-    gtdbtk_setupdb:
+    "${task.process}":
         gtdbtk: \$(echo \$(gtdbtk --version -v 2>&1) | sed "s/gtdbtk: version //; s/ Copyright.*//")
     END_VERSIONS
     """

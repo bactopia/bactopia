@@ -57,7 +57,7 @@ process ARIBA_ANALYSIS {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    ariba_analysis:
+    "!{task.process}":
         ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
     END_VERSIONS
     '''

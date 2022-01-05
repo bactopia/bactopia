@@ -96,6 +96,11 @@
                     "help": "These datasets include MLST schemas, reference genomes, protein sets, etc...",
                     "fa_icon": "fas fa-bacterium"
                 },
+                "ask_merlin": {
+                    "type": "boolean",
+                    "description": "Ask Merlin to execute species specific Bactopia tools based on Mash distances",
+                    "fa_icon": "fas fa-print"
+                },
                 "coverage": {
                     "type": "integer",
                     "default": 100,

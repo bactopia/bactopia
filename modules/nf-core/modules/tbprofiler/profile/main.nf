@@ -29,7 +29,7 @@ process TBPROFILER_PROFILE {
     path "versions.yml"                     , emit: versions
 
     script:
-    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
     def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """
@@ -45,7 +45,7 @@ process TBPROFILER_PROFILE {
         $input_reads
 
     cat <<-END_VERSIONS > versions.yml
-    tbprofiler:
+    "${task.process}":
         tb-profiler:  \$( echo \$(tb-profiler --version 2>&1) | sed 's/TBProfiler version //')
     END_VERSIONS
     """

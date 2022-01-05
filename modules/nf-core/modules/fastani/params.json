@@ -28,7 +28,7 @@
                 "frag_len": {
                     "type": "integer",
                     "default": 3000,
-                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "description": "fragment length",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_pairwise": {

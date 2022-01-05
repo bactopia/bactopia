@@ -23,7 +23,7 @@
                     "fa_icon": "fas fa-check",
                     "hidden": true
                 },
-                "mash_sketch": {
+                "sketch_size": {
                     "type": "integer",
                     "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
                     "default": 10000,

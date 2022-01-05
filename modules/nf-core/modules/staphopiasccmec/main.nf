@@ -26,12 +26,12 @@ process STAPHOPIASCCMEC {
     path "versions.yml"           , emit: versions
 
     script:
-    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     staphopia-sccmec --assembly $fasta $options.args > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    staphopiasccmec:
+    "${task.process}":
         staphopia-sccmec: \$(staphopia-sccmec --version 2>&1 | sed 's/^.*staphopia-sccmec //')
     END_VERSIONS
     """

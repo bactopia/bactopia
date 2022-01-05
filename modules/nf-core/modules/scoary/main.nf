@@ -26,7 +26,7 @@ process SCOARY {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def newick_tree = tree ? "-n ${tree}" : ""
     """
     scoary \\
@@ -37,7 +37,7 @@ process SCOARY {
         --genes $genes
 
     cat <<-END_VERSIONS > versions.yml
-    scoary:
+    "${task.process}":
         scoary: \$( scoary --version 2>&1 )
     END_VERSIONS
     """

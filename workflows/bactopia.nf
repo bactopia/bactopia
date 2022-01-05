@@ -42,6 +42,9 @@ include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
 
+// Merlin
+if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/main';
+
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -57,6 +60,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 workflow BACTOPIA {
     print_efficiency(RESOURCES.MAX_CPUS) 
     datasets = setup_datasets()
+    ch_versions = Channel.empty()
     
 
     // Core steps
@@ -79,8 +83,12 @@ workflow BACTOPIA {
     MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
     SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
 
+    if (params.ask_merlin) {
+        MERLIN(ASSEMBLE_GENOME.out.fna_fastq)
+        ch_versions = ch_versions.mix(MERLIN.out.versions.first())
+    }
+
     // Collect Versions
-    ch_versions = Channel.empty()
     ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
     ch_versions = ch_versions.mix(QC_READS.out.versions.first())
     ch_versions = ch_versions.mix(ASSEMBLE_GENOME.out.versions.first())

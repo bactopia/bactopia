@@ -60,7 +60,7 @@ process MAPPING_QUERY {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    mapping_query:
+    "!{task.process}":
         bedtools: $(echo $(bedtools --version 2>&1) | sed 's/bedtools v//')
         bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')

@@ -36,7 +36,7 @@ process PROKKA {
     path "versions.yml", emit: versions
 
     script:
-    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
@@ -66,7 +66,7 @@ process PROKKA {
     fi
 
     cat <<-END_VERSIONS > versions.yml
-    prokka:
+    "${task.process}":
         prokka: \$( echo \$(prokka --version 2>&1) | sed 's/^.*prokka //')
     END_VERSIONS
     """

@@ -1,0 +1,8 @@
+- name: mashdist-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf mashdist -c nextflow.config --help > mashdist-help.txt'
+  tags:
+    - bactopia_help
+    - mashdist
+  files:
+    - path: mashdist-help.txt
+      contains: ['mashdist', 'bactopia', 'version', 'dependencies']

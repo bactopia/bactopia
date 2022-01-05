@@ -1,7 +1,10 @@
 //
 // bakta - Rapid annotation of bacterial genomes and plasmids
 //
-bakta_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'bakta')
+options.is_module = params.wf == 'bakta' ? true : false
+options.args =  = [
     params.skip_trna ? "--skip-trna" : "",
     params.skip_tmrna ? "--skip-tmrna" : "",
     params.skip_rrna ? "--skip-rrna" : "",
@@ -22,7 +25,7 @@ PROTEINS = params.proteins ? file(params.proteins) : []
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 REPLICONS = params.replicons ? file(params.replicons) : []
 
-include { BAKTA as BAKTA_MODULE } from '../../../modules/nf-core/modules/bakta/main' addParams( options: [ args: "${bakta_args}", is_module: true] )
+include { BAKTA as BAKTA_MODULE } from '../../../modules/nf-core/modules/bakta/main' addParams( options: options )
 
 workflow BAKTA {
     take:

@@ -127,7 +127,7 @@ process CALL_VARIANTS {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    call_variants:
+    "!{task.process}":
         bedtools: $(echo $(bedtools --version 2>&1) | sed 's/bedtools v//')
         mash: $(echo $(mash --version 2>&1))
         ncbi-genome-download: $(echo $(ncbi-genome-download --version 2>&1))

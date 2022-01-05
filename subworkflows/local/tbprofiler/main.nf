@@ -1,7 +1,10 @@
 //
 // tbprofiler - Detect resistance and lineages of Mycobacterium  tuberculosis genomes
 //
-tbprofiler_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
+options.is_module = params.wf == 'tbprofiler' ? true : false
+options.args = [
     params.call_whole_genome ? "--call_whole_genome" : "",
     params.calling_params ? "--calling_params ${params.calling_params}" : "",
     params.suspect ? "--suspect" : "",
@@ -15,7 +18,7 @@ tbprofiler_args = [
     "--coverage_fraction_threshold ${params.coverage_fraction_threshold}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/modules/tbprofiler/profile/main' addParams( options: [args: "${tbprofiler_args}", is_module: true] )
+include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/modules/tbprofiler/profile/main' addParams( options: options )
 
 workflow TBPROFILER {
     take:
@@ -25,7 +28,7 @@ workflow TBPROFILER {
     ch_versions = Channel.empty()
 
     TBPROFILER_MODULE(reads)
-    ch_versions = ch_versions.mix(TBPROFILER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(TBPROFILER_MODULE.out.versions)
 
     emit:
     bam = TBPROFILER_MODULE.out.bam

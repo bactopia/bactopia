@@ -99,6 +99,22 @@ class WorkflowBactopia {
             }
         }
 
+        // The Ask Merlin feature requires a downloaded refseq mash sketch
+        if (params.ask_merlin) {
+            if (params.datasets) {
+                if (Utils.isLocal(params.datasets)) {
+                    if (!Utils.fileExists("${params.datasets}/minmer/mash-refseq-k21.msh")) {
+                        log.error "Please verify the PATH is correct for '--datasets'. Unable " +
+                                "to open ${params.datasets}/minmer/mash-refseq-k21.msh"
+                        error += 1
+                    }
+                }
+            } else {
+                log.error "'--ask_merlin' requires '--datasets' to also be used"
+                error += 1
+            }
+        }
+
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {
             // Only run this if local files

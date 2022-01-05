@@ -253,7 +253,7 @@ process QC_READS {
     # Capture versions
     if [[ "!{params.skip_qc_plots}" == "false" ]]; then
     cat <<-END_VERSIONS > versions.yml
-    qc_reads:
+    "!{task.process}":
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
         fastqc: $(echo $(fastqc --version 2>&1) | sed 's/FastQC v//')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
@@ -266,7 +266,7 @@ process QC_READS {
     END_VERSIONS
     else
     cat <<-END_VERSIONS > versions.yml
-    qc_reads:
+    "!{task.process}":
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')

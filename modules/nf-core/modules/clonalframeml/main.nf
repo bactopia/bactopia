@@ -49,7 +49,7 @@ process CLONALFRAMEML {
     gzip ${prefix}.masked.aln
 
     cat <<-END_VERSIONS > versions.yml
-    clonalframeml:
+    "${task.process}":
         clonalframeml: \$( echo \$(ClonalFrameML -version 2>&1) | sed 's/^.*ClonalFrameML v//' )
         maskrc-svg: \$( echo \$(maskrc-svg.py --version 2>&1) | sed 's/^.*maskrc-svg.py //' )
     END_VERSIONS

@@ -113,7 +113,7 @@ process ANNOTATE_GENOME {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    annotate_genome:
+    "!{task.process}":
         prokka:  $(echo $(prokka --version 2>&1) | sed 's/prokka //')
     END_VERSIONS
     '''

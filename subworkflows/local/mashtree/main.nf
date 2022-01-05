@@ -1,8 +1,10 @@
 //
 // mashtree - Quickly create a tree using Mash distances
 //
-
-mashtree_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'mashtree')
+options.is_module = params.wf == 'mashtree' ? true : false
+options.args = [
     "--truncLength ${params.trunclength}",
     "--sort-order ${params.sortorder}",
     "--genomesize ${params.genomesize}",
@@ -11,7 +13,7 @@ mashtree_args = [
     "--sketch-size ${params.sketchsize}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/modules/mashtree/main' addParams( options: [ args: "${mashtree_args}", is_module: true, publish_to_base: true] )
+include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/modules/mashtree/main' addParams( options: options + [ publish_to_base: true ] )
 
 workflow MASHTREE {
     take:
@@ -21,7 +23,7 @@ workflow MASHTREE {
     ch_versions = Channel.empty()
 
     MASHTREE_MODULE(fasta)
-    ch_versions = ch_versions.mix(MASHTREE_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(MASHTREE_MODULE.out.versions)
 
     emit:
     tree = MASHTREE_MODULE.out.tree

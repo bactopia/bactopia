@@ -32,7 +32,7 @@ process SNPDISTS {
         $alignment > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    snpditsts:
+    "${task.process}":
         snp-dists: \$(snp-dists -v 2>&1 | sed 's/snp-dists //;')
     END_VERSIONS
     """

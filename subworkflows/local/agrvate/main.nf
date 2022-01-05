@@ -1,12 +1,15 @@
 //
 // agrvate - Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
 //
-argvate_args = params.typing_only ? '--typing_only' : ''
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'agrvate')
+options.is_module = params.wf == 'agrvate' ? true : false
+options.args = params.typing_only ? '--typing_only' : ''
 
-include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/modules/agrvate/main' addParams( options: [args: "${argvate_args}", is_module: true] )
+include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/modules/agrvate/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true, logs_subdir: options.is_module ? '' : 'agrvate'] )
 }
 
 workflow AGRVATE {
@@ -22,7 +25,7 @@ workflow AGRVATE {
     if (params.is_subworkflow) {
         AGRVATE_MODULE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
         CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     }
 
     emit:

@@ -61,7 +61,7 @@ process ANTIMICROBIAL_RESISTANCE {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    antimicrobial_resistance:
+    "!{task.process}":
         amrfinder:  $(echo $(amrfinder --version 2>&1))
     END_VERSIONS
     '''

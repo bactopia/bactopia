@@ -1,15 +1,18 @@
 //
 // fastani - fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
 //
-fastani_opts = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'fastani')
+options.is_module = params.wf == 'fastani' ? true : false
+options.args = [
     "--kmer ${params.kmer}",
     "--fragLen ${params.frag_len}",
     "--minFraction ${params.min_fraction}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/modules/fastani/main' addParams( options: [ args: "${fastani_opts}", is_module: true] )
+include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/modules/fastani/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'fastani'] )
 }
 
 workflow FASTANI {
@@ -33,7 +36,7 @@ workflow FASTANI {
     if (params.is_subworkflow) {
         FASTANI_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}.set{ ch_merge_fastani }
         CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions.first())
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     }
 
     ch_versions = ch_versions.mix(FASTANI_MODULE.out.versions.first())

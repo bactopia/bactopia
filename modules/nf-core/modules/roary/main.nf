@@ -27,7 +27,7 @@ process ROARY {
     path "versions.yml"                                       , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     mkdir gff
     cp -L gff-tmp/* gff/
@@ -43,7 +43,7 @@ process ROARY {
     gzip results/*.fa
 
     cat <<-END_VERSIONS > versions.yml
-    roary:
+    "${task.process}":
         roary: \$( roary --version )
     END_VERSIONS
     """

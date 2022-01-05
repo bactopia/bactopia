@@ -122,6 +122,8 @@ def _collect_inputs(sample, dir, extension) {
     PATHS.faa = "annotation"
     PATHS.gff = "annotation"
 
+
+
     if (extension == 'fastq') {
         se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
         pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
@@ -131,6 +133,28 @@ def _collect_inputs(sample, dir, extension) {
             return tuple([id:sample, single_end:true], [file(se)])
         } else if (file(pe1).exists() && file(pe2).exists()) {
             return tuple([id:sample, single_end:false], [file(pe1), file(pe2)])
+        } else {
+            log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
+            exit 1
+        }
+    } else if (extension == 'fna_fastq') {
+        se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
+        pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
+        pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
+        fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
+
+        if (file(se).exists()) {
+            if (file("${fna}.gz").exists()) {
+                return tuple([id:sample, single_end:true, is_compressed:true], [file("${fna}.gz")], [file(se)])
+            } else {
+                return tuple([id:sample, single_end:true, is_compressed:false], [file("${fna}")], [file(se)])
+            }
+        } else if (file(pe1).exists() && file(pe2).exists()) {
+            if (file("${fna}.gz").exists()) {
+                return tuple([id:sample, single_end:false, is_compressed:true], [file("${fna}.gz")], [file(pe1), file(pe2)])
+            } else {
+                return tuple([id:sample, single_end:false, is_compressed:false], [file("${fna}")], [file(pe1), file(pe2)])
+            }
         } else {
             log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
             exit 1

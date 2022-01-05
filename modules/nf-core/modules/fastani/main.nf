@@ -27,7 +27,7 @@ process FASTANI {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
@@ -50,7 +50,7 @@ process FASTANI {
     sed 's=^query/==' fastani-result.tmp>> ${reference_name}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    fastani:
+    "${task.process}":
         fastani: \$(fastANI --version 2>&1 | sed 's/version//;')
     END_VERSIONS
     """

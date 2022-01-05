@@ -93,7 +93,7 @@ process ASSEMBLY_QC {
     if [ "${RAN_CHECKM}" == "1" ]; then
 
     cat <<-END_VERSIONS > versions.yml
-    assembly_qc:
+    "!{task.process}":
         checkm: $(echo $(checkm -h 2>&1) | sed 's/.*CheckM v//;s/ .*$//')
         quast: $(echo $(quast --version 2>&1) | sed 's/.*QUAST v//;s/ .*$//')
     END_VERSIONS
@@ -101,7 +101,7 @@ process ASSEMBLY_QC {
     else
 
     cat <<-END_VERSIONS > versions.yml
-    assembly_qc:
+    "!{task.process}":
         quast: $(echo $(quast --version 2>&1) | sed 's/.*QUAST v//;s/ .*$//')
     END_VERSIONS
 

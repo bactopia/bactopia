@@ -44,7 +44,7 @@ process PIRATE {
     touch gene_presence_absence.csv
 
     cat <<-END_VERSIONS > versions.yml
-    pirate:
+    "${task.process}":
         pirate: \$( echo \$( PIRATE --version 2>&1) | sed 's/PIRATE //' )
     END_VERSIONS
     """

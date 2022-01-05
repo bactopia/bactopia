@@ -23,7 +23,7 @@ workflow ROARY {
     main:
     ch_versions = Channel.empty()
     ROARY_MODULE(gff)
-    ch_versions = ch_versions.mix(ROARY_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(ROARY_MODULE.out.versions)
 
     emit:
     aln = ROARY_MODULE.out.aln

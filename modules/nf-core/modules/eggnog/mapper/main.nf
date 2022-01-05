@@ -34,7 +34,7 @@ process EGGNOG_MAPPER {
     path "versions.yml"                                    , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     emapper.py \\
         $options.args \\
@@ -44,7 +44,7 @@ process EGGNOG_MAPPER {
         -i $fasta
 
     cat <<-END_VERSIONS > versions.yml
-    eggnog_mapper:
+    "${task.process}":
         eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
     END_VERSIONS
     """

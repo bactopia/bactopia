@@ -21,7 +21,7 @@ process ASSEMBLE_GENOME {
     output:
     tuple val(meta), path(genome_size), path("results/${meta.id}.{fna,fna.gz}"), file("total_contigs_*"), emit: fna, optional: true
     tuple val(meta), path("results/${meta.id}.{fna,fna.gz}"), emit: fna_only, optional: true
-    tuple val(meta), path(fq), path("results/${meta.id}.{fna,fna.gz}"), emit: fna_fastq, optional: true
+    tuple val(meta), path("results/${meta.id}.{fna,fna.gz}"), path(fq), emit: fna_fastq, optional: true
     tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${meta.id}-assembly-error.txt", optional: true
@@ -157,7 +157,7 @@ process ASSEMBLE_GENOME {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    assemble_genome:
+    "!{task.process}":
         any2fasta:  $(echo $(any2fasta -v 2>&1) | sed 's/any2fasta //')
         assembly-scan: $(echo $(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
         bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')

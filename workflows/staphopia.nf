@@ -98,7 +98,7 @@ workflow STAPHOPIA {
     ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
     ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
     ch_versions = ch_versions.mix(SEQUENCE_TYPE.out.versions.first())
-    ch_versions = ch_versions.mix(STAPHTYPER.out.versions.first())
+    ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 

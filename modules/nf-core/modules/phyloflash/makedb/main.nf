@@ -4,7 +4,7 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'phyloflash_makdb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 
-process AGRVATE {
+process MAKEDB {
     tag "$meta.id"
     label 'process_low'
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
@@ -26,7 +26,7 @@ process AGRVATE {
     path "versions.yml",emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -34,16 +34,11 @@ process AGRVATE {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    agrvate \\
-        $options.args \\
-        -i $fasta_name -m
-
-    mv $meta.id-results/ results/
-    mv results/$meta.id-summary.tab ./
+    #TODO
 
     cat <<-END_VERSIONS > versions.yml
-    agrvate:
-        agrvate: \$(echo \$(agrvate -v 2>&1) | sed 's/agrvate v//;')
+    "${task.process}":
+        phyloFlash: \$(echo \$(phyloFlash.pl -version 2>&1) | sed "s/^.*phyloFlash v//")
     END_VERSIONS
     """
 }

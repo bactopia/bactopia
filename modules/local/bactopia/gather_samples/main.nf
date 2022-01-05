@@ -255,7 +255,7 @@ process GATHER_SAMPLES {
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
-    gather_samples:
+    "!{task.process}":
         art: $(echo $(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*$//')
         fastq-dl: $(echo $(fastq-dl --version 2>&1) | sed 's/fastq-dl //')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')

@@ -25,7 +25,7 @@ process LISSERO {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -40,7 +40,7 @@ process LISSERO {
     sed -i 's/^.*${fasta_name}/${fasta_name}/' ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    lissero:
+    "${task.process}":
         lissero: \$( echo \$(lissero --version 2>&1) | sed 's/^.*LisSero //' )
     END_VERSIONS
     """

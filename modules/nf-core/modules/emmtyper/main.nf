@@ -25,7 +25,7 @@ process EMMTYPER {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -39,7 +39,7 @@ process EMMTYPER {
         > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
-    emmtyper:
+    "${task.process}":
         emmtyper: \$( echo \$(emmtyper --version 2>&1) | sed 's/^.*emmtyper v//' )
     END_VERSIONS
     """

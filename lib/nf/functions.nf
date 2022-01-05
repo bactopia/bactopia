@@ -22,6 +22,7 @@ def get_schemas() {
         schemas << "conf/schema/local/${params.workflows[params.wf]['use_local']}.json"
     }
 
+
     if (params.workflows[params.wf].containsKey('includes')) {
         // Wrapper around multiple workflows
         schemas += _get_include_schemas(params.workflows[params.wf]["includes"])
@@ -33,6 +34,13 @@ def get_schemas() {
     if (params.workflows[params.wf].containsKey('path')) {
         // Module
         schemas << "${params.workflows[params.wf].path}/params.json"
+    }
+
+    if (params.containsKey('ask_merlin')) {
+        if (params.ask_merlin) {
+            // Summon Merlin
+            schemas += _get_module_schemas(params.workflows['merlin']["modules"])
+        }
     }
 
     // Load profile specific schemas

@@ -29,7 +29,7 @@ process EGGNOG_DOWNLOAD {
         --data_dir eggnog/
 
     cat <<-END_VERSIONS > versions.yml
-    eggnog_download:
+    "${task.process}":
         eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
     END_VERSIONS
     """

@@ -27,7 +27,7 @@ process PHYLOFLASH  {
     path "versions.yml"                       , emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def read_opts = meta.single_end ? "-read1 ${reads[0]}" : "-read1 ${reads[0]} -read2 ${reads[1]}"
     """
     mkdir $prefix
@@ -51,7 +51,7 @@ process PHYLOFLASH  {
     fi
 
     cat <<-END_VERSIONS > versions.yml
-    phyloflash:
+    "${task.process}":
         phyloFlash: \$(echo \$(phyloFlash.pl -version 2>&1) | sed "s/^.*phyloFlash v//")
     END_VERSIONS
     """
