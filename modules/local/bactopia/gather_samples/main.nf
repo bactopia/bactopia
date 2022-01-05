@@ -4,6 +4,7 @@ nextflow.enable.dsl = 2
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options = initOptions(params.containsKey('options') ? params.options : [:], 'gather_samples')
+options.is_module = params.wf == 'gather_samples' ? true : false
 options.ignore = [".fastq.gz", ".fna.gz"]
 
 process GATHER_SAMPLES {
@@ -22,7 +23,7 @@ process GATHER_SAMPLES {
     path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
-    path "*-{error,merged}.txt", optional:true
+    path "*-{error,merged}.txt", optional: true
 
     shell:
     meta.original_runtype = meta.runtype

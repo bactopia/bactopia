@@ -44,7 +44,7 @@
     - path: pytest/output/logs/qc_reads/reformat.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/quality-control/output_R1.fastq.gz
       md5sum: 5d90f0b7f99b9c92de7286e2e90fe395
     - path: pytest/output/quality-control/output_R2.fastq.gz
@@ -112,7 +112,7 @@
     - path: pytest/output/logs/qc_reads/reformat.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/quality-control/output.fastq.gz
       md5sum: 2a5116c5d7ba15fb752c3dc1209692cc
     - path: pytest/output/quality-control/summary/output-final.json
@@ -154,7 +154,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/quality-control/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: pytest/output/quality-control/output_R1.fastq.gz
@@ -208,7 +208,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/quality-control/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: pytest/output/quality-control/output.fastq.gz
@@ -268,7 +268,7 @@
     - path: pytest/output/logs/qc_reads/reformat.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/output-low-read-count-error.txt
       md5sum: 19c7e4e4f08de5030a3764227a312b28
     - path: pytest/output/output-low-sequence-depth-error.txt
@@ -340,7 +340,7 @@
     - path: pytest/output/logs/qc_reads/reformat.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/output-low-read-count-error.txt
       md5sum: 730a825c835f4e0ee7964d48805b33e7
     - path: pytest/output/output-low-sequence-depth-error.txt
@@ -390,7 +390,7 @@
     - path: pytest/output/logs/qc_reads/rasusa.stderr.txt
       contains: ['rasusa', 'Target', 'Done']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 95dc259089367fa92200caace12301fe
+      md5sum: 515fff3e136b54dca37e2b14e4ecd46d
     - path: pytest/output/quality-control/output.fastq.gz
       md5sum: bdb67257dda938ab977956940b860480
     - path: pytest/output/quality-control/summary/output-final.json

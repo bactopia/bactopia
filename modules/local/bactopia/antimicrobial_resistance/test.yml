@@ -31,7 +31,7 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml
-      md5sum: dada3b769fac659dbd398fb749cd6208
+      md5sum: 2644c11c96a67a1062211cb4ea8a1875
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
       md5sum: ae19f37096471603584f4b98a6c96fa5
     - path: pytest/bactopia/nf-reports/bactopia-report.html
@@ -74,7 +74,7 @@
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/versions.yml
-      md5sum: dada3b769fac659dbd398fb749cd6208
+      md5sum: 77142b616ad2663be3810ce89b13799e
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
       md5sum: 4851ab4adadaf80b88ad3a4be205e5d5
     - path: pytest/bactopia/nf-reports/bactopia-report.html

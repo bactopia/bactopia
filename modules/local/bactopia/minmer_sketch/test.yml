@@ -34,7 +34,7 @@
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: 71b9784514082ae99188911e46421ee6
+      md5sum: 00b04fd902661c74d8fe2735f6ce9351
     - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
     - path: pytest/output/minmers/output-k31.msh
@@ -82,7 +82,7 @@
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: 71b9784514082ae99188911e46421ee6
+      md5sum: 00b04fd902661c74d8fe2735f6ce9351
     - path: pytest/output/minmers/output-k21.msh
       md5sum: 6d9ea87c3d54a23a2c928ce9526b641e
     - path: pytest/output/minmers/output-k31.msh
@@ -127,7 +127,7 @@
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: 71b9784514082ae99188911e46421ee6
+      md5sum: 5b1a0565350c7a5f29087b086bb15ae3
     - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
     - path: pytest/output/minmers/output-k31.msh
@@ -175,7 +175,7 @@
     - path: pytest/output/logs/minmer_sketch/sourmash.stdout.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/versions.yml
-      md5sum: 71b9784514082ae99188911e46421ee6
+      md5sum: 5b1a0565350c7a5f29087b086bb15ae3
     - path: pytest/output/minmers/output-k21.msh
       md5sum: d584b5b950803a3501ef5703ef883266
     - path: pytest/output/minmers/output-k31.msh

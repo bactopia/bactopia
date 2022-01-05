@@ -44,7 +44,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stdout.txt
       contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
-      md5sum: 5cb8ff6f1e52ad66823304ac75304da5
+      md5sum: f9915154176941c5b87bd5f74f88e525
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
     - path: pytest/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
@@ -100,7 +100,7 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stdout.txt
       contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
-      md5sum: 5cb8ff6f1e52ad66823304ac75304da5
+      md5sum: 4d011df707a9c75b784350b0367374fb
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
     - path: pytest/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']

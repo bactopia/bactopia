@@ -57,7 +57,7 @@
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/ariba_analysis/card/versions.yml
-      md5sum: 663b0c0a05b58268aa4d30f8e40120dd
+      md5sum: fbc4914cfbff9e6221b140775a20c427
     - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba-summary.stderr.txt
       md5sum: ab4c49fcb47994595913fb86ed744afe
     - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba-summary.stdout.txt
@@ -80,4 +80,4 @@
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/versions.yml
-      md5sum: 663b0c0a05b58268aa4d30f8e40120dd
+      md5sum: fbc4914cfbff9e6221b140775a20c427

@@ -47,7 +47,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 1a990d2fc797154b4b7309401d2ecd12
 
 - name: assemble_genome-se_spades
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
@@ -100,7 +100,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['spades', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 1a990d2fc797154b4b7309401d2ecd12
 
 - name: assemble_genome-se_megahit
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_se --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
@@ -142,7 +142,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 1a990d2fc797154b4b7309401d2ecd12
     - path: pytest/output/output-assembly-error.txt
       contains: ['0 contigs', 'determine', 'discontinued']
 
@@ -188,7 +188,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['velvet', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 1a990d2fc797154b4b7309401d2ecd12
     - path: pytest/output/output-assembly-error.txt
       contains: ['less', 'minimum', 'discontinued']
 
@@ -245,7 +245,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
 - name: assemble_genome-pe_spades
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
@@ -301,7 +301,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['spades', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
 - name: assemble_genome-pe_megahit
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_pe --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
@@ -346,7 +346,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
     - path: pytest/output/output-assembly-error.txt
       md5sum: 529600ab45895b3960981c57fa52037b
 
@@ -404,7 +404,7 @@
     - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
       contains: ['velvet', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
 - name: assemble_genome-hybrid
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_hybrid --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -453,7 +453,7 @@
     - path: pytest/output/logs/assemble_genome/unicycler.stdout.txt
       contains: ['unicycler', 'complete', 'Saving']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 0acad046c4314499584624e1eb9d6279
 
 - name: assemble_genome-flye
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -504,7 +504,7 @@
       contains: ['flye', 'END_VERSIONS']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 9bf555133158d20a0b1b447f06377d02
 
 - name: assemble_genome-miniasm 
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler miniasm'
@@ -549,7 +549,7 @@
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: e5adb5de724143260a9a51e3b484d319
     - path: pytest/output/output-assembly-error.txt
-      md5sum: d7562adfa3147c1742ae8cb2635bcc2e
+      md5sum: 9bf555133158d20a0b1b447f06377d02
 
 - name: assemble_genome-raven
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler raven'
@@ -598,4 +598,4 @@
       contains: ['raven', 'END_VERSIONS']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: e5adb5de724143260a9a51e3b484d319
+      md5sum: 9bf555133158d20a0b1b447f06377d02

@@ -20,7 +20,7 @@
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      md5sum: e9d38f19a593b9c6166f00decdd7fcd7
+      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
@@ -36,7 +36,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
+      md5sum: 8ebb7e8d2122046820d16c6a568cbbf5
     - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
     - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
     - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
@@ -75,7 +75,7 @@
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      md5sum: e0588ef3e3039007a33cbe6b8a934fe7
+      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
@@ -91,7 +91,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
+      md5sum: a19cb70b3ceeeabee6389e1b0d9ebac5
     - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
     - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
     - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
@@ -126,7 +126,7 @@
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      md5sum: e9d38f19a593b9c6166f00decdd7fcd7
+      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
@@ -142,7 +142,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
+      md5sum: 6fd3330e1d66382ee8f8d918518a6927
     - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
       md5sum: 333cbba3485fd644bffb152989ddd5a1
     - path: pytest/output/mlst/default/blast/output-blast.json
@@ -166,7 +166,7 @@
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      md5sum: e0588ef3e3039007a33cbe6b8a934fe7
+      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
@@ -182,7 +182,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: e7b9c5b6109a953ae6ba0d63d7662b3d
+      md5sum: 7d643d42c80af9ac90c8d8886c01898d
     - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
       md5sum: 333cbba3485fd644bffb152989ddd5a1
     - path: pytest/output/mlst/default/blast/output-blast.json

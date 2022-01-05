@@ -135,7 +135,6 @@ def saveFiles(Map args) {
     def process_name = args.opts.process_name
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
-    def here = "0"
     if (args.filename) {
         if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
@@ -146,14 +145,12 @@ def saveFiles(Map args) {
             final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
-            here = "3"
             filename = args.filename
             if (filename.startsWith("results/")) {
                 filename = filename.replace("results/","")
             }
 
             // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
-            final_output = null
             if (filename.endsWith("-error.txt") || filename.endsWith("-genome-size.txt") || publish_to_base == true) {
                 final_output = filename
             } else if (filename.startsWith("blastdb/")) {
@@ -162,14 +159,17 @@ def saveFiles(Map args) {
                 final_output = null
             } else if (params.publish_dir.containsKey(process_name)) {
                 final_output = "${params.publish_dir[process_name]}/${filename}"
+                if (final_output.startsWith("/")) {
+                    final_output = filename
+                }
             } else {
                 if (args.opts.is_module) {
-                    final_output = "${filename}"
+                    final_output = filename
                 } else {
                     final_output = "${process_name}/${filename}"
                 }
             }
-            
+
             // Exclude files that should be ignored
             args.opts.ignore.each {
                 if (filename.endsWith("${it}")) {
@@ -183,7 +183,6 @@ def saveFiles(Map args) {
                     final_output = filename
                 }
             }
-
         }
         return final_output == null ? null : final_output.replace("//", "/")
     }

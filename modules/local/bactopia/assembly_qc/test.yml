@@ -5,7 +5,7 @@
     - assembly_qc
   files:
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
-      md5sum: 149189dc9981d5d2b80d478c699e8905
+      contains: ['bactopiadag', 'assembly_qc', 'ASSEMBLY_QC']
     - path: pytest/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: pytest/bactopia/nf-reports/bactopia-timeline.html
@@ -147,43 +147,31 @@
       md5sum: 0336f49984e49afe9e72c8632504775f
     - path: pytest/output/assembly/quast/transposed_report.txt
       md5sum: 1ec5352cb44deb1d6c701e6cf06a6a48
-    - path: pytest/output/logs/assembly_qc/checkm/checkm.log
+    - path: pytest/output/logs/assembly_qc/checkm.log
       contains: ['CheckM', 'Parsing', 'written']
-    - path: pytest/output/logs/assembly_qc/checkm/checkm.stderr.txt
+    - path: pytest/output/logs/assembly_qc/checkm.stderr.txt
       contains: ['Finished', 'parsing', 'hits']
-    - path: pytest/output/logs/assembly_qc/checkm/checkm.stdout.txt
+    - path: pytest/output/logs/assembly_qc/checkm.stdout.txt
       contains: ['CheckM', 'Parsing', 'written']
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.begin
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.err
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.log
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.out
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.err
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.run
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.sh
-      md5sum: 43ec7c4340a7cf9076072dc3ceb7d92d
-    - path: pytest/output/logs/assembly_qc/checkm/nf-assembly_qc.trace
-      contains: ['nextflow.trace']
-    - path: pytest/output/logs/assembly_qc/checkm/versions.yml
-      md5sum: b132c5ee92a34953e6bd0d126f486e6b
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.err
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.log
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.sh
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.sh
       contains: ['checkm', 'quast', 'END_VERSIONS']
-    - path: pytest/output/logs/assembly_qc/quast/nf-assembly_qc.trace
+    - path: pytest/output/logs/assembly_qc/nf-assembly_qc.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/assembly_qc/quast/quast.log
+    - path: pytest/output/logs/assembly_qc/quast.log
       contains: ['Version', 'QUAST']
-    - path: pytest/output/logs/assembly_qc/quast/quast.stderr.txt
+    - path: pytest/output/logs/assembly_qc/quast.stderr.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/assembly_qc/quast/quast.stdout.txt
+    - path: pytest/output/logs/assembly_qc/quast.stdout.txt
       contains: ['Version', 'QUAST']
-    - path: pytest/output/logs/assembly_qc/quast/versions.yml
-      md5sum: cb97ca5e47b1a503dee2663c9f9bb2f0
+    - path: pytest/output/logs/assembly_qc/versions.yml
+      md5sum: a8f4ded395206059a3ef008b22d347df

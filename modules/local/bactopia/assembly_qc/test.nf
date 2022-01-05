@@ -12,5 +12,5 @@ workflow test_assembly_qc {
         file(params.test_data['species']['portiera']['genome']['total_contigs'], checkIfExists: true)
     )
 
-    ASSEMBLY_QC ( inputs, ['checkm', 'quast'] )
+    ASSEMBLY_QC ( inputs )
 }
