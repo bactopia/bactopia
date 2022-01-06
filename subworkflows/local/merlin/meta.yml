@@ -1,9 +1,22 @@
 name: merlin
 description: MinmER assisted species-specific bactopia tool seLectIoN
 keywords:
-  - TAGS
+  - serotype
+  - species-specific
 modules:
-  - LIST_OF_MODULES
+  - mash_dist
+  - agrvate
+  - ectyper
+  - emmtyper
+  - hicap
+  - kleborate
+  - lissero
+  - meningotype
+  - ngmaster
+  - seqsero2
+  - spatyper
+  - staphopiasccmec
+  - tbprofiler_profile
 input:
   - meta:
       type: map

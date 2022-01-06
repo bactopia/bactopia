@@ -1,9 +1,10 @@
 name: gtdb
 description: Identify marker genes and assign taxonomic classifications
 keywords:
-  - TAGS
+  - taxonomy
 modules:
-  - LIST_OF_MODULES
+  - gtdbtk_setupdb
+  - gtdbtk_classifywf
 input:
   - meta:
       type: map

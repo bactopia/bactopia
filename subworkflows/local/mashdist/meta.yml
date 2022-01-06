@@ -1,9 +1,10 @@
 name: mashdist
 description: Calculate Mash distances between sequences
 keywords:
-  - TAGS
+  - ani
+  - distance
 modules:
-  - LIST_OF_MODULES
+  - mash_dist
 input:
   - meta:
       type: map
