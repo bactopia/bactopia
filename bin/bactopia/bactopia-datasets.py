@@ -117,7 +117,7 @@ from Bio import SeqIO
 from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "bactopia datasets"
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'

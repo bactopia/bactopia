@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.1 bactopia/bactopia "" - 2022/??/??
+## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 
 ### `Added`
 - Merlin for auto selection of species-specific tools based
