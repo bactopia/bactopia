@@ -17,7 +17,7 @@
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.sh
-      md5sum: fae0cad30ce27e14d4d9e319938c6ef9
+      contains: ['mash', 'shared', 'END_VERSIONS']
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/versions.yml
