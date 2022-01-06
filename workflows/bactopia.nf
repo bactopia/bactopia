@@ -85,7 +85,7 @@ workflow BACTOPIA {
 
     if (params.ask_merlin) {
         MERLIN(ASSEMBLE_GENOME.out.fna_fastq)
-        ch_versions = ch_versions.mix(MERLIN.out.versions.first())
+        ch_versions = ch_versions.mix(MERLIN.out.versions)
     }
 
     // Collect Versions
