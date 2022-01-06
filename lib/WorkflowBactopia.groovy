@@ -50,7 +50,7 @@ class WorkflowBactopia {
             run_type = "assembly"
         } else if (params.accessions) {
             if (Utils.isLocal(params.accessions)) {
-                error += Utils.fileNotGzipped(params.accessions, 'accessions', log)
+                error += Utils.fileNotFound(params.accessions, 'accessions', log)
             }
             run_type = "is_accessions"
         } else if (params.accession) {
