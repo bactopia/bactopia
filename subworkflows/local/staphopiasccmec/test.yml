@@ -9,9 +9,7 @@
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.run
@@ -21,13 +19,11 @@
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/GCF_000017085/logs/staphopiasccmec/versions.yml
-      md5sum: 35f67e3ca9b8eab413c738e043a6df84
+      md5sum: ee70d8bb0ee24122a0802fdbac05bfb8
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.run
@@ -37,7 +33,7 @@
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 163edf4b56d5fe0d7da382cedc0249a3
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-dag.dot
       contains: ['staphopiasccmecdag', 'STAPHOPIASCCMEC', 'versions']
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-report.html

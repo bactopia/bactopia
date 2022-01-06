@@ -31,7 +31,7 @@
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/nf-prokka.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/prokka/prokka/GCF_000292685/logs/prokka/versions.yml
-      md5sum: 38e7df04da90afe757d0fa63d81d36f4
+      md5sum: 518d8d9484c0fcdcf593c4e0b320b066
     - path: bactopia-tools/prokka/prokka/nf-reports/prokka-dag.dot
       contains: ['prokkadag', 'PROKKA', 'versions']
     - path: bactopia-tools/prokka/prokka/nf-reports/prokka-report.html

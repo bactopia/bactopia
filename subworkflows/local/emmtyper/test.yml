@@ -21,15 +21,13 @@
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/nf-emmtyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/emmtyper/emmtyper/GCF_006364235/logs/emmtyper/versions.yml
-      md5sum: 6999b41926dc2a0920fdb82ddac42854
+      md5sum: c524713d81202cd6a9d891f346175a8c
     - path: bactopia-tools/emmtyper/emmtyper/emmtyper.tsv
       md5sum: 38f46cf186d95a5602ff33144a3b105e
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.run
@@ -39,7 +37,7 @@
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 7ba045537b0b33bdb555ca5bf224f6d8
     - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-dag.dot
       contains: ['emmtyperdag', 'EMMTYPER', 'versions']
     - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-report.html

@@ -21,7 +21,7 @@
     - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/nf-hicap.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/hicap/hicap/GCA_000027305/logs/hicap/versions.yml
-      md5sum: 07c39264839a5a9c52479a8d67a38eb2
+      md5sum: 406d486f223d7fb759cc7eeeda2bb4a8
     - path: bactopia-tools/hicap/hicap/GCF_900478275/GCF_900478275.gbk
       md5sum: 562d026956903354ac80721f501335d4
     - path: bactopia-tools/hicap/hicap/GCF_900478275/GCF_900478275.svg
@@ -43,15 +43,13 @@
     - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/nf-hicap.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/hicap/hicap/GCF_900478275/logs/hicap/versions.yml
-      md5sum: 07c39264839a5a9c52479a8d67a38eb2
+      md5sum: 406d486f223d7fb759cc7eeeda2bb4a8
     - path: bactopia-tools/hicap/hicap/hicap.tsv
       contains: ['isolate', 'GCA_000027305', 'GCF_900478275']
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.run
@@ -61,7 +59,7 @@
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/hicap/hicap/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: c4792b1df47fdfe6a2657e7406586ef8
     - path: bactopia-tools/hicap/hicap/nf-reports/hicap-dag.dot
       contains: ['hicapdag', 'HICAP', 'versions']
     - path: bactopia-tools/hicap/hicap/nf-reports/hicap-report.html

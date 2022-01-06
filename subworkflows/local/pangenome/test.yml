@@ -63,11 +63,10 @@
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/nf-clonalframeml.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/clonalframeml/versions.yml
-      md5sum: 15b3c403eb94ea9dc632192c2e0f7f53
+      md5sum: 5a1b0af87097ed8ed9c0485d355cd204
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/nf-iqtree-fast.out
@@ -81,13 +80,12 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/versions.yml
-      md5sum: d2d342e82bbd8745619511c0fa55cd18
+      md5sum: cc2f82cc59e4ec17474d8227b78a5da0
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/core-genome.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.out
@@ -99,7 +97,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/versions.yml
-      md5sum: d2d342e82bbd8745619511c0fa55cd18
+      md5sum: a9600ba39895432b0e5b64d3f7a2b667
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.err
@@ -120,7 +118,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/results/split_groups.log
       contains: ['g0']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/versions.yml
-      md5sum: 80d09e12c3dee650c874a0ff0b3d4a85
+      md5sum: 2f9c4961e3ad6b2b17d3f751ebc7053c
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.err
@@ -136,7 +134,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/versions.yml
-      md5sum: b1bf9c5a7c7c27a8a593e9fef7900d05
+      md5sum: a90afa09e41d9a7ed5ae84b44a38afd5
     - path: bactopia-tools/pangenome/pangenome/nf-reports/pangenome-dag.dot
       contains: ['pangenomedag', 'shape', 'digraph']
     - path: bactopia-tools/pangenome/pangenome/nf-reports/pangenome-report.html

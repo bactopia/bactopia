@@ -22,15 +22,13 @@
     - path: bactopia-tools/lissero/lissero/GCF_002285835/logs/lissero/nf-lissero.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/lissero/lissero/GCF_002285835/logs/lissero/versions.yml
-      md5sum: 6fbff2dbedebc201f680a605be273337
+      md5sum: 822b9a47a51eb7c2b5e84d1c407a9150
     - path: bactopia-tools/lissero/lissero/lissero.tsv
       md5sum: f3fedfb8fe6789eaa389129d25c88d5f
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.run
@@ -40,7 +38,7 @@
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/lissero/lissero/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 120eee22e66b6221604e850a5d16022a
     - path: bactopia-tools/lissero/lissero/nf-reports/lissero-dag.dot
       contains: ['lisserodag', 'LISSERO', 'versions']
     - path: bactopia-tools/lissero/lissero/nf-reports/lissero-report.html

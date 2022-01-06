@@ -1,7 +1,7 @@
 - name: gtdb-test
   command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb --wf gtdb -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - gtdb
+    - gtdb-todo
     - bactopia-tools
   files:
     - path: OUTPUTFILE

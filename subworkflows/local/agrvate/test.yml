@@ -21,7 +21,7 @@
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/nf-agrvate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/logs/agrvate/versions.yml
-      md5sum: 13d59d08a55bdfc96fb320c6ae96ec97
+      md5sum: c5fafc516992acaf78891c9df7b652df
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/GCF_000017085-agr_gp.tab
       md5sum: 04031d5b20fabcc4b3ddeef707e94029
     - path: bactopia-tools/agrvate/agrvate/GCF_000017085/GCF_000017085-blastn_log.txt
@@ -31,9 +31,7 @@
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.run
@@ -43,7 +41,7 @@
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/agrvate/agrvate/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 93eac8b8704de84acfa95e4d586e0554
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-dag.dot
       contains: ['agrvatedag', 'AGRVATE', 'versions']
     - path: bactopia-tools/agrvate/agrvate/nf-reports/agrvate-report.html

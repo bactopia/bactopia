@@ -21,7 +21,7 @@
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/versions.yml
-      md5sum: 2821134092b85c80aac02245e4d85a16
+      md5sum: cf6ab89fdd29df2ce70cdffe73d8f3f2
     - path: bactopia-tools/fastani/fastani/GCF_900478275/GCF_900478275.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.begin
@@ -39,15 +39,13 @@
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/versions.yml
-      md5sum: 2821134092b85c80aac02245e4d85a16
+      md5sum: cf6ab89fdd29df2ce70cdffe73d8f3f2
     - path: bactopia-tools/fastani/fastani/fastani.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.run
@@ -57,7 +55,7 @@
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 74f2666aa337ac28ffde2c132a72264b
     - path: bactopia-tools/fastani/fastani/nf-reports/fastani-dag.dot
       contains: ['fastanidag', 'FASTANI', 'versions']
     - path: bactopia-tools/fastani/fastani/nf-reports/fastani-report.html

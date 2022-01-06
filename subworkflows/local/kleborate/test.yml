@@ -20,15 +20,13 @@
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/kleborate/kleborate/GCF_000009885/logs/kleborate/versions.yml
-      md5sum: a610ad8f4c2f9f7239d1db71c0da3d19
+      md5sum: 1b628b281e3eb2be1015e35b05d8b99c
     - path: bactopia-tools/kleborate/kleborate/kleborate.tsv
       contains: ['strain', 'GCF_000009885']
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.run
@@ -38,7 +36,7 @@
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/kleborate/kleborate/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 808946f342e2fbda9e7846f6a2ec024d
     - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-dag.dot
       contains: ['kleboratedag', 'KLEBORATE', 'versions']
     - path: bactopia-tools/kleborate/kleborate/nf-reports/kleborate-report.html

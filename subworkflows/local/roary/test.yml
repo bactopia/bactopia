@@ -44,7 +44,7 @@
     - path: bactopia-tools/roary/roary/logs/roary/nf-roary.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/roary/roary/logs/roary/versions.yml
-      md5sum: 984f1e35ec1bedeef9fee96b5d8c5bc8
+      md5sum: 3b710eef62b3be64755079699ae4aae1
     - path: bactopia-tools/roary/roary/nf-reports/roary-dag.dot
       contains: ['roarydag', 'ROARY', 'versions']
     - path: bactopia-tools/roary/roary/nf-reports/roary-report.html

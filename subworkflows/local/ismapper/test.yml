@@ -43,7 +43,7 @@
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/nf-ismapper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ismapper/ismapper/SRR2838702/logs/ismapper/is1016/versions.yml
-      md5sum: 1ce2f4d3cdc718c0d6cadbdcc997b6b2
+      md5sum: eda0743d59eda7b33011608a6f5316f6
     - path: bactopia-tools/ismapper/ismapper/nf-reports/ismapper-dag.dot
       contains: ['ismapperdag', 'ISMAPPER', 'versions']
     - path: bactopia-tools/ismapper/ismapper/nf-reports/ismapper-report.html

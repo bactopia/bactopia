@@ -10,7 +10,6 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.err
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.run
@@ -20,13 +19,11 @@
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/versions.yml
-      md5sum: d8f1655df685a0c80009f2d828dbbc69
+      md5sum: 815c03da8b663dd93853abc249b7948b
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.run
@@ -36,7 +33,7 @@
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 617fbaf40edd53b88e749414a6268118
     - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-dag.dot
       contains: ['ngmasterdag', 'NGMASTER', 'versions']
     - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-report.html

@@ -5,100 +5,11 @@
     - bactopia-tools
   files:
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-summary.tab
-      md5sum: e86969f1623c16960033d87322759a89
+      md5sum: b483a3d6ca1908ab813427b06751e51a
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-agr_gp.tab
       md5sum: 04031d5b20fabcc4b3ddeef707e94029
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-agr_operon.fna
-      md5sum: 23adc3353d71d9763aa3010fdfa4e967
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-agr_operon_frameshifts.tab
-      md5sum: fa7275da05e7b3d18a104fb34131f5bd
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-blastn_log.txt
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer-log.txt
-      contains: ['PREPARING', 'reading']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.1coords
-      md5sum: bf7efacff9652f6e5160ffee249c3331
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.1delta
-      contains: ['NUCMER']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.delta
-      contains: ['NUCMER']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.mcoords
-      md5sum: bf7efacff9652f6e5160ffee249c3331
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.mdelta
-      contains: ['NUCMER']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.qdiff
-      md5sum: f97c885e1066fc682749fe9936ccc417
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.rdiff
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.report
-      contains: ['NUCMER']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.snps
-      md5sum: 159b9404b37bd14b103714a12b9dcb4d
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-mummer/out.unqry
-      contains: ['UNI']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy-log.txt
-      contains: ['snippy', 'Found', 'Done']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/ref.fa
-      md5sum: 75a485060a65bc1b29b6889c5026d6cc
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/ref.fa.fai
-      md5sum: 7383758ba86825ab47f47bf7751615fe
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/genomes/ref.fa
-      md5sum: 75a485060a65bc1b29b6889c5026d6cc
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa
-      md5sum: 75a485060a65bc1b29b6889c5026d6cc
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.amb
-      md5sum: 688167d3bf77ff672e48eb254832d0ee
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.ann
-      md5sum: 7ab544e7091a3694852c44aef944f39a
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.bwt
-      md5sum: ef1f3f95b713732b7f171eee21463f4a
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.fai
-      md5sum: 7383758ba86825ab47f47bf7751615fe
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.pac
-      md5sum: 20a01f0b38fb478eb3761c474990a5e7
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.fa.sa
-      md5sum: d94329fa9284223a52986c7efdb47ece
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.gff
-      md5sum: 499dd8177f4d4a13fc9577bc6e172c63
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref.txt
-      md5sum: 5c96543b3a7c0c9ec545d5baf3a6d5ac
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref/genes.gff.gz
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/ref/snpEffectPredictor.bin
-      md5sum: 95bffe78375ba45cb43742be616e456b
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/reference/snpeff.config
-      md5sum: a63df863fe9bfe3ac769ccc704d2590f
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.aligned.fa
-      md5sum: a60c1ef69994309d93a2a4d40c272043
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.bam
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.bam.bai
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.bed
-      md5sum: 4a053f48cb89f978bded00f9f53421e2
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.consensus.fa
-      md5sum: cda979d1055f261abcaa88683d564549
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.consensus.subs.fa
-      md5sum: cda979d1055f261abcaa88683d564549
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.csv
-      md5sum: a7b02460690077bbe7309193147dfb65
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.filt.vcf
-      contains: ['freebayes', 'commandline']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.gff
-      md5sum: f1b934ea38c6f227100b74439cd6b587
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.html
-      md5sum: 20df7614f5a6604dbefdcfbc3e7f4795
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.log
-      contains: ['snippy', 'echo']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.raw.vcf
-      contains: ['freebayes', 'commandline']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.subs.vcf
-      contains: ['freebayes', 'commandline']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.tab
-      md5sum: 468a969794d67b71e7402da860f649e5
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.txt
-      contains: ['DateTime', 'ReadFiles']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.vcf
-      contains: ['freebayes', 'commandline']
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.vcf.gz
-    - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/agrvate/GCF_000017085-snippy/snps.vcf.gz.csi
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.err
@@ -113,7 +24,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/nf-agrvate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/agrvate/versions.yml
-      md5sum: 5a0f1b78f27a0d325db6123501755f1e
+      md5sum: 01aa0af82cd180a55f2bd342ef985100
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.err
@@ -128,12 +39,11 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/spatyper/versions.yml
-      md5sum: 7ea68f4cae68d6d2cfb60bd2e55369a6
+      md5sum: 7fc367f432607840d76cdeea0d16e2f9
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.err
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.run
@@ -143,18 +53,17 @@
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/logs/staphopiasccmec/versions.yml
-      md5sum: 35f67e3ca9b8eab413c738e043a6df84
+      md5sum: 75be8dadbe30d672a9dc6fbc360a3668
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/spatyper/GCF_000017085.tsv
       md5sum: 6afe7a90c591e32107d86c0e81029f54
     - path: bactopia-tools/staphtyper/staphtyper/GCF_000017085/staphopiasccmec/GCF_000017085.tsv
       md5sum: f631e5f4c80dc8ce004d72d9a3c56f58
     - path: bactopia-tools/staphtyper/staphtyper/agrvate.tsv
-      md5sum: 7d5b10f1029e7e55630eb18ccc2aeb95
+      md5sum: b483a3d6ca1908ab813427b06751e51a
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.run
@@ -164,12 +73,11 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/agrvate/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: c2fa58ee4f95f00d96427c8dba761571
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.run
@@ -179,12 +87,11 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/spatyper/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 70dd63318aa08ef03467020cd6bc4684
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.run
@@ -194,7 +101,7 @@
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphtyper/staphtyper/logs/csvtk_concat/staphopiasccmec/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: a4ac41b3931da0a8710a76cd33cc71d5
     - path: bactopia-tools/staphtyper/staphtyper/nf-reports/staphtyper-dag.dot
       contains: ['staphtyperdag', 'STAPHTYPER', 'versions']
     - path: bactopia-tools/staphtyper/staphtyper/nf-reports/staphtyper-report.html

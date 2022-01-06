@@ -25,15 +25,13 @@
     - path: bactopia-tools/ectyper/ectyper/GCF_001695515/logs/ectyper/nf-ectyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ectyper/ectyper/GCF_001695515/logs/ectyper/versions.yml
-      md5sum: 5202e1700efb96dc497bc3f1381c9ca2
+      md5sum: 6e7716f9aeb79d7e4c4780efe159da11
     - path: bactopia-tools/ectyper/ectyper/ectyper.tsv
       md5sum: cc5b424c0877cd56de8c304aaf3ff1aa
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.run
@@ -43,7 +41,7 @@
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 3223d7ef682d689482d637fe00e72a3c
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-dag.dot
       contains: ['ectyperdag', 'ECTYPER', 'versions']
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-report.html

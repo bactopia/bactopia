@@ -20,13 +20,11 @@
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/versions.yml
-      md5sum: 7ea68f4cae68d6d2cfb60bd2e55369a6
+      md5sum: 4ffc0c49d13cbf2a87c6bc9a225103e7
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.run
@@ -36,7 +34,7 @@
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/versions.yml
-      md5sum: 8ad96ff209a59d84e22c69e93e3f62c5
+      md5sum: 4cad10716dee73dd67abfe8d6cf3f326
     - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-dag.dot
       contains: ['spatyperdag', 'SPATYPER', 'versions']
     - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-report.html

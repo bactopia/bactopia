@@ -32,7 +32,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/versions.yml
-      md5sum: 15b3c403eb94ea9dc632192c2e0f7f53
+      md5sum: f5a4fbafe6ab9c7959cb229adcfde883
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.err
@@ -49,7 +49,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/versions.yml
-      md5sum: d2d342e82bbd8745619511c0fa55cd18
+      md5sum: 69ec52e14ad6d66d65414dbe08a9cbce
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-dag.dot
       contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-report.html

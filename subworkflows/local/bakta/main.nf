@@ -4,7 +4,7 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'bakta')
 options.is_module = params.wf == 'bakta' ? true : false
-options.args =  = [
+options.args = [
     params.skip_trna ? "--skip-trna" : "",
     params.skip_tmrna ? "--skip-tmrna" : "",
     params.skip_rrna ? "--skip-rrna" : "",

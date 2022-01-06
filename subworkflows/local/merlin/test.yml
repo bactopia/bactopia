@@ -31,11 +31,10 @@
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.err
-      md5sum: 6fde58a11e0e39ff4f58395463fe73dc
+      contains: ['Estimated', 'coverage']
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.log
-      md5sum: 262c73a9c27f067ecdc7bbbb7a02d2b2
+      contains: ['Estimated', 'coverage']
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.out
-      md5sum: c310251d27389cee80bfcf85ad9428e8
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.sh
@@ -47,7 +46,6 @@
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/spatyper/nf-spatyper.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/spatyper/nf-spatyper.log
       contains: ['Start', 'Repeats', 'Results']
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/spatyper/nf-spatyper.out
@@ -63,9 +61,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/staphopiasccmec/nf-staphopiasccmec.run
@@ -87,9 +83,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.run
@@ -103,9 +97,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.run
@@ -119,9 +111,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.run
@@ -210,9 +200,9 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/nf-emmtyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/nf-emmtyper.err
-      md5sum: 51b8769f68e540842d523e483714b3ce
+      contains: ['emmtyper', 'Finished']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/nf-emmtyper.log
-      md5sum: 51b8769f68e540842d523e483714b3ce
+      contains: ['emmtyper', 'Finished']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/nf-emmtyper.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/nf-emmtyper.run
@@ -242,7 +232,6 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/nf-kleborate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/nf-kleborate.err
-      md5sum: cdc146dc5375d3be6f8749c246c05f01
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/nf-kleborate.log
       contains: ['strain', 'GCF_000292685']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/nf-kleborate.out
@@ -260,11 +249,10 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.err
-      md5sum: 78271a0795369bab5422f8ebf71a7e6f
+      contains: ['Estimated', 'coverage']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.log
-      md5sum: ac003bfff7d15e404469b3fc93cf5351
+      contains: ['Estimated', 'coverage']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.out
-      md5sum: c310251d27389cee80bfcf85ad9428e8
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.sh
@@ -276,9 +264,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/meningotype/nf-meningotype.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/meningotype/nf-meningotype.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/meningotype/nf-meningotype.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/meningotype/nf-meningotype.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/meningotype/nf-meningotype.run
@@ -292,9 +278,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/nf-ngmaster.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/nf-ngmaster.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/nf-ngmaster.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/nf-ngmaster.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/nf-ngmaster.run
@@ -308,7 +292,6 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.err
-      md5sum: 3609af56c78b952bbd31e6c798b06e35
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.log
       contains: ['GCF_000292685', 'Salmonella', 'Note']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.out
@@ -324,7 +307,6 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.log
       contains: ['Start', 'Repeats', 'Results']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.out
@@ -340,9 +322,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/staphopiasccmec/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/staphopiasccmec/nf-staphopiasccmec.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/staphopiasccmec/nf-staphopiasccmec.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/staphopiasccmec/nf-staphopiasccmec.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/staphopiasccmec/nf-staphopiasccmec.run
@@ -406,9 +386,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.run
@@ -422,9 +400,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.run
@@ -438,9 +414,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.err
-      md5sum: 13e697c35bc8e2cad9f5a8cb5390dc35
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.log
-      md5sum: 13e697c35bc8e2cad9f5a8cb5390dc35
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.run
@@ -454,9 +428,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.run
@@ -470,9 +442,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.run
@@ -486,9 +456,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.run
@@ -502,9 +470,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.run
@@ -518,9 +484,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.run
@@ -534,9 +498,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.run
@@ -550,9 +512,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.run

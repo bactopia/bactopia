@@ -54,7 +54,7 @@ process BAKTA {
         $fasta
 
     cat <<-END_VERSIONS > versions.yml
-    bakta:
+    "${task.process}":
         bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
     END_VERSIONS
     """
