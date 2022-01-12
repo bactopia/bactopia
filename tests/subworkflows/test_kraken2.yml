@@ -1,0 +1,8 @@
+- name: kraken-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf kraken2 -c nextflow.config --help > kraken2-help.txt'
+  tags:
+    - bactopia_help
+    - kraken2
+  files:
+    - path: kraken2-help.txt
+      contains: ['kraken2', 'bactopia', 'version', 'dependencies']

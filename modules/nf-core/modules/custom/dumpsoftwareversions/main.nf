@@ -83,7 +83,8 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
 
     workflow_versions["Workflow"] = {
         "Nextflow": "$workflow.nextflow.version",
-        "$workflow.manifest.name": "$workflow.manifest.version"
+        "$workflow.manifest.name": "$workflow.manifest.version",
+        "date": datetime.datetime.now()
     }
 
     versions_mqc = {

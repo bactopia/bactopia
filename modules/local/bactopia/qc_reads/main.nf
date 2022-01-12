@@ -255,7 +255,7 @@ process QC_READS {
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
-        fastqc: $(echo $(fastqc --version 2>&1) | sed 's/FastQC v//')
+        fastqc: $(echo $(fastqc --version 2>&1) | sed 's/^.*FastQC v//')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
         nanoplot: $(echo $(NanoPlot -v 2>&1) | sed 's/NanoPlot //')

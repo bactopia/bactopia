@@ -1,0 +1,35 @@
+- name: kraken2-test
+  command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2 --wf kraken2 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - kraken2
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_1.fastq.gz
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_2.fastq.gz
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.kraken2.report.txt
+      md5sum: 6e9ccc6bef87f863541b8fc4f567d0e8
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.err
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.log
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.out
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.sh
+      contains: ['kraken2', 'END_VERSIONS']
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/versions.yml
+      md5sum: 79220ccac8645a986c4a6d4c9a28eab2
+    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-dag.dot
+      contains: ['kraken2dag', 'KRAKEN2', 'versions']
+    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-trace.txt
+      contains: ['task_id']
