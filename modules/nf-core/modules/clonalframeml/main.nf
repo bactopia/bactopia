@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'clonalframeml')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5"
+conda_env   = file("${params.condadir}/clonalframeml").exists() ? "${params.condadir}/clonalframeml" : conda_tools
 
 process CLONALFRAMEML {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process CLONALFRAMEML {
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' :
         'quay.io/biocontainers/mulled-v2-f5c68f1508671d5744655da9b0e8b609098f4138:7e089189af7822a6a18245830639dbfe11a4c277-0' }"

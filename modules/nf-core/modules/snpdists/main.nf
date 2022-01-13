@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'snpdists')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::snp-dists=0.8.2"
+conda_env   = file("${params.condadir}/snpdists").exists() ? "${params.condadir}/snpdists" : conda_tools
 
 process SNPDISTS {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process SNPDISTS {
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::snp-dists=0.8.2" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/snp-dists:0.8.2--h5bf99c6_0' :
         'quay.io/biocontainers/snp-dists:0.8.2--h5bf99c6_0' }"

@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/fu
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'custom_dumpsoftwareversions')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::multiqc=1.11"
+conda_env   = file("${params.condadir}/custom_dumpsoftwareversions").exists() ? "${params.condadir}/custom_dumpsoftwareversions" : conda_tools
 
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'
@@ -10,7 +12,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
-    conda (params.enable_conda ? "bioconda::multiqc=1.11" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/multiqc:1.11--pyhdfd78af_0' :
         'quay.io/biocontainers/multiqc:1.11--pyhdfd78af_0' }"
@@ -29,7 +31,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     script:
     """
     #!/usr/bin/env python
-
+    import datetime
     import yaml
     import platform
     from textwrap import dedent

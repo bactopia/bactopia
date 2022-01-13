@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'bakta')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::bakta=1.2.2"
+conda_env   = file("${params.condadir}/bakta").exists() ? "${params.condadir}/bakta" : conda_tools
 
 process BAKTA {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process BAKTA {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
     
-    conda (params.enable_conda ? "bioconda::bakta=1.2.2" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bakta:1.2.2--pyhdfd78af_0' :
         'quay.io/biocontainers/bakta:1.2.2--pyhdfd78af_0' }"

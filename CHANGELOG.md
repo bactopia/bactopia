@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.0.2 bactopia/bactopia "" - 2022/0?/??
+
+### `Added`
+- modules can now use prebuilt envs
+- `--available_species` to print the species in a bactopia dataset
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `kraken2`: Taxonomic classification of sequence reads
+
+### `Fixed`
+- `toInteger` on `null` genome size
+
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 
 ### `Added`

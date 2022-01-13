@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'phyloflash_makdb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::phyloflash=3.4"
+conda_env   = file("${params.condadir}/phyloflash").exists() ? "${params.condadir}/phyloflash" : conda_tools
 
 process MAKEDB {
     tag "$meta.id"
@@ -10,10 +12,10 @@ process MAKEDB {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::agrvate=1.0.1" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/agrvate:1.0.1--hdfd78af_2' :
-        'quay.io/biocontainers/agrvate:1.0.1--hdfd78af_2' }"
+        'https://depot.galaxyproject.org/singularity/phyloflash:3.4--hdfd78af_1' :
+        'quay.io/biocontainers/phyloflash:3.4--hdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)

@@ -400,7 +400,10 @@ def setup_datasets() {
         log.info "\tsequence_type"
     }
 
-    if (datasets['genome_size'].toInteger() > 0) {
+    if (datasets['genome_size'] == null){
+        log.info "Genome size not available, it will be estimated."
+        datasets['genome_size'] = 0
+    } else if (datasets['genome_size'].toInteger() > 0) {
         log.info "Will use ${datasets['genome_size']} bp for genome size"
     } else if (datasets['genome_size'].toInteger() == 0) {
         log.info "Found ${datasets['genome_size']} bp for genome size, it will be estimated."

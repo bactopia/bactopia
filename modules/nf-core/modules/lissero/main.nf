@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'lissero')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::lissero=0.4.9"
+conda_env   = file("${params.condadir}/lissero").exists() ? "${params.condadir}/lissero" : conda_tools
 
 process LISSERO {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process LISSERO {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::lissero=0.4.9" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/lissero:0.4.9--py_0' :
         'quay.io/biocontainers/lissero:0.4.9--py_0' }"

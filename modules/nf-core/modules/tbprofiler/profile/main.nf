@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/fu
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'tbprofiler')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::tb-profiler=3.0.8"
+conda_env   = file("${params.condadir}/tbprofiler").exists() ? "${params.condadir}/tbprofiler" : conda_tools
 
 process TBPROFILER_PROFILE {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process TBPROFILER_PROFILE {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::tb-profiler=3.0.8" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/tb-profiler:3.0.8--pypyh5e36f6f_0' :
         'quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0' }"

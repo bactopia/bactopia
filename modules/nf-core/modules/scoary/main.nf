@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'scoary')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::scoary=1.6.16" 
+conda_env   = file("${params.condadir}/scoary").exists() ? "${params.condadir}/scoary" : conda_tools
 
 process SCOARY {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process SCOARY {
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::scoary=1.6.16" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/scoary:1.6.16--py_2' :
         'quay.io/biocontainers/scoary:1.6.16--py_2' }"

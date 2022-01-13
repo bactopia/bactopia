@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'ncbigenomedownload')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::ncbi-genome-download=0.3.0"
+conda_env   = file("${params.condadir}/ncbigenomedownload").exists() ? "${params.condadir}/ncbigenomedownload" : conda_tools
 
 process NCBIGENOMEDOWNLOAD {
     tag "$meta.id"
@@ -10,8 +12,8 @@ process NCBIGENOMEDOWNLOAD {
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::ncbi-genome-download=0.3.0" : null)
-    container 'quay.io/bactopia/bactopia:1.7.1'
+    conda (params.enable_conda ? conda_env : null)
+    container 'quay.io/bactopia/bactopia:2.0.0'
 
     input:
     val meta

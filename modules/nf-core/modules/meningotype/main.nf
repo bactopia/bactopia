@@ -3,6 +3,8 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'meningotype')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
+conda_tools = "bioconda::meningotype=0.8.5"
+conda_env   = file("${params.condadir}/meningotype").exists() ? "${params.condadir}/meningotype" : conda_tools
 
 process MENINGOTYPE {
     tag "$meta.id"
@@ -10,7 +12,7 @@ process MENINGOTYPE {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::meningotype=0.8.5" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/meningotype:0.8.5--pyhdfd78af_0' :
         'quay.io/biocontainers/meningotype:0.8.5--pyhdfd78af_0' }"

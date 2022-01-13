@@ -12,8 +12,8 @@ usage: bactopia datasets [-h] [--outdir STR] [--skip_ariba] [--ariba STR]
                          [--cpus INT] [--clear_cache] [--force]
                          [--force_ariba] [--force_mlst] [--force_prokka]
                          [--force_minmer][--keep_files]
-                         [--available_datasets] [--depends] [--version]
-                         [--verbose] [--silent]
+                         [--available_datasets] [--available_species] [--depends]
+                         [--version] [--verbose] [--silent]
                          PUBMLST
 
 bactopia datasets - Setup public datasets for Bactopia
@@ -95,6 +95,7 @@ Custom Options:
   --keep_files          Keep all downloaded and intermediate files.
   --available_datasets  List Ariba reference datasets and MLST schemas
                         available for setup.
+  --available_species   List species availble from current datasets.
   --depends             Verify dependencies are installed.
 
 Adjust Verbosity:
@@ -279,6 +280,24 @@ def available_datasets(ariba, pubmlst, missing=False):
             print(f'{k}', file=print_to)
     sys.exit(1 if missing else 0)
 
+
+def available_species(dataset_dir):
+    """Print species already in the dataset, and exit."""
+    summary_json = f'{dataset_dir}/summary.json'
+    if os.path.exists(summary_json):
+        species_list = []
+        with open(summary_json, 'rt') as summary_fh:
+            summary_data = json.load(summary_fh)
+            for species in summary_data['species-specific'].keys():
+                species_list.append(species.capitalize().replace('-', ' '))
+        if species_list:
+            print(','.join(species_list))
+        else:
+            print(f'No available species datasets, exiting...', file=sys.stderr)
+        sys.exit(0)
+    else:
+        print(f'Please verify {dataset_dir} contains Bactopia Datasets, exiting...', file=sys.stderr)
+        sys.exit(1)
 
 def setup_requests(request, available_datasets, title, skip_check=False):
     """Return a list of setup requests."""
@@ -1108,6 +1127,10 @@ if __name__ == '__main__':
         help=('List Ariba reference datasets and MLST schemas '
               'available for setup.')
     )
+    group8.add_argument(
+        '--available_species', action='store_true',
+        help=('List species availble from current datasets.')
+    )
 
     group8.add_argument('--depends', action='store_true',
                         help='Verify dependencies are installed.')
@@ -1140,6 +1163,9 @@ if __name__ == '__main__':
     ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.available_datasets:
         available_datasets(ARIBA, PUBMLST)
+
+    if args.available_species:
+        available_species(args.outdir)
 
     species_key = None
     num_species = 0
