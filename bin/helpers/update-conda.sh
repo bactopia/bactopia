@@ -1,13 +1,12 @@
 #! /bin/bash
 # Updates the conda environment yamls to bump to latest software versions.
-set -x
 set -e
 if [[ $# == 0 ]]; then
     echo ""
-    echo "update-conda.sh BACTOPIA_DIRECTORY VERSION IS_MAC"
+    echo "update-conda.sh BACTOPIA_DIRECTORY IS_MAC"
     echo ""
     echo "Example Command"
-    echo "update-conda.sh /home/bactopia/bactopia 1.0.0"
+    echo "update-conda.sh /home/bactopia/bactopia"
     echo ""
     exit
 fi
