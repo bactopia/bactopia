@@ -128,21 +128,6 @@ process ASSEMBLE_GENOME {
             # Make BLASTDB
             mkdir blastdb
             cat ${OUTDIR}/!{meta.id}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}
-
-            # QUAST
-            est_ref_size=""
-            if [ "${GENOME_SIZE}" != "0" ]; then
-                est_ref_size="--est-ref-size ${GENOME_SIZE}"
-            fi
-
-            quast ${OUTDIR}/!{meta.id}.fna ${est_ref_size} \
-                -o quast \
-                --threads !{task.cpus} \
-                --glimmer \
-                --contig-thresholds !{params.contig_thresholds} \
-                --plots-format !{params.plots_format}
-            mv quast/quast.log ./
-            mv quast/ ${OUTDIR}/
         fi
     else
         mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna

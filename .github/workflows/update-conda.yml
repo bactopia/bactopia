@@ -19,7 +19,7 @@ jobs:
           activate-environment: conda-build
           auto-activate-base: false
 
-      - name: Build and Push 
+      - name: Build Conda YAMLs
         run: |
           conda install -c conda-forge -c bioconda mamba
           if [ "$RUNNER_OS" == "macOS" ]; then
