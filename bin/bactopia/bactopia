@@ -42,15 +42,13 @@ if [[ $# == 0 ]]; then
     echo "Available Commands"
     echo "bactopia - Execute the Bactopia Nextflow pipeline"
     echo ""
-    echo "bactopia build - Build Bactopia Conda environments"
-    echo ""
     echo "bactopia citations - Print citation for datasets, tools and Bactopia"
     echo ""
     echo "bactopia datasets - Download/setup useful datasets for Bactopia"
     echo ""
-    echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
+    echo "bactopia download - Build Bactopia Conda, Docker,and or Singularity environments "
     echo ""
-    echo "bactopia pull - Build Bactopia Singularity images"
+    echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
     echo ""
     echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
@@ -60,6 +58,7 @@ if [[ $# == 0 ]]; then
     echo "Print Usages:"
     echo "bactopia --help"
     echo "bactopia datasets --help"
+    echo "bactopia download --help"
     echo "bactopia prepare --help"
     echo "bactopia search --help"
     echo "bactopia tools --help"
@@ -68,7 +67,7 @@ if [[ $# == 0 ]]; then
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
     echo "bactopia --wf pangenome --bactopia /path/to/bactopia/results"
     echo ""
-    echo "bactopia build /path/to/bactopia/conda-yml /path/to/install/conda/environments"
+    echo "bactopia download --use_defaults"
     echo ""
     echo "bactopia datasets --species 'Staphylococcus aureus'"
     echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
@@ -88,17 +87,11 @@ elif [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
     bactopia-search.py "${@:2}"
-elif [[ "$1" == "build" ]]; then
-    if [[ "$2" == "--default" ]]; then
-        bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" "${@:2}"
+elif [[ "$1" == "download" ]]; then
+    if [[ "$2" == "--use_defaults" ]]; then
+        bactopia-download.py "${BACTOPIA_NF}" "${@:2}"
     else
-        bactopia-build.py "${@:2}"
-    fi
-elif [[ "$1" == "pull" ]]; then
-    if [[ "$2" == "--default" ]]; then
-        bactopia-pull.py "${BACTOPIA_NF}/conda" "${@:2}"
-    else
-        bactopia-pull.py "${@:2}"
+        bactopia-download.py "${@:2}"
     fi
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
@@ -109,34 +102,25 @@ elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
     # Check if Conda environments need to be built
-    BUILD_CONDA=1
-    BUILD_SINGULARITY=0
-    CHECKS=("condadir" "docker" "singularity" "slurm" "help" "help_all" "conda_help" "nfconfig" "list_wfs") 
+    PREBUILD=1
+    BUILD_TYPE="conda"
+    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]]; then
+        BUILD_TYPE="singularity"
+    elif  [[ "$*" == *"docker"* ]]; then
+        BUILD_TYPE="docker"
+    fi
+
+    # If these are used, skip prebuild
+    CHECKS=("help" "help_all" "nfconfig" "list_wfs") 
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
-            BUILD_CONDA=0
-            if [[ "${check}" == "singularity" || "${check}" == "slurm" ]]; then
-                BUILD_SINGULARITY=1
-            fi
+            PREBUILD=0
         fi
     done
 
-    # Determine which WF is running
-    WF="bactopia"
-    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" > /dev/null; then
-        # User specified a wf, get name
-        WF=$(echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^--wf" | sed 's/--wf //')
-    fi
-
-    if [[ "${WF}" == "bactopia" ]] || [[ "${WF}" == "staphopia" ]]; then
-        # Running main Bactopia or Staphopia workflow
-        if [[ "${BUILD_CONDA}" -eq 1 ]]; then
-            # Build conda envs, rebuild out of sync envs, skip existing
-            bactopia-build.py "${BACTOPIA_NF}/conda" "${BACTOPIA_NF}/conda/envs" --is_bactopia
-        elif [[ "${BUILD_SINGULARITY}" -eq 1 ]]; then
-            # Build Singularity images, rebuild out of sync, skip existing
-            bactopia-pull.py "${BACTOPIA_NF}/conda" --is_bactopia "${@:1}"
-        fi
+    if [[ "${PREBUILD}" -eq 1 ]]; then
+        # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
+        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" "${@:1}"
     fi
 
     # Create custom work dir

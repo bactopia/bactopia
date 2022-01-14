@@ -3,6 +3,7 @@
 ## v2.0.2 bactopia/bactopia "" - 2022/0?/??
 
 ### `Added`
+- `bactopia download` which merges the `bactopia build` and `bactopia pull` commands
 - modules can now use prebuilt envs
 - `--available_species` to print the species in a bactopia dataset
 - Bactopia Tools (`bactopia --wf <NAME>`)

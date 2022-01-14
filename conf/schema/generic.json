@@ -187,6 +187,13 @@
                     "fa_icon": "fas fa-toolbox",
                     "help_text": "This may be useful for example if you are unable to directly pull Singularity containers to run the pipeline due to http/https proxy issues."
                 },
+                "force_rebuild": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Force overwrite of existing pre-built environments.",
+                    "fa_icon": "fas fa-recycle",
+                    "hidden": true
+                },
                 "queue": {
                     "type": "string",
                     "default": "general,high-memory",

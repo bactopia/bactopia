@@ -4,7 +4,7 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'eggnog_download')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::eggnog-mapper=2.1.6"
-conda_env   = file("${params.condadir}/eggnog").exists() ? "${params.condadir}/eggnog" : conda_tools
+conda_env   = file("${params.condadir}/eggnog_download").exists() ? "${params.condadir}/eggnog_download" : conda_tools
 
 process EGGNOG_DOWNLOAD {
     label 'process_low'

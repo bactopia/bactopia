@@ -4,7 +4,7 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'mashdist')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::mash=2.3"
-conda_env   = file("${params.condadir}/mash").exists() ? "${params.condadir}/mash" : conda_tools
+conda_env   = file("${params.condadir}/mashdist").exists() ? "${params.condadir}/mashdist" : conda_tools
 
 process MASH_DIST {
     tag "$meta.id"
