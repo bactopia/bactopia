@@ -13,18 +13,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/mapping_query/bwa-index.stderr.txt
-      contains: ['Construct', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/bwa-index.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/bwa-mem.stderr.txt
-      contains: ['read', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -33,10 +27,6 @@
       contains: ['bwa', 'mem', 'samse', 'END_VERSIONS']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/mapping_query/samtools.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/samtools.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/versions.yml
       md5sum: 9e439a97a4d382a5da6816df53707a24
     - path: pytest/output/mapping/B186_RS01460-coverage.txt.gz
@@ -61,18 +51,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/mapping_query/bwa-index.stderr.txt
-      contains: ['Construct', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/bwa-index.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/bwa-mem.stderr.txt
-      contains: ['read', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -81,10 +65,6 @@
       contains: ['bwa', 'mem', 'samse', 'END_VERSIONS']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/mapping_query/samtools.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/samtools.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/versions.yml
       md5sum: 9e439a97a4d382a5da6816df53707a24
     - path: pytest/output/mapping/B186_RS01460-coverage.txt
@@ -109,18 +89,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/mapping_query/bwa-index.stderr.txt
-      contains: ['Construct', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/bwa-index.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/bwa-mem.stderr.txt
-      contains: ['read', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -129,10 +103,6 @@
       contains: ['bwa', 'mem', 'samse', 'END_VERSIONS']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/mapping_query/samtools.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/samtools.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/versions.yml
       md5sum: ef2a11a69f5d056c3255539fb5cce1b3
     - path: pytest/output/mapping/B186_RS01460-coverage.txt.gz
@@ -157,18 +127,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/mapping_query/bwa-index.stderr.txt
-      contains: ['Construct', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/bwa-index.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/bwa-mem.stderr.txt
-      contains: ['read', 'Version', 'bwa']
-    - path: pytest/output/logs/mapping_query/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.err
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.log
+      contains: ['read', 'Construct', 'Version', 'bwa']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/nf-mapping_query.run
@@ -177,10 +141,6 @@
       contains: ['bwa', 'mem', 'samse', 'END_VERSIONS']
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/mapping_query/samtools.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/mapping_query/samtools.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/mapping_query/versions.yml
       md5sum: ef2a11a69f5d056c3255539fb5cce1b3
     - path: pytest/output/mapping/B186_RS01460-coverage.txt

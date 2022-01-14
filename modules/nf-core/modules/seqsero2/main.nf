@@ -25,9 +25,9 @@ process SEQSERO2 {
     tuple val(meta), path("results/*_log.txt")   , emit: log
     tuple val(meta), path("results/*_result.tsv"), emit: tsv
     tuple val(meta), path("results/*_result.txt"), emit: txt
-    path "*.{stdout.txt,stderr.txt,log,err}"     , emit: logs, optional: true
-    path ".command.*"                            , emit: nf_logs
-    path "versions.yml"                          , emit: versions
+    path "*.{log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

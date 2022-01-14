@@ -21,7 +21,7 @@ process BLAST {
 
     output:
     path "results/*"
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -41,7 +41,7 @@ process BLAST {
                 -perc_identity !{params.perc_identity} \
                 -qcov_hsp_perc !{params.qcov_hsp_perc} \
                 -query - \
-                -out temp_json/${name}_{#}.json > blastn.stdout.txt 2> blastn.stderr.txt
+                -out temp_json/${name}_{#}.json
         elif [ "!{query}" == "primers" ]; then
             cat ${fasta} | sed -e 's/<[^>]*>//g' |
             parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
@@ -53,7 +53,7 @@ process BLAST {
                 -perc_identity !{params.perc_identity} \
                 -evalue 1 \
                 -query - \
-                -out temp_json/${name}_{#}.json > blastn.stdout.txt 2> blastn.stderr.txt
+                -out temp_json/${name}_{#}.json
         else
             cat ${fasta} | sed -e 's/<[^>]*>//g' |
             parallel --gnu --plain -j !{task.cpus} --recstart '>' -N 1 --pipe \
@@ -62,10 +62,10 @@ process BLAST {
                 -evalue 0.0001 \
                 -qcov_hsp_perc !{params.qcov_hsp_perc} \
                 -query - \
-                -out temp_json/${name}_{#}.json > tblastn.stdout.txt 2> tblastn.stderr.txt
+                -out temp_json/${name}_{#}.json
         fi
 
-        merge-blast-json.py temp_json > ${OUTDIR}/${name}.json 2> merge-blast-json.stderr.txt
+        merge-blast-json.py temp_json > ${OUTDIR}/${name}.json
         rm -rf temp_json
 
         if [[ !{params.skip_compression} == "false" ]]; then

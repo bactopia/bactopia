@@ -23,7 +23,7 @@ process MAKEDB {
     output:
     tuple val(meta), path("${meta.id}-summary.tab"), emit: summary
     path "results/", emit: results_dir
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
 

@@ -34,7 +34,7 @@ process BAKTA {
     tuple val(meta), path("${prefix}.hypotheticals.tsv"), emit: hypotheticals_tsv
     tuple val(meta), path("${prefix}.hypotheticals.faa"), emit: hypotheticals_faa
     tuple val(meta), path("${prefix}.tsv")              , emit: tsv
-    path "*.{stdout.txt,stderr.txt,log,err}"            , emit: logs, optional: true
+    path "*.{log,err}"                                  , emit: logs, optional: true
     path ".command.*"                                   , emit: nf_logs
     path "versions.yml"                                 , emit: versions
 

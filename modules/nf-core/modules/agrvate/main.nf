@@ -23,7 +23,7 @@ process AGRVATE {
     output:
     tuple val(meta), path("results/${meta.id}-summary.tab"), emit: summary
     tuple val(meta), path("results/*")                     , emit: results_dir
-    path "*.{stdout.txt,stderr.txt,log,err}"               , emit: logs, optional: true
+    path "*.{log,err}"                                     , emit: logs, optional: true
     path ".command.*"                                      , emit: nf_logs
     path "versions.yml"                                    , emit: versions
 

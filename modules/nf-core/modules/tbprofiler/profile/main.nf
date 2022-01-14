@@ -21,14 +21,14 @@ process TBPROFILER_PROFILE {
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("bam/*.bam")      , emit: bam
-    tuple val(meta), path("results/*.csv")  , emit: csv, optional: true
-    tuple val(meta), path("results/*.json") , emit: json
-    tuple val(meta), path("results/*.txt")  , emit: txt, optional: true
-    tuple val(meta), path("vcf/*.vcf.gz")   , emit: vcf
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    tuple val(meta), path("bam/*.bam")     , emit: bam
+    tuple val(meta), path("results/*.csv") , emit: csv, optional: true
+    tuple val(meta), path("results/*.json"), emit: json
+    tuple val(meta), path("results/*.txt") , emit: txt, optional: true
+    tuple val(meta), path("vcf/*.vcf.gz")  , emit: vcf
+    path "*.{log,err}"                     , emit: logs, optional: true
+    path ".command.*"                      , emit: nf_logs
+    path "versions.yml"                    , emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

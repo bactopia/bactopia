@@ -35,21 +35,14 @@
       contains: ['name']
     - path: pytest/output/ariba/vfdb_core/version_info.txt
       contains: ['ARIBA', 'Everything looks OK: True']
-    - path: pytest/output/logs/ariba_analysis/card/ariba-summary.stderr.txt
-      md5sum: ab4c49fcb47994595913fb86ed744afe
-    - path: pytest/output/logs/ariba_analysis/card/ariba-summary.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/ariba_analysis/card/ariba.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/ariba_analysis/card/ariba.stdout.txt
-      contains: ['All done!']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.log
-      contains: ['card']
+      contains: ['card', 'All done!']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.out
-      md5sum: 31d8b05b891a38a4e3d8875ace26fa1f
+      contains: ['card', 'All done!']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.sh
@@ -58,21 +51,14 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/ariba_analysis/card/versions.yml
       md5sum: fbc4914cfbff9e6221b140775a20c427
-    - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba-summary.stderr.txt
-      md5sum: ab4c49fcb47994595913fb86ed744afe
-    - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba-summary.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba.stderr.txt
-      md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: pytest/output/logs/ariba_analysis/vfdb_core/ariba.stdout.txt
-      contains: ['All done!']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
-      contains: ['vfdb']
+      contains: ['vfdb', 'All done!']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
-      contains: ['vfdb']
+      contains: ['vfdb', 'All done!']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.sh

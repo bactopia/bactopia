@@ -25,7 +25,7 @@ process MINMER_SKETCH {
     tuple val(meta), path(fq), path("${meta.id}.sig"), emit: sketch
     path("${meta.id}*.{msh,sig}")
     path("${meta.id}.ctx"), optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -34,15 +34,15 @@ process MINMER_SKETCH {
     mccortex_fq = meta.single_end ? "-1 ${fq[0]}" : "-2 ${fq[0]}:${fq[1]}"
     m = task.memory.toString().split(' ')[0].toInteger() * 1000 - 500
     '''
-    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k21 -k 21 -s !{params.sketch_size} -r -I !{meta.id} - > mash.stdout.txt 2> mash.stderr.txt
-    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k31 -k 31 -s !{params.sketch_size} -r -I !{meta.id} - >> mash.stdout.txt 2>> mash.stderr.txt
-    sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{meta.id} -o !{meta.id}.sig !{fastq} > sourmash.stdout.txt 2> sourmash.stderr.txt
+    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k21 -k 21 -s !{params.sketch_size} -r -I !{meta.id} -
+    gzip -cd !{fastq} | mash sketch -o !{meta.id}-k31 -k 31 -s !{params.sketch_size} -r -I !{meta.id} -
+    sourmash sketch dna -p k=21,k=31,k=51,abund,scaled=!{params.sourmash_scale} --merge !{meta.id} -o !{meta.id}.sig !{fastq}
 
     if [[ "!{params.count_31mers}" == "true" ]]; then
-        mccortex31 build -f -k 31 -s !{meta.id} !{mccortex_fq} -t !{task.cpus} -m !{m}mb -q temp_counts > mccortex.stdout.txt 2> mccortex.stderr.txt
+        mccortex31 build -f -k 31 -s !{meta.id} !{mccortex_fq} -t !{task.cpus} -m !{m}mb -q temp_counts
         if [ "!{params.keep_singletons}" == "false" ]; then
             # Clean up Cortex file (mostly remove singletons)
-            mccortex31 clean -q -B 2 -U2 -T2 -m !{m}mb -o !{meta.id}.ctx temp_counts >> mccortex.stdout.txt 2>> mccortex.stderr.txt
+            mccortex31 clean -q -B 2 -U2 -T2 -m !{m}mb -o !{meta.id}.ctx temp_counts
             rm temp_counts
         else
             mv temp_counts !{meta.id}.ctx

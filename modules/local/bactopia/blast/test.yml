@@ -15,12 +15,6 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/blast/genes/GCF_000292685.json.gz
     - path: pytest/GCF_000292685/blast/genes/genes.json.gz
-    - path: pytest/GCF_000292685/logs/blast/genes/blastn.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/genes/blastn.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/genes/merge-blast-json.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/genes/nf-blast.err
@@ -53,12 +47,6 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/blast/primers/GCF_000292685.json.gz
     - path: pytest/GCF_000292685/blast/primers/primers.json.gz
-    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
@@ -91,12 +79,6 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/blast/primers/GCF_000292685.json
     - path: pytest/GCF_000292685/blast/primers/primers.json
-    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/primers/blastn.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/primers/merge-blast-json.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/primers/nf-blast.err
@@ -129,8 +111,6 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/blast/proteins/GCF_000292685.json.gz
     - path: pytest/GCF_000292685/blast/proteins/proteins.json.gz
-    - path: pytest/GCF_000292685/logs/blast/proteins/merge-blast-json.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.err
@@ -143,9 +123,5 @@
       contains: ['tblastn', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/blast/proteins/nf-blast.trace
       contains: ['nextflow.trace']
-    - path: pytest/GCF_000292685/logs/blast/proteins/tblastn.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/blast/proteins/tblastn.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/blast/proteins/versions.yml
       md5sum: d6915a49a9da8a400fd5a16038bb3f6f

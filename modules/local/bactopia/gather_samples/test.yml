@@ -359,14 +359,12 @@
       contains: ['task_id']
     - path: pytest/SRX1390609/SRX1390609-genome-size.txt
       md5sum: ca7a438ae8c4ce0beabea6b275d19545
-    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
-      contains: ['SRX1390609', 'Archive']
-    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
+      contains: ['SRX1390609', 'Archive']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
+      contains: ['SRX1390609', 'Archive']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
@@ -396,14 +394,12 @@
       contains: ['task_id']
     - path: pytest/SRX1390609/SRX1390609-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stderr.txt
-      contains: ['SRX1390609', 'Archive']
-    - path: pytest/SRX1390609/logs/gather_samples/fastq-dl.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.err
+      contains: ['SRX1390609', 'Archive']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.log
+      contains: ['SRX1390609', 'Archive']
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.run
@@ -433,21 +429,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: pytest/GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
-      md5sum: e9f9ec1aaa4769a1b322d6ff09bafa0d
-    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -476,21 +465,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
-    - path: pytest/GCF_000292685/logs/gather_samples/check-assembly-accession.stderr.txt
-      md5sum: e9f9ec1aaa4769a1b322d6ff09bafa0d
-    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/gather_samples/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -520,15 +502,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -557,15 +538,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -777,15 +757,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size-error.txt
       md5sum: 3fcde9b157e3fc599cf86ac74dd2420f
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -813,15 +792,14 @@
       contains: ['task_id']
     - path: pytest/GCF_000292685/GCF_000292685-genome-size-error.txt
       md5sum: b3c7e9b2af2d198598b903187cc7eef1
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stderr.txt
-      md5sum: e5fca53f48aaa303432e448e73d8d78a
-    - path: pytest/GCF_000292685/logs/gather_samples/art.stdout.txt
-      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.err
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.log
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.out
+      contains: ['ART_Illumina', 'FASTQ', 'Output']
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']

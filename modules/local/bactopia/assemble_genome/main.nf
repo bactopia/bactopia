@@ -25,7 +25,7 @@ process ASSEMBLE_GENOME {
     tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${meta.id}-assembly-error.txt", optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -76,7 +76,7 @@ process ASSEMBLE_GENOME {
             --mode !{params.unicycler_mode} \
             --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
-            --min_dead_end_size !{params.min_dead_end_size} !{unicycler_opts} > unicycler.stdout.txt 2> unicycler.stderr.txt
+            --min_dead_end_size !{params.min_dead_end_size} !{unicycler_opts}
         sed -r 's/^>([0-9]+)(.*)/>!{meta.id}_\\1\\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{meta.id}.fna
         mv ${OUTDIR}/assembly.gfa ${OUTDIR}/unicycler.gfa
     else
@@ -89,7 +89,7 @@ process ASSEMBLE_GENOME {
             --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
-            --ram !{shovill_ram} !{assemnber_opts} > !{assembler_wf}.stdout.txt 2> !{assembler_wf}.stderr.txt
+            --ram !{shovill_ram} !{assemnber_opts}
         mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{meta.id}.fna
 
         # Rename Graphs
@@ -108,11 +108,12 @@ process ASSEMBLE_GENOME {
         fi
     fi
 
+
     # Check quality of assembly
     TOTAL_CONTIGS=`grep -c "^>" ${OUTDIR}/!{meta.id}.fna || true`
     touch "total_contigs_${TOTAL_CONTIGS}"
     if [ "${TOTAL_CONTIGS}" -gt 0 ]; then
-        assembly-scan ${OUTDIR}/!{meta.id}.fna > ${OUTDIR}/!{meta.id}.json 2> assembly-scan.stderr.txt
+        assembly-scan ${OUTDIR}/!{meta.id}.fna > ${OUTDIR}/!{meta.id}.json
         TOTAL_CONTIG_SIZE=$(grep "total_contig_length" ${OUTDIR}/!{meta.id}.json | sed -r 's/.*: ([0-9]+),/\\1/')
         if [ "${TOTAL_CONTIG_SIZE}" -lt !{params.min_genome_size} ]; then
             mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna
@@ -127,6 +128,21 @@ process ASSEMBLE_GENOME {
             # Make BLASTDB
             mkdir blastdb
             cat ${OUTDIR}/!{meta.id}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}
+
+            # QUAST
+            est_ref_size=""
+            if [ "${GENOME_SIZE}" != "0" ]; then
+                est_ref_size="--est-ref-size ${GENOME_SIZE}"
+            fi
+
+            quast ${OUTDIR}/!{meta.id}.fna ${est_ref_size} \
+                -o quast \
+                --threads !{task.cpus} \
+                --glimmer \
+                --contig-thresholds !{params.contig_thresholds} \
+                --plots-format !{params.plots_format}
+            mv quast/quast.log ./
+            mv quast/ ${OUTDIR}/
         fi
     else
         mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna
@@ -171,6 +187,7 @@ process ASSEMBLE_GENOME {
         nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
         pilon: $(echo $(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*$//')
+        quast: $(echo $(quast --version 2>&1) | sed 's/.*QUAST v//;s/ .*$//')
         racon: $(echo $(racon --version 2>&1) | sed 's/v//')
         rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
         raven: $(echo $(raven --version))

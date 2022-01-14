@@ -23,12 +23,12 @@ process KRAKEN2 {
     path db
 
     output:
-    tuple val(meta), path('*classified*')   , emit: classified
-    tuple val(meta), path('*unclassified*') , emit: unclassified
-    tuple val(meta), path('*report.txt')    , emit: report
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    tuple val(meta), path('*classified*')  , emit: classified
+    tuple val(meta), path('*unclassified*'), emit: unclassified
+    tuple val(meta), path('*report.txt')   , emit: report
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

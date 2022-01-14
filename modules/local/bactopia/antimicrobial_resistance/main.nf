@@ -22,7 +22,7 @@ process ANTIMICROBIAL_RESISTANCE {
 
     output:
     tuple val(meta), path("*{gene,protein}-{point-mutations,report}.txt"), emit: results
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -49,7 +49,7 @@ process ANTIMICROBIAL_RESISTANCE {
             --ident_min !{params.amr_ident_min} \
             --coverage_min !{params.amr_coverage_min} \
             --translation_table !{params.amr_translation_table} \
-            --threads !{task.cpus} !{organism_gene} !{plus} !{report_common} > amrfinder-gene.stdout.txt 2> amrfinder-gene.stderr.txt
+            --threads !{task.cpus} !{organism_gene} !{plus} !{report_common}
 
     amrfinder -p !{meta.id}.faa \
             -d amrfinderdb/ \
@@ -57,7 +57,7 @@ process ANTIMICROBIAL_RESISTANCE {
             --ident_min !{params.amr_ident_min} \
             --coverage_min !{params.amr_coverage_min} \
             --translation_table !{params.amr_translation_table} \
-            --threads !{task.cpus} !{organism_protein} !{plus} !{report_common} > amrfinder-protein.stdout.txt 2> amrfinder-protein.stderr.txt
+            --threads !{task.cpus} !{organism_protein} !{plus} !{report_common}
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml

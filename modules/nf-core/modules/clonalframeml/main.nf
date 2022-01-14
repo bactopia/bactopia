@@ -28,7 +28,7 @@ process CLONALFRAMEML {
     tuple val(meta), path("*.ML_sequence.fasta")           , emit: fasta
     tuple val(meta), path("*.position_cross_reference.txt"), emit: pos_ref
     tuple val(meta), path("*.masked.aln.gz")               , emit: masked_aln
-    path "*.{stdout.txt,stderr.txt,log,err}"               , emit: logs, optional: true
+    path "*.{log,err}"                                     , emit: logs, optional: true
     path ".command.*"                                      , emit: nf_logs
     path "versions.yml"                                    , emit: versions
 

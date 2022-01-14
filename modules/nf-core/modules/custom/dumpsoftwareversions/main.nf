@@ -23,7 +23,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     output:
     path "software_versions.yml", emit: yml
     path "software_versions_mqc.yml", emit: mqc_yml
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 

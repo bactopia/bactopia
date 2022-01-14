@@ -25,15 +25,14 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['skesa', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['skesa', 'fasta', 'removed']
+      contains: ['skesa', 'fasta', 'removed', 'shovill', 'Distinct', 'pilon', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'Adding', 'DB']
+      contains: ['Building', 'Adding', 'DB', 'skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -42,10 +41,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill-se.log
       contains: ['skesa', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['skesa', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 1a990d2fc797154b4b7309401d2ecd12
 
@@ -78,15 +73,14 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['spades', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['spades', 'fasta', 'removed']
+      contains: ['spades', 'fasta', 'removed', 'Thank you', 'pilon', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'Adding', 'DB']
+      contains: ['spades', 'Thank you', 'pilon', 'Building', 'Adding', 'DB']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -95,10 +89,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill-se.log
       contains: ['spades', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['spades', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['spades', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 1a990d2fc797154b4b7309401d2ecd12
 
@@ -125,10 +115,11 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['megahit', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['megahit', 'fasta', 'removed']
+      contains: ['megahit', 'fasta', 'removed', 'shovill', 'Done', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["removed"]
+      contains: ["removed",'megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -137,10 +128,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill-se.log
       contains: ['megahit', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['megahit', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 1a990d2fc797154b4b7309401d2ecd12
     - path: pytest/output/output-assembly-error.txt
@@ -166,15 +153,14 @@
       contains: ['fasta', 'total_contig', 'contigs_greater_10k']
     - path: pytest/output/assembly/shovill.corrections
     - path: pytest/output/assembly/velvet-unpolished.gfa.gz
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['velvet', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['velvet', 'fasta', 'removed']
+      contains: ['velvet', 'fasta', 'removed', 'Inputting', 'pilon', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["removed"]
+      contains: ['removed', 'velvet', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -183,10 +169,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill-se.log
       contains: ['velvet', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['velvet', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['velvet', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 1a990d2fc797154b4b7309401d2ecd12
     - path: pytest/output/output-assembly-error.txt
@@ -223,15 +205,14 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['skesa', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['skesa', 'fasta', 'removed']
+      contains: ['skesa', 'fasta', 'removed', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'Adding', 'DB']
+      contains: ['Building', 'Adding', 'DB', 'skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -240,10 +221,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill.log
       contains: ['skesa', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['skesa', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['skesa', 'Distinct', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
@@ -279,15 +256,14 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['spades', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['spades', 'fasta', 'removed']
+      contains: ['spades', 'fasta', 'removed', 'shovill', 'Done', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'Adding', 'DB']
+      contains: ['Building', 'Adding', 'DB', 'spades', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -296,10 +272,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill.log
       contains: ['spades', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['spades', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['spades', 'Thank you', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
@@ -329,10 +301,11 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['megahit', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['megahit', 'fasta', 'removed']
+      contains: ['megahit', 'fasta', 'removed', 'shovill', 'Done', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["removed"]
+      contains: ["removed", 'megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -341,10 +314,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill.log
       contains: ['megahit', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['megahit', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['megahit', 'Extract', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
     - path: pytest/output/output-assembly-error.txt
@@ -382,15 +351,14 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ['velvet', 'shovill', 'Done']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['velvet', 'fasta', 'removed']
+      contains: ['velvet', 'fasta', 'removed', 'shovill', 'Done', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'Adding', 'DB']
+      contains: ['velvet', 'Building', 'Adding', 'DB', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -399,10 +367,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/shovill.log
       contains: ['velvet', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stderr.txt
-      contains: ['velvet', 'shovill', 'Done']
-    - path: pytest/output/logs/assemble_genome/shovill.stdout.txt
-      contains: ['velvet', 'Inputting', 'pilon']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: b74a154fcbe5b2e2bcc0c56f71c0eb55
 
@@ -432,15 +396,13 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ['Building', 'DB', 'Adding']
+      contains: ['Building', 'DB', 'Adding', 'unicycler', 'complete', 'Saving']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ['Building', 'DB', 'Adding']
+      contains: ['Building', 'DB', 'Adding', 'unicycler', 'complete', 'Saving']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
@@ -448,9 +410,6 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/unicycler.log
-      contains: ['unicycler', 'complete', 'Saving']
-    - path: pytest/output/logs/assemble_genome/unicycler.stderr.txt
-    - path: pytest/output/logs/assemble_genome/unicycler.stdout.txt
       contains: ['unicycler', 'complete', 'Saving']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 0acad046c4314499584624e1eb9d6279
@@ -482,23 +441,18 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/dragonflye.log
       contains: ["dragonflye","flye"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
-      contains: ["dragonflye","flye"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
-      contains: ["flye"]
     - path: pytest/output/logs/assemble_genome/flye.log
       contains: ["seq_name"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ["dragonflye", "flye"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ["Building a new DB", "Adding", "removed"]
+      contains: ["Building a new DB", "Adding", "removed", "dragonflye", "flye"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["Building a new DB", "Adding", "removed"]
+      contains: ["Building a new DB", "Adding", "removed", "flye"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
       contains: ['flye', 'END_VERSIONS']
@@ -527,21 +481,16 @@
     - path: pytest/output/assembly/output-error.fna.gz
     - path: pytest/output/assembly/output-error.json
       md5sum: dfe24cfffd3f1b66363b5039efa85781
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/dragonflye.log
       contains: ["dragonflye","miniasm"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
-      contains: ["dragonflye","miniasm"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
-      contains: ["miniasm"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ["dragonflye","miniasm"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ["removed"]
+      contains: ["removed", "dragonflye","miniasm"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["removed"]
+      contains: ["removed","miniasm"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
       contains: ['miniasm', 'END_VERSIONS']
@@ -578,21 +527,16 @@
     - path: pytest/output/blast/blastdb/output.nsq
     - path: pytest/output/blast/blastdb/output.ntf
     - path: pytest/output/blast/blastdb/output.nto
-    - path: pytest/output/logs/assemble_genome/assembly-scan.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/dragonflye.log
-      contains: ["dragonflye","raven"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stderr.txt
-      contains: ["dragonflye","raven"]
-    - path: pytest/output/logs/assemble_genome/dragonflye.stdout.txt
-      contains: ["raven"]
+      contains: ["dragonflye", "raven"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ["dragonflye", "raven"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
-      contains: ["Building a new DB", "Adding", "removed"]
+      contains: ["Building a new DB", "Adding", "removed", "dragonflye", "raven"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
-      contains: ["Building a new DB", "Adding", "removed"]
+      contains: ["Building a new DB", "Adding", "removed","raven"]
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
       contains: ['raven', 'END_VERSIONS']

@@ -20,7 +20,7 @@ process GATHER_SAMPLES {
 
     output:
     tuple val(meta), path("fastqs/${meta.id}*.fastq.gz"), path("extra/*.gz"), path("${meta.id}-genome-size.txt"), emit: raw_fastq, optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
     path "*-{error,merged}.txt", optional: true
@@ -109,7 +109,7 @@ process GATHER_SAMPLES {
                 --outdir fastqs/ \
                 --group_by_experiment \
                 --is_experiment \
-                --ftp_only  > fastq-dl.stdout.txt 2> fastq-dl.stderr.txt
+                --ftp_only
             touch extra/empty.fna.gz
         fi 
     elif [ "!{is_assembly}" == "true" ]; then
@@ -123,18 +123,19 @@ process GATHER_SAMPLES {
                 exit
             else
                 # Verify Assembly accession
-                check-assembly-accession.py !{meta.id} > accession.txt 2> check-assembly-accession.stderr.txt
+                check-assembly-accession.py !{meta.id} > accession.txt 2> check-assembly-accession.txt
 
                 if [ -s "accession.txt" ]; then
                     # Download from NCBI assembly and simulate reads
                     mkdir fasta/
                     ncbi-genome-download bacteria -o ./ -F fasta -p !{task.cpus} \
-                                                -s !{section} -A accession.txt -r 50 !{no_cache} > ncbi-genome-download.stdout.txt 2> ncbi-genome-download.stderr.txt
+                                                -s !{section} -A accession.txt -r 50 !{no_cache}
                     find . -name "*!{meta.id}*.fna.gz" | xargs -I {} mv {} fasta/
                     rename 's/(GC[AF]_\\d+).*/$1.fna.gz/' fasta/*
                     gzip -cd fasta/!{meta.id}.fna.gz > !{meta.id}-art.fna
+                    rm check-assembly-accession.txt
                 else
-                    cp check-assembly-accession.stderr.txt !{meta.id}-assembly-accession-error.txt
+                    mv check-assembly-accession.txt !{meta.id}-assembly-accession-error.txt
                     exit
                 fi
             fi
@@ -148,7 +149,7 @@ process GATHER_SAMPLES {
 
         # Simulate reads from assembly, reads are 250bp without errors
         art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov !{fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs !{params.sampleseed} \
-                        -na -qL 33 -qU 40 -o !{meta.id}_R --id !{meta.id} -i !{meta.id}-art.fna > art.stdout.txt 2> art.stderr.txt
+                        -na -qL 33 -qU 40 -o !{meta.id}_R --id !{meta.id} -i !{meta.id}-art.fna
 
         mv !{meta.id}_R1.fq fastqs/!{meta.id}_R1.fastq
         mv !{meta.id}_R2.fq fastqs/!{meta.id}_R2.fastq

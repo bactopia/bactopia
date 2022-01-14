@@ -173,6 +173,31 @@
                     "hidden": true,
                     "description": "If reads were simulated, they will be used to create a new assembly.",
                     "fa_icon": "fas fa-redo"
+                },
+                "contig_thresholds": {
+                    "type": "string",
+                    "default": "0,1000,10000,100000,250000,1000000",
+                    "description": "Comma-separated list of contig length thresholds",
+                    "fa_icon": "fas fa-align-justify",
+                    "hidden": true
+                },
+                "plots_format": {
+                    "type": "string",
+                    "default": "pdf",
+                    "description": "Save plots in specified format",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "emf",
+                        "eps",
+                        "pdf",
+                        "png",
+                        "ps",
+                        "raw",
+                        "rgba",
+                        "svg",
+                        "svgz"
+                    ]
                 }
             }
         }

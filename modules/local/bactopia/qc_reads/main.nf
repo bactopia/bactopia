@@ -20,7 +20,7 @@ process QC_READS {
     tuple val(meta), path("results/${meta.id}*.fastq.gz"), emit: fastq, optional: true
     tuple val(meta), path("results/${meta.id}*.fastq.gz"), path(extra), path(genome_size), emit: fastq_assembly, optional: true
     path "results/*"
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
     path "*-error.txt", optional: true
@@ -61,12 +61,12 @@ process QC_READS {
             # Remove Adapters
             porechop --input !{fq[0]} !{params.porechop_opts} \
                 --format fastq \
-                --threads !{task.cpus} > adapter-r1.fq 2> porechop.stderr.txt
+                --threads !{task.cpus} > adapter-r1.fq
 
             # Quality filter
             nanoq --min-len !{params.ont_minlength} \
                   --min-qual !{params.ont_minqual} \
-                  --input adapter-r1.fq 1> filt-r1.fq 2> nanoq.stderr.txt
+                  --input adapter-r1.fq 1> filt-r1.fq
         else
             # Illumina Reads
             # Remove Adapters
@@ -81,8 +81,7 @@ process QC_READS {
                 tbo=!{params.tbo} \
                 threads=!{task.cpus} \
                 ftm=!{params.ftm} \
-                !{qin} ordered=t \
-                stats=bbduk-adapter.stdout.txt 2> bbduk-adapter.stderr.txt
+                !{qin} ordered=t
 
             # Remove PhiX
             bbduk.sh -Xmx!{xmx} \
@@ -99,7 +98,7 @@ process QC_READS {
                 !{qin} qout=!{params.qout} \
                 tossjunk=!{params.tossjunk} \
                 threads=!{task.cpus} \
-                ordered=t stats=bbduk-phix.stdout.txt 2> bbduk-phix.stderr.txt
+                ordered=t
         fi
 
         # Error Correction
@@ -107,7 +106,7 @@ process QC_READS {
             echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
         else
             if [ "!{params.skip_error_correction}" == "false" ]; then
-                lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus} 1> lighter.stdout.txt 2> lighter.stderr.txt
+                lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
             else
                 echo "Skipping error correction"
                 ln -s phix-r1.fq phix-r1.cor.fq
@@ -123,13 +122,13 @@ process QC_READS {
                 rasusa -i filt-r1.fq \
                        -c !{params.coverage} \
                        -g ${GENOME_SIZE} \
-                       -s !{params.sampleseed} 1> subsample-r1.fq 2> rasusa.stderr.txt
+                       -s !{params.sampleseed} 1> subsample-r1.fq
             else
                 reformat.sh -Xmx!{xmx} \
                     in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
                     samplebasestarget=${TOTAL_BP} \
                     sampleseed=!{params.sampleseed} \
-                    overwrite=t 1> reformat.stdout.txt 2> reformat.stderr.txt
+                    overwrite=t
             fi
         else
             echo "Skipping coverage reduction"

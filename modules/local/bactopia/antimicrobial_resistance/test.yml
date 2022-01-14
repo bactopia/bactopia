@@ -9,19 +9,12 @@
       md5sum: b4d261ace9be7d013c19d1f5c0005bfe
     - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
       md5sum: e269209401df356bdfd9123d35940afd
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
-      contains: ['amrfinder', 'Database', 'nucleotide']
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
-      contains: ['amrfinder', 'Database', 'protein']
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
+      contains: ['amrfinder', 'Database', 'nucleotide', 'protein']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
-      contains: ['amrfinderdb']
+      contains: ['amrfinderdb', 'amrfinder', 'Database', 'nucleotide', 'protein']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
       contains: ['amrfinderdb']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run
@@ -52,19 +45,12 @@
       md5sum: b4d261ace9be7d013c19d1f5c0005bfe
     - path: pytest/GCF_000292685/antimicrobial-resistance/GCF_000292685-protein-report.txt
       md5sum: e269209401df356bdfd9123d35940afd
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stderr.txt
-      contains: ['amrfinder', 'Database', 'nucleotide']
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-gene.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stderr.txt
-      contains: ['amrfinder', 'Database', 'protein']
-    - path: pytest/GCF_000292685/logs/antimicrobial_resistance/amrfinder-protein.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.err
+      contains: ['amrfinder', 'Database', 'nucleotide', 'protein']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.log
-      contains: ['amrfinderdb']
+      contains: ['amrfinderdb', 'amrfinder', 'Database', 'nucleotide', 'protein']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.out
       contains: ['amrfinderdb']
     - path: pytest/GCF_000292685/logs/antimicrobial_resistance/nf-antimicrobial_resistance.run

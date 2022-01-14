@@ -34,7 +34,7 @@ process NCBIGENOMEDOWNLOAD {
     path("*_rna_from_genomic.fna.gz")       , emit: rna_fna , optional: true
     path("*_assembly_report.txt")           , emit: report  , optional: true
     path("*_assembly_stats.txt")            , emit: stats   , optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs    , optional: true
+    path "*.{log,err}"                      , emit: logs    , optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 

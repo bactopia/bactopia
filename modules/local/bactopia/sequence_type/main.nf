@@ -20,7 +20,7 @@ process SEQUENCE_TYPE {
 
     output:
     path "results/*", emit: results
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -36,7 +36,7 @@ process SEQUENCE_TYPE {
     # Run BLAST
     OUTDIR="results/!{schema}"
     mkdir -p ${OUTDIR}/blast
-    mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{meta.id}-blast.json --cpu !{task.cpus} !{blast_opts} 1> mlst-blast.stdout.txt 2> mlst-blast.stderr.txt
+    mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{meta.id}-blast.json --cpu !{task.cpus} !{blast_opts}
 
     # Run Ariba
     if [ "!{meta.single_end}" == "false" ]; then
@@ -52,7 +52,7 @@ process SEQUENCE_TYPE {
             --unique_threshold !{params.mlst_unique_threshold} \
             --threads 1 \
             --force \
-            --verbose !{noclean} !{spades_options} 1> ariba.stdout.txt 2> ariba.stderr.txt
+            --verbose !{noclean} !{spades_options}
         mv ariba ${OUTDIR}/
     else
         mkdir -p ${OUTDIR}/ariba

@@ -18,7 +18,7 @@ process EGGNOG_DOWNLOAD {
 
     output:
     path("eggnog/*")                        , emit: db
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs    , optional: true
+    path "*.{log,err}", emit: logs          , optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 

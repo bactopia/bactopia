@@ -17,10 +17,10 @@ process GTDBTK_SETUPDB {
         'quay.io/biocontainers/gtdbtk:1.7.0--pyhdfd78af_0' }"
 
     output:
-    path("${params.gtdb}/*")                , emit: db
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    path("${params.gtdb}/*"), emit: db
+    path "*.{log,err}"      , emit: logs, optional: true
+    path ".command.*"       , emit: nf_logs
+    path "versions.yml"     , emit: versions
 
     script:
     """

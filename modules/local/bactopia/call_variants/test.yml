@@ -13,14 +13,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
@@ -31,12 +29,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
       md5sum: b73bb582e365878151a8bd89220d36bc
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
@@ -84,14 +76,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
@@ -102,12 +92,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
       md5sum: b73bb582e365878151a8bd89220d36bc
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
@@ -159,14 +143,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
@@ -177,12 +159,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
       md5sum: ab833c448a69a6e9d0f8dcd3047cefcd
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
@@ -230,14 +206,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/GCF_000292685/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/nf-call_variants.run
@@ -248,12 +222,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/GCF_000292685/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/GCF_000292685/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
       md5sum: ab833c448a69a6e9d0f8dcd3047cefcd
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
@@ -305,18 +273,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
@@ -327,12 +289,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: ee654023989cfeffb24f96c754ef16c7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
@@ -384,18 +340,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
@@ -406,12 +356,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: ee654023989cfeffb24f96c754ef16c7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
@@ -467,18 +411,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
@@ -489,12 +427,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: caf3b4fbf378e09d03d31d0a99e401f4
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
@@ -546,18 +478,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/call_variants/refseq-genomes/genomeCoverageBed.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/mask-consensus.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/ncbi-genome-download.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.err
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.log
+      contains: ['snippy', 'Done']
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/nf-call_variants.run
@@ -568,12 +494,6 @@
       contains: ['nextflow.trace']
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stderr.txt
-      contains: ['snippy', 'Done']
-    - path: pytest/output/logs/call_variants/refseq-genomes/snippy.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/call_variants/refseq-genomes/vcf-annotator.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: caf3b4fbf378e09d03d31d0a99e401f4
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk

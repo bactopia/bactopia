@@ -19,7 +19,7 @@ process ANNOTATE_GENOME {
     output:
     tuple val(meta), path("${meta.id}.{ffn,ffn.gz}"), path("${meta.id}.{faa,faa.gz}"), emit: annotations
     path "results/*", emit: results
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -93,7 +93,7 @@ process ANNOTATE_GENOME {
         !{notrna} \
         !{rnammer} \
         !{rfam} \
-        !{meta.id}.fna > prokka.stdout.txt 2> prokka.stderr.txt
+        !{meta.id}.fna
     mv results/!{meta.id}.err ./
     mv results/!{meta.id}.log ./
 

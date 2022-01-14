@@ -24,7 +24,7 @@ process IQTREE {
     tuple val(meta), path("${prefix}*")                         , emit: results
     tuple val(meta), path("${prefix}.treefile")                 , emit: phylogeny
     tuple val(meta), path(alignment), path("${prefix}.treefile"), emit: aln_tree
-    path "*.{stdout.txt,stderr.txt,log,err}"                    , emit: logs, optional: true
+    path "*.{log,err}"                                          , emit: logs, optional: true
     path ".command.*"                                           , emit: nf_logs
     path "versions.yml"                                         , emit: versions
 

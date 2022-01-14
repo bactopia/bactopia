@@ -13,24 +13,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
-      md5sum: 568b25c782021ad7615261d7184388cf
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
-      md5sum: 43eb6f485814981f165b8f36ee16ec54
-    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
-      contains: ['Scanning', 'error', 'Finish']
-    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.err
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
       contains: ['Analysis','complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
@@ -39,10 +27,6 @@
       contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
-      contains: ['ReformatReads', 'Processed']
-    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/quality-control/output_R1.fastq.gz
@@ -81,24 +65,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
-      md5sum: 994932cf6d7331321e29e2b8c3e7d1d3
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
-      md5sum: db0fd8580218de1fdeb831e62b9b6b29
-    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
-      contains: ['Scanning', 'error', 'Finish']
-    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.err
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
       md5sum: da740b754eb5d551074868946f5f94bb
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
@@ -107,10 +79,6 @@
       contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
-      contains: ['ReformatReads', 'Processed']
-    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/quality-control/output.fastq.gz
@@ -237,24 +205,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
-      md5sum: 568b25c782021ad7615261d7184388cf
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
-      md5sum: 43eb6f485814981f165b8f36ee16ec54
-    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
-      contains: ['Scanning', 'error', 'Finish']
-    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.err
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
       contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
@@ -263,10 +219,6 @@
       contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
-      contains: ['ReformatReads', 'Processed']
-    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/output-low-read-count-error.txt
@@ -309,24 +261,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-adapter.stdout.txt
-      md5sum: 994932cf6d7331321e29e2b8c3e7d1d3
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stderr.txt
-      contains: ['BBDuk', 'Memory', 'Result', 'Processed']
-    - path: pytest/output/logs/qc_reads/bbduk-phix.stdout.txt
-      md5sum: db0fd8580218de1fdeb831e62b9b6b29
-    - path: pytest/output/logs/qc_reads/lighter.stderr.txt
-      contains: ['Scanning', 'error', 'Finish']
-    - path: pytest/output/logs/qc_reads/lighter.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.err
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
-      contains: ['Approx', 'complete']
+      contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
       contains: ['Analysis','complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
@@ -335,10 +275,6 @@
       contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/qc_reads/reformat.stderr.txt
-      contains: ['ReformatReads', 'Processed']
-    - path: pytest/output/logs/qc_reads/reformat.stdout.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/output-low-read-count-error.txt
@@ -371,14 +307,12 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/qc_reads/nanoq.stderr.txt
-      md5sum: 8d16bc864a6ee9da1c845a44ad9b7196
     - path: pytest/output/logs/qc_reads/nf-qc_reads.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/qc_reads/nf-qc_reads.err
-      contains: ['results', 'summary', 'original', 'final']
+      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
-      contains: ['results', 'summary', 'original', 'final']
+      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -386,9 +320,6 @@
       contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/qc_reads/porechop.stderr.txt
-    - path: pytest/output/logs/qc_reads/rasusa.stderr.txt
-      contains: ['rasusa', 'Target', 'Done']
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: 515fff3e136b54dca37e2b14e4ecd46d
     - path: pytest/output/quality-control/output.fastq.gz

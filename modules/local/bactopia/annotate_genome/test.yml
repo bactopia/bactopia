@@ -30,19 +30,17 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
+      contains: ['prokka', 'Annotation finished successfully']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
+      contains: ['prokka', 'Annotation finished successfully', 'tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
       contains: ['prokka', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
       contains: ['nextflow.trace']
-    - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stderr.txt
-      contains: ['prokka', 'Annotation finished successfully']
-    - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stdout.txt
-      contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
       md5sum: f9915154176941c5b87bd5f74f88e525
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot
@@ -86,19 +84,17 @@
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.err
+      contains: ['prokka', 'Annotation finished successfully']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.log
+      contains: ['prokka', 'Annotation finished successfully', 'tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.sh
       contains: ['prokka', 'END_VERSIONS']
     - path: pytest/GCF_000292685/logs/annotate_genome/nf-annotate_genome.trace
       contains: ['nextflow.trace']
-    - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stderr.txt
-      contains: ['prokka', 'Annotation finished successfully']
-    - path: pytest/GCF_000292685/logs/annotate_genome/prokka.stdout.txt
-      contains: ['tbl2asn-forever', 'Correcting dates']
     - path: pytest/GCF_000292685/logs/annotate_genome/versions.yml
       md5sum: 4d011df707a9c75b784350b0367374fb
     - path: pytest/bactopia/nf-reports/bactopia-dag.dot

@@ -22,10 +22,10 @@ process GTDBTK_CLASSIFYWF {
     path db, stageAs: 'gtdb/*'
 
     output:
-    path "results/*"                        , emit: results
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    path "results/*"   , emit: results
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

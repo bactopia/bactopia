@@ -23,7 +23,7 @@ process MINMER_QUERY {
 
     output:
     path "${meta.id}-${program}-${database}-${kmer}.txt", emit: result
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -37,14 +37,13 @@ process MINMER_QUERY {
     fastq = meta.single_end ? "${fq[0]}" : "${fq[0]} ${fq[1]}"
     '''
     OUTPUT="!{meta.id}-!{program}-!{database}-!{kmer}.txt"
-    OUTPUT_ERR="!{program}-!{database}-!{kmer}.stderr.txt"
     if [ "!{program}" == "mash" ]; then
         echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${OUTPUT}
         gzip -cd !{fastq} | \
             mash screen !{mash_w} -i !{params.screen_i} -p !{task.cpus} !{dataset} - | \
-            sort -gr >> ${OUTPUT} 2> ${OUTPUT_ERR}
+            sort -gr >> ${OUTPUT}
     elif [ "!{program}" == "sourmash" ]; then
-        sourmash lca classify --query !{sourmash} --db !{dataset} > ${OUTPUT} 2> ${OUTPUT_ERR}
+        sourmash lca classify --query !{sourmash} --db !{dataset} > ${OUTPUT}
     fi
 
     # Capture versions

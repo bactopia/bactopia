@@ -24,9 +24,9 @@ process PIRATE {
     tuple val(meta), path("results/*")                , emit: results
     tuple val(meta), path("core-genome.aln.gz")       , emit: aln
     tuple val(meta), path("gene_presence_absence.csv"), emit: csv
-    path "*.{stdout.txt,stderr.txt,log,err}"          , emit: logs, optional: true
-    path ".command.*"                                 , emit: nf_logs
-    path "versions.yml"                               , emit: versions
+    path "*.{log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

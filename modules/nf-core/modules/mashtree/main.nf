@@ -23,7 +23,7 @@ process MASHTREE {
     output:
     tuple val(meta), path("*.dnd"), emit: tree
     tuple val(meta), path("*.tsv"), emit: matrix
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
 

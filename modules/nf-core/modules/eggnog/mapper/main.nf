@@ -31,7 +31,7 @@ process EGGNOG_MAPPER {
     tuple val(meta), path("*.emapper.gff")                 , emit: gff      , optional: true
     tuple val(meta), path("*.emapper.no_annotations.fasta"), emit: no_anno  , optional: true
     tuple val(meta), path("*.emapper.pfam")                , emit: pfam     , optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}"               , emit: logs     , optional: true
+    path "*.{log,err}"                                     , emit: logs     , optional: true
     path ".command.*"                                      , emit: nf_logs
     path "versions.yml"                                    , emit: versions
 

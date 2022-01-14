@@ -22,10 +22,10 @@ process MASH_DIST {
     path reference
 
     output:
-    tuple val(meta), path("*.txt")          , emit: dist
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    tuple val(meta), path("*.txt"), emit: dist
+    path "*.{log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
@@ -36,7 +36,7 @@ process MASH_DIST {
         -p $task.cpus \\
         $options.args \\
         $reference \\
-        $query >> ${prefix}-dist.txt 2> mash.stderr.txt
+        $query >> ${prefix}-dist.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -73,10 +73,10 @@ process MERLIN_DIST {
     tuple val(meta), path(query), path("salmonella.*")    , emit: salmonella, optional: true
     tuple val(meta), path(query), path("staphylococcus.*"), emit: staphylococcus, optional: true
     tuple val(meta), path(query), path("streptococcus.*") , emit: streptococcus, optional: true
-    path "*.genus"                          , emit: genus, optional: true
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    path "*.genus", emit: genus, optional: true
+    path "*.{log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
@@ -88,7 +88,7 @@ process MERLIN_DIST {
         -p $task.cpus \\
         $options.args \\
         $reference \\
-        $query | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt 2> mash.stderr.txt
+        $query | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
     # Extract genus with hits
     declare -a GENUS=(

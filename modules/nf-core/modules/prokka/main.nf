@@ -33,7 +33,7 @@ process PROKKA {
     tuple val(meta), path("${prefix}/*.{tbl,tbl.gz}"), emit: tbl
     tuple val(meta), path("${prefix}/*.txt"), emit: txt
     tuple val(meta), path("${prefix}/*.tsv"), emit: tsv
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 

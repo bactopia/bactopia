@@ -13,21 +13,13 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/sequence_type/default/ariba.stderr.txt
-      md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: pytest/output/logs/sequence_type/default/ariba.stdout.txt
-      contains: ['ARIBA', 'OK', 'True', 'done!']
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -67,21 +59,13 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/sequence_type/default/ariba.stderr.txt
-      md5sum: d39f0dbf8375f8e96240746d60a0ef82
-    - path: pytest/output/logs/sequence_type/default/ariba.stdout.txt
-      contains: ['ARIBA', 'OK', 'True', 'done!']
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -121,17 +105,13 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -160,17 +140,13 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: pytest/output/logs/sequence_type/default/mlst-blast.stdout.txt
-      contains: ['arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh

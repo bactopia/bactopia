@@ -19,7 +19,7 @@ process ARIBA_ANALYSIS {
 
     output:
     path "${dataset_name}/*", emit: results
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -45,11 +45,11 @@ process ARIBA_ANALYSIS {
             --unique_threshold !{params.unique_threshold} \
             --threads !{task.cpus} \
             --force \
-            --verbose !{noclean} !{spades_options} > ariba.stdout.txt 2> ariba.stderr.txt
+            --verbose !{noclean} !{spades_options}
 
     ariba summary !{dataset_name}/summary !{dataset_name}/report.tsv \
             --cluster_cols assembled,match,known_var,pct_id,ctg_cov,novel_var \
-            --col_filter n --row_filter n > ariba-summary.stdout.txt 2> ariba-summary.stderr.txt
+            --col_filter n --row_filter n
 
     # Cleanup
     rm -rf ariba.tmp*

@@ -26,7 +26,7 @@ process HICAP {
     tuple val(meta), path("*.gbk"), emit: gbk, optional: true
     tuple val(meta), path("*.svg"), emit: svg, optional: true
     tuple val(meta), path("*.tsv"), emit: tsv
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
 

@@ -14,7 +14,6 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/minmer_query/mash-refseq-k21.stderr.txt
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
@@ -50,7 +49,6 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: pytest/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: pytest/output/logs/minmer_query/mash-refseq-k21.stderr.txt
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
@@ -89,7 +87,9 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.log
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.run
@@ -98,8 +98,6 @@
       contains: ['sourmash', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/minmer_query/sourmash-genbank-k21.stderr.txt
-      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/versions.yml
       md5sum: 714cbca77b1b6bde0cba022169b6eee2
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt
@@ -124,7 +122,9 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.err
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.log
+      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_query/nf-minmer_query.run
@@ -133,8 +133,6 @@
       contains: ['sourmash', 'END_VERSIONS']
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
-    - path: pytest/output/logs/minmer_query/sourmash-genbank-k21.stderr.txt
-      contains: ['sourmash', 'finding']
     - path: pytest/output/logs/minmer_query/versions.yml
       md5sum: b9c28cde22d7719cbf1dbbd5d77f4973
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt

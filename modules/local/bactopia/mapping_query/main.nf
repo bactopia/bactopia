@@ -21,7 +21,7 @@ process MAPPING_QUERY {
 
     output:
     path "results/*"
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -35,23 +35,23 @@ process MAPPING_QUERY {
     ls !{query}/* | xargs -I {} grep -H "^>" {} | awk '{print $1}' | sed 's/:>/\\t/; s=.*/==; s/\\..*\\t/\\t/' > mapping.txt
     cat !{query}/* > multifasta.fa
 
-    bwa index multifasta.fa > bwa-index.stdout.txt 2> bwa-index.stderr.txt
+    bwa index multifasta.fa
     if [ "${avg_len}" -gt "70" ]; then
-        bwa mem -M -t !{task.cpus} !{bwa_mem_opts} multifasta.fa !{fq} > bwa.sam 2> bwa-mem.stderr.txt
+        bwa mem -M -t !{task.cpus} !{bwa_mem_opts} multifasta.fa !{fq} > bwa.sam
     else
         if [ "!{meta.single_end}" == "true" ]; then
-            bwa aln -f bwa.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[0]} > bwa-aln.stdout.txt 2> bwa-aln.stderr.txt
-            bwa samse -n !{params.bwa_n} !{bwa_samse_opts} multifasta.fa bwa.sai !{fq[0]} > bwa.sam 2> bwa-samse.stderr.txt
+            bwa aln -f bwa.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[0]}
+            bwa samse -n !{params.bwa_n} !{bwa_samse_opts} multifasta.fa bwa.sai !{fq[0]} > bwa.sam
         else
-            bwa aln -f r1.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[0]} > bwa-aln.stdout.txt 2> bwa-aln.stderr.txt
-            bwa aln -f r2.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[1]} >> bwa-aln.stdout.txt 2>> bwa-aln.stderr.txt
-            bwa sampe -n !{params.bwa_n} !{bwa_sampe_opts} multifasta.fa r1.sai r2.sai !{fq[0]} !{fq[1]} > bwa.sam 2> bwa-sampe.stderr.txt
+            bwa aln -f r1.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[0]}
+            bwa aln -f r2.sai -t !{task.cpus} !{bwa_aln_opts} multifasta.fa !{fq[1]}
+            bwa sampe -n !{params.bwa_n} !{bwa_sampe_opts} multifasta.fa r1.sai r2.sai !{fq[0]} !{fq[1]} > bwa.sam
         fi
     fi
 
     # Write per-base coverage
-    samtools view -bS bwa.sam | samtools sort -o cov.bam - > samtools.stdout.txt 2> samtools.stderr.txt
-    genomeCoverageBed -ibam cov.bam -d > cov.txt 2> genomeCoverageBed.stderr.txt
+    samtools view -bS bwa.sam | samtools sort -o cov.bam - 
+    genomeCoverageBed -ibam cov.bam -d > cov.txt
     split-coverages.py mapping.txt cov.txt --outdir results
 
     if [[ !{params.skip_compression} == "false" ]]; then

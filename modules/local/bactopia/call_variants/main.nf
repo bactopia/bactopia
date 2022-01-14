@@ -33,7 +33,7 @@ process CALL_VARIANTS {
 
     output:
     path "results/*"
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -57,7 +57,7 @@ process CALL_VARIANTS {
         select-references.py distances.txt 1 !{tie_break} >> mash-dist.txt
         grep -v distance mash-dist.txt | cut -f3 > download-list.txt
         ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
-            -r !{params.max_retry} !{no_cache} > ncbi-genome-download.stdout.txt 2> ncbi-genome-download.stderr.txt
+            -r !{params.max_retry} !{no_cache}
 
         # Move and uncompress genomes
         mkdir genbank_temp
@@ -86,15 +86,15 @@ process CALL_VARIANTS {
         --mincov !{params.mincov} \
         --minfrac !{params.minfrac} \
         --minqual !{params.minqual} \
-        --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt} > snippy.stdout.txt 2> snippy.stderr.txt
+        --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt}
     mv ${REFERENCE_NAME}/!{meta.id}.log ./
 
     # Add GenBank annotations
-    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf 2> vcf-annotator.stderr.txt
+    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf
 
     # Get per-base coverage
     grep "^##contig" ${REFERENCE_NAME}/!{meta.id}.vcf > ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
-    genomeCoverageBed -ibam ${REFERENCE_NAME}/!{meta.id}.bam -d >> ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt 2> genomeCoverageBed.stderr.txt
+    genomeCoverageBed -ibam ${REFERENCE_NAME}/!{meta.id}.bam -d >> ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
     cleanup-coverage.py ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt > ${REFERENCE_NAME}/!{meta.id}.coverage.txt
     rm ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
 
@@ -103,7 +103,7 @@ process CALL_VARIANTS {
         ${REFERENCE_NAME}/!{meta.id}.consensus.subs.fa \
         ${REFERENCE_NAME}/!{meta.id}.subs.vcf \
         ${REFERENCE_NAME}/!{meta.id}.coverage.txt \
-        --mincov !{params.mincov} > ${REFERENCE_NAME}/!{meta.id}.consensus.subs.masked.fa 2> mask-consensus.stderr.txt
+        --mincov !{params.mincov} > ${REFERENCE_NAME}/!{meta.id}.consensus.subs.masked.fa
 
     # Clean Up
     rm -rf ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{meta.id}.vcf.gz*

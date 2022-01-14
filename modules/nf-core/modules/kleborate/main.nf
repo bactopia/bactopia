@@ -22,7 +22,7 @@ process KLEBORATE {
 
     output:
     tuple val(meta), path("*.txt"), emit: txt
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs, optional: true
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
 
