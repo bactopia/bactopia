@@ -172,7 +172,6 @@ process ASSEMBLE_GENOME {
         nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
         pilon: $(echo $(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*$//')
-        quast: $(echo $(quast --version 2>&1) | sed 's/.*QUAST v//;s/ .*$//')
         racon: $(echo $(racon --version 2>&1) | sed 's/v//')
         rasusa: $(echo $(rasusa --version 2>&1) | sed 's/rasusa //')
         raven: $(echo $(raven --version))

@@ -20,7 +20,7 @@ process ASSEMBLY_QC {
 
     output:
     path "results/*"
-    path "*.{stdout.txt,stderr.txt,log,err}", emit: logs
+    path "*.{log,err}", emit: logs
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -60,7 +60,7 @@ process ASSEMBLY_QC {
             --unique !{params.checkm_unique} \
             --multi !{params.checkm_multi} \
             --aai_strain !{params.aai_strain} \
-            --length !{params.checkm_length} !{checkm_opts} > checkm.stdout.txt 2> checkm.stderr.txt
+            --length !{params.checkm_length} !{checkm_opts}
         mv checkm/checkm.log ./
 
         if [[ !{params.skip_compression} == "false" ]]; then
@@ -82,7 +82,7 @@ process ASSEMBLY_QC {
         --threads !{task.cpus} \
         --glimmer \
         --contig-thresholds !{params.contig_thresholds} \
-        --plots-format !{params.plots_format} > quast.stdout.txt 2> quast.stderr.txt
+        --plots-format !{params.plots_format}
     mv quast/quast.log ./
 
     # Results dir
