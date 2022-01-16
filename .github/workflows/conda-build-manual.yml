@@ -1,4 +1,4 @@
-name: Build Personal Conda (Manual)
+name: Conda Personal Build (Manual)
 on: workflow_dispatch
 jobs:
   conda-build:

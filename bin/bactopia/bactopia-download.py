@@ -1,22 +1,38 @@
 #! /usr/bin/env python3
 """
-usage: bactopia build [-h] [-e STR] [--force] [--verbose] [--silent]
-                      [--version]
-                      STR STR
+usage: bactopia download [-h] [--envtype STR] [--wf STR] [--use_defaults] [--build_all] [--registry STR]
+                         [--singularity_cache STR] [--singularity_pull_docker_container] [--condadir STR]
+                         [--force_rebuild] [--max_retry INT] [--verbose] [--silent] [--version]
+                         STR
 
-bactopia build - Build Conda environments for use by Bactopia
+bactopia download - Build environments for use by Bactopia
 
 positional arguments:
-  STR                Directory containing Conda environment files to build.
-  STR                Directory to install Conda environments to.
+  STR                   Directory containing the Bactopia repo.
 
 optional arguments:
-  -h, --help         show this help message and exit
-  -e STR, --ext STR  Extension of the Conda environment files. Default: .yml
-  --force            Force overwrite of existing Conda environments.
-  --verbose          Print debug related text.
-  --silent           Only critical errors will be printed.
-  --version          show program's version number and exit
+  -h, --help            show this help message and exit
+  --condadir STR        Directory to install Conda environments to
+  --max_retry INT       Maximum times to attempt creating Conda environment. (Default: 3)
+
+Useful Options:
+  --envtype STR         The type of environment to build. (Default: conda)
+  --wf STR              Build a environment for a the given workflow
+  --use_defaults        Builds environments to the default Bactopia location.
+  --build_all           Builds all environments for Bactopia workflows
+
+Container Related Options:
+  --registry STR        Docker registry to pull containers from. (Default: quay)
+  --singularity_cache STR
+                        Location to download Singularity images (Default: ~/.bactopia/singularity)
+  --singularity_pull_docker_container
+                        Force conversion of Docker containers, instead downloading Singularity images directly
+
+Custom Options:
+  --force_rebuild       Force overwrite of existing pre-built environments.
+  --verbose             Print debug related text.
+  --silent              Only critical errors will be printed.
+  --version             show program's version number and exit
 """
 import logging
 import os
@@ -205,11 +221,17 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
     singularity_complete = f'{singularity_path}/{registry}-images-built-{VERSION}.txt'
 
     if build_conda and os.path.exists(conda_complete):
-        logging.info(f'Found Conda environments in {conda_path}, if a complete rebuild is needed please use --force')
+        if force:
+            logging.info(f'--force_rebuild used, overwriting existing Conda environments in {conda_path}')
+        else:
+            logging.info(f'Found Conda environments in {conda_path}, if a complete rebuild is needed please use --force_rebuild')
     if build_docker and os.path.exists(docker_complete):
         logging.info(f'Found Docker containers, if a complete rebuild is needed please manually remove the containers')
     if build_singularity and os.path.exists(singularity_complete):
-        logging.info(f'Found Singularity images in {singularity_path}, if a complete rebuild is needed please use --force')
+        if force:
+            logging.info(f'--force_rebuild used, overwriting existing Singularity images in {singularity_path}')
+        else:
+            logging.info(f'Found Singularity images in {singularity_path}, if a complete rebuild is needed please use --force_rebuild')
 
     if env_files:
         for i, yml_file in enumerate(env_files):
@@ -241,11 +263,11 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
 
         # Create completion files
         if build_conda:
-            execute(f'date', stdout_file=conda_complete)
+            execute(f'date > {conda_complete}')
         if build_docker:
-            execute(f'date', stdout_file=docker_complete)
+            execute(f'date > {docker_complete}')
         if build_singularity:
-            execute(f'date', stdout_file=singularity_complete)
+            execute(f'date > {singularity_complete}')
     else:
         logging.error(f'Unable to find Bactopia environment files in {env_path}, please verify')
         sys.exit(1)
@@ -290,25 +312,25 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
             build_singularity = False
 
     if build_conda:
-        logging.debug(f'Begin {envname} create to {conda_prefix}')
+        logging.info(f'Begin {envname} create to {conda_prefix}')
         build_conda_env(envinfo['conda'], conda_prefix, max_retry=max_retry, force=force)
     if build_docker:
         if needs_docker_pull(envinfo['docker']):
-            logging.debug(f"Begin docker pull of {envinfo['docker']}")
+            logging.info(f"Begin docker pull of {envinfo['docker']}")
             docker_pull(envinfo['docker'], max_retry=max_retry)
     if build_singularity:
         if needs_singularity_build(singularity_img, force=force):
             execute(f'mkdir -p {singularity_path}')
             if use_build:
-                logging.debug(f'Begin {envname} build to {singularity_img}')
+                logging.info(f'Begin {envname} build to {singularity_img}')
                 build_singularity_image(singularity_img, f"docker://{envinfo['docker']}", max_retry=max_retry, force=force, use_build=use_build)
             else:
-                logging.debug(f'Begin {envname} download to {singularity_img}')
+                logging.info(f'Begin {envname} download to {singularity_img}')
                 build_singularity_image(singularity_img, envinfo['singularity'], max_retry=max_retry, force=force, use_build=use_build)
 
     # Create completion files
     if build_conda:
-        execute(f'date', stdout_file=conda_complete)
+        execute(f'date > {conda_complete}')
 
 """
 Build checks related
@@ -445,7 +467,7 @@ if __name__ == '__main__':
                         help='The type of environment to build. (Default: conda)')
     group1.add_argument('--wf', metavar='STR', type=str, default="bactopia",
                         help='Build a environment for a the given workflow')
-    group1.add_argument('--default', action='store_true',
+    group1.add_argument('--use_defaults', action='store_true',
                         help='Builds environments to the default Bactopia location.')
     group1.add_argument('--build_all', action='store_true',
                         help='Builds all environments for Bactopia workflows')

@@ -1,4 +1,4 @@
-name: Update Bactopia Conda YAMLs (Manual)
+name: Conda Update Bactopia YAMLs (Manual)
 on: workflow_dispatch
 jobs:
   conda-build:

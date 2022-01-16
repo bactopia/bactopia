@@ -4,10 +4,10 @@ BACTOPIA="${PREFIX}/share/${PKG_NAME}-${BACTOPIA_VERSION}"
 mkdir -p ${PREFIX}/bin ${BACTOPIA}
 
 chmod 775 bin/*.py
-mv bin/*.py ${PREFIX}/bin
+cp bin/*.py ${PREFIX}/bin
 
 chmod 775 bin/bactopia/*
-mv bin/bactopia/* ${PREFIX}/bin
+cp bin/bactopia/* ${PREFIX}/bin
 
 # Move bactopia nextflow
 mv bin/ conda/ conf/ data/ lib/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config ${BACTOPIA}

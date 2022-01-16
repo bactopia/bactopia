@@ -1,0 +1,9 @@
+- name: bactopia-download_help
+  command: bash -c 'bin/bactopia/bactopia-pull.py --help > bactopia-download.txt'
+  tags:
+    - bactopia
+    - bactopia_help
+    - bactopia_download
+  files:
+    - path: bactopia-download.txt
+      contains: ['exit', 'bactopia', 'download', 'Singularity', '--wf', '--force_rebuild']
