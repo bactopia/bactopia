@@ -1,5 +1,5 @@
 - name: bactopia-download_help
-  command: bash -c 'bin/bactopia/bactopia-pull.py --help > bactopia-download.txt'
+  command: bash -c 'bin/bactopia/bactopia-download.py --help > bactopia-download.txt'
   tags:
     - bactopia
     - bactopia_help
