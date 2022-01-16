@@ -25,7 +25,7 @@ process MINMER_SKETCH {
     tuple val(meta), path(fq), path("${meta.id}.sig"), emit: sketch
     path("${meta.id}*.{msh,sig}")
     path("${meta.id}.ctx"), optional: true
-    path "*.{log,err}", emit: logs
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 

@@ -140,7 +140,7 @@ def saveFiles(Map args) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
             final_output = "logs/${process_name}/${logs_subdir}/nf-${process_name}.${ext}"
-        } else if (args.filename.endsWith('.stderr.txt') || args.filename.endsWith('.stdout.txt') || args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
+        } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
             // Its a version file or  program specific log files
             final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
         } else {
