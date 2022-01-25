@@ -44,7 +44,7 @@ def get_schemas() {
     }
 
     // Load profile specific schemas
-    if (['aws', 'gcp', 'slurm'].contains(workflow.profile)) {
+    if (['aws', 'gcp', 'sge', 'slurm'].contains(workflow.profile)) {
         schemas << "conf/schema/profiles/${workflow.profile}.json"
     }
 

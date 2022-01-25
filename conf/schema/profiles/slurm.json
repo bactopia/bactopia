@@ -15,13 +15,13 @@
                 "slurm_queue": {
                     "type": "string",
                     "default": "general,high-memory",
-                    "description": "Comma-separated name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM)",
+                    "description": "Comma-separated name of the queue(s) to be used by SLURM",
                     "fa_icon": "fas fa-clipboard-list"
                 },
                 "slurm_opts": {
                     "type": "string",
                     "default": "",
-                    "description": "Additional options to pass to SLURM. (e.g. '--account=my_acct_name'",
+                    "description": "Additional options to pass to SLURM. (e.g. '--account=my_acct_name')",
                     "fa_icon": "fas fa-clipboard-list"
                 },
                 "slurm_use_scratch": {
