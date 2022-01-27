@@ -1,9 +1,7 @@
 - name: ncbigenomedownload-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf ncbigenomedownload -c nextflow.config --help > ncbigenomedownload-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - ncbigenomedownload
+    - skip_ncbigenomedownload
   files:
     - path: ncbigenomedownload-help.txt
       contains: ['ncbigenomedownload', 'bactopia', 'version', 'dependencies']

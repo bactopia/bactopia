@@ -1,9 +1,7 @@
 - name: prokka-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf prokka -c nextflow.config --help > prokka-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - prokka
+    - skip_prokka
   files:
     - path: prokka-help.txt
       contains: ['prokka', 'bactopia', 'version', 'dependencies']

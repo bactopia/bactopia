@@ -1,9 +1,7 @@
 - name: clonalframeml-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf clonalframeml -c nextflow.config --help > clonalframeml-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - clonalframeml
+    - skip_clonalframeml
   files:
     - path: clonalframeml-help.txt
       contains: ['clonalframeml', 'bactopia', 'version', 'dependencies']

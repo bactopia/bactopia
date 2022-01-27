@@ -1,9 +1,7 @@
 - name: scoary-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf scoary -c nextflow.config --help > scoary-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - scoary
+    - skip_scoary
   files:
     - path: scoary-help.txt
       contains: ['scoary', 'bactopia', 'version', 'dependencies']

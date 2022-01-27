@@ -1,9 +1,7 @@
 - name: pirate-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf pirate -c nextflow.config --help > pirate-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - pirate
+    - skip_pirate
   files:
     - path: pirate-help.txt
       contains: ['pirate', 'bactopia', 'version', 'dependencies']

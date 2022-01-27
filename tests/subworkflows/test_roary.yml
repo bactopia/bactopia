@@ -1,9 +1,7 @@
 - name: roary-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf roary -c nextflow.config --help > roary-help.txt'
   tags:
-    - bactopia
-    - bactopia_help
-    - roary
+    - skip_roary
   files:
     - path: roary-help.txt
       contains: ['roary', 'bactopia', 'version', 'dependencies']
