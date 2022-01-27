@@ -81,7 +81,7 @@ process QC_READS {
                 tbo=!{params.tbo} \
                 threads=!{task.cpus} \
                 ftm=!{params.ftm} \
-                !{qin} ordered=t
+                !{qin} ordered=t !{params.bbduk_opts}
 
             # Remove PhiX
             bbduk.sh -Xmx!{xmx} \
@@ -98,7 +98,7 @@ process QC_READS {
                 !{qin} qout=!{params.qout} \
                 tossjunk=!{params.tossjunk} \
                 threads=!{task.cpus} \
-                ordered=t
+                ordered=t !{params.bbduk_opts}
         fi
 
         # Error Correction

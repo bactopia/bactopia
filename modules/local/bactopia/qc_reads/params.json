@@ -221,6 +221,13 @@
                     "help": "Example would be: '--maxlength 10000'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
+                },
+                "bbduk_opts": {
+                    "type": "integer",
+                    "description": "Extra BBDuk options in quotes",
+                    "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         }
