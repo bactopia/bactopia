@@ -18,11 +18,18 @@ def check_input_fastqs() {
                 has_valid_header = true
             }
         } else {
-            if (samples.containsKey(cols[0])) {
-                samples[cols[0]] = samples[cols[0]] + 1
+            if (cols[0]) {
+                // Sample column has a value
+                if (samples.containsKey(cols[0])) {
+                    samples[cols[0]] = samples[cols[0]] + 1
+                } else {
+                    samples[cols[0]] = 1
+                }
             } else {
-                samples[cols[0]] = 1
+                log.error "LINE " + line + ':ERROR: Please verify sample name is not null'
+                error = true
             }
+
             if (cols[2]) {
                 count = 0
                 cols[2].split(',').each{ fq ->

@@ -270,6 +270,7 @@ Cronobacter spp.	Cronobacter muytjensii	default
 Cronobacter spp.	Cronobacter universalis	default
 Cronobacter spp.	Cronobacter condimenti	default
 Cronobacter spp.	Cronobacter	default
+Cutibacterium acnes	Cutibacterium acnes	default
 Dichelobacter nodosus	Dichelobacter nodosus	default
 Edwardsiella spp.	Edwardsiella piscicida	default
 Edwardsiella spp.	Edwardsiella ictaluri	default
@@ -456,7 +457,6 @@ Pediococcus pentosaceus	Pediococcus pentosaceus	default
 Photobacterium damselae	Photobacterium damselae	default
 Piscirickettsia salmonis	Piscirickettsia salmonis	default
 Porphyromonas gingivalis	Porphyromonas gingivalis	default
-Propionibacterium acnes	Propionibacterium acnes	default
 Pseudomonas aeruginosa	Pseudomonas aeruginosa	default
 Pseudomonas fluorescens	Pseudomonas fluorescens	default
 Pseudomonas putida	Pseudomonas putida	default

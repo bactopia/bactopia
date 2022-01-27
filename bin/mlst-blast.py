@@ -49,6 +49,12 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
     results = {}
 
     profile = {}
+    allele_names = {}
+    for tfa in sorted(glob.glob(f'{blast}/*.tfa')):
+        blastdb = splitext(tfa)[0]
+        print(basename(blastdb))
+        allele_names[basename(blastdb)] = True
+
     with open(f'{blast}/profile.txt', 'r') as profile_fh:
         for line in profile_fh:
             cols = line.rstrip().split('\t')
@@ -60,7 +66,7 @@ def blast_alleles(input_file, blast, blastn_results, num_cpu,
                 for i, name in enumerate(col_names):
                     if name == 'ST':
                         st = cols[i]
-                    elif name != 'clonal_complex':
+                    elif name in allele_names:
                         alleles.append(f'{name}.{cols[i]}')
                 profile[';'.join(sorted(alleles))] = st
 
