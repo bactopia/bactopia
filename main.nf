@@ -1,13 +1,11 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
+include { is_available_workflow } from './lib/nf/functions'
 
-if (params.workflows.containsKey(params.wf)) {
+if (is_available_workflow(params.wf)) {
     if (params.workflows[params.wf].containsKey('is_workflow')) {
         if (params.wf == "staphopia") {
             include { STAPHOPIA } from './workflows/staphopia'
-        } else if (params.wf == "enteropia") {
-            // include { ENTEROPIA } from './workflows/enteropia'
-            include { BACTOPIA } from './workflows/bactopia'
         } else {
             include { BACTOPIA } from './workflows/bactopia'
         }

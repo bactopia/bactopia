@@ -121,6 +121,18 @@ def print_efficiency(cpus) {
     }
 }
 
+def is_available_workflow(wf) {
+    if (params.available_workflows['bactopia'].contains(wf)) {
+        return true
+    } else if (params.available_workflows['bactopiatools']['subworkflows'].contains(wf)) {
+        return true
+    } else if (params.available_workflows['bactopiatools']['modules'].contains(wf)) {
+        return true
+    } else {
+        return false
+    }
+}
+
 /*
 ========================================================================================
     Functions modeled from nf-core/modules
