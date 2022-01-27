@@ -6,8 +6,6 @@
 - `bactopia download` which merges the `bactopia build` and `bactopia pull` commands
 - modules can now use prebuilt envs
 - `--available_species` to print the species in a bactopia dataset
-- move `quast` to `assemble_genome`
-- move `checkm` to bactopia tool
 - Let Nextflow handle stdout and stderr
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `checkm`: Assess the assembly quality of your samples
@@ -15,6 +13,8 @@
 
 ### `Fixed`
 - `toInteger` on `null` genome size
+- Index out of bounds in mlst-blast.py (caused by non allele columns)
+- FOFN will fail if sample name is `null`
 
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 

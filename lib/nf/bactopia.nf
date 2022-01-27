@@ -103,22 +103,27 @@ def process_fastqs(line, genome_size) {
     meta.id = line.sample
     meta.runtype = line.runtype
     meta.genome_size = genome_size
-    if (line.runtype == 'single-end' || line.runtype == 'ont') {
-        return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
-    } else if (line.runtype == 'paired-end') {
-        return tuple(meta, [file(line.r1)], [file(line.r2)], file(params.empty_extra))
-    } else if (line.runtype == 'hybrid') {
-        return tuple(meta, [file(line.r1)], [file(line.r2)], file(line.extra))
-    } else if (line.runtype == 'assembly') {
-        return tuple(meta, [params.empty_r1], [params.empty_r2], file(line.extra))
-    } else if (line.runtype == 'merge-pe') {
-        return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(params.empty_extra))
-    } else if (line.runtype == 'hybrid-merge-pe') {
-        return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(line.extra))
-    } else if (line.runtype == 'merge-se') {
-        return tuple(meta, handle_multiple_fqs(line.r1), [params.empty_r2], file(params.empty_extra))
+    if (line.sample) {
+        if (line.runtype == 'single-end' || line.runtype == 'ont') {
+            return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
+        } else if (line.runtype == 'paired-end') {
+            return tuple(meta, [file(line.r1)], [file(line.r2)], file(params.empty_extra))
+        } else if (line.runtype == 'hybrid') {
+            return tuple(meta, [file(line.r1)], [file(line.r2)], file(line.extra))
+        } else if (line.runtype == 'assembly') {
+            return tuple(meta, [params.empty_r1], [params.empty_r2], file(line.extra))
+        } else if (line.runtype == 'merge-pe') {
+            return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(params.empty_extra))
+        } else if (line.runtype == 'hybrid-merge-pe') {
+            return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(line.extra))
+        } else if (line.runtype == 'merge-se') {
+            return tuple(meta, handle_multiple_fqs(line.r1), [params.empty_r2], file(params.empty_extra))
+        } else {
+            log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, merge-pe, hybrid-merge-pe, merge-se, or assembly")
+            exit 1
+        }
     } else {
-        log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, merge-pe, hybrid-merge-pe, merge-se, or assembly")
+        log.error("Sample name cannot be null: ${line}")
         exit 1
     }
 }
@@ -146,7 +151,7 @@ def process_accessions(accession, genome_size) {
 def create_input_channel(runtype, genome_size) {
     if (runtype == "fastqs") {
         return Channel.fromPath( params.fastqs )
-            .splitCsv(header: true, sep: '\t')
+            .splitCsv(header: true, strip: true, sep: '\t')
             .map { row -> process_fastqs(row, genome_size) }
     } else if (runtype == "is_accessions") {
         return Channel.fromPath( params.accessions )
