@@ -21,7 +21,7 @@ process BLAST {
 
     output:
     path "results/*"
-    path "*.{log,err}", emit: logs
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 

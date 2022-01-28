@@ -22,7 +22,7 @@ process ANTIMICROBIAL_RESISTANCE {
 
     output:
     tuple val(meta), path("*{gene,protein}-{point-mutations,report}.txt"), emit: results
-    path "*.{log,err}", emit: logs
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 

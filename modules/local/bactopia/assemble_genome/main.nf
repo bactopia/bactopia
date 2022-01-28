@@ -25,7 +25,7 @@ process ASSEMBLE_GENOME {
     tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${meta.id}-assembly-error.txt", optional: true
-    path "*.{log,err}", emit: logs
+    path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
