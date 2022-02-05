@@ -1,12 +1,12 @@
 name: bakta
-description: Rapid annotation of bacterial genomes & plasmids.
+description: Annotation of bacterial genomes (isolates, MAGs) and plasmids
 keywords:
   - annotation
   - fasta
-  - prokaryote
+  - bacteria
 tools:
   - bakta:
-      description: Rapid & standardized annotation of bacterial genomes & plasmids.
+      description: Rapid & standardized annotation of bacterial genomes, MAGs & plasmids.
       homepage: https://github.com/oschwengers/bakta
       documentation: https://github.com/oschwengers/bakta
       tool_dev_url: https://github.com/oschwengers/bakta
@@ -29,7 +29,7 @@ input:
         Path to the Bakta database
   - proteins:
       type: file
-      description: FASTA file of trusted proteins to first annotate from (optional)
+      description: FASTA/GenBank file of trusted proteins to first annotate from (optional)
   - prodigal_tf:
       type: file
       description: Training file to use for Prodigal (optional)
@@ -44,6 +44,10 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+  - txt:
+      type: file
+      description: genome statistics and annotation summary
+      pattern: "*.txt"
   - tsv:
       type: file
       description: annotations as simple human readble tab separated values
@@ -83,3 +87,4 @@ output:
 
 authors:
   - "@rpetit3"
+  - "@oschwengers"

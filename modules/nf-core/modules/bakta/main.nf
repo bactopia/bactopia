@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'bakta')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::bakta=1.2.2"
+conda_tools = "bioconda::bakta=1.3.1"
 conda_env   = file("${params.condadir}/bakta").exists() ? "${params.condadir}/bakta" : conda_tools
 
 process BAKTA {
@@ -14,8 +14,8 @@ process BAKTA {
     
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bakta:1.2.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/bakta:1.2.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bakta:1.3.1--pyhdfd78af_0' :
+        'quay.io/biocontainers/bakta:1.3.1--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -34,6 +34,7 @@ process BAKTA {
     tuple val(meta), path("${prefix}.hypotheticals.tsv"), emit: hypotheticals_tsv
     tuple val(meta), path("${prefix}.hypotheticals.faa"), emit: hypotheticals_faa
     tuple val(meta), path("${prefix}.tsv")              , emit: tsv
+    tuple val(meta), path("${prefix}.txt")              , emit: txt
     path "*.{log,err}"                                  , emit: logs, optional: true
     path ".command.*"                                   , emit: nf_logs
     path "versions.yml"                                 , emit: versions
@@ -73,6 +74,7 @@ process BAKTA {
     touch ${prefix}.hypotheticals.tsv
     touch ${prefix}.hypotheticals.faa
     touch ${prefix}.tsv
+    touch ${prefix}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
