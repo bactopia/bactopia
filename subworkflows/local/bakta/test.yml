@@ -15,22 +15,24 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
       contains: ['contig_1', 'Bakta', 'DnaK', '//']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
-      md5sum: a17006cdeaa9b5c918f086cc74377b4e
+      md5sum: 8c35196040684593c3ff244ec9005c37
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
       md5sum: 97c4f57c7dee5cc22628b390d37fa32a
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
-      md5sum: cfe4c2bb52801e493405b58783f7882b
+      md5sum: 3a8c5c7a9e730589703b5f09d5784a66
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
-      md5sum: f17eb57ebb908ca1438b1d69a4652cad
+      md5sum: 7f41ff8a688cc45f52d36296fc529bd9
+    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.txt
+      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/GCF_000292685.log
       contains: ['INFO', 'threads', 'removed', 'MAIN']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.err
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.log
-      contains: ['predict', 'filtered', 'write', 'JSON']
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.out
-      md5sum: 3a5993aec17e652aecd9da04bf4e1a1d
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.sh
@@ -38,7 +40,7 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: 884a334abcf5dea3eb427792e7a3bb08
+      md5sum: 14d757ea71142976f6b7152b24b11b12
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html
