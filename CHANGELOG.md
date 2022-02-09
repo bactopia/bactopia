@@ -7,10 +7,12 @@
 - modules can now use prebuilt envs
 - `--available_species` to print the species in a bactopia dataset
 - `--bbduk_opts` to fine tune bbduk
+- set `quay` as default docker registry
 - Let Nextflow handle stdout and stderr
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `checkm`: Assess the assembly quality of your samples
     - `kraken2`: Taxonomic classification of sequence reads
+    - `mobsuite`: Reconstruct and annotate plasmids in bacterial assemblies
 
 ### `Fixed`
 - `toInteger` on `null` genome size
@@ -21,6 +23,7 @@
 - channel imports for `scoary` workflow
 - `argument type mismatch` when using `--use_roary`
 - missing channel when `agrvate` not ran as `staphtyper`
+- float required options to the top when missing
 
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 
@@ -69,7 +72,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
         - `eggnog`: Functional annotation of proteins using orthologous groups and phylogenies
         - `pangenome`: Pangenome analysis with optional core-genome phylogeny
         - `staphtyper`: Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
-    - Modules (16): 
+    - Modules (16):
         - `agrvate`: Rapid identification of _Staphylococcus aureus_ agr locus type and agr operon variants.
         - `bakta`: Rapid annotation of bacterial genomes and plasmids
         - `ectyper`: In-silico prediction of _Escherichia coli_ serotype
@@ -125,7 +128,6 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 
 ### 'Removed'
 - PLSDB references in `bactopia datasets`
-
 
 ## v1.7.0 bactopia/bactopia "Chocobo Wand" - 2021/04/27
 ### `Added`
@@ -351,7 +353,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 - Syntax errors in Bactopia tools
 - null values being tested as integers
 - Ariba card and mlst downloads not working
-- missing parameter in GTDB Bactopia tool 
+- missing parameter in GTDB Bactopia tool
 
 ## v1.4.7 bactopia/bactopia "Serket Ring" - 2020/08/17
 ### `Added`
@@ -534,7 +536,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 - Size of "work" directory to the execution summary
 - User controlled overwrites of existing output files
 - Check for unknown parameters at runtime
-- FASTQ downloads from SRA (via fastq-dl and fasterq-dump) 
+- FASTQ downloads from SRA (via fastq-dl and fasterq-dump)
 - Documentation updates
 - Script for building containers
 
@@ -579,7 +581,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 - Species name check in `bactopia datasets`
 - Use requests package instead of urllib3
 - Added `bactopia search` to query ENA for list of Illumina accessions
-- Documentation 
+- Documentation
     - Feedback edits
     - Output overview
     - Additional program acknowledgements

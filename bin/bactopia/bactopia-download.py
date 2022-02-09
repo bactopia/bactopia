@@ -63,6 +63,7 @@ def get_platform():
         sys.exit(1)
     return 'linux'
 
+
 def set_log_level(error, debug):
     """Set the output log level."""
     return logging.ERROR if error else logging.DEBUG if debug else logging.INFO
@@ -199,7 +200,7 @@ def get_docker_prefix(registry):
         return ''
 
 
-def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, registry_name="quay", force=False, max_retry=5, be_quiet=False):
+def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, registry_name="quay", force=False, max_retry=5):
     import glob
 
     # Determine which environment types to build
@@ -259,7 +260,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
                 if needs_singularity_build(img_name, force=force):
                     execute(f'mkdir -p {singularity_path}')
                     logging.info(f'Found {envname} ({i+1} of {len(env_files)}), begin build to {img_name}')
-                    build_singularity_image(img_name, pull_name, max_retry=max_retry, force=force)
+                    build_singularity_image(img_name, pull_name, max_retry=max_retry, force=force, use_build=True)
 
         # Create completion files
         if build_conda:

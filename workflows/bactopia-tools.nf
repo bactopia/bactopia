@@ -54,6 +54,7 @@ if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/ma
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
+if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mobsuite/main';
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
@@ -151,6 +152,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'merlin') {
         MERLIN(samples)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
+    } else if (params.wf == 'mobsuite') {
+        MOBSUITE(samples)
+        ch_versions = ch_versions.mix(MOBSUITE.out.versions)
     } else if (params.wf == 'ngmaster') {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
