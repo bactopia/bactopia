@@ -22,7 +22,7 @@ process ROARY {
 
     output:
     tuple val(meta), path("results/*")                        , emit: results
-    tuple val(meta), path("results/core-genome.aln.gz")       , emit: aln, optional: true
+    tuple val(meta), path("results/core_alignment.fasta.gzz") , emit: aln, optional: true
     tuple val(meta), path("results/gene_presence_absence.csv"), emit: csv, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -40,13 +40,6 @@ process ROARY {
         -f results/ \\
         gff/*.gff
 
-
-    # Only copy files if they exist
-    if [[ -f "results/core_alignment.fasta.gz" ]]; then
-        cp results/core_alignment.fasta.gz ./core-genome.aln.gz
-    fi
-
-    cp results/core_gene_alignment.aln results/core-genome.aln
     gzip results/*.aln
     gzip results/*.fa
 

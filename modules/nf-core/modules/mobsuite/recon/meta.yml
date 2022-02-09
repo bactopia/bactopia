@@ -48,7 +48,7 @@ output:
   - mobtyper_results:
       type: file
       description: Aggregate MOB-typer report files for all identified plasmid
-      pattern: "mobtyper_results.txt"
+      pattern: "*-mobtyper.txt"
 
 authors:
   - "@rpetit3"

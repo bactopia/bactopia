@@ -21,20 +21,20 @@ process MOBSUITE_RECON {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/chromosome.fasta")    , emit: chromosome
-    tuple val(meta), path("results/contig_report.txt")   , emit: contig_report
-    tuple val(meta), path("results/plasmid_*.fasta")     , emit: plasmids        , optional: true
-    tuple val(meta), path("results/mobtyper_results.txt"), emit: mobtyper_results, optional: true
-    path "*.{log,err}"                                  , emit: logs, optional: true
-    path ".command.*"                                   , emit: nf_logs
-    path "versions.yml"                                 , emit: versions
+    tuple val(meta), path("results/chromosome.fasta") , emit: chromosome
+    tuple val(meta), path("results/contig_report.txt"), emit: contig_report
+    tuple val(meta), path("results/plasmid_*.fasta")  , emit: plasmids        , optional: true
+    tuple val(meta), path("results/${}-mobtyper.txt") , emit: mobtyper_results, optional: true
+    path "*.{log,err}"                                , emit: logs, optional: true
+    path ".command.*"                                 , emit: nf_logs
+    path "versions.yml"                               , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -48,6 +48,10 @@ process MOBSUITE_RECON {
         --num_threads $task.cpus \\
         --outdir results \\
         --sample_id $prefix
+
+    if [[ -f "results/mobtype_results.txt" ]]; then
+        mv results/mobtype_results.txt results/${prefix}-mobtyper.txt
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
