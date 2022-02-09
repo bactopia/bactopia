@@ -25,10 +25,6 @@ input:
       type: file
       description: A CSV file containing trait information per-sample
       pattern: "*.csv"
-  - tree:
-      type: file
-      description: A Newick formtted tree for phylogenetic analyses
-      pattern: "*.{dnd,nwk,treefile}"
 output:
   - meta:
       type: map

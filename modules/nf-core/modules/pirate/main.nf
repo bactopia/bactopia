@@ -39,7 +39,7 @@ process PIRATE {
         --threads $task.cpus \\
         --input ./ \\
         --output results/
-    PIRATE_to_roary.pl -i results/ -o results/gene_presence_absence.csv
+    PIRATE_to_roary.pl -i results/PIRATE.*.tsv -o results/gene_presence_absence.csv
     find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
 
     cat <<-END_VERSIONS > versions.yml

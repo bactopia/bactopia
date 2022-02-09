@@ -176,7 +176,7 @@
     - path: bactopia-tools/pangenome/pangenome/pirate/feature_sequences/g0285.aa.fasta.gz
     - path: bactopia-tools/pangenome/pangenome/pirate/feature_sequences/g0285.nucleotide.fasta.gz
     - path: bactopia-tools/pangenome/pangenome/pirate/gene_presence_absence.csv
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['GCF_000', 'hypothetical', 'Gene']
     - path: bactopia-tools/pangenome/pangenome/pirate/genome2loci.tab
       contains: ['GCF_000', 'hypothetical']
     - path: bactopia-tools/pangenome/pangenome/pirate/genome_list.txt

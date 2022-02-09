@@ -25,7 +25,6 @@
       md5sum: a24d6048b3074242bb558c7fa27a8b03
     - path: bactopia-tools/pirate/pirate/co-ords/GCF_002849995.co-ords.tab
       md5sum: 0c08228585f4fa95686e9b025e0fe9c1
-    - path: bactopia-tools/pirate/pirate/core-genome.aln.gz
     - path: bactopia-tools/pirate/pirate/core_alignment.fasta.gz
     - path: bactopia-tools/pirate/pirate/core_alignment.gff
       contains: ['Pangenome', 'CDS', 'tRNA']
@@ -34,7 +33,7 @@
     - path: bactopia-tools/pirate/pirate/feature_sequences/g0272.aa.fasta.gz
     - path: bactopia-tools/pirate/pirate/feature_sequences/g0272.nucleotide.fasta.gz
     - path: bactopia-tools/pirate/pirate/gene_presence_absence.csv
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['GCF_000', 'hypothetical', 'Gene']
     - path: bactopia-tools/pirate/pirate/genome2loci.tab
       contains: ['GCF_000', 'hypothetical']
     - path: bactopia-tools/pirate/pirate/genome_list.txt

@@ -18,6 +18,7 @@ workflow AGRVATE {
 
     main:
     ch_versions = Channel.empty()
+    ch_merged_agrvate = Channel.empty()
 
     AGRVATE_MODULE(fasta)
     ch_versions = ch_versions.mix(AGRVATE_MODULE.out.versions.first())
@@ -25,11 +26,12 @@ workflow AGRVATE {
     if (params.is_subworkflow) {
         AGRVATE_MODULE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
         CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
+        ch_merged_agrvate = ch_merged_agrvate.mix(CSVTK_CONCAT.out.csv)
         ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     }
 
     emit:
     tsv = AGRVATE_MODULE.out.summary
-    merged_tsv = CSVTK_CONCAT.out.csv
+    merged_tsv = ch_merged_agrvate
     versions = ch_versions
 }

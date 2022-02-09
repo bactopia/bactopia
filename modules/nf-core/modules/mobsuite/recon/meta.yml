@@ -1,0 +1,54 @@
+name: mobsuite_recon
+description: A tool to reconstruct plasmids in bacterial assemblies
+keywords:
+  - bacteria
+  - plasmid
+tools:
+  - mobsuite:
+      description: Software tools for clustering, reconstruction and typing of plasmids from draft assemblies.
+      homepage: https://github.com/phac-nml/mob-suite
+      documentation: https://github.com/phac-nml/mob-suite
+      tool_dev_url: https://github.com/phac-nml/mob-suite
+      doi: "10.1099/mgen.0.000435"
+      licence: ['Apache License, Version 2.0']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A bacterial genome assembly in FASTA format
+      pattern: "*.{fasta,fa,fna}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - chromosome:
+      type: file
+      description: FASTA file of all contigs found to belong to the chromosome
+      pattern: "chromosome.fasta"
+  - contig_report:
+      type: file
+      description: Assignment of the contig to chromosome or a particular plasmid grouping
+      pattern: "contig_report.txt"
+  - plasmids:
+      type: file
+      description: Each plasmid group is written to an individual FASTA
+      pattern: "plasmid_*.fasta"
+  - mobtyper_results:
+      type: file
+      description: Aggregate MOB-typer report files for all identified plasmid
+      pattern: "mobtyper_results.txt"
+
+authors:
+  - "@rpetit3"

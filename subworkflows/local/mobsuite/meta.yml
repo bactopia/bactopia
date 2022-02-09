@@ -1,0 +1,50 @@
+name: mobsuite
+description: Reconstruct and annotate plasmids in bacterial assemblies
+introduction:
+  The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
+  and annotate plasmids in draft assemblies.
+icon: false
+keywords:
+  - plasmid
+  - annotation
+modules:
+  - mobsuite
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - chromosome:
+      type: file
+      description: FASTA file of all contigs found to belong to the chromosome
+      pattern: "chromosome.fasta"
+  - contig_report:
+      type: file
+      description: Assignment of the contig to chromosome or a particular plasmid grouping
+      pattern: "contig_report.txt"
+  - plasmids:
+      type: file
+      description: Each plasmid group is written to an individual FASTA
+      pattern: "plasmid_*.fasta"
+  - mobtyper_results:
+      type: file
+      description: Aggregate MOB-typer report files for all identified plasmid
+      pattern: "mobtyper_results.txt"
+citations:
+  - mobsuite
+  - mobsuite_db

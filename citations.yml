@@ -81,6 +81,12 @@ datasets_generic:
     cite: |
       Parks DH, Chuvochina M, Rinke C, Mussig AJ, Chaumeil P-A, Hugenholtz P [GTDB: an ongoing census of bacterial and archaeal diversity through a phylogenetically consistent, rank normalized and complete genome-based taxonomy](https://doi.org/10.1093/nar/gkab776) _Nucleic Acids Research_ gkab776 (2021)
 
+  mobsuite_db:
+    name: MOB-suite Database
+    link: https://github.com/phac-nml/mob-suite
+    cite: |
+      Robertson J, Bessonov K, Schonfeld J, Nash JHE. [Universal whole-sequence-based plasmid typing and its utility to prediction of host range and epidemiological surveillance.](https://doi.org/10.1099/mgen.0.000435) _Microbial Genomics_, 6(10)(2020)
+
   ncbi_refseq:
     name: NCBI RefSeq Database
     link: https://www.ncbi.nlm.nih.gov/refseq/
@@ -517,6 +523,14 @@ tools:
     description: A versatile pairwise aligner for genomic and spliced nucleotide sequences
     cite: |
       Li H [Minimap2: pairwise alignment for nucleotide sequences.](https://doi.org/10.1093/bioinformatics/bty191) _Bioinformatics_ 34:3094-3100 (2018)
+
+  mobsuite:
+    name: MOB-suite
+    link: https://github.com/phac-nml/mob-suite
+    description: Software tools for clustering, reconstruction and typing of plasmids from draft assemblies
+    cite: |
+      Robertson J, Nash JHE [MOB-suite: software tools for clustering, reconstruction and typing of plasmids from draft assemblies.](https://doi.org/10.1099/mgen.0.000206) _Microbial Genomics_ 4(8). (2018)
+
 
   nanoplot:
     name: NanoPlot

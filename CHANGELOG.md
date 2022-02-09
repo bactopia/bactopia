@@ -17,6 +17,10 @@
 - Index out of bounds in mlst-blast.py (caused by non allele columns)
 - FOFN will fail if sample name is `null`
 - improve available workflow logic
+- PIRATE not exporting gene_presence_absence.csv correctly
+- channel imports for `scoary` workflow
+- `argument type mismatch` when using `--use_roary`
+- missing channel when `agrvate` not ran as `staphtyper`
 
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 

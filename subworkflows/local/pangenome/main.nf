@@ -2,7 +2,7 @@
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
 if (params.use_roary) {
-    include { ROARY as PG_TOOL } from '../roary/main' addParams( options: [] )
+    include { ROARY as PG_TOOL } from '../roary/main'
 } else {
     include { PIRATE as PG_TOOL } from '../pirate/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 }
@@ -10,7 +10,7 @@ if (params.use_roary) {
 include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".masked.aln.gz"]] )
 include { IQTREE as FINAL_TREE } from '../iqtree/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".iqtree"]] )
 include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true] )
-include { SCOARY } from '../../../modules/nf-core/modules/scoary/main' addParams( options: [] )
+include { SCOARY } from '../scoary/main'
 
 workflow PANGENOME {
     take:
@@ -46,7 +46,7 @@ workflow PANGENOME {
 
     // Pan-genome GWAS
     if (params.traits) {
-        SCOARY([id:'scoary'], PG_TOOL.out.csv, file(params.traits))
+        SCOARY(PG_TOOL.out.csv)
         ch_versions = ch_versions.mix(SCOARY.out.versions)
     }
 

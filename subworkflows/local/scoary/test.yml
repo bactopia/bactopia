@@ -1,0 +1,35 @@
+- name: scoary-test
+  command: bash -c 'nextflow run ./subworkflows/local/scoary/test.nf -entry test_scoary --wf scoary -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - scoary
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/scoary/scoary/Bogus_trait.results.csv
+      md5sum: a55a7783b0881627d32288222fa44b38
+    - path: bactopia-tools/scoary/scoary/Tetracycline_resistance.results.csv
+      md5sum: a55a7783b0881627d32288222fa44b38
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.err
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.log
+      contains: ["Performing", "Tallying", "Storing", "finished"]
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.out
+      contains: ["Performing", "Tallying", "Storing", "finished"]
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.sh
+      md5sum: 250c0d84460db35784122e069eec49b1
+    - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/scoary/scoary/logs/scoary/scoary.log
+      contains: ["Performing", "Tallying", "Storing", "finished"]
+    - path: bactopia-tools/scoary/scoary/logs/scoary/versions.yml
+      md5sum: 1bc3a23cae80f7cb9debb58b513d28fc
+    - path: bactopia-tools/scoary/scoary/nf-reports/scoary-dag.dot
+      md5sum: 06fcb013d41e7867e7f9eb6df75ba24f
+    - path: bactopia-tools/scoary/scoary/nf-reports/scoary-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/scoary/scoary/nf-reports/scoary-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/scoary/scoary/nf-reports/scoary-trace.txt
+      contains: ['task_id']

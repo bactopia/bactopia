@@ -18,8 +18,8 @@ process SCOARY {
         'quay.io/biocontainers/scoary:1.6.16--py_2' }"
 
     input:
-    tuple val(meta), path(genes), path(traits)
-    path(tree)
+    tuple val(meta), path(genes)
+    path(traits)
 
     output:
     tuple val(meta), path("*.csv"), emit: csv
@@ -28,8 +28,7 @@ process SCOARY {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    def newick_tree = tree ? "-n ${tree}" : ""
+    def prefix = options.suffix ? "${options.suffix}" : "scoary"
     """
     scoary \\
         $options.args \\

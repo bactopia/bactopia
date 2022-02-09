@@ -8,7 +8,7 @@ options.is_module = params.wf == 'clonalframeml' ? true : false
 options.suffix = options.suffix ? options.suffix : 'clonalframe'
 
 include { IQTREE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: [args: "-m MFP -fast", suffix: 'start-tree', process_name: 'iqtree-fast', is_module: options.is_module, ignore: options.ignore])
-include { CLONALFRAMEML as CLONALFRAME } from '../../../modules/nf-core/modules/clonalframeml/main' addParams( options: options)
+include { CLONALFRAMEML as CLONALFRAME } from '../../../modules/nf-core/modules/clonalframeml/main' addParams( options: options )
 
 workflow CLONALFRAMEML {
     take:
