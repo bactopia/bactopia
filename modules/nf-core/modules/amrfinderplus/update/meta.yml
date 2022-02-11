@@ -1,0 +1,32 @@
+name: amrfinderplus_run
+description: Identify antimicrobial resistance in gene or protein sequences
+keywords:
+  - bacteria
+  - fasta
+  - antibiotic resistance
+tools:
+  - amrfinderplus:
+      description: AMRFinderPlus finds antimicrobial resistance and other genes in protein or nucleotide sequences.
+      homepage: https://github.com/ncbi/amr/wiki
+      documentation: https://github.com/ncbi/amr/wiki
+      tool_dev_url: https://github.com/ncbi/amr
+      doi: "10.1038/s41598-021-91456-0"
+      licence: ['Public Domain']
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - db:
+      type: file
+      description: The latest AMRFinder+ database in a compressed tarball
+      pattern: "*.tar.gz"
+
+authors:
+  - "@rpetit3"

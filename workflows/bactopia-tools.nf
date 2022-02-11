@@ -41,6 +41,7 @@ if (params.containsKey('accession')) {
     include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
 }
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
+if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
@@ -113,6 +114,9 @@ workflow BACTOPIATOOLS {
     if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
+    } else if (params.wf == 'amrfinderplus') {
+        AMRFINDERPLUS(samples)
+        ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)

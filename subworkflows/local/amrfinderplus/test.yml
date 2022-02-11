@@ -1,0 +1,87 @@
+- name: amrfinderplus-test
+  command: bash -c 'nextflow run ./subworkflows/local/amrfinderplus/test.nf -entry test_amrfinderplus --wf amrfinderplus -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - amrfinderplus
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/GCF_000292685-genes.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/GCF_000292685-proteins.tsv
+      md5sum: f34365bb05512cb7bf1457184038a1f0
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.err
+      contains: ['amrfinder', 'Database', 'nucleotide', 'protein']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.log
+      contains: ['amrfinderdb', 'amrfinder', 'Database', 'nucleotide', 'protein']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.out
+      md5sum: e1f3d4f4230a30c4a476a9f896d0a100
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.sh
+      contains: ['amrfinder', 'END_VERSIONS']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/versions.yml
+      md5sum: 1df373913d35614a1a785d24b3f38e41
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderdb.tar.gz
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderplus-genes.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderplus-proteins.tsv
+      md5sum: f34365bb05512cb7bf1457184038a1f0
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.err
+      md5sum: 46c0495352babc526fac3fb77273aaee
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.log
+      md5sum: 563b3fa566cb95a16112642ccdac0f2e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.out
+      md5sum: e1f3d4f4230a30c4a476a9f896d0a100
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.sh
+      contains: ['amrfinder', 'END_VERSIONS']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/versions.yml
+      md5sum: 1ea4c4358d77e7be54674ac7fef9e2b8
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.err
+      md5sum: 5c8b25156b4a548a956e2d982a598dcb
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.log
+      md5sum: 5c8b25156b4a548a956e2d982a598dcb
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/versions.yml
+      md5sum: 5401f04fb435084a198f4183103f653d
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.err
+      md5sum: 5c8b25156b4a548a956e2d982a598dcb
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.log
+      md5sum: 5c8b25156b4a548a956e2d982a598dcb
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/versions.yml
+      md5sum: ba794f297811cbc5533d251ec6b5c44b
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-dag.dot
+      contains: ['amrfinderplus', 'AMRFINDER', 'versions']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-trace.txt
+      contains: ['task_id']

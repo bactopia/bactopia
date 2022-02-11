@@ -13,7 +13,7 @@ process MOBSUITE_RECON {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mob_suite%3A3.0.3--pyhdfd78af_0':
         'quay.io/biocontainers/mob_suite:3.0.3--pyhdfd78af_0' }"
 
@@ -29,12 +29,8 @@ process MOBSUITE_RECON {
     path ".command.*"                                 , emit: nf_logs
     path "versions.yml"                               , emit: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -44,7 +40,7 @@ process MOBSUITE_RECON {
 
     mob_recon \\
         --infile $fasta_name \\
-        $args \\
+        $options.args \\
         --num_threads $task.cpus \\
         --outdir results \\
         --sample_id $prefix

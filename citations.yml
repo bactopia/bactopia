@@ -127,6 +127,13 @@ influences:
         Ewels P, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S [The nf-core framework for community-curated bioinformatics pipelines.](https://dx.doi.org/10.1038/s41587-020-0439-x) _Nat Biotechnol._ (2020)
 
 tools:
+  abricate:
+    name: Abricate
+    link: https://github.com/tseemann/abricate
+    description: Mass screening of contigs for antimicrobial and virulence genes
+    cite: |
+      Seemann T [Abricate: mass screening of contigs for antimicrobial and virulence genes](https://github.com/tseemann/abricate) (GitHub)
+
   agrvate:
     name: AgrVATE
     link: https://github.com/VishnuRaghuram94/AgrVATE
@@ -502,6 +509,13 @@ tools:
     description: Ultra-fast and memory-efficient (meta-)genome assembler
     cite: |
       Li D, Liu C-M, Luo R, Sadakane K, Lam T-W [MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.](https://doi.org/10.1093/bioinformatics/btv033) _Bioinformatics_ 31.10 1674-1676 (2015)
+
+  mlst:
+    name: mlst
+    link: https://github.com/tseemann/mlst
+    description: Scan contig files against PubMLST typing schemes
+    cite: |
+      Seemann T [mlst: scan contig files against PubMLST typing schemes](https://github.com/tseemann/mlst) (GitHub)
 
   minced:
     name: MinCED

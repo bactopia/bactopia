@@ -159,6 +159,14 @@ def _collect_inputs(sample, dir, extension) {
             log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
             exit 1
         }
+    } else if (extension == 'fna_faa') {
+        fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
+        faa = "${dir}/${sample}/${PATHS['faa']}/${sample}.faa"
+        if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
+            return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
+        } else {
+            return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
+        }
     } else {
         input = "${dir}/${sample}/${PATHS[extension]}/${sample}.${extension}"
         if (file("${input}.gz").exists()) {

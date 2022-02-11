@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/amrfinderplus/params.json",
+    "title": "AMRFinder+ Module",
+    "description": "A module to identify antimicrobial resistance in genes or proteins",
+    "type": "object",
+    "definitions": {
+        "amrfinderplus_parameters": {
+            "title": "AMRFinder+ Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "amrfinder_db": {
+                    "type": "string",
+                    "description": "Path to your AMRFinder+ database as a tarball, if not given database will be built",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "force_update": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Force AMRFinder+ to rebuild the database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "ident_min": {
+                    "type": "number",
+                    "default": -1,
+                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "coverage_min": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Minimum coverage of the reference protein (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "organism": {
+                    "type": "string",
+                    "description": "Taxonomy group to run additional screens against",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "translation_table": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "NCBI genetic code for translated BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "report_common": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report proteins common to a taxonomy group",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "report_all_equal": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report all equally-scoring BLAST and HMM matches",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_opts": {
+                    "type": "string",
+                    "description": "Extra AMRFinder+ options in quotes.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/amrfinderplus_parameters"
+        }
+    ]
+}

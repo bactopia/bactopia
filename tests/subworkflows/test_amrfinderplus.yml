@@ -1,0 +1,8 @@
+- name: amrfinderplus-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf amrfinderplus -c nextflow.config --help > amrfinderplus-help.txt'
+  tags:
+    - bactopia_help
+    - amrfinderplus
+  files:
+    - path: amrfinderplus-help.txt
+      contains: ['amrfinderplus', 'bactopia', 'version', 'dependencies']

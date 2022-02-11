@@ -10,8 +10,11 @@
 - set `quay` as default docker registry
 - Let Nextflow handle stdout and stderr
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `amrfinderplus`: Identify antimicrobial resistance in genes or proteins
+    - `abricate`: Mass screening of contigs for antimicrobial and virulence genes
     - `checkm`: Assess the assembly quality of your samples
     - `kraken2`: Taxonomic classification of sequence reads
+    - `mlst`: Scan contig files against PubMLST typing schemes
     - `mobsuite`: Reconstruct and annotate plasmids in bacterial assemblies
 
 ### `Fixed`

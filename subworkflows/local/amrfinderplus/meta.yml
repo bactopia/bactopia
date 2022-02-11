@@ -1,0 +1,58 @@
+name: amrfinderplus
+description: Identify antimicrobial resistance in genes or proteins
+introduction: |
+  The `amrfinderplus` module uses [AMRFinder+](https://github.com/ncbi/amr) to screen assemblies and proteins
+  for antimicrobial resistance and virulence genes.
+icon: false
+tags:
+  - antimicrobial resistance
+  - fasta
+modules:
+  - amrfinderplus
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: |
+        Assembly and predicted proteins to screen
+  - db:
+      type: file
+      description: |
+        AMRFinder+ database create by this workflow or bactopia datasets
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - gene_report:
+      type: file
+      description: AMRFinder+ final gene report
+      pattern: "*-genes.tsv"
+  - merged_gene_report:
+      type: file
+      description: A merged TSV of all AMRFinder+ gene reports
+      pattern: "amrfinderplus-genes.tsv"
+  - proteins_report:
+      type: file
+      description: AMRFinder+ final protein report
+      pattern: "*-proteins.tsv"
+  - merged_proteins_report:
+      type: file
+      description: A merged TSV of all AMRFinder+ protein reports
+      pattern: "amrfinderplus-proteins.tsv"
+  - mutation_reports:
+      type: file
+      description: Report of organism-specific point-mutations
+      pattern: "*-mutations.tsv"
+citations:
+  - amrfinderplus

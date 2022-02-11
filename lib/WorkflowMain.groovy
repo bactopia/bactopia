@@ -37,7 +37,7 @@ class WorkflowMain {
                 command = "enteropia --fastqs samples.txt --datasets datasets/ --species 'Klebsiella pneumoniae' -profile singularity"
             } else {
                 logo_name = "tools"
-                command = "${workflow.manifest.name} tools ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
+                command = "${workflow.manifest.name} --wf ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
             }
         }
         help_string += NfcoreTemplate.logo(workflow, params.monochrome_logs, logo_name, params.wf, params.workflows[params.wf].description)
