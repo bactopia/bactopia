@@ -34,7 +34,7 @@ workflow ABRICATE {
     }
 
     emit:
-    report = ABRICATE_RUN.out.report
-    merged_reports = ch_merged_abricate
+    tsv = ABRICATE_RUN.out.report
+    merged_tsv = ch_merged_abricate
     versions = ch_versions // channel: [ versions.yml ]
 }

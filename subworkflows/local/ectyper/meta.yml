@@ -19,7 +19,7 @@ input:
         e.g. [ id:'test', single_end:false ]
   - fasta:
       type: file
-      description: A Staphylococcus aureus fasta file.
+      description: The final assembly in FASTA format
       pattern: "*.{fna,fna.gz}"
 output:
   - meta:

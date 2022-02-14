@@ -29,11 +29,11 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-  - report:
+  - tsv:
       type: file
       description: Tab-delimited report of results for a single sample
       pattern: "*.{txt}"
-  - merged_reports:
+  - merged_tsv:
       type: file
       description: Tab-delimited report of results from all samples
       pattern: "*.{txt}"

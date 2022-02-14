@@ -62,10 +62,10 @@ workflow AMRFINDERPLUS {
     }
 
     emit:
-    gene_report = AMRFINDERPLUS_RUN.out.gene_report
-    merged_gene_report = ch_merged_gene_reports
-    protein_report = AMRFINDERPLUS_RUN.out.protein_report
-    merged_protein_report = ch_merged_protein_reports
+    gene_tsv = AMRFINDERPLUS_RUN.out.gene_report
+    merged_gene_tsv = ch_merged_gene_reports
+    protein_tsv = AMRFINDERPLUS_RUN.out.protein_report
+    merged_protein_tsv = ch_merged_protein_reports
     mutation_reports = AMRFINDERPLUS_RUN.out.mutation_reports
     db = ch_amrfinder_db
     versions = ch_versions // channel: [ versions.yml ]

@@ -1,0 +1,8 @@
+- name: mlst-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf mlst -c nextflow.config --help > mlst-help.txt'
+  tags:
+    - bactopia_help
+    - mlst
+  files:
+    - path: mlst-help.txt
+      contains: ['mlst', 'bactopia', 'version', 'dependencies']

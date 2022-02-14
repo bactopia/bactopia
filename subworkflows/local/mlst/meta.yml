@@ -1,0 +1,43 @@
+name: mlst
+description: Automatic MLST calling from assembled contigs
+introduction: |
+  The `mlst` module uses [mlst](https://github.com/tseemann/mlst) scan assemblies and determine the sequence type.
+  It makes use of [PubMLST](https://pubmlst.org/) schemes and by default automatically scans each schema. To specify
+  a specific scheme to scan, you can provide it with `--scheme`.
+keywords:
+  - fasta
+  - mlst
+  - typing
+modules:
+  - mlst
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample mlst result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all MLST result files
+      pattern: "mlst.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - mlst
+  - pubmlst

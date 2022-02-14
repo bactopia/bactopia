@@ -33,19 +33,19 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-  - gene_report:
+  - gene_tsv:
       type: file
       description: AMRFinder+ final gene report
       pattern: "*-genes.tsv"
-  - merged_gene_report:
+  - merged_gene_tsv:
       type: file
       description: A merged TSV of all AMRFinder+ gene reports
       pattern: "amrfinderplus-genes.tsv"
-  - proteins_report:
+  - proteins_tsv:
       type: file
       description: AMRFinder+ final protein report
       pattern: "*-proteins.tsv"
-  - merged_proteins_report:
+  - merged_proteins_tsv:
       type: file
       description: A merged TSV of all AMRFinder+ protein reports
       pattern: "amrfinderplus-proteins.tsv"
