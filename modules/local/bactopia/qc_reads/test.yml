@@ -20,7 +20,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
       contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
-      contains: ['Analysis','complete']
+      contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
@@ -72,7 +72,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
       contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
-      md5sum: da740b754eb5d551074868946f5f94bb
+      contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
@@ -114,7 +114,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
       contains: ['Approx', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
-      contains: ['Analysis','complete']
+      contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
@@ -168,7 +168,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
       contains: ['Approx', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
-      contains: ['Analysis','complete']
+      contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh
@@ -268,7 +268,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.log
       contains: ['Approx', 'complete', 'Scanning', 'error', 'Finish', 'BBDuk', 'Memory', 'Result', 'Processed', 'ReformatReads']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.out
-      contains: ['Analysis','complete']
+      contains: ['Analysis', 'complete']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/qc_reads/nf-qc_reads.sh

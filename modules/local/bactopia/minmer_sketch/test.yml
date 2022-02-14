@@ -16,9 +16,9 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
@@ -54,9 +54,9 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
@@ -93,9 +93,9 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run
@@ -131,9 +131,9 @@
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/minmer_sketch/nf-minmer_sketch.run

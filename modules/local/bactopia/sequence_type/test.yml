@@ -109,9 +109,9 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
@@ -144,9 +144,9 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh

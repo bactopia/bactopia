@@ -38,7 +38,7 @@
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ["csv", "Phandango"]
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.log
       contains: ['card', 'All done!']
     - path: pytest/output/logs/ariba_analysis/card/nf-ariba_analysis.out
@@ -54,7 +54,7 @@
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ["csv", "Phandango"]
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.log
       contains: ['vfdb', 'All done!']
     - path: pytest/output/logs/ariba_analysis/vfdb_core/nf-ariba_analysis.out
