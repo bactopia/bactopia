@@ -40,6 +40,7 @@ if (params.containsKey('accession')) {
     // Only import when made available
     include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
 }
+if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/abricate/main';
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
@@ -111,7 +112,10 @@ workflow BACTOPIATOOLS {
     ch_final_downloads = ch_gather_files.mix(Channel.fromList(collect_local_files(params.containsKey('gff') ? params.gff : null , params.containsKey('gff_pattern') ? params.gff_pattern : null)))
 
     samples = ch_local_samples.mix(ch_final_downloads)
-    if (params.wf == 'agrvate') {
+    if (params.wf == 'abricate') {
+        ABRICATE(samples)
+        ch_versions = ch_versions.mix(ABRICATE.out.versions)
+    } else if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
     } else if (params.wf == 'amrfinderplus') {

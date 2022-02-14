@@ -1,0 +1,46 @@
+name: abricate
+description: Mass screening of contigs for antimicrobial and virulence genes
+keywords:
+  - bacteria
+  - fasta
+  - antimicrobial reistance
+modules:
+  - abricate
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - assembly:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - report:
+      type: file
+      description: Tab-delimited report of results for a single sample
+      pattern: "*.{txt}"
+  - merged_reports:
+      type: file
+      description: Tab-delimited report of results from all samples
+      pattern: "*.{txt}"
+citations:
+  - abricate
+  - arg_annot
+  - card
+  - ecoh
+  - megares2
+  - ncbi_reference_gene_catolog
+  - plasmidfinder
+  - resfinder
+  - vfdb

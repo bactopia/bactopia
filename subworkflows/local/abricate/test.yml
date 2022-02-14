@@ -1,0 +1,48 @@
+- name: abricate-test
+  command: bash -c 'nextflow run ./subworkflows/local/abricate/test.nf -entry test_abricate --wf abricate -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - abricate
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/GCF_000292685.txt
+      md5sum: 69af3321b0bc808b7ef85f102395736f
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.err
+      contains: ["database", "genes", "abricate", "Done"]
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.log
+      contains: ["database", "genes", "abricate", "Done"]
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.sh
+      contains: ['abricate', 'END_VERSIONS']
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/versions.yml
+      md5sum: 883068280465b2816cfae24f8ba0ec3c
+    - path: bactopia-tools/abricate/abricate/abricate.txt
+      md5sum: e8391c1a2090cde184f6e350c0c3db30
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.err
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.log
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.sh
+      contains: ['abricate', 'END_VERSIONS']
+    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/abricate/abricate/logs/abricate/versions.yml
+      md5sum: 5a36c88a5b83e21e4e920d931deae2e2
+    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-dag.dot
+      md5sum: 9be819987a93c9edee114d24f0167250
+    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-trace.txt
+      contains: ['task_id']

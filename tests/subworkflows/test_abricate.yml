@@ -1,0 +1,8 @@
+- name: abricate-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf abricate -c nextflow.config --help > abricate-help.txt'
+  tags:
+    - bactopia_help
+    - abricate
+  files:
+    - path: abricate-help.txt
+      contains: ['abricate', 'bactopia', 'version', 'dependencies']
