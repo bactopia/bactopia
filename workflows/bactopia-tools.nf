@@ -44,6 +44,7 @@ if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/ab
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
+if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
 if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
@@ -124,6 +125,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
+    } else if (params.wf == 'checkm') {
+        CHECKM(samples)
+        ch_versions = ch_versions.mix(CHECKM.out.versions)
     } else if (params.wf == 'ectyper') {
         ECTYPER(samples)
         ch_versions = ch_versions.mix(ECTYPER.out.versions)

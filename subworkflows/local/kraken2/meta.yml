@@ -1,25 +1,55 @@
 name: kraken
 description: Taxonomic classifications of sequence reads
+introduction: |
+  The `kraken2` module uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic 
+  classifications to your sequence reads.
 keywords:
-  - TAGS
+  - classify
+  - metagenomics
+  - fastq
 modules:
-  - LIST_OF_MODULES
+  - kraken2
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - reads:
       type: file
-      description: Description of input file
-
+      description: |
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+  - db:
+      type: directory
+      description: Kraken2 database
 output:
-  - FILETYPE:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - classified:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: |
+        Reads classified to belong to any of the taxa
+        on the Kraken2 database.
+      pattern: "*{fastq.gz}"
+  - unclassified:
+      type: file
+      description: |
+        Reads not classified to belong to any of the taxa
+        on the Kraken2 database.
+      pattern: "*{fastq.gz}"
+  - report:
+      type: file
+      description: |
+        Kraken2 report containing stats about classified
+        and not classifed reads.
+      pattern: "*.{report.txt}"
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+citations:
+  - kraken2

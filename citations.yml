@@ -446,6 +446,12 @@ tools:
     cite: |
       Deorowicz S, Kokot M, Grabowski Sz, Debudaj-Grabysz A [KMC 2: Fast and resource-frugal k-mer counting](https://doi.org/10.1093/bioinformatics/btv022) _Bioinformatics_ 31(10):1569–1576 (2015)
 
+  kraken2:
+    name: Kraken2
+    link: https://github.com/DerrickWood/kraken2
+    cite: |
+      Wood DE, Lu J, Langmead B [Improved metagenomic analysis with Kraken 2.](https://doi.org/10.1186/s13059-019-1891-0) *Genome Biology*, 20(1), 257. (2019)
+
   lighter:
     name: Lighter
     link: https://github.com/mourisl/Lighter

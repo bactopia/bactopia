@@ -23,7 +23,6 @@ input:
       type: file
       description: |
         AMRFinder+ database create by this workflow or bactopia datasets
-
 output:
   - meta:
       type: map

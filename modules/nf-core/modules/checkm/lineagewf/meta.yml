@@ -1,0 +1,55 @@
+name: checkm_lineagewf
+description: CheckM provides a set of tools for assessing the quality of genomes recovered from isolates, single cells, or metagenomes.
+keywords:
+  - checkm
+  - mag
+  - metagenome
+  - quality
+  - isolates
+  - microbes
+  - single cells
+  - completeness
+  - contamination
+  - bins
+  - genome bins
+tools:
+  - checkm:
+      description: Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes.
+      homepage: https://ecogenomics.github.io/CheckM/
+      documentation: https://github.com/Ecogenomics/CheckM/wiki
+      tool_dev_url: https://github.com/Ecogenomics/CheckM
+      doi: "10.1101/gr.186072.114"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: One or a list of multiple FASTA files of each bin, with extension defined with the fasta_ext value
+      pattern: "*.{$fasta_ext}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'sample', bin:'1' ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: directory
+      description: CheckM output directory
+      pattern: "*/"
+  - tsv:
+      type: file
+      description: CheckM summary completeness statistics table
+      pattern: "*.tsv"
+
+authors:
+  - "@jfy133"

@@ -1,5 +1,7 @@
 name: SUBWORKFLOW_NAME
 description: SUBWORKFLOW_DESCRIPTION
+introduction: |
+  The `SUBWORKFLOW_NAME` module uses...
 keywords:
   - TAGS
 modules:
@@ -13,7 +15,6 @@ input:
   - INPUT_FILE:
       type: file
       description: Description of input file
-
 output:
   - FILETYPE:
       type: file
