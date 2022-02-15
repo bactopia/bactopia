@@ -9,9 +9,9 @@
     - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.err
-      contains: ["database", "genes", "abricate", "Done"]
+      contains: ["database", "genes", "Done"]
     - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.log
-      contains: ["database", "genes", "abricate", "Done"]
+      contains: ["database", "genes", "Done"]
     - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.run
@@ -39,7 +39,7 @@
     - path: bactopia-tools/abricate/abricate/logs/abricate/versions.yml
       md5sum: 5a36c88a5b83e21e4e920d931deae2e2
     - path: bactopia-tools/abricate/abricate/nf-reports/abricate-dag.dot
-      md5sum: 9be819987a93c9edee114d24f0167250
+      contains: ['abricatedag', 'ABRICATE', 'versions']
     - path: bactopia-tools/abricate/abricate/nf-reports/abricate-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/abricate/abricate/nf-reports/abricate-timeline.html

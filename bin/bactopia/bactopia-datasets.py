@@ -841,6 +841,9 @@ def create_summary(outdir, training_set=False):
     if os.path.exists(f'{outdir}/species-specific'):
         available_datasets['species-specific'] = OrderedDict()
         for species in sorted(os.listdir(f'{outdir}/species-specific')):
+            if species.startswith("."):
+                # Skip hidden files like .DS_Store
+                continue
             new_species = OrderedDict()
             species_dir = f'{outdir}/species-specific/{species}'
 

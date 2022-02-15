@@ -213,7 +213,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
     major, minor, patch = VERSION.split('.')
     CONTAINER_VERSION = f'{major}.{minor}.x'
     registry = get_docker_prefix(registry_name)
-    docker_prefix = f'docker://{registry}/bactopia' if registry else f'docker://bactopia'
+    docker_prefix = f'{registry}/bactopia' if registry else f'bactopia'
     env_files = sorted(glob.glob(f'{bactopia_path}/conda/{ostype}/*.yml'))
 
     # Check for completion files
@@ -249,7 +249,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
             if build_conda:
                 if needs_conda_create(envbuilt_file, md5_file, conda_prefix, force=force):
                     logging.info(f'Found {yml_file} ({i+1} of {len(env_files)}), begin build to {conda_prefix}')
-                    built = build_conda_env(yml_file, conda_prefix, max_retry=max_retry, force=force)
+                    built = build_conda_env(yml_file, conda_prefix, max_retry=max_retry)
                     if built:
                         execute(f'cp {md5_file} {envbuilt_file}')
             if build_docker:
@@ -260,7 +260,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
                 if needs_singularity_build(img_name, force=force):
                     execute(f'mkdir -p {singularity_path}')
                     logging.info(f'Found {envname} ({i+1} of {len(env_files)}), begin build to {img_name}')
-                    build_singularity_image(img_name, pull_name, max_retry=max_retry, force=force, use_build=True)
+                    build_singularity_image(img_name, f"docker://{pull_name}", max_retry=max_retry, force=force, use_build=True)
 
         # Create completion files
         if build_conda:
@@ -315,7 +315,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
 
     if build_conda:
         logging.info(f'Begin {envname} create to {conda_prefix}')
-        build_conda_env(envinfo['conda'], conda_prefix, max_retry=max_retry, force=force)
+        build_conda_env(envinfo['conda'], conda_prefix, max_retry=max_retry)
     if build_docker:
         if needs_docker_pull(envinfo['docker']):
             logging.info(f"Begin docker pull of {envinfo['docker']}")
@@ -385,18 +385,17 @@ def needs_singularity_build(image, force=False):
 """
 Envrionment creation related
 """
-def build_conda_env(conda_env, conda_path, max_retry=5, force=False):
+def build_conda_env(conda_env, conda_path, max_retry=5):
     """Build Conda env, with chance to retry."""
-    force = '--force' if force else ''
     retry = 0
     allow_fail = False
     success = False
     while not success:
         result = None
         if conda_env.endswith(".yml"):
-            result = execute(f'mamba env create -f {conda_env} --prefix {conda_path} {force}', allow_fail=allow_fail)
+            result = execute(f'mamba env create -f {conda_env} --prefix {conda_path} --force', allow_fail=allow_fail)
         else:
-            result = execute(f'mamba create -p {conda_path} -c conda-forge -c bioconda {force} {conda_env}', allow_fail=allow_fail)
+            result = execute(f'mamba create -y -p {conda_path} -c conda-forge -c bioconda --force {conda_env}', allow_fail=allow_fail)
         if not result:
             if retry > max_retry:
                 allow_fail = True

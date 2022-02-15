@@ -17,7 +17,7 @@
       md5sum: 829baa25c3fad94b1af207265452a692
     - path: bactopia-tools/roary/roary/clustered_proteins
       contains: ['JKHLNHAL_00087']
-    - path: bactopia-tools/roary/roary/core-genome.aln.gz
+    - path: bactopia-tools/roary/roary/core_gene_alignment.aln.gz
     - path: bactopia-tools/roary/roary/core_accessory.header.embl
       contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
     - path: bactopia-tools/roary/roary/core_accessory.tab
@@ -54,13 +54,13 @@
     - path: bactopia-tools/roary/roary/nf-reports/roary-trace.txt
       contains: ['task_id']
     - path: bactopia-tools/roary/roary/number_of_conserved_genes.Rtab
-      contains: ['279']
+      contains: ['2']
     - path: bactopia-tools/roary/roary/number_of_genes_in_pan_genome.Rtab
-      contains: ['279']
+      contains: ['2']
     - path: bactopia-tools/roary/roary/number_of_new_genes.Rtab
-      contains: ['279']
+      contains: ['2']
     - path: bactopia-tools/roary/roary/number_of_unique_genes.Rtab
-      contains: ['279']
+      contains: ['2']
     - path: bactopia-tools/roary/roary/pan_genome_reference.fa.gz
     - path: bactopia-tools/roary/roary/summary_statistics.txt
       md5sum: 3921b5445df6a7ed59408119b8860a58

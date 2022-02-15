@@ -23,7 +23,7 @@ process PIRATE {
 
     output:
     tuple val(meta), path("results/*")                        , emit: results
-    tuple val(meta), path("results/core_alignment.fasta.gz")  , emit: aln, optional: true
+    tuple val(meta), path("core-genome.aln.gz")               , emit: aln, optional: true
     tuple val(meta), path("results/gene_presence_absence.csv"), emit: csv, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -42,6 +42,11 @@ process PIRATE {
         --output results/
     PIRATE_to_roary.pl -i results/PIRATE.*.tsv -o results/gene_presence_absence.csv
     find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
+
+    # Only copy files if they exist
+    if [[ -f "results/core_alignment.fasta.gz" ]]; then
+        cp results/core_alignment.fasta.gz ./core-genome.aln.gz
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

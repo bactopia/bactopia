@@ -15,7 +15,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.log
       contains: ['amrfinderdb', 'amrfinder', 'Database', 'nucleotide', 'protein']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.out
-      md5sum: e1f3d4f4230a30c4a476a9f896d0a100
+      contains: ["Salmonella", "AMR_DNA", "Enterococcus_faecalis"]
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.sh
@@ -32,11 +32,11 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.err
-      md5sum: 46c0495352babc526fac3fb77273aaee
+      contains: ["amrfinder_update", "AMRFinder", "Indexing"]
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.log
-      md5sum: 563b3fa566cb95a16112642ccdac0f2e
+      contains: ["amrfinder_update", "AMRFinder", "Indexing"]
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.out
-      md5sum: e1f3d4f4230a30c4a476a9f896d0a100
+      contains: ["Salmonella", "AMR_DNA", "Enterococcus_faecalis"]
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.sh

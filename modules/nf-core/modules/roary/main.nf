@@ -23,7 +23,7 @@ process ROARY {
 
     output:
     tuple val(meta), path("results/*")                        , emit: results
-    tuple val(meta), path("results/core_alignment.fasta.gzz") , emit: aln, optional: true
+    tuple val(meta), path("core-genome.aln.gz")               , emit: aln, optional: true
     tuple val(meta), path("results/gene_presence_absence.csv"), emit: csv, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -43,6 +43,10 @@ process ROARY {
 
     gzip results/*.aln
     gzip results/*.fa
+
+    if [[ -f "results/core_gene_alignment.aln.gz" ]]; then
+        cp results/core_gene_alignment.aln.gz ./core-genome.aln.gz
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

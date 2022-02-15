@@ -19,7 +19,7 @@
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.err
-      contains: ['Finished', 'Parsing', 'hits']
+      contains: ['Finished', 'parsing', 'hits']
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.log
       contains: ['Finished', 'Parsing', 'hits', 'CheckM']
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.out

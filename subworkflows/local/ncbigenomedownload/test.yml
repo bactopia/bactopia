@@ -21,7 +21,7 @@
     - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/versions.yml
-      md5sum: 79c6f09036ab5f268eb6e8ba427b8cce
+      md5sum: e03eba2b6b311a0a8ea537583dea24b3
     - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-dag.dot
       contains: ['ncbigenomedownloaddag', 'NCBIGENOMEDOWNLOAD', 'versions']
     - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-report.html

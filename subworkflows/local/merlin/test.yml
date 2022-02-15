@@ -26,8 +26,6 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/agrvate/versions.yml
       md5sum: 0d1b1a5e5fdfb3ad02a7fc8164743428
-    - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/mash.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000017085/logs/mashdist/nf-mashdist.err
@@ -244,8 +242,6 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/versions.yml
       md5sum: 26036c43ba88dd51b6b1fe28fa84047d
-    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/mash.stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.err

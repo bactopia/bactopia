@@ -9,9 +9,9 @@
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.err
-      md5sum: 944f13d698d714d8f3e3a419c3699d98
+      contains: ["Estimated", "genome", "coverage"]
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.log
-      md5sum: 944f13d698d714d8f3e3a419c3699d98
+      contains: ["Estimated", "genome", "coverage"]
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/mashdist/mashdist/GCF_000292685/logs/mashdist/nf-mashdist.run
