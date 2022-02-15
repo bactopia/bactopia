@@ -281,7 +281,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     build_singularity = True if env_type == "singularity" or env_type == "all" else False
 
     # Conda
-    conda_envname = envinfo['conda'].replace("=", "-")
+    conda_envname = envinfo['conda'].replace("=", "-").replace(":", "-")
     conda_prefix = f'{conda_path}/{conda_envname}'
     singularity_name = None
     if use_build:
@@ -527,6 +527,7 @@ if __name__ == '__main__':
     for workflow, modules in workflow_modules.items():
         if workflow == args.wf or args.build_all:
             for module, info in modules.items():
+                logging.debug(f"Working on {workflow}")
                 if module == "bactopia":
                     # Build all (7) bactopia envs
                     build_bactopia_envs(bactopia_path, conda_path, singularity_path, args.envtype, registry_name=args.registry,
