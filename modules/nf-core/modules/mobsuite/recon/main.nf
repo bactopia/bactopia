@@ -15,7 +15,7 @@ process MOBSUITE_RECON {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mob_suite%3A3.0.3--pyhdfd78af_0':
+        'https://depot.galaxyproject.org/singularity/mob_suite%3A3.0.3--pyhdfd78af_0' :
         'quay.io/biocontainers/mob_suite:3.0.3--pyhdfd78af_0' }"
 
     input:

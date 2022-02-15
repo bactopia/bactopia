@@ -130,10 +130,10 @@ def parse_module(main_nf):
                 envs['docker'] = line.replace("container ", "").replace("'", "")
             elif read_container == 1:
                 # Galaxy Project image
-                envs['singularity'] = line.replace("'", "").split()[0].strip()
+                envs['singularity'] = line.replace("'", "").split(" ")[0].strip()
                 read_container = 2
             elif read_container == 2:
-                # Galaxy Project image
+                # Biocontainer
                 envs['docker'] = line.replace("'", "").replace('}"', '').strip()
                 read_container = 0
     return envs

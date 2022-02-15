@@ -15,7 +15,7 @@ process AMRFINDERPLUS_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus%3A3.10.21--h17dc2d4_0':
+        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus%3A3.10.21--h17dc2d4_0' :
         'quay.io/biocontainers/ncbi-amrfinderplus:3.10.21--h17dc2d4_0' }"
 
     input:
