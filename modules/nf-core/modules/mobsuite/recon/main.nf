@@ -25,7 +25,7 @@ process MOBSUITE_RECON {
     tuple val(meta), path("results/chromosome.fasta") , emit: chromosome
     tuple val(meta), path("results/contig_report.txt"), emit: contig_report
     tuple val(meta), path("results/plasmid_*.fasta")  , emit: plasmids        , optional: true
-    tuple val(meta), path("results/${}-mobtyper.txt") , emit: mobtyper_results, optional: true
+    tuple val(meta), path("results/${prefix}-mobtyper.txt") , emit: mobtyper_results, optional: true
     path "*.{log,err}"                                , emit: logs, optional: true
     path ".command.*"                                 , emit: nf_logs
     path "versions.yml"                               , emit: versions
@@ -46,8 +46,8 @@ process MOBSUITE_RECON {
         --outdir results \\
         --sample_id $prefix
 
-    if [[ -f "results/mobtype_results.txt" ]]; then
-        mv results/mobtype_results.txt results/${prefix}-mobtyper.txt
+    if [[ -f "results/mobtyper_results.txt" ]]; then
+        mv results/mobtyper_results.txt results/${prefix}-mobtyper.txt
     fi
 
     cat <<-END_VERSIONS > versions.yml
