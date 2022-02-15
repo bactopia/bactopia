@@ -281,7 +281,8 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     build_singularity = True if env_type == "singularity" or env_type == "all" else False
 
     # Conda
-    conda_prefix = f'{conda_path}/{envname}'
+    conda_envname = envinfo['conda'].replace("=", "-")
+    conda_prefix = f'{conda_path}/{conda_envname}'
     singularity_name = None
     if use_build:
         singularity_name = envinfo['docker'].replace(":","-").replace("/", "-")
@@ -293,7 +294,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     singularity_img = f"{singularity_path}/{singularity_name}.img"
 
     # Check for completion files
-    conda_complete = f'{conda_path}/{envname}/env-built.txt'
+    conda_complete = f'{conda_path}/{conda_envname}/env-built.txt'
 
     if build_conda and os.path.exists(conda_complete):
         if force:

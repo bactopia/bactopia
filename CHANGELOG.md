@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.2 bactopia/bactopia "" - 2022/0?/??
+## v2.0.2 bactopia/bactopia "" - 2022/02/??
 
 ### `Added`
 - `bactopia download` which merges the `bactopia build` and `bactopia pull` commands
@@ -27,6 +27,7 @@
 - `argument type mismatch` when using `--use_roary`
 - missing channel when `agrvate` not ran as `staphtyper`
 - float required options to the top when missing
+- broken tests due to changes
 
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 
