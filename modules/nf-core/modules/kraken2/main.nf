@@ -5,7 +5,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'kraken2')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::kraken2=2.1.1 conda-forge::pigz=2.6"
-conda_env   = file("${params.condadir}/kraken2").exists() ? "${params.condadir}/kraken2" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process KRAKEN2 {
     tag "$meta.id"

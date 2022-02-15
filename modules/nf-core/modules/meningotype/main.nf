@@ -4,7 +4,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'meningotype')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::meningotype=0.8.5"
-conda_env   = file("${params.condadir}/meningotype").exists() ? "${params.condadir}/meningotype" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process MENINGOTYPE {
     tag "$meta.id"

@@ -4,7 +4,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'clonalframeml')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5"
-conda_env   = file("${params.condadir}/clonalframeml").exists() ? "${params.condadir}/clonalframeml" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process CLONALFRAMEML {
     tag "$meta.id"

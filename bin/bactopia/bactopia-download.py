@@ -281,7 +281,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     build_singularity = True if env_type == "singularity" or env_type == "all" else False
 
     # Conda
-    conda_envname = envinfo['conda'].replace("=", "-").replace(":", "-")
+    conda_envname = envinfo['conda'].replace("=", "-").replace(":", "-").replace(" ", "-")
     conda_prefix = f'{conda_path}/{conda_envname}'
     singularity_name = None
     if use_build:

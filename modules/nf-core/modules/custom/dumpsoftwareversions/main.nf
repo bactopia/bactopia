@@ -4,7 +4,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'custom_dumpsoftwareversions')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::multiqc=1.11"
-conda_env   = file("${params.condadir}/custom_dumpsoftwareversions").exists() ? "${params.condadir}/custom_dumpsoftwareversions" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'

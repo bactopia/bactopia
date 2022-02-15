@@ -88,11 +88,7 @@ elif [[ "$1" == "prepare" ]]; then
 elif [[ "$1" == "search" ]]; then
     bactopia-search.py "${@:2}"
 elif [[ "$1" == "download" ]]; then
-    if [[ "$2" == "--use_defaults" ]]; then
-        bactopia-download.py "${BACTOPIA_NF}" "${@:2}"
-    else
-        bactopia-download.py "${@:2}"
-    fi
+    bactopia-download.py "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
