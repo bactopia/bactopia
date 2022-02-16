@@ -27,15 +27,7 @@ jobs:
           echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
           echo "BACTOPIA_TMP=/data/storage/bactopia-tmp/${{ github.run_id }}" >> $GITHUB_ENV
           mkdir "/data/storage/bactopia-tmp/${{ github.run_id }}"
-
-      - name: Docker Profile
-        run: |
-          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
-          conda activate bactopia-ci
-          cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
+          chmod -R 777 "/data/storage/bactopia-tmp/${{ github.run_id }}"
 
       - name: Singularity Profile
         run: |
@@ -44,6 +36,15 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | xargs -I {} -P 20 \
               bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
+
+      - name: Docker Profile
+        run: |
+          source /data/storage/bactopia-ci/miniconda3/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls subworkflows/local/ | xargs -I {} -P 20 \
+              bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Conda Profile
