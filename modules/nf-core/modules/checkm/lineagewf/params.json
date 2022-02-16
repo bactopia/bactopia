@@ -15,25 +15,25 @@
                     "type": "integer",
                     "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set.",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "checkm_multi": {
                     "type": "integer",
                     "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set.",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-angle-double-up"
                 },
                 "aai_strain": {
                     "type": "number",
                     "description": "AAI threshold used to identify strain heterogeneity",
                     "default": 0.9,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "checkm_length": {
                     "type": "number",
                     "description": "Percent overlap between target and query",
                     "default": 0.7,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "full_tree": {
                     "type": "boolean",
