@@ -40,7 +40,7 @@ process MASHTREE {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        mash: \$(echo \$(mash --version 2>&1))
+        mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
         mashtree: \$( echo \$( mashtree --version 2>&1 ) | sed 's/^.*Mashtree //' )
     END_VERSIONS
     """

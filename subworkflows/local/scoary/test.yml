@@ -18,7 +18,7 @@
     - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.sh
-      md5sum: 250c0d84460db35784122e069eec49b1
+      contains: ['scoary', 'END_VERSIONS']
     - path: bactopia-tools/scoary/scoary/logs/scoary/nf-scoary.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/scoary/scoary/logs/scoary/scoary.log
@@ -26,7 +26,7 @@
     - path: bactopia-tools/scoary/scoary/logs/scoary/versions.yml
       md5sum: 1bc3a23cae80f7cb9debb58b513d28fc
     - path: bactopia-tools/scoary/scoary/nf-reports/scoary-dag.dot
-      md5sum: 06fcb013d41e7867e7f9eb6df75ba24f
+      contains: ['scoarydag', 'SCOARY', 'versions']
     - path: bactopia-tools/scoary/scoary/nf-reports/scoary-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia-tools/scoary/scoary/nf-reports/scoary-timeline.html

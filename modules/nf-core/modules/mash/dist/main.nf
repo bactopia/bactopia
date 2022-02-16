@@ -41,7 +41,7 @@ process MASH_DIST {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        mash: \$(mash --version 2>&1)
+        mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -53,7 +53,7 @@ process MERLIN_DIST {
     publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
-    conda (params.enable_conda ? "bioconda::mash=2.3" : null)
+    conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mash:2.3--he348c14_1' :
         'quay.io/biocontainers/mash:2.3--he348c14_1' }"
@@ -116,7 +116,7 @@ process MERLIN_DIST {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        mash: \$(mash --version 2>&1)
+        mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
     END_VERSIONS
     """
 }

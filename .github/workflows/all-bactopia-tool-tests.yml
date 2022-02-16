@@ -53,9 +53,9 @@ jobs:
           conda activate bactopia-ci
           conda clean --all -y
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} \
-              bash -c 'BACTOPIA_ARGS="--max_cpus 40 --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
+          ls subworkflows/local/ | xargs -I {} -P 20 \
+              bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Upload logs on failure
         if: failure()

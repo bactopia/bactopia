@@ -300,7 +300,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
         if force:
             logging.debug(f'Overwriting existing Conda environment in {conda_prefix}')
         else:
-            logging.debug(f'Found Conda environment in {conda_path}, if a complete rebuild is needed please use --force_rebuild')
+            logging.debug(f'Found Conda environment in {conda_prefix}, if a complete rebuild is needed please use --force_rebuild')
             build_conda = False
     if build_docker and not needs_docker_pull(envinfo['docker']):
         if not force:

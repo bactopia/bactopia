@@ -52,7 +52,7 @@ process MINMER_SKETCH {
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
-        mash: $(echo $(mash --version 2>&1))
+        mash: $(echo $(mash 2>&1) | sed 's/^.*Mash version //;s/ .*$//')
         mccortex: $(echo $(mccortex31 2>&1) | sed 's/^.*mccortex=v//;s/ .*$//')
         sourmash: $(echo $(sourmash --version 2>&1) | sed 's/sourmash //;')
     END_VERSIONS

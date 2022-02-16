@@ -85,7 +85,7 @@
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/TIGR00422.masked.faa.gz
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.fasta.gz
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.pplacer.json
-      md5sum: 612dbfc1d20b0e719652b12ffd1c1617
+      contains: ['GCF_000292685', 'metadata', 'pplacer']
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.tre
       md5sum: 478880ccdff6d05c9e7f130773f717c3
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/pplacer.out
