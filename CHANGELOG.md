@@ -28,6 +28,8 @@
 - missing channel when `agrvate` not ran as `staphtyper`
 - float required options to the top when missing
 - broken tests due to changes
+- `bactopia datasets` including hidden directories
+- Bioperl pinnings for prokka and pirate
 
 ## v2.0.1 bactopia/bactopia "Red Roc" - 2022/01/06
 

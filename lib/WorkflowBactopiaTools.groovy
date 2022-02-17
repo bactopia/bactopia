@@ -72,6 +72,14 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += 1
             }
+        } else if (params.wf == "pangenome" || params.wf == "scoary") {
+            if (params.traits) {
+                if (Utils.isLocal(params.traits)) {
+                    error += Utils.fileNotFound(params.traits, 'traits', log)
+                }
+            } else {
+                missing_required += 1
+            }
         }
 
         // Check for existing output directory
