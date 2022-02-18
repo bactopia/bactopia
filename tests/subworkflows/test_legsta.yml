@@ -1,0 +1,8 @@
+- name: legsta-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf legsta -c nextflow.config --help > legsta-help.txt'
+  tags:
+    - bactopia_help
+    - legsta
+  files:
+    - path: legsta-help.txt
+      contains: ['legsta', 'bactopia', 'version', 'dependencies']

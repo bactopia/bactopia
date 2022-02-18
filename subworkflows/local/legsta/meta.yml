@@ -1,0 +1,41 @@
+name: legsta
+description: Typing of Legionella pneumophila assemblies
+introduction: |
+  The `legsta` module uses [legsta](https://github.com/tseemann/legsta) for 
+  _in silico_ _Legionella pneumophila_ Sequence Based Typing (SBT).
+keywords:
+  - fasta
+  - legionella
+  - typing
+modules:
+  - legsta
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Tab-delimited summary of the results
+      pattern: "*.{tsv}"
+  - merged_tsv:
+      type: file
+      description: Tab-delimited report of results from all samples
+      pattern: "*.{tsv}"
+citations:
+  - legsta
