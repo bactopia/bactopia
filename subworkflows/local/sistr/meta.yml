@@ -1,0 +1,53 @@
+name: sistr
+description: Serovar prediction of Salmonella assemblies
+introduction: |
+  The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd), or SISTR, for 
+  serovar prediction of Salmonella assemblies.
+keywords:
+  - fasta
+  - salmonella
+  - typing
+modules:
+  - sistr
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Tab-delimited SISTR serovar prediction
+      pattern: "*.{tsv}"
+  - merged_tsv:
+      type: file
+      description: Tab-delimited report of results from all samples
+      pattern: "*.{tsv}"
+  - allele_json:
+      type: file
+      description: Allele sequences and info to JSON
+      pattern: "*.json.gz"
+  - allele_fasta:
+      type: file
+      description: FASTA file destination of novel cgMLST alleles
+      pattern: "*.fasta.gz"
+  - cgmlst_csv:
+      type: file
+      description: CSV file destination for cgMLST allelic profiles
+      pattern: "*.{csv}"
+citations:
+  - sistr

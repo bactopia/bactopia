@@ -67,6 +67,7 @@ process MERLIN_DIST {
     tuple val(meta), path(query), path("escherichia.*")   , emit: escherichia, optional: true
     tuple val(meta), path(query), path("haemophilus.*")   , emit: haemophilus, optional: true
     tuple val(meta), path(query), path("klebsiella.*")    , emit: klebsiella, optional: true
+    tuple val(meta), path(query), path("legionella.*")    , emit: listeria, optional: true
     tuple val(meta), path(query), path("listeria.*")      , emit: listeria, optional: true
     tuple val(meta), path(query), path("mycobacterium.*") , emit: mycobacterium, optional: true
     tuple val(meta), path(reads), path("mycobacterium.*") , emit: mycobacterium_fq, optional: true
@@ -93,7 +94,7 @@ process MERLIN_DIST {
 
     # Extract genus with hits
     declare -a GENUS=(
-        "escherichia" "haemophilus" "klebsiella" "listeria" "mycobacterium" "neisseria" "salmonella" "shigella" "staphylococcus" "streptococcus"
+        "escherichia" "haemophilus" "klebsiella" "legionella" "listeria" "mycobacterium" "neisseria" "salmonella" "shigella" "staphylococcus" "streptococcus"
     )
     for i in "\${GENUS[@]}"; do
         if grep -q -i "\${i}" ${prefix}-dist.txt; then

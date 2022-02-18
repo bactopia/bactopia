@@ -452,6 +452,14 @@ tools:
     cite: |
       Wood DE, Lu J, Langmead B [Improved metagenomic analysis with Kraken 2.](https://doi.org/10.1186/s13059-019-1891-0) *Genome Biology*, 20(1), 257. (2019)
 
+  legsta:
+    name: legsta
+    link: https://github.com/tseemann/legsta
+    description: In silico Legionella pneumophila Sequence Based Typing
+    cite: | 
+      Seemann T [legsta: In silico Legionella pneumophila Sequence Based Typing](https://github.com/tseemann/legsta) (GitHub)
+
+
   lighter:
     name: Lighter
     link: https://github.com/mourisl/Lighter
@@ -749,9 +757,16 @@ tools:
   signalp:
     name: SignalP
     link: http://www.cbs.dtu.dk/services/SignalP-4.0/
-    description: Finds signal peptide features in CDS
+    description: SISTR (Salmonella In Silico Typing Resource) command-line tool
     cite: |
       Petersen TN, Brunak S, von Heijne G, Nielsen H [SignalP 4.0: discriminating signal peptides from transmembrane regions.](https://doi.org/10.1038/nmeth.1701) _Nature methods_ 8.10: 785 (2011)
+
+  sistr:
+    name: SISTR
+    link: https://github.com/phac-nml/sistr_cmd
+    description: Finds signal peptide features in CDS
+    cite: |
+      Yoshida CE, Kruczkiewicz P, Laing CR, Lingohr EJ, Gannon VPJ, Nash JHE, Taboada EN [The Salmonella In Silico Typing Resource (SISTR): An Open Web-Accessible Tool for Rapidly Typing and Subtyping Draft Salmonella Genome Assemblies.](https://doi.org/10.1371/journal.pone.0147101) _PloS One_, 11(1), e0147101. (2016)
 
   skesa:
     name: SKESA

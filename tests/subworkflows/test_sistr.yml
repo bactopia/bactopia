@@ -1,0 +1,8 @@
+- name: sistr-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf sistr -c nextflow.config --help > sistr-help.txt'
+  tags:
+    - bactopia_help
+    - sistr
+  files:
+    - path: sistr-help.txt
+      contains: ['sistr', 'bactopia', 'version', 'dependencies']

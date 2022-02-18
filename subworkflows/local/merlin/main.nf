@@ -7,10 +7,12 @@ include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
 include { KLEBORATE } from '../kleborate/main';
+include { LEGSTA } from '../legsta/main';
 include { LISSERO } from '../lissero/main';
 include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { SEQSERO2 } from '../seqsero2/main';
+include { SISTR } from '../sistr/main';
 include { STAPHTYPER } from '../staphtyper/main';
 include { TBPROFILER } from '../tbprofiler/main';
 
@@ -39,6 +41,11 @@ workflow MERLIN {
     KLEBORATE(ch_klebsiella)
     ch_versions = ch_versions.mix(KLEBORATE.out.versions.first())
 
+    // Legionella 
+    MERLINDIST.out.legionella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_legionella }
+    LEGSTA(ch_listeria)
+    ch_versions = ch_versions.mix(LEGSTA.out.versions.first())
+
     // Listeria 
     MERLINDIST.out.listeria.map{meta, assembly, found -> [meta, assembly]}.set{ ch_listeria }
     LISSERO(ch_listeria)
@@ -60,6 +67,8 @@ workflow MERLIN {
     MERLINDIST.out.salmonella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_salmonella }
     SEQSERO2(ch_salmonella)
     ch_versions = ch_versions.mix(SEQSERO2.out.versions.first())
+    SISTR(ch_salmonella)
+    ch_versions = ch_versions.mix(SISTR.out.versions.first())
 
     // Staphylococcus 
     MERLINDIST.out.staphylococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_staphylococcus }

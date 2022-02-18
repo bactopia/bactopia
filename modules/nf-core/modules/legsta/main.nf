@@ -27,15 +27,12 @@ process LEGSTA {
     path ".command.*"             , emit: nf_logs
     path "versions.yml"           , emit: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     legsta \\
-        $args \\
+        $options.args \\
         $seqs | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml

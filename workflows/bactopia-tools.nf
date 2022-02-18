@@ -64,6 +64,7 @@ if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ng
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
+if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
@@ -185,6 +186,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
+    } else if (params.wf == 'sistr') {
+        SISTR(samples)
+        ch_versions = ch_versions.mix(SISTR.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
         ch_versions = ch_versions.mix(SPATYPER.out.versions)

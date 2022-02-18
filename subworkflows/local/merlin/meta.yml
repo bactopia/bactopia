@@ -10,10 +10,12 @@ modules:
   - emmtyper
   - hicap
   - kleborate
+  - legsta
   - lissero
   - meningotype
   - ngmaster
   - seqsero2
+  - sistr
   - spatyper
   - staphopiasccmec
   - tbprofiler_profile
