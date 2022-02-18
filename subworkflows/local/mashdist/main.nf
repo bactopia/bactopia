@@ -57,6 +57,7 @@ workflow MERLINDIST {
     escherichia = MERLINDIST_MODULE.out.escherichia
     haemophilus = MERLINDIST_MODULE.out.haemophilus
     klebsiella  = MERLINDIST_MODULE.out.klebsiella
+    legionella = MERLINDIST_MODULE.out.legionella
     listeria = MERLINDIST_MODULE.out.listeria
     mycobacterium = MERLINDIST_MODULE.out.mycobacterium
     mycobacterium_fq = MERLINDIST_MODULE.out.mycobacterium_fq

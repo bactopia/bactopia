@@ -43,7 +43,7 @@ workflow MERLIN {
 
     // Legionella 
     MERLINDIST.out.legionella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_legionella }
-    LEGSTA(ch_listeria)
+    LEGSTA(ch_legionella)
     ch_versions = ch_versions.mix(LEGSTA.out.versions.first())
 
     // Listeria 

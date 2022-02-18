@@ -161,6 +161,8 @@
       md5sum: d0e5562f06fa63e264e3c1d2ffee580b
     - path: bactopia-tools/merlin/merlin/GCF_000292685/kleborate/GCF_000292685.results.txt
       md5sum: fba8f74af8879e45e05ced3651f1a7d8
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/legsta/GCF_000292685.tsv
+      md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/agrvate/nf-agrvate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/agrvate/nf-agrvate.err
@@ -379,6 +381,8 @@
       contains: ['isolate', 'GCF_000292685']
     - path: bactopia-tools/merlin/merlin/kleborate.tsv
       md5sum: fba8f74af8879e45e05ced3651f1a7d8
+    - path: bactopia-tools/merlin/merlin/legsta.tsv
+      md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.err
@@ -449,6 +453,20 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/versions.yml
       md5sum: f110f02aa5e613a0812e2ca489e35107
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/versions.yml
+      md5sum: 08f52f581fda52a7504c9c5e1617f183
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.err
@@ -491,6 +509,20 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/versions.yml
       md5sum: 6900593a95cb7f3ca18322730148d7d1
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/versions.yml
+      md5sum: bdea76e04d533cab03b643b970f238db
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
@@ -533,6 +565,8 @@
       md5sum: ce47645c145b3d4c49f8087175383227
     - path: bactopia-tools/merlin/merlin/seqsero2.tsv
       contains: ['GCF_000292685', 'Salmonella']
+    - path: bactopia-tools/merlin/merlin/sistr.tsv
+      contains: ["cgmlst_ST", "serovar", "matched"]
     - path: bactopia-tools/merlin/merlin/spatyper.tsv
       md5sum: a698352823875171696e5e7ed7015c13
     - path: bactopia-tools/merlin/merlin/staphopiasccmec.tsv
