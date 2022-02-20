@@ -33,7 +33,7 @@ jobs:
         run: uname -a && env
 
       - name: Build Bactopia Process and Tool Environments
-        run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --verbose
+        run: bactopia download --condadir ${GITHUB_WORKSPACE}/envs --verbose
 
       - name: Build Bactopia Environment
         run: mamba create -n bactopia-bioconda -y -c conda-forge -c bioconda bactopia
