@@ -7,7 +7,7 @@ on: workflow_dispatch
 
 jobs:
   bactopia-tests:
-    runs-on: olaf
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash -l {0}

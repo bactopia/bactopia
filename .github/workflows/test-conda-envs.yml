@@ -1,8 +1,8 @@
 name: test-conda-envs
-on:
-  schedule:
+on: workflow_dispatch
+  # schedule:
     # At 04:30 on Sunday, Tuesday, and Thursday
-    - cron:  '30 4 * * 0,2,4'
+    # - cron:  '30 4 * * 0,2,4'
 
 jobs:
   test-conda-envs:          
@@ -33,7 +33,7 @@ jobs:
         run: uname -a && env
 
       - name: Build Bactopia Process and Tool Environments
-        run: bactopia build ${GITHUB_WORKSPACE}/conda ${GITHUB_WORKSPACE}/envs --verbose
+        run: bactopia download --condadir ${GITHUB_WORKSPACE}/envs --verbose
 
       - name: Build Bactopia Environment
         run: mamba create -n bactopia-bioconda -y -c conda-forge -c bioconda bactopia

@@ -15,7 +15,7 @@ process SISTR {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.1--pyh864c0ab_2':
+        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.1--pyh864c0ab_2' :
         'quay.io/biocontainers/sistr_cmd:1.1.1--pyh864c0ab_2' }"
 
     input:
