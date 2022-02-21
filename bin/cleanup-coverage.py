@@ -12,7 +12,7 @@ optional arguments:
   --version     show program's version number and exit
 """
 PROGRAM = "cleanup-coverage"
-VERSION = "2.0.1"
+VERSION = "2.0.2"
 import sys
 
 def read_coverage(coverage):

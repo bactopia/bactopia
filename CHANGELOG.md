@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.2 bactopia/bactopia "" - 2022/02/??
+## v2.0.2 bactopia/bactopia "Black Mamba" - 2022/02/22
 
 ### `Added`
 - `bactopia download` which merges the `bactopia build` and `bactopia pull` commands
