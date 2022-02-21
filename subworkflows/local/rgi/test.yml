@@ -5,9 +5,9 @@
     - bactopia-tools
   files:
     - path: bactopia-tools/rgi/rgi/GCA_000027305/GCA_000027305.json
-      md5sum: 0a5b411eb116a24b24c96d45afdc72d8
+      contains: ["type_match", "model_name", "orf_dna_sequence"]
     - path: bactopia-tools/rgi/rgi/GCA_000027305/GCA_000027305.txt
-      md5sum: 70989bbedfcc9d1b1c07f9273f44a4ba
+      contains: ["ORF_ID", "disinfecting", "antibiotic"]
     - path: bactopia-tools/rgi/rgi/GCA_000027305/logs/rgi/nf-rgi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/rgi/rgi/GCA_000027305/logs/rgi/nf-rgi.err
@@ -23,9 +23,9 @@
     - path: bactopia-tools/rgi/rgi/GCA_000027305/logs/rgi/versions.yml
       md5sum: 702fb41519f72203ddd2c9e2a38e9170
     - path: bactopia-tools/rgi/rgi/GCF_900478275/GCF_900478275.json
-      md5sum: 5a65dd8d206883010e8a5834e7a8121a
+      contains: ["type_match", "model_name", "orf_dna_sequence"]
     - path: bactopia-tools/rgi/rgi/GCF_900478275/GCF_900478275.txt
-      md5sum: ecee265ab7fcb352890d147dbb2700dc
+      contains: ["ORF_ID", "disinfecting", "antibiotic"]
     - path: bactopia-tools/rgi/rgi/GCF_900478275/logs/rgi/nf-rgi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/rgi/rgi/GCF_900478275/logs/rgi/nf-rgi.err
@@ -78,10 +78,9 @@
     - path: bactopia-tools/rgi/rgi/nf-reports/rgi-trace.txt
       contains: ['task_id']
     - path: bactopia-tools/rgi/rgi/rgi-2.csv
-      md5sum: 4cc7b4d0911baa14e60b52d1ecb8a4f3
+      contains: ["gene", "Klebsiella", "Escherichia"]
     - path: bactopia-tools/rgi/rgi/rgi-2.eps
       contains: ["portrait", "end", "fill"]
     - path: bactopia-tools/rgi/rgi/rgi-2.png
-      md5sum: 1967a35736d9dd3b9886c459ad12f829
     - path: bactopia-tools/rgi/rgi/rgi.tsv
-      md5sum: 8c70a7a2816e51e59d7481f2611a9ffd
+      contains: ["ORF_ID", "disinfecting", "antibiotic"]
