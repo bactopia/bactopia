@@ -23,7 +23,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/versions.yml
-      md5sum: 1df373913d35614a1a785d24b3f38e41
+      md5sum: bdf2980c7066043bae1b5278a650ebfd
     - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderdb.tar.gz
     - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderplus-genes.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
@@ -44,7 +44,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/versions.yml
-      md5sum: 1ea4c4358d77e7be54674ac7fef9e2b8
+      md5sum: 2bf33091c0a461b692d8e6df8f90b17f
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.err
