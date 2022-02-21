@@ -63,7 +63,7 @@ dependencies:
   - matplotlib-base=3.5.0
   - mummer=3.23
   - munkres=1.1.4
-  - ncbi-amrfinderplus=3.10.18
+  - ncbi-amrfinderplus=3.10.23
   - ncurses=6.2
   - numpy=1.21.4
   - olefile=0.46
