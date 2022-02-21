@@ -47,4 +47,3 @@ output:
       pattern: "*.{csv,eps,png}"
 citations:
   - rgi
-https://github.com/arpcard/rgi
