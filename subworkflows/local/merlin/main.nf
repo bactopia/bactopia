@@ -6,6 +6,7 @@ include { MERLINDIST } from '../mashdist/main';
 include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
+include { HPSUISSERO } from '../hpsuissero/main';
 include { KLEBORATE } from '../kleborate/main';
 include { LEGSTA } from '../legsta/main';
 include { LISSERO } from '../lissero/main';
@@ -13,6 +14,7 @@ include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { SEQSERO2 } from '../seqsero2/main';
 include { SISTR } from '../sistr/main';
+include { SSUISSERO } from '../ssuissero/main';
 include { STAPHTYPER } from '../staphtyper/main';
 include { TBPROFILER } from '../tbprofiler/main';
 
@@ -35,6 +37,8 @@ workflow MERLIN {
     MERLINDIST.out.haemophilus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_haemophilus }
     HICAP(ch_haemophilus)
     ch_versions = ch_versions.mix(HICAP.out.versions.first())
+    HPSUISSERO(ch_haemophilus)
+    ch_versions = ch_versions.mix(HPSUISSERO.out.versions.first())
 
     // Klebsiella
     MERLINDIST.out.klebsiella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_klebsiella }
@@ -79,6 +83,8 @@ workflow MERLIN {
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
+    SSUISSERO(ch_streptococcus)
+    ch_versions = ch_versions.mix(SSUISSERO.out.versions.first())
 
     emit:
     versions = ch_versions // channel: [ versions.yml ]

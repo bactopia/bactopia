@@ -1,0 +1,47 @@
+- name: ssuissero-test
+  command: bash -c 'nextflow run ./subworkflows/local/ssuissero/test.nf -entry test_ssuissero --wf ssuissero -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - ssuissero
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/GCF_002285535_serotyping_res.tsv
+      md5sum: b1312d3041a6543154be554d5ec3b0b9
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.err
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.log
+      contains: ["Finished"]
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.out
+      contains: ["Finished"]
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.sh
+      contains: ["SsuisSero", "END_VERSIONS"]
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/nf-ssuissero.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/ssuissero/ssuissero/GCF_002285535/logs/ssuissero/versions.yml
+      md5sum: 493a862c5de7ac395974696387a247e3
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.err
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.log
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ["csvtk", "END_VERSIONS"]
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/ssuissero/ssuissero/logs/csvtk_concat/versions.yml
+      md5sum: edf70122f9601e0c9054b564bfe24f44
+    - path: bactopia-tools/ssuissero/ssuissero/nf-reports/ssuissero-dag.dot
+      contains: ["ssuisserodag", "SSUISSERO", "version"]
+    - path: bactopia-tools/ssuissero/ssuissero/nf-reports/ssuissero-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/ssuissero/ssuissero/nf-reports/ssuissero-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/ssuissero/ssuissero/nf-reports/ssuissero-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/ssuissero/ssuissero/ssuissero.tsv
+      md5sum: b1312d3041a6543154be554d5ec3b0b9

@@ -390,6 +390,13 @@ tools:
     cite: |
       Eddy SR [Accelerated Profile HMM Searches.](https://doi.org/10.1371/journal.pcbi.1002195) _PLoS Comput. Biol._ 7, e1002195 (2011)
 
+  hpsuissero:
+    name: HpsuisSero
+    link: https://github.com/jimmyliu1326/HpsuisSero
+    description: Rapid _Haemophilus parasuis_ serotyping
+    cite: |
+      Lui J [HpsuisSero: Rapid _Haemophilus parasuis_ serotyping](https://github.com/jimmyliu1326/HpsuisSero) (GitHub)
+
   infernal:
     name: Infernal
     link: http://eddylab.org/infernal/
@@ -837,6 +844,14 @@ tools:
     description: Database used by spaTyper
     cite: |
       Harmsen D, Claus H, Witte W, Rothgänger J, Claus H, Turnwald D, and Vogel U [Typing of methicillin-resistant _Staphylococcus aureus_ in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) _J. Clin. Microbiol._ 41:5442-5448 (2003)
+
+  ssuissero:
+    name: SsuisSero
+    link: https://github.com/jimmyliu1326/SsuisSero
+    description: Rapid _Streptococcus suis_ serotyping
+    cite: |
+      Lui J [SsuisSero: Rapid _Streptococcus suis_ serotyping](https://github.com/jimmyliu1326/SsuisSero) (GitHub)
+
 
   staphopiasccmec:
     name: staphopia-sccmec

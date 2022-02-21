@@ -1,0 +1,35 @@
+name: ssuissero
+description: Serotype prediction of _Streptococcus suis_ assemblies
+introduction: |
+  The `ssuissero` module uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict the serotype of _Streptococcus suis_ assemblies.
+keywords:
+  - bacteria
+  - fasta
+  - streptococcus
+modules:
+  - ssuissero
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - tsv:
+      type: file
+      description: A summary of the per-sample serotype predictions
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all serotype predictions
+      pattern: "ectyper.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - ssuissero

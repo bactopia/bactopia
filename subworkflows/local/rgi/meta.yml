@@ -1,28 +1,50 @@
 name: rgi
 description: Predict antibiotic resistance from assemblies
 introduction: |
-  The `rgi` module uses...
+  The `rgi` module uses [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to identify antibiotic resistance genes in
+  assemblies.
 keywords:
-  - TAGS
+  - bacteria
+  - fasta
+  - antibiotic resistance
 modules:
-  - LIST_OF_MODULES
+  - rgi
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+  - json:
+      type: file
+      description: JSON report of results for a single sample
+      pattern: "*.{txt}"
+  - tsv:
+      type: file
+      description: Tab-delimited report of results for a single sample
+      pattern: "*.{txt}"
+  - merged_tsv:
+      type: file
+      description: Tab-delimited report of results from all samples
+      pattern: "*.{txt}"
+  - heatmap:
+      type: file
+      description: Heatmap representations as text and images
+      pattern: "*.{csv,eps,png}"
 citations:
-  - add to citations.yml
+  - rgi
+https://github.com/arpcard/rgi

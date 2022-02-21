@@ -1,0 +1,8 @@
+- name: ssuissero-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf ssuissero -c nextflow.config --help > ssuissero-help.txt'
+  tags:
+    - bactopia_help
+    - ssuissero
+  files:
+    - path: ssuissero-help.txt
+      contains: ['ssuissero', 'bactopia', 'version', 'dependencies']

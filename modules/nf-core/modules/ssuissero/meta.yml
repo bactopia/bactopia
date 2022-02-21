@@ -1,0 +1,43 @@
+name: ssuissero
+description: Serotype prediction of Streptococcus suis assemblies
+keywords:
+  - bacteria
+  - fasta
+  - streptococcus
+tools:
+  - ssuissero:
+      description: Rapid Streptococcus suis serotyping pipeline for Nanopore Data
+      homepage: https://github.com/jimmyliu1326/SsuisSero
+      documentation: https://github.com/jimmyliu1326/SsuisSero
+      tool_dev_url: https://github.com/jimmyliu1326/SsuisSero
+      doi: ""
+      licence: ['MIT']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Assembly in FASTA format
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz,faa,faa.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: SISTR serovar prediction
+      pattern: "*.{tsv}"
+
+authors:
+  - "@rpetit3"

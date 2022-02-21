@@ -51,6 +51,7 @@ if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/em
 if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fastani/main';
 if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
+if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
 if (params.wf == 'legsta') include { LEGSTA } from '../subworkflows/local/legsta/main';
 if (params.wf == 'lissero') include { LISSERO } from '../subworkflows/local/lissero/main';
@@ -67,6 +68,7 @@ if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
+if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
@@ -147,9 +149,12 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'gtdb') {
         GTDB(samples)
         ch_versions = ch_versions.mix(GTDB.out.versions)
-    }  else if (params.wf == 'hicap') {
+    } else if (params.wf == 'hicap') {
         HICAP(samples)
         ch_versions = ch_versions.mix(HICAP.out.versions)
+    } else if (params.wf == 'hpsuissero') {
+        HPSUISSERO(samples)
+        ch_versions = ch_versions.mix(HPSUISSERO.out.versions)
     } else if (params.wf == 'kleborate') {
         KLEBORATE(samples)
         ch_versions = ch_versions.mix(KLEBORATE.out.versions)
@@ -196,6 +201,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
         ch_versions = ch_versions.mix(SPATYPER.out.versions)
+    } else if (params.wf == 'ssuissero') {
+        SSUISSERO(samples)
+        ch_versions = ch_versions.mix(SSUISSERO.out.versions)
     } else if (params.wf == 'staphtyper') {
         STAPHTYPER(samples)
         ch_versions = ch_versions.mix(STAPHTYPER.out.versions)

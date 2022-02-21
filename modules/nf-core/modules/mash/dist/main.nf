@@ -94,18 +94,22 @@ process MERLIN_DIST {
 
     # Extract genus with hits
     declare -a GENUS=(
-        "escherichia" "haemophilus" "klebsiella" "legionella" "listeria" "mycobacterium" "neisseria" "salmonella" "shigella" "staphylococcus" "streptococcus"
+        "escherichia" "haemophilus" "glaesserella" "klebsiella" "legionella" "listeria" "mycobacterium" "neisseria" "salmonella" "shigella" "staphylococcus" "streptococcus"
     )
     for i in "\${GENUS[@]}"; do
         if grep -q -i "\${i}" ${prefix}-dist.txt; then
             if [ "\${i}" == "shigella" ]; then
                 touch escherichia.genus
+            elif [ "\${i}" == "glaesserella" ]; then
+                touch haemophilus.genus
             else
                 touch \${i}.genus
             fi
         elif [ "${params.full_merlin}" == "true" ]; then
             if [ "\${i}" == "shigella" ]; then
                 touch escherichia.genus
+            elif [ "\${i}" == "glaesserella" ]; then
+                touch haemophilus.genus
             else
                 if [ "\${i}" != "listeria" ]; then
                     # lissero fails on non-Listeria samples

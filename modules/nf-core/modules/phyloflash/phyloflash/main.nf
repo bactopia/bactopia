@@ -27,6 +27,8 @@ process PHYLOFLASH  {
     tuple val(meta), path("${meta.id}/*")     , emit: results
     file "${sample}/${sample}.toalign.fasta"  , emit: aln, optional: true
     file "${sample}/${sample}.phyloFlash.json", emit: summary, optional: true
+    path "*.{log,err}"                        , emit: logs, optional: true
+    path ".command.*"                         , emit: nf_logs
     path "versions.yml"                       , emit: versions
 
     script:

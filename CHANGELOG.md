@@ -9,17 +9,19 @@
 - `--bbduk_opts` to fine tune bbduk
 - set `quay` as default docker registry
 - Let Nextflow handle stdout and stderr
-- added `legsta` and `sistr` to Merlin
+- added `hpsuissero`, `legsta`, `sistr`, `ssuissero` to Merlin
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `amrfinderplus`: Identify antimicrobial resistance in genes or proteins
     - `abricate`: Mass screening of contigs for antimicrobial and virulence genes
     - `checkm`: Assess the assembly quality of your samples
+    - `hpsuissero`: Serotype prediction of Haemophilus parasuis assemblies
     - `kraken2`: Taxonomic classification of sequence reads
     - `legsta`: Typing of Legionella pneumophila assemblies
     - `mlst`: Scan contig files against PubMLST typing schemes
     - `mobsuite`: Reconstruct and annotate plasmids in bacterial assemblies
     - `rgi`: Predict antibiotic resistance from assemblies
     - `sistr`: Serovar prediction of Salmonella assemblies
+    - `ssuissero`: Serotype prediction of Streptococcus suis assemblies
 
 ### `Fixed`
 - `toInteger` on `null` genome size

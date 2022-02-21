@@ -1,0 +1,8 @@
+- name: hpsuissero-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf hpsuissero -c nextflow.config --help > hpsuissero-help.txt'
+  tags:
+    - bactopia_help
+    - hpsuissero
+  files:
+    - path: hpsuissero-help.txt
+      contains: ['hpsuissero', 'bactopia', 'version', 'dependencies']

@@ -1,0 +1,35 @@
+name: hpsuissero
+description: Serotype prediction of _Haemophilus parasuis_ assemblies
+introduction: |
+  The `hpsuissero` module uses [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero) to predict the serotype of _Haemophilus parasuis_ assemblies.
+keywords:
+  - bacteria
+  - fasta
+  - haemophilus
+modules:
+  - hpsuissero
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - tsv:
+      type: file
+      description: A summary of the per-sample serotype predictions
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all serotype predictions
+      pattern: "ectyper.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+citations:
+  - hpsuissero
