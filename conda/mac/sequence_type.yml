@@ -39,7 +39,7 @@ dependencies:
   - libbrotlidec=1.0.9
   - libbrotlienc=1.0.9
   - libcblas=3.9.0
-  - libcurl=7.80.0
+  - libcurl=7.81.0
   - libcxx=12.0.1
   - libdeflate=1.7
   - libedit=3.1.20191231
