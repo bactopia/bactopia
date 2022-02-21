@@ -1,0 +1,8 @@
+- name: rgi-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf rgi -c nextflow.config --help > rgi-help.txt'
+  tags:
+    - bactopia_help
+    - rgi
+  files:
+    - path: rgi-help.txt
+      contains: ['rgi', 'bactopia', 'version', 'dependencies']

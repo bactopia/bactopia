@@ -18,6 +18,7 @@
     - `legsta`: Typing of Legionella pneumophila assemblies
     - `mlst`: Scan contig files against PubMLST typing schemes
     - `mobsuite`: Reconstruct and annotate plasmids in bacterial assemblies
+    - `rgi`: Predict antibiotic resistance from assemblies
     - `sistr`: Serovar prediction of Salmonella assemblies
 
 ### `Fixed`

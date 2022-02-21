@@ -63,6 +63,7 @@ if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mo
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
+if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
@@ -183,6 +184,9 @@ workflow BACTOPIATOOLS {
         samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
+    } else if (params.wf == 'rgi') {
+        RGI(samples)
+        ch_versions = ch_versions.mix(RGI.out.versions)
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)

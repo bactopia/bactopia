@@ -33,7 +33,7 @@ jobs:
       - name: Environment Information
         run: uname -a && env && bactopia --version
 
-      - name: Conda Profile
+      - name: Run Tutorial (Conda Profile)
         run: |
           bash ${GITHUB_WORKSPACE}/bin/gh-actions/run-tutorial.sh
 
