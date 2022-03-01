@@ -4,6 +4,7 @@
 [![Gitter](https://badges.gitter.im/bactopia/bactopia.svg)](https://gitter.im/bactopia/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![GitHub](https://img.shields.io/github/license/bactopia/bactopia)](https://raw.githubusercontent.com/bactopia/bactopia/master/LICENSE)
 [![mSystems](https://img.shields.io/badge/DOI-mSystems.00190--20-blue)](https://doi.org/10.1128/mSystems.00190-20)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/bactopia/bactopia)
 
 # Bactopia
 Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The goal of Bactopia is to process your data with a broad set of tools, so that you can get to the fun part of analyses quicker!
