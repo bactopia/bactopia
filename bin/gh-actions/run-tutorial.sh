@@ -3,6 +3,7 @@
 # This script is only meant to be used with pytest and GitHub Actions.
 set -e
 set -x
+CPUS=8
 if [[ "${1}" == "docker" ]]; then
     PROFILE="-profile docker"
 elif [[ "${1}" == "singularity" ]]; then
@@ -19,7 +20,7 @@ bactopia datasets \
     --species "Staphylococcus aureus" \
     --include_genus \
     --limit 10 \
-    --cpus 2
+    --cpus ${CPUS}
 
 # Get S. aureus datasets
 git clone https://github.com/bactopia-datasets/staphylococcus-aureus.git
@@ -33,7 +34,7 @@ bactopia --accession SRX4563634 \
          --coverage 30 \
          --genome_size median \
          --outdir ena-single-sample \
-         --max_cpus 2 ${PROFILE}
+         --max_cpus ${CPUS} ${PROFILE}
 
 # Multiple Samples
 echo SRX4563687 > ena-accessions.txt
@@ -44,7 +45,7 @@ bactopia --accessions ena-accessions.txt \
          --coverage 30 \
          --genome_size median \
          --outdir ena-multiple-samples \
-         --max_cpus 2 ${PROFILE}
+         --max_cpus ${CPUS} ${PROFILE}
 
 # Local Samples
 mkdir fastqs
@@ -61,7 +62,7 @@ bactopia --R1 fastqs/SRX4563634_R1.fastq.gz \
          --coverage 30 \
          --genome_size median \
          --outdir local-single-sample \
-         --max_cpus 2 ${PROFILE}
+         --max_cpus ${CPUS} ${PROFILE}
 
 # Single-end
 bactopia --SE fastqs/SRX4563634-SE.fastq.gz \
@@ -71,7 +72,7 @@ bactopia --SE fastqs/SRX4563634-SE.fastq.gz \
          --coverage 30 \
          --genome_size median \
          --outdir local-single-sample \
-         --max_cpus 2 ${PROFILE}
+         --max_cpus ${CPUS} ${PROFILE}
 
 # Local Samples FOFN
 bactopia prepare fastqs/ > fastqs.txt
@@ -81,4 +82,4 @@ bactopia --fastqs fastqs.txt \
          --coverage 30 \
          --genome_size median \
          --outdir local-multiple-samples \
-         --max_cpus 2 ${PROFILE}
+         --max_cpus ${CPUS} ${PROFILE}

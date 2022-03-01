@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "The path to a Kraken2 formatted database",
                     "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                    "is_required": true
                 },
                 "quick_mode": {
                     "type": "boolean",

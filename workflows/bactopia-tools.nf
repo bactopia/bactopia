@@ -53,6 +53,7 @@ if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main'
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
+if (params.wf == 'kraken2') include { KRAKEN2 } from '../subworkflows/local/kraken2/main';
 if (params.wf == 'legsta') include { LEGSTA } from '../subworkflows/local/legsta/main';
 if (params.wf == 'lissero') include { LISSERO } from '../subworkflows/local/lissero/main';
 if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/mashdist/main';
@@ -158,6 +159,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'kleborate') {
         KLEBORATE(samples)
         ch_versions = ch_versions.mix(KLEBORATE.out.versions)
+    } else if (params.wf == 'kraken2') {
+        KRAKEN2(samples)
+        ch_versions = ch_versions.mix(KRAKEN2.out.versions)
     } else if (params.wf == 'legsta') {
         LEGSTA(samples)
         ch_versions = ch_versions.mix(LEGSTA.out.versions)
