@@ -146,11 +146,12 @@ def gather_results(sample: dict, rank: str, reason: str) -> dict:
         ('reason', reason),
         ('estimated_genome_size', sample['genome_size'])
     ))
-    results.update(sample['results']['assembly']['stats'])
-    results['checkm_lineage'] = sample['results']['assembly']["checkm"]["Marker lineage"]
-    results['checkm_completeness'] = sample['results']['assembly']["checkm"]["Completeness"]
-    results['checkm_contamination'] = sample['results']['assembly']["checkm"]["Contamination"]
-    results['checkm_heterogeneity'] = sample['results']['assembly']["checkm"]["Strain heterogeneity"]
+    results.update(_remove_keys(sample['results']['assembly']['stats'], ['fasta']))
+    if sample['results']['assembly']['checkm']:
+        results['checkm_lineage'] = sample['results']['assembly']["checkm"]["Marker lineage"]
+        results['checkm_completeness'] = sample['results']['assembly']["checkm"]["Completeness"]
+        results['checkm_contamination'] = sample['results']['assembly']["checkm"]["Contamination"]
+        results['checkm_heterogeneity'] = sample['results']['assembly']["checkm"]["Strain heterogeneity"]
     results.update(_prefix_keys(sample['results']['quality-control']['original']['qc_stats'], 'original'))
     results.update(_prefix_keys(sample['results']['quality-control']['final']['qc_stats'], 'final'))
     results.update(_remove_keys(sample['results']['annotation']['stats'], ['organism', 'contigs', 'bases']))

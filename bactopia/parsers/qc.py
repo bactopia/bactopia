@@ -102,38 +102,31 @@ def get_parsable_list(path: str, name: str) -> list:
     for result in ACCEPTED_FILES:
         result_name = None
         filename = None
-        r1 = None
-        r2 = None
-        se = None
+        r1 = f"{path}/{name}/{RESULT_TYPE}/summary/{name}_R1-{result}"
+        r2 = f"{path}/{name}/{RESULT_TYPE}/summary/{name}_R2-{result}"
+        se = f"{path}/{name}/{RESULT_TYPE}/summary/{name}-{result}"
 
-        if result.endswith('original.json'):
-            result_name = 'original'
-            r1 = f"{path}/{name}/{RESULT_TYPE}/summary-original/{name}_R1-{result}"
-            r2 = f"{path}/{name}/{RESULT_TYPE}/summary-original/{name}_R2-{result}"
-            se = f"{path}/{name}/{RESULT_TYPE}/summary-original/{name}-{result}"
-        elif result.endswith('final.json'):
-            result_name = 'final'
-            r1 = f"{path}/{name}/{RESULT_TYPE}/summary-final/{name}_R1-{result}"
-            r2 = f"{path}/{name}/{RESULT_TYPE}/summary-final/{name}_R2-{result}"
-            se = f"{path}/{name}/{RESULT_TYPE}/summary-final/{name}-{result}"
-
-        if (se):
-            if os.path.exists(se):
-                parsable_results.append({
-                    'result_name': result_name,
-                    'files': [se],
-                    'optional': False,
-                    'missing': False
-                })
-            else:
-                missing = True
-                if os.path.exists(r1) and os.path.exists(r2):
-                    missing = False
-                parsable_results.append({
-                    'result_name': result_name,
-                    'files': [r1, r2],
-                    'optional': False,
-                    'missing': missing
-                })
+        if os.path.exists(r1) and os.path.exists(r2):
+            parsable_results.append({
+                'result_name': result.replace(".json", ""),
+                'files': [r1, r2],
+                'optional': False,
+                'missing': False
+            })
+        
+        elif os.path.exists(se):
+            parsable_results.append({
+                'result_name': result.replace(".json", ""),
+                'files': [se],
+                'optional': False,
+                'missing': False
+            })
+        else:
+            parsable_results.append({
+                'result_name': result.replace(".json", ""),
+                'files': [],
+                'optional': False,
+                'missing': True
+            })
 
     return parsable_results

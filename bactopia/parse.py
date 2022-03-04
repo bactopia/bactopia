@@ -31,9 +31,9 @@ def parse(result_type: str, *files: str) -> Union[list, dict]:
             if not os.path.exists(f):
                 raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), f)
         
-        return getattr(parsers, result_type).parse(*files)
+        return getattr(parsers, RESULT_TYPES[result_type]).parse(*files)
     else:
-        raise ValueError(f"'{result_type}' is not an accepted result type. Accepted types: {', '.join(RESULT_TYPES)}")
+        raise ValueError(f"'{result_type}' is not an accepted result type. Accepted types: {', '.join(RESULT_TYPES.keys())}")
 
 
 def parse_genome_size(gs_file: str) -> int:
@@ -98,14 +98,8 @@ def get_bactopia_files(path: str, name: str) -> dict:
         if not errors:
             bactopia_files['genome_size'] = parse_genome_size(f"{path}/{name}/{name}-genome-size.txt")
             for result_type in RESULT_TYPES:
-                result_key = result_type
-                if result_type == "amr":
-                    result_key = "antimicrobial-resistance"
-                elif result_type == "qc":
-                    result_key = "quality-control"
-
                 if result_type not in ['error', 'generic', 'kmers']:
-                    bactopia_files['files'][result_key] = getattr(parsers, result_type).get_parsable_list(path, name)
+                    bactopia_files['files'][result_type] = getattr(parsers, RESULT_TYPES[result_type]).get_parsable_list(path, name)
     else:
         bactopia_files['ignored'] = True
         if name not in IGNORE_LIST:
@@ -147,11 +141,6 @@ def parse_bactopia_files(path: str, name: str) -> dict:
         for result_type, results in bactopia_files['files'].items():
             bactopia_results['is_paired'] = is_paired(path, name)
             bactopia_results['results'][result_type] = OrderedDict()
-            result_key = result_type
-            if result_type == "-_resistance":
-                result_key = "amr"
-            elif result_type == "quality-control":
-                result_key = "qc"
             
             for result in results:
                 if result['missing']:
@@ -161,7 +150,7 @@ def parse_bactopia_files(path: str, name: str) -> dict:
                     else:
                         bactopia_results['results'][result_type][result['result_name']] = {}
                 else:
-                    bactopia_results['results'][result_type][result['result_name']] = parse(result_key, *result['files'])
+                    bactopia_results['results'][result_type][result['result_name']] = parse(result_type, *result['files'])
             
     return bactopia_results
 

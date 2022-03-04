@@ -13,7 +13,7 @@ class WorkflowBactopiaTools {
         def Integer missing_required = 0
         def Integer missing_file = 0
 
-
+        
         if (params.bactopia) {
             if (Utils.isLocal(params.bactopia)) {
                 error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
@@ -72,7 +72,13 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += 1
             }
-        } else if (params.wf == "pangenome" || params.wf == "scoary") {
+        } else if (params.wf == "pangenome") {
+            if (params.traits) {
+                if (Utils.isLocal(params.traits)) {
+                    error += Utils.fileNotFound(params.traits, 'traits', log)
+                }
+            }
+        } else if (params.wf == "scoary") {
             if (params.traits) {
                 if (Utils.isLocal(params.traits)) {
                     error += Utils.fileNotFound(params.traits, 'traits', log)
