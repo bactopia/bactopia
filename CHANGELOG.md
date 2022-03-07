@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.3 bactopia/bactopia "" - 2022/??/??
+
+### `Added`
+- added `test` profile for easy testing
+
+### `Fixed`
+- typo in `bakta` subworkflow
+- `kraken2` not available in `bactopia-tools.nf`
+- Traits file being required for `pangenome`
+
 ## v2.0.2 bactopia/bactopia "Black Mamba" - 2022/02/22
 
 ### `Added`

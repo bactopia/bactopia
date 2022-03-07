@@ -81,7 +81,7 @@ class Utils {
     // Check if file is remote (e.g. AWS, Azure, GCP)
     //
     public static Boolean isLocal(filename) {
-        if (filename.startsWith('gs://') || filename.startsWith('s3://') || filename.startsWith('az://')) {
+        if (filename.startsWith('gs://') || filename.startsWith('s3://') || filename.startsWith('az://') || filename.startsWith('https://')) {
             return false
         }
         return true
