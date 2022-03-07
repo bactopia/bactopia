@@ -39,7 +39,7 @@ class WorkflowBactopiaTools {
         // Workflow specific databases
         if (params.wf == "bakta") {
             if (params.bakta_db) {
-                if (Utils.isLocal(params.backta_db)) {
+                if (Utils.isLocal(params.bakta_db)) {
                     error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
                 }
             } else {
