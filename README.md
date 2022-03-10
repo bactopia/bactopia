@@ -5,6 +5,8 @@
 [![mSystems](https://img.shields.io/badge/DOI-mSystems.00190--20-blue)](https://doi.org/10.1128/mSystems.00190-20)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/bactopia/bactopia)
 
+![Bactopia Logo](data/bactopia-logo.png)
+
 # Bactopia
 Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The goal of Bactopia is to process your data with a broad set of tools, so that you can get to the fun part of analyses quicker!
 
@@ -15,6 +17,8 @@ Bactopia can be split into three main parts: [Bactopia Datasets](https://bactopi
 Bactopia Datasets provide a framework for including many existing public datasets, as well as private datasets, into your analysis The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated.
 
 Bactopia Analysis Pipeline is the main *per-isolate* workflow in Bactopia. Built with  [Nextflow](https://www.nextflow.io/), input FASTQs (local or available from SRA/ENA) are pu through numerous analyses including: quality control, assembly, annotation, reference mapping, variant calling, minmer sketch queries, blast alignments, insertion site prediction, sequence typing, and more. The Bactopia Analysis Pipeline automatically selects which analyses to include based on the available Bactopia Datasets.
+
+![Bactopia Overview](data/bactopia-workflow.png)
 
 Bactopia Tools are a set a independent workflows for comparative analyses. The comparative analyses may include summary reports, pan-genome, or phylogentic tree construction. Using the [predictable output structure](https://bactopia.github.io/output-overview/) of Bactopia you can pick and choose which samples to include for processing with a Bactopia Tool.
 
