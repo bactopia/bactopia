@@ -1,9 +1,5 @@
 name: agrvate
 description: Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
-introduction: |
-  The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) 
-  to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ genomes. It uses the contigs from 
-  assemblies to determine _agr_ type and any possible variants in the _agr_ operon.
 icon: false
 tags:
   - fasta
@@ -39,5 +35,53 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-citations:
-  - agrvate
+docs:
+  introduction: |
+      The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) 
+      to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ assemblies.
+  output:
+    tree: |
+      agrvate/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-agr_gp.tab
+      │   ├── <SAMPLE_NAME>-blastn_log.txt
+      │   ├── <SAMPLE_NAME>-summary.tab
+      │   └── logs
+      │       └── agrvate
+      │           ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── agrvate-dag.dot
+      │   ├── agrvate-report.html
+      │   ├── agrvate-timeline.html
+      │   └── agrvate-trace.txt
+      ├── agrvate.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
+      - name: AgrVATE
+        description: |
+          Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
+        table: |
+          | Extension       | Description |
+          |-----------------|-------------|
+          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
+          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
+          | -summary.tab    | A final summary report for _agr_ typing |
+  citations:
+    - agrvate

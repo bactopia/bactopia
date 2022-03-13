@@ -1,9 +1,5 @@
 name: bakta
 description: Rapid annotation of bacterial genomes and plasmids
-introduction: |
-  The `bakta` module uses [Bakta](https://github.com/oschwengers/bakta) to rapidly annotate bacterial 
-  genomes and plasmids in a standardized fashion. Bakta makes use of a large database ([40+ GB](https://doi.org/10.5281/zenodo.4247252))
-  to provide extensive annotations including: tRNA, tmRNA, rRNA, ncRNA, CRISPR, CDS, and sORFs.
 icon: false
 tags:
   - annotation
@@ -77,5 +73,59 @@ output:
       type: file
       description: hypothetical protein CDS amino acid sequences as FASTA
       pattern: "*.hypotheticals.faa"
-citations:
-  - bakta
+
+docs:
+  introduction: |
+    The `bakta` module uses [Bakta](https://github.com/oschwengers/bakta) to rapidly annotate bacterial 
+    genomes and plasmids in a standardized fashion. Bakta makes use of a large database ([40+ GB](https://doi.org/10.5281/zenodo.4247252))
+    to provide extensive annotations including: tRNA, tmRNA, rRNA, ncRNA, CRISPR, CDS, and sORFs.
+  output:
+    tree: | 
+      bakta/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.embl
+      │   ├── <SAMPLE_NAME>.faa
+      │   ├── <SAMPLE_NAME>.ffn
+      │   ├── <SAMPLE_NAME>.fna
+      │   ├── <SAMPLE_NAME>.gbff
+      │   ├── <SAMPLE_NAME>.gff3
+      │   ├── <SAMPLE_NAME>.hypotheticals.faa
+      │   ├── <SAMPLE_NAME>.hypotheticals.tsv
+      │   ├── <SAMPLE_NAME>.tsv
+      │   ├── <SAMPLE_NAME>.txt
+      │   └── logs
+      │       └── bakta
+      │           ├── <SAMPLE_NAME>.log
+      │           ├── nf-bakta.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── bakta-dag.dot
+      │   ├── bakta-report.html
+      │   ├── bakta-timeline.html
+      │   └── bakta-trace.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Bakta
+        description: |
+          Below is a description of the _per-sample_ results from [Bakta](https://github.com/oschwengers/bakta).
+        table: |
+          | Extension          | Description |
+          |--------------------|-------------|
+          | .embl              | Annotations & sequences in (multi) EMBL format |
+          | .faa               | CDS/sORF amino acid sequences as FASTA |
+          | .ffn               | Feature nucleotide sequences as FASTA |
+          | .fna               | Replicon/contig DNA sequences as FASTA |
+          | .gbff              | Annotations & sequences in (multi) GenBank format |
+          | .gff3              | Annotations & sequences in GFF3 format |
+          | .hypotheticals.faa | Hypothetical protein CDS amino acid sequences as FASTA |
+          | .hypotheticals.tsv | Further information on hypothetical protein CDS as simple human readble tab separated values |
+          | .tsv               | Annotations as simple human readble tab separated values |
+          | .txt               | Broad summary of `Bakta` annotations |
+  citations:
+    - bakta

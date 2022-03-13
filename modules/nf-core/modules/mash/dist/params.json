@@ -15,7 +15,8 @@
                 "mash_sketch": {
                     "type": "string",
                     "description": "The reference sequence as a Mash Sketch (.msh file)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "mash_seed": {
                     "type": "integer",

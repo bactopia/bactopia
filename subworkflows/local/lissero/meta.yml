@@ -1,8 +1,5 @@
 name: lissero
 description: Serogroup typing prediction for _Listeria monocytogenes_
-introduction: |
-  The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
-  _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
 icon: false
 tags:
   - fasta
@@ -20,7 +17,6 @@ input:
       type: file
       description: A Listeria monocytogenes fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -39,5 +35,49 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - lissero
+docs:
+  introduction: |
+    The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
+    _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
+  output:
+    tree: |
+      lissero/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── lissero
+      │           ├── nf-lissero.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── lissero-dag.dot
+      │   ├── lissero-report.html
+      │   ├── lissero-timeline.html
+      │   └── lissero-trace.txt
+      ├── lissero.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | lissero.tsv  | A merged TSV file with `LisSero` results from all samples |
+      - name: LisSero
+        description: |
+          Below is a description of the _per-sample_ results from [LisSero](https://github.com/MDU-PHL/LisSero).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `LisSero` results |
+  citations:
+    - lissero

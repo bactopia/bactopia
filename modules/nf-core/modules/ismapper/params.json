@@ -15,12 +15,14 @@
                 "reference": {
                     "type": "string",
                     "description": "Reference genome for typing against in GenBank format",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "insertions": {
                     "type": "string",
                     "description": "Multifasta file with insertion sequence(s) to be mapped to",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "min_clip": {
                     "type": "integer",

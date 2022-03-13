@@ -1,7 +1,5 @@
 name: ssuissero
 description: Serotype prediction of _Streptococcus suis_ assemblies
-introduction: |
-  The `ssuissero` module uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict the serotype of _Streptococcus suis_ assemblies.
 keywords:
   - bacteria
   - fasta
@@ -31,5 +29,49 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - ssuissero
+docs:
+  introduction: |
+    The `ssuissero` module uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict
+    the serotype of _Streptococcus suis_ assemblies.
+  output:
+    tree: |
+      ssuissero/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │   └── logs
+      │       └── ssuissero
+      │           ├── nf-ssuissero.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── ssuissero-dag.dot
+      │   ├── ssuissero-report.html
+      │   ├── ssuissero-timeline.html
+      │   └── ssuissero-trace.txt
+      ├── software_versions.yml
+      ├── software_versions_mqc.yml
+      └── ssuissero.tsv
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | ssuissero.tsv  | A merged TSV file with `SsuisSero` results from all samples |
+      - name: SsuisSero
+        description: |
+          Below is a description of the _per-sample_ results from [SsuisSero](https://github.com/jimmyliu1326/SsuisSero).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `SsuisSero` results |
+  citations:
+    - ssuissero

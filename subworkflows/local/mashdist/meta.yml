@@ -11,16 +11,71 @@ input:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - fasta:
       type: file
-      description: Description of input file
-
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+  - dist:
+      type: file
+      description: Per-sample summary of the Mash distance
+      pattern: "*.txt"
+  - merged_dist:
+      type: file
+      description: A merged summary of the each Mash distance
+      pattern: "mashdist.tsv"
+docs:
+  introduction: |
+    The `mashdist` module uses [Mash](https://github.com/marbl/Mash) to determine the Mash
+    distance from a given reference genome(s).
+  output:
+    tree: |
+      mashdist/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-dist.txt
+      │   └── logs
+      │       └── mashdist
+      │           ├── nf-mashdist{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── mashdist-dag.dot
+      │   ├── mashdist-report.html
+      │   ├── mashdist-timeline.html
+      │   └── mashdist-trace.txt
+      ├── mashdist.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mashdist.tsv  | A merged TSV file with `Mash` distances against a reference from all samples |
+      - name: Mash
+        description: |
+          Below is a description of the _per-sample_ results from [Mash](https://github.com/marbl/Mash).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;-dist.txt  | A tab-delimited file with `mash dist` results |
+  citations:
+    - mash

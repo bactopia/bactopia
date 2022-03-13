@@ -1,8 +1,5 @@
 name: spatyper
 description: Computational method for finding spa types in _Staphylococcus aureus_
-introduction:
-  The `spatyper` module uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign
-  _spa_ types to _Staphylococcus aureus_ assemblies.
 icon: false
 tags:
   - fasta
@@ -46,6 +43,50 @@ output:
       type: file
       description: A merged summary of the spaTyper assessement
       pattern: "spatyper.tsv"
-citations:
-  - spatyper
-  - spatyper_db
+docs:
+  introduction:
+    The `spatyper` module uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign
+    _spa_ types to _Staphylococcus aureus_ assemblies.
+  output:
+    tree: |
+      spatyper/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── spatyper
+      │           ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── spatyper-dag.dot
+      │   ├── spatyper-report.html
+      │   ├── spatyper-timeline.html
+      │   └── spatyper-trace.txt
+      ├── software_versions.yml
+      ├── software_versions_mqc.yml
+      └── spatyper.tsv
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
+      - name: spaTyper
+        description: |
+          Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
+  citations:
+    - spatyper
+    - spatyper_db

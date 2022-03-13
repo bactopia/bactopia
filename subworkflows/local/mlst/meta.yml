@@ -1,9 +1,5 @@
 name: mlst
 description: Automatic MLST calling from assembled contigs
-introduction: |
-  The `mlst` module uses [mlst](https://github.com/tseemann/mlst) scan assemblies and determine the sequence type.
-  It makes use of [PubMLST](https://pubmlst.org/) schemes and by default automatically scans each schema. To specify
-  a specific scheme to scan, you can provide it with `--scheme`.
 keywords:
   - fasta
   - mlst
@@ -38,6 +34,57 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - mlst
-  - pubmlst
+docs:
+  introduction: |
+    The `mlst` module uses [mlst](https://github.com/tseemann/mlst) scan assemblies and determine the sequence type.
+    It makes use of [PubMLST](https://pubmlst.org/) schemes and by default automatically scans each schema. To specify
+    a specific scheme to scan, you can provide it with `--scheme`.
+  output:
+    tree: |
+      mlst/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── mlst
+      │           ├── nf-mlst.begin
+      │           ├── nf-mlst.err
+      │           ├── nf-mlst.log
+      │           ├── nf-mlst.out
+      │           ├── nf-mlst.run
+      │           ├── nf-mlst.sh
+      │           ├── nf-mlst.trace
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── mlst-dag.dot
+      │   ├── mlst-report.html
+      │   ├── mlst-timeline.html
+      │   └── mlst-trace.txt
+      ├── mlst.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mlst.tsv  | A merged TSV file with `mlst` results from all samples |
+      - name: mlst
+        description: |
+          Below is a description of the _per-sample_ results from [mlst](https://github.com/tseemann/mlst).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `mlst` result, see [mlst - Usage](https://github.com/tseemann/mlst#usage) for more details |
+  citations:
+    - mlst
+    - pubmlst

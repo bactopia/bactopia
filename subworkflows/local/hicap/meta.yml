@@ -1,8 +1,5 @@
 name: hicap
 description: Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
-introduction: |
-  The `hicap` module uses [hicap](https://github.com/scwatts/hicap) allong wih an assembly for
-  the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
 icon: false
 tags:
   - capsule
@@ -54,5 +51,52 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - hicap
+docs:
+  introduction: |
+    The `hicap` module uses [hicap](https://github.com/scwatts/hicap) allong wih an assembly for
+    the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
+  output:
+    tree: |
+      hicap/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.gbk
+      │   ├── <SAMPLE_NAME>.svg
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── hicap
+      │           ├── nf-hicap.{begin,err,log,out,run,sh,trace}
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── hicap-dag.dot
+      │   ├── hicap-report.html
+      │   ├── hicap-timeline.html
+      │   └── hicap-trace.txt
+      ├── hicap.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | hicap.tsv  | A merged TSV file with `hicap` results from all samples |
+      - name: hicap
+        description: |
+          Below is a description of the _per-sample_ results from [hicap](https://github.com/scwatts/hicap).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.gbk  | GenBank file and cap locus annotations |
+          | &lt;SAMPLE_NAME&gt;.svg  | Visualization of annotated cap locus |
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `hicap` results |
+  citations:
+    - hicap

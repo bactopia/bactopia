@@ -1,9 +1,5 @@
 name: eggnog
 description: Functional annotation of proteins using orthologous groups and phylogenies
-introduction: |
-  The `eggnog` module uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign 
-  functional annotation to protein sequences. eggNOG-mapper uses orthologous groups and phylogenies
-  from the eggNOG database to more precisely functionally annotate than traditional homology methods.
 icon: false
 tags:
   - annotation
@@ -32,10 +28,89 @@ output:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
+  - hits:
+      type: file
+      description: Results from the search phase, from HMMER, Diamond or MMseqs2
+      pattern: "*.emapper.hits"
+  - seed_orthologs:
+      type: file
+      description: Results from parsing the hits
+      pattern: "*.emapper.seed_orthologs"
+  - annotations:
+      type: file
+      description: Results from the annotation phase
+      pattern: "*.emapper.annotations"
+  - xlsx:
+      type: file
+      description: Annotations in .xlsx format
+      pattern: "*.emapper.annotations.xlsx"
+  - orthologs:
+      type: file
+      description: List of orthologs found for each query
+      pattern: "*.emapper.orthologs"
+  - genepred:
+      type: file
+      description: Sequences of predicted CDS
+      pattern: "*.emapper.genepred.fasta"
+  - gff:
+      type: file
+      description: GFF of predicted CDS
+      pattern: "*.emapper.gff"
+  - no_anno:
+      type: file
+      description: Sequences without annotation
+      pattern: "*.emapper.no_annotations.fasta"
+  - pfam:
+      type: file
+      description: Positions of the PFAM domains identified
+      pattern: "*.emapper.pfam"
   - versions:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-citations:
-  - eggnog_mapper
-  - eggnog_db
+docs:
+  introduction: |
+    The `eggnog` module uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign 
+    functional annotation to protein sequences. eggNOG-mapper uses orthologous groups and phylogenies
+    from the eggNOG database to more precisely functionally annotate than traditional homology methods.
+  output:
+    tree: |
+      eggnog/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.emapper.annotations
+      │   ├── <SAMPLE_NAME>.emapper.hits
+      │   ├── <SAMPLE_NAME>.emapper.seed_orthologs
+      │   └── logs
+      │       └── eggnog
+      │           ├── nf-eggnog.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   └── eggnog-trace.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: eggNOG-mapper
+        description: |
+          Below is a description of the _per-sample_ results from [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper).
+          For full details about each of the eggNOG output files, see
+          [eggNOG-mapper - Ouputs](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.7#Output_format).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.emapper.annotations           | Results from the annotation phase |
+          | &lt;SAMPLE_NAME&gt;.emapper.hits                  | Results from the search phase, from HMMER, Diamond or MMseqs2 |
+          | &lt;SAMPLE_NAME&gt;.emapper.seed_orthologs        | Results from parsing the hits |
+          | &lt;SAMPLE_NAME&gt;.emapper.annotations.xlsx      | (Optional) Annotations in .xlsx format |
+          | &lt;SAMPLE_NAME&gt;.emapper.orthologs             | (Optional) List of orthologs found for each query |
+          | &lt;SAMPLE_NAME&gt;.emapper.genepred.fasta        | (Optional) Sequences of predicted CDS |
+          | &lt;SAMPLE_NAME&gt;.emapper.gff                   | (Optional) GFF of predicted CDS |
+          | &lt;SAMPLE_NAME&gt;.emapper.no_annotations.fasta  | (Optional) Sequences without annotation |
+          | &lt;SAMPLE_NAME&gt;.emapper.pfam                  | (Optional) Positions of the PFAM domains identified |
+  citations:
+    - eggnog_mapper
+    - eggnog_db

@@ -52,6 +52,7 @@ if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fast
 if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
+if (params.wf == 'ismapper') include { ISMAPPER } from '../subworkflows/local/ismapper/main';
 if (params.wf == 'kleborate') include { KLEBORATE } from '../subworkflows/local/kleborate/main';
 if (params.wf == 'kraken2') include { KRAKEN2 } from '../subworkflows/local/kraken2/main';
 if (params.wf == 'legsta') include { LEGSTA } from '../subworkflows/local/legsta/main';
@@ -156,6 +157,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'hpsuissero') {
         HPSUISSERO(samples)
         ch_versions = ch_versions.mix(HPSUISSERO.out.versions)
+    } else if (params.wf == 'ismapper') {
+        ISMAPPER(samples)
+        ch_versions = ch_versions.mix(ISMAPPER.out.versions)
     } else if (params.wf == 'kleborate') {
         KLEBORATE(samples)
         ch_versions = ch_versions.mix(KLEBORATE.out.versions)
@@ -172,7 +176,8 @@ workflow BACTOPIATOOLS {
         MASHDIST(samples)
         ch_versions = ch_versions.mix(MASHDIST.out.versions)
     } else if (params.wf == 'mashtree') {
-        MASHTREE(samples)
+        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
+        MASHTREE(ch_merge_fna)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
     } else if (params.wf == 'meningotype') {
         MENINGOTYPE(samples)

@@ -41,7 +41,44 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - mashtree
-  - mash
-  - ncbigenomedownload
+docs:
+  introduction: |
+    The `mashtree` module uses [Mashtree](https://github.com/lskatz/mashtree) to create a tree of your samples
+    using [Mash](https://github.com/marbl/Mash) distance. 
+    
+    You can also use `--species` or `-accessions` to see how your samples compare to completed genomes. If used, 
+    [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will download available completed 
+    genomes available from RefSeq and they will be included in your tree.
+  output:
+    tree: |
+      mashtree/
+      ├── logs
+      │   ├── custom_dumpsoftwareversions
+      │   │   ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── mashtree
+      │       ├── nf-mashtree.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── mashtree-dag.dot
+      │   ├── mashtree-report.html
+      │   ├── mashtree-timeline.html
+      │   └── mashtree-trace.txt
+      ├── mashtree.dnd
+      ├── mashtree.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mashtree.dnd | A Newick formatted tree file |
+          | mashtree.tsv | A TSV matrix of pair-wise Mash distances |
+  citations:
+    - mashtree
+    - mash
+    - ncbigenomedownload

@@ -1,14 +1,5 @@
 name: kleborate
 description: Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
-introduction: |
-  The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of 
-  _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
-
-  - MLST, species,
-  - ICEKp associated virulence loci
-  - virulence plasmid associated loci
-  - antimicrobial resistance determinants,
-  - K (capsule) and O antigen (LPS) serotype prediction.
 icon: false
 tags:
   - enterics
@@ -45,6 +36,56 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-citations:
-  - kleborate
-  - kaptive
+docs:
+  introduction: |
+    The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of 
+    _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
+
+    - MLST, species,
+    - ICEKp associated virulence loci
+    - virulence plasmid associated loci
+    - antimicrobial resistance determinants,
+    - K (capsule) and O antigen (LPS) serotype prediction.
+  output:
+    tree: |
+      kleborate
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.results.txt
+      │   └── logs
+      │       └── kleborate
+      │           ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── kleborate-dag.dot
+      │   ├── kleborate-report.html
+      │   ├── kleborate-timeline.html
+      │   └── kleborate-trace.txt
+      ├── kleborate.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | kleborate.tsv | A merged TSV file with `Kleborate` results from all samples |
+      - name: Kleborate
+        description: |
+          Below is a description of the _per-sample_ results from [Kleborate](https://github.com/katholt/Kleborate).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.results.tsv  | A tab-delimited file with `Kleborate` result, see [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details |
+  citations:
+    - kleborate
+    - kaptive

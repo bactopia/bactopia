@@ -1,8 +1,5 @@
 name: staphopiasccmec
 description: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
-introduction:
-  The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) to assign
-  SCCmec types to _Staphylococcus aureus_ assemblies.
 icon: false
 tags:
   - amr
@@ -21,7 +18,6 @@ input:
       type: file
       description: FASTA assembly file
       pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -40,5 +36,49 @@ output:
       type: file
       description: A merged summary of the staphopia-sccmec assessement
       pattern: "staphopiasccmec.tsv"
-citations:
-  - staphopiasccmec
+docs:
+  introduction:
+    The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)
+    to assign SCCmec types to _Staphylococcus aureus_ assemblies.
+  output:
+    tree: |
+      staphopiasccmec/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── staphopiasccmec
+      │           ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── staphopiasccmec-dag.dot
+      │   ├── staphopiasccmec-report.html
+      │   ├── staphopiasccmec-timeline.html
+      │   └── staphopiasccmec-trace.txt
+      ├── software_versions.yml
+      ├── software_versions_mqc.yml
+      └── staphopiasccmec.tsv
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+      - name: staphopia-sccmec
+        description: |
+          Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `staphopia-sccmec` results |
+  citations:
+    - staphopiasccmec

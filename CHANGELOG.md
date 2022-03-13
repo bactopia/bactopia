@@ -4,11 +4,15 @@
 
 ### `Added`
 - added `test` profile for easy testing
+- `mashdist` now outputs a merged TSV
+- print missing required parameters in Bactopia Tools
 
 ### `Fixed`
 - typo in `bakta` subworkflow
+- `ismapper` not available in `bactopia-tools.nf`
 - `kraken2` not available in `bactopia-tools.nf`
 - Traits file being required for `pangenome`
+- `mashtree` module not collecting all FASTA
 
 ## v2.0.2 bactopia/bactopia "Black Mamba" - 2022/02/22
 

@@ -1,8 +1,5 @@
 name: sistr
 description: Serovar prediction of Salmonella assemblies
-introduction: |
-  The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd), or SISTR, for 
-  serovar prediction of Salmonella assemblies.
 keywords:
   - fasta
   - salmonella
@@ -49,5 +46,55 @@ output:
       type: file
       description: CSV file destination for cgMLST allelic profiles
       pattern: "*.{csv}"
-citations:
-  - sistr
+docs:
+  introduction: |
+    The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd),
+    or SISTR, for serovar prediction of Salmonella assemblies.
+  output:
+    tree: |
+      sistr/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-allele.fasta.gz
+      │   ├── <SAMPLE_NAME>-allele.json.gz
+      │   ├── <SAMPLE_NAME>-cgmlst.csv
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── sistr
+      │           ├── nf-sistr.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── sistr-dag.dot
+      │   ├── sistr-report.html
+      │   ├── sistr-timeline.html
+      │   └── sistr-trace.txt
+      ├── sistr.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | sistr.tsv  | A merged TSV file with `SISTR` results from all samples |
+      - name: SISTR
+        description: |
+          Below is a description of the _per-sample_ results from [SISTR](https://github.com/phac-nml/sistr_cmd).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;-allele.fasta.gz  | A FASTA file of the cgMLST allele search results  |
+          | &lt;SAMPLE_NAME&gt;-allele.json.gz  | JSON formated cgMLST allele search results, see [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details |
+          | &lt;SAMPLE_NAME&gt;-cgmlst.csv  | A comma-delimited summary of the cgMLST allele search results |
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details |
+  citations:
+    - sistr

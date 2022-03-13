@@ -1,8 +1,5 @@
 name: ismapper
 description: Identify insertion sites positions in bacterial genomes
-introduction: |
-  The `ismapper` module uses [ISMapper](https://github.com/jhawkey/IS_mapper) to search for 
-  insertion sites in your samples.
 icon: false
 tags:
   - fastq
@@ -41,5 +38,54 @@ output:
       type: directory
       description: Directory containing ISMapper result files
       pattern: "*/*"
-citations:
-  - ismapper
+docs:
+  introduction: |
+    The `ismapper` module uses [ISMapper](https://github.com/jhawkey/IS_mapper) to search for 
+    insertion sites in your samples.
+  output:
+    tree: |
+      ismapper/
+      ├── <SAMPLE_NAME>
+      │   ├── <INSERTION_NAME>
+      │   │   └── <FASTA_ENTRY>
+      │   │       ├── <SAMPLE_NAME>_<FASTA_ENTRY>_{left_final,right_final}.fastq
+      │   │       ├── <SAMPLE_NAME>__<REFERENCE>_closest.bed
+      │   │       ├── <SAMPLE_NAME>__<REFERENCE>_intersect.bed
+      │   │       ├── <SAMPLE_NAME>__<REFERENCE>_table.txt
+      │   │       ├── <SAMPLE_NAME>_{left,right}_<REFERENCE>_finalcov.bed
+      │   │       ├── <SAMPLE_NAME>_{left,right}_<REFERENCE>_merged.sorted.bed
+      │   │       └── <SAMPLE_NAME>_{left,right}_<REFERENCE>_unpaired.bed
+      │   └── logs
+      │       └── ismapper
+      │           └── <INSERTION_NAME>
+      │               ├── <SAMPLE_NAME>.log
+      │               ├── nf-ismapper.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      ├── logs
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── ismapper-dag.dot
+      │   ├── ismapper-report.html
+      │   ├── ismapper-timeline.html
+      │   └── ismapper-trace.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: ISMapper
+        description: |
+            Below is a description of the _per-sample_ results from [ISMapper](https://github.com/jhawkey/IS_mapper).
+        table: |
+          | Extension | Description |
+          |-----------|-------------|
+          | _final.fastq | Sequences (FASTQ format) that mapped to the flanking regions of the IS query |
+          | _closest.bed | Merged regions that are close but do not overlap |
+          | _intersect.bed | An intersection of merged regions from the left and right flanks. |
+          | _table.txt | A [detailed description](https://github.com/jhawkey/IS_mapper#single-isolate-output) of the IS query results. |
+          | _finalcov.bed | Contains information about the coverage of the IS query |
+          | _merged.sorted.bed | Merged overlapping regions that passed coverage cutoffs |
+          | _unpaired.bed | All unpaired mappings to the IS query  |
+  citations:
+    - ismapper

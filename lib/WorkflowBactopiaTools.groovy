@@ -10,7 +10,7 @@ class WorkflowBactopiaTools {
     //
     public static String initialise(workflow, params, log, schema_filename=['conf/schema/bactopiatools.json']) {
         def Integer error = 0
-        def Integer missing_required = 0
+        def ArrayList missing_required = []
         def Integer missing_file = 0
 
         
@@ -18,9 +18,11 @@ class WorkflowBactopiaTools {
             if (Utils.isLocal(params.bactopia)) {
                 error += Utils.fileNotFound(params.bactopia, 'bactopia', log)
                 if (error > 0) {
-                    missing_required += 1
+                    missing_required += "--bactopia"
                 }
             }
+        } else {
+            missing_required += "--bactopia"
         }
 
         if (params.include && params.exclude) {
@@ -43,18 +45,18 @@ class WorkflowBactopiaTools {
                     error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
                 }
             } else {
-                missing_required += 1
+                missing_required += "--bakta_db"
             }
         } else if (params.wf == "eggnog") {
             if (params.eggnog) {
                 if (Utils.isLocal(params.eggnog)) {
                     missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
                     if (missing_file > 0 && params.download_eggnog == false) {
-                        missing_required += 1
+                        missing_required += "--eggnog"
                     }
                 }
             } else {
-                missing_required += 1
+                missing_required += "--eggnog"
             }
         } else if (params.wf == "gtdb") {
             if (params.gtdb) {
@@ -62,7 +64,7 @@ class WorkflowBactopiaTools {
                     error += Utils.fileNotFound(params.gtdb, 'gtdb', log)
                 }
             } else {
-                missing_required += 1
+                missing_required += "--gtdb"
             }
         } else if (params.wf == "mashdist" || params.wf == "merlin") {
             if (params.mash_sketch) {
@@ -70,7 +72,7 @@ class WorkflowBactopiaTools {
                     error += Utils.fileNotFound(params.mash_sketch, 'mash_sketch', log)
                 }
             } else {
-                missing_required += 1
+                missing_required += "--mash_sketch"
             }
         } else if (params.wf == "pangenome") {
             if (params.traits) {
@@ -84,7 +86,7 @@ class WorkflowBactopiaTools {
                     error += Utils.fileNotFound(params.traits, 'traits', log)
                 }
             } else {
-                missing_required += 1
+                missing_required += "--traits"
             }
         }
 
@@ -105,8 +107,8 @@ class WorkflowBactopiaTools {
             }
         }
 
-        if (missing_required > 0) {
-            log.error "Required parameters are missing, please check and try again."
+        if (missing_required.size() > 0) {
+            log.error "Required parameters are missing, please check: " + missing_required.join(", ")
             log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)
             error += 1
         }

@@ -11,7 +11,6 @@ tools:
       tool_dev_url: https://github.com/jhawkey/IS_mapper
       doi: "https://doi.org/10.1186/s12864-015-1860-2"
       licence: ['BSD']
-
 input:
   - meta:
       type: map
@@ -30,7 +29,6 @@ input:
       type: file
       description: Insertion sequences to query in FASTA format
       pattern: "*.{fasta,fa}"
-
 output:
   - meta:
       type: map
@@ -45,6 +43,5 @@ output:
       type: directory
       description: Directory containing ISMapper result files
       pattern: "*/*"
-
 authors:
   - "@rpetit3"

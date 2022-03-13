@@ -1,8 +1,5 @@
 name: abricate
 description: Mass screening of contigs for antimicrobial and virulence genes
-introduction: |
-  The `abricate` module uses [Abricate](https://github.com/tseemann/abricate) to screen assemblies
-  for antimicrobial resistance and virulence genes.
 keywords:
   - bacteria
   - fasta
@@ -37,13 +34,57 @@ output:
       type: file
       description: Tab-delimited report of results from all samples
       pattern: "*.{txt}"
-citations:
-  - abricate
-  - arg_annot
-  - card
-  - ecoh
-  - megares2
-  - ncbi_reference_gene_catolog
-  - plasmidfinder
-  - resfinder
-  - vfdb
+docs:
+  introduction: |
+    The `abricate` module uses [Abricate](https://github.com/tseemann/abricate) to screen assemblies
+    for antimicrobial resistance and virulence genes.
+  output:
+    tree: |
+      abricate/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.txt
+      │   └── logs
+      │       └── abricate
+      │           ├── nf-abricate.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── abricate
+      │   │   ├── nf-abricate.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── abricate-dag.dot
+      │   ├── abricate-report.html
+      │   ├── abricate-timeline.html
+      │   └── abricate-trace.txt
+      ├── abricate.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | abricate.tsv | A merged TSV file with `Abricate` results from all samples |
+      - name: Abricate
+        description: |
+          Below is a description of the _per-sample_ results from [Abricate](https://github.com/tseemann/abricate).
+        table: |
+          | Filename | Description |
+          |-----------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tzt      | A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output) |
+  citations:
+    - abricate
+    - arg_annot
+    - card
+    - ecoh
+    - megares2
+    - ncbi_reference_gene_catolog
+    - plasmidfinder
+    - resfinder
+    - vfdb

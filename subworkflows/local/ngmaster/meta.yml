@@ -1,8 +1,5 @@
 name: ngmaster
 description: Multi-antigen sequence typing for _Neisseria gonorrhoeae_
-introduction: |
-  The `ngmaster` module uses [ngmaster](https://github.com/MDU-PHL/ngmaster) for 
-  _in silico_ multi-antigen sequence typing for _Neisseria gonorrhoeae_ (NG-MAST).
 icon: false
 tags:
   - fasta
@@ -39,5 +36,49 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - ngmaster
+docs:
+  introduction: |
+    The `ngmaster` module uses [ngmaster](https://github.com/MDU-PHL/ngmaster) for 
+    _in silico_ multi-antigen sequence typing for _Neisseria gonorrhoeae_ (NG-MAST).
+  output:
+    tree: |
+      ngmaster/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── ngmaster
+      │           ├── nf-ngmaster.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── ngmaster-dag.dot
+      │   ├── ngmaster-report.html
+      │   ├── ngmaster-timeline.html
+      │   └── ngmaster-trace.txt
+      ├── ngmaster.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | ngmaster.tsv  | A merged TSV file with `ngmaster` results from all samples |
+      - name: ngmaster
+        description: |
+          Below is a description of the _per-sample_ results from [ngmaster](https://github.com/MDU-PHL/ngmaster).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ngmaster` results |
+  citations:
+    - ngmaster

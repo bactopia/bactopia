@@ -1,8 +1,5 @@
 name: mobsuite
 description: Reconstruct and annotate plasmids in bacterial assemblies
-introduction:
-  The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
-  and annotate plasmids in draft assemblies.
 icon: false
 keywords:
   - plasmid
@@ -45,6 +42,56 @@ output:
       type: file
       description: Aggregate MOB-typer report files for all identified plasmid
       pattern: "mobtyper_results.txt"
-citations:
-  - mobsuite
-  - mobsuite_db
+docs:
+  introduction:
+    The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
+    and annotate plasmids in draft assemblies.
+  output:
+    tree: |
+      mobsuite/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-mobtyper.txt
+      │   ├── chromosome.fasta
+      │   ├── contig_report.txt
+      │   ├── logs
+      │   │   └── mobsuite
+      │   │       ├── nf-mobsuite.{begin,err,log,out,run,sh,trace}
+      │   │       └── versions.yml
+      │   └── plasmid_<PLASMID_NAME>.fasta
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── mobsuite-dag.dot
+      │   ├── mobsuite-report.html
+      │   ├── mobsuite-timeline.html
+      │   └── mobsuite-trace.txt
+      ├── mobsuite.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mobsuite.tsv  | A merged TSV file with `mobsuite` results from all samples |
+      - name: legsta
+        description: |
+          Below is a description of the _per-sample_ results from [MOB-suite](https://github.com/phac-nml/mob-suite).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;-mobtyper.txt  | Aggregate MOB-typer report files for all identified plasmid, see [MOB-typer - report file](https://github.com/phac-nml/mob-suite#mob-typer-report-file-format) for more details |
+          | chromosome.fasta  | FASTA file of all contigs found to belong to the chromosome |
+          | contig_report.txt  | Assignment of the contig to chromosome or a particular plasmid grouping, see [MOB-recon - contig report](https://github.com/phac-nml/mob-suite#mob-recon-contig-report-format) for more details |
+          | plasmid_&lt;PLASMID_NAME&gt;.fasta  | Each plasmid group is written to an individual FASTA |
+  citations:
+    - mobsuite
+    - mobsuite_db

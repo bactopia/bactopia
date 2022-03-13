@@ -25,6 +25,9 @@ if (ask_merlin || params.wf == "merlin") {
 } else {
     MASH_SKETCH = file(params.mash_sketch)
     include { MASH_DIST as MASHDIST_MODULE  } from '../../../modules/nf-core/modules/mash/dist/main' addParams( options: options )
+    if (params.is_subworkflow) {
+        include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mashdist'] )
+    }
 }
 
 workflow MASHDIST {
@@ -33,12 +36,21 @@ workflow MASHDIST {
 
     main:
     ch_versions = Channel.empty()
+    ch_merged_mashdist = Channel.empty()
 
     MASHDIST_MODULE(seqs, MASH_SKETCH)
     ch_versions = ch_versions.mix(MASHDIST_MODULE.out.versions.first())
 
+    if (params.is_subworkflow) {
+        MASHDIST_MODULE.out.dist.collect{meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
+        CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
+        ch_merged_mashdist = ch_merged_mashdist.mix(CSVTK_CONCAT.out.csv)
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    }
+
     emit:
     dist = MASHDIST_MODULE.out.dist
+    merged_dist = ch_merged_mashdist
     versions = ch_versions // channel: [ versions.yml ]
 }
 

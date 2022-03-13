@@ -1,8 +1,5 @@
 name: legsta
 description: Typing of Legionella pneumophila assemblies
-introduction: |
-  The `legsta` module uses [legsta](https://github.com/tseemann/legsta) for 
-  _in silico_ _Legionella pneumophila_ Sequence Based Typing (SBT).
 keywords:
   - fasta
   - legionella
@@ -37,5 +34,49 @@ output:
       type: file
       description: Tab-delimited report of results from all samples
       pattern: "*.{tsv}"
-citations:
-  - legsta
+docs:
+  introduction: |
+    The `legsta` module uses [legsta](https://github.com/tseemann/legsta) for 
+    _in silico_ _Legionella pneumophila_ Sequence Based Typing (SBT).
+  output:
+    tree: |
+      legsta/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── legsta
+      │           ├── nf-legsta.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── legsta-dag.dot
+      │   ├── legsta-report.html
+      │   ├── legsta-timeline.html
+      │   └── legsta-trace.txt
+      ├── legsta.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | legsta.tsv  | A merged TSV file with `legsta` results from all samples |
+      - name: legsta
+        description: |
+          Below is a description of the _per-sample_ results from [legsta](https://github.com/tseemann/legsta).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details |
+  citations:
+    - legsta

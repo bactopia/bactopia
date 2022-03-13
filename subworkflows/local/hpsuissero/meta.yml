@@ -1,7 +1,5 @@
 name: hpsuissero
 description: Serotype prediction of _Haemophilus parasuis_ assemblies
-introduction: |
-  The `hpsuissero` module uses [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero) to predict the serotype of _Haemophilus parasuis_ assemblies.
 keywords:
   - bacteria
   - fasta
@@ -31,5 +29,50 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
+
+docs:
+  introduction: |
+    The `hpsuissero` module uses [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero) to predict
+    the serotype of _Haemophilus parasuis_ assemblies.
+  output:
+    tree: |
+      hpsuissero/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │   └── logs
+      │       └── hpsuissero
+      │           ├── nf-hpsuissero.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── hpsuissero-dag.dot
+      │   ├── hpsuissero-report.html
+      │   ├── hpsuissero-timeline.html
+      │   └── hpsuissero-trace.txt
+      ├── hpsuissero.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | hpsuissero.tsv | A merged TSV file with `HpsuisSero` results from all samples |
+      - name: HpsuisSero
+        description: |
+          Below is a description of the _per-sample_ results from [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `HpsuisSero` result |
 citations:
   - hpsuissero

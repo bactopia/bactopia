@@ -1,8 +1,5 @@
 name: seqsero2
 description: Salmonella serotype prediction from reads or assemblies
-introduction: |
-  The `seqsero2` module uses [SeqSero2](https://github.com/denglab/SeqSero2) for Salmonella
-  serotype prediction from reads and assemblies .
 icon: false
 tags:
   - fasta
@@ -39,5 +36,52 @@ output:
       type: file
       description: Merged TSV summary of all SeqSero2 results
       pattern: "seqsero2.tsv"
-citations:
-  - seqsero2
+docs:
+  introduction: |
+    The `seqsero2` module uses [SeqSero2](https://github.com/denglab/SeqSero2) for Salmonella
+    serotype prediction from reads and assemblies .
+  output:
+    tree: |
+      seqsero2/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>_log.txt
+      │   ├── <SAMPLE_NAME>_result.tsv
+      │   ├── <SAMPLE_NAME>_result.txt
+      │   └── logs
+      │       └── seqsero2
+      │           ├── nf-seqsero2.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── seqsero2-dag.dot
+      │   ├── seqsero2-report.html
+      │   ├── seqsero2-timeline.html
+      │   └── seqsero2-trace.txt
+      ├── seqsero2.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | seqsero2.tsv  | A merged TSV file with `seqsero2` results from all samples |
+      - name: SeqSero2
+        description: |
+          Below is a description of the _per-sample_ results from [SeqSero2](https://github.com/denglab/SeqSero2).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SeqSero2` results |
+          | &lt;SAMPLE_NAME&gt;.txt  | A text file with key-value pairs of `SeqSero2` results |
+  citations:
+    - seqsero2

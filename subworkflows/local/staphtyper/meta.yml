@@ -1,10 +1,5 @@
 name: staphtyper
 description: Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
-introduction:
-  The `staphytyper` subworkflows combines multiple _Staphylococcus aureus_ specific tools 
-  to Determine the _agr_ ([AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)), _spa_ 
-  ([spaTyper](https://github.com/HCGB-IGTP/spaTyper)) and SCCmec 
-  ([staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)) types of assemblies.
 tags:
   - resistance
   - Staphylococcus aureus
@@ -57,7 +52,99 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-citations:
-  - agrvate
-  - spatyper
-  - staphopiasccmec
+docs:
+  introduction: |
+    The `staphtyper` subworkflow includes multiple tools that are specific for typing certain features
+    of *Staphylococcus aureus*. Currently `staphtyper` includes
+
+    1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
+    2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
+    3. [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec) - SCCmec type
+
+    This tool will evolve with *S. aureus* genomics, so you can expect it to add more typing methods
+    (maybe even replace current methods) in the future. If a certain typing method for *S. aureus*
+    please feel free to suggest it be added!~
+  output:
+    tree: |
+      staphtyper/
+      ├── <SAMPLE_NAME>
+      │   ├── agrvate
+      │   │   ├── <SAMPLE_NAME>-agr_gp.tab
+      │   │   ├── <SAMPLE_NAME>-blastn_log.txt
+      │   │   └── <SAMPLE_NAME>-summary.tab
+      │   ├── logs
+      │   │   ├── agrvate
+      │   │   │   ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │   │   │   └── versions.yml
+      │   │   ├── spatyper
+      │   │   │   ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │   │   │   └── versions.yml
+      │   │   └── staphopiasccmec
+      │   │       ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │   │       └── versions.yml
+      │   ├── spatyper
+      │   │   └── <SAMPLE_NAME>.tsv
+      │   └── staphopiasccmec
+      │       └── <SAMPLE_NAME>.tsv
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── agrvate
+      │   │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   │   └── versions.yml
+      │   │   ├── spatyper
+      │   │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   │   └── versions.yml
+      │   │   └── staphopiasccmec
+      │   │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │       └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── staphtyper-dag.dot
+      │   ├── staphtyper-report.html
+      │   ├── staphtyper-timeline.html
+      │   └── staphtyper-trace.txt
+      ├── agrvate.tsv
+      ├── software_versions.yml
+      ├── software_versions_mqc.yml
+      ├── spatyper.tsv
+      └── staphopiasccmec.tsv
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
+          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
+          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+      - name: AgrVATE
+        description: |
+          Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
+        table: |
+          | Extension       | Description |
+          |-----------------|-------------|
+          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
+          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
+          | -summary.tab    | A final summary report for _agr_ typing |
+      - name: spaTyper
+        description: |
+          Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
+      - name: staphopia-sccmec
+        description: |
+          Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `staphopia-sccmec` results |
+  citations:
+    - agrvate
+    - spatyper
+    - staphopiasccmec

@@ -1,8 +1,5 @@
 name: kraken
 description: Taxonomic classifications of sequence reads
-introduction: |
-  The `kraken2` module uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic 
-  classifications to your sequence reads.
 keywords:
   - classify
   - metagenomics
@@ -51,5 +48,42 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
-citations:
-  - kraken2
+docs:
+  introduction: |
+    The `kraken2` module uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic 
+    classifications to your sequence reads.
+  output:
+    tree: |
+      kraken2/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.classified{_1,_2}.fastq.gz
+      │   ├── <SAMPLE_NAME>.kraken2.report.txt
+      │   ├── <SAMPLE_NAME>.unclassified{_1,_2}.fastq.gz
+      │   └── logs
+      │       └── kraken2
+      │           ├── nf-kraken2.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── kraken2-dag.dot
+      │   ├── kraken2-report.html
+      │   ├── kraken2-timeline.html
+      │   └── kraken2-trace.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+        - name: Kraken2
+          description: |
+            Below is a description of the _per-sample_ results from [Kraken2](https://github.com/DerrickWood/kraken2).
+          table: |
+            | Filename                 | Description |
+            |--------------------------|-------------|
+            | &lt;SAMPLE_NAME&gt;.classified{_1,_2}.fastq.gz  | Reads classified to belong to any of the taxa on the `Kraken2` database. |
+            | &lt;SAMPLE_NAME&gt;.kraken2.report.txt | `Kraken2` report containing stats about classified and not classifed reads. See [Kraken2 - Output Formats](https://github.com/DerrickWood/kraken2/wiki/Manual#output-formats) for more details |
+            | &lt;SAMPLE_NAME&gt;.unclassified{_1,_2}.fastq.gz  | Reads not classified to belong to any of the taxa on the `Kraken2` database. |
+  citations:
+    - kraken2

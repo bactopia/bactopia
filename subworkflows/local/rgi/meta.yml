@@ -1,8 +1,5 @@
 name: rgi
 description: Predict antibiotic resistance from assemblies
-introduction: |
-  The `rgi` module uses [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to identify antibiotic resistance genes in
-  assemblies.
 keywords:
   - bacteria
   - fasta
@@ -45,5 +42,56 @@ output:
       type: file
       description: Heatmap representations as text and images
       pattern: "*.{csv,eps,png}"
-citations:
-  - rgi
+docs:
+  introduction: |
+    The `rgi` module uses [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to identify antibiotic
+    resistance genes in assemblies.
+  output:
+    tree: |
+      rgi/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.json
+      │   ├── <SAMPLE_NAME>.txt
+      │   └── logs
+      │       └── rgi
+      │           ├── nf-rgi.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   ├── custom_dumpsoftwareversions
+      │   │   ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── rgi_heatmap
+      │       ├── nf-rgi_heatmap.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── rgi-dag.dot
+      │   ├── rgi-report.html
+      │   ├── rgi-timeline.html
+      │   └── rgi-trace.txt
+      ├── rgi-20.{csv,eps,png}
+      ├── rgi.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | rgi-20.{csv,eps,png}  | Heatmap representations as text and images, see [RGI - Heatmap](https://github.com/arpcard/rgi#generating-heat-maps-of-rgi-main-results) for more details |
+          | rgi.tsv  | A merged TSV file with `rgi` results from all samples |
+      - name: rgi
+        description: |
+          Below is a description of the _per-sample_ results from [RGI](https://github.com/arpcard/rgi).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.json  | A JSON file with `rgi` results |
+          | &lt;SAMPLE_NAME&gt;.txt  | A tab-delimited file with `egi` results, see [RGI - Output Details](https://github.com/arpcard/rgi#rgi-main-tab-delimited-output-details) for more details |
+  citations:
+    - rgi

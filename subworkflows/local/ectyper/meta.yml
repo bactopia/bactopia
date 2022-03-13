@@ -1,9 +1,5 @@
 name: ectyper
 description: In-silico prediction of _Escherichia coli_ serotype
-introduction: |
-  The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
-  _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
-  tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
 icon: false
 tags:
   - Escherichia coli
@@ -43,5 +39,53 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - ectyper
+docs:
+  introduction: |
+    The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
+    _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
+    tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
+  output:
+    tree: |
+      ectyper/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   ├── blast_output_alleles.txt
+      │   └── logs
+      │       └── ectyper
+      │           ├── ectyper.log
+      │           ├── nf-ectyper.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── ectyper-dag.dot
+      │   ├── ectyper-report.html
+      │   ├── ectyper-timeline.html
+      │   └── ectyper-trace.txt
+      ├── ectyper.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | ectyper.tsv | A merged TSV file with `ECTyper` results from all samples |
+      - name: ECTyper
+        description: |
+          Below is a description of the _per-sample_ results from [ECTyper](https://github.com/phac-nml/ecoli_serotyping).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ECTyper` result, see [ECTyper - Report format](https://github.com/phac-nml/ecoli_serotyping#report-format) for details  |
+          | blast_output_alleles.txt | Allele report generated from BLAST results |
+  citations:
+    - ectyper

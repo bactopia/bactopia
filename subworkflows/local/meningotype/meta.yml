@@ -1,10 +1,5 @@
 name: meningotype
 description: Serotyping of Neisseria meningitidis
-introduction: |
-  The `meningotype` module uses [meningotype](https://github.com/MDU-PHL/meningotype) 
-  for _in silico_ typing of _Neisseria meningitidis_ genomes. It uses the contigs from 
-  assemblies to determine the serotype, MLST, finetyping  (_porA_, _fetA_, _porB_), and 
-  Bexsero antigen sequence typing (BAST) (_fHbp_, _NHBA_, _NadA_, _PorA_).
 icon: false
 tags:
   - fasta
@@ -40,5 +35,52 @@ output:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
-citations:
-  - meningotype
+
+docs:
+  introduction: |
+    The `meningotype` module uses [meningotype](https://github.com/MDU-PHL/meningotype) 
+    for _in silico_ typing of _Neisseria meningitidis_ genomes. It uses the contigs from 
+    assemblies to determine the serotype, MLST, finetyping  (_porA_, _fetA_, _porB_), and 
+    Bexsero antigen sequence typing (BAST) (_fHbp_, _NHBA_, _NadA_, _PorA_).
+  output:
+    tree: |
+      meningotype/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── meningotype
+      │           ├── nf-meningotype.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── meningotype-dag.dot
+      │   ├── meningotype-report.html
+      │   ├── meningotype-timeline.html
+      │   └── meningotype-trace.txt
+      ├── meningotype.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | meningotype.tsv  | A merged TSV file with `meningotype` results from all samples |
+      - name: meningotype
+        description: |
+          Below is a description of the _per-sample_ results from [meningotype](https://github.com/MDU-PHL/meningotype) .
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `meningotype` result |
+  citations:
+    - meningotype

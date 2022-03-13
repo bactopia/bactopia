@@ -15,19 +15,18 @@ options.args = [
     "--merging ${params.merging}",
     "--T ${params.ismap_minqual}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-
+REFERENCE = params.reference ? file(params.reference) : []
+INSERTIONS = params.insertions ? file(params.insertions) : []
 include { ISMAPPER as ISMAPPER_MODULE } from '../../../modules/nf-core/modules/ismapper/main' addParams( options: options )
 
 workflow ISMAPPER {
     take:
     reads // channel: [ val(meta), [ reads ] ]
-    reference // file
-    query // file
 
     main:
     ch_versions = Channel.empty()
 
-    ISMAPPER_MODULE(reads, reference, query)
+    ISMAPPER_MODULE(reads, REFERENCE, INSERTIONS)
     ch_versions = ch_versions.mix(ISMAPPER_MODULE.out.versions.first())
 
     emit:
