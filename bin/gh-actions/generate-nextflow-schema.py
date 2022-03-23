@@ -4,7 +4,7 @@
 """
 
 PROGRAM = "generate-nextflow-schema.py"
-VERSION = "2.0.2"
+VERSION = "2.0.3"
 REPO = "bactopia"
 
 BACTOPIA_SCHEMA = "conf/schema/bactopia.json"

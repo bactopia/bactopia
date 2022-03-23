@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.3 bactopia/bactopia "" - 2022/??/??
+## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/22
 
 ### `Added`
 - logo and new metro style workflow
