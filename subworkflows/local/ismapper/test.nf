@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { ISMAPPER } from './main.nf' 
+include { ISMAPPER } from './main.nf' addParams(reference: params.test_data['species']['portiera']['genome']['gbk_gz'], insertions: params.test_data['species']['haemophilus_influenzae']['genome']['is1016'])
 
 workflow test_ismapper {
 
@@ -10,8 +10,6 @@ workflow test_ismapper {
         [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
          file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
     )
-    reference = [file(params.test_data['species']['portiera']['genome']['gbk_gz'], checkIfExists: true)]
-    query = [file(params.test_data['species']['haemophilus_influenzae']['genome']['is1016'], checkIfExists: true)]
 
-    ISMAPPER ( inputs, reference, query )
+    ISMAPPER ( inputs )
 }
