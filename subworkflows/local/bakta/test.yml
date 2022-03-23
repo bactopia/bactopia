@@ -15,13 +15,13 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
       contains: ['contig_1', 'Bakta', 'DnaK', '//']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
-      md5sum: 8c35196040684593c3ff244ec9005c37
+      md5sum: 53aded5b1cf93e1428c5f15fcecba84e
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
       md5sum: 97c4f57c7dee5cc22628b390d37fa32a
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
-      md5sum: 3a8c5c7a9e730589703b5f09d5784a66
+      md5sum: 5462c0cd1cb125ac7d2b7db7f037f2f9
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
-      md5sum: 7f41ff8a688cc45f52d36296fc529bd9
+      md5sum: af6cb8ca7a684a215efeb9538a30b9b0
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.txt
       contains: ['Sequence', 'coding', 'Bakta', 'DOI']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/GCF_000292685.log
@@ -40,7 +40,7 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: 14d757ea71142976f6b7152b24b11b12
+      md5sum: 29487e1c737e9dbcbbcb699e2d0f4264
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html
