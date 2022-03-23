@@ -3,9 +3,11 @@
 ## v2.0.3 bactopia/bactopia "" - 2022/??/??
 
 ### `Added`
+- logo and new metro style workflow
 - added `test` profile for easy testing
 - `mashdist` now outputs a merged TSV
 - print missing required parameters in Bactopia Tools
+- bump bakta to v1.4.0
 
 ### `Fixed`
 - typo in `bakta` subworkflow
@@ -13,6 +15,7 @@
 - `kraken2` not available in `bactopia-tools.nf`
 - Traits file being required for `pangenome`
 - `mashtree` module not collecting all FASTA
+- tests for ISMapper
 
 ## v2.0.2 bactopia/bactopia "Black Mamba" - 2022/02/22
 
