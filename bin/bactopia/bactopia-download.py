@@ -52,6 +52,11 @@ BACTOPIA_MODULES = [
     'sequence_type'
 ]
 
+BUILT_ALREADY = {
+    'conda': {},
+    'singlularity': {}
+}
+
 
 def get_platform():
     from sys import platform
@@ -252,6 +257,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
                     built = build_conda_env(yml_file, conda_prefix, max_retry=max_retry)
                     if built:
                         execute(f'cp {md5_file} {envbuilt_file}')
+                        BUILT_ALREADY['conda'][conda_prefix] = f"Already built {envname} ({conda_prefix}) this run, skipping rebuild"
             if build_docker:
                 if needs_docker_pull(pull_name):
                     logging.info(f'Found {pull_name} ({i+1} of {len(env_files)}), begin docker pull')
@@ -261,6 +267,7 @@ def build_bactopia_envs(bactopia_path, conda_path, singularity_path, env_type, r
                     execute(f'mkdir -p {singularity_path}')
                     logging.info(f'Found {envname} ({i+1} of {len(env_files)}), begin build to {img_name}')
                     build_singularity_image(img_name, f"docker://{pull_name}", max_retry=max_retry, force=force, use_build=True)
+                    BUILT_ALREADY['singularity'][img_name] = f"Already built {envname} ({img_name}) this run, skipping rebuild"
 
         # Create completion files
         if build_conda:
@@ -296,6 +303,8 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     # Check for completion files
     conda_complete = f'{conda_path}/{conda_envname}/env-built.txt'
 
+    if build_conda and 
+
     if build_conda and os.path.exists(conda_complete):
         if force:
             logging.debug(f'Overwriting existing Conda environment in {conda_prefix}')
@@ -316,6 +325,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     if build_conda:
         logging.info(f'Begin {envname} create to {conda_prefix}')
         build_conda_env(envinfo['conda'], conda_prefix, max_retry=max_retry)
+        BUILT_ALREADY['conda'][conda_prefix] = f"Already built {envname} ({conda_prefix}) this run, skipping rebuild"
     if build_docker:
         if needs_docker_pull(envinfo['docker']):
             logging.info(f"Begin docker pull of {envinfo['docker']}")
@@ -329,6 +339,7 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
             else:
                 logging.info(f'Begin {envname} download to {singularity_img}')
                 build_singularity_image(singularity_img, envinfo['singularity'], max_retry=max_retry, force=force, use_build=use_build)
+            BUILT_ALREADY['singularity'][singularity_img] = f"Already built {envname} ({singularity_img}) this run, skipping rebuild"
 
     # Create completion files
     if build_conda:
@@ -359,6 +370,8 @@ def needs_conda_create(observed_md5, expected_md5, prefix, force=False):
         else:
             logging.debug(f'Existing env ({prefix}) is out of sync, it will be updated')
             needs_build = True
+    elif prefix in BUILT_ALREADY['conda']:
+        logging.debug(BUILT_ALREADY['conda'][prefix])
     else:
         needs_build = True
     return needs_build
@@ -369,7 +382,6 @@ def needs_docker_pull(pull_name):
     output = execute(f'docker inspect {pull_name} || true', capture=True)
     if output[1].startswith("Error: No such object"):
         return True
-
     logging.debug(f'Existing container ({pull_name}) found, skipping unless manually removed')
     return False
 
@@ -378,6 +390,9 @@ def needs_singularity_build(image, force=False):
     """Check if a new image needs to be built."""
     if os.path.exists(image) and not force:
         logging.debug(f'Existing image ({image}) found, skipping unless --force is used')
+        return False
+    elif image in BUILT_ALREADY['singularity']:
+        logging.debug(BUILT_ALREADY['singularity'][image])
         return False
     return True
 
