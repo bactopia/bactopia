@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout bactopia/bactopia
         uses: actions/checkout@v2
+        with:
+          ref: dev
 
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2

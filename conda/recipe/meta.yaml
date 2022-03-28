@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/bactopia/bactopia/archive/refs/heads/master.zip
+  url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
 
 requirements:
   host:
