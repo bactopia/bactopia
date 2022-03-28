@@ -128,7 +128,7 @@ def process_fastqs(line, genome_size) {
     }
 }
 
-def process_accessions(accession, genome_size) {
+def process_accessions(accession, genome_size, is_single_accession) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
     meta.genome_size = genome_size
@@ -138,8 +138,14 @@ def process_accessions(accession, genome_size) {
             meta.runtype = "assembly_accession"
             return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
         } else if (accession.startsWith('DRX') || accession.startsWith('ERX') || accession.startsWith('SRX')) {
-            meta.id = accession
-            meta.runtype = "sra_accession"
+            if (is_single_accession) {
+                meta.id = accession
+                meta.runtype = params.ont ? "sra_accession_ont" : "sra_accession"
+            } else {
+                // Multiple accessions so split
+                meta.id = accession.split(/\t/)[0]
+                meta.runtype = accession.split(/\t/)[1] == 'ont' ? "sra_accession_ont" : "sra_accession"
+            }
             return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
         } else {
             log.error("Invalid accession: ${accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
@@ -156,9 +162,9 @@ def create_input_channel(runtype, genome_size) {
     } else if (runtype == "is_accessions") {
         return Channel.fromPath( params.accessions )
             .splitText()
-            .map { line -> process_accessions(line.trim(), genome_size) }
+            .map { line -> process_accessions(line.trim(), genome_size, false) }
     } else if (runtype == "is_accession") {
-        return Channel.fromList([process_accessions(params.accession, genome_size)])
+        return Channel.fromList([process_accessions(params.accession, genome_size, true)])
     } else {
         def meta = [:]
         meta.id = params.sample

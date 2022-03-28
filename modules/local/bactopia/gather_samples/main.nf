@@ -40,6 +40,8 @@ process GATHER_SAMPLES {
         meta.runtype = 'paired-end'
     } else if (runtype == 'merge-se') {
         meta.runtype = 'single-end'
+    } else if (runtype == 'sra_accession_ont') {
+        meta.runtype = 'ont'
     }
     qin = is_assembly ? 'qin=33' : 'qin=auto'
     '''
@@ -95,7 +97,7 @@ process GATHER_SAMPLES {
         ls -l fastqs/!{meta.id}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         touch extra/empty.fna.gz
-    elif [ "!{runtype}" == "sra_accession" ]; then
+    elif [ "!{runtype}" == "sra_accession" ] || [ "!{runtype}" == "sra_accession_ont" ]; then
         if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
             echo "Unable to download !{meta.id} from both SRA and ENA !{params.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 

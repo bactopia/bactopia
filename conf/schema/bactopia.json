@@ -41,7 +41,7 @@
                 "ont": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Treat `--SE` as long reads for analysis. (requires --sample)",
+                    "description": "Treat `--SE` or `--accession` as long reads for analysis. (requires --sample if using --SE)",
                     "fa_icon": "fas fa-level-up"
                 },
                 "hybrid": {

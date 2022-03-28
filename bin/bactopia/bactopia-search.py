@@ -99,7 +99,8 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
             col_vals = line.split('\t')
             if len(col_vals) == len(FIELDS):
                 c = dict(zip(FIELDS, col_vals))
-                if c['instrument_platform'] == "ILLUMINA":
+                if c['instrument_platform'] == "ILLUMINA" or c['instrument_platform'] == "OXFORD_NANOPORE":
+                    technology = 'ont' if c['instrument_platform'] == "OXFORD_NANOPORE" else 'illumina'
                     passes = True
                     reason = []
                     if not c['fastq_bytes']:
@@ -122,10 +123,11 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
                                 filtered['min_base_count'] += 1
 
                     if passes:
-                        accessions.append(c['experiment_accession'])
+                        accessions.append(f"{c['experiment_accession']}\t{technology}")
                     else:
                         filtered['filtered'].append({
                             'accession': c['experiment_accession'],
+                            'technology': technology,
                             'reason': ';'.join(reason)
                         })
 
