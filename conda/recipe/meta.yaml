@@ -36,6 +36,7 @@ test:
     - "bactopia datasets --help"
     - "bactopia prepare"
     - "bactopia search"
+    - "bactopia-summary --help"
 
 about:
   home: https://bactopia.github.io/

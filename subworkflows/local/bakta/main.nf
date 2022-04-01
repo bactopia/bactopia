@@ -25,7 +25,8 @@ PROTEINS = params.proteins ? file(params.proteins) : []
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 REPLICONS = params.replicons ? file(params.replicons) : []
 
-include { BAKTA as BAKTA_MODULE } from '../../../modules/nf-core/modules/bakta/main' addParams( options: options )
+include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/modules/bakta/download/main' addParams( )
+include { BAKTA_RUN } from '../../../modules/nf-core/modules/bakta/run/main' addParams( options: options )
 
 workflow BAKTA {
     take:
@@ -34,18 +35,25 @@ workflow BAKTA {
     main:
     ch_versions = Channel.empty()
 
-    BAKTA_MODULE(fasta, DATABASE_DIR, PROTEINS, PRODIGAL_TF, REPLICONS)
-    ch_versions = ch_versions.mix(BAKTA_MODULE.out.versions.first())
+    if (params.download_bakta) {
+        // Force BAKTA_DOWNLOAD to wait
+        BAKTA_DOWNLOAD()
+        BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db, PROTEINS, PRODIGAL_TF, REPLICONS)
+    } else {
+        BAKTA_RUN(fasta, DATABASE_DIR, PROTEINS, PRODIGAL_TF, REPLICONS)
+    }
+
+    ch_versions = ch_versions.mix(BAKTA_RUN.out.versions.first())
 
     emit:
-    embl = BAKTA_MODULE.out.embl
-    faa = BAKTA_MODULE.out.faa
-    ffn = BAKTA_MODULE.out.ffn
-    fna = BAKTA_MODULE.out.fna
-    gbff = BAKTA_MODULE.out.gbff
-    gff = BAKTA_MODULE.out.gff
-    hypotheticals_tsv = BAKTA_MODULE.out.hypotheticals_tsv
-    hypotheticals_faa = BAKTA_MODULE.out.hypotheticals_faa
-    tsv = BAKTA_MODULE.out.tsv
+    embl = BAKTA_RUN.out.embl
+    faa = BAKTA_RUN.out.faa
+    ffn = BAKTA_RUN.out.ffn
+    fna = BAKTA_RUN.out.fna
+    gbff = BAKTA_RUN.out.gbff
+    gff = BAKTA_RUN.out.gff
+    hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
+    hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
+    tsv = BAKTA_RUN.out.tsv
     versions = ch_versions // channel: [ versions.yml ]
 }

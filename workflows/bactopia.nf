@@ -62,7 +62,6 @@ workflow BACTOPIA {
     datasets = setup_datasets()
     ch_versions = Channel.empty()
     
-
     // Core steps
     GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
     QC_READS(GATHER_SAMPLES.out.raw_fastq)

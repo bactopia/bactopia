@@ -303,8 +303,6 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     # Check for completion files
     conda_complete = f'{conda_path}/{conda_envname}/env-built.txt'
 
-    if build_conda and 
-
     if build_conda and os.path.exists(conda_complete):
         if force:
             logging.debug(f'Overwriting existing Conda environment in {conda_prefix}')

@@ -4,6 +4,7 @@
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 PROTEINS = params.proteins ? file(params.proteins) : []
 prokka_args = [
+    params.compliant ? "--compliant" : "",
     "--evalue ${params.prokka_evalue}",
     "--coverage ${params.prokka_coverage}",
     "${params.prokka_opts}"
@@ -21,6 +22,7 @@ workflow PROKKA {
     ch_versions = ch_versions.mix(PROKKA_MODULE.out.versions.first())
 
     emit:
+    annotations = PROKKA_MODULE.out.annotations
     gff = PROKKA_MODULE.out.gff
     gbk = PROKKA_MODULE.out.gbk
     fna = PROKKA_MODULE.out.fna
