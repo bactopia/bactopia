@@ -43,6 +43,13 @@ def get_schemas() {
         }
     }
 
+    if (params.containsKey('use_bakta')) {
+        if (params.use_bakta) {
+            // Annotate genomes with Bakta
+            schemas += _get_module_schemas(params.workflows['bakta']["modules"])
+        }
+    }
+
     // Load profile specific schemas
     if (['aws', 'gcp', 'sge', 'slurm'].contains(workflow.profile)) {
         schemas << "conf/schema/profiles/${workflow.profile}.json"

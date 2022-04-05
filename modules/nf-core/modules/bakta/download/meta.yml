@@ -1,0 +1,32 @@
+name: bakta_download
+description: Annotation of bacterial genomes (isolates, MAGs) and plasmids
+keywords:
+  - annotation
+  - fasta
+  - bacteria
+tools:
+  - bakta:
+      description: Rapid & standardized annotation of bacterial genomes, MAGs & plasmids.
+      homepage: https://github.com/oschwengers/bakta
+      documentation: https://github.com/oschwengers/bakta
+      tool_dev_url: https://github.com/oschwengers/bakta
+      doi: "10.1099/mgen.0.000685"
+      licence: ['GPL v3']
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - db:
+      type: file
+      description: A database for Bakta
+
+authors:
+  - "@rpetit3"
+  - "@oschwengers"

@@ -91,6 +91,11 @@
                     "description": "If a Prodigal training file was found, it will not be used",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
+                },
+                "use_bakta": {
+                    "type": "boolean",
+                    "description": "Use Bakta for genome annotation (requires --bakta_db)",
+                    "fa_icon": "fas fa-fast-forward"
                 }
             }
         }
