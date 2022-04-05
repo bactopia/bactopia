@@ -39,7 +39,7 @@ import os
 import sys
 import time
 
-VERSION = "2.0.3"
+VERSION = "2.1.0"
 PROGRAM = "bactopia download"
 STDOUT = 11
 STDERR = 12
