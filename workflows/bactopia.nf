@@ -26,7 +26,7 @@ run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SC
 */
 
 // Core
-include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
+
 include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
 include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main'
 include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
@@ -41,6 +41,13 @@ include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
+
+// Annotation wih Bakta or Prokka
+if (params.use_bakta) {
+    include { BAKTA_MAIN as ANNOTATE_GENOME } from '../subworkflows/local/bakta/main' addParams( options: [:] )
+} else {
+    include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
+}
 
 // Merlin
 if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/main';

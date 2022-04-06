@@ -115,6 +115,22 @@ class WorkflowBactopia {
             }
         }
 
+        // Using Bakta, requires path to database
+        if (params.use_bakta) {
+            if (params.bakta_db) {
+                if (Utils.isLocal(params.bakta_db)) {
+                    if (!Utils.fileExists("${params.bakta_db}/version.json")) {
+                        log.error "Please verify the PATH is correct for '--bakta_db'. Unable " +
+                                "to open ${params.bakta_db}"
+                        error += 1
+                    }
+                }
+            } else {
+                log.error "'--use_bakta' requires '--bakta_db' to also be used"
+                error += 1
+            }
+        }
+
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {
             // Only run this if local files
