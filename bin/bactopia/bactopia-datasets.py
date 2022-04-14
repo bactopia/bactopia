@@ -599,7 +599,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                     continue
 
             execute((f'ncbi-genome-download bacteria -A {accession_file} '
-                    f'-l complete -o {prokka_dir}/genomes -F genbank -r 80 '
+                    f'-l {assembly_level} -o {prokka_dir}/genomes -F genbank -r 80 '
                     f'-m {prokka_dir}/ncbi-metadata.txt'))
 
             # Extract information from Genbank files
@@ -1019,7 +1019,7 @@ if __name__ == '__main__':
     )
     group3.add_argument(
         '--assembly_level', default='complete', type=str,
-        choices=['all', 'complete', 'chromosome', 'scaffold', 'contig'],
+        choices=['all', 'complete', 'chromosome', 'scaffold', 'contig', 'complete,chromosome', 'chromosome,complete'],
         help=('Assembly levels of genomes to download (Default: complete).')
     )
     group3.add_argument(
