@@ -56,7 +56,7 @@ process CALL_VARIANTS {
         printf "accession\\tdistance\\tlatest_accession\\tupdated\\n" > mash-dist.txt
         select-references.py distances.txt 1 !{tie_break} >> mash-dist.txt
         grep -v distance mash-dist.txt | cut -f3 > download-list.txt
-        ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
+        ncbi-genome-download bacteria -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
             -r !{params.max_retry} !{no_cache}
 
         # Move and uncompress genomes
