@@ -65,6 +65,7 @@ process MERLIN_DIST {
     output:
     tuple val(meta), path("*.txt"), emit: dist
     tuple val(meta), path(query), path("escherichia.*")   , emit: escherichia, optional: true
+    tuple val(meta), path(reads), path("escherichia.*")   , emit: escherichia_fq, optional: true
     tuple val(meta), path(query), path("haemophilus.*")   , emit: haemophilus, optional: true
     tuple val(meta), path(query), path("klebsiella.*")    , emit: klebsiella, optional: true
     tuple val(meta), path(query), path("legionella.*")    , emit: legionella, optional: true
