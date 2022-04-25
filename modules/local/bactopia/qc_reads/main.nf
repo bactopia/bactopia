@@ -41,6 +41,7 @@ process QC_READS {
     xmx = Math.round(task.memory.toBytes()*0.95)
     '''
     mkdir -p results
+    touch results/.!{meta.runtype}
     ERROR=0
     GENOME_SIZE=`head -n 1 !{genome_size}`
     MIN_COVERAGE=$(( !{params.min_coverage}*${GENOME_SIZE} ))

@@ -1,0 +1,55 @@
+name: shigatyper
+description: Shigella serotype from Illumina or Oxford Nanopore reads
+keywords:
+  - fastq
+  - shigella
+  - serotype
+modules:
+  - shigatyper
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false, run_type:'runtype' ]
+  - reads:
+      type: file
+      description: Input Illumina or Nanopore reads in FASTQ format
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: Per-sample results from ShigaTyper
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the ShigaTyper results
+      pattern: "shigatyper.tsv"
+  - hits:
+      type: file
+      description: A merged summary of the agrvate assessement
+      pattern: "*-hits.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  introduction: |
+    The `shigatyper` module uses [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper) to rapidly determine 
+    Shigella serotype using Illumina (single or paired-end) or Oxford Nanopore reads taxonomic.
+  output:
+    tree: |
+
+    add_note: true
+    folders:
+      - name: ShigaTyper
+      description: |
+        Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
+      table: |
+
+  citations:
+    - add to citations.yml

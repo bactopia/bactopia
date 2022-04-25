@@ -68,6 +68,7 @@ if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
+if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
@@ -204,6 +205,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
+    } else if (params.wf == 'shigatyper') {
+        SHIGATYPER(samples)
+        ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
     } else if (params.wf == 'sistr') {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)
