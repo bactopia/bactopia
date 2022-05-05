@@ -90,7 +90,7 @@ process CALL_VARIANTS {
     mv ${REFERENCE_NAME}/!{meta.id}.log ./
 
     # Add GenBank annotations
-    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf
+    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} --output ${REFERENCE_NAME}/!{meta.id}.annotated.vcf
 
     # Get per-base coverage
     grep "^##contig" ${REFERENCE_NAME}/!{meta.id}.vcf > ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
