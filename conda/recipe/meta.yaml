@@ -13,6 +13,7 @@ requirements:
     - python >3.6,<3.10
   run:
     - ariba >=2.14.6
+    - bakta >=1.4
     - blast >=2.11.0
     - cd-hit
     - conda

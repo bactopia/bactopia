@@ -1,5 +1,20 @@
 # Changelog
 
+## v2.1.0 bactopia/bactopia "" - 2022/0?/??
+
+### `Added`
+- `--use_bakta` to replace Prokka with Bakta in main workflow
+- Split Bakta into two processes `download` and `run`
+- added `shigatyper` to Merlin
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `blastX` - blast queries against specific samples
+    - `makeblastdb` - Make blast databases from contigs, genes, and/or proteins
+    - `shigatyper`: Shigella serotype from Illumina or Oxford Nanopore reads
+
+### `Fixed`
+- @nickjhathaway Fixed assembly_level in `bactopia datasets` and auto `call_variants`
+- `bactopia search` now supports ONT reads
+
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 
 ### `Added`
