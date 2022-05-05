@@ -3,6 +3,8 @@ image: nfcore/gitpod:latest
 tasks:
   - name: Install graphviz
     init: pip install graphviz
+  - name: Add conda to shell
+    init: conda init bash
 
 vscode:
   extensions: # based on nf-core.nf-core-extensionpack
