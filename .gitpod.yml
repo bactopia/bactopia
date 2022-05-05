@@ -1,21 +1,27 @@
 image: nfcore/gitpod:latest
 
 tasks:
-  - name: Install graphviz
-    init: pip install graphviz
-  - name: Add conda to shell
-    init: conda init bash
+  - name: Initialize
+    init: |
+      mkdir -p .vscode
+      echo '{"python.pythonPath": "/opt/conda/bin/python"}' > .vscode/settings.json
+      git tag "$(git tag --sort=committerdate | tail -1).dev"
+      eval "$(sudo /opt/conda/bin/python -m conda init --dev bash)"
+      sudo su root -c "/opt/conda/bin/conda install -yq conda-build"
+      pip install graphviz
+    command: |
+      eval "$(sudo /opt/conda/bin/python -m conda init --dev bash)"
 
 vscode:
   extensions: # based on nf-core.nf-core-extensionpack
     - codezombiech.gitignore                 # Language support for .gitignore files
-    # - cssho.vscode-svgviewer                 # SVG viewer
+    - cssho.vscode-svgviewer                 # SVG viewer
     - davidanson.vscode-markdownlint         # Markdown/CommonMark linting and style checking for Visual Studio Code
     - eamodio.gitlens                        # Quickly glimpse into whom, why, and when a line or code block was changed
     - EditorConfig.EditorConfig              # override user/workspace settings with settings found in .editorconfig files
     - Gruntfuggly.todo-tree                  # Display TODO and FIXME in a tree view in the activity bar
     - mechatroner.rainbow-csv                # Highlight columns in csv files in different colors
-    # - nextflow.nextflow                      # Nextflow syntax highlighting
+    - nextflow.nextflow                      # Nextflow syntax highlighting
     - oderwat.indent-rainbow                 # Highlight indentation level
     - streetsidesoftware.code-spell-checker  # Spelling checker for source code
     - anwar.papyrus-pdf                      # PDF preview
