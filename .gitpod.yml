@@ -6,7 +6,7 @@ tasks:
       pip install graphviz
       . /opt/conda/etc/profile.d/conda.sh
       conda activate base
-      mamba create -n bactopia-dev -y -c rpetit3 -c conda-forge -c bioconda bactopia-dev
+      mamba create -n bactopia-dev -y -c rpetit3 -c conda-forge -c bioconda bactopia
       conda activate bactopia-dev
 
 vscode:
