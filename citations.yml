@@ -362,6 +362,13 @@ tools:
     cite: |
       Garrison E, Marth G [Haplotype-based variant detection from short-read sequencing.](https://arxiv.org/abs/1207.3907) arXiv preprint arXiv:1207.3907 [q-bio.GN] (2012)
 
+  gamma:
+    name: GAMMA
+    link: https://github.com/rastanton/GAMMA
+    description: Gene Allele Mutation Microbial Assessment
+    cite: |
+      Stanton RA, Vlachos N, Halpin AL [GAMMA: a tool for the rapid identification, classification, and annotation of translated gene matches from sequencing data.](https://doi.org/10.1093/bioinformatics/btab607) _Bioinformatics_ (2021)
+
   gnu_parallel:
     name: GNU Parallel
     link: https://www.gnu.org/software/parallel/

@@ -8,12 +8,14 @@
 - added `shigatyper` to Merlin
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `blastX` - blast queries against specific samples
+    - `gamma` - Identification, classification, and annotation of translated gene matches
     - `makeblastdb` - Make blast databases from contigs, genes, and/or proteins
     - `shigatyper`: Shigella serotype from Illumina or Oxford Nanopore reads
 
 ### `Fixed`
 - @nickjhathaway Fixed assembly_level in `bactopia datasets` and auto `call_variants`
 - `bactopia search` now supports ONT reads
+- `vcf-annotator` unable to write to `/dev/stdout`
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 

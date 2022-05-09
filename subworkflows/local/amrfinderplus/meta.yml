@@ -96,7 +96,7 @@ docs:
           | amrfinderdb.tar.gz         | A tarball of the `AMRFinder+` database used during analysis |
           | amrfinderplus-genes.tsv    | A merged TSV file with `AMRFinder+` results using nucleotide inputs |
           | amrfinderplus-proteins.tsv | A merged TSV file with `AMRFinder+` results using protein inputs |
-      - name: AgrVATE
+      - name: AMRFinder+
         description: |
           Below is a description of the _per-sample_ results from [AMRFinder+](https://github.com/ncbi/amr).
         table: |

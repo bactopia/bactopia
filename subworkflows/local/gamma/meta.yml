@@ -1,0 +1,96 @@
+name: gamma
+description: Identification, classification, and annotation of translated gene matches
+icon: false
+tags:
+  - antimicrobial resistance
+  - fasta
+  - virulence
+modules:
+  - gamma
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: |
+        An assembly to screen
+  - db:
+      type: file
+      description: |
+        A gene database in FASTA format to screen against
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - gamma:
+      type: file
+      description: GAMMA file with annotated gene matches
+      pattern: "*.gamma"
+  - psl:
+      type: file
+      description: PSL file with all gene matches found
+      pattern: "*.psl"
+  - gff:
+      type: file
+      description: GFF file with the gene matches
+      pattern: "*.gff"
+  - fasta:
+      type: file
+      description: multifasta file of the gene matches
+      pattern: "*.fasta"
+docs:
+  introduction: |
+    The `gamma` module uses [GAMMA](https://github.com/rastanton/GAMMA) to identify, classify, and annotate 
+    translated gene matches from assemblies.
+  output:
+    tree: |
+      gamma
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.fasta
+      │   ├── <SAMPLE_NAME>.gamma
+      │   ├── <SAMPLE_NAME>.gff
+      │   ├── <SAMPLE_NAME>.psl
+      │   └── logs
+      │       └── gamma
+      │           ├── nf-gamma.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── gamma.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | gamma.tsv   | A merged TSV file with `GAMMA` results from all samples |
+      - name: GAMMA
+        description: |
+          Below is a description of the _per-sample_ results from [GAMMA](https://github.com/rastanton/GAMMA).
+        table: |
+          | Extension     | Description |
+          |---------------|-------------|
+          | .fasta        | Annotated gene sequences is FASTA format  |
+          | .gamma        | A TSV file with annotated gene matches |
+          | .gff          | Annotated gene matches is GFF3 format  |
+          | .psl          | A PSL file with BLAT gene alignments   |
+  citations:
+    - gamma

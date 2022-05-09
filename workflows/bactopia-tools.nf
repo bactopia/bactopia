@@ -49,6 +49,7 @@ if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ecty
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
 if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
 if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fastani/main';
+if (params.wf == 'gamma') include { GAMMA } from '../subworkflows/local/gamma/main';
 if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
@@ -149,6 +150,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'fastani') {
         FASTANI(samples, ch_downloads)
         ch_versions = ch_versions.mix(FASTANI.out.versions)
+    } else if (params.wf == 'gamma') {
+        GAMMA(samples)
+        ch_versions = ch_versions.mix(GAMMA.out.versions)
     } else if (params.wf == 'gtdb') {
         GTDB(samples)
         ch_versions = ch_versions.mix(GTDB.out.versions)

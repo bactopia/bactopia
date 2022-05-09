@@ -1,0 +1,8 @@
+- name: shigatyper-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf shigatyper -c nextflow.config --help > shigatyper-help.txt'
+  tags:
+    - bactopia_help
+    - shigatyper
+  files:
+    - path: shigatyper-help.txt
+      contains: ['shigatyper', 'bactopia', 'version', 'dependencies']
