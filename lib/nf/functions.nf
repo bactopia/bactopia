@@ -53,6 +53,9 @@ def get_schemas() {
     // Load profile specific schemas
     if (['aws', 'gcp', 'sge', 'slurm'].contains(workflow.profile)) {
         schemas << "conf/schema/profiles/${workflow.profile}.json"
+    } else if (['arcc'].contains(workflow.profile)) {
+        // Custom config that uses Slurm
+        schemas << "conf/schema/profiles/slurm.json"
     }
 
     schemas << 'conf/schema/generic.json'

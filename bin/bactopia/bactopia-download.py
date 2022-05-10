@@ -54,7 +54,7 @@ BACTOPIA_MODULES = [
 
 BUILT_ALREADY = {
     'conda': {},
-    'singlularity': {}
+    'singularity': {}
 }
 
 

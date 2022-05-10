@@ -100,7 +100,7 @@ else
     # Check if Conda environments need to be built
     PREBUILD=1
     BUILD_TYPE="conda"
-    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]]; then
+    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]] || [[ "$*" == *"arcc"* ]]; then
         BUILD_TYPE="singularity"
     elif  [[ "$*" == *"docker"* ]]; then
         BUILD_TYPE="docker"
