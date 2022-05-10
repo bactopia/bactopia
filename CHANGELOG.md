@@ -6,6 +6,7 @@
 - `--use_bakta` to replace Prokka with Bakta in main workflow
 - Split Bakta into two processes `download` and `run`
 - added `shigatyper` to Merlin
+- custom profile for `arcc`
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `blastX` - blast queries against specific samples
     - `gamma` - Identification, classification, and annotation of translated gene matches
@@ -16,6 +17,7 @@
 - @nickjhathaway Fixed assembly_level in `bactopia datasets` and auto `call_variants`
 - `bactopia search` now supports ONT reads
 - `vcf-annotator` unable to write to `/dev/stdout`
+- typo in `bactopia download` when using singularity
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 
