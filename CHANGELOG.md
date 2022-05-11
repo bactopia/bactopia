@@ -7,6 +7,7 @@
 - Split Bakta into two processes `download` and `run`
 - added `shigatyper` to Merlin
 - custom profile for `arcc`
+- bump `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `blastX` - blast queries against specific samples
     - `gamma` - Identification, classification, and annotation of translated gene matches
@@ -18,6 +19,7 @@
 - `bactopia search` now supports ONT reads
 - `vcf-annotator` unable to write to `/dev/stdout`
 - typo in `bactopia download` when using singularity
+- `--include_genus` with `bactopia datasets` now works with multiple samples
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 

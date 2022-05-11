@@ -1179,10 +1179,6 @@ if __name__ == '__main__':
     if args.include_genus:
         if not num_species:
             logging.error(f'Species (--species) not given, ignoring --include_genus')
-            sys.exit(1)
-        elif num_species > 1:
-            logging.error(f'Only a single species (given {num_species}) can be used with --include_genus')
-            sys.exit(1)
 
     if args.prodigal_tf:
         if not os.path.exists(args.prodigal_tf):

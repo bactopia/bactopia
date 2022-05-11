@@ -115,8 +115,14 @@ else
     done
 
     if [[ "${PREBUILD}" -eq 1 ]]; then
+        BUILD_OPTS=""
+        if [[ "$*" == *"arcc"* ]]; then
+            # Get singularity cache from config
+            BUILD_OPTS=$(grep "singularity_cache =" ${BACTOPIA_NF}/conf/profiles/arcc.config | sed "s/^.* = //;s/'//g;s/^/--singularity_cache /")
+        fi
+
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
-        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" "${@:1}"
+        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
     fi
 
     # Create custom work dir
