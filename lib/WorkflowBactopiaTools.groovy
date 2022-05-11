@@ -60,8 +60,10 @@ class WorkflowBactopiaTools {
             }
         } else if (params.wf == "gtdb") {
             if (params.gtdb) {
-                if (Utils.isLocal(params.gtdb)) {
-                    error += Utils.fileNotFound(params.gtdb, 'gtdb', log)
+                if (!params.download_gtdb) {
+                    if (Utils.isLocal(params.gtdb)) {
+                        error += Utils.fileNotFound(params.gtdb, 'gtdb', log)
+                    }
                 }
             } else {
                 missing_required += "--gtdb"

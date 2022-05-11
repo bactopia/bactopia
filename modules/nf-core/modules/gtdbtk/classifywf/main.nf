@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/fu
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'gtdb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::gtdbtk=1.7.0"
+conda_tools = "bioconda::gtdbtk=2.0.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process GTDBTK_CLASSIFYWF {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gtdbtk:1.7.0--pyhdfd78af_0' :
-        'quay.io/biocontainers/gtdbtk:1.7.0--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/gtdbtk:2.0.0--pyhdfd78af_2' :
+        'quay.io/biocontainers/gtdbtk:2.0.0--pyhdfd78af_2' }"
 
     input:
     tuple val(meta), path(fna, stageAs: 'fna-tmp/*')
