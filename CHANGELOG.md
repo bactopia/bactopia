@@ -7,7 +7,10 @@
 - Split Bakta into two processes `download` and `run`
 - added `shigatyper` to Merlin
 - custom profile for `arcc`
-- bump `mlst` version to 2.22.0
+- `bactopia prepare` error message when nothing found, and `--examples` for example use cases
+- bump versions
+    - `gtdb` version to 2.0.0
+    - `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `blastX` - blast queries against specific samples
     - `gamma` - Identification, classification, and annotation of translated gene matches
