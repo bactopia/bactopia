@@ -242,6 +242,35 @@ def validate_species(species):
     return species_key
 
 
+def validate_user_files(user_file, num_species, param):
+    """Validate user input files."""
+    if not os.path.exists(user_file):
+        logging.error(f'Unable to locate {user_file}, please verify path')
+        sys.exit(1)
+    elif not num_species:
+        logging.error(f'A single species (--species) must be given to use --{param}')
+        sys.exit(1)
+    elif num_species > 1:
+        logging.error(f'Multiple species (n={num_species}) can not be used with --{param}')
+        sys.exit(1)
+    return True
+
+
+def copy_user_files(source, destination):
+    """Copy user files to a new directory."""
+    if os.path.exists(source):
+        if os.path.isdir(source):
+            # Copy all contents in a directory
+            logging.info(f'Copying {source}/* to {destination}/')
+            execute(f'cp {source}/* {destination}/')
+        else:
+            # Copy a single file
+            logging.info(f'Copying {source} to {destination}/')
+            execute(f'cp {source} {destination}/')
+    else:
+        logging.error(f'{source} does not exist, skipping copy to {destination}.')
+
+
 def ariba_datasets():
     """Print a list of datasets available with 'ariba getref'."""
     getref_usage = ' '.join([
@@ -789,7 +818,7 @@ def setup_minmer(outdir, force=False):
                 directory=minmer_dir)
 
 
-def create_summary(outdir, training_set=False):
+def create_summary(outdir, training_set=False, reference=False, mapping=False, genes=False, proteins=False, primers=False):
     """Create a summary of available datasets in JSON format."""
     from collections import OrderedDict
     available_datasets = OrderedDict()
@@ -912,6 +941,22 @@ def create_summary(outdir, training_set=False):
                         execute(f'mkdir -p {blast_dir}', directory=outdir)
                 else:
                     new_species['optional'][optional] = f'{optional_dir}'
+            
+            # Copy over the species specific files
+            if reference:
+                copy_user_files(reference, f'{species_dir}/optional/reference-genomes')
+
+            if mapping:
+                copy_user_files(mapping, f'{species_dir}/optional/mapping-sequences')
+
+            if genes:
+                copy_user_files(genes, f'{species_dir}/optional/blast/genes')
+
+            if primers:
+                copy_user_files(primers, f'{species_dir}/optional/blast/primers')
+
+            if proteins:
+                copy_user_files(proteins, f'{species_dir}/optional/blast/proteins')
 
             available_datasets['species-specific'][species] = new_species
 
@@ -1181,15 +1226,22 @@ if __name__ == '__main__':
             logging.error(f'Species (--species) not given, ignoring --include_genus')
 
     if args.prodigal_tf:
-        if not os.path.exists(args.prodigal_tf):
-            logging.error(f'Unable to locate {args.prodigal_tf}, please verify path')
-            sys.exit(1)
-        elif not num_species:
-            logging.error(f'A single species (--species) must be given to use --prodigal_tf')
-            sys.exit(1)
-        elif num_species > 1:
-            logging.error(f'Only a single species (given {num_species}) can be used with --prodigal_tf')
-            sys.exit(1)
+        validate_user_files(args.prodigal_tf, num_species, 'prodigal_tf')
+
+    if args.reference:
+        validate_user_files(args.reference, num_species, 'reference')
+
+    if args.mapping:
+        validate_user_files(args.mapping, num_species, 'mapping')
+
+    if args.genes:
+        validate_user_files(args.genes, num_species, 'genes')
+
+    if args.proteins:
+        validate_user_files(args.proteins, num_species, 'proteins')
+
+    if args.primers:
+        validate_user_files(args.primers, num_species, 'primers')
 
     if args.accessions:
         if not os.path.exists(args.accessions):
@@ -1251,4 +1303,5 @@ if __name__ == '__main__':
     else:
         logging.info('No requests for an species, skipping')
 
-    create_summary(args.outdir, training_set=args.prodigal_tf)
+    create_summary(args.outdir, training_set=args.prodigal_tf, reference=args.reference,
+                mapping=args.mapping, genes=args.genes, proteins=args.proteins, primers=args.primers)

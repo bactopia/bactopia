@@ -23,6 +23,9 @@
 - `vcf-annotator` unable to write to `/dev/stdout`
 - typo in `bactopia download` when using singularity
 - `--include_genus` with `bactopia datasets` now works with multiple samples
+- Parameters to copy optional species-specific files in `bactopia datasets`
+- Don't use `AUTO` for IQ-TREE cpus
+- `gtdb` download working again
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 

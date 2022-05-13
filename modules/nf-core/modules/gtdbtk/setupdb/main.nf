@@ -17,15 +17,15 @@ process GTDBTK_SETUPDB {
         'quay.io/biocontainers/gtdbtk:2.0.0--pyhdfd78af_2' }"
 
     output:
-    path("gtdb/*")     , emit: db
+    path("results/*")  , emit: db
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
 
     script:
     """
-    export GTDBTK_DATA_PATH="./gtdb"
-    mkdir ./gtdb
+    export GTDBTK_DATA_PATH="./results"
+    mkdir ./results
     if [ "${params.download_gtdb}" == "true" ]; then
         download-db.sh
     else

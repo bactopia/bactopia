@@ -36,7 +36,7 @@ process IQTREE {
     iqtree \\
         $options.args \\
         -s $alignment \\
-        -nt AUTO \\
+        -nt $task.cpus \\
         -ntmax $task.cpus \\
         -pre $prefix
 
