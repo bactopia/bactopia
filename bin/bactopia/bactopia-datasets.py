@@ -780,7 +780,7 @@ def setup_amr(outdir, force=False):
             logging.info(f'AMRFinder+ database saved to {amr_dir}/{prefix}.tar.gz')
 
 
-def setup_minmer(outdir, force=False):
+def setup_minmer(outdir, force=False, skip_ssl_check=False):
     """Download precomputed Refseq (Mash) and Genbank (Sourmash) datasets."""
     datasets = {
         # Last updated: 2019-03-04
@@ -791,7 +791,7 @@ def setup_minmer(outdir, force=False):
             'https://gembox.cbcb.umd.edu/mash/refseq.genomes.k21s1000.msh'
         )
     }
-
+    opts = "--no-check-certificate" if skip_ssl_check else ""
     minmer_dir = f'{outdir}/minmer'
     update_timestamp = False
     if force:
@@ -810,7 +810,7 @@ def setup_minmer(outdir, force=False):
                 logging.info(f'{filepath} exists, skipping')
                 continue
 
-        execute(f'wget --quiet -O {filename} {url}', directory=minmer_dir)
+        execute(f'wget {opts} --quiet -O {filename} {url}', directory=minmer_dir)
 
     # Finish up
     if update_timestamp or not os.path.exists(f'{minmer_dir}/minmer-updated.txt'):
@@ -1184,6 +1184,8 @@ if __name__ == '__main__':
                         help='Verify dependencies are installed.')
 
     group9 = parser.add_argument_group('Adjust Verbosity')
+    group9.add_argument('--skip_ssl_check', action='store_true',
+                        help="wget will run with --no-check-certificate to skip SSL checks")
     group9.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
     group9.add_argument('--verbose', action='store_true',
@@ -1268,7 +1270,7 @@ if __name__ == '__main__':
 
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer datasets')
-        setup_minmer(args.outdir, force=(args.force or args.force_minmer))
+        setup_minmer(args.outdir, force=(args.force or args.force_minmer), skip_ssl_check=args.no_ssl_checks)
     else:
         logging.info('Skipping minmer dataset step')
 
