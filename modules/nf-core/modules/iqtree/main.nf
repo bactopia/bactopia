@@ -10,6 +10,7 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process IQTREE {
     tag "$prefix"
     label 'process_medium'
+    label 'process_long'
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
