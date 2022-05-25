@@ -32,8 +32,8 @@ process ANTIMICROBIAL_RESISTANCE {
     organism_gene = ""
     organism_protein = ""
     if (params.amr_organism) {
-        organism_gene = "-O ${params.amr_organism} --point_mut_all ${meta.id}-gene-point-mutations.txt"
-        organism_protein = "-O ${params.amr_organism} --point_mut_all ${meta.id}-protein-point-mutations.txt"
+        organism_gene = "-O ${params.amr_organism} --mutation_all ${meta.id}-gene-point-mutations.txt"
+        organism_protein = "-O ${params.amr_organism} --mutation_all ${meta.id}-protein-point-mutations.txt"
     }
     '''
     if [[ !{params.skip_compression} == "false" ]]; then
