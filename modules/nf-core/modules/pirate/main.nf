@@ -9,7 +9,8 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 
 process PIRATE {
     tag "$meta.id"
-    label 'process_medium'
+    label 'process_high'
+    label 'process_long'
     publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
