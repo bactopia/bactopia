@@ -292,7 +292,6 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: ee654023989cfeffb24f96c754ef16c7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
-      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa.gz
@@ -359,7 +358,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: ee654023989cfeffb24f96c754ef16c7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
-      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+      contains: ['LOCUS', 'COMMENT', 'Portiera']
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa
@@ -430,7 +429,6 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: caf3b4fbf378e09d03d31d0a99e401f4
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
-      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa.gz
@@ -497,7 +495,7 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
       md5sum: caf3b4fbf378e09d03d31d0a99e401f4
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
-      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+      contains: ['LOCUS', 'COMMENT', 'Portiera']
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa
