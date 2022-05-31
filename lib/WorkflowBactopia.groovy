@@ -30,6 +30,7 @@ class WorkflowBactopia {
             run_type = "hybrid"
         } else if  (params.R1 && params.R2 && params.SE) {
             log.error "Cannot use --R1, --R2, and --SE together, unless --hybrid is used."
+            error += 1
         } else if  (params.R1 && params.R2 && params.sample) {
             if (Utils.isLocal(params.R1)) {
                 error += Utils.fileNotGzipped(params.R1, 'R1', log)
@@ -58,6 +59,11 @@ class WorkflowBactopia {
         } else {
             log.error "One or more required parameters are missing, please check and try again."
             log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)
+            error += 1
+        }
+
+        if (params.check_samples && !params.samples) {
+            log.error "To use --check_samples, you must also provide a FOFN to check using --samples."
             error += 1
         }
 

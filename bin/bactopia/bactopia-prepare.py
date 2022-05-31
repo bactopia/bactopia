@@ -41,7 +41,7 @@ def search_path(path, pattern, recursive=False):
 def get_path(fastq, abspath, prefix):
     fastq_path = str(fastq.absolute())
     if prefix:
-        return fastq_path.replace(abspath, prefix.rstrip("/"))
+        return fastq_path.replace(abspath, prefix).replace("///", "//")
     return fastq_path
 
 def print_examples():

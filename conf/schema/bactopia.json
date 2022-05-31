@@ -74,7 +74,13 @@
                     "help": "Error-free Illumina reads will be simulated for down stream processing",
                     "fa_icon": "fas fa-file-archive",
                     "header": "### For Processing an Assembly\n  **Note: Assemblies will have error free Illumina reads simulated for processing.**"
-                }
+                },
+                "check_samples": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Validate the input FOFN provided by --samples",
+                    "fa_icon": "fas fa-level-up"
+                },
             }
         },
         "dataset_parameters": {

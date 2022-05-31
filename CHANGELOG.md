@@ -9,8 +9,9 @@
 - custom profile for `arcc`
 - `bactopia prepare` error message when nothing found, and `--examples` for example use cases
 - renamed `--fastqs` to `--samples` to better reflect its usage (fastqs and assemblies)
+- add `--check_samples` to validate user generated FOFNs
 - bump versions
-    - `gtdb` version to 2.0.0
+    - `gtdb` version to 2.1.0
     - `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `gamma` - Identification, classification, and annotation of translated gene matches

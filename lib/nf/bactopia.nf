@@ -12,6 +12,7 @@ def check_input_fofn() {
     error = false
     has_valid_header = false
     line = 1
+    log.info "You provided '--check_samples', beginning to check ${params.samples}..."
     file(params.samples).splitEachLine('\t') { cols ->
         if (line == 1) {
             if (cols[0] == 'sample' && cols[1] == 'runtype' && cols[2] == 'r1' && cols[3] == 'r2' && cols[4] == 'extra') {
@@ -33,29 +34,44 @@ def check_input_fofn() {
             if (cols[2]) {
                 count = 0
                 cols[2].split(',').each{ fq ->
-                    if (!file(fq).exists()) {
-                        log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
-                        error = true
+                    if (fq.startsWith('gs:') || fq.startsWith('s3:') || fq.startsWith('az:') || fq.startsWith('https:')) {
+                        log.warn "LINE " + line + ':WARN: Unable to verify existence of remote file: ' + fq
+                    } else {
+                        if (!file(fq).exists()) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
+                            error = true
+                        }
                     }
+
                     count = count + 1
                 }
                 if (count > 1) { 
                     USING_MERGE = true
                 }
             }
+
             if (cols[3]) {
                 cols[3].split(',').each{ fq ->
-                    if (!file(fq).exists()) {
-                        log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
-                        error = true
+                    if (fq.startsWith('gs:') || fq.startsWith('s3:') || fq.startsWith('az:') || fq.startsWith('https:')) {
+                        log.warn "LINE " + line + ':WARN: Unable to verify existence of remote file: ' + fq
+                    } else {
+                        if (!file(fq).exists()) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + fq + ' exists, and try again'
+                            error = true
+                        }
                     }
                 }
             }
+
             if (cols[4]) {
-                if (!file(cols[4]).exists()) {
-                    log.error "LINE " + line + ':ERROR: Please verify ' + cols[4]+ ' exists, and try again'
-                    error = true
-                }
+                    if (cols[4].startsWith('gs:') || cols[4].startsWith('s3:') || cols[4].startsWith('az:') || cols[4].startsWith('https:')) {
+                        log.warn "LINE " + line + ':WARN: Unable to verify existence of remote file: ' + cols[4]
+                    } else {
+                        if (!file(cols[4]).exists()) {
+                            log.error "LINE " + line + ':ERROR: Please verify ' + cols[4]+ ' exists, and try again'
+                            error = true
+                        }
+                    }
             }
         }
         line = line + 1
@@ -73,19 +89,23 @@ def check_input_fofn() {
         log.error 'The header line (line 1) does not follow expected structure. (sample, runtype, r1, r2, extra)'
     }
 
-    if (error) {
-        log.error 'Verify sample names are unique and/or FASTA/FASTQ paths are correct'
-        log.error 'See "--example_samples" for an example'
-        log.error 'Exiting'
-        exit 1
-    }
-
     if (USING_MERGE) {
         log.info "\n"
         log.warn "One or more samples consists of multiple read sets that will be merged. "
         log.warn "This is an experimental feature, please use with caution."
         log.info "\n"
     }
+
+    if (error) {
+        log.error 'Verify sample names are unique and/or FASTA/FASTQ paths are correct'
+        log.error 'See "bactopia prepare . --examples" for multiple example FOFNs'
+        log.error 'Exiting'
+        exit 1
+    } else {
+        log.info "Everything looked great in ${params.samples}! Feel free to start processing your genomes!"
+        log.info 'Exiting'
+    }
+    exit 0
 }
 
 def handle_multiple_fqs(read_set) {
