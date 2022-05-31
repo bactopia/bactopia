@@ -27,7 +27,7 @@ process GTDBTK_SETUPDB {
     export GTDBTK_DATA_PATH="./results"
     mkdir ./results
     if [ "${params.download_gtdb}" == "true" ]; then
-        download-db.sh
+        download-db.sh ./results
     else
         echo "skipping GTDB database download"
     fi
