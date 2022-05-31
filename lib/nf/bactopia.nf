@@ -5,14 +5,14 @@ import groovy.json.JsonSlurper
     Secondary input validation
 ========================================================================================
 */
-def check_input_fastqs() {
-    /* Read through --fastqs and verify each input exists. */
+def check_input_fofn() {
+    /* Read through --samples and verify each input exists. */
     USING_MERGE = false
     samples = [:]
     error = false
     has_valid_header = false
     line = 1
-    file(params.fastqs).splitEachLine('\t') { cols ->
+    file(params.samples).splitEachLine('\t') { cols ->
         if (line == 1) {
             if (cols[0] == 'sample' && cols[1] == 'runtype' && cols[2] == 'r1' && cols[3] == 'r2' && cols[4] == 'extra') {
                 has_valid_header = true
@@ -75,7 +75,7 @@ def check_input_fastqs() {
 
     if (error) {
         log.error 'Verify sample names are unique and/or FASTA/FASTQ paths are correct'
-        log.error 'See "--example_fastqs" for an example'
+        log.error 'See "--example_samples" for an example'
         log.error 'Exiting'
         exit 1
     }
@@ -97,7 +97,7 @@ def handle_multiple_fqs(read_set) {
     return fqs
 }
 
-def process_fastqs(line, genome_size) {
+def process_fofn(line, genome_size) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
     meta.id = line.sample
@@ -155,10 +155,10 @@ def process_accessions(accession, genome_size, is_single_accession) {
 }
 
 def create_input_channel(runtype, genome_size) {
-    if (runtype == "fastqs") {
-        return Channel.fromPath( params.fastqs )
+    if (runtype == "is_fofn") {
+        return Channel.fromPath( params.samples )
             .splitCsv(header: true, strip: true, sep: '\t')
-            .map { row -> process_fastqs(row, genome_size) }
+            .map { row -> process_fofn(row, genome_size) }
     } else if (runtype == "is_accessions") {
         return Channel.fromPath( params.accessions )
             .splitText()

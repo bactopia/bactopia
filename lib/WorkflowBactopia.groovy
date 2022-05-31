@@ -12,11 +12,11 @@ class WorkflowBactopia {
         def Integer error = 0
         def String run_type = ""
 
-        if (params.fastqs) {
-            if (Utils.isLocal(params.fastqs)) {
-                error += Utils.fileNotFound(params.fastqs, 'fastqs', log)
+        if (params.samples) {
+            if (Utils.isLocal(params.samples)) {
+                error += Utils.fileNotFound(params.samples, 'samples', log)
             }
-            run_type = "fastqs"
+            run_type = "is_fofn"
         } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
             if (Utils.isLocal(params.R1)) {
                 error += Utils.fileNotGzipped(params.R1, 'R1', log)

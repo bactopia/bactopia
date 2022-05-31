@@ -12,9 +12,9 @@
             "description": "Define where the pipeline should find input data and save output data.",
             "help_text": "",
             "properties": {
-                "fastqs": {
+                "samples": {
                     "type": "string",
-                    "description": "A FOFN with sample names and paths to FASTQ/FASTAs to process\n",
+                    "description": "A FOFN (via bactopia prepare) with sample names and paths to FASTQ/FASTAs to process\n",
                     "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
                     "fa_icon": "fas fa-file-alt",
                     "header": "### For Procesessing Multiple Samples"
@@ -22,20 +22,20 @@
                 "R1": {
                     "type": "string",
                     "description": "First set of compressed (gzip) paired-end FASTQ reads (requires --R2 and --sample)",
-                    "help": "Requires `--R2` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "help": "Requires `--R2` and `--sample`. Cannot be used with `--samples` or `--SE` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive",
                     "header": "### For Processing A Single Sample"
                 },
                 "R2": {
                     "type": "string",
                     "description": "Second set of compressed (gzip) paired-end FASTQ reads (requires --R1 and --sample)",
-                    "help": "Requires `--R1` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "help": "Requires `--R1` and `--sample`. Cannot be used with `--samples` or `--SE` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
                 "SE": {
                     "type": "string",
                     "description": "Compressed (gzip) single-end FASTQ reads  (requires --sample)",
-                    "help": "Requires `--sample`. Cannot be used with `--fastqs` or `--R1|--R2` (unless `--hybrid` used).",
+                    "help": "Requires `--sample`. Cannot be used with `--samples` or `--R1|--R2` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
                 "ont": {

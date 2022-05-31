@@ -8,13 +8,12 @@
 - added `shigatyper` to Merlin
 - custom profile for `arcc`
 - `bactopia prepare` error message when nothing found, and `--examples` for example use cases
+- renamed `--fastqs` to `--samples` to better reflect its usage (fastqs and assemblies)
 - bump versions
     - `gtdb` version to 2.0.0
     - `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
-    - `blastX` - blast queries against specific samples
     - `gamma` - Identification, classification, and annotation of translated gene matches
-    - `makeblastdb` - Make blast databases from contigs, genes, and/or proteins
     - `shigatyper`: Shigella serotype from Illumina or Oxford Nanopore reads
 
 ### `Fixed`
