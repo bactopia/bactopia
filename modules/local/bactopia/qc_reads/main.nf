@@ -251,7 +251,7 @@ process QC_READS {
             fi
 
             # Check paired-end reads have same read counts
-            OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion}"
+            OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion} --runtype !{meta.runtype}"
             if [ -f  "results/!{meta.id}_R2.fastq.gz" ]; then
                 # Paired-end
                 gzip -cd results/!{meta.id}_R1.fastq.gz | fastq-scan > r1.json

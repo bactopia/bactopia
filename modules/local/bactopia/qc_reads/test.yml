@@ -222,9 +222,9 @@
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: 4af6dab2f37ad56d77f5bd5d998bc4d0
     - path: pytest/output/output-low-read-count-error.txt
-      md5sum: 19c7e4e4f08de5030a3764227a312b28
+      md5sum: 028026208ef6d981e6a5bb1731ca05af
     - path: pytest/output/output-low-sequence-depth-error.txt
-      md5sum: 0caecb549ac592c665f30f99cdfbae34
+      md5sum: 060c7078399cb79a531f0cf963c01bab
     - path: pytest/output/quality-control/output_R1.error-fastq.gz
       md5sum: 061b9f9c781ef83434a31c3376787b01
     - path: pytest/output/quality-control/output_R2.error-fastq.gz
@@ -278,9 +278,9 @@
     - path: pytest/output/logs/qc_reads/versions.yml
       md5sum: c3926f1667b47435a80db7c784efd64a
     - path: pytest/output/output-low-read-count-error.txt
-      md5sum: 730a825c835f4e0ee7964d48805b33e7
+      md5sum: f6404ba61ab4d130d51b5a47b4e0c134
     - path: pytest/output/output-low-sequence-depth-error.txt
-      md5sum: b634e0b95079673ff5ddc2f52ad7697e
+      md5sum: 5d00ef65ae4156ef93be04f76bb78f82
     - path: pytest/output/quality-control/output.error-fastq.gz
       md5sum: df39deff28b3fec68817a5cb8591ca51
     - path: pytest/output/quality-control/summary/output-final.json

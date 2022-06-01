@@ -27,6 +27,7 @@
 - Don't use `AUTO` for IQ-TREE cpus
 - `gtdb` download working again
 - empty FASTQs after adapter and phix removal
+- low read count error for ONT samples
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 

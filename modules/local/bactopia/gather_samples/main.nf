@@ -164,7 +164,7 @@ process GATHER_SAMPLES {
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         ERROR=0
         # Check paired-end reads have same read counts
-        OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion}"
+        OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion} --runtype !{runtype}"
         if [ -f  "fastqs/!{meta.id}_R2.fastq.gz" ]; then
             # Paired-end
             gzip -cd fastqs/!{meta.id}_R1.fastq.gz | fastq-scan > r1.json
