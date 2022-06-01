@@ -21,7 +21,7 @@
     - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/versions.yml
-      md5sum: e5ff0626da4b86a24710a82de9467c40
+      md5sum: f1dc02e2a3b44937bb515310a36e5828
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.err

@@ -28,9 +28,7 @@
     - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.run
