@@ -26,6 +26,7 @@
 - Parameters to copy optional species-specific files in `bactopia datasets`
 - Don't use `AUTO` for IQ-TREE cpus
 - `gtdb` download working again
+- empty FASTQs after adapter and phix removal
 
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 
