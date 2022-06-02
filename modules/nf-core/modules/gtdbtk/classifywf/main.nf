@@ -15,8 +15,8 @@ process GTDBTK_CLASSIFYWF {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gtdbtk:2.1.0--pyhdfd78af_4' :
-        'quay.io/biocontainers/gtdbtk:2.1.0--pyhdfd78af_4' }"
+        'https://depot.galaxyproject.org/singularity/gtdbtk:2.1.0--pyhdfd78af_5' :
+        'quay.io/biocontainers/gtdbtk:2.1.0--pyhdfd78af_5' }"
 
     input:
     tuple val(meta), path(fna, stageAs: 'fna-tmp/*')
