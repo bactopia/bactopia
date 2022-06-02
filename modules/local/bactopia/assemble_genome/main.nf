@@ -51,12 +51,14 @@ process ASSEMBLE_GENOME {
     // Dragonflye
     nopolish = params.no_polish ? "--nopolish" : ""
     medaka_model = params.medaka_model ? "--model ${params.medaka_model}" : ""
+    pilon_rounds = params.pilon_rounds ? "--pilon ${params.pilon_rounds}" : ""
+    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]} --polypolish ${params.polypolish_rounds} ${pilon_rounds}" : "--reads ${fq[0]}"
     dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish}"
 
-    // Merge Shovill/Dragonfly opts
-    assembler_wf = meta.runtype == "ont" ? "dragonflye" : "shovill"
-    assembler_mode = meta.runtype == "ont" ? "dragonflye --reads ${fq[0]}" : shovill_mode
-    assemnber_opts = meta.runtype == "ont" ? dragonflye_opts : shovill_opts
+    // Merge Shovill/Dragonflye opts
+    assembler_wf = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye" : "shovill"
+    assembler_mode = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye ${dragonflye_fastq}" : shovill_mode
+    assemnber_opts = meta.runtype == "ont" || meta.runtype == "short_polish" ? dragonflye_opts : shovill_opts
 
     // Assembly inputs
     use_original_assembly = null

@@ -173,6 +173,20 @@
                     "hidden": true,
                     "description": "If reads were simulated, they will be used to create a new assembly.",
                     "fa_icon": "fas fa-redo"
+                },
+                "polipolish_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Polypolish for short read polishing",
+                    "default": 1,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "pilon_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Pilon for short read polishing",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 }
             }
         }

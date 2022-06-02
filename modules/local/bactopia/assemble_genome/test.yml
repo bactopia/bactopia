@@ -541,5 +541,54 @@
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
       contains: ['raven', 'END_VERSIONS']
     - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
     - path: pytest/output/logs/assemble_genome/versions.yml
       md5sum: 9bf555133158d20a0b1b447f06377d02
+
+- name: assemble_genome-short_polish
+  command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_short_polish --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assemble_genome
+    - assemble_genome_short_polish
+  files:
+    - path: pytest/bactopia/nf-reports/bactopia-dag.dot
+      md5sum: e8afc8259930b4fd06515ab0ffeecff7
+    - path: pytest/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: pytest/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: pytest/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: pytest/output/assembly/flye-unpolished.fasta.gz
+    - path: pytest/output/assembly/flye-unpolished.gfa.gz
+    - path: pytest/output/assembly/output.fna.gz
+    - path: pytest/output/assembly/output.json
+      contains: ['fasta', 'contig']
+    - path: pytest/output/blast/blastdb/output.ndb
+    - path: pytest/output/blast/blastdb/output.nhr
+    - path: pytest/output/blast/blastdb/output.nin
+    - path: pytest/output/blast/blastdb/output.not
+    - path: pytest/output/blast/blastdb/output.nsq
+    - path: pytest/output/blast/blastdb/output.ntf
+    - path: pytest/output/blast/blastdb/output.nto
+    - path: pytest/output/logs/assemble_genome/dragonflye.log
+      contains: ["dragonflye", "Polypolish"]
+    - path: pytest/output/logs/assemble_genome/flye.log
+      contains: ["seq_name"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.err
+      contains: ["dragonflye", "Polypolish"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.log
+      contains: ["Building a new DB", "Adding", "removed", "dragonflye", "flye", "polypolish"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.out
+      contains: ["Building a new DB", "Adding", "removed","flye"]
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.sh
+      contains: ['polypolish', 'END_VERSIONS']
+    - path: pytest/output/logs/assemble_genome/nf-assemble_genome.trace
+      contains: ['nextflow.trace']
+    - path: pytest/output/logs/assemble_genome/versions.yml
+      md5sum: 278735dbc8d330805128614289bd8235

@@ -50,6 +50,12 @@
                     "description": "Treat `--SE` as long reads for hybrid assembly.  (requires --R1, --R2, --SE and --sample)",
                     "fa_icon": "fas fa-level-up"
                 },
+                "short_polish": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Treat `--SE` as long reads for long-read assembly and short read polishing.  (requires --R1, --R2, --SE and --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
                 "sample": {
                     "type": "string",
                     "description": "Sample name to use for the input sequences\n",

@@ -10,6 +10,7 @@
 - `bactopia prepare` error message when nothing found, and `--examples` for example use cases
 - renamed `--fastqs` to `--samples` to better reflect its usage (fastqs and assemblies)
 - add `--check_samples` to validate user generated FOFNs
+- `--short_polish` for short read polishing for long-read assemblies
 - bump versions
     - `gtdb` version to 2.1.0
     - `mlst` version to 2.22.0

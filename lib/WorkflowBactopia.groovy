@@ -17,6 +17,17 @@ class WorkflowBactopia {
                 error += Utils.fileNotFound(params.samples, 'samples', log)
             }
             run_type = "is_fofn"
+        } else if  (params.R1 && params.R2 && params.SE && params.short_polish && params.sample) {
+            if (Utils.isLocal(params.R1)) {
+                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+            }
+            if (Utils.isLocal(params.R2)) {
+                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            }
+            if (Utils.isLocal(params.SE)) {
+                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            }
+            run_type = "short_polish"
         } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
             if (Utils.isLocal(params.R1)) {
                 error += Utils.fileNotGzipped(params.R1, 'R1', log)
