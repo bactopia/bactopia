@@ -12,6 +12,7 @@
 - add `--check_samples` to validate user generated FOFNs
 - `--short_polish` for short read polishing for long-read assemblies
 - bump versions
+    - `amrfinder+` version to 3.10.30
     - `gtdb` version to 2.1.0
     - `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
