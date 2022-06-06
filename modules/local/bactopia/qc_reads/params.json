@@ -169,6 +169,18 @@
                         "t"
                     ]
                 },
+                "ain": {
+                    "type": "string",
+                    "default": "f",
+                    "description": "When detecting pair names, allow identical names",
+                    "help": "Choices are: 'f' - requires /1 and /2 or 1: and 2:",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
                 "qout": {
                     "type": "string",
                     "default": "33",

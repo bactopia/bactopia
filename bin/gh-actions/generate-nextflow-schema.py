@@ -21,7 +21,6 @@ JSON_SCHEMAS = [
     "modules/local/bactopia/antimicrobial_resistance/params.json",
     "modules/local/bactopia/sequence_type/params.json",
     "modules/local/bactopia/blast/params.json",
-    "modules/local/bactopia/ariba_analysis/params.json",
     "conf/schema/generic.json"
 ]
 

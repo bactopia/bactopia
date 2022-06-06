@@ -43,6 +43,7 @@ if (params.containsKey('accession')) {
 if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/abricate/main';
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
+if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -132,6 +133,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'amrfinderplus') {
         AMRFINDERPLUS(samples)
         ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
+    } else if (params.wf == 'ariba') {
+        ARIBA(samples)
+        ch_versions = ch_versions.mix(ARIBA.out.versions)
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)

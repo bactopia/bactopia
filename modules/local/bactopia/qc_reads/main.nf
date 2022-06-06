@@ -32,7 +32,7 @@ process QC_READS {
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapters = params.adapters ? path(params.adapters) : 'adapters'
     phix = params.phix ? path(params.phix) : 'phix'
-    adapter_opts = meta.single_end ? "" : "in2=${fq[1]} out2=adapter-r2.fq"
+    adapter_opts = meta.single_end ? "" : "in2=repair-r2.fq out2=adapter-r2.fq"
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
     reformat_opts = meta.single_end ? "" : "in2=phix-r2.cor.fq out2=subsample-r2.fq"
@@ -70,95 +70,118 @@ process QC_READS {
                   --input adapter-r1.fq 1> filt-r1.fq
         else
             # Illumina Reads
-            # Remove Adapters
-            bbduk.sh -Xmx!{xmx} \
-                in=!{fq[0]} out=adapter-r1.fq !{adapter_opts} \
-                ref=!{adapters} \
-                k=!{params.adapter_k} \
-                ktrim=!{params.ktrim} \
-                mink=!{params.mink} \
-                hdist=!{params.hdist} \
-                tpe=!{params.tpe} \
-                tbo=!{params.tbo} \
-                threads=!{task.cpus} \
-                ftm=!{params.ftm} \
-                !{qin} ordered=t !{params.bbduk_opts}
 
-            # Make sure adapter-r1.fq not empty
-            if [ -f adapter-r1.fq ]; then
-                if [ -s adapter-r1.fq ]; then
-                    # Not empty, let's remove PhiX
-                    bbduk.sh -Xmx!{xmx} \
-                        in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
-                        ref=!{phix} \
-                        k=!{params.phix_k} \
-                        hdist=!{params.hdist} \
-                        tpe=!{params.tpe} \
-                        tbo=!{params.tbo} \
-                        qtrim=!{params.qtrim} \
-                        trimq=!{params.trimq} \
-                        minlength=!{params.minlength} \
-                        minavgquality=!{params.maq} \
-                        !{qin} qout=!{params.qout} \
-                        tossjunk=!{params.tossjunk} \
-                        threads=!{task.cpus} \
-                        ordered=t !{params.bbduk_opts}
-                else 
+            # Validate paired-end reads if necessary
+            if [ "!{meta.single_end}" == "false" ]; then
+                # Make sure paired-end reads have matching IDs
+                repair.sh \
+                    in=!{fq[0]} \
+                    in2=!{fq[1]} \
+                    out=repair-r1.fq \
+                    out2=repair-r2.fq \
+                    outs=repair-singles.fq \
+                    ain=!{params.ain}
+
+                if [ ! -s repair-r1.fq ]; then
+                    ERROR=1
+                    echo "After validating read pairs, !{meta.id} FASTQs are empty. Please check the input FASTQs.
+                        Further analysis is discontinued." | \
+                    sed 's/^\\s*//' >> !{meta.id}-paired-match-error.txt
+                fi
+            else
+                ln -s !{fq[0]} repair-r1.fq 
+            fi
+
+            if [ "${ERROR}" -eq "0" ]; then
+                # Remove Adapters            
+                bbduk.sh -Xmx!{xmx} \
+                    in=repair-r1.fq out=adapter-r1.fq !{adapter_opts} \
+                    ref=!{adapters} \
+                    k=!{params.adapter_k} \
+                    ktrim=!{params.ktrim} \
+                    mink=!{params.mink} \
+                    hdist=!{params.hdist} \
+                    tpe=!{params.tpe} \
+                    tbo=!{params.tbo} \
+                    threads=!{task.cpus} \
+                    ftm=!{params.ftm} \
+                    !{qin} ordered=t !{params.bbduk_opts}
+
+                if [ ! -s adapter-r1.fq ]; then
                     ERROR=1
                     echo "After adapter removal, !{meta.id} FASTQs are empty. Please check the input FASTQs.
                         Further analysis is discontinued." | \
                     sed 's/^\\s*//' >> !{meta.id}-adapter-qc-error.txt
                 fi
             fi
+
+            if [ "${ERROR}" -eq "0" ]; then
+                # Remove PhiX
+                bbduk.sh -Xmx!{xmx} \
+                    in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
+                    ref=!{phix} \
+                    k=!{params.phix_k} \
+                    hdist=!{params.hdist} \
+                    tpe=!{params.tpe} \
+                    tbo=!{params.tbo} \
+                    qtrim=!{params.qtrim} \
+                    trimq=!{params.trimq} \
+                    minlength=!{params.minlength} \
+                    minavgquality=!{params.maq} \
+                    !{qin} qout=!{params.qout} \
+                    tossjunk=!{params.tossjunk} \
+                    threads=!{task.cpus} \
+                    ordered=t !{params.bbduk_opts}
+
+                if [ ! -s phix-r1.fq ]; then
+                    ERROR=1
+                    echo "After PhiX removal, !{meta.id} FASTQs are empty. Please check the input FASTQs.
+                        Further analysis is discontinued." | \
+                    sed 's/^\\s*//' >> !{meta.id}-phix-qc-error.txt
+                fi
+            fi
         fi
 
         # Error Correction
-        if [[ "!{meta.runtype}" == "ont" ]]; then
-            echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
-        else
-            if [ "!{params.skip_error_correction}" == "false" ]; then
-                # Make sure adapter-r1.fq not empty
-                if [ -f phix-r1.fq ]; then
-                    if [ -s phix-r1.fq ]; then
-                        # Not empty, let's correct errors
-                        lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
-                    else 
-                        ERROR=1
-                        echo "After PhiX removal, !{meta.id} FASTQs are empty. Please check the input FASTQs.
-                            Further analysis is discontinued." | \
-                        sed 's/^\\s*//' >> !{meta.id}-phix-qc-error.txt
-                    fi
-                fi
+        if [ "${ERROR}" -eq "0" ]; then
+            if [[ "!{meta.runtype}" == "ont" ]]; then
+                echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
             else
-                echo "Skipping error correction"
-                ln -s phix-r1.fq phix-r1.cor.fq
-                if [ "!{meta.single_end}" == "false" ]; then
-                    ln -s phix-r2.fq phix-r2.cor.fq
+                if [ "!{params.skip_error_correction}" == "false" ]; then
+                    lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
+                else
+                    echo "Skipping error correction"
+                    ln -s phix-r1.fq phix-r1.cor.fq
+                    if [ "!{meta.single_end}" == "false" ]; then
+                        ln -s phix-r2.fq phix-r2.cor.fq
+                    fi
                 fi
             fi
         fi
 
         # Reduce Coverage
-        if (( ${TOTAL_BP} > 0 )); then
-            if [[ "!{meta.runtype}" == "ont" ]]; then
-                rasusa -i filt-r1.fq \
-                       -c !{params.coverage} \
-                       -g ${GENOME_SIZE} \
-                       -s !{params.sampleseed} 1> subsample-r1.fq
-            else
-                if [ -f phix-r1.cor.fq ]; then
-                    reformat.sh -Xmx!{xmx} \
-                        in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
-                        samplebasestarget=${TOTAL_BP} \
-                        sampleseed=!{params.sampleseed} \
-                        overwrite=t
+        if [ "${ERROR}" -eq "0" ]; then
+            if (( ${TOTAL_BP} > 0 )); then
+                if [[ "!{meta.runtype}" == "ont" ]]; then
+                    rasusa -i filt-r1.fq \
+                        -c !{params.coverage} \
+                        -g ${GENOME_SIZE} \
+                        -s !{params.sampleseed} 1> subsample-r1.fq
+                else
+                    if [ -f phix-r1.cor.fq ]; then
+                        reformat.sh -Xmx!{xmx} \
+                            in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
+                            samplebasestarget=${TOTAL_BP} \
+                            sampleseed=!{params.sampleseed} \
+                            overwrite=t
+                    fi
                 fi
-            fi
-        else
-            echo "Skipping coverage reduction"
-            ln -s phix-r1.cor.fq subsample-r1.fq
-            if [ "!{meta.single_end}" == "false" ]; then
-                ln -s phix-r2.cor.fq subsample-r2.fq
+            else
+                echo "Skipping coverage reduction"
+                ln -s phix-r1.cor.fq subsample-r1.fq
+                if [ "!{meta.single_end}" == "false" ]; then
+                    ln -s phix-r2.cor.fq subsample-r2.fq
+                fi
             fi
         fi
 
@@ -287,6 +310,9 @@ process QC_READS {
         if [ "!{meta.single_end}" == "false" ]; then
             cp !{fq[0]} results/!{meta.id}_R1.error-fastq.gz
             cp !{fq[1]} results/!{meta.id}_R2.error-fastq.gz
+            if [ ! -s repair-singles.fq ]; then
+                pigz -p !{task.cpus} -c -n repair-singles.fq > results/!{meta.id}.error-fastq.gz
+            fi
         else
             cp !{fq[0]} results/!{meta.id}.error-fastq.gz
         fi
@@ -295,6 +321,10 @@ process QC_READS {
             if [ -f results/!{meta.id}_R1.fastq.gz ]; then
                 mv results/!{meta.id}_R1.fastq.gz results/!{meta.id}_R1.error-fastq.gz
                 mv results/!{meta.id}_R2.fastq.gz results/!{meta.id}_R2.error-fastq.gz
+
+                if [ ! -s repair-singles.fq ]; then
+                    pigz -p !{task.cpus} -c -n repair-singles.fq > results/!{meta.id}.error-fastq.gz
+                fi
             fi
         else
             if [ -f results/!{meta.id}.fastq.gz ]; then

@@ -27,8 +27,6 @@ process SEQUENCE_TYPE {
     shell:
     dataset_tarball = dataset.getName()
     schema = dataset_tarball.replace('.tar.gz', '')
-    noclean = params.mlst_ariba_no_clean ? "--noclean" : ""
-    spades_options = params.mlst_spades_options ? "--spades_options '${params.mlst_spades_options}'" : ""
     blast_opts = params.skip_compression ? "" : "--compressed"
     '''
     tar -xzvf !{dataset_tarball}
@@ -37,27 +35,6 @@ process SEQUENCE_TYPE {
     OUTDIR="results/!{schema}"
     mkdir -p ${OUTDIR}/blast
     mlst-blast.py !{assembly} !{schema}/blastdb ${OUTDIR}/blast/!{meta.id}-blast.json --cpu !{task.cpus} !{blast_opts}
-
-    # Run Ariba
-    if [ "!{meta.single_end}" == "false" ]; then
-        mv !{schema}/ariba/ref_db ./
-        ariba run ref_db !{fq[0]} !{fq[1]} ariba \
-            --nucmer_min_id !{params.mlst_nucmer_min_id} \
-            --nucmer_min_len !{params.mlst_nucmer_min_len} \
-            --nucmer_breaklen !{params.mlst_nucmer_breaklen} \
-            --assembly_cov !{params.mlst_assembly_cov} \
-            --min_scaff_depth !{params.mlst_min_scaff_depth} \
-            --assembled_threshold !{params.mlst_assembled_threshold} \
-            --gene_nt_extend !{params.mlst_gene_nt_extend} \
-            --unique_threshold !{params.mlst_unique_threshold} \
-            --threads 1 \
-            --force \
-            --verbose !{noclean} !{spades_options}
-        mv ariba ${OUTDIR}/
-    else
-        mkdir -p ${OUTDIR}/ariba
-        echo "Ariba cannot be run on single end reads" >${OUTDIR}/ariba/ariba-not-run.txt
-    fi
 
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":

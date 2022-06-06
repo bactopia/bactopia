@@ -199,7 +199,7 @@ def saveFiles(Map args) {
                     final_output = filename
                 }
             } else {
-                if (args.opts.is_module) {
+                if (args.opts.is_module || args.opts.is_db_download) {
                     final_output = filename
                 } else {
                     final_output = "${process_name}/${filename}"
@@ -230,6 +230,7 @@ def initOptions(Map args, String process_name) {
     options.args            = args.args ?: ''
     options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
+    options.is_db_download  = args.is_db_download ?: false
     options.logs_subdir     = args.logs_subdir ?: ''
     options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false

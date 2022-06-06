@@ -1,7 +1,7 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'bakta')
+options     = initOptions([:], 'bakta')
 conda_tools = "bioconda::bakta=1.4.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools

@@ -174,7 +174,7 @@
                     "description": "If reads were simulated, they will be used to create a new assembly.",
                     "fa_icon": "fas fa-redo"
                 },
-                "polipolish_rounds": {
+                "polypolish_rounds": {
                     "type": "integer",
                     "description": "Number of polishing rounds to conduct with Polypolish for short read polishing",
                     "default": 1,

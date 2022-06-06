@@ -11,11 +11,13 @@
 - renamed `--fastqs` to `--samples` to better reflect its usage (fastqs and assemblies)
 - add `--check_samples` to validate user generated FOFNs
 - `--short_polish` for short read polishing for long-read assemblies
+- Moved Ariba to a Bactopia Tool
 - bump versions
     - `amrfinder+` version to 3.10.30
     - `gtdb` version to 2.1.0
     - `mlst` version to 2.22.0
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `ariba` - Gene identification by local assemblies
     - `gamma` - Identification, classification, and annotation of translated gene matches
     - `shigatyper`: Shigella serotype from Illumina or Oxford Nanopore reads
 

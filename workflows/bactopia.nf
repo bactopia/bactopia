@@ -39,7 +39,6 @@ include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
 
 // Require Datasets
 include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
-include { ARIBA_ANALYSIS } from '../modules/local/bactopia/ariba_analysis/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
 include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
@@ -84,7 +83,6 @@ workflow BACTOPIA {
     // Optional steps that require datasets
     // Species agnostic
     ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
-    ARIBA_ANALYSIS(QC_READS.out.fastq, datasets['ariba'])
     MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
 
     // Species Specific

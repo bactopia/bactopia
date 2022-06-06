@@ -39,7 +39,16 @@ class WorkflowBactopiaTools {
         }
 
         // Workflow specific databases
-        if (params.wf == "bakta") {
+        if (params.wf == "ariba") {
+            if (!params.ariba_db) {
+                error += 1
+                missing_required += "--ariba_db"
+            }
+            if (!params.ariba_dir) {
+                error += 1
+                missing_required += "--ariba_dir"
+            }
+        } else if (params.wf == "bakta") {
             if (params.bakta_db) {
                 if (Utils.isLocal(params.bakta_db)) {
                     error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)

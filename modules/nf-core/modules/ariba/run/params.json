@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/ariba_analysis/params.json",
-    "title": "Bactopia pipeline parameters",
-    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ariba/run/params.json",
+    "title": "Ariba Run Module",
+    "description": "A module for gene identification through local assemblies",
     "type": "object",
     "definitions": {
-        "ariba_analysis_parameters": {
-            "title": "Ariba Analysis Parameters",
+        "ariba_run_parameters": {
+            "title": "Ariba Run Parameters",
             "type": "object",
             "description": "",
             "default": "",
@@ -15,15 +15,13 @@
                     "type": "integer",
                     "description": "Minimum alignment identity (delta-filter -i)",
                     "default": 90,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "nucmer_min_len": {
                     "type": "integer",
                     "description": "Minimum alignment identity (delta-filter -i)",
                     "default": 20,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "nucmer_breaklen": {
                     "type": "integer",
@@ -36,8 +34,7 @@
                     "type": "integer",
                     "description": "Target read coverage when sampling reads for assembly",
                     "default": 50,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "min_scaff_depth": {
                     "type": "integer",
@@ -84,7 +81,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/ariba_analysis_parameters"
+            "$ref": "#/definitions/ariba_run_parameters"
         }
     ]
 }

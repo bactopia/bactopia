@@ -9,7 +9,7 @@ dependencies:
   - beautifulsoup4=4.10.0
   - biopython=1.79
   - blast=2.11.0
-  - bowtie2=2.3.5.1
+  - bowtie2=2.2.5
   - brotli=1.0.9
   - brotli-bin=1.0.9
   - bzip2=1.0.8
@@ -61,7 +61,7 @@ dependencies:
   - matplotlib-base=3.5.1
   - mummer=3.23
   - munkres=1.1.4
-  - ncbi-amrfinderplus=3.10.23
+  - ncbi-amrfinderplus=3.10.30
   - ncurses=6.2
   - numpy=1.21.5
   - olefile=0.46
@@ -99,7 +99,7 @@ dependencies:
   - python-dateutil=2.8.2
   - python_abi=3.7
   - readline=8.1
-  - samtools=1.14
+  - samtools=1.7
   - sed=4.7
   - setuptools=60.9.3
   - six=1.16.0

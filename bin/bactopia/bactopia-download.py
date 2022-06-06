@@ -47,9 +47,8 @@ logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
 
 BACTOPIA_MODULES = [
-    'annotate_genome', 'antimicrobial_resistance', 'ariba_analysis', 'assemble_genome', 'assembly_qc',
-    'blast', 'call_variants', 'gather_samples', 'mapping_query', 'minmer_query', 'minmer_sketch', 'qc_reads',
-    'sequence_type'
+    'annotate_genome', 'antimicrobial_resistance', 'assemble_genome', 'assembly_qc', 'blast', 'call_variants',
+    'gather_samples', 'mapping_query', 'minmer_query', 'minmer_sketch', 'qc_reads', 'sequence_type'
 ]
 
 BUILT_ALREADY = {
