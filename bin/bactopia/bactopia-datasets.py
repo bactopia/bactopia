@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 """
-usage: bactopia datasets [-h] [--outdir STR] [--skip_ariba] [--ariba STR]
-                         [--species STR] [--skip_mlst] [--skip_prokka]
+usage: bactopia datasets [-h] [--outdir STR] [--species STR] [--skip_mlst] [--skip_prokka]
                          [--include_genus]
                          [--asssembly_level {all,complete,chromosome,scaffold,contig}]
                          [--limit INT] [--accessions STR] [--identity FLOAT]
@@ -25,15 +24,6 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --outdir STR          Directory to write output. (Default ./datasets)
-
-Ariba Reference Datasets:
-  --skip_ariba          Skip setup of Ariba datasets
-  --ariba STR           Comma separated list of Ariba datasets to download and
-                        setup. Available datasets include: argannot, card,
-                        ncbi, megares, plasmidfinder, resfinder,
-                        srst2_argannot, vfdb_core, vfdb_full, virulencefinder
-                        (Default: "vfdb_core,card") Use --available_datasets
-                        to see the full list.
 
 Bacterial Species:
   --species STR         Download available MLST schemas and completed genomes
@@ -105,7 +95,6 @@ Adjust Verbosity:
 
 example usage:
   bactopia datasets
-  bactopia datasets --ariba 'vfdb_core'
   bactopia datasets --species 'Staphylococcus aureus' --include_genus
 """
 import glob
@@ -155,12 +144,11 @@ def check_cache(clear_cache=False):
 def get_available_datasets(pubmlst_file, clear_cache):
     """Get a list of available datasets to be set up."""
     data = check_cache(clear_cache=clear_cache)
-    expected = ['ariba', 'pubmlst']
+    expected = ['pubmlst']
     if sum([k in data for k in expected]) != len(expected):
         logging.debug((f'Existing dataset cache ({CACHE_JSON}) is missing '
                        'expected fields, refreshing.'))
         data = {
-            'ariba': sorted(ariba_datasets()),
             'pubmlst': pubmlst_schemas(pubmlst_file)
         }
 
@@ -168,17 +156,19 @@ def get_available_datasets(pubmlst_file, clear_cache):
             logging.debug(f'Created dataset cache ({CACHE_JSON})')
             json.dump(data, cache_fh, indent=4, sort_keys=True)
 
-    return [data['ariba'], data['pubmlst']]
+    return data['pubmlst']
 
 
 def validate_requirements():
     """Validate the required programs are available, if not exit (1)."""
     from shutil import which
     programs = {
-        'ariba': which('ariba'), 'makeblastdb': which('makeblastdb'),
-        'cd-hit': which('cd-hit'), 'wget': which('wget'),
-        'unzip': which('unzip'), 'gzip': which('gzip')
-        # 'mentalist': which('mentalist')
+        'ariba': which('ariba'),
+        'makeblastdb': which('makeblastdb'),
+        'cd-hit': which('cd-hit'),
+        'wget': which('wget'),
+        'unzip': which('unzip'),
+        'gzip': which('gzip')
     }
 
     missing = False
@@ -271,16 +261,6 @@ def copy_user_files(source, destination):
         logging.error(f'{source} does not exist, skipping copy to {destination}.')
 
 
-def ariba_datasets():
-    """Print a list of datasets available with 'ariba getref'."""
-    getref_usage = ' '.join([
-        line.strip() for line in
-        execute('ariba getref --help', capture=True).strip().split('\n')
-    ])
-    datasets = getref_usage.split('of: ')[1].split(' outprefix')[0]
-    return datasets.split()
-
-
 def pubmlst_schemas(pubmlst_file):
     """Read the PubMLST mappings and return a dict."""
     pubmlst = {}
@@ -352,51 +332,6 @@ def setup_requests(request, available_datasets, title, skip_check=False):
         logging.error(f'{request} is not available from {title}')
 
     return datasets
-
-
-def setup_ariba(request, available_datasets, outdir, force=False,
-                keep_files=False):
-    """Setup each of the requested datasets using Ariba."""
-    requests = setup_requests(request, available_datasets, 'ariba')
-    if requests:
-        ariba_dir = f'{outdir}/ariba'
-        for request in requests:
-            prefix = f'{ariba_dir}/{request}'
-            if os.path.exists(f'{prefix}-updated.txt'):
-                if force:
-                    logging.info(f'--force, removing existing {request} setup')
-                    execute(f'rm -rf {prefix}*')
-                else:
-                    logging.info(f'{request} ({prefix}) exists, skipping')
-                    continue
-            elif force:
-                logging.info(f'--force, removing existing {request} setup')
-                execute(f'rm -rf {prefix}*')
-
-            # Setup Ariba dataset
-            logging.info(f'Setting up {request} Ariba dataset')
-            fa = f'{prefix}.fa'
-            tsv = f'{prefix}.tsv'
-            execute(f'mkdir -p {ariba_dir}')
-            with open(f'{prefix}-log.txt', 'w') as ariba_log:
-                execute(
-                    f'ariba getref {request} {request}',
-                    stdout_file=ariba_log, stderr_file=ariba_log,
-                    directory=ariba_dir
-                )
-            execute(f'ariba prepareref -f {fa} -m {tsv} {prefix}')
-
-            # Clean up
-            if not keep_files:
-                execute(f'rm {fa} {tsv}')
-            execute(f'mv {request}*.* {request}/', directory=ariba_dir)
-            execute(f'tar -zcvf {request}.tar.gz {request}/',
-                    directory=ariba_dir)
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {request}-updated.txt',
-                    directory=ariba_dir)
-            execute(f'rm -rf {request}', directory=ariba_dir)
-    else:
-        logging.info("No valid Ariba datasets to setup, skipping")
 
 
 def setup_mlst_request(request, available_schemas, species_key=None):
@@ -509,7 +444,6 @@ def process_cds(cds):
 
         header = f'>{protein_id} {ec_number}~~~{gene}~~~{product}'
         seq = cds['translation'][0]
-
 
     return [header, seq]
 
@@ -824,7 +758,6 @@ def create_summary(outdir, training_set=False, reference=False, mapping=False, g
     available_datasets = OrderedDict()
 
     available_datasets['antimicrobial-resistance'] = []
-    available_datasets['ariba'] = []
     available_datasets['minmer'] = {'sketches': [], 'last_update': None}
     available_datasets['plasmid'] = {'sketches': None, 'blastdb': None, 'last_update': None}
 
@@ -838,19 +771,6 @@ def create_summary(outdir, training_set=False, reference=False, mapping=False, g
                         'name': db,
                         'last_update': execute(
                             f'head -n 1 {outdir}/antimicrobial-resistance/{name}-updated.txt', capture=True
-                        ).rstrip()
-                    })
-
-    # Ariba
-    if os.path.exists(f'{outdir}/ariba'):
-        for db in sorted(os.listdir(f'{outdir}/ariba')):
-            if db.endswith(".tar.gz"):
-                if db != 'EMPTY.tar.gz':
-                    name = db.replace(".tar.gz", "")
-                    available_datasets['ariba'].append({
-                        'name': db,
-                        'last_update': execute(
-                            f'head -n 1 {outdir}/ariba/{name}-updated.txt', capture=True
                         ).rstrip()
                     })
 
@@ -1012,8 +932,7 @@ if __name__ == '__main__':
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(f'''
             example usage:
-              {PROGRAM} 
-              {PROGRAM} --ariba 'vfdb_core'
+              {PROGRAM}
               {PROGRAM} --species 'Staphylococcus aureus' --include_genus
         ''')
     )
@@ -1026,20 +945,6 @@ if __name__ == '__main__':
     parser.add_argument(
         '--outdir', metavar="STR", type=str, default="./datasets",
         help='Directory to write output. (Default ./datasets)'
-    )
-
-    group1 = parser.add_argument_group('Ariba Reference Datasets')
-    group1.add_argument(
-        '--skip_ariba', action='store_true',
-        help=('Skip setup of Ariba datasets')
-    )
-    group1.add_argument(
-        '--ariba', metavar="STR", type=str, default='vfdb_core,card',
-        help=('Comma separated list of Ariba datasets to download and setup. '
-              'Available datasets include: argannot, card, ncbi, megares, '
-              'plasmidfinder, resfinder, srst2_argannot, vfdb_core, vfdb_full, '
-              'virulencefinder (Default: "vfdb_core,card") Use --available_datasets '
-              'to see the full list.')
     )
 
     group2 = parser.add_argument_group('Bacterial Species')
@@ -1210,9 +1115,9 @@ if __name__ == '__main__':
     else:
         validate_requirements()
 
-    ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
+    PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.available_datasets:
-        available_datasets(ARIBA, PUBMLST)
+        available_datasets(PUBMLST)
 
     if args.available_species:
         available_species(args.outdir)
@@ -1255,22 +1160,10 @@ if __name__ == '__main__':
         elif num_species > 1:
             logging.error(f'Only a single species (given {num_species}) can be used with --accessions')
             sys.exit(1)
-            
-    if not args.skip_ariba:
-        if args.ariba:
-            logging.info('Setting up Ariba datasets')
-            setup_ariba(
-                args.ariba, ARIBA, args.outdir, keep_files=args.keep_files,
-                force=(args.force or args.force_ariba)
-            )
-        else:
-            logging.info('No requests for an Ariba dataset, skipping')
-    else:
-        logging.info('Skipping Ariba dataset step')
 
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer datasets')
-        setup_minmer(args.outdir, force=(args.force or args.force_minmer), skip_ssl_check=args.no_ssl_checks)
+        setup_minmer(args.outdir, force=(args.force or args.force_minmer), skip_ssl_check=args.skip_ssl_check)
     else:
         logging.info('Skipping minmer dataset step')
 
