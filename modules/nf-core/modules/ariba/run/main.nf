@@ -10,7 +10,7 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process ARIBA_RUN {
     tag "$meta.id - $db_name"
     label 'process_low'
-    publishDir "${publish_dir}/${db_name}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
+    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
     
     conda (params.enable_conda ? conda_env : null)

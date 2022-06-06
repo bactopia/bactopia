@@ -1,30 +1,113 @@
 name: ariba
 description: Gene identification through local assemblies
-introduction: |
-  The `ariba` module uses...
+icon: false
 keywords:
-  - TAGS
+  - fastq
+  - assembly
+  - resistance
+  - virulence
 modules:
-  - LIST_OF_MODULES
+  - ariba_getref
+  - ariba_run
 input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - reads:
+    type: file
+    description: |
+      List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+      respectively.
+  - db:
+    type: file
+    description: An database to query using ARIBA
+output:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - results:
       type: file
-      description: Description of input file
-output_tree: |
-  ```  ```
-output:
-  - FILETYPE:
+      description: The full results of ARIBA for each sample
+      pattern: "*"
+  - merged_report:
       type: file
-      description: Output file description
-      pattern: '*.{bam}'
+      description: A merged TSV of the ARIBA reports
+      pattern: "ariba-report.tsv"
+  - merged_summary:
+      type: file
+      description: A merged CSV of the ARIBA summaries
+      pattern: "ariba-summary.csv"
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
-citations:
-  - add to citations.yml
+      pattern: "versions.yml"
+docs:
+  introduction: |
+      The `ariba` module uses [ARIBA](https://github.com/sanger-pathogens/ariba) 
+      to rapidly identify genes in a database by creating local assemblies.
+  output:
+    tree: |
+      ariba/
+      ├── <DATABASE>
+      │   └── <SAMPLE_NAME>
+      │       ├── card
+      │       │   ├── assembled_genes.fa.gz
+      │       │   ├── assembled_seqs.fa.gz
+      │       │   ├── assemblies.fa.gz
+      │       │   ├── debug.report.tsv
+      │       │   ├── log.clusters.gz
+      │       │   ├── report.tsv
+      │       │   ├── summary.csv
+      │       │   └── version_info.txt
+      │       └── logs
+      │           └── ariba
+      │               ├── nf-ariba.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── ariba-dag.dot
+      │   ├── ariba-report.html
+      │   ├── ariba-timeline.html
+      │   └── ariba-trace.txt
+      ├── ariba-report.tsv
+      ├── ariba-summary.csv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | ariba-report.tsv | A merged TSV file with `ARIBA` results from all samples |
+          | ariba-summary.csv | A merged CSV file created with `ariba summary` |
+      - name: ARIBA
+        description: |
+          Below is a description of the _per-sample_ results from [ARIBA](https://github.com/sanger-pathogens/ariba/wiki/Task:-run).
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          | assembled_genes.fa.gz | All the assembled genes |
+          | assembled_seqs.fa.gz  | All the assembled sequences that match the reference |
+          | assemblies.fa.gz      | All the raw local assembles |
+          | debug.report.tsv      | Contains the results from `report.tsv` in addition to synonymous mutations |
+          | log.clusters.gz       | A log of the ARIBA analysis |
+          | report.tsv            | A report of the ARIBA analysis results |
+          | summary.csv           | A summary of the report created using `ariba summary` |
+          | version_info.txt      | Containes info on the versions of ARIBA and its dependencies |
+  citations:
+    - ariba
+
+

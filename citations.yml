@@ -179,7 +179,7 @@ tools:
     link: https://github.com/sanger-pathogens/ariba
     description: Antimicrobial Resistance Identification By Assembly
     cite: |
-      Hunt M, Mather AE​, Sánchez-Busó L​, Page AJ​, Parkhill J​, Keane JA​, Harris SR [ARIBA: rapid antimicrobial resistance genotyping directly from sequencing reads](http://dx.doi.org/10.1099/mgen.0.000131). _Microb Genom_ 3, e000131 (2017)
+      Hunt M, Mather AE, Sánchez-Busó L, Page AJ, Parkhill J, Keane JA, Harris SR [ARIBA: rapid antimicrobial resistance genotyping directly from sequencing reads](http://dx.doi.org/10.1099/mgen.0.000131). _Microb Genom_ 3, e000131 (2017)
 
   art:
     name: ART

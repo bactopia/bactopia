@@ -1,10 +1,69 @@
 - name: ariba-test
-  command: bash -c 'nextflow run ./subworkflows/local/ariba/test.nf -entry test_ariba --wf ariba -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/ariba/test.nf -entry test_ariba --wf ariba --ariba_dir ariba --ariba_db card -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - ariba
     - bactopia-tools
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia-tools/ariba/ariba/ariba-report.tsv
+      contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
+    - path: bactopia-tools/ariba/ariba/ariba-summary.csv
+      contains: ["name", "novel_var", "Clostridioides", "Neisseria"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/assembled_genes.fa.gz
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/assembled_seqs.fa.gz
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/assemblies.fa.gz
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/debug.report.tsv
+      contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/log.clusters.gz
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/report.tsv
+      contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/summary.csv
+      contains: ["name", "novel_var", "Clostridioides", "Neisseria"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/version_info.txt
+      contains: ["ARIBA", "Python", "OK", "True"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.begin
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.err
+      contains: ["filtering"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.log
+      contains: ["card", "Making", "done!", "filtering"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.out
+      contains: ["card", "Making", "done!"]
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.sh
+      contains: ['ariba', 'END_VERSIONS']
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/nf-ariba.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/ariba/ariba/SRR2838702/logs/ariba/versions.yml
+      md5sum: 033ed5d08925ede510a221561b454bbc
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.begin
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.err
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.log
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.out
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.sh
+      contains: ['csvtk', 'concat', "END_VERSIONS"]
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/versions.yml
+      md5sum: 87184f1a169523dd8743a8db771b240b
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.begin
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.err
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.log
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.out
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.sh
+      contains: ['csvtk', 'concat', "END_VERSIONS"]
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/versions.yml
+      md5sum: f2cbd40a3eabeb48921e20d4427bd9c1
+    - path: bactopia-tools/ariba/ariba/nf-reports/ariba-dag.dot
+      contains: ['aribadag', 'ARIBA', 'versions']
+    - path: bactopia-tools/ariba/ariba/nf-reports/ariba-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/ariba/ariba/nf-reports/ariba-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/ariba/ariba/nf-reports/ariba-trace.txt
+      contains: ['task_id']
