@@ -45,7 +45,7 @@ function update_environment {
     mamba env remove -n bactopia-${1}
 }
 
-update_environment "annotate_genome" "ncbi-amrfinderplus=3.10.3 prokka=1.14.6 tbl2asn-forever=25.7.2f" ${CONDA_DIR} ${IS_MAC}
+update_environment "annotate_genome" "ncbi-amrfinderplus=3.10.30 prokka=1.14.6 tbl2asn-forever=25.7.2f" ${CONDA_DIR} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
     update_environment "assemble_genome" "shovill-se=1.1.0se assembly-scan==0.4.1 unicycler=0.5.0 " ${CONDA_DIR} ${IS_MAC}
     update_environment "assembly_qc" "quast=5.0.2" ${CONDA_DIR} ${IS_MAC}

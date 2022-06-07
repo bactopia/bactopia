@@ -65,6 +65,7 @@ dependencies:
   - libzlib=1.2.12
   - lz4-c=1.9.3
   - minced=0.4.2
+  - ncbi-amrfinderplus=3.10.30
   - ncurses=6.3
   - openjdk=11.0.9.1
   - openssl=1.1.1o

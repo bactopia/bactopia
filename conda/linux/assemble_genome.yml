@@ -8,7 +8,7 @@ dependencies:
   - _openmp_mutex=4.5
   - _sysroot_linux-64_curr_repodata_hack=3
   - _tflow_select=2.1.0
-  - absl-py=1.0.0
+  - absl-py=1.1.0
   - aiohttp=3.8.1
   - aiosignal=1.2.0
   - alsa-lib=1.2.3.2
@@ -115,7 +115,7 @@ dependencies:
   - multidict=6.0.2
   - nanoq=0.9.0
   - ncurses=6.3
-  - networkx=2.8.2
+  - networkx=2.8.3
   - numpy=1.19.5
   - oauthlib=3.2.0
   - ont-fast5-api=4.0.2
@@ -161,7 +161,7 @@ dependencies:
   - pyasn1=0.4.8
   - pyasn1-modules=0.2.7
   - pycparser=2.21
-  - pyfaidx=0.6.4
+  - pyfaidx=0.7.0
   - pyjwt=2.4.0
   - pyopenssl=22.0.0
   - pyparsing=3.0.9

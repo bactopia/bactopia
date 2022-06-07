@@ -53,7 +53,7 @@ dependencies:
   - giflib=5.2.1
   - glog=0.6.0
   - graphite2=1.3.13
-  - grpc-cpp=1.43.2
+  - grpc-cpp=1.45.2
   - gsl=2.7
   - harfbuzz=4.3.0
   - hdf5=1.10.6
@@ -87,7 +87,7 @@ dependencies:
   - libgfortran5=12.1.0
   - libglib=2.70.2
   - libgomp=12.1.0
-  - libgoogle-cloud=1.36.0
+  - libgoogle-cloud=1.40.2
   - libiconv=1.16
   - libidn2=2.3.2
   - liblapack=3.9.0
@@ -95,7 +95,7 @@ dependencies:
   - libnsl=2.0.0
   - libopenblas=0.3.20
   - libpng=1.6.37
-  - libprotobuf=3.19.4
+  - libprotobuf=3.20.1
   - libssh2=1.10.0
   - libstdcxx-ng=12.1.0
   - libthrift=0.16.0
@@ -179,7 +179,7 @@ dependencies:
   - python_abi=3.9
   - pytz=2022.1
   - rasusa=0.6.1
-  - re2=2022.02.01
+  - re2=2022.04.01
   - readline=8.1
   - rename=1.601
   - requests=2.27.1
