@@ -6,7 +6,7 @@ RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options = initOptions(params.containsKey('options') ? params.options : [:], 'sequence_type')
 
 process SEQUENCE_TYPE {
-    /* Determine MLST types using ARIBA and BLAST */
+    /* Determine MLST types using BLAST */
     tag "${meta.id} - ${schema}"
     label "max_cpus_1"
     label "sequence_type"
@@ -38,7 +38,6 @@ process SEQUENCE_TYPE {
 
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
-        ariba:  $(echo $(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*$//')
         blastn: $(echo $(blastn -version 2>&1) | sed 's/^.*blastn: //;s/ .*$//')
     END_VERSIONS
     '''

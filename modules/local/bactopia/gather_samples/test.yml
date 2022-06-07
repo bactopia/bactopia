@@ -27,7 +27,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 5dc4ffc62b18e5f2c09ab5742b849364
+      md5sum: e3cb801a3b33e4a3e66c058c1ddcd11c
     - path: pytest/output/output-genome-size.txt
       md5sum: ca7a438ae8c4ce0beabea6b275d19545
 
@@ -60,7 +60,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 5dc4ffc62b18e5f2c09ab5742b849364
+      md5sum: e3cb801a3b33e4a3e66c058c1ddcd11c
     - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -94,7 +94,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 733a13030c10f7fd9ab3e3406f206253
+      md5sum: 11927155ed4487614d5d94448455ec56
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -129,7 +129,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 733a13030c10f7fd9ab3e3406f206253
+      md5sum: 11927155ed4487614d5d94448455ec56
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -164,7 +164,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 9eae3c4c14dfcbffde2bfd26b1d97c78
+      md5sum: 4887eaacbb3e4d264f49c14aa7fdeeac
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -199,7 +199,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 9eae3c4c14dfcbffde2bfd26b1d97c78
+      md5sum: 4887eaacbb3e4d264f49c14aa7fdeeac
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -234,7 +234,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 07f5dabcd819a5fd90bf33616516b738
+      md5sum: 7f3aec50a94417d346de6c434a1b8c04
     - path: pytest/output/output-genome-size.txt
       md5sum: 3bbba81645ccae5459e9634fc6fe77af
 
@@ -267,7 +267,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 07f5dabcd819a5fd90bf33616516b738
+      md5sum: 7f3aec50a94417d346de6c434a1b8c04
     - path: pytest/output/output-genome-size.txt
       md5sum: f58dc1272a49e4eebe213d95ca57af80
 
@@ -300,7 +300,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: c7ef3791df8c686b23072c4f0e1e59c9
+      md5sum: a28b7eb824a9a6c2140396bd3d8566ae
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -335,7 +335,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: c7ef3791df8c686b23072c4f0e1e59c9
+      md5sum: a28b7eb824a9a6c2140396bd3d8566ae
     - path: pytest/output/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: pytest/output/output-genome-size.txt
@@ -374,7 +374,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/SRX1390609/logs/gather_samples/versions.yml
-      md5sum: 35e9c07dd497a5c23338f8ddda287ecb
+      md5sum: 8d3aca9d432a6e7824b01e73329cd02e
 
 - name: gather_samples-sra_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_sra_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -409,7 +409,7 @@
     - path: pytest/SRX1390609/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/SRX1390609/logs/gather_samples/versions.yml
-      md5sum: 35e9c07dd497a5c23338f8ddda287ecb
+      md5sum: 8d3aca9d432a6e7824b01e73329cd02e
 
 - name: gather_samples-assembly_accession_estimate
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -443,7 +443,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: f84e17ba3aca02a499cbbc840aab9fd6
+      md5sum: 97991be7d5d7bc73008b644ef0baf028
 
 - name: gather_samples-assembly_accession
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly_accession --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -477,7 +477,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: f84e17ba3aca02a499cbbc840aab9fd6
+      md5sum: 97991be7d5d7bc73008b644ef0baf028
 
 
 - name: gather_samples-assembly_estimate
@@ -512,7 +512,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: 6b555028cc365a376f5f342c199c045d
+      md5sum: c8415c1022023f33748b7f0a7305ee86
 
 - name: gather_samples-assembly
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --genome_size 358242 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -546,7 +546,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: 6b555028cc365a376f5f342c199c045d
+      md5sum: c8415c1022023f33748b7f0a7305ee86
 
 
 - name: gather_samples-error_low_read_count_pe
@@ -578,7 +578,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 23d694fb6c645c5bbc386f0a97d2facb
+      md5sum: 4cfc37499ba92635c335071eda99d1b7
     - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
     - path: pytest/output/output-low-read-count-error.txt
@@ -615,7 +615,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: b2741d1d8e36f0b6ca558ab4f8c8871a
+      md5sum: 0c478fe918148ca8a94fab91b9f3a23c
     - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
     - path: pytest/output/output-low-read-count-error.txt
@@ -652,7 +652,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: bc92d6c6ae163c9224c16a5d18c318d9
+      md5sum: 0ecf62873e30ede8a122bce41fedd29a
     - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
     - path: pytest/output/output-low-read-count-error.txt
@@ -689,7 +689,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: 769f2e61e4f12e46a4e3ec162f1ad918
+      md5sum: 926844d368826e6fe519e6405391d18a
     - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
     - path: pytest/output/output-low-read-count-error.txt
@@ -726,7 +726,7 @@
     - path: pytest/output/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/gather_samples/versions.yml
-      md5sum: cfbcd8f008d231bb0f23648027bae43e
+      md5sum: 5f8aeb88ede7971102a30a9333044c09
     - path: pytest/output/output-genome-size-error.txt
       md5sum: 3979cef21a916430fa8f656e775023f0
     - path: pytest/output/output-low-basepair-proportion-error.txt
@@ -763,7 +763,7 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: 6b555028cc365a376f5f342c199c045d
+      md5sum: c8415c1022023f33748b7f0a7305ee86
 
 - name: gather_samples-error_max_genome_size
   command: bash -c 'nextflow run ./modules/local/bactopia/gather_samples/test.nf -entry test_gather_samples_assembly --max_genome_size 1000 --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'
@@ -796,4 +796,4 @@
     - path: pytest/GCF_000292685/logs/gather_samples/nf-gather_samples.trace
       contains: ['nextflow.trace']
     - path: pytest/GCF_000292685/logs/gather_samples/versions.yml
-      md5sum: 6b555028cc365a376f5f342c199c045d
+      md5sum: c8415c1022023f33748b7f0a7305ee86

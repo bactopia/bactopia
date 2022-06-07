@@ -26,9 +26,9 @@
     - path: pytest/output/assembly/checkm/lineage.ms
       contains: ['Lineage Marker File']
     - path: pytest/output/assembly/checkm/storage/bin_stats.analyze.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
+      md5sum: f963b63779861433e37f118eea3d3a30
     - path: pytest/output/assembly/checkm/storage/bin_stats.tree.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
+      md5sum: f963b63779861433e37f118eea3d3a30
     - path: pytest/output/assembly/checkm/storage/bin_stats_ext.tsv
       contains: ['marker lineage']
     - path: pytest/output/assembly/checkm/storage/checkm_hmm_info.pkl.gz
@@ -166,4 +166,4 @@
     - path: pytest/output/logs/assembly_qc/quast.log
       contains: ['Version', 'QUAST']
     - path: pytest/output/logs/assembly_qc/versions.yml
-      md5sum: a8f4ded395206059a3ef008b22d347df
+      md5sum: 7fab3a5cd05b7400963fe4555162832c
