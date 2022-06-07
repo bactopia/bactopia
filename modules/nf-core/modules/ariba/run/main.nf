@@ -15,7 +15,7 @@ process ARIBA_RUN {
     
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ariba:2.14.6--py39h67e14b5_3':
+        'https://depot.galaxyproject.org/singularity/ariba:2.14.6--py39h67e14b5_3' :
         'quay.io/biocontainers/ariba:2.14.6--py39h67e14b5_3' }"
 
     input:

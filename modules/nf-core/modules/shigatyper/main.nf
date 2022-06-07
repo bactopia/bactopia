@@ -15,7 +15,7 @@ process SHIGATYPER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/shigatyper%3A2.0.1--pyhdfd78af_1':
+        'https://depot.galaxyproject.org/singularity/shigatyper%3A2.0.1--pyhdfd78af_1' :
         'quay.io/biocontainers/shigatyper:2.0.1--pyhdfd78af_1' }"
 
     input:
