@@ -303,7 +303,10 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
     conda_complete = f'{conda_path}/{conda_envname}/env-built.txt'
 
     if build_conda and os.path.exists(conda_complete):
-        if force:
+        if conda_prefix in BUILT_ALREADY['conda']:
+            logging.debug(BUILT_ALREADY['conda'][conda_prefix])
+            build_conda = False
+        elif force:
             logging.debug(f'Overwriting existing Conda environment in {conda_prefix}')
         else:
             logging.debug(f'Found Conda environment in {conda_prefix}, if a complete rebuild is needed please use --force_rebuild')
@@ -313,7 +316,10 @@ def build_nfcore_env(envname, envinfo, conda_path, singularity_path, env_type, f
             logging.debug(f"Found Docker container for {envinfo['docker']}, if a complete rebuild is needed please manually remove the containers")
             build_docker = False
     if build_singularity and os.path.exists(singularity_img):
-        if force:
+        if singularity_img in BUILT_ALREADY['singularity']:
+            logging.debug(BUILT_ALREADY['singularity'][singularity_img])
+            build_singularity = False
+        elif force:
             logging.debug(f'Overwriting existing Singularity image {singularity_img}')
         else:
             logging.debug(f'Found Singularity image {singularity_img}, if a complete rebuild is needed please use --force_rebuild')
@@ -395,7 +401,7 @@ def needs_singularity_build(image, force=False):
 
 
 """
-Envrionment creation related
+Environment creation related
 """
 def build_conda_env(conda_env, conda_path, max_retry=5):
     """Build Conda env, with chance to retry."""
@@ -484,6 +490,8 @@ if __name__ == '__main__':
                         help='Builds environments to the default Bactopia location.')
     group1.add_argument('--build_all', action='store_true',
                         help='Builds all environments for Bactopia workflows')
+    group1.add_argument('--build_nfcore', action='store_true',
+                        help='Builds all nf-core related environments')
 
     group2 = parser.add_argument_group('Container Related Options')
     group2.add_argument('--registry', metavar='STR', type=str, default="quay", choices=['dockerhub', 'quay', 'github'],
@@ -536,13 +544,14 @@ if __name__ == '__main__':
         logging.info("Checking if environment pre-builds are needed, use --verbose to see full details.")
 
     for workflow, modules in workflow_modules.items():
-        if workflow == args.wf or args.build_all:
+        if workflow == args.wf or args.build_all or args.build_nfcore:
             for module, info in modules.items():
                 logging.debug(f"Working on {workflow}")
                 if module == "bactopia":
-                    # Build all (7) bactopia envs
-                    build_bactopia_envs(bactopia_path, conda_path, singularity_path, args.envtype, registry_name=args.registry,
-                                        force=args.force_rebuild, max_retry=args.max_retry)
+                    if not args.build_nfcore:
+                        # Build all (7) bactopia envs
+                        build_bactopia_envs(bactopia_path, conda_path, singularity_path, args.envtype, registry_name=args.registry,
+                                            force=args.force_rebuild, max_retry=args.max_retry)
                 else:
                     # Build nf-core env, one at a time
                     build_nfcore_env(module, info, conda_path, singularity_path, args.envtype, force=args.force_rebuild, 
