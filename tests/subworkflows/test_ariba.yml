@@ -1,0 +1,8 @@
+- name: ariba-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf ariba -c nextflow.config --help > ariba-help.txt'
+  tags:
+    - bactopia_help
+    - ariba
+  files:
+    - path: ariba-help.txt
+      contains: ['ariba', 'bactopia', 'version', 'dependencies']
