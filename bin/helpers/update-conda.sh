@@ -47,12 +47,12 @@ function update_environment {
 
 update_environment "annotate_genome" "ncbi-amrfinderplus=3.10.30 prokka=1.14.6 tbl2asn-forever=25.7.2f" ${CONDA_DIR} ${IS_MAC}
 if [ "${IS_MAC}" == "1" ]; then
-    update_environment "assemble_genome" "shovill-se=1.1.0se assembly-scan==0.4.1 unicycler=0.5.0 " ${CONDA_DIR} ${IS_MAC}
-    update_environment "assembly_qc" "quast=5.0.2" ${CONDA_DIR} ${IS_MAC}
+    update_environment "assemble_genome" "shovill-se=1.1.0se assembly-scan==0.4.1 unicycler=0.4.4" ${CONDA_DIR} ${IS_MAC}
+    update_environment "assembly_qc" "quast=5.2.0" ${CONDA_DIR} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.7 mash=2.3 ncbi-genome-download=0.3.1 biopython=1.77 snpeff=5.0 rename" ${CONDA_DIR} ${IS_MAC}
 else
     update_environment "assemble_genome" "shovill-se=1.1.0se dragonflye=1.0.12 nanoq=0.9.0 unicycler=0.5.0 gsl=2.6" ${CONDA_DIR} ${IS_MAC}
-    update_environment "assembly_qc" "checkm-genome=1.2.0 quast=5.0.2" ${CONDA_DIR} ${IS_MAC}
+    update_environment "assembly_qc" "checkm-genome=1.2.0 quast=5.2.0" ${CONDA_DIR} ${IS_MAC}
     update_environment "call_variants" "snippy=4.6.0 vcf-annotator=0.7 vt=2015.11.10=he941832_3 mash=2.3 ncbi-genome-download=0.3.1 biopython=1.77 snpeff=5.0 rename" ${CONDA_DIR} ${IS_MAC}
 fi
 update_environment "gather_samples" "sra-tools=2.11.0 bbmap=38.96 art=2016.06.05 mash=2.3 ncbi-genome-download=0.3.1 fastq-dl=1.1.0 fastq-scan=1.0.0 fastqc=0.11.9 lighter=1.1.2 porechop=0.2.4 nanoq=0.9.0 nanoplot=1.39.0 rasusa=0.6.1 biopython=1.77 rename" ${CONDA_DIR} ${IS_MAC}
