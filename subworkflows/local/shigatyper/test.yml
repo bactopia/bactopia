@@ -24,7 +24,7 @@
     - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/versions.yml
-      md5sum: efa127cb0c6c34dcf716e91f542146db
+      md5sum: b1ee58df3cf5d826dc847b5cf0078b54
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
@@ -78,7 +78,7 @@
     - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/versions.yml
-      md5sum: bed151e1335fefac88777028fd29e78d
+      md5sum: d66e5cda19a745d8180a9331fe5d092b
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
@@ -133,7 +133,7 @@
     - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/versions.yml
-      md5sum: 45e561d830b0f196342670963fa694a1
+      md5sum: a73b8422b073dfbc1fd1456abc67aa1f
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
