@@ -412,7 +412,7 @@
     - path: pytest/output/logs/assemble_genome/unicycler.log
       contains: ['unicycler', 'complete', 'Saving']
     - path: pytest/output/logs/assemble_genome/versions.yml
-      md5sum: 0acad046c4314499584624e1eb9d6279
+      md5sum: fa64ce75577a5cad8c114e1eece4adda
 
 - name: assemble_genome-flye
   command: bash -c 'nextflow run ./modules/local/bactopia/assemble_genome/test.nf -entry test_assemble_genome_nanopore --outdir pytest -c nextflow.config ${BACTOPIA_ARGS}'

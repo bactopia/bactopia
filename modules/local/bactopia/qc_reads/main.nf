@@ -47,7 +47,7 @@ process QC_READS {
     MIN_COVERAGE=$(( !{params.min_coverage}*${GENOME_SIZE} ))
     TOTAL_BP=$(( !{params.coverage}*${GENOME_SIZE} ))
 
-    if [ "!{params.skip_qc}" == "true" ]; then
+    if [[ "!{params.skip_qc}" == "true" ]]; then
         echo "Sequence QC was skipped for !{meta.id}" > results/!{meta.id}-qc-skipped.txt
         if [ "!{meta.single_end}" == "false" ]; then
             # Paired-End Reads
@@ -72,7 +72,7 @@ process QC_READS {
             # Illumina Reads
 
             # Validate paired-end reads if necessary
-            if [ "!{meta.single_end}" == "false" ]; then
+            if [[ "!{meta.single_end}" == "false" ]]; then
                 # Make sure paired-end reads have matching IDs
                 repair.sh \
                     in=!{fq[0]} \
@@ -89,7 +89,7 @@ process QC_READS {
                     sed 's/^\\s*//' >> !{meta.id}-paired-match-error.txt
                 fi
             else
-                ln -s !{fq[0]} repair-r1.fq 
+                gunzip -c !{fq[0]} > repair-r1.fq 
             fi
 
             if [ "${ERROR}" -eq "0" ]; then
@@ -205,7 +205,7 @@ process QC_READS {
     if [ "${ERROR}" -eq "0" ]; then
         mkdir results/summary/
         # fastq-scan
-        if [ "!{meta.single_end}" == "false" ]; then
+        if [[ "!{meta.single_end}" == "false" ]]; then
             # Paired-End Reads
             gzip -cd !{fq[0]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R1-original.json
             gzip -cd !{fq[1]} | fastq-scan -g ${GENOME_SIZE} > results/summary/!{meta.id}_R2-original.json
@@ -322,7 +322,7 @@ process QC_READS {
                 mv results/!{meta.id}_R1.fastq.gz results/!{meta.id}_R1.error-fastq.gz
                 mv results/!{meta.id}_R2.fastq.gz results/!{meta.id}_R2.error-fastq.gz
 
-                if [ ! -s repair-singles.fq ]; then
+                if [ -s repair-singles.fq ]; then
                     pigz -p !{task.cpus} -c -n repair-singles.fq > results/!{meta.id}.error-fastq.gz
                 fi
             fi
