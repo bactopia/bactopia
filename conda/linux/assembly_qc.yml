@@ -147,11 +147,11 @@ dependencies:
   - python=3.7.12
   - python-dateutil=2.8.2
   - python_abi=3.7
-  - quast=5.0.2
+  - quast=5.2.0
   - readline=8.1
   - scipy=1.7.3
   - sed=4.8
-  - setuptools=62.3.2
+  - setuptools=62.3.3
   - simplejson=3.17.6
   - six=1.16.0
   - sqlite=3.38.5
