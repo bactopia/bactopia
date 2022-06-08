@@ -1,102 +1,4 @@
 #! /usr/bin/env python3
-"""
-usage: bactopia datasets [-h] [--outdir STR] [--species STR] [--skip_mlst] [--skip_prokka]
-                         [--include_genus]
-                         [--asssembly_level {all,complete,chromosome,scaffold,contig}]
-                         [--limit INT] [--accessions STR] [--identity FLOAT]
-                         [--overlap FLOAT] [--max_memory INT] [--fast_cluster]
-                         [--skip_minmer] [--prodigal_tf STR]
-                         [--reference STR] [--mapping STR] [--genes STR]
-                         [--proteins STR] [--primers STR] [--force_optional]
-                         [--cpus INT] [--clear_cache] [--force]
-                         [--force_ariba] [--force_mlst] [--force_prokka]
-                         [--force_minmer][--keep_files]
-                         [--available_datasets] [--available_species] [--depends]
-                         [--version] [--verbose] [--silent]
-                         PUBMLST
-
-bactopia datasets - Setup public datasets for Bactopia
-
-positional arguments:
-  PUBMLST               Bactopia config file with PubMLST schema mappings for
-                        Ariba.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --outdir STR          Directory to write output. (Default ./datasets)
-
-Bacterial Species:
-  --species STR         Download available MLST schemas and completed genomes
-                        for a given species or a list of species in a text
-                        file.
-  --skip_mlst           Skip setup of MLST schemas for each species
-
-Custom Prokka Protein FASTA:
-  --skip_prokka         Skip creation of a Prokka formatted fasta for each
-                        species
-  --include_genus       Include all genus members in the Prokka proteins FASTA
-  --assembly_level {all,complete,chromosome,scaffold,contig}
-                        Assembly levels of genomes to download (Default:
-                        complete).
-  --limit INT           If available completed genomes exceeds a given limit,
-                        a random subsample will be taken. (Default 1000)
-  --accessions STR      A list of RefSeq accessions to download.
-  --identity FLOAT      CD-HIT (-c) sequence identity threshold. (Default:
-                        0.9)
-  --overlap FLOAT       CD-HIT (-s) length difference cutoff. (Default: 0.8)
-  --max_memory INT      CD-HIT (-M) memory limit (in MB). (Default: unlimited
-  --fast_cluster        Use CD-HIT's (-g 0) fast clustering algorithm, instead
-                        of the accurate but slow algorithm.
-
-Minmer Datasets:
-  --skip_minmer         Skip download of pre-computed minmer datasets (mash,
-                        sourmash)
-
-Optional User Provided Datasets:
-  --prodigal_tf STR     A pre-built Prodigal training file to add to the
-                        species annotation folder. Requires a single species
-                        (--species) and will replace existing training files.
-  --reference STR       A reference genome (FASTA/GenBank (preferred)) file or
-                        directory to be added to the optional folder for
-                        variant calling. Requires a single species
-                        (--species).
-  --mapping STR         A reference sequence (FASTA) file or directory to be
-                        added to the optional folder for mapping. Requires a
-                        single species (--species).
-  --genes STR           A gene sequence (FASTA) file or directory to be added
-                        to the optional folder for BLAST. Requires a single
-                        species (--species).
-  --proteins STR        A protein sequence (FASTA) file or directory to be
-                        added to the optional folder for BLAST. Requires a
-                        single species (--species).
-  --primers STR         A primer sequence (FASTA) file or directory to be
-                        added to the optional folder for BLAST. Requires a
-                        single species (--species).
-  --force_optional      Overwrite any existing files in the optional folders
-
-Custom Options:
-  --cpus INT            Number of cpus to use. (Default: 1)
-  --clear_cache         Remove any existing cache.
-  --force               Forcibly overwrite existing datasets.
-  --force_ariba         Forcibly overwrite existing Ariba datasets.
-  --force_mlst          Forcibly overwrite existing MLST datasets.
-  --force_prokka        Forcibly overwrite existing Prokka datasets.
-  --force_minmer        Forcibly overwrite existing minmer datasets.
-  --keep_files          Keep all downloaded and intermediate files.
-  --available_datasets  List Ariba reference datasets and MLST schemas
-                        available for setup.
-  --available_species   List species availble from current datasets.
-  --depends             Verify dependencies are installed.
-
-Adjust Verbosity:
-  --version             show program's version number and exit
-  --verbose             Print debug related text.
-  --silent              Only critical errors will be printed.
-
-example usage:
-  bactopia datasets
-  bactopia datasets --species 'Staphylococcus aureus' --include_genus
-"""
 import glob
 import json
 import logging
@@ -397,7 +299,6 @@ def setup_mlst(request, available_datasets, outdir, force=False, species_key=Non
 
             # Ariba
             species_request = request['ariba']
-            logging.info(f'Creating Ariba MLST dataset')
             ariba_dir = f'{schema_dir}/ariba'
             execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
 
@@ -939,7 +840,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'pubmlst', metavar="PUBMLST", type=str,
-        help='Bactopia config file with PubMLST schema mappings for Ariba.'
+        help='Bactopia config file with PubMLST schema mappings.'
     )
 
     parser.add_argument(
@@ -1061,8 +962,6 @@ if __name__ == '__main__':
 
     group8.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing datasets.')
-    group8.add_argument('--force_ariba', action='store_true',
-                        help='Forcibly overwrite existing Ariba datasets.')
     group8.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST datasets.')
     group8.add_argument('--force_prokka', action='store_true',
@@ -1077,8 +976,7 @@ if __name__ == '__main__':
     )
     group8.add_argument(
         '--available_datasets', action='store_true',
-        help=('List Ariba reference datasets and MLST schemas '
-              'available for setup.')
+        help='List MLST schemas available for setup.'
     )
     group8.add_argument(
         '--available_species', action='store_true',
