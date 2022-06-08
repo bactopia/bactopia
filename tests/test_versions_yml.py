@@ -14,7 +14,7 @@ from textwrap import dedent
 ACCEPTED_IDS = ['output', 'GCF_000292685', 'SRX1390609', 'GCF_000017085']
 
 # some processes have versions in subdirs (e.g. database names)
-HAS_SUBDIRS = ['ariba_analysis', 'blast', 'call_variants', 'sequence_type']
+HAS_SUBDIRS = ['blast', 'call_variants', 'sequence_type']
 
 def _get_workflow_names():
     """Get all names of all workflows which have a test.yml in the tests directory.

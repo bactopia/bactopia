@@ -40,6 +40,8 @@ process GATHER_SAMPLES {
         meta.runtype = 'paired-end'
     } else if (runtype == 'merge-se') {
         meta.runtype = 'single-end'
+    } else if (runtype == 'sra_accession_ont') {
+        meta.runtype = 'ont'
     }
     qin = is_assembly ? 'qin=33' : 'qin=auto'
     '''
@@ -95,7 +97,7 @@ process GATHER_SAMPLES {
         ls -l fastqs/!{meta.id}.fastq.gz | awk '{print $5"\t"$9}' >> ${MERGED}
 
         touch extra/empty.fna.gz
-    elif [ "!{runtype}" == "sra_accession" ]; then
+    elif [ "!{runtype}" == "sra_accession" ] || [ "!{runtype}" == "sra_accession_ont" ]; then
         if [ "!{task.attempt}" == "!{params.max_retry}" ]; then
             echo "Unable to download !{meta.id} from both SRA and ENA !{params.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 
@@ -162,7 +164,7 @@ process GATHER_SAMPLES {
     if [ "!{params.skip_fastq_check}" == "false" ]; then
         ERROR=0
         # Check paired-end reads have same read counts
-        OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion}"
+        OPTS="--sample !{meta.id} --min_basepairs !{params.min_basepairs} --min_reads !{params.min_reads} --min_proportion !{params.min_proportion} --runtype !{runtype}"
         if [ -f  "fastqs/!{meta.id}_R2.fastq.gz" ]; then
             # Paired-end
             gzip -cd fastqs/!{meta.id}_R1.fastq.gz | fastq-scan > r1.json
@@ -261,7 +263,7 @@ process GATHER_SAMPLES {
         art: $(echo $(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*$//')
         fastq-dl: $(echo $(fastq-dl --version 2>&1) | sed 's/fastq-dl //')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
-        mash: $(echo $(mash --version 2>&1))
+        mash: $(echo $(mash 2>&1) | sed 's/^.*Mash version //;s/ .*$//')
         ncbi-genome-download: $(echo $(ncbi-genome-download --version 2>&1))
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
     END_VERSIONS

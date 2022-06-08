@@ -56,7 +56,7 @@ process CALL_VARIANTS {
         printf "accession\\tdistance\\tlatest_accession\\tupdated\\n" > mash-dist.txt
         select-references.py distances.txt 1 !{tie_break} >> mash-dist.txt
         grep -v distance mash-dist.txt | cut -f3 > download-list.txt
-        ncbi-genome-download bacteria -l complete -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
+        ncbi-genome-download bacteria -o ./ -F genbank -p !{task.cpus} -A download-list.txt \
             -r !{params.max_retry} !{no_cache}
 
         # Move and uncompress genomes
@@ -90,7 +90,7 @@ process CALL_VARIANTS {
     mv ${REFERENCE_NAME}/!{meta.id}.log ./
 
     # Add GenBank annotations
-    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} > ${REFERENCE_NAME}/!{meta.id}.annotated.vcf
+    vcf-annotator ${REFERENCE_NAME}/!{meta.id}.vcf ${REFERENCE} --output ${REFERENCE_NAME}/!{meta.id}.annotated.vcf
 
     # Get per-base coverage
     grep "^##contig" ${REFERENCE_NAME}/!{meta.id}.vcf > ${REFERENCE_NAME}/!{meta.id}.full-coverage.txt
@@ -129,7 +129,7 @@ process CALL_VARIANTS {
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         bedtools: $(echo $(bedtools --version 2>&1) | sed 's/bedtools v//')
-        mash: $(echo $(mash --version 2>&1))
+        mash: $(echo $(mash 2>&1) | sed 's/^.*Mash version //;s/ .*$//')
         ncbi-genome-download: $(echo $(ncbi-genome-download --version 2>&1))
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
         snippy: $(echo $(snippy --version 2>&1) | sed 's/snippy //')

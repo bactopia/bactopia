@@ -26,9 +26,9 @@
     - path: pytest/output/assembly/checkm/lineage.ms
       contains: ['Lineage Marker File']
     - path: pytest/output/assembly/checkm/storage/bin_stats.analyze.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
+      md5sum: f963b63779861433e37f118eea3d3a30
     - path: pytest/output/assembly/checkm/storage/bin_stats.tree.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
+      md5sum: f963b63779861433e37f118eea3d3a30
     - path: pytest/output/assembly/checkm/storage/bin_stats_ext.tsv
       contains: ['marker lineage']
     - path: pytest/output/assembly/checkm/storage/checkm_hmm_info.pkl.gz
@@ -128,25 +128,25 @@
     - path: pytest/output/assembly/quast/icarus.html
       md5sum: 3451cb987bfde7964ecd7a26af99e0d8
     - path: pytest/output/assembly/quast/icarus_viewers/contig_size_viewer.html
-      md5sum: 5ff8cabe55f3ccf6f7cd8c2ae8953296
     - path: pytest/output/assembly/quast/predicted_genes/GCF_000292685_glimmer.stderr
       md5sum: 390dc7df727903e33d8127f8f12d9cf5
-    - path: pytest/output/assembly/quast/predicted_genes/GCF_000292685_glimmer_genes.gff.gz
+    - path: pytest/output/assembly/quast/predicted_genes/GCF_000292685_glimmer_genes.gff
+      contains: ["version", "NC_018507", "CDS", "exon"]
     - path: pytest/output/assembly/quast/report.html
       contains: ['QUAST']
     - path: pytest/output/assembly/quast/report.pdf
     - path: pytest/output/assembly/quast/report.tex
-      md5sum: 08ab3fb84331cb407bfe20d3e7f829a6
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/assembly/quast/report.tsv
-      md5sum: c412d46f8cf503963e46922e5d027217
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/assembly/quast/report.txt
-      md5sum: a825bef4dc763c1a6011d6ea17be876f
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/assembly/quast/transposed_report.tex
-      md5sum: 1d44515ba936e0cc998629804d012dd4
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/assembly/quast/transposed_report.tsv
-      md5sum: 0336f49984e49afe9e72c8632504775f
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/assembly/quast/transposed_report.txt
-      md5sum: 1ec5352cb44deb1d6c701e6cf06a6a48
+      contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: pytest/output/logs/assembly_qc/checkm.log
       contains: ['CheckM', 'Parsing', 'written']
     - path: pytest/output/logs/assembly_qc/nf-assembly_qc.begin
@@ -166,4 +166,4 @@
     - path: pytest/output/logs/assembly_qc/quast.log
       contains: ['Version', 'QUAST']
     - path: pytest/output/logs/assembly_qc/versions.yml
-      md5sum: a8f4ded395206059a3ef008b22d347df
+      md5sum: 5889cafee85930b203eab5ebbc6741bd

@@ -12,11 +12,22 @@ class WorkflowBactopia {
         def Integer error = 0
         def String run_type = ""
 
-        if (params.fastqs) {
-            if (Utils.isLocal(params.fastqs)) {
-                error += Utils.fileNotFound(params.fastqs, 'fastqs', log)
+        if (params.samples) {
+            if (Utils.isLocal(params.samples)) {
+                error += Utils.fileNotFound(params.samples, 'samples', log)
             }
-            run_type = "fastqs"
+            run_type = "is_fofn"
+        } else if  (params.R1 && params.R2 && params.SE && params.short_polish && params.sample) {
+            if (Utils.isLocal(params.R1)) {
+                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+            }
+            if (Utils.isLocal(params.R2)) {
+                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            }
+            if (Utils.isLocal(params.SE)) {
+                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            }
+            run_type = "short_polish"
         } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
             if (Utils.isLocal(params.R1)) {
                 error += Utils.fileNotGzipped(params.R1, 'R1', log)
@@ -30,6 +41,7 @@ class WorkflowBactopia {
             run_type = "hybrid"
         } else if  (params.R1 && params.R2 && params.SE) {
             log.error "Cannot use --R1, --R2, and --SE together, unless --hybrid is used."
+            error += 1
         } else if  (params.R1 && params.R2 && params.sample) {
             if (Utils.isLocal(params.R1)) {
                 error += Utils.fileNotGzipped(params.R1, 'R1', log)
@@ -58,6 +70,11 @@ class WorkflowBactopia {
         } else {
             log.error "One or more required parameters are missing, please check and try again."
             log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)
+            error += 1
+        }
+
+        if (params.check_samples && !params.samples) {
+            log.error "To use --check_samples, you must also provide a FOFN to check using --samples."
             error += 1
         }
 
@@ -111,6 +128,22 @@ class WorkflowBactopia {
                 }
             } else {
                 log.error "'--ask_merlin' requires '--datasets' to also be used"
+                error += 1
+            }
+        }
+
+        // Using Bakta, requires path to database
+        if (params.use_bakta) {
+            if (params.bakta_db) {
+                if (Utils.isLocal(params.bakta_db)) {
+                    if (!Utils.fileExists("${params.bakta_db}/version.json")) {
+                        log.error "Please verify the PATH is correct for '--bakta_db'. Unable " +
+                                "to open ${params.bakta_db}"
+                        error += 1
+                    }
+                }
+            } else {
+                log.error "'--use_bakta' requires '--bakta_db' to also be used"
                 error += 1
             }
         }

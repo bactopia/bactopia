@@ -1,4 +1,4 @@
-name: bakta
+name: bakta_run
 description: Annotation of bacterial genomes (isolates, MAGs) and plasmids
 keywords:
   - annotation

@@ -7,25 +7,23 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.embl
       contains: ['contig_1', 'Bakta', 'DnaK', '//']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.faa
-      md5sum: 90f2ca01a8e64a2e43eef18bf52f3ee4
+      contains: ['DnaK', '>', 'dehydratase', 'NADH']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.ffn
-      md5sum: bb52d38a85bd57e6a18db919b34b3355
+      contains: ['DnaK', '>', 'dehydratase', 'NADH']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.fna
-      md5sum: 714d5ab267bd640e20c217827108ad45
+      contains: ['contig_1', '>', 'completeness', 'gcode']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
       contains: ['contig_1', 'Bakta', 'DnaK', '//']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
-      md5sum: 53aded5b1cf93e1428c5f15fcecba84e
+      contains: ['Database', 'Prodigal', 'replication', 'contig_1']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
       md5sum: 97c4f57c7dee5cc22628b390d37fa32a
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
-      md5sum: 5462c0cd1cb125ac7d2b7db7f037f2f9
+      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
-      md5sum: af6cb8ca7a684a215efeb9538a30b9b0
+      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.txt
       contains: ['Sequence', 'coding', 'Bakta', 'DOI']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/GCF_000292685.log
-      contains: ['INFO', 'threads', 'removed', 'MAIN']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.err
@@ -40,7 +38,7 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: 29487e1c737e9dbcbbcb699e2d0f4264
+      md5sum: 88797bb82063f79759f95bda744845e1
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html

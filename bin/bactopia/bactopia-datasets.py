@@ -1,113 +1,4 @@
 #! /usr/bin/env python3
-"""
-usage: bactopia datasets [-h] [--outdir STR] [--skip_ariba] [--ariba STR]
-                         [--species STR] [--skip_mlst] [--skip_prokka]
-                         [--include_genus]
-                         [--asssembly_level {all,complete,chromosome,scaffold,contig}]
-                         [--limit INT] [--accessions STR] [--identity FLOAT]
-                         [--overlap FLOAT] [--max_memory INT] [--fast_cluster]
-                         [--skip_minmer] [--prodigal_tf STR]
-                         [--reference STR] [--mapping STR] [--genes STR]
-                         [--proteins STR] [--primers STR] [--force_optional]
-                         [--cpus INT] [--clear_cache] [--force]
-                         [--force_ariba] [--force_mlst] [--force_prokka]
-                         [--force_minmer][--keep_files]
-                         [--available_datasets] [--available_species] [--depends]
-                         [--version] [--verbose] [--silent]
-                         PUBMLST
-
-bactopia datasets - Setup public datasets for Bactopia
-
-positional arguments:
-  PUBMLST               Bactopia config file with PubMLST schema mappings for
-                        Ariba.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --outdir STR          Directory to write output. (Default ./datasets)
-
-Ariba Reference Datasets:
-  --skip_ariba          Skip setup of Ariba datasets
-  --ariba STR           Comma separated list of Ariba datasets to download and
-                        setup. Available datasets include: argannot, card,
-                        ncbi, megares, plasmidfinder, resfinder,
-                        srst2_argannot, vfdb_core, vfdb_full, virulencefinder
-                        (Default: "vfdb_core,card") Use --available_datasets
-                        to see the full list.
-
-Bacterial Species:
-  --species STR         Download available MLST schemas and completed genomes
-                        for a given species or a list of species in a text
-                        file.
-  --skip_mlst           Skip setup of MLST schemas for each species
-
-Custom Prokka Protein FASTA:
-  --skip_prokka         Skip creation of a Prokka formatted fasta for each
-                        species
-  --include_genus       Include all genus members in the Prokka proteins FASTA
-  --assembly_level {all,complete,chromosome,scaffold,contig}
-                        Assembly levels of genomes to download (Default:
-                        complete).
-  --limit INT           If available completed genomes exceeds a given limit,
-                        a random subsample will be taken. (Default 1000)
-  --accessions STR      A list of RefSeq accessions to download.
-  --identity FLOAT      CD-HIT (-c) sequence identity threshold. (Default:
-                        0.9)
-  --overlap FLOAT       CD-HIT (-s) length difference cutoff. (Default: 0.8)
-  --max_memory INT      CD-HIT (-M) memory limit (in MB). (Default: unlimited
-  --fast_cluster        Use CD-HIT's (-g 0) fast clustering algorithm, instead
-                        of the accurate but slow algorithm.
-
-Minmer Datasets:
-  --skip_minmer         Skip download of pre-computed minmer datasets (mash,
-                        sourmash)
-
-Optional User Provided Datasets:
-  --prodigal_tf STR     A pre-built Prodigal training file to add to the
-                        species annotation folder. Requires a single species
-                        (--species) and will replace existing training files.
-  --reference STR       A reference genome (FASTA/GenBank (preferred)) file or
-                        directory to be added to the optional folder for
-                        variant calling. Requires a single species
-                        (--species).
-  --mapping STR         A reference sequence (FASTA) file or directory to be
-                        added to the optional folder for mapping. Requires a
-                        single species (--species).
-  --genes STR           A gene sequence (FASTA) file or directory to be added
-                        to the optional folder for BLAST. Requires a single
-                        species (--species).
-  --proteins STR        A protein sequence (FASTA) file or directory to be
-                        added to the optional folder for BLAST. Requires a
-                        single species (--species).
-  --primers STR         A primer sequence (FASTA) file or directory to be
-                        added to the optional folder for BLAST. Requires a
-                        single species (--species).
-  --force_optional      Overwrite any existing files in the optional folders
-
-Custom Options:
-  --cpus INT            Number of cpus to use. (Default: 1)
-  --clear_cache         Remove any existing cache.
-  --force               Forcibly overwrite existing datasets.
-  --force_ariba         Forcibly overwrite existing Ariba datasets.
-  --force_mlst          Forcibly overwrite existing MLST datasets.
-  --force_prokka        Forcibly overwrite existing Prokka datasets.
-  --force_minmer        Forcibly overwrite existing minmer datasets.
-  --keep_files          Keep all downloaded and intermediate files.
-  --available_datasets  List Ariba reference datasets and MLST schemas
-                        available for setup.
-  --available_species   List species availble from current datasets.
-  --depends             Verify dependencies are installed.
-
-Adjust Verbosity:
-  --version             show program's version number and exit
-  --verbose             Print debug related text.
-  --silent              Only critical errors will be printed.
-
-example usage:
-  bactopia datasets
-  bactopia datasets --ariba 'vfdb_core'
-  bactopia datasets --species 'Staphylococcus aureus' --include_genus
-"""
 import glob
 import json
 import logging
@@ -118,7 +9,7 @@ from Bio import SeqIO
 from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "bactopia datasets"
-VERSION = "2.0.3"
+VERSION = "2.1.0"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
@@ -155,12 +46,11 @@ def check_cache(clear_cache=False):
 def get_available_datasets(pubmlst_file, clear_cache):
     """Get a list of available datasets to be set up."""
     data = check_cache(clear_cache=clear_cache)
-    expected = ['ariba', 'pubmlst']
+    expected = ['pubmlst']
     if sum([k in data for k in expected]) != len(expected):
         logging.debug((f'Existing dataset cache ({CACHE_JSON}) is missing '
                        'expected fields, refreshing.'))
         data = {
-            'ariba': sorted(ariba_datasets()),
             'pubmlst': pubmlst_schemas(pubmlst_file)
         }
 
@@ -168,17 +58,19 @@ def get_available_datasets(pubmlst_file, clear_cache):
             logging.debug(f'Created dataset cache ({CACHE_JSON})')
             json.dump(data, cache_fh, indent=4, sort_keys=True)
 
-    return [data['ariba'], data['pubmlst']]
+    return data['pubmlst']
 
 
 def validate_requirements():
     """Validate the required programs are available, if not exit (1)."""
     from shutil import which
     programs = {
-        'ariba': which('ariba'), 'makeblastdb': which('makeblastdb'),
-        'cd-hit': which('cd-hit'), 'wget': which('wget'),
-        'unzip': which('unzip'), 'gzip': which('gzip')
-        # 'mentalist': which('mentalist')
+        'ariba': which('ariba'),
+        'makeblastdb': which('makeblastdb'),
+        'cd-hit': which('cd-hit'),
+        'wget': which('wget'),
+        'unzip': which('unzip'),
+        'gzip': which('gzip')
     }
 
     missing = False
@@ -242,14 +134,33 @@ def validate_species(species):
     return species_key
 
 
-def ariba_datasets():
-    """Print a list of datasets available with 'ariba getref'."""
-    getref_usage = ' '.join([
-        line.strip() for line in
-        execute('ariba getref --help', capture=True).strip().split('\n')
-    ])
-    datasets = getref_usage.split('of: ')[1].split(' outprefix')[0]
-    return datasets.split()
+def validate_user_files(user_file, num_species, param):
+    """Validate user input files."""
+    if not os.path.exists(user_file):
+        logging.error(f'Unable to locate {user_file}, please verify path')
+        sys.exit(1)
+    elif not num_species:
+        logging.error(f'A single species (--species) must be given to use --{param}')
+        sys.exit(1)
+    elif num_species > 1:
+        logging.error(f'Multiple species (n={num_species}) can not be used with --{param}')
+        sys.exit(1)
+    return True
+
+
+def copy_user_files(source, destination):
+    """Copy user files to a new directory."""
+    if os.path.exists(source):
+        if os.path.isdir(source):
+            # Copy all contents in a directory
+            logging.info(f'Copying {source}/* to {destination}/')
+            execute(f'cp {source}/* {destination}/')
+        else:
+            # Copy a single file
+            logging.info(f'Copying {source} to {destination}/')
+            execute(f'cp {source} {destination}/')
+    else:
+        logging.error(f'{source} does not exist, skipping copy to {destination}.')
 
 
 def pubmlst_schemas(pubmlst_file):
@@ -325,51 +236,6 @@ def setup_requests(request, available_datasets, title, skip_check=False):
     return datasets
 
 
-def setup_ariba(request, available_datasets, outdir, force=False,
-                keep_files=False):
-    """Setup each of the requested datasets using Ariba."""
-    requests = setup_requests(request, available_datasets, 'ariba')
-    if requests:
-        ariba_dir = f'{outdir}/ariba'
-        for request in requests:
-            prefix = f'{ariba_dir}/{request}'
-            if os.path.exists(f'{prefix}-updated.txt'):
-                if force:
-                    logging.info(f'--force, removing existing {request} setup')
-                    execute(f'rm -rf {prefix}*')
-                else:
-                    logging.info(f'{request} ({prefix}) exists, skipping')
-                    continue
-            elif force:
-                logging.info(f'--force, removing existing {request} setup')
-                execute(f'rm -rf {prefix}*')
-
-            # Setup Ariba dataset
-            logging.info(f'Setting up {request} Ariba dataset')
-            fa = f'{prefix}.fa'
-            tsv = f'{prefix}.tsv'
-            execute(f'mkdir -p {ariba_dir}')
-            with open(f'{prefix}-log.txt', 'w') as ariba_log:
-                execute(
-                    f'ariba getref {request} {request}',
-                    stdout_file=ariba_log, stderr_file=ariba_log,
-                    directory=ariba_dir
-                )
-            execute(f'ariba prepareref -f {fa} -m {tsv} {prefix}')
-
-            # Clean up
-            if not keep_files:
-                execute(f'rm {fa} {tsv}')
-            execute(f'mv {request}*.* {request}/', directory=ariba_dir)
-            execute(f'tar -zcvf {request}.tar.gz {request}/',
-                    directory=ariba_dir)
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {request}-updated.txt',
-                    directory=ariba_dir)
-            execute(f'rm -rf {request}', directory=ariba_dir)
-    else:
-        logging.info("No valid Ariba datasets to setup, skipping")
-
-
 def setup_mlst_request(request, available_schemas, species_key=None):
     """Return a list of mlst schemas to build."""
     requests = []
@@ -433,7 +299,6 @@ def setup_mlst(request, available_datasets, outdir, force=False, species_key=Non
 
             # Ariba
             species_request = request['ariba']
-            logging.info(f'Creating Ariba MLST dataset')
             ariba_dir = f'{schema_dir}/ariba'
             execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
 
@@ -480,7 +345,6 @@ def process_cds(cds):
 
         header = f'>{protein_id} {ec_number}~~~{gene}~~~{product}'
         seq = cds['translation'][0]
-
 
     return [header, seq]
 
@@ -599,7 +463,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                     continue
 
             execute((f'ncbi-genome-download bacteria -A {accession_file} '
-                    f'-l complete -o {prokka_dir}/genomes -F genbank -r 80 '
+                    f'-l {assembly_level} -o {prokka_dir}/genomes -F genbank -r 80 '
                     f'-m {prokka_dir}/ncbi-metadata.txt'))
 
             # Extract information from Genbank files
@@ -751,7 +615,7 @@ def setup_amr(outdir, force=False):
             logging.info(f'AMRFinder+ database saved to {amr_dir}/{prefix}.tar.gz')
 
 
-def setup_minmer(outdir, force=False):
+def setup_minmer(outdir, force=False, skip_ssl_check=False):
     """Download precomputed Refseq (Mash) and Genbank (Sourmash) datasets."""
     datasets = {
         # Last updated: 2019-03-04
@@ -762,7 +626,7 @@ def setup_minmer(outdir, force=False):
             'https://gembox.cbcb.umd.edu/mash/refseq.genomes.k21s1000.msh'
         )
     }
-
+    opts = "--no-check-certificate" if skip_ssl_check else ""
     minmer_dir = f'{outdir}/minmer'
     update_timestamp = False
     if force:
@@ -781,7 +645,7 @@ def setup_minmer(outdir, force=False):
                 logging.info(f'{filepath} exists, skipping')
                 continue
 
-        execute(f'wget --quiet -O {filename} {url}', directory=minmer_dir)
+        execute(f'wget {opts} --quiet -O {filename} {url}', directory=minmer_dir)
 
     # Finish up
     if update_timestamp or not os.path.exists(f'{minmer_dir}/minmer-updated.txt'):
@@ -789,13 +653,12 @@ def setup_minmer(outdir, force=False):
                 directory=minmer_dir)
 
 
-def create_summary(outdir, training_set=False):
+def create_summary(outdir, training_set=False, reference=False, mapping=False, genes=False, proteins=False, primers=False):
     """Create a summary of available datasets in JSON format."""
     from collections import OrderedDict
     available_datasets = OrderedDict()
 
     available_datasets['antimicrobial-resistance'] = []
-    available_datasets['ariba'] = []
     available_datasets['minmer'] = {'sketches': [], 'last_update': None}
     available_datasets['plasmid'] = {'sketches': None, 'blastdb': None, 'last_update': None}
 
@@ -809,19 +672,6 @@ def create_summary(outdir, training_set=False):
                         'name': db,
                         'last_update': execute(
                             f'head -n 1 {outdir}/antimicrobial-resistance/{name}-updated.txt', capture=True
-                        ).rstrip()
-                    })
-
-    # Ariba
-    if os.path.exists(f'{outdir}/ariba'):
-        for db in sorted(os.listdir(f'{outdir}/ariba')):
-            if db.endswith(".tar.gz"):
-                if db != 'EMPTY.tar.gz':
-                    name = db.replace(".tar.gz", "")
-                    available_datasets['ariba'].append({
-                        'name': db,
-                        'last_update': execute(
-                            f'head -n 1 {outdir}/ariba/{name}-updated.txt', capture=True
                         ).rstrip()
                     })
 
@@ -912,6 +762,22 @@ def create_summary(outdir, training_set=False):
                         execute(f'mkdir -p {blast_dir}', directory=outdir)
                 else:
                     new_species['optional'][optional] = f'{optional_dir}'
+            
+            # Copy over the species specific files
+            if reference:
+                copy_user_files(reference, f'{species_dir}/optional/reference-genomes')
+
+            if mapping:
+                copy_user_files(mapping, f'{species_dir}/optional/mapping-sequences')
+
+            if genes:
+                copy_user_files(genes, f'{species_dir}/optional/blast/genes')
+
+            if primers:
+                copy_user_files(primers, f'{species_dir}/optional/blast/primers')
+
+            if proteins:
+                copy_user_files(proteins, f'{species_dir}/optional/blast/proteins')
 
             available_datasets['species-specific'][species] = new_species
 
@@ -967,34 +833,19 @@ if __name__ == '__main__':
         formatter_class=ap.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(f'''
             example usage:
-              {PROGRAM} 
-              {PROGRAM} --ariba 'vfdb_core'
+              {PROGRAM}
               {PROGRAM} --species 'Staphylococcus aureus' --include_genus
         ''')
     )
 
     parser.add_argument(
         'pubmlst', metavar="PUBMLST", type=str,
-        help='Bactopia config file with PubMLST schema mappings for Ariba.'
+        help='Bactopia config file with PubMLST schema mappings.'
     )
 
     parser.add_argument(
         '--outdir', metavar="STR", type=str, default="./datasets",
         help='Directory to write output. (Default ./datasets)'
-    )
-
-    group1 = parser.add_argument_group('Ariba Reference Datasets')
-    group1.add_argument(
-        '--skip_ariba', action='store_true',
-        help=('Skip setup of Ariba datasets')
-    )
-    group1.add_argument(
-        '--ariba', metavar="STR", type=str, default='vfdb_core,card',
-        help=('Comma separated list of Ariba datasets to download and setup. '
-              'Available datasets include: argannot, card, ncbi, megares, '
-              'plasmidfinder, resfinder, srst2_argannot, vfdb_core, vfdb_full, '
-              'virulencefinder (Default: "vfdb_core,card") Use --available_datasets '
-              'to see the full list.')
     )
 
     group2 = parser.add_argument_group('Bacterial Species')
@@ -1019,7 +870,7 @@ if __name__ == '__main__':
     )
     group3.add_argument(
         '--assembly_level', default='complete', type=str,
-        choices=['all', 'complete', 'chromosome', 'scaffold', 'contig'],
+        choices=['all', 'complete', 'chromosome', 'scaffold', 'contig', 'complete,chromosome', 'chromosome,complete'],
         help=('Assembly levels of genomes to download (Default: complete).')
     )
     group3.add_argument(
@@ -1111,8 +962,6 @@ if __name__ == '__main__':
 
     group8.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing datasets.')
-    group8.add_argument('--force_ariba', action='store_true',
-                        help='Forcibly overwrite existing Ariba datasets.')
     group8.add_argument('--force_mlst', action='store_true',
                         help='Forcibly overwrite existing MLST datasets.')
     group8.add_argument('--force_prokka', action='store_true',
@@ -1127,8 +976,7 @@ if __name__ == '__main__':
     )
     group8.add_argument(
         '--available_datasets', action='store_true',
-        help=('List Ariba reference datasets and MLST schemas '
-              'available for setup.')
+        help='List MLST schemas available for setup.'
     )
     group8.add_argument(
         '--available_species', action='store_true',
@@ -1139,6 +987,8 @@ if __name__ == '__main__':
                         help='Verify dependencies are installed.')
 
     group9 = parser.add_argument_group('Adjust Verbosity')
+    group9.add_argument('--skip_ssl_check', action='store_true',
+                        help="wget will run with --no-check-certificate to skip SSL checks")
     group9.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
     group9.add_argument('--verbose', action='store_true',
@@ -1163,9 +1013,9 @@ if __name__ == '__main__':
     else:
         validate_requirements()
 
-    ARIBA, PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
+    PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
     if args.available_datasets:
-        available_datasets(ARIBA, PUBMLST)
+        available_datasets(PUBMLST)
 
     if args.available_species:
         available_species(args.outdir)
@@ -1179,21 +1029,24 @@ if __name__ == '__main__':
     if args.include_genus:
         if not num_species:
             logging.error(f'Species (--species) not given, ignoring --include_genus')
-            sys.exit(1)
-        elif num_species > 1:
-            logging.error(f'Only a single species (given {num_species}) can be used with --include_genus')
-            sys.exit(1)
 
     if args.prodigal_tf:
-        if not os.path.exists(args.prodigal_tf):
-            logging.error(f'Unable to locate {args.prodigal_tf}, please verify path')
-            sys.exit(1)
-        elif not num_species:
-            logging.error(f'A single species (--species) must be given to use --prodigal_tf')
-            sys.exit(1)
-        elif num_species > 1:
-            logging.error(f'Only a single species (given {num_species}) can be used with --prodigal_tf')
-            sys.exit(1)
+        validate_user_files(args.prodigal_tf, num_species, 'prodigal_tf')
+
+    if args.reference:
+        validate_user_files(args.reference, num_species, 'reference')
+
+    if args.mapping:
+        validate_user_files(args.mapping, num_species, 'mapping')
+
+    if args.genes:
+        validate_user_files(args.genes, num_species, 'genes')
+
+    if args.proteins:
+        validate_user_files(args.proteins, num_species, 'proteins')
+
+    if args.primers:
+        validate_user_files(args.primers, num_species, 'primers')
 
     if args.accessions:
         if not os.path.exists(args.accessions):
@@ -1205,22 +1058,10 @@ if __name__ == '__main__':
         elif num_species > 1:
             logging.error(f'Only a single species (given {num_species}) can be used with --accessions')
             sys.exit(1)
-            
-    if not args.skip_ariba:
-        if args.ariba:
-            logging.info('Setting up Ariba datasets')
-            setup_ariba(
-                args.ariba, ARIBA, args.outdir, keep_files=args.keep_files,
-                force=(args.force or args.force_ariba)
-            )
-        else:
-            logging.info('No requests for an Ariba dataset, skipping')
-    else:
-        logging.info('Skipping Ariba dataset step')
 
     if not args.skip_minmer:
         logging.info('Setting up pre-computed Genbank/Refseq minmer datasets')
-        setup_minmer(args.outdir, force=(args.force or args.force_minmer))
+        setup_minmer(args.outdir, force=(args.force or args.force_minmer), skip_ssl_check=args.skip_ssl_check)
     else:
         logging.info('Skipping minmer dataset step')
 
@@ -1255,4 +1096,5 @@ if __name__ == '__main__':
     else:
         logging.info('No requests for an species, skipping')
 
-    create_summary(args.outdir, training_set=args.prodigal_tf)
+    create_summary(args.outdir, training_set=args.prodigal_tf, reference=args.reference,
+                mapping=args.mapping, genes=args.genes, proteins=args.proteins, primers=args.primers)

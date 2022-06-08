@@ -71,8 +71,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "use_fastqs": {
                     "type": "boolean",

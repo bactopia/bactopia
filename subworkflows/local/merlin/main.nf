@@ -13,6 +13,7 @@ include { LISSERO } from '../lissero/main';
 include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { SEQSERO2 } from '../seqsero2/main';
+include { SHIGATYPER } from '../shigatyper/main';
 include { SISTR } from '../sistr/main';
 include { SSUISSERO } from '../ssuissero/main';
 include { STAPHTYPER } from '../staphtyper/main';
@@ -30,7 +31,9 @@ workflow MERLIN {
 
     // Escherichia/Shigella
     MERLINDIST.out.escherichia.map{meta, assembly, found -> [meta, assembly]}.set{ ch_escherichia }
+    MERLINDIST.out.escherichia_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_escherichia_fq }
     ECTYPER(ch_escherichia)
+    SHIGATYPER(ch_escherichia_fq)
     ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
 
     // Haemophilus
@@ -56,8 +59,8 @@ workflow MERLIN {
     ch_versions = ch_versions.mix(LISSERO.out.versions.first())
 
     // Mycobacterium 
-    MERLINDIST.out.mycobacterium_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_mycobacterium }
-    TBPROFILER(ch_mycobacterium)
+    MERLINDIST.out.mycobacterium_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_mycobacterium_fq }
+    TBPROFILER(ch_mycobacterium_fq)
     ch_versions = ch_versions.mix(TBPROFILER.out.versions.first())
 
     // Neisseria 

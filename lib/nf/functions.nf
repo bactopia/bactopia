@@ -43,9 +43,33 @@ def get_schemas() {
         }
     }
 
+    if (params.containsKey('use_bakta')) {
+        if (params.use_bakta) {
+            // Annotate genomes with Bakta
+            schemas += _get_module_schemas(params.workflows['bakta']["modules"])
+        }
+    }
+
     // Load profile specific schemas
-    if (['aws', 'gcp', 'sge', 'slurm'].contains(workflow.profile)) {
-        schemas << "conf/schema/profiles/${workflow.profile}.json"
+    if ("${workflow.profile}".contains('aws')) {
+        schemas << "conf/schema/profiles/aws.json"
+    }
+
+    if ("${workflow.profile}".contains('gcp')) {
+        schemas << "conf/schema/profiles/gcp.json"
+    }
+
+    if ("${workflow.profile}".contains('sge')) {
+        schemas << "conf/schema/profiles/sge.json"
+    }
+
+    if ("${workflow.profile}".contains('slurm')) {
+        schemas << "conf/schema/profiles/slurm.json"
+    }
+
+    // Custom configs
+    if ("${workflow.profile}".contains('arcc')) {
+        schemas << "conf/schema/profiles/slurm.json"
     }
 
     schemas << 'conf/schema/generic.json'
@@ -175,7 +199,7 @@ def saveFiles(Map args) {
                     final_output = filename
                 }
             } else {
-                if (args.opts.is_module) {
+                if (args.opts.is_module || args.opts.is_db_download) {
                     final_output = filename
                 } else {
                     final_output = "${process_name}/${filename}"
@@ -206,6 +230,7 @@ def initOptions(Map args, String process_name) {
     options.args            = args.args ?: ''
     options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
+    options.is_db_download  = args.is_db_download ?: false
     options.logs_subdir     = args.logs_subdir ?: ''
     options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false

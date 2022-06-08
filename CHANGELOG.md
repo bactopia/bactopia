@@ -1,5 +1,41 @@
 # Changelog
 
+## v2.1.0 bactopia/bactopia "Silver Mist" - 2022/06/08
+
+### `Added`
+- `--use_bakta` to replace Prokka with Bakta in main workflow
+- Split Bakta into two processes `download` and `run`
+- added `shigatyper` to Merlin
+- custom profile for `arcc`
+- `bactopia prepare` error message when nothing found, and `--examples` for example use cases
+- renamed `--fastqs` to `--samples` to better reflect its usage (fastqs and assemblies)
+- add `--check_samples` to validate user generated FOFNs
+- `--short_polish` for short read polishing for long-read assemblies
+- Moved Ariba to Bactopia Tools
+- bump versions in Bactopia envs
+- bump Bactopia Tool versions
+    - `amrfinder+` version to 3.10.30
+    - `gtdb` version to 2.1.0
+    - `mlst` version to 2.22.0
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `ariba` - Gene identification by local assemblies
+    - `gamma` - Identification, classification, and annotation of translated gene matches
+    - `shigatyper`: Shigella serotype from Illumina or Oxford Nanopore reads
+
+### `Fixed`
+- @nickjhathaway Fixed assembly_level in `bactopia datasets` and auto `call_variants`
+- `bactopia search` now supports ONT reads
+- `vcf-annotator` unable to write to `/dev/stdout`
+- typo in `bactopia download` when using singularity
+- `bactopia download` will not rebuild envs its already built in a run
+- `--include_genus` with `bactopia datasets` now works with multiple samples
+- Parameters to copy optional species-specific files in `bactopia datasets`
+- Don't use `AUTO` for IQ-TREE cpus
+- `gtdb` download working again
+- empty FASTQs after adapter and phix removal
+- low read count error for ONT samples
+- Removed `sequence_type` environment
+
 ## v2.0.3 bactopia/bactopia "King Cobra" - 2022/03/23
 
 ### `Added`

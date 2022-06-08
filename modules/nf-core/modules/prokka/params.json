@@ -22,6 +22,20 @@
                     "description": "Training file to use for Prodigal",
                     "fa_icon": "fas fa-file-alt"
                 },
+                "compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "default": false,
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
+                },
+                "centre": {
+                    "type": "string",
+                    "default": "Bactopia",
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
+                    "hidden": true
+                },
                 "prokka_coverage": {
                     "type": "integer",
                     "description": "Minimum coverage on query protein",

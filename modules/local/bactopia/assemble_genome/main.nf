@@ -33,10 +33,9 @@ process ASSEMBLE_GENOME {
     // Unicycler
     no_miniasm = params.no_miniasm ? "--no_miniasm" : ""
     no_rotate = params.no_rotate ? "--no_rotate" : ""
-    no_pilon = params.no_polish ? "--no_pilon" : ""
     keep = params.keep_all_files ? "--keep 3" : "--keep 1"
     is_hybrid = meta.runtype == "hybrid" ? "-l ${extra}" : ""
-    unicycler_opts = "${no_miniasm} ${no_rotate} ${no_pilon} ${is_hybrid} ${keep}"
+    unicycler_opts = "${no_miniasm} ${no_rotate} ${is_hybrid} ${keep}"
 
     // Shovill
     contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${meta.id}_%05d"
@@ -51,12 +50,14 @@ process ASSEMBLE_GENOME {
     // Dragonflye
     nopolish = params.no_polish ? "--nopolish" : ""
     medaka_model = params.medaka_model ? "--model ${params.medaka_model}" : ""
+    pilon_rounds = params.pilon_rounds ? "--pilon ${params.pilon_rounds}" : ""
+    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]} --polypolish ${params.polypolish_rounds} ${pilon_rounds}" : "--reads ${fq[0]}"
     dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish}"
 
-    // Merge Shovill/Dragonfly opts
-    assembler_wf = meta.runtype == "ont" ? "dragonflye" : "shovill"
-    assembler_mode = meta.runtype == "ont" ? "dragonflye --reads ${fq[0]}" : shovill_mode
-    assemnber_opts = meta.runtype == "ont" ? dragonflye_opts : shovill_opts
+    // Merge Shovill/Dragonflye opts
+    assembler_wf = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye" : "shovill"
+    assembler_mode = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye ${dragonflye_fastq}" : shovill_mode
+    assemnber_opts = meta.runtype == "ont" || meta.runtype == "short_polish" ? dragonflye_opts : shovill_opts
 
     // Assembly inputs
     use_original_assembly = null
@@ -70,11 +71,10 @@ process ASSEMBLE_GENOME {
         mkdir ${OUTDIR}
         gzip -cd !{extra} > ${OUTDIR}/!{meta.id}.fna
     elif [[ "!{meta.runtype}" == "hybrid"  || "!{params.use_unicycler}" == "true" ]]; then
-        unicycler -1 !{fq[0]} -2 !{fq[1]} -o ${OUTDIR}/ --no_correct \
+        unicycler -1 !{fq[0]} -2 !{fq[1]} -o ${OUTDIR}/ \
             --min_fasta_length !{params.min_contig_len} \
             --threads !{task.cpus} \
             --mode !{params.unicycler_mode} \
-            --min_polish_size !{params.min_polish_size} \
             --min_component_size !{params.min_component_size} \
             --min_dead_end_size !{params.min_dead_end_size} !{unicycler_opts}
         sed -r 's/^>([0-9]+)(.*)/>!{meta.id}_\\1\\2/' ${OUTDIR}/assembly.fasta > ${OUTDIR}/!{meta.id}.fna

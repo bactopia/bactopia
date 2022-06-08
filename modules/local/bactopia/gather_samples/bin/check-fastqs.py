@@ -3,7 +3,7 @@
 Verifies input FASTQs meet minimum requirements.'
 """
 PROGRAM = "check-fastqs"
-VERSION = "2.0.3"
+VERSION = "2.1.0"
 import sys
 
 
@@ -81,7 +81,8 @@ if __name__ == '__main__':
     parser.add_argument('--min_proportion', metavar="FLOAT", type=float, 
                         help='The proportion of sequenced basepairs that R1 and R2 must be')
     parser.add_argument('--min_reads', metavar="INT", type=int, help='Minimum number of reads.')
-    parser.add_argument('--min_basepairs',metavar="INT", type=int, help='Minimum number of seqeunced basepairs')
+    parser.add_argument('--min_basepairs',metavar="INT", type=int, help='Minimum number of sequenced basepairs')
+    parser.add_argument('--runtype', metavar="STR", type=str, help='The input technology of the FASTQs.')
     parser.add_argument('--version', action='version', version=f'{PROGRAM} {VERSION}')
 
     if len(sys.argv) == 1:
@@ -89,7 +90,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
     args = parser.parse_args()
-    
     error = 0
     if args.fq1 and args.fq2:
         # Paired end
@@ -102,7 +102,9 @@ if __name__ == '__main__':
         
     else:
         se = read_json(args.fq1)
-        error += check_reads(se["qc_stats"]["read_total"], args.sample, args.min_reads)
+        if args.runtype != "ont":
+            # Only check read counts for Illumina reads
+            error += check_reads(se["qc_stats"]["read_total"], args.sample, args.min_reads)
         error += check_basepairs(se["qc_stats"]["total_bp"], args.sample, args.min_basepairs)
 
     sys.exit(error)

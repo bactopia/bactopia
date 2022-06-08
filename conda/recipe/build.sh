@@ -9,5 +9,9 @@ cp bin/*.py ${PREFIX}/bin
 chmod 775 bin/bactopia/*
 cp bin/bactopia/* ${PREFIX}/bin
 
+# Install bactopia-py
+$PYTHON -m pip install . --no-deps --ignore-installed -vv
+
 # Move bactopia nextflow
 mv bin/ conda/ conf/ data/ lib/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config ${BACTOPIA}
+

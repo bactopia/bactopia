@@ -16,7 +16,6 @@ cd bactopia-tutorial
 
 # Build datasets
 bactopia datasets \
-    --ariba "vfdb_core,card" \
     --species "Staphylococcus aureus" \
     --include_genus \
     --limit 10 \
@@ -37,8 +36,8 @@ bactopia --accession SRX4563634 \
          --max_cpus ${CPUS} ${PROFILE}
 
 # Multiple Samples
-echo SRX4563687 > ena-accessions.txt
-echo SRX4563689 >> ena-accessions.txt
+printf "SRX4563687\tillumina\n" > ena-accessions.txt
+printf "SRX4563689\tillumina\n" >> ena-accessions.txt
 bactopia --accessions ena-accessions.txt \
          --datasets datasets/ \
          --species "Staphylococcus aureus" \
@@ -76,7 +75,7 @@ bactopia --SE fastqs/SRX4563634-SE.fastq.gz \
 
 # Local Samples FOFN
 bactopia prepare fastqs/ > fastqs.txt
-bactopia --fastqs fastqs.txt \
+bactopia --samples fastqs.txt \
          --datasets datasets/ \
          --species "Staphylococcus aureus" \
          --coverage 30 \

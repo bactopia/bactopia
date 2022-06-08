@@ -9,7 +9,7 @@
       contains: ['exit', 'bactopia', 'prepare', 'FASTQs']
 
 - name: bactopia-prepare_example
-  command: bash -c 'bin/bactopia/bactopia-prepare.py bactopia-tests/data/species/portiera/nanopore/ --long_reads > fastqs.txt'
+  command: bash -c 'bin/bactopia/bactopia-prepare.py bactopia-tests/data/species/portiera/nanopore/ --ont > fastqs.txt'
   tags:
     - bactopia
     - bactopia_help

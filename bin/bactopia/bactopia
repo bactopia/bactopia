@@ -30,7 +30,7 @@
 # bactopia search --help
 # bactopia version
 # bactopia --help
-VERSION=2.0.3
+VERSION=2.1.0
 CONTAINER_VERSION="${VERSION%.*}.x"
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}" 
@@ -100,7 +100,7 @@ else
     # Check if Conda environments need to be built
     PREBUILD=1
     BUILD_TYPE="conda"
-    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]]; then
+    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]] || [[ "$*" == *"arcc"* ]]; then
         BUILD_TYPE="singularity"
     elif  [[ "$*" == *"docker"* ]]; then
         BUILD_TYPE="docker"
@@ -115,8 +115,14 @@ else
     done
 
     if [[ "${PREBUILD}" -eq 1 ]]; then
+        BUILD_OPTS=""
+        if [[ "$*" == *"arcc"* ]]; then
+            # Get singularity cache from config
+            BUILD_OPTS=$(grep "singularity_cache =" ${BACTOPIA_NF}/conf/profiles/arcc.config | sed "s/^.* = //;s/'//g;s/^/--singularity_cache /")
+        fi
+
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
-        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" "${@:1}"
+        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
     fi
 
     # Create custom work dir

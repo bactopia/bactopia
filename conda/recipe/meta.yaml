@@ -1,26 +1,33 @@
-{% set version = '2.0.3' %}
+{% set version = '2.1.0' %}
 
 package:
   name: bactopia
   version: {{ version }}
 
 source:
-  url: https://github.com/bactopia/bactopia/archive/refs/heads/master.zip
+  url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
 
 requirements:
+  host:
+    - pip
+    - python >3.6,<3.10
   run:
     - ariba >=2.14.6
+    - bakta >=1.4
     - blast >=2.11.0
     - cd-hit
     - conda
     - coreutils
     - executor
+    - gsl <=2.6
     - mamba
     - mash
-    - ncbi-amrfinderplus 3.10.23
+    - ncbi-amrfinderplus 3.10.30
     - ncbi-genome-download
     - nextflow >=21.10.0
-    - python >3.6
+    - pytest
+    - pytest-workflow
+    - python >3.6,<3.10
     - requests
     - tbb 2020.2
     - sed
@@ -33,6 +40,7 @@ test:
     - "bactopia datasets --help"
     - "bactopia prepare"
     - "bactopia search"
+    - "bactopia-summary --help"
 
 about:
   home: https://bactopia.github.io/

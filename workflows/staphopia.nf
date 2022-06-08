@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
     CONFIG FILES
 ========================================================================================
 */
-include { create_input_channel; setup_datasets } from '../lib/nf/bactopia'
+include { create_input_channel; check_input_fofn; setup_datasets } from '../lib/nf/bactopia'
 include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 
@@ -18,6 +18,10 @@ RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 SCHEMAS = get_schemas()
 WorkflowMain.initialise(workflow, params, log, schema_filename=SCHEMAS)
 run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SCHEMAS)
+
+if (params.check_samples) {
+    check_input_fofn()
+}
 
 /*
 ========================================================================================
@@ -35,7 +39,6 @@ include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
 
 // Require Datasets
 include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
-include { ARIBA_ANALYSIS } from '../modules/local/bactopia/ariba_analysis/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
 include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
@@ -72,7 +75,6 @@ workflow STAPHOPIA {
     // Optional steps that require datasets
     // Species agnostic
     ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
-    ARIBA_ANALYSIS(QC_READS.out.fastq, datasets['ariba'])
     MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
 
     // Species Specific

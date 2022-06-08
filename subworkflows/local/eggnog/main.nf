@@ -18,7 +18,7 @@ mapper_opts = [
     "${params.eggnog_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { EGGNOG_DOWNLOAD } from '../../../modules/nf-core/modules/eggnog/download/main' addParams( options: options + [ args: "${downloader_opts}", publish_dir: params.eggnog] )
+include { EGGNOG_DOWNLOAD } from '../../../modules/nf-core/modules/eggnog/download/main' addParams( options: options + [ args: "${downloader_opts}"] )
 include { EGGNOG_MAPPER } from '../../../modules/nf-core/modules/eggnog/mapper/main' addParams( options:  options +  [ args: "${mapper_opts}"] )
 
 workflow EGGNOG {

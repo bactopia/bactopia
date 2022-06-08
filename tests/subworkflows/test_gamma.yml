@@ -1,0 +1,8 @@
+- name: gamma-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf gamma -c nextflow.config --help > gamma-help.txt'
+  tags:
+    - bactopia_help
+    - gamma
+  files:
+    - path: gamma-help.txt
+      contains: ['gamma', 'bactopia', 'version', 'dependencies']

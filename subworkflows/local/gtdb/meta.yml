@@ -117,9 +117,9 @@ docs:
     folders:
       - name: GTDB-Tk
         description: |
-          Below is a description of the _per-sample_ results from [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper).
-          For full details about each of the eggNOG output files, see
-          [eggNOG-mapper - Ouputs](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.7#Output_format).
+          Below is a description of the _per-sample_ results from [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk).
+          For full details about each of the GTDB output files, see
+          [GTDB-Tk Classify Workflow](https://github.com/Ecogenomics/GTDBTk#classify-workflow) page.
         table: |
           | Filename | Description |
           |-----------|-------------|

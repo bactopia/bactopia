@@ -43,12 +43,14 @@ if (params.containsKey('accession')) {
 if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/abricate/main';
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
+if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
 if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
 if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fastani/main';
+if (params.wf == 'gamma') include { GAMMA } from '../subworkflows/local/gamma/main';
 if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
@@ -68,6 +70,7 @@ if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
+if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
@@ -130,6 +133,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'amrfinderplus') {
         AMRFINDERPLUS(samples)
         ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
+    } else if (params.wf == 'ariba') {
+        ARIBA(samples)
+        ch_versions = ch_versions.mix(ARIBA.out.versions)
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
@@ -148,6 +154,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'fastani') {
         FASTANI(samples, ch_downloads)
         ch_versions = ch_versions.mix(FASTANI.out.versions)
+    } else if (params.wf == 'gamma') {
+        GAMMA(samples)
+        ch_versions = ch_versions.mix(GAMMA.out.versions)
     } else if (params.wf == 'gtdb') {
         GTDB(samples)
         ch_versions = ch_versions.mix(GTDB.out.versions)
@@ -204,6 +213,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
+    } else if (params.wf == 'shigatyper') {
+        SHIGATYPER(samples)
+        ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
     } else if (params.wf == 'sistr') {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)

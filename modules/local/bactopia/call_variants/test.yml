@@ -30,7 +30,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: b73bb582e365878151a8bd89220d36bc
+      md5sum: 32e7586cca0a8739096cc547cdcd5b26
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
       md5sum: 42291a7954af1905b7fc3739b5776680
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf.gz
@@ -93,7 +93,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: b73bb582e365878151a8bd89220d36bc
+      md5sum: 32e7586cca0a8739096cc547cdcd5b26
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
       md5sum: c37013a83f9f56eeba519f34dee21adc
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf
@@ -160,7 +160,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: ab833c448a69a6e9d0f8dcd3047cefcd
+      md5sum: 1ae3412713f6fa0e88bd764a197cf160
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa.gz
       md5sum: 21b4b416249e0ae4e4a64c9fa8212474
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf.gz
@@ -223,7 +223,7 @@
     - path: pytest/output/logs/call_variants/GCF_000292685/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/GCF_000292685/versions.yml
-      md5sum: ab833c448a69a6e9d0f8dcd3047cefcd
+      md5sum: 1ae3412713f6fa0e88bd764a197cf160
     - path: pytest/output/variants/GCF_000292685/output.aligned.fa
       md5sum: 5307c45c33b6816e11460262e2dffacd
     - path: pytest/output/variants/GCF_000292685/output.annotated.vcf
@@ -290,9 +290,8 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: ee654023989cfeffb24f96c754ef16c7
+      md5sum: 78e2ba132f8357e2a8c4ae57b2f844b7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
-      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa.gz
@@ -357,9 +356,9 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: ee654023989cfeffb24f96c754ef16c7
+      md5sum: 78e2ba132f8357e2a8c4ae57b2f844b7
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
-      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+      contains: ['LOCUS', 'COMMENT', 'Portiera']
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa
@@ -428,9 +427,8 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: caf3b4fbf378e09d03d31d0a99e401f4
+      md5sum: 69cb060630befc5ba4553500a8ecf9f2
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk.gz
-      md5sum: 3c312e781f90784c34dfbcd6765cc2f5
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa.gz
@@ -495,9 +493,9 @@
     - path: pytest/output/logs/call_variants/refseq-genomes/output.log
       contains: ['snippy', 'consensus', 'subs']
     - path: pytest/output/logs/call_variants/refseq-genomes/versions.yml
-      md5sum: caf3b4fbf378e09d03d31d0a99e401f4
+      md5sum: 69cb060630befc5ba4553500a8ecf9f2
     - path: pytest/output/variants/GCF_000827855/GCF_000827855.gbk
-      md5sum: 576e8ad082a3af8ba5a4653d2034fc54
+      contains: ['LOCUS', 'COMMENT', 'Portiera']
     - path: pytest/output/variants/GCF_000827855/mash-distances.txt
       md5sum: cd920942f23a2543e4de6a158e303492
     - path: pytest/output/variants/GCF_000827855/output.aligned.fa

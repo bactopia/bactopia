@@ -4,7 +4,6 @@
 ========================================================================================
 /*
 
-
 /*
 ========================================================================================
     Public: collect_samples(bactopia_dir, extension, exclude_list, include_list)
@@ -60,8 +59,6 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     return sample_list
 }
 
-
-
 /*
 ========================================================================================
     Public: collect_samples(file_path)
@@ -102,7 +99,6 @@ def _is_sample_dir(sample, dir) {
     return file("${dir}/${sample}/${sample}-genome-size.txt").exists()
 }
 
-
 /*
 ========================================================================================
     Private: _collect_inputs(sample, dir, extension)
@@ -122,45 +118,49 @@ def _collect_inputs(sample, dir, extension) {
     PATHS.faa = "annotation"
     PATHS.gff = "annotation"
 
-
+    se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
+    ont = "${dir}/${sample}/quality-control/.ont"
+    pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
+    pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
+    fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
 
     if (extension == 'fastq') {
-        se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
-        pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
-        pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
-
         if (file(se).exists()) {
-            return tuple([id:sample, single_end:true], [file(se)])
+            if (file(ont).exists()) {
+                return tuple([id:sample, single_end:true, runtype:'ont'], [file(se)])
+            } else {
+                return tuple([id:sample, single_end:true, runtype:'illumina'], [file(se)])
+            }
         } else if (file(pe1).exists() && file(pe2).exists()) {
-            return tuple([id:sample, single_end:false], [file(pe1), file(pe2)])
+            return tuple([id:sample, single_end:false, runtype:'illumina'], [file(pe1), file(pe2)])
         } else {
             log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
             exit 1
         }
     } else if (extension == 'fna_fastq') {
-        se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
-        pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
-        pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
-        fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
-
         if (file(se).exists()) {
+            runtype = "illumina"
+            if (file(ont).exists()) {
+                runtype = "ont"
+            }
+
             if (file("${fna}.gz").exists()) {
-                return tuple([id:sample, single_end:true, is_compressed:true], [file("${fna}.gz")], [file(se)])
+                return tuple([id:sample, single_end:true, is_compressed:true, runtype:runtype], [file("${fna}.gz")], [file(se)])
             } else {
-                return tuple([id:sample, single_end:true, is_compressed:false], [file("${fna}")], [file(se)])
+                return tuple([id:sample, single_end:true, is_compressed:false, runtype:runtype], [file("${fna}")], [file(se)])
             }
         } else if (file(pe1).exists() && file(pe2).exists()) {
             if (file("${fna}.gz").exists()) {
-                return tuple([id:sample, single_end:false, is_compressed:true], [file("${fna}.gz")], [file(pe1), file(pe2)])
+                return tuple([id:sample, single_end:false, is_compressed:true, runtype:'illumina'], [file("${fna}.gz")], [file(pe1), file(pe2)])
             } else {
-                return tuple([id:sample, single_end:false, is_compressed:false], [file("${fna}")], [file(pe1), file(pe2)])
+                return tuple([id:sample, single_end:false, is_compressed:false, runtype:'illumina'], [file("${fna}")], [file(pe1), file(pe2)])
             }
         } else {
             log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
             exit 1
         }
     } else if (extension == 'fna_faa') {
-        fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
+        
         faa = "${dir}/${sample}/${PATHS['faa']}/${sample}.faa"
         if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])

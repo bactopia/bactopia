@@ -1,0 +1,49 @@
+- name: gamma-test
+  command: bash -c 'nextflow run ./subworkflows/local/gamma/test.nf -entry test_gamma --wf gamma -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gamma
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/GCF_000292685.gamma
+      md5sum: b3995811a625996f8572cdf33b3f1c55
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/GCF_000292685.psl
+      md5sum: aceb29eb63760fcbd5e48f973b47c391
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.err
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.log
+      contains: ['Loaded', 'Searched', 'bases']
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.out
+      contains: ['Loaded', 'Searched', 'bases']
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.sh
+      contains: ['GAMMA', 'END_VERSIONS']
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/nf-gamma.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/gamma/gamma/GCF_000292685/logs/gamma/versions.yml
+      md5sum: 794590c9e7e331bfb9a2319c93892348
+    - path: bactopia-tools/gamma/gamma/gamma.tsv
+      md5sum: b3995811a625996f8572cdf33b3f1c55
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.err
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.log
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/gamma/gamma/logs/csvtk_concat/versions.yml
+      md5sum: 6e14a510e50a3f7c37cc51cb24b85770
+    - path: bactopia-tools/gamma/gamma/nf-reports/gamma-dag.dot
+      contains: ['gammadag', 'GAMMA', 'versions']
+    - path: bactopia-tools/gamma/gamma/nf-reports/gamma-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/gamma/gamma/nf-reports/gamma-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/gamma/gamma/nf-reports/gamma-trace.txt
+      contains: ['task_id']

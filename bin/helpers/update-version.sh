@@ -1,9 +1,13 @@
 #! /bin/bash
 # Updates the version numbers across the Bactopia project.
 # If no user input, print usage
-
+set -x 
 function generic_update {
     ${1} -r 's/'"${2}"'/'"${3}"'/' ${4}
+}
+
+function init_update {
+    ${1} -r "s/__version__ = '"${2}"'/__version__ = '"${3}"'/" ${4}
 }
 
 function python_update {
@@ -12,6 +16,10 @@ function python_update {
 
 function conda_update {
     ${1} -r 's=version: '"${2}"'$=version: '"${3}"'=' ${4}
+}
+
+function yaml_update {
+    ${1} -r "s/version = '"${2}"'/version = '"${3}"'/" ${4}
 }
 
 function shell_update {
@@ -72,12 +80,18 @@ if [ $? -eq 0 ]; then
         elif [[ "${file}" == *"Singularity" ]]; then
             # Singularity
             generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *"__init__.py" ]]; then
+            # Python init file
+            init_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
         elif [[ "${file}" == *".py" ]]; then
             # Python
             python_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
         elif [[ "${file}" == *".sh" ]]; then
             # Shell
             shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
+        elif [[ "${file}" == *"meta.yaml" ]]; then
+            # meta yaml for dev build
+            yaml_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
         else
             echo "Unknown: ${file}"
         fi

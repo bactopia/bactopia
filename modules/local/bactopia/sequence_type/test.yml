@@ -17,30 +17,17 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast','arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
+      contains: ['mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: 8ebb7e8d2122046820d16c6a568cbbf5
-    - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
-    - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
-    - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
-    - path: pytest/output/mlst/default/ariba/debug.report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: pytest/output/mlst/default/ariba/mlst_report.details.tsv
-      md5sum: 4f4e0af08c19dad027d0f34bd07030ad
-    - path: pytest/output/mlst/default/ariba/mlst_report.tsv
-      md5sum: be6d401d28aa3d0ffac09cc07147f221
-    - path: pytest/output/mlst/default/ariba/report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: pytest/output/mlst/default/ariba/version_info.txt
-      contains: ['ARIBA', 'OK', 'True']
+      md5sum: b14e5167f2614ba1410c89a25426b9e0
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -63,30 +50,17 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.err
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.log
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.out
-      contains: ['default', 'blast', 'ariba','arcC', 'gmk', 'tpi', 'finished','ARIBA', 'OK', 'True', 'done!']
+      contains: ['default', 'blast', 'arcC', 'gmk', 'tpi', 'finished']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
+      contains: ['mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: a19cb70b3ceeeabee6389e1b0d9ebac5
-    - path: pytest/output/mlst/default/ariba/assembled_genes.fa.gz
-    - path: pytest/output/mlst/default/ariba/assembled_seqs.fa.gz
-    - path: pytest/output/mlst/default/ariba/assemblies.fa.gz
-    - path: pytest/output/mlst/default/ariba/debug.report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: pytest/output/mlst/default/ariba/mlst_report.details.tsv
-      md5sum: 4f4e0af08c19dad027d0f34bd07030ad
-    - path: pytest/output/mlst/default/ariba/mlst_report.tsv
-      md5sum: be6d401d28aa3d0ffac09cc07147f221
-    - path: pytest/output/mlst/default/ariba/report.tsv
-      md5sum: 9271b393ddc4fac9b39b37c05bb7db5f
-    - path: pytest/output/mlst/default/ariba/version_info.txt
-      contains: ['ARIBA', 'OK', 'True']
+      md5sum: f73cb930f86f63af5bdfd02fceeeebbb
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -115,13 +89,11 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
+      contains: ['mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: 6fd3330e1d66382ee8f8d918518a6927
-    - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
-      md5sum: 333cbba3485fd644bffb152989ddd5a1
+      md5sum: cbc8b010774a490f76f13ade90a96128
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -150,12 +122,10 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.sh
-      contains: ['ariba', 'mlst-blast', 'END_VERSIONS']
+      contains: ['mlst-blast', 'END_VERSIONS']
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: 7d643d42c80af9ac90c8d8886c01898d
-    - path: pytest/output/mlst/default/ariba/ariba-not-run.txt
-      md5sum: 333cbba3485fd644bffb152989ddd5a1
+      md5sum: 86cf45134757953127655dd9c182ba25
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
