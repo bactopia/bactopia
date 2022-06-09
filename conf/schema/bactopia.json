@@ -86,7 +86,7 @@
                     "default": false,
                     "description": "Validate the input FOFN provided by --samples",
                     "fa_icon": "fas fa-level-up"
-                },
+                }
             }
         },
         "dataset_parameters": {

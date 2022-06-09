@@ -43,13 +43,45 @@ docs:
     Shigella serotype using Illumina (single or paired-end) or Oxford Nanopore reads taxonomic.
   output:
     tree: |
-
+      shigatyper/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-hits.tsv
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── shigatyper
+      │           ├── nf-shigatyper.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── shigatyper-dag.dot
+      │   ├── shigatyper-report.html
+      │   ├── shigatyper-timeline.html
+      │   └── shigatyper-trace.txt
+      ├── shigatyper.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
     add_note: true
     folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | shigatyper.tsv | A merged TSV file with `ShigaTyper` results from all samples |
       - name: ShigaTyper
-      description: |
-        Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
-      table: |
-
+        description: |
+          Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
+        table: |
+          | Filename               | Description                                             |
+          |------------------------|---------------------------------------------------------|
+          | <SAMPLE_NAME>-hits.tsv | Detailed statistics about each individual gene hit      |
+          | <SAMPLE_NAME>.tsv      | The final predicted serotype by `ShigaTyper`            |
   citations:
-    - add to citations.yml
+    - shigatyper

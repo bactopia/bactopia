@@ -768,6 +768,13 @@ tools:
     cite: |
       Li H [Toolkit for processing sequences in FASTA/Q formats](https://github.com/lh3/seqtk) (GitHub)
 
+  shigatyper:
+    name: ShigaTyper
+    link: https://github.com/CFSAN-Biostatistics/shigatyper
+    description: Shigella serotype from Illumina or Oxford Nanopore reads
+    cite: |
+      Wu Y, Lau HK, Lee T, Lau DK, Payne J [In Silico Serotyping Based on Whole-Genome Sequencing Improves the Accuracy of Shigella Identification.](https://doi.org/10.1128/AEM.00165-19) *Applied and Environmental Microbiology*, 85(7). (2019)
+
   shovill:
     name: Shovill
     link: https://github.com/tseemann/shovill

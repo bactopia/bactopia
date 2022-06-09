@@ -57,7 +57,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/abricate_parameters"
+            "$ref": "#/definitions/gamma_parameters"
         }
     ]
 }
