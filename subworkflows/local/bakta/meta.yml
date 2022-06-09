@@ -6,7 +6,8 @@ tags:
   - fasta
   - prokaryote
 modules:
-  - bakta
+  - bakta_download
+  - bakta_run
 input:
   - meta:
       type: map
