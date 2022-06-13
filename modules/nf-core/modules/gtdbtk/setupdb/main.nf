@@ -26,17 +26,8 @@ process GTDBTK_SETUPDB {
     """
     export GTDBTK_DATA_PATH="./results"
     mkdir ./results
-    if [ "${params.download_gtdb}" == "true" ]; then
-        download-db.sh ./results
-    else
-        echo "skipping GTDB database download"
-    fi
-
-    if [ "${params.skip_check}" == "false" ]; then
-        gtdbtk check_install && touch gtdb-setup.txt
-    else
-        echo "skipping GTDB database checks"
-    fi
+    download-db.sh ./results
+    gtdbtk check_install && touch gtdb-setup.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

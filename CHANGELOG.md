@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.1 bactopia/bactopia "" - 2022/0?/??
+
+### `Fixed`
+- Properly capture assemblies with 0 contigs
+
 ## v2.1.0 bactopia/bactopia "Silver Mist" - 2022/06/08
 
 ### `Added`

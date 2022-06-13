@@ -29,7 +29,7 @@ workflow GTDB {
         SETUPDB()
         CLASSIFY(fasta, SETUPDB.out.db)
     } else {
-        CLASSIFY(fasta, file("${params.gtdb}/*"))
+        CLASSIFY(fasta, file("${params.gtdb}/"))
     }
     ch_versions = ch_versions.mix(CLASSIFY.out.versions.first())
 
