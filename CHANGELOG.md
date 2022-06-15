@@ -7,7 +7,19 @@
     - `plasmidfinder` - Plasmid identification from assemblies
 
 ### `Fixed`
+- improve GTDB db handling
 - Properly capture assemblies with 0 contigs
+
+### `Community Service`
+- Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
+- Update ariba dependencies [bioconda/bioconda-recipes#35383](https://github.com/bioconda/bioconda-recipes/pull/35383)
+- patch pymummer recipe [bioconda/bioconda-recipes#35379](https://github.com/bioconda/bioconda-recipes/pull/35379)
+- Update PlasmidFinder for better container support [bioconda/bioconda-recipes#35314](https://github.com/bioconda/bioconda-recipes/pull/35314)
+- add module for plasmidfinder [nf-core/modules#1773](https://github.com/nf-core/modules/pull/1773)
+- add module for mcroni [nf-core/modules#1750](https://github.com/nf-core/modules/pull/1750)
+- add module for ariba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1731)
+- let tempfile determine temp dir location [sanger-pathogens/seroba#68](https://github.com/sanger-pathogens/seroba/pull/68)
+- allow the user to specify temp dir or use the system default [sanger-pathogens/pymummer#36](https://github.com/sanger-pathogens/pymummer/pull/36)
 
 ## v2.1.0 bactopia/bactopia "Silver Mist" - 2022/06/08
 
