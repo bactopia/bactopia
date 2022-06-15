@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/plasmidfinder/params.json",
+    "title": "PlasmidFinder Module",
+    "description": "A module to identify plasmids in assemblies",
+    "type": "object",
+    "definitions": {
+        "plasmidfinder_parameters": {
+            "title": "PlasmidFinder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "pf_mincov": {
+                    "type": "number",
+                    "description": "Minimum percent coverage to be considered a hit",
+                    "default": 0.60,
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "pf_threshold": {
+                    "type": "number",
+                    "description": "Minimum threshold for identity",
+                    "default": 0.90,
+                    "fa_icon": "fas fa-hashtag"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/plasmidfinder_parameters"
+        }
+    ]
+}

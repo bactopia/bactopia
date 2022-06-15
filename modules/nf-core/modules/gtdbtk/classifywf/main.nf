@@ -31,7 +31,7 @@ process GTDBTK_CLASSIFYWF {
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
-    export GTDBTK_DATA_PATH="${db}"
+    export GTDBTK_DATA_PATH="\$(readlink $db)"
     mkdir fna
     cp -L fna-tmp/* fna/
     find fna/ -name "*.fna.gz" | xargs gunzip
@@ -42,8 +42,7 @@ process GTDBTK_CLASSIFYWF {
         --pplacer_cpus $task.cpus \\
         --genome_dir ./fna \\
         --out_dir results \\
-        --prefix ${prefix} \\
-        --scratch_dir ./
+        --prefix ${prefix}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

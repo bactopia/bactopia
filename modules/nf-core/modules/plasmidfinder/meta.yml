@@ -1,0 +1,58 @@
+name: "plasmidfinder"
+description: Identify plasmids in bacterial sequences and assemblies
+keywords:
+  - fasta
+  - fastq
+  - plasmid
+tools:
+  - "plasmidfinder":
+      description: "PlasmidFinder allows identification of plasmids in total or partial sequenced isolates of bacteria."
+      homepage: "https://cge.cbs.dtu.dk/services/PlasmidFinder/"
+      documentation: "https://bitbucket.org/genomicepidemiology/plasmidfinder"
+      tool_dev_url: "https://bitbucket.org/genomicepidemiology/plasmidfinder"
+      doi: "10.1128/AAC.02412-14"
+      licence: "['Apache-2.0']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: Input FASTA or FASTQ formatted genome sequences
+      pattern: "*.{fastq.gz,fq.gz,fastq.gz,fna.gz,fa.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - json:
+      type: file
+      description: The results from analysis in JSON format
+      pattern: "*.json"
+  - txt:
+      type: file
+      description: The summary of results from analysis
+      pattern: "*.txt"
+  - tsv:
+      type: file
+      description: The results from analysis in TSV format
+      pattern: "*.tsv"
+  - genome_seq:
+      type: file
+      description: FASTA of sequences in the input with a hit
+      pattern: "*-hit_in_genome_seq.fsa"
+  - plasmid_seq:
+      type: file
+      description: FASTA of plasmid sequences with a hit against the input
+      pattern: "*-plasmid_seqs.fsa"
+authors:
+  - "@rpetit3"

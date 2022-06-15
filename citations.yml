@@ -656,6 +656,13 @@ tools:
     cite: |
       Bayliss SC, Thorpe HA, Coyle NM, Sheppard SK, Feil EJ [PIRATE: A fast and scalable pangenomics toolbox for clustering diverged orthologues in bacteria.](https://doi.org/10.1093/gigascience/giz119) _Gigascience_ 8 (2019)
 
+  plasmidfinder:
+    name: PlasmidFinder
+    link: https://bitbucket.org/genomicepidemiology/plasmidfinder
+    description: Identifies plasmids in total or partial sequenced isolates of bacteria
+    cite: |
+      Carattoli A, Zankari E, García-Fernández A, Voldby Larsen M, Lund O, Villa L, Møller Aarestrup F, Hasman H [In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing.](https://doi.org/10.1128/AAC.02412-14) _Antimicrobial Agents and Chemotherapy_ 58(7), 3895–3903. (2014)
+
   porechop:
     name: Porechop
     link: https://github.com/rrwick/Porechop

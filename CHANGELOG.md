@@ -2,6 +2,10 @@
 
 ## v2.1.1 bactopia/bactopia "" - 2022/0?/??
 
+### `Added`
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `plasmidfinder` - Plasmid identification from assemblies
+
 ### `Fixed`
 - Properly capture assemblies with 0 contigs
 
