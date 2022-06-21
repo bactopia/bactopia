@@ -66,7 +66,7 @@ workflow STAPHOPIA {
 
     // Core steps
     GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
-    QC_READS(GATHER_SAMPLES.out.raw_fastq)
+    QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(datasets['adapters'])).combine(Channel.fromPath(datasets['phix'])))
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
     ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna)
     ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))

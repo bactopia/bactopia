@@ -14,7 +14,7 @@ process QC_READS {
     publishDir "${params.outdir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force, saveAs: { filename -> saveFiles(filename:filename, opts: options) }
 
     input:
-    tuple val(meta), path(fq), path(extra), path(genome_size)
+    tuple val(meta), path(fq), path(extra), path(genome_size), path(adapters), path(phix)
 
     output:
     tuple val(meta), path("results/${meta.id}*.fastq.gz"), emit: fastq, optional: true
@@ -30,8 +30,8 @@ process QC_READS {
     meta.single_end = fq[1] == null ? true : false
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
-    adapters = params.adapters ? path(params.adapters) : 'adapters'
-    phix = params.phix ? path(params.phix) : 'phix'
+    adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters
+    phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix
     adapter_opts = meta.single_end ? "" : "in2=repair-r2.fq out2=adapter-r2.fq"
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
@@ -96,7 +96,7 @@ process QC_READS {
                 # Remove Adapters            
                 bbduk.sh -Xmx!{xmx} \
                     in=repair-r1.fq out=adapter-r1.fq !{adapter_opts} \
-                    ref=!{adapters} \
+                    ref=!{adapter_file} \
                     k=!{params.adapter_k} \
                     ktrim=!{params.ktrim} \
                     mink=!{params.mink} \
@@ -119,7 +119,7 @@ process QC_READS {
                 # Remove PhiX
                 bbduk.sh -Xmx!{xmx} \
                     in=adapter-r1.fq out=phix-r1.fq !{phix_opts} \
-                    ref=!{phix} \
+                    ref=!{phix_file} \
                     k=!{params.phix_k} \
                     hdist=!{params.hdist} \
                     tpe=!{params.tpe} \

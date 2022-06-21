@@ -263,6 +263,8 @@ def setup_datasets() {
         'references': [],
         'blast': [],
         'mapping': [],
+        'adapters': params.adapters ? file(params.adapters) : file(params.empty_adapters),
+        'phix': params.phix ? file(params.phix) : file(params.empty_phix),
         'proteins': file(params.empty_proteins),
         'training_set': file(params.empty_tf),
         'genome_size': params.genome_size
