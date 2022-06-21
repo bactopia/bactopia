@@ -8,7 +8,8 @@
 
 ### `Fixed`
 - improve GTDB db handling
-- Properly capture assemblies with 0 contigs
+- Properly capture assemblies with 0 
+- user provided adapters and phix fastas
 
 ### `Community Service`
 - Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
