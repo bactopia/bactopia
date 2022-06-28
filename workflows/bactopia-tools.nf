@@ -61,6 +61,7 @@ if (params.wf == 'legsta') include { LEGSTA } from '../subworkflows/local/legsta
 if (params.wf == 'lissero') include { LISSERO } from '../subworkflows/local/lissero/main';
 if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/mashdist/main';
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
+if (params.wf == 'mcroni') include { MCRONI } from '../subworkflows/local/mcroni/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
@@ -189,6 +190,9 @@ workflow BACTOPIATOOLS {
         samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
         MASHTREE(ch_merge_fna)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
+    } else if (params.wf == 'mcroni') {
+        MCRONI(samples)
+        ch_versions = ch_versions.mix(MCRONI.out.versions)
     } else if (params.wf == 'meningotype') {
         MENINGOTYPE(samples)
         ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)

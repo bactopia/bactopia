@@ -529,6 +529,13 @@ tools:
     cite: |
       Turner I, Garimella KV, Iqbal Z, McVean G [Integrating long-range connectivity information into de Bruijn graphs.](http://dx.doi.org/10.1093/bioinformatics/bty157) _Bioinformatics_ 34, 2556–2565 (2018)
 
+  mcroni:
+    name: mcroni
+    link: https://github.com/liampshaw/mcroni
+    description: Scripts for finding and processing promoter variants upstream of mcr-1
+    cite: |
+      Shaw L [mcroni: Scripts for finding and processing promoter variants upstream of mcr-1](https://github.com/liampshaw/mcroni) (GitHub)
+
   medaka:
     name: Medaka
     link:
@@ -584,7 +591,6 @@ tools:
     description: Software tools for clustering, reconstruction and typing of plasmids from draft assemblies
     cite: |
       Robertson J, Nash JHE [MOB-suite: software tools for clustering, reconstruction and typing of plasmids from draft assemblies.](https://doi.org/10.1099/mgen.0.000206) _Microbial Genomics_ 4(8). (2018)
-
 
   nanoplot:
     name: NanoPlot

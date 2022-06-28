@@ -1,30 +1,47 @@
 name: SUBWORKFLOW_NAME
 description: SUBWORKFLOW_DESCRIPTION
-introduction: |
-  The `SUBWORKFLOW_NAME` module uses...
+icon: false
 keywords:
   - TAGS
 modules:
   - LIST_OF_MODULES
 input:
   - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
-      type: file
-      description: Description of input file
-output_tree: |
-  ```  ```
-output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
-citations:
-  - add to citations.yml
+      pattern: "versions.yml"
+docs:
+  introduction: |
+      The `SUBWORKFLOW_NAME` module uses...
+  output:
+    tree: |
+
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          |  |  |
+      - name: SUBWORKFLOW_NAME
+        description: |
+          Below is a description of the _per-sample_ results from [SUBWORKFLOW_NAME](SUBWORKFLOW_LINK).
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          |  |  |
+  citations:
+    - add to citations.yml
