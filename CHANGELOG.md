@@ -3,6 +3,7 @@
 ## v2.1.1 bactopia/bactopia "" - 2022/0?/??
 
 ### `Added`
+- Add Panaroo to the `pangenome` Bactopia Tools
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `busco` - Assembly completeness based on evolutionarily informed expectations
     - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes

@@ -214,7 +214,7 @@ workflow BACTOPIATOOLS {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
     } else if (params.wf == 'pangenome') {
-        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
+        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_panaroo? 'panaroo' : (params.use_roary ? 'roary' : 'pirate')], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
     } else if (params.wf == 'plasmidfinder') {

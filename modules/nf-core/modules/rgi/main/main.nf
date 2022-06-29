@@ -41,6 +41,7 @@ process RGI_MAIN {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         rgi: \$(rgi main --version)
+        rgi-database: \$(rgi database --version)
     END_VERSIONS
     """
 }

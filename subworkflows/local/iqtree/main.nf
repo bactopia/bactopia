@@ -6,7 +6,7 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'iqt
 options.is_module = params.wf == 'iqtree' ? true : false
 options.args = [
     params.asr ? "-asr" : "",
-    "-m ${params.m}",
+    "-m ${params.iqtree_model}",
     "-bb ${params.bb}",
     "-alrt ${params.alrt}",
     "-wbt -wbtl -alninfo ${params.iqtree_opts}",

@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/roary/params.json",
     "title": "Roary Module",
-    "description": "A module for determining the building a pangenome",
+    "description": "A module for building a pangenome",
     "type": "object",
     "definitions": {
         "roary_parameters": {
@@ -23,8 +23,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "i": {
                     "type": "integer",
