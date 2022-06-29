@@ -4,6 +4,7 @@
 
 ### `Added`
 - Add Panaroo to the `pangenome` Bactopia Tools
+- Add `seroba` to Merlin
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `busco` - Assembly completeness based on evolutionarily informed expectations
     - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes

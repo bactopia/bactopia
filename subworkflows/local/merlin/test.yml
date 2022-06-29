@@ -319,6 +319,22 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/versions.yml
       md5sum: 2142aa564553527be417594e89c7092a
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.err
+      contains: ["Stage", "in"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.log
+      contains: ["k-mers", "kmc", "results", "low"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.out
+      contains: ["k-mers", "kmc", "results", "low"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.sh
+      contains: ['seroba', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/nf-seroba.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/versions.yml
+      md5sum: 0ea5785d7a66d02d5233f71fdbb471bf
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.err
@@ -391,6 +407,8 @@
       contains: ['GCF_000292685', 'Salmonella']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/seqsero2/GCF_000292685_result.txt
       contains: ['GCF_000292685', 'Salmonella']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/seroba/GCF_000292685.tsv
+      md5sum: b3983df1ed608ca335bfcb66b22b8b94
     - path: bactopia-tools/merlin/merlin/GCF_000292685/spatyper/GCF_000292685.tsv
       md5sum: a698352823875171696e5e7ed7015c13
     - path: bactopia-tools/merlin/merlin/GCF_000292685/ssuissero/GCF_000292685_serotyping_res.tsv
@@ -559,6 +577,20 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/versions.yml
       md5sum: 6900593a95cb7f3ca18322730148d7d1
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/versions.yml
+      md5sum: 57390a6f9c686ee4f3ddf7f69c9165d2
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.err
@@ -629,6 +661,8 @@
       md5sum: ce47645c145b3d4c49f8087175383227
     - path: bactopia-tools/merlin/merlin/seqsero2.tsv
       contains: ['GCF_000292685', 'Salmonella']
+    - path: bactopia-tools/merlin/merlin/seroba.tsv
+      md5sum: b3983df1ed608ca335bfcb66b22b8b94
     - path: bactopia-tools/merlin/merlin/sistr.tsv
       contains: ["cgmlst_ST", "serovar", "matched"]
     - path: bactopia-tools/merlin/merlin/spatyper.tsv
