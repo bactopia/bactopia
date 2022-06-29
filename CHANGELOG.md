@@ -14,6 +14,7 @@
 - user provided adapters and phix fastas
 - `--available_datasets` in the `bactopia datasets`
 - name collisions in the Ariba Bactopia Tool
+- `snippy` use tmp directory in the staged directory
 
 ### `Community Service`
 - Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
