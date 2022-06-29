@@ -4,6 +4,8 @@
 
 ### `Added`
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `busco` - Assembly completeness based on evolutionarily informed expectations
+    - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes
     - `plasmidfinder` - Plasmid identification from assemblies
 
 ### `Fixed`

@@ -45,6 +45,7 @@ if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrv
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
+if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
@@ -141,6 +142,10 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
+    } else if (params.wf == 'busco') {
+        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'busco'], fna]}.set{ ch_merge_fna }
+        BUSCO(ch_merge_fna)
+        ch_versions = ch_versions.mix(BUSCO.out.versions)
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
         ch_versions = ch_versions.mix(CHECKM.out.versions)

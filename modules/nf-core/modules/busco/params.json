@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/busco/params.json",
+    "title": "BUSCO  Module",
+    "description": "A module for assessing genome assembly and annotation completeness",
+    "type": "object",
+    "definitions": {
+        "busco_parameters": {
+            "title": "BUSCO Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "busco_lineage": {
+                    "type": "string",
+                    "default": "bacteria_odb10",
+                    "description": "Specify the name of the BUSCO lineage to be used (can separate by comma)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "busco_evalue": {
+                    "type": "string",
+                    "default": "1e-03",
+                    "description": "E-value cutoff for BLAST searches. Allowed formats, 0.001 or 1e-03",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "busco_limit": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Total candidate regions to consider per BUSCO",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "metaeuk_parameters": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional Metaeuk first-pass arguments contained within a single pair of quotation marks, separated by commas",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "metaeuk_rerun_parameters": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional Metaeuk second-pass arguments contained within a single pair of quotation marks, separated by commas",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "use_augustus": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use augustus gene predictor for eukaryote runs",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "augustus_parameters": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional Augustus arguments contained within a single pair of quotation marks, separated by commas",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "augustus_species": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Specify a species for Augustus training",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "augustus_long": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Optimization Augustus self-training mode",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/busco_parameters"
+        }
+    ]
+}

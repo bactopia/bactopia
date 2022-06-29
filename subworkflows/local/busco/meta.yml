@@ -1,0 +1,113 @@
+name: busco
+description: Assembly completeness based on evolutionarily informed expectations
+icon: false
+keywords:
+  - qc
+  - assembly
+modules:
+  - busco
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA file to be checked for completeness
+  - lineage:
+      type: file
+      description: The BUSCO lineage to check for completeness
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - results:
+      type: file
+      description: Per-lineage results from BUSCO analysis
+      pattern: "*"
+  - tsv:
+      type: file
+      description: Per-lineage summary of the BUSCO analysis
+      pattern: "*-summary.txt"
+  - merged_tsv:
+      type: file
+      description: A merged summary from each lineage in the the BUSCO analysis
+      pattern: "busco.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  introduction: |
+      The `busco` module uses [BUSCO](https://gitlab.com/ezlab/busco) (_or Benchmarking Universal Single-Copy Orthologs_) 
+      to assess the completeness of your assembly.
+  output:
+    tree: |
+      busco/
+      ├── <LINEAGE>
+      │   ├── <SAMPLE_NAME>
+      │   │   ├── logs/
+      │   │   ├── prodigal_output/
+      │   │   ├── run_<LINEAGE>/
+      │   │   │   ├── busco_sequences
+      │   │   │   ├── full_table.tsv
+      │   │   │   ├── hmmer_output/
+      │   │   │   ├── missing_busco_list.tsv
+      │   │   │   ├── short_summary.json
+      │   │   │   └── short_summary.txt
+      │   │   ├── short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.json
+      │   │   └── short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.txt
+      │   ├── <LINEAGE>-summary.txt
+      │   └── logs
+      │       └── busco.log
+      ├── logs
+      │   ├── busco
+      │   │   └── <LINEAGE>
+      │   │       ├── nf-busco.{begin,err,log,out,run,sh,trace}
+      │   │       └── versions.yml
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── busco-dag.dot
+      │   ├── busco-report.html
+      │   ├── busco-timeline.html
+      │   └── busco-trace.txt
+      ├── busco.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description                                |
+          |-------------|--------------------------------------------|
+          | busco.tsv   | A merged TSV of all lineages used by BUSCO |
+      - name: busco
+        description: |
+          Below is a description of the _per-lineage_ results from [BUSCO](https://gitlab.com/ezlab/busco).
+        table: |
+          | Filename/Folder                                                             | Description                                                                         |
+          |-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+          | <LINEAGE>/<LINEAGE>-summary.txt                                             | Tab-delimited lineage results for all samples                                       |
+          | <LINEAGE>/logs/busco.log                                                    | Detailed information about the BUSCO run                                            |
+          | <LINEAGE>/<SAMPLE_NAME>/logs/                                               | Log files for individual tools per-sample                                           |
+          | <LINEAGE>/<SAMPLE_NAME>/prodigal_output/                                    | Outputs from the Prodigal gene-prediction step                                      |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/busco_sequences                       | FASTA format file for each BUSCO gene identified                                    |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/full_table.tsv                        | Complete results in a tab-delimited format with scores and lengths of BUSCO matches |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/hmmer_output                          | Tab-delimited output from HMMER                                                     |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/missing_busco_list.tsv                | Tab-delimited list of missing BUSCOs                                                |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/short_summary.json                    | A summary of BUSCO matches in JSON format                                           |
+          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/short_summary.txt                     | A summary of BUSCO matches                                                          |
+          | <LINEAGE>/<SAMPLE_NAME>/short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.json | A summary of BUSCO matches in JSON format per-sample                                |
+          | <LINEAGE>/<SAMPLE_NAME>/short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.txt  | A summary of BUSCO matches per-sample                                               |
+  citations:
+    - busco
