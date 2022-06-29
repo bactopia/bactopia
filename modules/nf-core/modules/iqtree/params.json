@@ -15,7 +15,7 @@
                 "iqtree_model": {
                     "type": "string",
                     "description": "Substitution model name",
-                    "default": "GTR",
+                    "default": "HKY",
                     "fa_icon": "fas fa-italic"
                 },
                 "bb": {

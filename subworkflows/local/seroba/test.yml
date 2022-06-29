@@ -1,0 +1,47 @@
+- name: seroba-test
+  command: bash -c 'nextflow run ./subworkflows/local/seroba/test.nf -entry test_seroba --wf seroba -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - seroba
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.err
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.log
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.out
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/versions.yml
+      md5sum: 2572fca12b6d6558d81edb8fb359b0fb
+    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-dag.dot
+      contains: ['serobadag', 'SEROBA', 'versions']
+    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/seroba/seroba/seroba.tsv
+      md5sum: b3983df1ed608ca335bfcb66b22b8b94
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.err
+      contains: ["Stage", "in"]
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.log
+      contains: ["k-mers", "kmc", "results", "low"]
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.out
+      contains: ["k-mers", "kmc", "results", "low"]
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.sh
+      contains: ['seroba', 'END_VERSIONS']
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/seroba/seroba/test/logs/seroba/versions.yml
+      md5sum: e61acfefb43811106cca7842c73e475f
+    - path: bactopia-tools/seroba/seroba/test/test.tsv
+      md5sum: b3983df1ed608ca335bfcb66b22b8b94

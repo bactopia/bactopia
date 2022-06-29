@@ -13,6 +13,7 @@ include { LISSERO } from '../lissero/main';
 include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { SEQSERO2 } from '../seqsero2/main';
+include { SEROBA } from '../seroba/main';
 include { SHIGATYPER } from '../shigatyper/main';
 include { SISTR } from '../sistr/main';
 include { SSUISSERO } from '../ssuissero/main';
@@ -84,8 +85,11 @@ workflow MERLIN {
 
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
+    MERLINDIST.out.streptococcus_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
+    SEROBA(ch_streptococcus_fq)
+    ch_versions = ch_versions.mix(SEROBA.out.versions.first())
     SSUISSERO(ch_streptococcus)
     ch_versions = ch_versions.mix(SSUISSERO.out.versions.first())
 

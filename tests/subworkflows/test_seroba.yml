@@ -1,0 +1,8 @@
+- name: seroba-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf seroba -c nextflow.config --help > seroba-help.txt'
+  tags:
+    - bactopia_help
+    - seroba
+  files:
+    - path: seroba-help.txt
+      contains: ['seroba', 'bactopia', 'version', 'dependencies']

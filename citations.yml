@@ -788,6 +788,13 @@ tools:
     cite: |
       Li H [Toolkit for processing sequences in FASTA/Q formats](https://github.com/lh3/seqtk) (GitHub)
 
+  seroba:
+    name: Seroba
+    link: https://github.com/sanger-pathogens/seroba
+    description: k-mer based pipeline to identify the serotype of _Streptococcus pneumoniae_ from Illumina NGS reads
+    cite: |
+      Epping L, van Tonder AJ, Gladstone RA, The Global Pneumococcal Sequencing Consortium, Bentley SD, Page AJ, Keane JA [SeroBA: rapid high-throughput serotyping of Streptococcus pneumoniae from whole genome sequence data.](https://doi.org/10.1099/mgen.0.000186) _Microbial Genomics_, 4(7) (2018)
+
   shigatyper:
     name: ShigaTyper
     link: https://github.com/CFSAN-Biostatistics/shigatyper
