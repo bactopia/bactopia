@@ -67,6 +67,7 @@ if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/lo
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
 if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mobsuite/main';
+if (params.wf == 'mykrobe') include { MYKROBE } from '../subworkflows/local/mykrobe/main';
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
@@ -211,6 +212,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'mobsuite') {
         MOBSUITE(samples)
         ch_versions = ch_versions.mix(MOBSUITE.out.versions)
+    } else if (params.wf == 'mykrobe') {
+        MYKROBE(samples)
+        ch_versions = ch_versions.mix(MYKROBE.out.versions)
     } else if (params.wf == 'ngmaster') {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)

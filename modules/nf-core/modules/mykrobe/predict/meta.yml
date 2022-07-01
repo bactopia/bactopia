@@ -1,0 +1,51 @@
+name: "mykrobe_predict"
+description: AMR predictions for supported species
+keywords:
+  - fastq
+  - bam
+  - antimicrobial resistance
+tools:
+  - "mykrobe":
+      description: "Antibiotic resistance prediction in minutes"
+      homepage: "http://www.mykrobe.com/"
+      documentation: "https://github.com/Mykrobe-tools/mykrobe/wiki"
+      tool_dev_url: "https://github.com/Mykrobe-tools/mykrobe"
+      doi: "10.1038/ncomms10063"
+      licence: "['MIT']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: BAM or FASTQ file
+      pattern: "*.{bam,fastq.gz,fq.gz}"
+  - species:
+      type: string
+      description: Species to make AMR prediction against
+      pattern: "*"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - csv:
+      type: file
+      description: AMR predictions in CSV format
+      pattern: "*.csv"
+  - json:
+      type: file
+      description: AMR predictions in JSON format
+      pattern: "*.json"
+
+authors:
+  - "@rpetit3"

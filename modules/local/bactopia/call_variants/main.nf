@@ -32,10 +32,11 @@ process CALL_VARIANTS {
     meta.runtype != "ont"
 
     output:
-    path "results/*"
-    path "*.{log,err}", emit: logs, optional: true
-    path ".command.*", emit: nf_logs
-    path "versions.yml", emit: versions
+    path "results/*"                                                                            , emit: results
+    tuple val(meta), path("results/${meta.id}.vcf.gz"), path("results/${meta.id}.aligned.fa.gz"), emit: core
+    path "*.{log,err}"                                                          , optional: true, emit: logs
+    path ".command.*"                                                                           , emit: nf_logs
+    path "versions.yml"                                                                         , emit: versions
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0].toInteger()-1

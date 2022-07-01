@@ -1,0 +1,89 @@
+name: mykrobe
+description: Antimicrobial resistance detection for specific species
+icon: false
+keywords:
+  - fastq
+  - antimicrobial resistance
+modules:
+  - mykrobe
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: BAM or FASTQ file
+      pattern: "*.{bam,fastq.gz,fq.gz}"
+  - species:
+      type: string
+      description: Species to make AMR prediction against
+      pattern: "*"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - csv:
+      type: file
+      description: AMR predictions in CSV format
+      pattern: "*.csv"
+  - merged_csv:
+      type: file
+      description: A merged CSV of all Mykrobe results
+      pattern: "*.csv"
+  - json:
+      type: file
+      description: AMR predictions in JSON format
+      pattern: "*.json"
+docs:
+  introduction: |
+      The `mykrobe` module uses the command-line version of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to predict
+      antimicrobial resistance for _Mycobacterium tuberculosis_, _Staphylococcus aureus_, _Shigella sonnei_, and _Salmonella typhi_.
+  output:
+    tree: |
+      mykrobe/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.csv
+      │   ├── <SAMPLE_NAME>.json
+      │   └── logs
+      │       └── mykrobe
+      │           ├── nf-mykrobe.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── mykrobe-dag.dot
+      │   ├── mykrobe-report.html
+      │   ├── mykrobe-timeline.html
+      │   └── mykrobe-trace.txt
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mykrobe.tsv | A merged CSV file with `Mykrobe` results from all samples |
+      - name: Mykrobe
+        description: |
+          Below is a description of the _per-sample_ results from [Mykrobe](https://github.com/Mykrobe-tools/mykrobe). A full description of
+          each output file is available at [Mykrobe - AMR Prediction Output](https://github.com/Mykrobe-tools/mykrobe/wiki/AMR-prediction-output).
+        table: |
+          | Filename                 | Description |
+          |--------------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;.csv  | The output of `mykrobe predict` in comma-separated format |
+          | &lt;SAMPLE_NAME&gt;.json | The output of `mykrobe predict` in JSON format |
+  citations:
+    - mykrobe

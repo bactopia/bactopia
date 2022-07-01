@@ -85,6 +85,11 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--mash_sketch"
             }
+        } else if (params.wf == "mykrobe") {
+            if (!params.mykrobe_species) {
+                error += 1
+                missing_required += "--mykrobe_species"
+            }
         } else if (params.wf == "pangenome") {
             if (params.traits) {
                 if (Utils.isLocal(params.traits)) {

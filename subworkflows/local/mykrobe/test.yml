@@ -1,0 +1,48 @@
+- name: mykrobe-test
+  command: bash -c 'nextflow run ./subworkflows/local/mykrobe/test.nf -entry test_mykrobe --wf mykrobe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - mykrobe
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.err
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.log
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.out
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/versions.yml
+      md5sum: 570931dfd740180bf8b80c7d30d34277
+    - path: bactopia-tools/mykrobe/mykrobe/mykrobe.csv
+      contains: ["susceptibility", "staph", "variants"]
+    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-dag.dot
+      contains: ['mykrobedag', 'MYKROBE', 'versions']
+    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.err
+      contains: ['mykrobe', 'staph', 'finished']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.log
+      contains: ['mykrobe', 'staph', 'finished']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.out
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.sh
+      contains: ['mykrobe', 'END_VERSIONS']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/versions.yml
+      md5sum: 5dd663a56ae94d406b767929fdae6ef5
+    - path: bactopia-tools/mykrobe/mykrobe/test/test.csv
+      contains: ["susceptibility", "staph", "variants"]
+    - path: bactopia-tools/mykrobe/mykrobe/test/test.json
+      contains: ["susceptibility", "staph", "predictor"]

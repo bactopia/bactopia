@@ -1,0 +1,8 @@
+- name: mykrobe-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf mykrobe -c nextflow.config --help > mykrobe-help.txt'
+  tags:
+    - bactopia_help
+    - mykrobe
+  files:
+    - path: mykrobe-help.txt
+      contains: ['mykrobe', 'bactopia', 'version', 'dependencies']
