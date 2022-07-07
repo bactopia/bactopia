@@ -9,6 +9,8 @@
     - `busco` - Assembly completeness based on evolutionarily informed expectations
     - `gubbins` - Rapid phylogenetic analysis of recombinant bacterial sequences
     - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes
+    - `mykrobe` - Antimicrobial resistance detection for specific species
+    - `panaroo` - Pipeline for pangenome investigations
     - `plasmidfinder` - Plasmid identification from assemblies
     - `seroba` - Serotyping of Streptococcus pneumoniae from sequence reads
     - `snippy` - Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny
