@@ -390,6 +390,13 @@ tools:
     cite: |
       Chaumeil PA, Mussig AJ, Hugenholtz P, Parks DH [GTDB-Tk: a toolkit to classify genomes with the Genome Taxonomy Database.](https://doi.org/10.1093/bioinformatics/btz848) _Bioinformatics_ (2019)
 
+  gubbins:
+    name: Gubbins
+    link: https://github.com/nickjcroucher/gubbins
+    description: Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences
+    cite: |
+      Croucher NJ, Page AJ, Connor TR, Delaney AJ, Keane JA, Bentley SD, Parkhill J, Harris SR [Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences using Gubbins.](https://doi.org/10.1093/nar/gku1196) _Nucleic Acids Research_ 43(3), e15. (2015)
+  
   hicap:
     name: hicap
     link: https://github.com/scwatts/hicap

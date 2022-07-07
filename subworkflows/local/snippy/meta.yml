@@ -1,37 +1,211 @@
 name: snippy
-description: Rapid variant calling from sequence reads
-introduction: |
-  The `snippy` module uses...
+description: Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny
+icon: false
 keywords:
-  - TAGS
+  - alignment
+  - core-snp
+  - phylogeny
+  - variants
 modules:
   - snippy_run
   - snippy_core
   - gubbins
   - iqtree
+  - snpdists
 input:
   - meta:
-      type: map
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
       description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+      pattern: "*.fastq.gz"
+  - reference:
       type: file
-      description: Description of input file
-output_tree: |
-  ```  ```
+      description: Reference genome in GenBank format
+      pattern: "*.{gbk,gbk.gz}"
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
-citations:
-  - gubbins
-  - iqtree
-  - iqtree_modelfinder
-  - iqtree_ufboot
-  - snippy
+      pattern: "versions.yml"
+docs:
+  introduction: |
+    The `snippy` subworkflow allows you to call SNPs and InDels against a reference with
+    [Snippy](https://github.com/tseemann/snippy). With the called SNPs/InDels, [snippy-core](https://github.com/tseemann/snippy#core-snp-phylogeny) 
+    a core-SNP alignment is created.
+
+    A phylogeny, based on the core-SNP alignment, will be created by [IQ-Tree](https://github.com/Cibiv/IQ-TREE). Optionally
+    a recombination-masked core-SNP alignment can be created with [Gubbins](https://github.com/nickjcroucher/gubbins).
+
+    Finally, the pair-wise SNP distance for each sample is also calculated with 
+    [snp-dists](https://github.com/tseemann/snp-dists).
+  output:
+    tree: |
+      snippy/
+      ├── gubbins
+      │   ├── core-snp.branch_base_reconstruction.embl.gz
+      │   ├── core-snp.filtered_polymorphic_sites.fasta.gz
+      │   ├── core-snp.filtered_polymorphic_sites.phylip
+      │   ├── core-snp.final_tree.tre
+      │   ├── core-snp.node_labelled.final_tree.tre
+      │   ├── core-snp.per_branch_statistics.csv
+      │   ├── core-snp.recombination_predictions.embl.gz
+      │   ├── core-snp.recombination_predictions.gff.gz
+      │   └── core-snp.summary_of_snp_distribution.vcf.gz
+      ├── iqtree
+      │   ├── core-snp.alninfo
+      │   ├── core-snp.bionj
+      │   ├── core-snp.ckp.gz
+      │   ├── core-snp.contree
+      │   ├── core-snp.mldist
+      │   ├── core-snp.splits.nex
+      │   ├── core-snp.treefile
+      │   └── core-snp.ufboot
+      ├── logs
+      │   ├── gubbins
+      │   │   ├── core-snp.log
+      │   │   ├── nf-gubbins.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   ├── iqtree
+      │   │   ├── core-snp.log
+      │   │   ├── nf-iqtree.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   ├── snippy-core
+      │   │   ├── nf-snippy-core.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── snpdists
+      │       ├── nf-snpdists.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── snippy-dag.dot
+      │   ├── snippy-report.html
+      │   ├── snippy-timeline.html
+      │   └── snippy-trace.txt
+      ├── snippy
+      │   └── <SAMPLE_NAME>
+      │       ├── logs
+      │       │   └── snippy
+      │       │       ├── nf-snippy.{begin,err,log,out,run,sh,trace}
+      │       │       ├── <SAMPLE_NAME>.log
+      │       │       └── versions.yml
+      │       ├── <SAMPLE_NAME>.aligned.fa.gz
+      │       ├── <SAMPLE_NAME>.annotated.vcf.gz
+      │       ├── <SAMPLE_NAME>.bam
+      │       ├── <SAMPLE_NAME>.bam.bai
+      │       ├── <SAMPLE_NAME>.bed.gz
+      │       ├── <SAMPLE_NAME>.consensus.fa.gz
+      │       ├── <SAMPLE_NAME>.consensus.subs.fa.gz
+      │       ├── <SAMPLE_NAME>.consensus.subs.masked.fa.gz
+      │       ├── <SAMPLE_NAME>.coverage.txt.gz
+      │       ├── <SAMPLE_NAME>.csv.gz
+      │       ├── <SAMPLE_NAME>.filt.vcf.gz
+      │       ├── <SAMPLE_NAME>.gff.gz
+      │       ├── <SAMPLE_NAME>.html
+      │       ├── <SAMPLE_NAME>.raw.vcf.gz
+      │       ├── <SAMPLE_NAME>.subs.vcf.gz
+      │       ├── <SAMPLE_NAME>.tab
+      │       ├── <SAMPLE_NAME>.txt
+      │       └── <SAMPLE_NAME>.vcf.gz
+      ├── snippy-core
+      │   ├── core-snp.aln.gz
+      │   ├── core-snp.tab.gz
+      │   ├── core-snp.txt
+      │   └── core-snp.vcf.gz
+      ├── core-snp-clean.full.aln.gz
+      ├── core-snp.distance.tsv
+      ├── core-snp.full.aln.gz
+      ├── core-snp.iqtree
+      └── core-snp.masked.aln.gz
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename                   | Description                                                              |
+          |----------------------------|--------------------------------------------------------------------------|
+          | core-snp-clean.full.aln.gz | Same as `core-snp.full.aln.gz` with unusual characters replaced with `N` |
+          | core-snp.distance.tsv      | Core genome Pair-wise SNP distance for each sample                       |
+          | core-snp.full.aln.gz       | A whole genome SNP alignment (includes invariant sites)                  |
+          | core-genome.iqtree         | Full result of the IQ-TREE core genome phylogeny                         |
+          | core-genome.masked.aln.gz  | A core-SNP alignment with the recomination masked                        |
+      - name: Gubbins
+        description: |
+          Below is a description of the [Gubbins](https://github.com/nickjcroucher/gubbins) results. For more details about
+          Gubbins outputs see [Gubbins - Outputs](https://github.com/nickjcroucher/gubbins/blob/master/docs/gubbins_manual.md#output-files).
+        table: |
+          | Filename                                     | Description                                                                            |
+          |----------------------------------------------|----------------------------------------------------------------------------------------|
+          | core-snp.branch_base_reconstruction.embl.gz  | Base substitution reconstruction in EMBL format                                        |
+          | core-snp.filtered_polymorphic_sites.fasta.gz | FASTA format alignment of filtered polymorphic sites                                   |
+          | core-snp.filtered_polymorphic_sites.phylip   | Phylip format alignment of filtered polymorphic sites                                  |
+          | core-snp.final_tree.tre                      | Final phylogeny in Newick format (_branch lengths are in point mutations_)             |
+          | core-snp.node_labelled.final_tree.tre        | Final phylogeny in Newick format but with internal node labels                         |
+          | core-snp.per_branch_statistics.csv           | Per-branch reporting of the base substitutions inside and outside recombination events |
+          | core-snp.recombination_predictions.embl.gz   | Recombination predictions in EMBL file format                                          |
+          | core-snp.recombination_predictions.gff.gz    | Recombination predictions in GFF file format                                           |
+          | core-snp.summary_of_snp_distribution.vcf.gz  | VCF file summarising the distribution of point mutations                               |
+      - name: IQ-TREE
+        description: |
+          Below is a description of the [IQ-TREE](http://www.iqtree.org/) results. If ClonalFrameML is executed, a fast tree
+          is created and given the prefix `start-tree`, the final tree has the prefix `core-genome`. For more details about
+          IQ-TREE outputs see [IQ-TREE - Outputs](https://github.com/Cibiv/IQ-TREE/wiki/Web-Server-Tutorial#analysis-results).
+        table: |
+          | Filename            | Description                                                                                                                                           |
+          |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+          | core-snp.alninfo    | Alignment site statistics                                                                                                                             |
+          | core-snp.bionj      | A neighbor joining tree produced by BIONJ                                                                                                             |
+          | core-snp.ckp.gz     | IQ-TREE writes a checkpoint file                                                                                                                      |
+          | core-snp.contree    | Consensus tree with assigned branch supports where branch lengths are optimized on the original alignment; printed if Ultrafast Bootstrap is selected |
+          | core-snp.mldist     | Contains the likelihood distances                                                                                                                     |
+          | core-snp.splits.nex | Support values in percentage for all splits (bipartitions), computed as the occurence frequencies in the bootstrap trees                              |
+          | core-snp.treefile   | Maximum likelihood tree in NEWICK format, can be visualized with treeviewer programs                                                                  |
+          | core-snp.ufboot     | Trees created during the bootstrap steps                                                                                                              |
+      - name: Snippy
+        description: |
+          Below is a description of the per-sample [Snippy]([Snippy](https://github.com/tseemann/snippy)) results. For more details about
+          Snippy outputs see [Snippy - Outputs](https://github.com/tseemann/snippy#output-files).
+        table: |
+          | Filename                                        | Description                                                                                                                        |
+          |-------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+          | &lt;SAMPLE_NAME&gt;.aligned.fa.gz               | A version of the reference but with `-` at position with `depth=0` and `N` for `0 < depth < --mincov` (**does not have variants**) | 
+          | &lt;SAMPLE_NAME&gt;.annotated.vcf.gz            | The final variant calls with additional annotations from Reference genome's GenBank file                                           | 
+          | &lt;SAMPLE_NAME&gt;.bam                         | The alignments in [BAM](http://en.wikipedia.org/wiki/SAMtools) format. Includes unmapped, multimapping reads. Excludes duplicates  | 
+          | &lt;SAMPLE_NAME&gt;.bam.bai                     | Index for the .bam file                                                                                                            | 
+          | &lt;SAMPLE_NAME&gt;.bed.gz                      | The variants in [BED](http://genome.ucsc.edu/FAQ/FAQformat.html#format1) format                                                    | 
+          | &lt;SAMPLE_NAME&gt;.consensus.fa.gz             | A version of the reference genome with *all* variants instantiated                                                                 | 
+          | &lt;SAMPLE_NAME&gt;.consensus.subs.fa.gz        | A version of the reference genome with *only substitution* variants instantiated                                                   | 
+          | &lt;SAMPLE_NAME&gt;.consensus.subs.masked.fa.gz | A version of the reference genome with *only substitution* variants instantiated and low-coverage regions masked                   | 
+          | &lt;SAMPLE_NAME&gt;.coverage.txt.gz             | The per-base coverage of each position in the reference genome                                                                     | 
+          | &lt;SAMPLE_NAME&gt;.csv.gz                      | A [comma-separated](http://en.wikipedia.org/wiki/Comma-separated_values) version of the .tab file                                  | 
+          | &lt;SAMPLE_NAME&gt;.filt.vcf.gz                 | The filtered variant calls from Freebayes                                                                                          | 
+          | &lt;SAMPLE_NAME&gt;.gff.gz                      | The variants in [GFF3](http://www.sequenceontology.org/gff3.shtml) format                                                          | 
+          | &lt;SAMPLE_NAME&gt;.html                        | A [HTML](http://en.wikipedia.org/wiki/HTML) version of the .tab file                                                               | 
+          | &lt;SAMPLE_NAME&gt;.raw.vcf.gz                  | The unfiltered variant calls from Freebayes                                                                                        | 
+          | &lt;SAMPLE_NAME&gt;.subs.vcf.gz                 | *Only substitution* variants from the final annotated variants                                                                     | 
+          | &lt;SAMPLE_NAME&gt;.tab                         | A simple [tab-separated](http://en.wikipedia.org/wiki/Tab-separated_values) summary of all the variants                            | 
+          | &lt;SAMPLE_NAME&gt;.txt                         | A summary of the Snippy run                                                                                                        | 
+          | &lt;SAMPLE_NAME&gt;.vcf.gz                      | The final annotated variants in [VCF](http://en.wikipedia.org/wiki/Variant_Call_Format) format                                     | 
+      - name: Snippy-Core
+        description: |
+          Below is a description of the [Snippy-Core]([Snippy](https://github.com/tseemann/snippy)) results. For more details about
+          Snippy-Core outputs see [Snippy-Core - Outputs](https://github.com/tseemann/snippy#output-files-1).
+        table: |
+          | Filename        | Description                                                                       |
+          |-----------------|-----------------------------------------------------------------------------------|
+          | core-snp.aln.gz | A core SNP alignment in FASTA format                                              | 
+          | core-snp.tab.gz | Tab-separated columnar list of core SNP sites with alleles but **NO** annotations | 
+          | core-snp.txt    | Tab-separated columnar list of alignment/core-size statistics                     | 
+          | core-snp.vcf.gz | Multi-sample VCF file with genotype GT tags for all discovered alleles            |                                                                                                     | 
+  citations:
+    - gubbins
+    - iqtree
+    - iqtree_modelfinder
+    - iqtree_ufboot
+    - snippy
+    - snpdists
