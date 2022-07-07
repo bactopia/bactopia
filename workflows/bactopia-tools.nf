@@ -77,6 +77,7 @@ if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/se
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
+if (params.wf == 'snippy') include { SNIPPY } from '../subworkflows/local/snippy/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
@@ -240,6 +241,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'sistr') {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)
+    } else if (params.wf == 'snippy') {
+        SNIPPY(samples)
+        ch_versions = ch_versions.mix(SNIPPY.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
         ch_versions = ch_versions.mix(SPATYPER.out.versions)

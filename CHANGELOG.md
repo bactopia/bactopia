@@ -7,9 +7,11 @@
 - Add `seroba` to Merlin
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `busco` - Assembly completeness based on evolutionarily informed expectations
+    - `gubbins` - Rapid phylogenetic analysis of recombinant bacterial sequences
     - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes
     - `plasmidfinder` - Plasmid identification from assemblies
     - `seroba` - Serotyping of Streptococcus pneumoniae from sequence reads
+    - `snippy` - Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny
 
 ### `Fixed`
 - improve GTDB db handling
@@ -17,7 +19,6 @@
 - user provided adapters and phix fastas
 - `--available_datasets` in the `bactopia datasets`
 - name collisions in the Ariba Bactopia Tool
-- `snippy` use tmp directory in the staged directory
 
 ### `Enhancements to OSS`
 - Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
@@ -29,6 +30,7 @@
 - add module for Mykrobe and GenoTyphi [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1818)
 - add module for plasmidfinder [nf-core/modules#1773](https://github.com/nf-core/modules/pull/1773)
 - add module for Seroba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1816)
+- add module for snippy/core [nf-core/modules#1855](https://github.com/nf-core/modules/pull/1855)
 - let tempfile determine temp dir location [sanger-pathogens/seroba#68](https://github.com/sanger-pathogens/seroba/pull/68)
 - allow the user to specify temp dir or use the system default [sanger-pathogens/pymummer#36](https://github.com/sanger-pathogens/pymummer/pull/36)
 

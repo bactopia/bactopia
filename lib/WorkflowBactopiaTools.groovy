@@ -104,6 +104,14 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--traits"
             }
+        } else if (params.wf == "snippy") {
+            if (params.reference) {
+                if (Utils.isLocal(params.reference)) {
+                    error += Utils.fileNotFound(params.reference, 'reference', log)
+                }
+            } else {
+                missing_required += "--reference"
+            }
         }
 
         // Check for existing output directory

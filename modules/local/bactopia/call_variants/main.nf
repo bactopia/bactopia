@@ -32,11 +32,10 @@ process CALL_VARIANTS {
     meta.runtype != "ont"
 
     output:
-    path "results/*"                                                                            , emit: results
-    tuple val(meta), path("results/${meta.id}.vcf.gz"), path("results/${meta.id}.aligned.fa.gz"), emit: core
-    path "*.{log,err}"                                                          , optional: true, emit: logs
-    path ".command.*"                                                                           , emit: nf_logs
-    path "versions.yml"                                                                         , emit: versions
+    path "results/*"
+    path "*.{log,err}", emit: logs, optional: true
+    path ".command.*", emit: nf_logs
+    path "versions.yml", emit: versions
 
     shell:
     snippy_ram = task.memory.toString().split(' ')[0].toInteger()-1
@@ -75,7 +74,7 @@ process CALL_VARIANTS {
         mash --version > mash.version.txt 2>&1
         ncbi-genome-download --version > ncbi-genome-download.version.txt 2>&1
     fi
-    mkdir tmp_snippy
+
     snippy !{fastq} \
         --ref ${REFERENCE} \
         --cpus !{task.cpus} \
@@ -87,7 +86,6 @@ process CALL_VARIANTS {
         --mincov !{params.mincov} \
         --minfrac !{params.minfrac} \
         --minqual !{params.minqual} \
-        --tmpdir tmp_snippy/ \
         --maxsoft !{params.maxsoft} !{bwaopt} !{fbopt}
     mv ${REFERENCE_NAME}/!{meta.id}.log ./
 
@@ -108,7 +106,7 @@ process CALL_VARIANTS {
         --mincov !{params.mincov} > ${REFERENCE_NAME}/!{meta.id}.consensus.subs.masked.fa
 
     # Clean Up
-    rm -rf tmp_snippy/ ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{meta.id}.vcf.gz*
+    rm -rf ${REFERENCE_NAME}/reference ${REFERENCE_NAME}/ref.fa* ${REFERENCE_NAME}/!{meta.id}.vcf.gz*
 
     if [[ "!{reference}" == "refseq-genomes.msh" ]]; then
         mv distances.txt ${REFERENCE_NAME}/mash-distances.txt

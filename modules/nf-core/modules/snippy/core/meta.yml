@@ -1,0 +1,68 @@
+name: snippy_core
+description: Core-SNP alignment from Snippy outputs
+keywords:
+  - core
+  - alignment
+  - bacteria
+tools:
+  - snippy:
+      description: "Rapid bacterial SNP calling and core genome alignments"
+      homepage: "https://github.com/tseemann/snippy"
+      documentation: "https://github.com/tseemann/snippy"
+      tool_dev_url: "https://github.com/tseemann/snippy"
+      doi: ""
+      licence: "['GPL v2']"
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - vcf:
+      type: file
+      description: Annotated variants in VCF format
+      pattern: "*.vcf.gz"
+  - aligned_fa:
+      type: file
+      description: A version of the reference but with - at position with depth=0 and N for 0 < depth < --mincov (does not have variants)
+      pattern: "*.aligned.fa.gz"
+  - reference:
+      type: file
+      description: Reference genome in GenBank format
+      pattern: "*.{gbk,gbk.gz,gbff,gbff.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - aln:
+      type: file
+      description: A core SNP alignment in FASTA format
+      pattern: "*.aln.gz"
+  - full_aln:
+      type: file
+      description: A whole genome SNP alignment (includes invariant sites)
+      pattern: "*.full.aln.gz"
+  - clean_full_aln:
+      type: file
+      description: A whole genome SNP alignment (includes invariant sites) with Ns
+      pattern: "*-clean.full.aln.gz"
+  - tab:
+      type: file
+      description: Tab-separated columnar list of core SNP sites with alleles but NO annotations
+      pattern: "*.tab"
+  - vcf:
+      type: file
+      description: Multi-sample VCF file with genotype GT tags for all discovered alleles
+      pattern: "*.vcf.gz"
+  - txt:
+      type: file
+      description: Tab-separated columnar list of alignment/core-size statistics
+      pattern: "*.txt"
+authors:
+  - "@rpetit3"

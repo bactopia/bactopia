@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/snippy/core/params.json",
+    "title": "Snippy-Core parameters",
+    "description": "A module for rapid variant calling from sequence reads",
+    "type": "object",
+    "definitions": {
+        "snippycore_parameters": {
+            "title": "Snippy-Core Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "maxhap": {
+                    "type": "integer",
+                    "description": "Largest haplotype to decompose",
+                    "default": 100,
+                    "fa_icon": "fas fa-angle-double-down"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/snippycore_parameters"
+        }
+    ]
+}

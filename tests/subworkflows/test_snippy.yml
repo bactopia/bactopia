@@ -1,0 +1,8 @@
+- name: snippy-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf snippy -c nextflow.config --help > snippy-help.txt'
+  tags:
+    - bactopia_help
+    - snippy
+  files:
+    - path: snippy-help.txt
+      contains: ['snippy', 'bactopia', 'version', 'dependencies']
