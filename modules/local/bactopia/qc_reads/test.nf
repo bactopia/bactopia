@@ -11,6 +11,8 @@ workflow test_qc_reads_pe {
          file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)],
         file(params.test_data['empty']['fna'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
+        file(params.test_data['empty']['adapters'], checkIfExists: true),
+        file(params.test_data['empty']['phix'], checkIfExists: true)
     )
 
     QC_READS ( inputs )
@@ -23,6 +25,8 @@ workflow test_qc_reads_se {
         [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)],
         file(params.test_data['empty']['fna'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
+        file(params.test_data['empty']['adapters'], checkIfExists: true),
+        file(params.test_data['empty']['phix'], checkIfExists: true)
     )
 
     QC_READS ( inputs )
@@ -35,6 +39,8 @@ workflow test_qc_reads_nanopore {
         [file(params.test_data['species']['portiera']['nanopore']['se'], checkIfExists: true)],
         file(params.test_data['empty']['fna'], checkIfExists: true),
         file(params.test_data['species']['portiera']['genome']['genome_size'], checkIfExists: true)
+        file(params.test_data['empty']['adapters'], checkIfExists: true),
+        file(params.test_data['empty']['phix'], checkIfExists: true)
     )
 
     QC_READS ( inputs )
