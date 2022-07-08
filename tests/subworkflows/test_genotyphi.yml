@@ -1,0 +1,8 @@
+- name: genotyphi-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf genotyphi -c nextflow.config --help > genotyphi-help.txt'
+  tags:
+    - bactopia_help
+    - genotyphi
+  files:
+    - path: genotyphi-help.txt
+      contains: ['genotyphi', 'bactopia', 'version', 'dependencies']

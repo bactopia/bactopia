@@ -376,6 +376,13 @@ tools:
     cite: |
       Stanton RA, Vlachos N, Halpin AL [GAMMA: a tool for the rapid identification, classification, and annotation of translated gene matches from sequencing data.](https://doi.org/10.1093/bioinformatics/btab607) _Bioinformatics_ (2021)
 
+  genotyphi:
+    name: GenoTyphi
+    link: https://github.com/katholt/genotyphi
+    description: Assign genotypes to Salmonella Typhi genomes based on Mykrobe results
+    cite: |
+      Wong VK, Baker S, Connor TR, Pickard D, Page AJ, Dave J, Murphy N, Holliman R, Sefton A, Millar M, Dyson ZA, Dougan G, Holt KE, & International Typhoid Consortium. [An extended genotyping framework for Salmonella enterica serovar Typhi, the cause of human typhoid](https://doi.org/10.1038/ncomms12827) _Nature Communications_ 7, 12827. (2016)
+
   gnu_parallel:
     name: GNU Parallel
     link: https://www.gnu.org/software/parallel/
@@ -486,7 +493,6 @@ tools:
     description: In silico Legionella pneumophila Sequence Based Typing
     cite: | 
       Seemann T [legsta: In silico Legionella pneumophila Sequence Based Typing](https://github.com/tseemann/legsta) (GitHub)
-
 
   lighter:
     name: Lighter

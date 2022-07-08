@@ -7,6 +7,7 @@ include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
 include { HPSUISSERO } from '../hpsuissero/main';
+include { GENOTYPHI } from '../genotyphi/main';
 include { KLEBORATE } from '../kleborate/main';
 include { LEGSTA } from '../legsta/main';
 include { LISSERO } from '../lissero/main';
@@ -73,6 +74,9 @@ workflow MERLIN {
 
     // Salmonella 
     MERLINDIST.out.salmonella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_salmonella }
+    MERLINDIST.out.salmonella_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_salmonella_fq }
+    GENOTYPHI(ch_salmonella_fq)
+    ch_versions = ch_versions.mix(GENOTYPHI.out.versions.first())
     SEQSERO2(ch_salmonella)
     ch_versions = ch_versions.mix(SEQSERO2.out.versions.first())
     SISTR(ch_salmonella)

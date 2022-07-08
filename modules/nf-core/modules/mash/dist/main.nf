@@ -74,6 +74,7 @@ process MERLIN_DIST {
     tuple val(meta), path(reads), path("mycobacterium.*") , emit: mycobacterium_fq, optional: true
     tuple val(meta), path(query), path("neisseria.*")     , emit: neisseria, optional: true
     tuple val(meta), path(query), path("salmonella.*")    , emit: salmonella, optional: true
+    tuple val(meta), path(reads), path("salmonella.*")    , emit: salmonella_fq, optional: true
     tuple val(meta), path(query), path("staphylococcus.*"), emit: staphylococcus, optional: true
     tuple val(meta), path(query), path("streptococcus.*") , emit: streptococcus, optional: true
     tuple val(meta), path(reads), path("streptococcus.*") , emit: streptococcus_fq, optional: true

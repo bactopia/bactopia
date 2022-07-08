@@ -4,9 +4,10 @@
 
 ### `Added`
 - Add Panaroo to the `pangenome` Bactopia Tools
-- Add `seroba` to Merlin
+- Add `genotyphi` and `seroba` to Merlin
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `busco` - Assembly completeness based on evolutionarily informed expectations
+    - `genotyphi` - Salmonella Typhi genotyping with Mykrobe outputs
     - `gubbins` - Rapid phylogenetic analysis of recombinant bacterial sequences
     - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes
     - `mykrobe` - Antimicrobial resistance detection for specific species
@@ -21,6 +22,7 @@
 - user provided adapters and phix fastas
 - `--available_datasets` in the `bactopia datasets`
 - name collisions in the Ariba Bactopia Tool
+- bare double-quotes in Ariba reports
 
 ### `Enhancements to OSS`
 - Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)

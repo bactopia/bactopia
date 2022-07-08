@@ -1,0 +1,42 @@
+name: "genotyphi_parse"
+description: Genotype Salmonella Typhi from Mykrobe results
+keywords:
+  - genotype
+  - Salmonella Typhi
+tools:
+  - "genotyphi":
+      description: "Assign genotypes to Salmonella Typhi genomes based on VCF files (mapped to Typhi CT18 reference genome)"
+      homepage: "https://github.com/katholt/genotyphi"
+      documentation: "https://github.com/katholt/genotyphi"
+      tool_dev_url: "https://github.com/katholt/genotyphi"
+      doi: "https://github.com/katholt/genotyphi"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - json:
+      type: file
+      description: JSON formatted file of Mykrobe results
+      pattern: "*.json"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - bam:
+      type: file
+      description: A tab-delimited file of predicted genotypes
+      pattern: "*.tsv"
+
+authors:
+  - "@rpetit3"

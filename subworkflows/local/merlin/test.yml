@@ -157,6 +157,12 @@
       md5sum: 27f3f5e84f7da451b2948d61589cdb06
     - path: bactopia-tools/merlin/merlin/GCF_000292685/emmtyper/GCF_000292685.tsv
       md5sum: 6b638803cd53f64c61b706966e05d321
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/genotyphi/GCF_000292685.csv
+      contains: ["susceptibility", "typhi", "variants"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/genotyphi/GCF_000292685.json
+      contains: ["susceptibility", "typhi", "predictor"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/genotyphi/GCF_000292685_predictResults.tsv
+      contains: ['genome', 'GCF_000292685', 'typhi']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/hicap/GCF_000292685.tsv
       md5sum: d0e5562f06fa63e264e3c1d2ffee580b
     - path: bactopia-tools/merlin/merlin/GCF_000292685/hpsuissero/GCF_000292685_serotyping_res.tsv
@@ -215,6 +221,35 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/emmtyper/versions.yml
       md5sum: 0bbf84bc5cfd09b4f12594ce3784d08b
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.err
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.log
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.out
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.sh
+      contains: ['parse', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/nf-genotyphi.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/genotyphi/versions.yml
+      md5sum: 02f5b9c137e32b8035d990b6aed94326
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.err
+      contains: ['mykrobe', 'typhi', 'finished']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.log
+      contains: ['mykrobe', 'typhi', 'finished']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.sh
+      contains: ['mykrobe', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/versions.yml
+      md5sum: 880796780033b7792f227ec2becb7bf5
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/hicap/nf-hicap.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/hicap/nf-hicap.err
@@ -429,6 +464,8 @@
       md5sum: a8e6673164ac13e84b42ab690a2721da
     - path: bactopia-tools/merlin/merlin/emmtyper.tsv
       md5sum: 6b638803cd53f64c61b706966e05d321
+    - path: bactopia-tools/merlin/merlin/genotyphi.tsv
+      contains: ['genome', 'GCF_000292685', 'typhi']
     - path: bactopia-tools/merlin/merlin/hicap.tsv
       contains: ['isolate', 'GCF_000292685']
     - path: bactopia-tools/merlin/merlin/hpsuissero.tsv
@@ -479,6 +516,19 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/versions.yml
       md5sum: 3fe00e9d2ac217a3a53075ab52198b4a
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/versions.yml
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.err

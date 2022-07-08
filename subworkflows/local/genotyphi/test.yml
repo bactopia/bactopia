@@ -1,0 +1,65 @@
+- name: genotyphi-test
+  command: bash -c 'nextflow run ./subworkflows/local/genotyphi/test.nf -entry test_genotyphi --wf genotyphi -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - genotyphi
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/genotyphi/genotyphi/genotyphi.tsv
+      contains: ['genome', 'test', 'typhi']
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.err
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.log
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/versions.yml
+      md5sum: 5887d73ccf7138bf774bd9dc5f49b0cd
+    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-dag.dot
+      md5sum: 01ee3e69891f63e0b77315f45f5c8acd
+    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.err
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.log
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.out
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.sh
+      contains: ['parse', 'END_VERSIONS']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/versions.yml
+      md5sum: 93aeb5ecb57945c0b77379b09ed8da7d
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.err
+      contains: ['mykrobe', 'typhi', 'finished']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.log
+      contains: ['mykrobe', 'typhi', 'finished']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.sh
+      contains: ['mykrobe', 'END_VERSIONS']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/versions.yml
+      md5sum: 37c71f67ec32dcaf79063b1b56446908
+    - path: bactopia-tools/genotyphi/genotyphi/test/test.csv
+      contains: ["susceptibility", "typhi", "variants"]
+    - path: bactopia-tools/genotyphi/genotyphi/test/test.json
+      contains: ["susceptibility", "typhi", "predictor"]
+    - path: bactopia-tools/genotyphi/genotyphi/test/test_predictResults.tsv
+      contains: ['genome', 'test', 'typhi']
