@@ -20,7 +20,7 @@
       md5sum: aaa9fc2b797c932b6d9ff2df640113f1
     - path: bactopia-tools/panaroo/panaroo/core-genome.aln.gz
     - path: bactopia-tools/panaroo/panaroo/core_alignment_header.embl
-      md5sum: e27e5366512509f00016730a7c7d8483
+      contains: ["Genome", "feature", "Sequence"]
     - path: bactopia-tools/panaroo/panaroo/core_gene_alignment.aln.gz
     - path: bactopia-tools/panaroo/panaroo/final_graph.gml
       contains: ["lengths", "graph", "isolateNames"]
