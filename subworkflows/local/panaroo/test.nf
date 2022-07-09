@@ -5,7 +5,11 @@ include { PANAROO } from './main.nf'
 
 workflow test_panaroo {
 
-    inputs = tuple( )
+    input = [ [ id:'test' ], // meta map
+              [ file(params.test_data['species']['portiera']['genome']['gff_gz'], checkIfExists: true),
+                file(params.test_data['species']['portiera']['genome']['gff2_gz'], checkIfExists: true),
+                file(params.test_data['species']['portiera']['genome']['gff3_gz'], checkIfExists: true) ]
+    ]
 
-    PANAROO ( inputs )
+    PANAROO(input)
 }
