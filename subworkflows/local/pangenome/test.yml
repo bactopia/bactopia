@@ -41,7 +41,6 @@
       contains: ['GCF_00029838', 'GCF_002849995']
     - path: bactopia-tools/pangenome/pangenome/iqtree/core-genome.mldist
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia-tools/pangenome/pangenome/iqtree/core-genome.model.gz
     - path: bactopia-tools/pangenome/pangenome/iqtree/core-genome.splits.nex
       md5sum: a257e91b7d51e5ce30e9c052428ce147
     - path: bactopia-tools/pangenome/pangenome/iqtree/core-genome.treefile

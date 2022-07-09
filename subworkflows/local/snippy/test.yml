@@ -76,9 +76,9 @@
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.err
-      md5sum: 465702fe9eeb4ba97a6a6e86d84b8975
+      contains: ['test', 'core-snp', 'Done', 'snippy-core']
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.log
-      md5sum: 465702fe9eeb4ba97a6a6e86d84b8975
+      contains: ['test', 'core-snp', 'Done', 'snippy-core']
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.run

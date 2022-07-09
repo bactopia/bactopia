@@ -13,7 +13,7 @@
     - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085.tsv
       md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
     - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085.txt
-      md5sum: a86b2cb727f20a486edf852543d8c53b
+      contains: ['Results', 'Plasmid', 'Query', 'template']
     - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.begin
     - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.err
     - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.log
