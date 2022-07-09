@@ -88,7 +88,7 @@
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/versions.yml
-      md5sum: 0362757dde048c5c4f118e8ec2256330
+      contains: ["snippy", "4.6.0", "pigz"]
     - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.err
@@ -135,7 +135,7 @@
     - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/test0.log
       contains: ["snippy", "snpEff", "test0", "consensus"]
     - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/versions.yml
-      md5sum: 01a0b7f7fab5ba173b68061d5b1b41cb
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
     - path: bactopia-tools/snippy/snippy/snippy/test0/test0.aligned.fa.gz
     - path: bactopia-tools/snippy/snippy/snippy/test0/test0.annotated.vcf.gz
     - path: bactopia-tools/snippy/snippy/snippy/test0/test0.bam
@@ -174,7 +174,7 @@
     - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/test1.log
       contains: ["snippy", "snpEff", "test1", "consensus"]
     - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/versions.yml
-      md5sum: 01a0b7f7fab5ba173b68061d5b1b41cb
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
     - path: bactopia-tools/snippy/snippy/snippy/test1/test1.aligned.fa.gz
     - path: bactopia-tools/snippy/snippy/snippy/test1/test1.annotated.vcf.gz
     - path: bactopia-tools/snippy/snippy/snippy/test1/test1.bam
@@ -213,7 +213,7 @@
     - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/test2.log
       contains: ["snippy", "snpEff", "test2", "consensus"]
     - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/versions.yml
-      md5sum: 01a0b7f7fab5ba173b68061d5b1b41cb
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
     - path: bactopia-tools/snippy/snippy/snippy/test2/test2.aligned.fa.gz
     - path: bactopia-tools/snippy/snippy/snippy/test2/test2.annotated.vcf.gz
     - path: bactopia-tools/snippy/snippy/snippy/test2/test2.bam
@@ -252,7 +252,7 @@
     - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/test3.log
       contains: ["snippy", "snpEff", "test3", "consensus"]
     - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/versions.yml
-      md5sum: 01a0b7f7fab5ba173b68061d5b1b41cb
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
     - path: bactopia-tools/snippy/snippy/snippy/test3/test3.aligned.fa.gz
     - path: bactopia-tools/snippy/snippy/snippy/test3/test3.annotated.vcf.gz
     - path: bactopia-tools/snippy/snippy/snippy/test3/test3.bam
@@ -291,7 +291,7 @@
     - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/test4.log
       contains: ["snippy", "snpEff", "test4", "consensus"]
     - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/versions.yml
-      md5sum: 01a0b7f7fab5ba173b68061d5b1b41cb
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
     - path: bactopia-tools/snippy/snippy/snippy/test4/test4.aligned.fa.gz
     - path: bactopia-tools/snippy/snippy/snippy/test4/test4.annotated.vcf.gz
     - path: bactopia-tools/snippy/snippy/snippy/test4/test4.bam
