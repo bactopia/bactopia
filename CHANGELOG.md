@@ -5,6 +5,7 @@
 ### `Added`
 - Add Panaroo to the `pangenome` Bactopia Tools
 - Add `genotyphi` and `seroba` to Merlin
+- bump `fastq-dl` to v1.1.1
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `busco` - Assembly completeness based on evolutionarily informed expectations
     - `genotyphi` - Salmonella Typhi genotyping with Mykrobe outputs

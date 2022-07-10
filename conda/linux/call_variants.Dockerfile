@@ -2,7 +2,7 @@ FROM nfcore/base:2.1
 
 LABEL base.image="nfcore/base:2.1"
 LABEL software="Bactopia - call_variants"
-LABEL software.version="2.1.0"
+LABEL software.version="2.1.1"
 LABEL description="A flexible pipeline for complete analysis of bacterial genomes"
 LABEL website="https://bactopia.github.io/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
