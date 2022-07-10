@@ -612,6 +612,13 @@ tools:
     cite: |
       Robertson J, Nash JHE [MOB-suite: software tools for clustering, reconstruction and typing of plasmids from draft assemblies.](https://doi.org/10.1099/mgen.0.000206) _Microbial Genomics_ 4(8). (2018)
 
+  mykrobe:
+    name: Mykrobe
+    link: https://github.com/Mykrobe-tools/mykrobe
+    description: Antibiotic resistance prediction in minutes
+    cite: |
+      Hunt M, Bradley P, Lapierre SG, Heys S, Thomsit M, Hall MB, Malone KM, Wintringer P, Walker TM, Cirillo DM, Comas I, Farhat MR, Fowler P, Gardy J, Ismail N, Kohl TA, Mathys V, Merker M, Niemann S, Omar SV, Sintchenko V, Smith G, Supply P, Tahseen S, Wilcox M, Arandjelovic I, Peto TEA, Crook, DW, Iqbal Z [Antibiotic resistance prediction for Mycobacterium tuberculosis from genome sequence data with Mykrobe](https://doi.org/10.12688/wellcomeopenres.15603.1) _Wellcome Open Research_ 4, 191. (2019)
+
   nanoplot:
     name: NanoPlot
     link: https://github.com/wdecoster/NanoPlot
@@ -653,6 +660,13 @@ tools:
     description: DNA homology search with profile HMMs.
     cite: |
       Wheeler TJ, Eddy SR [nhmmer: DNA homology search with profile HMMs.](https://doi.org/10.1093/bioinformatics/btt403) _Bioinformatics_ 29, 2487–2489 (2013)
+
+  panaroo:
+    name: Panaroo
+    link: https://github.com/gtonkinhill/panaroo
+    description: An updated pipeline for pangenome investigation
+    cite: |
+      Tonkin-Hill G, MacAlasdair N, Ruis C, Weimann A, Horesh G, Lees JA, Gladstone RA, Lo S, Beaudoin C, Floto RA, Frost SDW, Corander J, Bentley SD, Parkhill J [Producing polished prokaryotic pangenomes with the Panaroo pipeline.](https://doi.org/10.1186/s13059-020-02090-4) _Genome Biology_ 21(1), 180. (2020)
 
   phyloflash:
     name: phyloFlash
