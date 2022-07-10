@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.1.1 bactopia/bactopia "" - 2022/0?/??
+## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/11
 
 ### `Added`
 - Add Panaroo to the `pangenome` Bactopia Tools
@@ -23,6 +23,7 @@
 - `--available_datasets` in the `bactopia datasets`
 - name collisions in the Ariba Bactopia Tool
 - bare double-quotes in Ariba reports
+- updated tests for new version
 
 ### `Enhancements to OSS`
 - Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
