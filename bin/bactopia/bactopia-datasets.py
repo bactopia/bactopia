@@ -9,7 +9,7 @@ from Bio import SeqIO
 from executor import ExternalCommand, ExternalCommandFailed
 
 PROGRAM = "bactopia datasets"
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 STDOUT = 11
 STDERR = 12
 CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
@@ -177,11 +177,9 @@ def pubmlst_schemas(pubmlst_file):
     return pubmlst
 
 
-def available_datasets(ariba, pubmlst, missing=False):
+def available_datasets(pubmlst, missing=False):
     """Print available Ariba references, MLST schemas, and exit."""
     print_to = sys.stderr if missing else sys.stdout
-    print("Ariba reference datasets available:", file=print_to)
-    print("\n".join(sorted(ariba)), file=print_to)
 
     print("\nMLST schemas available from pubMLST.org:", file=print_to)
     for k,v in sorted(pubmlst.items()):

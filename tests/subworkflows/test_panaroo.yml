@@ -1,0 +1,7 @@
+- name: panaroo-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf panaroo -c nextflow.config --help > panaroo-help.txt'
+  tags:
+    - skip_panaroo
+  files:
+    - path: panaroo-help.txt
+      contains: ['panaroo', 'bactopia', 'version', 'dependencies']

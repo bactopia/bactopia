@@ -1,0 +1,8 @@
+- name: plasmidfinder-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf plasmidfinder -c nextflow.config --help > plasmidfinder-help.txt'
+  tags:
+    - bactopia_help
+    - plasmidfinder
+  files:
+    - path: plasmidfinder-help.txt
+      contains: ['plasmidfinder', 'bactopia', 'version', 'dependencies']

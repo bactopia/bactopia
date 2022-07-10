@@ -1,0 +1,8 @@
+- name: busco-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf busco -c nextflow.config --help > busco-help.txt'
+  tags:
+    - bactopia_help
+    - busco
+  files:
+    - path: busco-help.txt
+      contains: ['busco', 'bactopia', 'version', 'dependencies']

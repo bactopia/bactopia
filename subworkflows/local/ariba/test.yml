@@ -14,9 +14,9 @@
     - path: bactopia-tools/ariba/ariba/SRR2838702/card/debug.report.tsv
       contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
     - path: bactopia-tools/ariba/ariba/SRR2838702/card/log.clusters.gz
-    - path: bactopia-tools/ariba/ariba/SRR2838702/card/report.tsv
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/SRR2838702-report.tsv
       contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
-    - path: bactopia-tools/ariba/ariba/SRR2838702/card/summary.csv
+    - path: bactopia-tools/ariba/ariba/SRR2838702/card/SRR2838702-summary.csv
       contains: ["name", "novel_var", "Clostridioides", "Neisseria"]
     - path: bactopia-tools/ariba/ariba/SRR2838702/card/version_info.txt
       contains: ["ARIBA", "Python", "OK", "True"]

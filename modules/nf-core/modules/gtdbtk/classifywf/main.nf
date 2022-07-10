@@ -31,7 +31,7 @@ process GTDBTK_CLASSIFYWF {
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
-    export GTDBTK_DATA_PATH="${params.gtdb}"
+    export GTDBTK_DATA_PATH="\$(readlink $db)"
     mkdir fna
     cp -L fna-tmp/* fna/
     find fna/ -name "*.fna.gz" | xargs gunzip

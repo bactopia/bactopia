@@ -1,0 +1,79 @@
+name: mcroni
+description: Sequence variation in mcr-1 genes (mobilized colistin resistance)
+icon: false
+keywords:
+  - fasta
+  - antimicrobial resistance
+modules:
+  - mcroni
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of mcroni results from all samples
+      pattern: "*.tsv"
+  - tsv:
+      type: file
+      description: per-sample mcroni results in TSV format
+      pattern: "*.tsv"
+  - fa:
+      type: file
+      description: mcr-1 matching sequences
+      pattern: "*.fa"
+docs:
+  introduction: |
+      The `mcroni` module uses [mcroni](https://github.com/liampshaw/mcroni) to identify _mcr-1_ genes in 
+      assemblies. If _mcr-1_ is found, the variations will be reported and available in an output FASTA file.
+  output:
+    tree: |
+      mcroni/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>_sequence.fa
+      │   ├── <SAMPLE_NAME>_table.tsv
+      │   └── logs
+      │       └── mcroni
+      │           ├── nf-mcroni.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── csvtk_concat
+      │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── mcroni.tsv
+      └── nf-reports
+          ├── mcroni-dag.dot
+          ├── mcroni-report.html
+          ├── mcroni-timeline.html
+          └── mcroni-trace.txt
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | mcroni.tsv  | A merged TSV of mcroni results from all samples |
+      - name: mcroni
+        description: |
+          Below is a description of the _per-sample_ results from [mcroni](https://github.com/liampshaw/mcroni).
+        table: |
+          | Extension     | Description |
+          |---------------|-------------|
+          | *_table.tsv   | mcroni results in tab-delimited format |
+          | *_sequence.fa | Sequences matching the _mcr-1_ gene    |
+  citations:
+    - mcroni

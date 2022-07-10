@@ -1,0 +1,7 @@
+- name: gubbins-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf gubbins -c nextflow.config --help > gubbins-help.txt'
+  tags:
+    - skip_gubbins
+  files:
+    - path: gubbins-help.txt
+      contains: ['gubbins', 'bactopia', 'version', 'dependencies']

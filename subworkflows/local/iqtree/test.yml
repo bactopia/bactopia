@@ -39,8 +39,7 @@
     - path: bactopia-tools/iqtree/iqtree/test.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
     - path: bactopia-tools/iqtree/iqtree/test.mldist
-      md5sum: 8911a67ed8e329837f6673d9ad422c89
-    - path: bactopia-tools/iqtree/iqtree/test.model.gz
+      contains: ['GCF_000292685', 'GCF_002849995', 'GCF_000300075']
     - path: bactopia-tools/iqtree/iqtree/test.splits.nex
       md5sum: a257e91b7d51e5ce30e9c052428ce147
     - path: bactopia-tools/iqtree/iqtree/test.treefile

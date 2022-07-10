@@ -1,0 +1,66 @@
+name: gubbins
+description:
+  Gubbins (Genealogies Unbiased By recomBinations In Nucleotide Sequences) is an algorithm that iteratively identifies
+  loci containing elevated densities of base substitutions while concurrently constructing a phylogeny based on the
+  putative point mutations outside of these regions.
+licence: ["GPL-2.0-only"]
+keywords:
+  - recombination
+  - alignment
+tools:
+  - gubbins:
+      description: Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences using Gubbins.
+      homepage: https://sanger-pathogens.github.io/gubbins/
+      documentation: https://sanger-pathogens.github.io/gubbins/
+input:
+  - alignment:
+      type: file
+      description: fasta alignment file
+      pattern: "*.{fasta,fas,fa,aln}"
+output:
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - masked_aln:
+      type: file
+      description: Recombination-masked alignment in fasta format
+      pattern: "*.masked.aln"
+  - fasta:
+      type: file
+      description: Filtered variant alignment in fasta format
+      pattern: "*.{fasta}"
+  - embl_predicted:
+      type: file
+      description: Recombination predictions in embl format
+      pattern: "*.{recombination_predictions.embl}"
+  - gff:
+      type: file
+      description: Recombination predictions in gff format
+      pattern: "*.{gff}"
+  - embl_branch:
+      type: file
+      description: Branch base reconstruction
+      pattern: "*.{branch_base_reconstruction.embl}"
+  - vcf:
+      type: file
+      description: SNP distribution
+      pattern: "*.{vcf}"
+  - stats:
+      type: file
+      description: Per branch statistics
+      pattern: "*.{csv}"
+  - phylip:
+      type: file
+      description: Filtered variant alignment in phylip format
+      pattern: "*.{phylip}"
+  - tree:
+      type: file
+      description: Recombination removed RAxML phylogenetic tree
+      pattern: "*.{final_tree.tre}"
+  - tree_labelled:
+      type: file
+      description: Recombination removed RAxML phylogenetic tree (nodes labelled)
+      pattern: "*.{node_labelled.final_tree.tre}"
+authors:
+  - "@avantonder"

@@ -12,10 +12,10 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "m": {
+                "iqtree_model": {
                     "type": "string",
                     "description": "Substitution model name",
-                    "default": "MFP",
+                    "default": "HKY",
                     "fa_icon": "fas fa-italic"
                 },
                 "bb": {

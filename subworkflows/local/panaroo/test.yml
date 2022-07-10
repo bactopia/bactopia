@@ -1,0 +1,65 @@
+- name: panaroo-test
+  command: bash -c 'nextflow run ./subworkflows/local/panaroo/test.nf -entry test_panaroo --wf panaroo -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - panaroo
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/aceE.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/aceF.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/acpP.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/ybeY.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/yidC.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/aligned_gene_sequences/zwf.aln.fas.gz
+    - path: bactopia-tools/panaroo/panaroo/combined_DNA_CDS.fasta
+      md5sum: 92bd4f6b9c84c84c0989d77d2558b7d1
+    - path: bactopia-tools/panaroo/panaroo/combined_protein_CDS.fasta
+      md5sum: 7a5636c4f2abc190f5dd4dfbb1da7034
+    - path: bactopia-tools/panaroo/panaroo/combined_protein_cdhit_out.txt
+      md5sum: 2164b81606712b53af2198b4d50eed08
+    - path: bactopia-tools/panaroo/panaroo/combined_protein_cdhit_out.txt.clstr
+      md5sum: aaa9fc2b797c932b6d9ff2df640113f1
+    - path: bactopia-tools/panaroo/panaroo/core-genome.aln.gz
+    - path: bactopia-tools/panaroo/panaroo/core_alignment_header.embl
+      contains: ["Genome", "feature", "Sequence"]
+    - path: bactopia-tools/panaroo/panaroo/core_gene_alignment.aln.gz
+    - path: bactopia-tools/panaroo/panaroo/final_graph.gml
+      contains: ["lengths", "graph", "isolateNames"]
+    - path: bactopia-tools/panaroo/panaroo/gene_data.csv
+      md5sum: b112c9a065b3e82aaff8214d4e6125ae
+    - path: bactopia-tools/panaroo/panaroo/gene_presence_absence.Rtab
+      md5sum: ef50adf139968f1cf69cf16e249108d5
+    - path: bactopia-tools/panaroo/panaroo/gene_presence_absence.csv
+      contains: ["rpoC_2", "Gene", "capB"]
+    - path: bactopia-tools/panaroo/panaroo/gene_presence_absence_roary.csv
+      contains: ["rpoC_2", "Gene", "capB", "Accessory"]
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.err
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.log
+      contains: ["gff3", "completed", "Processing", "core"]
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.out
+      contains: ["gff3", "completed", "Processing", "core"]
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.sh
+      contains: ['panaroo', 'END_VERSIONS']
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/panaroo/panaroo/logs/panaroo/versions.yml
+      md5sum: 86ee1172741ab72de1d835bfd0e92c95
+    - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-dag.dot
+      contains: ['panaroodag', 'PANAROO', 'versions']
+    - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/panaroo/panaroo/pan_genome_reference.fa
+      md5sum: d0b03cdfaab8965d86cb1045db3c2d20
+    - path: bactopia-tools/panaroo/panaroo/pre_filt_graph.gml
+      contains: ["lengths", "graph", "node"]
+    - path: bactopia-tools/panaroo/panaroo/struct_presence_absence.Rtab
+      md5sum: 70cd01aa2c35ad1db20fe0a9ecb543e6
+    - path: bactopia-tools/panaroo/panaroo/summary_statistics.txt
+      md5sum: 9c73c416e1758bea06c67b4ec9fd0720

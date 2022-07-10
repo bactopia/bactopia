@@ -45,12 +45,14 @@ if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrv
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
+if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
 if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
 if (params.wf == 'fastani') include { FASTANI } from '../subworkflows/local/fastani/main';
 if (params.wf == 'gamma') include { GAMMA } from '../subworkflows/local/gamma/main';
+if (params.wf == 'genotyphi') include { GENOTYPHI } from '../subworkflows/local/genotyphi/main';
 if (params.wf == 'gtdb') include { GTDB } from '../subworkflows/local/gtdb/main';
 if (params.wf == 'hicap') include { HICAP } from '../subworkflows/local/hicap/main';
 if (params.wf == 'hpsuissero') include { HPSUISSERO } from '../subworkflows/local/hpsuissero/main';
@@ -61,17 +63,22 @@ if (params.wf == 'legsta') include { LEGSTA } from '../subworkflows/local/legsta
 if (params.wf == 'lissero') include { LISSERO } from '../subworkflows/local/lissero/main';
 if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/mashdist/main';
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
+if (params.wf == 'mcroni') include { MCRONI } from '../subworkflows/local/mcroni/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
 if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mobsuite/main';
+if (params.wf == 'mykrobe') include { MYKROBE } from '../subworkflows/local/mykrobe/main';
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
+if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflows/local/plasmidfinder/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
+if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
+if (params.wf == 'snippy') include { SNIPPY } from '../subworkflows/local/snippy/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
@@ -139,6 +146,10 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
+    } else if (params.wf == 'busco') {
+        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'busco'], fna]}.set{ ch_merge_fna }
+        BUSCO(ch_merge_fna)
+        ch_versions = ch_versions.mix(BUSCO.out.versions)
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
         ch_versions = ch_versions.mix(CHECKM.out.versions)
@@ -157,6 +168,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'gamma') {
         GAMMA(samples)
         ch_versions = ch_versions.mix(GAMMA.out.versions)
+    } else if (params.wf == 'genotyphi') {
+        GENOTYPHI(samples)
+        ch_versions = ch_versions.mix(GENOTYPHI.out.versions)
     } else if (params.wf == 'gtdb') {
         GTDB(samples)
         ch_versions = ch_versions.mix(GTDB.out.versions)
@@ -188,6 +202,9 @@ workflow BACTOPIATOOLS {
         samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
         MASHTREE(ch_merge_fna)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
+    } else if (params.wf == 'mcroni') {
+        MCRONI(samples)
+        ch_versions = ch_versions.mix(MCRONI.out.versions)
     } else if (params.wf == 'meningotype') {
         MENINGOTYPE(samples)
         ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)
@@ -200,25 +217,37 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'mobsuite') {
         MOBSUITE(samples)
         ch_versions = ch_versions.mix(MOBSUITE.out.versions)
+    } else if (params.wf == 'mykrobe') {
+        MYKROBE(samples)
+        ch_versions = ch_versions.mix(MYKROBE.out.versions)
     } else if (params.wf == 'ngmaster') {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
     } else if (params.wf == 'pangenome') {
-        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_roary ? 'roary' : 'pirate'], gff]}.set{ ch_merge_gff }
+        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_panaroo? 'panaroo' : (params.use_roary ? 'roary' : 'pirate')], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
+    } else if (params.wf == 'plasmidfinder') {
+        PLASMIDFINDER(samples)
+        ch_versions = ch_versions.mix(PLASMIDFINDER.out.versions)
     } else if (params.wf == 'rgi') {
         RGI(samples)
         ch_versions = ch_versions.mix(RGI.out.versions)
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
+    } else if (params.wf == 'seroba') {
+        SEROBA(samples)
+        ch_versions = ch_versions.mix(SEROBA.out.versions)
     } else if (params.wf == 'shigatyper') {
         SHIGATYPER(samples)
         ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
     } else if (params.wf == 'sistr') {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)
+    } else if (params.wf == 'snippy') {
+        SNIPPY(samples)
+        ch_versions = ch_versions.mix(SNIPPY.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)
         ch_versions = ch_versions.mix(SPATYPER.out.versions)

@@ -85,6 +85,11 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--mash_sketch"
             }
+        } else if (params.wf == "mykrobe") {
+            if (!params.mykrobe_species) {
+                error += 1
+                missing_required += "--mykrobe_species"
+            }
         } else if (params.wf == "pangenome") {
             if (params.traits) {
                 if (Utils.isLocal(params.traits)) {
@@ -98,6 +103,14 @@ class WorkflowBactopiaTools {
                 }
             } else {
                 missing_required += "--traits"
+            }
+        } else if (params.wf == "snippy") {
+            if (params.reference) {
+                if (Utils.isLocal(params.reference)) {
+                    error += Utils.fileNotFound(params.reference, 'reference', log)
+                }
+            } else {
+                missing_required += "--reference"
             }
         }
 

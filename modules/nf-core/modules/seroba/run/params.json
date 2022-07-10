@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/seroba/run/params.json",
+    "title": "Seroba Module",
+    "description": "A module for serotyping of Streptococcus pneumoniae",
+    "type": "object",
+    "definitions": {
+        "seroba_parameters": {
+            "title": "Seroba Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "seroba_noclean": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do not clean up intermediate files",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                    
+                },
+                "seroba_coverage": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "Threshold for k-mer coverage of the reference sequence",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/seroba_parameters"
+        }
+    ]
+}

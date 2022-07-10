@@ -31,16 +31,16 @@ process CSVTK_CONCAT {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    def delimiter = in_format == "tsv" ? "\t" : (in_format == "csv" ? "," : in_format)
-    def out_delimiter = out_format == "tsv" ? "\t" : (out_format == "csv" ? "," : out_format)
+    def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
+    def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     """
     csvtk \\
         concat \\
         $options.args \\
         --num-cpus $task.cpus \\
-        --delimiter "${delimiter}" \\
-        --out-delimiter "${out_delimiter}" \\
+        ${delimiter}  \\
+        ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
         $csv
 

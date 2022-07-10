@@ -81,7 +81,7 @@ process ASSEMBLE_GENOME {
         mv ${OUTDIR}/assembly.gfa ${OUTDIR}/unicycler.gfa
     else
         # Shovill or Dragonflye
-        !{assembler_mode} --gsize ${GENOME_SIZE} \
+        if ! !{assembler_mode} --gsize ${GENOME_SIZE} \
             --outdir ${OUTDIR} \
             --force \
             --minlen !{params.min_contig_len} \
@@ -89,7 +89,16 @@ process ASSEMBLE_GENOME {
             --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
-            --ram !{shovill_ram} !{assemnber_opts}
+            --ram !{shovill_ram} !{assemnber_opts}; then
+
+            # Check if error is due to no contigs
+            if grep "has zero contigs" results/!{assembler_wf}.log; then
+                touch ${OUTDIR}/contigs.fa
+            else
+                exit 1
+            fi
+        fi
+
         mv ${OUTDIR}/contigs.fa ${OUTDIR}/!{meta.id}.fna
 
         # Rename Graphs

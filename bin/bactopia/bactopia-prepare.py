@@ -26,7 +26,7 @@ optional arguments:
   --examples            Print examples of bactopia prepare and exit
   --version             show program's version number and exit
 """
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 PROGRAM = "bactopia prepare"
 import sys
 

@@ -7,12 +7,14 @@ include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
 include { HPSUISSERO } from '../hpsuissero/main';
+include { GENOTYPHI } from '../genotyphi/main';
 include { KLEBORATE } from '../kleborate/main';
 include { LEGSTA } from '../legsta/main';
 include { LISSERO } from '../lissero/main';
 include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { SEQSERO2 } from '../seqsero2/main';
+include { SEROBA } from '../seroba/main';
 include { SHIGATYPER } from '../shigatyper/main';
 include { SISTR } from '../sistr/main';
 include { SSUISSERO } from '../ssuissero/main';
@@ -72,6 +74,9 @@ workflow MERLIN {
 
     // Salmonella 
     MERLINDIST.out.salmonella.map{meta, assembly, found -> [meta, assembly]}.set{ ch_salmonella }
+    MERLINDIST.out.salmonella_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_salmonella_fq }
+    GENOTYPHI(ch_salmonella_fq)
+    ch_versions = ch_versions.mix(GENOTYPHI.out.versions.first())
     SEQSERO2(ch_salmonella)
     ch_versions = ch_versions.mix(SEQSERO2.out.versions.first())
     SISTR(ch_salmonella)
@@ -84,8 +89,11 @@ workflow MERLIN {
 
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
+    MERLINDIST.out.streptococcus_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
+    SEROBA(ch_streptococcus_fq)
+    ch_versions = ch_versions.mix(SEROBA.out.versions.first())
     SSUISSERO(ch_streptococcus)
     ch_versions = ch_versions.mix(SSUISSERO.out.versions.first())
 

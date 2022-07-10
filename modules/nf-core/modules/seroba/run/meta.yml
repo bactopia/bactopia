@@ -1,0 +1,47 @@
+name: "seroba_run"
+description: Determine Streptococcus pneumoniae serotype from Illumina paired-end reads
+keywords:
+  - fastq
+  - serotype
+  - Streptococcus pneumoniae
+tools:
+  - "seroba":
+      description: "SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references."
+      homepage: "https://sanger-pathogens.github.io/seroba/"
+      documentation: "https://sanger-pathogens.github.io/seroba/"
+      tool_dev_url: "https://github.com/sanger-pathogens/seroba"
+      doi: "10.1099/mgen.0.000186"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Input Illunina paired-end FASTQ files
+      pattern: "*.{fq.gz,fastq.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: The predicted serotype in tab-delimited format
+      pattern: "*.tsv"
+  - txt:
+      type: file
+      description: A detailed description of the predicted serotype
+      pattern: "*.txt"
+
+authors:
+  - "@rpetit3"

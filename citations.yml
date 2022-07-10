@@ -244,6 +244,13 @@ tools:
     cite: |
       Langmead B, Salzberg SL [Fast gapped-read alignment with Bowtie 2.](http://dx.doi.org/10.1038/nmeth.1923) _Nat. Methods._ 9, 357–359 (2012)
 
+  busco:
+    name: BUSCO
+    link: https://gitlab.com/ezlab/busco
+    description: Assessing genome assembly and annotation completeness with Benchmarking Universal Single-Copy Orthologs (BUSCO)
+    cite: |
+      Manni M, Berkeley MR, Seppey M, Simão FA, Zdobnov EM [BUSCO Update: Novel and Streamlined Workflows along with Broader and Deeper Phylogenetic Coverage for Scoring of Eukaryotic, Prokaryotic, and Viral Genomes.](https://doi.org/10.1093/molbev/msab199) _Molecular Biology and Evolution_ 38(10), 4647–4654. (2021)
+
   bwa:
     name: BWA
     link: https://github.com/lh3/bwa/
@@ -369,6 +376,13 @@ tools:
     cite: |
       Stanton RA, Vlachos N, Halpin AL [GAMMA: a tool for the rapid identification, classification, and annotation of translated gene matches from sequencing data.](https://doi.org/10.1093/bioinformatics/btab607) _Bioinformatics_ (2021)
 
+  genotyphi:
+    name: GenoTyphi
+    link: https://github.com/katholt/genotyphi
+    description: Assign genotypes to Salmonella Typhi genomes based on Mykrobe results
+    cite: |
+      Wong VK, Baker S, Connor TR, Pickard D, Page AJ, Dave J, Murphy N, Holliman R, Sefton A, Millar M, Dyson ZA, Dougan G, Holt KE, & International Typhoid Consortium. [An extended genotyping framework for Salmonella enterica serovar Typhi, the cause of human typhoid](https://doi.org/10.1038/ncomms12827) _Nature Communications_ 7, 12827. (2016)
+
   gnu_parallel:
     name: GNU Parallel
     link: https://www.gnu.org/software/parallel/
@@ -383,6 +397,13 @@ tools:
     cite: |
       Chaumeil PA, Mussig AJ, Hugenholtz P, Parks DH [GTDB-Tk: a toolkit to classify genomes with the Genome Taxonomy Database.](https://doi.org/10.1093/bioinformatics/btz848) _Bioinformatics_ (2019)
 
+  gubbins:
+    name: Gubbins
+    link: https://github.com/nickjcroucher/gubbins
+    description: Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences
+    cite: |
+      Croucher NJ, Page AJ, Connor TR, Delaney AJ, Keane JA, Bentley SD, Parkhill J, Harris SR [Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences using Gubbins.](https://doi.org/10.1093/nar/gku1196) _Nucleic Acids Research_ 43(3), e15. (2015)
+  
   hicap:
     name: hicap
     link: https://github.com/scwatts/hicap
@@ -473,7 +494,6 @@ tools:
     cite: | 
       Seemann T [legsta: In silico Legionella pneumophila Sequence Based Typing](https://github.com/tseemann/legsta) (GitHub)
 
-
   lighter:
     name: Lighter
     link: https://github.com/mourisl/Lighter
@@ -528,6 +548,13 @@ tools:
     description: De novo genome assembly and multisample variant calling
     cite: |
       Turner I, Garimella KV, Iqbal Z, McVean G [Integrating long-range connectivity information into de Bruijn graphs.](http://dx.doi.org/10.1093/bioinformatics/bty157) _Bioinformatics_ 34, 2556–2565 (2018)
+
+  mcroni:
+    name: mcroni
+    link: https://github.com/liampshaw/mcroni
+    description: Scripts for finding and processing promoter variants upstream of mcr-1
+    cite: |
+      Shaw L [mcroni: Scripts for finding and processing promoter variants upstream of mcr-1](https://github.com/liampshaw/mcroni) (GitHub)
 
   medaka:
     name: Medaka
@@ -584,7 +611,6 @@ tools:
     description: Software tools for clustering, reconstruction and typing of plasmids from draft assemblies
     cite: |
       Robertson J, Nash JHE [MOB-suite: software tools for clustering, reconstruction and typing of plasmids from draft assemblies.](https://doi.org/10.1099/mgen.0.000206) _Microbial Genomics_ 4(8). (2018)
-
 
   nanoplot:
     name: NanoPlot
@@ -655,6 +681,13 @@ tools:
     description: A toolbox for pangenome analysis and threshold evaluation.
     cite: |
       Bayliss SC, Thorpe HA, Coyle NM, Sheppard SK, Feil EJ [PIRATE: A fast and scalable pangenomics toolbox for clustering diverged orthologues in bacteria.](https://doi.org/10.1093/gigascience/giz119) _Gigascience_ 8 (2019)
+
+  plasmidfinder:
+    name: PlasmidFinder
+    link: https://bitbucket.org/genomicepidemiology/plasmidfinder
+    description: Identifies plasmids in total or partial sequenced isolates of bacteria
+    cite: |
+      Carattoli A, Zankari E, García-Fernández A, Voldby Larsen M, Lund O, Villa L, Møller Aarestrup F, Hasman H [In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing.](https://doi.org/10.1128/AAC.02412-14) _Antimicrobial Agents and Chemotherapy_ 58(7), 3895–3903. (2014)
 
   porechop:
     name: Porechop
@@ -767,6 +800,13 @@ tools:
     description: A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.
     cite: |
       Li H [Toolkit for processing sequences in FASTA/Q formats](https://github.com/lh3/seqtk) (GitHub)
+
+  seroba:
+    name: Seroba
+    link: https://github.com/sanger-pathogens/seroba
+    description: k-mer based pipeline to identify the serotype of _Streptococcus pneumoniae_ from Illumina NGS reads
+    cite: |
+      Epping L, van Tonder AJ, Gladstone RA, The Global Pneumococcal Sequencing Consortium, Bentley SD, Page AJ, Keane JA [SeroBA: rapid high-throughput serotyping of Streptococcus pneumoniae from whole genome sequence data.](https://doi.org/10.1099/mgen.0.000186) _Microbial Genomics_, 4(7) (2018)
 
   shigatyper:
     name: ShigaTyper

@@ -76,7 +76,9 @@ workflow MERLINDIST {
     mycobacterium_fq = MERLINDIST_MODULE.out.mycobacterium_fq
     neisseria = MERLINDIST_MODULE.out.neisseria
     salmonella = MERLINDIST_MODULE.out.salmonella
+    salmonella_fq = MERLINDIST_MODULE.out.salmonella_fq
     staphylococcus = MERLINDIST_MODULE.out.staphylococcus
     streptococcus  = MERLINDIST_MODULE.out.streptococcus
+    streptococcus_fq = MERLINDIST_MODULE.out.streptococcus_fq
     versions = ch_versions // channel: [ versions.yml ]
 }

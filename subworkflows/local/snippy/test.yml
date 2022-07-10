@@ -1,0 +1,315 @@
+- name: snippy-test
+  command: bash -c 'nextflow run ./subworkflows/local/snippy/test.nf -entry test_snippy --wf snippy -c nextflow.config --min_window_size 5000 --mincov 1 --minqual 1 --basequal 1 --mapqual 1 --maxsoft 1 ${BACTOPIA_ARGS}'
+  tags:
+    - snippy
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/snippy/snippy/core-snp-clean.full.aln.gz
+    - path: bactopia-tools/snippy/snippy/core-snp.distance.tsv
+      md5sum: eca1078f443287c1bfdac84cdbce50b5
+    - path: bactopia-tools/snippy/snippy/core-snp.full.aln.gz
+    - path: bactopia-tools/snippy/snippy/core-snp.iqtree
+      contains: ['REFERENCES', 'test1', 'Total']
+    - path: bactopia-tools/snippy/snippy/core-snp.masked.aln.gz
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip
+      md5sum: d7318d1e1e3497bc6c268dae34972f1e
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.final_tree.tre
+      md5sum: 78c79b29a36a34548fdc59aed29343b4
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.node_labelled.final_tree.tre
+      md5sum: 95a00666f6e7f04b5dcf8fa3b9ec30b5
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.per_branch_statistics.csv
+      md5sum: b9deecaf94fb3049956356c1ecc7c10e
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.recombination_predictions.embl.gz
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.recombination_predictions.gff.gz
+    - path: bactopia-tools/snippy/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.alninfo
+      md5sum: b0fba4469a915df9872ca077eb2cf808
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.bionj
+      contains: ['test']
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.ckp.gz
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.contree
+      contains: ['test']
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.mldist
+      md5sum: 7beb18ab550ee45d43f7bfe0af6cbed7
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.splits.nex
+      contains: ['TAXLABELS', 'test2', 'END']
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.treefile
+      contains: ['test']
+    - path: bactopia-tools/snippy/snippy/iqtree/core-snp.ufboot
+      contains: ['test1', 'test2', 'test3']
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/core-snp.log
+      contains: ["Process", "raxml", "Model", "Gubbins"]
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.err
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.log
+      contains: ["RAxML", "Alignment", "Substitution", "final"]
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.out
+      contains: ["RAxML", "Alignment", "Substitution", "final"]
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.sh
+      md5sum: 6d9bf7e2c70b079e26ff9d2af91ecc2a
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/nf-gubbins.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/logs/gubbins/versions.yml
+      md5sum: 10fa8fb1267daf014970bade097e6efc
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/core-snp.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.err
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.out
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/logs/iqtree/versions.yml
+      md5sum: 445afd73e50d70560b1df12409d58db8
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.err
+      contains: ['test', 'core-snp', 'Done', 'snippy-core']
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.log
+      contains: ['test', 'core-snp', 'Done', 'snippy-core']
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.sh
+      contains: ['snippy-core', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/logs/snippy-core/versions.yml
+      contains: ["snippy", "4.6.0", "pigz"]
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.err
+      contains: ['snp-dists', 'Read']
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.log
+      contains: ['snp-dists', 'Read']
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.sh
+      contains: ['snp-dists', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/nf-snpdists.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/logs/snpdists/versions.yml
+      md5sum: 15c50a79a2e8f5a96107199f849a9a77
+    - path: bactopia-tools/snippy/snippy/nf-reports/snippy-dag.dot
+      contains: ['snippydag', 'SNIPPY', 'versions']
+    - path: bactopia-tools/snippy/snippy/nf-reports/snippy-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/snippy/snippy/nf-reports/snippy-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/snippy/snippy/nf-reports/snippy-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/snippy/snippy/snippy-core/core-snp.aln.gz
+    - path: bactopia-tools/snippy/snippy/snippy-core/core-snp.tab.gz
+    - path: bactopia-tools/snippy/snippy/snippy-core/core-snp.txt
+      md5sum: e08c4a322958008c3ead372cbf9d05c4
+    - path: bactopia-tools/snippy/snippy/snippy-core/core-snp.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.err
+      contains: ["snippy", "Running", "test0", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.log
+      contains: ["snippy", "Running", "test0", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.sh
+      contains: ['snippy', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/nf-snippy.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/test0.log
+      contains: ["snippy", "snpEff", "test0", "consensus"]
+    - path: bactopia-tools/snippy/snippy/snippy/test0/logs/snippy/versions.yml
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.aligned.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.annotated.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.bam
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.bam.bai
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.bed.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.consensus.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.consensus.subs.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.consensus.subs.masked.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.coverage.txt.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.csv.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.filt.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.gff.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.html
+      md5sum: 036726c8b83ee732573ce61c5fc0fc98
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.raw.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.subs.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.tab
+      md5sum: fec0f789f9f36e0b125fffd2be3635be
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.txt
+      contains: ["DateTime", "ReadFiles", "VariantTotal"]
+    - path: bactopia-tools/snippy/snippy/snippy/test0/test0.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.err
+      contains: ["snippy", "Running", "test1", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.log
+      contains: ["snippy", "Running", "test1", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.sh
+      contains: ['snippy', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/nf-snippy.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/test1.log
+      contains: ["snippy", "snpEff", "test1", "consensus"]
+    - path: bactopia-tools/snippy/snippy/snippy/test1/logs/snippy/versions.yml
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.aligned.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.annotated.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.bam
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.bam.bai
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.bed.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.consensus.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.consensus.subs.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.consensus.subs.masked.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.coverage.txt.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.csv.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.filt.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.gff.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.html
+      md5sum: f2cc00f527af6996c1577bf34d438686
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.raw.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.subs.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.tab
+      md5sum: fec0f789f9f36e0b125fffd2be3635be
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.txt
+      contains: ["DateTime", "ReadFiles", "VariantTotal"]
+    - path: bactopia-tools/snippy/snippy/snippy/test1/test1.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.err
+      contains: ["snippy", "Running", "test2", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.log
+      contains: ["snippy", "Running", "test2", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.sh
+      contains: ['snippy', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/nf-snippy.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/test2.log
+      contains: ["snippy", "snpEff", "test2", "consensus"]
+    - path: bactopia-tools/snippy/snippy/snippy/test2/logs/snippy/versions.yml
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.aligned.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.annotated.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.bam
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.bam.bai
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.bed.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.consensus.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.consensus.subs.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.consensus.subs.masked.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.coverage.txt.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.csv.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.filt.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.gff.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.html
+      md5sum: 054694b666a3e9f93a5c9e1000381ab4
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.raw.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.subs.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.tab
+      md5sum: fec0f789f9f36e0b125fffd2be3635be
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.txt
+      contains: ["DateTime", "ReadFiles", "VariantTotal"]
+    - path: bactopia-tools/snippy/snippy/snippy/test2/test2.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.err
+      contains: ["snippy", "Running", "test3", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.log
+      contains: ["snippy", "Running", "test3", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.sh
+      contains: ['snippy', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/nf-snippy.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/test3.log
+      contains: ["snippy", "snpEff", "test3", "consensus"]
+    - path: bactopia-tools/snippy/snippy/snippy/test3/logs/snippy/versions.yml
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.aligned.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.annotated.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.bam
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.bam.bai
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.bed.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.consensus.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.consensus.subs.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.consensus.subs.masked.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.coverage.txt.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.csv.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.filt.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.gff.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.html
+      md5sum: 1194aa7cc75a1a9b5c64c79793dd6cff
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.raw.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.subs.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.tab
+      md5sum: 00cc7c3e06c9b26227ec6eda254ed410
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.txt
+      contains: ["DateTime", "ReadFiles", "VariantTotal"]
+    - path: bactopia-tools/snippy/snippy/snippy/test3/test3.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.err
+      contains: ["snippy", "Running", "test4", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.log
+      contains: ["snippy", "Running", "test4", "Done"]
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.sh
+      contains: ['snippy', 'END_VERSIONS']
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/nf-snippy.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/test4.log
+      contains: ["snippy", "snpEff", "test4", "consensus"]
+    - path: bactopia-tools/snippy/snippy/snippy/test4/logs/snippy/versions.yml
+      contains: ["snippy", "4.6.0", "vcf-annotator", "pigz", "bedtools"]
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.aligned.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.annotated.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.bam
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.bam.bai
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.bed.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.consensus.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.consensus.subs.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.consensus.subs.masked.fa.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.coverage.txt.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.csv.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.filt.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.gff.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.html
+      md5sum: d477968dddcbec0ebf0891c4f9216f1a
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.raw.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.subs.vcf.gz
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.tab
+      md5sum: 00cc7c3e06c9b26227ec6eda254ed410
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.txt
+      contains: ["DateTime", "ReadFiles", "VariantTotal"]
+    - path: bactopia-tools/snippy/snippy/snippy/test4/test4.vcf.gz

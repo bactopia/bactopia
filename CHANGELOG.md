@@ -1,5 +1,45 @@
 # Changelog
 
+## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/11
+
+### `Added`
+- Add Panaroo to the `pangenome` Bactopia Tools
+- Add `genotyphi` and `seroba` to Merlin
+- bump `fastq-dl` to v1.1.1
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `busco` - Assembly completeness based on evolutionarily informed expectations
+    - `genotyphi` - Salmonella Typhi genotyping with Mykrobe outputs
+    - `gubbins` - Rapid phylogenetic analysis of recombinant bacterial sequences
+    - `mcroni` - Sequence variation in mobilized colistin resistance (mcr-1) genes
+    - `mykrobe` - Antimicrobial resistance detection for specific species
+    - `panaroo` - Pipeline for pangenome investigations
+    - `plasmidfinder` - Plasmid identification from assemblies
+    - `seroba` - Serotyping of Streptococcus pneumoniae from sequence reads
+    - `snippy` - Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny
+
+### `Fixed`
+- improve GTDB db handling
+- Properly capture assemblies with 0
+- user provided adapters and phix fastas
+- `--available_datasets` in the `bactopia datasets`
+- name collisions in the Ariba Bactopia Tool
+- bare double-quotes in Ariba reports
+- updated tests for new version
+
+### `Enhancements to OSS`
+- Add database to Seroba recipe [bioconda/bioconda-recipes#35378](https://github.com/bioconda/bioconda-recipes/pull/35378)
+- Update ariba dependencies [bioconda/bioconda-recipes#35383](https://github.com/bioconda/bioconda-recipes/pull/35383)
+- patch pymummer recipe [bioconda/bioconda-recipes#35379](https://github.com/bioconda/bioconda-recipes/pull/35379)
+- Update PlasmidFinder for better container support [bioconda/bioconda-recipes#35314](https://github.com/bioconda/bioconda-recipes/pull/35314)
+- add module for ariba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1731)
+- add module for mcroni [nf-core/modules#1750](https://github.com/nf-core/modules/pull/1750)
+- add module for Mykrobe and GenoTyphi [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1818)
+- add module for plasmidfinder [nf-core/modules#1773](https://github.com/nf-core/modules/pull/1773)
+- add module for Seroba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1816)
+- add module for snippy/core [nf-core/modules#1855](https://github.com/nf-core/modules/pull/1855)
+- let tempfile determine temp dir location [sanger-pathogens/seroba#68](https://github.com/sanger-pathogens/seroba/pull/68)
+- allow the user to specify temp dir or use the system default [sanger-pathogens/pymummer#36](https://github.com/sanger-pathogens/pymummer/pull/36)
+
 ## v2.1.0 bactopia/bactopia "Silver Mist" - 2022/06/08
 
 ### `Added`

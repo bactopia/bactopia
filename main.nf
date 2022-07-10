@@ -27,10 +27,7 @@ workflow {
     if (params.workflows[params.wf].containsKey('is_workflow')) {
         if (params.wf == "staphopia") {
             STAPHOPIA()
-        } else if (params.wf == "enteropia") {
-            //ENTEROPIA()
-            BACTOPIA()
-        }else {
+        } else {
             BACTOPIA()
         }
     } else {

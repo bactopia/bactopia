@@ -6,7 +6,7 @@ include { MERLIN } from './main.nf' addParams(mash_sketch: params.test_data['dat
 workflow test_merlin {
 
     inputs = tuple(
-        [ id:"GCF_000017085" ],
+        [ id:"GCF_000017085", single_end: false ],
         file(params.test_data['species']['staphylococcus_aureus']['genome']['fna_gz'], checkIfExists: true),
         [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
          file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
@@ -18,7 +18,7 @@ workflow test_merlin {
 workflow test_merlinfull {
 
     inputs = tuple(
-        [ id:"GCF_000292685" ],
+        [ id:"GCF_000292685", single_end: false ],
         file(params.test_data['species']['portiera']['genome']['fna_gz'], checkIfExists: true),
         [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
          file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]

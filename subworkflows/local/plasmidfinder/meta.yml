@@ -1,0 +1,107 @@
+name: plasmidfinder
+description: Plasmid identification from assemblies
+tags:
+  - plasmid
+  - fasta
+modules:
+  - plasmidfinder
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - json:
+      type: file
+      description: The results from analysis in JSON format
+      pattern: "*.json"
+  - txt:
+      type: file
+      description: The summary of results from analysis
+      pattern: "*.txt"
+  - tsv:
+      type: file
+      description: The results from analysis in TSV format
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all PlasmidFinder result files
+      pattern: "plasmidfinder.tsv"
+  - genome_seq:
+      type: file
+      description: FASTA of sequences in the input with a hit
+      pattern: "*-hit_in_genome_seq.fsa"
+  - plasmid_seq:
+      type: file
+      description: FASTA of plasmid sequences with a hit against the input
+      pattern: "*-plasmid_seqs.fsa"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+
+docs:
+  introduction: |
+    The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
+    _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
+    tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
+  output:
+    tree: |
+      plasmidfinder/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>-hit_in_genome_seq.fsa
+      │   ├── <SAMPLE_NAME>-plasmid_seqs.fsa
+      │   ├── <SAMPLE_NAME>.json
+      │   ├── <SAMPLE_NAME>.tsv
+      │   ├── <SAMPLE_NAME>.txt
+      │   └── logs
+      │       └── plasmidfinder
+      │           ├── nf-plasmidfinder.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── plasmidfinder-dag.dot
+      │   ├── plasmidfinder-report.html
+      │   ├── plasmidfinder-timeline.html
+      │   └── plasmidfinder-trace.txt
+      ├── plasmidfinder.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | plasmidfinder.tsv | A merged TSV file with `PlasmidFinder` results from all samples |
+      - name: PlasmidFinder
+        description: |
+          Below is a description of the _per-sample_ results from [PlasmidFinder](https://bitbucket.org/genomicepidemiology/plasmidfinder/src/master/). 
+        table: |
+          | Filename                                  | Description                                                                |
+          |-------------------------------------------|----------------------------------------------------------------------------|
+          | &lt;SAMPLE_NAME&gt;.json                  | The results from analysis in JSON format                                   |
+          | &lt;SAMPLE_NAME&gt;.tsv                   | The results from analysis in TSV format                                    |
+          | &lt;SAMPLE_NAME&gt;.txt                   | A text file containing the result table and alignments                     |
+          | &lt;SAMPLE_NAME&gt;-hit_in_genome_seq.fsa | A fasta file containing the best matching sequences from the query genome. |
+          | &lt;SAMPLE_NAME&gt;-plasmid_seqs.fsa      | A fasta file containing the best matching plasmid genes from the database. |
+  citations:
+    - plasmidfinder

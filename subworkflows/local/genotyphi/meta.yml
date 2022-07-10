@@ -1,0 +1,98 @@
+name: genotyphi
+description: Salmonella Typhi genotyping with Mykrobe outputs
+icon: false
+keywords:
+  - fastq
+  - genotype
+  - Salmonella Typhi
+modules:
+  - genotyphi
+  - mykrobe
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Sequence reads in FASTQ format
+      pattern: "*.fastq.gz"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: A tab-delimited file of per-sample GenoTyphi results
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all GenoTyphi results
+      pattern: "*.tsv"
+  - csv:
+      type: file
+      description: AMR predictions in CSV format
+      pattern: "*.csv"
+  - json:
+      type: file
+      description: AMR predictions in JSON format
+      pattern: "*.json"
+docs:
+  introduction: |
+      The `genotyphi` module uses [GenoTyphi](https://github.com/katholt/genotyphi) to genotype Salmonella Typhi
+      from the outputs of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe).
+  output:
+    tree: |
+      genotyphi/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.csv
+      │   ├── <SAMPLE_NAME>.json
+      │   ├── <SAMPLE_NAME>_predictResults.tsv
+      │   └── logs
+      │       └── genotyphi
+      │           ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── genotyphi-dag.dot
+      │   ├── genotyphi-report.html
+      │   ├── genotyphi-timeline.html
+      │   └── genotyphi-trace.txt
+      ├── genotyphi.tsv
+      ├── software_versions.yml
+      └── software_versions_mqc.yml
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | genotyphi.tsv | A merged TSV file with `GenoTyphi` results from all samples |
+      - name: GenoTyphi
+        description: |
+          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/katholt/genotyphi). A
+          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/katholt/genotyphi/blob/main/README.md#explanation-of-columns-in-the-output)
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          | &lt;SAMPLE_NAME&gt;_predictResults.tsv  | The the predicted genotype by `GenoTyphi` |
+          | &lt;SAMPLE_NAME&gt;.csv  | The output of `mykrobe predict` in comma-separated format |
+          | &lt;SAMPLE_NAME&gt;.json | The output of `mykrobe predict` in JSON format |
+  citations:
+    - genotyphi
+    - mykrobe
