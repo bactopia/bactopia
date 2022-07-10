@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/11
+## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
 
 ### `Added`
 - Add Panaroo to the `pangenome` Bactopia Tools
