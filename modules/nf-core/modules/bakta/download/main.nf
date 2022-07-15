@@ -7,7 +7,6 @@ conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process BAKTA_DOWNLOAD {
-    tag "$meta.id"
     label 'process_low'
     label 'process_long'
     publishDir "${params.bakta_db}", mode: params.publish_dir_mode, overwrite: params.force,
@@ -19,11 +18,10 @@ process BAKTA_DOWNLOAD {
         'quay.io/biocontainers/bakta:1.4.0--pyhdfd78af_1' }"
 
     output:
-    tuple val(meta), path("bakta/*"), emit: db
-    path "*.{log,err}"              , emit: logs, optional: true
-    path ".command.*"               , emit: nf_logs
-    path "versions.yml"             , emit: versions
-
+    path "bakta/*"     , emit: db
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
     script:
     """
     bakta_db \\
