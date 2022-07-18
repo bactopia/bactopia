@@ -64,7 +64,7 @@
                 },
                 "shovill_opts": {
                     "type": "string",
-                    "description": "Extra assembler options in quotes",
+                    "description": "Extra assembler options in quotes for Shovill",
                     "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
@@ -74,6 +74,13 @@
                     "description": "K-mers to use <blank=AUTO>",
                     "help": "This would allow you to specify the kmer lengths to be used",
                     "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "dragonflye_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Dragonflye",
+                    "help": "Example for Medaka would be: '--nanohq'",
+                    "fa_icon": "fas fa-italic",
                     "hidden": true
                 },
                 "trim": {
