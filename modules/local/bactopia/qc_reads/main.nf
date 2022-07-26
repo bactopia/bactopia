@@ -35,7 +35,8 @@ process QC_READS {
     adapter_opts = meta.single_end ? "" : "in2=repair-r2.fq out2=adapter-r2.fq"
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
-    reformat_opts = meta.single_end ? "" : "in2=phix-r2.cor.fq out2=subsample-r2.fq"
+    reformat_opts = meta.single_end ? "" : "in2=filt-r2.fq out2=subsample-r2.fq"
+    fastp_fqs = meta.single_end ? "" : "--in2 ${fq[1]} --out2 filt-r2.fq --detect_adapter_for_pe"
 
     // set Xmx to 95% of what was allocated, to avoid going over
     xmx = Math.round(task.memory.toBytes()*0.95)
@@ -58,7 +59,15 @@ process QC_READS {
             cp !{fq[0]} results/!{meta.id}.fastq.gz
         fi
     else
-        if [[ "!{meta.runtype}" == "ont" ]]; then
+        if [[ "!{params.use_fastp}" == "true" ]]; then
+            # QC with fastp
+            mkdir -p results/summary/
+            fastp \
+                --in1 !{fq[0]} --out1 filt-r1.fq !{fastp_fqs} \
+                --thread !{task.cpus} \
+                --json results/summary/!{meta.id}.fastp.json \
+                --html results/summary/!{meta.id}.fastp.html !{params.fastp_opts} 2> !{meta.id}-fastp.log
+        elif [[ "!{meta.runtype}" == "ont" ]]; then
             # Remove Adapters
             porechop --input !{fq[0]} !{params.porechop_opts} \
                 --format fastq \
@@ -93,7 +102,7 @@ process QC_READS {
             fi
 
             if [ "${ERROR}" -eq "0" ]; then
-                # Remove Adapters            
+                # Remove Adapters
                 bbduk.sh -Xmx!{xmx} \
                     in=repair-r1.fq out=adapter-r1.fq !{adapter_opts} \
                     ref=!{adapter_file} \
@@ -144,16 +153,22 @@ process QC_READS {
 
         # Error Correction
         if [ "${ERROR}" -eq "0" ]; then
-            if [[ "!{meta.runtype}" == "ont" ]]; then
+            if [[ "!{params.use_fastp}" == "true" ]]; then
+                echo "Skipping error correction since fastp was used"
+            elif [[ "!{meta.runtype}" == "ont" ]]; then
                 echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
             else
                 if [ "!{params.skip_error_correction}" == "false" ]; then
                     lighter -od . -r phix-r1.fq !{lighter_opts} -K 31 ${GENOME_SIZE} -maxcor 1 -zlib 0 -t !{task.cpus}
+                    mv phix-r1.cor.fq filt-r1.fq
+                    if [[ "!{meta.single_end}" == "false" ]]; then
+                        mv phix-r2.cor.fq filt-r2.fq
+                    fi
                 else
                     echo "Skipping error correction"
-                    ln -s phix-r1.fq phix-r1.cor.fq
+                    ln -s phix-r1.fq filt-r1.fq
                     if [ "!{meta.single_end}" == "false" ]; then
-                        ln -s phix-r2.fq phix-r2.cor.fq
+                        ln -s phix-r2.fq filt-r2.fq
                     fi
                 fi
             fi
@@ -168,9 +183,9 @@ process QC_READS {
                         -g ${GENOME_SIZE} \
                         -s !{params.sampleseed} 1> subsample-r1.fq
                 else
-                    if [ -f phix-r1.cor.fq ]; then
+                    if [ -f filt-r1.fq ]; then
                         reformat.sh -Xmx!{xmx} \
-                            in=phix-r1.cor.fq out=subsample-r1.fq !{reformat_opts} \
+                            in=filt-r1.fq out=subsample-r1.fq !{reformat_opts} \
                             samplebasestarget=${TOTAL_BP} \
                             sampleseed=!{params.sampleseed} \
                             overwrite=t
@@ -178,9 +193,9 @@ process QC_READS {
                 fi
             else
                 echo "Skipping coverage reduction"
-                ln -s phix-r1.cor.fq subsample-r1.fq
+                ln -s filt-r1.fq subsample-r1.fq
                 if [ "!{meta.single_end}" == "false" ]; then
-                    ln -s phix-r2.cor.fq subsample-r2.fq
+                    ln -s filt-r2.fq subsample-r2.fq
                 fi
             fi
         fi
@@ -203,7 +218,7 @@ process QC_READS {
 
     # Quality stats before and after QC
     if [ "${ERROR}" -eq "0" ]; then
-        mkdir results/summary/
+        mkdir -p results/summary/
         # fastq-scan
         if [[ "!{meta.single_end}" == "false" ]]; then
             # Paired-End Reads
@@ -338,6 +353,7 @@ process QC_READS {
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
+        fastp: $(echo $(fastp --version 2>&1) | sed -e "s/fastp //g")
         fastqc: $(echo $(fastqc --version 2>&1) | sed 's/^.*FastQC v//')
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
@@ -351,6 +367,7 @@ process QC_READS {
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         bbduk: $(echo $(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*$//')
+        fastp: $(echo $(fastp --version 2>&1) | sed -e "s/fastp //g")
         fastq-scan: $(echo $(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: $(echo $(lighter -v 2>&1) | sed 's/Lighter v//')
         nanoq: $(echo $(nanoq --version 2>&1) | sed 's/nanoq //')

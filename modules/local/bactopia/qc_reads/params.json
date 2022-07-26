@@ -11,6 +11,12 @@
             "description": "",
             "default": "",
             "properties": {
+                "use_fastp": {
+                    "type": "boolean",
+                    "description": "Reads will be QC'd using FastP",
+                    "help": "",
+                    "fa_icon": "fas fa-fast-forward"
+                },
                 "skip_qc": {
                     "type": "boolean",
                     "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",
@@ -237,7 +243,14 @@
                 "bbduk_opts": {
                     "type": "integer",
                     "description": "Extra BBDuk options in quotes",
-                    "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t",
+                    "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "fastp_opts": {
+                    "type": "integer",
+                    "description": "Extra fastp options in quotes",
+                    "help": "Example would be: '--disable_length_filtering'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 }

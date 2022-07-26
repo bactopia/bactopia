@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.1.1 bactopia/bactopia "" - 2022/0?/??
+
+### `Added`
+- `--dragonflye_opts` to pass additional params to dragonflye
+- `--use_fastp` to use fastp for QCing reads
+
+### `Fixed`
+- missing variable in `bakta_download` module
+
 ## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
 
 ### `Added`
