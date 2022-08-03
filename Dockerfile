@@ -12,3 +12,7 @@ LABEL maintainer.email="robbie.petit@gmail.com"
 COPY . /bactopia
 RUN bash /bactopia/bin/gh-actions/setup-bactopia-env.sh
 ENV PATH /opt/conda/envs/bactopia/bin:$PATH
+
+ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin

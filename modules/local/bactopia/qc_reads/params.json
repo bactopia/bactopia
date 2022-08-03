@@ -13,7 +13,7 @@
             "properties": {
                 "use_fastp": {
                     "type": "boolean",
-                    "description": "Reads will be QC'd using FastP",
+                    "description": "Illumina reads will be QC'd using FastP",
                     "help": "",
                     "fa_icon": "fas fa-fast-forward"
                 },

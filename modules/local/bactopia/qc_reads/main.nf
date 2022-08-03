@@ -59,15 +59,7 @@ process QC_READS {
             cp !{fq[0]} results/!{meta.id}.fastq.gz
         fi
     else
-        if [[ "!{params.use_fastp}" == "true" ]]; then
-            # QC with fastp
-            mkdir -p results/summary/
-            fastp \
-                --in1 !{fq[0]} --out1 filt-r1.fq !{fastp_fqs} \
-                --thread !{task.cpus} \
-                --json results/summary/!{meta.id}.fastp.json \
-                --html results/summary/!{meta.id}.fastp.html !{params.fastp_opts} 2> !{meta.id}-fastp.log
-        elif [[ "!{meta.runtype}" == "ont" ]]; then
+        if [[ "!{meta.runtype}" == "ont" ]]; then
             # Remove Adapters
             porechop --input !{fq[0]} !{params.porechop_opts} \
                 --format fastq \
@@ -77,6 +69,14 @@ process QC_READS {
             nanoq --min-len !{params.ont_minlength} \
                   --min-qual !{params.ont_minqual} \
                   --input adapter-r1.fq 1> filt-r1.fq
+        elif [[ "!{params.use_fastp}" == "true" ]]; then
+            # QC with fastp
+            mkdir -p results/summary/
+            fastp \
+                --in1 !{fq[0]} --out1 filt-r1.fq !{fastp_fqs} \
+                --thread !{task.cpus} \
+                --json results/summary/!{meta.id}.fastp.json \
+                --html results/summary/!{meta.id}.fastp.html !{params.fastp_opts} 2> !{meta.id}-fastp.log
         else
             # Illumina Reads
 
