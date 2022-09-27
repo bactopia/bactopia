@@ -36,6 +36,11 @@ output:
       description: File containing software versions
       pattern: "versions.yml"
 docs:
+  meta:
+    title: Bactopia Tools - argvate
+    description: |
+      A Bactopia Tool which uses AgrVATE to rapidly identify the _agr_ locus
+      type in _Staphylococcus aureus_ assemblies.
   introduction: |
       The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) 
       to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ assemblies.

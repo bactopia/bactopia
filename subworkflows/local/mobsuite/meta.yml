@@ -43,6 +43,11 @@ output:
       description: Aggregate MOB-typer report files for all identified plasmid
       pattern: "mobtyper_results.txt"
 docs:
+  meta:
+    title: Bactopia Tools - mobsuite
+    description: |
+      A Bactopia Tool which uses MOB-suite to reconstruct and annotate plasmids in
+      draft assemblies.
   introduction:
     The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
     and annotate plasmids in draft assemblies.

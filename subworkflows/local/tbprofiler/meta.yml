@@ -44,8 +44,13 @@ output:
       description: VCF with variant info again refernce genomes
       pattern: "*.vcf"
 docs:
+  meta:
+    title: Bactopia Tools - tbprofiler
+    description: |
+      A Bactopia Tool which uses TBProfiler for profiling reads to determine resistance
+      and _Mycobacterium tuberculosis_ strain type.
   introduction: |
-    The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) for 
+    The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) 
     for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
   output:
     tree: | 

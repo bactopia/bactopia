@@ -39,6 +39,11 @@ output:
       description: Tab-delimited report of results from all samples
       pattern: "*.{txt}"
 docs:
+  meta:
+    title: Bactopia Tools - checkm
+    description: |
+      A Bactopia Tool which uses CheckM to assess the quality of microbial
+      genomes recovered from isolates.
   introduction: |
     The `checkm` module is used [CheckM](https://github.com/Ecogenomics/CheckM) to assess the quality of microbial
     genomes recovered from isolates, single cells, and metagenomes.
