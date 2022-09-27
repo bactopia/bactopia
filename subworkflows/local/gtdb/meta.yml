@@ -67,7 +67,7 @@ output:
       pattern: "*.{failed_genomes.tsv}"
 docs:
   meta:
-    title: Bactopia Tools - gtdb
+    title: gtdb
     description: >-
       A Bactopia Tool which uses GTDB-Tk's classify workflow to assign taxonomic classifications
       to your set of samples.

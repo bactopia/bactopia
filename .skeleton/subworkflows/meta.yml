@@ -23,7 +23,7 @@ output:
       pattern: "versions.yml"
 docs:
   meta:
-    title: Bactopia Tools - SUBWORKFLOW_NAME
+    title: SUBWORKFLOW_NAME
     description: >
       A Bactopia Tool which uses...
   introduction: |
