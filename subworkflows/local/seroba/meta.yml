@@ -42,7 +42,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - seroba
-    description: |
+    description: >-
       A Bactopia Tool which uses Seroba to predict the serotype of _Streptococcus pneumoniae_
       samples with Illumina paired-end reads.
   introduction: |

@@ -38,7 +38,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - argvate
-    description: |
+    description: >-
       A Bactopia Tool which uses AgrVATE to rapidly identify the _agr_ locus
       type in _Staphylococcus aureus_ assemblies.
   introduction: |

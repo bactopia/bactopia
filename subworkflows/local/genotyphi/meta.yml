@@ -47,7 +47,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - genotyphi
-    description: |
+    description: >-
       A Bactopia Tool which uses GenoTyphi to genotype Salmonella Typhi from the outputs
       of Mykrobe.
   introduction: |

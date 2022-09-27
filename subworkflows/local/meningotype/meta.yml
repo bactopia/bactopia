@@ -39,7 +39,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - meningotype
-    description: |
+    description: >-
       A Bactopia Tool which uses meningotype for _in silico_ typing of
       _Neisseria meningitidis_ genomes.
   introduction: |

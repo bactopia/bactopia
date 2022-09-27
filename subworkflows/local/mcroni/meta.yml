@@ -37,7 +37,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - mcroni
-    description: |
+    description: >-
       A Bactopia Tool which uses mcroni to identify _mcr-1_ genes in 
       assemblies.
   introduction: |

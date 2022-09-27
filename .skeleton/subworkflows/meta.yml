@@ -24,7 +24,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - SUBWORKFLOW_NAME
-    description: |
+    description: >
       A Bactopia Tool which uses...
   introduction: |
       The `SUBWORKFLOW_NAME` module uses...

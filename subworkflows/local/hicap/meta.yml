@@ -54,7 +54,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - hicap
-    description: |
+    description: >-
       A Bactopia Tool which uses hicap along wih an assembly for the _in silico_ typing of
       the _Haemophilus influenzae_ cap locus.
   introduction: |

@@ -41,7 +41,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - ismapper
-    description: |
+    description: >-
       A Bactopia Tool which uses ISMapper to search for insertion sites in
       your samples.
   introduction: |

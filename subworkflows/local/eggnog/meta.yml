@@ -71,7 +71,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - eggnog
-    description: |
+    description: >-
       A Bactopia Tool which uses eggNOG-mapper to assign functional
       annotation to protein sequences.
   introduction: |

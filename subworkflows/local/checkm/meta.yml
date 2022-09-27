@@ -41,7 +41,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - checkm
-    description: |
+    description: >-
       A Bactopia Tool which uses CheckM to assess the quality of microbial
       genomes recovered from isolates.
   introduction: |

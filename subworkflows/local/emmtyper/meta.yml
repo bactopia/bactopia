@@ -39,7 +39,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - emmtyper
-    description: |
+    description: >-
       A Bactopia Tool which uses emmtyper for emm-typing of _Streptococcus pyogenes_
       using a de novo or complete assembly.
   introduction: |

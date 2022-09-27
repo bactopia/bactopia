@@ -39,7 +39,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - kleborate
-    description: |
+    description: >-
       A Bactopia Tool which uses Kleborate to screen genome assemblies of _Klebsiella pneumoniae_
       and the _Klebsiella pneumoniae_ species complex (KpSC).
   introduction: |

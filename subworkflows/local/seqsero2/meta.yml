@@ -39,7 +39,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - seqsero2
-    description: |
+    description: >-
       A Bactopia Tool which uses SeqSero2 for Salmonella serotype prediction
       from reads and assemblies.
   introduction: |

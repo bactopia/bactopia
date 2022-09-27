@@ -43,7 +43,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - busco
-    description: |
+    description: >-
       A Bactopia Tool which uses BUSCO, or Benchmarking Universal Single-Copy Orthologs,
       to assess the completeness of your assembly.
   introduction: |

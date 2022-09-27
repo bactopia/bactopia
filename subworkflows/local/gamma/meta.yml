@@ -50,7 +50,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - gamma
-    description: |
+    description: >-
       A Bactopia Tool which uses GAMMA to identify, classify, and annotate translated
       gene matches from assemblies.
   introduction: |

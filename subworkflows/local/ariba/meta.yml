@@ -48,7 +48,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - ariba
-    description: |
+    description: >-
       A Bactopia Tool which uses ARIBA to rapidly identify genes in
       a database by creating local assemblies.
   introduction: |

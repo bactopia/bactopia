@@ -32,7 +32,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - ssuissero
-    description: |
+    description: >-
       A Bactopia Tool which uses SsuisSero to predict the serotype of
       _Streptococcus suis_ assemblies.
   introduction: |

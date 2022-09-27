@@ -78,7 +78,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - bakta
-    description: |
+    description: >-
       A Bactopia Tool which uses Bakta to rapidly provide extensive annotations (tRNA, tmRNA,
       rRNA, ncRNA, CRISPR, CDS, pseudogenes, and sORFs) in a standardized fashion.
   introduction: |

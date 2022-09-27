@@ -37,7 +37,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - mlst
-    description: |
+    description: >-
       A Bactopia Tool which uses mlst scan assemblies and determine the sequence type based
       on PubMLST schemas.
   introduction: |

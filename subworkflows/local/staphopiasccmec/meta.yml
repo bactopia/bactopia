@@ -39,7 +39,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - staphopiasccmec
-    description: |
+    description: >-
       A Bactopia Tool which uses staphopia-sccmec to assign SCCmec types
       to _Staphylococcus aureus_ assemblies.
   introduction:

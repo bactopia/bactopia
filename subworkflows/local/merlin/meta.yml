@@ -46,7 +46,7 @@ output:
 docs:
   meta:
     title: Bactopia Tools - merlin
-    description: |
+    description: >-
       A Bactopia Tool which for the automatic selection and executions of 
       species-specific tools.
   introduction: |
