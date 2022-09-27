@@ -1,3 +1,7 @@
+---
+title: changelog
+description: A full list of Bactopia releases and a description of the changes.
+---
 # Changelog
 
 ## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
