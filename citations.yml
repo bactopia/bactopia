@@ -484,6 +484,7 @@ tools:
   kraken2:
     name: Kraken2
     link: https://github.com/DerrickWood/kraken2
+    description: The second version of the Kraken taxonomic sequence classification system
     cite: |
       Wood DE, Lu J, Langmead B [Improved metagenomic analysis with Kraken 2.](https://doi.org/10.1186/s13059-019-1891-0) *Genome Biology*, 20(1), 257. (2019)
 
