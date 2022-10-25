@@ -167,6 +167,32 @@ process ASSEMBLE_GENOME {
     find ${OUTDIR} -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
 
     # Capture versions
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+    
+    cat <<-END_VERSIONS > versions.yml
+    "!{task.process}":
+        assembly-scan: $(echo $(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
+        bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
+        flash: $(echo $(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*$//')
+        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        megahit: $(echo $(megahit --version 2>&1) | sed 's/MEGAHIT v//')
+        miniasm: $(echo $(miniasm -V))
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        pilon: $(echo $(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*$//')
+        racon: $(echo $(racon --version 2>&1) | sed 's/v//')
+        samclip: $(echo $(samclip --version 2>&1) | sed 's/samclip //')
+        samtools: $(echo $(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*$//')
+        shovill: $(echo $(shovill --version 2>&1) | sed 's/shovill //')
+        shovill-se: $(echo $(shovill-se --version 2>&1) | sed 's/shovill-se //')
+        skesa: $(echo $(skesa --version 2>&1) | sed 's/^.*SKESA //;s/ .*$//')
+        spades.py: $(echo $(spades.py --version 2>&1) | sed 's/SPAdes genome assembler v//')
+        velvetg: $(echo $(velvetg 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        velveth: $(echo $(velveth 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
+    END_VERSIONS
+    
+    else
+    
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         any2fasta:  $(echo $(any2fasta -v 2>&1) | sed 's/any2fasta //')
@@ -195,5 +221,7 @@ process ASSEMBLE_GENOME {
         velveth: $(echo $(velveth 2>&1) | sed 's/^.*Version //;s/ .*$//')
         unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
     END_VERSIONS
+    
+    fi
     '''
 }
