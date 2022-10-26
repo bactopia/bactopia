@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push 
         run: |
           ls -lha subworkflows/local
-          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba 'python<3.10'
+          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba 'python<3.10' 'numpy>=1.17'
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
           if [ "$RUNNER_OS" == "Linux" ]; then
             anaconda upload --force ./linux-64/*.tar.bz2
