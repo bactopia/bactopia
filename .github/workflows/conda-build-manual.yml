@@ -2,7 +2,10 @@ name: Conda Personal Build (Manual)
 on: workflow_dispatch
 jobs:
   conda-build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
     defaults:
       run:
         shell: bash -l {0}
@@ -22,6 +25,11 @@ jobs:
         run: |
           ls -lha subworkflows/local
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba
-          cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . && anaconda upload --force ./linux-64/*.tar.bz2
+          cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            anaconda upload --force ./linux-64/*.tar.bz2
+          else
+            anaconda upload --force ./osx-64/*.tar.bz2
+          fi
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
