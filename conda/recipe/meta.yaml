@@ -25,6 +25,7 @@ requirements:
     - ncbi-amrfinderplus 3.10.30
     - ncbi-genome-download
     - nextflow >=21.10.0
+    - numpy >=1.17
     - pytest
     - pytest-workflow
     - python >3.6,<3.10
