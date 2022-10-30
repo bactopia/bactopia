@@ -5,7 +5,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
     defaults:
       run:
         shell: bash -l {0}
@@ -18,19 +18,14 @@ jobs:
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: conda-build
-          auto-activate-base: false
+          activate-environment: ""
+          auto-activate-base: true
 
       - name: Build and Push 
         run: |
-          ls -lha subworkflows/local
           conda update -c conda-forge conda
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba 'python<3.10' 'numpy>=1.17'
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            anaconda upload --force ./linux-64/*.tar.bz2
-          else
-            anaconda upload --force ./osx-64/*.tar.bz2
-          fi
+          anaconda upload --force ./noarch/*.tar.bz2
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
