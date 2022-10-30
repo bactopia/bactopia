@@ -7,6 +7,10 @@ package:
 source:
   url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
 
+build:
+  noarch: python
+  number: 0
+
 requirements:
   host:
     - pip
