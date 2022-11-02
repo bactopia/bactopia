@@ -12,9 +12,9 @@ options.args = [
     "--minscore ${params.minscore}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MLST as MLST_MODULE } from '../../../modules/nf-core/modules/mlst/main' addParams( options: options )
+include { MLST as MLST_MODULE } from '../../../modules/nf-core/mlst/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '--no-header-row', publish_to_base: true, logs_subdir: options.is_module ? '' : 'mlst'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--no-header-row', publish_to_base: true, logs_subdir: options.is_module ? '' : 'mlst'] )
 
 }
 workflow MLST {

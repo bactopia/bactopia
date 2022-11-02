@@ -20,9 +20,9 @@ options.args = [
     "--length ${params.checkm_length}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { CHECKM_LINEAGEWF } from '../../../modules/nf-core/modules/checkm/lineagewf/main' addParams( options: options )
+include { CHECKM_LINEAGEWF } from '../../../modules/nf-core/checkm/lineagewf/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'checkm'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'checkm'] )
 }
 
 workflow CHECKM {

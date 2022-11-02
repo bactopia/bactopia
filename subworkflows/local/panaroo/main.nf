@@ -16,7 +16,7 @@ options.args = [
     params.panaroo_opts
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { PANAROO_RUN } from '../../../modules/nf-core/modules/panaroo/run/main' addParams( options: options )
+include { PANAROO_RUN } from '../../../modules/nf-core/panaroo/run/main' addParams( options: options )
 
 workflow PANAROO {
     take:

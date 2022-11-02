@@ -24,11 +24,11 @@ core_opts.args = "--maxhap ${params.maxhap}"
 core_opts.publish_to_base = [".full.aln.gz"]
 core_opts.suffix = "core-snp"
 
-include { SNIPPY_RUN }  from '../../../modules/nf-core/modules/snippy/run/main' addParams( options: snippy_opts )
-include { SNIPPY_CORE }  from '../../../modules/nf-core/modules/snippy/core/main' addParams( options: core_opts )
+include { SNIPPY_RUN }  from '../../../modules/nf-core/snippy/run/main' addParams( options: snippy_opts )
+include { SNIPPY_CORE }  from '../../../modules/nf-core/snippy/core/main' addParams( options: core_opts )
 include { GUBBINS } from '../gubbins/main' addParams( options: [suffix: 'core-snp', ignore: [".aln.gz"], publish_to_base: [".masked.aln.gz"]] )
 include { IQTREE } from '../iqtree/main' addParams( options: [suffix: 'core-snp', ignore: [".aln.gz"], publish_to_base: [".iqtree"]] )
-include { SNPDISTS } from '../../../modules/nf-core/modules/snpdists/main' addParams( options: [suffix: 'core-snp.distance', publish_to_base: true] )
+include { SNPDISTS } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-snp.distance', publish_to_base: true] )
 
 workflow SNIPPY {
     take:

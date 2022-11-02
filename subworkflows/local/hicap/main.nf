@@ -15,9 +15,9 @@ options.args = [
 DATABASE_DIR = params.database_dir ? file(params.database_dir) : []
 MODEL_FP = params.model_fp ? file(params.model_fp) : []
 
-include { HICAP as HICAP_MODULE } from '../../../modules/nf-core/modules/hicap/main' addParams( options: options )
+include { HICAP as HICAP_MODULE } from '../../../modules/nf-core/hicap/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'hicap'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'hicap'] )
 }
 
 workflow HICAP {

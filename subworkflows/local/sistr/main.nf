@@ -8,9 +8,9 @@ options.args = [
     params.full_cgmlst ? "--use-full-cgmlst-db" : ""
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { SISTR as SISTR_MODULE } from '../../../modules/nf-core/modules/sistr/main' addParams( options: options )
+include { SISTR as SISTR_MODULE } from '../../../modules/nf-core/sistr/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'sistr'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'sistr'] )
 }
 
 workflow SISTR {

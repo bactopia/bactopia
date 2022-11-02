@@ -17,7 +17,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 REFERENCE = params.reference ? file(params.reference) : []
 INSERTIONS = params.insertions ? file(params.insertions) : []
-include { ISMAPPER as ISMAPPER_MODULE } from '../../../modules/nf-core/modules/ismapper/main' addParams( options: options )
+include { ISMAPPER as ISMAPPER_MODULE } from '../../../modules/nf-core/ismapper/main' addParams( options: options )
 
 workflow ISMAPPER {
     take:

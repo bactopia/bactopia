@@ -16,12 +16,12 @@ options.args = [
 
 AMRFINDER_DB = params.amrfinder_db ? file(params.amrfinder_db) : false
 
-include { AMRFINDERPLUS_UPDATE } from '../../../modules/nf-core/modules/amrfinderplus/update/main' addParams( options: options )
-include { AMRFINDERPLUS_RUN } from '../../../modules/nf-core/modules/amrfinderplus/run/main' addParams( options: options )
+include { AMRFINDERPLUS_UPDATE } from '../../../modules/nf-core/amrfinderplus/update/main' addParams( options: options )
+include { AMRFINDERPLUS_RUN } from '../../../modules/nf-core/amrfinderplus/run/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-genes'] )
-    include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
+    include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-genes'] )
+    include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
 }
 
 workflow AMRFINDERPLUS {

@@ -17,9 +17,9 @@ options.args = [
     "--max-size ${params.max_size}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { EMMTYPER as EMMTYPER_MODULE } from '../../../modules/nf-core/modules/emmtyper/main' addParams( options: options )
+include { EMMTYPER as EMMTYPER_MODULE } from '../../../modules/nf-core/emmtyper/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'emmtyper'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'emmtyper'] )
 }
 
 workflow EMMTYPER {

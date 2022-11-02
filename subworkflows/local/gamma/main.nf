@@ -13,9 +13,9 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 GAMMA_DB = params.gamma_db ? file(params.gamma_db) : []
 
-include { GAMMA as GAMMA_MODULE } from '../../../modules/nf-core/modules/gamma/main' addParams( options: options )
+include { GAMMA as GAMMA_MODULE } from '../../../modules/nf-core/gamma/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'gamma'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'gamma'] )
 }
 
 workflow GAMMA {

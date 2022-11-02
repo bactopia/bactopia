@@ -6,9 +6,9 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'leg
 options.is_module = params.wf == 'legsta' ? true : false
 options.args = params.noheader ? '--noheader' : ''
 
-include { LEGSTA as LEGSTA_MODULE } from '../../../modules/nf-core/modules/legsta/main' addParams( options: options )
+include { LEGSTA as LEGSTA_MODULE } from '../../../modules/nf-core/legsta/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'legsta'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'legsta'] )
 }
 
 workflow LEGSTA {

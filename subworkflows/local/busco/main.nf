@@ -15,10 +15,10 @@ options.args = [
     "--limit ${params.busco_limit}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { BUSCO as BUSCO_MODULE } from '../../../modules/nf-core/modules/busco/main' addParams( options: options )
+include { BUSCO as BUSCO_MODULE } from '../../../modules/nf-core/busco/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'busco'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'busco'] )
 }
 
 workflow BUSCO {

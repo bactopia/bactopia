@@ -4,10 +4,10 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'shigatyper')
 options.is_module = params.wf == 'shigatyper' ? true : false
-include { SHIGATYPER as SHIGATYPER_MODULE } from '../../../modules/nf-core/modules/shigatyper/main' addParams( options: options )
+include { SHIGATYPER as SHIGATYPER_MODULE } from '../../../modules/nf-core/shigatyper/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'shigatyper'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'shigatyper'] )
 }
 
 workflow SHIGATYPER {

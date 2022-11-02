@@ -25,9 +25,9 @@ PROTEINS = params.proteins ? file(params.proteins) : []
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 REPLICONS = params.replicons ? file(params.replicons) : []
 
-include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/modules/bakta/download/main' addParams( )
-include { BAKTA_RUN } from '../../../modules/nf-core/modules/bakta/run/main' addParams( options: options )
-include { BAKTA_MAIN_RUN as USE_BAKTA } from '../../../modules/nf-core/modules/bakta/run/main' addParams( options: options )
+include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/bakta/download/main' addParams( )
+include { BAKTA_RUN } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
+include { BAKTA_MAIN_RUN as USE_BAKTA } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
 
 workflow BAKTA {
     take:

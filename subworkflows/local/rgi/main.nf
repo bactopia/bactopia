@@ -17,11 +17,11 @@ heatmap_args = [
     "--display ${params.rgi_display}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { RGI_MAIN } from '../../../modules/nf-core/modules/rgi/main/main' addParams( options: options )
+include { RGI_MAIN } from '../../../modules/nf-core/rgi/main/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { RGI_HEATMAP } from '../../../modules/nf-core/modules/rgi/heatmap/main' addParams( options: [args: heatmap_args, publish_to_base: true] )
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+    include { RGI_HEATMAP } from '../../../modules/nf-core/rgi/heatmap/main' addParams( options: [args: heatmap_args, publish_to_base: true] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true] )
 }
 
 workflow RGI {

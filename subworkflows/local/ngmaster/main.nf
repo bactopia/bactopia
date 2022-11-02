@@ -8,9 +8,9 @@ options.args = [
     params.csv ? "--csv" : ""
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { NGMASTER as NGMASTER_MODULE } from '../../../modules/nf-core/modules/ngmaster/main' addParams( options: options )
+include { NGMASTER as NGMASTER_MODULE } from '../../../modules/nf-core/ngmaster/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'ngmaster'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'ngmaster'] )
 }
 
 workflow NGMASTER {

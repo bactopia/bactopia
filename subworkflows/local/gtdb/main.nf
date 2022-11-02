@@ -14,8 +14,8 @@ classify_args = [
     "--min_af ${params.min_af}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 DATABASE_DIR = ! params.download_gtdb ? file(params.gtdb) : []
-include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/modules/gtdbtk/setupdb/main' addParams( options: options + [publish_to_base: true] )
-include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/modules/gtdbtk/classifywf/main' addParams( options: options + [args: "${classify_args}"] )
+include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/gtdbtk/setupdb/main' addParams( options: options + [publish_to_base: true] )
+include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/gtdbtk/classifywf/main' addParams( options: options + [args: "${classify_args}"] )
 
 workflow GTDB {
     take:

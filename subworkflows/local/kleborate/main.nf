@@ -15,9 +15,9 @@ options.args = [
     "--min_kaptive_confidence ${params.min_kaptive_confidence}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { KLEBORATE as KLEBORATE_MODULE } from '../../../modules/nf-core/modules/kleborate/main' addParams( options: options )
+include { KLEBORATE as KLEBORATE_MODULE } from '../../../modules/nf-core/kleborate/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'kleborate'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'kleborate'] )
 }
 
 workflow KLEBORATE {

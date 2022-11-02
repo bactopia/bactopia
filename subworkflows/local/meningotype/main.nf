@@ -12,9 +12,9 @@ options.args = [
     params.all ? "--all" : ""
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../../modules/nf-core/modules/meningotype/main' addParams( options: options )
+include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../../modules/nf-core/meningotype/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'meningotype'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'meningotype'] )
 }
 
 workflow MENINGOTYPE {
