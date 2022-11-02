@@ -1,13 +1,26 @@
 # Changelog
 
-## v2.1.1 bactopia/bactopia "" - 2022/0?/??
+## v2.1.2 bactopia/bactopia "" - 2022/0?/??
 
 ### `Added`
 - `--dragonflye_opts` to pass additional params to dragonflye
 - `--use_fastp` to use fastp for QCing reads
+- updated organisms available from PubMLST
+- custom profile for `wsvl`
+- Update Bakta to v1.5.0 (_psudeogenes!_)
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
+    - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
 
 ### `Fixed`
 - missing variable in `bakta_download` module
+
+### `Enhancements to OSS`
+- bump Bakta to 1.5.0 [nf-core/modules#2000](https://github.com/nf-core/modules/pull/2000)
+- add recipe for pasty [bioconda/bioconda-recipes#35930](https://github.com/bioconda/bioconda-recipes/pull/35930)
+- add recipe for pbptyper [bioconda/bioconda-recipes#36222](https://github.com/bioconda/bioconda-recipes/pull/36222)
+- add module for pasty [nf-core/modules#2003](https://github.com/nf-core/modules/pull/2003)
+- add module for pbptyper [nf-core/modules#2005](https://github.com/nf-core/modules/pull/2005)
 
 ## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
 
@@ -44,7 +57,7 @@
 - add module for mcroni [nf-core/modules#1750](https://github.com/nf-core/modules/pull/1750)
 - add module for Mykrobe and GenoTyphi [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1818)
 - add module for plasmidfinder [nf-core/modules#1773](https://github.com/nf-core/modules/pull/1773)
-- add module for Seroba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1816)
+- add module for Seroba [nf-core/modules#1816](https://github.com/nf-core/modules/pull/1816)
 - add module for snippy/core [nf-core/modules#1855](https://github.com/nf-core/modules/pull/1855)
 - let tempfile determine temp dir location [sanger-pathogens/seroba#68](https://github.com/sanger-pathogens/seroba/pull/68)
 - allow the user to specify temp dir or use the system default [sanger-pathogens/pymummer#36](https://github.com/sanger-pathogens/pymummer/pull/36)

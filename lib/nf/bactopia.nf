@@ -192,7 +192,7 @@ def create_input_channel(runtype, genome_size) {
         meta.genome_size = genome_size
         if (runtype == "paired-end") {
             return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.empty_extra))])
-        } else if (runtype == "hybrid") {
+        } else if (runtype == "hybrid" || runtype == "short_polish") {
             return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.SE))])
         } else if (runtype == "assembly") {
             return Channel.fromList([tuple(meta, [params.empty_r1], [params.empty_r2], file(params.assembly))])
