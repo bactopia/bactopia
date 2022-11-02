@@ -261,7 +261,7 @@ def setup_mlst_request(request, available_schemas, species_key=None):
             for schema, ariba_name in available_schemas[genus].items():
                 schemas.append({'ariba': ariba_name, 'schema': schema, 'species': species})
         else:
-            logging.error(f'{species} is not available from pubMLST.org, skipping')
+            logging.warning(f'{species} is not available from pubMLST.org, skipping')
 
     return schemas
 
@@ -457,7 +457,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
                         for accession in accessions:
                             accession_fh.write(f'{accession}\n')
                 else:
-                    logging.error(f'No completed genomes found for "{genus}", skipping custom Prokka proteins')
+                    logging.warning(f'No completed genomes found for "{genus}", skipping custom Prokka proteins')
                     continue
 
             execute((f'ncbi-genome-download bacteria -A {accession_file} '
@@ -1026,7 +1026,7 @@ if __name__ == '__main__':
 
     if args.include_genus:
         if not num_species:
-            logging.error(f'Species (--species) not given, ignoring --include_genus')
+            logging.warning(f'Species (--species) not given, ignoring --include_genus')
 
     if args.prodigal_tf:
         validate_user_files(args.prodigal_tf, num_species, 'prodigal_tf')
