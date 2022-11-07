@@ -1,0 +1,8 @@
+- name: pbptyper-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf pbptyper -c nextflow.config --help > pbptyper-help.txt'
+  tags:
+    - bactopia_help
+    - pbptyper
+  files:
+    - path: pbptyper-help.txt
+      contains: ['pbptyper', 'bactopia', 'version', 'dependencies']

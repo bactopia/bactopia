@@ -106,3 +106,4 @@ docs:
           | -proteins.tsv | A TSV file with `AMRFinder+` results using protein inputs |
   citations:
     - amrfinderplus
+    - csvtk

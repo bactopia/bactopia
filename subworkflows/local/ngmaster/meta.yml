@@ -81,4 +81,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ngmaster` results |
   citations:
+    - csvtk
     - ngmaster

@@ -94,4 +94,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;.json  | A JSON file with `rgi` results |
           | &lt;SAMPLE_NAME&gt;.txt  | A tab-delimited file with `egi` results, see [RGI - Output Details](https://github.com/arpcard/rgi#rgi-main-tab-delimited-output-details) for more details |
   citations:
+    - csvtk
     - rgi

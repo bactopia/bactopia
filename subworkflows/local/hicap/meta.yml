@@ -99,4 +99,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;.svg  | Visualization of annotated cap locus |
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `hicap` results |
   citations:
+    - csvtk
     - hicap

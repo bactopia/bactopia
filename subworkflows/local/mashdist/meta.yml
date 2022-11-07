@@ -78,4 +78,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;-dist.txt  | A tab-delimited file with `mash dist` results |
   citations:
+    - csvtk
     - mash

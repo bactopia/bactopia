@@ -93,5 +93,6 @@ docs:
           | contig_report.txt  | Assignment of the contig to chromosome or a particular plasmid grouping, see [MOB-recon - contig report](https://github.com/phac-nml/mob-suite#mob-recon-contig-report-format) for more details |
           | plasmid_&lt;PLASMID_NAME&gt;.fasta  | Each plasmid group is written to an individual FASTA |
   citations:
+    - csvtk
     - mobsuite
     - mobsuite_db

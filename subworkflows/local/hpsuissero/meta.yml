@@ -74,5 +74,6 @@ docs:
           | Filename                 | Description |
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `HpsuisSero` result |
-citations:
-  - hpsuissero
+  citations:
+    - csvtk
+    - hpsuissero

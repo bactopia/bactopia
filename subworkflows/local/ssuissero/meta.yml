@@ -74,4 +74,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `SsuisSero` results |
   citations:
+    - csvtk
     - ssuissero

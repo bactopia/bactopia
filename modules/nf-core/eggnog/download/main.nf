@@ -1,5 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'eggnog_download')
 conda_tools = "bioconda::eggnog-mapper=2.1.6"

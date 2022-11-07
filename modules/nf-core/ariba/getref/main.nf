@@ -1,5 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../../lib/nf/functions'
+include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions([:], 'ariba')
 options.is_db_download = true

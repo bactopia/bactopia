@@ -86,5 +86,6 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `mlst` result, see [mlst - Usage](https://github.com/tseemann/mlst#usage) for more details |
   citations:
+    - csvtk
     - mlst
     - pubmlst

@@ -85,3 +85,4 @@ docs:
           | -summary.tab    | A final summary report for _agr_ typing |
   citations:
     - agrvate
+    - csvtk

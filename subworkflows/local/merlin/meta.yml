@@ -309,6 +309,7 @@ docs:
           | &lt;SAMPLE_NAME&gt;.targets.csq.vcf.gz | VCF with variant info again refernce genomes |
   citations:
     - agrvate
+    - csvtk
     - ectyper
     - emmtyper
     - hicap

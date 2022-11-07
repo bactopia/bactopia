@@ -111,3 +111,4 @@ docs:
           | <LINEAGE>/<SAMPLE_NAME>/short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.txt  | A summary of BUSCO matches per-sample                                               |
   citations:
     - busco
+    - csvtk

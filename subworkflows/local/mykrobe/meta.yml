@@ -86,4 +86,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;.csv  | The output of `mykrobe predict` in comma-separated format |
           | &lt;SAMPLE_NAME&gt;.json | The output of `mykrobe predict` in JSON format |
   citations:
+    - csvtk
     - mykrobe

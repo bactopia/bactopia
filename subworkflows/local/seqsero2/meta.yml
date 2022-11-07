@@ -84,4 +84,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SeqSero2` results |
           | &lt;SAMPLE_NAME&gt;.txt  | A text file with key-value pairs of `SeqSero2` results |
   citations:
+    - csvtk
     - seqsero2

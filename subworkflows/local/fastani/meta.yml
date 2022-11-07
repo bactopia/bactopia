@@ -89,5 +89,6 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | FastANI results of all samples against a reference genome |
   citations:
+    - csvtk
     - fastani
     - ncbigenomedownload

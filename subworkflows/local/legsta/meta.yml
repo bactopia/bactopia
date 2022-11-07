@@ -79,4 +79,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details |
   citations:
+    - csvtk
     - legsta

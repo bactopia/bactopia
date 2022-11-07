@@ -76,4 +76,5 @@ docs:
           | *_table.tsv   | mcroni results in tab-delimited format |
           | *_sequence.fa | Sequences matching the _mcr-1_ gene    |
   citations:
+    - csvtk
     - mcroni
