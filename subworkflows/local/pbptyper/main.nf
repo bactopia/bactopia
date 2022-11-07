@@ -5,9 +5,9 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'pbptyper')
 options.is_module = params.wf == 'pbptyper' ? true : false
 options.args = [
-    "--min_pident ${params.min_pident}",
-    "--min_coverage ${params.min_coverage}",
-    "--min_ani ${params.min_ani}"
+    "--min_pident ${params.pbptyper_min_pident}",
+    "--min_coverage ${params.pbptyper_min_coverage}",
+    "--min_ani ${params.pbptyper_min_ani}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { PBPTYPER as PBPTYPER_MODULE } from '../../../modules/nf-core/pbptyper/main' addParams( options: options )

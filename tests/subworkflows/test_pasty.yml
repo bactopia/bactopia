@@ -1,0 +1,8 @@
+- name: pasty-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf pasty -c nextflow.config --help > pasty-help.txt'
+  tags:
+    - bactopia_help
+    - pasty
+  files:
+    - path: pasty-help.txt
+      contains: ['pasty', 'bactopia', 'version', 'dependencies']

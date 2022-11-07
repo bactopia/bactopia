@@ -1,12 +1,12 @@
-name: pbptyper
-description: Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae
+name: pasty
+description: in silico serogrouping of Pseudomonas aeruginosa isolates
 icon: false
 keywords:
   - fasta
-  - resistance
-  - Streptococcus pneumoniae
+  - serogrouping
+  - Pseudomonas aeruginosa
 modules:
-  - pbptyper
+  - pasty
 input:
   - meta:
     type: map
@@ -25,44 +25,49 @@ output:
         e.g. [ id:'test', single_end:false ]
   - tsv:
       type: file
-      description: A tab-delimited file with the predicted PBP type
+      description: A tab-delimited file with the predicted serogroup
       pattern: "*.tsv"
   - merged_tsv:
       type: file
-      description: A merged TSV of all pbptyper result files
-      pattern: "pbptyper.tsv"
+      description: A merged TSV of all pasty result files
+      pattern: "pasty.tsv"
   - blast:
       type: file
       description: A tab-delimited file of all blast hits
-      pattern: "*.tblastn.tsv"
+      pattern: "*.blastn.tsv"
+  - details:
+      type: file
+      description: A tab-delimited file with details for each serogroup
+      pattern: "*.details.tsv"
   - versions:
       type: file
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
   introduction: |
-      The `pbptyper` module uses [pbptyper](https://github.com/rpetit3/pbptyper) for typing
-      the Penicillin Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies.
+      The `pasty` module uses [pasty](https://github.com/rpetit3/pasty) for 
+      serogrouping of _Pseudomonas aeruginosa_ isolates.
   output:
     tree: |
-      pbptyper/
+      pasty/
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-{1A,2B,2X}.tblastn.tsv
+      │   ├── <SAMPLE_NAME>.blastn.tsv
+      │   ├── <SAMPLE_NAME>.details.tsv
       │   ├── <SAMPLE_NAME>.tsv
       │   └── logs
-      │       └── pbptyper
-      │           ├── nf-pbptyper.{begin,err,log,out,run,sh,trace}
+      │       └── pasty
+      │           ├── nf-pasty.{begin,err,log,out,run,sh,trace}
       │           └── versions.yml
       ├── logs
       │   └── csvtk_concat
       │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
       │       └── versions.yml
       ├── nf-reports
-      │   ├── pbptyper-dag.dot
-      │   ├── pbptyper-report.html
-      │   ├── pbptyper-timeline.html
-      │   └── pbptyper-trace.txt
-      └── pbptyper.tsv
+      │   ├── pasty-dag.dot
+      │   ├── pasty-report.html
+      │   ├── pasty-timeline.html
+      │   └── pasty-trace.txt
+      └── pasty.tsv
     add_note: true
     folders:
       - name: Top Level
@@ -71,15 +76,16 @@ docs:
         table: |
           | Filename    | Description |
           |-------------|-------------|
-          | pbptyper.tsv | A merged TSV file with `pbptyper` results from all samples |
-      - name: pbptyper
+          | pasty.tsv | A merged TSV file with `pasty` results from all samples |
+      - name: pasty
         description: |
-          Below is a description of the _per-sample_ results from [pbptyper](https://github.com/rpetit3/pbptyper).
+          Below is a description of the _per-sample_ results from [pasty](https://github.com/rpetit3/pasty).
         table: |
           | Extension    | Description |
           |--------------|-------------|
-          | .tblastn.tsv | A tab-delimited file of all blast hits |
-          | .tsv         | A tab-delimited file with the predicted PBP type |
+          | .blastn.tsv  | A tab-delimited file of all blast hits |
+          | .details.tsv | A tab-delimited file with details for each serogroup |
+          | .tsv         | A tab-delimited file with the predicted serogroup |
   citations:
     - csvtk
-    - pbptyper
+    - pasty

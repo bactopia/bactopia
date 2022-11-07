@@ -1,33 +1,27 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/pbptyper/params.json",
-    "title": "pbptyper Module",
-    "description": "A module Penicillin Binding Protein (PBP) typing of Streptococcus pneumoniae genomes",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/pasty/params.json",
+    "title": "pasty Module",
+    "description": "A module for in silico serogrouping of Pseudomonas aeruginosa isolates",
     "type": "object",
     "definitions": {
-        "pbptyper_parameters": {
-            "title": "pbptyper Parameters",
+        "pasty_parameters": {
+            "title": "pasty Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "pbptyper_min_pident": {
+                "pasty_min_pident": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum percent identity to count a hit",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "pbptyper_min_coverage": {
+                "pasty_min_coverage": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum percent coverage to count a hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "pbptyper_min_ani": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum S. pneumoniae ANI to predict PBP Type",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
@@ -35,7 +29,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/pbptyper_parameters"
+            "$ref": "#/definitions/pasty_parameters"
         }
     ]
 }

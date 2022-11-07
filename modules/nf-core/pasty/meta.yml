@@ -1,0 +1,52 @@
+name: "pasty"
+description: Serogroup Pseudomonas aeruginosa assemblies
+keywords:
+  - bacteria
+  - serogroup
+  - fasta
+  - assembly
+tools:
+  - "pasty":
+      description: "A tool for in silico serogrouping of Pseudomonas aeruginosa isolates"
+      homepage: "https://github.com/rpetit3/pasty"
+      documentation: "https://github.com/rpetit3/pasty"
+      tool_dev_url: "https://github.com/rpetit3/pasty"
+      doi: ""
+      licence: "['Apache-2.0']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: An assembly in FASTA format
+      pattern: "*.{fasta,fasta.gz,fna,fna.gz,fa,fa.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: A tab-delimited file with the predicted serogroup
+      pattern: "*.tsv"
+  - blast:
+      type: file
+      description: A tab-delimited file of all blast hits
+      pattern: "*.blastn.tsv"
+  - details:
+      type: file
+      description: A tab-delimited file with details for each serogroup
+      pattern: "*.details.tsv"
+
+authors:
+  - "@rpetit3"
