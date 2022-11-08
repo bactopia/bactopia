@@ -65,7 +65,6 @@ def validate_requirements():
     """Validate the required programs are available, if not exit (1)."""
     from shutil import which
     programs = {
-        'ariba': which('ariba'),
         'makeblastdb': which('makeblastdb'),
         'cd-hit': which('cd-hit'),
         'wget': which('wget'),
@@ -86,7 +85,7 @@ def validate_requirements():
         sys.exit(1)
 
 
-def validate_species(species):
+def validate_species(species, skip_spell_check=False):
     """Query input species against ENA to determine if it exists."""
     import requests
     ENDPOINT = 'https://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/any-name'
@@ -105,32 +104,35 @@ def validate_species(species):
     
     species_key = {}
     for species in checks:
-        species = species.strip()
-        r = requests.get(f'{ENDPOINT}/{species}?limit=1')
-        if r.status_code == requests.codes.ok:
-            try:
-                json_data = r.json()
-                scientific_name = json_data[0]['scientificName'].replace('[', '').replace(']', '')
-                if scientific_name.lower() != species.lower():
-                    # Error! Species/Organism found, but doesn't match input. This shouldn't
-                    # (query is case-insensitive exact match) happen, but my grandma could "
-                    # probably trigger it, so here it is!
-                    logging.error((f'Input species ({species}) does not match return result '
-                                f'({scientific_name}), please check spelling.'))
-                    sys.exit(1)
-                
-                species_key[species.lower()] = scientific_name
-                logging.info(f'{species} verified in ENA Taxonomy database')
-            except json.decoder.JSONDecodeError:
-                if r.text == "No results.":
-                    logging.error(f'Input species ({species}) not found, please check spelling.')
-                    sys.exit(1)
+        if not skip_spell_check:
+            species = species.strip()
+            r = requests.get(f'{ENDPOINT}/{species}?limit=1')
+            if r.status_code == requests.codes.ok:
+                try:
+                    json_data = r.json()
+                    scientific_name = json_data[0]['scientificName'].replace('[', '').replace(']', '')
+                    if scientific_name.lower() != species.lower():
+                        # Error! Species/Organism found, but doesn't match input. This shouldn't
+                        # (query is case-insensitive exact match) happen, but my grandma could "
+                        # probably trigger it, so here it is!
+                        logging.error((f'Input species ({species}) does not match return result '
+                                    f'({scientific_name}), please check spelling.'))
+                        sys.exit(1)
+                    
+                    species_key[species.lower()] = scientific_name
+                    logging.info(f'{species} verified in ENA Taxonomy database')
+                except json.decoder.JSONDecodeError:
+                    if r.text == "No results.":
+                        logging.error(f'Input species ({species}) not found, please check spelling.')
+                        sys.exit(1)
+            else:
+                # Error! Species/Organism not found. Check spelling?
+                # TODO: Implement"Did you mean?" function
+                logging.error(f'Input species ({species}) not found, please check spelling.')
+                sys.exit(1)
         else:
-            # Error! Species/Organism not found. Check spelling?
-            # TODO: Implement"Did you mean?" function
-            logging.error(f'Input species ({species}) not found, please check spelling.')
-            sys.exit(1)
-
+            logging.info(f'{species} skipped ENA Taxonomy spell check')
+            species_key[species.lower()] = species
     return species_key
 
 
@@ -169,11 +171,11 @@ def pubmlst_schemas(pubmlst_file):
     with open(pubmlst_file, 'rt') as pubmlst_fh:
         for line in pubmlst_fh:
             line = line.rstrip()
-            if line and not line.startswith('ariba'):
-                ariba, species, schema = line.split('\t')
+            if line and not line.startswith('pubmlst'):
+                pubmlst, species, schema = line.split('\t')
                 if species not in pubmlst:
                     pubmlst[species] = {}
-                pubmlst[species][schema] = ariba
+                pubmlst[species][schema] = pubmlst
     return pubmlst
 
 
@@ -254,18 +256,18 @@ def setup_mlst_request(request, available_schemas, species_key=None):
         species = species_key[species.lower()]
         genus = species.split()[0]
         if species in available_schemas:
-            for schema, ariba_name in available_schemas[species].items():
-                schemas.append({'ariba': ariba_name, 'schema': schema, 'species': species})
+            for schema, pubmlst_name in available_schemas[species].items():
+                schemas.append({'pubmlst': pubmlst_name, 'schema': schema, 'species': species})
         elif genus in available_schemas:
             # MLST schema is for a genus not just species
-            for schema, ariba_name in available_schemas[genus].items():
-                schemas.append({'ariba': ariba_name, 'schema': schema, 'species': species})
+            for schema, pubmlst_name in available_schemas[genus].items():
+                schemas.append({'pubmlst': pubmlst_name, 'schema': schema, 'species': species})
         else:
             logging.warning(f'{species} is not available from pubMLST.org, skipping')
 
     return schemas
 
-def setup_mlst(request, available_datasets, outdir, force=False, species_key=None):
+def setup_mlst(request, available_datasets, pubmlst_json, outdir, force=False, species_key=None):
     """Setup MLST datasets for each requested schema."""
     import re
     requests = setup_mlst_request(request, available_datasets, species_key=species_key)
@@ -293,20 +295,19 @@ def setup_mlst(request, available_datasets, outdir, force=False, species_key=Non
 
             # Setup MLST dataset
             logging.info(f'Setting up {schema} MLST schema for {request["species"]}')
-            execute(f'mkdir -p {schema_dir}')
-
-            # Ariba
-            species_request = request['ariba']
-            ariba_dir = f'{schema_dir}/ariba'
-            execute(f'ariba pubmlstget "{species_request}" {ariba_dir}')
-
-            # BLAST
-            logging.info(f'Creating BLAST MLST dataset')
+            species_request = request['pubmlst']
             blast_dir = f'{schema_dir}/blastdb'
-            for fasta in glob.glob(f'{ariba_dir}/pubmlst_download/*.tfa'):
-                output = os.path.splitext(fasta)[0]
-                execute(f'makeblastdb -in {fasta} -dbtype nucl -out {output}')
-            execute(f'mv {ariba_dir}/pubmlst_download {blast_dir}')
+            execute(f'mkdir -p {blast_dir}')
+
+            # Download Profile
+            profile = pubmlst_json[species_request]['profiles']
+            execute(f'wget -O profile.txt {profile}', directory=blast_dir)
+
+            # Download loci fastas and make blast db
+            loci = profile = pubmlst_json[species_request]['loci']
+            for locus, locus_url in loci.items():
+                execute(f'wget -O {locus}.tfa {locus_url}', directory=blast_dir)
+                execute(f'makeblastdb -in {locus}.tfa -dbtype nucl -out {locus}', directory=blast_dir)
 
             # Tarball directories
             execute(f'tar -zcvf {schema}.tar.gz {schema}/', directory=mlst_dir)
@@ -364,11 +365,9 @@ def setup_prokka(request, available_datasets, outdir, force=False,
     from statistics import median, mean
     requests = None
     if os.path.exists(request):
-        requests = setup_requests(request, available_datasets, 'Prokka Proteins',
-                                  skip_check=True)
+        requests = setup_requests(request, available_datasets, 'Prokka Proteins', skip_check=True)
     else:
-        requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins',
-                                  skip_check=True)
+        requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins', skip_check=True)
     if requests:
         for request in requests:
             species = re.sub(r'[ /()]', "-", request.lower())
@@ -837,8 +836,8 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        'pubmlst', metavar="PUBMLST", type=str,
-        help='Bactopia config file with PubMLST schema mappings.'
+        'bactopia', metavar="BACTOPIA_DIR", type=str,
+        help='Directory where Bactopia repository is stored.'
     )
 
     parser.add_argument(
@@ -856,6 +855,8 @@ if __name__ == '__main__':
         '--skip_mlst', action='store_true',
         help=('Skip setup of MLST schemas for each species')
     )
+    group2.add_argument('--skip_spell_check', action='store_true',
+                        help="The spelling of the species name will not be validated against ENA")
 
     group3 = parser.add_argument_group('Custom Prokka Protein FASTA')
     group3.add_argument(
@@ -897,7 +898,6 @@ if __name__ == '__main__':
         help=("Use CD-HIT's (-g 0) fast clustering algorithm, instead of the "
               "accurate but slow algorithm.")
     )
-
 
     group4 = parser.add_argument_group('Minmer Datasets')
     group4.add_argument(
@@ -1011,9 +1011,11 @@ if __name__ == '__main__':
     else:
         validate_requirements()
 
-    PUBMLST = get_available_datasets(args.pubmlst, args.clear_cache)
+    with open(f'{args.bactopia}/data/pubmlst.json', 'rt') as fh:
+        PUBMLST_JSON = json.load(fh)
+    PUBMLST_TXT = get_available_datasets(f'{args.bactopia}/data/pubmlst.txt', args.clear_cache)
     if args.available_datasets:
-        available_datasets(PUBMLST)
+        available_datasets(PUBMLST_TXT)
 
     if args.available_species:
         available_species(args.outdir)
@@ -1021,7 +1023,7 @@ if __name__ == '__main__':
     species_key = None
     num_species = 0
     if args.species:
-        species_key = validate_species(args.species)
+        species_key = validate_species(args.species, args.skip_spell_check)
         num_species = len(species_key.keys())
 
     if args.include_genus:
@@ -1075,13 +1077,19 @@ if __name__ == '__main__':
 
         if not args.skip_mlst:
             logging.info('Setting up MLST datasets')
-            setup_mlst(args.species, PUBMLST, species_dir,
-                    force=(args.force or args.force_mlst), species_key=species_key)
+            setup_mlst(
+                args.species,
+                PUBMLST_TXT,
+                PUBMLST_JSON,
+                species_dir,
+                force=(args.force or args.force_mlst),
+                species_key=species_key
+            )
 
         if not args.skip_prokka:
             logging.info('Setting up custom Prokka proteins')
             setup_prokka(
-                args.species, PUBMLST, species_dir, cpus=args.cpus,
+                args.species, PUBMLST_TXT, species_dir, cpus=args.cpus,
                 include_genus=args.include_genus, limit=args.limit,
                 user_accessions=args.accessions, identity=args.identity,
                 overlap=args.overlap, max_memory=args.max_memory,

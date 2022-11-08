@@ -1,4 +1,4 @@
-ariba	pubmlst_species	schema
+pubmlst	pubmlst_species	schema
 Achromobacter spp.	Achromobacter xylosoxidans	default
 Achromobacter spp.	Achromobacter ruhlandii	default
 Achromobacter spp.	Achromobacter insuavis	default

@@ -1,19 +1,27 @@
 # Changelog
 
-## v2.1.2 bactopia/bactopia "" - 2022/0?/??
+## v2.2.0 bactopia/bactopia "" - 2022/1?/??
 
 ### `Added`
 - `--dragonflye_opts` to pass additional params to dragonflye
 - `--use_fastp` to use fastp for QCing reads
+- `bactopia datasets` no longer depends on `ariba`
+- `--skip_spell_check` in `bactopia datasets`
 - updated organisms available from PubMLST
 - custom profile for `wsvl`
-- Update Bakta to v1.5.0 (_psudeogenes!_)
+- Update Bakta to v1.5.1 (_psudeogenes!_)
+- updated citations
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
 
 ### `Fixed`
+- respect short polish hybrid assembly requests
 - missing variable in `bakta_download` module
+- restructure to match `nf-core/modules`
+- compatibility with Nextflow >=22.10
+- separate versions for Linux and OSX in `assemble_genomes`
+- `bactopia datasets` error messages switched to warnings
 
 ### `Enhancements to OSS`
 - bump Bakta to 1.5.0 [nf-core/modules#2000](https://github.com/nf-core/modules/pull/2000)
