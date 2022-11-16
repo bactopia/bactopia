@@ -37,6 +37,11 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: emmtyper
+    description: >-
+      A Bactopia Tool which uses emmtyper for emm-typing of _Streptococcus pyogenes_
+      using a de novo or complete assembly.
   introduction: |
     The `emmtyper` module uses [emmtyper](https://github.com/MDU-PHL/emmtyper) for 
     emm-typing of _Streptococcus pyogenes_ using a de novo or complete assembly.

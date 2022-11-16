@@ -36,6 +36,11 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: lissero
+    description: >-
+      A Bactopia Tool which uses LisSero for _in silico_ serotype prediction
+      for _Listeria monocytogenes_ assemblies.
   introduction: |
     The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
     _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.

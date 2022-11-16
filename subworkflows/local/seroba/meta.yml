@@ -40,6 +40,11 @@ output:
       description: A detailed description of the predicted serotype
       pattern: "*.txt"
 docs:
+  meta:
+    title: seroba
+    description: >-
+      A Bactopia Tool which uses Seroba to predict the serotype of _Streptococcus pneumoniae_
+      samples with Illumina paired-end reads.
   introduction: |
       The `seroba` module uses [Seroba](https://github.com/sanger-pathogens/seroba) to predict the 
       serotype of _Streptococcus pneumoniae_ samples with Illumina paired-end reads.

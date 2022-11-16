@@ -34,6 +34,11 @@ output:
       description: A merged summary of the each Mash distance
       pattern: "mashdist.tsv"
 docs:
+  meta:
+    title: mashdist
+    description: >-
+      A Bactopia Tool which uses Mash to determine the Mash distance from
+      a given reference genome(s).
   introduction: |
     The `mashdist` module uses [Mash](https://github.com/marbl/Mash) to determine the Mash
     distance from a given reference genome(s).

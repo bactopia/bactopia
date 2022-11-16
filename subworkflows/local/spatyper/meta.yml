@@ -44,6 +44,11 @@ output:
       description: A merged summary of the spaTyper assessement
       pattern: "spatyper.tsv"
 docs:
+  meta:
+    title: spatyper
+    description: >-
+      A Bactopia Tool which uses spaTyper to assign _spa_ types to
+      _Staphylococcus aureus_ assemblies.
   introduction:
     The `spatyper` module uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign
     _spa_ types to _Staphylococcus aureus_ assemblies.

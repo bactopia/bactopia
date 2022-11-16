@@ -37,9 +37,14 @@ output:
       description: Merged TSV summary of all SeqSero2 results
       pattern: "seqsero2.tsv"
 docs:
+  meta:
+    title: seqsero2
+    description: >-
+      A Bactopia Tool which uses SeqSero2 for Salmonella serotype prediction
+      from reads and assemblies.
   introduction: |
     The `seqsero2` module uses [SeqSero2](https://github.com/denglab/SeqSero2) for Salmonella
-    serotype prediction from reads and assemblies .
+    serotype prediction from reads and assemblies.
   output:
     tree: |
       seqsero2/

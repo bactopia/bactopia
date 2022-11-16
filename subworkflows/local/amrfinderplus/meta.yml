@@ -52,6 +52,11 @@ output:
       description: Report of organism-specific point-mutations
       pattern: "*-mutations.tsv"
 docs:
+  meta:
+    title: amrfinderplus
+    description: >-
+      A Bactopia Tool which uses AMRFinder+ to screen assemblies and proteins
+      for antimicrobial resistance and virulence genes.
   introduction: |
     The `amrfinderplus` module uses [AMRFinder+](https://github.com/ncbi/amr) to screen assemblies and proteins
     for antimicrobial resistance and virulence genes.

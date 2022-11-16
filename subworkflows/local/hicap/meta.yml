@@ -52,8 +52,13 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: hicap
+    description: >-
+      A Bactopia Tool which uses hicap along wih an assembly for the _in silico_ typing of
+      the _Haemophilus influenzae_ cap locus.
   introduction: |
-    The `hicap` module uses [hicap](https://github.com/scwatts/hicap) allong wih an assembly for
+    The `hicap` module uses [hicap](https://github.com/scwatts/hicap) along wih an assembly for
     the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
   output:
     tree: |

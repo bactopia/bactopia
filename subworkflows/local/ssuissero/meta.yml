@@ -30,6 +30,11 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: ssuissero
+    description: >-
+      A Bactopia Tool which uses SsuisSero to predict the serotype of
+      _Streptococcus suis_ assemblies.
   introduction: |
     The `ssuissero` module uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict
     the serotype of _Streptococcus suis_ assemblies.

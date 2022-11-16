@@ -37,6 +37,11 @@ output:
       description: A merged summary of the staphopia-sccmec assessement
       pattern: "staphopiasccmec.tsv"
 docs:
+  meta:
+    title: staphopiasccmec
+    description: >-
+      A Bactopia Tool which uses staphopia-sccmec to assign SCCmec types
+      to _Staphylococcus aureus_ assemblies.
   introduction:
     The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)
     to assign SCCmec types to _Staphylococcus aureus_ assemblies.

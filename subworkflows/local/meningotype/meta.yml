@@ -37,6 +37,11 @@ output:
       pattern: 'versions.yml'
 
 docs:
+  meta:
+    title: meningotype
+    description: >-
+      A Bactopia Tool which uses meningotype for _in silico_ typing of
+      _Neisseria meningitidis_ genomes.
   introduction: |
     The `meningotype` module uses [meningotype](https://github.com/MDU-PHL/meningotype) 
     for _in silico_ typing of _Neisseria meningitidis_ genomes. It uses the contigs from 

@@ -35,6 +35,11 @@ output:
       description: mcr-1 matching sequences
       pattern: "*.fa"
 docs:
+  meta:
+    title: mcroni
+    description: >-
+      A Bactopia Tool which uses mcroni to identify _mcr-1_ genes in 
+      assemblies.
   introduction: |
       The `mcroni` module uses [mcroni](https://github.com/liampshaw/mcroni) to identify _mcr-1_ genes in 
       assemblies. If _mcr-1_ is found, the variations will be reported and available in an output FASTA file.

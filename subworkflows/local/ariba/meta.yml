@@ -46,6 +46,11 @@ output:
       description: File containing software versions
       pattern: "versions.yml"
 docs:
+  meta:
+    title: ariba
+    description: >-
+      A Bactopia Tool which uses ARIBA to rapidly identify genes in
+      a database by creating local assemblies.
   introduction: |
       The `ariba` module uses [ARIBA](https://github.com/sanger-pathogens/ariba) 
       to rapidly identify genes in a database by creating local assemblies.

@@ -22,6 +22,10 @@ output:
       description: File containing software versions
       pattern: "versions.yml"
 docs:
+  meta:
+    title: SUBWORKFLOW_NAME
+    description: >
+      A Bactopia Tool which uses...
   introduction: |
       The `SUBWORKFLOW_NAME` module uses...
   output:

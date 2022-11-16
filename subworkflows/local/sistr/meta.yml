@@ -47,6 +47,11 @@ output:
       description: CSV file destination for cgMLST allelic profiles
       pattern: "*.{csv}"
 docs:
+  meta:
+    title: sistr
+    description: >-
+      A Bactopia Tool which uses Salmonella In Silico Typing Resource, or SISTR, for
+      serovar prediction of Salmonella assemblies.
   introduction: |
     The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd),
     or SISTR, for serovar prediction of Salmonella assemblies.

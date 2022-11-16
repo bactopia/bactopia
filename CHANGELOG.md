@@ -1,3 +1,7 @@
+---
+title: changelog
+description: A full list of Bactopia releases and a description of the changes.
+---
 # Changelog
 
 ## v2.2.0 bactopia/bactopia "" - 2022/1?/??

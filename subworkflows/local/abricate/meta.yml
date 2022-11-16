@@ -35,6 +35,11 @@ output:
       description: Tab-delimited report of results from all samples
       pattern: "*.{txt}"
 docs:
+  meta:
+    title: abricate
+    description: >-
+      A Bactopia Tool which uses Abricate to screen assemblies for antimicrobial 
+      resistance and virulence genes
   introduction: |
     The `abricate` module uses [Abricate](https://github.com/tseemann/abricate) to screen assemblies
     for antimicrobial resistance and virulence genes.
