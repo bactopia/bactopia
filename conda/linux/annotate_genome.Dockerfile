@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robbie.petit@gmail.com"
 LABEL conda.env="bactopia/conda/linux/annotate_genome.yml"
-LABEL conda.md5="1a02e3cf127b19ad60f9e3dad434b6be"
+LABEL conda.md5="2d1885785fe2a7a209de1af06eea5115"
 
 COPY conda/linux/annotate_genome.yml /
 RUN conda env create -q -f annotate_genome.yml && conda clean -y -a 
