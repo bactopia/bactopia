@@ -15,8 +15,8 @@ process MASHTREE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mashtree:1.2.0--pl526h516909a_0' :
-        'quay.io/biocontainers/mashtree:1.2.0--pl526h516909a_0' }"
+        'https://depot.galaxyproject.org/singularity/mashtree:1.2.0--pl526h516909a_1' :
+        'quay.io/biocontainers/mashtree:1.2.0--pl526h516909a_1' }"
 
     input:
     tuple val(meta), path(seqs)

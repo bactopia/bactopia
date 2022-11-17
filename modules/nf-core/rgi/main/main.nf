@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'rgi')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::rgi=5.2.1"
+conda_tools = "bioconda::rgi=6.0.1"
 conda_env   = file("${params.condadir}/rgi").exists() ? "${params.condadir}/rgi" : conda_tools
 
 process RGI_MAIN {
@@ -13,8 +13,8 @@ process RGI_MAIN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/rgi:5.2.1--pyha8f3691_2' :
-        'quay.io/biocontainers/rgi:5.2.1--pyha8f3691_2' }"
+        'https://depot.galaxyproject.org/singularity/rgi:6.0.1--pyha8f3691_1' :
+        'quay.io/biocontainers/rgi:6.0.1--pyha8f3691_1' }"
 
     input:
     tuple val(meta), path(fasta)

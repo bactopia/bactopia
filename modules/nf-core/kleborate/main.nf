@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'kleborate')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::kleborate=2.1.0"
+conda_tools = "bioconda::kleborate=2.2.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process KLEBORATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/kleborate:2.1.0--pyhdfd78af_1' :
-        'quay.io/biocontainers/kleborate:2.1.0--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/kleborate:2.2.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/kleborate:2.2.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fastas)

@@ -4,7 +4,7 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'snippy')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 publish_dir = options.is_module ? "${publish_dir}/snippy" : publish_dir
-conda_tools = "bioconda::snippy=4.6.0 bioconda::vcf-annotator=0.7 bioconda::rename=1.601 bioconda::snpeff=5.0"
+conda_tools = "bioconda::snippy=4.6.0 bioconda::vcf-annotator=0.7 bioconda::rename=1.601 bioconda::snpeff=5.1"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -18,7 +18,7 @@ process SNIPPY_RUN {
         saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
-    container 'quay.io/bactopia/call_variants:2.1.0'
+    container 'quay.io/bactopia/call_variants:2.2.0'
 
     input:
     tuple val(meta), path(reads)

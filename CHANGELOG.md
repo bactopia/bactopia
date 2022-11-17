@@ -15,6 +15,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - custom profile for `wsvl`
 - Update Bakta to v1.5.1 (_psudeogenes!_)
 - updated citations
+- updated profram versions in modules
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies

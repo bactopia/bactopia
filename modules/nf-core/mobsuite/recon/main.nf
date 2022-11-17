@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'mobsuite')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::mob_suite=3.0.3"
+conda_tools = "bioconda::mob_suite=3.1.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process MOBSUITE_RECON {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mob_suite%3A3.0.3--pyhdfd78af_0' :
-        'quay.io/biocontainers/mob_suite:3.0.3--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/mob_suite%3A3.1.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/mob_suite:3.1.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

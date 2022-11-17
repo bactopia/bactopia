@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'checkm')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::checkm-genome=1.1.3"
+conda_tools = "bioconda::checkm-genome=1.2.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process CHECKM_LINEAGEWF {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/checkm-genome:1.1.3--py_1' :
-        'quay.io/biocontainers/checkm-genome:1.1.3--py_1' }"
+        'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/checkm-genome:1.2.2--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'gamma')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::gamma=2.1"
+conda_tools = "bioconda::gamma=2.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 def VERSION = '2.1' // Version information not provided by tool on CLI
@@ -16,8 +16,8 @@ process GAMMA {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gamma%3A2.1--hdfd78af_0' :
-        'quay.io/biocontainers/gamma:2.1--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/gamma%3A2.2--hdfd78af_0' :
+        'quay.io/biocontainers/gamma:2.2--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

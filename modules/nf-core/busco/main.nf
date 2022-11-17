@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.options ? params.options : [:], 'busco')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::busco=5.3.2"
+conda_tools = "bioconda::busco=5.4.3"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process BUSCO {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/busco:5.3.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/busco:5.3.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/busco:5.4.3--pyhdfd78af_0' :
+        'quay.io/biocontainers/busco:5.4.3--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path('tmp_input/*')
