@@ -20,7 +20,7 @@
     - path: bactopia-tools/iqtree/iqtree/logs/iqtree/test.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia-tools/iqtree/iqtree/logs/iqtree/versions.yml
-      md5sum: 92f74998944bdda4176f8757221b28c9
+      md5sum: 010ea2e5cf3f9b0a868e2feaa3819eda
     - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-dag.dot
       contains: ['iqtreedag', 'IQTREE', 'versions']
     - path: bactopia-tools/iqtree/iqtree/nf-reports/iqtree-report.html

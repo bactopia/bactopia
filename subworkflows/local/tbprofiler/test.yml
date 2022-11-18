@@ -28,7 +28,7 @@
     - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/tbprofiler/tbprofiler/test/logs/tbprofiler/versions.yml
-      md5sum: f2b6f744924a75894a4d869d3c9bc6d5
+      md5sum: 87f5eab2c64d546dcde11e0a01c37714
     - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.csv
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.json

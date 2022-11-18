@@ -5,9 +5,9 @@
     - bactopia-tools
   files:
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/chromosome.fasta
-      md5sum: 3e8b352d4ccb5cafac08a881077ab46d
+      md5sum: fe6e312b963fa5068c68cc25060ecd32
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/contig_report.txt
-      md5sum: 5cf814a10042414f438a1deb8321bdb7
+      contains: ["sample_id", "Staphylococcus", "plasmid"]
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/GCF_000017085-mobtyper.txt
       md5sum: ed0f1732237e91b675f8c4cdec229883
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/logs/mobsuite/nf-mobsuite.begin
@@ -25,9 +25,9 @@
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/logs/mobsuite/nf-mobsuite.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/logs/mobsuite/versions.yml
-      md5sum: 5c2dfd5258a22205fcf29f48791f7993
+      md5sum: de21b92162e51b714eb0004cd176bd33
     - path: bactopia-tools/mobsuite/mobsuite/GCF_000017085/plasmid_AA840.fasta
-      md5sum: bbfd8032cb591c314e06ad3772bf957d
+      md5sum: f774ed2069f1dfacd930673b748faaac
     - path: bactopia-tools/mobsuite/mobsuite/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/mobsuite/mobsuite/logs/csvtk_concat/nf-csvtk_concat.err
@@ -41,7 +41,7 @@
     - path: bactopia-tools/mobsuite/mobsuite/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mobsuite/mobsuite/logs/csvtk_concat/versions.yml
-      md5sum: 17dee8cff3821fe6c6ac629de7533804
+      md5sum: be1bba049f360a79975ad5eb8a4019fa
     - path: bactopia-tools/mobsuite/mobsuite/mobsuite.tsv
       md5sum: ed0f1732237e91b675f8c4cdec229883
     - path: bactopia-tools/mobsuite/mobsuite/nf-reports/mobsuite-dag.dot

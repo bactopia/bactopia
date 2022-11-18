@@ -25,7 +25,7 @@
     - path: bactopia-tools/panaroo/panaroo/final_graph.gml
       contains: ["lengths", "graph", "isolateNames"]
     - path: bactopia-tools/panaroo/panaroo/gene_data.csv
-      md5sum: b112c9a065b3e82aaff8214d4e6125ae
+      md5sum: b0c9c4b23b931887d969bb8568467155
     - path: bactopia-tools/panaroo/panaroo/gene_presence_absence.Rtab
       md5sum: ef50adf139968f1cf69cf16e249108d5
     - path: bactopia-tools/panaroo/panaroo/gene_presence_absence.csv
@@ -46,7 +46,7 @@
     - path: bactopia-tools/panaroo/panaroo/logs/panaroo/nf-panaroo.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/panaroo/panaroo/logs/panaroo/versions.yml
-      md5sum: 86ee1172741ab72de1d835bfd0e92c95
+      md5sum: 537a28b49445873a03a73c68468f7322
     - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-dag.dot
       contains: ['panaroodag', 'PANAROO', 'versions']
     - path: bactopia-tools/panaroo/panaroo/nf-reports/panaroo-report.html

@@ -33,7 +33,7 @@
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/logs/csvtk_concat/versions.yml
-      md5sum: 163edf4b56d5fe0d7da382cedc0249a3
+      md5sum: 4881cee23b683db0dcc385ccbd8699ab
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-dag.dot
       contains: ['staphopiasccmecdag', 'STAPHOPIASCCMEC', 'versions']
     - path: bactopia-tools/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-report.html

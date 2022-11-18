@@ -33,7 +33,7 @@
     - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/versions.yml
-      md5sum: f4071a32e8dc1c3f028c048a192aea8f
+      md5sum: 664c4a93c27de47d8f67a1b0c4421a26
     - path: bactopia-tools/mcroni/mcroni/mcroni.tsv
       md5sum: c5459d2965dfafe22f173023d0c35610
     - path: bactopia-tools/mcroni/mcroni/nf-reports/mcroni-dag.dot

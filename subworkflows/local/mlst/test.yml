@@ -21,7 +21,7 @@
     - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/versions.yml
-      md5sum: f1dc02e2a3b44937bb515310a36e5828
+      md5sum: 6581d08f3dbd718cf59e8141f0b7cbc7
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.err
@@ -35,7 +35,7 @@
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/versions.yml
-      md5sum: fa77c05b09a547c23b3de721b8ae1290
+      md5sum: d27679d699e4d16d8b47baa6743a6c19
     - path: bactopia-tools/mlst/mlst/mlst.tsv
       md5sum: 67e1b29068b46c7ccd845ec36d41da89
     - path: bactopia-tools/mlst/mlst/nf-reports/mlst-dag.dot

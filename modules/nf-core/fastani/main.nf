@@ -15,8 +15,8 @@ process FASTANI {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/fastani:1.33--he1c1bb9_1' :
-        'quay.io/biocontainers/fastani:1.33--he1c1bb9_1' }"
+        'https://depot.galaxyproject.org/singularity/fastani:1.33--h0fdf51a_1' :
+        'quay.io/biocontainers/fastani:1.33--h0fdf51a_1' }"
 
 
     input:

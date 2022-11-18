@@ -36,7 +36,7 @@
     - path: bactopia-tools/hpsuissero/hpsuissero/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/hpsuissero/hpsuissero/logs/csvtk_concat/versions.yml
-      md5sum: f2578c094d64f031f29f55fa501a2ac2
+      md5sum: ed671bd3d57688b4019b2cdc8a19fe0d
     - path: bactopia-tools/hpsuissero/hpsuissero/nf-reports/hpsuissero-dag.dot
       contains: ["hpsuisserodag", "HPSUISSERO", "version"]
     - path: bactopia-tools/hpsuissero/hpsuissero/nf-reports/hpsuissero-report.html

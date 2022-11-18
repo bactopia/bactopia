@@ -28,7 +28,7 @@
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.mldist
-      md5sum: 8911a67ed8e329837f6673d9ad422c89
+      md5sum: 3ff892ddb01fd8d56af70968f33045cf
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.model.gz
     - path: bactopia-tools/pangenome/pangenome/iqtree-fast/start-tree.treefile
       contains: ['GCF_00029838', 'GCF_002849995']
@@ -79,7 +79,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree-fast/versions.yml
-      md5sum: cc2f82cc59e4ec17474d8227b78a5da0
+      md5sum: c4a78be1e2518a12b897b998c2735930
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/core-genome.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.begin
@@ -96,7 +96,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pangenome/pangenome/logs/iqtree/versions.yml
-      md5sum: a9600ba39895432b0e5b64d3f7a2b667
+      md5sum: b73e15fb2791178e026b247d07af8225
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/nf-pirate.err
@@ -117,7 +117,7 @@
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/results/split_groups.log
       contains: ['g0']
     - path: bactopia-tools/pangenome/pangenome/logs/pirate/versions.yml
-      md5sum: 2f9c4961e3ad6b2b17d3f751ebc7053c
+      md5sum: 6bc44b7c58f94cc88e82dd7287769da0
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pangenome/pangenome/logs/snpdists/nf-snpdists.err

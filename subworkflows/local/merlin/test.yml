@@ -91,7 +91,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/versions.yml
-      md5sum: 94d6965f6eca4654d15dde088879a39d
+      md5sum: f13379691689759cde0390a539184c56
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
@@ -105,7 +105,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/versions.yml
-      md5sum: 4cc9396ac027ebb1917ed2ddba0ccf49
+      md5sum: 07463dc2918ff6ccedbfc1d326301f99
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
@@ -119,7 +119,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/versions.yml
-      md5sum: d57d15ad98d4a22324dc3538d8d0fb17
+      md5sum: 869b2024fb87ae0b5dcd519be8cbd205
     - path: bactopia-tools/merlin/merlin/nf-reports/merlin-dag.dot
       contains: ['merlindag', 'MERLIN', 'versions']
     - path: bactopia-tools/merlin/merlin/nf-reports/merlin-report.html
@@ -137,7 +137,6 @@
 - name: merlin-full_test
   command: bash -c 'nextflow run ./subworkflows/local/merlin/test.nf -entry test_merlinfull --wf merlin --full_merlin -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - merlin
     - merlin-full
     - bactopia-tools
   files:

@@ -49,7 +49,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/versions.yml
-      md5sum: 69ec52e14ad6d66d65414dbe08a9cbce
+      md5sum: 28d683c4be220179533b54d5b8563e31
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-dag.dot
       contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
     - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-report.html
@@ -64,7 +64,7 @@
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.iqtree
       contains: ['REFERENCES', 'Date', 'GCF_002849995']
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.mldist
-      md5sum: 8911a67ed8e329837f6673d9ad422c89
+      contains: ['GCF_000292685', 'GCF_000300075', 'GCF_002849995']
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.model.gz
     - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.treefile
       contains: ['GCF_902713755']
