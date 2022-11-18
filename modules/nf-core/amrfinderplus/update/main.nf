@@ -28,7 +28,7 @@ process AMRFINDERPLUS_UPDATE {
     """
     mkdir amrfinderdb
     amrfinder_update -d amrfinderdb
-    tar czvf amrfinderdb.tar.gz -C \$(readlink amrfinderdb/latest) ./
+    tar czvf amrfinderdb.tar.gz -C amrfinderdb/\$(readlink amrfinderdb/latest) ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

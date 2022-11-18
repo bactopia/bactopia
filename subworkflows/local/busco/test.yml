@@ -69,7 +69,7 @@
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/981870at2.fna
       md5sum: 4bc28c4127d6d8749c1418ee9d18f95d
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/full_table.tsv
-      md5sum: 40b7586a93b8eccff32e76b02c964ecb
+      md5sum: f473ded1f1db2463533d51be6ed6fd2d
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/hmmer_output/.checkpoint
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/hmmer_output/1009041at2.out
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/hmmer_output/1024388at2.out
@@ -79,21 +79,21 @@
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/hmmer_output/981870at2.out
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/hmmer_output/984717at2.out
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/missing_busco_list.tsv
-      md5sum: 2bb012c0ba42e5055fe08fe5c5516ba5
+      md5sum: 8e6b6a4ba25caf8e7ad15e8a77064755
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/short_summary.json
-      contains: ["one_line_summary", "dataset_total_buscos", "dataset"]
+      contains: ["one_line_summary", "dataset"]
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/run_bacteria_odb10/short_summary.txt
       contains: ["BUSCO", "Dependencies", "Total"]
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/short_summary.specific.bacteria_odb10.GCF_000292685.json
-      contains: ["one_line_summary", "dataset_total_buscos", "dataset"]
+      contains: ["one_line_summary", "dataset"]
     - path: bactopia-tools/busco/busco/bacteria_odb10/GCF_000292685/short_summary.specific.bacteria_odb10.GCF_000292685.txt
       contains: ["BUSCO", "Dependencies", "Total"]
     - path: bactopia-tools/busco/busco/bacteria_odb10/bacteria_odb10-summary.txt
-      md5sum: 17ce5249d44c09f0f662fdf3f5550b2b
+      md5sum: 751340944f3edeed5a5d17dfff29aaf4
     - path: bactopia-tools/busco/busco/bacteria_odb10/logs/busco.log
       contains: ["run_BUSCO", "hmmsearch", "done"]
     - path: bactopia-tools/busco/busco/busco.tsv
-      md5sum: 17ce5249d44c09f0f662fdf3f5550b2b
+      md5sum: 751340944f3edeed5a5d17dfff29aaf4
     - path: bactopia-tools/busco/busco/logs/busco/bacteria_odb10/nf-busco.begin
     - path: bactopia-tools/busco/busco/logs/busco/bacteria_odb10/nf-busco.err
     - path: bactopia-tools/busco/busco/logs/busco/bacteria_odb10/nf-busco.log
@@ -107,7 +107,7 @@
     - path: bactopia-tools/busco/busco/logs/busco/bacteria_odb10/nf-busco.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/busco/busco/logs/busco/bacteria_odb10/versions.yml
-      md5sum: 552d699fa079457058d3a09ec85e679f
+      md5sum: 4f49e05bf84e76195e8c7627d13f6d6d
     - path: bactopia-tools/busco/busco/logs/csvtk_concat/nf-csvtk_concat.begin
     - path: bactopia-tools/busco/busco/logs/csvtk_concat/nf-csvtk_concat.err
     - path: bactopia-tools/busco/busco/logs/csvtk_concat/nf-csvtk_concat.log
@@ -120,7 +120,7 @@
     - path: bactopia-tools/busco/busco/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/busco/busco/logs/csvtk_concat/versions.yml
-      md5sum: 4bf5ea200e8f4c6fa2b99a9fe3b6a2aa
+      md5sum: 5e9df2e146ce9731dd1fb0020bb666b2
     - path: bactopia-tools/busco/busco/nf-reports/busco-dag.dot
       contains: ['buscodag', 'BUSCO', 'versions']
     - path: bactopia-tools/busco/busco/nf-reports/busco-report.html

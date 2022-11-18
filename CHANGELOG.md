@@ -19,6 +19,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
+    - `shigeifinder` - Serotyping Shigella and EIEC assemblies
 
 ### `Fixed`
 - respect short polish hybrid assembly requests

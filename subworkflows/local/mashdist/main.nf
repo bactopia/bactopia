@@ -75,6 +75,7 @@ workflow MERLINDIST {
     mycobacterium = MERLINDIST_MODULE.out.mycobacterium
     mycobacterium_fq = MERLINDIST_MODULE.out.mycobacterium_fq
     neisseria = MERLINDIST_MODULE.out.neisseria
+    pseudomonas = MERLINDIST_MODULE.out.pseudomonas
     salmonella = MERLINDIST_MODULE.out.salmonella
     salmonella_fq = MERLINDIST_MODULE.out.salmonella_fq
     staphylococcus = MERLINDIST_MODULE.out.staphylococcus
