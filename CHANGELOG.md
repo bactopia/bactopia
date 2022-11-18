@@ -15,11 +15,36 @@ description: A full list of Bactopia releases and a description of the changes.
 - custom profile for `wsvl`
 - Update Bakta to v1.5.1 (_psudeogenes!_)
 - updated citations
-- updated profram versions in modules
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
     - `shigeifinder` - Serotyping Shigella and EIEC assemblies
+- bump program versions in modules
+    - `bbmap` -> 39.01
+    - `checkm-genome` -> 1.2.2
+    - `csvtk` -> 0.25.0
+    - `dragonflye` -> 1.0.13
+    - `eggnog-mapper` -> 2.1.9
+    - `fastani` -> 1.33
+    - `fastq-scan` -> 1.0.1
+    - `gamma` -> 2.2
+    - `gtdbtk` -> 2.1.1
+    - `iqtree` -> 2.2.0.3
+    - `kleborate` -> 2.2.0
+    - `mlst` -> 2.23.0
+    - `mob_suite` -> 3.1.0
+    - `mykrobe` -> 0.12.0
+    - `nanoplot` -> 1.40.2
+    - `ncbi-amrfinderplus`-> 3.10.45
+    - `panaroo` -> 1.3.0
+    - `pirate` -> 1.0.5
+    - `rasusa` -> 0.7.0
+    - `rgi` -> 6.0.1
+    - `shigatyper` -> 2.0.3
+    - `snpeff` -> 5.1
+    - `sourmash` -> 4.5.0
+    - `sra-tools` -> 3.0.0
+    - `tb-profiler` -> 4.4.0
 
 ### `Fixed`
 - respect short polish hybrid assembly requests
