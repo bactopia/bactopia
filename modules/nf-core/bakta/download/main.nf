@@ -19,6 +19,7 @@ process BAKTA_DOWNLOAD {
 
     output:
     path "bakta/*"     , emit: db
+    path "bakta.tar.gz", emit: db_tar, optional: true
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -27,6 +28,10 @@ process BAKTA_DOWNLOAD {
     bakta_db \\
         download \\
         --output bakta
+
+    if [ "!{params.bakta_save_as_tarball}" == "true" ]; then
+        tar -czf bakta.tar.gz bakta/
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

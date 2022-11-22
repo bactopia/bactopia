@@ -46,13 +46,22 @@ process BAKTA_RUN {
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigal-tf ${prodigal_tf[0]}" : ""
     def replicons_opt = replicons ? "--replicons ${replicons[0]}" : ""
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        BAKTA_DB=\$(find database/ -name "bakta.db" | sed 's=bakta.db==')
+    else
+        BAKTA_DB=\$(find $db/ -name "bakta.db" | sed 's=bakta.db==')
+    fi
+
     bakta \\
         --output results \\
         $options.args \\
         --threads $task.cpus \\
         --prefix ${prefix} \\
-        --db $db \\
+        --db \$BAKTA_DB \\
         $proteins_opt \\
         $prodigal_opt \\
         $replicons_opt \\
@@ -131,13 +140,22 @@ process BAKTA_MAIN_RUN {
             species = "--species spp."
         }
     }
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
+    if [ "$is_tarball" == "true" ]; then
+        mkdir bakta
+        tar -xzf $db -C bakta
+        BAKTA_DB=\$(find bakta/ -name "bakta.db" | sed 's=bakta.db==')
+    else
+        BAKTA_DB=\$(find $db/ -name "bakta.db" | sed 's=bakta.db==')
+    fi
+
     bakta \\
         --output results/ \\
         $options.args \\
         --threads $task.cpus \\
         --prefix ${prefix} \\
-        --db $db \\
+        --db \$BAKTA_DB \\
         $genus \\
         $species \\
         $proteins_opt \\
