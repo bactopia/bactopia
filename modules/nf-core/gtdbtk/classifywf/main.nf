@@ -30,8 +30,15 @@ process GTDBTK_CLASSIFYWF {
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    export GTDBTK_DATA_PATH="\$(readlink $db)"
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        export GTDBTK_DATA_PATH="\$(realpath \$(find database/ -path "*metadata*" -name "metadata.txt" | sed 's=/metadata/metadata.txt=='))"
+    else
+        export GTDBTK_DATA_PATH="\$(readlink $db)"
+    fi
     mkdir fna
     cp -L fna-tmp/* fna/
     find fna/ -name "*.fna.gz" | xargs gunzip

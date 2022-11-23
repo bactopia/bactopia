@@ -89,7 +89,7 @@
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: 1cfea423a29635dd45d0645bc40bcd61
+      md5sum: d24b86f107df92861d9f746c3fa7db0d
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
     - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html

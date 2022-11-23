@@ -17,17 +17,23 @@ process GTDBTK_SETUPDB {
         'quay.io/biocontainers/gtdbtk:2.1.1--pyhdfd78af_1' }"
 
     output:
-    path("results/*")  , emit: db
-    path "*.{log,err}" , emit: logs, optional: true
-    path ".command.*"  , emit: nf_logs
-    path "versions.yml", emit: versions
+    path("gtdbtk/*")     , emit: db, optional: true
+    path("gtdbtk.tar.gz"), emit: db, optional: true
+    path "*.{log,err}"   , emit: logs, optional: true
+    path ".command.*"    , emit: nf_logs
+    path "versions.yml"  , emit: versions
 
     script:
     """
-    export GTDBTK_DATA_PATH="./results"
-    mkdir ./results
-    download-db.sh ./results
+    export GTDBTK_DATA_PATH="./gtdbtk"
+    mkdir ./gtdbtk
+    download-db.sh ./gtdbtk
     gtdbtk check_install && touch gtdb-setup.txt
+
+    if [ "!{params.gtdb_save_as_tarball}" == "true" ]; then
+        tar -czf gtdbtk.tar.gz gtdbtk/
+        rm -rf gtdbtk/
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

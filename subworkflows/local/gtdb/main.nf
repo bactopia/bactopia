@@ -27,7 +27,12 @@ workflow GTDB {
     if (params.download_gtdb) {
         // Force CLASSIFY to wait
         SETUPDB()
-        CLASSIFY(fasta, SETUPDB.out.db)
+
+        if (params.gtdb_save_as_tarball) {
+            CLASSIFY(fasta, SETUPDB.out.db_tarball)
+        } else {
+            CLASSIFY(fasta, SETUPDB.out.db)
+        }
     } else {
         CLASSIFY(fasta, DATABASE_DIR)
     }

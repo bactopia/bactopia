@@ -24,6 +24,12 @@
                     "description": "Download the latest GTDB database, even it exists",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
+                "gtdb_save_as_tarball": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, and save it in a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "skip_check": {
                     "type": "boolean",
                     "default": false,

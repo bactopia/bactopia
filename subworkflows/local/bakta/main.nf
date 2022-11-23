@@ -41,7 +41,7 @@ workflow BAKTA {
         BAKTA_DOWNLOAD()
 
         if (params.bakta_save_as_tarball) {
-            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db_tar, PROTEINS, PRODIGAL_TF, REPLICONS)
+            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db_tarball, PROTEINS, PRODIGAL_TF, REPLICONS)
         } else {
             BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db, PROTEINS, PRODIGAL_TF, REPLICONS)
         }
@@ -76,7 +76,7 @@ workflow BAKTA_MAIN {
         // Force BAKTA_DOWNLOAD to wait
         BAKTA_DOWNLOAD()
         if (params.bakta_save_as_tarball) {
-            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db_tar, REPLICONS)
+            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db_tarball, REPLICONS)
         } else {
             USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db, REPLICONS)
         }

@@ -18,8 +18,8 @@ process BAKTA_DOWNLOAD {
         'quay.io/biocontainers/bakta:1.5.1--pyhdfd78af_0' }"
 
     output:
-    path "bakta/*"     , emit: db
-    path "bakta.tar.gz", emit: db_tar, optional: true
+    path "bakta/*"     , emit: db, optional: true
+    path "bakta.tar.gz", emit: db_tarball, optional: true
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -31,6 +31,7 @@ process BAKTA_DOWNLOAD {
 
     if [ "!{params.bakta_save_as_tarball}" == "true" ]; then
         tar -czf bakta.tar.gz bakta/
+        rm -rf bakta/
     fi
 
     cat <<-END_VERSIONS > versions.yml
