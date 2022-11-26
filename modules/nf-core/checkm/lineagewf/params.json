@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/checkm/lineagewf/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/checkm/lineagewf/params.json",
     "title": "CheckM Module",
     "description": "A module to assess the assembly quality of your samples",
     "type": "object",

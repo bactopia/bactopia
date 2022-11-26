@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/snpdists/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/snpdists/params.json",
     "title": "SNP-Dists Module",
     "description": "Pairwise SNP distance matrix from a FASTA sequence alignment",
     "type": "object",

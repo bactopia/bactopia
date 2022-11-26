@@ -38,17 +38,26 @@ process EGGNOG_MAPPER {
 
     script:
     def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        EGGNOG_DB=\$(find database/ -name "eggnog.db" | sed 's=eggnog.db==')
+    else
+        EGGNOG_DB=\$(find $db/ -name "eggnog.db" | sed 's=eggnog.db==')
+    fi
+
     emapper.py \\
         $options.args \\
         --cpu $task.cpus \\
-        --data_dir ./ \\
+        --data_dir \$EGGNOG_DB \\
         --output $prefix \\
         -i $fasta
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
+        eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//;s/ .*//')
     END_VERSIONS
     """
 }

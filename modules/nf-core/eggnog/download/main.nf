@@ -17,10 +17,11 @@ process EGGNOG_DOWNLOAD {
         'quay.io/biocontainers/eggnog-mapper:2.1.9--pyhdfd78af_0' }"
 
     output:
-    path("eggnog/*")                        , emit: db
-    path "*.{log,err}", emit: logs          , optional: true
-    path ".command.*"                       , emit: nf_logs
-    path "versions.yml"                     , emit: versions
+    path("eggnog/*")     , emit: db, optional: true
+    path("eggnog.tar.gz"), emit: db_tarball, optional: true
+    path "*.{log,err}"   , emit: logs, optional: true
+    path ".command.*"    , emit: nf_logs
+    path "versions.yml"  , emit: versions
 
     script:
     """
@@ -30,9 +31,14 @@ process EGGNOG_DOWNLOAD {
         -y \\
         --data_dir eggnog/
 
+    if [ "!{params.eggnog_save_as_tarball}" == "true" ]; then
+        tar -czf eggnog.tar.gz eggnog/
+        rm -rf eggnog/
+    fi
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//')
+        eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//;s/ .*//')
     END_VERSIONS
     """
 }

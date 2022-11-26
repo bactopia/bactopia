@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/meningotype/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/meningotype/params.json",
     "title": "meningotype Module",
     "description": "A module for serotyping of Neisseria meningitidis",
     "type": "object",

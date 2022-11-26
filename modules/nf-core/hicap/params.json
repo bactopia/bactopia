@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/hicap/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/hicap/params.json",
     "title": "hicap Module",
     "description": "A module for in-silico typing of the H. influenzae capsule locus",
     "type": "object",

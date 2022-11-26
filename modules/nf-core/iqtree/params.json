@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/iqtree/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/iqtree/params.json",
     "title": "IQ-TREE Module",
     "description": "Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm.",
     "type": "object",

@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/amrfinderplus/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/amrfinderplus/params.json",
     "title": "AMRFinder+ Module",
     "description": "A module to identify antimicrobial resistance in genes or proteins",
     "type": "object",

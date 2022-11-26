@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/kleborate/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/kleborate/params.json",
     "title": "Kleborate Module",
     "description": "A module to screen for MLST, sub-species, and other Klebsiella related genes of interest",
     "type": "object",

@@ -36,9 +36,18 @@ process KRAKEN2 {
     def paired       = meta.single_end ? "" : "--paired"
     def classified   = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
     def unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        KRAKEN_DB=\$(find database/ -name "hash.k2d" | sed 's=hash.k2d==')
+    else
+        KRAKEN_DB=\$(find $db/ -name "hash.k2d" | sed 's=hash.k2d==')
+    fi
+
     kraken2 \\
-        --db $db \\
+        --db \$KRAKEN_DB \\
         --threads $task.cpus \\
         --unclassified-out $unclassified \\
         --classified-out $classified \\

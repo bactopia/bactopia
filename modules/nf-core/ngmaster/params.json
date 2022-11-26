@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ngmaster/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/ngmaster/params.json",
     "title": "ngmaster Module",
     "description": "A module for multi-antigen sequence typing for Neisseria gonorrhoeae",
     "type": "object",

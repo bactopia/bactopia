@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/snippy/run/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/snippy/run/params.json",
     "title": "Bactopia pipeline parameters",
     "description": "A module for rapid variant calling from sequence reads",
     "type": "object",

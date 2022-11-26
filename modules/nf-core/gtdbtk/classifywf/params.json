@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/gtdbtk/classifywf/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/gtdbtk/classifywf/params.json",
     "title": "GTDB Classify Module",
     "description": "Identify marker genes and assign taxonomic classifications",
     "type": "object",

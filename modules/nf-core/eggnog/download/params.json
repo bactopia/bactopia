@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/eggnog/download/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/eggnog/download/params.json",
     "title": "eggNOG Downloader Module",
     "description": "A module for downloading eggNOG databases",
     "type": "object",
@@ -14,7 +14,7 @@
             "properties": {
                 "eggnog": {
                     "type": "string",
-                    "description": "Path to existing or destination for eggNOG databases",
+                    "description": "Tarball or path to eggNOG databases",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "is_required": true
                 },
@@ -23,6 +23,12 @@
                     "default": false,
                     "description": "Required if downloading latest eggNOG database, will overwrite existing databases.",
                     "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "eggnog_save_as_tarball": {
+                    "type": "string",
+                    "description": "Save the eggNOG database as a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "skip_diamond": {
                     "type": "boolean",

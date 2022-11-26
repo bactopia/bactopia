@@ -13,7 +13,7 @@ classify_args = [
     "--min_perc_aa ${params.min_perc_aa}",
     "--min_af ${params.min_af}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-DATABASE_DIR = ! params.download_gtdb ? file(params.gtdb) : []
+DATABASE = ! params.download_gtdb ? file(params.gtdb) : []
 include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/gtdbtk/setupdb/main' addParams( options: options + [publish_to_base: true] )
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/gtdbtk/classifywf/main' addParams( options: options + [args: "${classify_args}"] )
 
@@ -34,7 +34,7 @@ workflow GTDB {
             CLASSIFY(fasta, SETUPDB.out.db)
         }
     } else {
-        CLASSIFY(fasta, DATABASE_DIR)
+        CLASSIFY(fasta, DATABASE)
     }
     ch_versions = ch_versions.mix(CLASSIFY.out.versions.first())
 

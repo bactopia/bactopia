@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/hpsuissero/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/hpsuissero/params.json",
     "title": "HpsuisSero Module",
     "description": "A module serotype prediction of Haemophilus parasuis assemblies",
     "type": "object",

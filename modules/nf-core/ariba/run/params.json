@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ariba/run/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/ariba/run/params.json",
     "title": "Ariba Run Module",
     "description": "A module for gene identification through local assemblies",
     "type": "object",

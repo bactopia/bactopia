@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/emmtyper/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/emmtyper/params.json",
     "title": "emmtyper Module",
     "description": "A module for emm-typing of Streptococcus pyogenes",
     "type": "object",

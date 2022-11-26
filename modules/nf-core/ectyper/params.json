@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/ectyper/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/ectyper/params.json",
     "title": "ECTyper Module",
     "description": "A module for serotyping Escherichia coli genomes",
     "type": "object",

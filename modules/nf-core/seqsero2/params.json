@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/seqsero2/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/seqsero2/params.json",
     "title": "SeqSero2 Module",
     "description": "A module for Salmonella serotype prediction",
     "type": "object",

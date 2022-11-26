@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/sistr/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/sistr/params.json",
     "title": "SISTR Module",
     "description": "A module for serovar prediction of Salmonella assemblies",
     "type": "object",

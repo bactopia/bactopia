@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/modules/gtdbtk/setupdb/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/gtdbtk/setupdb/params.json",
     "title": "GTDB Setup Module",
     "description": "Identify marker genes and assign taxonomic classifications",
     "type": "object",
@@ -14,7 +14,7 @@
             "properties": {
                 "gtdb": {
                     "type": "string",
-                    "description": "Location of a GTDB database. If a database is not found, you must use '--download_gtdb'",
+                    "description": "Tarball or path of a GTDB database. If a database is not found, you must use '--download_gtdb'",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "is_required": true
                 },

@@ -23,6 +23,7 @@ requirements:
     - coreutils
     - executor
     - gsl <=2.6
+    - importlib-metadata <5
     - mamba
     - mash
     - ncbi-amrfinderplus 3.10.30
