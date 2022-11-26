@@ -29,7 +29,7 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 35daf84b2ec047840a9ec014cb271c7e
+      md5sum: 99099cad61a4b2cc239f18b5b113d8b0
     - path: pytest/output/minmers/output-mash-refseq-k21.txt
       contains: ['identity']
 
