@@ -1,8 +1,8 @@
-FROM nfcore/base:2.1
+FROM bactopia/base:2.2.0
 
-LABEL base.image="nfcore/base:2.1"
+LABEL base.image="bactopia/base:2.2.0"
 LABEL software="Bactopia - assembly_qc"
-LABEL software.version="2.1.1"
+LABEL software.version="2.2.0"
 LABEL description="A flexible pipeline for complete analysis of bacterial genomes"
 LABEL website="https://bactopia.github.io/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
@@ -11,7 +11,10 @@ LABEL maintainer.email="robbie.petit@gmail.com"
 LABEL conda.env="bactopia/conda/linux/assembly_qc.yml"
 LABEL conda.md5="e7e912c75ca6345e6b81a99fb33f44cd"
 
+# Bactopia environment
 COPY conda/linux/assembly_qc.yml /
-RUN conda env create -q -f assembly_qc.yml && conda clean -y -a
+RUN mamba env create -q -f assembly_qc.yml && \
+    mamba clean -a -y
+
+# Add bactopia env to path
 ENV PATH /opt/conda/envs/bactopia-assembly_qc/bin:$PATH
-COPY bin/*.py /opt/conda/envs/bactopia-assembly_qc/bin/

@@ -13,13 +13,15 @@ description: A full list of Bactopia releases and a description of the changes.
 - `--skip_spell_check` in `bactopia datasets`
 - updated organisms available from PubMLST
 - custom profile for `wsvl`
-- Update Bakta to v1.5.1 (_psudeogenes!_)
 - updated citations
+- use `mambaforge` for docker builds
+- Support tarball inputs for large databases
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
     - `shigeifinder` - Serotyping Shigella and EIEC assemblies
 - bump program versions in modules
+    - `bakta` -> 1.5.1 
     - `bbmap` -> 39.01
     - `checkm-genome` -> 1.2.2
     - `csvtk` -> 0.25.0

@@ -15,7 +15,7 @@ process SHIGEIFINDER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/shigeifinder:1.3.2--pyhdfd78af_0':
+        'https://depot.galaxyproject.org/singularity/shigeifinder:1.3.2--pyhdfd78af_0' :
         'quay.io/biocontainers/shigeifinder:1.3.2--pyhdfd78af_0' }"
 
     input:

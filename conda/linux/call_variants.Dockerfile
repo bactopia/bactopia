@@ -1,8 +1,8 @@
-FROM nfcore/base:2.1
+FROM bactopia/base:2.2.0
 
-LABEL base.image="nfcore/base:2.1"
+LABEL base.image="bactopia/base:2.2.0"
 LABEL software="Bactopia - call_variants"
-LABEL software.version="2.1.1"
+LABEL software.version="2.2.0"
 LABEL description="A flexible pipeline for complete analysis of bacterial genomes"
 LABEL website="https://bactopia.github.io/"
 LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
@@ -11,9 +11,10 @@ LABEL maintainer.email="robbie.petit@gmail.com"
 LABEL conda.env="bactopia/conda/linux/call_variants.yml"
 LABEL conda.md5="ea4a6fd7d3689c18ecf92ad5120da6a2"
 
+# Bactopia environment
 COPY conda/linux/call_variants.yml /
-RUN conda env create -q -f call_variants.yml && conda clean -y -a
-RUN apt-get update && apt-get install -y locales && apt-get clean -y && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_US.UTF-8
+RUN mamba env create -q -f call_variants.yml && \
+    mamba clean -a -y
+
+# Add bactopia env to path
 ENV PATH /opt/conda/envs/bactopia-call_variants/bin:$PATH
-COPY bin/*.py /opt/conda/envs/bactopia-call_variants/bin/

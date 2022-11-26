@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 PROGRAM = "update-pubmlst.py"
 DESCRIPTION = "Download latest XML from PubMLST"
-VERSION = "2.1.1"
+VERSION = "2.2.0"
 
 def get_pubmlst_xml():
     import requests
