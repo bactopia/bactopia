@@ -28,7 +28,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 5244da8d30e4f52a7c456c154b88cf5f
+      md5sum: 0b2463c0c3f90e14bf5d6c334a958379
     - path: pytest/output/quality-control/output_R1.fastq.gz
       md5sum: 5d90f0b7f99b9c92de7286e2e90fe395
     - path: pytest/output/quality-control/output_R2.fastq.gz
@@ -80,7 +80,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 1933c8562950bd23b7f6f218af05105f
+      md5sum: 723077d608561433f7e0b3fc741f2cea
     - path: pytest/output/quality-control/output.fastq.gz
       md5sum: 2a5116c5d7ba15fb752c3dc1209692cc
     - path: pytest/output/quality-control/summary/output-final.json
@@ -122,7 +122,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 5244da8d30e4f52a7c456c154b88cf5f
+      md5sum: 0b2463c0c3f90e14bf5d6c334a958379
     - path: pytest/output/quality-control/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: pytest/output/quality-control/output_R1.fastq.gz
@@ -176,7 +176,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 1933c8562950bd23b7f6f218af05105f
+      md5sum: 723077d608561433f7e0b3fc741f2cea
     - path: pytest/output/quality-control/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: pytest/output/quality-control/output.fastq.gz
@@ -220,7 +220,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 5244da8d30e4f52a7c456c154b88cf5f
+      md5sum: 0b2463c0c3f90e14bf5d6c334a958379
     - path: pytest/output/output-low-read-count-error.txt
       md5sum: 028026208ef6d981e6a5bb1731ca05af
     - path: pytest/output/output-low-sequence-depth-error.txt
@@ -276,7 +276,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 1933c8562950bd23b7f6f218af05105f
+      md5sum: 723077d608561433f7e0b3fc741f2cea
     - path: pytest/output/output-low-read-count-error.txt
       md5sum: f6404ba61ab4d130d51b5a47b4e0c134
     - path: pytest/output/output-low-sequence-depth-error.txt
@@ -321,7 +321,7 @@
     - path: pytest/output/logs/qc_reads/nf-qc_reads.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/qc_reads/versions.yml
-      md5sum: 24b1a1e2da51766823ef362e303ad18b
+      md5sum: 63ceadf2f7bcc04cd40e569a8551db20
     - path: pytest/output/quality-control/output.fastq.gz
       md5sum: bdb67257dda938ab977956940b860480
     - path: pytest/output/quality-control/summary/output-final.json

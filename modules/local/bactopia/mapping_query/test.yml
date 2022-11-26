@@ -28,7 +28,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/mapping_query/versions.yml
-      md5sum: 35f9274435329d2aede10f3f74cbaf81
+      md5sum: 5eef5a41ba220c037a3871c4c4c5b805
     - path: pytest/output/mapping/B186_RS01460-coverage.txt.gz
       md5sum: f1a357eccc23375ed5450e2450818562
     - path: pytest/output/mapping/B186_RS01465-coverage.txt.gz
@@ -66,7 +66,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/mapping_query/versions.yml
-      md5sum: 35f9274435329d2aede10f3f74cbaf81
+      md5sum: 5eef5a41ba220c037a3871c4c4c5b805
     - path: pytest/output/mapping/B186_RS01460-coverage.txt
       md5sum: c0deca971068327c9d39f9a12ecc3fd3
     - path: pytest/output/mapping/B186_RS01465-coverage.txt
@@ -104,7 +104,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/mapping_query/versions.yml
-      md5sum: 456d4071228f1fad8d3b9efafd0230d8
+      md5sum: 3fbb5327485ae3f9713703e7f9a6f7d1
     - path: pytest/output/mapping/B186_RS01460-coverage.txt.gz
       md5sum: 70c3048f6c995f387a74cb5124678ad5
     - path: pytest/output/mapping/B186_RS01465-coverage.txt.gz
@@ -142,7 +142,7 @@
     - path: pytest/output/logs/mapping_query/nf-mapping_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/mapping_query/versions.yml
-      md5sum: 456d4071228f1fad8d3b9efafd0230d8
+      md5sum: 3fbb5327485ae3f9713703e7f9a6f7d1
     - path: pytest/output/mapping/B186_RS01460-coverage.txt
       md5sum: b3fe5dacd527e51278fe4aaca7a15efe
     - path: pytest/output/mapping/B186_RS01465-coverage.txt

@@ -27,7 +27,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: b14e5167f2614ba1410c89a25426b9e0
+      md5sum: 5c4bee6a9c7b5a9fe5bd1004f219470a
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -60,7 +60,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: f73cb930f86f63af5bdfd02fceeeebbb
+      md5sum: 0474992052edfd0aa51f71dc298e915f
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -93,7 +93,7 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: cbc8b010774a490f76f13ade90a96128
+      md5sum: 40cc8db77535826871466d836e852a2a
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72
 
@@ -126,6 +126,6 @@
     - path: pytest/output/logs/sequence_type/default/nf-sequence_type.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/sequence_type/default/versions.yml
-      md5sum: 86cf45134757953127655dd9c182ba25
+      md5sum: 35daf84b2ec047840a9ec014cb271c7e
     - path: pytest/output/mlst/default/blast/output-blast.json
       md5sum: a1aef9b8e2d08bfc7f8433dc99d65a72

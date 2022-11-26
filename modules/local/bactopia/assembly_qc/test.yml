@@ -166,4 +166,4 @@
     - path: pytest/output/logs/assembly_qc/quast.log
       contains: ['Version', 'QUAST']
     - path: pytest/output/logs/assembly_qc/versions.yml
-      md5sum: 5889cafee85930b203eab5ebbc6741bd
+      md5sum: 0658b76686324f30bd2868c0e04ec960
