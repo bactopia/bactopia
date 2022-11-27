@@ -172,10 +172,10 @@ def pubmlst_schemas(pubmlst_file):
         for line in pubmlst_fh:
             line = line.rstrip()
             if line and not line.startswith('pubmlst'):
-                pubmlst, species, schema = line.split('\t')
+                pubmlst_species, species, schema = line.split('\t')
                 if species not in pubmlst:
                     pubmlst[species] = {}
-                pubmlst[species][schema] = pubmlst
+                pubmlst[species][schema] = pubmlst_species
     return pubmlst
 
 
@@ -978,7 +978,7 @@ if __name__ == '__main__':
     )
     group8.add_argument(
         '--available_species', action='store_true',
-        help=('List species availble from current datasets.')
+        help=('List species available from current datasets.')
     )
 
     group8.add_argument('--depends', action='store_true',
