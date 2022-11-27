@@ -4,7 +4,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'rgi_heatmap')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::rgi=6.0.1"
-conda_env   = file("${params.condadir}/rgi_heatmap").exists() ? "${params.condadir}/rgi_heatmap" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process RGI_HEATMAP {
     tag "$meta.id"

@@ -4,7 +4,8 @@ RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus
 options     = initOptions(params.options ? params.options : [:], 'rgi')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::rgi=6.0.1"
-conda_env   = file("${params.condadir}/rgi").exists() ? "${params.condadir}/rgi" : conda_tools
+conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process RGI_MAIN {
     tag "$meta.id"
