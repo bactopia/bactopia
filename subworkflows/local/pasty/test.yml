@@ -26,9 +26,7 @@
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.log
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.run
@@ -38,7 +36,7 @@
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/pasty/pasty/logs/csvtk_concat/versions.yml
-      md5sum: 9b004f5e58db43d4e90f215ff47c8085
+      md5sum: be58d9015fbb4ae0dfffb26f8991afd7
     - path: bactopia-tools/pasty/pasty/nf-reports/pasty-dag.dot
       md5sum: 519393da57973903a55e9d8b80bbf77a
     - path: bactopia-tools/pasty/pasty/nf-reports/pasty-report.html

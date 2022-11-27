@@ -33,11 +33,9 @@
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/results/checkm.log
       contains: ['CheckM', 'Parsing', 'written']
     - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/versions.yml
-      md5sum: 896f8c2f9a2a615425cd5b086fe256be
+      md5sum: f35b50ae944a85f80dd1b3ad0ff479c4
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats.analyze.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats.tree.tsv
-      md5sum: 19adfab14620acac2a1f2557946cf2f3
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats_ext.tsv
       contains: ['marker lineage']
     - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/checkm_hmm_info.pkl.gz
@@ -105,7 +103,7 @@
     - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/versions.yml
-      md5sum: 87c8352f37d4615cf21a5570d956f64e
+      md5sum: c1b2e8a8fdcdf68eeaf95cfb90c76340
     - path: bactopia-tools/checkm/checkm/nf-reports/checkm-dag.dot
       contains: ['checkmdag', 'checkm', 'CHECKM']
     - path: bactopia-tools/checkm/checkm/nf-reports/checkm-report.html

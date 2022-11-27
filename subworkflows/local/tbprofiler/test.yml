@@ -32,7 +32,7 @@
     - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.csv
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.json
-      contains: ['variant_annotations', 'tbdb', 'freebayes']
+      contains: ['locus_tag', 'tbprofiler_version', 'median_coverage']
     - path: bactopia-tools/tbprofiler/tbprofiler/test/test.results.txt
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia-tools/tbprofiler/tbprofiler/test/vcf/test.targets.csq.vcf.gz
