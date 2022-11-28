@@ -51,7 +51,7 @@ class WorkflowBactopiaTools {
         } else if (params.wf == "bakta") {
             if (params.bakta_db) {
                 if (Utils.isLocal(params.bakta_db)) {
-                    if (!params.bakta_db.endsWith(".tar.gz")) {
+                    if (params.bakta_db.endsWith(".tar.gz")) {
                         error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
                     } else {
                         error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
@@ -63,7 +63,7 @@ class WorkflowBactopiaTools {
         } else if (params.wf == "eggnog") {
             if (params.eggnog) {
                 if (Utils.isLocal(params.eggnog)) {
-                    if (!params.eggnog.endsWith(".tar.gz")) {
+                    if (params.eggnog.endsWith(".tar.gz")) {
                         missing_file += Utils.fileNotFound(params.eggnog, 'eggnog', log)
                     } else {
                         missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
@@ -79,7 +79,7 @@ class WorkflowBactopiaTools {
             if (params.gtdb) {
                 if (!params.download_gtdb) {
                     if (Utils.isLocal(params.gtdb)) {
-                        if (!params.gtdb.endsWith(".tar.gz")) {
+                        if (params.gtdb.endsWith(".tar.gz")) {
                             error += Utils.fileNotFound(params.gtdb, 'gtdb', log)
                         } else {
                             error += Utils.fileNotFound("${params.gtdb}/metadata/metadata.txt", 'gtdb', log)
@@ -92,7 +92,7 @@ class WorkflowBactopiaTools {
         } else if (params.wf == "kraken2") {
             if (params.kraken2_db) {
                 if (Utils.isLocal(params.kraken2_db)) {
-                    if (!params.kraken2_db.endsWith(".tar.gz")) {
+                    if (params.kraken2_db.endsWith(".tar.gz")) {
                         error += Utils.fileNotFound(params.kraken2_db, 'kraken2_db', log)
                     } else {
                         error += Utils.fileNotFound("${params.kraken2_db}/hash.k2d", 'kraken2_db', log)
