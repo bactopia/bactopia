@@ -16,6 +16,7 @@ requirements:
     - pip
     - python >3.6,<3.10
   run:
+    - biopython
     - blast >=2.11.0
     - cd-hit
     - conda
