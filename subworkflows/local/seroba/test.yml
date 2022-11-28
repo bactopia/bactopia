@@ -16,7 +16,7 @@
     - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/versions.yml
-      md5sum: 2572fca12b6d6558d81edb8fb359b0fb
+      md5sum: 9363e850a553212163e484aa8c88a756
     - path: bactopia-tools/seroba/seroba/nf-reports/seroba-dag.dot
       contains: ['serobadag', 'SEROBA', 'versions']
     - path: bactopia-tools/seroba/seroba/nf-reports/seroba-report.html

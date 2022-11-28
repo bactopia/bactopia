@@ -18,7 +18,7 @@ options.args = [
     "--coverage_fraction_threshold ${params.coverage_fraction_threshold}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/modules/tbprofiler/profile/main' addParams( options: options )
+include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/tbprofiler/profile/main' addParams( options: options )
 
 workflow TBPROFILER {
     take:

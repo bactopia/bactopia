@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/mlst/params.json",
+    "title": "MLST Module",
+    "description": "A module for automatic MLST calling from assembled contigs",
+    "type": "object",
+    "definitions": {
+        "mlst_parameters": {
+            "title": "MLST Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "scheme": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Don't autodetect, force this scheme on all inputs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "minid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mincov": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Minimum DNA percent coverage to report partial allele at all",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "minscore": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minumum score out of 100 to match a scheme",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "nopath": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Strip filename paths from FILE column",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/mlst_parameters"
+        }
+    ]
+}

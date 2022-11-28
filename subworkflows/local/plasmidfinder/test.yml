@@ -40,7 +40,7 @@
     - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/versions.yml
-      md5sum: 5001f0df35e95df59efc1645aa5d1277
+      md5sum: 3e193c33c490c3dee34eccf7adcfff8c
     - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-dag.dot
       contains: ['plasmidfinderdag', 'PLASMIDFINDER', 'versions']
     - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-report.html

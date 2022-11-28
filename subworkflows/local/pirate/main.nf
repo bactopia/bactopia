@@ -12,7 +12,7 @@ options.args = [
     "--features ${params.features}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { PIRATE as PIRATE_MODULE } from '../../../modules/nf-core/modules/pirate/main' addParams( options: options )
+include { PIRATE as PIRATE_MODULE } from '../../../modules/nf-core/pirate/main' addParams( options: options )
 
 workflow PIRATE {
     take:

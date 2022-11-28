@@ -6,8 +6,8 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'sta
 options.is_module = params.wf == 'staphopiasccmec' ? true : false
 options.args = params.hamming ? '--hamming' : ''
 
-include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE} from '../../../modules/nf-core/modules/staphopiasccmec/main' addParams( options: options )
-if (params.is_subworkflow) include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'staphopiasccmec'] )
+include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE} from '../../../modules/nf-core/staphopiasccmec/main' addParams( options: options )
+if (params.is_subworkflow) include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'staphopiasccmec'] )
 
 workflow STAPHOPIASCCMEC {
     take:

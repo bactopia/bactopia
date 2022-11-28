@@ -8,10 +8,10 @@ options.args = params.do_enrich ? '--do_enrich' : ''
 REPEATS = params.repeats ? file(params.repeats, checkIfExists: true) : []
 REPEAT_ORDER = params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
 
-include { SPATYPER as SPATYPER_MODULE } from '../../../modules/nf-core/modules/spatyper/main' addParams( options: options )
+include { SPATYPER as SPATYPER_MODULE } from '../../../modules/nf-core/spatyper/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'spatyper'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'spatyper'] )
 }
 
 workflow SPATYPER {

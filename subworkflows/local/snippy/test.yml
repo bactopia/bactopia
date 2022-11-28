@@ -32,7 +32,7 @@
     - path: bactopia-tools/snippy/snippy/iqtree/core-snp.contree
       contains: ['test']
     - path: bactopia-tools/snippy/snippy/iqtree/core-snp.mldist
-      md5sum: 7beb18ab550ee45d43f7bfe0af6cbed7
+      contains: ['Reference', 'test0', 'test4']
     - path: bactopia-tools/snippy/snippy/iqtree/core-snp.splits.nex
       contains: ['TAXLABELS', 'test2', 'END']
     - path: bactopia-tools/snippy/snippy/iqtree/core-snp.treefile
@@ -72,7 +72,7 @@
     - path: bactopia-tools/snippy/snippy/logs/iqtree/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/snippy/snippy/logs/iqtree/versions.yml
-      md5sum: 445afd73e50d70560b1df12409d58db8
+      md5sum: e09039e0c83f4e738f6e968109cb236e
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/snippy/snippy/logs/snippy-core/nf-snippy-core.err

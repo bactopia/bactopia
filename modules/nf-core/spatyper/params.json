@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/spatyper/params.json",
+    "title": "SpaTyper Module",
+    "description": "A module for spa typing Staphylococcus aureus",
+    "type": "object",
+    "definitions": {
+        "spatyper_parameters": {
+            "title": "spaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "repeats": {
+                    "type": "string",
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "repeat_order": {
+                    "type": "string",
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "do_enrich": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/spatyper_parameters"
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/mash/dist/params.json",
+    "title": "Mash Dist Module",
+    "description": "A module for calculating Mash distances between seqeunces",
+    "type": "object",
+    "definitions": {
+        "mash_dist_parameters": {
+            "title": "mashdist Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "mash_sketch": {
+                    "type": "string",
+                    "description": "The reference sequence as a Mash Sketch (.msh file)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "mash_seed": {
+                    "type": "integer",
+                    "default": 42,
+                    "description": "Seed to provide to the hash function",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_table": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_m": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum copies of each k-mer required to pass noise filter for reads",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_w": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Probability threshold for warning about low k-mer size.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "max_p": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum p-value to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "max_dist": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum distance to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "merlin_dist": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum distance to report when using Merlin .",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "full_merlin": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "use_fastqs": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Query with FASTQs instead of the assemblies",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/mash_dist_parameters"
+        }
+    ]
+}

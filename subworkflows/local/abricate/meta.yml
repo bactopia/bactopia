@@ -87,6 +87,7 @@ docs:
     - abricate
     - arg_annot
     - card
+    - csvtk
     - ecoh
     - megares2
     - ncbi_reference_gene_catolog

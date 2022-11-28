@@ -13,7 +13,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 SCOARY_TRAITS = params.traits ? file(params.traits) : []
 
-include { SCOARY as SCOARY_MODULE } from '../../../modules/nf-core/modules/scoary/main' addParams( options: options )
+include { SCOARY as SCOARY_MODULE } from '../../../modules/nf-core/scoary/main' addParams( options: options )
 
 workflow SCOARY {
     take:

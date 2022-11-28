@@ -10,7 +10,7 @@ prokka_args = [
     "${params.prokka_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/modules/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
+include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
 
 workflow PROKKA {
     take:

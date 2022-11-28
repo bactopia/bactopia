@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/pasty/params.json",
+    "title": "pasty Module",
+    "description": "A module for in silico serogrouping of Pseudomonas aeruginosa isolates",
+    "type": "object",
+    "definitions": {
+        "pasty_parameters": {
+            "title": "pasty Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "pasty_min_pident": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent identity to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "pasty_min_coverage": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent coverage to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/pasty_parameters"
+        }
+    ]
+}

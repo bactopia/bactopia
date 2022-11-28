@@ -72,11 +72,14 @@ if (params.wf == 'mykrobe') include { MYKROBE } from '../subworkflows/local/mykr
 if (params.wf == 'ngmaster') include { NGMASTER } from '../subworkflows/local/ngmaster/main';
 if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/pangenome/main';
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
+if (params.wf == 'pasty') include { PASTY } from '../subworkflows/local/pasty/main';
+if (params.wf == 'pbptyper') include { PBPTYPER } from '../subworkflows/local/pbptyper/main';
 if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflows/local/plasmidfinder/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
+if (params.wf == 'shigeifinder') include { SHIGEIFINDER } from '../subworkflows/local/shigeifinder/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
 if (params.wf == 'snippy') include { SNIPPY } from '../subworkflows/local/snippy/main';
 if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/spatyper/main';
@@ -90,7 +93,7 @@ if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/loca
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
 
 /*
 ========================================================================================
@@ -227,6 +230,12 @@ workflow BACTOPIATOOLS {
         samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_panaroo? 'panaroo' : (params.use_roary ? 'roary' : 'pirate')], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
+    } else if (params.wf == 'pasty') {
+        PASTY(samples)
+        ch_versions = ch_versions.mix(PASTY.out.versions)
+    } else if (params.wf == 'pbptyper') {
+        PBPTYPER(samples)
+        ch_versions = ch_versions.mix(PBPTYPER.out.versions)
     } else if (params.wf == 'plasmidfinder') {
         PLASMIDFINDER(samples)
         ch_versions = ch_versions.mix(PLASMIDFINDER.out.versions)
@@ -242,6 +251,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'shigatyper') {
         SHIGATYPER(samples)
         ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
+    } else if (params.wf == 'shigeifinder') {
+        SHIGEIFINDER(samples)
+        ch_versions = ch_versions.mix(SHIGEIFINDER.out.versions)
     } else if (params.wf == 'sistr') {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)

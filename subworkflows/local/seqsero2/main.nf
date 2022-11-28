@@ -9,10 +9,10 @@ options.args = [
     params.input_type == "assembly" ? "-t 4" : "-t 2",
     "-b ${params.bwa_mode}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-include { SEQSERO2 as SEQSERO2_MODULE } from '../../../modules/nf-core/modules/seqsero2/main' addParams( options: options )
+include { SEQSERO2 as SEQSERO2_MODULE } from '../../../modules/nf-core/seqsero2/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'seqsero2'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'seqsero2'] )
 }
 
 workflow SEQSERO2 {

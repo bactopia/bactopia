@@ -20,12 +20,12 @@ options.args = [
     "--verbose",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { ARIBA_GETREF } from '../../../modules/nf-core/modules/ariba/getref/main' addParams( )
-include { ARIBA_RUN } from '../../../modules/nf-core/modules/ariba/run/main' addParams( options: options )
+include { ARIBA_GETREF } from '../../../modules/nf-core/ariba/getref/main' addParams( )
+include { ARIBA_RUN } from '../../../modules/nf-core/ariba/run/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '-C "$" --lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-report'] )
-    include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '--lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-summary'] )
+    include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$" --lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-report'] )
+    include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-summary'] )
 }
 
 workflow ARIBA {

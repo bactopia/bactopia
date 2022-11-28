@@ -6,10 +6,10 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'agr
 options.is_module = params.wf == 'agrvate' ? true : false
 options.args = params.typing_only ? '--typing_only' : ''
 
-include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/modules/agrvate/main' addParams( options: options )
+include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/agrvate/main' addParams( options: options )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true, logs_subdir: options.is_module ? '' : 'agrvate'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true, logs_subdir: options.is_module ? '' : 'agrvate'] )
 }
 
 workflow AGRVATE {

@@ -91,4 +91,5 @@ docs:
           |  &lt;SAMPLE_NAME&gt;.tsv    | A tab-delimited file with the predicted serotype |
           | detailed_serogroup_info.txt | Detailed information about the predicted results |
   citations:
+    - csvtk
     - seroba

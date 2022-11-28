@@ -60,7 +60,7 @@ if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/mai
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
 
 /*
 ========================================================================================

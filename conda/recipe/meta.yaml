@@ -1,4 +1,4 @@
-{% set version = '2.1.1' %}
+{% set version = '2.2.0' %}
 
 package:
   name: bactopia
@@ -7,24 +7,29 @@ package:
 source:
   url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
 
+build:
+  noarch: python
+  number: 0
+
 requirements:
   host:
     - pip
     - python >3.6,<3.10
   run:
-    - ariba >=2.14.6
-    - bakta >=1.4
+    - biopython
     - blast >=2.11.0
     - cd-hit
     - conda
     - coreutils
     - executor
     - gsl <=2.6
+    - importlib-metadata <5
     - mamba
     - mash
     - ncbi-amrfinderplus 3.10.30
     - ncbi-genome-download
     - nextflow >=21.10.0
+    - numpy >=1.17
     - pytest
     - pytest-workflow
     - python >3.6,<3.10

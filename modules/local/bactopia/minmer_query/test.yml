@@ -29,7 +29,7 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: a33c8981fc9fa0447899e0032a89d1d8
+      md5sum: 99099cad61a4b2cc239f18b5b113d8b0
     - path: pytest/output/minmers/output-mash-refseq-k21.txt
       contains: ['identity']
 
@@ -64,7 +64,7 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 5cda66828f45e3d0ff990393f2d70822
+      md5sum: 7c088915c5095e76006494bafc53508b
     - path: pytest/output/minmers/output-mash-refseq-k21.txt
       contains: ['identity']
 
@@ -99,7 +99,7 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: bb481b4001c31356a483c1a18881a122
+      md5sum: 5a97ca1db0b2c389d5887804c535f94d
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9
 
@@ -134,6 +134,6 @@
     - path: pytest/output/logs/minmer_query/nf-minmer_query.trace
       contains: ['nextflow.trace']
     - path: pytest/output/logs/minmer_query/versions.yml
-      md5sum: 9aa9141275d7821d97c370422cbdaa71
+      md5sum: b51e998e3b6eb418036050d350096848
     - path: pytest/output/minmers/output-sourmash-genbank-k21.txt
       md5sum: e49fdc0439765cef44f3aff1b17c15f9

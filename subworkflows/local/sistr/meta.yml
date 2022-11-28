@@ -102,4 +102,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;-cgmlst.csv  | A comma-delimited summary of the cgMLST allele search results |
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details |
   citations:
+    - csvtk
     - sistr

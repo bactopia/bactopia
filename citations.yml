@@ -286,6 +286,13 @@ tools:
     cite: |
       Didelot X, Wilson DJ [ClonalFrameML: Efficient Inference of Recombination in Whole Bacterial Genomes.](https://doi.org/10.1371/journal.pcbi.1004041) _PLoS Comput Biol_ 11(2) e1004041 (2015)
 
+  csvtk:
+    name: csvtk
+    link: https://bioinf.shenwei.me/csvtk/
+    description: A cross-platform, efficient and practical CSV/TSV toolkit in Golang
+    cite: |
+      Shen, W [csvtk: A cross-platform, efficient and practical CSV/TSV toolkit in Golang.](https://github.com/shenwei356/csvtk/) (GitHub)
+
   diamond:
     name: DIAMOND
     link: https://github.com/bbuchfink/diamond
@@ -669,6 +676,20 @@ tools:
     cite: |
       Tonkin-Hill G, MacAlasdair N, Ruis C, Weimann A, Horesh G, Lees JA, Gladstone RA, Lo S, Beaudoin C, Floto RA, Frost SDW, Corander J, Bentley SD, Parkhill J [Producing polished prokaryotic pangenomes with the Panaroo pipeline.](https://doi.org/10.1186/s13059-020-02090-4) _Genome Biology_ 21(1), 180. (2020)
 
+  pasty:
+    name: pasty
+    link: https://github.com/rpetit3/pasty
+    description: in silico serogrouping of _Pseudomonas aeruginosa_ isolates
+    cite: |
+      Petit III RA [pasty: in silico serogrouping of _Pseudomonas aeruginosa_ isolates](https://github.com/rpetit3/pasty) (GitHub)
+
+  pbptyper:
+    name: pbptyper
+    link: https://github.com/rpetit3/pbptyper
+    description: Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
+    cite: |
+      Petit III RA [pbptyper: In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies](https://github.com/rpetit3/pbptyper) (GitHub)
+
   phyloflash:
     name: phyloFlash
     link: https://github.com/HRGV/phyloFlash
@@ -830,6 +851,13 @@ tools:
     cite: |
       Wu Y, Lau HK, Lee T, Lau DK, Payne J [In Silico Serotyping Based on Whole-Genome Sequencing Improves the Accuracy of Shigella Identification.](https://doi.org/10.1128/AEM.00165-19) *Applied and Environmental Microbiology*, 85(7). (2019)
 
+  shigeifinder:
+    name: ShigEiFinder
+    link: https://github.com/LanLab/ShigEiFinder
+    description: Cluster informed Shigella and EIEC serotyping tool from Illumina reads and assemblies
+    cite: |
+      Zhang X, Payne M, Nguyen T, Kaur S, Lan R [Cluster-specific gene markers enhance Shigella and enteroinvasive Escherichia coli in silico serotyping.](https://doi.org/10.1099/mgen.0.000704) Microbial Genomics, 7(12). (2021)
+
   shovill:
     name: Shovill
     link: https://github.com/tseemann/shovill
@@ -920,7 +948,6 @@ tools:
     description: Rapid _Streptococcus suis_ serotyping
     cite: |
       Lui J [SsuisSero: Rapid _Streptococcus suis_ serotyping](https://github.com/jimmyliu1326/SsuisSero) (GitHub)
-
 
   staphopiasccmec:
     name: staphopia-sccmec

@@ -40,24 +40,25 @@ process ASSEMBLE_GENOME {
     // Shovill
     contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${meta.id}_%05d"
     shovill_ram = task.memory.toString().split(' ')[0].toInteger()-1
-    opts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
+    sopts = params.shovill_opts ? "--opts '${params.shovill_opts}'" : ""
     kmers = params.shovill_kmers ? "--kmers '${params.shovill_kmers}'" : ""
     nostitch = params.no_stitch ? "--nostitch" : ""
     nocorr = params.no_corr ? "--nocorr" : ""
     shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]} ${nostitch}" : "shovill-se --SE ${fq[0]}"
-    shovill_opts = "--assembler ${params.shovill_assembler} --depth 0 --noreadcorr ${opts} ${kmers} ${nocorr}"
+    shovill_opts = "--assembler ${params.shovill_assembler} --depth 0 --noreadcorr ${sopts} ${kmers} ${nocorr}"
     
     // Dragonflye
+    dopts = params.dragonflye_opts ? "${params.dragonflye_opts}" : ""
     nopolish = params.no_polish ? "--nopolish" : ""
     medaka_model = params.medaka_model ? "--model ${params.medaka_model}" : ""
     pilon_rounds = params.pilon_rounds ? "--pilon ${params.pilon_rounds}" : ""
     dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]} --polypolish ${params.polypolish_rounds} ${pilon_rounds}" : "--reads ${fq[0]}"
-    dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish}"
+    dragonflye_opts = "--assembler ${params.dragonflye_assembler} --depth 0 --minreadlen 0 --minquality 0 --racon ${params.racon_steps} --medaka ${params.medaka_steps} ${medaka_model} ${nopolish} ${dopts}"
 
     // Merge Shovill/Dragonflye opts
     assembler_wf = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye" : "shovill"
     assembler_mode = meta.runtype == "ont" || meta.runtype == "short_polish" ? "dragonflye ${dragonflye_fastq}" : shovill_mode
-    assemnber_opts = meta.runtype == "ont" || meta.runtype == "short_polish" ? dragonflye_opts : shovill_opts
+    assembler_opts = meta.runtype == "ont" || meta.runtype == "short_polish" ? dragonflye_opts : shovill_opts
 
     // Assembly inputs
     use_original_assembly = null
@@ -89,7 +90,7 @@ process ASSEMBLE_GENOME {
             --namefmt "!{contig_namefmt}" \
             --keepfiles \
             --cpus !{task.cpus} \
-            --ram !{shovill_ram} !{assemnber_opts}; then
+            --ram !{shovill_ram} !{assembler_opts}; then
 
             # Check if error is due to no contigs
             if grep "has zero contigs" results/!{assembler_wf}.log; then
@@ -166,6 +167,32 @@ process ASSEMBLE_GENOME {
     find ${OUTDIR} -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
 
     # Capture versions
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+    
+    cat <<-END_VERSIONS > versions.yml
+    "!{task.process}":
+        assembly-scan: $(echo $(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
+        bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
+        flash: $(echo $(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*$//')
+        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        megahit: $(echo $(megahit --version 2>&1) | sed 's/MEGAHIT v//')
+        miniasm: $(echo $(miniasm -V))
+        pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
+        pilon: $(echo $(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*$//')
+        racon: $(echo $(racon --version 2>&1) | sed 's/v//')
+        samclip: $(echo $(samclip --version 2>&1) | sed 's/samclip //')
+        samtools: $(echo $(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*$//')
+        shovill: $(echo $(shovill --version 2>&1) | sed 's/shovill //')
+        shovill-se: $(echo $(shovill-se --version 2>&1) | sed 's/shovill-se //')
+        skesa: $(echo $(skesa --version 2>&1) | sed 's/^.*SKESA //;s/ .*$//')
+        spades.py: $(echo $(spades.py --version 2>&1) | sed 's/SPAdes genome assembler v//')
+        velvetg: $(echo $(velvetg 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        velveth: $(echo $(velveth 2>&1) | sed 's/^.*Version //;s/ .*$//')
+        unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
+    END_VERSIONS
+    
+    else
+    
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":
         any2fasta:  $(echo $(any2fasta -v 2>&1) | sed 's/any2fasta //')
@@ -194,5 +221,7 @@ process ASSEMBLE_GENOME {
         velveth: $(echo $(velveth 2>&1) | sed 's/^.*Version //;s/ .*$//')
         unicycler: $(echo $(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*$//')
     END_VERSIONS
+    
+    fi
     '''
 }

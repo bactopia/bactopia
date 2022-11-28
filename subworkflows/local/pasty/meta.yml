@@ -1,0 +1,91 @@
+name: pasty
+description: in silico serogrouping of Pseudomonas aeruginosa isolates
+icon: false
+keywords:
+  - fasta
+  - serogrouping
+  - Pseudomonas aeruginosa
+modules:
+  - pasty
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A tab-delimited file with the predicted serogroup
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all pasty result files
+      pattern: "pasty.tsv"
+  - blast:
+      type: file
+      description: A tab-delimited file of all blast hits
+      pattern: "*.blastn.tsv"
+  - details:
+      type: file
+      description: A tab-delimited file with details for each serogroup
+      pattern: "*.details.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  introduction: |
+      The `pasty` module uses [pasty](https://github.com/rpetit3/pasty) for 
+      serogrouping of _Pseudomonas aeruginosa_ isolates.
+  output:
+    tree: |
+      pasty/
+      ├── <SAMPLE_NAME>
+      │   ├── <SAMPLE_NAME>.blastn.tsv
+      │   ├── <SAMPLE_NAME>.details.tsv
+      │   ├── <SAMPLE_NAME>.tsv
+      │   └── logs
+      │       └── pasty
+      │           ├── nf-pasty.{begin,err,log,out,run,sh,trace}
+      │           └── versions.yml
+      ├── logs
+      │   └── csvtk_concat
+      │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── pasty-dag.dot
+      │   ├── pasty-report.html
+      │   ├── pasty-timeline.html
+      │   └── pasty-trace.txt
+      └── pasty.tsv
+    add_note: true
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          | pasty.tsv | A merged TSV file with `pasty` results from all samples |
+      - name: pasty
+        description: |
+          Below is a description of the _per-sample_ results from [pasty](https://github.com/rpetit3/pasty).
+        table: |
+          | Extension    | Description |
+          |--------------|-------------|
+          | .blastn.tsv  | A tab-delimited file of all blast hits |
+          | .details.tsv | A tab-delimited file with details for each serogroup |
+          | .tsv         | A tab-delimited file with the predicted serogroup |
+  citations:
+    - csvtk
+    - pasty

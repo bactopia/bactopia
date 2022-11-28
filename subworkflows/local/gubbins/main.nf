@@ -15,7 +15,7 @@ options.args = [
     "${params.gubbin_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { GUBBINS as GUBBINS_MODULE } from '../../../modules/nf-core/modules/gubbins/main' addParams( options: options )
+include { GUBBINS as GUBBINS_MODULE } from '../../../modules/nf-core/gubbins/main' addParams( options: options )
 
 workflow GUBBINS {
     take:

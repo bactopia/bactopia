@@ -53,7 +53,7 @@ include { STAPHTYPER } from '../subworkflows/local/staphtyper/main' addParams(is
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
 
 /*
 ========================================================================================

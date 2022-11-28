@@ -1,0 +1,1964 @@
+{
+    "Achromobacter spp.": {
+        "db": "https://pubmlst.org/achromobacter",
+        "loci": {
+            "eno": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/eno/alleles_fasta",
+            "gltB": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/gltB/alleles_fasta",
+            "lepA": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/lepA/alleles_fasta",
+            "nrdA": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/nrdA/alleles_fasta",
+            "nuoL": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/nuoL/alleles_fasta",
+            "nusA": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/nusA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_achromobacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Acinetobacter baumannii#1": {
+        "db": "https://pubmlst.org/abaumannii/",
+        "loci": {
+            "Oxf_cpn60": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_cpn60/alleles_fasta",
+            "Oxf_gdhB": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_gdhB/alleles_fasta",
+            "Oxf_gltA": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_gltA/alleles_fasta",
+            "Oxf_gpi": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_gpi/alleles_fasta",
+            "Oxf_gyrB": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_gyrB/alleles_fasta",
+            "Oxf_recA": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_recA/alleles_fasta",
+            "Oxf_rpoD": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Oxf_rpoD/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/schemes/1/profiles_csv"
+    },
+    "Acinetobacter baumannii#2": {
+        "db": "https://pubmlst.org/abaumannii/",
+        "loci": {
+            "Pas_cpn60": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_cpn60/alleles_fasta",
+            "Pas_fusA": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_fusA/alleles_fasta",
+            "Pas_gltA": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_gltA/alleles_fasta",
+            "Pas_pyrG": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_pyrG/alleles_fasta",
+            "Pas_recA": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_recA/alleles_fasta",
+            "Pas_rplB": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_rplB/alleles_fasta",
+            "Pas_rpoB": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/loci/Pas_rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_abaumannii_seqdef/schemes/2/profiles_csv"
+    },
+    "Aeromonas spp.": {
+        "db": "https://pubmlst.org/aeromonas/",
+        "loci": {
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/gltA/alleles_fasta",
+            "groL": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/groL/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/gyrB/alleles_fasta",
+            "metG": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/metG/alleles_fasta",
+            "ppsA": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/ppsA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_aeromonas_seqdef/schemes/1/profiles_csv"
+    },
+    "Aggregatibacter actinomycetemcomitans": {
+        "db": "https://pubmlst.org/aactinomycetemcomitans",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/adk/alleles_fasta",
+            "atpG": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/atpG/alleles_fasta",
+            "frdB": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/frdB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/mdh/alleles_fasta",
+            "pgi": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/pgi/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/recA/alleles_fasta",
+            "zwf": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/loci/zwf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_aactinomycetemcomitans_seqdef/schemes/1/profiles_csv"
+    },
+    "Anaplasma phagocytophilum": {
+        "db": "https://pubmlst.org/aphagocytophilum/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/atpA/alleles_fasta",
+            "dnaN": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/dnaN/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/fumC/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/glyA/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/mdh/alleles_fasta",
+            "pheS": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/pheS/alleles_fasta",
+            "sucA": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/loci/sucA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_aphagocytophilum_seqdef/schemes/1/profiles_csv"
+    },
+    "Arcobacter spp.": {
+        "db": "https://pubmlst.org/arcobacter/",
+        "loci": {
+            "aspA": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/aspA/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/atpA/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/glnA/alleles_fasta",
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/gltA/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/glyA/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/pgm/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/loci/tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_arcobacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Aspergillus fumigatus": {
+        "db": "https://pubmlst.org/afumigatus/",
+        "loci": {
+            "ANX4": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/ANX4/alleles_fasta",
+            "BGT1": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/BGT1/alleles_fasta",
+            "CAT1": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/CAT1/alleles_fasta",
+            "LIP": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/LIP/alleles_fasta",
+            "MAT1_2": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/MAT1_2/alleles_fasta",
+            "SODB": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/SODB/alleles_fasta",
+            "ZRF2": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/loci/ZRF2/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_afumigatus_seqdef/schemes/1/profiles_csv"
+    },
+    "Bacillus cereus": {
+        "db": "https://pubmlst.org/bcereus/",
+        "loci": {
+            "glp": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/glp/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/gmk/alleles_fasta",
+            "ilv": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/ilv/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/pta/alleles_fasta",
+            "pur": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/pur/alleles_fasta",
+            "pyc": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/pyc/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/loci/tpi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bcereus_seqdef/schemes/1/profiles_csv"
+    },
+    "Bacillus licheniformis": {
+        "db": "https://pubmlst.org/blicheniformis/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/adk/alleles_fasta",
+            "ccpA": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/ccpA/alleles_fasta",
+            "recF": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/recF/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/rpoB/alleles_fasta",
+            "spo0A": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/spo0A/alleles_fasta",
+            "sucC": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/loci/sucC/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_blicheniformis_seqdef/schemes/14/profiles_csv"
+    },
+    "Bacillus subtilis": {
+        "db": "https://pubmlst.org/bsubtilis/",
+        "loci": {
+            "glpF": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/glpF/alleles_fasta",
+            "ilvD": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/ilvD/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/pta/alleles_fasta",
+            "purH": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/purH/alleles_fasta",
+            "pycA": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/pycA/alleles_fasta",
+            "rpoD": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/rpoD/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/loci/tpiA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bsubtilis_seqdef/schemes/1/profiles_csv"
+    },
+    "Bacteroides fragilis": {
+        "db": "https://pubmlst.org/bfragilis",
+        "loci": {
+            "dnaJ": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/dnaJ/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/fusA/alleles_fasta",
+            "groL": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/groL/alleles_fasta",
+            "prfA": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/prfA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/rpoB/alleles_fasta",
+            "rprX": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/loci/rprX/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bfragilis_seqdef/schemes/1/profiles_csv"
+    },
+    "Bartonella bacilliformis": {
+        "db": "https://pubmlst.org/bbacilliformis/",
+        "loci": {
+            "bvrR": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/bvrR/alleles_fasta",
+            "flaA": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/flaA/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/ftsZ/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/groEL/alleles_fasta",
+            "ribC": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/ribC/alleles_fasta",
+            "rnpB": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/rnpB/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bbacilliformis_seqdef/schemes/1/profiles_csv"
+    },
+    "Bartonella henselae": {
+        "db": "https://pubmlst.org/bhenselae",
+        "loci": {
+            "16S": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/16S/alleles_fasta",
+            "batR": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/batR/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/ftsZ/alleles_fasta",
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/gltA/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/groEL/alleles_fasta",
+            "nlpD": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/nlpD/alleles_fasta",
+            "ribC": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/ribC/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bhenselae_seqdef/schemes/1/profiles_csv"
+    },
+    "Bartonella washoensis": {
+        "db": "https://pubmlst.org/bwashoensis",
+        "loci": {
+            "16S": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/16S/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/ftsZ/alleles_fasta",
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/gltA/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/groEL/alleles_fasta",
+            "ribC": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/ribC/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bwashoensis_seqdef/schemes/1/profiles_csv"
+    },
+    "Bordetella spp.": {
+        "db": "https://bigsdb.pasteur.fr/bordetella/",
+        "loci": {
+            "adk": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/adk/alleles_fasta",
+            "fumC": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/fumC/alleles_fasta",
+            "glyA": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/glyA/alleles_fasta",
+            "icd": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/icd/alleles_fasta",
+            "pepA": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/pepA/alleles_fasta",
+            "pgm": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/pgm/alleles_fasta",
+            "tyrB": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/loci/tyrB/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_bordetella_seqdef/schemes/3/profiles_csv"
+    },
+    "Borrelia spp.": {
+        "db": "https://pubmlst.org/borrelia/",
+        "loci": {
+            "clpA": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/clpA/alleles_fasta",
+            "clpX": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/clpX/alleles_fasta",
+            "nifS": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/nifS/alleles_fasta",
+            "pepX": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/pepX/alleles_fasta",
+            "pyrG": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/pyrG/alleles_fasta",
+            "recG": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/recG/alleles_fasta",
+            "rplB": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/rplB/alleles_fasta",
+            "uvrA": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/loci/uvrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_borrelia_seqdef/schemes/1/profiles_csv"
+    },
+    "Brachyspira hampsonii": {
+        "db": "https://pubmlst.org/brachyspira/",
+        "loci": {
+            "Bha_adh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_adh/alleles_fasta",
+            "Bha_est": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_est/alleles_fasta",
+            "Bha_gdh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_gdh/alleles_fasta",
+            "Bha_glpK": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_glpK/alleles_fasta",
+            "Bha_pgm": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_pgm/alleles_fasta",
+            "Bha_thi": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bha_thi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/schemes/5/profiles_csv"
+    },
+    "Brachyspira hyodysenteriae": {
+        "db": "https://pubmlst.org/brachyspira/",
+        "loci": {
+            "Bhy_adh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_adh/alleles_fasta",
+            "Bhy_alp": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_alp/alleles_fasta",
+            "Bhy_est": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_est/alleles_fasta",
+            "Bhy_gdh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_gdh/alleles_fasta",
+            "Bhy_glpK": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_glpK/alleles_fasta",
+            "Bhy_pgm": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_pgm/alleles_fasta",
+            "Bhy_thi": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bhy_thi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/schemes/2/profiles_csv"
+    },
+    "Brachyspira intermedia": {
+        "db": "https://pubmlst.org/brachyspira/",
+        "loci": {
+            "Bin_adh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_adh/alleles_fasta",
+            "Bin_alp": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_alp/alleles_fasta",
+            "Bin_est": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_est/alleles_fasta",
+            "Bin_gdh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_gdh/alleles_fasta",
+            "Bin_glpK": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_glpK/alleles_fasta",
+            "Bin_pgm": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_pgm/alleles_fasta",
+            "Bin_thi": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bin_thi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/schemes/3/profiles_csv"
+    },
+    "Brachyspira pilosicoli": {
+        "db": "https://pubmlst.org/brachyspira/",
+        "loci": {
+            "Bpi_adh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_adh/alleles_fasta",
+            "Bpi_alp": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_alp/alleles_fasta",
+            "Bpi_est": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_est/alleles_fasta",
+            "Bpi_gdh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_gdh/alleles_fasta",
+            "Bpi_glpK": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_glpK/alleles_fasta",
+            "Bpi_pgm": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_pgm/alleles_fasta",
+            "Bpi_thi": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bpi_thi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/schemes/4/profiles_csv"
+    },
+    "Brachyspira spp.": {
+        "db": "https://pubmlst.org/brachyspira/",
+        "loci": {
+            "Bra_adh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_adh/alleles_fasta",
+            "Bra_alp": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_alp/alleles_fasta",
+            "Bra_est": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_est/alleles_fasta",
+            "Bra_gdh": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_gdh/alleles_fasta",
+            "Bra_glp": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_glp/alleles_fasta",
+            "Bra_pgm": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_pgm/alleles_fasta",
+            "Bra_thi": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/loci/Bra_thi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brachyspira_seqdef/schemes/1/profiles_csv"
+    },
+    "Brucella spp.": {
+        "db": "https://pubmlst.org/brucella",
+        "loci": {
+            "aroA": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/aroA/alleles_fasta",
+            "cobQ": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/cobQ/alleles_fasta",
+            "dnaK": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/dnaK/alleles_fasta",
+            "gap": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/gap/alleles_fasta",
+            "glk": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/glk/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/gyrB/alleles_fasta",
+            "int_hyp": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/int_hyp/alleles_fasta",
+            "omp25": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/omp25/alleles_fasta",
+            "trpE": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/loci/trpE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_brucella_seqdef/schemes/1/profiles_csv"
+    },
+    "Burkholderia cepacia complex": {
+        "db": "https://pubmlst.org/bcc/",
+        "loci": {
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/atpD/alleles_fasta",
+            "gltB": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/gltB/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/gyrB/alleles_fasta",
+            "lepA": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/lepA/alleles_fasta",
+            "phaC": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/phaC/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/recA/alleles_fasta",
+            "trpB": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/loci/trpB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bcc_seqdef/schemes/1/profiles_csv"
+    },
+    "Burkholderia pseudomallei": {
+        "db": "https://pubmlst.org/bpseudomallei",
+        "loci": {
+            "ace": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/ace/alleles_fasta",
+            "gltB": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/gltB/alleles_fasta",
+            "gmhD": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/gmhD/alleles_fasta",
+            "lepA": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/lepA/alleles_fasta",
+            "lipA": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/lipA/alleles_fasta",
+            "narK": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/narK/alleles_fasta",
+            "ndh": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/loci/ndh/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_bpseudomallei_seqdef/schemes/1/profiles_csv"
+    },
+    "Campylobacter concisus/curvus": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cco_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_aspA/alleles_fasta",
+            "Cco_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_atpA/alleles_fasta",
+            "Cco_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_glnA/alleles_fasta",
+            "Cco_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_gltA/alleles_fasta",
+            "Cco_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_glyA/alleles_fasta",
+            "Cco_ilvD": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_ilvD/alleles_fasta",
+            "Cco_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cco_pgm/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/5/profiles_csv"
+    },
+    "Campylobacter fetus": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cfe_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_aspA/alleles_fasta",
+            "Cfe_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_glnA/alleles_fasta",
+            "Cfe_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_gltA/alleles_fasta",
+            "Cfe_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_glyA/alleles_fasta",
+            "Cfe_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_pgm/alleles_fasta",
+            "Cfe_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_tkt/alleles_fasta",
+            "Cfe_uncA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cfe_uncA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/9/profiles_csv"
+    },
+    "Campylobacter helveticus": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Che_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_aspA/alleles_fasta",
+            "Che_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_atpA/alleles_fasta",
+            "Che_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_glnA/alleles_fasta",
+            "Che_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_gltA/alleles_fasta",
+            "Che_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_glyA/alleles_fasta",
+            "Che_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_pgm/alleles_fasta",
+            "Che_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Che_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/1/profiles_csv"
+    },
+    "Campylobacter hyointestinalis": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Chy_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_aspA/alleles_fasta",
+            "Chy_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_atpA/alleles_fasta",
+            "Chy_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_glnA/alleles_fasta",
+            "Chy_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_gltA/alleles_fasta",
+            "Chy_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_glyA/alleles_fasta",
+            "Chy_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_pgm/alleles_fasta",
+            "Chy_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Chy_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/6/profiles_csv"
+    },
+    "Campylobacter insulaenigrae": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cin_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_aspA/alleles_fasta",
+            "Cin_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_atpA/alleles_fasta",
+            "Cin_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_glnA/alleles_fasta",
+            "Cin_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_glyA/alleles_fasta",
+            "Cin_pgi": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_pgi/alleles_fasta",
+            "Cin_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_pgm/alleles_fasta",
+            "Cin_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cin_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/2/profiles_csv"
+    },
+    "Campylobacter jejuni": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/aspA/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/glnA/alleles_fasta",
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/gltA/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/glyA/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/pgm/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/tkt/alleles_fasta",
+            "uncA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/loci/uncA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Campylobacter lanienae": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cln_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_aspA/alleles_fasta",
+            "Cln_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_atpA/alleles_fasta",
+            "Cln_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_glnA/alleles_fasta",
+            "Cln_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_gltA/alleles_fasta",
+            "Cln_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_glyA/alleles_fasta",
+            "Cln_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_pgm/alleles_fasta",
+            "Cln_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cln_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/7/profiles_csv"
+    },
+    "Campylobacter lari": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cla_adk": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_adk/alleles_fasta",
+            "Cla_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_atpA/alleles_fasta",
+            "Cla_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_glnA/alleles_fasta",
+            "Cla_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_glyA/alleles_fasta",
+            "Cla_pgi": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_pgi/alleles_fasta",
+            "Cla_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_pgm/alleles_fasta",
+            "Cla_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cla_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/3/profiles_csv"
+    },
+    "Campylobacter sputorum": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Csp_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_aspA/alleles_fasta",
+            "Csp_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_atpA/alleles_fasta",
+            "Csp_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_glnA/alleles_fasta",
+            "Csp_gltA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_gltA/alleles_fasta",
+            "Csp_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_glyA/alleles_fasta",
+            "Csp_pgm": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_pgm/alleles_fasta",
+            "Csp_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Csp_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/8/profiles_csv"
+    },
+    "Campylobacter upsaliensis": {
+        "db": "https://pubmlst.org/campylobacter/",
+        "loci": {
+            "Cup_adk": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_adk/alleles_fasta",
+            "Cup_aspA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_aspA/alleles_fasta",
+            "Cup_atpA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_atpA/alleles_fasta",
+            "Cup_glnA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_glnA/alleles_fasta",
+            "Cup_glyA": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_glyA/alleles_fasta",
+            "Cup_pgi": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_pgi/alleles_fasta",
+            "Cup_tkt": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/loci/Cup_tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_campylobacter_nonjejuni_seqdef/schemes/4/profiles_csv"
+    },
+    "Candida albicans": {
+        "db": "https://pubmlst.org/calbicans",
+        "loci": {
+            "AAT1a": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/AAT1a/alleles_fasta",
+            "ACC1": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/ACC1/alleles_fasta",
+            "ADP1": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/ADP1/alleles_fasta",
+            "MPIb": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/MPIb/alleles_fasta",
+            "SYA1": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/SYA1/alleles_fasta",
+            "VPS13": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/VPS13/alleles_fasta",
+            "ZWF1b": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/loci/ZWF1b/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_calbicans_seqdef/schemes/1/profiles_csv"
+    },
+    "Candida glabrata": {
+        "db": "https://pubmlst.org/cglabrata/",
+        "loci": {
+            "FKS": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/FKS/alleles_fasta",
+            "LEU2": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/LEU2/alleles_fasta",
+            "NMT1": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/NMT1/alleles_fasta",
+            "TRP1": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/TRP1/alleles_fasta",
+            "UGP1": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/UGP1/alleles_fasta",
+            "URA3": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/loci/URA3/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cglabrata_seqdef/schemes/1/profiles_csv"
+    },
+    "Candida krusei": {
+        "db": "https://pubmlst.org/ckrusei/",
+        "loci": {
+            "ADE2": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/ADE2/alleles_fasta",
+            "HIS3": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/HIS3/alleles_fasta",
+            "LEU2": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/LEU2/alleles_fasta",
+            "LYS2D": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/LYS2D/alleles_fasta",
+            "NMT1": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/NMT1/alleles_fasta",
+            "TRP1": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/loci/TRP1/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ckrusei_seqdef/schemes/1/profiles_csv"
+    },
+    "Candida tropicalis": {
+        "db": "https://pubmlst.org/ctropicalis/",
+        "loci": {
+            "ICL1": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/ICL1/alleles_fasta",
+            "MDR1": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/MDR1/alleles_fasta",
+            "SAPT2": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/SAPT2/alleles_fasta",
+            "SAPT4": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/SAPT4/alleles_fasta",
+            "XYR1": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/XYR1/alleles_fasta",
+            "ZWF1a": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/loci/ZWF1a/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ctropicalis_seqdef/schemes/1/profiles_csv"
+    },
+    "Candidatus Liberibacter solanacearum": {
+        "db": "https://pubmlst.org/liberibacter/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/adk/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/atpA/alleles_fasta",
+            "fbpA": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/fbpA/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/ftsZ/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/glyA/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/groEL/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/loci/gyrB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_liberibacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Carnobacterium maltaromaticum": {
+        "db": "https://pubmlst.org/cmaltaromaticum",
+        "loci": {
+            "dapE": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/dapE/alleles_fasta",
+            "ddlA": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/ddlA/alleles_fasta",
+            "glpQ": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/glpQ/alleles_fasta",
+            "ilvE": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/ilvE/alleles_fasta",
+            "leuS": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/leuS/alleles_fasta",
+            "pyc": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/pyc/alleles_fasta",
+            "pyrE": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/loci/pyrE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cmaltaromaticum_seqdef/schemes/1/profiles_csv"
+    },
+    "Chlamydiales spp.": {
+        "db": "https://pubmlst.org/chlamydiales/",
+        "loci": {
+            "enoA": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/enoA/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/fumC/alleles_fasta",
+            "gatA": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/gatA/alleles_fasta",
+            "gidA": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/gidA/alleles_fasta",
+            "hemN": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/hemN/alleles_fasta",
+            "hflX": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/hflX/alleles_fasta",
+            "oppA": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/loci/oppA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_chlamydiales_seqdef/schemes/1/profiles_csv"
+    },
+    "Citrobacter freundii": {
+        "db": "https://pubmlst.org/cfreundii",
+        "loci": {
+            "arcA": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/arcA/alleles_fasta",
+            "aspC": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/aspC/alleles_fasta",
+            "clpX": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/clpX/alleles_fasta",
+            "dnaG": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/dnaG/alleles_fasta",
+            "fadD": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/fadD/alleles_fasta",
+            "lysP": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/lysP/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/loci/mdh/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cfreundii_seqdef/schemes/1/profiles_csv"
+    },
+    "Clonorchis sinensis": {
+        "db": "https://pubmlst.org/csinensis/",
+        "loci": {
+            "Actin": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Actin/alleles_fasta",
+            "Cox1": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Cox1/alleles_fasta",
+            "Cox3": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Cox3/alleles_fasta",
+            "Ef_1a": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Ef_1a/alleles_fasta",
+            "Its1": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Its1/alleles_fasta",
+            "Nad4": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Nad4/alleles_fasta",
+            "Nad5": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Nad5/alleles_fasta",
+            "Tubulin": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/loci/Tubulin/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_csinensis_seqdef/schemes/1/profiles_csv"
+    },
+    "Clostridioides difficile": {
+        "db": "https://pubmlst.org/cdifficile",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/adk/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/atpA/alleles_fasta",
+            "dxr": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/dxr/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/glyA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/recA/alleles_fasta",
+            "sodA": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/sodA/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/loci/tpi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cdifficile_seqdef/schemes/1/profiles_csv"
+    },
+    "Clostridium botulinum": {
+        "db": "https://pubmlst.org/cbotulinum/",
+        "loci": {
+            "aceK": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/aceK/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/aroE/alleles_fasta",
+            "hsp": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/hsp/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/mdh/alleles_fasta",
+            "oppB": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/oppB/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cbotulinum_seqdef/schemes/1/profiles_csv"
+    },
+    "Clostridium perfringens": {
+        "db": "https://pubmlst.org/cperfringens",
+        "loci": {
+            "colA": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/colA/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/groEL/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/gyrB/alleles_fasta",
+            "nadA": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/nadA/alleles_fasta",
+            "pgk": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/pgk/alleles_fasta",
+            "plc": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/plc/alleles_fasta",
+            "sigK": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/sigK/alleles_fasta",
+            "sodA": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/loci/sodA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cperfringens_seqdef/schemes/1/profiles_csv"
+    },
+    "Clostridium septicum": {
+        "db": "https://pubmlst.org/csepticum/",
+        "loci": {
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/ddl/alleles_fasta",
+            "dnaK": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/dnaK/alleles_fasta",
+            "glpK": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/glpK/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/groEL/alleles_fasta",
+            "gyrA": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/gyrA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/recA/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/loci/tpi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_csepticum_seqdef/schemes/1/profiles_csv"
+    },
+    "Corynebacterium diphtheriae": {
+        "db": "https://bigsdb.pasteur.fr/diphtheria/",
+        "loci": {
+            "atpA": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/atpA/alleles_fasta",
+            "dnaE": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/dnaE/alleles_fasta",
+            "dnaK": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/dnaK/alleles_fasta",
+            "fusA": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/fusA/alleles_fasta",
+            "leuA": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/leuA/alleles_fasta",
+            "odhA": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/odhA/alleles_fasta",
+            "rpoB": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_diphtheria_seqdef/schemes/3/profiles_csv"
+    },
+    "Cronobacter spp.": {
+        "db": "https://pubmlst.org/cronobacter/",
+        "loci": {
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/atpD/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/fusA/alleles_fasta",
+            "glnS": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/glnS/alleles_fasta",
+            "gltB": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/gltB/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/gyrB/alleles_fasta",
+            "infB": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/infB/alleles_fasta",
+            "pps": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/loci/pps/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_cronobacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Cutibacterium acnes": {
+        "db": "https://pubmlst.org/pacnes/",
+        "loci": {
+            "CAMP2": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/CAMP2/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/aroE/alleles_fasta",
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/atpD/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/gmk/alleles_fasta",
+            "guaA": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/guaA/alleles_fasta",
+            "lepA": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/lepA/alleles_fasta",
+            "sodA": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/sodA/alleles_fasta",
+            "tly": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/loci/tly/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pacnes_seqdef/schemes/3/profiles_csv"
+    },
+    "Dichelobacter nodosus": {
+        "db": "https://pubmlst.org/dnodosus",
+        "loci": {
+            "dcd": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/dcd/alleles_fasta",
+            "dtdA": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/dtdA/alleles_fasta",
+            "folK": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/folK/alleles_fasta",
+            "recR": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/recR/alleles_fasta",
+            "rlmH": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/rlmH/alleles_fasta",
+            "rplI": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/rplI/alleles_fasta",
+            "tsaE": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/loci/tsaE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_dnodosus_seqdef/schemes/1/profiles_csv"
+    },
+    "Edwardsiella spp.": {
+        "db": "https://pubmlst.org/edwardsiella/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/adk/alleles_fasta",
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/atpD/alleles_fasta",
+            "dnaJ": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/dnaJ/alleles_fasta",
+            "gapA": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/gapA/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/glnA/alleles_fasta",
+            "hsp60": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/hsp60/alleles_fasta",
+            "phoR": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/phoR/alleles_fasta",
+            "pyrG": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/pyrG/alleles_fasta",
+            "rpoA": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/rpoA/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_edwardsiella_seqdef/schemes/1/profiles_csv"
+    },
+    "Enterobacter cloacae": {
+        "db": "https://pubmlst.org/ecloacae/",
+        "loci": {
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/dnaA/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/fusA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/gyrB/alleles_fasta",
+            "leuS": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/leuS/alleles_fasta",
+            "pyrG": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/pyrG/alleles_fasta",
+            "rplB": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/rplB/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ecloacae_seqdef/schemes/1/profiles_csv"
+    },
+    "Enterococcus faecalis": {
+        "db": "https://pubmlst.org/efaecalis/",
+        "loci": {
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/aroE/alleles_fasta",
+            "gdh": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/gdh/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/gki/alleles_fasta",
+            "gyd": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/gyd/alleles_fasta",
+            "pstS": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/pstS/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/xpt/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_efaecalis_seqdef/schemes/1/profiles_csv"
+    },
+    "Enterococcus faecium": {
+        "db": "https://pubmlst.org/efaecium/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/adk/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/atpA/alleles_fasta",
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/ddl/alleles_fasta",
+            "gdh": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/gdh/alleles_fasta",
+            "gyd": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/gyd/alleles_fasta",
+            "pstS": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/pstS/alleles_fasta",
+            "purK": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/loci/purK/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_efaecium_seqdef/schemes/1/profiles_csv"
+    },
+    "Escherichia coli#1": {
+        "db": "https://enterobase.warwick.ac.uk/species/index/ecoli",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/adk/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/fumC/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/gyrB/alleles_fasta",
+            "icd": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/icd/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/mdh/alleles_fasta",
+            "purA": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/purA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ecoli_achtman_seqdef/schemes/4/profiles_csv"
+    },
+    "Escherichia coli#2": {
+        "db": "https://bigsdb.pasteur.fr/ecoli/",
+        "loci": {
+            "dinB": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/dinB/alleles_fasta",
+            "icdA": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/icdA/alleles_fasta",
+            "pabB": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/pabB/alleles_fasta",
+            "polB": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/polB/alleles_fasta",
+            "putP": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/putP/alleles_fasta",
+            "trpA": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/trpA/alleles_fasta",
+            "trpB": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/trpB/alleles_fasta",
+            "uidA": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/loci/uidA/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_ecoli_seqdef/schemes/1/profiles_csv"
+    },
+    "Flavobacterium psychrophilum": {
+        "db": "https://pubmlst.org/fpsychrophilum/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/atpA/alleles_fasta",
+            "dnaK": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/dnaK/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/fumC/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/gyrB/alleles_fasta",
+            "murG": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/murG/alleles_fasta",
+            "trpB": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/trpB/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_fpsychrophilum_seqdef/schemes/1/profiles_csv"
+    },
+    "Gallibacterium anatis": {
+        "db": "https://pubmlst.org/gallibacterium",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/adk/alleles_fasta",
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/atpD/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/fumC/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/gyrB/alleles_fasta",
+            "infB": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/infB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/mdh/alleles_fasta",
+            "recN": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/recN/alleles_fasta",
+            "thdF": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/loci/thdF/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_gallibacterium_seqdef/schemes/1/profiles_csv"
+    },
+    "Geotrichum spp.": {
+        "db": "https://pubmlst.org/geotrichum",
+        "loci": {
+            "NUP116": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/loci/NUP116/alleles_fasta",
+            "PLB3": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/loci/PLB3/alleles_fasta",
+            "SAPT4": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/loci/SAPT4/alleles_fasta",
+            "URA1": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/loci/URA1/alleles_fasta",
+            "URA3": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/loci/URA3/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_geotrichum_seqdef/schemes/1/profiles_csv"
+    },
+    "Glaesserella parasuis": {
+        "db": "https://pubmlst.org/gparasuis/",
+        "loci": {
+            "6pgd": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/6pgd/alleles_fasta",
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/atpD/alleles_fasta",
+            "frdB": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/frdB/alleles_fasta",
+            "g3pd": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/g3pd/alleles_fasta",
+            "infB": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/infB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/mdh/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_hparasuis_seqdef/schemes/1/profiles_csv"
+    },
+    "Haemophilus influenzae": {
+        "db": "https://pubmlst.org/hinfluenzae/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/adk/alleles_fasta",
+            "atpG": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/atpG/alleles_fasta",
+            "frdB": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/frdB/alleles_fasta",
+            "fucK": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/fucK/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/mdh/alleles_fasta",
+            "pgi": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/pgi/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_hinfluenzae_seqdef/schemes/1/profiles_csv"
+    },
+    "Helicobacter cinaedi": {
+        "db": "https://pubmlst.org/hcinaedi",
+        "loci": {
+            "23S_rRNA": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/23S_rRNA/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/aroE/alleles_fasta",
+            "aspA": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/aspA/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/atpA/alleles_fasta",
+            "cdtB": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/cdtB/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/ppa/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/loci/tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_hcinaedi_seqdef/schemes/1/profiles_csv"
+    },
+    "Helicobacter pylori": {
+        "db": "https://pubmlst.org/helicobacter/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/atpA/alleles_fasta",
+            "efp": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/efp/alleles_fasta",
+            "mutY": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/mutY/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/ppa/alleles_fasta",
+            "trpC": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/trpC/alleles_fasta",
+            "ureI": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/ureI/alleles_fasta",
+            "yphC": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/loci/yphC/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_helicobacter_seqdef/schemes/1/profiles_csv"
+    },
+    "Helicobacter suis": {
+        "db": "https://pubmlst.org/hsuis/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/atpA/alleles_fasta",
+            "efp": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/efp/alleles_fasta",
+            "mutY": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/mutY/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/ppa/alleles_fasta",
+            "trpC": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/trpC/alleles_fasta",
+            "ureAB": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/ureAB/alleles_fasta",
+            "yphC": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/loci/yphC/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_hsuis_seqdef/schemes/1/profiles_csv"
+    },
+    "Kingella kingae": {
+        "db": "https://bigsdb.pasteur.fr/kingella/",
+        "loci": {
+            "abcZ": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/abcZ/alleles_fasta",
+            "adk": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/adk/alleles_fasta",
+            "aroE": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/aroE/alleles_fasta",
+            "cpn60": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/cpn60/alleles_fasta",
+            "gdh": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/gdh/alleles_fasta",
+            "recA": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_kingella_seqdef/schemes/1/profiles_csv"
+    },
+    "Klebsiella aerogenes": {
+        "db": "https://pubmlst.org/kaerogenes/",
+        "loci": {
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/dnaA/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/fusA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/gyrB/alleles_fasta",
+            "leuS": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/leuS/alleles_fasta",
+            "pryG": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/pryG/alleles_fasta",
+            "rplB": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/rplB/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_kaerogenes_seqdef/schemes/1/profiles_csv"
+    },
+    "Klebsiella oxytoca": {
+        "db": "https://pubmlst.org/koxytoca/",
+        "loci": {
+            "gapA": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/gapA/alleles_fasta",
+            "infB": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/infB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/mdh/alleles_fasta",
+            "pgi": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/pgi/alleles_fasta",
+            "phoE": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/phoE/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/rpoB/alleles_fasta",
+            "tonB": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/loci/tonB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_koxytoca_seqdef/schemes/1/profiles_csv"
+    },
+    "Klebsiella pneumoniae": {
+        "db": "https://bigsdb.pasteur.fr/klebsiella/",
+        "loci": {
+            "gapA": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/gapA/alleles_fasta",
+            "infB": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/infB/alleles_fasta",
+            "mdh": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/mdh/alleles_fasta",
+            "pgi": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/pgi/alleles_fasta",
+            "phoE": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/phoE/alleles_fasta",
+            "rpoB": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/rpoB/alleles_fasta",
+            "tonB": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/loci/tonB/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_klebsiella_seqdef/schemes/1/profiles_csv"
+    },
+    "Kudoa septempunctata": {
+        "db": "https://pubmlst.org/kseptempunctata/",
+        "loci": {
+            "cox1": "https://rest.pubmlst.org/db/pubmlst_kseptempunctata_seqdef/loci/cox1/alleles_fasta",
+            "rnl": "https://rest.pubmlst.org/db/pubmlst_kseptempunctata_seqdef/loci/rnl/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_kseptempunctata_seqdef/schemes/1/profiles_csv"
+    },
+    "Lactobacillus salivarius": {
+        "db": "https://pubmlst.org/lsalivarius/",
+        "loci": {
+            "nrdB": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/loci/nrdB/alleles_fasta",
+            "parB": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/loci/parB/alleles_fasta",
+            "pstB": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/loci/pstB/alleles_fasta",
+            "rpoA": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/loci/rpoA/alleles_fasta",
+            "rpsB": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/loci/rpsB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_lsalivarius_seqdef/schemes/1/profiles_csv"
+    },
+    "Lactococcus lactis bacteriophage": {
+        "db": "https://pubmlst.org/bacteriophages",
+        "loci": {
+            "lys": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/loci/lys/alleles_fasta",
+            "mcp": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/loci/mcp/alleles_fasta",
+            "mtp": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/loci/mtp/alleles_fasta",
+            "terL": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/loci/terL/alleles_fasta",
+            "tmp": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/loci/tmp/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_llactis_phage_seqdef/schemes/1/profiles_csv"
+    },
+    "Leptospira spp.": {
+        "db": "https://pubmlst.org/leptospira/",
+        "loci": {
+            "caiB_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/caiB_1/alleles_fasta",
+            "glmU_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/glmU_1/alleles_fasta",
+            "mreA_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/mreA_1/alleles_fasta",
+            "pfkB_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/pfkB_1/alleles_fasta",
+            "pntA_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/pntA_1/alleles_fasta",
+            "sucA_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/sucA_1/alleles_fasta",
+            "tpiA_1": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/tpiA_1/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/schemes/1/profiles_csv"
+    },
+    "Leptospira spp.#2": {
+        "db": "https://pubmlst.org/leptospira/",
+        "loci": {
+            "adk_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/adk_2/alleles_fasta",
+            "glmU_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/glmU_2/alleles_fasta",
+            "icdA_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/icdA_2/alleles_fasta",
+            "lipL32_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/lipL32_2/alleles_fasta",
+            "lipL41_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/lipL41_2/alleles_fasta",
+            "mreA_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/mreA_2/alleles_fasta",
+            "pntA_2": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/pntA_2/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/schemes/2/profiles_csv"
+    },
+    "Leptospira spp.#3": {
+        "db": "https://pubmlst.org/leptospira",
+        "loci": {
+            "adk_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/adk_3/alleles_fasta",
+            "icdA_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/icdA_3/alleles_fasta",
+            "lipL32_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/lipL32_3/alleles_fasta",
+            "lipL41_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/lipL41_3/alleles_fasta",
+            "rrs2_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/rrs2_3/alleles_fasta",
+            "secY_3": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/loci/secY_3/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_leptospira_seqdef/schemes/3/profiles_csv"
+    },
+    "Listeria monocytogenes": {
+        "db": "https://bigsdb.pasteur.fr/listeria/",
+        "loci": {
+            "abcZ": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/abcZ/alleles_fasta",
+            "bglA": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/bglA/alleles_fasta",
+            "cat": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/cat/alleles_fasta",
+            "dapE": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/dapE/alleles_fasta",
+            "dat": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/dat/alleles_fasta",
+            "ldh": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/ldh/alleles_fasta",
+            "lhkA": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/loci/lhkA/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_listeria_seqdef/schemes/2/profiles_csv"
+    },
+    "Macrococcus canis": {
+        "db": "https://pubmlst.org/mcanis/",
+        "loci": {
+            "ack": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/ack/alleles_fasta",
+            "cpn60": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/cpn60/alleles_fasta",
+            "fdh": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/fdh/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/pta/alleles_fasta",
+            "purA": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/purA/alleles_fasta",
+            "sar": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/sar/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mcanis_seqdef/schemes/1/profiles_csv"
+    },
+    "Macrococcus caseolyticus": {
+        "db": "https://pubmlst.org/mcaseolyticus/",
+        "loci": {
+            "ack": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/ack/alleles_fasta",
+            "cpn60": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/cpn60/alleles_fasta",
+            "fdh": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/fdh/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/pta/alleles_fasta",
+            "purA": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/purA/alleles_fasta",
+            "sar": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/sar/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mcaseolyticus_seqdef/schemes/1/profiles_csv"
+    },
+    "Mammaliicoccus sciuri": {
+        "db": "https://pubmlst.org/msciuri",
+        "loci": {
+            "ack": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/ack/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/aroE/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/ftsZ/alleles_fasta",
+            "glpK": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/glpK/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/gmk/alleles_fasta",
+            "pta1": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/pta1/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/loci/tpiA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_msciuri_seqdef/schemes/1/profiles_csv"
+    },
+    "Mannheimia haemolytica": {
+        "db": "https://pubmlst.org/mhaemolytica/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/adk/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/aroE/alleles_fasta",
+            "deoD": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/deoD/alleles_fasta",
+            "gapDH": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/gapDH/alleles_fasta",
+            "gnd": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/gnd/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/mdh/alleles_fasta",
+            "zwf": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/loci/zwf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mhaemolytica_seqdef/schemes/1/profiles_csv"
+    },
+    "Melissococcus plutonius": {
+        "db": "https://pubmlst.org/mplutonius/",
+        "loci": {
+            "argE": "https://rest.pubmlst.org/db/pubmlst_mplutonius_seqdef/loci/argE/alleles_fasta",
+            "galK": "https://rest.pubmlst.org/db/pubmlst_mplutonius_seqdef/loci/galK/alleles_fasta",
+            "gbpB": "https://rest.pubmlst.org/db/pubmlst_mplutonius_seqdef/loci/gbpB/alleles_fasta",
+            "purR": "https://rest.pubmlst.org/db/pubmlst_mplutonius_seqdef/loci/purR/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mplutonius_seqdef/schemes/1/profiles_csv"
+    },
+    "Moraxella catarrhalis": {
+        "db": "https://enterobase.warwick.ac.uk/species/index/mcatarrhalis",
+        "loci": {
+            "abcZ": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/abcZ/alleles_fasta",
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/adk/alleles_fasta",
+            "efp": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/efp/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/fumC/alleles_fasta",
+            "glyBeta": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/glyBeta/alleles_fasta",
+            "mutY": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/mutY/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/ppa/alleles_fasta",
+            "trpE": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/loci/trpE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mcatarrhalis_achtman_seqdef/schemes/6/profiles_csv"
+    },
+    "Mycobacteria spp.": {
+        "db": "https://pubmlst.org/mycobacteria",
+        "loci": {
+            "L16": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/L16/alleles_fasta",
+            "L19": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/L19/alleles_fasta",
+            "L35": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/L35/alleles_fasta",
+            "S12": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/S12/alleles_fasta",
+            "S14Z": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/S14Z/alleles_fasta",
+            "S19": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/S19/alleles_fasta",
+            "S7": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/S7/alleles_fasta",
+            "S8": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/loci/S8/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mycobacteria_seqdef/schemes/2/profiles_csv"
+    },
+    "Mycobacteroides abscessus": {
+        "db": "https://pubmlst.org/mabscessus/",
+        "loci": {
+            "argH": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/argH/alleles_fasta",
+            "cya": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/cya/alleles_fasta",
+            "gnd": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/gnd/alleles_fasta",
+            "murC": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/murC/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/pta/alleles_fasta",
+            "purH": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/purH/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mabscessus_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma agalactiae": {
+        "db": "https://pubmlst.org/magalactiae/",
+        "loci": {
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/loci/dnaA/alleles_fasta",
+            "gltX": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/loci/gltX/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/loci/gyrB/alleles_fasta",
+            "metS": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/loci/metS/alleles_fasta",
+            "tufA": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/loci/tufA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_magalactiae_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma anserisalpingitidis": {
+        "db": "https://pubmlst.org/manserisalpingitidis",
+        "loci": {
+            "atpG": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/loci/atpG/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/loci/fusA/alleles_fasta",
+            "pgiB": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/loci/pgiB/alleles_fasta",
+            "plsY": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/loci/plsY/alleles_fasta",
+            "uvrA": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/loci/uvrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_manserisalpingitidis_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma bovis": {
+        "db": "https://pubmlst.org/mbovis",
+        "loci": {
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/dnaA/alleles_fasta",
+            "gltX": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/gltX/alleles_fasta",
+            "gpsA": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/gpsA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/gyrB/alleles_fasta",
+            "pta2": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/pta2/alleles_fasta",
+            "tdk": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/tdk/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/loci/tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mbovis_seqdef/schemes/2/profiles_csv"
+    },
+    "Mycoplasma flocculare": {
+        "db": "https://pubmlst.org/mflocculare",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mflocculare_seqdef/loci/adk/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_mflocculare_seqdef/loci/rpoB/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_mflocculare_seqdef/loci/tpiA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mflocculare_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma gallisepticum#1": {
+        "db": "https://pubmlst.org/mgallisepticum/",
+        "loci": {
+            "DUF3196": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/DUF3196/alleles_fasta",
+            "atpG": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/atpG/alleles_fasta",
+            "dppC": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/dppC/alleles_fasta",
+            "lgT": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/lgT/alleles_fasta",
+            "mraW": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/mraW/alleles_fasta",
+            "plsC": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/plsC/alleles_fasta",
+            "ugpA": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/ugpA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma gallisepticum#2": {
+        "db": "https://pubmlst.org/mgallisepticum/",
+        "loci": {
+            "atpG2": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/atpG2/alleles_fasta",
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/dnaA/alleles_fasta",
+            "fusA": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/fusA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/rpoB/alleles_fasta",
+            "ruvB": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/ruvB/alleles_fasta",
+            "uvrA": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/loci/uvrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mgallisepticum_seqdef/schemes/2/profiles_csv"
+    },
+    "Mycoplasma hominis": {
+        "db": "https://pubmlst.org/mhominis",
+        "loci": {
+            "ftsY": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/loci/ftsY/alleles_fasta",
+            "gap": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/loci/gap/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/loci/gyrB/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/loci/tuf/alleles_fasta",
+            "uvrA": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/loci/uvrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mhominis_seqdef/schemes/3/profiles_csv"
+    },
+    "Mycoplasma hyopneumoniae": {
+        "db": "https://pubmlst.org/mhyopneumoniae/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mhyopneumoniae_seqdef/loci/adk/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_mhyopneumoniae_seqdef/loci/rpoB/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_mhyopneumoniae_seqdef/loci/tpiA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mhyopneumoniae_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma hyorhinis": {
+        "db": "https://pubmlst.org/mhyorhinis/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/adk/alleles_fasta",
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/dnaA/alleles_fasta",
+            "gltX": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/gltX/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/gmk/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/gyrB/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mhyorhinis_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma iowae": {
+        "db": "https://pubmlst.org/miowae/",
+        "loci": {
+            "dppC": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/dppC/alleles_fasta",
+            "kdpA": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/kdpA/alleles_fasta",
+            "leuS": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/leuS/alleles_fasta",
+            "rpoC": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/rpoC/alleles_fasta",
+            "ulaA": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/ulaA/alleles_fasta",
+            "valS": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/loci/valS/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_miowae_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma pneumoniae": {
+        "db": "https://pubmlst.org/mpneumoniae/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/adk/alleles_fasta",
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/arcC/alleles_fasta",
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/atpA/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/glyA/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/gmk/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/gyrB/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/pgm/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/loci/ppa/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_mpneumoniae_seqdef/schemes/1/profiles_csv"
+    },
+    "Mycoplasma synoviae": {
+        "db": "https://pubmlst.org/msynoviae/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/adk/alleles_fasta",
+            "atpG": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/atpG/alleles_fasta",
+            "efp": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/efp/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/gmk/alleles_fasta",
+            "nagC": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/nagC/alleles_fasta",
+            "ppa": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/ppa/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_msynoviae_seqdef/schemes/1/profiles_csv"
+    },
+    "Neisseria spp.": {
+        "db": "https://pubmlst.org/neisseria/",
+        "loci": {
+            "abcZ": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/abcZ/alleles_fasta",
+            "adk": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/adk/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/aroE/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/fumC/alleles_fasta",
+            "gdh": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/gdh/alleles_fasta",
+            "pdhC": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/pdhC/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/loci/pgm/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_neisseria_seqdef/schemes/1/profiles_csv"
+    },
+    "Orientia tsutsugamushi": {
+        "db": "https://pubmlst.org/otsutsugamushi/",
+        "loci": {
+            "gpsA": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/gpsA/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/mdh/alleles_fasta",
+            "nrdB": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/nrdB/alleles_fasta",
+            "nuoF": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/nuoF/alleles_fasta",
+            "ppdK": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/ppdK/alleles_fasta",
+            "sucB": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/sucB/alleles_fasta",
+            "sucD": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/loci/sucD/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_otsutsugamushi_seqdef/schemes/1/profiles_csv"
+    },
+    "Ornithobacterium rhinotracheale": {
+        "db": "https://pubmlst.org/orhinotracheale/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/adk/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/aroE/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/fumC/alleles_fasta",
+            "gdhA": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/gdhA/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/mdh/alleles_fasta",
+            "pgi": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/pgi/alleles_fasta",
+            "pmi": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/loci/pmi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_orhinotracheale_seqdef/schemes/1/profiles_csv"
+    },
+    "Paenibacillus larvae": {
+        "db": "https://pubmlst.org/plarvae",
+        "loci": {
+            "Natrans": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/Natrans/alleles_fasta",
+            "clpC": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/clpC/alleles_fasta",
+            "ftsA": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/ftsA/alleles_fasta",
+            "glpF": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/glpF/alleles_fasta",
+            "glpT": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/glpT/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/rpoB/alleles_fasta",
+            "sigF": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/loci/sigF/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_plarvae_seqdef/schemes/1/profiles_csv"
+    },
+    "Pasteurella multocida#1": {
+        "db": "https://pubmlst.org/pmultocida/",
+        "loci": {
+            "RIRDC_adk": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_adk/alleles_fasta",
+            "RIRDC_est": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_est/alleles_fasta",
+            "RIRDC_gdh": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_gdh/alleles_fasta",
+            "RIRDC_mdh": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_mdh/alleles_fasta",
+            "RIRDC_pgi": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_pgi/alleles_fasta",
+            "RIRDC_pmi": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_pmi/alleles_fasta",
+            "RIRDC_zwf": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/RIRDC_zwf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/schemes/2/profiles_csv"
+    },
+    "Pasteurella multocida#2": {
+        "db": "https://pubmlst.org/pmultocida/",
+        "loci": {
+            "mh_adk": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_adk/alleles_fasta",
+            "mh_aroA": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_aroA/alleles_fasta",
+            "mh_deoD": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_deoD/alleles_fasta",
+            "mh_g6pd": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_g6pd/alleles_fasta",
+            "mh_gdhA": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_gdhA/alleles_fasta",
+            "mh_mdh": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_mdh/alleles_fasta",
+            "mh_pgi": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/loci/mh_pgi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pmultocida_seqdef/schemes/1/profiles_csv"
+    },
+    "Pediococcus pentosaceus": {
+        "db": "https://pubmlst.org/ppentosaceus/",
+        "loci": {
+            "dalR": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/dalR/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/glnA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/gyrB/alleles_fasta",
+            "leuS": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/leuS/alleles_fasta",
+            "pgI": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/pgI/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/pgm/alleles_fasta",
+            "pyc": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/loci/pyc/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ppentosaceus_seqdef/schemes/1/profiles_csv"
+    },
+    "Photobacterium damselae": {
+        "db": "https://pubmlst.org/pdamselae/",
+        "loci": {
+            "glpF": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/glpF/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/gyrB/alleles_fasta",
+            "metG": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/metG/alleles_fasta",
+            "pntA": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/pntA/alleles_fasta",
+            "pyrC": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/pyrC/alleles_fasta",
+            "toxR": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/loci/toxR/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pdamselae_seqdef/schemes/1/profiles_csv"
+    },
+    "Piscirickettsia salmonis": {
+        "db": "https://pubmlst.org/psalmonis",
+        "loci": {
+            "dnaK": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/dnaK/alleles_fasta",
+            "efp": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/efp/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/fumC/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/glyA/alleles_fasta",
+            "murG": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/murG/alleles_fasta",
+            "rpoD": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/rpoD/alleles_fasta",
+            "trpB": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/loci/trpB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_psalmonis_seqdef/schemes/1/profiles_csv"
+    },
+    "Porphyromonas gingivalis": {
+        "db": "https://pubmlst.org/pgingivalis/",
+        "loci": {
+            "ftsQ": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/ftsQ/alleles_fasta",
+            "gpdxJ": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/gpdxJ/alleles_fasta",
+            "hagB": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/hagB/alleles_fasta",
+            "mcmA": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/mcmA/alleles_fasta",
+            "pepO": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/pepO/alleles_fasta",
+            "pga": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/pga/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pgingivalis_seqdef/schemes/1/profiles_csv"
+    },
+    "Pseudomonas aeruginosa": {
+        "db": "https://pubmlst.org/paeruginosa/",
+        "loci": {
+            "acsA": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/acsA/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/aroE/alleles_fasta",
+            "guaA": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/guaA/alleles_fasta",
+            "mutL": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/mutL/alleles_fasta",
+            "nuoD": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/nuoD/alleles_fasta",
+            "ppsA": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/ppsA/alleles_fasta",
+            "trpE": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/loci/trpE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_paeruginosa_seqdef/schemes/1/profiles_csv"
+    },
+    "Pseudomonas fluorescens": {
+        "db": "https://pubmlst.org/pfluorescens/",
+        "loci": {
+            "glnS": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/glnS/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/gyrB/alleles_fasta",
+            "ileS": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/ileS/alleles_fasta",
+            "nuoD": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/nuoD/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/rpoB/alleles_fasta",
+            "rpoD": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/loci/rpoD/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pfluorescens_seqdef/schemes/1/profiles_csv"
+    },
+    "Pseudomonas putida": {
+        "db": "https://pubmlst.org/pputida",
+        "loci": {
+            "argS": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/argS/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/gyrB/alleles_fasta",
+            "ileS": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/ileS/alleles_fasta",
+            "nuoC": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/nuoC/alleles_fasta",
+            "ppsA": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/ppsA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/rpoB/alleles_fasta",
+            "rpoD": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/loci/rpoD/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_pputida_seqdef/schemes/1/profiles_csv"
+    },
+    "Rhodococcus spp.": {
+        "db": "https://pubmlst.org/rhodococcus",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/adk/alleles_fasta",
+            "gapdh": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/gapdh/alleles_fasta",
+            "icl": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/icl/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/mdh/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/rpoB/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/loci/tpi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_rhodococcus_seqdef/schemes/1/profiles_csv"
+    },
+    "Riemerella anatipestifer": {
+        "db": "https://pubmlst.org/ranatipestifer/",
+        "loci": {
+            "dnaB": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/dnaB/alleles_fasta",
+            "gluD": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/gluD/alleles_fasta",
+            "gpi": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/gpi/alleles_fasta",
+            "groEL": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/groEL/alleles_fasta",
+            "gyrA": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/gyrA/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/mdh/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ranatipestifer_seqdef/schemes/1/profiles_csv"
+    },
+    "Salmonella enterica": {
+        "db": "https://enterobase.warwick.ac.uk/species/index/senterica",
+        "loci": {
+            "aroC": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/aroC/alleles_fasta",
+            "dnaN": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/dnaN/alleles_fasta",
+            "hemD": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/hemD/alleles_fasta",
+            "hisD": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/hisD/alleles_fasta",
+            "purE": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/purE/alleles_fasta",
+            "sucA": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/sucA/alleles_fasta",
+            "thrA": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/loci/thrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_senterica_achtman_seqdef/schemes/2/profiles_csv"
+    },
+    "Saprolegnia parasitica": {
+        "db": "https://pubmlst.org/sparasitica",
+        "loci": {
+            "ALTS1": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/ALTS1/alleles_fasta",
+            "COX1": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/COX1/alleles_fasta",
+            "GLUT": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/GLUT/alleles_fasta",
+            "NAD1": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/NAD1/alleles_fasta",
+            "RPB2": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/RPB2/alleles_fasta",
+            "SHMT": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/SHMT/alleles_fasta",
+            "TUBB": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/loci/TUBB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sparasitica_seqdef/schemes/1/profiles_csv"
+    },
+    "Shewanella spp.": {
+        "db": "https://pubmlst.org/shewanella",
+        "loci": {
+            "16S_rRNA": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/16S_rRNA/alleles_fasta",
+            "adk": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/adk/alleles_fasta",
+            "atpB": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/atpB/alleles_fasta",
+            "guaA": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/guaA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/gyrB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/mdh/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/recA/alleles_fasta",
+            "rpoS": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/loci/rpoS/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_shewanella_seqdef/schemes/1/profiles_csv"
+    },
+    "Sinorhizobium spp.": {
+        "db": "https://pubmlst.org/sinorhizobium/",
+        "loci": {
+            "asd": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/asd/alleles_fasta",
+            "edd": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/edd/alleles_fasta",
+            "gap": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/gap/alleles_fasta",
+            "glnD": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/glnD/alleles_fasta",
+            "gnd": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/gnd/alleles_fasta",
+            "nuoE1": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/nuoE1/alleles_fasta",
+            "ordL2": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/ordL2/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/recA/alleles_fasta",
+            "sucA": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/sucA/alleles_fasta",
+            "zwf": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/loci/zwf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sinorhizobium_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus aureus": {
+        "db": "https://pubmlst.org/saureus",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/arcC/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/aroE/alleles_fasta",
+            "glpF": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/glpF/alleles_fasta",
+            "gmk": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/gmk/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/pta/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/tpi/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_saureus_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus chromogenes": {
+        "db": "https://pubmlst.org/schromogenes",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/arcC/alleles_fasta",
+            "dnaJ": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/dnaJ/alleles_fasta",
+            "fumC": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/fumC/alleles_fasta",
+            "glpF": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/glpF/alleles_fasta",
+            "hutU": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/hutU/alleles_fasta",
+            "menF": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/menF/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/loci/pta/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_schromogenes_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus epidermidis": {
+        "db": "https://pubmlst.org/sepidermidis/",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/arcC/alleles_fasta",
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/aroE/alleles_fasta",
+            "gtr": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/gtr/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/mutS/alleles_fasta",
+            "pyrR": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/pyrR/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/tpiA/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sepidermidis_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus haemolyticus": {
+        "db": "https://pubmlst.org/shaemolyticus/",
+        "loci": {
+            "Ribose_ABC": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/Ribose_ABC/alleles_fasta",
+            "SH1431": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/SH1431/alleles_fasta",
+            "SH_1200": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/SH_1200/alleles_fasta",
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/arcC/alleles_fasta",
+            "cfxE": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/cfxE/alleles_fasta",
+            "hemH": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/hemH/alleles_fasta",
+            "leuB": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/loci/leuB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_shaemolyticus_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus hominis": {
+        "db": "https://pubmlst.org/shominis",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/arcC/alleles_fasta",
+            "glpK": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/glpK/alleles_fasta",
+            "gtr": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/gtr/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/pta/alleles_fasta",
+            "tpiA": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/tpiA/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_shominis_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus lugdunensis": {
+        "db": "https://bigsdb.pasteur.fr/staphlugdunensis/",
+        "loci": {
+            "aroE": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/aroE/alleles_fasta",
+            "dat": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/dat/alleles_fasta",
+            "ddl": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/ddl/alleles_fasta",
+            "gmk": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/gmk/alleles_fasta",
+            "ldh": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/ldh/alleles_fasta",
+            "recA": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/recA/alleles_fasta",
+            "yqiL": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_staphlugdunensis_seqdef/schemes/1/profiles_csv"
+    },
+    "Staphylococcus pseudintermedius": {
+        "db": "https://pubmlst.org/spseudintermedius/",
+        "loci": {
+            "ack": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/ack/alleles_fasta",
+            "cpn60": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/cpn60/alleles_fasta",
+            "fdh": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/fdh/alleles_fasta",
+            "pta": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/pta/alleles_fasta",
+            "purA": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/purA/alleles_fasta",
+            "sar": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/sar/alleles_fasta",
+            "tuf": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/loci/tuf/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_spseudintermedius_seqdef/schemes/1/profiles_csv"
+    },
+    "Stenotrophomonas maltophilia": {
+        "db": "https://pubmlst.org/smaltophilia/",
+        "loci": {
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/atpD/alleles_fasta",
+            "gapA": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/gapA/alleles_fasta",
+            "guaA": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/guaA/alleles_fasta",
+            "mutM": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/mutM/alleles_fasta",
+            "nuoD": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/nuoD/alleles_fasta",
+            "ppsA": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/ppsA/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_smaltophilia_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus agalactiae": {
+        "db": "https://pubmlst.org/sagalactiae/",
+        "loci": {
+            "adhP": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/adhP/alleles_fasta",
+            "atr": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/atr/alleles_fasta",
+            "glcK": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/glcK/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/glnA/alleles_fasta",
+            "pheS": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/pheS/alleles_fasta",
+            "sdhA": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/sdhA/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/loci/tkt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sagalactiae_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus bovis/equinus complex (SBSEC)": {
+        "db": "https://pubmlst.org/sbsec/",
+        "loci": {
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/ddl/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/gki/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/glnA/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/mutS/alleles_fasta",
+            "mutS2": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/mutS2/alleles_fasta",
+            "pheS": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/pheS/alleles_fasta",
+            "proS": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/proS/alleles_fasta",
+            "pyrE": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/pyrE/alleles_fasta",
+            "thrS": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/thrS/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/loci/tpi/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sbsec_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus canis": {
+        "db": "https://pubmlst.org/scanis/",
+        "loci": {
+            "gki": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/gki/alleles_fasta",
+            "gtr": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/gtr/alleles_fasta",
+            "murI": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/murI/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/mutS/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/recP/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/xpt/alleles_fasta",
+            "yqiZ": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/loci/yqiZ/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_scanis_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus dysgalactiae equisimilis": {
+        "db": "https://pubmlst.org/sdysgalactiae/",
+        "loci": {
+            "atoB": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/atoB/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/gki/alleles_fasta",
+            "gtr": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/gtr/alleles_fasta",
+            "murI": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/murI/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/mutS/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/recP/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/loci/xpt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sdysgalactiae_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus gallolyticus": {
+        "db": "https://pubmlst.org/sgallolyticus/",
+        "loci": {
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/aroE/alleles_fasta",
+            "glgB": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/glgB/alleles_fasta",
+            "nifS": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/nifS/alleles_fasta",
+            "p20": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/p20/alleles_fasta",
+            "tkt": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/tkt/alleles_fasta",
+            "trpD": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/trpD/alleles_fasta",
+            "uvrA": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/loci/uvrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sgallolyticus_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus oralis": {
+        "db": "https://pubmlst.org/soralis/",
+        "loci": {
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/aroE/alleles_fasta",
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/ddl/alleles_fasta",
+            "gdh": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/gdh/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/gki/alleles_fasta",
+            "hexB": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/hexB/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/recP/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/loci/xpt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_oralstrep_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus pneumoniae": {
+        "db": "https://pubmlst.org/spneumoniae/",
+        "loci": {
+            "aroE": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/aroE/alleles_fasta",
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/ddl/alleles_fasta",
+            "gdh": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/gdh/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/gki/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/recP/alleles_fasta",
+            "spi": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/spi/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/loci/xpt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_spneumoniae_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus pyogenes": {
+        "db": "https://pubmlst.org/spyogenes",
+        "loci": {
+            "gki": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/gki/alleles_fasta",
+            "gtr": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/gtr/alleles_fasta",
+            "murI": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/murI/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/mutS/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/recP/alleles_fasta",
+            "xpt": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/xpt/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_spyogenes_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus suis": {
+        "db": "https://pubmlst.org/ssuis",
+        "loci": {
+            "aroA": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/aroA/alleles_fasta",
+            "cpn60": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/cpn60/alleles_fasta",
+            "dpr": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/dpr/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/gki/alleles_fasta",
+            "mutS": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/mutS/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/recA/alleles_fasta",
+            "thrA": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/loci/thrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ssuis_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus thermophilus": {
+        "db": "https://bigsdb.pasteur.fr/streptococcus/",
+        "loci": {
+            "ddlA": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/ddlA/alleles_fasta",
+            "glcK": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/glcK/alleles_fasta",
+            "proA": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/proA/alleles_fasta",
+            "ptsI": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/ptsI/alleles_fasta",
+            "serB": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/serB/alleles_fasta",
+            "tkt": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/loci/tkt/alleles_fasta"
+        },
+        "profiles": "https://bigsdb.pasteur.fr/api/db/pubmlst_streptothermophilus_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus thermophilus#2": {
+        "db": "https://pubmlst.org/sthermophilus",
+        "loci": {
+            "carB": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/carB/alleles_fasta",
+            "clpX": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/clpX/alleles_fasta",
+            "dnaA": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/dnaA/alleles_fasta",
+            "murC": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/murC/alleles_fasta",
+            "murE": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/murE/alleles_fasta",
+            "pepN": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/pepN/alleles_fasta",
+            "pepX": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/pepX/alleles_fasta",
+            "pyrG": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/pyrG/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/loci/rpoB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_sthermophilus_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus uberis": {
+        "db": "https://pubmlst.org/suberis/",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/arcC/alleles_fasta",
+            "ddl": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/ddl/alleles_fasta",
+            "gki": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/gki/alleles_fasta",
+            "recP": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/recP/alleles_fasta",
+            "tdk": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/tdk/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/tpi/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_suberis_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptococcus zooepidemicus": {
+        "db": "https://pubmlst.org/szooepidemicus/",
+        "loci": {
+            "arcC": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/arcC/alleles_fasta",
+            "nrdE": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/nrdE/alleles_fasta",
+            "proS": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/proS/alleles_fasta",
+            "spi": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/spi/alleles_fasta",
+            "tdk": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/tdk/alleles_fasta",
+            "tpi": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/tpi/alleles_fasta",
+            "yqiL": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/loci/yqiL/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_szooepidemicus_seqdef/schemes/1/profiles_csv"
+    },
+    "Streptomyces spp": {
+        "db": "https://pubmlst.org/streptomyces/",
+        "loci": {
+            "16S": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/16S/alleles_fasta",
+            "atpD": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/atpD/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/gyrB/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/recA/alleles_fasta",
+            "rpoB": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/rpoB/alleles_fasta",
+            "trpB": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/loci/trpB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_streptomyces_seqdef/schemes/1/profiles_csv"
+    },
+    "Taylorella spp.": {
+        "db": "https://pubmlst.org/taylorella/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/adk/alleles_fasta",
+            "fh": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/fh/alleles_fasta",
+            "gltA": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/gltA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/gyrB/alleles_fasta",
+            "shmt": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/shmt/alleles_fasta",
+            "txn": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/txn/alleles_fasta",
+            "tyrB": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/loci/tyrB/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_taylorella_seqdef/schemes/1/profiles_csv"
+    },
+    "Tenacibaculum spp.": {
+        "db": "https://pubmlst.org/tenacibaculum/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/atpA/alleles_fasta",
+            "dnaK": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/dnaK/alleles_fasta",
+            "glyA": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/glyA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/gyrB/alleles_fasta",
+            "infB": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/infB/alleles_fasta",
+            "rlmN": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/rlmN/alleles_fasta",
+            "tgt": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/loci/tgt/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_tenacibaculum_seqdef/schemes/1/profiles_csv"
+    },
+    "Treponema pallidum": {
+        "db": "https://pubmlst.org/tpallidum",
+        "loci": {
+            "TP0136": "https://rest.pubmlst.org/db/pubmlst_tpallidum_seqdef/loci/TP0136/alleles_fasta",
+            "TP0548": "https://rest.pubmlst.org/db/pubmlst_tpallidum_seqdef/loci/TP0548/alleles_fasta",
+            "TP0705": "https://rest.pubmlst.org/db/pubmlst_tpallidum_seqdef/loci/TP0705/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_tpallidum_seqdef/schemes/1/profiles_csv"
+    },
+    "Trichomonas vaginalis": {
+        "db": "https://pubmlst.org/tvaginalis/",
+        "loci": {
+            "ALTS": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/ALTS/alleles_fasta",
+            "DMRP": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/DMRP/alleles_fasta",
+            "FT2A": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/FT2A/alleles_fasta",
+            "GLUT": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/GLUT/alleles_fasta",
+            "M6PI": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/M6PI/alleles_fasta",
+            "SHMT": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/SHMT/alleles_fasta",
+            "TRYP": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/loci/TRYP/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_tvaginalis_seqdef/schemes/1/profiles_csv"
+    },
+    "Ureaplasma spp.": {
+        "db": "https://pubmlst.org/ureaplasma",
+        "loci": {
+            "ftsH": "https://rest.pubmlst.org/db/pubmlst_ureaplasma_seqdef/loci/ftsH/alleles_fasta",
+            "rpL22": "https://rest.pubmlst.org/db/pubmlst_ureaplasma_seqdef/loci/rpL22/alleles_fasta",
+            "thrS": "https://rest.pubmlst.org/db/pubmlst_ureaplasma_seqdef/loci/thrS/alleles_fasta",
+            "valS": "https://rest.pubmlst.org/db/pubmlst_ureaplasma_seqdef/loci/valS/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ureaplasma_seqdef/schemes/1/profiles_csv"
+    },
+    "Vibrio cholerae": {
+        "db": "https://pubmlst.org/vcholerae/",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/adk/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/gyrB/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/mdh/alleles_fasta",
+            "metE": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/metE/alleles_fasta",
+            "pntA": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/pntA/alleles_fasta",
+            "purM": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/purM/alleles_fasta",
+            "pyrC": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/pyrC/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/schemes/1/profiles_csv"
+    },
+    "Vibrio cholerae#2": {
+        "db": "https://pubmlst.org/vcholerae",
+        "loci": {
+            "asd": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/asd/alleles_fasta",
+            "dnaE": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/dnaE/alleles_fasta",
+            "lap": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/lap/alleles_fasta",
+            "pgm": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/pgm/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vcholerae_seqdef/schemes/2/profiles_csv"
+    },
+    "Vibrio parahaemolyticus": {
+        "db": "https://pubmlst.org/vparahaemolyticus/",
+        "loci": {
+            "dnaE": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/dnaE/alleles_fasta",
+            "dtdS": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/dtdS/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/gyrB/alleles_fasta",
+            "pntA": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/pntA/alleles_fasta",
+            "pyrC": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/pyrC/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/recA/alleles_fasta",
+            "tnaA": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/loci/tnaA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vparahaemolyticus_seqdef/schemes/1/profiles_csv"
+    },
+    "Vibrio spp.": {
+        "db": "https://pubmlst.org/vibrio",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_vibrio_seqdef/loci/atpA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_vibrio_seqdef/loci/gyrB/alleles_fasta",
+            "pyrH": "https://rest.pubmlst.org/db/pubmlst_vibrio_seqdef/loci/pyrH/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_vibrio_seqdef/loci/recA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vibrio_seqdef/schemes/1/profiles_csv"
+    },
+    "Vibrio tapetis": {
+        "db": "https://pubmlst.org/vtapetis/",
+        "loci": {
+            "atpA": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/atpA/alleles_fasta",
+            "fstZ": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/fstZ/alleles_fasta",
+            "gapA": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/gapA/alleles_fasta",
+            "hsp60": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/hsp60/alleles_fasta",
+            "pyrH": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/pyrH/alleles_fasta",
+            "rctB": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/rctB/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/recA/alleles_fasta",
+            "rpoA": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/rpoA/alleles_fasta",
+            "rpoD": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/rpoD/alleles_fasta",
+            "topA": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/loci/topA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vtapetis_seqdef/schemes/1/profiles_csv"
+    },
+    "Vibrio vulnificus": {
+        "db": "https://pubmlst.org/vvulnificus/",
+        "loci": {
+            "dtdS": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/dtdS/alleles_fasta",
+            "glp": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/glp/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/gyrB/alleles_fasta",
+            "lysA": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/lysA/alleles_fasta",
+            "mdh": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/mdh/alleles_fasta",
+            "metG": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/metG/alleles_fasta",
+            "pntA": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/pntA/alleles_fasta",
+            "purM": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/purM/alleles_fasta",
+            "pyrC": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/pyrC/alleles_fasta",
+            "tnaA": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/loci/tnaA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_vvulnificus_seqdef/schemes/1/profiles_csv"
+    },
+    "Wolbachia": {
+        "db": "https://pubmlst.org/wolbachia/",
+        "loci": {
+            "coxA": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/loci/coxA/alleles_fasta",
+            "fbpA": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/loci/fbpA/alleles_fasta",
+            "ftsZ": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/loci/ftsZ/alleles_fasta",
+            "gatB": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/loci/gatB/alleles_fasta",
+            "hcpA": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/loci/hcpA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_wolbachia_seqdef/schemes/1/profiles_csv"
+    },
+    "Xylella fastidiosa": {
+        "db": "https://pubmlst.org/xfastidiosa/",
+        "loci": {
+            "cysG": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/cysG/alleles_fasta",
+            "gltT": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/gltT/alleles_fasta",
+            "holC": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/holC/alleles_fasta",
+            "leuA": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/leuA/alleles_fasta",
+            "malF": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/malF/alleles_fasta",
+            "nuoL": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/nuoL/alleles_fasta",
+            "petC": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/loci/petC/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_xfastidiosa_seqdef/schemes/1/profiles_csv"
+    },
+    "Yersinia pseudotuberculosis": {
+        "db": "https://enterobase.warwick.ac.uk/species/index/yersinia",
+        "loci": {
+            "adk": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/adk/alleles_fasta",
+            "argA": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/argA/alleles_fasta",
+            "aroA": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/aroA/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/glnA/alleles_fasta",
+            "thrA": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/thrA/alleles_fasta",
+            "tmk": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/tmk/alleles_fasta",
+            "trpE": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/loci/trpE/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_ypseudotuberculosis_achtman_seqdef/schemes/3/profiles_csv"
+    },
+    "Yersinia ruckeri": {
+        "db": "https://pubmlst.org/yruckeri/",
+        "loci": {
+            "dnaJ": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/dnaJ/alleles_fasta",
+            "glnA": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/glnA/alleles_fasta",
+            "gyrB": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/gyrB/alleles_fasta",
+            "hsp60": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/hsp60/alleles_fasta",
+            "recA": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/recA/alleles_fasta",
+            "thrA": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/loci/thrA/alleles_fasta"
+        },
+        "profiles": "https://rest.pubmlst.org/db/pubmlst_yruckeri_seqdef/schemes/1/profiles_csv"
+    }
+}

@@ -1,0 +1,44 @@
+name: "shigeifinder"
+description: Determine Shigella serotype from assemblies or Illumina paired-end reads
+keywords:
+  - fastq
+  - fasta
+  - shigella
+  - serotype
+tools:
+  - "shigeifinder":
+      description: "Cluster informed Shigella and EIEC serotyping tool from Illumina reads and assemblies"
+      homepage: "https://mgtdb.unsw.edu.au/ShigEiFinder/"
+      documentation: "https://github.com/LanLab/ShigEiFinder"
+      tool_dev_url: "https://github.com/LanLab/ShigEiFinder"
+      doi: "10.1099/mgen.0.000704"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: Assembly or paired-end Illumina reads
+      pattern: "*.{fasta.gz,fasta.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: A TSV formatted file with ShigEiFinder results
+      pattern: "*.tsv"
+
+authors:
+  - "@rpetit3"

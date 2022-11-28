@@ -10,9 +10,9 @@ options.args = [
     "--minFraction ${params.min_fraction}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/modules/fastani/main' addParams( options: options )
+include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/fastani/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'fastani'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'fastani'] )
 }
 
 workflow FASTANI {

@@ -4,6 +4,66 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
+
+### `Added`
+- `--dragonflye_opts` to pass additional params to dragonflye
+- `--use_fastp` to use fastp for QCing reads
+- `bactopia datasets` no longer depends on `ariba`
+- `--skip_spell_check` in `bactopia datasets`
+- updated organisms available from PubMLST
+- custom profile for `wsvl`
+- updated citations
+- use `mambaforge` for docker builds
+- Support tarball inputs for large databases
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `pasty` - in silico serogrouping of _Pseudomonas aeruginosa_ isolates
+    - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
+    - `shigeifinder` - Serotyping Shigella and EIEC assemblies
+- bump program versions in modules
+    - `bakta` -> 1.5.1 
+    - `bbmap` -> 39.01
+    - `checkm-genome` -> 1.2.2
+    - `csvtk` -> 0.25.0
+    - `dragonflye` -> 1.0.13
+    - `eggnog-mapper` -> 2.1.9
+    - `fastani` -> 1.33
+    - `fastq-scan` -> 1.0.1
+    - `gamma` -> 2.2
+    - `gtdbtk` -> 2.1.1
+    - `iqtree` -> 2.2.0.3
+    - `kleborate` -> 2.2.0
+    - `mlst` -> 2.23.0
+    - `mob_suite` -> 3.1.0
+    - `mykrobe` -> 0.12.0
+    - `nanoplot` -> 1.40.2
+    - `ncbi-amrfinderplus`-> 3.10.45
+    - `panaroo` -> 1.3.0
+    - `pirate` -> 1.0.5
+    - `rasusa` -> 0.7.0
+    - `rgi` -> 6.0.1
+    - `shigatyper` -> 2.0.3
+    - `snpeff` -> 5.1
+    - `sourmash` -> 4.5.0
+    - `sra-tools` -> 3.0.0
+    - `tb-profiler` -> 4.4.0
+
+### `Fixed`
+- respect short polish hybrid assembly requests
+- missing variable in `bakta_download` module
+- restructure to match `nf-core/modules`
+- compatibility with Nextflow >=22.10
+- separate versions for Linux and OSX in `assemble_genomes`
+- `bactopia datasets` error messages switched to warnings
+
+### `Enhancements to OSS`
+- bump Bakta to 1.5.0 [nf-core/modules#2000](https://github.com/nf-core/modules/pull/2000)
+- add recipe for pasty [bioconda/bioconda-recipes#35930](https://github.com/bioconda/bioconda-recipes/pull/35930)
+- add recipe for pbptyper [bioconda/bioconda-recipes#36222](https://github.com/bioconda/bioconda-recipes/pull/36222)
+- add module for pasty [nf-core/modules#2003](https://github.com/nf-core/modules/pull/2003)
+- add module for pbptyper [nf-core/modules#2005](https://github.com/nf-core/modules/pull/2005)
+- add module for shigeifinder [nf-core/modules#2523](https://github.com/nf-core/modules/pull/2523)
+
 ## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
 
 ### `Added`
@@ -39,7 +99,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - add module for mcroni [nf-core/modules#1750](https://github.com/nf-core/modules/pull/1750)
 - add module for Mykrobe and GenoTyphi [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1818)
 - add module for plasmidfinder [nf-core/modules#1773](https://github.com/nf-core/modules/pull/1773)
-- add module for Seroba [nf-core/modules#1731](https://github.com/nf-core/modules/pull/1816)
+- add module for Seroba [nf-core/modules#1816](https://github.com/nf-core/modules/pull/1816)
 - add module for snippy/core [nf-core/modules#1855](https://github.com/nf-core/modules/pull/1855)
 - let tempfile determine temp dir location [sanger-pathogens/seroba#68](https://github.com/sanger-pathogens/seroba/pull/68)
 - allow the user to specify temp dir or use the system default [sanger-pathogens/pymummer#36](https://github.com/sanger-pathogens/pymummer/pull/36)

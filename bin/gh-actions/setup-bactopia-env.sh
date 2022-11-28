@@ -42,6 +42,9 @@ BACTOPIA_VERSION="${VERSION%.*}.x"
 BACTOPIA_SHARE="${BACTOPIA}/share/bactopia-${BACTOPIA_VERSION}/"
 mkdir -p ${BACTOPIA_SHARE}
 
+# Install bactopia-summary
+pip install ${WORK_DIR} --no-deps --ignore-installed -vv
+
 # Copy files
 cp -R \
   ${WORK_DIR}/bin \

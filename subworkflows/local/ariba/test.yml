@@ -46,7 +46,7 @@
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-report/versions.yml
-      md5sum: 87184f1a169523dd8743a8db771b240b
+      md5sum: ed544ea51225634aa8087ae1af3e0078
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.begin
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.err
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.log
@@ -58,7 +58,7 @@
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ariba/ariba/logs/csvtk_concat/ariba-summary/versions.yml
-      md5sum: f2cbd40a3eabeb48921e20d4427bd9c1
+      md5sum: bc63e204d2b35a382bd98d9428d89568
     - path: bactopia-tools/ariba/ariba/nf-reports/ariba-dag.dot
       contains: ['aribadag', 'ARIBA', 'versions']
     - path: bactopia-tools/ariba/ariba/nf-reports/ariba-report.html

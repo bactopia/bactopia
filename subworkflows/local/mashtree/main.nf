@@ -13,7 +13,7 @@ options.args = [
     "--sketch-size ${params.sketchsize}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/modules/mashtree/main' addParams( options: options + [ publish_to_base: true ] )
+include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/mashtree/main' addParams( options: options + [ publish_to_base: true ] )
 
 workflow MASHTREE {
     take:

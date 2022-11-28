@@ -9,9 +9,9 @@ options.args = [
     "--min_cov ${params.min_cov}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { LISSERO as LISSERO_MODULE } from '../../../modules/nf-core/modules/lissero/main' addParams( options: options )
+include { LISSERO as LISSERO_MODULE } from '../../../modules/nf-core/lissero/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'lissero'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'lissero'] )
 }
 
 workflow LISSERO {

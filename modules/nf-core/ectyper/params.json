@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/ectyper/params.json",
+    "title": "ECTyper Module",
+    "description": "A module for serotyping Escherichia coli genomes",
+    "type": "object",
+    "definitions": {
+        "ectyper_parameters": {
+            "title": "ECTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "opid": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Percent identity required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "opcov": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minumum percent coverage required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "hpid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Percent identity required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "hpcov": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minumum percent coverage required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "verify": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable E. coli species verification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "print_alleles": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Prints the allele sequences if enabled as the final column",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/ectyper_parameters"
+        }
+    ]
+}

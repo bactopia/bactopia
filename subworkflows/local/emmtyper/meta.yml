@@ -87,4 +87,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `emmtyper` result, see [emmtyper - Result format](https://github.com/MDU-PHL/emmtyper#result-format) for details  |
   citations:
+    - csvtk
     - emmtyper

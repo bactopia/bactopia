@@ -93,5 +93,6 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
   citations:
+    - csvtk
     - spatyper
     - spatyper_db

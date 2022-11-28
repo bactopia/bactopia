@@ -20,14 +20,14 @@ options.args = [
     "--min-contig-length ${params.min_contig_length}",
     "${params.bakta_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-DATABASE_DIR = params.bakta_db ? file(params.bakta_db) : []
+DATABASE = params.bakta_db ? file(params.bakta_db) : []
 PROTEINS = params.proteins ? file(params.proteins) : []
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 REPLICONS = params.replicons ? file(params.replicons) : []
 
-include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/modules/bakta/download/main' addParams( )
-include { BAKTA_RUN } from '../../../modules/nf-core/modules/bakta/run/main' addParams( options: options )
-include { BAKTA_MAIN_RUN as USE_BAKTA } from '../../../modules/nf-core/modules/bakta/run/main' addParams( options: options )
+include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/bakta/download/main' addParams( )
+include { BAKTA_RUN } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
+include { BAKTA_MAIN_RUN as USE_BAKTA } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
 
 workflow BAKTA {
     take:
@@ -39,9 +39,14 @@ workflow BAKTA {
     if (params.download_bakta) {
         // Force BAKTA_DOWNLOAD to wait
         BAKTA_DOWNLOAD()
-        BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db, PROTEINS, PRODIGAL_TF, REPLICONS)
+
+        if (params.bakta_save_as_tarball) {
+            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db_tarball, PROTEINS, PRODIGAL_TF, REPLICONS)
+        } else {
+            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db, PROTEINS, PRODIGAL_TF, REPLICONS)
+        }
     } else {
-        BAKTA_RUN(fasta, DATABASE_DIR, PROTEINS, PRODIGAL_TF, REPLICONS)
+        BAKTA_RUN(fasta, DATABASE, PROTEINS, PRODIGAL_TF, REPLICONS)
     }
 
     ch_versions = ch_versions.mix(BAKTA_RUN.out.versions.first())
@@ -70,9 +75,13 @@ workflow BAKTA_MAIN {
     if (params.download_bakta) {
         // Force BAKTA_DOWNLOAD to wait
         BAKTA_DOWNLOAD()
-        USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db, REPLICONS)
+        if (params.bakta_save_as_tarball) {
+            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db_tarball, REPLICONS)
+        } else {
+            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db, REPLICONS)
+        }
     } else {
-        USE_BAKTA(fasta, DATABASE_DIR, REPLICONS)
+        USE_BAKTA(fasta, DATABASE, REPLICONS)
     }
 
     ch_versions = ch_versions.mix(USE_BAKTA.out.versions.first())

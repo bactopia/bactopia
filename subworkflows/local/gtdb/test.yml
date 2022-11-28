@@ -1,10 +1,106 @@
 - name: gtdb-test
-  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb --wf gtdb -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb --wf gtdb --max_memory 64 -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - gtdb-todo
+    - gtdb
     - bactopia-tools
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.filtered.tsv
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.msa.fasta.gz
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.user_msa.fasta.gz
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.classify.tree.1.tree
+      md5sum: 4050dedc41112a616ee3e045b359a8b1
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.classify.tree.6.tree
+      md5sum: 9f1a7efa6725335378b1039b085c0ab7
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.summary.tsv
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.tree.mapping.tsv
+      md5sum: 61e7eec11349926af6613684b64d4321
+    - path: bactopia-tools/gtdb/gtdb/classify/test.backbone.bac120.classify.tree
+      md5sum: 5232b60db0bcf21c22c07cdb19baf690
+    - path: bactopia-tools/gtdb/gtdb/identify/test.ar53.markers_summary.tsv
+      md5sum: 18b16607512b160bade65758082fb704
+    - path: bactopia-tools/gtdb/gtdb/identify/test.bac120.markers_summary.tsv
+      md5sum: 4395dba453d660d5b0772ffd8f338946
+    - path: bactopia-tools/gtdb/gtdb/identify/test.failed_genomes.tsv
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/identify/test.translation_table_summary.tsv
+      md5sum: d7b6fa452dc8efd2cb604dd4ad438fe7
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.err
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.log
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.out
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.sh
+      md5sum: 27b760332014b3b266d48ab9bd47b3d2
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/results/gtdbtk.log
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/results/gtdbtk.warnings.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/versions.yml
+      md5sum: ecc05f4c5867322bcd59c246943a7f35
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-dag.dot
+      md5sum: 6e180d122530f8f9cdaddf6d0178687b
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/gtdb/gtdb/test.bac120.summary.tsv
+
+- name: gtdb-test-tarball
+  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb_tarball --wf gtdb --max_memory 64 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - gtdb
+    - gtdb-tarball
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.filtered.tsv
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.msa.fasta.gz
+    - path: bactopia-tools/gtdb/gtdb/align/test.bac120.user_msa.fasta.gz
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.classify.tree.1.tree
+      md5sum: 4050dedc41112a616ee3e045b359a8b1
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.classify.tree.6.tree
+      md5sum: 9f1a7efa6725335378b1039b085c0ab7
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.summary.tsv
+    - path: bactopia-tools/gtdb/gtdb/classify/test.bac120.tree.mapping.tsv
+      md5sum: 61e7eec11349926af6613684b64d4321
+    - path: bactopia-tools/gtdb/gtdb/classify/test.backbone.bac120.classify.tree
+      md5sum: 5232b60db0bcf21c22c07cdb19baf690
+    - path: bactopia-tools/gtdb/gtdb/identify/test.ar53.markers_summary.tsv
+      md5sum: 18b16607512b160bade65758082fb704
+    - path: bactopia-tools/gtdb/gtdb/identify/test.bac120.markers_summary.tsv
+      md5sum: 4395dba453d660d5b0772ffd8f338946
+    - path: bactopia-tools/gtdb/gtdb/identify/test.failed_genomes.tsv
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/identify/test.translation_table_summary.tsv
+      md5sum: d7b6fa452dc8efd2cb604dd4ad438fe7
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.err
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.log
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.out
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.sh
+      md5sum: 0cf2b7f1171a5a946be4c204cac72053
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/nf-gtdb.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/results/gtdbtk.log
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/results/gtdbtk.warnings.log
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/gtdb/gtdb/logs/gtdb/versions.yml
+      md5sum: b27370cf7b3c4423fb7ef99d73abb969
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-dag.dot
+      md5sum: 0286fa537dc8d0f988d9fdb143c7e627
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/gtdb/gtdb/nf-reports/gtdb-trace.txt
+      contains: ['task_id']
+    - path: bactopia-tools/gtdb/gtdb/test.bac120.summary.tsv

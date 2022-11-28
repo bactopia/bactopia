@@ -11,9 +11,9 @@ options.args = [
     "${params.mobsuite_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MOBSUITE_RECON } from '../../../modules/nf-core/modules/mobsuite/recon/main' addParams( options: options )
+include { MOBSUITE_RECON } from '../../../modules/nf-core/mobsuite/recon/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mobsuite'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mobsuite'] )
 }
 
 workflow MOBSUITE {

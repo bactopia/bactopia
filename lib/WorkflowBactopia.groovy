@@ -136,10 +136,10 @@ class WorkflowBactopia {
         if (params.use_bakta) {
             if (params.bakta_db) {
                 if (Utils.isLocal(params.bakta_db)) {
-                    if (!Utils.fileExists("${params.bakta_db}/version.json")) {
-                        log.error "Please verify the PATH is correct for '--bakta_db'. Unable " +
-                                "to open ${params.bakta_db}"
-                        error += 1
+                    if (params.bakta_db.endsWith(".tar.gz")) {
+                        error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                    } else {
+                        error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
                     }
                 }
             } else {

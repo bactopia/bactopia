@@ -17,7 +17,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
 
-include { KRAKEN2 as KRAKEN2_MODULE } from '../../../modules/nf-core/modules/kraken2/main' addParams( options: options )
+include { KRAKEN2 as KRAKEN2_MODULE } from '../../../modules/nf-core/kraken2/main' addParams( options: options )
 
 workflow KRAKEN2 {
     take:

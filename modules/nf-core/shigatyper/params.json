@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/shigatyper/params.json",
+    "title": "ShigaTyper Module",
+    "description": "A module serotype prediction of Shigella reads",
+    "type": "object",
+    "definitions": {
+        "shigatyper_parameters": {
+            "title": "ShigaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/shigatyper_parameters"
+        }
+    ]
+}

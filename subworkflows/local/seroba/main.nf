@@ -9,9 +9,9 @@ options.args = [
     params.seroba_noclean ? "--noclean" : ""
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { SEROBA_RUN } from '../../../modules/nf-core/modules/seroba/run/main' addParams( options: options )
+include { SEROBA_RUN } from '../../../modules/nf-core/seroba/run/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'seroba'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'seroba'] )
 }
 
 workflow SEROBA {

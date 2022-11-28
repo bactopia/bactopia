@@ -114,5 +114,4 @@ docs:
           | version_info.txt      | Containes info on the versions of ARIBA and its dependencies |
   citations:
     - ariba
-
-
+    - csvtk

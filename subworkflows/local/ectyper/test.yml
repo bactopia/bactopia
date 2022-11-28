@@ -41,7 +41,7 @@
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ectyper/ectyper/logs/csvtk_concat/versions.yml
-      md5sum: 3223d7ef682d689482d637fe00e72a3c
+      md5sum: fdaf484308671d9bd4d5f785e4a0b2cb
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-dag.dot
       contains: ['ectyperdag', 'ECTYPER', 'versions']
     - path: bactopia-tools/ectyper/ectyper/nf-reports/ectyper-report.html

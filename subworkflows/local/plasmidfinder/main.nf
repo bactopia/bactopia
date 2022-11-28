@@ -9,9 +9,9 @@ options.args = [
     "-t ${params.pf_threshold}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../../modules/nf-core/modules/plasmidfinder/main' addParams( options: options )
+include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../../modules/nf-core/plasmidfinder/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'plasmidfinder'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'plasmidfinder'] )
 }
 
 workflow PLASMIDFINDER {

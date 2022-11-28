@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/lissero/params.json",
+    "title": "LisSero Module",
+    "description": "A module for serogroup typing prediction for Listeria monocytogenes",
+    "type": "object",
+    "definitions": {
+        "lissero_parameters": {
+            "title": "LisSero Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "min_id": {
+                    "type": "number",
+                    "default": 95.0,
+                    "description": "Minimum percent identity to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "min_cov": {
+                    "type": "number",
+                    "default": 95.0,
+                    "description": "Minimum coverage of the gene to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/lissero_parameters"
+        }
+    ]
+}

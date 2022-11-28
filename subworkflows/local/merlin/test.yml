@@ -91,7 +91,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/versions.yml
-      md5sum: 94d6965f6eca4654d15dde088879a39d
+      md5sum: f13379691689759cde0390a539184c56
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
@@ -105,7 +105,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/versions.yml
-      md5sum: 4cc9396ac027ebb1917ed2ddba0ccf49
+      md5sum: 07463dc2918ff6ccedbfc1d326301f99
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
@@ -119,7 +119,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/versions.yml
-      md5sum: d57d15ad98d4a22324dc3538d8d0fb17
+      md5sum: 869b2024fb87ae0b5dcd519be8cbd205
     - path: bactopia-tools/merlin/merlin/nf-reports/merlin-dag.dot
       contains: ['merlindag', 'MERLIN', 'versions']
     - path: bactopia-tools/merlin/merlin/nf-reports/merlin-report.html
@@ -137,7 +137,6 @@
 - name: merlin-full_test
   command: bash -c 'nextflow run ./subworkflows/local/merlin/test.nf -entry test_merlinfull --wf merlin --full_merlin -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
-    - merlin
     - merlin-full
     - bactopia-tools
   files:
@@ -168,7 +167,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/hpsuissero/GCF_000292685_serotyping_res.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
     - path: bactopia-tools/merlin/merlin/GCF_000292685/kleborate/GCF_000292685.results.txt
-      md5sum: fba8f74af8879e45e05ced3651f1a7d8
+      md5sum: 69fffd648e56dd1ffaa57bdca43ca560
     - path: bactopia-tools/merlin/merlin/GCF_000292685/legsta/GCF_000292685.tsv
       md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/agrvate/nf-agrvate.begin
@@ -249,7 +248,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/nf-genotyphi.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/genotyphi/mykrobe/versions.yml
-      md5sum: 880796780033b7792f227ec2becb7bf5
+      md5sum: 777bbc05f926d56943cbb87bdcaf1940
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/hicap/nf-hicap.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/hicap/nf-hicap.err
@@ -295,7 +294,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/kleborate/versions.yml
-      md5sum: 26036c43ba88dd51b6b1fe28fa84047d
+      md5sum: eae485c7493dbce661fef2f3655f9967
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/mashdist/nf-mashdist.err
@@ -339,6 +338,32 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/ngmaster/versions.yml
       md5sum: 3fc12e68850a28a347a8b6aed41eaad0
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.err
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.log
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.out
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.sh
+      contains: ['pasty', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/nf-pasty.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pasty/versions.yml
+      md5sum: c2d7e29474737f5ebee18adda8af8f0a
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.err
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.log
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.out
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.sh
+      contains: ['pbptyper', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/nf-pbptyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/pbptyper/versions.yml
+      md5sum: cf991e3ac23ab36ee8da9e4bd79a4215
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seqsero2/nf-seqsero2.err
@@ -370,6 +395,51 @@
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/seroba/versions.yml
       md5sum: 0ea5785d7a66d02d5233f71fdbb471bf
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.err
+      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.log
+      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.out
+      md5sum: 3f6c12ab6465f44f78978c86708f09f2
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.sh
+      contains: ['shigatyper', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/nf-shigatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigatyper/versions.yml
+      md5sum: e97c1365444e3171805ddc15a00c9063
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.err
+      contains: ['bwa', 'genes', 'present']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.log
+      contains: ['bwa', 'genes', 'present']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.sh
+      contains: ['shigeifinder', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/nf-shigeifinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/shigeifinder/versions.yml
+      md5sum: c4cd77110afb21f9e43056d9fcfa5d2c
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.err
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.log
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.out
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.sh
+      contains: ['sistr', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/nf-sistr.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/sistr/versions.yml
+      md5sum: 1b8b8a46ffa9afdd2646ab3968ed85ab
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/spatyper/nf-spatyper.err
@@ -429,13 +499,27 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/tbprofiler/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/logs/tbprofiler/versions.yml
-      md5sum: 3914d4c368bb2255090333c09804983d
+      md5sum: f8e329166da23cba961c9d77731eee36
     - path: bactopia-tools/merlin/merlin/GCF_000292685/mashdist/GCF_000292685-dist.txt
       md5sum: 7219e3110f10d1f8ffdd81288486d0bb
     - path: bactopia-tools/merlin/merlin/GCF_000292685/meningotype/GCF_000292685.tsv
       md5sum: f8c3a895c243646aa759cc262e230ff0
     - path: bactopia-tools/merlin/merlin/GCF_000292685/ngmaster/GCF_000292685.tsv
       md5sum: ce47645c145b3d4c49f8087175383227
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pasty/GCF_000292685.blastn.tsv
+      md5sum: 45de2825f0bb3cc8fe9f2b7c419f66f2
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pasty/GCF_000292685.details.tsv
+      md5sum: bde366a9756cd1ed72f853e35f6c153a
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pasty/GCF_000292685.tsv
+      md5sum: cd0cd92f78de8736aa91cd777698e0ff
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pbptyper/GCF_000292685-1A.tblastn.tsv
+      md5sum: 16bb26284bd7bf2327337fc95c055429
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pbptyper/GCF_000292685-2B.tblastn.tsv
+      md5sum: 16bb26284bd7bf2327337fc95c055429
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pbptyper/GCF_000292685-2X.tblastn.tsv
+      md5sum: 16bb26284bd7bf2327337fc95c055429
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/pbptyper/GCF_000292685.tsv
+      md5sum: c14d5109e23ad3dc093ec7b0ea0c9d53
     - path: bactopia-tools/merlin/merlin/GCF_000292685/seqsero2/GCF_000292685_log.txt
       md5sum: d00242dfa734b5abb3622a6048f0b4fb
     - path: bactopia-tools/merlin/merlin/GCF_000292685/seqsero2/GCF_000292685_result.tsv
@@ -444,6 +528,16 @@
       contains: ['GCF_000292685', 'Salmonella']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/seroba/GCF_000292685.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/shigatyper/GCF_000292685.tsv
+      md5sum: 3f6c12ab6465f44f78978c86708f09f2
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/shigeifinder/GCF_000292685.tsv
+      md5sum: a7b972f50f7c6cac275c92dd4441a589
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/sistr/GCF_000292685-allele.fasta.gz
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/sistr/GCF_000292685-allele.json.gz
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/sistr/GCF_000292685-cgmlst.csv
+      md5sum: 03d142c624400baab84089f2f02b5b9c
+    - path: bactopia-tools/merlin/merlin/GCF_000292685/sistr/GCF_000292685.tsv
+      contains: ['serovar', 'cgmlst', 'antigen']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/spatyper/GCF_000292685.tsv
       md5sum: a698352823875171696e5e7ed7015c13
     - path: bactopia-tools/merlin/merlin/GCF_000292685/ssuissero/GCF_000292685_serotyping_res.tsv
@@ -453,7 +547,7 @@
     - path: bactopia-tools/merlin/merlin/GCF_000292685/tbprofiler/GCF_000292685.results.csv
       contains: ['TBProfiler', 'Strain', 'freebayes']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/tbprofiler/GCF_000292685.results.json
-      contains: ['variant_annotations', 'tbdb', 'freebayes']
+      contains: ['tbprofiler_version', 'tbdb', 'freebayes']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/tbprofiler/GCF_000292685.results.txt
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia-tools/merlin/merlin/GCF_000292685/tbprofiler/bam/GCF_000292685.bam
@@ -471,7 +565,7 @@
     - path: bactopia-tools/merlin/merlin/hpsuissero.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
     - path: bactopia-tools/merlin/merlin/kleborate.tsv
-      md5sum: fba8f74af8879e45e05ced3651f1a7d8
+      md5sum: 69fffd648e56dd1ffaa57bdca43ca560
     - path: bactopia-tools/merlin/merlin/legsta.tsv
       md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.begin
@@ -487,7 +581,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/agrvate/versions.yml
-      md5sum: 8047b4db52be00163ea6b52a16bc33ac
+      md5sum: f3853884874aca2f9a1a814b3b25c92d
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.err
@@ -501,7 +595,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ectyper/versions.yml
-      md5sum: e47dd1d179b8467dbaf0b56a360a6612
+      md5sum: 0766149ab077aaecfd0e617de531d759
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.err
@@ -515,7 +609,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/emmtyper/versions.yml
-      md5sum: 3fe00e9d2ac217a3a53075ab52198b4a
+      md5sum: 4e3058490c559f318c1e53fa8f4c1bd9
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/genotyphi/nf-csvtk_concat.err
@@ -542,7 +636,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hicap/versions.yml
-      md5sum: 0aca0d8a3d81e5e334154af1883060ab
+      md5sum: df7605746e90430f83adffe5dc7c464a
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hpsuisero/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hpsuisero/nf-csvtk_concat.err
@@ -556,7 +650,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hpsuisero/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/hpsuisero/versions.yml
-      md5sum: 497191c220a07761a215110fd0acda29
+      md5sum: 39bd061adb85926a639e4ffba81b11df
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.err
@@ -570,7 +664,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/kleborate/versions.yml
-      md5sum: f110f02aa5e613a0812e2ca489e35107
+      md5sum: 33415a14a6bf45ba533e5c9a9f327e46
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.err
@@ -584,7 +678,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/legsta/versions.yml
-      md5sum: 08f52f581fda52a7504c9c5e1617f183
+      md5sum: 4da04d99bd350c0f19a7442667357616
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.err
@@ -598,7 +692,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/meningotype/versions.yml
-      md5sum: 48f1f574e680ad769e311e6739f62274
+      md5sum: 9d4283a7e569664770d31a768ee2f891
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.err
@@ -612,7 +706,35 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ngmaster/versions.yml
-      md5sum: e57b66a7aba9a5c53ab9ff277decd937
+      md5sum: 99369da274795e911a0a003541456cb7
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pasty/versions.yml
+      md5sum: fc8c616f413572e7e77030c332ab928c
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/pbptyper/versions.yml
+      md5sum: 67e7fe615f988d01af2606b82bf45920
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.err
@@ -626,7 +748,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seqsero2/versions.yml
-      md5sum: 6900593a95cb7f3ca18322730148d7d1
+      md5sum: f972894f2360e7b016613a35244a12a1
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.err
@@ -640,7 +762,35 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/seroba/versions.yml
-      md5sum: 57390a6f9c686ee4f3ddf7f69c9165d2
+      md5sum: f24117f4b9d4509997a30d9f88fc21e6
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigatyper/versions.yml
+      md5sum: 4729711260732a88b1f392f3285a60a8
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.err
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.log
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/nf-csvtk_concat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/shigeifinder/versions.yml
+      md5sum: 3a0b498080e5c818b128764b1817d876
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.err
@@ -654,7 +804,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/sistr/versions.yml
-      md5sum: bdea76e04d533cab03b643b970f238db
+      md5sum: 9b52ea208923ea889fd6f2c559b27568
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.err
@@ -668,7 +818,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/spatyper/versions.yml
-      md5sum: 9c1337b99d5f5c82b6a8ecc23a9063ce
+      md5sum: ec875918686dfd4d3fc2630c6d531fb3
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ssuissero/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ssuissero/nf-csvtk_concat.err
@@ -682,7 +832,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ssuissero/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/ssuissero/versions.yml
-      md5sum: 76fb668d6afcbaca879e0a8fad8b74df
+      md5sum: c607dbbd653f724ac87197d5096f1f4a
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.err
@@ -696,7 +846,7 @@
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/merlin/merlin/logs/csvtk_concat/staphopiasccmec/versions.yml
-      md5sum: a0a6e30f865a2166907c1be82d4231e2
+      md5sum: dcb93ad7b8404720d07690428b770bcb
     - path: bactopia-tools/merlin/merlin/meningotype.tsv
       md5sum: f8c3a895c243646aa759cc262e230ff0
     - path: bactopia-tools/merlin/merlin/nf-reports/merlin-dag.dot
@@ -709,10 +859,18 @@
       contains: ['task_id']
     - path: bactopia-tools/merlin/merlin/ngmaster.tsv
       md5sum: ce47645c145b3d4c49f8087175383227
+    - path: bactopia-tools/merlin/merlin/pasty.tsv
+      md5sum: cd0cd92f78de8736aa91cd777698e0ff
+    - path: bactopia-tools/merlin/merlin/pbptyper.tsv
+      md5sum: c14d5109e23ad3dc093ec7b0ea0c9d53
     - path: bactopia-tools/merlin/merlin/seqsero2.tsv
       contains: ['GCF_000292685', 'Salmonella']
     - path: bactopia-tools/merlin/merlin/seroba.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94
+    - path: bactopia-tools/merlin/merlin/shigatyper.tsv
+      md5sum: 3f6c12ab6465f44f78978c86708f09f2
+    - path: bactopia-tools/merlin/merlin/shigeifinder.tsv
+      md5sum: f0b9a9552de90526d11c3f606213042f
     - path: bactopia-tools/merlin/merlin/sistr.tsv
       contains: ["cgmlst_ST", "serovar", "matched"]
     - path: bactopia-tools/merlin/merlin/spatyper.tsv

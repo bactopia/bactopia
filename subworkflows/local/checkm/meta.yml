@@ -91,3 +91,4 @@ docs:
           | &lt;SAMPLE_NAME&gt;-results.txt | Final results of [CheckM's lineage_wf](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow) |
   citations:
     - checkm
+    - csvtk

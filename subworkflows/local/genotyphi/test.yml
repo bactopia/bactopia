@@ -19,7 +19,7 @@
     - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/versions.yml
-      md5sum: 5887d73ccf7138bf774bd9dc5f49b0cd
+      md5sum: a461157491e68c03382d9cc1a13959e7
     - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-dag.dot
       md5sum: 01ee3e69891f63e0b77315f45f5c8acd
     - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-report.html
@@ -56,7 +56,7 @@
     - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/versions.yml
-      md5sum: 37c71f67ec32dcaf79063b1b56446908
+      md5sum: 2261accbdd3aa3d416d4972cf26a7f48
     - path: bactopia-tools/genotyphi/genotyphi/test/test.csv
       contains: ["susceptibility", "typhi", "variants"]
     - path: bactopia-tools/genotyphi/genotyphi/test/test.json

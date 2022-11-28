@@ -10,9 +10,9 @@ options.args = [
     "--mincov ${params.mincov}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { ABRICATE_RUN } from '../../../modules/nf-core/modules/abricate/run/main' addParams( options: options )
+include { ABRICATE_RUN } from '../../../modules/nf-core/abricate/run/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { ABRICATE_SUMMARY } from '../../../modules/nf-core/modules/abricate/summary/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'abricate'] )
+    include { ABRICATE_SUMMARY } from '../../../modules/nf-core/abricate/summary/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'abricate'] )
 }
 
 workflow ABRICATE {

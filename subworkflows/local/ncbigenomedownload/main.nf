@@ -20,7 +20,7 @@ META = [
     species: params.species
 ]
 ACCESSIONS = params.accessions ? file(params.accessions) : []
-include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../../modules/nf-core/modules/ncbigenomedownload/main' addParams( options: options )
+include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../../modules/nf-core/ncbigenomedownload/main' addParams( options: options )
 
 workflow NCBIGENOMEDOWNLOAD {
     main:

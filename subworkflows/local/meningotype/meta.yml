@@ -88,4 +88,5 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `meningotype` result |
   citations:
+    - csvtk
     - meningotype

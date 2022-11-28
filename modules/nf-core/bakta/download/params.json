@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/bakta/params.json",
+    "title": "Bakta Module",
+    "description": "A module for rapidly annotating baterial genomes",
+    "type": "object",
+    "definitions": {
+        "bakta_download_parameters": {
+            "title": "Bakta Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "bakta_db": {
+                    "type": "string",
+                    "description": "Tarball or path to the Bakta database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "bakta_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the Bakta database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-file-alt",
+                },
+                "download_bakta": {
+                    "type": "boolean",
+                    "description": "Download the Bakta database to the path given by --bakta_db",
+                    "default": false,
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/bakta_download_parameters"
+        }
+    ]
+}

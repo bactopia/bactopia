@@ -12,7 +12,7 @@ options.args = [
     "-wbt -wbtl -alninfo ${params.iqtree_opts}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { IQTREE as IQTREE_MODULE } from '../../../modules/nf-core/modules/iqtree/main' addParams( options: options )
+include { IQTREE as IQTREE_MODULE } from '../../../modules/nf-core/iqtree/main' addParams( options: options )
 
 workflow IQTREE {
     take:

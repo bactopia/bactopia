@@ -1,0 +1,66 @@
+name: shigeifinder
+description: Shigella and EIEC serotyping from assemblies
+icon: false
+tags:
+  - shigella
+  - eiec
+  - fasta
+  - serotype
+modules:
+  - shigeifinder
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample shigeifinder result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all shigeifinder result files
+      pattern: "shigeifinder.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  meta:
+    title: shigeifinder
+    description: >-
+      A Bactopia Tool which uses ShigEiFinder to conduct _in silico_ prediction
+      of serotype for Shigella and EIEC genomes.
+  introduction: |
+    The `shigeifinder` module used [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct
+    _in silico_ prediction of serotype for Shigella and EIED. It uses the genome assemblies
+    tp provide basic species identification and the predicted serotype (e.g. O174:H21).
+  output:
+    tree: |
+
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          |  |  |
+      - name: shigeifinder
+        description: |
+          Below is a description of the _per-sample_ results from [shigeifinder](SUBWORKFLOW_LINK).
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          |  |  |
+  citations:
+    - csvtk
+    - shigatyper

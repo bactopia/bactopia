@@ -16,7 +16,7 @@
     - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/versions.yml
-      md5sum: 570931dfd740180bf8b80c7d30d34277
+      md5sum: 2ce29a6c6e10ba26b31eae18d3e6a7fb
     - path: bactopia-tools/mykrobe/mykrobe/mykrobe.csv
       contains: ["susceptibility", "staph", "variants"]
     - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-dag.dot
@@ -41,7 +41,7 @@
     - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/versions.yml
-      md5sum: 5dd663a56ae94d406b767929fdae6ef5
+      md5sum: 0919fbb97f2c84fb37481de47ec933a6
     - path: bactopia-tools/mykrobe/mykrobe/test/test.csv
       contains: ["susceptibility", "staph", "variants"]
     - path: bactopia-tools/mykrobe/mykrobe/test/test.json

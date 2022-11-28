@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/ariba/getref/params.json",
+    "title": "Ariba GetRef Module",
+    "description": "A module for gene identification through local assemblies",
+    "type": "object",
+    "definitions": {
+        "ariba_getref_parameters": {
+            "title": "Ariba GetRef Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "ariba_dir": {
+                    "type": "string",
+                    "description": "Path to save or retrieve Ariba databases",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "ariba_db": {
+                    "type": "string",
+                    "description": "A database to query, if unavailable it will be downloaded to the path given by --ariba_dir",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "enum": [
+                        "argannot",
+                        "card",
+                        "ncbi",
+                        "megares",
+                        "plasmidfinder",
+                        "resfinder",
+                        "srst2_argannot",
+                        "vfdb_core",
+                        "vfdb_full",
+                        "virulencefinder"
+                    ],
+                    "is_required": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/ariba_getref_parameters"
+        }
+    ]
+}

@@ -92,5 +92,6 @@ docs:
           |--------------------------|-------------|
           | &lt;SAMPLE_NAME&gt;.results.tsv  | A tab-delimited file with `Kleborate` result, see [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details |
   citations:
+    - csvtk
     - kleborate
     - kaptive

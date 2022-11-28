@@ -12,11 +12,11 @@ mykrobe_args = [
     "${params.mykrobe_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MYKROBE_PREDICT } from '../../../modules/nf-core/modules/mykrobe/predict/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'mykrobe'] )
-include { GENOTYPHI_PARSE  } from '../../../modules/nf-core/modules/genotyphi/parse/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'genotyphi'] )
+include { MYKROBE_PREDICT } from '../../../modules/nf-core/mykrobe/predict/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'mykrobe'] )
+include { GENOTYPHI_PARSE  } from '../../../modules/nf-core/genotyphi/parse/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'genotyphi'] )
 
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'genotyphi'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'genotyphi'] )
 }
 
 workflow GENOTYPHI {

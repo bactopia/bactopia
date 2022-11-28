@@ -21,7 +21,7 @@
     - path: bactopia-tools/rgi/rgi/GCA_000027305/logs/rgi/nf-rgi.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/rgi/rgi/GCA_000027305/logs/rgi/versions.yml
-      md5sum: 6edb5e8b85a3ea8e8a0961f1bfcaf3be
+      md5sum: cc05e4b048bd34bbccd8af6d985097a1
     - path: bactopia-tools/rgi/rgi/GCF_900478275/GCF_900478275.json
       contains: ["type_match", "model_name", "orf_dna_sequence"]
     - path: bactopia-tools/rgi/rgi/GCF_900478275/GCF_900478275.txt
@@ -39,7 +39,7 @@
     - path: bactopia-tools/rgi/rgi/GCF_900478275/logs/rgi/nf-rgi.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/rgi/rgi/GCF_900478275/logs/rgi/versions.yml
-      md5sum: 6edb5e8b85a3ea8e8a0961f1bfcaf3be
+      md5sum: cc05e4b048bd34bbccd8af6d985097a1
     - path: bactopia-tools/rgi/rgi/logs/csvtk_concat/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/rgi/rgi/logs/csvtk_concat/nf-csvtk_concat.err
@@ -53,7 +53,7 @@
     - path: bactopia-tools/rgi/rgi/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/rgi/rgi/logs/csvtk_concat/versions.yml
-      md5sum: 1b9423ab33247a8acc1ad208f4451576
+      md5sum: bccea3c25060aa9a281fac394fbfa240
     - path: bactopia-tools/rgi/rgi/logs/rgi_heatmap/nf-rgi_heatmap.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/rgi/rgi/logs/rgi_heatmap/nf-rgi_heatmap.err
@@ -68,7 +68,7 @@
     - path: bactopia-tools/rgi/rgi/logs/rgi_heatmap/nf-rgi_heatmap.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/rgi/rgi/logs/rgi_heatmap/versions.yml
-      md5sum: ad605c4b7c94e4e516c2c2fd027cd9aa
+      md5sum: 9d852d6c1d8b6d87dc8856f57ad92288
     - path: bactopia-tools/rgi/rgi/nf-reports/rgi-dag.dot
       contains: ["rgidag", "RGI", "version"]
     - path: bactopia-tools/rgi/rgi/nf-reports/rgi-report.html

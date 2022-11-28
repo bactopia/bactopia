@@ -38,7 +38,7 @@
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/seqsero2/seqsero2/logs/csvtk_concat/versions.yml
-      md5sum: b277b50c12720aae9d62553712eac36c
+      md5sum: f01e2e7f9e8b733dda0182e28ef99481
     - path: bactopia-tools/seqsero2/seqsero2/nf-reports/seqsero2-dag.dot
       contains: ['seqsero2dag', 'SEQSERO2', 'versions']
     - path: bactopia-tools/seqsero2/seqsero2/nf-reports/seqsero2-report.html

@@ -108,4 +108,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;-hit_in_genome_seq.fsa | A fasta file containing the best matching sequences from the query genome. |
           | &lt;SAMPLE_NAME&gt;-plasmid_seqs.fsa      | A fasta file containing the best matching plasmid genes from the database. |
   citations:
+    - csvtk
     - plasmidfinder

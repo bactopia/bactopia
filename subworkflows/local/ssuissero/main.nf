@@ -5,9 +5,9 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'ssuissero')
 options.is_module = params.wf == 'ssuissero' ? true : false
 
-include { SSUISSERO as SSUISSERO_MODULE } from '../../../modules/nf-core/modules/ssuissero/main' addParams( options: options )
+include { SSUISSERO as SSUISSERO_MODULE } from '../../../modules/nf-core/ssuissero/main' addParams( options: options )
 if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'ssuissero'] )
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'ssuissero'] )
 }
 
 workflow SSUISSERO {

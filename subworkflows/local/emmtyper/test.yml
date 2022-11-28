@@ -37,7 +37,7 @@
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/emmtyper/emmtyper/logs/csvtk_concat/versions.yml
-      md5sum: 7ba045537b0b33bdb555ca5bf224f6d8
+      md5sum: 3aff0341efe1a952911ebe953fb9c87f
     - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-dag.dot
       contains: ['emmtyperdag', 'EMMTYPER', 'versions']
     - path: bactopia-tools/emmtyper/emmtyper/nf-reports/emmtyper-report.html

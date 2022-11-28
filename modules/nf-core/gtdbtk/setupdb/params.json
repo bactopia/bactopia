@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/gtdbtk/setupdb/params.json",
+    "title": "GTDB Setup Module",
+    "description": "Identify marker genes and assign taxonomic classifications",
+    "type": "object",
+    "definitions": {
+        "gtdb_setup_parameters": {
+            "title": "GTDB Setup Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gtdb": {
+                    "type": "string",
+                    "description": "Tarball or path of a GTDB database. If a database is not found, you must use '--download_gtdb'",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "download_gtdb": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, even it exists",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "gtdb_save_as_tarball": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, and save it in a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "skip_check": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do not check the installation of GTDB database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/gtdb_setup_parameters"
+        }
+    ]
+}

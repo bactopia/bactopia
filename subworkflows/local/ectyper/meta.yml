@@ -93,4 +93,5 @@ docs:
           | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ECTyper` result, see [ECTyper - Report format](https://github.com/phac-nml/ecoli_serotyping#report-format) for details  |
           | blast_output_alleles.txt | Allele report generated from BLAST results |
   citations:
+    - csvtk
     - ectyper

@@ -62,7 +62,7 @@
     - path: bactopia-tools/pirate/pirate/logs/pirate/results/split_groups.log
       contains: ['g0']
     - path: bactopia-tools/pirate/pirate/logs/pirate/versions.yml
-      md5sum: 84f488136dbc845d7ee881dccd50cbc1
+      md5sum: fbda8822b425f63332e8d3d64ae6c787
     - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_000292685.gff
       md5sum: 2b73bda2f84dc634303dc90e641040ca
     - path: bactopia-tools/pirate/pirate/modified_gffs/GCF_000298385.gff

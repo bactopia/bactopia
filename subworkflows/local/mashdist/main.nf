@@ -21,12 +21,12 @@ if (ask_merlin || params.wf == "merlin") {
     } else {
         MASH_SKETCH = file(params.mash_sketch)
     }
-    include { MERLIN_DIST as MERLINDIST_MODULE } from '../../../modules/nf-core/modules/mash/dist/main' addParams( options: options )
+    include { MERLIN_DIST as MERLINDIST_MODULE } from '../../../modules/nf-core/mash/dist/main' addParams( options: options )
 } else {
     MASH_SKETCH = file(params.mash_sketch)
-    include { MASH_DIST as MASHDIST_MODULE  } from '../../../modules/nf-core/modules/mash/dist/main' addParams( options: options )
+    include { MASH_DIST as MASHDIST_MODULE  } from '../../../modules/nf-core/mash/dist/main' addParams( options: options )
     if (params.is_subworkflow) {
-        include { CSVTK_CONCAT } from '../../../modules/nf-core/modules/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mashdist'] )
+        include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mashdist'] )
     }
 }
 
@@ -75,6 +75,7 @@ workflow MERLINDIST {
     mycobacterium = MERLINDIST_MODULE.out.mycobacterium
     mycobacterium_fq = MERLINDIST_MODULE.out.mycobacterium_fq
     neisseria = MERLINDIST_MODULE.out.neisseria
+    pseudomonas = MERLINDIST_MODULE.out.pseudomonas
     salmonella = MERLINDIST_MODULE.out.salmonella
     salmonella_fq = MERLINDIST_MODULE.out.salmonella_fq
     staphylococcus = MERLINDIST_MODULE.out.staphylococcus

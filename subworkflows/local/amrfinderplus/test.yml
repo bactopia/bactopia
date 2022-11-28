@@ -23,7 +23,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/GCF_000292685/logs/amrfinderplus/versions.yml
-      md5sum: fca875e602dd642306b46c74b88f4aa9
+      md5sum: b08785763f53feeae47fd3c453a6b80c
     - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderdb.tar.gz
     - path: bactopia-tools/amrfinderplus/amrfinderplus/amrfinderplus-genes.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
@@ -44,7 +44,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/amrfinderplus/versions.yml
-      md5sum: 1405dadd470d6e34a74e188b8c014955
+      md5sum: 8d9634c5597904dc816d86c52248a9a4
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.err
@@ -58,7 +58,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-genes/versions.yml
-      md5sum: 5401f04fb435084a198f4183103f653d
+      md5sum: 47d72225a9337e33f7611a931a428f5b
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.err
@@ -72,7 +72,7 @@
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/logs/csvtk_concat/amrfinderplus-proteins/versions.yml
-      md5sum: ba794f297811cbc5533d251ec6b5c44b
+      md5sum: 5b6f41b5ccc2800c3254241a399a08f5
     - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-dag.dot
       contains: ['amrfinderplus', 'AMRFINDER', 'versions']
     - path: bactopia-tools/amrfinderplus/amrfinderplus/nf-reports/amrfinderplus-report.html

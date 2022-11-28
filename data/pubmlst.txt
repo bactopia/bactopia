@@ -1,4 +1,4 @@
-ariba	pubmlst_species	schema
+pubmlst	pubmlst_species	schema
 Achromobacter spp.	Achromobacter xylosoxidans	default
 Achromobacter spp.	Achromobacter ruhlandii	default
 Achromobacter spp.	Achromobacter insuavis	default
@@ -40,6 +40,7 @@ Aeromonas spp.	Aeromonas eucrenophila	default
 Aeromonas spp.	Aeromonas encheleia	default
 Aeromonas spp.	Aeromonas popoffii	default
 Aeromonas spp.	Aeromonas molluscorum	default
+Aggregatibacter actinomycetemcomitans	Aggregatibacter actinomycetemcomitans	default
 Anaplasma phagocytophilum	Anaplasma phagocytophilum	default
 Arcobacter spp.	Arcobacter butzleri	default
 Arcobacter spp.	Arcobacter cryaerophilus	default
@@ -50,6 +51,7 @@ Aspergillus fumigatus	Aspergillus fumigatus	default
 Bacillus cereus	Bacillus cereus	default
 Bacillus licheniformis	Bacillus licheniformis	default
 Bacillus subtilis	Bacillus subtilis	default
+Bacteroides fragilis	Bacteroides fragilis	default
 Bartonella bacilliformis	Bartonella bacilliformis	default
 Bartonella henselae	Bartonella henselae	default
 Bartonella washoensis	Bartonella washoensis	default
@@ -260,6 +262,7 @@ Citrobacter freundii	Citrobacter freundii	default
 Clonorchis sinensis	Clonorchis sinensis	default
 Clostridioides difficile	Clostridioides difficile	default
 Clostridium botulinum	Clostridium botulinum	default
+Clostridium perfringens	Clostridium perfringens	default
 Clostridium septicum	Clostridium septicum	default
 Corynebacterium diphtheriae	Corynebacterium diphtheriae	default
 Cronobacter spp.	Cronobacter sakazakii	default
@@ -284,9 +287,12 @@ Enterococcus faecium	Enterococcus faecium	default
 Escherichia coli#1	Escherichia coli	achtman
 Escherichia coli#2	Escherichia coli	pasteur
 Flavobacterium psychrophilum	Flavobacterium psychrophilum	default
+Geotrichum spp.	Geotrichum candidum	default
+Geotrichum spp.	Geotrichum silvicola	default
+Glaesserella parasuis	Glaesserella parasuis	default
 Gallibacterium anatis	Gallibacterium anatis	default
 Haemophilus influenzae	Haemophilus influenzae	default
-Haemophilus parasuis	Haemophilus parasuis	default
+Glaesserella parasuis	Haemophilus parasuis	default
 Helicobacter cinaedi	Helicobacter cinaedi	default
 Helicobacter pylori	Helicobacter pylori	default
 Helicobacter suis	Helicobacter suis	default
@@ -408,9 +414,10 @@ Mycobacteria spp.	Mycobacterium septicum	default
 Mycobacteria spp.	Mycobacterium indicus	default
 Mycobacteria spp.	Mycobacterium	default
 Mycobacteria spp.	Mycobacterium liflandii	default
-Mycobacterium abscessus	Mycobacterium abscessus	abscessus
-Mycobacterium massiliense	Mycobacterium massiliense	massiliense
+Mycobacterium abscessus	Mycobacterium abscessus	default
+Mycobacterium abscessus	Mycobacterium massiliense	default
 Mycoplasma agalactiae	Mycoplasma agalactiae	default
+Mycoplasma anserisalpingitidis	Mycoplasma anserisalpingitidis	default
 Mycoplasma bovis	Mycoplasma bovis	default
 Mycoplasma flocculare	Mycoplasma flocculare	default
 Mycoplasma gallisepticum#1	Mycoplasma gallisepticum	ghanem
@@ -465,10 +472,14 @@ Rhodococcus spp.	Rhodococcus equi	default
 Riemerella anatipestifer	Riemerella anatipestifer	default
 Salmonella enterica	Salmonella enterica	default
 Saprolegnia parasitica	Saprolegnia parasitica	default
+Shewanella spp.	Shewanella algae	default
+Shewanella spp.	Shewanella chilikensis	default
+Shewanella spp.	Shewanella indica	default
 Sinorhizobium spp.	Sinorhizobium meliloti	default
 Sinorhizobium spp.	Sinorhizobium medicae	default
 Sinorhizobium spp.	Sinorhizobium	default
 Staphylococcus aureus	Staphylococcus aureus	default
+Staphylococcus chromogenes	Staphylococcus chromogenes	default
 Staphylococcus epidermidis	Staphylococcus epidermidis	default
 Staphylococcus haemolyticus	Staphylococcus haemolyticus	default
 Staphylococcus hominis	Staphylococcus hominis	default

@@ -89,4 +89,5 @@ docs:
           | <SAMPLE_NAME>-hits.tsv | Detailed statistics about each individual gene hit      |
           | <SAMPLE_NAME>.tsv      | The final predicted serotype by `ShigaTyper`            |
   citations:
+    - csvtk
     - shigatyper

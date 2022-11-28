@@ -14,7 +14,7 @@ options.args = [
     "-iv ${params.iv}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { ROARY as ROARY_MODULE } from '../../../modules/nf-core/modules/roary/main' addParams( options: options )
+include { ROARY as ROARY_MODULE } from '../../../modules/nf-core/roary/main' addParams( options: options )
 
 workflow ROARY {
     take:

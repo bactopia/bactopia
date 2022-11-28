@@ -33,7 +33,7 @@
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.trace
       contains: ['nextflow.trace']
     - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/versions.yml
-      md5sum: 617fbaf40edd53b88e749414a6268118
+      md5sum: 754f76ee9f5a26e8120ac96b2bc6dcd0
     - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-dag.dot
       contains: ['ngmasterdag', 'NGMASTER', 'versions']
     - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-report.html
