@@ -851,6 +851,13 @@ tools:
     cite: |
       Wu Y, Lau HK, Lee T, Lau DK, Payne J [In Silico Serotyping Based on Whole-Genome Sequencing Improves the Accuracy of Shigella Identification.](https://doi.org/10.1128/AEM.00165-19) *Applied and Environmental Microbiology*, 85(7). (2019)
 
+  shigeifinder:
+    name: ShigEiFinder
+    link: https://github.com/LanLab/ShigEiFinder
+    description: Cluster informed Shigella and EIEC serotyping tool from Illumina reads and assemblies
+    cite: |
+      Zhang X, Payne M, Nguyen T, Kaur S, Lan R [Cluster-specific gene markers enhance Shigella and enteroinvasive Escherichia coli in silico serotyping.](https://doi.org/10.1099/mgen.0.000704) Microbial Genomics, 7(12). (2021)
+
   shovill:
     name: Shovill
     link: https://github.com/tseemann/shovill

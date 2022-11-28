@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v2.2.0 bactopia/bactopia "" - 2022/1?/??
+## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 
 ### `Added`
 - `--dragonflye_opts` to pass additional params to dragonflye
@@ -62,6 +62,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - add recipe for pbptyper [bioconda/bioconda-recipes#36222](https://github.com/bioconda/bioconda-recipes/pull/36222)
 - add module for pasty [nf-core/modules#2003](https://github.com/nf-core/modules/pull/2003)
 - add module for pbptyper [nf-core/modules#2005](https://github.com/nf-core/modules/pull/2005)
+- add module for shigeifinder [nf-core/modules#2523](https://github.com/nf-core/modules/pull/2523)
 
 ## v2.1.1 bactopia/bactopia "Dragon Twister" - 2022/07/09
 
