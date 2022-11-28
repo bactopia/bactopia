@@ -44,6 +44,11 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: pasty
+    description: >-
+      A Bactopia Tool which uses pasty for serogrouping 
+      _Pseudomonas aeruginosa_ isolates.
   introduction: |
       The `pasty` module uses [pasty](https://github.com/rpetit3/pasty) for 
       serogrouping of _Pseudomonas aeruginosa_ isolates.
