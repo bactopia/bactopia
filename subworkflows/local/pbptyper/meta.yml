@@ -40,6 +40,11 @@ output:
       description: File containing software versions
       pattern: 'versions.yml'
 docs:
+  meta:
+    title: pbptyper
+    description: >-
+      A Bactopia Tool which uses pbptyper for typing the Penicillin
+      Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies.
   introduction: |
       The `pbptyper` module uses [pbptyper](https://github.com/rpetit3/pbptyper) for typing
       the Penicillin Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies.

@@ -213,6 +213,11 @@ if __name__ == '__main__':
     docker_build(f'{bactopia_path}/Dockerfile', f'{REPO}/bactopia:{VERSION}', latest=f'{REPO}/bactopia:latest',
                  github=args.github, quay=args.quay)
 
+    # Bactopia Base Dockerfile
+    logging.info(f'Working on Bactopia Dockerfile')
+    docker_build(f'{bactopia_path}/base.Dockerfile', f'{REPO}/base:{VERSION}', latest=f'{REPO}/base:latest',
+                 github=args.github, quay=args.quay)
+
     # Bactopia Process Dockerfiles
     process_files = sorted(glob.glob(f'{bactopia_path}/conda/linux/*.Dockerfile'))
     for i, dockerfile in enumerate(process_files):

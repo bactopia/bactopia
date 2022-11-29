@@ -44,8 +44,29 @@ docs:
     tp provide basic species identification and the predicted serotype (e.g. O174:H21).
   output:
     tree: |
-
-    add_note: false
+      shigeifinder/
+      ├── <SAMPLE_NAME>
+      │   ├── logs
+      │   │   └── shigeifinder
+      │   │       ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
+      │   │       └── versions.yml
+      │   └── <SAMPLE_NAME>.tsv
+      ├── logs
+      │   ├── csvtk_concat
+      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
+      │   │   └── versions.yml
+      │   └── custom_dumpsoftwareversions
+      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
+      │       └── versions.yml
+      ├── nf-reports
+      │   ├── shigeifinder-dag.dot
+      │   ├── shigeifinder-report.html
+      │   ├── shigeifinder-timeline.html
+      │   └── shigeifinder-trace.txt
+      ├── shigeifinder.tsv
+      ├── software_versions_mqc.yml
+      └── software_versions.yml
+    add_note: true
     folders:
       - name: Top Level
         description: |
@@ -53,14 +74,14 @@ docs:
         table: |
           | Filename    | Description |
           |-------------|-------------|
-          |  |  |
+          | shigeifinder.tsv | A merged TSV file with `shigeifinder` results from all samples |
       - name: shigeifinder
         description: |
-          Below is a description of the _per-sample_ results from [shigeifinder](SUBWORKFLOW_LINK).
+          Below is a description of the _per-sample_ results from [ShigEiFinder](https://github.com/LanLab/ShigEiFinder).
         table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          | Extension    | Description |
+          |--------------|-------------|
+          | .tsv         | A tab-delimited file with the predicted Shigella or EIEC serotype |
   citations:
     - csvtk
-    - shigatyper
+    - shigeifinder
