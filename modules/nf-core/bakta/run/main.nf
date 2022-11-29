@@ -15,8 +15,8 @@ process BAKTA_RUN {
     
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bakta:1.5.1--pyhdfd78af_0' :
-        'quay.io/biocontainers/bakta:1.5.1--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bakta:1.6.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/bakta:1.6.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
