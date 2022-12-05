@@ -1,7 +1,7 @@
 name: bactopia-annotate_genome
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
@@ -56,8 +56,8 @@ dependencies:
   - libidn2=2.3.4
   - libnghttp2=1.47.0
   - libnsl=2.0.0
-  - libpng=1.6.38
-  - libsqlite=3.39.4
+  - libpng=1.6.39
+  - libsqlite=3.40.0
   - libssh2=1.10.0
   - libstdcxx-ng=12.2.0
   - libtiff=4.4.0
@@ -72,7 +72,7 @@ dependencies:
   - openjdk=17.0.3
   - openssl=1.1.1s
   - paml=4.9
-  - parallel=20220922
+  - parallel=20221122
   - pcre=8.45
   - pcre2=10.40
   - perl=5.32.1
@@ -115,7 +115,7 @@ dependencies:
   - perl-file-sort=1.01
   - perl-file-spec=3.48_01
   - perl-file-temp=0.2304
-  - perl-getopt-long=2.53
+  - perl-getopt-long=2.54
   - perl-html-parser=3.80
   - perl-html-tagset=3.20
   - perl-http-cookies=6.10
@@ -181,7 +181,7 @@ dependencies:
   - readline=8.1.2
   - sed=4.8
   - setuptools=65.5.1
-  - sqlite=3.39.4
+  - sqlite=3.40.0
   - t_coffee=11.0.8
   - tbl2asn-forever=25.7.2f
   - tk=8.6.12
