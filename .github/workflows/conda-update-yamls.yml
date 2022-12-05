@@ -22,6 +22,7 @@ jobs:
           activate-environment: conda-build
           auto-activate-base: false
           mamba-version: "1.*"
+          channels: conda-forge,bioconda,defaults
 
       - name: Build Conda YAMLs
         run: |
