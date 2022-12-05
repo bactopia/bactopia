@@ -42,4 +42,4 @@ jobs:
 
       - name: Push changes
         run: |
-          git pull && git push
+          git pull --ff-only && git push
