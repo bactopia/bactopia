@@ -1,7 +1,7 @@
 name: bactopia-annotate_genome
 channels:
-  - conda-forge
   - bioconda
+  - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1

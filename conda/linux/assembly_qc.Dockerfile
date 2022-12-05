@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robbie.petit@gmail.com"
 LABEL conda.env="bactopia/conda/linux/assembly_qc.yml"
-LABEL conda.md5="e7e912c75ca6345e6b81a99fb33f44cd"
+LABEL conda.md5="521e94d3edc882a22b7033535ea85c33"
 
 # Bactopia environment
 COPY conda/linux/assembly_qc.yml /
