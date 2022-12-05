@@ -38,3 +38,8 @@ jobs:
           committer_name: GitHub Actions
           committer_email: actions@github.com
           add: 'conda/'
+          push: false
+
+      - name: Push changes
+        run: |
+          git pull && git push
