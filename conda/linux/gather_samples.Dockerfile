@@ -9,7 +9,7 @@ LABEL license="https://github.com/bactopia/bactopia/blob/master/LICENSE"
 LABEL maintainer="Robert A. Petit III"
 LABEL maintainer.email="robbie.petit@gmail.com"
 LABEL conda.env="bactopia/conda/linux/gather_samples.yml"
-LABEL conda.md5="e2ca67e0aae408581093c074882fc05e"
+LABEL conda.md5="64d1b104e25de93adcab51f603b47fc5"
 
 # Bactopia environment
 COPY conda/linux/gather_samples.yml /

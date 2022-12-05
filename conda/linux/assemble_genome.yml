@@ -1,7 +1,7 @@
 name: bactopia-assemble_genome
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
