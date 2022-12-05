@@ -59,8 +59,8 @@ dependencies:
   - liblapack=3.9.0
   - libnghttp2=1.47.0
   - libopenblas=0.3.21
-  - libpng=1.6.38
-  - libsqlite=3.39.4
+  - libpng=1.6.39
+  - libsqlite=3.40.0
   - libssh2=1.10.0
   - libtiff=4.4.0
   - libunistring=0.9.10
@@ -68,12 +68,12 @@ dependencies:
   - libwebp-base=1.2.4
   - libxcb=1.13
   - libzlib=1.2.13
-  - llvm-openmp=15.0.4
+  - llvm-openmp=15.0.6
   - matplotlib-base=3.6.2
   - minimap2=2.24
   - munkres=1.1.4
   - ncurses=6.3
-  - numpy=1.23.4
+  - numpy=1.23.5
   - openjdk=17.0.3
   - openjpeg=2.5.0
   - openssl=3.0.7
@@ -134,7 +134,7 @@ dependencies:
   - pip=22.3.1
   - pthread-stubs=0.4
   - pyparsing=3.0.9
-  - python=3.10.6
+  - python=3.10.8
   - python-dateutil=2.8.2
   - python_abi=3.10
   - quast=5.2.0
@@ -144,7 +144,7 @@ dependencies:
   - simplejson=3.18.0
   - six=1.16.0
   - tk=8.6.12
-  - tzdata=2022f
+  - tzdata=2022g
   - unicodedata2=15.0.0
   - wget=1.20.3
   - wheel=0.38.4

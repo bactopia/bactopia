@@ -37,8 +37,8 @@ dependencies:
   - libidn11=1.34
   - libidn2=2.3.4
   - libnghttp2=1.47.0
-  - libpng=1.6.38
-  - libsqlite=3.39.4
+  - libpng=1.6.39
+  - libsqlite=3.40.0
   - libssh2=1.10.0
   - libtiff=4.1.0
   - libunistring=0.9.10
@@ -46,7 +46,7 @@ dependencies:
   - libxml2=2.9.14
   - libxslt=1.1.35
   - libzlib=1.2.13
-  - llvm-openmp=15.0.4
+  - llvm-openmp=15.0.6
   - lz4-c=1.9.3
   - minced=0.4.2
   - ncbi-amrfinderplus=3.10.45
@@ -54,7 +54,7 @@ dependencies:
   - openjdk=17.0.3
   - openssl=1.1.1s
   - paml=4.9
-  - parallel=20220922
+  - parallel=20221122
   - pcre=8.45
   - perl=5.26.2
   - perl-aceperl=1.92
@@ -267,14 +267,14 @@ dependencies:
   - pip=22.3.1
   - prodigal=2.6.3
   - prokka=1.14.6
-  - python=3.10.6
+  - python=3.10.8
   - readline=8.1.2
   - sed=4.7
   - setuptools=65.5.1
   - tbl2asn-forever=25.7.2f
   - tidyp=1.04
   - tk=8.6.12
-  - tzdata=2022f
+  - tzdata=2022g
   - wget=1.20.3
   - wheel=0.38.4
   - xz=5.2.6

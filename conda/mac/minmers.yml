@@ -1,7 +1,7 @@
 name: bactopia-minmers
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   - bitstring=3.1.9
@@ -21,7 +21,7 @@ dependencies:
   - fonttools=4.38.0
   - freetype=2.12.1
   - gettext=0.21.1
-  - gsl=2.7
+  - gsl=2.6
   - jpeg=9e
   - kiwisolver=1.4.4
   - lcms2=2.14
@@ -39,19 +39,19 @@ dependencies:
   - libiconv=1.17
   - liblapack=3.9.0
   - libopenblas=0.3.21
-  - libpng=1.6.38
-  - libsqlite=3.39.4
+  - libpng=1.6.39
+  - libsqlite=3.40.0
   - libtiff=4.4.0
   - libwebp-base=1.2.4
   - libxcb=1.13
   - libzlib=1.2.13
-  - llvm-openmp=15.0.4
+  - llvm-openmp=15.0.6
   - mash=2.3
   - matplotlib-base=3.6.2
   - mccortex=1.0
   - munkres=1.1.4
   - ncurses=6.3
-  - numpy=1.23.4
+  - numpy=1.23.5
   - openjpeg=2.5.0
   - openssl=3.0.7
   - packaging=21.3
@@ -61,19 +61,19 @@ dependencies:
   - pthread-stubs=0.4
   - pycparser=2.21
   - pyparsing=3.0.9
-  - python=3.10.6
+  - python=3.10.8
   - python-dateutil=2.8.2
   - python_abi=3.10
   - readline=8.1.2
   - scipy=1.9.3
-  - screed=1.0.5
+  - screed=1.1
   - sed=4.7
   - setuptools=65.5.1
   - six=1.16.0
   - sourmash=4.5.0
   - sourmash-minimal=4.5.0
   - tk=8.6.12
-  - tzdata=2022f
+  - tzdata=2022g
   - unicodedata2=15.0.0
   - wheel=0.38.4
   - xorg-libxau=1.0.9
