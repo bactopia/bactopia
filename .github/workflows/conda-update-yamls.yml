@@ -21,10 +21,10 @@ jobs:
         with:
           activate-environment: conda-build
           auto-activate-base: false
+          mamba-version: "1.*"
 
       - name: Build Conda YAMLs
         run: |
-          conda install -c conda-forge -c bioconda mamba
           if [ "$RUNNER_OS" == "macOS" ]; then
             bash ${GITHUB_WORKSPACE}/bin/helpers/update-conda.sh ${GITHUB_WORKSPACE}/ 1
           else
