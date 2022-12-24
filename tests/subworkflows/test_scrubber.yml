@@ -1,0 +1,8 @@
+- name: scrubber-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf scrubber -c nextflow.config --help > scrubber-help.txt'
+  tags:
+    - bactopia_help
+    - scrubber
+  files:
+    - path: scrubber-help.txt
+      contains: ['scrubber', 'bactopia', 'version', 'dependencies']

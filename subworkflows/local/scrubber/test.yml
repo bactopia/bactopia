@@ -1,0 +1,67 @@
+- name: scrubber-test-pe
+  command: bash -c 'nextflow run ./subworkflows/local/scrubber/test.nf -entry test_scrubber_pe --wf scrubber -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - scrubber
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.err
+      contains: ['aligns_to', 'FastaReader', 'total']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.log
+      contains: ['aligns_to', 'FastaReader', 'total']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.sh
+      contains: ['scrub', 'END_VERSIONS']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/versions.yml
+      md5sum: 246edb4b4e2cf18ec40e0da520fdf87c
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/sra-human-scrubber/SRR2838702_R1.scrubbed.fastq.gz
+      md5sum: b035ec1d5a789da441ca213169293c6a
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/sra-human-scrubber/SRR2838702_R2.scrubbed.fastq.gz
+      md5sum: 32bb5d271eba5d520c43518e4cb16e73
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-dag.dot
+      contains: ['scrubberdag', 'SRAHUMANSCRUBBER', 'versions']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-trace.txt
+      contains: ['task_id']
+
+- name: scrubber-test-se
+  command: bash -c 'nextflow run ./subworkflows/local/scrubber/test.nf -entry test_scrubber_se --wf scrubber -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - scrubber
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.err
+      contains: ['aligns_to', 'FastaReader', 'total']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.log
+      contains: ['aligns_to', 'FastaReader', 'total']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.sh
+      contains: ['scrub', 'END_VERSIONS']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/nf-sra-human-scrubber.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/logs/sra-human-scrubber/versions.yml
+      md5sum: b92f530edda0acaa9426481fe66a121e
+    - path: bactopia-tools/scrubber/scrubber/SRR2838702/sra-human-scrubber/SRR2838702.scrubbed.fastq.gz
+      md5sum: b035ec1d5a789da441ca213169293c6a
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-dag.dot
+      contains: ['scrubberdag', 'SRAHUMANSCRUBBER', 'versions']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/scrubber/scrubber/nf-reports/scrubber-trace.txt
+      contains: ['task_id']

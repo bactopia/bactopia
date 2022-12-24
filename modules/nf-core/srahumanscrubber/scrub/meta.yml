@@ -1,0 +1,43 @@
+name: "srahumanscrubber_scrub"
+description: Remove human reads from input FASTQs
+keywords:
+  - fastq
+  - filter
+  - human
+tools:
+  - "srahumanscrubber":
+      description: "An SRA tool identifies and removes any significant human read, and outputs the edited (cleaned) fastq file for SRA submission."
+      homepage: "https://github.com/ncbi/sra-human-scrubber"
+      documentation: "https://github.com/ncbi/sra-human-scrubber"
+      tool_dev_url: "https://github.com/ncbi/sra-human-scrubber"
+      doi: "10.1186/s13059-021-02490-0"
+      licence: "['Public Domain']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: FASTQ reads
+      pattern: "*.fastq.gz"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - scrubbed_reads:
+      type: file
+      description: FASTQ file(s) scrubbed of human reads
+      pattern: "*.{scrubbed.fastq.gz}"
+
+authors:
+  - "@rpetit3"
