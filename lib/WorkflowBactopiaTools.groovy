@@ -109,6 +109,18 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--mash_sketch"
             }
+        } else if (params.wf == "midas") {
+            if (params.midas_db) {
+                if (Utils.isLocal(params.midas_db)) {
+                    if (params.midas_db.endsWith(".tar.gz")) {
+                        error += Utils.fileNotFound(params.midas_db, 'midas_db', log)
+                    } else {
+                        error += Utils.fileNotFound("${params.midas_db}/genome_info.txt", 'midas_db', log)
+                    }
+                }
+            } else {
+                missing_required += "--midas_db"
+            }
         } else if (params.wf == "mykrobe") {
             if (!params.mykrobe_species) {
                 error += 1
@@ -135,6 +147,16 @@ class WorkflowBactopiaTools {
                 }
             } else {
                 missing_required += "--reference"
+            }
+        } else if (params.wf == "srahumanscrubber") {
+            if (params.scrubber_db) {
+                if (!params.download_scrubber) {
+                    if (Utils.isLocal(params.scrubber_db)) {
+                        error += Utils.fileNotFound(params.scrubber_db, 'scrubber_db', log)
+                    }
+                }
+            } else {
+                missing_required += "--scrubber_db"
             }
         }
 

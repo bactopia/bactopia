@@ -1,0 +1,44 @@
+name: "stecfinder"
+description: Serotype STEC samples from paired-end reads or assemblies
+keywords:
+  - serotype
+  - Escherichia coli
+  - fastq
+  - fasta
+tools:
+  - "stecfinder":
+      description: "Cluster informed Shigatoxin producing E. coli (STEC) serotyping tool from Illumina reads and assemblies"
+      homepage: "https://github.com/LanLab/STECFinder"
+      documentation: "https://github.com/LanLab/STECFinder"
+      tool_dev_url: "https://github.com/LanLab/STECFinder"
+      doi: "10.3389/fcimb.2021.772574"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: Illumina paired-end reads or an assembly
+      pattern: "*.{fastq.gz,fasta.gz,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: A tab-delimited report of results
+      pattern: "*.tsv"
+
+authors:
+  - "@rpetit3"
