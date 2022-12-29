@@ -1,0 +1,47 @@
+name: "midas_species"
+description: A tool to estimate bacterial species abundance
+keywords:
+  - bacteria
+  - metagenomic
+  - abundance
+tools:
+  - "midas":
+      description: "An integrated pipeline for estimating strain-level genomic variation from metagenomic data"
+      homepage: "https://github.com/snayfach/MIDAS"
+      documentation: "https://github.com/snayfach/MIDAS"
+      tool_dev_url: "https://github.com/snayfach/MIDAS"
+      doi: "10.1101/gr.201863.115"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Reads in FASTQ format
+      pattern: "*.{fastq.gz}"
+  - db:
+      type: file
+      description: A database formatted for MIDAS
+      pattern: "*.{db}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: file
+      description: A directory of results from MIDAS run
+      pattern: "*"
+
+authors:
+  - "@rpetit3"

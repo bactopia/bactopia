@@ -1,0 +1,8 @@
+- name: midas-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf midas -c nextflow.config --help > midas-help.txt'
+  tags:
+    - bactopia_help
+    - midas
+  files:
+    - path: midas-help.txt
+      contains: ['midas', 'bactopia', 'version', 'dependencies']
