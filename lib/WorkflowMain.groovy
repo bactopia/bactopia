@@ -35,6 +35,9 @@ class WorkflowMain {
             } else if (params.wf == "enteropia") {
                 logo_name = "enteropia"
                 command = "enteropia --fastqs samples.txt --datasets datasets/ --species 'Klebsiella pneumoniae' -profile singularity"
+            } else if (params.wf == "cleanyerreads") {
+                logo_name = "cleanyerreads"
+                command = "clean-yer-reads --fastqs samples.txt -profile singularity"
             } else {
                 logo_name = "tools"
                 command = "${workflow.manifest.name} --wf ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
@@ -82,7 +85,9 @@ class WorkflowMain {
                 logo_name = "staphopia"
             } else if (params.wf == "enteropia") {
                 logo_name = "enteropia"
-            } else {
+            } else if (params.wf == "cleanyerreads") {
+                logo_name = "cleanyerreads"
+            }  else {
                 logo_name = "tools"
             }
         }

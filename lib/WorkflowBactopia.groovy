@@ -106,47 +106,51 @@ class WorkflowBactopia {
             }
         }
 
-        if (params.datasets) {
-            if (Utils.isLocal(params.datasets)) {
-                if (!Utils.fileExists("${params.datasets}/summary.json")) {
-                    log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                            "to open ${params.datasets}/summary.json"
+        // following should only be checked for specific workflows
+        if (['bactopia', 'staphopia'].contains(params.wf)) {
+            if (params.datasets) {
+                if (Utils.isLocal(params.datasets)) {
+                    if (!Utils.fileExists("${params.datasets}/summary.json")) {
+                        log.error "Please verify the PATH is correct for '--datasets'. Unable " +
+                                "to open ${params.datasets}/summary.json"
+                        error += 1
+                    }
+                }
+            }
+
+            // The Ask Merlin feature requires a downloaded refseq mash sketch
+            if (params.ask_merlin) {
+                if (params.datasets) {
+                    if (Utils.isLocal(params.datasets)) {
+                        if (!Utils.fileExists("${params.datasets}/minmer/mash-refseq-k21.msh")) {
+                            log.error "Please verify the PATH is correct for '--datasets'. Unable " +
+                                    "to open ${params.datasets}/minmer/mash-refseq-k21.msh"
+                            error += 1
+                        }
+                    }
+                } else {
+                    log.error "'--ask_merlin' requires '--datasets' to also be used"
+                    error += 1
+                }
+            }
+
+            // Using Bakta, requires path to database
+            if (params.use_bakta) {
+                if (params.bakta_db) {
+                    if (Utils.isLocal(params.bakta_db)) {
+                        if (params.bakta_db.endsWith(".tar.gz")) {
+                            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                        } else {
+                            error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                        }
+                    }
+                } else {
+                    log.error "'--use_bakta' requires '--bakta_db' to also be used"
                     error += 1
                 }
             }
         }
 
-        // The Ask Merlin feature requires a downloaded refseq mash sketch
-        if (params.ask_merlin) {
-            if (params.datasets) {
-                if (Utils.isLocal(params.datasets)) {
-                    if (!Utils.fileExists("${params.datasets}/minmer/mash-refseq-k21.msh")) {
-                        log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                                "to open ${params.datasets}/minmer/mash-refseq-k21.msh"
-                        error += 1
-                    }
-                }
-            } else {
-                log.error "'--ask_merlin' requires '--datasets' to also be used"
-                error += 1
-            }
-        }
-
-        // Using Bakta, requires path to database
-        if (params.use_bakta) {
-            if (params.bakta_db) {
-                if (Utils.isLocal(params.bakta_db)) {
-                    if (params.bakta_db.endsWith(".tar.gz")) {
-                        error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
-                    } else {
-                        error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
-                    }
-                }
-            } else {
-                log.error "'--use_bakta' requires '--bakta_db' to also be used"
-                error += 1
-            }
-        }
 
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {

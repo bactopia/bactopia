@@ -22,8 +22,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Download the SRA Human Scrubber database",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true
+                    "fa_icon": "fas fa-file-alt"
                 }
             }
         }

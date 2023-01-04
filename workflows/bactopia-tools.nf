@@ -87,6 +87,8 @@ if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
+if (params.wf == 'teton') include { TETON } from '../subworkflows/local/teton/main';
+
 
 /*
 ========================================================================================
@@ -275,6 +277,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)
+    } else if (params.wf == 'teton') {
+        TETON(samples)
+        ch_versions = ch_versions.mix(TETON.out.versions)
     }
 
     // Collect Versions

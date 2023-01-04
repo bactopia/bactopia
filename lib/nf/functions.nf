@@ -9,7 +9,9 @@ def get_schemas() {
     def schemas = []
     def is_workflow = params.workflows[params.wf].containsKey('is_workflow')
 
-    if (is_workflow == true) {
+    if (params.wf == "cleanyerreads") {
+        schemas << 'conf/schema/clean-yer-reads.json'
+    } else if (is_workflow == true) {
         // Named workflow based of Bactopia
         schemas << 'conf/schema/bactopia.json'
     } else {
@@ -21,7 +23,6 @@ def get_schemas() {
         // Some work flows should include local files
         schemas << "conf/schema/local/${params.workflows[params.wf]['use_local']}.json"
     }
-
 
     if (params.workflows[params.wf].containsKey('includes')) {
         // Wrapper around multiple workflows
@@ -89,7 +90,11 @@ def _get_include_schemas(includes) {
 def _get_module_schemas(modules) {
     def module_schemas = []
     modules.each { it ->
-        module_schemas << "${params.workflows[it].path}/params.json"
+        if (params.wf == "cleanyerreads") {
+            module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
+        } else {
+            module_schemas << "${params.workflows[it].path}/params.json"
+        }
     }
     return module_schemas
 }
