@@ -34,6 +34,7 @@ if (params.check_samples) {
 // Core
 include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
 include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
+include { SCRUBBER } from '../subworkflows/local/scrubber/main'
 
 /*
 ========================================================================================
@@ -53,11 +54,23 @@ workflow CLEANYERREADS {
     
     // Core steps
     GATHER_SAMPLES(create_input_channel(run_type, params.genome_size))
-    QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(ADAPTERS)).combine(Channel.fromPath(PHIX)))
+    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
+
+    if (params.enable_scrubber) {
+        // Remove host reads
+        SCRUBBER(GATHER_SAMPLES.out.raw_fastq)
+        ch_versions = ch_versions.mix(SCRUBBER.out.versions)
+
+        // Clean up scrubbed reads
+        QC_READS(SCRUBBER.out.scrubbed.combine(Channel.fromPath(ADAPTERS)).combine(Channel.fromPath(PHIX)))
+        ch_versions = ch_versions.mix(QC_READS.out.versions.first())
+    } else {
+        // Clean up raw reads
+        QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(ADAPTERS)).combine(Channel.fromPath(PHIX)))
+        ch_versions = ch_versions.mix(QC_READS.out.versions.first())
+    }
 
     // Collect Versions
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
-    ch_versions = ch_versions.mix(QC_READS.out.versions.first())
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 

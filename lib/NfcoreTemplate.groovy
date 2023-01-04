@@ -295,25 +295,23 @@ class NfcoreTemplate {
                 ${colors.blue}  | |___| |  __/ (_| | | | |   | |  __/ |    |  _ <  __/ (_| | (_| \\__ \\       ${colors.reset}
                 ${colors.blue}   \\____|_|\\___|\\__,_|_| |_|   |_|\\___|_|    |_| \\_\\___|\\__,_|\\__,_|___/ ${colors.reset}
                 ${colors.blue}                                                                                 ${colors.reset}
-                ${colors.blue}           .=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.  ${colors.reset}
-                ${colors.blue}           |                     ______                     |  ${colors.reset}
-                ${colors.blue}           |                  .-"      "-.                  |  ${colors.reset}
-                ${colors.blue}           |                 /            \\                 |  ${colors.reset}
-                ${colors.blue}           |     _          |              |          _     |  ${colors.reset}
-                ${colors.blue}           |    ( \\         |,  .-.  .-.  ,|         / )    |  ${colors.reset}
-                ${colors.blue}           |     > "=._     | )(__/  \\__)( |     _.=" <     |  ${colors.reset}
-                ${colors.blue}           |    (_/"=._"=._ |/     /\\     \\| _.="_.="\\_)    |  ${colors.reset}
-                ${colors.blue}           |           "=._"(_     ^^     _)"_.="           |  ${colors.reset}
-                ${colors.blue}           |               "=\\__|IIIIII|__/="               |  ${colors.reset}
-                ${colors.blue}           |              _.="| \\IIIIII/ |"=._              |  ${colors.reset}
-                ${colors.blue}           |    _     _.="_.="\\          /"=._"=._     _    |  ${colors.reset}
-                ${colors.blue}           |   ( \\_.="_.="     `--------`     "=._"=._/ )   |  ${colors.reset}
-                ${colors.blue}           |    > _.="                            "=._ <    |  ${colors.reset}
-                ${colors.blue}           |   (_/   jgs                              \\_)   |  ${colors.reset}
-                ${colors.blue}           |                                                |  ${colors.reset}
-                ${colors.blue}           '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='  ${colors.reset}
-                ${colors.blue}                          Art by Joan G. Stark                   ${colors.reset}
-                ${colors.blue}                                                                   ${colors.reset}
+                ${colors.blue}                      ⠀⠀⡶⠛⠲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡶⠚⢲⡀⠀                    ${colors.reset}
+                ${colors.blue}                      ⣰⠛⠃⠀⢠⣏⠀⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣀⡀⠀⠀⠀⣸⡇⠀⠈⠙⣧                    ${colors.reset}
+                ${colors.blue}                      ⠸⣦⣤⣄⠀⠙⢷⣤⣶⠟⠛⢉⣁⣠⣤⣤⣤⣀⣉⠙⠻⢷⣤⡾⠋⢀⣠⣤⣴⠟                    ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⠈⠳⣤⡾⠋⣀⣴⣿⣿⠿⠿⠟⠛⠿⠿⣿⣿⣶⣄⠙⢿⣦⠟⠁⠀⠀⠀                    ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢀⣾⠟⢀⣼⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣷⡄⠹⣷⡀⠀⠀⠀                    ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⣾⡏⢠⣿⣿⡯⠤⠤⠤⠒⠒⠒⠒⠒⠒⠒⠤⠤⠽⣿⣿⡆⠹⣷⡀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⢸⣟⣠⡿⠿⠟⠒⣒⣒⣈⣉⣉⣉⣉⣉⣉⣉⣁⣒⣒⡛⠻⠿⢤⣹⣇⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⣾⡭⢤⣤⣠⡞⠉⠉⢀⣀⣀⠀⠀⠀⠀⢀⣀⣀⠀⠈⢹⣦⣤⡤⠴⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⣿⡇⢸⣿⣿⣇⠀⣼⣿⣿⣿⣷⠀⠀⣼⣿⣿⣿⣷⠀⢸⣿⣿⡇⠀⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⢻⡇⠸⣿⣿⣿⡄⢿⣿⣿⣿⡿⠀⠀⢿⣿⣿⣿⡿⢀⣿⣿⣿⡇⢸⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠸⣿⡀⢿⣿⣿⣿⣆⠉⠛⠋⠁⢴⣶⠀⠉⠛⠉⣠⣿⣿⣿⡿⠀⣾⠇⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢻⣷⡈⢻⣿⣿⣿⣿⣶⣤⣀⣈⣁⣀⡤⣴⣿⣿⣿⣿⡿⠁⣼⠟⠀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢀⣽⣷⣄⠙⢿⣿⣿⡟⢲⠧⡦⠼⠤⢷⢺⣿⣿⡿⠋⣠⣾⢿⣄⠀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⢰⠟⠛⠟⠁⣨⡿⢷⣤⣈⠙⢿⡙⠒⠓⠒⠓⠚⣹⠛⢉⣠⣾⠿⣧⡀⠙⠋⠙⣆         ${colors.reset}
+                ${colors.blue}                      ⠹⣄⡀⠀⠐⡏⠀⠀⠉⠛⠿⣶⣿⣦⣤⣤⣤⣶⣷⡾⠟⠋⠀⠀⢸⡇⠀⢠⣤⠟         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠳⢤⠼⠃⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠘⠷⢤⠾⠁⠀         ${colors.reset}
+                ${colors.blue}                                                                                ${colors.reset}
                 ${colors.cyan} clean-yer-reads v${workflow.manifest.version}${colors.reset}
                 ${colors.cyan} ${worflow_description} ${colors.reset}
                 -${colors.dim}------------------------------------------------------------------------${colors.reset}-
