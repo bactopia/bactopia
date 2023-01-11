@@ -69,7 +69,7 @@ dependencies:
   - minced=0.4.2
   - ncbi-amrfinderplus=3.10.45
   - ncurses=6.3
-  - openjdk=17.0.3
+  - openjdk=11.0.13
   - openssl=1.1.1s
   - paml=4.9
   - parallel=20220922
