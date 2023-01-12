@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/srahumanscrubber/initdb/params.json",
+    "title": "SRA Human Scrubber Module",
+    "description": "A module for removing human reads from FASTQs",
+    "type": "object",
+    "definitions": {
+        "srahumanscrubber_initdb_parameters": {
+            "title": "Scrubber Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "scrubber_db": {
+                    "type": "string",
+                    "description": "A .db file or path to save the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "download_scrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the SRA Human Scrubber database",
+                    "fa_icon": "fas fa-file-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/srahumanscrubber_initdb_parameters"
+        }
+    ]
+}

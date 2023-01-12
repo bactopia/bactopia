@@ -20,6 +20,7 @@ process GATHER_SAMPLES {
 
     output:
     tuple val(meta), path("fastqs/${meta.id}*.fastq.gz"), path("extra/*.gz"), path("${meta.id}-genome-size.txt"), emit: raw_fastq, optional: true
+    tuple val(meta), path("fastqs/${meta.id}*.fastq.gz"), emit: fastq_only, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions

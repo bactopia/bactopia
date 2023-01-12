@@ -25,5 +25,7 @@ workflow MIDAS {
     ch_versions = ch_versions.mix(MIDAS_SPECIES.out.versions)
 
     emit:
+    tsv = MIDAS_SPECIES.out.tsv
+    abundances = MIDAS_SPECIES.out.abundances
     versions = ch_versions // channel: [ versions.yml ]
 }

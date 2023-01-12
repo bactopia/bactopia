@@ -1,9 +1,9 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'midas')
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'sra-human-scrubber')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::midas=1.3.2"
+conda_tools = "bioconda::midas=1.3.2 conda-forge::python=3.10"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -24,13 +24,14 @@ process MIDAS_SPECIES {
     path db
 
     output:
-    tuple val(meta), path("*.tsv"), emit: tsv
-    path "*.{log,err}"            , emit: logs, optional: true
-    path ".command.*"             , emit: nf_logs
-    path "versions.yml"           , emit: versions
+    tuple val(meta), path("${prefix}.midas.tsv"), emit: tsv
+    tuple val(meta), path("*.abundances.txt")   , emit: abundances
+    path "*.{log,err}"                          , emit: logs, optional: true
+    path ".command.*"                           , emit: nf_logs
+    path "versions.yml"                         , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def read_opts = meta.single_end ? "-1 ${reads[0]}" : "-1 ${reads[0]} -2 ${reads[1]}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
@@ -50,7 +51,8 @@ process MIDAS_SPECIES {
         -d \$MIDAS_DB \\
         -t $task.cpus
 
-    mv results/species/species_profile.txt ${prefix}.tsv
+    mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
+    midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

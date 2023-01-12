@@ -11,6 +11,8 @@ def get_schemas() {
 
     if (params.wf == "cleanyerreads") {
         schemas << 'conf/schema/clean-yer-reads.json'
+    } else if (params.wf == "teton") {
+        schemas << 'conf/schema/teton.json'
     } else if (is_workflow == true) {
         // Named workflow based of Bactopia
         schemas << 'conf/schema/bactopia.json'
@@ -91,6 +93,8 @@ def _get_module_schemas(modules) {
     def module_schemas = []
     modules.each { it ->
         if (params.wf == "cleanyerreads") {
+            module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
+        } else if (params.wf == "teton" && (it == "gather_samples" || it == "srahumanscrubber_initdb")) {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else {
             module_schemas << "${params.workflows[it].path}/params.json"
@@ -234,6 +238,8 @@ def initOptions(Map args, String process_name) {
     /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */
     def Map options = [:]
     options.args            = args.args ?: ''
+    options.args2           = args.args2 ?: ''
+    options.args3           = args.args3 ?: ''
     options.ignore          = args.ignore ?: []
     options.is_module       = args.is_module ?: false
     options.is_db_download  = args.is_db_download ?: false

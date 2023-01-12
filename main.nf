@@ -8,6 +8,8 @@ if (is_available_workflow(params.wf)) {
             include { STAPHOPIA } from './workflows/staphopia'
         } else if (params.wf == "cleanyerreads") {
             include { CLEANYERREADS } from './workflows/clean-yer-reads'
+        } else if (params.wf == "teton") {
+            include { TETON } from './workflows/teton'
         } else {
             include { BACTOPIA } from './workflows/bactopia'
         }
@@ -31,7 +33,9 @@ workflow {
             STAPHOPIA()
         } else if (params.wf == "cleanyerreads") {
             CLEANYERREADS()
-        } else {
+        } else if (params.wf == "teton") {
+            TETON()
+        }  else {
             BACTOPIA()
         }
     } else {

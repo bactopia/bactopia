@@ -4,6 +4,32 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v2.?.? bactopia/bactopia "???" - 2023/??/??
+
+### `Added`
+- Named Workflows (!!!)
+    - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read
+    - `teton` - Host removal and taxon classification with estimated abundances
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `bracken` - Taxonomic classification ans species abundance estimation of sequence reads
+    - `midas` - Estimate bacterial species abundances from FASTQ files
+    - `sra-human-scrubber` - Scrub human reads from FASTQ files
+    - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
+- GitHub Action to build environments
+
+### `Fixed`
+- All modules correctly initiate `params.options`
+- OpenJDK java cpuset warning message (@idolawoye)
+- Broken badges in README.md
+- Pinned GSL to v2.6
+- symlink in amrfinder+ update (`bactopia datasets`)
+
+### `Enhancements to OSS`
+- add module for midas [nf-core/modules#2696](https://github.com/nf-core/modules/pull/2696)
+- add modules for sra-human-scrubber [nf-core/modules#2694](https://github.com/nf-core/modules/pull/2694)
+- add module for stecfinder [nf-core/modules#2702](https://github.com/nf-core/modules/pull/2702)
+- update midas pinnings to match docs [bioconda/bioconda-recipes#38566](https://github.com/bioconda/bioconda-recipes/pull/38566)
+
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 
 ### `Added`

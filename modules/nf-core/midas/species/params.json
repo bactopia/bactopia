@@ -14,8 +14,7 @@
                 "midas_db": {
                     "type": "string",
                     "description": "A single tarball or path to a MIDAS formatted database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "is_required": true
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "midas_word_size": {
                     "type": "integer",

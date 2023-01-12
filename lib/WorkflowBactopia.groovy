@@ -94,15 +94,17 @@ class WorkflowBactopia {
             error += 1
         }
 
-        if (params.adapters) {
-            if (Utils.isLocal(params.adapters)) {
-                error += Utils.fileNotFound(params.adapters, 'adapters', log)
+        if (params.containsKey('adapters')){
+            if (params.adapters) {
+                if (Utils.isLocal(params.adapters)) {
+                    error += Utils.fileNotFound(params.adapters, 'adapters', log)
+                }
             }
-        }
 
-        if (params.phix) {
-            if (Utils.isLocal(params.phix)) {
-                error += Utils.fileNotFound(params.phix, 'phix', log)
+            if (params.phix) {
+                if (Utils.isLocal(params.phix)) {
+                    error += Utils.fileNotFound(params.phix, 'phix', log)
+                }
             }
         }
 

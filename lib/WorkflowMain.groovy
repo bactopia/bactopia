@@ -38,6 +38,9 @@ class WorkflowMain {
             } else if (params.wf == "cleanyerreads") {
                 logo_name = "cleanyerreads"
                 command = "clean-yer-reads --fastqs samples.txt -profile singularity"
+            } else if (params.wf == "teton") {
+                logo_name = "teton"
+                command = "teton --fastqs samples.txt -profile singularity"
             } else {
                 logo_name = "tools"
                 command = "${workflow.manifest.name} --wf ${params.wf} --bactopia /path/to/bactopia/results -profile singularity"
@@ -87,7 +90,9 @@ class WorkflowMain {
                 logo_name = "enteropia"
             } else if (params.wf == "cleanyerreads") {
                 logo_name = "cleanyerreads"
-            }  else {
+            } else if (params.wf == "teton") {
+                logo_name = "teton"
+            } else {
                 logo_name = "tools"
             }
         }

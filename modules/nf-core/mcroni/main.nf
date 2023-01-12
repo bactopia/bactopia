@@ -1,7 +1,7 @@
 def VERSION = '1.0.4' // Version information not provided by tool on CLI
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'mcroni')
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'mcroni')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::mcroni=1.0.4 conda-forge::python=3.9"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")

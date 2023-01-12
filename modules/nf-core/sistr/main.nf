@@ -1,7 +1,7 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'sistr')
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'sistr')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::sistr_cmd=1.1.1"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
