@@ -4,8 +4,12 @@
     - midas
     - bactopia-tools
   files:
-    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.tsv
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.tsv
+      md5sum: 6078fbf9d5c44a56afeb7a42836b14d2
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.abundances.txt
       md5sum: 91f71c7f652445afe3d6d573155ec41b
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.adjusted.abundances.txt
+      md5sum: 3658eb6a56f27a066c88eccd22490808
     - path: bactopia-tools/midas/midas/SRR2838702/logs/midas/nf-midas.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/midas/midas/SRR2838702/logs/midas/nf-midas.err
@@ -37,8 +41,12 @@
     - midas-tarball
     - bactopia-tools
   files:
-    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.tsv
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.tsv
+      md5sum: 6078fbf9d5c44a56afeb7a42836b14d2
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.abundances.txt
       md5sum: 91f71c7f652445afe3d6d573155ec41b
+    - path: bactopia-tools/midas/midas/SRR2838702/SRR2838702.midas.adjusted.abundances.txt
+      md5sum: 3658eb6a56f27a066c88eccd22490808
     - path: bactopia-tools/midas/midas/SRR2838702/logs/midas/nf-midas.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia-tools/midas/midas/SRR2838702/logs/midas/nf-midas.err

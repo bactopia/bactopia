@@ -98,7 +98,14 @@
                     "description": "Reads required PRIOR to abundance estimation to perform re-estimation",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
-                }
+                },
+                "skip_krona": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip the creation of a Krona report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
             }
         }
     },

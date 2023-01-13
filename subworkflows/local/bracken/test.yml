@@ -4,7 +4,91 @@
     - bracken
     - bactopia-tools
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.abundances.txt
+      md5sum: f3fa24d9590cb38470acae52d9bc27a0
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.adjusted.abundances.txt
+      md5sum: e8b3f5dc2db95c1d16576960970afad7
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.krona.html
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.report.txt
+      md5sum: fbbe11cd75d0f0c42b241ee8bb57bbda
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.tsv
+      md5sum: 29a7409d86bdba4b7718dde0b8fa34f7
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.classified_1.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.classified_2.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.kraken2.krona.html
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.kraken2.report.txt
+      md5sum: 6e9ccc6bef87f863541b8fc4f567d0e8
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/versions.yml
+      md5sum: c40d28e074764fa6974f1197312f5f4a
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-dag.dot
+      contains: ['brackendag', 'KRAKEN2_BRACKEN', 'versions']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-trace.txt
+      contains: ['task_id']
+
+- name: bracken-test-tarball
+  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken_tarball --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bracken
+    - bracken-tarball
+    - bactopia-tools
+  files:
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.abundances.txt
+      md5sum: ea4da2fa918cbdb2b278f60a6381c72f
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.adjusted.abundances.txt
+      md5sum: ec659b0361b202685ea0b8739f814bd9
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.krona.html
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.report.txt
+      md5sum: 05fd3eed0739d27ef70c25b5c5ad2507
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.bracken.tsv
+      md5sum: 1781e81f846a7549d108c3f7d53ff321
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.classified_1.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.classified_2.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.kraken2.krona.html
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.kraken2.report.txt
+      md5sum: 0fb84f89eeb2b2c708b710d74249cffc
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia-tools/bracken/bracken/SRR2838702/logs/bracken/versions.yml
+      md5sum: 62e664595eeba2236015c7b25048eb36
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-dag.dot
+      contains: ['brackendag', 'KRAKEN2_BRACKEN', 'versions']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia-tools/bracken/bracken/nf-reports/bracken-trace.txt
+      contains: ['task_id']

@@ -16,6 +16,8 @@ RUN mamba create -y -n kraken2_bracken \
     bracken=2.7 \
     fastq-scan=1.0.1 \
     kraken2=2.1.2 \
+    krakentools=1.2 \
+    krona=2.8.1 \
     pandas=1.5.2 \
     pigz=2.6 \
     python=3.10 && \

@@ -77,7 +77,7 @@ if __name__ == '__main__':
     midas_uniq = midas_uniq.sort_values(by='relative_abundance', ascending=False)
 
     # round to 5 places after decimal to match Bracken output
-    midas_uniq.to_csv("{0}.midas.adjusted.abundances.txt".format(args.prefix), sep='\t', float_format='%.5f')
+    midas_uniq.to_csv("{0}.midas.adjusted.abundances.txt".format(args.prefix), sep='\t', float_format='%.5f', index=False)
 
     # Summary
     cols = [
