@@ -1,5 +1,6 @@
 bactopia-tests/
 temp/
+data/datasets/
 datasets/
 test_data
 conda/envs

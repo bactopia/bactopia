@@ -15,11 +15,12 @@ process MLST {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mlst:2.23.0--hdfd78af_0' :
-        'quay.io/biocontainers/mlst:2.23.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/mlst:2.23.0--hdfd78af_1' :
+        'quay.io/biocontainers/mlst:2.23.0--hdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)
+    path db
 
     output:
     tuple val(meta), path("*.tsv"), emit: tsv
@@ -28,11 +29,14 @@ process MLST {
     path "versions.yml", emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
+    tar -xzvf $db
+
     mlst \\
         --threads $task.cpus \\
+        --blastdb mlstdb/blast \\
+        --datadir mlstdb/pubmlst \\
         $options.args \\
         $fasta \\
         > ${prefix}.tsv
@@ -40,7 +44,7 @@ process MLST {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         mlst: \$( echo \$(mlst --version 2>&1) | sed 's/mlst //' )
+        mlst-database: \$( cat mlstdb/DB_VERSION )
     END_VERSIONS
     """
-
 }

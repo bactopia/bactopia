@@ -359,6 +359,9 @@ class NfcoreSchema {
             output += colors.underlined + colors.bold + group_name + colors.reset + '\n'
             if (group == 'bactopia') {
                 for (wf in params.available_workflows[group].sort()) {
+                    if (wf == 'updater') {
+                        continue
+                    }
                     def description = params.workflows[wf].description
                     def description_default = description 
                     // Wrap long description texts

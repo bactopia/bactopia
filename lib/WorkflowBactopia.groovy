@@ -151,6 +151,14 @@ class WorkflowBactopia {
                     error += 1
                 }
             }
+
+            // Check input datasets exist
+            if (Utils.isLocal(params.amrfinder_db)) {
+                error += Utils.fileNotFound(params.amrfinder_db, 'amrfinder_db', log)
+            }
+            if (Utils.isLocal(params.mlst_db)) {
+                error += Utils.fileNotFound(params.mlst_db, 'mlst_db', log)
+            }
         }
 
 

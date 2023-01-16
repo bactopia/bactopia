@@ -33,6 +33,7 @@ process AMRFINDERPLUS_UPDATE {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         amrfinderplus: \$(amrfinder --version)
+        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderdb/latest --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     END_VERSIONS
     """
 }

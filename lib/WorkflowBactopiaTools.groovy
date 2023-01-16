@@ -39,7 +39,11 @@ class WorkflowBactopiaTools {
         }
 
         // Workflow specific databases
-        if (params.wf == "ariba") {
+        if (params.wf == "amrfinderplus") {
+            if (Utils.isLocal(params.amrfinder_db)) {
+                error += Utils.fileNotFound(params.amrfinder_db, 'amrfinder_db', log)
+            }
+        } else if (params.wf == "ariba") {
             if (!params.ariba_db) {
                 error += 1
                 missing_required += "--ariba_db"
@@ -120,6 +124,10 @@ class WorkflowBactopiaTools {
                 }
             } else {
                 missing_required += "--midas_db"
+            }
+        } else if (params.wf == "mlst") {
+            if (Utils.isLocal(params.mlst_db)) {
+                error += Utils.fileNotFound(params.mlst_db, 'mlst_db', log)
             }
         } else if (params.wf == "mykrobe") {
             if (!params.mykrobe_species) {

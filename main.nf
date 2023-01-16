@@ -10,6 +10,8 @@ if (is_available_workflow(params.wf)) {
             include { CLEANYERREADS } from './workflows/clean-yer-reads'
         } else if (params.wf == "teton") {
             include { TETON } from './workflows/teton'
+        } else if (params.wf == "updater") {
+            include { UPDATER } from './workflows/updater'
         } else {
             include { BACTOPIA } from './workflows/bactopia'
         }
@@ -35,7 +37,9 @@ workflow {
             CLEANYERREADS()
         } else if (params.wf == "teton") {
             TETON()
-        }  else {
+        } else if (params.wf == "updater") {
+            UPDATER()
+        } else {
             BACTOPIA()
         }
     } else {

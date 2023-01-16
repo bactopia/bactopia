@@ -14,7 +14,7 @@
             "properties": {
                 "amrfinder_db": {
                     "type": "string",
-                    "description": "Path to your AMRFinder+ database as a tarball, if not given database will be built",
+                    "description": "Path to your AMRFinder+ database as a tarball (Default use the one bundled with Bactopia)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "force_update": {

@@ -12,6 +12,12 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "mlst_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A tarball of blast database and schemas (Default use the one bundled with Bactopia)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "scheme": {
                     "type": "string",
                     "default": "",

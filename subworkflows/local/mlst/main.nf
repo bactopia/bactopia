@@ -15,8 +15,8 @@ options.args = [
 include { MLST as MLST_MODULE } from '../../../modules/nf-core/mlst/main' addParams( options: options )
 if (params.is_subworkflow) {
     include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--no-header-row', publish_to_base: true, logs_subdir: options.is_module ? '' : 'mlst'] )
-
 }
+
 workflow MLST {
     take:
     fasta // channel: [ val(meta), [ reads ] ]
@@ -25,7 +25,7 @@ workflow MLST {
     ch_versions = Channel.empty()
     ch_merged_mlst = Channel.empty()
 
-    MLST_MODULE(fasta)
+    MLST_MODULE(fasta, file(params.mlst_db))
     ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first())
 
     if (params.is_subworkflow) {
