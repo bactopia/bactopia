@@ -38,12 +38,10 @@ include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main'
 include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
 
 // Require Datasets
-include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
 include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
-include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
 
 // Annotation wih Bakta or Prokka
 if (params.use_bakta) {
@@ -54,12 +52,15 @@ if (params.use_bakta) {
 
 // Merlin
 if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/main';
+include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
+include { MLST } from '../subworkflows/local/mlst/main';
 
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
+
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
 
 /*
@@ -79,17 +80,14 @@ workflow BACTOPIA {
     ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna)
     ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
     MINMER_SKETCH(QC_READS.out.fastq)
+    AMRFINDERPLUS(ANNOTATE_GENOME.out.annotations)
+    MLST(ASSEMBLE_GENOME.out.fna_only)
 
     // Optional steps that require datasets
-    // Species agnostic
-    ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
-    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
-
-    // Species Specific
     BLAST(ASSEMBLE_GENOME.out.blastdb, datasets['blast'])
     CALL_VARIANTS(QC_READS.out.fastq, datasets['references'])
     MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
-    SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
+    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
 
     if (params.ask_merlin) {
         MERLIN(ASSEMBLE_GENOME.out.fna_fastq)

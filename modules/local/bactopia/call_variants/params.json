@@ -71,11 +71,10 @@
                     "fa_icon": "fas fa-check",
                     "hidden": true
                 },
-                "disable_auto_variants": {
+                "enable_auto_variants": {
                     "type": "boolean",
-                    "description": "Disable automatic selection of reference genome based on Mash distances",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
+                    "description": "Enable automatic selection of reference genome based on Mash distances",
+                    "fa_icon": "fas fa-fast-forward"
                 }
             }
         }

@@ -256,10 +256,7 @@ def dataset_exists(dataset_path) {
 def setup_datasets() {
     species = format_species(params.species)
     datasets = [
-        'amr': [],
-        'ariba': [],
         'minmer': [],
-        'mlst': [],
         'references': [],
         'blast': [],
         'mapping': [],
@@ -273,30 +270,6 @@ def setup_datasets() {
     if (params.datasets) {
         dataset_path = params.datasets
         available_datasets = read_json("${dataset_path}/summary.json")
-
-        // Antimicrobial Resistance Datasets
-        if (params.skip_amr) {
-            log.info "Found '--skip_amr', datasets for AMRFinder+ will not be used for analysis."
-        } else {
-            if (available_datasets.containsKey('antimicrobial-resistance')) {
-                available_datasets['antimicrobial-resistance'].each {
-                    if (dataset_exists("${dataset_path}/antimicrobial-resistance/${it.name}")) {
-                        datasets['amr'] << file("${dataset_path}/antimicrobial-resistance/${it.name}")
-                    }
-                }
-                print_dataset_info(datasets['amr'], "Antimicrobial resistance datasets")
-            }
-        }
-
-        // Ariba Datasets
-        if (available_datasets.containsKey('ariba')) {
-            available_datasets['ariba'].each {
-                if (dataset_exists("${dataset_path}/ariba/${it.name}")) {
-                    datasets['ariba'] << file("${dataset_path}/ariba/${it.name}")
-                }
-            }
-            print_dataset_info(datasets['ariba'] , "ARIBA datasets")
-        }
 
         // RefSeq/GenBank Check
         if (available_datasets.containsKey('minmer')) {
@@ -344,7 +317,8 @@ def setup_datasets() {
                     }
 
                     // Species-specific RefSeq Mash sketch for auto variant calling
-                    if (!params.disable_auto_variants) {
+                    // disabled by default
+                    if (params.enable_auto_variants) {
                         if (species_db.containsKey('minmer')) {
                             if (species_db['minmer'].containsKey('mash')) {
                                 refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
@@ -355,20 +329,6 @@ def setup_datasets() {
                                 }
                             }
                         }
-                    }
-
-                    // MLST 
-                    if (species_db.containsKey('mlst')) {
-                        species_db['mlst'].each { schema, vals ->
-                            vals.each { key, val ->
-                                if (key != "last_updated") {
-                                    if (dataset_exists("${dataset_path}/${val}")) {
-                                        datasets['mlst'] << file("${dataset_path}/${val}")
-                                    }
-                                }
-                            }
-                        }
-                        print_dataset_info(datasets['mlst'], "MLST datasets")
                     }
 
                     if (species_db.containsKey('optional')) {
