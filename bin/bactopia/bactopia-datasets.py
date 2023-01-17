@@ -12,53 +12,9 @@ PROGRAM = "bactopia datasets"
 VERSION = "2.2.0"
 STDOUT = 11
 STDERR = 12
-CACHE_DIR = f'{os.path.expanduser("~")}/.bactopia'
-CACHE_JSON = f'{CACHE_DIR}/datasets.json'
 EXPIRATION = 15 # Refresh db info if cache is older than 15 days
 logging.addLevelName(STDOUT, "STDOUT")
 logging.addLevelName(STDERR, "STDERR")
-
-
-def check_cache(clear_cache=False):
-    """Check if a local cache exists to avoid re-downloads."""
-    import time
-
-    logging.debug(f'Checking for existing cache')
-    if not os.path.exists(CACHE_DIR):
-        logging.debug(f'Creating cache directory ({CACHE_DIR})')
-        execute(f'mkdir -p {CACHE_DIR}')
-
-    cache_data = {}
-    if os.path.exists(CACHE_JSON):
-        logging.debug(f'Found existing dataset cache ({CACHE_JSON})')
-        days_old = (time.time() - os.path.getctime(CACHE_JSON)) // (24 * 3600)
-        if days_old >= EXPIRATION or clear_cache:
-            logging.debug((f'Deleting {CACHE_JSON}, Reason: older than '
-                           f'{EXPIRATION} days or "--clear_cache" used'))
-            execute(f'rm {CACHE_JSON}')
-        else:
-            with open(CACHE_JSON, 'r') as cache_fh:
-                cache_data = json.load(cache_fh)
-
-    return cache_data
-
-
-def get_available_datasets(pubmlst_file, clear_cache):
-    """Get a list of available datasets to be set up."""
-    data = check_cache(clear_cache=clear_cache)
-    expected = ['pubmlst']
-    if sum([k in data for k in expected]) != len(expected):
-        logging.debug((f'Existing dataset cache ({CACHE_JSON}) is missing '
-                       'expected fields, refreshing.'))
-        data = {
-            'pubmlst': pubmlst_schemas(pubmlst_file)
-        }
-
-        with open(CACHE_JSON, 'w') as cache_fh:
-            logging.debug(f'Created dataset cache ({CACHE_JSON})')
-            json.dump(data, cache_fh, indent=4, sort_keys=True)
-
-    return data['pubmlst']
 
 
 def validate_requirements():
@@ -179,19 +135,6 @@ def pubmlst_schemas(pubmlst_file):
     return pubmlst
 
 
-def available_datasets(pubmlst, missing=False):
-    """Print available Ariba references, MLST schemas, and exit."""
-    print_to = sys.stderr if missing else sys.stdout
-
-    print("\nMLST schemas available from pubMLST.org:", file=print_to)
-    for k,v in sorted(pubmlst.items()):
-        if len(v) > 1:
-            print(f'{k} ({len(v)} shemas)', file=print_to)
-        else:
-            print(f'{k}', file=print_to)
-    sys.exit(1 if missing else 0)
-
-
 def available_species(dataset_dir):
     """Print species already in the dataset, and exit."""
     summary_json = f'{dataset_dir}/summary.json'
@@ -210,114 +153,20 @@ def available_species(dataset_dir):
         print(f'Please verify {dataset_dir} contains Bactopia Datasets, exiting...', file=sys.stderr)
         sys.exit(1)
 
-def setup_requests(request, available_datasets, title, skip_check=False):
+def setup_requests(request):
     """Return a list of setup requests."""
     datasets = []
     if os.path.exists(request):
         with open(request, 'r') as handle:
             for line in handle:
-                dataset = line.rstrip()
-                if dataset in available_datasets or skip_check:
-                    datasets.append(dataset)
-                else:
-                    logging.error(f'{dataset} is not available from {title}')
+                datasets.append(line.rstrip())
     elif "," in request:
         for dataset in request.split(','):
-            dataset = dataset.strip()
-            if dataset in available_datasets or skip_check:
-                datasets.append(dataset)
-            else:
-                logging.error(f'{dataset} is not available from {title}')
-    elif request in available_datasets or skip_check:
-        datasets.append(request)
+            datasets.append(dataset.strip())
     else:
-        logging.error(f'{request} is not available from {title}')
+        datasets.append(request)
 
     return datasets
-
-
-def setup_mlst_request(request, available_schemas, species_key=None):
-    """Return a list of mlst schemas to build."""
-    requests = []
-    if os.path.exists(request):
-        with open(request, 'r') as handle:
-            for line in handle:
-                line = line.rstrip()
-                if line:
-                    requests.append(line)
-    elif "," in request:
-        for dataset in request.split(','):
-            requests.append(dataset.capitalize().strip())
-    else:
-        requests.append(request.capitalize())
-
-    schemas = []
-    for species in requests:
-        species = species_key[species.lower()]
-        genus = species.split()[0]
-        if species in available_schemas:
-            for schema, pubmlst_name in available_schemas[species].items():
-                schemas.append({'pubmlst': pubmlst_name, 'schema': schema, 'species': species})
-        elif genus in available_schemas:
-            # MLST schema is for a genus not just species
-            for schema, pubmlst_name in available_schemas[genus].items():
-                schemas.append({'pubmlst': pubmlst_name, 'schema': schema, 'species': species})
-        else:
-            logging.warning(f'{species} is not available from pubMLST.org, skipping')
-
-    return schemas
-
-def setup_mlst(request, available_datasets, pubmlst_json, outdir, force=False, species_key=None):
-    """Setup MLST datasets for each requested schema."""
-    import re
-    requests = setup_mlst_request(request, available_datasets, species_key=species_key)
-    if requests:
-        for request in requests:
-            schema = request['schema']
-            species = request['species']
-
-            species = re.sub(r'[ /()]', "-", species.lower())
-            species = species.replace('--', '-').strip('-')
-            mlst_dir = f'{outdir}/{species}/mlst'
-            schema_dir = f'{mlst_dir}/{schema}'
-            if os.path.exists(f'{mlst_dir}/{schema}-updated.txt'):
-                if force:
-                    logging.info(f'--force, removing existing {request["species"]} setup')
-                    execute(f'rm -rf {mlst_dir}/{schema}-updated.txt')
-                    execute(f'rm -rf {mlst_dir}/{schema}.tar.gz')
-                else:
-                    logging.info((f'{request["species"]} MLST Schema ({schema}) exists'
-                                  ', skipping'))
-                    continue
-            elif force:
-                logging.info(f'--force, removing existing {request["species"]} setup')
-                execute(f'rm -rf {mlst_dir}')
-
-            # Setup MLST dataset
-            logging.info(f'Setting up {schema} MLST schema for {request["species"]}')
-            species_request = request['pubmlst']
-            blast_dir = f'{schema_dir}/blastdb'
-            execute(f'mkdir -p {blast_dir}')
-
-            # Download Profile
-            profile = pubmlst_json[species_request]['profiles']
-            execute(f'wget -O profile.txt {profile}', directory=blast_dir)
-
-            # Download loci fastas and make blast db
-            loci = profile = pubmlst_json[species_request]['loci']
-            for locus, locus_url in loci.items():
-                execute(f'wget -O {locus}.tfa {locus_url}', directory=blast_dir)
-                execute(f'makeblastdb -in {locus}.tfa -dbtype nucl -out {locus}', directory=blast_dir)
-
-            # Tarball directories
-            execute(f'tar -zcvf {schema}.tar.gz {schema}/', directory=mlst_dir)
-            execute(f'rm -rf {schema_dir}')
-
-            # Finish up
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {schema}-updated.txt',
-                    directory=mlst_dir)
-    else:
-        logging.info("No valid MLST schemas to setup, skipping")
 
 
 def process_cds(cds):
@@ -363,253 +212,213 @@ def setup_prokka(request, available_datasets, outdir, force=False,
     import re
     import random
     from statistics import median, mean
-    requests = None
-    if os.path.exists(request):
-        requests = setup_requests(request, available_datasets, 'Prokka Proteins', skip_check=True)
-    else:
-        requests = setup_requests(request.capitalize(), available_datasets, 'Prokka Proteins', skip_check=True)
-    if requests:
-        for request in requests:
-            species = re.sub(r'[ /()]', "-", request.lower())
-            species = species.replace('--', '-').strip('-')
-            prokka_dir = f'{outdir}/{species}/annotation'
-            minmer_dir = f'{outdir}/{species}/minmer'
-            clean_up = False
-            genome_sizes = []
-            skip_genome_size = False
 
-            if os.path.exists(f'{prokka_dir}/{species}.faa'):
-                if force:
-                    logging.info(f'--force, delete existing {prokka_dir}')
-                    clean_up = True
-                else:
-                    logging.info((f'{prokka_dir} exists, skipping'))
-                    continue
-            elif os.path.exists(f'{prokka_dir}/'):
-                logging.info(f'Incomplete setup, deleting {prokka_dir} to start over')
-                clean_up = True
-            elif force:
+    for request in setup_requests(request if os.path.exists(request) else request.capitalize()):
+        species = re.sub(r'[ /()]', "-", request.lower())
+        species = species.replace('--', '-').strip('-')
+        prokka_dir = f'{outdir}/{species}/annotation'
+        minmer_dir = f'{outdir}/{species}/minmer'
+        clean_up = False
+        genome_sizes = []
+        skip_genome_size = False
+
+        if os.path.exists(f'{prokka_dir}/{species}.faa'):
+            if force:
                 logging.info(f'--force, delete existing {prokka_dir}')
                 clean_up = True
+            else:
+                logging.info((f'{prokka_dir} exists, skipping'))
+                continue
+        elif os.path.exists(f'{prokka_dir}/'):
+            logging.info(f'Incomplete setup, deleting {prokka_dir} to start over')
+            clean_up = True
+        elif force:
+            logging.info(f'--force, delete existing {prokka_dir}')
+            clean_up = True
 
-            if clean_up:
-                execute(f'rm -rf {prokka_dir}')
-                execute(f'rm -rf {minmer_dir}')
+        if clean_up:
+            execute(f'rm -rf {prokka_dir}')
+            execute(f'rm -rf {minmer_dir}')
 
-            # Setup Prokka proteins file
-            logging.info(f'Setting up custom Prokka proteins for {request}')
-            execute(f'mkdir -p {prokka_dir}')
-            execute(f'mkdir -p {minmer_dir}')
+        # Setup Prokka proteins file
+        logging.info(f'Setting up custom Prokka proteins for {request}')
+        execute(f'mkdir -p {prokka_dir}')
+        execute(f'mkdir -p {minmer_dir}')
 
-            # Download completed genomes
-            logging.info(f'Downloading genomes (assembly level: {assembly_level})')
-            genome_dir = f'{prokka_dir}/genomes'
-            genus = species_key[request.lower()]
-            execute(f'mkdir {genome_dir}')
-            species_accession = []
-            all_accessions = {}
-            accessions = []
-            accession_file = f'{genome_dir}/accessions.txt'
-            if user_accessions:
-                execute(f'cp {user_accessions} {accession_file}')
-                if include_genus:
-                    logging.info(f'Ignoring `--include_genus` since a file of accessions was given.')
+        # Download completed genomes
+        logging.info(f'Downloading genomes (assembly level: {assembly_level})')
+        genome_dir = f'{prokka_dir}/genomes'
+        genus = species_key[request.lower()]
+        execute(f'mkdir {genome_dir}')
+        species_accession = []
+        all_accessions = {}
+        accessions = []
+        accession_file = f'{genome_dir}/accessions.txt'
+        if user_accessions:
+            execute(f'cp {user_accessions} {accession_file}')
+            if include_genus:
+                logging.info(f'Ignoring `--include_genus` since a file of accessions was given.')
+            if limit:
+                logging.info(f'Ignoring `--limit {limit}` since a file of accessions was given.')
+        else:
+            if include_genus:
+                genus = genus.split()[0]
+
+            results = execute((f'ncbi-genome-download bacteria -g "{genus}" '
+                                f'-l {assembly_level} -F genbank -r 80 --dry-run'), capture=True, error_ok=True)
+            
+            if results:
+                for line in results.split('\n'):
+                    if line and not line.startswith('Considering'):
+                        accession, name = line.split('\t', 1)
+                        all_accessions[accession] = name
+                        if name.startswith(species_key[request.lower()]):
+                            species_accession.append(accession)
+                        accessions.append(accession)
+
                 if limit:
-                    logging.info(f'Ignoring `--limit {limit}` since a file of accessions was given.')
-            else:
-                if include_genus:
-                    genus = genus.split()[0]
-
-                results = execute((f'ncbi-genome-download bacteria -g "{genus}" '
-                                   f'-l {assembly_level} -F genbank -r 80 --dry-run'), capture=True, error_ok=True)
-                
-                if results:
-                    for line in results.split('\n'):
-                        if line and not line.startswith('Considering'):
-                            accession, name = line.split('\t', 1)
-                            all_accessions[accession] = name
-                            if name.startswith(species_key[request.lower()]):
-                                species_accession.append(accession)
-                            accessions.append(accession)
-
-                    if limit:
-                        if len(accessions) > limit:
-                            logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
-                            accessions = random.sample(accessions, limit)
-                            contains_species = False
-                            for accession in accessions:
-                                if all_accessions[accession].startswith(species_key[request.lower()]):
-                                    contains_species = True
-
-                            if not contains_species:
-                                if len(species_accession):
-                                    logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
-                                    accessions.append(random.sample(species_accession, 1)[0])
-                        else:
-                            logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
-
-                    if not len(species_accession):
-                        logging.info(f'A completed genome does not exist for {species_key[request.lower()]}, skipping genome size statistics..')
-                        skip_genome_size = True
-                    
-                    with open(accession_file, 'w') as accession_fh:
+                    if len(accessions) > limit:
+                        logging.info(f'Downloading {limit} genomes from a random subset of {len(accessions)} genomes.')
+                        accessions = random.sample(accessions, limit)
+                        contains_species = False
                         for accession in accessions:
-                            accession_fh.write(f'{accession}\n')
-                else:
-                    logging.warning(f'No completed genomes found for "{genus}", skipping custom Prokka proteins')
-                    continue
+                            if all_accessions[accession].startswith(species_key[request.lower()]):
+                                contains_species = True
 
-            execute((f'ncbi-genome-download bacteria -A {accession_file} '
-                    f'-l {assembly_level} -o {prokka_dir}/genomes -F genbank -r 80 '
-                    f'-m {prokka_dir}/ncbi-metadata.txt'))
+                        if not contains_species:
+                            if len(species_accession):
+                                logging.info(f'Random subset, does not include {species_key[request.lower()]} genomes, adding 1 to random subset.')
+                                accessions.append(random.sample(species_accession, 1)[0])
+                    else:
+                        logging.info(f'There are less available genomes than the given limit ({limit}), downloading all.')
 
-            # Extract information from Genbank files
-            genbank_files = execute(
-                'find . -name "*.gbff.gz"', directory=prokka_dir, capture=True
-            ).split('\n')
-            count = 0
-            passing_cds = f'{prokka_dir}/passing-cds.faa'
-            minmer = f'{minmer_dir}/minmer.ffn'
-            logging.info(f'Processing {len(genbank_files)-1} Genbank files')
-            with open(passing_cds, 'w') as cds_fh, open(minmer, 'w') as ffn_fh:
-                for genbank in genbank_files:
-                    if genbank:
-                        sizes = []
-                        genbank = genbank.replace('./', f'{prokka_dir}/')
-                        seq_name = None
-                        seqs = []
-                        gap = "N" * 102
-                        with gzip.open(genbank, 'rt') as genbank_fh:
-                            for record in SeqIO.parse(genbank_fh, 'genbank'):
-                                # Aggregate chromosome and plasmids
-                                sizes.append(len(record.seq))
-                                for dbxref in record.dbxrefs:
-                                    if dbxref.startswith('Assembly'):
-                                        seq_name = dbxref.split(':')[1]
-                                        seqs.append(str(record.seq))
-                                        seqs.append(gap)
-
-                                for feature in record.features:
-                                    if feature.type == 'CDS':
-                                        header, seq = process_cds(
-                                            feature.qualifiers
-                                        )
-
-                                        if header and seq:
-                                            count += 1
-                                            cds_fh.write(f'{header}\n')
-                                            cds_fh.write(f'{seq}\n')
-                            # Write sequence
-                            ffn_fh.write(f'>{seq_name}\n')
-                            gap = "N" * 102
-                            sequence = "".join(seqs)
-                            ffn_fh.write(f'{sequence}\n')
-
-                        # Only add genome sizes for the species, incase the
-                        # option '--inlude_genus' was used.
-                        if not skip_genome_size:
-                            if record.annotations["organism"].lower().startswith(request.lower()):
-                                logging.debug(
-                                    f'Added {record.annotations["organism"]} '
-                                    f'({sum(sizes)}) to median genome size '
-                                    'calculation.'
-                                )
-                                genome_sizes.append(sum(sizes))
-                            else:
-                                logging.debug(
-                                    f'Skip adding {record.annotations["organism"]} '
-                                    f'({sum(sizes)}) to median genome size '
-                                    f'calculation (not {request}).'
-                                )
-
-            total_genome = len(genome_sizes)
-            if not skip_genome_size:
-                median_genome = int(median(genome_sizes))
-                logging.info(
-                    f'Median genome size: {median_genome} (n={total_genome})'
-                )
-            cdhit_cds = f'{prokka_dir}/{species}.faa'
-            logging.info(f'Running CD-HIT on {count} proteins')
-            g = 0 if fast_cluster else 1
-            execute((f'cd-hit -i {passing_cds} -o {cdhit_cds} -s {overlap} '
-                     f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
-
-            # Make sketch/signatures
-            execute(
-                f'mash sketch -i -k 31 -s 10000 -o refseq-genomes minmer.ffn',
-                directory=minmer_dir
-            )
-
-            # Finish up
-            with open(f'{prokka_dir}/genome_size.json', 'w') as genome_size_fh:
-                gs_dict = {
-                    'min': 0, 'median': 0, 'mean':0, 'max': 0, 'total': 0,
-                    'description': 'No available completed genomes.'
-                }
-                if not skip_genome_size:
-                    gs_dict = {
-                        'min': min(genome_sizes),
-                        'median': int(median(genome_sizes)),
-                        'mean': int(median(genome_sizes)),
-                        'max': max(genome_sizes),
-                        'total': total_genome,
-                        'description': (
-                            f'Genome size values are based on {total_genome} '
-                            'completed genomes (RefSeq).'
-                        )
-                    }
-                json.dump(gs_dict, genome_size_fh, indent=4)
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
-                    directory=prokka_dir)
-            execute(f'grep -H -c "^>" *.faa > cdhit-stats.txt',
-                    directory=prokka_dir)
-            execute(f'sed -i "s=passing-cds.faa:=original\t=" cdhit-stats.txt',
-                    directory=prokka_dir)
-            execute(
-                f'sed -i "s={species}.faa:=after_cd-hit\t=" cdhit-stats.txt',
-                directory=prokka_dir
-            )
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
-                    directory=minmer_dir)
-
-            # Clean up
-            if not keep_files:
-                execute(f'rm -rf {minmer} {passing_cds} {genome_dir}/')
-
-    else:
-        logging.info("No valid species to setup, skipping")
-
-
-def setup_amr(outdir, force=False):
-    """Download the latest antimicrobial resistance datasets."""
-    datasets = ['amrfinder']
-    amr_dir = f'{outdir}/antimicrobial-resistance'
-    update_timestamp = False
-    execute(f'mkdir -p {amr_dir}')
-
-    for dataset in datasets:
-        dataset_file = f'{amr_dir}/{dataset}.tar.gz'
-        if os.path.exists(dataset_file):
-            if force:
-                logging.info(f'--force, removing existing {dataset_file} setup')
-                execute(f'rm -f {dataset_file}')
-                update_timestamp = True
+                if not len(species_accession):
+                    logging.info(f'A completed genome does not exist for {species_key[request.lower()]}, skipping genome size statistics..')
+                    skip_genome_size = True
+                
+                with open(accession_file, 'w') as accession_fh:
+                    for accession in accessions:
+                        accession_fh.write(f'{accession}\n')
             else:
-                logging.info(f'{dataset_file} exists, skipping')
+                logging.warning(f'No completed genomes found for "{genus}", skipping custom Prokka proteins')
                 continue
 
-        if dataset == 'amrfinder':
-            logging.info(f'Setting up latest AMRFinder+ database')
-            prefix = 'amrfinderdb'
-            execute(f'rm -rf {prefix} {prefix}-temp', directory=amr_dir)
-            execute(f'mkdir -p {prefix} {prefix}-temp', directory=amr_dir)
-            execute(f'amrfinder_update -d {prefix}-temp', directory=amr_dir)
-            latest_db = os.readlink(f'{amr_dir}/{prefix}-temp/latest')
-            execute(f'mv {prefix}-temp/{latest_db}/* {prefix}/', directory=amr_dir)
-            execute(f'tar -czvf {prefix}.tar.gz {prefix}/', directory=amr_dir)
-            execute(f'rm -rf {prefix} {prefix}-temp', directory=amr_dir)
-            execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > {prefix}-updated.txt', directory=amr_dir)
-            logging.info(f'AMRFinder+ database saved to {amr_dir}/{prefix}.tar.gz')
+        execute((f'ncbi-genome-download bacteria -A {accession_file} '
+                f'-l {assembly_level} -o {prokka_dir}/genomes -F genbank -r 80 '
+                f'-m {prokka_dir}/ncbi-metadata.txt'))
+
+        # Extract information from Genbank files
+        genbank_files = execute(
+            'find . -name "*.gbff.gz"', directory=prokka_dir, capture=True
+        ).split('\n')
+        count = 0
+        passing_cds = f'{prokka_dir}/passing-cds.faa'
+        minmer = f'{minmer_dir}/minmer.ffn'
+        logging.info(f'Processing {len(genbank_files)-1} Genbank files')
+        with open(passing_cds, 'w') as cds_fh, open(minmer, 'w') as ffn_fh:
+            for genbank in genbank_files:
+                if genbank:
+                    sizes = []
+                    genbank = genbank.replace('./', f'{prokka_dir}/')
+                    seq_name = None
+                    seqs = []
+                    gap = "N" * 102
+                    with gzip.open(genbank, 'rt') as genbank_fh:
+                        for record in SeqIO.parse(genbank_fh, 'genbank'):
+                            # Aggregate chromosome and plasmids
+                            sizes.append(len(record.seq))
+                            for dbxref in record.dbxrefs:
+                                if dbxref.startswith('Assembly'):
+                                    seq_name = dbxref.split(':')[1]
+                                    seqs.append(str(record.seq))
+                                    seqs.append(gap)
+
+                            for feature in record.features:
+                                if feature.type == 'CDS':
+                                    header, seq = process_cds(
+                                        feature.qualifiers
+                                    )
+
+                                    if header and seq:
+                                        count += 1
+                                        cds_fh.write(f'{header}\n')
+                                        cds_fh.write(f'{seq}\n')
+                        # Write sequence
+                        ffn_fh.write(f'>{seq_name}\n')
+                        gap = "N" * 102
+                        sequence = "".join(seqs)
+                        ffn_fh.write(f'{sequence}\n')
+
+                    # Only add genome sizes for the species, incase the
+                    # option '--inlude_genus' was used.
+                    if not skip_genome_size:
+                        if record.annotations["organism"].lower().startswith(request.lower()):
+                            logging.debug(
+                                f'Added {record.annotations["organism"]} '
+                                f'({sum(sizes)}) to median genome size '
+                                'calculation.'
+                            )
+                            genome_sizes.append(sum(sizes))
+                        else:
+                            logging.debug(
+                                f'Skip adding {record.annotations["organism"]} '
+                                f'({sum(sizes)}) to median genome size '
+                                f'calculation (not {request}).'
+                            )
+
+        total_genome = len(genome_sizes)
+        if not skip_genome_size:
+            median_genome = int(median(genome_sizes))
+            logging.info(
+                f'Median genome size: {median_genome} (n={total_genome})'
+            )
+        cdhit_cds = f'{prokka_dir}/{species}.faa'
+        logging.info(f'Running CD-HIT on {count} proteins')
+        g = 0 if fast_cluster else 1
+        execute((f'cd-hit -i {passing_cds} -o {cdhit_cds} -s {overlap} '
+                    f'-g {g} -c {identity} -T {cpus} -M {max_memory}'))
+
+        # Make sketch/signatures
+        execute(
+            f'mash sketch -i -k 31 -s 10000 -o refseq-genomes minmer.ffn',
+            directory=minmer_dir
+        )
+
+        # Finish up
+        with open(f'{prokka_dir}/genome_size.json', 'w') as genome_size_fh:
+            gs_dict = {
+                'min': 0, 'median': 0, 'mean':0, 'max': 0, 'total': 0,
+                'description': 'No available completed genomes.'
+            }
+            if not skip_genome_size:
+                gs_dict = {
+                    'min': min(genome_sizes),
+                    'median': int(median(genome_sizes)),
+                    'mean': int(median(genome_sizes)),
+                    'max': max(genome_sizes),
+                    'total': total_genome,
+                    'description': (
+                        f'Genome size values are based on {total_genome} '
+                        'completed genomes (RefSeq).'
+                    )
+                }
+            json.dump(gs_dict, genome_size_fh, indent=4)
+        execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > proteins-updated.txt',
+                directory=prokka_dir)
+        execute(f'grep -H -c "^>" *.faa > cdhit-stats.txt',
+                directory=prokka_dir)
+        execute(f'sed -i "s=passing-cds.faa:=original\t=" cdhit-stats.txt',
+                directory=prokka_dir)
+        execute(
+            f'sed -i "s={species}.faa:=after_cd-hit\t=" cdhit-stats.txt',
+            directory=prokka_dir
+        )
+        execute(f'date -u +"%Y-%m-%dT%H:%M:%SZ" > minmer-updated.txt',
+                directory=minmer_dir)
+
+        # Clean up
+        if not keep_files:
+            execute(f'rm -rf {minmer} {passing_cds} {genome_dir}/')
 
 
 def setup_minmer(outdir, force=False, skip_ssl_check=False):
@@ -729,17 +538,6 @@ def create_summary(outdir, training_set=False, reference=False, mapping=False, g
                     json_data = json.load(gs_fh)
                     new_species['genome_size'] = json_data
 
-            mlst = f'{species_dir}/mlst'
-            new_species['mlst'] = {} 
-            if os.path.exists(f'{mlst}'):
-                for mlst_file in sorted(os.listdir(f'{mlst}')):
-                    if mlst_file.endswith("tar.gz"):
-                        schema = mlst_file.replace(".tar.gz", "")
-                        new_species['mlst'][schema] = {
-                            'data': f'species-specific/{species}/mlst/{schema}.tar.gz',
-                            'last_updated': execute(f'head -n 1 {mlst}/{schema}-updated.txt', capture=True).rstrip()
-                        }
-
             optionals = sorted([
                 'reference-genomes', 'mapping-sequences', 'blast'
             ])
@@ -848,12 +646,7 @@ if __name__ == '__main__':
     group2 = parser.add_argument_group('Bacterial Species')
     group2.add_argument(
         '--species', metavar="STR", type=str,
-        help=('Download available MLST schemas and completed genomes for '
-              'a given species or a list of species in a text file.')
-    )
-    group2.add_argument(
-        '--skip_mlst', action='store_true',
-        help=('Skip setup of MLST schemas for each species')
+        help=('Download available completed genomes for a given species or a list of species in a text file.')
     )
     group2.add_argument('--skip_spell_check', action='store_true',
                         help="The spelling of the species name will not be validated against ENA")
@@ -905,12 +698,6 @@ if __name__ == '__main__':
         help='Skip download of pre-computed minmer datasets (mash, sourmash)'
     )
 
-    group6 = parser.add_argument_group('Antimicrobial Resistance Datasets')
-    group6.add_argument(
-        '--skip_amr', action='store_true',
-        help='Skip download of antimicrobial resistance databases (e.g. AMRFinder+)'
-    )
-
     group7 = parser.add_argument_group('Optional User Provided Datasets')
     group7.add_argument(
         '--prodigal_tf', metavar="STR", type=str,
@@ -955,26 +742,16 @@ if __name__ == '__main__':
         '--cpus', metavar="INT", type=int, default=1,
         help=('Number of cpus to use. (Default: 1)')
     )
-    group8.add_argument('--clear_cache', action='store_true',
-                        help='Remove any existing cache.')
 
     group8.add_argument('--force', action='store_true',
                         help='Forcibly overwrite existing datasets.')
-    group8.add_argument('--force_mlst', action='store_true',
-                        help='Forcibly overwrite existing MLST datasets.')
     group8.add_argument('--force_prokka', action='store_true',
                         help='Forcibly overwrite existing Prokka datasets.')
     group8.add_argument('--force_minmer', action='store_true',
                         help='Forcibly overwrite existing minmer datasets.')
-    group8.add_argument('--force_amr', action='store_true',
-                        help='Forcibly overwrite existing antimicrobial resistance datasets.')
     group8.add_argument(
         '--keep_files', action='store_true',
         help=('Keep all downloaded and intermediate files.')
-    )
-    group8.add_argument(
-        '--available_datasets', action='store_true',
-        help='List MLST schemas available for setup.'
     )
     group8.add_argument(
         '--available_species', action='store_true',
@@ -1010,12 +787,6 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         validate_requirements()
-
-    with open(f'{args.bactopia}/data/pubmlst.json', 'rt') as fh:
-        PUBMLST_JSON = json.load(fh)
-    PUBMLST_TXT = get_available_datasets(f'{args.bactopia}/data/pubmlst.txt', args.clear_cache)
-    if args.available_datasets:
-        available_datasets(PUBMLST_TXT)
 
     if args.available_species:
         available_species(args.outdir)
@@ -1065,26 +836,9 @@ if __name__ == '__main__':
     else:
         logging.info('Skipping minmer dataset step')
 
-    if not args.skip_amr:
-        logging.info('Setting up antimicrobial resistance datasets')
-        setup_amr(args.outdir, force=(args.force or args.force_amr))
-    else:
-        logging.info('Skipping antimicrobial resistance dataset step')
-
     # Organism datasets
     if args.species:
         species_dir = f'{args.outdir}/species-specific'
-
-        if not args.skip_mlst:
-            logging.info('Setting up MLST datasets')
-            setup_mlst(
-                args.species,
-                PUBMLST_TXT,
-                PUBMLST_JSON,
-                species_dir,
-                force=(args.force or args.force_mlst),
-                species_key=species_key
-            )
 
         if not args.skip_prokka:
             logging.info('Setting up custom Prokka proteins')
