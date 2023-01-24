@@ -13,8 +13,6 @@
 #
 #    bactopia citations - Print citation for datasets, tools and Bactopia
 #
-#    bactopia datasets - Download/setup useful datasets for Bactopia
-#
 #    bactopia prepare - Create a 'file of filenames' for input FASTQ files
 #
 #    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
@@ -44,8 +42,6 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia citations - Print citation for datasets, tools and Bactopia"
     echo ""
-    echo "bactopia datasets - Download/setup useful datasets for Bactopia"
-    echo ""
     echo "bactopia download - Build Bactopia Conda, Docker,and or Singularity environments "
     echo ""
     echo "bactopia prepare - Create a 'file of filenames' for input FASTQ files"
@@ -57,7 +53,6 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "Print Usages:"
     echo "bactopia --help"
-    echo "bactopia datasets --help"
     echo "bactopia download --help"
     echo "bactopia prepare --help"
     echo "bactopia search --help"
@@ -69,9 +64,6 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia download --use_defaults"
     echo ""
-    echo "bactopia datasets --species 'Staphylococcus aureus'"
-    echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
-    echo ""
     echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
     echo "bactopia --fastqs my-fastqs.txt"
     echo ""
@@ -81,9 +73,7 @@ if [[ $# == 0 ]]; then
     exit
 fi
 
-if [[ "$1" == "datasets" ]]; then
-    bactopia-datasets.py "${BACTOPIA_NF}" "${@:2}"
-elif [[ "$1" == "prepare" ]]; then
+if [[ "$1" == "prepare" ]]; then
     bactopia-prepare.py "${@:2}"
 elif [[ "$1" == "search" ]]; then
     bactopia-search.py "${@:2}"

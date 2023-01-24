@@ -16,33 +16,23 @@ requirements:
     - pip
     - python >3.6,<3.10
   run:
-    - biopython
-    - blast >=2.11.0
-    - cd-hit
     - conda
     - coreutils
     - executor
     - gsl <=2.6
     - importlib-metadata <5
     - mamba
-    - mash
-    - ncbi-amrfinderplus 3.10.30
-    - ncbi-genome-download
     - nextflow >=21.10.0
-    - numpy >=1.17
     - pytest
     - pytest-workflow
     - python >3.6,<3.10
     - requests
-    - tbb 2020.2
     - sed
-    - unzip
     - wget
 
 test:
   commands:
     - "bactopia --version"
-    - "bactopia datasets --help"
     - "bactopia prepare"
     - "bactopia search"
     - "bactopia-summary --help"
