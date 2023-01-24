@@ -15,20 +15,22 @@ jobs:
         with:
           ref: dev
 
-      - name: Setup miniconda
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: ""
-          auto-activate-base: true
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          activate-environment: anaconda-client-env
+          use-mamba: true
 
       - name: Build and Push 
         run: |
           # Download datasets
+          mamba --version
           VERSION=$(grep -E "^\s+version = " nextflow.config | sed "s/.*version = '//;s/'//")
-          wget -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/amrfinderdb.tar.gz
-          wget -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
+          wget --quiet -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/amrfinderdb.tar.gz
+          wget --quiet -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
           # Start build
-          conda update -c conda-forge conda
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
