@@ -16,19 +16,18 @@ requirements:
     - pip
     - python >3.6
   run:
-    - conda
+    - conda >=22.11.0
     - coreutils
     - executor
-    - gsl <=2.6
-    - importlib-metadata <5
-    - mamba
+    - mamba >=1.1.0
     - nextflow >=21.10.0
-    - pytest
-    - pytest-workflow
     - python >3.6
     - requests
     - sed
     - wget
+    - pytest
+    - pytest-workflow
+    - importlib-metadata <5
 
 test:
   commands:
