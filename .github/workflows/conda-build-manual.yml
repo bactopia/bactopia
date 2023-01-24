@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push 
         run: |
           # Download datasets
-          VERSION=$(grep -E "^\s+version = " nextflow.config | sed "s/.*version = '//;s/'//)
+          VERSION=$(grep -E "^\s+version = " nextflow.config | sed "s/.*version = '//;s/'//")
           wget -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/amrfinderdb.tar.gz
           wget -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
           # Start build
