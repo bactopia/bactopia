@@ -36,15 +36,3 @@ jobs:
           anaconda upload --force ./noarch/*.tar.bz2
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
-
-
-mamba create -n test-bactopia -c conda-forge -c bioconda -c defaults \
-'conda>=22' \
-coreutils \
-executor \
-'mamba>=1' \
-'nextflow>=21.10.0' \
-'python>3.6' \
-requests \
-sed \
-wget
