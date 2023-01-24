@@ -31,8 +31,20 @@ jobs:
           wget --quiet -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/amrfinderdb.tar.gz
           wget --quiet -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
           # Start build
-          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba
+          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+
+
+mamba create -n test-bactopia -c conda-forge -c bioconda -c defaults \
+'conda>=22' \
+coreutils \
+executor \
+'mamba>=1' \
+'nextflow>=21.10.0' \
+'python>3.6' \
+requests \
+sed \
+wget
