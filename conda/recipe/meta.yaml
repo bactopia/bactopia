@@ -14,7 +14,7 @@ build:
 requirements:
   host:
     - pip
-    - python >3.6,<3.10
+    - python >3.6
   run:
     - conda
     - coreutils
@@ -25,7 +25,7 @@ requirements:
     - nextflow >=21.10.0
     - pytest
     - pytest-workflow
-    - python >3.6,<3.10
+    - python >3.6
     - requests
     - sed
     - wget

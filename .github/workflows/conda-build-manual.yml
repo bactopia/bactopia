@@ -29,7 +29,7 @@ jobs:
           wget -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
           # Start build
           conda update -c conda-forge conda
-          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba 'python<3.10' 'numpy>=1.17'
+          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify mamba
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
         env:
