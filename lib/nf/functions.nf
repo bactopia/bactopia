@@ -195,10 +195,10 @@ def saveFiles(Map args) {
                 filename = filename.replace("results/","")
             }
 
-            // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
+            // *-error.txt should be at the base dir and 'blastdb' tarball should go in blast folder
             if (filename.endsWith("-error.txt") || filename.endsWith("-genome-size.txt") || publish_to_base == true) {
                 final_output = filename
-            } else if (filename.startsWith("blastdb/")) {
+            } else if (filename.endsWith("-blastdb.tar.gz")) {
                 final_output = "blast/${filename}"
             } else if (filename.startsWith("total_contigs_")) {
                 final_output = null

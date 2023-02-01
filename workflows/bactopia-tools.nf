@@ -28,9 +28,7 @@ WorkflowBactopiaTools.initialise(workflow, params, log, schema_filename=SCHEMAS)
 /* All certain steps to be rerun
 include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
 include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
-include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
-include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */

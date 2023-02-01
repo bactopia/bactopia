@@ -26,14 +26,15 @@ process AMRFINDERPLUS_UPDATE {
 
     script:
     """
-    mkdir amrfinderdb
-    amrfinder_update -d amrfinderdb
-    tar czvf amrfinderdb.tar.gz -C amrfinderdb/\$(readlink amrfinderdb/latest) ./
+    mkdir amrfinderdb-temp
+    amrfinder_update -d amrfinderdb-temp
+    mv amrfinderdb-temp/\$(readlink amrfinderdb-temp/latest) amrfinderdb/
+    tar czvf amrfinderdb.tar.gz amrfinderdb/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         amrfinderplus: \$(amrfinder --version)
-        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderdb/latest --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
+        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderdb --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     END_VERSIONS
     """
 }

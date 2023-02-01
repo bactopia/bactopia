@@ -22,7 +22,6 @@ process ASSEMBLE_GENOME {
     tuple val(meta), path(genome_size), path("results/${meta.id}.{fna,fna.gz}"), file("total_contigs_*"), emit: fna, optional: true
     tuple val(meta), path("results/${meta.id}.{fna,fna.gz}"), emit: fna_only, optional: true
     tuple val(meta), path("results/${meta.id}.{fna,fna.gz}"), path(fq), emit: fna_fastq, optional: true
-    tuple val(meta), path("blastdb/*"), emit: blastdb, optional: true
     path "results/*"
     path "${meta.id}-assembly-error.txt", optional: true
     path "*.{log,err}", emit: logs, optional: true
@@ -134,10 +133,6 @@ process ASSEMBLE_GENOME {
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of !{meta.id} will be discontinued." | \
             sed 's/^\\s*//' > !{meta.id}-assembly-error.txt
-        else
-            # Make BLASTDB
-            mkdir blastdb
-            cat ${OUTDIR}/!{meta.id}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}
         fi
     else
         mv ${OUTDIR}/!{meta.id}.fna ${OUTDIR}/!{meta.id}-error.fna
@@ -174,7 +169,6 @@ process ASSEMBLE_GENOME {
         assembly-scan: $(echo $(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
         bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
         flash: $(echo $(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*$//')
-        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
         megahit: $(echo $(megahit --version 2>&1) | sed 's/MEGAHIT v//')
         miniasm: $(echo $(miniasm -V))
         pigz: $(echo $(pigz --version 2>&1) | sed 's/pigz //')
@@ -200,7 +194,6 @@ process ASSEMBLE_GENOME {
         bwa: $(echo $(bwa 2>&1) | sed 's/^.*Version: //;s/ .*$//')
         flash: $(echo $(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*$//')
         flye: $(echo $(flye --version))
-        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
         medaka: $(echo $(medaka --version 2>&1) | sed 's/medaka //')
         megahit: $(echo $(megahit --version 2>&1) | sed 's/MEGAHIT v//')
         miniasm: $(echo $(miniasm -V))

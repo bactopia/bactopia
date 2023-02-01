@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v2.?.? bactopia/bactopia "???" - 2023/??/??
+## v?.?.? bactopia/bactopia "???" - 2023/??/??
 
 ### `Added`
 - Named Workflows (!!!)
@@ -15,6 +15,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `midas` - Estimate bacterial species abundances from FASTQ files
     - `sra-human-scrubber` - Scrub human reads from FASTQ files
     - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
+- per-release databases for `amrfinderplus` and `mlst`
 - GitHub Action to build environments
 
 ### `Fixed`
@@ -23,6 +24,15 @@ description: A full list of Bactopia releases and a description of the changes.
 - Broken badges in README.md
 - Pinned GSL to v2.6
 - symlink in amrfinder+ update (`bactopia datasets`)
+
+### `Removed`
+- Bactopia Steps
+    - `ANNOTATE_GENOME` - now handled by `prokka` or `bakta`
+    - `ANTIMICROBIAL_RESISTANCE` - now handled by `amrfinderplus`
+    - `CALL_VARIANTS` - now handled by `snippy`
+    - `SEQUENCE_TYPE` - now handled by `mlst`
+- `bactopia datasets` is now incorporated into `bactopia`
+- Conda/Containers for `annotate_genome`, `antimicrobial_resistance`, `sequence_type`
 
 ### `Enhancements to OSS`
 - add module for midas [nf-core/modules#2696](https://github.com/nf-core/modules/pull/2696)

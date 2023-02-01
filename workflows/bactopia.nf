@@ -45,9 +45,9 @@ include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 
 // Annotation wih Bakta or Prokka
 if (params.use_bakta) {
-    include { BAKTA_MAIN as ANNOTATE_GENOME } from '../subworkflows/local/bakta/main' addParams( options: [:] )
+    include { BAKTA_MAIN as ANNOTATE_GENOME } from '../subworkflows/local/bakta/main'
 } else {
-    include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
+    include { PROKKA_MAIN as ANNOTATE_GENOME } from '../subworkflows/local/prokka/main'
 }
 
 // Merlin
@@ -61,7 +61,7 @@ include { MLST } from '../subworkflows/local/mlst/main';
 ========================================================================================
 */
 
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
 
 /*
 ========================================================================================
@@ -101,12 +101,12 @@ workflow BACTOPIA {
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions.first())
     ch_versions = ch_versions.mix(ANNOTATE_GENOME.out.versions.first())
     ch_versions = ch_versions.mix(MINMER_SKETCH.out.versions.first())
-    ch_versions = ch_versions.mix(ANTIMICROBIAL_RESISTANCE.out.versions.first())
+    ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions.first())
     ch_versions = ch_versions.mix(MINMER_QUERY.out.versions.first())
     ch_versions = ch_versions.mix(BLAST.out.versions.first())
     ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
     ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(SEQUENCE_TYPE.out.versions.first())
+    ch_versions = ch_versions.mix(MLST.out.versions.first())
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 

@@ -36,6 +36,7 @@ process BAKTA_RUN {
     tuple val(meta), path("results/${prefix}.hypotheticals.{faa,faa.gz}"), emit: hypotheticals_faa
     tuple val(meta), path("results/${prefix}.tsv")                       , emit: tsv
     tuple val(meta), path("results/${prefix}.txt")                       , emit: txt
+    tuple val(meta), path("${prefix}-blastdb.tar.gz")                    , emit: blastdb
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -67,6 +68,13 @@ process BAKTA_RUN {
         $replicons_opt \\
         $fasta
 
+    # Make blastdb of contigs, genes, proteins
+    mkdir blastdb
+    cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
+    cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
+    cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
+    tar -czf ${prefix}-blastdb.tar.gz blastdb/
+
     if [[ "!{params.skip_compression}" == "false" ]]; then
         gzip --best results/${prefix}.embl
         gzip --best results/${prefix}.faa
@@ -80,6 +88,7 @@ process BAKTA_RUN {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
+        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
     END_VERSIONS
     """
 }
@@ -113,6 +122,7 @@ process BAKTA_MAIN_RUN {
     tuple val(meta), path("results/${prefix}.hypotheticals.{faa,faa.gz}"), emit: hypotheticals_faa
     tuple val(meta), path("results/${prefix}.tsv")                       , emit: tsv
     tuple val(meta), path("results/${prefix}.txt")                       , emit: txt
+    tuple val(meta), path("${prefix}-blastdb.tar.gz")                    , emit: blastdb
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -163,6 +173,13 @@ process BAKTA_MAIN_RUN {
         $replicons_opt \\
         $fasta
 
+    # Make blastdb of contigs, genes, proteins
+    mkdir blastdb
+    cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
+    cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
+    cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
+    tar -czf ${prefix}-blastdb.tar.gz blastdb/
+
     if [[ "${params.skip_compression}" == "false" ]]; then
         gzip --best results/${prefix}.embl
         gzip --best results/${prefix}.faa
@@ -176,6 +193,7 @@ process BAKTA_MAIN_RUN {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
+        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
     END_VERSIONS
     """
 }

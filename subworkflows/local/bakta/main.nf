@@ -61,6 +61,7 @@ workflow BAKTA {
     hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
     hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
     tsv = BAKTA_RUN.out.tsv
+    blastdb = BAKTA_RUN.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }
 
@@ -97,5 +98,6 @@ workflow BAKTA_MAIN {
     hypotheticals_tsv = USE_BAKTA.out.hypotheticals_tsv
     hypotheticals_faa = USE_BAKTA.out.hypotheticals_faa
     tsv = USE_BAKTA.out.tsv
+    blastdb = BAKTA_RUN.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }
