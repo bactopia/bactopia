@@ -19,22 +19,22 @@ process AMRFINDERPLUS_UPDATE {
         'quay.io/biocontainers/ncbi-amrfinderplus:3.10.45--h6e70893_0' }"
 
     output:
-    path "amrfinderdb.tar.gz", emit: db
+    path "amrfinderplus.tar.gz", emit: db
     path "*.{log,err}"       , emit: logs, optional: true
     path ".command.*"        , emit: nf_logs
     path "versions.yml"      , emit: versions
 
     script:
     """
-    mkdir amrfinderdb-temp
-    amrfinder_update -d amrfinderdb-temp
-    mv amrfinderdb-temp/\$(readlink amrfinderdb-temp/latest) amrfinderdb/
-    tar czvf amrfinderdb.tar.gz amrfinderdb/
+    mkdir amrfinderplus-temp
+    amrfinder_update -d amrfinderplus-temp
+    mv amrfinderplus-temp/\$(readlink amrfinderplus-temp/latest) amrfinderplus/
+    tar czvf amrfinderplus.tar.gz amrfinderplus/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         amrfinderplus: \$(amrfinder --version)
-        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderdb --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
+        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderplus --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     END_VERSIONS
     """
 }

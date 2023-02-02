@@ -14,9 +14,8 @@ options.args = [
     "${params.amrfinder_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-AMRFINDER_DB = params.amrfinder_db ? file(params.amrfinder_db) : false
+AMRFINDER_DB = file(params.amrfinder_db)
 
-include { AMRFINDERPLUS_UPDATE } from '../../../modules/nf-core/amrfinderplus/update/main' addParams( options: options )
 include { AMRFINDERPLUS_RUN } from '../../../modules/nf-core/amrfinderplus/run/main' addParams( options: options )
 
 if (params.is_subworkflow) {
@@ -34,18 +33,8 @@ workflow AMRFINDERPLUS {
     ch_merged_gene_reports = Channel.empty()
     ch_merged_protein_reports = Channel.empty()
 
-    // Sort out the database
-    if (AMRFINDER_DB && !params.force_update) {
-        // Use the given AMRFinder+ DB
-        ch_amrfinder_db = ch_amrfinder_db.mix(AMRFINDER_DB)
-    } else {
-        // no database given, or forced update
-        AMRFINDERPLUS_UPDATE()
-        ch_amrfinder_db = ch_amrfinder_db.mix(AMRFINDERPLUS_UPDATE.out.db)
-    }
-
     // Run AMRFinder=
-    AMRFINDERPLUS_RUN ( fasta, ch_amrfinder_db )
+    AMRFINDERPLUS_RUN ( fasta, AMRFINDER_DB )
     ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions.first())
 
     if (params.is_subworkflow) {

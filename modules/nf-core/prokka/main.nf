@@ -56,7 +56,7 @@ process PROKKA {
         --cpus $task.cpus \\
         --prefix $prefix \\
         $proteins_opt \\
-        $prodigal_tf \\
+        $prodigal_opt \\
         $fasta_name
 
     # Make blastdb of contigs, genes, proteins
@@ -81,7 +81,7 @@ process PROKKA {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        makeblastdb: \$( echo \$(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*\$//')
         prokka: \$( echo \$(prokka --version 2>&1) | sed 's/^.*prokka //')
     END_VERSIONS
     """
@@ -135,7 +135,7 @@ process PROKKA_MAIN {
         --cpus $task.cpus \\
         --prefix $prefix \\
         $proteins_opt \\
-        $prodigal_tf \\
+        $prodigal_opt \\
         $fasta_name
 
     # Make blastdb of contigs, genes, proteins
@@ -143,7 +143,7 @@ process PROKKA_MAIN {
     cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
     cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
     cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
-    tar -czf ${prefix}-blastdb.tar.gz blastdb/
+    tar -cvf - blastdb/ | gzip -c > ${prefix}-blastdb.tar.gz
 
     if [[ "${params.skip_compression}" == "false" ]]; then
         gzip ${prefix}/*.gff
@@ -155,12 +155,12 @@ process PROKKA_MAIN {
         gzip ${prefix}/*.fsa
         gzip ${prefix}/*.tbl
     fi
-    mv results/!{meta.id}.err ./
-    mv results/!{meta.id}.log ./
+    mv ${prefix}/${prefix}.err ./
+    mv ${prefix}/${prefix}.log ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        makeblastdb: \$( echo \$(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*\$//')
         prokka: \$( echo \$(prokka --version 2>&1) | sed 's/^.*prokka //')
     END_VERSIONS
     """

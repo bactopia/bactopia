@@ -45,7 +45,7 @@ process MLST_UPDATE {
     echo "\${MLST_VERSION}-\${MLSTDB_VERSION}" > mlstdb/DB_VERSION
 
     # Wrap it all up
-    tar -czf - mlstdb/ | gzip --best > mlst.tar.gz
+    tar -czvf mlst.tar.gz mlstdb/ 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

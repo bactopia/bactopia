@@ -47,8 +47,7 @@ process AMRFINDERPLUS_RUN {
         gzip -c -d $proteins > $faa_name
     fi
 
-    mkdir amrfinderdb
-    tar xzvf $db -C amrfinderdb
+    tar xzvf $db
 
     # Gene
     amrfinder \\
@@ -56,7 +55,7 @@ process AMRFINDERPLUS_RUN {
         $fna_organism_param \\
         $options.args \\
         --plus \\
-        --database amrfinderdb/ \\
+        --database amrfinderplus/ \\
         --threads $task.cpus \\
         --name $prefix > ${prefix}-genes.tsv
 
@@ -66,14 +65,14 @@ process AMRFINDERPLUS_RUN {
         $faa_organism_param \\
         $options.args \\
         --plus \\
-        --database amrfinderdb/ \\
+        --database amrfinderplus/ \\
         --threads $task.cpus \\
         --name $prefix > ${prefix}-proteins.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         amrfinderplus: \$(amrfinder --version)
-        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderdb --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
+        amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database amrfinderplus --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     END_VERSIONS
     """
 }

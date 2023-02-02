@@ -31,17 +31,13 @@ if (params.check_samples) {
 
 // Core
 
+include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
 include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main'
 include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
 include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main'
+include { MLST } from '../subworkflows/local/mlst/main';
 include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
-
-// Require Datasets
-include { BLAST } from '../modules/local/bactopia/blast/main'
-include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
-include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
-include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 
 // Annotation wih Bakta or Prokka
 if (params.use_bakta) {
@@ -50,10 +46,11 @@ if (params.use_bakta) {
     include { PROKKA_MAIN as ANNOTATE_GENOME } from '../subworkflows/local/prokka/main'
 }
 
+// Require Datasets
+//include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
+
 // Merlin
 if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/main';
-include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
-include { MLST } from '../subworkflows/local/mlst/main';
 
 /*
 ========================================================================================
@@ -76,18 +73,12 @@ workflow BACTOPIA {
     // Core steps
     GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
     QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(datasets['adapters'])).combine(Channel.fromPath(datasets['phix'])))
+    MINMER_SKETCH(QC_READS.out.fastq)
     ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
     ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna)
     ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
-    MINMER_SKETCH(QC_READS.out.fastq)
     AMRFINDERPLUS(ANNOTATE_GENOME.out.annotations)
     MLST(ASSEMBLE_GENOME.out.fna_only)
-
-    // Optional steps that require datasets
-    BLAST(ASSEMBLE_GENOME.out.blastdb, datasets['blast'])
-    CALL_VARIANTS(QC_READS.out.fastq, datasets['references'])
-    MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
-    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
 
     if (params.ask_merlin) {
         MERLIN(ASSEMBLE_GENOME.out.fna_fastq)
@@ -102,10 +93,6 @@ workflow BACTOPIA {
     ch_versions = ch_versions.mix(ANNOTATE_GENOME.out.versions.first())
     ch_versions = ch_versions.mix(MINMER_SKETCH.out.versions.first())
     ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(BLAST.out.versions.first())
-    ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
-    ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
     ch_versions = ch_versions.mix(MLST.out.versions.first())
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }

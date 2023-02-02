@@ -59,6 +59,6 @@ workflow PROKKA_MAIN {
     tbl = USE_PROKKA.out.tbl
     txt = USE_PROKKA.out.txt
     tsv = USE_PROKKA.out.tsv
-    blastdb = PROKKA_MODULE.out.blastdb
+    blastdb = USE_PROKKA.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }
