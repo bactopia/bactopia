@@ -13,7 +13,7 @@ cp bin/bactopia/* ${PREFIX}/bin
 $PYTHON -m pip install . --no-deps --ignore-installed -vv
 
 # Download datasets
-wget --quiet -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${PKG_VERSION}/amrfinderdb.tar.gz
+wget --quiet -O data/datasets/amrfinderplus.tar.gz https://datasets.bactopia.com/datasets/v${PKG_VERSION}/amrfinderplus.tar.gz
 wget --quiet -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${PKG_VERSION}/mlst.tar.gz
 
 # Move bactopia nextflow
