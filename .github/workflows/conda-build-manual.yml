@@ -25,13 +25,6 @@ jobs:
 
       - name: Build and Push 
         run: |
-          # Download datasets
-          mamba --version
-          VERSION=$(grep -E "^\s+version = " nextflow.config | sed "s/.*version = '//;s/'//")
-          wget --quiet -O data/datasets/amrfinderdb.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/amrfinderdb.tar.gz
-          wget --quiet -O data/datasets/mlst.tar.gz https://datasets.bactopia.com/datasets/v${VERSION}/mlst.tar.gz
-          ls -lh .
-          ls -lh data/datasets/
           # Start build
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
           cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
