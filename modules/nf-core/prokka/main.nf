@@ -120,7 +120,6 @@ process PROKKA_MAIN {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    def proteins_opt = prokka_proteins.getName() != 'EMPTY_PROTEINS' ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf.getName() != 'EMPTY_TF' ? "--prodigaltf ${prodigal_tf[0]}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
@@ -134,7 +133,7 @@ process PROKKA_MAIN {
         --force \\
         --cpus $task.cpus \\
         --prefix $prefix \\
-        $proteins_opt \\
+        --proteins $prokka_proteins \\
         $prodigal_opt \\
         $fasta_name
 
