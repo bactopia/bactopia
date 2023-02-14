@@ -2,8 +2,8 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options        = initOptions(params.options ? params.options : [:], 'qc')
-options.ignore = [ '-genome-size.txt', '.fna.gz']
-publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-main/${params.wf}" : params.outdir
+options.ignore = ['.fna.gz']
+options.btype  = options.btype ?: "main"
 conda_tools    = "bioconda::bactopia-qc=1.0.0"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -13,8 +13,8 @@ process QC {
     label "base_mem_4gb"
     label "qc_reads"
 
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -22,11 +22,13 @@ process QC {
         'quay.io/biocontainers/bactopia-qc:1.0.0--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(fq), path(extra), path(genome_size), path(adapters), path(phix)
+    tuple val(meta), path(fq), path(extra)
+    path adapters
+    path phix
 
     output:
     tuple val(meta), path("results/${prefix}*.fastq.gz"), emit: fastq, optional: true
-    tuple val(meta), path("results/${prefix}*.fastq.gz"), path(extra), path(genome_size), emit: fastq_assembly, optional: true
+    tuple val(meta), path("results/${prefix}*.fastq.gz"), path(extra), emit: fastq_assembly, optional: true
     path "results/*"
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -52,9 +54,8 @@ process QC {
     mkdir -p results
     touch results/.${meta.runtype}
     ERROR=0
-    GENOME_SIZE=`head -n 1 ${genome_size}`
-    MIN_COVERAGE=\$(( ${params.min_coverage}*\${GENOME_SIZE} ))
-    TOTAL_BP=\$(( ${params.coverage}*\${GENOME_SIZE} ))
+    MIN_COVERAGE=\$(( ${params.min_coverage}*${meta.genome_size} ))
+    TOTAL_BP=\$(( ${params.coverage}*${meta.genome_size} ))
 
     if [[ "${params.skip_qc}" == "true" ]]; then
         echo "Sequence QC was skipped for ${prefix}" > results/${prefix}-qc-skipped.txt
@@ -167,7 +168,7 @@ process QC {
                 echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
             else
                 if [ "${params.skip_error_correction}" == "false" ]; then
-                    lighter -od . -r phix-r1.fq ${lighter_opts} -K 31 \${GENOME_SIZE} -maxcor 1 -zlib 0 -t ${task.cpus}
+                    lighter -od . -r phix-r1.fq ${lighter_opts} -K 31 ${meta.genome_size} -maxcor 1 -zlib 0 -t ${task.cpus}
                     mv phix-r1.cor.fq filt-r1.fq
                     if [[ "${meta.single_end}" == "false" ]]; then
                         mv phix-r2.cor.fq filt-r2.fq
@@ -188,7 +189,7 @@ process QC {
                 if [[ "${meta.runtype}" == "ont" ]]; then
                     rasusa -i filt-r1.fq \
                         -c ${params.coverage} \
-                        -g \${GENOME_SIZE} \
+                        -g ${meta.genome_size} \
                         -s ${params.sampleseed} 1> subsample-r1.fq
                 else
                     if [ -f filt-r1.fq ]; then
@@ -230,14 +231,14 @@ process QC {
         # fastq-scan
         if [[ "${meta.single_end}" == "false" ]]; then
             # Paired-End Reads
-            gzip -cd ${fq[0]} | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}_R1-original.json
-            gzip -cd ${fq[1]} | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}_R2-original.json
-            gzip -cd results/${prefix}_R1.fastq.gz | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}_R1-final.json
-            gzip -cd results/${prefix}_R2.fastq.gz | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}_R2-final.json
+            gzip -cd ${fq[0]} | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}_R1-original.json
+            gzip -cd ${fq[1]} | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}_R2-original.json
+            gzip -cd results/${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}_R1-final.json
+            gzip -cd results/${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}_R2-final.json
         else
             # Single-End Reads
-            gzip -cd ${fq[0]} | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}-original.json
-            gzip -cd results/${prefix}.fastq.gz | fastq-scan -g \${GENOME_SIZE} > results/summary/${prefix}-final.json
+            gzip -cd ${fq[0]} | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}-original.json
+            gzip -cd results/${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > results/summary/${prefix}-final.json
         fi
 
         # FastQC and NanoPlot
@@ -283,7 +284,7 @@ process QC {
     if [ "${params.skip_fastq_check}" == "false" ]; then
         # Only check for errors if we haven't already found them
         if [ "\${ERROR}" -eq "0" ]; then
-            gzip -cd results/*.fastq.gz | fastq-scan -g \${GENOME_SIZE} > temp.json
+            gzip -cd results/*.fastq.gz | fastq-scan -g ${meta.genome_size} > temp.json
             FINAL_BP=\$(grep "total_bp" temp.json | sed -r 's/.*:[ ]*([0-9]+),/\\1/')
             rm temp.json
 

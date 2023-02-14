@@ -27,7 +27,7 @@ jobs:
         run: |
           # Start build
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
-          cd conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
+          cd .github/conda/recipe/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}

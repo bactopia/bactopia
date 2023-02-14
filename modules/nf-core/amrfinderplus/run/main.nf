@@ -1,17 +1,17 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::ncbi-amrfinderplus=3.10.45"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
+options.btype = options.btype ?: "tools"
+conda_tools   = "bioconda::ncbi-amrfinderplus=3.10.45"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process AMRFINDERPLUS_RUN {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -54,7 +54,6 @@ process AMRFINDERPLUS_RUN {
        -n $fna_name \\
         $fna_organism_param \\
         $options.args \\
-        --plus \\
         --database amrfinderplus/ \\
         --threads $task.cpus \\
         --name $prefix > ${prefix}-genes.tsv
@@ -64,7 +63,6 @@ process AMRFINDERPLUS_RUN {
        -p $faa_name \\
         $faa_organism_param \\
         $options.args \\
-        --plus \\
         --database amrfinderplus/ \\
         --threads $task.cpus \\
         --name $prefix > ${prefix}-proteins.tsv

@@ -34,7 +34,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
 
       - name: Docker Profile
@@ -43,7 +43,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test,docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
 
       - name: Singularity Profile
@@ -52,7 +52,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test,singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
 
       - name: Upload logs on failure

@@ -11,7 +11,6 @@ PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 PROTEINS = params.proteins ? file(params.proteins) : []
 
 include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
-include { PROKKA_MAIN as USE_PROKKA } from '../../../modules/nf-core/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
 
 workflow PROKKA {
     take:
@@ -35,30 +34,5 @@ workflow PROKKA {
     txt = PROKKA_MODULE.out.txt
     tsv = PROKKA_MODULE.out.tsv
     blastdb = PROKKA_MODULE.out.blastdb
-    versions = ch_versions // channel: [ versions.yml ]
-}
-
-workflow PROKKA_MAIN {
-    take:
-    fasta // channel: [ val(meta), [ assemblies ] ]
-
-    main:
-    ch_versions = Channel.empty()
-    USE_PROKKA(fasta)
-    ch_versions = ch_versions.mix(USE_PROKKA.out.versions.first())
-
-    emit:
-    annotations = USE_PROKKA.out.annotations
-    gff = USE_PROKKA.out.gff
-    gbk = USE_PROKKA.out.gbk
-    fna = USE_PROKKA.out.fna
-    faa = USE_PROKKA.out.faa
-    ffn = USE_PROKKA.out.ffn
-    sqn = USE_PROKKA.out.sqn
-    fsa = USE_PROKKA.out.fsa
-    tbl = USE_PROKKA.out.tbl
-    txt = USE_PROKKA.out.txt
-    tsv = USE_PROKKA.out.tsv
-    blastdb = USE_PROKKA.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }

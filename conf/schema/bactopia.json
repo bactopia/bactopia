@@ -96,12 +96,6 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "datasets": {
-                    "type": "string",
-                    "fa_icon": "fas fa-folder",
-                    "description": "The path to datasets that have already been set up",
-                    "help": "Bactopia Datasets are setup using `bactopia datasets`"
-                },
                 "species": {
                     "type": "string",
                     "description": "Name of species for species-specific dataset to use",
@@ -116,21 +110,15 @@
                 "coverage": {
                     "type": "integer",
                     "default": 100,
-                    "description": "Reduce samples to a given coverage",
+                    "description": "Reduce samples to a given coverage, requires a genome size",
                     "fa_icon": "fas fa-angle-double-down"
                 },
                 "genome_size": {
                     "type": "string",
                     "default": "0",
-                    "description": "Expected genome size (bp) for all samples, a value of '0' will disable read error correction and read subsampling, otherwise estimate with Mash",
+                    "description": "Expected genome size (bp) for all samples, required for read error correction and read subsampling",
                     "help": "If `--species` is used, `min`, `median`, `mean`, or `max` can be used for `--genome_size`",
                     "fa_icon": "fas fa-arrows-alt-h"
-                },
-                "available_datasets": {
-                    "type": "boolean",
-                    "description": "Print a list of available datasets found based on location given by `--datasets`",
-                    "fa_icon": "fas fa-print",
-                    "hidden": true
                 }
             }
         }

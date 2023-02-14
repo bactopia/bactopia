@@ -172,7 +172,39 @@ def is_available_workflow(wf) {
 ========================================================================================
 */
 def saveFiles(Map args) {
-    /* Modeled after nf-core/modules saveFiles function */
+    /*
+    Modeled after nf-core/modules saveFiles function
+    
+    Example structure of output files:
+
+    ${params.outdir}/
+    ├── bactopia-tools/
+    │   └── mlst/
+    |       ├── logs/
+    │       └── merged.tsv
+    ├── <SAMPLE_ID>/
+    │   ├── bactopia-main/
+    │   │   ├── assembler/
+    │   │   │   ├── logs/
+    │   │   │   ├── <SAMPLE_ID>.fna.gz
+    │   │   │   └── <SAMPLE_ID>.tsv
+    │   │   ├── qc/
+    │   │   │   ├── logs/
+    │   │   │   └── <SAMPLE_ID>.fastq.gz
+    │   │   ├── sketcher/
+    │   │   │   ├── logs/
+    │   │   │   └── <SAMPLE_ID>.sig
+    │   ├── bactopia-tools/
+    │   │   └── mlst/
+    │   │       ├── logs/
+    │   │       └── <SAMPLE_ID>.tsv
+    │   ├── .runtype
+    │   ├── *-error.txt
+    │   ├── software_versions.yml
+    │   └── <SAMPLE_ID.txt
+    ├── nf-report/
+    └── software_versions.yml
+    */
     def final_output = null
     def filename = ""
     def found_ignore = false
@@ -180,14 +212,15 @@ def saveFiles(Map args) {
     def process_name = args.opts.process_name
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
+    def goto_base = false
     if (args.filename) {
         if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "logs/${process_name}/${logs_subdir}/nf-${process_name}.${ext}"
+            final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
         } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
-            // Its a version file or  program specific log files
-            final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
+            // Its a version file or program specific log files
+            final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
         } else {
             // Its a program output
             filename = args.filename
@@ -196,23 +229,11 @@ def saveFiles(Map args) {
             }
 
             // *-error.txt should be at the base dir and 'blastdb' tarball should go in blast folder
-            if (filename.endsWith("-error.txt") || filename.endsWith("-genome-size.txt") || publish_to_base == true) {
+            if (filename.endsWith("-error.txt") || publish_to_base == true) {
+                goto_base = true
                 final_output = filename
-            } else if (filename.endsWith("-blastdb.tar.gz")) {
-                final_output = "blast/${filename}"
-            } else if (filename.startsWith("total_contigs_")) {
-                final_output = null
-            } else if (params.publish_dir.containsKey(process_name)) {
-                final_output = "${params.publish_dir[process_name]}/${filename}"
-                if (final_output.startsWith("/")) {
-                    final_output = filename
-                }
             } else {
-                if (args.opts.is_module || args.opts.is_db_download) {
-                    final_output = filename
-                } else {
-                    final_output = "${process_name}/${filename}"
-                }
+                final_output = "${process_name}/${filename}"
             }
 
             // Exclude files that should be ignored
@@ -225,13 +246,45 @@ def saveFiles(Map args) {
             // Publish specific files to base
             publish_to_base_list.each {
                 if (filename.endsWith("${it}")) {
+                    goto_base = true
                     final_output = filename
                 }
             }
         }
+        
+        if (final_output) {
+            // Replace any double slashes
+            final_output = final_output.replace("//", "/")
 
-        return final_output == null ? null : final_output.replace("//", "/")
+            if (args.opts.btype == "main" || args.opts.btype == "tools") {
+                // outdir/my-sample/bactopia-main
+                if (goto_base) {
+                    // my-sample/assembly-error.txt
+                    final_output = "bactopia-samples/${args.prefix}/${final_output}"
+                } else {
+                    // my-sample/bactopia-main/assembler
+                    if (process_name == "bakta" || process_name == "prokka") {
+                        // my-sample/bactopia-main/<process_name>/<output>
+                        final_output = "bactopia-samples/${args.prefix}/bactopia-${args.opts.btype}/annotator/${final_output}"
+                    } else {
+                        // my-sample/bactopia-main/<output>
+                        final_output = "bactopia-samples/${args.prefix}/bactopia-${args.opts.btype}/${final_output}"
+                    }
+                }
+            } else {
+                // outdir/bactopia-tools
+                if (goto_base) {
+                    // bactopia-tools/pangenome/core-genome.aln.gz
+                    final_output = "bactopia-${args.opts.btype}/${process_name}/${final_output}"
+                } else {
+                    // bactopia-tools/<process_name>/<output>
+                    final_output = "bactopia-${args.opts.btype}/${final_output}"
+                }
+            }
+        }
     }
+
+    return final_output
 }
 
 def initOptions(Map args, String process_name) {
@@ -241,6 +294,7 @@ def initOptions(Map args, String process_name) {
     options.args2           = args.args2 ?: ''
     options.args3           = args.args3 ?: ''
     options.ignore          = args.ignore ?: []
+    options.is_main         = args.is_main ?: false
     options.is_module       = args.is_module ?: false
     options.is_db_download  = args.is_db_download ?: false
     options.logs_subdir     = args.logs_subdir ?: ''

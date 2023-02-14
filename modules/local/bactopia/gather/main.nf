@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options        = initOptions(params.options ? params.options : [:], 'gather')
 options.ignore = [".fastq.gz", ".fna.gz"]
-publish_dir    = params.is_subworkflow ? "${params.outdir}/bactopia-main/${params.wf}" : params.outdir
+options.btype  = options.btype ?: "main"
 conda_tools    = "bioconda::bactopia-gather=1.0.1"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -12,8 +12,8 @@ process GATHER {
     tag "${meta.id}"
     label "gather_samples"
 
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -24,7 +24,7 @@ process GATHER {
     tuple val(meta), path(r1, stageAs: '*???-r1'), path(r2, stageAs: '*???-r2'), path(extra)
 
     output:
-    tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), path("extra/*.gz"), path("${prefix}-genome-size.txt"), emit: raw_fastq, optional: true
+    tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), path("extra/*.gz"), emit: raw_fastq, optional: true
     tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), emit: fastq_only, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -202,66 +202,6 @@ process GATHER {
         if [ "\${ERROR}" -eq "1" ]; then
             mv fastqs/ failed-tests-fastqs/
         fi
-    fi
-
-    # Estimate Genome Size
-    GENOME_SIZE_OUTPUT="${prefix}-genome-size.txt"
-    if [ "${meta.genome_size}" == "0" ]; then
-        if [ "${is_assembly}" == "true" ]; then
-            # Use the total assembly size as the genome size
-            stats.sh in=extra/${prefix}.fna.gz | grep All | awk '{print \$5}' | sed 's/,//g' > \${GENOME_SIZE_OUTPUT}
-        else
-            FASTQS=""
-            if [ -f  "fastqs/${prefix}_R2.fastq.gz" ]; then
-                FASTQS="-r fastqs/${prefix}_R1.fastq.gz fastqs/${prefix}_R2.fastq.gz"
-            else
-                FASTQS="fastqs/${prefix}.fastq.gz"
-            fi
-
-            # First Pass
-            mash sketch -o test -k 31 -m 3 \${FASTQS} 2>&1 | \
-                grep "Estimated genome size:" | \
-                awk '{if(\$4){printf("%d\\n", \$4)}} END {if (!NR) print "0"}' > \${GENOME_SIZE_OUTPUT}
-            rm -rf test.msh
-            ESTIMATED_GENOME_SIZE=`head -n1 \${GENOME_SIZE_OUTPUT}`
-
-            # Check if second pass is needed
-            if [ \${ESTIMATED_GENOME_SIZE} -gt "${params.max_genome_size}" ] || [ \${ESTIMATED_GENOME_SIZE} -lt "${params.min_genome_size}" ]; then
-                # Probably high coverage, try increasing number of kmer copies to 10
-                M="-m 10"
-                if [ \${ESTIMATED_GENOME_SIZE} -lt "${params.min_genome_size}" ]; then
-                    # Probably low coverage, try decreasing the number of kmer copies to 1
-                    M="-m 1"
-                fi
-                mash sketch -o test -k 31 \${M} \${FASTQS} 2>&1 | \
-                    grep "Estimated genome size:" | \
-                    awk '{if(\$4){printf("%d\\n", \$4)}} END {if (!NR) print "0"}' > \${GENOME_SIZE_OUTPUT}
-                rm -rf test.msh
-            fi
-        fi
-
-        # Check final estimate
-        ESTIMATED_GENOME_SIZE=`head -n1 \${GENOME_SIZE_OUTPUT}`
-        if [ \${ESTIMATED_GENOME_SIZE} -gt "${params.max_genome_size}" ]; then
-            rm \${GENOME_SIZE_OUTPUT}
-            echo "${prefix} estimated genome size (\${ESTIMATED_GENOME_SIZE} bp) exceeds the maximum
-                    allowed genome size (${params.max_genome_size} bp). If this is unexpected, please
-                    investigate ${prefix} to determine a cause (e.g. metagenomic, contaminants, etc...).
-                    Otherwise, adjust the --max_genome_size parameter to fit your need. Further analysis
-                    of ${prefix} will be discontinued." | \
-            sed 's/^\\s*//' > ${prefix}-genome-size-error.txt
-        elif [ \${ESTIMATED_GENOME_SIZE} -lt "${params.min_genome_size}" ]; then
-            rm \${GENOME_SIZE_OUTPUT}
-            echo "${prefix} estimated genome size (\${ESTIMATED_GENOME_SIZE} bp) is less than the minimum
-                    allowed genome size (${params.min_genome_size} bp). If this is unexpected, please
-                    investigate ${prefix} to determine a cause (e.g. metagenomic, contaminants, etc...).
-                    Otherwise, adjust the --min_genome_size parameter to fit your need. Further analysis
-                    of ${prefix} will be discontinued." | \
-            sed 's/^\\s*//' > ${prefix}-genome-size-error.txt
-        fi
-    else
-        # Use the genome size given by the user. (Should be >= 0)
-        echo "${meta.genome_size}" > \${GENOME_SIZE_OUTPUT}
     fi
 
     # Capture versions

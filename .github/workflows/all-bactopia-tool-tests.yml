@@ -35,7 +35,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | grep -v "amrfinderplus" | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test,singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Docker Profile
@@ -44,7 +44,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test,docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Conda Profile
@@ -54,7 +54,7 @@ jobs:
           conda clean --all -y
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="--condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile test --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
       - name: Upload logs on failure

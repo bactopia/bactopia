@@ -11,8 +11,8 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process KRAKEN2_BRACKEN {
     tag "$meta.id"
     label 'process_high'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
+        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "quay.io/bactopia/kraken2_bracken:2.2.0"

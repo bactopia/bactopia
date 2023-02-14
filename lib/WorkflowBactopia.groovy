@@ -80,13 +80,11 @@ class WorkflowBactopia {
 
         if (params.max_downloads >= 10) {
             log.warn "Please be aware the value you have set for --max_downloads (${params.max_downloads}) may cause NCBI " +
-                    "to temporarily block your IP address due to too many queries at once."
+                     "to temporarily block your IP address due to too many queries at once."
         }
 
         if (params.genome_size) {
-            if (!['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-                error += Utils.isPositiveInteger(params.genome_size, 'genome_size', log)
-            }
+            error += Utils.isPositiveInteger(params.genome_size, 'genome_size', log)
         }
 
         if (params.min_time > params.max_time) {
@@ -110,28 +108,18 @@ class WorkflowBactopia {
 
         // following should only be checked for specific workflows
         if (['bactopia', 'staphopia'].contains(params.wf)) {
-            if (params.datasets) {
-                if (Utils.isLocal(params.datasets)) {
-                    if (!Utils.fileExists("${params.datasets}/summary.json")) {
-                        log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                                "to open ${params.datasets}/summary.json"
-                        error += 1
-                    }
-                }
-            }
-
             // The Ask Merlin feature requires a downloaded refseq mash sketch
             if (params.ask_merlin) {
                 if (params.datasets) {
-                    if (Utils.isLocal(params.datasets)) {
-                        if (!Utils.fileExists("${params.datasets}/minmer/mash-refseq-k21.msh")) {
-                            log.error "Please verify the PATH is correct for '--datasets'. Unable " +
-                                    "to open ${params.datasets}/minmer/mash-refseq-k21.msh"
+                    if (Utils.isLocal(params.merlin_db)) {
+                        if (!Utils.fileExists(params.merlin_db)) {
+                            log.error "Please verify the PATH is correct for '--merlin_db'. Unable " +
+                                      "to open ${params.merlin_db}"
                             error += 1
                         }
                     }
                 } else {
-                    log.error "'--ask_merlin' requires '--datasets' to also be used"
+                    log.error "'--ask_merlin' requires '--merlin_db' to also be used"
                     error += 1
                 }
             }

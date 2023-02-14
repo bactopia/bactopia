@@ -212,24 +212,3 @@ if __name__ == '__main__':
     logging.info(f'Working on Bactopia Dockerfile')
     docker_build(f'{bactopia_path}/Dockerfile', f'{REPO}/bactopia:{VERSION}', latest=f'{REPO}/bactopia:latest',
                  github=args.github, quay=args.quay)
-
-    # Bactopia Base Dockerfile
-    logging.info(f'Working on Bactopia Dockerfile')
-    docker_build(f'{bactopia_path}/base.Dockerfile', f'{REPO}/base:{VERSION}', latest=f'{REPO}/base:latest',
-                 github=args.github, quay=args.quay)
-
-    # Bactopia Process Dockerfiles
-    process_files = sorted(glob.glob(f'{bactopia_path}/conda/linux/*.Dockerfile'))
-    for i, dockerfile in enumerate(process_files):
-        logging.info(f'Working on {dockerfile} ({i+1} of {len(process_files)})')
-        process_name = os.path.splitext(os.path.basename(dockerfile))[0]
-        latest_image = f'{REPO}/{process_name}:{VERSION}'
-        previous_image = f'{REPO}/{process_name}:{previous_version}'
-        if check_md5sum(f"{bactopia_path}/conda/linux/{process_name}.md5", previous_image) and not args.force:
-            # MD5s match, just need to retag
-            logging.info(f'Conda environment did not change, adding tag to previous version')
-            docker_retag(previous_image, latest_image, github=args.github, quay=args.quay)
-        else:
-            # Need to rebuild
-            logging.info(f'Conda environment changed, will need to rebuild container')
-            docker_build(dockerfile, latest_image, github=args.github, quay=args.quay)

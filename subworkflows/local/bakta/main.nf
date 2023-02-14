@@ -27,7 +27,6 @@ REPLICONS = params.replicons ? file(params.replicons) : []
 
 include { BAKTA_DOWNLOAD } from '../../../modules/nf-core/bakta/download/main' addParams( )
 include { BAKTA_RUN } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
-include { BAKTA_MAIN_RUN as USE_BAKTA } from '../../../modules/nf-core/bakta/run/main' addParams( options: options )
 
 workflow BAKTA {
     take:
@@ -61,43 +60,6 @@ workflow BAKTA {
     hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
     hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
     tsv = BAKTA_RUN.out.tsv
-    blastdb = BAKTA_RUN.out.blastdb
-    versions = ch_versions // channel: [ versions.yml ]
-}
-
-workflow BAKTA_MAIN {
-    // This process is called by the main Bactopia pipeline
-    take:
-    fasta // channel: [ val(meta), [ fasta ] ]
-
-    main:
-    ch_versions = Channel.empty()
-
-    if (params.download_bakta) {
-        // Force BAKTA_DOWNLOAD to wait
-        BAKTA_DOWNLOAD()
-        if (params.bakta_save_as_tarball) {
-            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db_tarball, REPLICONS)
-        } else {
-            USE_BAKTA(fasta, BAKTA_DOWNLOAD.out.db, REPLICONS)
-        }
-    } else {
-        USE_BAKTA(fasta, DATABASE, REPLICONS)
-    }
-
-    ch_versions = ch_versions.mix(USE_BAKTA.out.versions.first())
-
-    emit:
-    annotations = USE_BAKTA.out.annotations
-    embl = USE_BAKTA.out.embl
-    faa = USE_BAKTA.out.faa
-    ffn = USE_BAKTA.out.ffn
-    fna = USE_BAKTA.out.fna
-    gbff = USE_BAKTA.out.gbff
-    gff = USE_BAKTA.out.gff
-    hypotheticals_tsv = USE_BAKTA.out.hypotheticals_tsv
-    hypotheticals_faa = USE_BAKTA.out.hypotheticals_faa
-    tsv = USE_BAKTA.out.tsv
     blastdb = BAKTA_RUN.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }
