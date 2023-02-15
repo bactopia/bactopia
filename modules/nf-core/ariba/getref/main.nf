@@ -29,6 +29,7 @@ process ARIBA_GETREF {
     path "versions.yml"      , emit: versions
 
     script:
+    prefix = "ariba_getref_${db_name}"
     """
     # Download, format database, and tarball it
     ariba \\

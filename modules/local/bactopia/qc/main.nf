@@ -13,9 +13,6 @@ process QC {
     label "base_mem_4gb"
     label "qc_reads"
 
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
-
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bactopia-qc:1.0.0--hdfd78af_0' :

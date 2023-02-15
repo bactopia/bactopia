@@ -34,7 +34,8 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     }
     
     sample_list = []
-    file(bactopia_dir).eachFile { item ->
+    log.info("${bactopia_dir}/bactopia-samples")
+    file("${bactopia_dir}/bactopia-samples").eachFile { item ->
         if( item.isDirectory() ) {
             sample = item.getName()
             if (!IGNORE_LIST.contains(sample)) {
@@ -96,7 +97,7 @@ def collect_local_files(local_file, local_pattern) {
 ========================================================================================
 */
 def _is_sample_dir(sample, dir) {
-    return file("${dir}/${sample}/${sample}-genome-size.txt").exists()
+    return file("${dir}/bactopia-samples/${sample}").exists()
 }
 
 /*
@@ -113,16 +114,17 @@ def _is_sample_dir(sample, dir) {
 */
 def _collect_inputs(sample, dir, extension) {
     PATHS = [:]
-    PATHS.fastq = "quality-control"
-    PATHS.fna = "assembly"
-    PATHS.faa = "annotation"
-    PATHS.gff = "annotation"
+    PATHS.fastq = "qc"
+    PATHS.fna = "assembler"
+    PATHS.faa = "annotator"
+    PATHS.gff = "annotator"
 
-    se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
-    ont = "${dir}/${sample}/quality-control/.ont"
-    pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
-    pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
-    fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
+    base_dir = "${dir}/bactopia-samples/${sample}/bactopia-main/"
+    se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
+    ont = "${base_dir}/${PATHS['fastq']}/.ont"
+    pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"
+    pe2 = "${base_dir}/${PATHS['fastq']}/${sample}_R2.fastq.gz"
+    fna = "${base_dir}/${PATHS['fna']}/${sample}.fna"
 
     if (extension == 'fastq') {
         if (file(se).exists()) {
@@ -160,7 +162,14 @@ def _collect_inputs(sample, dir, extension) {
             exit 1
         }
     } else if (extension == 'fna_faa') {
-        
+
+        // Default to Bakta faa
+        faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"
+        if (!file("${faa}").exists() && !file("${faa}.gz").exists()) {
+            // Fall back on Prokka
+            faa = "${base_dir}/${PATHS['faa']}/prokka/${sample}.faa"
+        }
+
         faa = "${dir}/${sample}/${PATHS['faa']}/${sample}.faa"
         if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
@@ -168,7 +177,16 @@ def _collect_inputs(sample, dir, extension) {
             return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
         }
     } else {
-        input = "${dir}/${sample}/${PATHS[extension]}/${sample}.${extension}"
+        input = "${base_dir}/${PATHS[extension]}/${sample}.${extension}"
+        if (extension == "faa" || extension == "gff") {
+            // Default to Bakta faa
+            input = "${base_dir}/${PATHS[extension]}/bakta/${sample}.${extension}"
+            if (!file("${input}").exists() && !file("${input}.gz").exists()) {
+                // Fall back on Prokka
+                input = "${base_dir}/${PATHS[extension]}/prokka/${sample}.${extension}"
+            }
+        }
+
         if (file("${input}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${input}.gz")])
         } else if (file(input).exists()) {

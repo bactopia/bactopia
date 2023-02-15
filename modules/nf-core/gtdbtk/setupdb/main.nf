@@ -24,6 +24,7 @@ process GTDBTK_SETUPDB {
     path "versions.yml"  , emit: versions
 
     script:
+    prefix = "gtbtk-setupdb"
     """
     export GTDBTK_DATA_PATH="./gtdbtk"
     mkdir ./gtdbtk

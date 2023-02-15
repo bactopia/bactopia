@@ -24,6 +24,7 @@ process AMRFINDERPLUS_UPDATE {
     path "versions.yml"      , emit: versions
 
     script:
+    prefix = "amrfinderplus"
     """
     mkdir amrfinderplus-temp
     amrfinder_update -d amrfinderplus-temp

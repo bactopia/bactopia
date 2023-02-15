@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process SISTR {
     tag "$meta.id"
     label 'process_medium'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -31,8 +29,7 @@ process SISTR {
     path "versions.yml"                       , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """

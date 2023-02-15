@@ -11,8 +11,6 @@ process PIRATE {
     tag "$meta.id"
     label 'process_high'
     label 'process_long'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -31,7 +29,7 @@ process PIRATE {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     find . -name "*.gff.gz" | sed 's/.gz//' | xargs -I {} bash -c 'gzip -cdf {}.gz > {}'
 

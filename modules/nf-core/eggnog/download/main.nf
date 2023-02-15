@@ -24,6 +24,7 @@ process EGGNOG_DOWNLOAD {
     path "versions.yml"  , emit: versions
 
     script:
+    prefix = "eggnoog"
     """
     mkdir eggnog
     download_eggnog_data.py \\

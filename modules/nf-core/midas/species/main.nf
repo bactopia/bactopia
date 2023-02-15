@@ -11,9 +11,7 @@ VERSION = '1.3.2' // WARN: Version information not provided by tool on CLI. Plea
 process MIDAS_SPECIES {
     tag "$meta.id"
     label 'process_medium'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
-    
+
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/midas:1.3.2--pyh7cba7a3_7' :

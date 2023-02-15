@@ -18,6 +18,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - per-release databases for `amrfinderplus` and `mlst`
 - new directory structure for outputs
 - GitHub Action to build environments
+- unified `publishDir` across modules
 
 ### `Fixed`
 - All modules correctly initiate `params.options`

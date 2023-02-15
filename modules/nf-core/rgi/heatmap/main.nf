@@ -9,8 +9,7 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 
 process RGI_HEATMAP {
     tag "$meta.id"
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    label 'process_single'
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -27,7 +26,7 @@ process RGI_HEATMAP {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     NUM_SAMPLES=\$(ls json/ | wc -l)
     if [[ "\${NUM_SAMPLES}" -gt 1 ]]; then

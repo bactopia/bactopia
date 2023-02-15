@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process TBPROFILER_PROFILE {
     tag "$meta.id"
     label 'process_medium'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

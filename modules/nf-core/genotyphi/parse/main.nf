@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process GENOTYPHI_PARSE {
     tag "$meta.id"
     label 'process_low'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -28,7 +26,7 @@ process GENOTYPHI_PARSE {
     path "versions.yml"                , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     parse_typhi_mykrobe.py \\
         --jsons $json \\

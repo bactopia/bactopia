@@ -13,9 +13,6 @@ process SNIPPY_RUN {
     label "base_mem_4gb"
     label "max_cpu_75"
 
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
-
     conda (params.enable_conda ? conda_env : null)
     container 'quay.io/bactopia/call_variants:2.2.0'
 

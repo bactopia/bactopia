@@ -217,10 +217,20 @@ def saveFiles(Map args) {
         if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+            }
         } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
             // Its a version file or program specific log files
-            final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/${args.filename}"
+            }
         } else {
             // Its a program output
             filename = args.filename
@@ -233,7 +243,12 @@ def saveFiles(Map args) {
                 goto_base = true
                 final_output = filename
             } else {
-                final_output = "${process_name}/${filename}"
+                if (args.opts.btype == "comparative") {
+                    // comparative workflows will have subdir applied later
+                    final_output = "${process_name}/${filename}"
+                } else {
+                    final_output = "${process_name}/${args.opts.subdir}/${filename}"
+                }
             }
 
             // Exclude files that should be ignored
@@ -253,9 +268,6 @@ def saveFiles(Map args) {
         }
         
         if (final_output) {
-            // Replace any double slashes
-            final_output = final_output.replace("//", "/")
-
             if (args.opts.btype == "main" || args.opts.btype == "tools") {
                 // outdir/my-sample/bactopia-main
                 if (goto_base) {
@@ -275,12 +287,14 @@ def saveFiles(Map args) {
                 // outdir/bactopia-tools
                 if (goto_base) {
                     // bactopia-tools/pangenome/core-genome.aln.gz
-                    final_output = "bactopia-${args.opts.btype}/${process_name}/${final_output}"
+                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
                 } else {
                     // bactopia-tools/<process_name>/<output>
-                    final_output = "bactopia-${args.opts.btype}/${final_output}"
+                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
                 }
             }
+            // Replace any double slashes
+            final_output = final_output.replace("//", "/")
         }
     }
 
@@ -297,6 +311,7 @@ def initOptions(Map args, String process_name) {
     options.is_main         = args.is_main ?: false
     options.is_module       = args.is_module ?: false
     options.is_db_download  = args.is_db_download ?: false
+    options.subdir          = args.subdir ?: ''
     options.logs_subdir     = args.logs_subdir ?: ''
     options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false

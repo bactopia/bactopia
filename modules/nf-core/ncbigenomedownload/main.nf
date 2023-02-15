@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process NCBIGENOMEDOWNLOAD {
     tag "$meta.id"
     label 'process_low'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container 'quay.io/bactopia/bactopia:2.0.1'
@@ -40,7 +38,7 @@ process NCBIGENOMEDOWNLOAD {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def has_accessions = accessions ? true : false
     def opts = "${options.args} --output-folder ./ --flat-output -p ${task.cpus} -r ${params.max_retry}"
     """

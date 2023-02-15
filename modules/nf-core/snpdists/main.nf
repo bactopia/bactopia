@@ -2,7 +2,7 @@
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'snpdists')
-options.btype = options.btype ?: "tools"
+options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::snp-dists=0.8.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process SNPDISTS {
     tag "$meta.id"
     label 'process_low'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -28,7 +26,7 @@ process SNPDISTS {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     snp-dists \\
         $options.args \\

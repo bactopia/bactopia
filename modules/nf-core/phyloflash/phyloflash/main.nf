@@ -10,8 +10,6 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process PHYLOFLASH  {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -32,7 +30,7 @@ process PHYLOFLASH  {
     path "versions.yml"                       , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def read_opts = meta.single_end ? "-read1 ${reads[0]}" : "-read1 ${reads[0]} -read2 ${reads[1]}"
     """
     mkdir $prefix

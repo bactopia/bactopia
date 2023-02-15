@@ -24,6 +24,7 @@ process SRAHUMANSCRUBBER_INITDB {
     path "versions.yml"     , emit: versions
 
     script:
+    prefix = "sra-human-scrubber-initdb"
     """
     DBVERSION=\$(curl "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/current/version.txt")
     curl -f "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/\${DBVERSION}.human_filter.db" -o "\${DBVERSION}.human_filter.db"

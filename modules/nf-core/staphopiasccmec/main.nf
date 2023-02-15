@@ -11,9 +11,6 @@ process STAPHOPIASCCMEC {
     tag "$meta.id"
     label 'process_low'
 
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
-
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/staphopia-sccmec:1.0.0--hdfd78af_0' :
@@ -29,7 +26,7 @@ process STAPHOPIASCCMEC {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     staphopia-sccmec --assembly $fasta $options.args > ${prefix}.tsv
 

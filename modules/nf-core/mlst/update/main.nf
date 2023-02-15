@@ -24,6 +24,7 @@ process MLST_UPDATE {
     path "versions.yml", emit: versions
 
     script:
+    prefix = "mlst-update"
     """
     # Download Data
     mkdir -p mlstdb/pubmlst mlstdb/blast

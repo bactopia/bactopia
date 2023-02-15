@@ -10,8 +10,6 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process FASTANI {
     tag "${reference_name}"
     label 'process_medium'
-    publishDir "${publish_dir}/${reference_name}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -30,7 +28,7 @@ process FASTANI {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")

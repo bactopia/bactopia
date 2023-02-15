@@ -10,8 +10,6 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process GTDBTK_CLASSIFYWF {
     tag "${meta.id}"
     label 'process_high'
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -29,7 +27,7 @@ process GTDBTK_CLASSIFYWF {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "$is_tarball" == "true" ]; then

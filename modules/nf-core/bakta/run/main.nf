@@ -10,9 +10,7 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process BAKTA_RUN {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
-    
+
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bakta:1.6.0--pyhdfd78af_0' :

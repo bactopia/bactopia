@@ -23,7 +23,9 @@ process BAKTA_DOWNLOAD {
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
+
     script:
+    prefix = "bakta"
     """
     bakta_db \\
         download \\

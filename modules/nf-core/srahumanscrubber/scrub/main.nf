@@ -11,9 +11,7 @@ VERSION = '2.0.0' // WARN: Version information not provided by tool on CLI. Plea
 process SRAHUMANSCRUBBER_SCRUB {
     tag "$meta.id"
     label 'process_low'
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
-    
+
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.0.0--hdfd78af_0' :
@@ -30,7 +28,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     path "versions.yml"                         , emit: versions
 
     script:
-    def prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
     if (meta.single_end) {
         """
         # Scrub human reads
@@ -64,9 +62,7 @@ process SRAHUMANSCRUBBER_SCRUB {
 process SRAHUMANSCRUBBER_SCRUB_MAIN {
     tag "$meta.id"
     label 'process_low'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
-    
+
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.0.0--hdfd78af_0' :
@@ -83,7 +79,7 @@ process SRAHUMANSCRUBBER_SCRUB_MAIN {
     path "versions.yml"                                                         , emit: versions
 
     script:
-    def prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
     if (meta.single_end) {
         """
         # Scrub human reads

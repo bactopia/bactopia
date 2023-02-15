@@ -9,8 +9,7 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 
 process RGI_MAIN {
     tag "$meta.id"
-    publishDir params.outdir, mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
+    label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -28,7 +27,7 @@ process RGI_MAIN {
     path "versions.yml"            , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     rgi \\
         main \\

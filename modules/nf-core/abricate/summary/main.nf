@@ -28,7 +28,7 @@ process ABRICATE_SUMMARY {
     path "versions.yml"           , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     abricate \\
         --summary \\

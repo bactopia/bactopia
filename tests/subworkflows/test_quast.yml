@@ -1,0 +1,8 @@
+- name: quast-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf quast -c nextflow.config --help > quast-help.txt'
+  tags:
+    - bactopia_help
+    - quast
+  files:
+    - path: quast-help.txt
+      contains: ['quast', 'bactopia', 'version', 'dependencies']

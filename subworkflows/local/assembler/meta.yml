@@ -1,0 +1,51 @@
+name: assembler
+description: Assembly of Illumina and ONT reads
+icon: false
+keywords:
+  - TAGS
+modules:
+  - LIST_OF_MODULES
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: assembler
+    description: >
+      A Bactopia Tool which uses...
+  introduction: |
+      The `assembler` module uses...
+  output:
+    tree: |
+
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          |  |  |
+      - name: assembler
+        description: |
+          Below is a description of the _per-sample_ results from [assembler](SUBWORKFLOW_LINK).
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          |  |  |
+  citations:
+    - add to citations.yml

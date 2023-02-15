@@ -149,20 +149,20 @@ class WorkflowBactopia {
             }
         }
 
-
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {
             // Only run this if local files
             if (!workflow.resume) {
-                def run_dir = "${params.outdir}/${params.run_name}"
                 def Integer files_found = 0
-                new File(run_dir).eachFile { item ->
-                    if (item.getName() != "nf-reports") {
+                new File(params.outdir).eachDirRecurse { item ->
+                    if (item.toString().contains("nf-reports") || item.toString() == "${params.outdir}/bactopia-reports") {
+                        return
+                    } else {
                         files_found += 1
                     }
                 }
                 if (files_found > 0 && !params.force) {
-                    log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
+                    log.error("Output directory (${params.outdir}) exists, ${params.wf} will not continue unless '--force' is used or a different output directory (--outdir) is used.")
                     error += 1
                 }
             }
@@ -172,6 +172,7 @@ class WorkflowBactopia {
             log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue")
             System.exit(1)
         }
+
         return run_type
     }
 }
