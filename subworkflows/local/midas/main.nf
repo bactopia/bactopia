@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'midas')
-options.is_module = params.wf == 'midas' ? true : false
 options.args = [
     "--word_size ${params.midas_word_size}",
     "--aln_cov ${params.midas_aln_cov}",

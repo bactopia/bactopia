@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'ismapper')
-options.is_module = params.wf == 'ismapper' ? true : false
 options.args = [
     params.ismap_all ? "-all" : "",
     "--min_clip ${params.min_clip}",

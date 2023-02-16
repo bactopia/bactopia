@@ -168,6 +168,11 @@ class WorkflowBactopiaTools {
             }
         }
 
+        if (params.wf_has_subdir.contains(params.wf) && !params.run_name) {
+            log.error "A run name (--run_name) is required for the '${params.wf}' workflow"
+            error += 1
+        }
+
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {
             if (!workflow.resume) {

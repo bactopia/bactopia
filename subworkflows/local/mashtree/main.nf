@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'mashtree')
-options.is_module = params.wf == 'mashtree' ? true : false
 options.args = [
     "--truncLength ${params.trunclength}",
     "--sort-order ${params.sortorder}",
@@ -13,7 +12,7 @@ options.args = [
     "--sketch-size ${params.sketchsize}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/mashtree/main' addParams( options: options + [ publish_to_base: true ] )
+include { MASHTREE as MASHTREE_MODULE } from '../../../modules/nf-core/mashtree/main' addParams( options: options )
 
 workflow MASHTREE {
     take:

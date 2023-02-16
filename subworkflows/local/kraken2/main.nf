@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'kraken2')
-options.is_module = params.wf == 'kraken2' ? true : false
 options.args = [
     params.quick_mode ? "--quick" : "",
     params.use_mpa_style ? "--use-mpa-style" : "",

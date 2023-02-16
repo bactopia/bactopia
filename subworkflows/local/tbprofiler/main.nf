@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
-options.is_module = params.wf == 'tbprofiler' ? true : false
 options.args = [
     params.call_whole_genome ? "--call_whole_genome" : "",
     params.calling_params ? "--calling_params ${params.calling_params}" : "",

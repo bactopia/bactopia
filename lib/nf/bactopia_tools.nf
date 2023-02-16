@@ -162,7 +162,6 @@ def _collect_inputs(sample, dir, extension) {
             exit 1
         }
     } else if (extension == 'fna_faa') {
-
         // Default to Bakta faa
         faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"
         if (!file("${faa}").exists() && !file("${faa}.gz").exists()) {
@@ -170,7 +169,6 @@ def _collect_inputs(sample, dir, extension) {
             faa = "${base_dir}/${PATHS['faa']}/prokka/${sample}.faa"
         }
 
-        faa = "${dir}/${sample}/${PATHS['faa']}/${sample}.faa"
         if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
         } else {

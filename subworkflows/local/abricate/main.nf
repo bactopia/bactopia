@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'abricate')
-options.is_module = params.wf == 'abricate' ? true : false
 options.args = [
     "--db ${params.abricate_db}",
     "--minid ${params.minid}",
@@ -11,9 +10,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { ABRICATE_RUN } from '../../../modules/nf-core/abricate/run/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { ABRICATE_SUMMARY } from '../../../modules/nf-core/abricate/summary/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'abricate'] )
-}
+include { ABRICATE_SUMMARY } from '../../../modules/nf-core/abricate/summary/main' addParams( options: [process_name: 'abricate'] )
 
 workflow ABRICATE {
     take:
@@ -26,12 +23,10 @@ workflow ABRICATE {
     ABRICATE_RUN(fasta)
     ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions.first())
 
-    if (params.is_subworkflow) {
-        ABRICATE_RUN.out.report.collect{meta, report -> report}.map{ report -> [[id:'abricate'], report]}.set{ ch_merge_abricate }
-        ABRICATE_SUMMARY(ch_merge_abricate)
-        ch_merged_abricate = ch_merged_abricate.mix(ABRICATE_SUMMARY.out.report)
-        ch_versions = ch_versions.mix(ABRICATE_SUMMARY.out.versions)
-    }
+    ABRICATE_RUN.out.report.collect{meta, report -> report}.map{ report -> [[id:'abricate'], report]}.set{ ch_merge_abricate }
+    ABRICATE_SUMMARY(ch_merge_abricate)
+    ch_merged_abricate = ch_merged_abricate.mix(ABRICATE_SUMMARY.out.report)
+    ch_versions = ch_versions.mix(ABRICATE_SUMMARY.out.versions)
 
     emit:
     tsv = ABRICATE_RUN.out.report

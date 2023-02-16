@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
-options.is_module = params.wf == 'amrfinderplus' ? true : false
 options.args = [
     params.report_common ? "--report_common" : "",
     params.report_all_equal ? "--report_all_equal" : "",
@@ -17,11 +16,8 @@ options.args = [
 AMRFINDER_DB = file(params.amrfinder_db)
 
 include { AMRFINDERPLUS_RUN } from '../../../modules/nf-core/amrfinderplus/run/main' addParams( options: options )
-
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-genes'] )
-    include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
-}
+include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'amrfinderplus', publish_to_base: true, logs_subdir: 'amrfinderplus-genes'] )
+include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'amrfinderplus', publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
 
 workflow AMRFINDERPLUS {
     take:
@@ -37,18 +33,16 @@ workflow AMRFINDERPLUS {
     AMRFINDERPLUS_RUN ( fasta, AMRFINDER_DB )
     ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions.first())
 
-    if (params.is_subworkflow) {
-        // Merge results if subworkflow
-        AMRFINDERPLUS_RUN.out.gene_report.collect{meta, report -> report}.map{ report -> [[id:'amrfinderplus-genes'], report]}.set{ ch_merge_gene_report }
-        GENES_CONCAT(ch_merge_gene_report, 'tsv', 'tsv')
-        ch_merged_gene_reports = ch_merged_gene_reports.mix(GENES_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(GENES_CONCAT.out.versions)
+    // Merge results
+    AMRFINDERPLUS_RUN.out.gene_report.collect{meta, report -> report}.map{ report -> [[id:'amrfinderplus-genes'], report]}.set{ ch_merge_gene_report }
+    GENES_CONCAT(ch_merge_gene_report, 'tsv', 'tsv')
+    ch_merged_gene_reports = ch_merged_gene_reports.mix(GENES_CONCAT.out.csv)
+    ch_versions = ch_versions.mix(GENES_CONCAT.out.versions)
 
-        AMRFINDERPLUS_RUN.out.protein_report.collect{meta, report -> report}.map{ report -> [[id:'amrfinderplus-proteins'], report]}.set{ ch_merge_protein_report }
-        PROTEINS_CONCAT(ch_merge_protein_report, 'tsv', 'tsv')
-        ch_merged_protein_reports = ch_merged_protein_reports.mix(PROTEINS_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(PROTEINS_CONCAT.out.versions)
-    }
+    AMRFINDERPLUS_RUN.out.protein_report.collect{meta, report -> report}.map{ report -> [[id:'amrfinderplus-proteins'], report]}.set{ ch_merge_protein_report }
+    PROTEINS_CONCAT(ch_merge_protein_report, 'tsv', 'tsv')
+    ch_merged_protein_reports = ch_merged_protein_reports.mix(PROTEINS_CONCAT.out.csv)
+    ch_versions = ch_versions.mix(PROTEINS_CONCAT.out.versions)
 
     emit:
     gene_tsv = AMRFINDERPLUS_RUN.out.gene_report

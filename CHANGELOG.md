@@ -6,6 +6,13 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ## v3.0.0 bactopia/bactopia "???" - 2023/??/??
 
+// TODO
+busco
+gamma
+hicap
+mashdist
+merlin
+
 ### `Added`
 - Named Workflows (!!!)
     - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read

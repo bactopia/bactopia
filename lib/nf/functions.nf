@@ -284,12 +284,12 @@ def saveFiles(Map args) {
                     }
                 }
             } else {
-                // outdir/bactopia-tools
+                // outdir/bactopia-comparative
                 if (goto_base) {
-                    // bactopia-tools/pangenome/core-genome.aln.gz
+                    // bactopia-comparative/pangenome/core-genome.aln.gz
                     final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
                 } else {
-                    // bactopia-tools/<process_name>/<output>
+                    // bactopia-comparative/<process_name>/<output>
                     final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
                 }
             }

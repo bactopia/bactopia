@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'stecfinder')
-options.is_module = params.wf == 'stecfinder' ? true : false
 options.args = [
     params.stecfinder_use_reads  ? "-r" : "",
     params.stecfinder_hits ? "--hits" : "",
@@ -20,9 +19,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { STECFINDER as STECFINDER_MODULE } from '../../../modules/nf-core/stecfinder/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'stecfinder'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'stecfinder'] )
 
 workflow STECFINDER {
     take:
@@ -30,20 +27,17 @@ workflow STECFINDER {
 
     main:
     ch_versions = Channel.empty()
-    ch_merged_stecfinder = Channel.empty()
 
     STECFINDER_MODULE(seqs)
     ch_versions = ch_versions.mix(STECFINDER_MODULE.out.versions.first())
 
-    if (params.is_subworkflow) {
-        STECFINDER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}.set{ ch_merge_stecfinder }
-        CSVTK_CONCAT(ch_merge_stecfinder, 'tsv', 'tsv')
-        ch_merged_stecfinder = ch_merged_stecfinder.mix(CSVTK_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    }
+    // Merge results
+    STECFINDER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}.set{ ch_merge_stecfinder }
+    CSVTK_CONCAT(ch_merge_stecfinder, 'tsv', 'tsv')
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     tsv = STECFINDER_MODULE.out.tsv
-    merged_tsv = ch_merged_stecfinder
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }
