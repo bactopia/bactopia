@@ -52,7 +52,7 @@ FIELDS = [
 ]
 
 
-def get_ncbi_genome_size():
+# def get_ncbi_genome_size():
 
 
 def ena_search(query, is_accession, limit=1000000):
@@ -125,7 +125,8 @@ def parse_accessions(results, genome_size=0, min_read_length=None, min_base_coun
                                 filtered['min_base_count'] += 1
 
                     if passes:
-                        accessions.append(f"{c['experiment_accession']}\t{technology}\t{}\t{}")
+                        #accessions.append(f"{c['experiment_accession']}\t{technology}\t{}\t{}")
+                        accessions.append(f"{c['experiment_accession']}\t{technology}")
                     else:
                         filtered['filtered'].append({
                             'accession': c['experiment_accession'],
