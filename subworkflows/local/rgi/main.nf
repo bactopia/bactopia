@@ -17,8 +17,8 @@ heatmap_args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { RGI_MAIN } from '../../../modules/nf-core/rgi/main/main' addParams( options: options )
-include { RGI_HEATMAP } from '../../../modules/nf-core/rgi/heatmap/main' addParams( options: [args: heatmap_args] )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'rgi'] )
+include { RGI_HEATMAP } from '../../../modules/nf-core/rgi/heatmap/main' addParams( options: [args: heatmap_args, logs_subdir: 'rgi-heatmap', process_name: params.merge_folder] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'rgi-concat', process_name: params.merge_folder] )
 
 workflow RGI {
     take:

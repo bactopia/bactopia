@@ -13,7 +13,7 @@ mykrobe_args = [
 
 include { MYKROBE_PREDICT } from '../../../modules/nf-core/mykrobe/predict/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'mykrobe'] )
 include { GENOTYPHI_PARSE  } from '../../../modules/nf-core/genotyphi/parse/main' addParams( options: options + [ args: "${mykrobe_args}", logs_subdir: 'genotyphi'] )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'genotyphi'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'genotyphi-concat', process_name: params.merge_folder] )
 
 workflow GENOTYPHI {
     take:

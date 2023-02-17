@@ -85,9 +85,13 @@ if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/sp
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
+if (params.wf == 'stecfinder') include { STECFINDER } from '../subworkflows/local/stecfinder/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
 if (params.wf == 'teton') include { TETON } from '../subworkflows/local/teton/main';
 
+if (['amrfinderplus', 'mlst'].contains(params.wf)) {
+    include { DATASETS } from '../modules/local/bactopia/datasets/main'
+}
 
 /*
 ========================================================================================
@@ -142,7 +146,8 @@ workflow BACTOPIATOOLS {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
     } else if (params.wf == 'amrfinderplus') {
-        AMRFINDERPLUS(samples)
+        DATASETS()
+        AMRFINDERPLUS(samples, DATASETS.out.amrfinderplus_db)
         ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
     } else if (params.wf == 'ariba') {
         ARIBA(samples)
@@ -219,7 +224,8 @@ workflow BACTOPIATOOLS {
         MERLIN(samples)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
     } else if (params.wf == 'mlst') {
-        MLST(samples)
+        DATASETS()
+        MLST(samples, DATASETS.out.mlst_db)
         ch_versions = ch_versions.mix(MLST.out.versions)
     } else if (params.wf == 'mobsuite') {
         MOBSUITE(samples)
@@ -276,6 +282,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'staphopiasccmec') {
         STAPHOPIASCCMEC(samples)
         ch_versions = ch_versions.mix(STAPHOPIASCCMEC.out.versions)
+    } else if (params.wf == 'stecfinder') {
+        STECFINDER(samples)
+        ch_versions = ch_versions.mix(STECFINDER.out.versions)
     } else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)

@@ -287,10 +287,10 @@ def saveFiles(Map args) {
                 // outdir/bactopia-comparative
                 if (goto_base) {
                     // bactopia-comparative/pangenome/core-genome.aln.gz
-                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
+                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.run_name}/${final_output}"
                 } else {
                     // bactopia-comparative/<process_name>/<output>
-                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.opts.subdir}/${final_output}"
+                    final_output = "bactopia-${args.opts.btype}/${args.wf}/${args.run_name}/${final_output}"
                 }
             }
             // Replace any double slashes

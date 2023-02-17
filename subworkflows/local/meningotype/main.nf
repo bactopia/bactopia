@@ -12,7 +12,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../../modules/nf-core/meningotype/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'meningotype'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'meningotype-concat', process_name: params.merge_folder] )
 
 workflow MENINGOTYPE {
     take:

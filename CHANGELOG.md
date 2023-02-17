@@ -26,6 +26,7 @@ merlin
 - new directory structure for outputs
 - GitHub Action to build environments
 - unified `publishDir` across modules
+- `BACTOPIA:DATASETS` to download required datasets using `storeDir`
 
 ### `Fixed`
 - All modules correctly initiate `params.options`

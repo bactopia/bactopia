@@ -6,7 +6,7 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'leg
 options.args = params.noheader ? '--noheader' : ''
 
 include { LEGSTA as LEGSTA_MODULE } from '../../../modules/nf-core/legsta/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'legsta'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'legsta-concat', process_name: params.merge_folder] )
 
 workflow LEGSTA {
     take:

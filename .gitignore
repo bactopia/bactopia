@@ -1,6 +1,7 @@
 bactopia-tests/
 temp/
-data/datasets/*.tar.gz
+data/datasets/*.gz
+data/datasets/*.msh
 ./datasets/
 test_data
 conda/envs

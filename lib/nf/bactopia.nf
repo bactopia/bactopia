@@ -156,35 +156,53 @@ def process_fofn(line, genome_size) {
     }
 }
 
-def process_accessions(accession, genome_size, species, is_single_accession) {
+def process_accessions(line, genome_size, species) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
+
+    if (line.accession.startsWith('GCF') || line.accession.startsWith('GCA')) {
+        meta.id = accession.split(/\./)[0]
+        meta.runtype = "assembly_accession"
+        meta.genome_size = genome_size
+        meta.species = species
+        return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+    } else if (line.accession.startsWith('DRX') || line.accession.startsWith('ERX') || line.accession.startsWith('SRX')) {
+        meta.id = line.accession
+        meta.runtype = line.runtype == 'ont' ? "sra_accession_ont" : "sra_accession"
+
+        // If genome_size is provided, use it, otherwise use the genome_size from the FOFN
+        meta.genome_size = genome_size > 0 ? genome_size : line.genome_size
+
+        // If species is provided, use it, otherwise use the species from the FOFN
+        meta.species = species ? species : line.species
+    } else {
+        log.error("Invalid accession: ${accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
+        exit 1
+    }
+    return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+}
+
+def process_accession(accession, genome_size, species) {
+    /* Parse line and determine if single end or paired reads*/
+    def meta = [:]
+    meta.genome_size = genome_size
+    meta.species = species
     if (accession.length() > 0) {
         if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
             meta.id = accession.split(/\./)[0]
             meta.runtype = "assembly_accession"
-            meta.genome_size = genome_size
-            meta.species = species
-            return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
         } else if (accession.startsWith('DRX') || accession.startsWith('ERX') || accession.startsWith('SRX')) {
-            if (is_single_accession) {
-                meta.id = accession
-                meta.runtype = params.ont ? "sra_accession_ont" : "sra_accession"
-            } else {
-                // Multiple accessions so split
-                meta.id = accession.split(/\t/)[0]
-                meta.runtype = accession.split(/\t/)[1] == 'ont' ? "sra_accession_ont" : "sra_accession"
-                // TODO capture genome size and species from columns
-                meta.genome_size = genome_size
-                meta.species = species
-            }
-            return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+            meta.id = accession
+            meta.runtype = params.ont ? "sra_accession_ont" : "sra_accession"
         } else {
             log.error("Invalid accession: ${accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
             exit 1
         }
+        return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
     }
 }
+
+
 
 def create_input_channel(runtype, genome_size, species) {
     if (runtype == "is_fofn") {
@@ -193,10 +211,10 @@ def create_input_channel(runtype, genome_size, species) {
             .map { row -> process_fofn(row, genome_size, species) }
     } else if (runtype == "is_accessions") {
         return Channel.fromPath( params.accessions )
-            .splitText()
-            .map { line -> process_accessions(line.trim(), genome_size, species, false) }
+            .splitCsv(header: true, strip: true, sep: '\t')
+            .map { row -> process_accessions(row, genome_size, species) }
     } else if (runtype == "is_accession") {
-        return Channel.fromList([process_accessions(params.accession, genome_size, species, true)])
+        return Channel.fromList([process_accession(params.accession, genome_size, species)])
     } else {
         def meta = [:]
         meta.id = params.sample

@@ -11,7 +11,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { MOBSUITE_RECON } from '../../../modules/nf-core/mobsuite/recon/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'mobsuite'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'mobsuite-concat', process_name: params.merge_folder] )
 
 workflow MOBSUITE {
     take:

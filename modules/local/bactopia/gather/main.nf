@@ -105,17 +105,18 @@ process GATHER {
         if [ "${task.attempt}" == "${params.max_retry}" ]; then
             echo "Unable to download ${prefix} from both SRA and ENA ${params.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 
-                further analysis of ${prefix} will be discontinued." | \
+                further analysis of ${prefix} will be discontinued." | \\
             sed 's/^\\s*//' > ${prefix}-fastq-download-error.txt
             exit
         else
             # Download accession from ENA/SRA
-            fastq-dl ${prefix} ${archive} \
-                --cpus ${task.cpus} \
-                --outdir fastqs/ \
-                --group_by_experiment \
-                --is_experiment \
-                --ftp_only
+            fastq-dl \\
+                --accession ${prefix} \\
+                --provider ${archive} \\
+                --cpus ${task.cpus} \\
+                --outdir fastqs/ \\
+                --prefix ${prefix} \\
+                --group-by-experiment
             touch extra/empty.fna.gz
         fi 
     elif [ "${is_assembly}" == "true" ]; then
@@ -124,7 +125,7 @@ process GATHER {
                 touch extra/empty.fna.gz
                 echo "Unable to download ${prefix} from NCBI Assembly ${params.max_retry} times. This may or may
                     not be a temporary connection issue. Rather than stop the whole Bactopia run, 
-                    further analysis of ${prefix} will be discontinued." | \
+                    further analysis of ${prefix} will be discontinued." | \\
                 sed 's/^\\s*//' > ${prefix}-assembly-download-error.txt
                 exit
             else
@@ -134,7 +135,7 @@ process GATHER {
                 if [ -s "accession.txt" ]; then
                     # Download from NCBI assembly and simulate reads
                     mkdir fasta/
-                    ncbi-genome-download bacteria -o ./ -F fasta -p ${task.cpus} \
+                    ncbi-genome-download bacteria -o ./ -F fasta -p ${task.cpus} \\
                                                 -s ${section} -A accession.txt -r 50 ${no_cache}
                     find . -name "*${prefix}*.fna.gz" | xargs -I {} mv {} fasta/
                     rename 's/(GC[AF]_\\d+).*/\$1.fna.gz/' fasta/*
@@ -154,7 +155,7 @@ process GATHER {
         fi
 
         # Simulate reads from assembly, reads are 250bp without errors
-        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${params.sampleseed} \
+        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${params.sampleseed}\
                         -na -qL 33 -qU 40 -o ${prefix}_R --id ${prefix} -i ${prefix}-art.fna
 
         mv ${prefix}_R1.fq fastqs/${prefix}_R1.fastq
@@ -176,7 +177,7 @@ process GATHER {
             if ! reformat.sh in1=fastqs/${prefix}_R1.fastq.gz in2=fastqs/${prefix}_R2.fastq.gz ${qin} out=/dev/null 2> ${prefix}-paired-end-error.txt; then
                 ERROR=1
                 echo "${prefix} FASTQs contains an error. Please check the input FASTQs.
-                    Further analysis is discontinued." | \
+                    Further analysis is discontinued." | \\
                 sed 's/^\\s*//' >> ${prefix}-paired-end-error.txt
             else
                 rm -f ${prefix}-paired-end-error.txt

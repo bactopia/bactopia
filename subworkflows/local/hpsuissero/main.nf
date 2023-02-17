@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'hpsuissero')
 
 include { HPSUISSERO as HPSUISSERO_MODULE } from '../../../modules/nf-core/hpsuissero/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'hpsuisero'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'hpsuissero-concat', process_name: params.merge_folder] )
 
 workflow HPSUISSERO {
     take:

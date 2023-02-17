@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'shigatyper')
 
 include { SHIGATYPER as SHIGATYPER_MODULE } from '../../../modules/nf-core/shigatyper/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'shigatyper'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'shigatyper-concat', process_name: params.merge_folder] )
 
 workflow SHIGATYPER {
     take:

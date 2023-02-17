@@ -12,9 +12,9 @@ include { AGRVATE } from '../../../modules/nf-core/agrvate/main' addParams( opti
 include { SPATYPER } from '../../../modules/nf-core/spatyper/main' addParams( options: [args: "${spatyper_args}", is_subworkflow: true] )
 include { STAPHOPIASCCMEC } from '../../../modules/nf-core/staphopiasccmec/main' addParams( options: [args: "${staphopiasccmec_args}", is_subworkflow: true] )
 
-include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', process_name: 'agrvate'])
-include { CSVTK_CONCAT as CSVTK_CONCAT_SPATYPER } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'spatyper'])
-include { CSVTK_CONCAT as CSVTK_CONCAT_STAPHOPIASCCMEC } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'staphopiasccmec'])
+include { CSVTK_CONCAT as CSVTK_CONCAT_AGRVATE } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', logs_subdir: 'agrvate-concat', process_name: params.merge_folder])
+include { CSVTK_CONCAT as CSVTK_CONCAT_SPATYPER } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'spatyper-concat', process_name: params.merge_folder])
+include { CSVTK_CONCAT as CSVTK_CONCAT_STAPHOPIASCCMEC } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'staphopiasccmec-concat', process_name: params.merge_folder])
 
 workflow STAPHTYPER {
     take:

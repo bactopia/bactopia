@@ -9,7 +9,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { SEROBA_RUN } from '../../../modules/nf-core/seroba/run/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'seroba'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'seroba-concat', process_name: params.merge_folder] )
 
 workflow SEROBA {
     take:

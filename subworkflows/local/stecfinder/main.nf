@@ -19,7 +19,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { STECFINDER as STECFINDER_MODULE } from '../../../modules/nf-core/stecfinder/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'stecfinder'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'stecfinder-concat', process_name: params.merge_folder] )
 
 workflow STECFINDER {
     take:

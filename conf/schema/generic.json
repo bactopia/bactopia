@@ -32,6 +32,12 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
+                "datasets": {
+                    "type": "string",
+                    "fa_icon": "fas fa-folder",
+                    "description": "The path to cache datasets to",
+                    "hidden": true
+                },
                 "keep_all_files": {
                     "type": "boolean",
                     "default": false,

@@ -2,7 +2,7 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'csvtk_concat')
-options.btype = options.btype ?: "reports"
+options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::csvtk=0.25.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools

@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
     CONFIG FILES
 ========================================================================================
 */
-include { create_input_channel; check_input_fofn; setup_datasets } from '../lib/nf/bactopia'
+include { create_input_channel; check_input_fofn; } from '../lib/nf/bactopia'
 include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 
@@ -30,78 +30,66 @@ if (params.check_samples) {
 */
 
 // Core
-include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
-include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
-include { ASSEMBLY_QC } from '../modules/local/bactopia/assembly_qc/main'
-include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
-include { MINMER_SKETCH } from '../modules/local/bactopia/minmer_sketch/main'
-include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
 
-// Require Datasets
-include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
-include { BLAST } from '../modules/local/bactopia/blast/main'
-include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
-include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
-include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
-include { SEQUENCE_TYPE } from '../modules/local/bactopia/sequence_type/main'
+include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main'
+include { ASSEMBLER } from '../subworkflows/local/assembler/main'
+include { DATASETS } from '../modules/local/bactopia/datasets/main'
+include { GATHER } from '../subworkflows/local/gather/main'
+include { SKETCHER } from '../subworkflows/local/sketcher/main'
+include { MLST } from '../subworkflows/local/mlst/main'
+include { QC } from '../subworkflows/local/qc/main'
+
+
+// Annotation wih Bakta or Prokka
+if (params.use_bakta) {
+    include { BAKTA as ANNOTATOR } from '../subworkflows/local/bakta/main'
+} else {
+    include { PROKKA as ANNOTATOR } from '../subworkflows/local/prokka/main'
+}
 
 // Staphylococcus aureus specific
-include { STAPHTYPER } from '../subworkflows/local/staphtyper/main' addParams(is_main: true)
+include { STAPHTYPER } from '../subworkflows/local/staphtyper/main'
 
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'  addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS as DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main' addParams( options: [process_name:"bactopia"] )
 
 /*
 ========================================================================================
     RUN MAIN WORKFLOW
 ========================================================================================
 */
+
 workflow STAPHOPIA {
     print_efficiency(RESOURCES.MAX_CPUS) 
-    datasets = setup_datasets()
+    ch_versions = Channel.empty()
 
     // Core steps
-    GATHER_SAMPLES(create_input_channel(run_type, datasets['genome_size']))
-    QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(datasets['adapters'])).combine(Channel.fromPath(datasets['phix'])))
-    ASSEMBLE_GENOME(QC_READS.out.fastq_assembly)
-    ASSEMBLY_QC(ASSEMBLE_GENOME.out.fna)
-    ANNOTATE_GENOME(ASSEMBLE_GENOME.out.fna.combine(Channel.fromPath(datasets['proteins'])).combine(Channel.fromPath(datasets['training_set'])))
-    MINMER_SKETCH(QC_READS.out.fastq)
-
-    // Optional steps that require datasets
-    // Species agnostic
-    ANTIMICROBIAL_RESISTANCE(ANNOTATE_GENOME.out.annotations, datasets['amr'])
-    MINMER_QUERY(MINMER_SKETCH.out.sketch, datasets['minmer'])
-
-    // Species Specific
-    BLAST(ASSEMBLE_GENOME.out.blastdb, datasets['blast'])
-    CALL_VARIANTS(QC_READS.out.fastq, datasets['references'])
-    MAPPING_QUERY(QC_READS.out.fastq, datasets['mapping'])
-    SEQUENCE_TYPE(ASSEMBLE_GENOME.out.fna_fastq, datasets['mlst'])
+    DATASETS()
+    GATHER(create_input_channel(run_type, params.genome_size, params.species))
+    QC(GATHER.out.raw_fastq)
+    SKETCHER(QC.out.fastq, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
+    ASSEMBLER(QC.out.fastq_assembly)
+    ANNOTATOR(ASSEMBLER.out.fna)
+    AMRFINDERPLUS(ANNOTATOR.out.annotations, DATASETS.out.amrfinderplus_db)
+    MLST(ASSEMBLER.out.fna, DATASETS.out.mlst_db)
 
     // Staphylococcus aureus specific
-    STAPHTYPER(ASSEMBLE_GENOME.out.fna_only)
+    STAPHTYPER(ASSEMBLER.out.fna)
 
     // Collect Versions
-    ch_versions = Channel.empty()
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
-    ch_versions = ch_versions.mix(QC_READS.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions.first())
-    ch_versions = ch_versions.mix(ANNOTATE_GENOME.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_SKETCH.out.versions.first())
-    ch_versions = ch_versions.mix(ANTIMICROBIAL_RESISTANCE.out.versions.first())
-    ch_versions = ch_versions.mix(MINMER_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(BLAST.out.versions.first())
-    ch_versions = ch_versions.mix(CALL_VARIANTS.out.versions.first())
-    ch_versions = ch_versions.mix(MAPPING_QUERY.out.versions.first())
-    ch_versions = ch_versions.mix(SEQUENCE_TYPE.out.versions.first())
+    ch_versions = ch_versions.mix(GATHER.out.versions.first())
+    ch_versions = ch_versions.mix(QC.out.versions.first())
+    ch_versions = ch_versions.mix(ASSEMBLER.out.versions.first())
+    ch_versions = ch_versions.mix(ANNOTATOR.out.versions.first())
+    ch_versions = ch_versions.mix(SKETCHER.out.versions.first())
+    ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions.first())
+    ch_versions = ch_versions.mix(MLST.out.versions.first())
     ch_versions = ch_versions.mix(STAPHTYPER.out.versions)
-    CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
+    DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 
 /*

@@ -1,0 +1,18 @@
+accession	runtype	genome_size	species
+SRX1390606	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390607	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390608	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390609	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390610	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390611	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390612	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390613	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390614	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390615	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390616	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390617	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390618	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390619	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390620	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390621	illumina	358242	Candidatus Portiera aleyrodidarum
+SRX1390622	illumina	358242	Candidatus Portiera aleyrodidarum

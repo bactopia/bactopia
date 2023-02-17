@@ -12,7 +12,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { MYKROBE_PREDICT }  from '../../../modules/nf-core/mykrobe/predict/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'mykrobe'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'mykrobe-concat', process_name: params.merge_folder] )
 
 workflow MYKROBE {
     take:

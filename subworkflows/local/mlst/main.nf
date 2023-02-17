@@ -12,16 +12,17 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { MLST as MLST_MODULE } from '../../../modules/nf-core/mlst/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--no-header-row', process_name: 'mlst'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--no-header-row', logs_subdir: 'mlst-concat', process_name: params.merge_folder] )
 
 workflow MLST {
     take:
     fasta // channel: [ val(meta), [ reads ] ]
+    db // channel: [ mlst_db ]
 
     main:
     ch_versions = Channel.empty()
 
-    MLST_MODULE(fasta, file(params.mlst_db))
+    MLST_MODULE(fasta, db)
     ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first())
 
     // Merge results

@@ -6,7 +6,7 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'sta
 options.args = params.hamming ? '--hamming' : ''
 
 include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE} from '../../../modules/nf-core/staphopiasccmec/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'staphopiasccmec'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'staphopiasccmec-concat', process_name: params.merge_folder] )
 
 workflow STAPHOPIASCCMEC {
     take:

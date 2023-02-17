@@ -39,11 +39,7 @@ class WorkflowBactopiaTools {
         }
 
         // Workflow specific databases
-        if (params.wf == "amrfinderplus") {
-            if (Utils.isLocal(params.amrfinder_db)) {
-                error += Utils.fileNotFound(params.amrfinder_db, 'amrfinder_db', log)
-            }
-        } else if (params.wf == "ariba") {
+        if (params.wf == "ariba") {
             if (!params.ariba_db) {
                 error += 1
                 missing_required += "--ariba_db"
@@ -125,10 +121,6 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--midas_db"
             }
-        } else if (params.wf == "mlst") {
-            if (Utils.isLocal(params.mlst_db)) {
-                error += Utils.fileNotFound(params.mlst_db, 'mlst_db', log)
-            }
         } else if (params.wf == "mykrobe") {
             if (!params.mykrobe_species) {
                 error += 1
@@ -175,16 +167,19 @@ class WorkflowBactopiaTools {
 
         // Check for existing output directory
         if (Utils.isLocal(params.outdir)) {
+            // Only run this if local files
             if (!workflow.resume) {
-                def run_dir = "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}"
                 def Integer files_found = 0
-                new File(run_dir).eachFile { item ->
-                    if (item.getName() != "nf-reports") {
+                new File("${params.outdir}/bactopia-comparative/${params.wf}/${params.run_name}").eachDirRecurse { item ->
+                    if (item.toString().contains("nf-reports")) {
+                        return
+                    } else {
                         files_found += 1
                     }
                 }
+
                 if (files_found > 0 && !params.force) {
-                    log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
+                    log.error("Output for ${params.run_name} (--run_name) already exists in ${params.outdir} (--outdir), ${params.wf} will not continue unless '--force' is used, a different run name (--run_name), or a different output directory (--outdir) is used.")
                     error += 1
                 }
             }

@@ -12,18 +12,6 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "amrfinder_db": {
-                    "type": "string",
-                    "description": "Path to your AMRFinder+ database as a tarball (Default use the one bundled with Bactopia)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "force_update": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Force AMRFinder+ to rebuild the database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
                 "ident_min": {
                     "type": "number",
                     "default": -1,

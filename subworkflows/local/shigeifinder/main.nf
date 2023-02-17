@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'shigeifinder')
 
 include { SHIGEIFINDER as SHIGEIFINDER_MODULE } from '../../../modules/nf-core/shigeifinder/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'shigeifinder'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'shigeifinder-concat', process_name: params.merge_folder] )
 
 workflow SHIGEIFINDER {
     take:

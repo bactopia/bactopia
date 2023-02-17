@@ -11,18 +11,6 @@
             "description": "",
             "default": "",
             "properties": {
-                "count_31mers": {
-                    "type": "boolean",
-                    "description": "Enable 31-mer counting with McCortex",
-                    "fa_icon": "fas fa-play",
-                    "hidden": true
-                },
-                "keep_singletons": {
-                    "type": "boolean",
-                    "description": "Keep all counted 31-mers",
-                    "fa_icon": "fas fa-check",
-                    "hidden": true
-                },
                 "sketch_size": {
                     "type": "integer",
                     "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
@@ -34,6 +22,21 @@
                     "type": "integer",
                     "description": "Choose number of hashes as 1 in FRACTION of input k-mers",
                     "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "no_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Disable winner-takes-all strategy for identity estimates",
+                    "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "screen_i": {
+                    "type": "number",
+                    "description": "Minimum identity to report.",
+                    "help": "Inclusive unless set to zero, in which case only identities greater than zero (i.e. with at least one shared hash) will be reported. Set to -1 to output everything.",
+                    "default": 0.8,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 }

@@ -33,10 +33,12 @@ if (params.check_samples) {
 
 include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main'
 include { ASSEMBLER } from '../subworkflows/local/assembler/main'
+include { DATASETS } from '../modules/local/bactopia/datasets/main'
 include { GATHER } from '../subworkflows/local/gather/main'
 include { SKETCHER } from '../subworkflows/local/sketcher/main'
 include { MLST } from '../subworkflows/local/mlst/main'
 include { QC } from '../subworkflows/local/qc/main'
+
 
 // Annotation wih Bakta or Prokka
 if (params.use_bakta) {
@@ -44,9 +46,6 @@ if (params.use_bakta) {
 } else {
     include { PROKKA as ANNOTATOR } from '../subworkflows/local/prokka/main'
 }
-
-// Require Datasets
-//include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 
 // Merlin
 if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/main';
@@ -57,7 +56,6 @@ if (params.ask_merlin) include { MERLIN } from '../subworkflows/local/merlin/mai
 ========================================================================================
 */
 include { CUSTOM_DUMPSOFTWAREVERSIONS as DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main' addParams( options: [process_name:"bactopia"] )
-
 
 /*
 ========================================================================================
@@ -70,13 +68,14 @@ workflow BACTOPIA {
     ch_versions = Channel.empty()
 
     // Core steps
+    DATASETS()
     GATHER(create_input_channel(run_type, params.genome_size, params.species))
     QC(GATHER.out.raw_fastq)
-    SKETCHER(QC.out.fastq)
+    SKETCHER(QC.out.fastq, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
     ASSEMBLER(QC.out.fastq_assembly)
     ANNOTATOR(ASSEMBLER.out.fna)
-    AMRFINDERPLUS(ANNOTATOR.out.annotations)
-    MLST(ASSEMBLER.out.fna)
+    AMRFINDERPLUS(ANNOTATOR.out.annotations, DATASETS.out.amrfinderplus_db)
+    MLST(ASSEMBLER.out.fna, DATASETS.out.mlst_db)
 
     if (params.ask_merlin) {
         MERLIN(ASSEMBLER.out.fna_fastq)

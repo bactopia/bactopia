@@ -28,7 +28,9 @@ example usage:
 
 """
 import os
+import requests
 import sys
+import time
 VERSION = "2.2.0"
 PROGRAM = "bactopia search"
 ENA_URL = ('https://www.ebi.ac.uk/ena/portal/api/search')
@@ -50,11 +52,11 @@ FIELDS = [
 ]
 
 
-def ena_search(query, is_accession, limit=1000000):
-    """USE ENA's API to retreieve the latest results."""
-    import requests
-    import time
+def get_ncbi_genome_size():
 
+
+def ena_search(query, is_accession, limit=1000000):
+    """USE ENA's API to retrieve the latest results."""
     # ENA browser info: http://www.ebi.ac.uk/ena/about/browser
     query_original = query
     data = {
@@ -88,9 +90,9 @@ def ena_search(query, is_accession, limit=1000000):
         return [results[0], results[1:]]
 
 
-def parse_accessions(results, min_read_length=None, min_base_count=None):
+def parse_accessions(results, genome_size=0, min_read_length=None, min_base_count=None):
     """Parse Illumina experiment accessions from the ENA results."""
-    accessions = []
+    accessions = ['accession\ttechnology\tgenome_size\tspecies']
     filtered = {'min_base_count': 0, 'min_read_length': 0, 'technical': 0, 'filtered': []}
     for line in results:
         if line.startswith(FIELDS[0]):
@@ -123,7 +125,7 @@ def parse_accessions(results, min_read_length=None, min_base_count=None):
                                 filtered['min_base_count'] += 1
 
                     if passes:
-                        accessions.append(f"{c['experiment_accession']}\t{technology}")
+                        accessions.append(f"{c['experiment_accession']}\t{technology}\t{}\t{}")
                     else:
                         filtered['filtered'].append({
                             'accession': c['experiment_accession'],
@@ -262,8 +264,8 @@ if __name__ == '__main__':
         help='Filter samples based on minimum coverage (requires --genome_size)'
     )
     parser.add_argument(
-        '--genome_size', metavar="INT", type=int,
-        help='Genome size to estimate coverage (requires --coverage)'
+        '--genome_size', metavar="INT", type=int, default=0,
+        help='Genome size to use for all samples and to estimate coverage (Default: 0)'
     )
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
@@ -280,13 +282,13 @@ if __name__ == '__main__':
 
     if args.min_coverage and args.genome_size:
         if args.min_base_count:
-            print("--min_base_count cannot be used with --coverage/--genome_size. Exiting...",
+            print("--min_base_count cannot be used with --min_coverage/--genome_size. Exiting...",
                   file=sys.stderr)
             sys.exit(1)
         else:
             min_base_count = args.min_coverage * args.genome_size
-    elif args.min_coverage or args.genome_size:
-        print("--coverage and --genome_size must be used together. Exiting...",
+    elif args.min_coverage and not args.genome_size:
+        print("--min_coverage requires --genome_size be used for estimates. Exiting...",
               file=sys.stderr)
         sys.exit(1)
     
@@ -304,16 +306,14 @@ if __name__ == '__main__':
     summary = []
     queries = parse_query(args.query, args.accession_limit, exact_taxon=args.exact_taxon)
     i = 1
-    results_file = f'{args.outdir}/{args.prefix}-results.txt'
-    accessions_file = f'{args.outdir}/{args.prefix}-accessions.txt'
-    filtered_file = f'{args.outdir}/{args.prefix}-filtered.txt'
+
     for query_type, query in queries:
         is_accession = True if query_type == 'accession' else False
         query_header, query_results = ena_search(query, is_accession, limit=args.limit)
         results = list(set(results + query_results))
         if not result_header:
             result_header = query_header
-        query_accessions, query_filtered = parse_accessions(query_results, min_read_length=min_read_length,
+        query_accessions, query_filtered = parse_accessions(query_results, genome_size=args.genome_size, min_read_length=min_read_length,
                                                             min_base_count=min_base_count)
         if len(query_accessions):
             WARNING_MESSAGE = None
@@ -367,17 +367,17 @@ if __name__ == '__main__':
         summary.append("")
 
     # Output the results
-    with open(results_file, 'w') as output_fh:
+    with open(f'{args.outdir}/{args.prefix}-results.txt', 'w') as output_fh:
         output_fh.write(f'{result_header}\n')
         for result in results:
             if result:
                 output_fh.write(f'{result}\n')
 
-    with open(accessions_file, 'w') as output_fh:
+    with open(f'{args.outdir}/{args.prefix}-accessions.txt', 'w') as output_fh:
         for accession in accessions:
             output_fh.write(f'{accession}\n')
 
-    with open(filtered_file, 'w') as output_fh:
+    with open(f'{args.outdir}/{args.prefix}-filtered.txt', 'w') as output_fh:
         output_fh.write(f'accession\treason\n')
         for accession, reason in filtered['filtered'].items():
             output_fh.write(f'{accession}\t{reason}\n')

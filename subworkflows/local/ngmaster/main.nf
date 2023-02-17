@@ -8,7 +8,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { NGMASTER as NGMASTER_MODULE } from '../../../modules/nf-core/ngmaster/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'ngmaster'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'ngmaster-concat', process_name: params.merge_folder] )
 
 workflow NGMASTER {
     take:

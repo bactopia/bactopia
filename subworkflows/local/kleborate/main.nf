@@ -15,7 +15,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { KLEBORATE as KLEBORATE_MODULE } from '../../../modules/nf-core/kleborate/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'kleborate'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'kleborate-concat', process_name: params.merge_folder] )
 
 workflow KLEBORATE {
     take:

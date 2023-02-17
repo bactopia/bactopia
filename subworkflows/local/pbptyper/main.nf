@@ -10,7 +10,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { PBPTYPER as PBPTYPER_MODULE } from '../../../modules/nf-core/pbptyper/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'pbptyper'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'pbptyper-concat', process_name: params.merge_folder] )
 
 workflow PBPTYPER {
     take:

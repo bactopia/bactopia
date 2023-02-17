@@ -13,9 +13,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { ECTYPER as ECTYPER_MODULE } from '../../../modules/nf-core/ectyper/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'ectyper'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'ectyper-concat', process_name: params.merge_folder] )
 
 workflow ECTYPER {
     take:

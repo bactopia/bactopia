@@ -34,7 +34,7 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     }
     
     sample_list = []
-    log.info("${bactopia_dir}/bactopia-samples")
+    missing = []
     file("${bactopia_dir}/bactopia-samples").eachFile { item ->
         if( item.isDirectory() ) {
             sample = item.getName()
@@ -42,7 +42,12 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
                 if (inclusions.contains(sample) || include_all) {
                     if (!exclusions.contains(sample)) {
                         if (_is_sample_dir(sample, bactopia_dir)) {
-                            sample_list << _collect_inputs(sample, bactopia_dir, extension)
+                            sample = _collect_inputs(sample, bactopia_dir, extension)
+                            if (sample instanceof String) {
+                                missing << sample
+                            } else {
+                                sample_list << sample
+                            }
                         } else {
                             log.info "${sample} does not appear to be a Bactopia sample, skipping..."
                         }
@@ -53,6 +58,12 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     }
 
     log.info "Found ${sample_list.size} samples to process"
+    if (missing.size() > 0) {
+        log.info "${missing.size} samples were excluded due to missing files. They are:"
+        for (sample in missing) {
+            log.info "    ${sample}"
+        }
+    }
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for 5 seconds..."
     log.info "--------------------------------------------------------------------"
@@ -135,9 +146,6 @@ def _collect_inputs(sample, dir, extension) {
             }
         } else if (file(pe1).exists() && file(pe2).exists()) {
             return tuple([id:sample, single_end:false, runtype:'illumina'], [file(pe1), file(pe2)])
-        } else {
-            log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     } else if (extension == 'fna_fastq') {
         if (file(se).exists()) {
@@ -148,18 +156,15 @@ def _collect_inputs(sample, dir, extension) {
 
             if (file("${fna}.gz").exists()) {
                 return tuple([id:sample, single_end:true, is_compressed:true, runtype:runtype], [file("${fna}.gz")], [file(se)])
-            } else {
+            } else if (file(fna).exists()) {
                 return tuple([id:sample, single_end:true, is_compressed:false, runtype:runtype], [file("${fna}")], [file(se)])
             }
         } else if (file(pe1).exists() && file(pe2).exists()) {
             if (file("${fna}.gz").exists()) {
                 return tuple([id:sample, single_end:false, is_compressed:true, runtype:'illumina'], [file("${fna}.gz")], [file(pe1), file(pe2)])
-            } else {
+            } else if (file(fna).exists()) {
                 return tuple([id:sample, single_end:false, is_compressed:false, runtype:'illumina'], [file("${fna}")], [file(pe1), file(pe2)])
             }
-        } else {
-            log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     } else if (extension == 'fna_faa') {
         // Default to Bakta faa
@@ -171,7 +176,7 @@ def _collect_inputs(sample, dir, extension) {
 
         if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
-        } else {
+        } else if (file(fna).exists() && file(faa).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
         }
     } else {
@@ -189,9 +194,8 @@ def _collect_inputs(sample, dir, extension) {
             return tuple([id:sample, is_compressed:true], [file("${input}.gz")])
         } else if (file(input).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${input}")])
-        } else {
-            log.error("Could not locate ${input} for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     }
+
+    return sample
 }

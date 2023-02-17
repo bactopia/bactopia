@@ -8,7 +8,7 @@ REPEATS = params.repeats ? file(params.repeats, checkIfExists: true) : []
 REPEAT_ORDER = params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
 
 include { SPATYPER as SPATYPER_MODULE } from '../../../modules/nf-core/spatyper/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'spatyper'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'spatyper-concat', process_name: params.merge_folder] )
 
 workflow SPATYPER {
     take:

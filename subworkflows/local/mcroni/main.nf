@@ -7,7 +7,7 @@ options = initOptions(params.containsKey("options") ? params.options : [:], 'mcr
 options.args = ""
 
 include { MCRONI as MCRONI_MODULE } from '../../../modules/nf-core/mcroni/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'mcroni'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'mcroni-concat', process_name: params.merge_folder] )
 
 workflow MCRONI {
     take:

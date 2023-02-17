@@ -139,14 +139,6 @@ class WorkflowBactopia {
                     error += 1
                 }
             }
-
-            // Check input datasets exist
-            if (Utils.isLocal(params.amrfinder_db)) {
-                error += Utils.fileNotFound(params.amrfinder_db, 'amrfinder_db', log)
-            }
-            if (Utils.isLocal(params.mlst_db)) {
-                error += Utils.fileNotFound(params.mlst_db, 'mlst_db', log)
-            }
         }
 
         // Check for existing output directory
@@ -154,15 +146,16 @@ class WorkflowBactopia {
             // Only run this if local files
             if (!workflow.resume) {
                 def Integer files_found = 0
-                new File(params.outdir).eachDirRecurse { item ->
-                    if (item.toString().contains("nf-reports") || item.toString() == "${params.outdir}/bactopia-reports") {
+                new File("${params.outdir}/bactopia-comparative/${params.wf}/${params.run_name}").eachDirRecurse { item ->
+                    if (item.toString().contains("nf-reports")) {
                         return
                     } else {
                         files_found += 1
                     }
                 }
+
                 if (files_found > 0 && !params.force) {
-                    log.error("Output directory (${params.outdir}) exists, ${params.wf} will not continue unless '--force' is used or a different output directory (--outdir) is used.")
+                    log.error("Output for ${params.run_name} (--run_name) already exists in ${params.outdir} (--outdir), ${params.wf} will not continue unless '--force' is used, a different run name (--run_name), or a different output directory (--outdir) is used.")
                     error += 1
                 }
             }

@@ -9,7 +9,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { PASTY as PASTY_MODULE } from '../../../modules/nf-core/pasty/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'pasty'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'pasty-concat', process_name: params.merge_folder] )
 
 workflow PASTY {
     take:

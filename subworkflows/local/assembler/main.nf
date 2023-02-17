@@ -52,7 +52,7 @@ options.args3 = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { ASSEMBLER as ASSEMBLER_MODULE } from '../../../modules/local/bactopia/assembler/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: "assembler"] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'assembly-scan-concat', process_name: params.merge_folder] )
 
 workflow ASSEMBLER {
     take:

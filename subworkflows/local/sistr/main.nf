@@ -8,7 +8,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { SISTR as SISTR_MODULE } from '../../../modules/nf-core/sistr/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'sistr'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'sistr-concat', process_name: params.merge_folder] )
 
 workflow SISTR {
     take:

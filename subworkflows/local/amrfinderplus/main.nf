@@ -13,15 +13,14 @@ options.args = [
     "${params.amrfinder_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-AMRFINDER_DB = file(params.amrfinder_db)
-
 include { AMRFINDERPLUS_RUN } from '../../../modules/nf-core/amrfinderplus/run/main' addParams( options: options )
-include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'amrfinderplus', publish_to_base: true, logs_subdir: 'amrfinderplus-genes'] )
-include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'amrfinderplus', publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
+include { CSVTK_CONCAT as GENES_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'amrfinderplus-genes-concat', process_name: params.merge_folder] )
+include { CSVTK_CONCAT as PROTEINS_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'amrfinderplus-proteins-concat', process_name: params.merge_folder] )
 
 workflow AMRFINDERPLUS {
     take:
     fasta // channel: [ val(meta), [ reads ] ]
+    db // channel: [ amrfinderplus_db ]
 
     main:
     ch_versions = Channel.empty()
@@ -29,8 +28,8 @@ workflow AMRFINDERPLUS {
     ch_merged_gene_reports = Channel.empty()
     ch_merged_protein_reports = Channel.empty()
 
-    // Run AMRFinder=
-    AMRFINDERPLUS_RUN ( fasta, AMRFINDER_DB )
+    // Run AMRFinder
+    AMRFINDERPLUS_RUN ( fasta, db )
     ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions.first())
 
     // Merge results

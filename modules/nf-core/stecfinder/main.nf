@@ -17,7 +17,7 @@ process STECFINDER {
         'quay.io/biocontainers/stecfinder:1.1.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(seqs)
+    tuple val(meta), path(fasta), path(reads)
 
     output:
     tuple val(meta), path("*.tsv"), emit: tsv
@@ -28,10 +28,10 @@ process STECFINDER {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = meta.is_compressed && !params.stecfinder_use_reads ? true : false
-    def seq_name = is_compressed ? seqs[0].getName().replace(".gz", "") : seqs
+    def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d $seqs > $seq_name
+        gzip -c -d $fasta > $seq_name
     fi
 
     stecfinder \\

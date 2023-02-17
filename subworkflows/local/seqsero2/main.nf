@@ -9,7 +9,7 @@ options.args = [
     "-b ${params.bwa_mode}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 include { SEQSERO2 as SEQSERO2_MODULE } from '../../../modules/nf-core/seqsero2/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'seqsero2'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'seqsero2-concat', process_name: params.merge_folder] )
 
 workflow SEQSERO2 {
     take:
