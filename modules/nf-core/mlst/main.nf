@@ -33,7 +33,7 @@ process MLST {
 
     mlst \\
         --threads $task.cpus \\
-        --blastdb mlstdb/blast \\
+        --blastdb mlstdb/blast/mlst.fa \\
         --datadir mlstdb/pubmlst \\
         $options.args \\
         $fasta \\

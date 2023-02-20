@@ -3,8 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'assembler')
-options.is_module = params.wf == 'assembler' ? true : false
-options.is_main = true
 
 // args -> Shovill
 options.args = [
@@ -60,7 +58,6 @@ workflow ASSEMBLER {
 
     main:
     ch_versions = Channel.empty()
-    ch_merged_stats = Channel.empty()
 
     // Assemble genomes
     ASSEMBLER_MODULE(reads)
@@ -69,13 +66,12 @@ workflow ASSEMBLER {
     // Merge summary of assemblies
     ASSEMBLER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'assembly-scan'], tsv]}.set{ ch_merge_stats }
     CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
-    ch_merged_stats = ch_merged_stats.mix(CSVTK_CONCAT.out.csv)
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     fna = ASSEMBLER_MODULE.out.fna
     fna_fastq = ASSEMBLER_MODULE.out.fna_fastq
     tsv = ASSEMBLER_MODULE.out.tsv
-    merged_tsv = ch_merged_stats
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions // channel: [ versions.yml ]
 }

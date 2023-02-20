@@ -74,16 +74,18 @@ if [[ $# == 0 ]]; then
 fi
 
 if [[ "$1" == "prepare" ]]; then
-    bactopia-prepare.py "${@:2}"
+    bactopia-prepare "${@:2}"
 elif [[ "$1" == "search" ]]; then
-    bactopia-search.py "${@:2}"
+    bactopia-search "${@:2}"
 elif [[ "$1" == "download" ]]; then
-    bactopia-download.py "${BACTOPIA_NF}" "${@:2}"
+    bactopia-download --bactopia "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
-    bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
+    bactopia-citations --bactopia "${BACTOPIA_NF}" "${@:2}"
+elif [[ "$1" == "summary" ]]; then
+    bactopia-summary "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
@@ -112,7 +114,7 @@ else
         fi
 
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
-        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
+        bactopia-download "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
     fi
 
     # Create custom work dir

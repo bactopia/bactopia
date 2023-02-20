@@ -238,8 +238,7 @@ def saveFiles(Map args) {
                 filename = filename.replace("results/","")
             }
 
-            // *-error.txt should be at the base dir and 'blastdb' tarball should go in blast folder
-            if (filename.endsWith("-error.txt") || publish_to_base == true) {
+            if (publish_to_base == true) {
                 goto_base = true
                 final_output = filename
             } else {

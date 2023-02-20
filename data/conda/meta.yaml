@@ -14,15 +14,14 @@ build:
 requirements:
   host:
     - pip
-    - python >3.6
+    - python >3.8
   run:
+    - bactopia-py >=1.0.0
     - conda >=22.11.0
     - coreutils
-    - executor
     - mamba >=1.1.0
     - nextflow >=21.10.0
-    - python >3.6
-    - requests
+    - python >3.8
     - sed
     - wget
     - pytest
@@ -34,7 +33,7 @@ test:
     - "bactopia --version"
     - "bactopia prepare"
     - "bactopia search"
-    - "bactopia-summary --help"
+    - "bactopia summary --help"
 
 about:
   home: https://bactopia.github.io/

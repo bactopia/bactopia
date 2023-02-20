@@ -23,6 +23,7 @@ process GATHER {
     output:
     tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), path("extra/*.gz"), emit: raw_fastq, optional: true
     tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), emit: fastq_only, optional: true
+    tuple val(meta), path("${prefix}-meta.tsv")        , emit: tsv
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
@@ -201,6 +202,10 @@ process GATHER {
             mv fastqs/ failed-tests-fastqs/
         fi
     fi
+
+    # Dump meta values to a TSV
+    echo "sample<TAB>runtype<TAB>original_runtype<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
+    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
