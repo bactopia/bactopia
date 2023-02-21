@@ -16,11 +16,6 @@ options.ignore = [".fna", ".fna.gz", "fastq.gz", ".genus"]
 
 MASH_SKETCH = []
 if (ask_merlin || params.wf == "merlin") {
-    if (ask_merlin) {
-        MASH_SKETCH = file("${params.datasets}/minmer/mash-refseq-k21.msh")
-    } else {
-        MASH_SKETCH = file(params.mash_sketch)
-    }
     include { MERLIN_DIST as MERLINDIST_MODULE } from '../../../modules/nf-core/mash/dist/main' addParams( options: options )
 } else {
     MASH_SKETCH = file(params.mash_sketch)
