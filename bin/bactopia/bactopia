@@ -1,33 +1,4 @@
 #!/usr/bin/env bash
-# bactopia
-#
-# This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
-# been inspired by a similar wrapper in Will Rowe's DRAX pipeline
-# (https://github.com/will-rowe/drax).
-#
-# By default `bactopia` will attempt to execute the main Nextflow pipeline.
-# There are additional sub-commands available to help make Bactopia easier to
-# use. They are:
-#
-#    bactopia build - Build Bactopia Conda environments
-#
-#    bactopia citations - Print citation for datasets, tools and Bactopia
-#
-#    bactopia prepare - Create a 'file of filenames' for input FASTQ files
-#
-#    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
-#
-#    bactopia --citation - Print the Bactopia citation
-#    bactopia --version - Print the Bactopia version
-#
-# Examples:
-#
-# bactopia build
-# bactopia datasets --help
-# bactopia prepare --help
-# bactopia search --help
-# bactopia version
-# bactopia --help
 VERSION=3.0.0
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
@@ -47,15 +18,18 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
+    echo "bactopia summary - Generate a summary table from the Bactopia results"
+    echo ""
     echo "bactopia --citation - Print the Bactopia citation"
     echo "bactopia --version - Print the Bactopia version"
     echo ""
     echo "Print Usages:"
     echo "bactopia --help"
+    echo "bactopia citations --help"
     echo "bactopia download --help"
     echo "bactopia prepare --help"
     echo "bactopia search --help"
-    echo "bactopia tools --help"
+    echo "bactopia summary --help"
     echo ""
     echo "Example Commands"
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
@@ -63,11 +37,13 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia download --use_defaults"
     echo ""
-    echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
+    echo "bactopia prepare --path my-fastq-dir > my-fastqs.txt"
     echo "bactopia --fastqs my-fastqs.txt"
     echo ""
-    echo "bactopia search PRJNA480016 --limit 20"
+    echo "bactopia search --query PRJNA480016 --limit 20"
     echo "bactopia --accessions ena-accessions.txt"
+    echo ""
+    echo "bactopia summary --bactopia /path/to/bactopia/results"
     echo ""
     exit
 fi
