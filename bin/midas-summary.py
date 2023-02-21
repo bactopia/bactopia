@@ -17,7 +17,7 @@ Pseudomonas_aeruginosa	3778	53.91975497702909	0.9999
 The coverages are not changed, and only the highest is kept.
 """
 PROGRAM = "midas-uniq"
-VERSION = "2.2.0"
+VERSION = "3.0.0"
 import sys
 
 if __name__ == '__main__':

@@ -27,12 +27,13 @@ include { TBPROFILER } from '../tbprofiler/main';
 workflow MERLIN {
     take:
     assembly // channel: [ val(meta), [ assembly ] ]
+    mash_db // channel: [ mash_db ]
 
     main:
     ch_versions = Channel.empty()
 
     // ID potential species
-    MERLINDIST(assembly)
+    MERLINDIST(assembly, mash_db)
 
     // Escherichia/Shigella
     MERLINDIST.out.escherichia.map{meta, assembly, found -> [meta, assembly]}.set{ ch_escherichia }

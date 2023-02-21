@@ -3,7 +3,7 @@
 kraken-bracken-summary.py
 """
 PROGRAM = "kraken-bracken-summary"
-VERSION = "2.2.0"
+VERSION = "3.0.0"
 import sys
 
 def kraken2_unclassified_count(kraken2_report):

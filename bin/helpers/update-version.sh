@@ -1,28 +1,33 @@
 #! /bin/bash
 # Updates the version numbers across the Bactopia project.
 # If no user input, print usage
-set -x 
 function generic_update {
+    echo "<generic_update>: Updating ${4}"
     ${1} -r 's/'"${2}"'/'"${3}"'/' ${4}
 }
 
 function init_update {
+    echo "<init_update>: Updating ${4}"
     ${1} -r "s/__version__ = '"${2}"'/__version__ = '"${3}"'/" ${4}
 }
 
 function python_update {
+    echo "<python_update>: Updating ${4}"
     ${1} -r 's/VERSION = "'"${2}"'"/VERSION = "'"${3}"'"/' ${4}
 }
 
 function conda_update {
+    echo "<conda_update>: Updating ${4}"
     ${1} -r 's=version: '"${2}"'$=version: '"${3}"'=' ${4}
 }
 
 function yaml_update {
+    echo "<yaml_update>: Updating ${4}"
     ${1} -r "s/version = '"${2}"'/version = '"${3}"'/" ${4}
 }
 
 function shell_update {
+    echo "<shell_update>: Updating ${4}"
     ${1} 's/VERSION='"${2}"'/VERSION='"${3}"'/' ${4}
 }
 
@@ -40,8 +45,6 @@ fi
 DIRECTORY=$1
 OLD_VERSION=$2
 NEW_VERSION=$3
-OLD_CONTAINER="${OLD_VERSION%.*}.x"
-NEW_CONTAINER="${NEW_VERSION%.*}.x"
 
 if [ -z  ${DIRECTORY} ] || [ -z  ${OLD_VERSION} ] || [ -z  ${NEW_VERSION} ]; then
     echo "Got ${#} arguement"
@@ -63,20 +66,16 @@ fi
 if [ $? -eq 0 ]; then
     IGNORE=${DIRECTORY}/data/version-ignore.txt
     EXCLUDE=${DIRECTORY}/data/version-excludes.txt
-    for file in $(find -type f | grep -v -f ${IGNORE} | xargs -I {} grep -i -H "version" {} | grep -v -f ${EXCLUDE} | cut -d ":" -f 1 | sort | uniq); do
+    for file in $(find ${DIRECTORY} -type f | grep -v -f ${IGNORE} | xargs -I {} grep -i -H "version" {} | grep -v -f ${EXCLUDE} | cut -d ":" -f 1 | sort | uniq); do
         if [[ "${file}" == *"bactopia" ]]; then
             # bactopia
             shell_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
-        elif [[ "${file}" == *".version" ]]; then
-            # Conda
-            conda_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
-        elif [[ "${file}" == *"Dockerfile" ]]; then
-            # Docker
-            generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
         elif [[ "${file}" == *"nextflow.config" ]]; then
             # Nextflow Config
             generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
-            generic_update "${SED_CMD}" ${OLD_CONTAINER} ${NEW_CONTAINER} ${file}
+        elif [[ "${file}" == *"Dockerfile" ]]; then
+            # Docker
+            generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}
         elif [[ "${file}" == *"Singularity" ]]; then
             # Singularity
             generic_update "${SED_CMD}" ${OLD_VERSION} ${NEW_VERSION} ${file}

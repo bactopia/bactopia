@@ -1,7 +1,0 @@
-.git
-conda/envs
-containers/singularity/images
-datasets
-publication
-tests
-temp

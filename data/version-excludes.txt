@@ -1,7 +1,9 @@
-CONTAINER_VERSION
 CODE_OF_CONDUCT
 main.nf
 .yml
 .md
 .cff
 nextflow_config.txt
+.msh
+.faa
+build.sh

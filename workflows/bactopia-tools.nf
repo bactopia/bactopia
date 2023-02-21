@@ -221,7 +221,8 @@ workflow BACTOPIATOOLS {
         MENINGOTYPE(samples)
         ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)
     } else if (params.wf == 'merlin') {
-        MERLIN(samples)
+        DATASETS()
+        MERLIN(samples, DATASETS.out.mash_db)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
     } else if (params.wf == 'mlst') {
         DATASETS()

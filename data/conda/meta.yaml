@@ -1,4 +1,4 @@
-{% set version = '2.2.0' %}
+{% set version = '3.0.0' %}
 
 package:
   name: bactopia

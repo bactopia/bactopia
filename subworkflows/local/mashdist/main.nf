@@ -57,11 +57,12 @@ workflow MASHDIST {
 workflow MERLINDIST {
     take:
     seqs // channel: [ val(meta), [ reads or assemblies ] ]
+    mash_db // channel: [ mash_db ]
 
     main:
     ch_versions = Channel.empty()
 
-    MERLINDIST_MODULE(seqs, MASH_SKETCH)
+    MERLINDIST_MODULE(seqs, mash_db)
     ch_versions = ch_versions.mix(MERLINDIST_MODULE.out.versions.first())
 
     emit:

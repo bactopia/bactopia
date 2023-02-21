@@ -78,7 +78,7 @@ workflow BACTOPIA {
     MLST(ASSEMBLER.out.fna, DATASETS.out.mlst_db)
 
     if (params.ask_merlin) {
-        MERLIN(ASSEMBLER.out.fna_fastq)
+        MERLIN(ASSEMBLER.out.fna_fastq, DATASETS.out.mash_db)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
     }
 

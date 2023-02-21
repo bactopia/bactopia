@@ -4,7 +4,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'bracken')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::kraken2=2.1.2 bioconda::bracken=2.7 bioconda::fastq-scan=1.0.1 conda-forge::pigz=2.6 conda-forge::pandas=1.5.2 conda-forge::python=3.10 bioconda::krakentools=1.2 bioconda::krona=2.8.1"
+conda_tools = "bioconda::bactopia-teton=1.0.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,7 +15,9 @@ process KRAKEN2_BRACKEN {
         saveAs: { filename -> saveFiles(filename:filename, prefix:prefix, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
-    container "quay.io/bactopia/kraken2_bracken:2.2.0"
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.0.0--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-teton:1.0.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)

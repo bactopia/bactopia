@@ -3,7 +3,7 @@
 Verifies input FASTQs meet minimum requirements.'
 """
 PROGRAM = "check-fastqs"
-VERSION = "2.2.0"
+VERSION = "3.0.0"
 import sys
 
 
