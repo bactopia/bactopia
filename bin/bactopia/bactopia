@@ -89,7 +89,7 @@ else
         fi
 
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
-        bactopia-download "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
+        bactopia-download --bactopia "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
     fi
 
     # Create custom work dir

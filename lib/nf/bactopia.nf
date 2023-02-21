@@ -117,7 +117,7 @@ def handle_multiple_fqs(read_set) {
     return fqs
 }
 
-def process_fofn(line, genome_size) {
+def process_fofn(line, genome_size, species) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
     meta.id = line.sample
@@ -129,6 +129,14 @@ def process_fofn(line, genome_size) {
     } else {
         // Use size available in FOFN
         meta.genome_size = line.genome_size
+    }
+
+    if (species) {
+        // User provided via --species, use it
+        meta.species = species
+    } else {
+        // Use species available in FOFN
+        meta.species = line.species
     }
     
     if (line.sample) {
@@ -201,8 +209,6 @@ def process_accession(accession, genome_size, species) {
         return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
     }
 }
-
-
 
 def create_input_channel(runtype, genome_size, species) {
     if (runtype == "is_fofn") {
