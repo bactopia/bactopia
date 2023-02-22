@@ -69,7 +69,7 @@ process ASSEMBLER {
             ${dragonflye_fastq} \\
             --gsize ${meta.genome_size} \\
             --outdir results \\
-            ${options.args2}
+            ${options.args2} \\
             --namefmt "${contig_namefmt}" \\
             --cpus ${task.cpus} \\
             --ram ${shovill_ram}; then
