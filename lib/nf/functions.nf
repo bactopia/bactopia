@@ -50,6 +50,8 @@ def get_schemas() {
         if (params.use_bakta) {
             // Annotate genomes with Bakta
             schemas += _get_module_schemas(params.workflows['bakta']["modules"])
+        } else {
+            schemas += "${params.workflows['prokka'].path}/params.json"
         }
     }
 

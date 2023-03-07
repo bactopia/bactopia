@@ -179,6 +179,13 @@
                         "github"
                     ]
                 },
+                "datasets_cache": {
+                    "type": "string",
+                    "description": "Directory where Bactopia datasets should be stored.",
+                    "help": "",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
                 "singularity_cache": {
                     "type": "string",
                     "description": "Directory where remote Singularity images are stored.",
