@@ -44,6 +44,14 @@ process PROKKA {
     def prodigal_opt = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
+
+    // Contig ID must <= 37 characters
+    def compliant = params.compliant ? "--compliant" : ""
+    def locustag = "--locustag ${meta.id}"
+    if ("gnl|${params.centre}|${meta.id}_100".length() > 37) {
+        locustag = ""
+        compliant = "--compliant"
+    }
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $fasta > $fasta_name
@@ -53,6 +61,8 @@ process PROKKA {
         $options.args \\
         --cpus $task.cpus \\
         --prefix $prefix \\
+        ${compliant} \\
+        ${locustag} \\
         $proteins_opt \\
         $prodigal_opt \\
         $fasta_name

@@ -2,9 +2,9 @@
 // prokka - Whole genome annotation of small genomes (bacterial, archeal, viral)
 //
 prokka_args = [
-    params.compliant ? "--compliant" : "",
     "--evalue ${params.prokka_evalue}",
     "--coverage ${params.prokka_coverage}",
+    "--centre ${params.centre}",
     "${params.prokka_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []

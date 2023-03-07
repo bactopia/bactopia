@@ -19,14 +19,14 @@ process SKETCHER {
         'quay.io/biocontainers/bactopia-sketcher:1.0.0--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(fq)
+    tuple val(meta), path(fasta)
     path mash_db
     path sourmash_db
 
     output:
-    tuple val(meta), path(fq), path("${prefix}.sig")              , emit: sig
-    tuple val(meta), path(fq), path("*.msh")                      , emit: msh
-    tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")      , emit: mash
+    tuple val(meta), path("${prefix}.sig")                        , emit: sig
+    tuple val(meta), path("${prefix}-k*.msh")                     , emit: msh
+    tuple val(meta), path("${prefix}-mash-refseq-k21.txt")        , emit: mash
     tuple val(meta), path("${prefix}-sourmash-gtdb-rs207-k31.txt"), emit: sourmash
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -34,15 +34,14 @@ process SKETCHER {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    fastq = meta.single_end ? fq[0] : "${fq[0]} ${fq[1]}"
     """
-    gzip -cd ${fastq} | mash sketch -o ${prefix}-k21 -k 21 ${options.args} -r -I ${prefix} -
-    gzip -cd ${fastq} | mash sketch -o ${prefix}-k31 -k 31 ${options.args} -r -I ${prefix} -
-    sourmash sketch dna ${options.args2} --merge ${prefix} -o ${prefix}.sig ${fastq}
+    gzip -cd ${fasta} | mash sketch -o ${prefix}-k21 -k 21 ${options.args} -I ${prefix} -
+    gzip -cd ${fasta} | mash sketch -o ${prefix}-k31 -k 31 ${options.args} -I ${prefix} -
+    sourmash sketch dna ${options.args2} --merge ${prefix} -o ${prefix}.sig ${fasta}
 
     # Mash Screen
-    echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq88-k21.txt
-    mash screen ${options.args3} -p ${task.cpus} ${mash_db} ${prefix}-k21.msh | sort -gr >> ${prefix}-mash-refseq88-k21.txt
+    echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq-k21.txt
+    gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${mash_db} - | sort -gr >> ${prefix}-mash-refseq-k21.txt
 
     # Sourmash classify
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt
