@@ -26,7 +26,7 @@ process SKETCHER {
     output:
     tuple val(meta), path("${prefix}.sig")                        , emit: sig
     tuple val(meta), path("${prefix}-k*.msh")                     , emit: msh
-    tuple val(meta), path("${prefix}-mash-refseq-k21.txt")        , emit: mash
+    tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")        , emit: mash
     tuple val(meta), path("${prefix}-sourmash-gtdb-rs207-k31.txt"), emit: sourmash
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -40,8 +40,8 @@ process SKETCHER {
     sourmash sketch dna ${options.args2} --merge ${prefix} -o ${prefix}.sig ${fasta}
 
     # Mash Screen
-    echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq-k21.txt
-    gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${mash_db} - | sort -gr >> ${prefix}-mash-refseq-k21.txt
+    echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq88-k21.txt
+    gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${mash_db} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
 
     # Sourmash classify
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt
