@@ -42,7 +42,7 @@ process ASSEMBLER {
     shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]}" : "shovill-se --SE ${fq[0]}"
 
     // Dragonflye
-    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]} --polypolish ${params.polypolish_rounds} ${pilon_rounds}" : "--reads ${fq[0]}"
+    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]}" : "--reads ${fq[0]}"
 
     // Assembly inputs
     use_original_assembly = null

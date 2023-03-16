@@ -67,7 +67,7 @@ process GATHER {
         # Nanopore reads
         cp -L ${r1[0]} fastqs/${prefix}.fastq.gz
         touch extra/empty.fna.gz
-    elif  [ "${runtype}" == "hybrid" ]; then
+    elif  [ "${runtype}" == "hybrid" ] || [ "${runtype}" == "short_polish" ]; then 
         # Paired-End Reads
         cp -L ${r1[0]} fastqs/${prefix}_R1.fastq.gz
         cp -L ${r2[0]} fastqs/${prefix}_R2.fastq.gz

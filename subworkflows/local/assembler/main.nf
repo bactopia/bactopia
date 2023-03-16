@@ -26,6 +26,7 @@ options.args2 = [
     params.no_polish ? "--nopolish" : "",
     params.medaka_model ? "--model ${params.medaka_model}" : "",
     params.pilon_rounds ? "--pilon ${params.pilon_rounds}" : "",
+    params.polypolish_rounds ? "--polypolish ${params.polypolish_rounds}" : "",
     "--minlen ${params.min_contig_len}",
     "--mincov ${params.min_contig_cov}",
     "--force",
