@@ -48,7 +48,7 @@ process PROKKA {
     // Contig ID must <= 37 characters
     def compliant = params.compliant ? "--compliant" : ""
     def locustag = "--locustag ${meta.id}"
-    if ("gnl|${params.centre}|${meta.id}_100".length() > 37) {
+    if ("gnl|${params.centre}|${meta.id}_100000".length() > 37) {
         locustag = ""
         compliant = "--compliant"
     }
