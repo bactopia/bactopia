@@ -7,6 +7,7 @@ options.args = [
     params.report_common ? "--report_common" : "",
     params.report_all_equal ? "--report_all_equal" : "",
     params.organism ? "--organism ${params.organism}" : "",
+    params.amrfinder_noplus ? "" : "--plus",
     "--ident_min ${params.ident_min}",
     "--coverage_min ${params.coverage_min}",
     "--translation_table ${params.translation_table}",

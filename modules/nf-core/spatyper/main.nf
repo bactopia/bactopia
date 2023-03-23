@@ -13,7 +13,7 @@ process SPATYPER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/spatyper%3A0.3.3--pyhdfd78af_3' :
+        'https://depot.galaxyproject.org/singularity/spatyper:0.3.3--pyhdfd78af_3' :
         'quay.io/biocontainers/spatyper:0.3.3--pyhdfd78af_3' }"
 
     input:

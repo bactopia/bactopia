@@ -13,7 +13,7 @@ process ABRICATE_SUMMARY {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/abricate%3A1.0.1--ha8f3691_1' :
+        'https://depot.galaxyproject.org/singularity/abricate:1.0.1--ha8f3691_1' :
         'quay.io/biocontainers/abricate:1.0.1--ha8f3691_1' }"
 
     input:

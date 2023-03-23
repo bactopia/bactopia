@@ -71,7 +71,6 @@ process SNIPPY_CORE {
     mkdir results
     mv ${prefix}* results/
 
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')

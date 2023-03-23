@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'eggnog_mapper')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::eggnog-mapper=2.1.9"
+conda_tools   = "bioconda::eggnog-mapper=2.1.10"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process EGGNOG_MAPPER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.9--pyhdfd78af_0' :
-        'quay.io/biocontainers/eggnog-mapper:2.1.9--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.10--pyhdfd78af_0' :
+        'quay.io/biocontainers/eggnog-mapper:2.1.10--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

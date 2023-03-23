@@ -160,8 +160,8 @@ class WorkflowBactopiaTools {
             }
         }
 
-        if (params.wf_has_subdir.contains(params.wf) && !params.run_name) {
-            log.error "A run name (--run_name) is required for the '${params.wf}' workflow"
+        if (params.wf_has_subdir.contains(params.wf) && params.run_name == params.wf) {
+            log.error "\nA run name (--run_name) is required for the '${params.wf}' workflow. It is \nrecommended to use a descriptive name (e.g. reference name)."
             error += 1
         }
 

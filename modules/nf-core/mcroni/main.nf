@@ -13,7 +13,7 @@ process MCRONI {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mcroni%3A1.0.4--pyh5e36f6f_0' :
+        'https://depot.galaxyproject.org/singularity/mcroni:1.0.4--pyh5e36f6f_0' :
         'quay.io/biocontainers/mcroni:1.0.4--pyh5e36f6f_0' }"
 
     input:

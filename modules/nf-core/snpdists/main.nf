@@ -13,8 +13,8 @@ process SNPDISTS {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/snp-dists:0.8.2--h5bf99c6_0' :
-        'quay.io/biocontainers/snp-dists:0.8.2--h5bf99c6_0' }"
+        'https://depot.galaxyproject.org/singularity/snp-dists:0.8.2--h7132678_1' :
+        'quay.io/biocontainers/snp-dists:0.8.2--h7132678_1' }"
 
     input:
     tuple val(meta), path(alignment)

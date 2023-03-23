@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'genotyphi')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::genotyphi=1.9.1" 
+conda_tools   = "bioconda::genotyphi=2.0" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process GENOTYPHI_PARSE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/genotyphi:1.9.1--hdfd78af_1' :
-        'quay.io/biocontainers/genotyphi:1.9.1--hdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/genotyphi:2.0--hdfd78af_0' :
+        'quay.io/biocontainers/genotyphi:2.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(json)

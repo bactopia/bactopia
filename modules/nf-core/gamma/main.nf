@@ -14,7 +14,7 @@ process GAMMA {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gamma%3A2.2--hdfd78af_0' :
+        'https://depot.galaxyproject.org/singularity/gamma:2.2--hdfd78af_0' :
         'quay.io/biocontainers/gamma:2.2--hdfd78af_0' }"
 
     input:

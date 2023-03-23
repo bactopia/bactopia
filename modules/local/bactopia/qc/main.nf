@@ -27,10 +27,10 @@ process QC {
     tuple val(meta), path("results/${prefix}*.fastq.gz"), emit: fastq, optional: true
     tuple val(meta), path("results/${prefix}*.fastq.gz"), path(extra), emit: fastq_assembly, optional: true
     path "results/*"
-    path "*.{log,err}", emit: logs, optional: true
-    path ".command.*", emit: nf_logs
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
-    path "*-error.txt", optional: true
+    path "*-error.txt" , optional: true
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
@@ -164,7 +164,7 @@ process QC {
             elif [[ "${meta.runtype}" == "ont" ]]; then
                 echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
             else
-                if [ "${params.skip_error_correction}" == "false" ]; then
+                if [ "${params.skip_error_correction}" == "false" ] && [ "${meta.genome_size}" -gt "0" ]; then
                     lighter -od . -r phix-r1.fq ${lighter_opts} -K 31 ${meta.genome_size} -maxcor 1 -zlib 0 -t ${task.cpus}
                     mv phix-r1.cor.fq filt-r1.fq
                     if [[ "${meta.single_end}" == "false" ]]; then

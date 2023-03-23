@@ -38,6 +38,12 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
+                "amrfinder_noplus": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disable running AMRFinder+ with the --plus option",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                },
                 "report_common": {
                     "type": "boolean",
                     "default": false,

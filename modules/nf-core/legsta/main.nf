@@ -13,7 +13,7 @@ process LEGSTA {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/legsta%3A0.5.1--hdfd78af_2' :
+        'https://depot.galaxyproject.org/singularity/legsta:0.5.1--hdfd78af_2' :
         'quay.io/biocontainers/legsta:0.5.1--hdfd78af_2' }"
 
     input:

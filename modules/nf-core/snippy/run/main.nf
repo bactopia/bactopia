@@ -59,6 +59,11 @@ process SNIPPY_RUN {
         gzip -c -d $reference > $final_reference
     fi
 
+    if ! head -n 1 $final_reference | grep "^LOCUS"; then
+        echo "ERROR: Reference file (${reference}) does not appear to be a GenBank file"
+        exit 1
+    fi
+
     snippy \\
         $options.args \\
         --cpus $task.cpus \\

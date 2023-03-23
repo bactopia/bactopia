@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ariba')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::ariba=2.14.6 bcftools=1.14 pysam=0.18.0"
+conda_tools   = "bioconda::ariba=2.14.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process ARIBA_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ariba:2.14.6--py39h67e14b5_3' :
-        'quay.io/biocontainers/ariba:2.14.6--py39h67e14b5_3' }"
+        'https://depot.galaxyproject.org/singularity/ariba:2.14.6--py39h67e14b5_4' :
+        'quay.io/biocontainers/ariba:2.14.6--py39h67e14b5_4' }"
 
     input:
     tuple val(meta), path(reads)
