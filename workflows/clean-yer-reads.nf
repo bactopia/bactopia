@@ -15,12 +15,10 @@ RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
     VALIDATE INPUTS
 ========================================================================================
 */
-ADAPTERS = params.adapters ? file(params.adapters) : file(params.empty_adapters)
-PHIX = params.phix ? file(params.phix) : file(params.empty_phix)
 SCHEMAS = get_schemas()
-
 WorkflowMain.initialise(workflow, params, log, schema_filename=SCHEMAS)
 run_type = WorkflowBactopia.initialise(workflow, params, log, schema_filename=SCHEMAS)
+
 if (params.check_samples) {
     check_input_fofn()
 }
@@ -32,8 +30,8 @@ if (params.check_samples) {
 */
 
 // Core
-include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
-include { QC_READS } from '../modules/local/bactopia/qc_reads/main'
+include { GATHER } from '../subworkflows/local/gather/main'
+include { QC } from '../subworkflows/local/qc/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main'
 
 /*
@@ -53,8 +51,8 @@ workflow CLEANYERREADS {
     ch_versions = Channel.empty()
     
     // Core steps
-    GATHER_SAMPLES(create_input_channel(run_type, params.genome_size))
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
+    GATHER(create_input_channel(run_type, params.genome_size, params.species))
+    ch_versions = ch_versions.mix(GATHER.out.versions.first())
 
     if (params.enable_scrubber) {
         // Remove host reads
@@ -62,12 +60,12 @@ workflow CLEANYERREADS {
         ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
         // Clean up scrubbed reads
-        QC_READS(SCRUBBER.out.scrubbed.combine(Channel.fromPath(ADAPTERS)).combine(Channel.fromPath(PHIX)))
-        ch_versions = ch_versions.mix(QC_READS.out.versions.first())
+        QC(SCRUBBER.out.scrubbed)
+        ch_versions = ch_versions.mix(QC.out.versions.first())
     } else {
         // Clean up raw reads
-        QC_READS(GATHER_SAMPLES.out.raw_fastq.combine(Channel.fromPath(ADAPTERS)).combine(Channel.fromPath(PHIX)))
-        ch_versions = ch_versions.mix(QC_READS.out.versions.first())
+        QC(GATHER.out.raw_fastq)
+        ch_versions = ch_versions.mix(QC.out.versions.first())
     }
 
     // Collect Versions

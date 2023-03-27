@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
     CONFIG FILES
 ========================================================================================
 */
-include { create_input_channel; check_input_fofn; } from '../lib/nf/bactopia'
+include { create_input_channel; check_input_fofn } from '../lib/nf/bactopia'
 include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
 RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 
@@ -30,7 +30,6 @@ if (params.check_samples) {
 */
 
 // Core
-
 include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main'
 include { ASSEMBLER } from '../subworkflows/local/assembler/main'
 include { DATASETS } from '../modules/local/bactopia/datasets/main'

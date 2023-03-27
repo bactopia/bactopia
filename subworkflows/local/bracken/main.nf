@@ -24,7 +24,7 @@ DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
 
 include { KRAKEN2_BRACKEN as KRAKEN2_BRACKEN_MODULE } from '../../../modules/local/teton/kraken2_bracken/main' addParams( options: options )
 
-workflow KRAKEN2_BRACKEN {
+workflow BRACKEN {
     take:
     reads // channel: [ val(meta), [ fasta ] ]
 

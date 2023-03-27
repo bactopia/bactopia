@@ -75,17 +75,9 @@ process QC {
             nanoq --min-len ${params.ont_minlength} \
                   --min-qual ${params.ont_minqual} \
                   --input adapter-r1.fq 1> filt-r1.fq
-        elif [[ "${params.use_fastp}" == "true" ]]; then
-            # QC with fastp
-            mkdir -p results/summary/
-            fastp \
-                --in1 ${fq[0]} --out1 filt-r1.fq ${fastp_fqs} \
-                --thread ${task.cpus} \
-                --json results/summary/${prefix}.fastp.json \
-                --html results/summary/${prefix}.fastp.html ${params.fastp_opts} 2> ${prefix}-fastp.log
-        else
+        elif [[ "${params.use_bbmap}" == "true" ]]; then
+            # Use BBMap for cleaning reads
             # Illumina Reads
-
             # Validate paired-end reads if necessary
             if [[ "${meta.single_end}" == "false" ]]; then
                 # Make sure paired-end reads have matching IDs
@@ -155,15 +147,19 @@ process QC {
                     sed 's/^\\s*//' >> ${prefix}-phix-qc-error.txt
                 fi
             fi
+        else
+            # QC with fastp
+            mkdir -p results/summary/
+            fastp \
+                --in1 ${fq[0]} --out1 filt-r1.fq ${fastp_fqs} \
+                --thread ${task.cpus} \
+                --json results/summary/${prefix}.fastp.json \
+                --html results/summary/${prefix}.fastp.html ${params.fastp_opts} 2> ${prefix}-fastp.log
         fi
 
         # Error Correction
         if [ "\${ERROR}" -eq "0" ]; then
-            if [[ "${params.use_fastp}" == "true" ]]; then
-                echo "Skipping error correction since fastp was used"
-            elif [[ "${meta.runtype}" == "ont" ]]; then
-                echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
-            else
+            if [[ "${params.use_bbmap}" == "true" ]]; then
                 if [ "${params.skip_error_correction}" == "false" ] && [ "${meta.genome_size}" -gt "0" ]; then
                     lighter -od . -r phix-r1.fq ${lighter_opts} -K 31 ${meta.genome_size} -maxcor 1 -zlib 0 -t ${task.cpus}
                     mv phix-r1.cor.fq filt-r1.fq
@@ -177,6 +173,10 @@ process QC {
                         ln -s phix-r2.fq filt-r2.fq
                     fi
                 fi
+            elif [[ "${meta.runtype}" == "ont" ]]; then
+                echo "Skipping error correction. Have a recommended ONT error corrector? Let me know!"
+            else
+                echo "Skipping error correction since fastp was used"
             fi
         fi
 
