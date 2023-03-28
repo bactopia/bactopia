@@ -15,9 +15,7 @@ DATABASE_DIR = params.database_dir ? file(params.database_dir) : []
 MODEL_FP = params.model_fp ? file(params.model_fp) : []
 
 include { HICAP as HICAP_MODULE } from '../../../modules/nf-core/hicap/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'hicap'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'hicap'] )
 
 workflow HICAP {
     take:

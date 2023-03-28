@@ -108,22 +108,6 @@ class WorkflowBactopia {
 
         // following should only be checked for specific workflows
         if (['bactopia', 'staphopia'].contains(params.wf)) {
-            // The Ask Merlin feature requires a downloaded refseq mash sketch
-            if (params.ask_merlin) {
-                if (params.datasets) {
-                    if (Utils.isLocal(params.merlin_db)) {
-                        if (!Utils.fileExists(params.merlin_db)) {
-                            log.error "Please verify the PATH is correct for '--merlin_db'. Unable " +
-                                      "to open ${params.merlin_db}"
-                            error += 1
-                        }
-                    }
-                } else {
-                    log.error "'--ask_merlin' requires '--merlin_db' to also be used"
-                    error += 1
-                }
-            }
-
             // Using Bakta, requires path to database
             if (params.use_bakta) {
                 if (params.bakta_db) {

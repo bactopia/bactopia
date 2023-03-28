@@ -101,7 +101,7 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--kraken2_db"
             }
-        } else if (params.wf == "mashdist" || params.wf == "merlin") {
+        } else if (params.wf == "mashdist") {
             if (params.mash_sketch) {
                 if (Utils.isLocal(params.mash_sketch)) {
                     error += Utils.fileNotFound(params.mash_sketch, 'mash_sketch', log)
