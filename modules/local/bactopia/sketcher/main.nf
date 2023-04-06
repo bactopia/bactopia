@@ -10,8 +10,7 @@ conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.c
 
 process SKETCHER {
     tag "${meta.id}"
-    label "base_mem_8gb"
-    label "minmer_sketch"
+    label "process_low"
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

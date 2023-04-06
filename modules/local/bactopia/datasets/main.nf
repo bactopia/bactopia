@@ -6,6 +6,7 @@ conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process DATASETS {
+    label "process_low"
     storeDir params.datasets_cache
     publishDir params.datasets_cache
 

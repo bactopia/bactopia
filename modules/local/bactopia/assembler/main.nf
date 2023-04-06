@@ -10,7 +10,7 @@ conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.c
 
 process ASSEMBLER {
     tag "${meta.id}"
-    label "max_cpu_75"
+    label "process_low"
     label "assemble_genome"
 
     conda (params.enable_conda ? conda_env : null)

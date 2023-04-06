@@ -10,7 +10,9 @@ conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.c
 
 process GATHER {
     tag "${meta.id}"
-    label "gather_samples"
+    label "process_low"
+    maxForks params.max_downloads
+    maxRetries params.max_retry
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

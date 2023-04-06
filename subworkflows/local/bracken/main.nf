@@ -22,7 +22,7 @@ options.args2 = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
 
-include { KRAKEN2_BRACKEN as KRAKEN2_BRACKEN_MODULE } from '../../../modules/local/teton/kraken2_bracken/main' addParams( options: options )
+include { BRACKEN as BRACKEN_MODULE } from '../../../modules/nf-core/bracken/main' addParams( options: options )
 
 workflow BRACKEN {
     take:

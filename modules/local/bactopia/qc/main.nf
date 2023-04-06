@@ -10,8 +10,7 @@ conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.c
 
 process QC {
     tag "${meta.id}"
-    label "base_mem_4gb"
-    label "qc_reads"
+    label "process_low"
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
