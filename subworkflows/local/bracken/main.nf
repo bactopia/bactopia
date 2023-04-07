@@ -31,15 +31,15 @@ workflow BRACKEN {
     main:
     ch_versions = Channel.empty()
 
-    KRAKEN2_BRACKEN_MODULE(reads, DATABASE)
-    ch_versions = ch_versions.mix(KRAKEN2_BRACKEN_MODULE.out.versions)
+    BRACKEN_MODULE(reads, DATABASE)
+    ch_versions = ch_versions.mix(BRACKEN_MODULE.out.versions)
 
     emit:
-    tsv = KRAKEN2_BRACKEN_MODULE.out.tsv
-    classified = KRAKEN2_BRACKEN_MODULE.out.classified
-    unclassified = KRAKEN2_BRACKEN_MODULE.out.unclassified
-    kraken2_report = KRAKEN2_BRACKEN_MODULE.out.kraken2_report
-    bracken_report = KRAKEN2_BRACKEN_MODULE.out.bracken_report
-    abundances = KRAKEN2_BRACKEN_MODULE.out.abundances
+    tsv = BRACKEN_MODULE.out.tsv
+    classified = BRACKEN_MODULE.out.classified
+    unclassified = BRACKEN_MODULE.out.unclassified
+    kraken2_report = BRACKEN_MODULE.out.kraken2_report
+    bracken_report = BRACKEN_MODULE.out.bracken_report
+    abundances = BRACKEN_MODULE.out.abundances
     versions = ch_versions // channel: [ versions.yml ]
 }

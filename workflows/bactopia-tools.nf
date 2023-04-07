@@ -159,8 +159,7 @@ workflow BACTOPIATOOLS {
         BRACKEN(samples)
         ch_versions = ch_versions.mix(BRACKEN.out.versions)
     } else if (params.wf == 'busco') {
-        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'busco'], fna]}.set{ ch_merge_fna }
-        BUSCO(ch_merge_fna)
+        BUSCO(samples)
         ch_versions = ch_versions.mix(BUSCO.out.versions)
     } else if (params.wf == 'checkm') {
         CHECKM(samples)

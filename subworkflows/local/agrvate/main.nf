@@ -4,7 +4,6 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'agrvate')
 options.args = params.typing_only ? '--typing_only' : ''
-options.subdir = "${params.run_name}"
 
 include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/agrvate/main' addParams( options: options )
 include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', logs_subdir: 'agrvate-concat', process_name: params.merge_folder] )

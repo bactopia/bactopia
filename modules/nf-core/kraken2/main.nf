@@ -1,10 +1,10 @@
 
-// Import generic module functions
+// Import generic module functions 
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'kraken2')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::kraken2=2.1.2 conda-forge::pigz=2.6"
+conda_tools   = "bioconda::bactopia-teton=1.0.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process KRAKEN2 {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-5799ab18b5fc681e75923b2450abaa969907ec98:87fc08d11968d081f3e8a37131c1f1f6715b6542-0' :
-        'quay.io/biocontainers/mulled-v2-5799ab18b5fc681e75923b2450abaa969907ec98:87fc08d11968d081f3e8a37131c1f1f6715b6542-0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.0.0--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-teton:1.0.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)
@@ -32,8 +32,8 @@ process KRAKEN2 {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def paired       = meta.single_end ? "" : "--paired"
-    def classified   = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
-    def unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"
+    classified   = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
+    unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "$is_tarball" == "true" ]; then
@@ -54,10 +54,6 @@ process KRAKEN2 {
         $paired \\
         $options.args \\
         $reads > /dev/null
-
-    if [ "${params.skip_bracken}" == "false" ]; then
-        rm -rf database
-    fi
 
     pigz -p $task.cpus *.fastq
 

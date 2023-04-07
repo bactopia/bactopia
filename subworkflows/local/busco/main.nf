@@ -1,6 +1,6 @@
 //
 // busco - Assembly completeness based on evolutionarily informed expectations
-//
+// 
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'busco')
 options.args = [
@@ -15,7 +15,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { BUSCO as BUSCO_MODULE } from '../../../modules/nf-core/busco/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'busco'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'abricate-concat', process_name: params.merge_folder] )
 
 workflow BUSCO {
     take:
@@ -23,9 +23,8 @@ workflow BUSCO {
 
     main:
     ch_versions = Channel.empty()
-    ch_lineages = Channel.from(params.busco_lineage.split(','))
 
-    BUSCO_MODULE(fasta, ch_lineages)
+    BUSCO_MODULE(fasta)
     ch_versions = ch_versions.mix(BUSCO_MODULE.out.versions.first())
 
     // Merge the results

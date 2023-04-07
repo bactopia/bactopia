@@ -20,7 +20,7 @@ process RGI_MAIN {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("*.json"), emit: json
+    tuple val(meta), path("*.json"), emit: json, optional: true
     tuple val(meta), path("*.txt") , emit: tsv
     path "*.{log,err}"             , emit: logs, optional: true
     path ".command.*"              , emit: nf_logs
@@ -37,6 +37,11 @@ process RGI_MAIN {
         --num_threads $task.cpus \\
         --output_file $prefix \\
         --input_sequence $fasta
+
+    # Remove empty json files
+    if grep "^{}\$" ${prefix}.json; then
+        rm ${prefix}.json
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

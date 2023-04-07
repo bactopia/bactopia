@@ -15,7 +15,7 @@
                 "busco_lineage": {
                     "type": "string",
                     "default": "bacteria_odb10",
-                    "description": "Specify the name of the BUSCO lineage to be used (can separate by comma)",
+                    "description": "Specify the name of the BUSCO lineage to be used",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "busco_evalue": {
