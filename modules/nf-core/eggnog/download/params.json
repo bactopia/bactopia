@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "eggnog": {
+                "eggnog_db": {
                     "type": "string",
                     "description": "Tarball or path to eggNOG databases",
                     "fa_icon": "fas fa-expand-arrows-alt",
@@ -27,8 +27,7 @@
                 "eggnog_save_as_tarball": {
                     "type": "string",
                     "description": "Save the eggNOG database as a single tarball",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "is_required": true
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_diamond": {
                     "type": "boolean",

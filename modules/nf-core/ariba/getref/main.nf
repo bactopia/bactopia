@@ -2,8 +2,6 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'ariba')
-options.is_db_download = true
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
 conda_tools = "bioconda::ariba=2.14.6 bcftools=1.14 pysam=0.18.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -11,8 +9,8 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 process ARIBA_GETREF {
     tag "$db_name"
     label 'process_low'
-    publishDir "${params.ariba_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir:db_name) }
+    storeDir params.datasets_cache
+    publishDir params.datasets_cache
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -23,13 +21,9 @@ process ARIBA_GETREF {
     val(db_name)
 
     output:
-    path("${db_name}.tar.gz"), emit: db
-    path "*.{log,err}"       , emit: logs, optional: true
-    path ".command.*"        , emit: nf_logs
-    path "versions.yml"      , emit: versions
+    path("ariba-${db_name}.tar.gz"), emit: db
 
     script:
-    prefix = "ariba_getref_${db_name}"
     """
     # Download, format database, and tarball it
     ariba \\
@@ -43,7 +37,8 @@ process ARIBA_GETREF {
         -m ${db_name}.tsv \\
         ${db_name}
 
-    tar -zcvf ${db_name}.tar.gz ${db_name}/
+    mv ${db_name}/ ariba-${db_name}/
+    tar -zcvf ariba-${db_name}.tar.gz ariba-${db_name}/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

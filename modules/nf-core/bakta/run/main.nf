@@ -2,8 +2,8 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'bakta')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::bakta=1.5.1"
+options.btype = options.btype ?: "main"
+conda_tools   = "bioconda::bakta=1.7.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process BAKTA_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bakta:1.6.0--pyhdfd78af_0' :
-        'quay.io/biocontainers/bakta:1.6.0--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bakta:1.7.0--pyhdfd78af_1' :
+        'quay.io/biocontainers/bakta:1.7.0--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -68,12 +68,12 @@ process BAKTA_RUN {
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb
-    cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
-    cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
-    cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
+    cat results/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
+    cat results/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
+    cat results/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
     tar -cvf - blastdb/ | gzip -c > ${prefix}-blastdb.tar.gz
 
-    if [[ "!{params.skip_compression}" == "false" ]]; then
+    if [[ "${params.skip_compression}" == "false" ]]; then
         gzip --best results/${prefix}.embl
         gzip --best results/${prefix}.faa
         gzip --best results/${prefix}.ffn
@@ -86,7 +86,7 @@ process BAKTA_RUN {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )
-        makeblastdb: $(echo $(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*$//')
+        makeblastdb: \$(echo \$(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*\$//')
     END_VERSIONS
     """
 }

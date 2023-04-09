@@ -44,36 +44,33 @@ class WorkflowBactopiaTools {
                 error += 1
                 missing_required += "--ariba_db"
             }
-            if (!params.ariba_dir) {
-                error += 1
-                missing_required += "--ariba_dir"
-            }
         } else if (params.wf == "bakta") {
             if (params.bakta_db) {
-                if (Utils.isLocal(params.bakta_db)) {
-                    if (params.bakta_db.endsWith(".tar.gz")) {
-                        error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
-                    } else {
-                        error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                if (!params.download_bakta) {
+                    if (Utils.isLocal(params.bakta_db)) {
+                        if (params.bakta_db.endsWith(".tar.gz")) {
+                            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                        } else {
+                            error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                        }
                     }
                 }
             } else {
                 missing_required += "--bakta_db"
             }
         } else if (params.wf == "eggnog") {
-            if (params.eggnog) {
-                if (Utils.isLocal(params.eggnog)) {
-                    if (params.eggnog.endsWith(".tar.gz")) {
-                        missing_file += Utils.fileNotFound(params.eggnog, 'eggnog', log)
-                    } else {
-                        missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
-                    }
-                    if (missing_file > 0 && params.download_eggnog == false) {
-                        missing_required += "--eggnog"
+            if (params.eggnog_db) {
+                if (!params.download_eggnog) {
+                    if (Utils.isLocal(params.eggnog_db)) {
+                        if (params.eggnog_db.endsWith(".tar.gz")) {
+                            error += Utils.fileNotFound(params.eggnog_db, 'eggnog_db', log)
+                        } else {
+                            error += Utils.fileNotFound("${params.eggnog_db}/eggnog.db", 'eggnog_db', log)
+                        }
                     }
                 }
             } else {
-                missing_required += "--eggnog"
+                missing_required += "--eggnog_db"
             }
         } else if (params.wf == "gtdb") {
             if (params.gtdb) {

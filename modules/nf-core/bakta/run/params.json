@@ -16,19 +16,16 @@
                     "type": "string",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-file-alt",
-                    "hidden": true
                 },
                 "prodigal_tf": {
                     "type": "string",
                     "description": "Training file to use for Prodigal",
                     "fa_icon": "fas fa-file-alt",
-                    "hidden": true
                 },
                 "replicons": {
                     "type": "string",
                     "description": "Replicon information table (tsv/csv)",
                     "fa_icon": "fas fa-file-alt",
-                    "hidden": true
                 },
                 "min_contig_length": {
                     "type": "integer",

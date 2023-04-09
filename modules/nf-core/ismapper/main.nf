@@ -8,7 +8,7 @@ conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-"
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process ISMAPPER {
-    tag "$meta.id"
+    tag "$prefix"
     label 'process_medium'
 
     conda (params.enable_conda ? conda_env : null)
@@ -22,7 +22,7 @@ process ISMAPPER {
     path(query)
 
     output:
-    tuple val(meta), path("${query_base}/*"), emit: results
+    tuple val(meta), path("results/*"), emit: results
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
@@ -45,14 +45,15 @@ process ISMAPPER {
     ismap \\
         $options.args \\
         --t $task.cpus \\
-        --output_dir results/ \\
+        --output_dir $prefix \\
         --queries $query_name \\
         --log ${prefix} \\
         --reference $reference_name \\
         --reads $reads
 
-    mkdir ${query_base}
-    mv results/${meta.id}/* ${query_base}
+    # Reorganize output files
+    mkdir results
+    mv $prefix/*/* results/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

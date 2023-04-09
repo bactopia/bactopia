@@ -13,6 +13,8 @@ options.args = [
     "-S ${params.mash_seed}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 options.ignore = [".fna", ".fna.gz", "fastq.gz", ".genus"]
+options.subdir = params.run_name
+options.logs_use_prefix = true
 
 MASH_SKETCH = []
 if (ask_merlin || params.wf == "merlin") {
@@ -20,9 +22,7 @@ if (ask_merlin || params.wf == "merlin") {
 } else {
     MASH_SKETCH = file(params.mash_sketch)
     include { MASH_DIST as MASHDIST_MODULE  } from '../../../modules/nf-core/mash/dist/main' addParams( options: options )
-    if (params.is_subworkflow) {
-        include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'mashdist'] )
-    }
+    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'mashdist-concat', process_name: params.merge_folder] )
 }
 
 workflow MASHDIST {
@@ -36,12 +36,10 @@ workflow MASHDIST {
     MASHDIST_MODULE(seqs, MASH_SKETCH)
     ch_versions = ch_versions.mix(MASHDIST_MODULE.out.versions.first())
 
-    if (params.is_subworkflow) {
-        MASHDIST_MODULE.out.dist.collect{meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
-        CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
-        ch_merged_mashdist = ch_merged_mashdist.mix(CSVTK_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    }
+    MASHDIST_MODULE.out.dist.collect{meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
+    CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
+    ch_merged_mashdist = ch_merged_mashdist.mix(CSVTK_CONCAT.out.csv)
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     dist = MASHDIST_MODULE.out.dist

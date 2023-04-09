@@ -21,9 +21,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { CHECKM_LINEAGEWF } from '../../../modules/nf-core/checkm/lineagewf/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'checkm'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'checkm-concat', process_name: params.merge_folder] )
 
 workflow CHECKM {
     take:
@@ -36,12 +34,10 @@ workflow CHECKM {
     CHECKM_LINEAGEWF(fasta)
     ch_versions = ch_versions.mix(CHECKM_LINEAGEWF.out.versions.first())
 
-    if (params.is_subworkflow) {
-        CHECKM_LINEAGEWF.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'checkm'], tsv]}.set{ ch_merge_checkm }
-        CSVTK_CONCAT(ch_merge_checkm, 'tsv', 'tsv')
-        ch_merged_checkm = ch_merged_checkm.mix(CSVTK_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    }
+    CHECKM_LINEAGEWF.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'checkm'], tsv]}.set{ ch_merge_checkm }
+    CSVTK_CONCAT(ch_merge_checkm, 'tsv', 'tsv')
+    ch_merged_checkm = ch_merged_checkm.mix(CSVTK_CONCAT.out.csv)
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     results = CHECKM_LINEAGEWF.out.results

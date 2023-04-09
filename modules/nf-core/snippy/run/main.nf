@@ -10,8 +10,6 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 process SNIPPY_RUN {
     tag "${meta.id} - ${reference_name}"
     label "process_low"
-    label "base_mem_4gb"
-    label "max_cpu_75"
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

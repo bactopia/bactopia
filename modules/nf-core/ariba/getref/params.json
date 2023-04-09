@@ -11,31 +11,6 @@
             "description": "",
             "default": "",
             "properties": {
-                "ariba_dir": {
-                    "type": "string",
-                    "description": "Path to save or retrieve Ariba databases",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true
-                },
-                "ariba_db": {
-                    "type": "string",
-                    "description": "A database to query, if unavailable it will be downloaded to the path given by --ariba_dir",
-                    "default": "",
-                    "fa_icon": "fas fa-italic",
-                    "enum": [
-                        "argannot",
-                        "card",
-                        "ncbi",
-                        "megares",
-                        "plasmidfinder",
-                        "resfinder",
-                        "srst2_argannot",
-                        "vfdb_core",
-                        "vfdb_full",
-                        "virulencefinder"
-                    ],
-                    "is_required": true
-                }
             }
         }
     },

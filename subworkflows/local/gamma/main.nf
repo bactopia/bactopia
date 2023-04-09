@@ -10,10 +10,10 @@ options.args = [
     params.all_matches ? "--all" : "",
     "--percent_identity ${params.percent_identity}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-GAMMA_DB = params.gamma_db ? file(params.gamma_db) : []
+options.subdir = params.run_name
 
 include { GAMMA as GAMMA_MODULE } from '../../../modules/nf-core/gamma/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [process_name: 'gamma'] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'gamma-concat', process_name: params.merge_folder] )
 
 workflow GAMMA {
     take:
@@ -23,7 +23,7 @@ workflow GAMMA {
     ch_versions = Channel.empty()
     ch_merged_gamma = Channel.empty()
 
-    GAMMA_MODULE(fasta, GAMMA_DB)
+    GAMMA_MODULE(fasta, file(params.gamma_db))
     ch_versions = ch_versions.mix(GAMMA_MODULE.out.versions.first())
 
     // Merge results

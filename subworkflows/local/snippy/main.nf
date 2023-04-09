@@ -16,6 +16,8 @@ snippy_opts.args = [
     "--minqual ${params.minqual}",
     "--maxsoft ${params.maxsoft}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
+snippy_opts.subdir = params.run_name
+snippy_opts.logs_use_prefix = true
 
 // snippy-core options
 core_opts = initOptions(params.containsKey("options") ? params.options : [:], 'snippy-core')

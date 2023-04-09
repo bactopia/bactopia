@@ -221,7 +221,11 @@ def saveFiles(Map args) {
             ext = args.filename.replace(".command.", "")
             if (args.opts.btype == "comparative") {
                 // comparative workflows will have subdir applied later
-                final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                }
             } else {
                 final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/nf-${process_name}.${ext}"
             }
@@ -229,7 +233,11 @@ def saveFiles(Map args) {
             // Its a version file or program specific log files
             if (args.opts.btype == "comparative") {
                 // comparative workflows will have subdir applied later
-                final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/${args.filename}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+                }
             } else {
                 final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/${args.filename}"
             }
@@ -317,6 +325,7 @@ def initOptions(Map args, String process_name) {
     options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false
     options.suffix          = args.suffix ?: ''
+    options.logs_use_prefix = args.logs_use_prefix ?: false
 
     return options
 }

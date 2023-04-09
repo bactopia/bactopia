@@ -18,6 +18,16 @@
                     "fa_icon": "fas fa-file-alt",
                     "is_required": true
                 },
+                "bakta_db_type": {
+                    "type": "string",
+                    "default": "full",
+                    "description": "Which Bakta DB to download 'full' (~30GB) or 'light' (~2GB)",
+                    "fa_icon": "fas fa-file-alt",
+                    "enum": [
+                        "full",
+                        "light"
+                    ]
+                },
                 "bakta_save_as_tarball": {
                     "type": "boolean",
                     "description": "Save the Bakta database as a tarball",

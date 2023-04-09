@@ -181,10 +181,10 @@
                 },
                 "datasets_cache": {
                     "type": "string",
-                    "description": "Directory where Bactopia datasets should be stored.",
+                    "default": "<BACTOPIA_DIR>/data/datasets",
+                    "description": "Directory where downloaded datasets should be stored.",
                     "help": "",
-                    "fa_icon": "fas fa-folder",
-                    "hidden": true
+                    "fa_icon": "fas fa-folder"
                 },
                 "singularity_cache": {
                     "type": "string",

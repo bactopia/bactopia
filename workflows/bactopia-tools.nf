@@ -65,6 +65,7 @@ if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/ma
 if (params.wf == 'mcroni') include { MCRONI } from '../subworkflows/local/mcroni/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
+if (params.wf == 'midas') include { MIDAS } from '../subworkflows/local/midas/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
 if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mobsuite/main';
 if (params.wf == 'mykrobe') include { MYKROBE } from '../subworkflows/local/mykrobe/main';
@@ -223,6 +224,9 @@ workflow BACTOPIATOOLS {
         DATASETS()
         MERLIN(samples, DATASETS.out.mash_db)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
+    } else if (params.wf == 'midas') {
+        MIDAS(samples)
+        ch_versions = ch_versions.mix(MIDAS.out.versions)
     } else if (params.wf == 'mlst') {
         DATASETS()
         MLST(samples, DATASETS.out.mlst_db)

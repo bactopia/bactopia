@@ -21,12 +21,12 @@ process ARIBA_RUN {
     path(db)
 
     output:
-    tuple val(meta), path("${db_name}/*")                    , emit: results
-    tuple val(meta), path("${db_name}/${prefix}-report.tsv") , emit: report
-    tuple val(meta), path("${db_name}/${prefix}-summary.csv"), emit: summary
-    path "*.{log,err}"                                       , emit: logs, optional: true
-    path ".command.*"                                        , emit: nf_logs
-    path "versions.yml"                                      , emit: versions
+    tuple val(meta), path("results/*")                    , emit: results
+    tuple val(meta), path("results/${prefix}-report.tsv") , emit: report
+    tuple val(meta), path("results/${prefix}-summary.csv"), emit: summary
+    path "*.{log,err}"                                    , emit: logs, optional: true
+    path ".command.*"                                     , emit: nf_logs
+    path "versions.yml"                                   , emit: versions
 
     when:
     meta.single_end == false
@@ -56,6 +56,7 @@ process ARIBA_RUN {
     # Rename to avoid naming collisions
     mv ${db_name}/report.tsv ${db_name}/${prefix}-report.tsv
     mv ${db_name}/summary.csv ${db_name}/${prefix}-summary.csv
+    mv ${db_name}/ results/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

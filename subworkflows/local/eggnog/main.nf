@@ -17,7 +17,7 @@ mapper_opts = [
     "-m ${params.mode}",
     "${params.eggnog_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-DATABASE = params.eggnog ? file(params.eggnog) : []
+DATABASE = params.eggnog_db ? file(params.eggnog_db) : []
 include { EGGNOG_DOWNLOAD } from '../../../modules/nf-core/eggnog/download/main' addParams( options: options + [ args: "${downloader_opts}"] )
 include { EGGNOG_MAPPER } from '../../../modules/nf-core/eggnog/mapper/main' addParams( options:  options +  [ args: "${mapper_opts}"] )
 

@@ -16,6 +16,7 @@ classify_args = [
 DATABASE = ! params.download_gtdb ? file(params.gtdb) : []
 include { GTDBTK_SETUPDB as SETUPDB } from '../../../modules/nf-core/gtdbtk/setupdb/main' addParams( options: options + [publish_to_base: true] )
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../../modules/nf-core/gtdbtk/classifywf/main' addParams( options: options + [args: "${classify_args}"] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'gtdb-concat', process_name: params.merge_folder] )
 
 workflow GTDB {
     take:
@@ -38,7 +39,14 @@ workflow GTDB {
     }
     ch_versions = ch_versions.mix(CLASSIFY.out.versions.first())
 
+    // Merge results
+    CLASSIFY.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'gtdb'], tsv]}.set{ ch_merge_gtdb }
+    CSVTK_CONCAT(ch_merge_gtdb, 'tsv', 'tsv')
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+
     emit:
     results = CLASSIFY.out.results
+    tsv = CLASSIFY.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions // channel: [ versions.yml ]
 }
