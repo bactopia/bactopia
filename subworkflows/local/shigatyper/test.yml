@@ -5,50 +5,48 @@
     - shigatyper_pe
     - bactopia-tools
   files:
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/ERR6005894-hits.tsv
-      md5sum: 86324f1cdc686eb68b85bd27776a8dc7
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/ERR6005894.tsv
-      md5sum: 84bc68331bf503ea23da27207e418383
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.begin
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.err
-      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.log
-      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.out
-      md5sum: c43017b8cb63ef3223e0d7076f885eff
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.run
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.sh
-      contains: ['shigatyper', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/nf-shigatyper.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894/logs/shigatyper/versions.yml
-      md5sum: 5e58aacefb2df3f8e1c9eafcb9fa8bd1
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/versions.yml
       md5sum: 09439e18a9528bb3958d235196ed2c07
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
-      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/shigatyper/shigatyper/shigatyper.tsv
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/shigatyper.tsv
       md5sum: 84bc68331bf503ea23da27207e418383
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
+      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/ERR6005894-hits.tsv
+      md5sum: 86324f1cdc686eb68b85bd27776a8dc7
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/ERR6005894.tsv
+      md5sum: 84bc68331bf503ea23da27207e418383
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.err
+      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.log
+      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.out
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.sh
+      contains: ['shigatyper', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/nf-shigatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/ERR6005894/bactopia-tools/shigatyper/logs/versions.yml
+      md5sum: 5e58aacefb2df3f8e1c9eafcb9fa8bd1
 
 - name: shigatyper-test_se
   command: bash -c 'nextflow run ./subworkflows/local/shigatyper/test.nf -entry test_shigatyper_se --wf shigatyper -c nextflow.config ${BACTOPIA_ARGS}'
@@ -57,51 +55,48 @@
     - shigatyper_se
     - bactopia-tools
   files:
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/ERR6005894SE-hits.tsv
-      md5sum: 3a2660886597dbb4e9d6f3990a36785f
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/ERR6005894SE.tsv
-      md5sum: 56b194ae479ed5118a2f1560d0365386
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.begin
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.err
-      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.log
-      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.out
-      md5sum: d5f2dcdafb39720c4885fc8e4369b7b9
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.run
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.sh
-      contains: ['shigatyper', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/nf-shigatyper.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/ERR6005894SE/logs/shigatyper/versions.yml
-      md5sum: f0ce6c3b9dee2676214c1d63d123acd1
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/versions.yml
       md5sum: 1ffd470e2f54600b2d34b26703762d29
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
-      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/shigatyper/shigatyper/shigatyper.tsv
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/shigatyper.tsv
       md5sum: 56b194ae479ed5118a2f1560d0365386
-
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
+      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/ERR6005894SE-hits.tsv
+      md5sum: 3a2660886597dbb4e9d6f3990a36785f
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/ERR6005894SE.tsv
+      md5sum: 56b194ae479ed5118a2f1560d0365386
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.err
+      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.log
+      contains: ["ShigaTyper", "ShigellaRef5", "dysenteriae"]
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.out
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.sh
+      contains: ['shigatyper', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/nf-shigatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/ERR6005894SE/bactopia-tools/shigatyper/logs/versions.yml
+      md5sum: f0ce6c3b9dee2676214c1d63d123acd1
 
 - name: shigatyper-test_ont
   command: bash -c 'nextflow run ./subworkflows/local/shigatyper/test.nf -entry test_shigatyper_ont --wf shigatyper -c nextflow.config ${BACTOPIA_ARGS}'
@@ -110,47 +105,45 @@
     - shigatyper_ont
     - bactopia-tools
   files:
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/SRR13039589-hits.tsv
-      md5sum: 7bdab5d495d8424b2df3005773ef1364
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/SRR13039589.tsv
-      md5sum: 8ab32470875fe923b8d338da4ca35d1c
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.begin
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.err
-      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.log
-      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.out
-      md5sum: aee3a976a4d9f95a1c6d3337bc3a7c79
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.run
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.sh
-      contains: ['shigatyper', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/nf-shigatyper.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/SRR13039589/logs/shigatyper/versions.yml
-      md5sum: 25f268f9dcb983e63fe286eb16b444f4
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/shigatyper/shigatyper/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/logs/shigatyper-concat/versions.yml
       md5sum: 9e80a6dac5f989a11d798a785f1eaad0
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
-      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/shigatyper/shigatyper/shigatyper.tsv
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/merged-results/shigatyper.tsv
       md5sum: 8ab32470875fe923b8d338da4ca35d1c
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-dag.dot
+      contains: ['shigatyperdag', 'SHIGATYPER', 'versions']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/shigatyper/shigatyper/nf-reports/shigatyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/SRR13039589-hits.tsv
+      md5sum: 7bdab5d495d8424b2df3005773ef1364
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/SRR13039589.tsv
+      md5sum: 8ab32470875fe923b8d338da4ca35d1c
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.err
+      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.log
+      contains: ["ShigaTyper", "ShigellaRef5", "EIEC"]
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.out
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.sh
+      contains: ['shigatyper', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/nf-shigatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/SRR13039589/bactopia-tools/shigatyper/logs/versions.yml
+      md5sum: 25f268f9dcb983e63fe286eb16b444f4

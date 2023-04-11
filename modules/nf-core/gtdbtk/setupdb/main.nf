@@ -31,7 +31,7 @@ process GTDBTK_SETUPDB {
     download-db.sh ./gtdbtk
     gtdbtk check_install && touch gtdb-setup.txt
 
-    if [ "!{params.gtdb_save_as_tarball}" == "true" ]; then
+    if [ "${params.gtdb_save_as_tarball}" == "true" ]; then
         tar -czf gtdbtk.tar.gz gtdbtk/
         rm -rf gtdbtk/
     fi

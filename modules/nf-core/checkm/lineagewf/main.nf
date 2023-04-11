@@ -45,6 +45,7 @@ process CHECKM_LINEAGEWF {
         $options.args
 
     find ./results/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
+    mv results/checkm.log ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

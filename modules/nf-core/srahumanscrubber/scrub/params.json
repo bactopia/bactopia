@@ -12,6 +12,12 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "skip_scrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip human read scrubbing",
+                    "fa_icon": "fas fa-file-alt"
+                }
             }
         }
     },

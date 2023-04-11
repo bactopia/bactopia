@@ -4,62 +4,60 @@
     - genotyphi
     - bactopia-tools
   files:
-    - path: bactopia-tools/genotyphi/genotyphi/genotyphi.tsv
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/genotyphi.tsv
       contains: ['genome', 'test', 'typhi']
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.begin
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.run
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/genotyphi/genotyphi/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/merged-results/logs/genotyphi-concat/versions.yml
       md5sum: a461157491e68c03382d9cc1a13959e7
-    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-dag.dot
-      md5sum: 01ee3e69891f63e0b77315f45f5c8acd
-    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-report.html
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/nf-reports/genotyphi-dag.dot
+      md5sum: 1b407e59487039bdbe295275cb4aef72
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/nf-reports/genotyphi-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-timeline.html
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/nf-reports/genotyphi-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/genotyphi/genotyphi/nf-reports/genotyphi-trace.txt
+    - path: bactopia/bactopia-comparative/genotyphi/genotyphi/nf-reports/genotyphi-trace.txt
       contains: ['task_id']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.begin
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.err
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.log
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.out
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.run
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.err
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.log
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.out
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.sh
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.sh
       contains: ['parse', 'END_VERSIONS']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/nf-genotyphi.trace
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/nf-genotyphi.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/genotyphi/versions.yml
-      md5sum: 93aeb5ecb57945c0b77379b09ed8da7d
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.begin
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/genotyphi/versions.yml
+      md5sum: fa40b53652f6c0b23018061a816f23b3
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.err
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.err
       contains: ['mykrobe', 'typhi', 'finished']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.log
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.log
       contains: ['mykrobe', 'typhi', 'finished']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.run
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.out
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.sh
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.sh
       contains: ['mykrobe', 'END_VERSIONS']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/nf-genotyphi.trace
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/nf-genotyphi.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/genotyphi/genotyphi/test/logs/genotyphi/mykrobe/versions.yml
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/logs/mykrobe/versions.yml
       md5sum: 2261accbdd3aa3d416d4972cf26a7f48
-    - path: bactopia-tools/genotyphi/genotyphi/test/test.csv
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/test.csv
       contains: ["susceptibility", "typhi", "variants"]
-    - path: bactopia-tools/genotyphi/genotyphi/test/test.json
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/test.json
       contains: ["susceptibility", "typhi", "predictor"]
-    - path: bactopia-tools/genotyphi/genotyphi/test/test_predictResults.tsv
+    - path: bactopia/bactopia-samples/test/bactopia-tools/genotyphi/test_predictResults.tsv
       contains: ['genome', 'test', 'typhi']

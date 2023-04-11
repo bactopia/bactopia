@@ -32,7 +32,7 @@ process BAKTA_DOWNLOAD {
         --type "${params.bakta_db_type}" \\
         --output bakta
 
-    if [ "!{params.bakta_save_as_tarball}" == "true" ]; then
+    if [ "${params.bakta_save_as_tarball}" == "true" ]; then
         tar -czf bakta-${params.bakta_db_type}.tar.gz bakta/
         rm -rf bakta/
     else

@@ -9,8 +9,8 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 VERSION = '2.0.0' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 process SRAHUMANSCRUBBER_INITDB {
     label 'process_single'
-    publishDir "${params.scrubber_db}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    storeDir params.datasets_cache
+    publishDir params.datasets_cache
     
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

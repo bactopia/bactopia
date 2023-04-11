@@ -4,43 +4,41 @@
     - ngmaster
     - bactopia-tools
   files:
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/GCF_001047255.tsv
-      md5sum: a4e7f9199b0f37985fe0ad147c626532
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.begin
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.err
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.log
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.run
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.sh
-      contains: ['ngmaster', 'END_VERSIONS']
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/nf-ngmaster.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/ngmaster/ngmaster/GCF_001047255/logs/ngmaster/versions.yml
-      md5sum: 815c03da8b663dd93853abc249b7948b
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/ngmaster/ngmaster/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/logs/ngmaster-concat/versions.yml
       md5sum: 754f76ee9f5a26e8120ac96b2bc6dcd0
-    - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-dag.dot
-      contains: ['ngmasterdag', 'NGMASTER', 'versions']
-    - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/ngmaster/ngmaster/nf-reports/ngmaster-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/ngmaster/ngmaster/ngmaster.tsv
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/merged-results/ngmaster.tsv
       md5sum: a4e7f9199b0f37985fe0ad147c626532
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/nf-reports/ngmaster-dag.dot
+      contains: ['ngmasterdag', 'NGMASTER', 'versions']
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/nf-reports/ngmaster-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/nf-reports/ngmaster-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/ngmaster/ngmaster/nf-reports/ngmaster-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/GCF_001047255.tsv
+      md5sum: a4e7f9199b0f37985fe0ad147c626532
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.err
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.log
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.out
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.sh
+      contains: ['ngmaster', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/nf-ngmaster.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_001047255/bactopia-tools/ngmaster/logs/versions.yml
+      md5sum: 815c03da8b663dd93853abc249b7948b

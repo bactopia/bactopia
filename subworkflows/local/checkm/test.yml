@@ -4,111 +4,114 @@
     - checkm
     - bactopia-tools
   files:
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/GCF_000292685-genes.aln
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/checkm.tsv
+      md5sum: 34cca9a58229fcaa0e58eb8e7126c07b
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/GCF_000292685-results.txt
-      md5sum: 3a76623c675e0e6e12a987da198c6f5d
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/bins/GCF_000292685/genes.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/bins/GCF_000292685/genes.gff
-      md5sum: 50752acb1c5a20be886bfdfc06635bcb
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/bins/GCF_000292685/hmmer.analyze.txt.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/bins/GCF_000292685/hmmer.tree.txt
-      contains: ["target", "ID", "Ribosomal"]
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/lineage.ms
-      contains: ['Lineage Marker File']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.err
-      contains: ['Finished', 'parsing', 'hits']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.log
-      contains: ['Finished', 'Parsing', 'hits', 'CheckM']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.out
-      contains: ['CheckM', 'Parsing', 'written']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.run
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.sh
-      contains: ['checkm', 'END_VERSIONS']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/nf-checkm.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/results/checkm.log
-      contains: ['CheckM', 'Parsing', 'written']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/logs/checkm/versions.yml
-      md5sum: f35b50ae944a85f80dd1b3ad0ff479c4
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats.analyze.tsv
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats.tree.tsv
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/bin_stats_ext.tsv
-      contains: ['marker lineage']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/checkm_hmm_info.pkl.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/marker_gene_stats.tsv
-      contains: ['GCF_000292685']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/phylo_hmm_info.pkl.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00164.20.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00177.16.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00181.18.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00189.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00203.16.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00237.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00238.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00252.13.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00276.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00281.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00297.17.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00298.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00312.17.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00318.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00333.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00366.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00380.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00410.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00411.14.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00466.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00562.23.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00572.13.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00573.17.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00623.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00673.16.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00687.16.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00831.18.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF00861.17.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF03719.10.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF03946.9.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF03947.13.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF04560.15.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF04561.9.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF04563.10.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF04565.11.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF04997.7.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF05000.12.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/PF11987.3.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/TIGR00422.masked.faa.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.fasta.gz
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.pplacer.json
-      contains: ['GCF_000292685', 'metadata', 'pplacer']
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/concatenated.tre
-      md5sum: 478880ccdff6d05c9e7f130773f717c3
-    - path: bactopia-tools/checkm/checkm/GCF_000292685/storage/tree/pplacer.out
-      md5sum: 461c332efb29e100721ceaffb65bd725
-    - path: bactopia-tools/checkm/checkm/checkm.tsv
-      md5sum: 3a76623c675e0e6e12a987da198c6f5d
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/checkm/checkm/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/checkm/checkm/merged-results/logs/checkm-concat/versions.yml
       md5sum: c1b2e8a8fdcdf68eeaf95cfb90c76340
-    - path: bactopia-tools/checkm/checkm/nf-reports/checkm-dag.dot
+    - path: bactopia/bactopia-comparative/checkm/checkm/nf-reports/checkm-dag.dot
       contains: ['checkmdag', 'checkm', 'CHECKM']
-    - path: bactopia-tools/checkm/checkm/nf-reports/checkm-report.html
+    - path: bactopia/bactopia-comparative/checkm/checkm/nf-reports/checkm-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/checkm/checkm/nf-reports/checkm-timeline.html
+    - path: bactopia/bactopia-comparative/checkm/checkm/nf-reports/checkm-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/checkm/checkm/nf-reports/checkm-trace.txt
+    - path: bactopia/bactopia-comparative/checkm/checkm/nf-reports/checkm-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/GCF_000292685-genes.aln
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/GCF_000292685-results.txt
+      md5sum: 34cca9a58229fcaa0e58eb8e7126c07b
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/bins/GCF_002285535/genes.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/bins/GCF_002285535/genes.gff
+      md5sum: 752b321c748123ce277e81c8c50826e3
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/bins/GCF_002285535/hmmer.analyze.txt.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/bins/GCF_002285535/hmmer.tree.txt
+      contains: ["target", "ID", "Ribosomal"]
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/lineage.ms
+      contains: ['Lineage Marker File']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/checkm.log
+      contains: ['CheckM', 'Parsing', 'written']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.err
+      contains: ['Finished', 'parsing', 'hits']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.log
+      contains: ['Finished', 'Parsing', 'hits', 'CheckM']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.out
+      contains: ['CheckM', 'Parsing', 'written']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.sh
+      contains: ['checkm', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/nf-checkm.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/logs/versions.yml
+      md5sum: f35b50ae944a85f80dd1b3ad0ff479c4
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/bin_stats.analyze.tsv
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/bin_stats.tree.tsv
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/bin_stats_ext.tsv
+      contains: ['marker lineage']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/checkm_hmm_info.pkl.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/marker_gene_stats.tsv
+      contains: ['GCF_002285535']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/phylo_hmm_info.pkl.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00164.20.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00177.16.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00181.18.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00189.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00203.16.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00237.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00238.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00252.13.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00276.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00281.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00297.17.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00298.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00312.17.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00318.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00333.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00366.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00380.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00410.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00411.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00466.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00562.23.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00572.13.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00573.17.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00623.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00673.16.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00687.16.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00831.18.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF00861.17.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF01192.17.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF01509.13.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF02978.14.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF03719.10.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF03946.9.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF03947.13.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF04560.15.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF04561.9.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF04563.10.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF04565.11.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF04997.7.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF05000.12.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/PF11987.3.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/TIGR00344.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/TIGR00422.masked.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/concatenated.fasta.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/concatenated.pplacer.json
+      contains: ['metadata', 'pplacer']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/concatenated.tre
+      md5sum: b657d340e2ae93cee769a752efc37203
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/checkm/storage/tree/pplacer.out
+      md5sum: 8747479073a92949b0ac3d9f6b1b6758

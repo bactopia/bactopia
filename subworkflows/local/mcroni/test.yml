@@ -4,43 +4,43 @@
     - mcroni
     - bactopia-tools
   files:
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/GCF_001682305_sequence.fa
-      md5sum: 819b782ce2704d08e9cd4a43370e86c9
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/GCF_001682305_table.tsv
-      contains: ['ISOLATE', 'GCF_001682305']
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.begin
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.err
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.log
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.out
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.run
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.sh
-      contains: ['mcroni', 'END_VERSIONS']
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/nf-mcroni.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/mcroni/mcroni/GCF_001682305/logs/mcroni/versions.yml
-      md5sum: ec456fe8b15c9f3e55e0b4c0887c85e0
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.out
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/mcroni/mcroni/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/logs/mcroni-concat/versions.yml
       md5sum: 664c4a93c27de47d8f67a1b0c4421a26
-    - path: bactopia-tools/mcroni/mcroni/mcroni.tsv
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/merged-results/mcroni.tsv
       contains: ['ISOLATE', 'GCF_001682305']
-    - path: bactopia-tools/mcroni/mcroni/nf-reports/mcroni-dag.dot
-      md5sum: c21784a0e171b5596cc674990b2cd89a
-    - path: bactopia-tools/mcroni/mcroni/nf-reports/mcroni-report.html
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/nf-reports/mcroni-dag.dot
+      contains: ['mcronidag', 'MCRONI', 'versions']
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/nf-reports/mcroni-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/mcroni/mcroni/nf-reports/mcroni-timeline.html
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/nf-reports/mcroni-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/mcroni/mcroni/nf-reports/mcroni-trace.txt
+    - path: bactopia/bactopia-comparative/mcroni/mcroni/nf-reports/mcroni-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/GCF_001682305_sequence.fa
+      md5sum: 819b782ce2704d08e9cd4a43370e86c9
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/GCF_001682305_table.tsv
+      contains: ['ISOLATE', 'GCF_001682305']
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.err
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.log
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.out
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.sh
+      contains: ['mcroni', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/nf-mcroni.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_001682305/bactopia-tools/mcroni/logs/versions.yml
+      md5sum: ec456fe8b15c9f3e55e0b4c0887c85e0

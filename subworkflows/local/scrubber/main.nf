@@ -24,15 +24,8 @@ workflow SCRUBBER {
     main:
     ch_versions = Channel.empty()
 
-    if (params.download_scrubber) {
-        SRAHUMANSCRUBBER_INITDB()
-        ch_versions = ch_versions.mix(SRAHUMANSCRUBBER_INITDB.out.versions.first())
-
-        SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
-    } else {
-        SRAHUMANSCRUBBER_SCRUB(reads, file(params.scrubber_db))
-    }
-
+    SRAHUMANSCRUBBER_INITDB()
+    SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
     ch_versions = ch_versions.mix(SRAHUMANSCRUBBER_SCRUB.out.versions.first())
 
     emit:

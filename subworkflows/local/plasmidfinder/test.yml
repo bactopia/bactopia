@@ -4,50 +4,51 @@
     - plasmidfinder
     - bactopia-tools
   files:
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085-hit_in_genome_seq.fsa
-      md5sum: aa23c76c32c24285e8466c31cddb837c
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085-plasmid_seqs.fsa
-      md5sum: ba224a3b41f1d92a915f3b3b5a10890d
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085.json
-      contains: ["plasmidfinder", "results", "RepA", "GCF_000017085"]
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085.tsv
-      md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/GCF_000017085.txt
-      contains: ['Results', 'Plasmid', 'Query', 'template']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.begin
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.err
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.log
-      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.out
-      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.sh
-      contains: ['plasmidfinder', 'END_VERSIONS']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/nf-plasmidfinder.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/GCF_000017085/logs/plasmidfinder/versions.yml
-      md5sum: a3b2229941f932b50690a1438fb909c7
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.begin
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.out
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.run
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/logs/plasmidfinder-concat/versions.yml
       md5sum: 3e193c33c490c3dee34eccf7adcfff8c
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-dag.dot
-      contains: ['plasmidfinderdag', 'PLASMIDFINDER', 'versions']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/plasmidfinder/plasmidfinder/plasmidfinder.tsv
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/merged-results/plasmidfinder.tsv
       md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-dag.dot
+      contains: ['plasmidfinderdag', 'PLASMIDFINDER', 'versions']
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/plasmidfinder/plasmidfinder/nf-reports/plasmidfinder-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/GCF_000017085-hit_in_genome_seq.fsa
+      md5sum: aa23c76c32c24285e8466c31cddb837c
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/GCF_000017085-plasmid_seqs.fsa
+      md5sum: ba224a3b41f1d92a915f3b3b5a10890d
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/GCF_000017085.json
+      contains: ["plasmidfinder", "results", "RepA", "GCF_000017085"]
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/GCF_000017085.tsv
+      md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/GCF_000017085.txt
+      contains: ['Results', 'Plasmid', 'Query', 'template']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.err
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.log
+      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.out
+      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.sh
+      contains: ['plasmidfinder', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/nf-plasmidfinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/plasmidfinder/logs/versions.yml
+      md5sum: a3b2229941f932b50690a1438fb909c7

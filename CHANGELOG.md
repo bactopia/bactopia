@@ -6,13 +6,6 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ## v3.0.0 bactopia/bactopia "???" - 2023/??/??
 
-// TODO
-busco
-gamma
-hicap
-mashdist
-merlin
-
 ### `Added`
 - Named Workflows (!!!)
     - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read
@@ -25,8 +18,12 @@ merlin
 - per-release databases for `amrfinderplus` and `mlst`
 - new directory structure for outputs
 - GitHub Action to build environments
+- `fastp` is default read cleaner, can use previous methods with `--use_bbmap`
 - unified `publishDir` across modules
-- `BACTOPIA:DATASETS` to download required datasets using `storeDir`
+- download datasets using `storeDir`
+    - `BACTOPIA:DATASETS`
+    - `ariba`
+    - `sra-human-scrubber`
 - bump program versions in modules
     - `bakta`: 1.6.0 -> 1.7.0
     - `busco`: 5.4.3 -> 5.4.6
@@ -37,7 +34,6 @@ merlin
     - `mob_suite`: 3.1.0 -> 3.1.4
     - `multiqc`: 1.11 -> 1.14
     - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.4
-    - `ngmaster`: 0.5.8 -> 1.0.0
     - `panaroo`: 1.3.0 -> 1.3.2
     - `pasty`: 1.0.0 -> 1.0.2
     - `phyloflash`: 3.4 -> 3.4.2
@@ -51,6 +47,7 @@ merlin
 - Pinned GSL to v2.6
 - symlink in amrfinder+ update (`bactopia datasets`)
 - hardcoded `--plus` in `amrfinderplus_run`
+- tests for new directory structure
 
 ### `Removed`
 - Bactopia Steps
@@ -60,6 +57,7 @@ merlin
     - `SEQUENCE_TYPE` - now handled by `mlst`
 - `bactopia datasets` is now incorporated into `bactopia`
 - Conda/Containers for all bactopia-main steps
+- custom process lables, for generic `nf-core` process labels
 
 ### `Enhancements to OSS`
 - add module for midas [nf-core/modules#2696](https://github.com/nf-core/modules/pull/2696)

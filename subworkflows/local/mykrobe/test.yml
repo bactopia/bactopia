@@ -4,45 +4,46 @@
     - mykrobe
     - bactopia-tools
   files:
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.begin
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.out
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.run
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/mykrobe/mykrobe/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/logs/mykrobe-concat/versions.yml
       md5sum: 2ce29a6c6e10ba26b31eae18d3e6a7fb
-    - path: bactopia-tools/mykrobe/mykrobe/mykrobe.csv
-      contains: ["susceptibility", "staph", "variants"]
-    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-dag.dot
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/merged-results/mykrobe.csv
+      md5sum: 37186861925b3dffb57f848141b60ca5
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/nf-reports/mykrobe-dag.dot
       contains: ['mykrobedag', 'MYKROBE', 'versions']
-    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-report.html
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/nf-reports/mykrobe-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-timeline.html
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/nf-reports/mykrobe-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/mykrobe/mykrobe/nf-reports/mykrobe-trace.txt
+    - path: bactopia/bactopia-comparative/mykrobe/mykrobe/nf-reports/mykrobe-trace.txt
       contains: ['task_id']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.begin
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.err
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.err
       contains: ['mykrobe', 'staph', 'finished']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.log
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.log
       contains: ['mykrobe', 'staph', 'finished']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.out
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.run
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.sh
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.sh
       contains: ['mykrobe', 'END_VERSIONS']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/nf-mykrobe.trace
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/nf-mykrobe.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/mykrobe/mykrobe/test/logs/mykrobe/versions.yml
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/logs/versions.yml
       md5sum: 0919fbb97f2c84fb37481de47ec933a6
-    - path: bactopia-tools/mykrobe/mykrobe/test/test.csv
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/test.csv
       contains: ["susceptibility", "staph", "variants"]
-    - path: bactopia-tools/mykrobe/mykrobe/test/test.json
+    - path: bactopia/bactopia-samples/test/bactopia-tools/mykrobe/test.json
       contains: ["susceptibility", "staph", "predictor"]

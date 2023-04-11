@@ -4,45 +4,44 @@
     - legsta
     - bactopia-tools
   files:
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/GCF_000048645.tsv
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/legsta.tsv
       md5sum: 42debc0661bcdc021ea871efcef6fb39
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.begin
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.err
-      contains: ["any2fasta", "alleles", "Running"]
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.log
-      contains: ["any2fasta", "alleles", "Running"]
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.run
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.sh
-      contains: ["legsta", "END_VERSIONS"]
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/nf-legsta.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/legsta/legsta/GCF_000048645/logs/legsta/versions.yml
-      md5sum: 49cd65fa404c64f43eb1c762aa4e26e6
-    - path: bactopia-tools/legsta/legsta/legsta.tsv
-      md5sum: 42debc0661bcdc021ea871efcef6fb39
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.sh
       contains: ["csvtk", "END_VERSIONS"]
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/legsta/legsta/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/legsta/legsta/merged-results/logs/legsta-concat/versions.yml
       md5sum: b5884f507b36de020ece4f81b7570a33
-    - path: bactopia-tools/legsta/legsta/nf-reports/legsta-dag.dot
+    - path: bactopia/bactopia-comparative/legsta/legsta/nf-reports/legsta-dag.dot
       contains: ["legstadag", "LEGSTA", "version"]
-    - path: bactopia-tools/legsta/legsta/nf-reports/legsta-report.html
+    - path: bactopia/bactopia-comparative/legsta/legsta/nf-reports/legsta-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/legsta/legsta/nf-reports/legsta-timeline.html
+    - path: bactopia/bactopia-comparative/legsta/legsta/nf-reports/legsta-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/legsta/legsta/nf-reports/legsta-trace.txt
+    - path: bactopia/bactopia-comparative/legsta/legsta/nf-reports/legsta-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/GCF_000048645.tsv
+      md5sum: 42debc0661bcdc021ea871efcef6fb39
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.err
+      contains: ["any2fasta", "alleles", "Running"]
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.log
+      contains: ["any2fasta", "alleles", "Running"]
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.sh
+      contains: ["legsta", "END_VERSIONS"]
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/nf-legsta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000048645/bactopia-tools/legsta/logs/versions.yml
+      md5sum: 49cd65fa404c64f43eb1c762aa4e26e6

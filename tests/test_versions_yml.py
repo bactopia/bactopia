@@ -55,31 +55,11 @@ def test_ensure_valid_version_yml(workflow_dir):
     process_name = workflow_dir.name.split("-")[0]
     tested = False
     try:
-        if Path(f"{workflow_dir}/bactopia-tools/").exists():
-            # Treat as bactopia-tool
-            versions_yml_files = Path(workflow_dir / f"bactopia-tools/{process_name}/{process_name}").rglob("*versions.yml")
-            for versions_yml_file in versions_yml_files:
-                versions_yml = versions_yml_file.read_text()
-                validate_versions_yml(versions_yml)
-                tested = True
-        else:
-            # Treat as main workflow
-            if process_name in HAS_SUBDIRS:
-                for accepted_id in ACCEPTED_IDS:
-                    subdirs = Path(workflow_dir / f"pytest/{accepted_id}/logs/{process_name}").glob("*/")
-                    for subdir in subdirs:
-                        versions_yml_file = subdir / f"versions.yml"
-                        versions_yml = versions_yml_file.read_text()
-                        validate_versions_yml(versions_yml)
-                        tested = True
-            else:
-                for accepted_id in ACCEPTED_IDS:
-                    versions_yml_file = workflow_dir / f"pytest/{accepted_id}/logs/{process_name}/versions.yml"
-                    if Path(versions_yml_file).exists():
-                        versions_yml = versions_yml_file.read_text()
-                        validate_versions_yml(versions_yml)
-                        tested = True
-                        break
+        versions_yml_files = Path(workflow_dir / f"bactopia/").rglob("*versions.yml")
+        for versions_yml_file in versions_yml_files:
+            versions_yml = versions_yml_file.read_text()
+            validate_versions_yml(versions_yml)
+            tested = True
     except FileNotFoundError:
         raise AssertionError(
             dedent(

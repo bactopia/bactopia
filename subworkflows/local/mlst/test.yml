@@ -4,45 +4,43 @@
     - mlst
     - bactopia-tools
   files:
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/GCF_000017085.tsv
-      md5sum: 67e1b29068b46c7ccd845ec36d41da89
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.begin
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.err
-      contains: ['Found', 'Excluding', 'saureus', 'Done']
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.log
-      contains: ['Found', 'Excluding', 'saureus', 'Done']
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.run
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.sh
-      contains: ['mlst', 'END_VERSIONS']
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/nf-mlst.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/mlst/mlst/GCF_000017085/logs/mlst/versions.yml
-      md5sum: 6581d08f3dbd718cf59e8141f0b7cbc7
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/mlst/mlst/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/logs/mlst-concat/versions.yml
       md5sum: d27679d699e4d16d8b47baa6743a6c19
-    - path: bactopia-tools/mlst/mlst/mlst.tsv
+    - path: bactopia/bactopia-comparative/mlst/mlst/merged-results/mlst.tsv
       md5sum: 67e1b29068b46c7ccd845ec36d41da89
-    - path: bactopia-tools/mlst/mlst/nf-reports/mlst-dag.dot
+    - path: bactopia/bactopia-comparative/mlst/mlst/nf-reports/mlst-dag.dot
       contains: ['mlstdag', 'MLST', 'versions']
-    - path: bactopia-tools/mlst/mlst/nf-reports/mlst-report.html
+    - path: bactopia/bactopia-comparative/mlst/mlst/nf-reports/mlst-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/mlst/mlst/nf-reports/mlst-timeline.html
+    - path: bactopia/bactopia-comparative/mlst/mlst/nf-reports/mlst-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/mlst/mlst/nf-reports/mlst-trace.txt
+    - path: bactopia/bactopia-comparative/mlst/mlst/nf-reports/mlst-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/GCF_000017085.tsv
+      md5sum: 67e1b29068b46c7ccd845ec36d41da89
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.err
+      contains: ['Found', 'Excluding', 'saureus', 'Done']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.log
+      contains: ['Found', 'Excluding', 'saureus', 'Done']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.out
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.sh
+      contains: ['mlst', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/nf-mlst.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mlst/logs/versions.yml
+      md5sum: e14f401a037b355009d834026397c225

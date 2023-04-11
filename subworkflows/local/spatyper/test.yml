@@ -4,44 +4,43 @@
     - spatyper
     - bactopia-tools
   files:
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/GCF_000017085.tsv
-      md5sum: 6afe7a90c591e32107d86c0e81029f54
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.begin
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.err
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.log
-      contains: ['Spa', 'Repeats', 'spatyper']
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.out
-      contains: ['Spa', 'Repeats', 'spatyper']
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.run
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.sh
-      contains: ['spaTyper', 'END_VERSIONS']
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/nf-spatyper.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/spatyper/spatyper/GCF_000017085/logs/spatyper/versions.yml
-      md5sum: 4ffc0c49d13cbf2a87c6bc9a225103e7
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/spatyper/spatyper/logs/csvtk_concat/versions.yml
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/logs/spatyper-concat/versions.yml
       md5sum: f1881cbb6008cf1ec05dc8afa7af4d3a
-    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-dag.dot
-      contains: ['spatyperdag', 'SPATYPER', 'versions']
-    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/spatyper/spatyper/nf-reports/spatyper-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/spatyper/spatyper/spatyper.tsv
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/merged-results/spatyper.tsv
       md5sum: 6afe7a90c591e32107d86c0e81029f54
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/nf-reports/spatyper-dag.dot
+      contains: ['spatyperdag', 'SPATYPER', 'versions']
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/nf-reports/spatyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/nf-reports/spatyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/spatyper/spatyper/nf-reports/spatyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/GCF_000017085.tsv
+      md5sum: 6afe7a90c591e32107d86c0e81029f54
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.err
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.log
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.out
+      contains: ['Spa', 'Repeats', 'spatyper']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.sh
+      contains: ['spaTyper', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/nf-spatyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/spatyper/logs/versions.yml
+      md5sum: 4ffc0c49d13cbf2a87c6bc9a225103e7

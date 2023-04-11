@@ -4,35 +4,35 @@
     - kraken2
     - bactopia-tools
   files:
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_1.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_2.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.kraken2.report.txt
-      contains: ['Candidatus', 'Bacteria', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_1.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_2.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.err
-      contains: ['Loading', 'classified', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.log
-      contains: ['Loading', 'classified', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.out
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.sh
-      contains: ['kraken2', 'END_VERSIONS']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/versions.yml
-      md5sum: 79220ccac8645a986c4a6d4c9a28eab2
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-dag.dot
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-dag.dot
       contains: ['kraken2dag', 'KRAKEN2', 'versions']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-report.html
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-timeline.html
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-trace.txt
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.classified_1.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.classified_2.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.kraken2.report.txt
+      contains: ['Enterobacteriaceae', 'Bacteria', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.err
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.log
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.out
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.sh
+      contains: ['kraken2', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/versions.yml
+      md5sum: 6877e12fa98ce71b62ab60c4f4e60057
 
 - name: kraken2-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2_tarball --wf kraken2 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -41,32 +41,32 @@
     - kraken2-tarball
     - bactopia-tools
   files:
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_1.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.classified_2.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.kraken2.report.txt
-      contains: ['Candidatus', 'Bacteria', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_1.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/SRR2838702.unclassified_2.fastq.gz
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.err
-      contains: ['Loading', 'classified', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.log
-      contains: ['Loading', 'classified', 'unclassified']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.out
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.sh
-      contains: ['kraken2', 'END_VERSIONS']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/nf-kraken2.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/kraken2/kraken2/SRR2838702/logs/kraken2/versions.yml
-      md5sum: 6408c732c85eed122752ecb1a6656722
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-dag.dot
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-dag.dot
       contains: ['kraken2dag', 'KRAKEN2', 'versions']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-report.html
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-timeline.html
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/kraken2/kraken2/nf-reports/kraken2-trace.txt
+    - path: bactopia/bactopia-comparative/kraken2/kraken2/nf-reports/kraken2-trace.txt
       contains: ['task_id']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.classified_1.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.classified_2.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.kraken2.report.txt
+      contains: ['Enterobacteriaceae', 'Bacteria', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.err
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.log
+      contains: ['Loading', 'classified', 'unclassified']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.out
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.sh
+      contains: ['kraken2', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/nf-kraken2.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/kraken2/logs/versions.yml
+      md5sum: 439b5ba36562f34de653678103b5232c

@@ -56,7 +56,7 @@ workflow CLEANYERREADS {
 
     if (params.enable_scrubber) {
         // Remove host reads
-        SCRUBBER(GATHER_SAMPLES.out.raw_fastq)
+        SCRUBBER(GATHER.out.raw_fastq)
         ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
         // Clean up scrubbed reads

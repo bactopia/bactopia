@@ -4,42 +4,42 @@
     - gubbins
     - bactopia-tools
   files:
-    - path: bactopia-tools/gubbins/gubbins/gubbins.branch_base_reconstruction.embl.gz
-    - path: bactopia-tools/gubbins/gubbins/gubbins.filtered_polymorphic_sites.fasta.gz
-    - path: bactopia-tools/gubbins/gubbins/gubbins.filtered_polymorphic_sites.phylip
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.branch_base_reconstruction.embl.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.filtered_polymorphic_sites.fasta.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.filtered_polymorphic_sites.phylip
       md5sum: 15efec56c27103e2f777d946a297d399
-    - path: bactopia-tools/gubbins/gubbins/gubbins.final_tree.tre
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.final_tree.tre
       md5sum: e1a69691e9ca439db36d1544f482f403
-    - path: bactopia-tools/gubbins/gubbins/gubbins.masked.aln.gz
-    - path: bactopia-tools/gubbins/gubbins/gubbins.node_labelled.final_tree.tre
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.masked.aln.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.node_labelled.final_tree.tre
       md5sum: accd0e5733897e53534c70dc24f8e74e
-    - path: bactopia-tools/gubbins/gubbins/gubbins.per_branch_statistics.csv
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.per_branch_statistics.csv
       md5sum: 2dc0dbae9a7cf545bfc56ac5d734342d
-    - path: bactopia-tools/gubbins/gubbins/gubbins.recombination_predictions.embl.gz
-    - path: bactopia-tools/gubbins/gubbins/gubbins.recombination_predictions.gff.gz
-    - path: bactopia-tools/gubbins/gubbins/gubbins.summary_of_snp_distribution.vcf.gz
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/gubbins.log
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.recombination_predictions.embl.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.recombination_predictions.gff.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/gubbins.summary_of_snp_distribution.vcf.gz
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/gubbins.log
       contains: ["Process", "raxml", "Model", "Gubbins"]
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.begin
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.err
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.log
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.err
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.log
       contains: ["RAxML", "Alignment", "Substitution", "final"]
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.out
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.out
       contains: ["RAxML", "Alignment", "Substitution", "final"]
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.run
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.sh
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.sh
       contains: ["run_gubbins.py", "END_VERSIONS"]
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/nf-gubbins.trace
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/gubbins/gubbins/logs/gubbins/versions.yml
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/gubbins/logs/versions.yml
       md5sum: a60954daa2e6c09f77e31d3f78cec901
-    - path: bactopia-tools/gubbins/gubbins/nf-reports/gubbins-dag.dot
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/nf-reports/gubbins-dag.dot
       contains: ['gubbinsdag', 'GUBBINS', 'versions']
-    - path: bactopia-tools/gubbins/gubbins/nf-reports/gubbins-report.html
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/nf-reports/gubbins-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/gubbins/gubbins/nf-reports/gubbins-timeline.html
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/nf-reports/gubbins-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/gubbins/gubbins/nf-reports/gubbins-trace.txt
+    - path: bactopia/bactopia-comparative/gubbins/gubbins/nf-reports/gubbins-trace.txt
       contains: ['task_id']
