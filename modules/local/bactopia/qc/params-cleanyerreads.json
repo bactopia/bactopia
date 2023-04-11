@@ -11,9 +11,9 @@
             "description": "",
             "default": "",
             "properties": {
-                "use_fastp": {
+                "use_bbmap": {
                     "type": "boolean",
-                    "description": "Illumina reads will be QC'd using FastP",
+                    "description": "Illumina reads will be QC'd using BBMap",
                     "help": "",
                     "fa_icon": "fas fa-fast-forward"
                 },

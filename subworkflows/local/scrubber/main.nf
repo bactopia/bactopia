@@ -9,12 +9,12 @@ options.ignore = [".db"]
 
 include { SRAHUMANSCRUBBER_INITDB } from '../../../modules/nf-core/srahumanscrubber/initdb/main' addParams( )
 
-if (params.is_subworkflow) {
-    include { SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-} else if (params.wf == 'teton') {
+if (params.wf == 'teton') {
     include { SRAHUMANSCRUBBER_SCRUB_TETON as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-} else {
+} else if (params.wf == 'cleanyerreads') {
     include { SRAHUMANSCRUBBER_SCRUB_MAIN as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
+} else {
+    include { SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
 }
 
 workflow SCRUBBER {

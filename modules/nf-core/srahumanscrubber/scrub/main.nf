@@ -29,6 +29,7 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     script:
     prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
+    meta.single_end = reads[1] == null ? true : false
     if (meta.single_end) {
         """
         # Scrub human reads
@@ -69,17 +70,18 @@ process SRAHUMANSCRUBBER_SCRUB_MAIN {
         'quay.io/biocontainers/sra-human-scrubber:2.0.0--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(reads), path(extra), path(genome_size)
+    tuple val(meta), path(reads), path(extra)
     path db
 
     output:
-    tuple val(meta), path("*.scrubbed.fastq.gz"), path(extra), path(genome_size), emit: scrubbed
-    path "*.{log,err}"                                                          , emit: logs, optional: true
-    path ".command.*"                                                           , emit: nf_logs
-    path "versions.yml"                                                         , emit: versions
+    tuple val(meta), path("*.scrubbed.fastq.gz"), path(extra), emit: scrubbed
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
+    meta.single_end = reads[1] == null ? true : false
     if (meta.single_end) {
         """
         # Scrub human reads
@@ -133,6 +135,7 @@ process SRAHUMANSCRUBBER_SCRUB_TETON {
 
     script:
     def prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
+    meta.single_end = reads[1] == null ? true : false
     if (meta.single_end) {
         """
         # Scrub human reads

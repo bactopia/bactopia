@@ -2,6 +2,7 @@ bactopia-tests/
 temp/
 data/datasets/*.gz
 data/datasets/*.msh
+data/datasets/*.db
 ./datasets/
 test_data
 conda/envs
