@@ -1,11 +1,11 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 include { ASSEMBLER } from './main.nf' addParams(reassemble: false, min_genome_size: 0)
-println "${params.test_data}"
+
 workflow test_assembler_se {
     // [sample, runtype, single_end], fastqs, extra, genome_size
     inputs = tuple(
-        [ id:"output", runtype:'single-end', single_end:true, genome_size: 350000 ],
+        [ id:"portiera", runtype:'single-end', single_end:true, genome_size: 350000 ],
         [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)],
         file(params.test_data['empty']['fna'])
     )

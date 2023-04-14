@@ -18,7 +18,7 @@ process EGGNOG_MAPPER {
 
     input:
     tuple val(meta), path(fasta)
-    path(db)
+    path db
 
     output:
     tuple val(meta), path("*.emapper.hits")                , emit: hits

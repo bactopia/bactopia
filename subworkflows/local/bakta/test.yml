@@ -4,49 +4,41 @@
     - bakta
     - bactopia-tools
   files:
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.embl
-      contains: ['contig_1', 'Bakta', 'DnaK', '//']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.faa
-      contains: ['DnaK', '>', 'dehydratase', 'NADH']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.ffn
-      contains: ['DnaK', '>', 'dehydratase', 'NADH']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.fna
-      contains: ['contig_1', '>', 'completeness', 'gcode']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
-      contains: ['contig_1', 'Bakta', 'DnaK', '//']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
-      contains: ['Database', 'Prodigal', 'replication', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
-      md5sum: 02696ffea721a9195540131bd8a0157c
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
-      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
-      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.txt
-      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.err
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.log
-      contains: ['predict', 'filtered', 'successfully', 'JSON']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.out
-      contains: ['predict', 'filtered', 'successfully', 'JSON']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.sh
-      contains: ['bakta', 'END_VERSIONS']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: 1cfea423a29635dd45d0645bc40bcd61
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-timeline.html
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-trace.txt
-      contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685-blastdb.tar.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.embl.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.ffn.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.fna.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.gbff.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.gff3.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.hypotheticals.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.hypotheticals.tsv
+      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.tsv
+      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.txt
+      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.err
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.log
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.out
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.sh
+      contains: ['bakta', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/versions.yml
+      md5sum: 3b7a3d05db689ea4e91b8e24b5d9cb3b
 
 - name: bakta-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta_tarball --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
@@ -55,46 +47,38 @@
     - bakta
     - bactopia-tools
   files:
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.embl
-      contains: ['contig_1', 'Bakta', 'DnaK', '//']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.faa
-      contains: ['DnaK', '>', 'dehydratase', 'NADH']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.ffn
-      contains: ['DnaK', '>', 'dehydratase', 'NADH']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.fna
-      contains: ['contig_1', '>', 'completeness', 'gcode']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gbff
-      contains: ['contig_1', 'Bakta', 'DnaK', '//']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.gff3
-      contains: ['Database', 'Prodigal', 'replication', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.faa
-      md5sum: 02696ffea721a9195540131bd8a0157c
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.hypotheticals.tsv
-      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.tsv
-      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/GCF_000292685.txt
-      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.err
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.log
-      contains: ['predict', 'filtered', 'successfully', 'JSON']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.out
-      contains: ['predict', 'filtered', 'successfully', 'JSON']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.sh
-      contains: ['bakta', 'END_VERSIONS']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/nf-bakta.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/bakta/bakta/GCF_000292685/logs/bakta/versions.yml
-      md5sum: d24b86f107df92861d9f746c3fa7db0d
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-dag.dot
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-dag.dot
       contains: ['baktadag', 'BAKTA', 'versions']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-report.html
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-timeline.html
+    - path: bactopia/bactopia-comparative/bakta/bakta/nf-reports/bakta-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/bakta/bakta/nf-reports/bakta-trace.txt
-      contains: ['task_id']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685-blastdb.tar.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.embl.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.ffn.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.fna.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.gbff.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.gff3.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.hypotheticals.faa.gz
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.hypotheticals.tsv
+      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.tsv
+      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/GCF_000292685.txt
+      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.err
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.log
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.out
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.sh
+      contains: ['bakta', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/nf-bakta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-main/annotator/bakta/logs/versions.yml
+      md5sum: 45893a0e04520cdb6e20b92e20a65049

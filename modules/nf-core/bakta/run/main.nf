@@ -50,9 +50,9 @@ process BAKTA_RUN {
     if [ "$is_tarball" == "true" ]; then
         mkdir database
         tar -xzf $db -C database
-        BAKTA_DB=\$(find database/ -name "bakta.db" | sed 's=bakta.db==')
+        BAKTA_DB=\$(find database/ -name "bakta.db" | sed 's=bakta\\.db==')
     else
-        BAKTA_DB=\$(find $db/ -name "bakta.db" | sed 's=bakta.db==')
+        BAKTA_DB=\$(find $db/ -name "bakta.db" | sed 's=bakta\\.db==')
     fi
 
     bakta \\

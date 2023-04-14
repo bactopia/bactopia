@@ -1,10 +1,349 @@
-- name: qc-test
-  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc --wf qc -c nextflow.config ${BACTOPIA_ARGS}'
+- name: qc-pe
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_pe -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
+    - bactopia
     - qc
-    - bactopia-tools
+    - qc_pe
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/output-fastp.log
+      contains: ['Detecting', 'adapter', 'reads', 'Insert', 'JSON']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R1.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R2.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.json
+      md5sum: 3bd447298e5fbffd11ea39b8f8350ff3
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final.json
+      md5sum: eb4b6a1b03b4f977276effdaf857faec
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final.json
+      md5sum: 080e9c45ec9380f337688900e946c4b3
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original.json
+      md5sum: 8510db56c52bc73a359c047e2e66688c
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.zip
+
+- name: qc-se
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_se
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/output-fastp.log
+      contains: ['Detecting', 'adapter', 'reads', 'JSON']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: b000d1f90cac6ad46cc68469264b281a
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final.json
+      md5sum: db692de5d929a17b319f13f0366f1a03
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.json
+      md5sum: 6db3ee3a2b890adc655e191bb22a2b69
+
+- name: qc-pe_skip_qc
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_pe -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_pe_skip_qc
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-qc-skipped.txt
+      md5sum: 81538b5573ca3720b779bf3bcf0945af
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R1.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R2.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final.json
+      md5sum: 8510db56c52bc73a359c047e2e66688c
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original.json
+      md5sum: 8510db56c52bc73a359c047e2e66688c
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.zip
+
+- name: qc-se_skip_qc
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_se -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_se_skip_qc
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: b000d1f90cac6ad46cc68469264b281a
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-qc-skipped.txt
+      md5sum: 81538b5573ca3720b779bf3bcf0945af
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output.fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.zip
+
+- name: qc-pe_error
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_pe -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_pe_error
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/output-fastp.log
+      contains: ['Detecting', 'adapter', 'reads', 'JSON']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-read-count-error.txt
+      md5sum: 0c223c4cc227bbc49cea5021a6e6bcbf
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-sequence-coverage-error.txt
+      md5sum: 59dbb26c0d4033b2e5a706a4c03cba4f
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-sequence-depth-error.txt
+      md5sum: 45dd8af5114efce7899f7fd5645fddd7
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R1.error-fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output_R2.error-fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.json
+      md5sum: 3bd447298e5fbffd11ea39b8f8350ff3
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final.json
+      md5sum: 637a544aeed97b02c0c954bbb7c8055d
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R1-original_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final.json
+      md5sum: 81337073149810b452bf077779dbb810
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original.json
+      md5sum: 8510db56c52bc73a359c047e2e66688c
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output_R2-original_fastqc.zip
+
+- name: qc-se_error
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_se -c nextflow.config --coverage 1 ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_se_error
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/output-fastp.log
+      contains: ['Detecting', 'adapter', 'reads', 'JSON']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: b000d1f90cac6ad46cc68469264b281a
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-read-count-error.txt
+      md5sum: 9d9fc23fc3e4747c2ece318de93df7fc
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-sequence-coverage-error.txt
+      md5sum: 26188d5bcb6658a4ea6712011a92e331
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output-low-sequence-depth-error.txt
+      md5sum: 0dd6417564f2d0a89d61d94843244b7b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output.error-fastq.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final.json
+      md5sum: 9d7583245b017eeac07b717275ef34e4
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_fastqc.zip
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output.fastp.json
+      md5sum: 6db3ee3a2b890adc655e191bb22a2b69
+
+- name: qc-nanopore
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_nanopore -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_nanopore
+  files:
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.err
+      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.log
+      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.out
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/logs/versions.yml
+      md5sum: ad678a520287ff7588d13da5816a371e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/output.fastq.gz
+      md5sum: bdb67257dda938ab977956940b860480
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final.json
+      md5sum: c18e4b5569dec69883693f7e98577115
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_NanoPlot-report.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-final_NanoPlot.tar.gz
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original.json
+      md5sum: 8ab506a3931d855f1dc4b203415f958e
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_NanoPlot-report.html
+    - path: bactopia/bactopia-samples/output/bactopia-main/qc/summary/output-original_NanoPlot.tar.gz

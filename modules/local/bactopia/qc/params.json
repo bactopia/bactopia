@@ -17,6 +17,13 @@
                     "help": "",
                     "fa_icon": "fas fa-fast-forward"
                 },
+                "use_porechop": {
+                    "type": "boolean",
+                    "default": "turned off",
+                    "description": "Use Porechop to remove adapters from ONT reads",
+                    "help": "",
+                    "fa_icon": "fas fa-fast-forward"
+                },
                 "skip_qc": {
                     "type": "boolean",
                     "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",

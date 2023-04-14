@@ -1,8 +1,8 @@
 - name: gather-bactopia_help
   command: bash -c 'nextflow run ./main.nf --wf gather -c nextflow.config --help > gather-help.txt'
   tags:
-    - bactopia_help
-    - gather
+    - bactopia_help_disable
+    - gather_disable
   files:
     - path: gather-help.txt
       contains: ['gather', 'bactopia', 'version', 'dependencies']

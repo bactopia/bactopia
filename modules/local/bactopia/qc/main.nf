@@ -65,15 +65,22 @@ process QC {
         fi
     else
         if [[ "${meta.runtype}" == "ont" ]]; then
-            # Remove Adapters
-            porechop --input ${fq[0]} ${params.porechop_opts} \
-                --format fastq \
-                --threads ${task.cpus} > adapter-r1.fq
+            if [[ "${params.use_porechop}" == "true" ]]; then
+                # Remove Adapters
+                porechop --input ${fq[0]} ${params.porechop_opts} \
+                    --format fastq \
+                    --threads ${task.cpus} > adapter-r1.fq
 
-            # Quality filter
-            nanoq --min-len ${params.ont_minlength} \
-                  --min-qual ${params.ont_minqual} \
-                  --input adapter-r1.fq 1> filt-r1.fq
+                # Quality filter
+                nanoq --min-len ${params.ont_minlength} \
+                    --min-qual ${params.ont_minqual} \
+                    --input adapter-r1.fq 1> filt-r1.fq
+            else 
+                # Quality filter
+                nanoq --min-len ${params.ont_minlength} \
+                    --min-qual ${params.ont_minqual} \
+                    --input  ${fq[0]} 1> filt-r1.fq
+            fi
         elif [[ "${params.use_bbmap}" == "true" ]]; then
             # Use BBMap for cleaning reads
             # Illumina Reads

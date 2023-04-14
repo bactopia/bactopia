@@ -213,7 +213,7 @@ process GATHER {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         art: \$(echo \$(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*\$//')
-        fastq-dl: \$(echo \$(fastq-dl --version 2>&1) | sed 's/fastq-dl //')
+        fastq-dl: \$(echo \$(fastq-dl --version 2>&1) | sed 's/fastq-dl, version //')
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
         ncbi-genome-download: \$(echo \$(ncbi-genome-download --version 2>&1))
