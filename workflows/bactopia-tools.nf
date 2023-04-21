@@ -43,6 +43,9 @@ if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrv
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
+if (params.wf == 'blastn') include { BLASTN } from '../subworkflows/local/blastn/main';
+if (params.wf == 'blastp') include { BLASTP } from '../subworkflows/local/blastp/main';
+if (params.wf == 'blastx') include { BLASTX } from '../subworkflows/local/blastx/main';
 if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/bracken/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
@@ -88,6 +91,8 @@ if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/loca
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 if (params.wf == 'stecfinder') include { STECFINDER } from '../subworkflows/local/stecfinder/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
+if (params.wf == 'tblastn') include { TBLASTN } from '../subworkflows/local/tblastn/main';
+if (params.wf == 'tblastx') include { TBLASTX } from '../subworkflows/local/tblastx/main';
 if (params.wf == 'teton') include { TETON } from '../subworkflows/local/teton/main';
 
 if (['amrfinderplus', 'mlst'].contains(params.wf)) {
@@ -156,6 +161,15 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
+    } else if (params.wf == 'blastn') {
+        BLASTN(samples)
+        ch_versions = ch_versions.mix(BLASTN.out.versions)
+    } else if (params.wf == 'blastp') {
+        BLASTP(samples)
+        ch_versions = ch_versions.mix(BLASTP.out.versions)
+    } else if (params.wf == 'blastx') {
+        BLASTX(samples)
+        ch_versions = ch_versions.mix(BLASTX.out.versions)
     } else if (params.wf == 'bracken') {
         BRACKEN(samples)
         ch_versions = ch_versions.mix(BRACKEN.out.versions)
@@ -292,6 +306,12 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)
+    } else if (params.wf == 'tblastn') {
+        TBLASTN(samples)
+        ch_versions = ch_versions.mix(TBLASTN.out.versions)
+    } else if (params.wf == 'tblastx') {
+        TBLASTX(samples)
+        ch_versions = ch_versions.mix(TBLASTX.out.versions)
     } else if (params.wf == 'teton') {
         TETON(samples)
         ch_versions = ch_versions.mix(TETON.out.versions)

@@ -1,0 +1,89 @@
+- name: blastp-test
+  command: bash -c 'nextflow run ./subworkflows/local/blastp/test.nf -entry test_blastp --wf blastp -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blastp
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/blastp.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/versions.yml
+      md5sum: b1c14bffd08588dc5d1561c8f12af404
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-dag.dot
+      contains: ['blastpdag', 'BLASTP', 'versions']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/SRX1390622.blastp.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.err
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.log
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.out
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.sh
+      contains: ['blastp', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/versions.yml
+      md5sum: e4f6d601aeb653c1f330fd03b0e1d11a
+
+- name: blastp-test_gz
+  command: bash -c 'nextflow run ./subworkflows/local/blastp/test.nf -entry test_blastp_gz --wf blastp -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - blastp
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/blastp.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.err
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.log
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.out
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-comparative/blastp/blastp/merged-results/logs/blastp-concat/versions.yml
+      md5sum: 274687161ba1349535ca2ff03beeb818
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-dag.dot
+      contains: ['blastpdag', 'BLASTP', 'versions']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-comparative/blastp/blastp/nf-reports/blastp-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/SRX1390622.blastp.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.err
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.log
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.out
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.sh
+      contains: ['blastp', 'END_VERSIONS']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/nf-blastp.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-samples/SRX1390622/bactopia-tools/blastp/logs/versions.yml
+      md5sum: 2444267212277a5de2bfb53a5f1739a2

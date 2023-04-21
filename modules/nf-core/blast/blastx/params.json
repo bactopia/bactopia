@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/blastx/blastx/params.json",
+    "title": "BLASTX Module",
+    "description": "A module for rapidly aligning against proteins",
+    "type": "object",
+    "definitions": {
+        "blast_parameters": {
+            "title": "BLASTX Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "blastx_query": {
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "blastx_outfmt": {
+                    "type": "string",
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastx_opts": {
+                    "type": "string",
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastx_qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastx_max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up",
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/blast_parameters"
+        }
+    ]
+}

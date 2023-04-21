@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/tblastx/tblastx/params.json",
+    "title": "TBLASTX Module",
+    "description": "A module for rapidly aligning against contigs and genes",
+    "type": "object",
+    "definitions": {
+        "blast_parameters": {
+            "title": "TBLASTX Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "tblastx_query": {
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "tblastx_outfmt": {
+                    "type": "string",
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_opts": {
+                    "type": "string",
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up",
+                },
+                "tblastx_use_genes": {
+                    "type": "boolean",
+                    "description": "Blast against genes sequences instead of contigs",
+                    "default": false,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/blast_parameters"
+        }
+    ]
+}

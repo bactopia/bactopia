@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/blastn/blastn/params.json",
+    "title": "BLASTN Module",
+    "description": "A module for rapidly aligning against contigs and genes",
+    "type": "object",
+    "definitions": {
+        "blast_parameters": {
+            "title": "BLASTN Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "blastn_query": {
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "blastn_outfmt": {
+                    "type": "string",
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastn_opts": {
+                    "type": "string",
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastn_perc_identity": {
+                    "type": "integer",
+                    "description": "Percent identity",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastn_qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "blastn_max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up",
+                },
+                "blastn_use_genes": {
+                    "type": "boolean",
+                    "description": "Blast against genes sequences instead of contigs",
+                    "default": false,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/blast_parameters"
+        }
+    ]
+}

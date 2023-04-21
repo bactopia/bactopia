@@ -1,0 +1,41 @@
+name: blast_blastn
+description: Queries a BLAST DNA database
+keywords:
+  - fasta
+  - blast
+  - blastn
+  - DNA sequence
+tools:
+  - blast:
+      description: |
+        BLAST finds regions of similarity between biological sequences.
+      homepage: https://blast.ncbi.nlm.nih.gov/Blast.cgi
+      documentation: https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs
+      doi: 10.1016/S0022-2836(05)80360-2
+      licence: ["US-Government-Work"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta file containing queries sequences
+      pattern: "*.{fa,fasta}"
+  - db:
+      type: directory
+      description: Directory containing blast database
+      pattern: "*"
+output:
+  - txt:
+      type: file
+      description: File containing blastn hits
+      pattern: "*.{blastn.txt}"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@joseespinosa"
+  - "@drpatelh"

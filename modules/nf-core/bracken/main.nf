@@ -25,6 +25,7 @@ process BRACKEN {
     tuple val(meta), path('*classified*')                , emit: classified
     tuple val(meta), path('*unclassified*')              , emit: unclassified
     tuple val(meta), path("${prefix}.kraken2.report.txt"), emit: kraken2_report
+    tuple val(meta), path("${prefix}.kraken2.output.txt"), emit: kraken2_output, optional: true
     tuple val(meta), path("${prefix}.bracken.report.txt"), emit: bracken_report
     tuple val(meta), path("*.abundances.txt")            , emit: abundances
     tuple val(meta), path("*.krona.html")                , emit: krona
@@ -58,7 +59,7 @@ process BRACKEN {
         --gzip-compressed \\
         $paired \\
         $options.args \\
-        $reads > kracken.out
+        $reads > ${prefix}.kraken2.output.txt
 
     # Get read length
     if [ "${params.bracken_read_length}" == "0" ]; then

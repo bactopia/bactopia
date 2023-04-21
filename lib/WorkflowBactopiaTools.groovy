@@ -58,6 +58,30 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--bakta_db"
             }
+        } else if (params.wf == "blastn") {
+            if (params.blastn_query) {
+                if (Utils.isLocal(params.blastn_query)) {
+                    error += Utils.fileNotFound(params.blastn_query, 'blastn_query', log)
+                }
+            } else {
+                missing_required += "--blastn_query"
+            }
+        } else if (params.wf == "blastp") {
+            if (params.blastp_query) {
+                if (Utils.isLocal(params.blastp_query)) {
+                    error += Utils.fileNotFound(params.blastp_query, 'blastp_query', log)
+                }
+            } else {
+                missing_required += "--blastp_query"
+            }
+        } else if (params.wf == "blastx") {
+            if (params.blastx_query) {
+                if (Utils.isLocal(params.blastx_query)) {
+                    error += Utils.fileNotFound(params.blastx_query, 'blastx_query', log)
+                }
+            } else {
+                missing_required += "--blastx_query"
+            }
         } else if (params.wf == "eggnog") {
             if (params.eggnog_db) {
                 if (!params.download_eggnog) {
@@ -154,6 +178,22 @@ class WorkflowBactopiaTools {
                 }
             } else {
                 missing_required += "--scrubber_db"
+            }
+        } else if (params.wf == "tblastn") {
+            if (params.tblastn_query) {
+                if (Utils.isLocal(params.tblastn_query)) {
+                    error += Utils.fileNotFound(params.tblastn_query, 'tblastn_query', log)
+                }
+            } else {
+                missing_required += "--tblastn_query"
+            }
+        } else if (params.wf == "tblastx") {
+            if (params.tblastx_query) {
+                if (Utils.isLocal(params.tblastx_query)) {
+                    error += Utils.fileNotFound(params.tblastx_query, 'tblastx_query', log)
+                }
+            } else {
+                missing_required += "--tblastx_query"
             }
         }
 

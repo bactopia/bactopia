@@ -39,6 +39,7 @@ workflow BRACKEN {
     classified = BRACKEN_MODULE.out.classified
     unclassified = BRACKEN_MODULE.out.unclassified
     kraken2_report = BRACKEN_MODULE.out.kraken2_report
+    kraken2_output = BRACKEN_MODULE.out.kraken2_output
     bracken_report = BRACKEN_MODULE.out.bracken_report
     abundances = BRACKEN_MODULE.out.abundances
     versions = ch_versions // channel: [ versions.yml ]

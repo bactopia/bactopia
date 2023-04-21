@@ -129,6 +129,7 @@ def _collect_inputs(sample, dir, extension) {
     PATHS.fna = "assembler"
     PATHS.faa = "annotator"
     PATHS.gff = "annotator"
+    PATHS.blastdb = "annotator"
 
     base_dir = "${dir}/bactopia-samples/${sample}/bactopia-main/"
     se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
@@ -178,6 +179,17 @@ def _collect_inputs(sample, dir, extension) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
         } else if (file(fna).exists() && file(faa).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
+        }
+    } else if (extension == 'blastdb') {
+        // Default to Bakta blastdb
+        input = "${base_dir}/${PATHS[extension]}/bakta/${sample}-${extension}.tar.gz"
+        if (!file("${input}").exists()) {
+            // Fall back on Prokka
+            input = "${base_dir}/${PATHS[extension]}/prokka/${sample}-${extension}.tar.gz"
+        }
+
+        if (file("${input}").exists()) {
+            return tuple([id:sample], [file("${input}")])
         }
     } else {
         input = "${base_dir}/${PATHS[extension]}/${sample}.${extension}"
