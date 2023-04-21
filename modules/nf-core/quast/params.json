@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/quast/params.json",
+    "title": "Quast module",
+    "description": "A module for assessing the quality of assembled contigs",
+    "type": "object",
+    "definitions": {
+        "quast_parameters": {
+            "title": "Quast Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "contig_thresholds": {
+                    "type": "string",
+                    "default": "0,1000,10000,100000,250000,1000000",
+                    "description": "Comma-separated list of contig length thresholds",
+                    "fa_icon": "fas fa-align-justify"
+                },
+                "plots_format": {
+                    "type": "string",
+                    "default": "pdf",
+                    "description": "Save plots in specified format",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "emf",
+                        "eps",
+                        "pdf",
+                        "png",
+                        "ps",
+                        "raw",
+                        "rgba",
+                        "svg",
+                        "svgz"
+                    ]
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/quast_parameters"
+        }
+    ]
+}

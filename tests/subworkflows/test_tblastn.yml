@@ -1,0 +1,8 @@
+- name: tblastn-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf tblastn -c nextflow.config --help > tblastn-help.txt'
+  tags:
+    - bactopia_help
+    - tblastn
+  files:
+    - path: tblastn-help.txt
+      contains: ['tblastn', 'bactopia', 'version', 'dependencies']

@@ -125,11 +125,12 @@ def _is_sample_dir(sample, dir) {
 */
 def _collect_inputs(sample, dir, extension) {
     PATHS = [:]
+    PATHS.blastdb = "annotator"
     PATHS.fastq = "qc"
     PATHS.fna = "assembler"
     PATHS.faa = "annotator"
     PATHS.gff = "annotator"
-    PATHS.blastdb = "annotator"
+    PATHS.meta = "gather"
 
     base_dir = "${dir}/bactopia-samples/${sample}/bactopia-main/"
     se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
@@ -137,6 +138,7 @@ def _collect_inputs(sample, dir, extension) {
     pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"
     pe2 = "${base_dir}/${PATHS['fastq']}/${sample}_R2.fastq.gz"
     fna = "${base_dir}/${PATHS['fna']}/${sample}.fna"
+    meta = "${base_dir}/${PATHS['meta']}/${sample}-meta.tsv"
 
     if (extension == 'fastq') {
         if (file(se).exists()) {
@@ -179,6 +181,13 @@ def _collect_inputs(sample, dir, extension) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
         } else if (file(fna).exists() && file(faa).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
+        }
+    } else if (extension == 'fna_meta') {
+        // include the meta file
+        if (file("${fna}.gz").exists() && file(meta).exists()) {
+            return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file(meta)])
+        } else if (file(fna).exists() && file(meta).exists()) {
+            return tuple([id:sample, is_compressed:false], [file("${fna}")], [file(meta)])
         }
     } else if (extension == 'blastdb') {
         // Default to Bakta blastdb

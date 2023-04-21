@@ -1,0 +1,39 @@
+name: quast
+description: Quality Assessment Tool for Genome Assemblies
+keywords:
+  - quast
+  - assembly
+  - quality
+tools:
+  - quast:
+      description: |
+        QUAST calculates quality metrics for genome assemblies
+      homepage: http://bioinf.spbau.ru/quast
+      doi: https://doi.org/10.1093/bioinformatics/btt086
+      licence: ["GPL-2.0-only"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: |
+        The genome assembly to be evaluated. Has to contain at least a non-empty string dummy value.
+
+output:
+  - quast:
+      type: directory
+      description: Directory containing complete quast report
+      pattern: "{prefix}.lineage_report.csv"
+  - report:
+
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@drpatelh"
+  - "@kevinmenden"

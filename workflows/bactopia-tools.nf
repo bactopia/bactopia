@@ -78,6 +78,7 @@ if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/pro
 if (params.wf == 'pasty') include { PASTY } from '../subworkflows/local/pasty/main';
 if (params.wf == 'pbptyper') include { PBPTYPER } from '../subworkflows/local/pbptyper/main';
 if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflows/local/plasmidfinder/main';
+if (params.wf == 'quast') include { QUAST } from '../subworkflows/local/quast/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
@@ -267,6 +268,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'plasmidfinder') {
         PLASMIDFINDER(samples)
         ch_versions = ch_versions.mix(PLASMIDFINDER.out.versions)
+    } else if (params.wf == 'quast') {
+        QUAST(samples)
+        ch_versions = ch_versions.mix(QUAST.out.versions)
     } else if (params.wf == 'rgi') {
         RGI(samples)
         ch_versions = ch_versions.mix(RGI.out.versions)
