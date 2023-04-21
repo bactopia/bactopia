@@ -11,14 +11,21 @@ description: A full list of Bactopia releases and a description of the changes.
     - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read
     - `teton` - Host removal and taxon classification with estimated abundances
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `blastn` - Search against nucleotide BLAST databases using nucleotide queries
+    - `blastp` - Search against protein BLAST databases using protein queries
+    - `blastx` - Search against protein BLAST databases using translated nucleotide queries
     - `bracken` - Taxonomic classification ans species abundance estimation of sequence reads
     - `midas` - Estimate bacterial species abundances from FASTQ files
+    - `quast` - Assess the quality of assembled contigs
     - `sra-human-scrubber` - Scrub human reads from FASTQ files
     - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
+    - `tblastn` - Search against translated nucleotide BLAST databases using protein queries
+    - `tblastx` - Search against translated nucleotide BLAST databases using translated nucleotide queries
 - per-release databases for `amrfinderplus` and `mlst`
 - new directory structure for outputs
 - GitHub Action to build environments
 - `fastp` is default read cleaner, can use previous methods with `--use_bbmap`
+- Porechop is now optional (`--use_porechop`)
 - unified `publishDir` across modules
 - download datasets using `storeDir`
     - `BACTOPIA:DATASETS`
@@ -33,7 +40,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `gubbins`: 3.2.1 -> 3.3
     - `mob_suite`: 3.1.0 -> 3.1.4
     - `multiqc`: 1.11 -> 1.14
-    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.4
+    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.11
     - `panaroo`: 1.3.0 -> 1.3.2
     - `pasty`: 1.0.0 -> 1.0.2
     - `phyloflash`: 3.4 -> 3.4.2
