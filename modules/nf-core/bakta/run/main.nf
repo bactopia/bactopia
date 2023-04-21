@@ -24,6 +24,7 @@ process BAKTA_RUN {
     path replicons
 
     output:
+    tuple val(meta), path("results/${prefix}.{ffn,ffn.gz}"), path("results/${prefix}.{faa,faa.gz}"), emit: annotations
     tuple val(meta), path("results/${prefix}.{embl,embl.gz}")            , emit: embl
     tuple val(meta), path("results/${prefix}.{faa,faa.gz}")              , emit: faa
     tuple val(meta), path("results/${prefix}.{ffn,ffn.gz}")              , emit: ffn

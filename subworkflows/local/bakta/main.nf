@@ -51,6 +51,7 @@ workflow BAKTA {
     ch_versions = ch_versions.mix(BAKTA_RUN.out.versions.first())
 
     emit:
+    annotations = BAKTA_RUN.out.annotations
     embl = BAKTA_RUN.out.embl
     faa = BAKTA_RUN.out.faa
     ffn = BAKTA_RUN.out.ffn
