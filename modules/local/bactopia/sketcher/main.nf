@@ -33,12 +33,19 @@ process SKETCHER {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def is_compressed = mash_db.getName().endsWith(".xz") ? true : false
+    def mash_name = mash_db.getName().replace(".xz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        xz -c -d $mash_db > $mash_name
+    fi
+
     gzip -cd ${fasta} | mash sketch -o ${prefix}-k21 -k 21 ${options.args} -I ${prefix} -
     gzip -cd ${fasta} | mash sketch -o ${prefix}-k31 -k 31 ${options.args} -I ${prefix} -
     sourmash sketch dna ${options.args2} --merge ${prefix} -o ${prefix}.sig ${fasta}
 
     # Mash Screen
+
     echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq88-k21.txt
     gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${mash_db} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
 
