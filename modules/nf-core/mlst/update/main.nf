@@ -9,8 +9,8 @@ conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.cond
 
 process MLST_UPDATE {
     label 'process_low'
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    storeDir params.datasets_cache
+    publishDir params.datasets_cache
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
