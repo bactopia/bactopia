@@ -73,7 +73,7 @@ else
     BUILD_TYPE="conda"
     if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]] || [[ "$*" == *"arcc"* ]]; then
         BUILD_TYPE="singularity"
-    elif  [[ "$*" == *"docker"* ]]; then
+    elif  [[ "$*" == *"docker"* ]] || [[ "$*" == *"arm"* ]]; then
         BUILD_TYPE="docker"
     fi
 

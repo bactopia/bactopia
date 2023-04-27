@@ -369,7 +369,7 @@ process QC {
         fastqc: \$(echo \$(fastqc --version 2>&1) | sed 's/^.*FastQC v//')
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: \$(echo \$(lighter -v 2>&1) | sed 's/Lighter v//')
-        nanoplot: \$(echo \$(NanoPlot -v 2>&1) | sed 's/NanoPlot //')
+        nanoplot: \$(echo \$(NanoPlot -v 2>&1) | sed 's/.*NanoPlot //')
         nanoq: \$(echo \$(nanoq --version 2>&1) | sed 's/nanoq //')
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
         porechop: \$(echo \$(porechop --version 2>&1))
