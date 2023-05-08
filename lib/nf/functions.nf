@@ -179,33 +179,26 @@ def saveFiles(Map args) {
     
     Example structure of output files:
 
-    ${params.outdir}/
-    ├── bactopia-tools/
-    │   └── mlst/
-    |       ├── logs/
-    │       └── merged.tsv
-    ├── <SAMPLE_ID>/
-    │   ├── bactopia-main/
-    │   │   ├── assembler/
-    │   │   │   ├── logs/
-    │   │   │   ├── <SAMPLE_ID>.fna.gz
-    │   │   │   └── <SAMPLE_ID>.tsv
-    │   │   ├── qc/
-    │   │   │   ├── logs/
-    │   │   │   └── <SAMPLE_ID>.fastq.gz
-    │   │   ├── sketcher/
-    │   │   │   ├── logs/
-    │   │   │   └── <SAMPLE_ID>.sig
-    │   ├── bactopia-tools/
-    │   │   └── mlst/
-    │   │       ├── logs/
-    │   │       └── <SAMPLE_ID>.tsv
-    │   ├── .runtype
-    │   ├── *-error.txt
-    │   ├── software_versions.yml
-    │   └── <SAMPLE_ID.txt
-    ├── nf-report/
-    └── software_versions.yml
+    <OUTDIR>/
+    ├── bactopia-comparative
+    │   └── <WORKFLOW_NAME>
+    │       └── <RUN_NAME>
+    │           ├── merged-results
+    │           │   └── logs
+    │           ├── nf-reports
+    │           └── software-versions
+    │               └── logs
+    └── bactopia-samples
+        └── <SAMPLE_NAME>
+            ├── bactopia-main
+            │   └── <PROCESS_NAME>
+            │       └── logs
+            └── bactopia-tools
+                ├── <PROCESS_NAME>
+                │   └── logs
+                └── <PROCESS_NAME>
+                   └── <RUN_NAME>
+                       └── logs
     */
     def final_output = null
     def filename = ""

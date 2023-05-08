@@ -169,7 +169,7 @@ def process_accessions(line, genome_size, species) {
     def meta = [:]
 
     if (line.accession.startsWith('GCF') || line.accession.startsWith('GCA')) {
-        meta.id = accession.split(/\./)[0]
+        meta.id = line.accession.split(/\./)[0]
         meta.runtype = "assembly_accession"
         meta.genome_size = genome_size
         meta.species = species
