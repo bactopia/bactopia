@@ -17,7 +17,6 @@ include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addPa
 workflow FASTANI {
     take:
     query // channel: [ val(meta), [ fasta ] ]
-    reference // channel: [ fastas ]
 
     main:
     ch_versions = Channel.empty()
