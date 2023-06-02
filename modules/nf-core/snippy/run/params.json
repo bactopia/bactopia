@@ -66,6 +66,12 @@
                     "type": "string",
                     "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
                     "fa_icon": "fas fa-italic"
+                },
+                "snippy_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for Snippy",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         }
