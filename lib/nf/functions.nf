@@ -173,6 +173,7 @@ def is_available_workflow(wf) {
     Functions modeled from nf-core/modules
 ========================================================================================
 */
+/*
 def saveFiles(Map args) {
     /*
     Modeled after nf-core/modules saveFiles function
@@ -199,7 +200,7 @@ def saveFiles(Map args) {
                 └── <PROCESS_NAME>
                    └── <RUN_NAME>
                        └── logs
-    */
+    /
     def final_output = null
     def filename = ""
     def found_ignore = false
@@ -302,6 +303,139 @@ def saveFiles(Map args) {
 
     return final_output
 }
+*/
+
+def saveFiles(Map args) {
+    /*
+    Modeled after nf-core/modules saveFiles function
+    
+    Example structure of output files:
+
+    <OUTDIR>/
+    ├── bactopia-runs
+    │   └── <WORKFLOW_NAME>-YYYYMMDD-HHMMSS
+    │       └── <PROCESS_NAME>
+    |       |   ├── logs
+    │       |   └── merged-results
+    │       └── <PROCESS_NAME>
+    │       |   └── <REF_NAME>
+    |       |       ├── logs
+    │       |       └── merged-results
+    │       ├── logs
+    │       ├── nf-reports
+    │       └── software-versions
+    └── <SAMPLE_NAME>
+        ├── bactopia
+        │   ├── main
+        │   │   └── <PROCESS_NAME>
+        │   │       └── logs
+        │   └── tools
+        │       ├── <PROCESS_NAME>
+        │       │   └── <REF_NAME>
+        │       │       └── logs
+        │       └── <PROCESS_NAME>
+        │           └── logs
+        └── other-pipeline
+            └── results
+    */
+    def final_output = null
+    def filename = ""
+    def found_ignore = false
+    def logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
+    def process_name = args.opts.process_name
+    def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
+    def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
+    def goto_base = false
+    if (args.filename) {
+        if (args.filename.startsWith('.command')) {
+            // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
+            ext = args.filename.replace(".command.", "")
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                }
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+            }
+        } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
+            // Its a version file or program specific log files
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/${args.filename}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+                }
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/${args.filename}"
+            }
+        } else {
+            // Its a program output
+            filename = args.filename
+            if (filename.startsWith("results/")) {
+                filename = filename.replace("results/","")
+            }
+
+            if (publish_to_base == true) {
+                goto_base = true
+                final_output = filename
+            } else {
+                if (args.opts.btype == "comparative") {
+                    // comparative workflows will have subdir applied later
+                    final_output = "${process_name}/${filename}"
+                } else {
+                    final_output = "${process_name}/${args.opts.subdir}/${filename}"
+                }
+            }
+
+            // Exclude files that should be ignored
+            args.opts.ignore.each {
+                if (filename.endsWith("${it}")) {
+                    final_output = null
+                }
+            }
+
+            // Publish specific files to base
+            publish_to_base_list.each {
+                if (filename.endsWith("${it}")) {
+                    goto_base = true
+                    final_output = filename
+                }
+            }
+        }
+        
+        if (final_output) {
+            if (args.opts.btype == "main" || args.opts.btype == "tools") {
+                // outdir/<SAMPLE_NAME>/{main|tools}
+                if (goto_base) {
+                    // my-sample/assembly-error.txt
+                    final_output = "${args.prefix}/bactopia/${final_output}"
+                } else {
+                    // my-sample/bactopia-main/assembler
+                    if (process_name == "bakta" || process_name == "prokka") {
+                        // my-sample/bactopia-main/<process_name>/<output>
+                        final_output = "${args.prefix}/bactopia/${args.opts.btype}/annotator/${final_output}"
+                    } else {
+                        // my-sample/bactopia-main/<output>
+                        final_output = "${args.prefix}/bactopia/${args.opts.btype}/${final_output}"
+                    }
+                }
+            } else {
+                // $outdir/bactopia-runs/$rundir
+                // bactopia-runs/<WORKFLOW>-YYYYMMDD-HHMMSS/pangenome/core-genome.aln.gz
+                final_output = "bactopia-runs/${args.rundir}/${final_output}"
+            }
+            // Replace any double slashes
+            final_output = final_output.replace("//", "/")
+        }
+    }
+
+    return final_output
+}
+
 
 def initOptions(Map args, String process_name) {
     /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */

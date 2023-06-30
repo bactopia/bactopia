@@ -18,7 +18,7 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     include_all = true
     inclusions = []
     exclusions = []
-    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
+    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work', 'bactopia-runs']
     if (include_list) {
         new File(include_list).eachLine { line -> 
             inclusions << line.trim().split('\t')[0]
@@ -35,7 +35,7 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     
     sample_list = []
     missing = []
-    file("${bactopia_dir}/bactopia-samples").eachFile { item ->
+    file("${bactopia_dir}/").eachFile { item ->
         if( item.isDirectory() ) {
             sample = item.getName()
             if (!IGNORE_LIST.contains(sample)) {
@@ -108,7 +108,7 @@ def collect_local_files(local_file, local_pattern) {
 ========================================================================================
 */
 def _is_sample_dir(sample, dir) {
-    return file("${dir}/bactopia-samples/${sample}").exists()
+    return file("${dir}/${sample}").exists()
 }
 
 /*
@@ -132,7 +132,7 @@ def _collect_inputs(sample, dir, extension) {
     PATHS.gff = "annotator"
     PATHS.meta = "gather"
 
-    base_dir = "${dir}/bactopia-samples/${sample}/bactopia-main/"
+    base_dir = "${dir}/${sample}/bactopia/main/"
     se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
     ont = "${base_dir}/${PATHS['fastq']}/.ont"
     pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"

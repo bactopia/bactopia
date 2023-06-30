@@ -17,10 +17,11 @@ include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addPa
 workflow FASTANI {
     take:
     query // channel: [ val(meta), [ fasta ] ]
+    reference // channel: [ val(meta), [ fasta ] ]
 
     main:
     ch_versions = Channel.empty()
-    ch_fastani_reference = Channel.empty()
+    ch_fastani_reference = reference
     query.collect{meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}.set{ ch_fastani_query }
     if (params.skip_pairwise) {
         // All against each reference

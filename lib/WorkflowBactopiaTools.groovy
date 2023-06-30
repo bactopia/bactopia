@@ -203,6 +203,7 @@ class WorkflowBactopiaTools {
         }
 
         // Check for existing output directory
+        /*
         if (Utils.isLocal(params.outdir)) {
             // Only run this if local files
             if (!workflow.resume) {
@@ -221,6 +222,7 @@ class WorkflowBactopiaTools {
                 }
             }
         }
+        */
 
         if (missing_required.size() > 0) {
             log.error "Required parameters are missing, please check: " + missing_required.join(", ")

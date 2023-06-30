@@ -126,6 +126,7 @@ class WorkflowBactopia {
         }
 
         // Check for existing output directory
+        /*
         if (Utils.isLocal(params.outdir)) {
             // Only run this if local files
             if (!workflow.resume) {
@@ -144,6 +145,7 @@ class WorkflowBactopia {
                 }
             }
         }
+        */
 
         if (error > 0) {
             log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue")

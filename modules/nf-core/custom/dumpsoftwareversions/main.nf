@@ -86,6 +86,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     workflow_versions["Workflow"] = {
         "Nextflow": "$workflow.nextflow.version",
         "$workflow.manifest.name": "$workflow.manifest.version",
+        "command": "$workflow.commandLine",
         "date": datetime.datetime.now()
     }
 
@@ -99,11 +100,11 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     }
 
     with open("software_versions.yml", 'w') as f:
-        yaml.dump(workflow_versions, f, default_flow_style=False)
+        yaml.dump(workflow_versions, f, default_flow_style=False, width=float("inf"))
     with open("software_versions_mqc.yml", 'w') as f:
-        yaml.dump(versions_mqc, f, default_flow_style=False)
+        yaml.dump(versions_mqc, f, default_flow_style=False, width=float("inf"))
 
     with open('versions.yml', 'w') as f:
-        yaml.dump(module_versions, f, default_flow_style=False)
+        yaml.dump(module_versions, f, default_flow_style=False, width=float("inf"))
     """
 }
