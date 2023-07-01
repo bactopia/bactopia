@@ -132,7 +132,7 @@ def _collect_inputs(sample, dir, extension) {
     PATHS.gff = "annotator"
     PATHS.meta = "gather"
 
-    base_dir = "${dir}/${sample}/bactopia/main/"
+    base_dir = "${dir}/${sample}/main/"
     se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
     ont = "${base_dir}/${PATHS['fastq']}/.ont"
     pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"

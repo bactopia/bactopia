@@ -412,15 +412,15 @@ def saveFiles(Map args) {
                 // outdir/<SAMPLE_NAME>/{main|tools}
                 if (goto_base) {
                     // my-sample/assembly-error.txt
-                    final_output = "${args.prefix}/bactopia/${final_output}"
+                    final_output = "${args.prefix}/${final_output}"
                 } else {
                     // my-sample/bactopia-main/assembler
                     if (process_name == "bakta" || process_name == "prokka") {
                         // my-sample/bactopia-main/<process_name>/<output>
-                        final_output = "${args.prefix}/bactopia/${args.opts.btype}/annotator/${final_output}"
+                        final_output = "${args.prefix}/${args.opts.btype}/annotator/${final_output}"
                     } else {
                         // my-sample/bactopia-main/<output>
-                        final_output = "${args.prefix}/bactopia/${args.opts.btype}/${final_output}"
+                        final_output = "${args.prefix}/${args.opts.btype}/${final_output}"
                     }
                 }
             } else {

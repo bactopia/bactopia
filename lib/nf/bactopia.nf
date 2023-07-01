@@ -195,6 +195,7 @@ def process_accession(accession, genome_size, species) {
     def meta = [:]
     meta.genome_size = genome_size
     meta.species = species
+
     if (accession.length() > 0) {
         if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
             meta.id = accession.split(/\./)[0]
