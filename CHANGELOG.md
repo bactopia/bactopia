@@ -17,6 +17,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `bracken` - Taxonomic classification ans species abundance estimation of sequence reads
     - `midas` - Estimate bacterial species abundances from FASTQ files
     - `quast` - Assess the quality of assembled contigs
+    - `phispy` - Predict prophages in bacterial genomes
     - `sra-human-scrubber` - Scrub human reads from FASTQ files
     - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
     - `tblastn` - Search against translated nucleotide BLAST databases using protein queries
@@ -71,6 +72,9 @@ description: A full list of Bactopia releases and a description of the changes.
 - add modules for sra-human-scrubber [nf-core/modules#2694](https://github.com/nf-core/modules/pull/2694)
 - add module for stecfinder [nf-core/modules#2702](https://github.com/nf-core/modules/pull/2702)
 - update midas pinnings to match docs [bioconda/bioconda-recipes#38566](https://github.com/bioconda/bioconda-recipes/pull/38566)
+- add missing scripts to MLST [bioconda/bioconda-recipes#38826](https://github.com/bioconda/bioconda-recipes/pull/38826)
+- fix GTDB-Tk container [bioconda/bioconda-recipes#40333](https://github.com/bioconda/bioconda-recipes/pull/40333)
+- patch ncbi-genome-download [bioconda-recipes#41640](https://github.com/bioconda/bioconda-recipes/pull/41640)
 
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 
