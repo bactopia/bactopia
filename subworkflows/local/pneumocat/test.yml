@@ -1,0 +1,34 @@
+- name: pneumocat-test
+  command: bash -c 'nextflow run ./subworkflows/local/pneumocat/test.nf -entry test_pneumocat --wf pneumocat -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - pneumocat
+    - bactopia-tools
+  files:
+    - path: bactopia/ERR1438863/tools/pneumocat/ComponentComplete.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/ERR1438863/tools/pneumocat/ERR1438863.results.xml
+      md5sum: a9d9d8db3cbeff3f45859bed7eadaf9b
+    - path: bactopia/ERR1438863/tools/pneumocat/coverage_summary.txt
+      md5sum: 72016a38b82c726548cf5b58794c4938
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.begin
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.err
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.log
+      contains: ['bowtie']
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.out
+      contains: ['bowtie']
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.sh
+      md5sum: 2597fee9d3aabe3a92caf29f1b859058
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/versions.yml
+      md5sum: a142274035f6b258122e4863a90eb64f
+    - path: bactopia/bactopia-runs/pneumocat/nf-reports/pneumocat-dag.dot
+      contains: ['pneumocatdag', 'PNEUMOCAT', 'versions']
+    - path: bactopia/bactopia-runs/pneumocat/nf-reports/pneumocat-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/pneumocat/nf-reports/pneumocat-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/pneumocat/nf-reports/pneumocat-trace.txt
+      contains: ['task_id']

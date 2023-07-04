@@ -25,9 +25,9 @@ process SEROBA_RUN {
     output:
     tuple val(meta), path("results/${prefix}.tsv")                              , emit: tsv
     tuple val(meta), path("results/detailed_serogroup_info.txt"), optional: true, emit: txt
-    path "*.{log,err}"                                            , optional: true, emit: logs
-    path ".command.*"                                                             , emit: nf_logs
-    path "versions.yml"                                                           , emit: versions
+    path "*.{log,err}"                                          , optional: true, emit: logs
+    path ".command.*"                                                           , emit: nf_logs
+    path "versions.yml"                                                         , emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

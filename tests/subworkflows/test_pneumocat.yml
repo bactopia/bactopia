@@ -1,0 +1,8 @@
+- name: pneumocat-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf pneumocat -c nextflow.config --help > pneumocat-help.txt'
+  tags:
+    - bactopia_help
+    - pneumocat
+  files:
+    - path: pneumocat-help.txt
+      contains: ['pneumocat', 'bactopia', 'version', 'dependencies']

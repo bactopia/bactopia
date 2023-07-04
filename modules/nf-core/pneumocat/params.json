@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/pneumocat/params.json",
+    "title": "PneumoCaT Module",
+    "description": "A module to assign capsular type to Streptococcus pneumoniae from sequence reads",
+    "type": "object",
+    "definitions": {
+        "pneumocat_parameters": {
+            "title": "PneumoCaT Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/pneumocat_parameters"
+        }
+    ]
+}

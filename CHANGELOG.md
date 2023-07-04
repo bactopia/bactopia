@@ -18,6 +18,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `midas` - Estimate bacterial species abundances from FASTQ files
     - `quast` - Assess the quality of assembled contigs
     - `phispy` - Predict prophages in bacterial genomes
+    - `pneumocat` - Assign capsular type to Streptococcus pneumoniae from sequence reads
     - `sra-human-scrubber` - Scrub human reads from FASTQ files
     - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
     - `tblastn` - Search against translated nucleotide BLAST databases using protein queries

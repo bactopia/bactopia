@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "pneumocat"
+description: Determine Streptococcus pneumoniae serotype from Illumina paired-end reads
+keywords:
+  - fastq
+  - serotype
+  - Streptococcus pneumoniae
+tools:
+  - "pneumocat":
+      description: "PneumoCaT (Pneumococcal Capsular Typing) uses a two-step step approach to assign capsular type to S.pneumoniae genomic data (Illumina)"
+      homepage: "https://github.com/ukhsa-collaboration/PneumoCaT"
+      documentation: "https://github.com/ukhsa-collaboration/PneumoCaT"
+      tool_dev_url: "https://github.com/ukhsa-collaboration/PneumoCaT"
+      doi: "10.7717/peerj.2477"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Input Illunina paired-end FASTQ files
+      pattern: "*.{fq.gz,fastq.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - xml:
+      type: file
+      description: The predicted serotype in XML format
+      pattern: "*.xml"
+  - txt:
+      type: file
+      description: A detailed description of the predicted serotype
+      pattern: "*.txt"
+
+authors:
+  - "@rpetit3"
