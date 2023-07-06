@@ -34,19 +34,25 @@ description: A full list of Bactopia releases and a description of the changes.
     - `ariba`
     - `sra-human-scrubber`
 - bump program versions in modules
-    - `bakta`: 1.6.0 -> 1.7.0
-    - `busco`: 5.4.3 -> 5.4.6
-    - `eggnog-mapper`: 2.1.9 -> 2.1.10
+    - `bakta`: 1.6.0 -> 1.8.1
+    - `blast`: 2.11.0 -> 2.14.0
+    - `busco`: 5.4.3 -> 5.4.7
+    - `csktk`: 0.25.0 -> 0.26.0
+    - `eggnog-mapper`: 2.1.9 -> 2.1.11
     - `genotyphi`: 1.9.1 -> 2.0
-    - `gtdbtk`: 2.1.1 -> 2.2.5
+    - `gtdbtk`: 2.1.1 -> 2.3.2
     - `gubbins`: 3.2.1 -> 3.3
+    - `iqtree`: 2.2.0.3 -> 2.2.2.7
     - `mob_suite`: 3.1.0 -> 3.1.4
     - `multiqc`: 1.11 -> 1.14
-    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.11
-    - `panaroo`: 1.3.0 -> 1.3.2
+    - `mykrobe`: 0.12.0 -> 0.12.2
+    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.14
+    - `panaroo`: 1.3.0 -> 1.3.3
     - `pasty`: 1.0.0 -> 1.0.2
     - `phyloflash`: 3.4 -> 3.4.2
     - `rgi`: 6.0.1 -> 6.0.2
+    - `shigatyper`: 2.0.3 -> 2.0.5
+    - `shigeifinder`: 1.3.2 -> 1.3.5
     - `tbprofiler`: 4.4.0 -> 4.4.2
 
 ### `Fixed`

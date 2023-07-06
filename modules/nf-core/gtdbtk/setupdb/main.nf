@@ -2,7 +2,7 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
-conda_tools = "bioconda::gtdbtk=2.2.6"
+conda_tools = "bioconda::gtdbtk=2.3.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process GTDBTK_SETUPDB {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gtdbtk:2.2.6--pyhdfd78af_0' :
-        'quay.io/biocontainers/gtdbtk:2.2.6--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/gtdbtk:2.3.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/gtdbtk:2.3.2--pyhdfd78af_0' }"
 
     output:
     path("gtdbtk/")     , emit: db, optional: true

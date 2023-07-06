@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sra-human-scrubber')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::sra-human-scrubber=2.0.0"
+conda_tools   = "bioconda::sra-human-scrubber=2.1.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.0.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.1.0--hdfd78af_0' :
+        'quay.io/biocontainers/sra-human-scrubber:2.1.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)

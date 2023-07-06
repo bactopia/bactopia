@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'bakta')
 options.btype = options.btype ?: "main"
-conda_tools   = "bioconda::bakta=1.7.0"
+conda_tools   = "bioconda::bakta=1.8.1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process BAKTA_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bakta:1.7.0--pyhdfd78af_1' :
-        'quay.io/biocontainers/bakta:1.7.0--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/bakta:1.8.1--pyhdfd78af_0' :
+        'quay.io/biocontainers/bakta:1.8.1--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

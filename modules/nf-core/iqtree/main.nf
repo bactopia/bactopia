@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'iqtree')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::iqtree=2.2.0.3"
+conda_tools   = "bioconda::iqtree=2.2.2.7"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process IQTREE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/iqtree:2.2.0.3--hb97b32f_1' :
-        'quay.io/biocontainers/iqtree:2.2.0.3--hb97b32f_1' }"
+        'https://depot.galaxyproject.org/singularity/iqtree:2.2.2.7--h21ec9f0_2' :
+        'quay.io/biocontainers/iqtree:2.2.2.7--h21ec9f0_2' }"
 
     input:
     tuple val(meta), path(alignment)

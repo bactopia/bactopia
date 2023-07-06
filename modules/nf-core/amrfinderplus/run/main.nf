@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::ncbi-amrfinderplus=3.11.11"
+conda_tools   = "bioconda::ncbi-amrfinderplus=3.11.14"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process AMRFINDERPLUS_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:3.11.11--h6e70893_0' :
-        'quay.io/biocontainers/ncbi-amrfinderplus:3.11.11--h6e70893_0' }"
+        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:3.11.14--h283d18e_1' :
+        'quay.io/biocontainers/ncbi-amrfinderplus:3.11.14--h283d18e_1' }"
 
     input:
     tuple val(meta), path(genes), path(proteins)

@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'prokka')
 options.btype = options.btype ?: "main"
-conda_tools   = "bioconda::prokka=1.14.6 perl-bioperl=1.7.2"
+conda_tools   = "bioconda::prokka=1.14.6 bioconda::perl-bioperl=1.7.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 

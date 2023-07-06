@@ -2,7 +2,7 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'ariba')
-conda_tools = "bioconda::ariba=2.14.6 bcftools=1.14 pysam=0.18.0"
+conda_tools = "bioconda::ariba=2.14.6 bioconda::bcftools=1.14 bioconda::pysam=0.18.0"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
