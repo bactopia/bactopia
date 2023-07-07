@@ -4,41 +4,41 @@
     - meningotype
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/logs/meningotype-concat/versions.yml
-      md5sum: 9264c9a0e92e98a198d0cb580c7527f1
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/merged-results/meningotype.tsv
+    - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/versions.yml
+      md5sum: a59269d86bc3bb841242da702ff6094d
+    - path: bactopia/bactopia-runs/meningotype/merged-results/meningotype.tsv
       md5sum: cdf1cbd9f28a9ce2138f072c6d0ab391
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/nf-reports/meningotype-dag.dot
+    - path: bactopia/bactopia-runs/meningotype/nf-reports/meningotype-dag.dot
       contains: ['meningotypedag', 'MENINGOTYPE', 'versions']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/nf-reports/meningotype-report.html
+    - path: bactopia/bactopia-runs/meningotype/nf-reports/meningotype-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/nf-reports/meningotype-timeline.html
+    - path: bactopia/bactopia-runs/meningotype/nf-reports/meningotype-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/meningotype/meningotype/nf-reports/meningotype-trace.txt
+    - path: bactopia/bactopia-runs/meningotype/nf-reports/meningotype-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/GCF_003355215.tsv
+    - path: bactopia/GCF_003355215/tools/meningotype/GCF_003355215.tsv
       md5sum: cdf1cbd9f28a9ce2138f072c6d0ab391
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.begin
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.err
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.log
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.out
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.run
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.err
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.log
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.out
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.sh
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.sh
       contains: ['meningotype', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/nf-meningotype.trace
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/nf-meningotype.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_003355215/bactopia-tools/meningotype/logs/versions.yml
+    - path: bactopia/GCF_003355215/tools/meningotype/logs/versions.yml
       md5sum: b67f6ccf0061e28da34d7c9fc9b40367

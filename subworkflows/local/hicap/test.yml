@@ -4,66 +4,66 @@
     - hicap
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/hicap.tsv
+    - path: bactopia/bactopia-runs/hicap/merged-results/hicap.tsv
       contains: ['isolate', 'GCA_000027305', 'GCF_900478275']
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/hicap/hicap/merged-results/logs/hicap-concat/versions.yml
-      md5sum: 1ce205644829284ab92a5a82b0f64549
-    - path: bactopia/bactopia-comparative/hicap/hicap/nf-reports/hicap-dag.dot
+    - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/versions.yml
+      md5sum: c781cc24fdeb2a5260296e18f5122520
+    - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-dag.dot
       contains: ['hicapdag', 'HICAP', 'versions']
-    - path: bactopia/bactopia-comparative/hicap/hicap/nf-reports/hicap-report.html
+    - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/hicap/hicap/nf-reports/hicap-timeline.html
+    - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/hicap/hicap/nf-reports/hicap-trace.txt
+    - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/GCA_000027305.tsv
+    - path: bactopia/GCA_000027305/tools/hicap/GCA_000027305.tsv
       contains: ['isolate', 'GCA_000027305']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.begin
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.err
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.err
       contains: ['dependencies', 'ORFs', 'Collecting']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.log
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.log
       contains: ['dependencies', 'ORFs', 'Collecting']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.out
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.run
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.sh
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.sh
       contains: ['hicap', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/nf-hicap.trace
+    - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/hicap/logs/versions.yml
+    - path: bactopia/GCA_000027305/tools/hicap/logs/versions.yml
       md5sum: 406d486f223d7fb759cc7eeeda2bb4a8
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/GCF_900478275.gbk
+    - path: bactopia/GCF_900478275/tools/hicap/GCF_900478275.gbk
       md5sum: 562d026956903354ac80721f501335d4
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/GCF_900478275.svg
+    - path: bactopia/GCF_900478275/tools/hicap/GCF_900478275.svg
       md5sum: 4fb94871dd0fdd8b4496049668176631
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/GCF_900478275.tsv
+    - path: bactopia/GCF_900478275/tools/hicap/GCF_900478275.tsv
       contains: ['isolate', 'GCF_900478275']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.begin
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.err
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.err
       contains: ['dependencies', 'ORFs', 'Collecting']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.log
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.log
       contains: ['dependencies', 'ORFs', 'Collecting']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.out
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.run
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.sh
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.sh
       contains: ['hicap', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/nf-hicap.trace
+    - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/hicap/logs/versions.yml
+    - path: bactopia/GCF_900478275/tools/hicap/logs/versions.yml
       md5sum: 406d486f223d7fb759cc7eeeda2bb4a8

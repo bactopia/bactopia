@@ -7,7 +7,7 @@ conda_tools   = "bioconda::sra-human-scrubber=2.1.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
-VERSION = '2.0.0' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+VERSION = '2.1.0' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 process SRAHUMANSCRUBBER_SCRUB {
     tag "$meta.id"
     label 'process_low'

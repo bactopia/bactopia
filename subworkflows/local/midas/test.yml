@@ -4,49 +4,49 @@
     - midas
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/versions.yml
-      md5sum: f315ff3ca00f3fd6cd302ba05c68f8dc
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/midas.tsv
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-dag.dot
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml
+      md5sum: e3c0581e8aacc7e563ddc9d252e9b84f
+    - path: bactopia/bactopia-runs/midas/merged-results/midas.tsv
+      contains: ['SRR2838702', 'primary', 'secondary']
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-dag.dot
       contains: ['midasdag', 'MIDAS_SPECIES', 'versions']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-report.html
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-timeline.html
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-trace.txt
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.abundances.txt
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.adjusted.abundances.txt
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.tsv
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.begin
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.abundances.txt
+      contains: ['species_id', 'Bacillus']
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt
+      contains: ['species_id', 'Bacillus']
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.tsv
+      contains: ['SRR2838702', 'primary', 'secondary']
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.err
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.log
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.err
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.log
       contains: ['MIDAS', 'Command', 'Classifying']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.out
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.out
       contains: ['MIDAS', 'Command', 'Classifying']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.run
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.sh
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.sh
       contains: ['run_midas', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.trace
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/versions.yml
+    - path: bactopia/SRR2838702/tools/midas/logs/versions.yml
       md5sum: 4e71a163042a3c1bcdb42357031240ce
 
 - name: midas-test-tarball
@@ -56,47 +56,47 @@
     - midas-tarball
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/logs/midas-concat/versions.yml
-      md5sum: d7809b641995d13152921e9a87275ec6
-    - path: bactopia/bactopia-comparative/midas/midas/merged-results/midas.tsv
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-dag.dot
+    - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml
+      md5sum: 6c8223c140763e1424a85a8073a7da85
+    - path: bactopia/bactopia-runs/midas/merged-results/midas.tsv
+      contains: ['SRR2838702', 'primary', 'secondary']
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-dag.dot
       contains: ['midasdag', 'MIDAS_SPECIES', 'versions']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-report.html
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-timeline.html
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/midas/midas/nf-reports/midas-trace.txt
+    - path: bactopia/bactopia-runs/midas/nf-reports/midas-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.abundances.txt
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.adjusted.abundances.txt
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/SRR2838702.midas.tsv
-      contains: ['SRR2838702', 'coli', 'fergusonii']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.begin
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.abundances.txt
+      contains: ['species_id', 'Bacillus']
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt
+      contains: ['species_id', 'Bacillus']
+    - path: bactopia/SRR2838702/tools/midas/SRR2838702.midas.tsv
+      contains: ['SRR2838702', 'primary', 'secondary']
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.err
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.log
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.err
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.log
       contains: ['MIDAS', 'Command', 'Classifying']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.out
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.out
       contains: ['MIDAS', 'Command', 'Classifying']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.run
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.sh
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.sh
       contains: ['run_midas', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/nf-midas.trace
+    - path: bactopia/SRR2838702/tools/midas/logs/nf-midas.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/midas/logs/versions.yml
+    - path: bactopia/SRR2838702/tools/midas/logs/versions.yml
       md5sum: 492059fdd4d2e2c34e8ffb0d62a33cc5

@@ -4,34 +4,34 @@
     - tbprofiler
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/tbprofiler/tbprofiler/nf-reports/tbprofiler-dag.dot
+    - path: bactopia/bactopia-runs/tbprofiler/nf-reports/tbprofiler-dag.dot
       contains: ['tbprofilerdag', 'TBPROFILER', 'versions']
-    - path: bactopia/bactopia-comparative/tbprofiler/tbprofiler/nf-reports/tbprofiler-report.html
+    - path: bactopia/bactopia-runs/tbprofiler/nf-reports/tbprofiler-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/tbprofiler/tbprofiler/nf-reports/tbprofiler-timeline.html
+    - path: bactopia/bactopia-runs/tbprofiler/nf-reports/tbprofiler-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/tbprofiler/tbprofiler/nf-reports/tbprofiler-trace.txt
+    - path: bactopia/bactopia-runs/tbprofiler/nf-reports/tbprofiler-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/bam/test.bam
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.begin
+    - path: bactopia/test/tools/tbprofiler/bam/test.bam
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.err
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.err
       contains: ['tbprofiler', 'Running', 'finished']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.log
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.log
       contains: ['tbprofiler', 'Running', 'finished']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.out
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.run
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.out
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.sh
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.sh
       contains: ['tb-profiler', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/nf-tbprofiler.trace
+    - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/logs/versions.yml
+    - path: bactopia/test/tools/tbprofiler/logs/versions.yml
       md5sum: 55cbf072aba045eb75137cad49b938b0
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/test.results.csv
+    - path: bactopia/test/tools/tbprofiler/test.results.csv
       contains: ['gid', 'Analysis', 'freebayes']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/test.results.json
+    - path: bactopia/test/tools/tbprofiler/test.results.json
       contains: ['locus_tag', 'tbprofiler_version', 'median_coverage']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/test.results.txt
+    - path: bactopia/test/tools/tbprofiler/test.results.txt
       contains: ['gid', 'Analysis', 'freebayes']
-    - path: bactopia/bactopia-samples/test/bactopia-tools/tbprofiler/vcf/test.targets.csq.vcf.gz
+    - path: bactopia/test/tools/tbprofiler/vcf/test.targets.csq.vcf.gz

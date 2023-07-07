@@ -4,35 +4,35 @@
     - eggnog
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-dag.dot
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-dag.dot
       contains: ['eggnogdag', 'EGGNOG', 'versions']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-report.html
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-timeline.html
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-trace.txt
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.annotations
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.annotations
       contains: ['emapper', 'Gammaproteobacteria', 'scanned']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.hits
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.hits
       contains: ['WP_014894920']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.seed_orthologs
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.seed_orthologs
       contains: ['emapper', 'diamond', 'scanned']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.begin
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.err
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.err
       contains: ['Functional']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.log
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.log
       contains: ['Functional', 'eggNOG', 'FINISHED']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.out
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.out
       contains: ['Functional', 'eggNOG', 'FINISHED']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.run
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.sh
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.sh
       contains: ['eggnog', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.trace
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/versions.yml
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/versions.yml
       md5sum: e0313de61c677a173d2443785fd87ea3
 
 - name: eggnog-test-tarball
@@ -42,33 +42,33 @@
     - eggnog-tarball
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-dag.dot
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-dag.dot
       contains: ['eggnogdag', 'EGGNOG', 'versions']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-report.html
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-timeline.html
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/eggnog/eggnog/nf-reports/eggnog-trace.txt
+    - path: bactopia/bactopia-runs/eggnog/nf-reports/eggnog-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.annotations
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.annotations
       contains: ['emapper', 'Gammaproteobacteria', 'scanned']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.hits
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.hits
       contains: ['WP_014894920']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/GCF_000292685.emapper.seed_orthologs
+    - path: bactopia/GCF_000292685/tools/eggnog/GCF_000292685.emapper.seed_orthologs
       contains: ['emapper', 'diamond', 'scanned']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.begin
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.err
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.err
       contains: ['Functional']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.log
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.log
       contains: ['Functional', 'eggNOG', 'FINISHED']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.out
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.out
       contains: ['Functional', 'eggNOG', 'FINISHED']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.run
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.sh
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.sh
       contains: ['eggnog', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/nf-eggnog.trace
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/eggnog/logs/versions.yml
+    - path: bactopia/GCF_000292685/tools/eggnog/logs/versions.yml
       md5sum: f66807327174b0aa67d16e73a5419c60

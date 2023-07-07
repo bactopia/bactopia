@@ -4,48 +4,48 @@
     - iqtree
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/genome.aln.gz
+    - path: bactopia/bactopia-runs/iqtree/iqtree/genome.aln.gz
       md5sum: 7e0c99a9803be09adbc644f533db593a
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.begin
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.err
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.err
       md5sum: 5c8b25156b4a548a956e2d982a598dcb
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.log
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.out
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.out
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.run
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.sh
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.sh
       contains: ['iqtree', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/nf-iqtree.trace
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/test.log
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/test.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/logs/versions.yml
-      md5sum: 010ea2e5cf3f9b0a868e2feaa3819eda
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.alninfo
+    - path: bactopia/bactopia-runs/iqtree/iqtree/logs/versions.yml
+      md5sum: 1ec296e7de2f7cae81775f63cd010b54
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.alninfo
       md5sum: 4e3bfd442dad9d4b8469e03039cadb4c
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.bionj
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.bionj
       contains: ['GCF_000292685']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.ckp.gz
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.contree
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.ckp.gz
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.contree
       contains: ['GCF_902713755']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.iqtree
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.mldist
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.mldist
       contains: ['GCF_000292685', 'GCF_002849995', 'GCF_000300075']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.splits.nex
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.splits.nex
       md5sum: a257e91b7d51e5ce30e9c052428ce147
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.treefile
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.treefile
       contains: ['GCF_902713755']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/iqtree/test.ufboot
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.ufboot
       contains: ['GCF_000292685', 'GCF_002849995', 'GCF_000300075']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/nf-reports/iqtree-dag.dot
+    - path: bactopia/bactopia-runs/iqtree/nf-reports/iqtree-dag.dot
       contains: ['iqtreedag', 'IQTREE', 'versions']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/nf-reports/iqtree-report.html
+    - path: bactopia/bactopia-runs/iqtree/nf-reports/iqtree-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/nf-reports/iqtree-timeline.html
+    - path: bactopia/bactopia-runs/iqtree/nf-reports/iqtree-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/iqtree/iqtree/nf-reports/iqtree-trace.txt
+    - path: bactopia/bactopia-runs/iqtree/nf-reports/iqtree-trace.txt
       contains: ['task_id']

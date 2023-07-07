@@ -4,44 +4,44 @@
     - mashdist
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/logs/mashdist-concat/versions.yml
-      md5sum: df1baab2e2de1d2118f0877b85ca97e8
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/merged-results/mashdist.tsv
-      md5sum: 093785067752ee41407c0c1841d08299
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/nf-reports/mashdist-dag.dot
+    - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/versions.yml
+      md5sum: 25eefd0a27670da0acb79cfebe932683
+    - path: bactopia/bactopia-runs/mashdist/merged-results/mashdist.tsv
+      md5sum: ba9d178c2f9598e4c8d2dde49d59be50
+    - path: bactopia/bactopia-runs/mashdist/nf-reports/mashdist-dag.dot
       contains: ['mashdistdag', 'MASHDIST', 'versions']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/nf-reports/mashdist-report.html
+    - path: bactopia/bactopia-runs/mashdist/nf-reports/mashdist-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/nf-reports/mashdist-timeline.html
+    - path: bactopia/bactopia-runs/mashdist/nf-reports/mashdist-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/mashdist/mashdist/nf-reports/mashdist-trace.txt
+    - path: bactopia/bactopia-runs/mashdist/nf-reports/mashdist-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/GCF_000292685-dist.txt
-      md5sum: 093785067752ee41407c0c1841d08299
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.begin
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/GCF_000292685-dist.txt
+      md5sum: ba9d178c2f9598e4c8d2dde49d59be50
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.err
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.err
       contains: ["Estimated", "genome", "coverage"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.log
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.log
       contains: ["Estimated", "genome", "coverage"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.out
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.run
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.sh
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.sh
       contains: ['mash', 'shared', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/nf-mashdist.trace
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/nf-mashdist.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/mashdist/mashdist/logs/versions.yml
+    - path: bactopia/GCF_000292685/tools/mashdist/mashdist/logs/versions.yml
       md5sum: 69672baee5da33f7b9b4e722a797a109

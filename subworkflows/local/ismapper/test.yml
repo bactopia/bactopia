@@ -4,50 +4,50 @@
     - ismapper
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/ismapper/ismapper/nf-reports/ismapper-dag.dot
+    - path: bactopia/bactopia-runs/ismapper/nf-reports/ismapper-dag.dot
       contains: ['ismapperdag', 'ISMAPPER', 'versions']
-    - path: bactopia/bactopia-comparative/ismapper/ismapper/nf-reports/ismapper-report.html
+    - path: bactopia/bactopia-runs/ismapper/nf-reports/ismapper-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/ismapper/ismapper/nf-reports/ismapper-timeline.html
+    - path: bactopia/bactopia-runs/ismapper/nf-reports/ismapper-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/ismapper/ismapper/nf-reports/ismapper-trace.txt
+    - path: bactopia/bactopia-runs/ismapper/nf-reports/ismapper-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_IS1016V1_IS1595_IS1016_left_final.fastq
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_IS1016V1_IS1595_IS1016_left_final.fastq
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_IS1016V1_IS1595_IS1016_right_final.fastq
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_IS1016V1_IS1595_IS1016_right_final.fastq
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894__NZ_LS483480.1_closest.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702__NC_018507.1_closest.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894__NZ_LS483480.1_intersect.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702__NC_018507.1_intersect.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894__NZ_LS483480.1_table.txt
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702__NC_018507.1_table.txt
       md5sum: 9e05cda3990cb841db2bfb6e6e04a1f5
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_left_NZ_LS483480.1_finalcov.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_left_NC_018507.1_finalcov.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_left_NZ_LS483480.1_merged.sorted.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_left_NC_018507.1_merged.sorted.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_left_NZ_LS483480.1_unpaired.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_left_NC_018507.1_unpaired.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_right_NZ_LS483480.1_finalcov.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_right_NC_018507.1_finalcov.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_right_NZ_LS483480.1_merged.sorted.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_right_NC_018507.1_merged.sorted.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/ERR6005894_right_NZ_LS483480.1_unpaired.bed
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/IS1016V1_IS1595_IS1016/SRR2838702_right_NC_018507.1_unpaired.bed
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/SRR2838702.log
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/SRR2838702.log
       contains: ['samtools', 'bedtools', 'finished']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.begin
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.err
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.err
       contains: ['bwa_index', 'Version', 'Real']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.log
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.log
       contains: ['bwa_index', 'Version', 'Real']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.out
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.run
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.out
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.sh
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.sh
       contains: ['ismap', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/nf-ismapper.trace
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ismapper/ismapper/logs/versions.yml
+    - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/versions.yml
       md5sum: eda0743d59eda7b33011608a6f5316f6

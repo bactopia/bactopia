@@ -5,44 +5,44 @@
     - lissero
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/lissero.tsv
+    - path: bactopia/bactopia-runs/lissero/merged-results/lissero.tsv
       md5sum: f3fedfb8fe6789eaa389129d25c88d5f
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/lissero/lissero/merged-results/logs/lissero-concat/versions.yml
-      md5sum: fe81e49513feb36b3b18f60f6644beaa
-    - path: bactopia/bactopia-comparative/lissero/lissero/nf-reports/lissero-dag.dot
+    - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/versions.yml
+      md5sum: 099370a42d0665c5394d17d8360c6df8
+    - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-dag.dot
       contains: ['lisserodag', 'LISSERO', 'versions']
-    - path: bactopia/bactopia-comparative/lissero/lissero/nf-reports/lissero-report.html
+    - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/lissero/lissero/nf-reports/lissero-timeline.html
+    - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/lissero/lissero/nf-reports/lissero-trace.txt
+    - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/GCF_002285835.tsv
+    - path: bactopia/GCF_002285835/tools/lissero/GCF_002285835.tsv
       md5sum: f3fedfb8fe6789eaa389129d25c88d5f
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.begin
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.err
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.err
       contains: ['lissero', 'Blastn']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.log
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.log
       contains: ['lissero', 'Blastn']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.out
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.run
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.sh
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.sh
       contains: ['lissero', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/nf-lissero.trace
+    - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_002285835/bactopia-tools/lissero/logs/versions.yml
+    - path: bactopia/GCF_002285835/tools/lissero/logs/versions.yml
       md5sum: 822b9a47a51eb7c2b5e84d1c407a9150

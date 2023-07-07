@@ -5,36 +5,36 @@
     - sketcher
     - sketcher_pe
   files:
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'SKETCHER', 'versions']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.begin
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.err
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.err
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.log
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.log
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.out
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.run
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.sh
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
       contains: ['mash', 'sourmash', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.trace
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/versions.yml
+    - path: bactopia/output/main/sketcher/logs/versions.yml
       md5sum: aa96420cb5d0a82fd124da992880dc35
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-k21.msh
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-k31.msh
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-mash-refseq88-k21.txt
+    - path: bactopia/output/main/sketcher/output-k21.msh
+    - path: bactopia/output/main/sketcher/output-k31.msh
+    - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt
       md5sum: f095a76d9e71aa814be756ef413b626c
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-sourmash-gtdb-rs207-k31.txt
+    - path: bactopia/output/main/sketcher/output-sourmash-gtdb-rs207-k31.txt
       md5sum: 733b0d2c06b8f9c1a70f2da3ca8a5b96
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output.sig
+    - path: bactopia/output/main/sketcher/output.sig
 
 - name: sketcher-se
   command: bash -c 'nextflow run ./subworkflows/local/sketcher/test.nf -entry test_sketcher_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -43,33 +43,33 @@
     - sketcher
     - sketcher_se
   files:
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-dag.dot
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'SKETCHER', 'versions']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-report.html
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-timeline.html
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/bactopia/bactopia/nf-reports/bactopia-trace.txt
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.begin
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.err
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.err
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.log
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.log
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.out
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.run
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.sh
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
       contains: ['mash', 'sourmash', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/nf-sketcher.trace
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/logs/versions.yml
+    - path: bactopia/output/main/sketcher/logs/versions.yml
       md5sum: d307de79fbaa5e551124c10cb947ca82
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-k21.msh
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-k31.msh
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-mash-refseq88-k21.txt
+    - path: bactopia/output/main/sketcher/output-k21.msh
+    - path: bactopia/output/main/sketcher/output-k31.msh
+    - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt
       md5sum: 063e00f7f761e2087c4ba02a45e9bafa
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output-sourmash-gtdb-rs207-k31.txt
+    - path: bactopia/output/main/sketcher/output-sourmash-gtdb-rs207-k31.txt
       md5sum: 733b0d2c06b8f9c1a70f2da3ca8a5b96
-    - path: bactopia/bactopia-samples/output/bactopia-main/sketcher/output.sig
+    - path: bactopia/output/main/sketcher/output.sig

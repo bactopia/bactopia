@@ -4,252 +4,252 @@
     - pangenome
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.ML_sequence.fasta
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.ML_sequence.fasta
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.em.txt
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.em.txt
       contains: ['theta']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.emsim.txt
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.emsim.txt
       contains: ['theta']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.importation_status.txt
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.importation_status.txt
       contains: ['GCF_902713755', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.labelled_tree.newick
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.labelled_tree.newick
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/core-genome.position_cross_reference.txt
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.position_cross_reference.txt
       contains: ['0']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.begin
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.err
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.err
       contains: ['Parsing', 'Writing', 'Done']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.log
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.log
       contains: ['newick', 'Reading', 'Done']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.out
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.out
       contains: ['newick', 'Read', 'done']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.run
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.sh
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.sh
       contains: ['ClonalFrameML', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/nf-clonalframeml.trace
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/clonalframeml/logs/versions.yml
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/versions.yml
       md5sum: 5a1b0af87097ed8ed9c0485d355cd204
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/core-genome.aln.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/core-genome.distance.tsv
+    - path: bactopia/bactopia-runs/pangenome/core-genome.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/core-genome.distance.tsv
       md5sum: 3ffb10266ad762a299ce34de92f74d0d
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/core-genome.iqtree
+    - path: bactopia/bactopia-runs/pangenome/core-genome.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/core-genome.masked.aln.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.begin
+    - path: bactopia/bactopia-runs/pangenome/core-genome.masked.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.err
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.err
       md5sum: 5c8b25156b4a548a956e2d982a598dcb
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.log
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.out
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.out
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.run
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.sh
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.sh
       contains: ['iqtree', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/nf-iqtree-fast.trace
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/start-tree.log
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/logs/versions.yml
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/versions.yml
       md5sum: c4a78be1e2518a12b897b998c2735930
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.bionj
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.bionj
       contains: ['GCF_000292685']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.ckp.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.iqtree
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.ckp.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.iqtree
       contains: ['REFERENCES', 'GCF_000292685', 'Total']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.mldist
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.mldist
       md5sum: 3ff892ddb01fd8d56af70968f33045cf
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.model.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree-fast/start-tree.treefile
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.model.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.treefile
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.alninfo
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.alninfo
       contains: ['Alignment', 'Uninformative']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.bionj
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.bionj
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.ckp.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.contree
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.ckp.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.contree
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.mldist
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.mldist
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.splits.nex
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.splits.nex
       md5sum: a257e91b7d51e5ce30e9c052428ce147
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.treefile
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.treefile
       contains: ['GCF_00029838', 'GCF_002849995']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/core-genome.ufboot
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.ufboot
       contains: ['GCF_000292685', 'GCF_002849995', 'GCF_000300075']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/core-genome.log
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/core-genome.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.begin
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.err
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.log
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.err
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.out
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.out
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.run
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.sh
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.sh
       contains: ['iqtree', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/nf-iqtree.trace
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/iqtree/logs/versions.yml
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/versions.yml
       md5sum: b73e15fb2791178e026b247d07af8225
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/nf-reports/pangenome-dag.dot
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-dag.dot
       contains: ['pangenomedag', 'shape', 'digraph']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/nf-reports/pangenome-report.html
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/nf-reports/pangenome-timeline.html
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/nf-reports/pangenome-trace.txt
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/PIRATE.gene_families.ordered.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/PIRATE.gene_families.ordered.tsv
       contains: ['allele_name']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/PIRATE.gene_families.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/PIRATE.gene_families.tsv
       contains: ['allele_name']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/PIRATE.genomes_per_allele.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/PIRATE.genomes_per_allele.tsv
       contains: ['g0197']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/PIRATE.pangenome_summary.txt
+    - path: bactopia/bactopia-runs/pangenome/pirate/PIRATE.pangenome_summary.txt
       md5sum: 645e3b52d4bb3539926205cd7d80a7fd
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/PIRATE.unique_alleles.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/PIRATE.unique_alleles.tsv
       contains: ['allele_name']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/binary_presence_absence.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/binary_presence_absence.nwk
+    - path: bactopia/bactopia-runs/pangenome/pirate/binary_presence_absence.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/binary_presence_absence.nwk
       md5sum: 778695ee4fa2b02241731cc44ce927fb
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/cluster_alleles.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/cluster_alleles.tab
       contains: ['g0001']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/co-ords/GCF_000292685.co-ords.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/co-ords/GCF_000292685.co-ords.tab
       md5sum: d5ca0f06ca7ea1f5486683d5859bc9b8
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/co-ords/GCF_000298385.co-ords.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/co-ords/GCF_000298385.co-ords.tab
       md5sum: a24d6048b3074242bb558c7fa27a8b03
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/co-ords/GCF_000300075.co-ords.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/co-ords/GCF_000300075.co-ords.tab
       md5sum: 21532b58b708a0ea2490f7e9509982e7
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/co-ords/GCF_002849995.co-ords.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/co-ords/GCF_002849995.co-ords.tab
       md5sum: 0c08228585f4fa95686e9b025e0fe9c1
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/co-ords/GCF_902713755.co-ords.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/co-ords/GCF_902713755.co-ords.tab
       md5sum: 6bea5163af8f9612821166c3a069dd56
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/core_alignment.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/core_alignment.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/core_alignment.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/core_alignment.gff
       contains: ['Pangenome', 'CDS', 'tRNA']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0001.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0001.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0002.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0002.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0003.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0003.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0283.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0283.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0284.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0284.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0285.aa.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/feature_sequences/g0285.nucleotide.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/gene_presence_absence.csv
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0001.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0001.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0002.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0002.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0003.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0003.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0283.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0283.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0284.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0284.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0285.aa.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/feature_sequences/g0285.nucleotide.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/gene_presence_absence.csv
       contains: ['GCF_000', 'hypothetical', 'Gene']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/genome2loci.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/genome2loci.tab
       contains: ['GCF_000', 'hypothetical']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/genome_list.txt
+    - path: bactopia/bactopia-runs/pangenome/pirate/genome_list.txt
       contains: ['GCF_002849995', 'GCF_000292685']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/loci_list.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/loci_list.tab
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/loci_paralog_categories.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/loci_paralog_categories.tab
       contains: ['GCF_000', 'g0']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.begin
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.err
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.log
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.err
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.log
       contains: ['PIRATE', 'completed']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.out
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.out
       contains: ['PIRATE', 'completed']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.run
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.sh
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.sh
       contains: ['PIRATE', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/nf-pirate.trace
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/results/PIRATE.log
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/results/PIRATE.log
       contains: ['PIRATE input options']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/results/link_clusters.log
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/results/link_clusters.log
       contains: ['parsing paralog file']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/results/split_groups.log
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/results/split_groups.log
       contains: ['g0']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/logs/versions.yml
+    - path: bactopia/bactopia-runs/pangenome/pirate/logs/versions.yml
       md5sum: 6bc44b7c58f94cc88e82dd7287769da0
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/modified_gffs/GCF_000292685.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_000292685.gff
       md5sum: 2b73bda2f84dc634303dc90e641040ca
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/modified_gffs/GCF_000298385.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_000298385.gff
       md5sum: b1a9d6557d47e09249f08a7acdbbd618
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/modified_gffs/GCF_000300075.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_000300075.gff
       md5sum: 082185a0e46efe63d60d1ff5311c80bc
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/modified_gffs/GCF_002849995.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_002849995.gff
       md5sum: 68532fc9bb639e6d83c731a069f60cf8
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/modified_gffs/GCF_902713755.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_902713755.gff
       md5sum: c9b95a4c325c8df4c7430137b0adacbd
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pan_sequences.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.connected_blocks.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/pan_sequences.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.connected_blocks.tsv
       contains: ['block_number']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.edges
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.edges
       contains: ['g0259']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.gfa
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.gfa
       contains: ['g0001']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.order.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.order.tsv
       contains: ['g0172']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.reversed.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.reversed.tsv
       md5sum: b2396ce09a6e4178761eca6dc7f4434f
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.syntenic_blocks.tsv
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.syntenic_blocks.tsv
       contains: ['g0091']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome.temp
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_alignment.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_alignment.gff
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome.temp
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_alignment.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_alignment.gff
       contains: ['Pangenome', 'CDS', 'tRNA']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.50.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.50.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.60.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.60.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.70.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.70.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.80.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.80.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.90.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.90.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.95.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.95.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.98.reclustered.reinflated
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.98.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.blast.output
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.blast.output
       contains: ['GCF_002849995', 'GCF_000292685']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
       contains: ['GCF_000298385_00081']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.mcl_log.txt
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.mcl_log.txt
       contains: ['chaos']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.gz
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pdb
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pot
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.ptf
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pto
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/pangenome_log.txt
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.gz
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pdb
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pot
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.ptf
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_iterations/pan_sequences.representative.fasta.pto
+    - path: bactopia/bactopia-runs/pangenome/pirate/pangenome_log.txt
       contains: ['Creating pangenome on amino acid']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/paralog_clusters.tab
+    - path: bactopia/bactopia-runs/pangenome/pirate/paralog_clusters.tab
       contains: ['g0']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/representative_sequences.faa
+    - path: bactopia/bactopia-runs/pangenome/pirate/representative_sequences.faa
       contains: ['representative_genome']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/pirate/representative_sequences.ffn
+    - path: bactopia/bactopia-runs/pangenome/pirate/representative_sequences.ffn
       contains: ['representative_genome']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.begin
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.err
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.err
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.log
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.log
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.out
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.run
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.out
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.sh
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/nf-snpdists.trace
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pangenome/pangenome/snpdists/logs/versions.yml
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/versions.yml
       md5sum: a90afa09e41d9a7ed5ae84b44a38afd5

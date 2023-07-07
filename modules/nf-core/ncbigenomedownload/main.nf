@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ncbigenomedownload')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::ncbi-genome-download=0.3.1"
+conda_tools   = "bioconda::ncbi-genome-download=0.3.1=pyh7cba7a3_1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,7 +12,9 @@ process NCBIGENOMEDOWNLOAD {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container 'quay.io/bactopia/bactopia:2.0.1'
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/bactopia-gather:1.0.3--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-gather:1.0.3--hdfd78af_0' }"
 
     input:
     val meta

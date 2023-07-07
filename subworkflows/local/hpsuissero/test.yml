@@ -4,43 +4,43 @@
     - hpsuissero
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/hpsuissero.tsv
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/hpsuissero.tsv
       md5sum: f7a0bb60a7b1b20cff538eb1b44886fc
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.sh
       contains: ["csvtk", "END_VERSIONS"]
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/merged-results/logs/hpsuissero-concat/versions.yml
-      md5sum: ed671bd3d57688b4019b2cdc8a19fe0d
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/nf-reports/hpsuissero-dag.dot
+    - path: bactopia/bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/versions.yml
+      md5sum: 56d2228ca87414041d279a0556bba373
+    - path: bactopia/bactopia-runs/hpsuissero/nf-reports/hpsuissero-dag.dot
       contains: ["hpsuisserodag", "HPSUISSERO", "version"]
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/nf-reports/hpsuissero-report.html
+    - path: bactopia/bactopia-runs/hpsuissero/nf-reports/hpsuissero-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/nf-reports/hpsuissero-timeline.html
+    - path: bactopia/bactopia-runs/hpsuissero/nf-reports/hpsuissero-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/hpsuissero/hpsuissero/nf-reports/hpsuissero-trace.txt
+    - path: bactopia/bactopia-runs/hpsuissero/nf-reports/hpsuissero-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/GCF_002777395_serotyping_res.tsv
+    - path: bactopia/GCF_002777395/tools/hpsuissero/GCF_002777395_serotyping_res.tsv
       md5sum: f7a0bb60a7b1b20cff538eb1b44886fc
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.begin
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.err
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.log
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.err
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.log
       contains: ["Finished"]
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.out
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.out
       contains: ["Finished"]
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.run
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.sh
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.sh
       contains: ["HpsuisSero", "END_VERSIONS"]
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/nf-hpsuissero.trace
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/nf-hpsuissero.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_002777395/bactopia-tools/hpsuissero/logs/versions.yml
+    - path: bactopia/GCF_002777395/tools/hpsuissero/logs/versions.yml
       md5sum: 27b0680497a67308996fdca2d3942549

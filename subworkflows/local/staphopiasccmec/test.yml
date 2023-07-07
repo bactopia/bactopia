@@ -4,41 +4,41 @@
     - staphopiasccmec
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/versions.yml
-      md5sum: 4881cee23b683db0dcc385ccbd8699ab
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/merged-results/staphopiasccmec.tsv
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/logs/staphopiasccmec-concat/versions.yml
+      md5sum: 13e39c00d6eff6629f646ab37e273cc8
+    - path: bactopia/bactopia-runs/staphopiasccmec/merged-results/staphopiasccmec.tsv
       md5sum: d02a33b227b96a95a99e18ca117a019d
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-dag.dot
+    - path: bactopia/bactopia-runs/staphopiasccmec/nf-reports/staphopiasccmec-dag.dot
       contains: ['staphopiasccmecdag', 'STAPHOPIASCCMEC', 'versions']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-report.html
+    - path: bactopia/bactopia-runs/staphopiasccmec/nf-reports/staphopiasccmec-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-timeline.html
+    - path: bactopia/bactopia-runs/staphopiasccmec/nf-reports/staphopiasccmec-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/staphopiasccmec/staphopiasccmec/nf-reports/staphopiasccmec-trace.txt
+    - path: bactopia/bactopia-runs/staphopiasccmec/nf-reports/staphopiasccmec-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/GCF_000017085.tsv
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/GCF_000017085.tsv
       md5sum: f631e5f4c80dc8ce004d72d9a3c56f58
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.begin
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.err
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.log
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.out
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.run
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.err
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.log
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.out
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.sh
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.sh
       contains: ['staphopia-sccmec', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/nf-staphopiasccmec.trace
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/staphopiasccmec/logs/versions.yml
+    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/versions.yml
       md5sum: ee70d8bb0ee24122a0802fdbac05bfb8

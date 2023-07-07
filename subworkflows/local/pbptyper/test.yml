@@ -4,47 +4,47 @@
     - pbptyper
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/logs/pbptyper-concat/versions.yml
-      md5sum: e29d5b3878cd9cf4d8f0ca44e4eaec61
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/merged-results/pbptyper.tsv
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/versions.yml
+      md5sum: da99d25cff48a53d56c9d17ad7beb2d6
+    - path: bactopia/bactopia-runs/pbptyper/merged-results/pbptyper.tsv
       md5sum: 0e01467865b2bcd76d597dc76e108d12
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/nf-reports/pbptyper-dag.dot
+    - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-dag.dot
       contains: ['pbptyperdag', 'PBPTYPER', 'versions']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/nf-reports/pbptyper-report.html
+    - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/nf-reports/pbptyper-timeline.html
+    - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/pbptyper/pbptyper/nf-reports/pbptyper-trace.txt
+    - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/GCF_001457635-1A.tblastn.tsv
+    - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-1A.tblastn.tsv
       md5sum: bbdfd2807fe4431dfbc9307578ffd071
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/GCF_001457635-2B.tblastn.tsv
+    - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-2B.tblastn.tsv
       md5sum: eefea8ba7d92dc73803e2f40cd86be40
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/GCF_001457635-2X.tblastn.tsv
+    - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-2X.tblastn.tsv
       md5sum: 1c2ea08e867319d0dee8d97e4c66d76a
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/GCF_001457635.tsv
+    - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635.tsv
       md5sum: 0e01467865b2bcd76d597dc76e108d12
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.begin
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.err
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.log
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.out
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.run
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.err
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.log
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.out
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.sh
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.sh
       contains: ['pbptyper', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/nf-pbptyper.trace
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_001457635/bactopia-tools/pbptyper/logs/versions.yml
+    - path: bactopia/GCF_001457635/tools/pbptyper/logs/versions.yml
       md5sum: 48de37dae1bb2c2c7f0f444887f753c6

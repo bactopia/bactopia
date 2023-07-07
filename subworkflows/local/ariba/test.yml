@@ -4,67 +4,67 @@
     - ariba
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/ariba-report.tsv
-      contains: ["ariba_ref_name", "reads", "resistance", "Escherichia"]
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/ariba-summary.csv
-      contains: ["name", "novel_var", "Pasteurella", "Escherichia"]
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.begin
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.run
+    - path: bactopia/bactopia-runs/ariba/merged-results/ariba-report.tsv
+      contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
+    - path: bactopia/bactopia-runs/ariba/merged-results/ariba-summary.csv
+      contains: ["name", "novel_var", "Clostridioides"]
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.err
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.log
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.out
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-report/versions.yml
-      md5sum: ed544ea51225634aa8087ae1af3e0078
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.begin
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.run
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-report/versions.yml
+      md5sum: 006b7037af623a036a9b08bb6cc0ef64
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.err
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.log
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.out
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/ariba/ariba/merged-results/logs/ariba-summary/versions.yml
-      md5sum: bc63e204d2b35a382bd98d9428d89568
-    - path: bactopia/bactopia-comparative/ariba/ariba/nf-reports/ariba-dag.dot
+    - path: bactopia/bactopia-runs/ariba/merged-results/logs/ariba-summary/versions.yml
+      md5sum: 50255006ec70632f98b4dfa0d94d9f6f
+    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-dag.dot
       contains: ['aribadag', 'ARIBA', 'versions']
-    - path: bactopia/bactopia-comparative/ariba/ariba/nf-reports/ariba-report.html
+    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/ariba/ariba/nf-reports/ariba-timeline.html
+    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/ariba/ariba/nf-reports/ariba-trace.txt
+    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/SRR2838702-report.tsv
-      contains: ["ariba_ref_name", "reads", "resistance", "Escherichia"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/SRR2838702-summary.csv
-      contains: ["name", "novel_var", "Pasteurella", "Escherichia"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/assembled_genes.fa.gz
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/assembled_seqs.fa.gz
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/assemblies.fa.gz
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/debug.report.tsv
+    - path: bactopia/SRR2838702/tools/ariba/ariba/SRR2838702-report.tsv
+      contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
+    - path: bactopia/SRR2838702/tools/ariba/ariba/SRR2838702-summary.csv
+      contains: ["name", "novel_var", "Clostridioides"]
+    - path: bactopia/SRR2838702/tools/ariba/ariba/assembled_genes.fa.gz
+    - path: bactopia/SRR2838702/tools/ariba/ariba/assembled_seqs.fa.gz
+    - path: bactopia/SRR2838702/tools/ariba/ariba/assemblies.fa.gz
+    - path: bactopia/SRR2838702/tools/ariba/ariba/debug.report.tsv
       contains: ["ariba_ref_name", "reads", "resistance"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/log.clusters.gz
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.begin
+    - path: bactopia/SRR2838702/tools/ariba/ariba/log.clusters.gz
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.err
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.err
       contains: ["filtering"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.log
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.log
       contains: ["card", "Making", "done!", "filtering"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.out
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.out
       contains: ["card", "Making", "done!"]
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.run
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.sh
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.sh
       contains: ['ariba', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/nf-ariba.trace
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/nf-ariba.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/logs/versions.yml
+    - path: bactopia/SRR2838702/tools/ariba/ariba/logs/versions.yml
       md5sum: 033ed5d08925ede510a221561b454bbc
-    - path: bactopia/bactopia-samples/SRR2838702/bactopia-tools/ariba/ariba/version_info.txt
+    - path: bactopia/SRR2838702/tools/ariba/ariba/version_info.txt
       contains: ["ARIBA", "Python", "OK", "True"]

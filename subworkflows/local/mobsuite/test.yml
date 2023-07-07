@@ -4,50 +4,50 @@
     - mobsuite
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/logs/mobsuite-concat/versions.yml
-      md5sum: be1bba049f360a79975ad5eb8a4019fa
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/merged-results/mobsuite.tsv
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/versions.yml
+      md5sum: bd1039d4c9e2ffff01ac354fd3e8d102
+    - path: bactopia/bactopia-runs/mobsuite/merged-results/mobsuite.tsv
       md5sum: c76f770050665d308faa1a4720ab9ebe
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/nf-reports/mobsuite-dag.dot
+    - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-dag.dot
       contains: ['mobsuitedag', 'MOBSUITE', 'versions']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/nf-reports/mobsuite-report.html
+    - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/nf-reports/mobsuite-timeline.html
+    - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/mobsuite/mobsuite/nf-reports/mobsuite-trace.txt
+    - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/GCF_000017085-mobtyper.txt
+    - path: bactopia/GCF_000017085/tools/mobsuite/GCF_000017085-mobtyper.txt
       md5sum: c76f770050665d308faa1a4720ab9ebe
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/chromosome.fasta
+    - path: bactopia/GCF_000017085/tools/mobsuite/chromosome.fasta
       md5sum: fe6e312b963fa5068c68cc25060ecd32
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/contig_report.txt
+    - path: bactopia/GCF_000017085/tools/mobsuite/contig_report.txt
       contains: ["sample_id", "Staphylococcus", "plasmid"]
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.begin
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.err
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.err
       contains: ["mob_suite", "Blasting", "MOB-recon"]
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.log
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.log
       contains: ["mob_suite", "Blasting", "MOB-recon"]
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.out
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.run
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.sh
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.sh
       contains: ['mob_recon', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/nf-mobsuite.trace
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/logs/versions.yml
+    - path: bactopia/GCF_000017085/tools/mobsuite/logs/versions.yml
       md5sum: 5373e5207a367e6bca2fa839b0e9b3df
-    - path: bactopia/bactopia-samples/GCF_000017085/bactopia-tools/mobsuite/plasmid_AA840.fasta
+    - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta
       md5sum: f774ed2069f1dfacd930673b748faaac

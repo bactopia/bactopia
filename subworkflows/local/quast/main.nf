@@ -9,7 +9,7 @@ options.args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { QUAST as QUAST_MODULE } from '../../../modules/nf-core/quast/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'seroba-concat', process_name: params.merge_folder] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'quast-concat', process_name: params.merge_folder] )
 
 workflow QUAST {
     take:

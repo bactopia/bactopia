@@ -4,69 +4,69 @@
     - quast
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/logs/seroba-concat/versions.yml
-      md5sum: ccfb7be26e4b127ab32a934d6fa725b0
-    - path: bactopia/bactopia-comparative/quast/quast/merged-results/quast.tsv
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/versions.yml
+      md5sum: b5bb52c5bfcb0d1144cd7ee41cef954f
+    - path: bactopia/bactopia-runs/quast/merged-results/quast.tsv
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-comparative/quast/quast/nf-reports/quast-dag.dot
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-dag.dot
       contains: ['quastdag', 'QUAST', 'versions']
-    - path: bactopia/bactopia-comparative/quast/quast/nf-reports/quast-report.html
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/quast/quast/nf-reports/quast-timeline.html
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/quast/quast/nf-reports/quast-trace.txt
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/GCF_000292685.tsv
+    - path: bactopia/GCF_000292685/tools/quast/GCF_000292685.tsv
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/basic_stats/GCF_000292685_GC_content_plot.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/basic_stats/GC_content_plot.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/basic_stats/NGx_plot.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/basic_stats/Nx_plot.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/basic_stats/cumulative_plot.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/icarus.html
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/icarus_viewers/contig_size_viewer.html
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.begin
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/GCF_000292685_GC_content_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/GC_content_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/NGx_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/Nx_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/cumulative_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/icarus.html
+    - path: bactopia/GCF_000292685/tools/quast/icarus_viewers/contig_size_viewer.html
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.err
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.log
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.err
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.log
       contains: ["Creating", "Contig", "versions", "QUAST"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.out
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.out
       contains: ["Creating", "Contig", "versions", "QUAST"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.run
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.sh
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.sh
       contains: ['quast', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/nf-quast.trace
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/quast.log
+    - path: bactopia/GCF_000292685/tools/quast/logs/quast.log
       contains: ['Version', 'QUAST']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/logs/versions.yml
+    - path: bactopia/GCF_000292685/tools/quast/logs/versions.yml
       md5sum: 7dae1e03b0d1199851a1c393bc72c039
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/predicted_genes/GCF_000292685_glimmer.stderr
+    - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer.stderr
       md5sum: 390dc7df727903e33d8127f8f12d9cf5
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/predicted_genes/GCF_000292685_glimmer_genes.gff
+    - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer_genes.gff
       contains: ["version", "NC_018507", "CDS", "exon"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/report.html
+    - path: bactopia/GCF_000292685/tools/quast/report.html
       contains: ['QUAST']
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/report.pdf
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/report.tex
+    - path: bactopia/GCF_000292685/tools/quast/report.pdf
+    - path: bactopia/GCF_000292685/tools/quast/report.tex
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/report.tsv
+    - path: bactopia/GCF_000292685/tools/quast/report.tsv
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/report.txt
+    - path: bactopia/GCF_000292685/tools/quast/report.txt
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/transposed_report.tex
+    - path: bactopia/GCF_000292685/tools/quast/transposed_report.tex
       contains: ["Assembly", "contigs", "predicted", "NG90"]
-    - path: bactopia/bactopia-samples/GCF_000292685/bactopia-tools/quast/transposed_report.txt
+    - path: bactopia/GCF_000292685/tools/quast/transposed_report.txt
       contains: ["Assembly", "contigs", "predicted", "NG90"]

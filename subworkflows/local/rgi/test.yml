@@ -4,82 +4,82 @@
     - rgi
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.sh
       contains: ["csvtk", "END_VERSIONS"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-concat/versions.yml
-      md5sum: bccea3c25060aa9a281fac394fbfa240
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/versions.yml
+      md5sum: def8fc8cbba714641e999ceda23843c0
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.log
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.err
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.log
       contains: ['EPS', 'PNG', 'Rendering']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.out
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.out
       contains: ['EPS', 'PNG', 'Rendering']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.run
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.sh
       contains: ["rgi", "heatmap", "END_VERSIONS"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/logs/rgi-heatmap/versions.yml
+    - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/versions.yml
       md5sum: c16a8469ca85a97204a631a52190323d
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/rgi-2.csv
+    - path: bactopia/bactopia-runs/rgi/merged-results/rgi-2.csv
       contains: ["gene", "Klebsiella", "Escherichia"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/rgi-2.eps
+    - path: bactopia/bactopia-runs/rgi/merged-results/rgi-2.eps
       contains: ["portrait", "end", "fill"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/rgi-2.png
-    - path: bactopia/bactopia-comparative/rgi/rgi/merged-results/rgi.tsv
+    - path: bactopia/bactopia-runs/rgi/merged-results/rgi-2.png
+    - path: bactopia/bactopia-runs/rgi/merged-results/rgi.tsv
       contains: ["ORF_ID", "disinfecting", "antibiotic"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/nf-reports/rgi-dag.dot
+    - path: bactopia/bactopia-runs/rgi/nf-reports/rgi-dag.dot
       contains: ["rgidag", "RGI", "version"]
-    - path: bactopia/bactopia-comparative/rgi/rgi/nf-reports/rgi-report.html
+    - path: bactopia/bactopia-runs/rgi/nf-reports/rgi-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/rgi/rgi/nf-reports/rgi-timeline.html
+    - path: bactopia/bactopia-runs/rgi/nf-reports/rgi-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/rgi/rgi/nf-reports/rgi-trace.txt
+    - path: bactopia/bactopia-runs/rgi/nf-reports/rgi-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/GCA_000027305.json
+    - path: bactopia/GCA_000027305/tools/rgi/GCA_000027305.json
       contains: ["type_match", "model_name", "orf_dna_sequence"]
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/GCA_000027305.txt
+    - path: bactopia/GCA_000027305/tools/rgi/GCA_000027305.txt
       contains: ["ORF_ID", "disinfecting", "antibiotic"]
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.begin
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.err
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.log
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.out
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.err
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.log
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.run
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.sh
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.sh
       contains: ["rgi", "main", "END_VERSIONS"]
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/nf-rgi.trace
+    - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCA_000027305/bactopia-tools/rgi/logs/versions.yml
-      md5sum: cc05e4b048bd34bbccd8af6d985097a1
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/GCF_900478275.json
+    - path: bactopia/GCA_000027305/tools/rgi/logs/versions.yml
+      md5sum: 81482750f2ba727c718e24bf844293e8
+    - path: bactopia/GCF_900478275/tools/rgi/GCF_900478275.json
       contains: ["type_match", "model_name", "orf_dna_sequence"]
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/GCF_900478275.txt
+    - path: bactopia/GCF_900478275/tools/rgi/GCF_900478275.txt
       contains: ["ORF_ID", "disinfecting", "antibiotic"]
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.begin
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.err
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.log
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.out
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.err
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.log
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.run
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.sh
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.sh
       contains: ["rgi", "main", "END_VERSIONS"]
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/nf-rgi.trace
+    - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_900478275/bactopia-tools/rgi/logs/versions.yml
-      md5sum: cc05e4b048bd34bbccd8af6d985097a1
+    - path: bactopia/GCF_900478275/tools/rgi/logs/versions.yml
+      md5sum: 81482750f2ba727c718e24bf844293e8

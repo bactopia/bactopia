@@ -4,45 +4,45 @@
     - sistr
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.err
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.log
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.out
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/logs/sistr-concat/versions.yml
-      md5sum: 5589ce25921eb314755ade23ad5428e7
-    - path: bactopia/bactopia-comparative/sistr/sistr/merged-results/sistr.tsv
+    - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/versions.yml
+      md5sum: 0ff34b9ae62d57c34d4453e949273585
+    - path: bactopia/bactopia-runs/sistr/merged-results/sistr.tsv
       contains: ['serogroup', 'Typhimurium', 'PASS']
-    - path: bactopia/bactopia-comparative/sistr/sistr/nf-reports/sistr-dag.dot
+    - path: bactopia/bactopia-runs/sistr/nf-reports/sistr-dag.dot
       contains: ['sistrdag', 'SISTR', 'version']
-    - path: bactopia/bactopia-comparative/sistr/sistr/nf-reports/sistr-report.html
+    - path: bactopia/bactopia-runs/sistr/nf-reports/sistr-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-comparative/sistr/sistr/nf-reports/sistr-timeline.html
+    - path: bactopia/bactopia-runs/sistr/nf-reports/sistr-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-comparative/sistr/sistr/nf-reports/sistr-trace.txt
+    - path: bactopia/bactopia-runs/sistr/nf-reports/sistr-trace.txt
       contains: ['task_id']
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/GCF_016028495-allele.fasta.gz
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/GCF_016028495-allele.json.gz
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/GCF_016028495-cgmlst.csv
+    - path: bactopia/GCF_016028495/tools/sistr/GCF_016028495-allele.fasta.gz
+    - path: bactopia/GCF_016028495/tools/sistr/GCF_016028495-allele.json.gz
+    - path: bactopia/GCF_016028495/tools/sistr/GCF_016028495-cgmlst.csv
       contains: ["NZ_AOXE01000052", "NC_003198"]
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/GCF_016028495.tsv
+    - path: bactopia/GCF_016028495/tools/sistr/GCF_016028495.tsv
       contains: ['serogroup', 'Typhimurium', 'PASS']
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.begin
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.err
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.log
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.out
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.run
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.err
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.log
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.out
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.sh
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.sh
       contains: ['sistr', 'END_VERSIONS']
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/nf-sistr.trace
+    - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-samples/GCF_016028495/bactopia-tools/sistr/logs/versions.yml
+    - path: bactopia/GCF_016028495/tools/sistr/logs/versions.yml
       md5sum: 9ce214ed7a2ba7b43b59e3a87553fccc
