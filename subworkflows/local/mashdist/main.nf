@@ -62,6 +62,7 @@ workflow MERLINDIST {
     dist = MERLINDIST_MODULE.out.dist
     escherichia = MERLINDIST_MODULE.out.escherichia
     escherichia_fq = MERLINDIST_MODULE.out.escherichia_fq
+    escherichia_fna_fq = MERLINDIST_MODULE.out.escherichia_fna_fq
     haemophilus = MERLINDIST_MODULE.out.haemophilus
     klebsiella  = MERLINDIST_MODULE.out.klebsiella
     legionella = MERLINDIST_MODULE.out.legionella

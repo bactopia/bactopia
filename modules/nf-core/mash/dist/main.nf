@@ -28,13 +28,19 @@ process MASH_DIST {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def is_compressed = reference.getName().endsWith(".xz") ? true : false
+    def reference_name = reference.getName().replace(".xz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        xz -c -d $reference > $reference_name
+    fi
+
     echo "reference<TAB>query<TAB>distance<TAB>p-value<TAB>shared-hashes" | sed 's/<TAB>/\t/g' > ${prefix}-dist.txt
     mash \\
         dist \\
         -p $task.cpus \\
         $options.args \\
-        $reference \\
+        $reference_name \\
         $query >> ${prefix}-dist.txt
 
     cat <<-END_VERSIONS > versions.yml
@@ -62,6 +68,7 @@ process MERLIN_DIST {
     tuple val(meta), path("*.txt"), emit: dist
     tuple val(meta), path(query), path("escherichia.*")   , emit: escherichia, optional: true
     tuple val(meta), path(reads), path("escherichia.*")   , emit: escherichia_fq, optional: true
+    tuple val(meta), path(query), path(reads), path("escherichia.*"), emit: escherichia_fna_fq, optional: true
     tuple val(meta), path(query), path("haemophilus.*")   , emit: haemophilus, optional: true
     tuple val(meta), path(query), path("klebsiella.*")    , emit: klebsiella, optional: true
     tuple val(meta), path(query), path("legionella.*")    , emit: legionella, optional: true
@@ -81,15 +88,21 @@ process MERLIN_DIST {
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def is_compressed = reference.getName().endsWith(".xz") ? true : false
+    def reference_name = reference.getName().replace(".xz", "")
     """
+    if [ "$is_compressed" == "true" ]; then
+        xz -c -d $reference > $reference_name
+    fi
+
     echo "reference<TAB>query<TAB>distance<TAB>p-value<TAB>shared-hashes" | sed 's/<TAB>/\t/g' > ${prefix}-dist.txt
     mash \\
         dist \\
         -C \\
         -p $task.cpus \\
         $options.args \\
-        $reference \\
+        $reference_name \\
         $query | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
     # Extract genus with hits

@@ -8,7 +8,7 @@ include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../../modules/nf-core/pneumoc
 
 workflow PNEUMOCAT {
     take:
-    fastq // channel: [ val(meta), [ fasta ] ]
+    fastq // channel: [ val(meta), [ fastq ] ]
 
     main:
     ch_versions = Channel.empty()

@@ -82,6 +82,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - add missing scripts to MLST [bioconda/bioconda-recipes#38826](https://github.com/bioconda/bioconda-recipes/pull/38826)
 - fix GTDB-Tk container [bioconda/bioconda-recipes#40333](https://github.com/bioconda/bioconda-recipes/pull/40333)
 - patch ncbi-genome-download [bioconda-recipes#41640](https://github.com/bioconda/bioconda-recipes/pull/41640)
+- add module for pneumocat [nf-core/modules#3592](https://github.com/nf-core/modules/pull/3592)
 
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 

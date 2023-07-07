@@ -67,6 +67,7 @@ if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/ma
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 if (params.wf == 'mcroni') include { MCRONI } from '../subworkflows/local/mcroni/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
+if (params.wf == 'merlin') include { DATASETS } from '../modules/local/bactopia/datasets/main'
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
 if (params.wf == 'midas') include { MIDAS } from '../subworkflows/local/midas/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
