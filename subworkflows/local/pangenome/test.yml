@@ -55,7 +55,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/versions.yml
-      md5sum: c4a78be1e2518a12b897b998c2735930
+      md5sum: fae2f1cbc743ec5bf3aafea5c78621a3
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.bionj
       contains: ['GCF_000292685']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.ckp.gz
@@ -97,7 +97,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/versions.yml
-      md5sum: b73e15fb2791178e026b247d07af8225
+      md5sum: f4c129fc7e1f4e942f79bcdb745774ea
     - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-dag.dot
       contains: ['pangenomedag', 'shape', 'digraph']
     - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-report.html
