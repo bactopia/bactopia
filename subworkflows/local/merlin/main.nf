@@ -107,11 +107,12 @@ workflow MERLIN {
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
     MERLINDIST.out.streptococcus_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq }
+    MERLINDIST.out.streptococcus_fq_cat.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq_cat }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
     PBPTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(PBPTYPER.out.versions.first())
-    PNEUMOCAT(ch_streptococcus_fq)
+    PNEUMOCAT(ch_streptococcus_fq_cat)
     ch_versions = ch_versions.mix(PNEUMOCAT.out.versions.first())
     SEROBA(ch_streptococcus_fq)
     ch_versions = ch_versions.mix(SEROBA.out.versions.first())
