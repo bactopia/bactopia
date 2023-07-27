@@ -50,6 +50,7 @@ process GATHER {
     } else if (runtype == 'sra_accession_ont') {
         meta.runtype = 'ont'
     }
+    meta.is_compressed = params.skip_compression ? false : true
     qin = is_assembly ? 'qin=33' : 'qin=auto'
     """
     MERGED="multiple-read-sets-merged.txt"
@@ -206,8 +207,8 @@ process GATHER {
     fi
 
     # Dump meta values to a TSV
-    echo "sample<TAB>runtype<TAB>original_runtype<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
-    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
+    echo "sample<TAB>runtype<TAB>original_runtype<TAB>is_compressed<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
+    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
