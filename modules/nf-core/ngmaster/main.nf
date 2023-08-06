@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ngmaster')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::ngmaster=0.5.8"
+conda_tools   = "bioconda::ngmaster=0.5.8 conda-forge::python==3.9.7"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
