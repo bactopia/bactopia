@@ -4,7 +4,7 @@ RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cp
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'custom_dumpsoftwareversions')
 options.btype = options.btype ?: "comparative"
 options.process_name = "software-versions"
-conda_tools   = "bioconda::multiqc=1.14"
+conda_tools   = "bioconda::multiqc=1.15"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/multiqc:1.14--pyhdfd78af_0' :
-        'quay.io/biocontainers/multiqc:1.14--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/multiqc:1.15--pyhdfd78af_0' :
+        'quay.io/biocontainers/multiqc:1.15--pyhdfd78af_0' }"
 
     input:
     path versions

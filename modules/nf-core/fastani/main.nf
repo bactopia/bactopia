@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'fastani')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::fastani=1.33"
+conda_tools   = "bioconda::fastani=1.34"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process FASTANI {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/fastani:1.33--h0fdf51a_1' :
-        'quay.io/biocontainers/fastani:1.33--h0fdf51a_1' }"
+        'https://depot.galaxyproject.org/singularity/fastani:1.34--h4dfc31f_0' :
+        'quay.io/biocontainers/fastani:1.34--h4dfc31f_0' }"
 
 
     input:

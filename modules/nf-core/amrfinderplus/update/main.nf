@@ -2,7 +2,7 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus_update')
-conda_tools = "bioconda::ncbi-amrfinderplus=3.11.14"
+conda_tools = "bioconda::ncbi-amrfinderplus=3.11.18"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process AMRFINDERPLUS_UPDATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:3.11.14--h283d18e_1' :
-        'quay.io/biocontainers/ncbi-amrfinderplus:3.11.14--h283d18e_1' }"
+        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:3.11.18--h283d18e_1' :
+        'quay.io/biocontainers/ncbi-amrfinderplus:3.11.18--h283d18e_1' }"
 
     output:
     path "amrfinderplus.tar.gz", emit: db
