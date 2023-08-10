@@ -57,7 +57,9 @@ process PROKKA {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    prokka \\
+    export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
+    env
+    bactopia-prokka \\
         $options.args \\
         --cpus $task.cpus \\
         --prefix $prefix \\
@@ -69,9 +71,9 @@ process PROKKA {
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb
-    cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for !{meta.id}" -out blastdb/!{meta.id}.fna
-    cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for !{meta.id}" -out blastdb/!{meta.id}.ffn
-    cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for !{meta.id}" -out blastdb/!{meta.id}.faa
+    cat ${prefix}/${prefix}.fna | makeblastdb -dbtype "nucl" -title "Assembled contigs for ${prefix}" -out blastdb/${prefix}.fna
+    cat ${prefix}/${prefix}.ffn | makeblastdb -dbtype "nucl" -title "Predicted genes sequences for ${prefix}" -out blastdb/${prefix}.ffn
+    cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
     tar -cvf - blastdb/ | gzip -c > ${prefix}/${prefix}-blastdb.tar.gz
 
     if [[ "${params.skip_compression}" == "false" ]]; then
