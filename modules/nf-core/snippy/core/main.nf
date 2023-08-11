@@ -19,6 +19,7 @@ process SNIPPY_CORE {
     input:
     tuple val(meta), path(vcf), path(aligned_fa)
     path reference
+    path mask
 
     output:
     tuple val(meta), path("results/*")                          , emit: results
@@ -34,6 +35,7 @@ process SNIPPY_CORE {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """
@@ -52,6 +54,7 @@ process SNIPPY_CORE {
         $options.args \\
         --ref $final_reference \\
         --prefix $prefix \\
+        $mask_opt \\
         samples/*
 
     # Cleanup the alignment
