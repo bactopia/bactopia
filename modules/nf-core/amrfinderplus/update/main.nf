@@ -19,6 +19,9 @@ process AMRFINDERPLUS_UPDATE {
 
     output:
     path "amrfinderplus.tar.gz", emit: db
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     prefix = "amrfinderplus"
