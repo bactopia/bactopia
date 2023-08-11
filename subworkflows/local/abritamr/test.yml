@@ -1,0 +1,40 @@
+- name: abritamr-test
+  command: bash -c 'nextflow run ./subworkflows/local/abritamr/test.nf -entry test_abritamr --wf abritamr -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - abritamr
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/GCF_000292685.amrfinder.out
+      md5sum: b4d261ace9be7d013c19d1f5c0005bfe
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/GCF_000292685.summary_matches.txt
+      md5sum: b015378006d96a3cc5f2aab5a6b1ab08
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/GCF_000292685.summary_partials.txt
+      md5sum: b015378006d96a3cc5f2aab5a6b1ab08
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/GCF_000292685.summary_virulence.txt
+      md5sum: b015378006d96a3cc5f2aab5a6b1ab08
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/abritamr.log
+      contains: ['Checking', 'summary_virulence', 'AMRfinder']
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.err
+      contains: ['Checking', 'summary_virulence', 'AMRfinder']
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.log
+      contains: ['Checking', 'summary_virulence', 'AMRfinder']
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.sh
+      md5sum: 6cc6ae89b0737ce4e06b10cb91bd2ea3
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/versions.yml
+      md5sum: 603690c9d9ad1d9cf8faa026765195d1
+    - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-dag.dot
+      contains: ['abritamr', 'ABRITAMR', 'versions']
+    - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-trace.txt
+      contains: ['task_id']

@@ -11,6 +11,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read
     - `teton` - Host removal and taxon classification with estimated abundances
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `abritamr` - A NATA accredited tool for AMR detection
     - `blastn` - Search against nucleotide BLAST databases using nucleotide queries
     - `blastp` - Search against protein BLAST databases using protein queries
     - `blastx` - Search against protein BLAST databases using translated nucleotide queries
@@ -27,6 +28,8 @@ description: A full list of Bactopia releases and a description of the changes.
 - new directory structure for outputs
 - GitHub Action to build environments
 - `fastp` is default read cleaner, can use previous methods with `--use_bbmap`
+- ability to use a BED file to mask regions in `snippy-core`
+- `--save_sketches` to save Mash sketches created during `mashtree` run5
 - Porechop is now optional (`--use_porechop`)
 - unified `publishDir` across modules
 - download datasets using `storeDir`
@@ -43,17 +46,19 @@ description: A full list of Bactopia releases and a description of the changes.
     - `gtdbtk`: 2.1.1 -> 2.3.2
     - `gubbins`: 3.2.1 -> 3.3
     - `iqtree`: 2.2.0.3 -> 2.2.2.7
-    - `mob_suite`: 3.1.0 -> 3.1.4
-    - `multiqc`: 1.11 -> 1.14
+    - `fastani`: 1.33 -> 1.34
+    - `mob_suite`: 3.1.0 -> 3.1.5
+    - `multiqc`: 1.11 -> 1.15
     - `mykrobe`: 0.12.0 -> 0.12.2
-    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.14
+    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.14-8
+    - `ncbi-genome-download`: 0.3.1 -> 0.3.3
     - `panaroo`: 1.3.0 -> 1.3.3
-    - `pasty`: 1.0.0 -> 1.0.2
+    - `pasty`: 1.0.0 -> 1.0.3
     - `phyloflash`: 3.4 -> 3.4.2
     - `rgi`: 6.0.1 -> 6.0.2
     - `shigatyper`: 2.0.3 -> 2.0.5
     - `shigeifinder`: 1.3.2 -> 1.3.5
-    - `tbprofiler`: 4.4.0 -> 4.4.2
+    - `tbprofiler`: 4.4.0 -> 5.0.0
 
 ### `Fixed`
 - All modules correctly initiate `params.options`
@@ -72,7 +77,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `SEQUENCE_TYPE` - now handled by `mlst`
 - `bactopia datasets` is now incorporated into `bactopia`
 - Conda/Containers for all bactopia-main steps
-- custom process lables, for generic `nf-core` process labels
+- custom process labels, for generic `nf-core` process labels
 
 ### `Enhancements to OSS`
 - add module for midas [nf-core/modules#2696](https://github.com/nf-core/modules/pull/2696)

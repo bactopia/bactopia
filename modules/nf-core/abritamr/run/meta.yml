@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "abritamr_run"
+description: A NATA accredited tool for reporting the presence of antimicrobial resistance genes in bacterial genomes
+keywords:
+  - bacteria
+  - fasta
+  - antibiotic resistance
+tools:
+  - "abritamr":
+      description: "A pipeline for running AMRfinderPlus and collating results into functional classes"
+      homepage: "https://github.com/MDU-PHL/abritamr"
+      documentation: "https://github.com/MDU-PHL/abritamr"
+      tool_dev_url: "https://github.com/MDU-PHL/abritamr"
+      doi: "10.1038/s41467-022-35713-4"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - fasta:
+      type: file
+      description: Assembled contigs in FASTA format
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz,faa,faa.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - matches:
+      type: file
+      description: Tab-delimited file, with a row per sequence, and columns representing functional drug classes
+      pattern: "*.summary_matches.txt"
+  - partials:
+      type: file
+      description: Tab-delimited file, with a row per sequence, and columns representing partial hits to functional drug classes
+      pattern: "*.summary_partials.txt"
+  - virulence:
+      type: string
+      description: Tab-delimited file, with a row per sequence, and columns representing AMRFinderPlus virulence gene classification
+      pattern: "*.summary_virulence.txt"
+  - txt:
+      type: string
+      description: Tab-delimited file, combining non-empty summary files
+      pattern: "*.abritamr.txt"
+  - out:
+      type: string
+      description: raw output from AMRFinder plus (per sequence)
+      pattern: "*.abritamr.txt"
+
+authors:
+  - "@rpetit3"

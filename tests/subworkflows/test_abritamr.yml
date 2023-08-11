@@ -1,0 +1,8 @@
+- name: abritamr-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf abritamr -c nextflow.config --help > abritamr-help.txt'
+  tags:
+    - bactopia_help
+    - abritamr
+  files:
+    - path: abritamr-help.txt
+      contains: ['abritamr', 'bactopia', 'version', 'dependencies']

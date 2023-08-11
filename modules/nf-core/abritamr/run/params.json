@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/abritamr/run/params.json",
+    "title": "abriTAMR Run Module",
+    "description": "A module to identify antimicrobial resistance in assembled contigs",
+    "type": "object",
+    "definitions": {
+        "abritamr_parameters": {
+            "title": "abriTAMR Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "abritamr_species": {
+                    "type": "string",
+                    "description": "Use species specific point mutations, must provide a valid species",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "abritamr_identity": {
+                    "type": "integer",
+                    "description": "Minimum identity of matches with amrfinder (0 - 1.0), defaults to amrfinder preset",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/abritamr_parameters"
+        }
+    ]
+}
