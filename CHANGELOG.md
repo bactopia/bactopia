@@ -88,6 +88,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - fix GTDB-Tk container [bioconda/bioconda-recipes#40333](https://github.com/bioconda/bioconda-recipes/pull/40333)
 - patch ncbi-genome-download [bioconda-recipes#41640](https://github.com/bioconda/bioconda-recipes/pull/41640)
 - add module for pneumocat [nf-core/modules#3592](https://github.com/nf-core/modules/pull/3592)
+- add module for abritamr/run [nf-core/modules#3725](https://github.com/nf-core/modules/pull/3725)
 
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 
