@@ -35,7 +35,7 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
               bash -c 'BACTOPIA_ARGS="-profile test --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
+                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
 
       - name: Docker Profile
         run: |
@@ -44,7 +44,7 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
               bash -c 'BACTOPIA_ARGS="-profile test,docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
+                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
 
       - name: Singularity Profile
         run: |
@@ -53,7 +53,7 @@ jobs:
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
               bash -c 'BACTOPIA_ARGS="-profile test,singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --tag {}'
+                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
 
       - name: Upload logs on failure
         if: failure()

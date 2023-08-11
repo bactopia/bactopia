@@ -61,4 +61,4 @@
     - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/amrfinderplus/logs/versions.yml
-      md5sum: 2d3fa3e71c011d9a1db12565aafd5632
+      md5sum: 9933c8136bf5f0001ed5ec26405db0a7

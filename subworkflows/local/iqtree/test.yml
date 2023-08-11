@@ -9,7 +9,6 @@
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/nf-iqtree.out

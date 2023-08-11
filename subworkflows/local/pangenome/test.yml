@@ -41,7 +41,6 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.out

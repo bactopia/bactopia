@@ -43,4 +43,4 @@
     - path: bactopia/GCF_000017085/tools/mlst/logs/nf-mlst.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mlst/logs/versions.yml
-      md5sum: 3283b7ef2d5864942c1ff7dbf9e1e9aa
+      md5sum: 6cdff5356823d7423f727b937f2685dd

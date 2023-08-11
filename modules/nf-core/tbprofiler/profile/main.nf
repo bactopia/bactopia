@@ -47,7 +47,7 @@ process TBPROFILER_PROFILE {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        tb-profiler:  \$( echo \$(tb-profiler version 2>&1) | sed 's/TBProfiler version //')
+        tb-profiler:  \$( echo \$(tb-profiler version 2>&1) | sed 's/tb-profiler version //')
     END_VERSIONS
     """
 }

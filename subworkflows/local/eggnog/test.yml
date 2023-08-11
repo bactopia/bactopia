@@ -33,7 +33,7 @@
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/versions.yml
-      md5sum: e0313de61c677a173d2443785fd87ea3
+      md5sum: 49d57b2d925db5153ab96d303c966e6f
 
 - name: eggnog-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/eggnog/test.nf -entry test_eggnog_tarball --wf eggnog -c nextflow.config ${BACTOPIA_ARGS}'
@@ -71,4 +71,4 @@
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/versions.yml
-      md5sum: f66807327174b0aa67d16e73a5419c60
+      md5sum: 9d5cbe6bffa2d5b22ebd77c2e182c3e7

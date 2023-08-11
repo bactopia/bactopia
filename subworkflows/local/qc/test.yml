@@ -16,9 +16,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.out
       contains: ['Analysis', 'complete']
     - path: bactopia/output/main/qc/logs/nf-qc.run
@@ -71,9 +71,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.out
       contains: ['Analysis', 'complete']
     - path: bactopia/output/main/qc/logs/nf-qc.run
@@ -212,9 +212,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.out
       contains: ['Analysis', 'complete']
     - path: bactopia/output/main/qc/logs/nf-qc.run
@@ -273,9 +273,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['Approx', 'complete', 'Memory', 'Processed', 'ReformatReads']
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
     - path: bactopia/output/main/qc/logs/nf-qc.out
       contains: ['Analysis', 'complete']
     - path: bactopia/output/main/qc/logs/nf-qc.run

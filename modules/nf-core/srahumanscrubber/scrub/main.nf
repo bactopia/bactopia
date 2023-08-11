@@ -66,8 +66,8 @@ process SRAHUMANSCRUBBER_SCRUB_MAIN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.0.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.2.1--hdfd78af_0' :
+        'quay.io/biocontainers/sra-human-scrubber:2.2.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads), path(extra)
@@ -120,8 +120,8 @@ process SRAHUMANSCRUBBER_SCRUB_TETON {
     
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.0.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.2.1--hdfd78af_0' :
+        'quay.io/biocontainers/sra-human-scrubber:2.2.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads), path(extra), path(genome_size)

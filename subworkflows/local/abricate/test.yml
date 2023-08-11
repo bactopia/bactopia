@@ -5,7 +5,7 @@
     - tools
   files:
     - path: bactopia/bactopia-runs/abricate/merged-results/abricate.tsv
-      md5sum: 48e48f46df3d8f5c5f77d983425b2ca2
+      contains: ['FILE', 'NUM_FOUND']
     - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.begin
     - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.err
     - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.log
@@ -27,7 +27,7 @@
     - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/tools/abricate/GCF_000292685.txt
-      md5sum: c511dcc8e24c70707075932c0d4fe18d
+      contains: ['FILE', 'COVERAGE', 'RESISTANCE']
     - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.err

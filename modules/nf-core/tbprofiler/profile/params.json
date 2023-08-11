@@ -42,33 +42,6 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_min_depth": {
-                    "type": "integer",
-                    "default": 10,
-                    "description": "Minimum depth required to call variant",
-                    "help": "Bases with depth below this cutoff will be marked as missing",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "tb_af": {
-                    "type": "number",
-                    "default": 0.1,
-                    "description": "Minimum allele frequency to call variants",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "tb_reporting_af": {
-                    "type": "number",
-                    "default": 0.1,
-                    "description": "Minimum allele frequency to use variants for prediction",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "coverage_fraction_threshold": {
-                    "type": "number",
-                    "default": 0,
-                    "description": "Cutoff used to calculate fraction of region covered by <= this value",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
                 "suspect": {
                     "type": "boolean",
                     "default": false,
@@ -89,6 +62,12 @@
                     "description": "Don't run delly",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
+                },
+                "tbprofiler_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for TBProfiler",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         }

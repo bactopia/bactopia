@@ -11,10 +11,7 @@ options.args = [
     params.no_delly ? "--no_delly" : "",
     "--mapper ${params.mapper}",
     "--caller ${params.caller}",
-    "--min_depth ${params.tb_min_depth}",
-    "--af ${params.tb_af}",
-    "--reporting_af ${params.tb_reporting_af}",
-    "--coverage_fraction_threshold ${params.coverage_fraction_threshold}"
+    params.tbprofiler_opts ? "${params.calling_params}" : "",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/tbprofiler/profile/main' addParams( options: options )

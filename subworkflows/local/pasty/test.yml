@@ -45,4 +45,4 @@
     - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000006765/tools/pasty/logs/versions.yml
-      md5sum: f692c3b923af3975b71de367ff560f2a
+      md5sum: 55048014915bb7d9efdd8c838ce0d48d

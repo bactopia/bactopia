@@ -16,10 +16,11 @@
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.err
-      contains: ['tbprofiler', 'Running', 'finished']
+      contains: ['Calling', 'variants', 'Indexing']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.log
-      contains: ['tbprofiler', 'Running', 'finished']
+      contains: ['Using', 'Running', 'Loading', 'Writing']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.out
+      contains: ['Using', 'Running', 'Loading', 'Writing']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.sh
@@ -27,11 +28,11 @@
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia/test/tools/tbprofiler/logs/versions.yml
-      md5sum: 55cbf072aba045eb75137cad49b938b0
+      md5sum: 1395cb7dfca1a1a6afce11e0178c905c
     - path: bactopia/test/tools/tbprofiler/test.results.csv
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia/test/tools/tbprofiler/test.results.json
-      contains: ['locus_tag', 'tbprofiler_version', 'median_coverage']
+      contains: ['locus_tag', 'tbprofiler_version', 'median_depth']
     - path: bactopia/test/tools/tbprofiler/test.results.txt
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia/test/tools/tbprofiler/vcf/test.targets.csq.vcf.gz
