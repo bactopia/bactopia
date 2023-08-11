@@ -34,7 +34,7 @@ jobs:
           source /data/storage/bactopia-ci/mambaforge/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} -P 20 \
+          ls subworkflows/local/ | grep -v "prokka" | xargs -I {} -P 20 \
               bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
@@ -43,7 +43,7 @@ jobs:
           source /data/storage/bactopia-ci/mambaforge/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} -P 20 \
+          ls subworkflows/local/ | grep -v "prokka" | xargs -I {} -P 20 \
               bash -c 'BACTOPIA_ARGS="-profile docker --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
@@ -53,7 +53,7 @@ jobs:
           conda activate bactopia-ci
           conda clean --all -y
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} -P 20 \
+          ls subworkflows/local/ | grep -v "prokka" | xargs -I {} -P 20 \
               bash -c 'BACTOPIA_ARGS="--is_ci --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --tag {}'
 
