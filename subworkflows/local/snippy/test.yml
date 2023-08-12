@@ -35,7 +35,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: 10fa8fb1267daf014970bade097e6efc
+      md5sum: 06e837b60e52d63b0f5b53d25f63924d
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
       md5sum: b0fba4469a915df9872ca077eb2cf808
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj
@@ -345,7 +345,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: acf96d0f97eb542e631d1eda7c652a53
+      md5sum: e763a9a67609a03acd4dfec3e2071234
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
       md5sum: 3538bdd4729b861eb66eb3e69060812d
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj

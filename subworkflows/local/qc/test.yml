@@ -30,12 +30,12 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'Insert', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
     - path: bactopia/output/main/qc/output_R1.fastq.gz
     - path: bactopia/output/main/qc/output_R2.fastq.gz
     - path: bactopia/output/main/qc/summary/output.fastp.html
     - path: bactopia/output/main/qc/summary/output.fastp.json
-      md5sum: 3bd447298e5fbffd11ea39b8f8350ff3
+      md5sum: b1b8258495a9db686bec3bd1e4ae589c
     - path: bactopia/output/main/qc/summary/output_R1-final.json
       md5sum: eb4b6a1b03b4f977276effdaf857faec
     - path: bactopia/output/main/qc/summary/output_R1-final_fastqc.html
@@ -85,7 +85,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: b000d1f90cac6ad46cc68469264b281a
+      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
     - path: bactopia/output/main/qc/output.fastq.gz
     - path: bactopia/output/main/qc/summary/output-final.json
       md5sum: db692de5d929a17b319f13f0366f1a03
@@ -97,7 +97,7 @@
     - path: bactopia/output/main/qc/summary/output-original_fastqc.zip
     - path: bactopia/output/main/qc/summary/output.fastp.html
     - path: bactopia/output/main/qc/summary/output.fastp.json
-      md5sum: 6db3ee3a2b890adc655e191bb22a2b69
+      md5sum: 1332c030f84c0b42d7543ac0a2a96461
 
 - name: qc-pe_skip_qc
   command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_pe -c nextflow.config --skip_qc ${BACTOPIA_ARGS}'
@@ -129,7 +129,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
     - path: bactopia/output/main/qc/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: bactopia/output/main/qc/output_R1.fastq.gz
@@ -181,7 +181,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: b000d1f90cac6ad46cc68469264b281a
+      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
     - path: bactopia/output/main/qc/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: bactopia/output/main/qc/output.fastq.gz
@@ -226,7 +226,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 9b2e65f2b38b2e9ca52a326b97109b55
+      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
     - path: bactopia/output/main/qc/output-low-read-count-error.txt
       md5sum: 0c223c4cc227bbc49cea5021a6e6bcbf
     - path: bactopia/output/main/qc/output-low-sequence-coverage-error.txt
@@ -237,7 +237,7 @@
     - path: bactopia/output/main/qc/output_R2.error-fastq.gz
     - path: bactopia/output/main/qc/summary/output.fastp.html
     - path: bactopia/output/main/qc/summary/output.fastp.json
-      md5sum: 3bd447298e5fbffd11ea39b8f8350ff3
+      md5sum: b1b8258495a9db686bec3bd1e4ae589c
     - path: bactopia/output/main/qc/summary/output_R1-final.json
       md5sum: 637a544aeed97b02c0c954bbb7c8055d
     - path: bactopia/output/main/qc/summary/output_R1-final_fastqc.html
@@ -287,7 +287,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: b000d1f90cac6ad46cc68469264b281a
+      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
     - path: bactopia/output/main/qc/output-low-read-count-error.txt
       md5sum: 9d9fc23fc3e4747c2ece318de93df7fc
     - path: bactopia/output/main/qc/output-low-sequence-coverage-error.txt
@@ -305,7 +305,7 @@
     - path: bactopia/output/main/qc/summary/output-original_fastqc.zip
     - path: bactopia/output/main/qc/summary/output.fastp.html
     - path: bactopia/output/main/qc/summary/output.fastp.json
-      md5sum: 6db3ee3a2b890adc655e191bb22a2b69
+      md5sum: 1332c030f84c0b42d7543ac0a2a96461
 
 - name: qc-nanopore
   command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_nanopore -c nextflow.config ${BACTOPIA_ARGS}'
@@ -336,7 +336,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: ad678a520287ff7588d13da5816a371e
+      md5sum: 1a4a2c6fccd4c2ad13923f83776f9b85
     - path: bactopia/output/main/qc/output.fastq.gz
     - path: bactopia/output/main/qc/summary/output-final.json
     - path: bactopia/output/main/qc/summary/output-final_NanoPlot-report.html

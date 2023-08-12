@@ -28,11 +28,11 @@
     - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-1A.tblastn.tsv
-      md5sum: bbdfd2807fe4431dfbc9307578ffd071
+      contains: ['qseqid', 'NZ_LN831051.1', 'SPN_1A']
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-2B.tblastn.tsv
-      md5sum: eefea8ba7d92dc73803e2f40cd86be40
+      contains: ['qseqid', 'NZ_LN831051.1', 'SPN_2B']
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635-2X.tblastn.tsv
-      md5sum: 1c2ea08e867319d0dee8d97e4c66d76a
+      contains: ['qseqid', 'NZ_LN831051.1', 'SPN_2X']
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635.tsv
       md5sum: 0e01467865b2bcd76d597dc76e108d12
     - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.begin

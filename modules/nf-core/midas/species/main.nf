@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sra-human-scrubber')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::midas=1.3.2 conda-forge::python=3.10"
+conda_tools   = "bioconda::midas=1.3.2=pyh7cba7a3_7"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -41,12 +41,13 @@ process MIDAS_SPECIES {
         MIDAS_DB=\$(find $db/ -name "genome_info.txt" | sed 's=genome_info.txt==')
     fi
 
+    env
     run_midas.py \\
         species \\
         results \\
         $read_opts \\
         $options.args \\
-        -d \$MIDAS_DB \\
+        -d \${MIDAS_DB} \\
         -t $task.cpus
 
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt

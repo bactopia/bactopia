@@ -31,7 +31,7 @@ if (params.check_samples) {
 
 // Core
 include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
-include { KRAKEN2_BRACKEN } from '../subworkflows/local/bracken/main'
+include { BRACKEN } from '../subworkflows/local/bracken/main'
 include { MIDAS } from '../subworkflows/local/midas/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [publish_to_base: true, ignore: [".fna.gz"]] )
 include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [publish_to_base: true] )
@@ -65,8 +65,8 @@ workflow TETON {
     ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
     // Taxon Classification & Abundance
-    KRAKEN2_BRACKEN(SCRUBBER.out.scrubbed)
-    ch_versions = ch_versions.mix(KRAKEN2_BRACKEN.out.versions)
+    BRACKEN(SCRUBBER.out.scrubbed)
+    ch_versions = ch_versions.mix(BRACKEN.out.versions)
 
     if (params.midas_db) {
         // Species Abundance
@@ -74,11 +74,11 @@ workflow TETON {
         ch_versions = ch_versions.mix(MIDAS.out.versions)
 
         // Join Bracken and MIDAS results
-        CSVTK_JOIN(KRAKEN2_BRACKEN.out.tsv.join(MIDAS.out.tsv, by:[0]), 'tsv', 'tsv', 'sample')
+        CSVTK_JOIN(BRACKEN.out.tsv.join(MIDAS.out.tsv, by:[0]), 'tsv', 'tsv', 'sample')
         CSVTK_JOIN.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'teton'], csv]}.set{ ch_merge_teton }
         ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
     } else {
-        KRAKEN2_BRACKEN.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'teton'], tsv]}.set{ ch_merge_teton }
+        BRACKEN.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'teton'], tsv]}.set{ ch_merge_teton }
     }
 
     // Join the results

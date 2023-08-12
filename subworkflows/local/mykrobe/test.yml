@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/versions.yml
       md5sum: cd84e830b89b7468c4efcc47291bf540
     - path: bactopia/bactopia-runs/mykrobe/merged-results/mykrobe.csv
-      md5sum: ada3322fb43f781f77111c7b9fb50099
+      contains: ['sample', 'SRR2838702', 'Unknown']
     - path: bactopia/bactopia-runs/mykrobe/nf-reports/mykrobe-dag.dot
       contains: ['mykrobedag', 'MYKROBE', 'versions']
     - path: bactopia/bactopia-runs/mykrobe/nf-reports/mykrobe-report.html

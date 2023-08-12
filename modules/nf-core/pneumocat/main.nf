@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'pneumocat')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::pneumocat=1.2.1"
+conda_tools   = "bioconda::pneumocat=1.2.1 bioconda::bowtie2==2.3.5"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 VERSION = '1.2.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
@@ -46,7 +46,7 @@ process PNEUMOCAT {
     else
         mv ${prefix}_R2.results.xml ${prefix}.results.xml
     fi
-    mv logs/ ./
+    mv logs/* ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

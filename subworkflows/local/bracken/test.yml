@@ -43,7 +43,7 @@
     - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/bracken/logs/versions.yml
-      md5sum: 1e4274e9ad7ba2adcd042d7a5633e472
+      md5sum: 9bc7a68e6fd16c2dfe5f6eb0d687439f
 
 - name: bracken-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken_tarball --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
@@ -91,4 +91,4 @@
     - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/bracken/logs/versions.yml
-      md5sum: a55ed9292b8e2185546ac02e2baefad7
+      md5sum: dafd32420071ec6ea5b9df4866c5c7c0

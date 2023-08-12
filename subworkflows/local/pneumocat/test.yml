@@ -19,7 +19,7 @@
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.sh
-      md5sum: 2597fee9d3aabe3a92caf29f1b859058
+      md5sum: 5bd69dbe12701c939a222a69b5da6518
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.trace
       contains: ['nextflow.trace']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/versions.yml

@@ -4,7 +4,7 @@ RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_c
 options        = initOptions(params.options ? params.options : [:], 'gather')
 options.ignore = [".fastq.gz", ".fna.gz"]
 options.btype  = options.btype ?: "main"
-conda_tools    = "bioconda::bactopia-gather=1.0.3"
+conda_tools    = "bioconda::bactopia-gather=1.0.4"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -16,8 +16,8 @@ process GATHER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-gather:1.0.3--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-gather:1.0.3--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-gather:1.0.4--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-gather:1.0.4--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(r1, stageAs: '*???-r1'), path(r2, stageAs: '*???-r2'), path(extra)

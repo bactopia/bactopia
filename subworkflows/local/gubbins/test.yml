@@ -34,7 +34,7 @@
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/versions.yml
-      md5sum: a60954daa2e6c09f77e31d3f78cec901
+      md5sum: 0720185e5a55ffba81a6fd4828be73ee
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-dag.dot
       contains: ['gubbinsdag', 'GUBBINS', 'versions']
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-report.html

@@ -4,7 +4,7 @@ RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_c
 options        = initOptions(params.options ? params.options : [:], 'qc')
 options.ignore = ['.fna.gz']
 options.btype  = options.btype ?: "main"
-conda_tools    = "bioconda::bactopia-qc=1.0.0"
+conda_tools    = "bioconda::bactopia-qc=1.0.2"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process QC {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-qc:1.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-qc:1.0.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-qc:1.0.2--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-qc:1.0.2--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fq), path(extra)

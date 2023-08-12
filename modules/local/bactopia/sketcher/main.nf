@@ -4,7 +4,7 @@ RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_c
 options        = initOptions(params.options ? params.options : [:], 'sketcher')
 options.ignore = [".fastq.gz"]
 options.btype  = options.btype ?: "main"
-conda_tools    = "bioconda::bactopia-sketcher=1.0.0"
+conda_tools    = "bioconda::bactopia-sketcher=1.0.1"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +14,8 @@ process SKETCHER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-sketcher:1.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-sketcher:1.0.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-sketcher:1.0.1--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-sketcher:1.0.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
