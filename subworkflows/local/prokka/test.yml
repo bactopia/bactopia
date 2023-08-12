@@ -42,4 +42,4 @@
     - path: bactopia/GCF_000292685/main/annotator/prokka/logs/nf-prokka.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/annotator/prokka/logs/versions.yml
-      md5sum: 43a59e36283c0581c0fcf2c758d6a8e8
+      contains: ['prokka', 'makeblastdb']

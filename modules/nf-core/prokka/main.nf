@@ -57,17 +57,29 @@ process PROKKA {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
-    env
-    bactopia-prokka \\
-        $options.args \\
-        --cpus $task.cpus \\
-        --prefix $prefix \\
-        ${compliant} \\
-        ${locustag} \\
-        $proteins_opt \\
-        $prodigal_opt \\
-        $fasta_name
+    if [ "$params.prokka_debug" == "true" ]; then
+        export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
+        env
+        bactopia-prokka \\
+            $options.args \\
+            --cpus $task.cpus \\
+            --prefix $prefix \\
+            ${compliant} \\
+            ${locustag} \\
+            $proteins_opt \\
+            $prodigal_opt \\
+            $fasta_name
+    else
+        prokka \\
+            $options.args \\
+            --cpus $task.cpus \\
+            --prefix $prefix \\
+            ${compliant} \\
+            ${locustag} \\
+            $proteins_opt \\
+            $prodigal_opt \\
+            $fasta_name
+    fi
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb
