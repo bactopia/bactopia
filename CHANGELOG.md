@@ -41,13 +41,13 @@ description: A full list of Bactopia releases and a description of the changes.
     - `blast`: 2.11.0 -> 2.14.0
     - `busco`: 5.4.3 -> 5.4.7
     - `csktk`: 0.25.0 -> 0.26.0
-    - `eggnog-mapper`: 2.1.9 -> 2.1.11
+    - `eggnog-mapper`: 2.1.9 -> 2.1.12
     - `genotyphi`: 1.9.1 -> 2.0
     - `gtdbtk`: 2.1.1 -> 2.3.2
     - `gubbins`: 3.2.1 -> 3.3
     - `iqtree`: 2.2.0.3 -> 2.2.2.7
     - `fastani`: 1.33 -> 1.34
-    - `mob_suite`: 3.1.0 -> 3.1.5
+    - `mob_suite`: 3.1.0 -> 3.1.6
     - `multiqc`: 1.11 -> 1.15
     - `mykrobe`: 0.12.0 -> 0.12.2
     - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.14-8

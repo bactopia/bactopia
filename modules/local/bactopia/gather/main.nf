@@ -170,12 +170,14 @@ process GATHER {
     fi
 
     # Validate input FASTQs
+    IS_PAIRED="unknown"
     if [ "${params.skip_fastq_check}" == "false" ]; then
         ERROR=0
         # Check paired-end reads have same read counts
         OPTS="--sample ${prefix} --min_basepairs ${params.min_basepairs} --min_reads ${params.min_reads} --min_proportion ${params.min_proportion} --runtype ${runtype}"
         if [ -f  "fastqs/${prefix}_R2.fastq.gz" ]; then
             # Paired-end
+            IS_PAIRED="true"
             gzip -cd fastqs/${prefix}_R1.fastq.gz | fastq-scan > r1.json
             gzip -cd fastqs/${prefix}_R2.fastq.gz | fastq-scan > r2.json
             if ! reformat.sh in1=fastqs/${prefix}_R1.fastq.gz in2=fastqs/${prefix}_R2.fastq.gz ${qin} out=/dev/null 2> ${prefix}-paired-end-error.txt; then
@@ -193,6 +195,7 @@ process GATHER {
             rm r1.json r2.json
         else
             # Single-end
+            IS_PAIRED="false"
             gzip -cd fastqs/${prefix}.fastq.gz | fastq-scan > r1.json
             if ! check-fastqs.py --fq1 r1.json \${OPTS}; then
                 ERROR=1
@@ -207,8 +210,8 @@ process GATHER {
     fi
 
     # Dump meta values to a TSV
-    echo "sample<TAB>runtype<TAB>original_runtype<TAB>is_compressed<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
-    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
+    echo "sample<TAB>runtype<TAB>original_runtype<TAB>is_paired<TAB>is_compressed<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
+    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>\$IS_PAIRED<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml
