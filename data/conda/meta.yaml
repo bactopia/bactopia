@@ -16,12 +16,12 @@ requirements:
     - pip
     - python >3.8
   run:
-    - bactopia-py >=1.0.5
+    - bactopia-py >=1.0.6
     - conda >=22.11.0
     - coreutils
     - mamba >=1.1.0
     - nextflow >=21.10.0
-    - python >3.8
+    - python >=3.9
     - sed
     - wget
     - pytest

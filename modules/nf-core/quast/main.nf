@@ -35,7 +35,7 @@ process QUAST {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    est_ref_size=\$(tail -n 1 $meta_file | cut -f 5)
+    est_ref_size=\$(tail -n 1 $meta_file | cut -f 7)
     if [ "\${est_ref_size}" != "0" ]; then
         est_ref_size="--est-ref-size \${est_ref_size}"
     fi
