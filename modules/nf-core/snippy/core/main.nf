@@ -77,7 +77,7 @@ process SNIPPY_CORE {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/snippy //')
+        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/^.*snippy //')
     END_VERSIONS
     """
 }

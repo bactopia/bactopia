@@ -34,8 +34,8 @@ options.args2 = [
     "--depth 0",
     "--minreadlen 0",
     "--minquality 0",
-    "--racon ${params.racon_steps}",
-    "--medaka ${params.medaka_steps}"
+    "--racon ${params.racon_rounds}",
+    "--medaka ${params.medaka_rounds}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 // args3 -> Unicycler

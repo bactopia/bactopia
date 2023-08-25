@@ -142,16 +142,16 @@
                     "fa_icon": "fas fa-font",
                     "hidden": true
                 },
-                "medaka_steps": {
+                "medaka_rounds": {
                     "type": "integer",
-                    "description": "The number of Medaka polishing steps to conduct",
+                    "description": "The number of Medaka polishing rounds to conduct",
                     "default": 0,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "racon_steps": {
+                "racon_rounds": {
                     "type": "integer",
-                    "description": "The number of Racon polishing steps to conduct",
+                    "description": "The number of Racon polishing rounds to conduct",
                     "default": 1,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true

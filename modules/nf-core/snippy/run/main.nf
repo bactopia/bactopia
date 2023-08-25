@@ -104,7 +104,7 @@ process SNIPPY_RUN {
     "${task.process}":
         bedtools: \$(echo \$(bedtools --version 2>&1) | sed 's/bedtools v//')
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/snippy //')
+        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/^.*snippy //')
         vcf-annotator: \$(echo \$(vcf-annotator --version 2>&1) | sed 's/vcf-annotator.py //')
     END_VERSIONS
     """
