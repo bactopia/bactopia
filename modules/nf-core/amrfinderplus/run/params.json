@@ -42,7 +42,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Disable running AMRFinder+ with the --plus option",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "report_common": {
                     "type": "boolean",

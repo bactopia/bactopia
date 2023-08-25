@@ -227,7 +227,7 @@ docs:
       │           └── vcf
       │               └── <SAMPLE_NAME>.targets.csq.vcf.gz
       └── bactopia-runs
-          └── merlin
+          └── merlin-<TIMESTAMP>
               ├── merged-results
               │   ├── agrvate.tsv
               │   ├── ectyper.tsv

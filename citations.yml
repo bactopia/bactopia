@@ -1005,6 +1005,13 @@ tools:
     cite: |
       Petit III RA, Read TD [_Staphylococcus aureus_ viewed from the perspective of 40,000+ genomes.](http://dx.doi.org/10.7717/peerj.5261) _PeerJ_ 6, e5261 (2018)
 
+  stecfinder:
+    name: STECFinder
+    link: https://github.com/LanLab/STECFinder
+    description: Clustering and Serotyping of Shigatoxin producing _E. coli_ (STEC) using genomic cluster specific markers
+    cite: |
+      Zhang X, Payne M, Kaur S, and Lan R [Improved Genomic Identification, Clustering, and Serotyping of Shiga Toxin-Producing Escherichia coli Using Cluster/Serotype-Specific Gene Markers.](https://doi.org/10.3389/fcimb.2021.772574) _Frontiers in Cellular and Infection Microbiology_, 11, 772574. (2021)
+
   tbprofiler:
     name: TBProfiler
     link: https://github.com/jodyphelan/TBProfiler

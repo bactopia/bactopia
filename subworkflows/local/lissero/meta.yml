@@ -55,7 +55,7 @@ docs:
       │               ├── nf-lissero.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── lissero
+          └── lissero-<TIMESTAMP>
               ├── merged-results
               │   ├── lissero.tsv
               │   └── logs

@@ -107,7 +107,7 @@ docs:
       │                   ├── nf-bakta.{begin,err,log,out,run,sh,trace}
       │                   └── versions.yml
       └── bactopia-runs
-          └── bakta
+          └── bakta-<TIMESTAMP>
               └── nf-reports
                   ├── bakta-dag.dot
                   ├── bakta-report.html

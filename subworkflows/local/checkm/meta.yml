@@ -63,7 +63,7 @@ docs:
       │           │   └── versions.yml
       │           └── storage/
       └── bactopia-runs
-          └── checkm
+          └── checkm-<TIMESTAMP>
               ├── merged-results
               │   ├── checkm.tsv
               │   └── logs

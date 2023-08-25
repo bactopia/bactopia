@@ -71,7 +71,7 @@ docs:
       │               ├── nf-hicap.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── hicap
+          └── hicap-<TIMESTAMP>
               ├── merged-results
               │   ├── hicap.tsv
               │   └── logs

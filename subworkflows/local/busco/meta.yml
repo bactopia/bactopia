@@ -84,7 +84,7 @@ docs:
       │               │   └── short_summary.{json|txt}
       │               └── short_summary.specific.bacteria_odb10.GCF_000292685.fna.{json|txt}
       └── bactopia-runs
-          └── busco
+          └── busco-<TIMESTAMP>
               ├── merged-results
               │   ├── busco.tsv
               │   └── logs

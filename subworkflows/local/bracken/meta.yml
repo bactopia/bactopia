@@ -52,7 +52,7 @@ docs:
       │               ├── nf-bracken.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── bracken
+          └── bracken-<TIMESTAMP>
               └── nf-reports
                   ├── bracken-dag.dot
                   ├── bracken-report.html

@@ -91,7 +91,7 @@ docs:
       │               ├── nf-eggnog.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── eggnog
+          └── eggnog-<TIMESTAMP>
               └── nf-reports
                   ├── eggnog-dag.dot
                   ├── eggnog-report.html

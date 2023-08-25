@@ -62,7 +62,7 @@ docs:
       │               ├── nf-ectyper.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── ectyper
+          └── ectyper-<TIMESTAMP>
               ├── merged-results
               │   ├── ectyper.tsv
               │   └── logs

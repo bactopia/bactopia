@@ -61,7 +61,7 @@
                     "description": "Save sketches created during the process",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
-                },
+                }
             }
         }
     },

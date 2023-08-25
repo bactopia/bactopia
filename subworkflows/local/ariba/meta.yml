@@ -73,7 +73,7 @@ docs:
       │               │   └── versions.yml
       │               └── version_info.txt
       └── bactopia-runs
-          └── ariba
+          └── ariba-<TIMESTAMP>
               ├── merged-results
               │   ├── card-report.tsv
               │   ├── card-summary.csv

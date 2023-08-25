@@ -107,7 +107,7 @@ docs:
       │           │   └── versions.yml
       │           └── <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
       └── bactopia-runs
-          └── gtdb
+          └── gtdb-<TIMESTAMP>
               ├── merged-results
               │   ├── gtdb.tsv
               │   └── logs

@@ -78,7 +78,7 @@ docs:
       │               ├── nf-abritamr.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── abritamr
+          └── abritamr-<TIMESTAMP>
               ├── merged-results
               │   ├── abritamr.tsv
               │   └── logs

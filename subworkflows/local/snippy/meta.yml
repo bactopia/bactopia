@@ -79,7 +79,7 @@ docs:
       │               ├── <SAMPLE_NAME>.txt
       │               └── <SAMPLE_NAME>.vcf.gz
       └── bactopia-runs
-          └── snippy
+          └── snippy-<TIMESTAMP>
               ├── core-snp-clean.full.aln.gz
               ├── core-snp.full.aln.gz
               ├── gubbins

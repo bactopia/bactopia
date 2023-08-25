@@ -62,7 +62,7 @@ docs:
       │               ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
-          └── kleborate
+          └── kleborate-<TIMESTAMP>
               ├── merged-results
               │   ├── kleborate.tsv
               │   └── logs
