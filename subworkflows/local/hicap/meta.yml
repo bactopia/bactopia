@@ -62,47 +62,45 @@ docs:
     the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
   output:
     tree: |
-      hicap/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.gbk
-      │   ├── <SAMPLE_NAME>.svg
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── hicap
-      │           ├── nf-hicap.{begin,err,log,out,run,sh,trace}
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── hicap-dag.dot
-      │   ├── hicap-report.html
-      │   ├── hicap-timeline.html
-      │   └── hicap-trace.txt
-      ├── hicap.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.{gbk|svg|tsv}
+      │           └── logs
+      │               ├── nf-hicap.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── hicap
+              ├── merged-results
+              │   ├── hicap.tsv
+              │   └── logs
+              │       └── hicap-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── hicap-dag.dot
+                  ├── hicap-report.html
+                  ├── hicap-timeline.html
+                  └── hicap-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | hicap.tsv  | A merged TSV file with `hicap` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: hicap.tsv
+            description: A merged TSV file with `hicap` results from all samples
       - name: hicap
         description: |
           Below is a description of the _per-sample_ results from [hicap](https://github.com/scwatts/hicap).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.gbk  | GenBank file and cap locus annotations |
-          | &lt;SAMPLE_NAME&gt;.svg  | Visualization of annotated cap locus |
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `hicap` results |
+        table:
+          - id: <SAMPLE_NAME>.gbk
+            description: GenBank file and cap locus annotations
+          - id: <SAMPLE_NAME>.svg
+            description: Visualization of annotated cap locus
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `hicap` results
   citations:
     - csvtk
     - hicap

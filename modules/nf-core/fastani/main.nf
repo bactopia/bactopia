@@ -16,7 +16,6 @@ process FASTANI {
         'https://depot.galaxyproject.org/singularity/fastani:1.34--h4dfc31f_0' :
         'quay.io/biocontainers/fastani:1.34--h4dfc31f_0' }"
 
-
     input:
     tuple val(meta), path(query, stageAs: 'query-tmp/*')
     each path(reference)
@@ -32,6 +31,7 @@ process FASTANI {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
+    options.logs_subdir = reference_name
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $reference_fasta

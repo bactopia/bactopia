@@ -45,41 +45,45 @@ docs:
       assemblies. If _mcr-1_ is found, the variations will be reported and available in an output FASTA file.
   output:
     tree: |
-      mcroni/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>_sequence.fa
-      │   ├── <SAMPLE_NAME>_table.tsv
-      │   └── logs
+      │   └── tools
       │       └── mcroni
-      │           ├── nf-mcroni.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   └── csvtk_concat
-      │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── mcroni.tsv
-      └── nf-reports
-          ├── mcroni-dag.dot
-          ├── mcroni-report.html
-          ├── mcroni-timeline.html
-          └── mcroni-trace.txt
+      │           ├── <SAMPLE_NAME>_sequence.fa
+      │           ├── <SAMPLE_NAME>_table.tsv
+      │           └── logs
+      │               ├── nf-mcroni.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── mcroni
+              ├── merged-results
+              │   ├── logs
+              │   │   └── mcroni-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── mcroni.tsv
+              └── nf-reports
+                  ├── mcroni-dag.dot
+                  ├── mcroni-report.html
+                  ├── mcroni-timeline.html
+                  └── mcroni-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | mcroni.tsv  | A merged TSV of mcroni results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: mcroni.tsv
+            description: A merged TSV of mcroni results from all samples
       - name: mcroni
         description: |
           Below is a description of the _per-sample_ results from [mcroni](https://github.com/liampshaw/mcroni).
-        table: |
-          | Extension     | Description |
-          |---------------|-------------|
-          | *_table.tsv   | mcroni results in tab-delimited format |
-          | *_sequence.fa | Sequences matching the _mcr-1_ gene    |
+        is_extensions: true
+        table:
+          - id: _table.tsv
+            description: mcroni results in tab-delimited format
+          - id: _sequence.fa
+            description: Sequences matching the _mcr-1_ gene
   citations:
     - csvtk
     - mcroni

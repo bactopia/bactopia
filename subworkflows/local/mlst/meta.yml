@@ -46,50 +46,41 @@ docs:
     a specific scheme to scan, you can provide it with `--scheme`.
   output:
     tree: |
-      mlst/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── mlst
-      │           ├── nf-mlst.begin
-      │           ├── nf-mlst.err
-      │           ├── nf-mlst.log
-      │           ├── nf-mlst.out
-      │           ├── nf-mlst.run
-      │           ├── nf-mlst.sh
-      │           ├── nf-mlst.trace
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── mlst-dag.dot
-      │   ├── mlst-report.html
-      │   ├── mlst-timeline.html
-      │   └── mlst-trace.txt
-      ├── mlst.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-mlst.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── mlst-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── mlst-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── mlst.tsv
+              └── nf-reports
+                  ├── mlst-dag.dot
+                  ├── mlst-report.html
+                  ├── mlst-timeline.html
+                  └── mlst-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | mlst.tsv  | A merged TSV file with `mlst` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: mlst.tsv
+            description: A merged TSV file with `mlst` results from all samples
       - name: mlst
         description: |
           Below is a description of the _per-sample_ results from [mlst](https://github.com/tseemann/mlst).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `mlst` result, see [mlst - Usage](https://github.com/tseemann/mlst#usage) for more details |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `mlst` result, see [mlst - Usage](https://github.com/tseemann/mlst#usage) for more details
   citations:
     - csvtk
     - mlst

@@ -44,44 +44,42 @@ docs:
     distance from a given reference genome(s).
   output:
     tree: |
-      mashdist/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-dist.txt
-      │   └── logs
+      │   └── tools
       │       └── mashdist
-      │           ├── nf-mashdist{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── mashdist-dag.dot
-      │   ├── mashdist-report.html
-      │   ├── mashdist-timeline.html
-      │   └── mashdist-trace.txt
-      ├── mashdist.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           └── mashdist
+      │               ├── <SAMPLE_NAME>-dist.txt
+      │               └── logs
+      │                   ├── nf-mashdist.{begin,err,log,out,run,sh,trace}
+      │                   └── versions.yml
+      └── bactopia-runs
+          └── mashdist-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── mashdist-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── mashdist.tsv
+              └── nf-reports
+                  ├── mashdist-dag.dot
+                  ├── mashdist-report.html
+                  ├── mashdist-timeline.html
+                  └── mashdist-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | mashdist.tsv  | A merged TSV file with `Mash` distances against a reference from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: mashdist.tsv
+            description: A merged TSV file with `Mash` distances against a reference from all samples
       - name: Mash
         description: |
           Below is a description of the _per-sample_ results from [Mash](https://github.com/marbl/Mash).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;-dist.txt  | A tab-delimited file with `mash dist` results |
+        table:
+          - id: <SAMPLE_NAME>-dist.txt
+            description: A tab-delimited file with `mash dist` results
   citations:
     - csvtk
     - mash

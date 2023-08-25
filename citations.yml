@@ -146,6 +146,13 @@ tools:
     cite: |
       Seemann T [Abricate: mass screening of contigs for antimicrobial and virulence genes](https://github.com/tseemann/abricate) (GitHub)
 
+  abritamr:
+    name: abriTAMR
+    link: https://github.com/MDU-PHL/abritamr
+    description: A pipeline for running AMRfinderPlus and collating results into functional classes
+    cite: |
+      Sherry NL, Horan KA, Ballard SA, Gonҫalves da Silva A, Gorrie CL, Schultz MB, Stevens K, Valcanis M, Sait ML, Stinear TP, Howden BP, and Seemann T [An ISO-certified genomics workflow for identification and surveillance of antimicrobial resistance.](https://doi.org/10.1038/s41467-022-35713-4) _Nature Communications_, 14(1), 60. (2023)
+
   agrvate:
     name: AgrVATE
     link: https://github.com/VishnuRaghuram94/AgrVATE
@@ -941,6 +948,13 @@ tools:
     description: Database used by spaTyper
     cite: |
       Harmsen D, Claus H, Witte W, Rothgänger J, Claus H, Turnwald D, and Vogel U [Typing of methicillin-resistant _Staphylococcus aureus_ in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) _J. Clin. Microbiol._ 41:5442-5448 (2003)
+
+  srahumanscrubber:
+    name: SRA Human Scrubber
+    link: https://github.com/ncbi/sra-human-scrubber
+    description: An SRA tool that takes as input local fastq file from a clinical infection sample, identifies and removes any significant human read, and outputs the edited (cleaned) fastq file that can safely be used for SRA submission
+    cite: |
+      Katz KS, Shutov O, Lapoint R, Kimelman M, Brister JR, and O’Sullivan C [STAT: a fast, scalable, MinHash-based k-mer tool to assess Sequence Read Archive next-generation sequence submissions.](https://doi.org/10.1186/s13059-021-02490-0) _Genome Biology_, 22(1), 270 (2021)
 
   ssuissero:
     name: SsuisSero

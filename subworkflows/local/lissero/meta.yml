@@ -46,44 +46,41 @@ docs:
     _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
   output:
     tree: |
-      lissero/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── lissero
-      │           ├── nf-lissero.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── lissero-dag.dot
-      │   ├── lissero-report.html
-      │   ├── lissero-timeline.html
-      │   └── lissero-trace.txt
-      ├── lissero.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-lissero.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── lissero
+              ├── merged-results
+              │   ├── lissero.tsv
+              │   └── logs
+              │       └── lissero-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── lissero-dag.dot
+                  ├── lissero-report.html
+                  ├── lissero-timeline.html
+                  └── lissero-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | lissero.tsv  | A merged TSV file with `LisSero` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: lissero.tsv
+            description: A tab-delimited file with `LisSero` results from all samples
       - name: LisSero
         description: |
           Below is a description of the _per-sample_ results from [LisSero](https://github.com/MDU-PHL/LisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `LisSero` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `LisSero` results
   citations:
     - csvtk
     - lissero

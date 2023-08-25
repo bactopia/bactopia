@@ -371,7 +371,7 @@
     - path: bactopia/GCF_000292685/tools/pasty/logs/nf-pasty.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/pasty/logs/versions.yml
-      md5sum: 6bfff2bb8a0be1778a27d9590b5b9665
+      md5sum: 09092981ad4710fa98b47d175c32ea77
     - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685-1A.tblastn.tsv
       md5sum: 16bb26284bd7bf2327337fc95c055429
     - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685-2B.tblastn.tsv
@@ -559,19 +559,19 @@
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.err
-      contains: ['tbprofiler', 'Running', 'finished']
+      contains: ['Calling', 'variants', 'Indexing']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.log
       contains: ['tbprofiler', 'Running', 'finished']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      contains: ['tbprofiler', 'Running', 'finished']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.sh
-      md5sum: 8617e3b5b097c5fea26a2aa9e0c1851d
+      md5sum: 92bc771eed4e7ec56e5457caa6f640e6
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/versions.yml
-      md5sum: d1c30c9043493a7c94d0853284616bbf
+      md5sum: 68f526da324d0b2bd59a4c95a8fd0700
     - path: bactopia/GCF_000292685/tools/tbprofiler/vcf/GCF_000292685.targets.csq.vcf.gz
     - path: bactopia/bactopia-runs/merlin/merged-results/agrvate.tsv
       contains: ['agr_group', 'GCF_000292685']

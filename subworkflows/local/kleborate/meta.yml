@@ -53,44 +53,41 @@ docs:
     - K (capsule) and O antigen (LPS) serotype prediction.
   output:
     tree: |
-      kleborate
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.results.txt
-      │   └── logs
+      │   └── tools
       │       └── kleborate
-      │           ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── kleborate-dag.dot
-      │   ├── kleborate-report.html
-      │   ├── kleborate-timeline.html
-      │   └── kleborate-trace.txt
-      ├── kleborate.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.results.txt
+      │           └── logs
+      │               ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── kleborate
+              ├── merged-results
+              │   ├── kleborate.tsv
+              │   └── logs
+              │       └── kleborate-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── kleborate-dag.dot
+                  ├── kleborate-report.html
+                  ├── kleborate-timeline.html
+                  └── kleborate-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | kleborate.tsv | A merged TSV file with `Kleborate` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: kleborate.tsv
+            description: A tab-delimited file with `Kleborate` results from all samples
       - name: Kleborate
         description: |
           Below is a description of the _per-sample_ results from [Kleborate](https://github.com/katholt/Kleborate).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.results.tsv  | A tab-delimited file with `Kleborate` result, see [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details |
+        table: 
+          - id: <SAMPLE_NAME>.results.txt
+            description: A tab-delimited file with `Kleborate` result, see  [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details.
   citations:
     - csvtk
     - kleborate

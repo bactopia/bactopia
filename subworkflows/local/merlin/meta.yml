@@ -168,33 +168,49 @@ docs:
       - name: Top Level
         description: |
           Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
-          | ectyper.tsv | A merged TSV file with `ECTyper` results from all samples |
-          | emmtyper.tsv | A merged TSV file with `emmtyper` results from all samples |
-          | hicap.tsv  | A merged TSV file with `hicap` results from all samples |
-          | hpsuissero.tsv | A merged TSV file with `HpsuisSero` results from all samples |
-          | kleborate.tsv | A merged TSV file with `Kleborate` results from all samples |
-          | legsta.tsv  | A merged TSV file with `legsta` results from all samples |
-          | lissero.tsv  | A merged TSV file with `LisSero` results from all samples |
-          | meningotype.tsv  | A merged TSV file with `meningotype` results from all samples |
-          | ngmaster.tsv  | A merged TSV file with `ngmaster` results from all samples |
-          | seqsero2.tsv  | A merged TSV file with `seqsero2` results from all samples |
-          | sistr.tsv  | A merged TSV file with `SISTR` results from all samples |
-          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
-          | ssuissero.tsv  | A merged TSV file with `SsuisSero` results from all samples |
-          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+        table:
+          - id: agrvate.tsv
+            description: A merged TSV file with `AgrVATE` results from all samples
+          - id: ectyper.tsv
+            description: A merged TSV file with `ECTyper` results from all samples
+          - id: emmtyper.tsv
+            description: A merged TSV file with `emmtyper` results from all samples
+          - id: hicap.tsv
+            description: A merged TSV file with `hicap` results from all samples
+          - id: hpsuissero.tsv
+            description: A merged TSV file with `HpsuisSero` results from all samples
+          - id: kleborate.tsv
+            description: A merged TSV file with `Kleborate` results from all samples
+          - id: legsta.tsv
+            description: A merged TSV file with `legsta` results from all samples
+          - id: lissero.tsv
+            description: A merged TSV file with `LisSero` results from all samples
+          - id: meningotype.tsv
+            description: A merged TSV file with `meningotype` results from all samples
+          - id: ngmaster.tsv
+            description: A merged TSV file with `ngmaster` results from all samples
+          - id: seqsero2.tsv
+            description: A merged TSV file with `seqsero2` results from all samples
+          - id: sistr.tsv
+            description: A merged TSV file with `SISTR` results from all samples
+          - id: spatyper.tsv
+            description: A merged TSV file with `spaTyper` results from all samples
+          - id: ssuissero.tsv
+            description: A merged TSV file with `SsuisSero` results from all samples
+          - id: staphopiasccmec.tsv
+            description: A merged TSV file with `staphopia-sccmec` results from all samples
+
       - name: AgrVATE
         description: |
           Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
-        table: |
-          | Extension       | Description |
-          |-----------------|-------------|
-          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
-          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
-          | -summary.tab    | A final summary report for _agr_ typing |
+        is_extensions: true
+        table:
+          - id: -agr_gp.tab
+            description: A detailed report for _agr_ kmer matches
+          - id: -blastn_log.txt
+            description: Log files from programs called by `AgrVATE`
+          - id: -summary.tab
+            description: A final summary report for _agr_ typing
       - name: ECTyper
         description: |
           Below is a description of the _per-sample_ results from [ECTyper](https://github.com/phac-nml/ecoli_serotyping).

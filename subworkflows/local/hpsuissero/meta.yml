@@ -41,44 +41,41 @@ docs:
     the serotype of _Haemophilus parasuis_ assemblies.
   output:
     tree: |
-      hpsuissero/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>_serotyping_res.tsv
-      │   └── logs
+      │   └── tools
       │       └── hpsuissero
-      │           ├── nf-hpsuissero.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── hpsuissero-dag.dot
-      │   ├── hpsuissero-report.html
-      │   ├── hpsuissero-timeline.html
-      │   └── hpsuissero-trace.txt
-      ├── hpsuissero.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │           └── logs
+      │               ├── nf-hpsuissero.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── hpsuissero
+              ├── merged-results
+              │   ├── hpsuissero.tsv
+              │   └── logs
+              │       └── hpsuissero-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── hpsuissero-dag.dot
+                  ├── hpsuissero-report.html
+                  ├── hpsuissero-timeline.html
+                  └── hpsuissero-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | hpsuissero.tsv | A merged TSV file with `HpsuisSero` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: hpsuissero.tsv
+            description: A merged TSV file with `HpsuisSero` results from all samples
       - name: HpsuisSero
         description: |
           Below is a description of the _per-sample_ results from [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `HpsuisSero` result |
+        table:
+          - id: <SAMPLE_NAME>_serotyping_res.tsv
+            description: A tab-delimited file with `HpsuisSero` result
   citations:
     - csvtk
     - hpsuissero

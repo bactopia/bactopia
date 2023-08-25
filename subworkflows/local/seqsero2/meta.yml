@@ -47,47 +47,45 @@ docs:
     serotype prediction from reads and assemblies.
   output:
     tree: |
-      seqsero2/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>_log.txt
-      │   ├── <SAMPLE_NAME>_result.tsv
-      │   ├── <SAMPLE_NAME>_result.txt
-      │   └── logs
+      │   └── tools
       │       └── seqsero2
-      │           ├── nf-seqsero2.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── seqsero2-dag.dot
-      │   ├── seqsero2-report.html
-      │   ├── seqsero2-timeline.html
-      │   └── seqsero2-trace.txt
-      ├── seqsero2.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>_log.txt
+      │           ├── <SAMPLE_NAME>_result.tsv
+      │           ├── <SAMPLE_NAME>_result.txt
+      │           └── logs
+      │               ├── nf-seqsero2.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── seqsero2-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── seqsero2-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── seqsero2.tsv
+              └── nf-reports
+                  ├── seqsero2-dag.dot
+                  ├── seqsero2-report.html
+                  ├── seqsero2-timeline.html
+                  └── seqsero2-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | seqsero2.tsv  | A merged TSV file with `seqsero2` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: seqsero2.tsv
+            description: A merged TSV file with `SeqSero2` results from all samples
       - name: SeqSero2
         description: |
           Below is a description of the _per-sample_ results from [SeqSero2](https://github.com/denglab/SeqSero2).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SeqSero2` results |
-          | &lt;SAMPLE_NAME&gt;.txt  | A text file with key-value pairs of `SeqSero2` results |
+        table:
+          - id: <SAMPLE_NAME>_result.tsv
+            description: A tab-delimited file with `SeqSero2` results
+          - id: <SAMPLE_NAME>_result.txt
+            description: A text file with key-value pairs of `SeqSero2` results
   citations:
     - csvtk
     - seqsero2

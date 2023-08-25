@@ -49,46 +49,54 @@ docs:
     genomes recovered from isolates, single cells, and metagenomes.
   output:
     tree: |
-      checkm/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── bins/
-      │   ├── logs
-      │   │   └── checkm
-      │   │       ├── nf-checkm.{begin,err,log,out,run,sh,trace}
-      │   │       ├── checkm.log
-      │   │       └── versions.yml
-      │   ├── storage/
-      │   ├── lineage.ms
-      │   ├── <SAMPLE_NAME>-genes.aln
-      │   └── <SAMPLE_NAME>-results.txt
-      ├── checkm.tsv
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── checkm-dag.dot
-      │   ├── checkm-report.html
-      │   ├── checkm-timeline.html
-      │   └── checkm-trace.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │   └── tools
+      │       └── checkm
+      │           ├── <SAMPLE_NAME>-genes.aln
+      │           ├── <SAMPLE_NAME>-results.txt
+      │           ├── bins/
+      │           ├── lineage.ms
+      │           ├── logs
+      │           │   ├── checkm.log
+      │           │   ├── nf-checkm.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           └── storage/
+      └── bactopia-runs
+          └── checkm
+              ├── merged-results
+              │   ├── checkm.tsv
+              │   └── logs
+              │       └── checkm-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── checkm-dag.dot
+                  ├── checkm-report.html
+                  ├── checkm-timeline.html
+                  └── checkm-trace.txt
     add_note: false
     folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: checkm.tsv
+            description: A merged TSV file with `checkm` results from all samples
       - name: CheckM
         description: |
           Below is a description of the _per-sample_ results from [CheckM](https://github.com/Ecogenomics/CheckM).
-        table: |
-          | Filename | Description |
-          |----------|-------------|
-          | bins/ | A folder with inputs (e.g. proteins) for processing by `CheckM`  |
-          | storage/ | A folder with intermediate results from `CheckM` processing |
-          | lineage.ms | Output file describing marker set for each bin |
-          | &lt;SAMPLE_NAME&gt;-genes.aln | Alignment of multi-copy genes and their AAI identity |
-          | &lt;SAMPLE_NAME&gt;-results.txt | Final results of [CheckM's lineage_wf](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow) |
+        table:
+          - id: <SAMPLE_NAME>-genes.aln
+            description: Alignment of multi-copy genes and their AAI identity
+          - id: <SAMPLE_NAME>-results.txt
+            description: Final results of Final results of [CheckM's lineage_wf](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow)
+          - id: bins/
+            description: A folder with inputs (e.g. proteins) for processing by `CheckM`
+          - id: lineage.ms
+            description: Output file describing marker set for each bin
+          - id: storage/
+            description: A folder with intermediate results from `CheckM` processing
   citations:
     - checkm
     - csvtk

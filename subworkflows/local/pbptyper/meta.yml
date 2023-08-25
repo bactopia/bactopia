@@ -50,41 +50,45 @@ docs:
       the Penicillin Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies.
   output:
     tree: |
-      pbptyper/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-{1A,2B,2X}.tblastn.tsv
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── pbptyper
-      │           ├── nf-pbptyper.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   └── csvtk_concat
-      │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── pbptyper-dag.dot
-      │   ├── pbptyper-report.html
-      │   ├── pbptyper-timeline.html
-      │   └── pbptyper-trace.txt
-      └── pbptyper.tsv
+      │           ├── <SAMPLE_NAME>-{1A,2B,2X}.tblastn.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-pbptyper.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── pbptyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── pbptyper-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── pbptyper.tsv
+              └── nf-reports
+                  ├── pbptyper-dag.dot
+                  ├── pbptyper-report.html
+                  ├── pbptyper-timeline.html
+                  └── pbptyper-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | pbptyper.tsv | A merged TSV file with `pbptyper` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: pbptyper.tsv
+            description: A merged TSV file with `pbptyper` results from all samples
       - name: pbptyper
         description: |
           Below is a description of the _per-sample_ results from [pbptyper](https://github.com/rpetit3/pbptyper).
-        table: |
-          | Extension    | Description |
-          |--------------|-------------|
-          | .tblastn.tsv | A tab-delimited file of all blast hits |
-          | .tsv         | A tab-delimited file with the predicted PBP type |
+        is_extensions: true
+        table:
+          - id: .tblastn.tsv
+            description: A tab-delimited file of all blast hits
+          - id: .tsv
+            description: A tab-delimited file with the predicted PBP type
   citations:
     - csvtk
     - pbptyper

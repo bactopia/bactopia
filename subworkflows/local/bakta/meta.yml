@@ -87,51 +87,60 @@ docs:
     to provide extensive annotations including: tRNA, tmRNA, rRNA, ncRNA, CRISPR, CDS, and sORFs.
   output:
     tree: | 
-      bakta/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.embl
-      │   ├── <SAMPLE_NAME>.faa
-      │   ├── <SAMPLE_NAME>.ffn
-      │   ├── <SAMPLE_NAME>.fna
-      │   ├── <SAMPLE_NAME>.gbff
-      │   ├── <SAMPLE_NAME>.gff3
-      │   ├── <SAMPLE_NAME>.hypotheticals.faa
-      │   ├── <SAMPLE_NAME>.hypotheticals.tsv
-      │   ├── <SAMPLE_NAME>.tsv
-      │   ├── <SAMPLE_NAME>.txt
-      │   └── logs
-      │       └── bakta
-      │           ├── <SAMPLE_NAME>.log
-      │           ├── nf-bakta.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── bakta-dag.dot
-      │   ├── bakta-report.html
-      │   ├── bakta-timeline.html
-      │   └── bakta-trace.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │   └── main
+      │       └── annotator
+      │           └── bakta
+      │               ├── <SAMPLE_NAME>-blastdb.tar.gz
+      │               ├── <SAMPLE_NAME>.embl.gz
+      │               ├── <SAMPLE_NAME>.faa.gz
+      │               ├── <SAMPLE_NAME>.ffn.gz
+      │               ├── <SAMPLE_NAME>.fna.gz
+      │               ├── <SAMPLE_NAME>.gbff.gz
+      │               ├── <SAMPLE_NAME>.gff3.gz
+      │               ├── <SAMPLE_NAME>.hypotheticals.faa.gz
+      │               ├── <SAMPLE_NAME>.hypotheticals.tsv
+      │               ├── <SAMPLE_NAME>.tsv
+      │               ├── <SAMPLE_NAME>.txt
+      │               └── logs
+      │                   ├── nf-bakta.{begin,err,log,out,run,sh,trace}
+      │                   └── versions.yml
+      └── bactopia-runs
+          └── bakta
+              └── nf-reports
+                  ├── bakta-dag.dot
+                  ├── bakta-report.html
+                  ├── bakta-timeline.html
+                  └── bakta-trace.txt
     add_note: false
     folders:
       - name: Bakta
         description: |
           Below is a description of the _per-sample_ results from [Bakta](https://github.com/oschwengers/bakta).
-        table: |
-          | Extension          | Description |
-          |--------------------|-------------|
-          | .embl              | Annotations & sequences in (multi) EMBL format |
-          | .faa               | CDS/sORF amino acid sequences as FASTA |
-          | .ffn               | Feature nucleotide sequences as FASTA |
-          | .fna               | Replicon/contig DNA sequences as FASTA |
-          | .gbff              | Annotations & sequences in (multi) GenBank format |
-          | .gff3              | Annotations & sequences in GFF3 format |
-          | .hypotheticals.faa | Hypothetical protein CDS amino acid sequences as FASTA |
-          | .hypotheticals.tsv | Further information on hypothetical protein CDS as simple human readble tab separated values |
-          | .tsv               | Annotations as simple human readble tab separated values |
-          | .txt               | Broad summary of `Bakta` annotations |
+        is_extensions: true
+        table:
+        - id: .blastdb.tar.gz
+          description: A gzipped tar archive of BLAST+ database of the contigs, genes, and proteins
+        - id: .embl.gz
+          description: Annotations & sequences in (multi) EMBL format
+        - id: .faa.gz
+          description: CDS/sORF amino acid sequences as FASTA
+        - id: .ffn.gz
+          description: Feature nucleotide sequences as FASTA
+        - id: .fna.gz
+          description: Replicon/contig DNA sequences as FASTA
+        - id: .gbff.gz
+          description: Annotations & sequences in (multi) GenBank format
+        - id: .gff3.gz
+          description: Annotations & sequences in GFF3 format
+        - id: .hypotheticals.faa.gz
+          description: Hypothetical protein CDS amino acid sequences as FASTA
+        - id: .hypotheticals.tsv
+          description: Further information on hypothetical protein CDS as simple human readable tab separated values
+        - id: .tsv
+          description: Annotations as simple human readable tab separated values
+        - id: .txt
+          description: Broad summary of `Bakta` annotations
   citations:
     - bakta

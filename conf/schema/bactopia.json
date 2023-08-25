@@ -124,7 +124,7 @@
                     "type": "boolean",
                     "description": "Use Bakta for annotation, instead of Prokka",
                     "fa_icon": "fas fa-print"
-                },
+                }
             }
         }
     },

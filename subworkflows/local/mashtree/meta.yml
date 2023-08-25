@@ -56,33 +56,29 @@ docs:
     genomes available from RefSeq and they will be included in your tree.
   output:
     tree: |
-      mashtree/
-      ├── logs
-      │   ├── custom_dumpsoftwareversions
-      │   │   ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── mashtree
-      │       ├── nf-mashtree.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── mashtree-dag.dot
-      │   ├── mashtree-report.html
-      │   ├── mashtree-timeline.html
-      │   └── mashtree-trace.txt
-      ├── mashtree.dnd
-      ├── mashtree.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      <BACTOPIA_DIR>
+      └── bactopia-runs
+          └── mashtree-<TIMESTAMP>
+              ├── mashtree
+              │   ├── logs
+              │   │   ├── nf-mashtree.{begin,err,log,out,run,sh,trace}
+              │   │   └── versions.yml
+              │   └── mashtree.{dnd|tsv}
+              └── nf-reports
+                  ├── mashtree-dag.dot
+                  ├── mashtree-report.html
+                  ├── mashtree-timeline.html
+                  └── mashtree-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Mashtree
         description: |
           Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | mashtree.dnd | A Newick formatted tree file |
-          | mashtree.tsv | A TSV matrix of pair-wise Mash distances |
+        table:
+          - id: mashtree.dnd
+            description: A Newick formatted tree file
+          - id: mashtree.tsv
+            description: A TSV matrix of pair-wise Mash distances
   citations:
     - mashtree
     - mash

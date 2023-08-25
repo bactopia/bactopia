@@ -62,53 +62,48 @@ docs:
     for antimicrobial resistance and virulence genes.
   output:
     tree: |
-      amrfinderplus/
-      ├── SRX4563671
-      │   ├── SRX4563671-genes.tsv
-      │   ├── SRX4563671-proteins.tsv
-      │   └── logs
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
       │       └── amrfinderplus
-      │           ├── nf-amrfinderplus.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── amrfinderplus
-      │   │   ├── nf-amrfinderplus.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── amrfinderplus-dag.dot
-      │   ├── amrfinderplus-report.html
-      │   ├── amrfinderplus-timeline.html
-      │   └── amrfinderplus-trace.txt
-      ├── amrfinderdb.tar.gz
-      ├── amrfinderplus-genes.tsv
-      ├── amrfinderplus-proteins.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>-genes.tsv
+      │           ├── <SAMPLE_NAME>-proteins.tsv
+      │           └── logs
+      │               ├── nf-amrfinderplus.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── amrfinderplus-<TIMESTAMP>
+              ├── merged-results
+              │   ├── amrfinderplus-genes.tsv
+              │   ├── amrfinderplus-proteins.tsv
+              │   └── logs
+              │       └── amrfinderplus-{genes|proteins|-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── amrfinderplus-dag.dot
+                  ├── amrfinderplus-report.html
+                  ├── amrfinderplus-timeline.html
+                  └── amrfinderplus-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename                   | Description |
-          |----------------------------|-------------|
-          | amrfinderdb.tar.gz         | A tarball of the `AMRFinder+` database used during analysis |
-          | amrfinderplus-genes.tsv    | A merged TSV file with `AMRFinder+` results using nucleotide inputs |
-          | amrfinderplus-proteins.tsv | A merged TSV file with `AMRFinder+` results using protein inputs |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: amrfinderplus-genes.tsv
+            description: A merged TSV file with `AMRFinder+` results using nucleotide inputs
+          - id: amrfinderplus-proteins.tsv
+            description: A merged TSV file with `AMRFinder+` results using protein inputs
       - name: AMRFinder+
         description: |
           Below is a description of the _per-sample_ results from [AMRFinder+](https://github.com/ncbi/amr).
-        table: |
-          | Extension     | Description |
-          |---------------|-------------|
-          | -genes.tsv    | A TSV file with `AMRFinder+` results using nucleotide inputs |
-          | -proteins.tsv | A TSV file with `AMRFinder+` results using protein inputs |
+        is_extensions: true
+        table:
+          - id: -genes.tsv
+            description: A TSV file with `AMRFinder+` results using nucleotide inputs
+          - id: -proteins.tsv
+            description: A TSV file with `AMRFinder+` results using protein inputs
   citations:
     - amrfinderplus
     - csvtk

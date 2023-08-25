@@ -79,45 +79,46 @@ docs:
     the taxonomy of your samples.
   output:
     tree: |
-      gtdb/
-      ├── bactopia-info
-      │   ├── gtdb-report.html
-      │   ├── gtdb-timeline.html
-      │   └── gtdb-trace.txt
-      └── classify
-          ├── align
-          │   ├── gtdb.(ar122|bac120).filtered.tsv
-          │   ├── gtdb.(ar122|bac120).msa.fasta
-          │   ├── gtdb.(ar122|bac120).user_msa.fasta
-          │   └── intermediate_results
-          │       └── gtdb.(ar122|bac120).marker_info.tsv
-          ├── classify
-          │   ├── gtdb.(ar122|bac120).classify.tree
-          │   ├── gtdb.(ar122|bac120).summary.tsv
-          │   └── intermediate_results
-          │       ├── gtdb.(ar122|bac120).classification_pplacer.tsv
-          │       ├── gtdb.(ar122|bac120).red_dictionary.tsv
-          │       └── pplacer
-          │           ├── pplacer.(ar122|bac120).json
-          │           └── pplacer.(ar122|bac120).out
-          ├── gtdb.(ar122|bac120).classify.tree
-          ├── gtdb.(ar122|bac120).filtered.tsv
-          ├── gtdb.(ar122|bac120).markers_summary.tsv
-          ├── gtdb.(ar122|bac120).msa.fasta
-          ├── gtdb.(ar122|bac120).summary.tsv
-          ├── gtdb.(ar122|bac120).user_msa.fasta
-          ├── gtdb.translation_table_summary.tsv
-          └── identify
-              └── intermediate_results
-                  └── marker_genes
-                      └── <SAMPLE_NAME>
-                          ├── prodigal_translation_table.tsv
-                          ├── <SAMPLE_NAME>_pfam_tophit.tsv
-                          ├── <SAMPLE_NAME>_pfam.tsv
-                          ├── <SAMPLE_NAME>_protein.{faa,fna,gff}
-                          ├── <SAMPLE_NAME>_tigrfam.out
-                          ├── <SAMPLE_NAME>_tigrfam_tophit.tsv
-                          └── <SAMPLE_NAME>_tigrfam.tsv
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── gtdb
+      │           ├── align
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.filtered.tsv
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.msa.fasta.gz
+      │           │   └── <SAMPLE_NAME>.{ar122|bac120}.user_msa.fasta.gz
+      │           ├── classify
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.classify.tree.1.tree
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.classify.tree.6.tree
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.tree.mapping.tsv
+      │           │   └── <SAMPLE_NAME>.backbone.{ar122|bac120}.classify.tree
+      │           ├── gtdbtk.json
+      │           ├── identify
+      │           │   ├── <SAMPLE_NAME>.ar53.markers_summary.tsv
+      │           │   ├── <SAMPLE_NAME>.bac120.markers_summary.tsv
+      │           │   ├── <SAMPLE_NAME>.failed_genomes.tsv
+      │           │   └── <SAMPLE_NAME>.translation_table_summary.tsv
+      │           ├── logs
+      │           │   ├── nf-gtdb.{begin,err,log,out,run,sh,trace}
+      │           │   ├── results
+      │           │   │   ├── gtdbtk.log
+      │           │   │   └── gtdbtk.warnings.log
+      │           │   └── versions.yml
+      │           └── <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+      └── bactopia-runs
+          └── gtdb
+              ├── merged-results
+              │   ├── gtdb.tsv
+              │   └── logs
+              │       └── gtdb-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── gtdb-dag.dot
+                  ├── gtdb-report.html
+                  ├── gtdb-timeline.html
+                  └── gtdb-trace.txt
     add_note: false
     folders:
       - name: GTDB-Tk
@@ -125,24 +126,25 @@ docs:
           Below is a description of the _per-sample_ results from [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk).
           For full details about each of the GTDB output files, see
           [GTDB-Tk Classify Workflow](https://github.com/Ecogenomics/GTDBTk#classify-workflow) page.
-        table: |
-          | Filename | Description |
-          |-----------|-------------|
-          | gtdb.(ar122\|bac120).classify.tree | Reference tree in Newick format containing query genomes placed with pplacer |
-          | gtdb.(ar122\|bac120).filtered.tsv | List of genomes with an insufficient number of amino acids in MSA |
-          | gtdb.(ar122\|bac120).markers_summary.tsv | Markers used in generation of the concatenated MSA and the order in which they were applied |
-          | gtdb.(ar122\|bac120).msa.fasta | FASTA file containing MSA of submitted and reference genomes |
-          | gtdb.(ar122\|bac120).summary.tsv | A summary of classifications provided by GTDB-Tk, see [classification summary](https://github.com/Ecogenomics/GTDBTk#classification-summary-file) for more details |
-          | gtdb.(ar122\|bac120).user_msa.fasta | FASTA file containing MSA of the submitted genomes |
-          | gtdb.translation_table_summary.tsv | Summary of the tranlastlation table used for each genome |
-          | gtdb.(ar122\|bac120).classification_pplacer.tsv | Classification of query genomes based only on their placement in the reference tree |
-          | gtdb.(ar122\|bac120).red_dictionary.tsv | Median RED values for taxonomic ranks |
-          | pplacer.(ar122\|bac120).json | Output information generated by pplacer in JSON format |
-          | pplacer.(ar122\|bac120).out | Output information generated by pplacer |
-          | gtdb.ar122.markers_summary.tsv | Summary of unique, duplicated, and missing markers within the 122 archaeal marker set for each submitted genome |
-          | gtdb.bac120.markers_summary.tsv | Summary of unique, duplicated, and missing markers within the 120 bacterial marker set for each submitted genome |
-          | gtdb.translation_table_summary.tsv | The predicted translation table used for gene calling for each genome |
-          | marker_genes/ | Contains individual genome results for gene calling using Prodigal and gene identification based on TIGRFAM and Pfam HMMs |
+        table:
+          - id: <SAMPLE_NAME>.{ar122|bac120}.classify.tree
+            description: Reference tree in Newick format containing query genomes placed with pplacer
+          - id: <SAMPLE_NAME>.{ar122|bac120}.filtered.tsv
+            description: List of genomes with an insufficient number of amino acids in MSA
+          - id: <SAMPLE_NAME>.{ar122|bac120}.markers_summary.tsv
+            description: Markers used in generation of the concatenated MSA and the order in which they were applied
+          - id: <SAMPLE_NAME>.{ar122|bac120}.msa.fasta
+            description: FASTA file containing MSA of submitted and reference genomes
+          - id: <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+            description: A summary of classifications provided by GTDB-Tk, see [classification summary](https://github.com/Ecogenomics/GTDBTk#classification-summary-file) for more details
+          - id: <SAMPLE_NAME>.{ar122|bac120}.user_msa.fasta
+            description: FASTA file containing MSA of the submitted genomes
+          - id: <SAMPLE_NAME>.translation_table_summary.tsv
+            description: Summary of the translation table used for each genome
+          - id: <SAMPLE_NAME>.ar122.markers_summary.tsv
+            description: Summary of unique, duplicated, and missing markers within the 122 archaeal marker set for each submitted genome
+          - id: <SAMPLE_NAME>.bac120.markers_summary.tsv
+            description: Summary of unique, duplicated, and missing markers within the 120 bacterial marker set for each submitted genome
   citations:
     - gtdb
     - gtdb_tk

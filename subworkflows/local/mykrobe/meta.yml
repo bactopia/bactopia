@@ -53,43 +53,45 @@ docs:
       antimicrobial resistance for _Mycobacterium tuberculosis_, _Staphylococcus aureus_, _Shigella sonnei_, and _Salmonella typhi_.
   output:
     tree: |
-      mykrobe/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.csv
-      │   ├── <SAMPLE_NAME>.json
-      │   └── logs
+      │   └── tools
       │       └── mykrobe
-      │           ├── nf-mykrobe.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── mykrobe-dag.dot
-      │   ├── mykrobe-report.html
-      │   ├── mykrobe-timeline.html
-      │   └── mykrobe-trace.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── logs
+      │           │   ├── nf-mykrobe.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>.csv
+      │           └── <SAMPLE_NAME>.json
+      └── bactopia-runs
+          └── mykrobe-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── mykrobe-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── mykrobe.csv
+              └── nf-reports
+                  ├── mykrobe-dag.dot
+                  ├── mykrobe-report.html
+                  ├── mykrobe-timeline.html
+                  └── mykrobe-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | mykrobe.tsv | A merged CSV file with `Mykrobe` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: mykrobe.tsv
+            description: A merged CSV file with `Mykrobe` results from all samples
       - name: Mykrobe
         description: |
           Below is a description of the _per-sample_ results from [Mykrobe](https://github.com/Mykrobe-tools/mykrobe). A full description of
           each output file is available at [Mykrobe - AMR Prediction Output](https://github.com/Mykrobe-tools/mykrobe/wiki/AMR-prediction-output).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.csv  | The output of `mykrobe predict` in comma-separated format |
-          | &lt;SAMPLE_NAME&gt;.json | The output of `mykrobe predict` in JSON format |
+        table:
+          - id: <SAMPLE_NAME>.csv
+            description: The output of `mykrobe predict` in comma-separated format
+          - id: <SAMPLE_NAME>.json
+            description: The output of `mykrobe predict` in JSON format
   citations:
     - csvtk
     - mykrobe

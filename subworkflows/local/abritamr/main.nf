@@ -2,7 +2,7 @@
 // abritamr - A NATA accredited tool for reporting the presence of antimicrobial resistance genes
 //
 include { initOptions } from '../../../lib/nf/functions'
-options = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
+options = initOptions(params.containsKey("options") ? params.options : [:], 'abritamr')
 options.args = [
     params.abritamr_identity ? "--identity ${params.abritamr_identity} " : "",
     params.abritamr_species ? "--identity ${params.abritamr_species} " : ""
@@ -24,7 +24,7 @@ workflow ABRITAMR {
     ch_versions = ch_versions.mix(ABRITAMR_RUN.out.versions.first())
 
     // Merge results
-    ABRITAMR_RUN.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'abritamr'], report]}.set{ ch_merge_summary }
+    ABRITAMR_RUN.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'abritamr'], summary]}.set{ ch_merge_summary }
     CSVTK_CONCAT(ch_merge_summary, 'tsv', 'tsv')
     ch_merged_summaries = ch_merged_summaries.mix(CSVTK_CONCAT.out.csv)
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)

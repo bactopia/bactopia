@@ -10,7 +10,7 @@
             "type": "object",
             "description": "",
             "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
                 "skip_scrubber": {
                     "type": "boolean",

@@ -10,7 +10,7 @@
             "type": "object",
             "description": "These optional parameters can be useful in certain settings.",
             "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-solid fa-gears",
             "properties": {
                 "outdir": {
                     "type": "string",
@@ -51,7 +51,7 @@
         "max_job_request_parameters": {
             "title": "Max Job Request Parameters",
             "type": "object",
-            "fa_icon": "fab fa-acquisitions-incorporated",
+            "fa_icon": "fa-solid fa-arrow-up-right-dots",
             "description": "Set the top limit for requested resources for any single job.",
             "hidden": true,
             "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
@@ -92,7 +92,7 @@
                     "type": "integer",
                     "description": "Maximum number of samples to download at a time",
                     "default": 3,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-angle-double-up",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the number of downloads at a time"
                 }
@@ -104,7 +104,7 @@
             "description": "Parameters to fine-tune your Nextflow setup.",
             "default": "",
             "hidden": true,
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-solid fa-screwdriver-wrench",
             "properties": {
                 "nfconfig": {
                     "type": "string",
@@ -159,7 +159,7 @@
             "description": "Parameters to fine-tune your Nextflow setup.",
             "default": "",
             "hidden": true,
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-regular fa-address-card",
             "properties": {
                 "condadir": {
                     "type": "string",
@@ -172,7 +172,7 @@
                     "default": "dockerhub",
                     "hidden": true,
                     "description": "Docker registry to pull containers from.",
-                    "fa_icon": "fas fa-docker",
+                    "fa_icon": "fas fa-box",
                     "enum": [
                         "dockerhub",
                         "quay",
@@ -226,7 +226,7 @@
                     "default": false,
                     "description": "All intermediate files created on worker nodes of will be transferred to the head node.",
                     "help": "Typically with clusters intermediate results are written to a 'scratch' space and only published result files are transferred back",
-                    "fa_icon": "fas fa-file-import",
+                    "fa_icon": "fas fa-toggle-off",
                     "hidden": true
                 }
             }
@@ -234,7 +234,7 @@
         "generic_parameters": {
             "title": "Helpful Parameters",
             "type": "object",
-            "fa_icon": "fas fa-file-import",
+            "fa_icon": "fa-solid fa-reply-all",
             "description": "Uncommonly used parameters that might be useful.",
             "properties": {
                 "monochrome_logs": {
@@ -254,7 +254,7 @@
                     "type": "integer",
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
-                    "fa_icon": "fas fa-clock",
+                    "fa_icon": "far fa-clock",
                     "hidden": true
                 },
                 "validate_params": {
@@ -274,18 +274,18 @@
                     "type": "string",
                     "description": "Specify which workflow or Bactopia Tool to execute",
                     "default": "bactopia",
-                    "fa_icon": "fas fa-question-circle"
+                    "fa_icon": "fas fa-bacteria"
                 },
                 "list_wfs": {
                     "type": "boolean",
                     "description": "List the available workflows and Bactopia Tools to use with '--wf'",
-                    "fa_icon": "fas fa-question-circle"
+                    "fa_icon": "fas fa-list"
                 },
                 "show_hidden_params": {
                     "type": "boolean",
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
                     "description": "Show all params when using `--help`",
-                    "fa_icon": "fas fa-eye-slash",
+                    "fa_icon": "far fa-eye",
                     "hidden": true
                 },
                 "help_all": {

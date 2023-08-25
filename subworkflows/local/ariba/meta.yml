@@ -56,62 +56,70 @@ docs:
       to rapidly identify genes in a database by creating local assemblies.
   output:
     tree: |
-      ariba/
-      ├── <DATABASE>
-      │   └── <SAMPLE_NAME>
-      │       ├── card
-      │       │   ├── assembled_genes.fa.gz
-      │       │   ├── assembled_seqs.fa.gz
-      │       │   ├── assemblies.fa.gz
-      │       │   ├── debug.report.tsv
-      │       │   ├── log.clusters.gz
-      │       │   ├── report.tsv
-      │       │   ├── summary.csv
-      │       │   └── version_info.txt
-      │       └── logs
-      │           └── ariba
-      │               ├── nf-ariba.{begin,err,log,out,run,sh,trace}
-      │               └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── ariba-dag.dot
-      │   ├── ariba-report.html
-      │   ├── ariba-timeline.html
-      │   └── ariba-trace.txt
-      ├── ariba-report.tsv
-      ├── ariba-summary.csv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── ariba
+      │           └── card
+      │               ├── <SAMPLE_NAME>-report.tsv
+      │               ├── <SAMPLE_NAME>-summary.csv
+      │               ├── assembled_genes.fa.gz
+      │               ├── assembled_seqs.fa.gz
+      │               ├── assemblies.fa.gz
+      │               ├── debug.report.tsv
+      │               ├── log.clusters.gz
+      │               ├── logs
+      │               │   ├── nf-ariba.{begin,err,log,out,run,sh,trace}
+      │               │   └── versions.yml
+      │               └── version_info.txt
+      └── bactopia-runs
+          └── ariba
+              ├── merged-results
+              │   ├── card-report.tsv
+              │   ├── card-summary.csv
+              │   └── logs
+              │       ├── card-report
+              │       │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │       │   └── versions.yml
+              │       └── card-summary
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── ariba-dag.dot
+                  ├── ariba-report.html
+                  ├── ariba-timeline.html
+                  └── ariba-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | ariba-report.tsv | A merged TSV file with `ARIBA` results from all samples |
-          | ariba-summary.csv | A merged CSV file created with `ariba summary` |
-      - name: ARIBA
+          Below are results that are concatenated into a single file.
+        is_extensions: true
+        table:
+          - id: -report.tsv
+            description: A merged TSV file with `ariba` results from all samples
+          - id: -summary.csv
+            description: A merged CSV file created with `ariba summary`
+      - name: Ariba
         description: |
           Below is a description of the _per-sample_ results from [ARIBA](https://github.com/sanger-pathogens/ariba/wiki/Task:-run).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          | assembled_genes.fa.gz | All the assembled genes |
-          | assembled_seqs.fa.gz  | All the assembled sequences that match the reference |
-          | assemblies.fa.gz      | All the raw local assembles |
-          | debug.report.tsv      | Contains the results from `report.tsv` in addition to synonymous mutations |
-          | log.clusters.gz       | A log of the ARIBA analysis |
-          | report.tsv            | A report of the ARIBA analysis results |
-          | summary.csv           | A summary of the report created using `ariba summary` |
-          | version_info.txt      | Containes info on the versions of ARIBA and its dependencies |
+        table:
+          - id: <SAMPLE_NAME>-report.tsv
+            description: A report of the ARIBA analysis results
+          - id: <SAMPLE_NAME>-summary.csv
+            description: A summary of the report created using `ariba summary`
+          - id: assembled_genes.fa.gz
+            description: All the assembled genes
+          - id: assembled_seqs.fa.gz
+            description: All the assembled sequences that match the reference
+          - id: assemblies.fa.gz
+            description: All the raw local assembles
+          - id: debug.report.tsv
+            description: Contains the results from `report.tsv` in addition to synonymous mutations
+          - id: log.clusters.gz
+            description: A log of the ARIBA analysis
+          - id: version_info.txt
+            description: Contains info on the versions of ARIBA and its dependencies
   citations:
     - ariba
     - csvtk

@@ -45,44 +45,41 @@ docs:
     _in silico_ _Legionella pneumophila_ Sequence Based Typing (SBT).
   output:
     tree: |
-      legsta/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── legsta
-      │           ├── nf-legsta.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── legsta-dag.dot
-      │   ├── legsta-report.html
-      │   ├── legsta-timeline.html
-      │   └── legsta-trace.txt
-      ├── legsta.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-legsta.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── legsta-<TIMESTAMP>
+              ├── merged-results
+              │   ├── legsta.tsv
+              │   └── logs
+              │       └── legsta-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── legsta-dag.dot
+                  ├── legsta-report.html
+                  ├── legsta-timeline.html
+                  └── legsta-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | legsta.tsv  | A merged TSV file with `legsta` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: legsta.tsv
+            description: A tab-delimited file with `legsta` results from all samples
       - name: legsta
         description: |
           Below is a description of the _per-sample_ results from [legsta](https://github.com/tseemann/legsta).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details
   citations:
     - csvtk
     - legsta

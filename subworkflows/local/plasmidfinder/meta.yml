@@ -61,52 +61,51 @@ docs:
     tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
   output:
     tree: |
-      plasmidfinder/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-hit_in_genome_seq.fsa
-      │   ├── <SAMPLE_NAME>-plasmid_seqs.fsa
-      │   ├── <SAMPLE_NAME>.json
-      │   ├── <SAMPLE_NAME>.tsv
-      │   ├── <SAMPLE_NAME>.txt
-      │   └── logs
+      │   └── tools
       │       └── plasmidfinder
-      │           ├── nf-plasmidfinder.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── plasmidfinder-dag.dot
-      │   ├── plasmidfinder-report.html
-      │   ├── plasmidfinder-timeline.html
-      │   └── plasmidfinder-trace.txt
-      ├── plasmidfinder.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>-hit_in_genome_seq.fsa
+      │           ├── <SAMPLE_NAME>-plasmid_seqs.fsa
+      │           ├── <SAMPLE_NAME>.{json|tsv|txt}
+      │           └── logs
+      │               ├── nf-plasmidfinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── plasmidfinder-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── plasmidfinder-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── plasmidfinder.tsv
+              └── nf-reports
+                  ├── plasmidfinder-dag.dot
+                  ├── plasmidfinder-report.html
+                  ├── plasmidfinder-timeline.html
+                  └── plasmidfinder-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | plasmidfinder.tsv | A merged TSV file with `PlasmidFinder` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: plasmidfinder.tsv
+            description: A merged TSV file with `PlasmidFinder` results from all samples
       - name: PlasmidFinder
         description: |
           Below is a description of the _per-sample_ results from [PlasmidFinder](https://bitbucket.org/genomicepidemiology/plasmidfinder/src/master/). 
-        table: |
-          | Filename                                  | Description                                                                |
-          |-------------------------------------------|----------------------------------------------------------------------------|
-          | &lt;SAMPLE_NAME&gt;.json                  | The results from analysis in JSON format                                   |
-          | &lt;SAMPLE_NAME&gt;.tsv                   | The results from analysis in TSV format                                    |
-          | &lt;SAMPLE_NAME&gt;.txt                   | A text file containing the result table and alignments                     |
-          | &lt;SAMPLE_NAME&gt;-hit_in_genome_seq.fsa | A fasta file containing the best matching sequences from the query genome. |
-          | &lt;SAMPLE_NAME&gt;-plasmid_seqs.fsa      | A fasta file containing the best matching plasmid genes from the database. |
+        table:
+          - id: <SAMPLE_NAME>.json
+            description: The results from analysis in JSON format
+          - id: <SAMPLE_NAME>.tsv
+            description: The results from analysis in TSV format
+          - id: <SAMPLE_NAME>.txt
+            description: A text file containing the result table and alignments
+          - id: <SAMPLE_NAME>-hit_in_genome_seq.fsa
+            description: A fasta file containing the best matching sequences from the query genome.
+          - id: <SAMPLE_NAME>-plasmid_seqs.fsa
+            description: A fasta file containing the best matching plasmid genes from the database.
   citations:
     - csvtk
     - plasmidfinder

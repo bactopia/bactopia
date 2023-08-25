@@ -40,44 +40,41 @@ docs:
     the serotype of _Streptococcus suis_ assemblies.
   output:
     tree: |
-      ssuissero/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>_serotyping_res.tsv
-      │   └── logs
+      │   └── tools
       │       └── ssuissero
-      │           ├── nf-ssuissero.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── ssuissero-dag.dot
-      │   ├── ssuissero-report.html
-      │   ├── ssuissero-timeline.html
-      │   └── ssuissero-trace.txt
-      ├── software_versions.yml
-      ├── software_versions_mqc.yml
-      └── ssuissero.tsv
+      │           ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │           └── logs
+      │               ├── nf-ssuissero.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── ssuissero-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── ssuissero-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── ssuissero.tsv
+              └── nf-reports
+                  ├── ssuissero-dag.dot
+                  ├── ssuissero-report.html
+                  ├── ssuissero-timeline.html
+                  └── ssuissero-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | ssuissero.tsv  | A merged TSV file with `SsuisSero` results from all samples |
+          Below are results that are concatenated into a single file.
+        table: 
+          - id: ssuissero.tsv
+            description: A merged TSV file with `SsuisSero` results from all samples
       - name: SsuisSero
         description: |
           Below is a description of the _per-sample_ results from [SsuisSero](https://github.com/jimmyliu1326/SsuisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `SsuisSero` results |
+        table:
+          - id: <SAMPLE_NAME>_serotyping_res.tsv
+            description: A tab-delimited file with `SsuisSero` results
   citations:
     - csvtk
     - ssuissero

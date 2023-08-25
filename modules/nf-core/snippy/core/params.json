@@ -10,6 +10,7 @@
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
                 "maxhap": {
                     "type": "integer",
