@@ -26,9 +26,11 @@ output:
   - quast:
       type: directory
       description: Directory containing complete quast report
-      pattern: "{prefix}.lineage_report.csv"
+      pattern: "quast/*"
   - report:
-
+      type: file
+      description: tab-separated version of the summary, suitable for spreadsheets and mqc
+      pattern: "${prefix}.tsv"
   - versions:
       type: file
       description: File containing software versions

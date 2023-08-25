@@ -24,11 +24,11 @@ process PNEUMOCAT {
     meta.single_end == false
 
     output:
-    tuple val(meta), path("*.xml"), optional: true, emit: xml
-    tuple val(meta), path("*.txt"), optional: true, emit: txt
-    path "*.{stdout,stderr}"            , optional: true, emit: logs
-    path ".command.*"             , emit: nf_logs
-    path "versions.yml"           , emit: versions
+    tuple val(meta), path("*.xml")               , optional: true, emit: xml
+    tuple val(meta), path("coverage_summary.txt"), optional: true, emit: txt
+    path "*.{stdout,stderr}"                     , optional: true, emit: logs
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"

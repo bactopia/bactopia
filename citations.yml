@@ -251,6 +251,13 @@ tools:
     cite: |
       Langmead B, Salzberg SL [Fast gapped-read alignment with Bowtie 2.](http://dx.doi.org/10.1038/nmeth.1923) _Nat. Methods._ 9, 357–359 (2012)
 
+  bracken:
+    name: Bracken
+    link: https://github.com/jenniferlu717/Bracken
+    description: Bracken a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample
+    cite: |
+      Lu J, Breitwieser FP, Thielen P, and Salzberg SL [Bracken: estimating species abundance in metagenomics data.](https://doi.org/10.7717/peerj-cs.104) _PeerJ Computer Science_, 3, e104. (2017)
+
   busco:
     name: BUSCO
     link: https://gitlab.com/ezlab/busco
@@ -502,6 +509,13 @@ tools:
     cite: |
       Wood DE, Lu J, Langmead B [Improved metagenomic analysis with Kraken 2.](https://doi.org/10.1186/s13059-019-1891-0) *Genome Biology*, 20(1), 257. (2019)
 
+  krona:
+    name: Krona
+    link: https://github.com/marbl/Krona
+    description: Interactively explore metagenomes and more from a web browser
+    cite: |
+      Ondov BD, Bergman NH, and Phillippy AM [Interactive metagenomic visualization in a Web browser.](https://doi.org/10.1186/1471-2105-12-385) _BMC Bioinformatics_, 12, 385. (2011)
+
   legsta:
     name: legsta
     link: https://github.com/tseemann/legsta
@@ -598,6 +612,13 @@ tools:
     description: Scan contig files against PubMLST typing schemes
     cite: |
       Seemann T [mlst: scan contig files against PubMLST typing schemes](https://github.com/tseemann/mlst) (GitHub)
+
+  midas:
+    name: MIDAS
+    link: https://github.com/snayfach/MIDAS
+    description: An integrated pipeline for estimating strain-level genomic variation from metagenomic data
+    cite: |
+      Nayfach S, Rodriguez-Mueller B, Garud N, and Pollard KS [An integrated metagenomics pipeline for strain profiling reveals novel patterns of bacterial transmission and biogeography.](https://doi.org/10.1101/gr.201863.115) _Genome Research_, 26(11), 1612–1625. (2016)
 
   minced:
     name: MinCED
@@ -697,6 +718,13 @@ tools:
     cite: |
       Petit III RA [pbptyper: In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies](https://github.com/rpetit3/pbptyper) (GitHub)
 
+  phispy:
+    name: PhiSpy
+    link: https://github.com/linsalrob/PhiSpy
+    description: Prediction of prophages from bacterial genomes
+    cite: |
+      Akhter S, Aziz RK, and Edwards RA [PhiSpy: a novel algorithm for finding prophages in bacterial genomes that combines similarity- and composition-based strategies.](https://doi.org/10.1093/nar/gks406) _Nucleic Acids Research_, 40(16), e126. (2012)
+
   phyloflash:
     name: phyloFlash
     link: https://github.com/HRGV/phyloFlash
@@ -731,6 +759,13 @@ tools:
     description: Identifies plasmids in total or partial sequenced isolates of bacteria
     cite: |
       Carattoli A, Zankari E, García-Fernández A, Voldby Larsen M, Lund O, Villa L, Møller Aarestrup F, Hasman H [In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing.](https://doi.org/10.1128/AAC.02412-14) _Antimicrobial Agents and Chemotherapy_ 58(7), 3895–3903. (2014)
+
+  pneumocat:
+    name: PneumoCaT
+    link: https://github.com/ukhsa-collaboration/PneumoCaT
+    description: Pneumococcal Capsular Typing tool for NGS data
+    cite: |
+      Kapatai G, Sheppard CL, Al-Shahib A, Litt DJ, Underwood AP, Harrison TG, and Fry NK [Whole genome sequencing of Streptococcus pneumoniae: development, evaluation and verification of targets for serogroup and serotype prediction using an automated pipeline.](https://doi.org/10.7717/peerj.2477) PeerJ, 4, e2477. (2016)
 
   porechop:
     name: Porechop

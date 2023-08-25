@@ -25,27 +25,38 @@ docs:
   meta:
     title: pneumocat
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which uses PneumoCaT to assign capsular type to _Streptococcus pneumoniae_ from sequence reads.
   introduction: |
-      The `pneumocat` module uses...
+      The `pneumocat` module uses [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT) to assign capsular
+      type to _Streptococcus pneumoniae_ from sequence reads.
   output:
     tree: |
-
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── pneumocat
+      │           ├── <SAMPLE_NAME>.results.xml
+      │           ├── coverage_summary.txt
+      │           └── logs
+      │               ├── nf-pneumocat.{begin,err,log,out,run,sh,trace}
+      |               ├── pneumo_capsular_typing.std{err|out}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── pneumocat-<TIMESTAMP>
+              └── nf-reports
+                  ├── pneumocat-dag.dot
+                  ├── pneumocat-report.html
+                  ├── pneumocat-timeline.html
+                  └── pneumocat-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: PneumoCaT
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
-      - name: pneumocat
-        description: |
-          Below is a description of the _per-sample_ results from [pneumocat](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT).
+        table:
+          - id: <SAMPLE_NAME>.results.xml
+            description: An XML that details the final assigned capsular type
+          - id: coverage_summary.txt
+            description: A summary of the coverage for each capsular type
   citations:
-    - add to citations.yml
+    - pneumocat

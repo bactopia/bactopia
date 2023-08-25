@@ -2,9 +2,10 @@ name: quast
 description: A module for assessing the quality of assembled contigs
 icon: false
 keywords:
-  - TAGS
+  - assembly
+  - quality
 modules:
-  - LIST_OF_MODULES
+  - quast
 input:
   - meta:
     type: map
@@ -25,27 +26,70 @@ docs:
   meta:
     title: quast
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which uses QUAST to assess the quality of assembled contigs.
   introduction: |
-      The `quast` module uses...
+      The `quast` module uses [QUAST](https://github.com/ablab/quast) to assess the quality of
+      assembled contigs. To assist assessment, QUAST produces a number of plots and tables that
+      can be evaluated.
   output:
     tree: |
-
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── quast
+      │           ├── <SAMPLE_NAME>.tsv
+      │           ├── basic_stats/
+      │           ├── icarus.html
+      │           ├── icarus_viewers
+      │           │   └── contig_size_viewer.html
+      │           ├── logs
+      │           │   ├── nf-quast.{begin,err,log,out,run,sh,trace}
+      │           │   ├── quast.log
+      │           │   └── versions.yml
+      │           ├── predicted_genes
+      │           │   ├── <SAMPLE_NAME>.stderr
+      │           │   └── <SAMPLE_NAME>_glimmer_genes.gff
+      │           ├── report.{html|pdf|tex|tsv|txt}
+      │           └── transposed_report.{tex|tsv|txt}
+      └── bactopia-runs
+          └── quast-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── quast-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── quast.tsv
+              └── nf-reports
+                  ├── quast-dag.dot
+                  ├── quast-report.html
+                  ├── quast-timeline.html
+                  └── quast-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
-      - name: quast
+          Below are results that are concatenated into a single file.
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A summary of the quast results for all samples
+      - name: QUAST
         description: |
-          Below is a description of the _per-sample_ results from [quast](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from [QUAST](https://github.com/ablab/quast).
+        table:
+          - id: basic_stats/
+            description: A folder with plots of assembly metrics (e.g. GC content, NGx, Nx)
+          - id: icarus.html
+            description: Icarus main menu with links to interactive viewers.
+          - id: icarus_viewers/
+            description: Additional reports for Icarus
+          - id: predicted_genes/
+            description: Predicted gene output
+          - id: quast.log
+            description: Detailed information about the QUAST run
+          - id: 'report.{html\|pdf\|tex\|tsv\|txt}'
+            description: Assessment summary including all tables and plots
+          - id: 'transposed_report.{tex\|tsv\|txt}'
+            description: Transposed version of the assessment summary
   citations:
-    - add to citations.yml
+    - csvtk
+    - quast

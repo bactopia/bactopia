@@ -2,15 +2,20 @@ name: phispy
 description: Predict prophages in bacterial genomes
 icon: false
 keywords:
-  - TAGS
+  - prophage
+  - annotation
 modules:
-  - LIST_OF_MODULES
+  - phispy
 input:
   - meta:
     type: map
     description: |
       Groovy Map containing sample information
       e.g. [ id:'test', single_end:false ]
+  - gbk:
+      type: file
+      description: Genome file in .gbk or .gbff format.
+      pattern: "*.{gbk,gbff}"
 output:
   - meta:
       type: map
@@ -21,31 +26,125 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+  - coordinates:
+      type: file
+      description: |
+        Coordinates of each prophage identified in the genome,
+        and their att sites (if found).
+      pattern: "*.{tsv}"
+
+  - gbk:
+      type: file
+      description: |
+        A duplicate GenBank record that is the same as the input record,
+        but we have inserted the prophage information, including att
+        sites into the record.
+      pattern: "*.{gbk,gbff}"
+  - information:
+      type: file
+      description: |
+        File containing all the genes of the genome, one per line.
+        The tenth column describes how likely the gene is a phage gene.
+      pattern: "*.{tsv}"
+  - bacteria_fasta:
+      type: file
+      description: Genome with prophage regions masked with N.
+      pattern: "*.{fasta}"
+  - bacteria_gbk:
+      type: file
+      description: Genome sequences identified as bacterial.
+      pattern: "*.{gbk}"
+  - phage_fasta:
+      type: file
+      description: Phage sequences extracted from the genome.
+      pattern: "*.{fasta}"
+  - phage_gbk:
+      type: file
+      description: Phage sequences extracted from the genome.
+      pattern: "*.{gbk}"
+  - prophage_gff:
+      type: file
+      description: Prophage information in GFF3 format.
+      pattern: "*.{gff3}"
+  - prophage_tbl:
+      type: file
+      description: |
+        File containing prophage number and its location in the genome.
+      pattern: "*.{tbl}"
+  - prophage_tsv:
+      type: file
+      description: |
+        A file containing simpler version of the coordinates file,
+        with only prophage number, contig, start and stop.
+      pattern: "*.{tsv}"
 docs:
   meta:
     title: phispy
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which uses PhiSpy to identify prophages from bacterial and archaeal genomes.
   introduction: |
-      The `phispy` module uses...
+      The `phispy` module uses [PhiSpy](https://github.com/linsalrob/PhiSpy) to identify prophages
+      from bacterial and archaeal genomes.
   output:
     tree: |
-
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── phispy
+      |           ├── <SAMPLE_NAME>_prophage_information.tsv
+      |           ├── <SAMPLE_NAME>_bacteria.fasta
+      |           ├── <SAMPLE_NAME>_bacteria.gbk
+      |           ├── <SAMPLE_NAME>_phage.fasta
+      |           ├── <SAMPLE_NAME>_phage.gbk
+      |           ├── <SAMPLE_NAME>_prophage.gff3
+      |           ├── <SAMPLE_NAME>_prophage.tbl
+      |           └── <SAMPLE_NAME>_prophage.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── <SAMPLE_NAME>.log
+      │               ├── nf-phispy.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── phispy-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── phispy-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── phispy.tsv
+              └── nf-reports
+                  ├── phispy-dag.dot
+                  ├── phispy-report.html
+                  ├── phispy-timeline.html
+                  └── phispy-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
-      - name: phispy
+          Below are results that are concatenated into a single file.
+        table:
+          - id: phispy.tsv
+            description: A summary of the `phispy` results for all samples
+      - name: PhiSpy
         description: |
-          Below is a description of the _per-sample_ results from [phispy](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from [PhiSpy](https://github.com/linsalrob/PhiSpy).
+        table:
+          - id: <SAMPLE_NAME>_prophage_information.tsv
+            description: Contains prophage information for all the genes of the genome, one per line.
+          - id: <SAMPLE_NAME>_bacteria.fasta
+            description: Genome with prophage regions masked with N.
+          - id: <SAMPLE_NAME>_bacteria.gbk
+            description: Genome sequences identified as bacterial.
+          - id: <SAMPLE_NAME>_phage.fasta
+            description: Phage sequences extracted from the genome in FASTA format.
+          - id: <SAMPLE_NAME>_phage.gbk
+            description: Phage sequences extracted from the genome in GenBank format.
+          - id: <SAMPLE_NAME>_prophage.gff3
+            description: Prophage information in GFF3 format.
+          - id: <SAMPLE_NAME>_prophage.tbl
+            description: Prophage number and its location in the genome.
+          - id: <SAMPLE_NAME>.tsv
+            description: Coordinates of each prophage identified in the genome, and their att sites (if found).
   citations:
-    - add to citations.yml
+    - csvtk
+    - phispy

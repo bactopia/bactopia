@@ -10,6 +10,7 @@
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
                 "blastp_query": {
                     "type": "string",
@@ -38,7 +39,7 @@
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
                     "default": 2000,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-angle-double-up"
                 }
             }
         }

@@ -225,7 +225,7 @@ def saveFiles(Map args) {
             } else {
                 final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/nf-${process_name}.${ext}"
             }
-        } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
+        } else if (args.filename.endsWith('.log') || args.filename.endsWith('.err') || args.filename.endsWith('.stdout') || args.filename.endsWith('.stderr') || args.filename.equals('versions.yml')) {
             // Its a version file or program specific log files
             if (args.opts.btype == "comparative") {
                 // comparative workflows will have subdir applied later

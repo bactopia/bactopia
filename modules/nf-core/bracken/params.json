@@ -105,7 +105,7 @@
                     "description": "Skip the creation of a Krona report",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
-                },
+                }
             }
         }
     },

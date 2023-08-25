@@ -1,16 +1,22 @@
-name: blastx
-description: Search against protein BLAST databases using translated nucleotide queries
+name: tblastn
+description: Search against translated nucleotide BLAST databases using protein queries
 icon: false
 keywords:
-  - TAGS
+  - fasta
+  - blast
+  - alignment
 modules:
-  - LIST_OF_MODULES
+  - tblastn
 input:
   - meta:
     type: map
     description: |
       Groovy Map containing sample information
       e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta file containing queries sequences
+      pattern: "*.{fa,fasta}"
 output:
   - meta:
       type: map
@@ -21,31 +27,59 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: TBLASTN results in TSV format
+      pattern: "*.tblastn.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of TBLASTN results for all samples
+      pattern: "*.tsv"
 docs:
   meta:
-    title: blastx
+    title: tblastn
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which uses TBLASTN to query protein sequences against translated nucleotide databases.
   introduction: |
-      The `blastx` module uses...
+      The `tblastn` module uses [TBLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+      to query protein sequences against translated nucleotide databases (contigs) for each sample.
   output:
     tree: |
-
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── tblastn
+      │           ├── <SAMPLE_NAME>.tblastn.tsv
+      │           └── logs
+      │               ├── nf-tblastn.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── tblastn-<TIMESTAMP>
+              ├── merged-results
+              │   ├── tblastn.tsv
+              │   └── logs
+              │       └── tblastn-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── tblastn-dag.dot
+                  ├── tblastn-report.html
+                  ├── tblastn-timeline.html
+                  └── tblastn-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
-      - name: blastx
+          Below are results that are concatenated into a single file.
+        table:
+          - id: tblastn.tsv
+            description: A merged TSV file with `tblastn` results from all samples
+      - name: tblastn
         description: |
-          Below is a description of the _per-sample_ results from [blastx](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from [TBLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs).
+        table:
+          - id: <SAMPLE_NAME>.tblastn.tsv
+            description: A TSV file with `tblastn` results for a single sample
   citations:
-    - add to citations.yml
+    - blast
+    - csvtk

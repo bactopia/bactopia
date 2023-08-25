@@ -238,19 +238,19 @@ docs:
         table:
           - id: core-genome.alninfo
             description: Alignment site statistics
-          - id: {core-genome,start-tree}.bionj
+          - id: "{core-genome,start-tree}.bionj"
             description: A neighbor joining tree produced by BIONJ
-          - id: {core-genome,start-tree}.ckp.gz
+          - id: "{core-genome,start-tree}.ckp.gz"
             description: IQ-TREE writes a checkpoint file
           - id: core-genome.contree
             description: Consensus tree with assigned branch supports where branch lengths are optimized on the original alignment; printed if Ultrafast Bootstrap is selected
-          - id: {core-genome,start-tree}.mldist
+          - id: "{core-genome,start-tree}.mldist"
             description: Contains the likelihood distances
-          - id: {core-genome,start-tree}.model.gz
+          - id: "{core-genome,start-tree}.model.gz"
             description: Information about all models tested
           - id: core-genome.splits.nex
             description: Support values in percentage for all splits (bipartitions), computed as the occurence frequencies in the bootstrap trees
-          - id: {core-genome,start-tree}.treefile
+          - id: "{core-genome,start-tree}.treefile"
             description: Maximum likelihood tree in NEWICK format, can be visualized with treeviewer programs
           - id: core-genome.ufboot
             description: Trees created during the bootstrap steps
