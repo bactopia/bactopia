@@ -163,3 +163,27 @@ workflow test_gather_error_low_depth_se {
 
     GATHER ( inputs )
 }
+
+workflow test_gather_empty_pe {
+
+    inputs = tuple(
+        [id:'output', runtype:'paired-end', genome_size:params.genome_size],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER ( inputs )
+}
+
+workflow test_gather_empty_se {
+
+    inputs = tuple(
+        [id:'output', runtype:'single-end', genome_size:params.genome_size],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        [file(params.test_data['empty']['fastq'], checkIfExists: true)],
+        file(params.test_data['empty']['fna'], checkIfExists: true)
+    )
+
+    GATHER ( inputs )
+}

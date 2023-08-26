@@ -189,16 +189,52 @@ process GATHER {
                 rm -f ${prefix}-paired-end-error.txt
             fi
 
-            if ! check-fastqs.py --fq1 r1.json --fq2 r2.json \${OPTS}; then
-                ERROR=1
+            if [[ -s r1.json ]] && [[ -s r2.json ]]; then
+                if ! check-fastqs.py --fq1 r1.json --fq2 r2.json \${OPTS}; then
+                    ERROR=1
+                fi
+            else
+                NOT_GZIP=0
+                if ! gzip -t fastqs/${prefix}_R1.fastq.gz; then
+                    NOT_GZIP=1
+                elif ! gzip -t fastqs/${prefix}_R2.fastq.gz; then
+                    NOT_GZIP=1
+                fi
+
+                if [ "\${NOT_GZIP}" -eq "0" ]; then
+                    echo "${prefix} FASTQs are empty. Please check the input FASTQs.
+                        Further analysis is discontinued." | \\
+                    sed 's/^\\s*//' > ${prefix}-empty-error.txt
+                    ERROR=1
+                else
+                    echo "${prefix} FASTQs failed Gzip tests. Please check the input FASTQs.
+                        Further analysis is discontinued." | \\
+                    sed 's/^\\s*//' > ${prefix}-gzip-error.txt
+                    ERROR=1
+                fi
             fi
             rm r1.json r2.json
         else
             # Single-end
             IS_PAIRED="false"
             gzip -cd fastqs/${prefix}.fastq.gz | fastq-scan > r1.json
-            if ! check-fastqs.py --fq1 r1.json \${OPTS}; then
-                ERROR=1
+
+            if [[ -s r1.json ]]; then
+                if ! check-fastqs.py --fq1 r1.json \${OPTS}; then
+                    ERROR=1
+                fi
+            else
+                if ! gzip -t fastqs/${prefix}.fastq.gz; then
+                    echo "${prefix} FASTQs failed Gzip tests. Please check the input FASTQs.
+                        Further analysis is discontinued." | \\
+                    sed 's/^\\s*//' > ${prefix}-gzip-error.txt
+                    ERROR=1
+                elif ! gzip -t fastqs/${prefix}_R2.fastq.gz; then
+                    echo "${prefix} FASTQs are empty. Please check the input FASTQs.
+                        Further analysis is discontinued." | \\
+                    sed 's/^\\s*//' > ${prefix}-empty-error.txt
+                    ERROR=1
+                fi
             fi
             rm r1.json
         fi

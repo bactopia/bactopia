@@ -20,7 +20,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 645f77b5c858f611ca8937387db38812
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -44,7 +44,7 @@
     - path: bactopia/output/main/gather/logs/versions.yml
       md5sum: bc01dfe3cbf456df5fe6bae09bc7221d
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
 
 - name: gather-pe
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -68,7 +68,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 645f77b5c858f611ca8937387db38812
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: ed49dcb281c33ebc24e7d1cd353e4033
+      md5sum: bf66e3f10d4053302fae25def628e7dc
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -92,7 +92,7 @@
     - path: bactopia/output/main/gather/logs/versions.yml
       md5sum: bc01dfe3cbf456df5fe6bae09bc7221d
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: ed49dcb281c33ebc24e7d1cd353e4033
+      md5sum: bf66e3f10d4053302fae25def628e7dc
 
 
 - name: gather-merge_pe_nogsize
@@ -118,7 +118,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b62aaf7c01b31b5fb17be9225da7106f
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 0953bc2d3789b9284e525aa5036857a6
+      md5sum: 8d4a3ac1619f36243f2d9e43e7db1697
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -144,7 +144,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 0953bc2d3789b9284e525aa5036857a6
+      md5sum: 8d4a3ac1619f36243f2d9e43e7db1697
 
 - name: gather-merge_pe
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_merge_pe --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -169,7 +169,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b62aaf7c01b31b5fb17be9225da7106f
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 67dda88688ec4faf6a906b36b93d5a05
+      md5sum: 34b2a88b4ba6e10a1b4695311e5ab887
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -195,7 +195,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 67dda88688ec4faf6a906b36b93d5a05
+      md5sum: 34b2a88b4ba6e10a1b4695311e5ab887
 
 - name: gather-merge_pe_hybrid_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_merge_pe_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
@@ -220,7 +220,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 6366ca5fa9ed70f757c4e755f8bee496
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: ac2b5c6ffb00f391cea4b1bbd0988056
+      md5sum: d01d0c88efb3df3621a42c424be56c7e
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -246,7 +246,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: ac2b5c6ffb00f391cea4b1bbd0988056
+      md5sum: d01d0c88efb3df3621a42c424be56c7e
 
 - name: gather-merge_pe_hybrid
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_merge_pe_hybrid --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -271,7 +271,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 6366ca5fa9ed70f757c4e755f8bee496
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 88d75c8af6aa67ee1557366076ff9275
+      md5sum: ecbbe87608ffb93240300e4f538ed85f
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -297,7 +297,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 88d75c8af6aa67ee1557366076ff9275
+      md5sum: ecbbe87608ffb93240300e4f538ed85f
 
 - name: gather-se_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -321,7 +321,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 23589396fc76b9fa242e3f182f708d8a
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -344,7 +344,7 @@
     - path: bactopia/output/main/gather/logs/versions.yml
       md5sum: cfe573aee8e8d8834d5895092cfa708f
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
 
 - name: gather-se
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -368,7 +368,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 23589396fc76b9fa242e3f182f708d8a
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: affba365046a70aa5a5f4d40d393ac7d
+      md5sum: 729abf0ec9f744bdec92a0f830f35f8e
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -391,7 +391,7 @@
     - path: bactopia/output/main/gather/logs/versions.yml
       md5sum: cfe573aee8e8d8834d5895092cfa708f
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: affba365046a70aa5a5f4d40d393ac7d
+      md5sum: 729abf0ec9f744bdec92a0f830f35f8e
 
 - name: gather-merge_se_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_merge_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -416,7 +416,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b7bad8225a6e45886f990b35a1f29d34
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 4aa4fd0a698ec26cd957c6a76d7260c9
+      md5sum: b5bed12a49358b089e349e95577a7506
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -441,7 +441,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 4aa4fd0a698ec26cd957c6a76d7260c9
+      md5sum: b5bed12a49358b089e349e95577a7506
 
 - name: gather-merge_se
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_merge_se --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -466,7 +466,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b7bad8225a6e45886f990b35a1f29d34
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 3a5f8c4981b51fe96739e4f1a9c81121
+      md5sum: aa3c4fa1d55c31671e8cd298d0278e2c
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -491,7 +491,7 @@
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 3a5f8c4981b51fe96739e4f1a9c81121
+      md5sum: aa3c4fa1d55c31671e8cd298d0278e2c
 
 - name: gather-sra_accession_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_sra_accession -c nextflow.config ${BACTOPIA_ARGS}'
@@ -515,7 +515,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b60d8d229d38c0321acf76c897d6bd0e
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 0bac1314fd6e2a31279d0b3e70867c41
+      md5sum: 6d3aacc4fb9184cd2bf44d254f83aa96
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -525,7 +525,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/SRX1390609/main/gather/SRX1390609-meta.tsv
-      md5sum: 0bac1314fd6e2a31279d0b3e70867c41
+      md5sum: 6d3aacc4fb9184cd2bf44d254f83aa96
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.err
@@ -564,7 +564,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b60d8d229d38c0321acf76c897d6bd0e
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 182b89c6a31988583f0ce159f80394a8
+      md5sum: 271bebbaa3d4c016dbb653fa17e4631f
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -574,7 +574,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/SRX1390609/main/gather/SRX1390609-meta.tsv
-      md5sum: 182b89c6a31988583f0ce159f80394a8
+      md5sum: 271bebbaa3d4c016dbb653fa17e4631f
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.err
@@ -613,7 +613,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b8af95a1bff2c38e889ce5fbb34a2468
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 1a3882b776bb14dcf1caa133dacb2752
+      md5sum: 33b07d7f815b16d6e49d9360d0194698
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -623,7 +623,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/main/gather/GCF_000292685-meta.tsv
-      md5sum: 1a3882b776bb14dcf1caa133dacb2752
+      md5sum: 33b07d7f815b16d6e49d9360d0194698
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.err
@@ -662,7 +662,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: b8af95a1bff2c38e889ce5fbb34a2468
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 36138d6aef1cbb8b58cff2655caa4894
+      md5sum: d76a5cc2c903470210c5d1bd3663a5bc
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -672,7 +672,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/main/gather/GCF_000292685-meta.tsv
-      md5sum: 36138d6aef1cbb8b58cff2655caa4894
+      md5sum: d76a5cc2c903470210c5d1bd3663a5bc
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.err
@@ -711,7 +711,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: e3cd7d2be0e9e34aabcd7fa9a4e3f2e8
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: bf9ce9864cc05df19c62fa0ac3fa98a3
+      md5sum: 3864ba86580e4a06529f77716120074c
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -721,7 +721,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/main/gather/GCF_000292685-meta.tsv
-      md5sum: bf9ce9864cc05df19c62fa0ac3fa98a3
+      md5sum: 3864ba86580e4a06529f77716120074c
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.err
@@ -760,7 +760,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: e3cd7d2be0e9e34aabcd7fa9a4e3f2e8
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 1a041ea977555f2dd3a3e989ed9be876
+      md5sum: 02519213b8e3fc0f76f9ad5b5e92b192
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -770,7 +770,7 @@
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/main/gather/GCF_000292685-meta.tsv
-      md5sum: 1a041ea977555f2dd3a3e989ed9be876
+      md5sum: 02519213b8e3fc0f76f9ad5b5e92b192
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.err
@@ -809,7 +809,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: cdf526c306c6d1e5176e119cf25126c1
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -837,7 +837,7 @@
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
       md5sum: 98c27c437d8f8e369cd58daa6ced7bf8
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
 
 - name: gather-error_low_read_count_se
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_error_low_read_count_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -860,7 +860,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 3587d2381bc36e9b33f7935daacfdcce
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -888,7 +888,7 @@
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
       md5sum: d27e499c1b41268dcf83bd21a658d8fa
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
 
 - name: gather-error_low_depth_pe
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_error_low_depth_pe -c nextflow.config ${BACTOPIA_ARGS}'
@@ -911,7 +911,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: acef00f584ec1a58ff5d6c91608044fb
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -939,7 +939,7 @@
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
       md5sum: f5610617e8492c4f6f5e21bf4bd24796
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
 
 - name: gather-error_low_depth_se
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_error_low_depth_se -c nextflow.config ${BACTOPIA_ARGS}'
@@ -962,7 +962,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 198eb6bb5037dc254ad7fa4a23375bb6
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -990,7 +990,7 @@
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
       md5sum: 0cb539f77000d294e87864e714693587
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: 202aa80bb13c8808fda390fde8e82245
+      md5sum: 7565730c30d7ee1b695fe27356efe104
 
 - name: gather-error_low_proportion
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_error_low_proportion -c nextflow.config ${BACTOPIA_ARGS}'
@@ -1013,7 +1013,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
       md5sum: 322228b90ed79c94f35aa4d0a01d5651
     - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
       contains: ['bactopiadag', 'GATHER', 'versions']
     - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
@@ -1039,4 +1039,108 @@
     - path: bactopia/output/main/gather/output-low-basepair-proportion-error.txt
       md5sum: a6da65656318f5b21a5024330c8591d3
     - path: bactopia/output/main/gather/output-meta.tsv
-      md5sum: bd186d400b547c967e54e3b6a6a16fd1
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
+
+- name: gather-error_empty_pe
+  command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_empty_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - gather
+    - gather_errors
+    - gather_errors_empty
+  files:
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
+      md5sum: b9842ae23e7a6891c0dfd22f6a716bdf
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
+      md5sum: e66d9739aa4b973b6d55810577749210
+    - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'GATHER', 'versions']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/output/main/gather/logs/nf-gather.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/gather/logs/nf-gather.err
+      md5sum: 68ed3b1cd2b712c540d6dd11288558cc
+    - path: bactopia/output/main/gather/logs/nf-gather.log
+      md5sum: 68ed3b1cd2b712c540d6dd11288558cc
+    - path: bactopia/output/main/gather/logs/nf-gather.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/gather/logs/nf-gather.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/output/main/gather/logs/nf-gather.sh
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
+    - path: bactopia/output/main/gather/logs/nf-gather.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/output/main/gather/logs/versions.yml
+      md5sum: 987b399a8f6bc1ce3a0ef34e51585adb
+    - path: bactopia/output/main/gather/output-gzip-error.txt
+      md5sum: d2be3bbdfe7391ec426008523add17ac
+    - path: bactopia/output/main/gather/output-meta.tsv
+      md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
+
+- name: gather-error_empty_se
+  command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_empty_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - gather
+    - gather_errors
+    - gather_errors_empty
+  files:
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
+      md5sum: 7d344f6f115ce44001b4d25db075b18c
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
+      md5sum: 16d2908f4a37975e830e1cbfbe0f37ab
+    - path: bactopia/bactopia-runs/bactopia/merged-results/meta.tsv
+      md5sum: 7565730c30d7ee1b695fe27356efe104
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'GATHER', 'versions']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/output/main/gather/logs/nf-gather.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/gather/logs/nf-gather.err
+      md5sum: 7d21ecbd65e9fffa3d0ccd041d4efedd
+    - path: bactopia/output/main/gather/logs/nf-gather.log
+      md5sum: 7d21ecbd65e9fffa3d0ccd041d4efedd
+    - path: bactopia/output/main/gather/logs/nf-gather.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/gather/logs/nf-gather.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/output/main/gather/logs/nf-gather.sh
+      contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
+    - path: bactopia/output/main/gather/logs/nf-gather.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/output/main/gather/logs/versions.yml
+      md5sum: 296ab22bfdf24b0ce997b2a5dc060310
+    - path: bactopia/output/main/gather/output-gzip-error.txt
+      md5sum: d2be3bbdfe7391ec426008523add17ac
+    - path: bactopia/output/main/gather/output-meta.tsv
+      md5sum: 7565730c30d7ee1b695fe27356efe104
