@@ -582,7 +582,7 @@ def setup_prokka(request, available_datasets, outdir, force=False,
 
 def setup_amr(outdir, force=False):
     """Download the latest antimicrobial resistance datasets."""
-    datasets = ['amrfinder']
+    datasets = ['amrfinderdb']
     amr_dir = f'{outdir}/antimicrobial-resistance'
     update_timestamp = False
     execute(f'mkdir -p {amr_dir}')
