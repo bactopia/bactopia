@@ -22,11 +22,12 @@ options.args = [
 // args2 -> Dragonflye
 options.args2 = [
     "--assembler ${params.dragonflye_assembler}",
-    params.dragonflye_opts  ? "--opts '${params.dragonflye_opts}'" : "",
+    params.dragonflye_opts  ? "${params.dragonflye_opts}" : "",
     params.no_polish ? "--nopolish" : "",
     params.medaka_model ? "--model ${params.medaka_model}" : "",
     params.pilon_rounds ? "--pilon ${params.pilon_rounds}" : "",
     params.polypolish_rounds ? "--polypolish ${params.polypolish_rounds}" : "",
+    params.nanohq ? "--nanohq" : "",
     "--minlen ${params.min_contig_len}",
     "--mincov ${params.min_contig_cov}",
     "--force",

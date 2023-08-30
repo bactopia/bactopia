@@ -9,15 +9,15 @@
             "title": "Required Parameters",
             "type": "object",
             "fa_icon": "fas fa-terminal",
-            "description": "Define where the pipeline should find input data and save output data.",
+            "description": "The following parameters are how you will provide either local or remote samples to be processed by Bactopia.",
             "help_text": "",
             "properties": {
                 "samples": {
                     "type": "string",
                     "description": "A FOFN (via bactopia prepare) with sample names and paths to FASTQ/FASTAs to process\n",
-                    "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
+                    "help": "Created using `bactopia prepare`. Cannot be used with `--R1 & --R2` or `--SE`",
                     "fa_icon": "fas fa-file-alt",
-                    "header": "### For Procesessing Multiple Samples"
+                    "header": "### For Processing Multiple Samples"
                 },
                 "R1": {
                     "type": "string",
@@ -35,7 +35,7 @@
                 "SE": {
                     "type": "string",
                     "description": "Compressed (gzip) single-end FASTQ reads  (requires --sample)",
-                    "help": "Requires `--sample`. Cannot be used with `--samples` or `--R1|--R2` (unless `--hybrid` used).",
+                    "help": "Requires `--sample`. Cannot be used with `--samples` or `--R1 & --R2` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
                 "ont": {
@@ -92,7 +92,7 @@
         "dataset_parameters": {
             "title": "Dataset Parameters",
             "type": "object",
-            "description": "",
+            "description": "Define where the pipeline should find input data and save output data.",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {

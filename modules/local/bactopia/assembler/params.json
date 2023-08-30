@@ -135,6 +135,12 @@
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
+                "nanohq": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "For Flye, use '--nano-hq' instead of --nano-raw",
+                    "fa_icon": "fas fa-redo"
+                },
                 "medaka_model": {
                     "type": "string",
                     "description": "The model to use for Medaka polishing",
