@@ -24,6 +24,5 @@ workflow QC {
 
     emit:
     fastq = QC_MODULE.out.fastq
-    fastq_assembly = QC_MODULE.out.fastq_assembly
     versions = ch_versions // channel: [ versions.yml ]
 }

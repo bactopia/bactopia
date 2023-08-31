@@ -70,7 +70,7 @@ workflow BACTOPIA {
     DATASETS()
     GATHER(create_input_channel(run_type, params.genome_size, params.species))
     QC(GATHER.out.raw_fastq)
-    ASSEMBLER(QC.out.fastq_assembly)
+    ASSEMBLER(QC.out.fastq)
     SKETCHER(ASSEMBLER.out.fna, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
     ANNOTATOR(ASSEMBLER.out.fna)
     AMRFINDERPLUS(ANNOTATOR.out.annotations, DATASETS.out.amrfinderplus_db)

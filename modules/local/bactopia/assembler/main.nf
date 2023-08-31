@@ -22,27 +22,43 @@ process ASSEMBLER {
     tuple val(meta), path(fq), path(extra)
 
     output:
-    tuple val(meta), path("results/${prefix}.{fna,fna.gz}")          , emit: fna, optional: true
-    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), path(fq), emit: fna_fastq, optional: true
-    tuple val(meta), path("results/${prefix}.tsv")                   , emit: tsv, optional: true
-    path "results/*"                                                 , emit: results
-    path "${prefix}-assembly-error.txt"                              , emit: error, optional: true
-    path "*.{log,err}"                                               , emit: logs, optional: true
-    path ".command.*"                                                , emit: nf_logs
-    path "versions.yml"                                              , emit: versions
+    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), path("fastqs/${prefix}*.fastq.gz"), emit: fna_fastq, optional: true
+    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), emit: fna, optional: true
+    tuple val(meta), path("results/${prefix}.tsv")         , emit: tsv, optional: true
+    path "results/*"                                       , emit: results
+    path "${prefix}-assembly-error.txt"                    , emit: error, optional: true
+    path "*.{log,err}"                                     , emit: logs, optional: true
+    path ".command.*"                                      , emit: nf_logs
+    path "versions.yml"                                    , emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+
+    // Determine input reads
+    r1 = null
+    r2 = null
+    se = null
+    if (fq[2]) {
+        r1 = fq[0].getName().endsWith('_R1.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R1.fastq.gz') ? fq[1] : fq[2]
+        r2 = fq[0].getName().endsWith('_R2.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R2.fastq.gz') ? fq[1] : fq[2]
+        se = !fq[0].getName().matches('.*_R[12].fastq.gz') ? fq[0] : !fq[1].getName().matches('.*_R[12].fastq.gz') ? fq[1] : fq[2]
+    } else if (fq[1]) {
+        r1 = fq[0]
+        r2 = fq[1]
+    } else {
+        se = fq[0]
+    }
+
     // Unicycler
-    is_hybrid = meta.runtype == "hybrid" ? "-l ${extra}" : ""
+    is_hybrid = meta.runtype == "hybrid" ? "-l ${se}" : ""
 
     // Shovill
     contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${prefix}_%05d"
     shovill_ram = task.memory.toString().split(' ')[0].toInteger()-1
-    shovill_mode = meta.single_end == false ? "shovill --R1 ${fq[0]} --R2 ${fq[1]}" : "shovill-se --SE ${fq[0]}"
+    shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
     // Dragonflye
-    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${extra} --R1 ${fq[0]} --R2 ${fq[1]}" : "--reads ${fq[0]}"
+    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${se} --R1 ${r1} --R2 ${r2}" : "--reads ${se}"
 
     // Assembly inputs
     use_original_assembly = null
@@ -50,13 +66,17 @@ process ASSEMBLER {
         use_original_assembly = params.reassemble ? false : true
     }
     """
+    echo "R1 ${r1}"
+    echo "R2 ${r2}"
+    echo "SE ${se}"
+
     if [ "${use_original_assembly}" == "true" ]; then
         mkdir results
         gzip -cd ${extra} > results/${prefix}.fna
     elif [[ "${meta.runtype}" == "hybrid" || "${params.use_unicycler}" == "true" ]]; then
         # Unicycler
         unicycler \\
-            -1 ${fq[0]} -2 ${fq[1]} \\
+            -1 ${r1} -2 ${r2} \\
             ${options.args3} \\
             ${is_hybrid} \\
             -o results/ \\
@@ -171,6 +191,21 @@ process ASSEMBLER {
             xargs -I {} pigz -n --best -p ${task.cpus} {}
     fi
     find results -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
+
+    # Move primary fastqs
+    mkdir fastqs/
+    if [ "${meta.runtype}" == "hybrid" ]; then
+        # Used Unicycler, so Illumina reads are expected to be best
+        cp ${r1} fastqs/
+        cp ${r2} fastqs/
+    elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" || "${meta.single_end}" == "true" ]]; then
+        # Used Dragonflye or Illumina single-end reads, so use these reads going forward
+        cp ${se} fastqs/
+    else
+        # Illumina Pair-end reads
+        cp ${r1} fastqs/
+        cp ${r2} fastqs/
+    fi
 
     # Capture versions
     if [[ "\$OSTYPE" == "darwin"* ]]; then

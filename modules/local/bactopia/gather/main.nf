@@ -239,6 +239,11 @@ process GATHER {
             rm r1.json
         fi
 
+        # Short polish should not be considered paired-end
+        if [ "${runtype}" == "short_polish" ]; then
+            IS_PAIRED="false"
+        fi
+
         # Failed validations so, let's keep them from continuing
         if [ "\${ERROR}" -eq "1" ]; then
             mv fastqs/ failed-tests-fastqs/

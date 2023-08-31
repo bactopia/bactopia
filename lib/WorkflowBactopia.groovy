@@ -17,44 +17,55 @@ class WorkflowBactopia {
                 error += Utils.fileNotFound(params.samples, 'samples', log)
             }
             run_type = "is_fofn"
-        } else if  (params.R1 && params.R2 && params.SE && params.short_polish && params.sample) {
-            if (Utils.isLocal(params.R1)) {
-                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+        } else if  (params.r1 && params.r2 && params.ont && params.short_polish && params.sample) {
+            if (Utils.isLocal(params.r1)) {
+                error += Utils.fileNotGzipped(params.r1, 'r1', log)
             }
-            if (Utils.isLocal(params.R2)) {
-                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            if (Utils.isLocal(params.r1)) {
+                error += Utils.fileNotGzipped(params.r2, 'r2', log)
             }
-            if (Utils.isLocal(params.SE)) {
-                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            if (Utils.isLocal(params.ont)) {
+                error += Utils.fileNotGzipped(params.ont, 'ont', log)
             }
             run_type = "short_polish"
-        } else if  (params.R1 && params.R2 && params.SE && params.hybrid && params.sample) {
-            if (Utils.isLocal(params.R1)) {
-                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+        } else if  (params.r1 && params.r2 && params.ont && params.hybrid && params.sample) {
+            if (Utils.isLocal(params.r1)) {
+                error += Utils.fileNotGzipped(params.r1, 'r1', log)
             }
-            if (Utils.isLocal(params.R2)) {
-                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            if (Utils.isLocal(params.r2)) {
+                error += Utils.fileNotGzipped(params.r2, 'r2', log)
             }
-            if (Utils.isLocal(params.SE)) {
-                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+            if (Utils.isLocal(params.ont)) {
+                error += Utils.fileNotGzipped(params.ont, 'ont', log)
             }
             run_type = "hybrid"
-        } else if  (params.R1 && params.R2 && params.SE) {
-            log.error "Cannot use --R1, --R2, and --SE together, unless --hybrid is used."
+        } else if  (params.r1 && params.r2 && params.se) {
+            log.error "Cannot use --r1, --r2, and --se together"
             error += 1
-        } else if  (params.R1 && params.R2 && params.sample) {
-            if (Utils.isLocal(params.R1)) {
-                error += Utils.fileNotGzipped(params.R1, 'R1', log)
+        } else if  (params.r1 && params.r2 && params.ont) {
+            log.error "Cannot use --r1, --r2, and --ont together, unless using --short_polish or --hybrid"
+            error += 1
+        } else if  (params.ont && params.se) {
+            log.error "Cannot use --ont and --se together"
+            error += 1
+        }  else if  (params.r1 && params.r2 && params.sample) {
+            if (Utils.isLocal(params.r1)) {
+                error += Utils.fileNotGzipped(params.r1, 'r1', log)
             }
-            if (Utils.isLocal(params.R2)) {
-                error += Utils.fileNotGzipped(params.R2, 'R2', log)
+            if (Utils.isLocal(params.r2)) {
+                error += Utils.fileNotGzipped(params.r2, 'r2', log)
             }
             run_type = "paired-end"
-        } else if (params.SE && params.sample) {
-            if (Utils.isLocal(params.SE)) {
-                error += Utils.fileNotGzipped(params.SE, 'SE', log)
+        } else if (params.ont && params.sample) {
+            if (Utils.isLocal(params.ont)) {
+                error += Utils.fileNotGzipped(params.ont, 'ont', log)
             }
-            run_type = params.ont ? "ont" : "single-end"
+            run_type = "ont" 
+        } else if (params.se && params.sample) {
+            if (Utils.isLocal(params.se)) {
+                error += Utils.fileNotGzipped(params.se, 'se', log)
+            }
+            run_type = "single-end"
         } else if (params.assembly && params.sample) {
             if (Utils.isLocal(params.assembly)) {
                 error += Utils.fileNotGzipped(params.assembly, 'assembly', log)

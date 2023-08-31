@@ -144,18 +144,18 @@ def process_fofn(line, genome_size, species) {
             return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
         } else if (line.runtype == 'paired-end') {
             return tuple(meta, [file(line.r1)], [file(line.r2)], file(params.empty_extra))
-        } else if (line.runtype == 'hybrid') {
+        } else if (line.runtype == 'hybrid' || line.runtype == 'short_polish') {
             return tuple(meta, [file(line.r1)], [file(line.r2)], file(line.extra))
         } else if (line.runtype == 'assembly') {
             return tuple(meta, [params.empty_r1], [params.empty_r2], file(line.extra))
         } else if (line.runtype == 'merge-pe') {
             return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(params.empty_extra))
-        } else if (line.runtype == 'hybrid-merge-pe') {
+        } else if (line.runtype == 'hybrid-merge-pe' || line.runtype == 'short_polish-merge-pe') {
             return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(line.extra))
         } else if (line.runtype == 'merge-se') {
             return tuple(meta, handle_multiple_fqs(line.r1), [params.empty_r2], file(params.empty_extra))
         } else {
-            log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, merge-pe, hybrid-merge-pe, merge-se, or assembly")
+            log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, short_polish, merge-pe, hybrid-merge-pe, short_polish-merge-pe, merge-se, or assembly")
             exit 1
         }
     } else {
@@ -229,13 +229,15 @@ def create_input_channel(runtype, genome_size, species) {
         meta.genome_size = genome_size
         meta.species = species
         if (runtype == "paired-end") {
-            return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.empty_extra))])
+            return Channel.fromList([tuple(meta, [file(params.r1)], [file(params.r2)], file(params.empty_extra))])
         } else if (runtype == "hybrid" || runtype == "short_polish") {
-            return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.SE))])
+            return Channel.fromList([tuple(meta, [file(params.r1)], [file(params.r2)], file(params.ont))])
         } else if (runtype == "assembly") {
             return Channel.fromList([tuple(meta, [params.empty_r1], [params.empty_r2], file(params.assembly))])
-        } else {
-            return Channel.fromList([tuple(meta, [file(params.SE)], [params.empty_r2], file(params.empty_extra))])
+        } else if (runtype == "ont") {
+            return Channel.fromList([tuple(meta, [file(params.ont)], [params.empty_r2], file(params.empty_extra))])
+        }  else {
+            return Channel.fromList([tuple(meta, [file(params.se)], [params.empty_r2], file(params.empty_extra))])
         }
     }
 }
