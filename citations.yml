@@ -314,6 +314,14 @@ tools:
     cite: |
       Buchfink B, Xie C, Huson DH [Fast and sensitive protein alignment using DIAMOND.](http://dx.doi.org/10.1038/nmeth.3176) _Nat. Methods._ 12, 59–60 (2015)
 
+  dragonflye:
+    name: Dragonflye
+    link: https://github.com/rpetit3/dragonflye
+    description: Assemble bacterial isolate genomes from Nanopore reads.
+    cite: |
+      Petit III RA [Dragonflye: Assemble bacterial isolate genomes from Nanopore reads.](https://github.com/rpetit3/dragonflye) (GitHub)
+
+
   ectyper:
     name: ECTyper
     link: https://github.com/phac-nml/ecoli_serotyping
@@ -906,6 +914,13 @@ tools:
     description: Faster assembly of Illumina reads
     cite: |
       Seemann T [Shovill: De novo assembly pipeline for Illumina paired reads](https://github.com/tseemann/shovill) (GitHub)
+
+  shovill_se:
+    name: Shovill-SE
+    link: https://github.com/rpetit3/shovill
+    description: A fork of Shovill that includes support for single end reads.
+    cite: |
+      Petit III RA [Shovill-SE: A fork of Shovill that includes support for single end reads.](https://github.com/rpetit3/shovill) (GitHub)
 
   signalp:
     name: SignalP

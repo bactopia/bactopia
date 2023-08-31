@@ -1,16 +1,25 @@
 name: assembler
-description: Assembly of Illumina and ONT reads
+description: Assembly of Illumina and Oxford Nanopore reads
 icon: false
 keywords:
-  - TAGS
+  - assembly
+  - hybrid
 modules:
-  - LIST_OF_MODULES
+  - assembler
 input:
   - meta:
     type: map
     description: |
       Groovy Map containing sample information
       e.g. [ id:'test', single_end:false ]
+  - reads:
+    type: file
+    description: |
+      Input FASTQ files for assembly
+  - extra:
+    type: file
+    description: |
+      An assembly file to just pass through
 output:
   - meta:
       type: map
@@ -21,31 +30,135 @@ output:
       type: file
       description: File containing software versions
       pattern: "versions.yml"
+  - fna:
+      type: file
+      description: The final assembly produced
+      pattern: "*.fna.gz"
+  - tsv:
+      type: file
+      description: Assembly statistics for each sample
+      pattern: "*.fna.gz"
+  - merged_tsv:
+      type: file
+      description: Assembly statistics for all samples
+      pattern: "*.fna.gz"
+  - results:
+      type: file
+      description: A directory containing all results
+      pattern: "results/*"
 docs:
   meta:
     title: assembler
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which uses a variety of assembly tools to create an assembly of
+      Illumina and Oxford Nanopore reads.
   introduction: |
-      The `assembler` module uses...
-  output:
-    tree: |
+      The `assembler` module uses a variety of assembly tools to create an assembly of
+      Illumina and Oxford Nanopore reads. The tools used are:
 
+      | Tool | Description |
+      |------|-------------|
+      | [Dragonflye](https://github.com/rpetit3/dragonflye) | Assembly of Oxford Nanopore reads, as well as hybrid assembly with short-read polishing |
+      | [Shovill](https://github.com/tseemann/shovill) | Assembly of Illumina paired-end reads |
+      | [Shovill-SE](https://github.com/rpetit/shovill) | Assembly of Illumina single-end reads |
+      | [Unicycler](https://github.com/rrwick/Unicycler) | Hybrid assembly, using short-reads first then long-reads |
+
+      Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
+  output:
+    tree: Tree in main
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
-      - name: assembler
+          Below are results that are concatenated into a single file.
+        table:
+          - id: assembly-scan.tsv
+            description: Assembly statistics for all samples
+      - name: Dragonflye
         description: |
-          Below is a description of the _per-sample_ results from [assembler](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results for Oxford Nanopore reads using
+          [Dragonflye](https://github.com/rpetit3/dragonflye).
+        table:
+          - id: <SAMPLE_NAME>.fna.gz
+            description: The final assembly produced by Dragonflye
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file containing assembly statistics
+          - id: flye-info.txt
+            description: A log file containing information about the Flye assembly
+          - id: \{flye\|miniasm\|raven\}-unpolished.fasta.gz
+            description: Raw unprocessed assembly produced by the used assembler
+          - id: \{flye\|miniasm\|raven\}-unpolished.gfa.gz
+            description: Raw unprocessed assembly graph produced by the used assembler
+      - name: Shovill
+        description: |
+          Below is a description of the _per-sample_ results for Illumina reads using
+          [Shovill](https://github.com/tseemann/shovill) or [Shovill-SE](https://github.com/rpetit3/shovill).
+        table:
+          - id: <SAMPLE_NAME>.fna.gz
+            description: The final assembly produced by Dragonflye
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file containing assembly statistics
+          - id: flash.hist
+            description: (Paired-End Only) Numeric histogram of merged read lengths.
+          - id: flash.histogram
+            description: (Paired-End Only) Visual histogram of merged read lengths
+          - id: \{megahit\|spades\|velvet\}-unpolished.gfa.gz
+            description: Raw unprocessed assembly graph produced by the used assembler
+          - id: shovill.corrections
+            description: List of post-assembly corrections made by Shovill
+      - name: Hybrid Assembly (Unicycler)
+        description: |
+          Below is a description of the _per-sample_ results for a hybrid assembly using
+          [Unicycler](https://github.com/rrwick/Unicycler). When using Unicycler, the
+          short-reads are assembled first, then the long-reads are used to polish the
+          assembly.
+        table:
+          - id: <SAMPLE_NAME>.fna.gz
+            description: The final assembly produced by Dragonflye
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file containing assembly statistics
+          - id: unicycler-unpolished.gfa.gz
+            description: Raw unprocessed assembly graph produced by the used assembler
+      - name: Hybrid Assembly (Short Read Polishing)
+        description: |
+          Below is a description of the _per-sample_ results for a hybrid assembly using
+          [Dragonflye](https://github.com/rpetit3/dragonflye). When using Dragonflye, the
+          long-reads are assembled first, then the short-reads are used to polish the
+          assembly.
+        table:
+          - id: <SAMPLE_NAME>.fna.gz
+            description: The final assembly produced by Dragonflye
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file containing assembly statistics
+          - id: flye-info.txt
+            description: A log file containing information about the Flye assembly
+          - id: \{flye\|miniasm\|raven\}-unpolished.fasta.gz
+            description: Raw unprocessed assembly produced by the used assembler
+          - id: \{flye\|miniasm\|raven\}-unpolished.gfa.gz
+            description: Raw unprocessed assembly graph produced by the used assembler
   citations:
-    - add to citations.yml
+    - any2fasta
+    - assembly-scan
+    - bwa
+    - csvtk
+    - dragonflye
+    - flash
+    - flye
+    - medaka
+    - megahit
+    - miniasm
+    - minimap2
+    - nanoq
+    - pigz
+    - pilon
+    - racon
+    - rasusa
+    - raven
+    - samclip
+    - samtools
+    - shovill
+    - shovill_se
+    - skesa
+    - spades
+    - unicycler
+    - velvet

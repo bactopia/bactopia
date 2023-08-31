@@ -238,6 +238,7 @@ process ASSEMBLER {
         any2fasta: \$(echo \$(any2fasta -v 2>&1) | sed 's/^.*any2fasta //')
         assembly-scan: \$(echo \$(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
         bwa: \$(echo \$(bwa 2>&1) | sed 's/^.*Version: //;s/ .*\$//')
+        dragonflye: \$(dragonflye --version 2>&1 | sed 's/^.*dragonflye //' )
         flash: \$(echo \$(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*\$//')
         flye: \$(echo \$(flye --version))
         medaka: \$(echo \$(medaka --version 2>&1) | sed 's/medaka //')

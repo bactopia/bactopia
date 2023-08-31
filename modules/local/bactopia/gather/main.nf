@@ -260,7 +260,6 @@ process GATHER {
         art: \$(echo \$(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*\$//')
         fastq-dl: \$(echo \$(fastq-dl --version 2>&1) | sed 's/fastq-dl, version //')
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
-        mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
         ncbi-genome-download: \$(echo \$(ncbi-genome-download --version 2>&1))
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
     END_VERSIONS

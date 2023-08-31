@@ -2,9 +2,12 @@ name: gather
 description: Tools to gather all samples in one place
 icon: false
 keywords:
-  - TAGS
+  - download
+  - ena
+  - sra
+  - assemly
 modules:
-  - LIST_OF_MODULES
+  - gather
 input:
   - meta:
     type: map
@@ -25,27 +28,39 @@ docs:
   meta:
     title: gather
     description: >
-      A Bactopia Tool which uses...
+      A Bactopia Tool which gathers all the input samples into a single place, including
+      downloading samples from ENA/SRA or NCBI Assembly.
   introduction: |
-      The `gather` module uses...
-  output:
-    tree: |
+      The `gather` module main purpose is to get all the samples into a single place. This
+      includes downloading samples from ENA/SRA or NCBI Assembly. The tools used are:
 
+      | Tool | Description |
+      |------|-------------|
+      | [art](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm) | For simulating error-free reads for an input assembly |
+      | [fastq-dl](https://github.com/rpetit3/fastq-dl) | Downloading FASTQ files from ENA/SRA |
+      | [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) | Downloading FASTA files from NCBI Assembly |
+
+      This `gather` step also does basic QC checks to help prevent downstream failures.
+  output:
+    tree: Tree in main
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: meta.tsv
+            description: A tab-delimited file with bactopia metadata for all samples
       - name: gather
         description: |
-          Below is a description of the _per-sample_ results from [gather](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from the `gather` subworkflow.
+        table:
+          - id: <SAMPLE_NAME>-meta.tsv
+            description: A tab-delimited file with bactopia metadata for each sample
+          
   citations:
-    - add to citations.yml
+    - art
+    - fastq_dl
+    - fastq_scan
+    - ncbi_genome_download
+    - pigz
