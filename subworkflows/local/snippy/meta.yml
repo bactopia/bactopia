@@ -191,7 +191,7 @@ docs:
             description: Trees created during the bootstrap steps
       - name: Snippy
         description: |
-          Below is a description of the per-sample [Snippy]([Snippy](https://github.com/tseemann/snippy)) results. For more details about
+          Below is a description of the per-sample [Snippy](https://github.com/tseemann/snippy) results. For more details about
           Snippy outputs see [Snippy - Outputs](https://github.com/tseemann/snippy#output-files).
         table:
           - id: <SAMPLE_NAME>.aligned.fa.gz
@@ -232,7 +232,7 @@ docs:
             description: The final annotated variants in [VCF](http://en.wikipedia.org/wiki/Variant_Call_Format) format
       - name: Snippy-Core
         description: |
-          Below is a description of the [Snippy-Core]([Snippy](https://github.com/tseemann/snippy)) results. For more details about
+          Below is a description of the [Snippy-Core](https://github.com/tseemann/snippy) results. For more details about
           Snippy-Core outputs see [Snippy-Core - Outputs](https://github.com/tseemann/snippy#output-files-1).
         table:
           - id: core-snp.aln.gz

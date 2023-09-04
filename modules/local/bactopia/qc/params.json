@@ -6,10 +6,11 @@
     "type": "object",
     "definitions": {
         "qc_reads_parameters": {
-            "title": "QC Reads Parameters",
+            "title": "QC Parameters",
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "use_bbmap": {
                     "type": "boolean",

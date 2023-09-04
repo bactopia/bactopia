@@ -62,17 +62,17 @@ docs:
     
     | Genus/Species | Tools |
     |---------------|-------|
-    | Escherichia / Shigella   | [ECTyper](/bactopia-tools/ectyper/), [ShigaTyper](/bactopia-tools/shigtyper/), [ShigEiFinder](/bactopia-tools/shigeityper/)  |
-    | Haemophilus   | [hicap](/bactopia-tools/hicap/), [HpsuisSero](/bactopia-tools/ssuissero/) |
-    | Klebsiella | [Kleborate](/bactopia-tools/kleborate/) |
-    | Legionella | [legsta](/bactopia-tools/legsta/) |
-    | Listeria | [LisSero](/bactopia-tools/lissero/) |
-    | Mycobacterium | [TBProfiler](/bactopia-tools/tbprofiler/) |
-    | Neisseria | [meningotype](/bactopia-tools/meningotype/), [ngmaster](/bactopia-tools/ngmaster/) |
-    | Pseudomonas | [pasty](/bactopia-tools/pasty/) |
-    | Salmonella | [SeqSero2](/bactopia-tools/seqsero2/), [SISTR](/bactopia-tools/sistr/) |
-    | Staphylococcus | [AgrVATE](/bactopia-tools/agrvate/), [spaTyper](/bactopia-tools/spatyper/), [staphopia-sccmec](/bactopia-tools/staphopiasccmec/) |
-    | Streptococcus | [emmtyper](/bactopia-tools/emmtyper/), [pbptyper](/bactopia-tools/pbptyper/), [SsuisSero](/bactopia-tools/ssuissero/) |
+    | Escherichia / Shigella   | [ECTyper](../bactopia-tools/ectyper.md), [ShigaTyper](../bactopia-tools/shigatyper.md), [ShigEiFinder](../bactopia-tools/shigeifinder.md)  |
+    | Haemophilus   | [hicap](../bactopia-tools/hicap.md), [HpsuisSero](../bactopia-tools/ssuissero.md) |
+    | Klebsiella | [Kleborate](../bactopia-tools/kleborate.md) |
+    | Legionella | [legsta](../bactopia-tools/legsta.md) |
+    | Listeria | [LisSero](../bactopia-tools/lissero.md) |
+    | Mycobacterium | [TBProfiler](../bactopia-tools/tbprofiler.md) |
+    | Neisseria | [meningotype](../bactopia-tools/meningotype.md), [ngmaster](../bactopia-tools/ngmaster.md) |
+    | Pseudomonas | [pasty](../bactopia-tools/pasty.md) |
+    | Salmonella | [SeqSero2](../bactopia-tools/seqsero2.md), [SISTR](../bactopia-tools/sistr.md) |
+    | Staphylococcus | [AgrVATE](../bactopia-tools/agrvate.md), [spaTyper](../bactopia-tools/spatyper.md), [staphopia-sccmec](../bactopia-tools/staphopiasccmec.md) |
+    | Streptococcus | [emmtyper](../bactopia-tools/emmtyper.md), [pbptyper](../bactopia-tools/pbptyper.md), [SsuisSero](../bactopia-tools/ssuissero.md) |
   
     Merlin is avialable as an independent Bactopia Tool, or in the Bactopia with the `--ask_merlin` parameter. Even better,
     if you want to force Merlin to execute all species-specific tools (no matter the distance), you can use `--full_merlin`.

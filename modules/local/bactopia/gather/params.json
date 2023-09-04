@@ -5,10 +5,11 @@
     "type": "object",
     "definitions": {
         "gather_samples_parameters": {
-            "title": "Gather Samples Parameters",
+            "title": "Gather Parameters",
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "skip_fastq_check": {
                     "type": "boolean",

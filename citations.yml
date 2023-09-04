@@ -321,7 +321,6 @@ tools:
     cite: |
       Petit III RA [Dragonflye: Assemble bacterial isolate genomes from Nanopore reads.](https://github.com/rpetit3/dragonflye) (GitHub)
 
-
   ectyper:
     name: ECTyper
     link: https://github.com/phac-nml/ecoli_serotyping
@@ -369,6 +368,13 @@ tools:
     description: Output FASTQ summary statistics in JSON format
     cite: |
       Petit III RA [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan) (GitHub)
+
+  fastp:
+    name: fastp
+    link: https://github.com/OpenGene/fastp
+    description: A tool designed to provide fast all-in-one preprocessing for FastQ files
+    cite: |
+      Chen S, Zhou Y, Chen Y, and Gu J [fastp: an ultra-fast all-in-one FASTQ preprocessor.](https://doi.org/10.1093/bioinformatics/bty560) _Bioinformatics_, 34(17), i884–i890. (2018)
 
   fasttree:
     name: FastTree
@@ -595,7 +601,7 @@ tools:
 
   medaka:
     name: Medaka
-    link:
+    link: https://github.com/nanoporetech/medaka
     description: Sequence correction provided by ONT Research
     cite: |
       ONT Research [Medaka: Sequence correction provided by ONT Research](https://github.com/nanoporetech/medaka) (GitHub)

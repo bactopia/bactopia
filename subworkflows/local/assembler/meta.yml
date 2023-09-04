@@ -65,8 +65,37 @@ docs:
 
       Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
   output:
-    tree: Tree in main
-    add_note: false
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── main
+      │       └── assembler
+      │           ├── flash.{hist|histogram}
+      |           |   flye.info
+      │           ├── logs
+      │           │   ├── {dragonflye|shovill|unicycler}.log
+      │           │   ├── nf-assembler.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>.fna.gz
+      │           ├── <SAMPLE_NAME>.tsv
+      │           ├── <SAMPLE_NAME>-assembly-error.txt
+      │           ├── shovill.corrections
+      │           ├── {flye|miniasm|raven|unicycler}-unpolished.fasta.gz
+      │           └── {flye|megahit|miniasm|raven|spades|unicycler|velvet}-unpolished.gfa.gz
+      └── bactopia-runs
+          └── bactopia-<TIMESTAMP>
+              ├── merged-results
+              │   ├── assembly-scan.tsv
+              │   └── logs
+              │       └── assembly-scan-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── bactopia-dag.dot
+                  ├── bactopia-report.html
+                  ├── bactopia-timeline.html
+                  └── bactopia-trace.txt
+    add_note: true
     folders:
       - name: Merged Results
         description: |
@@ -109,22 +138,30 @@ docs:
       - name: Hybrid Assembly (Unicycler)
         description: |
           Below is a description of the _per-sample_ results for a hybrid assembly using
-          [Unicycler](https://github.com/rrwick/Unicycler). When using Unicycler, the
-          short-reads are assembled first, then the long-reads are used to polish the
+          [Unicycler](https://github.com/rrwick/Unicycler) (`--hybrid`). When using Unicycler,
+          the short-reads are assembled first, then the long-reads are used to polish the
           assembly.
         table:
           - id: <SAMPLE_NAME>.fna.gz
             description: The final assembly produced by Dragonflye
           - id: <SAMPLE_NAME>.tsv
             description: A tab-delimited file containing assembly statistics
-          - id: unicycler-unpolished.gfa.gz
-            description: Raw unprocessed assembly graph produced by the used assembler
+          - id: unicycler-unpolished.fasta.gz
+            description: Raw unprocessed assembly produced by Unicycler
+          - id: unicycler-unpolished.fasta.gz
+            description: Raw unprocessed assembly graph produced by Unicycler
       - name: Hybrid Assembly (Short Read Polishing)
         description: |
           Below is a description of the _per-sample_ results for a hybrid assembly using
-          [Dragonflye](https://github.com/rpetit3/dragonflye). When using Dragonflye, the
-          long-reads are assembled first, then the short-reads are used to polish the
-          assembly.
+          [Dragonflye](https://github.com/rpetit3/dragonflye) (`--short_polish`). When using
+          Dragonflye, the long-reads are assembled first, then the short-reads are used
+          to polish the assembly.
+
+          !!! tip "Prefer `--short_polish` over `--hybrid` with recent ONT sequencing"
+              Using [Unicycler](https://github.com/rrwick/Unicycler) (`--hybrid`) to create a hybrid
+              assembly works great when you have low-coverage noisy long-reads. However, if you are
+              using recent ONT sequencing, you likely have high-coverage and using the `--short_polish`
+              method is going to yeild better results (_and be faster!_) than `--hybrid`.
         table:
           - id: <SAMPLE_NAME>.fna.gz
             description: The final assembly produced by Dragonflye
@@ -136,9 +173,40 @@ docs:
             description: Raw unprocessed assembly produced by the used assembler
           - id: \{flye\|miniasm\|raven\}-unpolished.gfa.gz
             description: Raw unprocessed assembly graph produced by the used assembler
+      - name: Failed Quality Checks
+        description: |
+          Built into Bactopia are few basic quality checks to help prevent downstream failures.
+          If a sample fails one of these checks, it will be excluded from further analysis. By
+          excluding these samples, complete pipeline failures are prevented.
+        include_error_note: true
+        is_extensions: true
+        table:
+          - id: -assembly-error.txt
+            description: Sample failed read count checks and excluded from further analysis
+        note: |
+          ??? warning "Example Error: Assembled Successfully, but 0 Contigs"
+              If a sample assembles successfully, but 0 contigs are formed, the sample will be
+              excluded from further analysis.
+
+              __Example Text from <SAMPLE_NAME>-assembly-error.txt__  
+              _<SAMPLE_NAME> assembled successfully, but 0 contigs were formed. Please investigate
+              <SAMPLE_NAME> to determine a cause (e.g. metagenomic, contaminants, etc...) for this
+              outcome. Further assembly-based analysis of <SAMPLE_NAME> will be discontinued._
+
+          ??? warning "Example Error: Assembled successfully, but poor assembly size"
+              If you sample assembles successfully, but the assembly size is less than the minimum
+              allowed genome size, the sample will be excluded from further analysis. You can
+              adjust this minimum size using the `--min_genome_size` parameter.
+
+              __Example Text from <SAMPLE_NAME>-assembly-error.txt__  
+              _<SAMPLE_NAME> assembled size (000 bp) is less than the minimum allowed genome
+              size (000 bp). If this is unexpected, please investigate <SAMPLE_NAME> to
+              determine a cause (e.g. metagenomic, contaminants, etc...) for the poor assembly.
+              Otherwise, adjust the `--min_genome_size` parameter to fit your need. Further
+              assembly based analysis of <SAMPLE_NAME> will be discontinued._
   citations:
     - any2fasta
-    - assembly-scan
+    - assembly_scan
     - bwa
     - csvtk
     - dragonflye

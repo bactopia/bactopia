@@ -82,7 +82,8 @@ process ASSEMBLER {
             -o results/ \\
             --threads ${task.cpus}
         sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' results/assembly.fasta > results/${prefix}.fna
-        mv results/assembly.gfa results/unicycler.gfa
+        mv results/assembly.fasta results/unicycler-unpolished.fasta
+        mv results/assembly.gfa results/unicycler-unpolished.gfa
     elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" ]]; then
         # Dragonflye
         if ! dragonflye \\

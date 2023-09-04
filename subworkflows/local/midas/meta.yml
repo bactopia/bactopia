@@ -2,9 +2,11 @@ name: midas
 description: Estimate species abundances from FASTQ files
 icon: false
 keywords:
-  - TAGS
+  - classify
+  - metagenomics
+  - fastq
 modules:
-  - LIST_OF_MODULES
+  - midas
 input:
   - meta:
     type: map

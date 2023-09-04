@@ -5,7 +5,7 @@ keywords:
   - download
   - ena
   - sra
-  - assemly
+  - assembly
 modules:
   - gather
 input:
@@ -31,7 +31,7 @@ docs:
       A Bactopia Tool which gathers all the input samples into a single place, including
       downloading samples from ENA/SRA or NCBI Assembly.
   introduction: |
-      The `gather` module main purpose is to get all the samples into a single place. This
+      The main purpose of the `gather` step is to get all the samples into a single place. This
       includes downloading samples from ENA/SRA or NCBI Assembly. The tools used are:
 
       | Tool | Description |
@@ -42,7 +42,32 @@ docs:
 
       This `gather` step also does basic QC checks to help prevent downstream failures.
   output:
-    tree: Tree in main
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── main
+      │       └── gather
+      │           ├── logs
+      │           │   ├── nf-gather.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>-gzip-error.txt
+      │           ├── <SAMPLE_NAME>-low-basepair-proportion-error.txt
+      │           ├── <SAMPLE_NAME>-low-read-count-error.txt
+      │           ├── <SAMPLE_NAME>-low-sequence-depth-error.txt
+      │           └── <SAMPLE_NAME>-meta.tsv
+      └── bactopia-runs
+          └── bactopia-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── meta-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── meta.tsv
+              └── nf-reports
+                  ├── bactopia-dag.dot
+                  ├── bactopia-report.html
+                  ├── bactopia-timeline.html
+                  └── bactopia-trace.txt
     add_note: false
     folders:
       - name: Merged Results
@@ -54,13 +79,65 @@ docs:
       - name: gather
         description: |
           Below is a description of the _per-sample_ results from the `gather` subworkflow.
+        is_extensions: true
         table:
-          - id: <SAMPLE_NAME>-meta.tsv
+          - id: -meta.tsv
             description: A tab-delimited file with bactopia metadata for each sample
-          
+      - name: Failed Quality Checks
+        description: |
+          Built into Bactopia are few basic quality checks to help prevent downstream failures.
+          If a sample fails one of these checks, it will be excluded from further analysis. By
+          excluding these samples, complete pipeline failures are prevented.
+        include_error_note: true
+        is_extensions: true
+        table:
+          - id: -gzip-error.txt
+            description: Sample failed Gzip checks and excluded from further analysis
+          - id: -low-basepair-proportion-error.txt
+            description: Sample failed basepair proportion checks and excluded from further analysis
+          - id: -low-read-count-error.txt
+            description: Sample failed read count checks and excluded from further analysis
+          - id: -low-sequence-depth-error.txt
+            description: Sample failed sequenced basepair checks and excluded from further analysis
+        note: |
+          ??? warning "Example Error: Input FASTQ(s) failed Gzip checks"
+              If input FASTQ(s) fail to pass Gzip test, the sample will be excluded from
+              further analysis.
+
+              __Example Text from <SAMPLE_NAME>-gzip-error.txt__  
+              _<SAMPLE_NAME> FASTQs failed Gzip tests. Please check the input FASTQs. Further
+              analysis is discontinued._
+
+          ??? warning "Example Error: Input FASTQs have disproportionate number of reads"
+              If input FASTQ(s) for a sample have disproportionately different number of reads
+              between the two pairs, the sample will be excluded from further analysis. You can
+              adjust this minimum read count using the `--min_proportion` parameter.
+
+              __Example Text from <SAMPLE_NAME>-low-basepair-proportion-error.txt__  
+              _<SAMPLE_NAME> FASTQs failed to meet the minimum shared basepairs (`X``). They
+              shared `Y` basepairs, with R1 having `A` bp and R2 having `B` bp. Further
+              analysis is discontinued._
+
+          ??? warning "Example Error: Input FASTQ(s) has too few reads"
+              If input FASTQ(s) for a sample have less than the minimum required reads, the
+              sample will be excluded from further analysis. You can adjust this minimum read
+              count using the `--min_reads` parameter.
+
+              __Example Text from <SAMPLE_NAME>-low-read-count-error.txt__  
+              _<SAMPLE_NAME> FASTQ(s) contain `X` total reads. This does not exceed the required
+              minimum `Y` read count. Further analysis is discontinued._
+
+          ??? warning "Example Error: Input FASTQ(s) has too little sequenced basepairs"
+              If input FASTQ(s) for a sample fails to meet the minimum number of sequenced
+              basepairs, the sample will be excluded from further analysis. You can
+              adjust this minimum read count using the `--min_basepairs` parameter.
+
+              __Example Text from <SAMPLE_NAME>-low-sequence-depth-error.txt__  
+              _<SAMPLE_NAME> FASTQ(s) contain `X` total basepairs. This does not exceed the
+              required minimum `Y` bp. Further analysis is discontinued._
   citations:
     - art
     - fastq_dl
     - fastq_scan
-    - ncbi_genome_download
+    - ncbigenomedownload
     - pigz

@@ -6,10 +6,11 @@
     "type": "object",
     "definitions": {
         "assemble_genome_parameters": {
-            "title": "Assemble Genome Parameters",
+            "title": "Assembler Parameters",
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "shovill_assembler": {
                     "type": "string",

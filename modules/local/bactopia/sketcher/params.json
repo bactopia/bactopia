@@ -1,15 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/minmer_sketch/params.json",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/sketcher/params.json",
     "title": "Bactopia pipeline parameters",
     "description": "A flexible pipeline for complete analysis of bacterial genomes",
     "type": "object",
     "definitions": {
-        "minmer_sketch_parameters": {
-            "title": "Minmer Sketch Parameters",
+        "sketcher_parameters": {
+            "title": "Sketcher Parameters",
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "sketch_size": {
                     "type": "integer",
@@ -45,7 +46,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/minmer_sketch_parameters"
+            "$ref": "#/definitions/sketcher_parameters"
         }
     ]
 }

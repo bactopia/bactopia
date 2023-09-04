@@ -16,7 +16,7 @@ requirements:
     - pip
     - python >3.8
   run:
-    - bactopia-py >=1.0.6
+    - bactopia-py >=1.0.7
     - conda >=22.11.0
     - coreutils
     - mamba >=1.1.0
@@ -27,6 +27,7 @@ requirements:
     - pytest
     - pytest-workflow
     - importlib-metadata <5
+    - 
 
 test:
   commands:

@@ -43,6 +43,8 @@ process GATHER {
     fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
     if (runtype == 'hybrid-merge-pe') {
         meta.runtype = 'hybrid'
+    } else if (runtype == 'short_polish-merge-pe') {
+        meta.runtype = 'short_polish'
     } else if (runtype == 'merge-pe') {
         meta.runtype = 'paired-end'
     } else if (runtype == 'merge-se') {
@@ -75,7 +77,7 @@ process GATHER {
         cp -L ${r1[0]} fastqs/${prefix}_R1.fastq.gz
         cp -L ${r2[0]} fastqs/${prefix}_R2.fastq.gz
         cp -L ${extra} extra/${prefix}.fastq.gz
-    elif [ "${runtype}" == "merge-pe" ] || [ "${runtype}" == "hybrid-merge-pe" ]; then 
+    elif [ "${runtype}" == "merge-pe" ] || [ "${runtype}" == "hybrid-merge-pe" ] || [ "${runtype}" == "short_polish-merge-pe" ]; then 
         # Merge Paired-End Reads
         echo "This sample had reads merged." > \${MERGED}
         echo "R1:" >> \${MERGED}
