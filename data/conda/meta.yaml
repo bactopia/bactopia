@@ -27,7 +27,6 @@ requirements:
     - pytest
     - pytest-workflow
     - importlib-metadata <5
-    - 
 
 test:
   commands:
