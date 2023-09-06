@@ -197,33 +197,6 @@ class WorkflowBactopiaTools {
             }
         }
 
-        if (params.wf_has_subdir.contains(params.wf) && params.run_name == params.wf) {
-            log.error "\nA run name (--run_name) is required for the '${params.wf}' workflow. It is \nrecommended to use a descriptive name (e.g. reference name)."
-            error += 1
-        }
-
-        // Check for existing output directory
-        /*
-        if (Utils.isLocal(params.outdir)) {
-            // Only run this if local files
-            if (!workflow.resume) {
-                def Integer files_found = 0
-                new File("${params.outdir}/bactopia-comparative/${params.wf}/${params.run_name}").eachDirRecurse { item ->
-                    if (item.toString().contains("nf-reports")) {
-                        return
-                    } else {
-                        files_found += 1
-                    }
-                }
-
-                if (files_found > 0 && !params.force) {
-                    log.error("Output for ${params.run_name} (--run_name) already exists in ${params.outdir} (--outdir), ${params.wf} will not continue unless '--force' is used, a different run name (--run_name), or a different output directory (--outdir) is used.")
-                    error += 1
-                }
-            }
-        }
-        */
-
         if (missing_required.size() > 0) {
             log.error "Required parameters are missing, please check: " + missing_required.join(", ")
             log.info NfcoreSchema.paramsRequired(workflow, params, schema_filename=schema_filename)

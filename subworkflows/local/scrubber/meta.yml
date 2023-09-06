@@ -44,26 +44,36 @@ docs:
       A Bactopia Tool which uses sra-human-scrubber to identify and remove any potential
       human reads.
   introduction: |
-      The `scrubber` module uses [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/) to identify and
-      remove any potential human reads.
+      The `scrubber` module uses [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/)
+      to identify and remove any potential human reads.
   output:
     tree: |
-
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── srahumanscrubber
+      │           ├── <SAMPLE_NAME>_R1.scrubbed.fastq.gz
+      │           ├── <SAMPLE_NAME>_R2.scrubbed.fastq.gz
+      │           ├── <SAMPLE_NAME>.scrubbed.fastq.gz
+      │           └── logs
+      │               ├── nf-srahumanscrubber.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── scrubber-<TIMESTAMP>
+              └── nf-reports
+                  ├── scrubber-dag.dot
+                  ├── scrubber-report.html
+                  ├── scrubber-timeline.html
+                  └── scrubber-trace.txt
     add_note: false
     folders:
-      - name: Top Level
-        description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          |  |  |
       - name: scrubber
         description: |
-          Below is a description of the _per-sample_ results from [scrubber](SUBWORKFLOW_LINK).
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          |  |  |
+          Below is a description of the _per-sample_ results from
+          [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/).
+        is_extensions: true
+        table:
+          - id: .scrubbed.fastq.gz
+            description: FASTQs with any flagged human reads removed.
   citations:
     - srahumanscrubber
