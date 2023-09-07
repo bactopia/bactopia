@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/versions.yml
-      md5sum: dc67b5d4eafedc663fac4cba078dfe39
+      md5sum: 0917cef708b747c529c91353f186fbfd
     - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-dag.dot
       contains: ['tblastndag', 'TBLASTN', 'versions']
     - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-report.html
@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/tblastn/logs/versions.yml
-      md5sum: 9892e485d0cace9d5038a677b8a19f16
+      md5sum: c6c83cf9a0ca3a400c923feca9b88d07
 
 - name: tblastn-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/tblastn/test.nf -entry test_tblastn_gz --wf tblastn -c nextflow.config ${BACTOPIA_ARGS}'
@@ -63,7 +63,7 @@
     - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/versions.yml
-      md5sum: 5cb216b829db6a659b59e9b35004c767
+      md5sum: 03a90481d95d0c4d68c9e978a545b14b
     - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-dag.dot
       contains: ['tblastndag', 'TBLASTN', 'versions']
     - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-report.html
@@ -86,4 +86,4 @@
     - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/tblastn/logs/versions.yml
-      md5sum: 3455c6ed340eed8114feddaef25392b6
+      md5sum: bbf653d96871a63433b5e848fba069fc

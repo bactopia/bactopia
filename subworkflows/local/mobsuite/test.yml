@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/versions.yml
-      md5sum: bd1039d4c9e2ffff01ac354fd3e8d102
+      md5sum: 0b6fbd99c737030f391fa4d0badcd258
     - path: bactopia/bactopia-runs/mobsuite/merged-results/mobsuite.tsv
       md5sum: c76f770050665d308faa1a4720ab9ebe
     - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-dag.dot
@@ -40,7 +40,6 @@
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.log
       contains: ["mob_suite", "Blasting", "MOB-recon"]
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.sh
@@ -48,6 +47,6 @@
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/versions.yml
-      md5sum: 330e9bbfb04ee87175a3980428c75494
+      md5sum: 70b7c16bd3f101f8ccf96a5640b7e2f8
     - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta
       md5sum: f774ed2069f1dfacd930673b748faaac

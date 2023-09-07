@@ -1,0 +1,58 @@
+- name: btyper3-test
+  command: bash -c 'nextflow run ./subworkflows/local/btyper3/test.nf -entry test_btyper3 --wf btyper3 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - btyper3
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_000008445/tools/btyper3/GCF_000008445_final_results.txt
+      md5sum: 4a242c5823bc16f6f6869ab8abac5803
+    - path: bactopia/GCF_000008445/tools/btyper3/bt/GCF_000008445_bt.txt
+      md5sum: f8996f2b86607d4f2d3ed54925212203
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/GCF_000008445.log
+      contains: ["BTyper3", "FastANI", "MLST", "finished"]
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.begin
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.err
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.log
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.out
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.sh
+      contains: ['btyper3', 'END_VERSIONS']
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/nf-btyper3.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000008445/tools/btyper3/logs/versions.yml
+      md5sum: 96608f38baa6addaca07ec1afdc99b84
+    - path: bactopia/GCF_000008445/tools/btyper3/mlst/GCF_000008445_mlst.txt
+      md5sum: 0d7d9aa7474e8277b4b1e4ea93395e03
+    - path: bactopia/GCF_000008445/tools/btyper3/panC/GCF_000008445_panC.txt
+      md5sum: 28b900185ad468292ab9a3832cb71f54
+    - path: bactopia/GCF_000008445/tools/btyper3/species/GCF_000008445_species_fastani.txt
+      md5sum: f79b4adff3bcfebb8983355dbcacb438
+    - path: bactopia/GCF_000008445/tools/btyper3/subspecies/GCF_000008445_subspecies_fastani.txt
+      md5sum: 2be240f213a9a8386cbc8f7c5a8fcca7
+    - path: bactopia/GCF_000008445/tools/btyper3/typestrains/GCF_000008445_typestrains_fastani.txt
+      md5sum: 9502b9147758c48adce54b524bfdd160
+    - path: bactopia/GCF_000008445/tools/btyper3/virulence/GCF_000008445_virulence.txt
+      md5sum: 42e52c285f9cd734bf635e6812d0371d
+    - path: bactopia/bactopia-runs/btyper3/merged-results/btyper3.tsv
+      md5sum: 23cd9060d11d2ef980b70603c89c5558
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/versions.yml
+      md5sum: f69541a3f304244c16e502cf4ea8585c
+    - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-dag.dot
+      contains: ['btyper3dag', 'BTYPER3', 'versions']
+    - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-trace.txt
+      contains: ['task_id']

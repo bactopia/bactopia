@@ -38,7 +38,7 @@
     - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/annotator/bakta/logs/versions.yml
-      md5sum: d5fb03089ddb50a63665273a7ad5392a
+      md5sum: ee5f7160b00c4e0f9dcd1e18498743ea
 
 - name: bakta-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta_tarball --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
@@ -81,4 +81,4 @@
     - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/annotator/bakta/logs/versions.yml
-      md5sum: bba31b9d1a7b68c115f520e720708648
+      md5sum: 54890aa121e8fef6a3a007fa7c9fd90d

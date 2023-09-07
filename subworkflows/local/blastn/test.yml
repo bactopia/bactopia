@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/versions.yml
-      md5sum: 6c1d319bb88aecbba696a3c7b4ed8016
+      md5sum: a6f2fc2ab4ff41a8393e96715f48131a
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-dag.dot
       contains: ['blastndag', 'BLASTN', 'versions']
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-report.html
@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: 51ecbcb3cf4ba884d2c80e40d690c5d8
+      md5sum: 05f4d83f9689ca445c89d2c14286042e
 
 - name: blastn-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/blastn/test.nf -entry test_blastn_gz --wf blastn -c nextflow.config ${BACTOPIA_ARGS}'
@@ -63,7 +63,7 @@
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/versions.yml
-      md5sum: 9e674ac4517f092a276c5eb12e88136c
+      md5sum: 0359a2807043196e1e7545f3f7244892
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-dag.dot
       contains: ['blastndag', 'BLASTN', 'versions']
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-report.html
@@ -86,7 +86,7 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: 4344d10c9cb9383fa28d709891a19299
+      md5sum: 265c014c7328186a307cb9430da090af
 
 - name: blastn-test_use_genes
   command: bash -c 'nextflow run ./subworkflows/local/blastn/test.nf -entry test_blastn_use_genes --wf blastn -c nextflow.config ${BACTOPIA_ARGS}'
@@ -108,7 +108,7 @@
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/blastn/merged-results/logs/blastn-concat/versions.yml
-      md5sum: 3a3e1274045416985651fa0b309564ae
+      md5sum: 8e5d7989899805d4977a668ec5956ee0
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-dag.dot
       contains: ['blastndag', 'BLASTN', 'versions']
     - path: bactopia/bactopia-runs/blastn/nf-reports/blastn-report.html
@@ -131,4 +131,4 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: d4e5a38928b4e5af0b57d91694b14658
+      md5sum: 0ff2ad9ce7ba1cc1fad83f8d59143d95

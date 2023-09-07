@@ -258,6 +258,20 @@ tools:
     cite: |
       Lu J, Breitwieser FP, Thielen P, and Salzberg SL [Bracken: estimating species abundance in metagenomics data.](https://doi.org/10.7717/peerj-cs.104) _PeerJ Computer Science_, 3, e104. (2017)
 
+  btyper2:
+    name: BTyper3
+    link: https://github.com/lmc297/BTyper3
+    description: In silico taxonomic classification of Bacillus cereus group genomes using whole-genome sequencing data
+    cite: |
+      Carroll LM, Wiedmann M, Kovac J [Proposal of a Taxonomic Nomenclature for the Bacillus cereus Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes.](https://doi.org/10.1128/mBio.00034-20) _mBio_, 11(1). (2020)
+
+  btyper3:
+    name: BTyper3
+    link: https://github.com/lmc297/BTyper3
+    description: In silico taxonomic classification of Bacillus cereus group genomes using whole-genome sequencing data
+    cite: |
+      Carroll LM, Cheng RA, Kovac J [No Assembly Required: Using BTyper3 to Assess the Congruency of a Proposed Taxonomic Framework for the Bacillus cereus Group With Historical Typing Methods.](https://doi.org/10.3389/fmicb.2020.580691) _Frontiers in Microbiology_, 11, 580691. (2020)
+
   busco:
     name: BUSCO
     link: https://gitlab.com/ezlab/busco

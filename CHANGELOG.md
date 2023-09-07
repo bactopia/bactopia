@@ -4,18 +4,16 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.0.0 bactopia/bactopia "???" - 2023/??/??
+## v3.0.0 bactopia/bactopia "???" - 2023/09/??
 
 ### `Added`
-- Named Workflows (!!!)
-    - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Read
-    - `teton` - Host removal and taxon classification with estimated abundances
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `abritamr` - A NATA accredited tool for AMR detection
     - `blastn` - Search against nucleotide BLAST databases using nucleotide queries
     - `blastp` - Search against protein BLAST databases using protein queries
     - `blastx` - Search against protein BLAST databases using translated nucleotide queries
-    - `bracken` - Taxonomic classification ans species abundance estimation of sequence reads
+    - `bracken` - Taxonomic classification and species abundance estimation of sequence reads
+    - `btyper3` - Taxonomic classification of Bacillus cereus group isolates
     - `midas` - Estimate bacterial species abundances from FASTQ files
     - `quast` - Assess the quality of assembled contigs
     - `phispy` - Predict prophages in bacterial genomes
@@ -26,6 +24,8 @@ description: A full list of Bactopia releases and a description of the changes.
     - `tblastx` - Search against translated nucleotide BLAST databases using translated nucleotide queries
 - per-release databases for `amrfinderplus` and `mlst`
 - new directory structure for outputs
+- Renamed `--R1`, `--R2`, and `--SE` to `--r1`, `--r2`, and `--se`
+- `--ont` now accepts a FASTQ file
 - GitHub Action to build environments
 - `fastp` is default read cleaner, can use previous methods with `--use_bbmap`
 - ability to use a BED file to mask regions in `snippy-core`
@@ -37,20 +37,21 @@ description: A full list of Bactopia releases and a description of the changes.
     - `ariba`
     - `sra-human-scrubber`
 - bump program versions in modules
-    - `bakta`: 1.6.0 -> 1.8.1
-    - `blast`: 2.11.0 -> 2.14.0
-    - `busco`: 5.4.3 -> 5.4.7
-    - `csktk`: 0.25.0 -> 0.26.0
+    - `bakta`: 1.6.0 -> 1.8.2
+    - `blast`: 2.11.0 -> 2.14.1
+    - `busco`: 5.4.3 -> 5.5.0
+    - `csktk`: 0.25.0 -> 0.27.2
     - `eggnog-mapper`: 2.1.9 -> 2.1.12
     - `genotyphi`: 1.9.1 -> 2.0
     - `gtdbtk`: 2.1.1 -> 2.3.2
     - `gubbins`: 3.2.1 -> 3.3
     - `iqtree`: 2.2.0.3 -> 2.2.2.7
     - `fastani`: 1.33 -> 1.34
-    - `mob_suite`: 3.1.0 -> 3.1.6
+    - `mashtree`: 1.2.0 -> 1.4.5
+    - `mob_suite`: 3.1.0 -> 3.1.7
     - `multiqc`: 1.11 -> 1.15
     - `mykrobe`: 0.12.0 -> 0.12.2
-    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.14-8
+    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.18
     - `ncbi-genome-download`: 0.3.1 -> 0.3.3
     - `panaroo`: 1.3.0 -> 1.3.3
     - `pasty`: 1.0.0 -> 1.0.3
@@ -68,6 +69,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - symlink in amrfinder+ update (`bactopia datasets`)
 - hardcoded `--plus` in `amrfinderplus_run`
 - tests for new directory structure
+- `--nanohq` not being properly passed to `dragonflye`
 
 ### `Removed`
 - Bactopia Steps
@@ -90,6 +92,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - add module for pneumocat [nf-core/modules#3592](https://github.com/nf-core/modules/pull/3592)
 - add module for abritamr/run [nf-core/modules#3725](https://github.com/nf-core/modules/pull/3725)
 - fix hostrange() missing 1 required positional argument: 'database_directory' [phac-nml/mob-suite#149](https://github.com/phac-nml/mob-suite/pull/149)
+- add module for btyper3 [nf-core/modules#3817](https://github.com/nf-core/modules/pull/3817)
 
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 

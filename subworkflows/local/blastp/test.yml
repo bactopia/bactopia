@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/versions.yml
-      md5sum: 45c4a6d297d3add374256e75cbd9f16c
+      md5sum: 7d585bd0886a6e85d725b928bf4eff66
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-dag.dot
       contains: ['blastpdag', 'BLASTP', 'versions']
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-report.html
@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: 2ca9f3f6e1fdd079ef2149a1883e7489
+      md5sum: 42af37b58f6cc9837dda5793201993ad
 
 - name: blastp-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/blastp/test.nf -entry test_blastp_gz --wf blastp -c nextflow.config ${BACTOPIA_ARGS}'
@@ -63,7 +63,7 @@
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/versions.yml
-      md5sum: 431c2d9cfa755eac4c4831786ca286db
+      md5sum: ac157c5e9d0c8cab8164fd780caaae94
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-dag.dot
       contains: ['blastpdag', 'BLASTP', 'versions']
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-report.html
@@ -86,4 +86,4 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: 7d694b15381e33231ae39db504e21f8c
+      md5sum: e05afd6a41f0da42f1986bc55cc3be16

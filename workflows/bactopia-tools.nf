@@ -48,6 +48,7 @@ if (params.wf == 'blastn') include { BLASTN } from '../subworkflows/local/blastn
 if (params.wf == 'blastp') include { BLASTP } from '../subworkflows/local/blastp/main';
 if (params.wf == 'blastx') include { BLASTX } from '../subworkflows/local/blastx/main';
 if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/bracken/main';
+if (params.wf == 'btyper3') include { BTYPER3 } from '../subworkflows/local/btyper3/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -181,6 +182,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bracken') {
         BRACKEN(samples)
         ch_versions = ch_versions.mix(BRACKEN.out.versions)
+    } else if (params.wf == 'btyper3') {
+        BTYPER3(samples)
+        ch_versions = ch_versions.mix(BTYPER3.out.versions)
     } else if (params.wf == 'busco') {
         BUSCO(samples)
         ch_versions = ch_versions.mix(BUSCO.out.versions)

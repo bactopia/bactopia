@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "btyper3"
+description: Taxonomic classification of Bacillus cereus group isolates from assemblies
+keywords:
+  - bacteria
+  - classify
+  - fasta
+tools:
+  - "btyper3":
+      description: "In silico taxonomic classification of Bacillus cereus group isolates using assembled genomes"
+      homepage: "https://github.com/lmc297/BTyper3"
+      documentation: "https://github.com/lmc297/BTyper3"
+      tool_dev_url: "https://github.com/lmc297/BTyper3"
+      doi: "10.3389/fmicb.2020.580691"
+      licence: "['GPL v3']"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - fasta:
+      type: file
+      description: A genome assembly in FASTA format.
+      pattern: "*.{fasta|fasta.gz|fa|fa.gz|fna|fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Tab-delimited file of Btyper3 results
+      pattern: "*_final_results.txt"
+  - results:
+      type: file
+      description: A directory of results from Btyper3 run
+      pattern: "results/*"
+
+authors:
+  - "@rpetit3"

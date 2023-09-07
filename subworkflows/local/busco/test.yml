@@ -17,7 +17,7 @@
     - path: bactopia/bactopia-runs/busco/merged-results/logs/busco-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/busco/merged-results/logs/busco-concat/versions.yml
-      md5sum: f6363cd321222f2a6458dcea04fd58dc
+      md5sum: b45e81d6e1c8a0b37a7b3ea491992002
     - path: bactopia/bactopia-runs/busco/nf-reports/busco-dag.dot
       contains: ['buscodag', 'BUSCO', 'versions']
     - path: bactopia/bactopia-runs/busco/nf-reports/busco-report.html
@@ -56,7 +56,7 @@
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/prodigal_out.log
       md5sum: 50752acb1c5a20be886bfdfc06635bcb
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/versions.yml
-      md5sum: 9cf31fda58b7a2a431a72946bd2122ce
+      md5sum: fdd6b94718c21dd4c370acf841aafc92
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/.checkpoint
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.faa
       md5sum: 8166471fc5f08c82fd5643ab42327f9d
@@ -84,13 +84,13 @@
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/961486at2.fna
       md5sum: 421d326188a45e6e0101a5448e200ba5
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/full_table.tsv
-      md5sum: 454d30b82f02a3eb99a15b18e4a7dca0
+      md5sum: c9651b88b10871abc260ee655898e828
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/.checkpoint
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1054741at2.out
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1132353at2.out
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/961486at2.out
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/missing_busco_list.tsv
-      md5sum: 02d4ea7ecec5e54b5480be7c83bc0a37
+      md5sum: 9939309df2da5419de88c32d1435c779
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/short_summary.json
       contains: ["one_line_summary", "dataset"]
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/short_summary.txt
