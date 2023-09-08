@@ -4,8 +4,6 @@
     - pneumocat
     - bactopia-tools
   files:
-    - path: bactopia/ERR1438863/tools/pneumocat/ComponentComplete.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/ERR1438863/tools/pneumocat/ERR1438863.results.xml
       md5sum: a9d9d8db3cbeff3f45859bed7eadaf9b
     - path: bactopia/ERR1438863/tools/pneumocat/coverage_summary.txt

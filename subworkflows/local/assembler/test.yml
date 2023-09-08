@@ -452,7 +452,6 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
       contains: ['task_id']
-    - path: bactopia/portiera/main/assembler/assembly.fasta.gz
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
@@ -473,7 +472,8 @@
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
-    - path: bactopia/portiera/main/assembler/unicycler.gfa.gz
+    - path: bactopia/portiera/main/assembler/unicycler-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/unicycler-unpolished.gfa.gz
 
 - name: assembler-flye
   command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_nanopore --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'

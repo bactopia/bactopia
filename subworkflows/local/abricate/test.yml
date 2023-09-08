@@ -17,7 +17,7 @@
     - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/versions.yml
-      contains: ['csvtk']
+      contains: ['abricate']
     - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-dag.dot
       contains: ['abricatedag', 'ABRICATE', 'versions']
     - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-report.html
