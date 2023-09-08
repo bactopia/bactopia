@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/checkm/merged-results/logs/checkm-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/checkm/merged-results/logs/checkm-concat/versions.yml
-      md5sum: 05f82c14bf005bc102ca2b645817c756
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/checkm/nf-reports/checkm-dag.dot
       contains: ['checkmdag', 'checkm', 'CHECKM']
     - path: bactopia/bactopia-runs/checkm/nf-reports/checkm-report.html

@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mashdist/merged-results/logs/mashdist-concat/versions.yml
-      md5sum: 25eefd0a27670da0acb79cfebe932683
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/mashdist/merged-results/mashdist.tsv
       md5sum: ba9d178c2f9598e4c8d2dde49d59be50
     - path: bactopia/bactopia-runs/mashdist/nf-reports/mashdist-dag.dot

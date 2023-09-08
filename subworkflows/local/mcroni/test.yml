@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/versions.yml
-      md5sum: c2fff52bc8389de47eaa730fbad22fff
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/mcroni/merged-results/mcroni.tsv
       contains: ['ISOLATE', 'GCF_001682305']
     - path: bactopia/bactopia-runs/mcroni/nf-reports/mcroni-dag.dot

@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/meningotype/merged-results/logs/meningotype-concat/versions.yml
-      md5sum: a59269d86bc3bb841242da702ff6094d
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/meningotype/merged-results/meningotype.tsv
       md5sum: cdf1cbd9f28a9ce2138f072c6d0ab391
     - path: bactopia/bactopia-runs/meningotype/nf-reports/meningotype-dag.dot

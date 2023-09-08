@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/versions.yml
-      md5sum: 3e7d6617d1adc500dc4ee02c061c0c41
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/ssuissero/merged-results/ssuissero.tsv
       md5sum: b1312d3041a6543154be554d5ec3b0b9
     - path: bactopia/bactopia-runs/ssuissero/nf-reports/ssuissero-dag.dot

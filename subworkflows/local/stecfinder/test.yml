@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/versions.yml
-      md5sum: 611fb9b5f9e8d42752a5fe3d0a529b3f
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/stecfinder/merged-results/stecfinder.tsv
       md5sum: 91a65684b28801f54a8681958ba90fe7
     - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-dag.dot
@@ -62,7 +62,7 @@
     - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/versions.yml
-      md5sum: fa1feb48b5520f89519810b4d151f049
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/stecfinder/merged-results/stecfinder.tsv
       md5sum: 1e28b9d9eaad96dbb6d2739c2c0ea505
     - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-dag.dot

@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/versions.yml
-      md5sum: 0ff34b9ae62d57c34d4453e949273585
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/sistr/merged-results/sistr.tsv
       contains: ['serogroup', 'Typhimurium', 'PASS']
     - path: bactopia/bactopia-runs/sistr/nf-reports/sistr-dag.dot

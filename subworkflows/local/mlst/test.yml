@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/versions.yml
-      md5sum: bc334f7e4fcd5002e7d9bc9c2bc44043
+      md5sum: 5909dd65afdda0a7f9db758c32aa0ae0
     - path: bactopia/bactopia-runs/mlst/merged-results/mlst.tsv
       md5sum: 67e1b29068b46c7ccd845ec36d41da89
     - path: bactopia/bactopia-runs/mlst/nf-reports/mlst-dag.dot

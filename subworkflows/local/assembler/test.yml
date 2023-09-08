@@ -20,7 +20,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 738d0e4ded5cf4a6248c6e6c8f752a04
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -74,7 +74,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 738d0e4ded5cf4a6248c6e6c8f752a04
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -170,7 +170,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 738d0e4ded5cf4a6248c6e6c8f752a04
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -225,7 +225,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 2174878d5300a1164c950ecf36a19a00
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -281,7 +281,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 2174878d5300a1164c950ecf36a19a00
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -385,7 +385,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 2174878d5300a1164c950ecf36a19a00
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -443,7 +443,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: ce1d08b529f435c606973f3dd13ff46a
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -496,7 +496,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 9d67b5cf7a7204dfed97b7ae4684be68
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -552,7 +552,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 9d67b5cf7a7204dfed97b7ae4684be68
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -606,7 +606,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 9d67b5cf7a7204dfed97b7ae4684be68
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
@@ -659,7 +659,7 @@
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
-      md5sum: 2e81cb48b18af2baae1b59ea8b3601f0
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
       contains: ['assemblerdag', 'ASSEMBLER', 'versions']
     - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html

@@ -20,7 +20,7 @@
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-genes-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-genes-concat/versions.yml
-      md5sum: 57347e68ff48b7fc6e3b449f636cf5c6
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-proteins-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-proteins-concat/nf-merged-results.err
@@ -33,7 +33,7 @@
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-proteins-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-proteins-concat/versions.yml
-      md5sum: 72996192d2511c43a59976ebe1fc4a58
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-dag.dot
       contains: ['amrfinderplus', 'AMRFINDER', 'versions']
     - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-report.html

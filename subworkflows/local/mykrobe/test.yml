@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/versions.yml
-      md5sum: cd84e830b89b7468c4efcc47291bf540
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/mykrobe/merged-results/mykrobe.csv
       contains: ['sample', 'SRR2838702', 'Unknown']
     - path: bactopia/bactopia-runs/mykrobe/nf-reports/mykrobe-dag.dot

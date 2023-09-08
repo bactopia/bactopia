@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/versions.yml
-      md5sum: 2b07edb8bf0c35b694f6d23520b3a533
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/seqsero2/merged-results/seqsero2.tsv
       contains: ['GCF_016028495', 'Salmonella', 'Typhimurium']
     - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-dag.dot

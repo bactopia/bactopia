@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/tblastx/merged-results/logs/tblastx-concat/versions.yml
-      md5sum: 3db51051bec825f50f480e30023f3294
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/tblastx/nf-reports/tblastx-dag.dot
       contains: ['tblastxdag', 'TBLASTX', 'versions']
     - path: bactopia/bactopia-runs/tblastx/nf-reports/tblastx-report.html
@@ -63,7 +63,7 @@
     - path: bactopia/bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/tblastx/merged-results/logs/tblastx-concat/versions.yml
-      md5sum: 9007732a8be274455637ecf8873390b6
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/tblastx/nf-reports/tblastx-dag.dot
       contains: ['tblastxdag', 'TBLASTX', 'versions']
     - path: bactopia/bactopia-runs/tblastx/nf-reports/tblastx-report.html

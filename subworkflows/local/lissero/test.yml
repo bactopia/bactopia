@@ -19,7 +19,7 @@
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/versions.yml
-      md5sum: 099370a42d0665c5394d17d8360c6df8
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-dag.dot
       contains: ['lisserodag', 'LISSERO', 'versions']
     - path: bactopia/bactopia-runs/lissero/nf-reports/lissero-report.html

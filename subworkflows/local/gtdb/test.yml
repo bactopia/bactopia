@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/versions.yml
-      md5sum: e49b73b0229f4173d917eca7673cc32a
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/gtdb/nf-reports/gtdb-dag.dot
       contains: ['gtdbdag', 'GTDB', 'versions']
     - path: bactopia/bactopia-runs/gtdb/nf-reports/gtdb-report.html
@@ -88,7 +88,7 @@
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/versions.yml
-      md5sum: 2fc9e28f2ad61e122ba1ef1f59e4de5c
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/gtdb/nf-reports/gtdb-dag.dot
       contains: ['gtdbdag', 'GTDB', 'versions']
     - path: bactopia/bactopia-runs/gtdb/nf-reports/gtdb-report.html

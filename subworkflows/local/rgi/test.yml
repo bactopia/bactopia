@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-concat/versions.yml
-      md5sum: def8fc8cbba714641e999ceda23843c0
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.err

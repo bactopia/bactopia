@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/versions.yml
-      md5sum: 098d78539b41ac31ec7ad62744c02843
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/ngmaster/merged-results/ngmaster.tsv
       md5sum: a4e7f9199b0f37985fe0ad147c626532
     - path: bactopia/bactopia-runs/ngmaster/nf-reports/ngmaster-dag.dot

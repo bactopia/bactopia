@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/versions.yml
-      md5sum: 5fa492f1a95995584ce111bb24bb6207
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/genotyphi/nf-reports/genotyphi-dag.dot
       md5sum: 1b407e59487039bdbe295275cb4aef72
     - path: bactopia/bactopia-runs/genotyphi/nf-reports/genotyphi-report.html

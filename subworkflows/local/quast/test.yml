@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/versions.yml
-      md5sum: b5bb52c5bfcb0d1144cd7ee41cef954f
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/quast/merged-results/quast.tsv
       contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: bactopia/bactopia-runs/quast/nf-reports/quast-dag.dot

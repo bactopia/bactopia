@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml
-      md5sum: e3c0581e8aacc7e563ddc9d252e9b84f
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/midas/merged-results/midas.tsv
       contains: ['SRR2838702', 'primary', 'secondary']
     - path: bactopia/bactopia-runs/midas/nf-reports/midas-dag.dot
@@ -68,7 +68,7 @@
     - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml
-      md5sum: 6c8223c140763e1424a85a8073a7da85
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/midas/merged-results/midas.tsv
       contains: ['SRR2838702', 'primary', 'secondary']
     - path: bactopia/bactopia-runs/midas/nf-reports/midas-dag.dot

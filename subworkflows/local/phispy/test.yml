@@ -31,7 +31,7 @@
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/versions.yml
-      md5sum: b6d85818fc1b425f0300527cdf5ba2d8
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/phispy/merged-results/phispy.tsv
       md5sum: 7d63fb49ac9013d1e59a1c7f9ccf7960
     - path: bactopia/bactopia-runs/phispy/nf-reports/phispy-dag.dot

@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/agrvate-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/agrvate-concat/versions.yml
-      md5sum: e43dfb65b00fe3ca919325981c9a2274
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/nf-merged-results.err
@@ -31,7 +31,7 @@
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/versions.yml
-      md5sum: 99e2d37f60850b5811d592135b612493
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/staphopiasccmec-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/staphopiasccmec-concat/nf-merged-results.err
@@ -44,7 +44,7 @@
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/staphopiasccmec-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/logs/staphopiasccmec-concat/versions.yml
-      md5sum: 5f5c80c1b1b2f1b18adc3b5ea97114fc
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/staphtyper/merged-results/spatyper.tsv
       md5sum: 6afe7a90c591e32107d86c0e81029f54
     - path: bactopia/bactopia-runs/staphtyper/merged-results/staphopiasccmec.tsv

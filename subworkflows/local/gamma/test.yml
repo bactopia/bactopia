@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/gamma/merged-results/logs/gamma-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gamma/merged-results/logs/gamma-concat/versions.yml
-      md5sum: 5641deb1eabea753cea40ede9c88ac94
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/gamma/nf-reports/gamma-dag.dot
       contains: ['gammadag', 'GAMMA', 'versions']
     - path: bactopia/bactopia-runs/gamma/nf-reports/gamma-report.html

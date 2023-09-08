@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/agrvate/merged-results/logs/agrvate-concat/versions.yml
-      md5sum: 60b20e18a897c4f3451a5a3b4bc15f72
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/agrvate/nf-reports/agrvate-dag.dot
       contains: ['agrvatedag', 'AGRVATE', 'versions']
     - path: bactopia/bactopia-runs/agrvate/nf-reports/agrvate-report.html

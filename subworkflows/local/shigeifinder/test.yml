@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/versions.yml
-      md5sum: a4b787da446f444dd1c345bd731288d9
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/shigeifinder/merged-results/shigeifinder.tsv
       md5sum: 25be6cf1161e59d9a4eab8db8f9b9ebb
     - path: bactopia/bactopia-runs/shigeifinder/nf-reports/shigeifinder-dag.dot

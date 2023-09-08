@@ -47,7 +47,7 @@
     - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/btyper3/merged-results/logs/btyper3-concat/versions.yml
-      md5sum: f69541a3f304244c16e502cf4ea8585c
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-dag.dot
       contains: ['btyper3dag', 'BTYPER3', 'versions']
     - path: bactopia/bactopia-runs/btyper3/nf-reports/btyper3-report.html

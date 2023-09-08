@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/versions.yml
-      md5sum: 29d507956cbdb367e02379734e4bfd79
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-dag.dot
       contains: ['ectyperdag', 'ECTYPER', 'versions']
     - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-report.html

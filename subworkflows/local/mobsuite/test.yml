@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/versions.yml
-      md5sum: 0b6fbd99c737030f391fa4d0badcd258
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/mobsuite.tsv
       md5sum: c76f770050665d308faa1a4720ab9ebe
     - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-dag.dot

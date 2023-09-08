@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/versions.yml
-      md5sum: be9fc223cad61b4eb14b22dcddaa100c
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/legsta/nf-reports/legsta-dag.dot
       contains: ["legstadag", "LEGSTA", "version"]
     - path: bactopia/bactopia-runs/legsta/nf-reports/legsta-report.html

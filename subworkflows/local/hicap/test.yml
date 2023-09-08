@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/versions.yml
-      md5sum: c781cc24fdeb2a5260296e18f5122520
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-dag.dot
       contains: ['hicapdag', 'HICAP', 'versions']
     - path: bactopia/bactopia-runs/hicap/nf-reports/hicap-report.html

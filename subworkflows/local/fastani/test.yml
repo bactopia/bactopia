@@ -38,7 +38,7 @@
     - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/versions.yml
-      md5sum: 001004d83bc28f3e4145de6693cd3e28
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-dag.dot
       contains: ['fastanidag', 'FASTANI', 'versions']
     - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-report.html

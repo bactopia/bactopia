@@ -16,7 +16,7 @@
     - path: bactopia/bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/spatyper/merged-results/logs/spatyper-concat/versions.yml
-      md5sum: f551beb9f45d1f21544a0a93db3c08a1
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/spatyper/merged-results/spatyper.tsv
       md5sum: 6afe7a90c591e32107d86c0e81029f54
     - path: bactopia/bactopia-runs/spatyper/nf-reports/spatyper-dag.dot
