@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.0.0 bactopia/bactopia "???" - 2023/09/??
+## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
 ### `Added`
 - Bactopia Tools (`bactopia --wf <NAME>`)
