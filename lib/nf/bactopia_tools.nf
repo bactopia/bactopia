@@ -18,7 +18,7 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     include_all = true
     inclusions = []
     exclusions = []
-    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work',]
+    IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work', 'bactopia-runs']
     if (include_list) {
         new File(include_list).eachLine { line -> 
             inclusions << line.trim().split('\t')[0]
@@ -34,14 +34,20 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     }
     
     sample_list = []
-    file(bactopia_dir).eachFile { item ->
+    missing = []
+    file("${bactopia_dir}/").eachFile { item ->
         if( item.isDirectory() ) {
             sample = item.getName()
             if (!IGNORE_LIST.contains(sample)) {
                 if (inclusions.contains(sample) || include_all) {
                     if (!exclusions.contains(sample)) {
                         if (_is_sample_dir(sample, bactopia_dir)) {
-                            sample_list << _collect_inputs(sample, bactopia_dir, extension)
+                            sample = _collect_inputs(sample, bactopia_dir, extension)
+                            if (sample instanceof String) {
+                                missing << sample
+                            } else {
+                                sample_list << sample
+                            }
                         } else {
                             log.info "${sample} does not appear to be a Bactopia sample, skipping..."
                         }
@@ -52,6 +58,12 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     }
 
     log.info "Found ${sample_list.size} samples to process"
+    if (missing.size() > 0) {
+        log.info "${missing.size} samples were excluded due to missing files. They are:"
+        for (sample in missing) {
+            log.info "    ${sample}"
+        }
+    }
     log.info "\nIf this looks wrong, now's your chance to back out (CTRL+C 3 times)."
     log.info "Sleeping for 5 seconds..."
     log.info "--------------------------------------------------------------------"
@@ -96,7 +108,7 @@ def collect_local_files(local_file, local_pattern) {
 ========================================================================================
 */
 def _is_sample_dir(sample, dir) {
-    return file("${dir}/${sample}/${sample}-genome-size.txt").exists()
+    return file("${dir}/${sample}").exists()
 }
 
 /*
@@ -113,16 +125,21 @@ def _is_sample_dir(sample, dir) {
 */
 def _collect_inputs(sample, dir, extension) {
     PATHS = [:]
-    PATHS.fastq = "quality-control"
-    PATHS.fna = "assembly"
-    PATHS.faa = "annotation"
-    PATHS.gff = "annotation"
+    PATHS.blastdb = "annotator"
+    PATHS.fastq = "qc"
+    PATHS.fna = "assembler"
+    PATHS.faa = "annotator"
+    PATHS.gbk = "annotator"
+    PATHS.gff = "annotator"
+    PATHS.meta = "gather"
 
-    se = "${dir}/${sample}/quality-control/${sample}.fastq.gz"
-    ont = "${dir}/${sample}/quality-control/.ont"
-    pe1 = "${dir}/${sample}/quality-control/${sample}_R1.fastq.gz"
-    pe2 = "${dir}/${sample}/quality-control/${sample}_R2.fastq.gz"
-    fna = "${dir}/${sample}/${PATHS['fna']}/${sample}.fna"
+    base_dir = "${dir}/${sample}/main/"
+    se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
+    ont = "${base_dir}/${PATHS['fastq']}/.ont"
+    pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"
+    pe2 = "${base_dir}/${PATHS['fastq']}/${sample}_R2.fastq.gz"
+    fna = "${base_dir}/${PATHS['fna']}/${sample}.fna"
+    meta = "${base_dir}/${PATHS['meta']}/${sample}-meta.tsv"
 
     if (extension == 'fastq') {
         if (file(se).exists()) {
@@ -133,9 +150,6 @@ def _collect_inputs(sample, dir, extension) {
             }
         } else if (file(pe1).exists() && file(pe2).exists()) {
             return tuple([id:sample, single_end:false, runtype:'illumina'], [file(pe1), file(pe2)])
-        } else {
-            log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     } else if (extension == 'fna_fastq') {
         if (file(se).exists()) {
@@ -146,36 +160,64 @@ def _collect_inputs(sample, dir, extension) {
 
             if (file("${fna}.gz").exists()) {
                 return tuple([id:sample, single_end:true, is_compressed:true, runtype:runtype], [file("${fna}.gz")], [file(se)])
-            } else {
+            } else if (file(fna).exists()) {
                 return tuple([id:sample, single_end:true, is_compressed:false, runtype:runtype], [file("${fna}")], [file(se)])
             }
         } else if (file(pe1).exists() && file(pe2).exists()) {
             if (file("${fna}.gz").exists()) {
                 return tuple([id:sample, single_end:false, is_compressed:true, runtype:'illumina'], [file("${fna}.gz")], [file(pe1), file(pe2)])
-            } else {
+            } else if (file(fna).exists()) {
                 return tuple([id:sample, single_end:false, is_compressed:false, runtype:'illumina'], [file("${fna}")], [file(pe1), file(pe2)])
             }
-        } else {
-            log.error("Could not locate FASTQs for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     } else if (extension == 'fna_faa') {
-        
-        faa = "${dir}/${sample}/${PATHS['faa']}/${sample}.faa"
+        // Default to Bakta faa
+        faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"
+        if (!file("${faa}").exists() && !file("${faa}.gz").exists()) {
+            // Fall back on Prokka
+            faa = "${base_dir}/${PATHS['faa']}/prokka/${sample}.faa"
+        }
+
         if (file("${fna}.gz").exists() && file("${faa}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")])
-        } else {
+        } else if (file(fna).exists() && file(faa).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")])
         }
+    } else if (extension == 'fna_meta') {
+        // include the meta file
+        if (file("${fna}.gz").exists() && file(meta).exists()) {
+            return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file(meta)])
+        } else if (file(fna).exists() && file(meta).exists()) {
+            return tuple([id:sample, is_compressed:false], [file("${fna}")], [file(meta)])
+        }
+    } else if (extension == 'blastdb') {
+        // Default to Bakta blastdb
+        input = "${base_dir}/${PATHS[extension]}/bakta/${sample}-${extension}.tar.gz"
+        if (!file("${input}").exists()) {
+            // Fall back on Prokka
+            input = "${base_dir}/${PATHS[extension]}/prokka/${sample}-${extension}.tar.gz"
+        }
+
+        if (file("${input}").exists()) {
+            return tuple([id:sample], [file("${input}")])
+        }
     } else {
-        input = "${dir}/${sample}/${PATHS[extension]}/${sample}.${extension}"
+        input = "${base_dir}/${PATHS[extension]}/${sample}.${extension}"
+        if (extension == "faa" || extension == "gbk" || extension == "gff") {
+            // Default to Bakta faa
+            input = "${base_dir}/${PATHS[extension]}/bakta/${sample}.${extension}"
+            if (!file("${input}").exists() && !file("${input}.gz").exists()) {
+                // Fall back on Prokka
+                input = "${base_dir}/${PATHS[extension]}/prokka/${sample}.${extension}"
+            }
+        }
+
         if (file("${input}.gz").exists()) {
             return tuple([id:sample, is_compressed:true], [file("${input}.gz")])
         } else if (file(input).exists()) {
             return tuple([id:sample, is_compressed:false], [file("${input}")])
-        } else {
-            log.error("Could not locate ${input} for ${sample}, please verify existence. Unable to continue.")
-            exit 1
         }
     }
+
+    return sample
 }

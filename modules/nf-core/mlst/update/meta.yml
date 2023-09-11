@@ -1,0 +1,42 @@
+name: mlst
+description: Run Torsten Seemann's classic MLST on a genome assembly
+keywords:
+  - mlst
+tools:
+  - mlst:
+      description: Scan contig files against PubMLST typing schemes
+      homepage: None
+      documentation: None
+      tool_dev_url: None
+      doi: ""
+      licence: ['GPL v2']
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Assembly fasta file
+      pattern: "*.{fasta,fa,fna}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: MLST calls in tsv format
+      pattern: "*.{tsv}"
+
+authors:
+  - "@lskatz"
+  - "@tseemann"

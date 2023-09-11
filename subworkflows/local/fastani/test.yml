@@ -4,63 +4,30 @@
     - fastani
     - bactopia-tools
   files:
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/GCA_000027305.tsv
+    - path: bactopia/bactopia-runs/fastani/fastani/GCA_000027305.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.err
-      contains: ['Sketch', 'GCA_000027305', 'finished']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.log
-      contains: ['Sketch', 'GCA_000027305', 'finished']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.sh
-      contains: ['fastANI', 'END_VERSIONS']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/nf-fastani.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/fastani/fastani/GCA_000027305/logs/fastani/versions.yml
-      md5sum: 09506107df33e22a45d9f5212df859ed
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/GCF_900478275.tsv
+    - path: bactopia/bactopia-runs/fastani/fastani/GCF_900478275.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.err
-      contains: ['Sketch', 'GCF_900478275', 'finished']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.log
-      contains: ['Sketch', 'GCF_900478275', 'finished']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.sh
-      contains: ['fastANI', 'END_VERSIONS']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/nf-fastani.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/fastani/fastani/GCF_900478275/logs/fastani/versions.yml
-      md5sum: 09506107df33e22a45d9f5212df859ed
-    - path: bactopia-tools/fastani/fastani/fastani.tsv
+    - path: bactopia/bactopia-runs/fastani/merged-results/fastani.tsv
       contains: ['query', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.begin
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.run
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.sh
-      contains: ['concat', 'GCF_900478275', 'GCA_000027305']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/fastani/fastani/logs/csvtk_concat/versions.yml
-      md5sum: f3f981ed44895d7fa0810df250cdc18a
-    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-dag.dot
+    - path: bactopia/bactopia-runs/fastani/merged-results/logs/fastani-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-dag.dot
       contains: ['fastanidag', 'FASTANI', 'versions']
-    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-report.html
+    - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-timeline.html
+    - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/fastani/fastani/nf-reports/fastani-trace.txt
+    - path: bactopia/bactopia-runs/fastani/nf-reports/fastani-trace.txt
       contains: ['task_id']

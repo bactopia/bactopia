@@ -1,24 +1,20 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'snippy')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-publish_dir = options.is_module ? "${publish_dir}/snippy" : publish_dir
-conda_tools = "bioconda::snippy=4.6.0 bioconda::vcf-annotator=0.7 bioconda::rename=1.601 bioconda::snpeff=5.0"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'snippy')
+options.btype = options.btype ?: "tools"
+conda_tools   = "bioconda::bactopia-variants=1.0.1"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process SNIPPY_RUN {
     tag "${meta.id} - ${reference_name}"
     label "process_low"
-    label "base_mem_4gb"
-    label "max_cpu_75"
-
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
-    container 'quay.io/bactopia/call_variants:2.2.0'
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/bactopia-variants:1.0.1--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-variants:1.0.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)
@@ -59,6 +55,11 @@ process SNIPPY_RUN {
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $final_reference
+    fi
+
+    if ! head -n 1 $final_reference | grep "^LOCUS"; then
+        echo "ERROR: Reference file (${reference}) does not appear to be a GenBank file"
+        exit 1
     fi
 
     snippy \\
@@ -103,7 +104,7 @@ process SNIPPY_RUN {
     "${task.process}":
         bedtools: \$(echo \$(bedtools --version 2>&1) | sed 's/bedtools v//')
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/snippy //')
+        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/^.*snippy //')
         vcf-annotator: \$(echo \$(vcf-annotator --version 2>&1) | sed 's/vcf-annotator.py //')
     END_VERSIONS
     """

@@ -1,0 +1,58 @@
+name: teton
+description: Taxonomic classification and abundances and host read removal
+icon: false
+keywords:
+  - abundances
+  - classify
+  - host removal
+  - taxonomy
+modules:
+  - kraken2
+  - midas
+  - scrubber
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: teton
+    description: >
+      A Bactopia Tool which uses...
+  introduction: |
+      The `teton` module uses...
+  output:
+    tree: |
+
+    add_note: false
+    folders:
+      - name: Top Level
+        description: |
+          Below are results that are in the base directory.
+        table: |
+          | Filename    | Description |
+          |-------------|-------------|
+          |  |  |
+      - name: teton
+        description: |
+          Below is a description of the _per-sample_ results from [teton](SUBWORKFLOW_LINK).
+        table: |
+          | Filename              | Description |
+          |-----------------------|-------------|
+          |  |  |
+  citations:
+    - kraken2
+    - midas
+    - srahumanscrubber

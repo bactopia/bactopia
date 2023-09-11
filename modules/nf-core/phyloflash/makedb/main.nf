@@ -1,9 +1,9 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'phyloflash_makedb')
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'phyloflash_makedb')
 publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::phyloflash=3.4"
+conda_tools = "bioconda::phyloflash=3.4.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process MAKEDB {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/phyloflash:3.4--hdfd78af_1' :
-        'quay.io/biocontainers/phyloflash:3.4--hdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/phyloflash:3.4.2--hdfd78af_0' :
+        'quay.io/biocontainers/phyloflash:3.4.2--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -29,7 +29,7 @@ process MAKEDB {
     path "versions.yml",emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """

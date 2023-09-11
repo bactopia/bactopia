@@ -1,23 +1,23 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'eggnog_download')
-conda_tools = "bioconda::eggnog-mapper=2.1.9"
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'eggnog_download')
+conda_tools = "bioconda::eggnog-mapper=2.1.12"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process EGGNOG_DOWNLOAD {
     label 'process_low'
-    publishDir "${params.eggnog}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
+    label 'process_long'
+    publishDir "${params.eggnog_db}", mode: params.publish_dir_mode, overwrite: true
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.9--pyhdfd78af_0' :
-        'quay.io/biocontainers/eggnog-mapper:2.1.9--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/eggnog-mapper:2.1.12--pyhdfd78af_0' :
+        'quay.io/biocontainers/eggnog-mapper:2.1.12--pyhdfd78af_0' }"
 
     output:
-    path("eggnog/*")     , emit: db, optional: true
+    path("eggnog/")     , emit: db, optional: true
     path("eggnog.tar.gz"), emit: db_tarball, optional: true
     path "*.{log,err}"   , emit: logs, optional: true
     path ".command.*"    , emit: nf_logs
@@ -31,7 +31,7 @@ process EGGNOG_DOWNLOAD {
         -y \\
         --data_dir eggnog/
 
-    if [ "!{params.eggnog_save_as_tarball}" == "true" ]; then
+    if [ "${params.eggnog_save_as_tarball}" == "true" ]; then
         tar -czf eggnog.tar.gz eggnog/
         rm -rf eggnog/
     fi

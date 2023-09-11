@@ -44,36 +44,57 @@ class WorkflowBactopiaTools {
                 error += 1
                 missing_required += "--ariba_db"
             }
-            if (!params.ariba_dir) {
-                error += 1
-                missing_required += "--ariba_dir"
-            }
         } else if (params.wf == "bakta") {
             if (params.bakta_db) {
-                if (Utils.isLocal(params.bakta_db)) {
-                    if (params.bakta_db.endsWith(".tar.gz")) {
-                        error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
-                    } else {
-                        error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                if (!params.download_bakta) {
+                    if (Utils.isLocal(params.bakta_db)) {
+                        if (params.bakta_db.endsWith(".tar.gz")) {
+                            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                        } else {
+                            error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                        }
                     }
                 }
             } else {
                 missing_required += "--bakta_db"
             }
+        } else if (params.wf == "blastn") {
+            if (params.blastn_query) {
+                if (Utils.isLocal(params.blastn_query)) {
+                    error += Utils.fileNotFound(params.blastn_query, 'blastn_query', log)
+                }
+            } else {
+                missing_required += "--blastn_query"
+            }
+        } else if (params.wf == "blastp") {
+            if (params.blastp_query) {
+                if (Utils.isLocal(params.blastp_query)) {
+                    error += Utils.fileNotFound(params.blastp_query, 'blastp_query', log)
+                }
+            } else {
+                missing_required += "--blastp_query"
+            }
+        } else if (params.wf == "blastx") {
+            if (params.blastx_query) {
+                if (Utils.isLocal(params.blastx_query)) {
+                    error += Utils.fileNotFound(params.blastx_query, 'blastx_query', log)
+                }
+            } else {
+                missing_required += "--blastx_query"
+            }
         } else if (params.wf == "eggnog") {
-            if (params.eggnog) {
-                if (Utils.isLocal(params.eggnog)) {
-                    if (params.eggnog.endsWith(".tar.gz")) {
-                        missing_file += Utils.fileNotFound(params.eggnog, 'eggnog', log)
-                    } else {
-                        missing_file += Utils.fileNotFound("${params.eggnog}/eggnog.db", 'eggnog', log)
-                    }
-                    if (missing_file > 0 && params.download_eggnog == false) {
-                        missing_required += "--eggnog"
+            if (params.eggnog_db) {
+                if (!params.download_eggnog) {
+                    if (Utils.isLocal(params.eggnog_db)) {
+                        if (params.eggnog_db.endsWith(".tar.gz")) {
+                            error += Utils.fileNotFound(params.eggnog_db, 'eggnog_db', log)
+                        } else {
+                            error += Utils.fileNotFound("${params.eggnog_db}/eggnog.db", 'eggnog_db', log)
+                        }
                     }
                 }
             } else {
-                missing_required += "--eggnog"
+                missing_required += "--eggnog_db"
             }
         } else if (params.wf == "gtdb") {
             if (params.gtdb) {
@@ -101,13 +122,25 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--kraken2_db"
             }
-        } else if (params.wf == "mashdist" || params.wf == "merlin") {
+        } else if (params.wf == "mashdist") {
             if (params.mash_sketch) {
                 if (Utils.isLocal(params.mash_sketch)) {
                     error += Utils.fileNotFound(params.mash_sketch, 'mash_sketch', log)
                 }
             } else {
                 missing_required += "--mash_sketch"
+            }
+        } else if (params.wf == "midas") {
+            if (params.midas_db) {
+                if (Utils.isLocal(params.midas_db)) {
+                    if (params.midas_db.endsWith(".tar.gz")) {
+                        error += Utils.fileNotFound(params.midas_db, 'midas_db', log)
+                    } else {
+                        error += Utils.fileNotFound("${params.midas_db}/genome_info.txt", 'midas_db', log)
+                    }
+                }
+            } else {
+                missing_required += "--midas_db"
             }
         } else if (params.wf == "mykrobe") {
             if (!params.mykrobe_species) {
@@ -136,22 +169,31 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--reference"
             }
-        }
-
-        // Check for existing output directory
-        if (Utils.isLocal(params.outdir)) {
-            if (!workflow.resume) {
-                def run_dir = "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}"
-                def Integer files_found = 0
-                new File(run_dir).eachFile { item ->
-                    if (item.getName() != "nf-reports") {
-                        files_found += 1
+        } else if (params.wf == "srahumanscrubber") {
+            if (params.scrubber_db) {
+                if (!params.download_scrubber) {
+                    if (Utils.isLocal(params.scrubber_db)) {
+                        error += Utils.fileNotFound(params.scrubber_db, 'scrubber_db', log)
                     }
                 }
-                if (files_found > 0 && !params.force) {
-                    log.error("Output directory (${run_dir}) exists, ${params.wf} will not continue unless '--force' is used or a different run name (--run_name) is used.")
-                    error += 1
+            } else {
+                missing_required += "--scrubber_db"
+            }
+        } else if (params.wf == "tblastn") {
+            if (params.tblastn_query) {
+                if (Utils.isLocal(params.tblastn_query)) {
+                    error += Utils.fileNotFound(params.tblastn_query, 'tblastn_query', log)
                 }
+            } else {
+                missing_required += "--tblastn_query"
+            }
+        } else if (params.wf == "tblastx") {
+            if (params.tblastx_query) {
+                if (Utils.isLocal(params.tblastx_query)) {
+                    error += Utils.fileNotFound(params.tblastx_query, 'tblastx_query', log)
+                }
+            } else {
+                missing_required += "--tblastx_query"
             }
         }
 

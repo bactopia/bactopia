@@ -1,39 +1,7 @@
 #!/usr/bin/env bash
-# bactopia
-#
-# This is a wrapper around Bactopia-AP for packaging the Conda recipe. It has
-# been inspired by a similar wrapper in Will Rowe's DRAX pipeline
-# (https://github.com/will-rowe/drax).
-#
-# By default `bactopia` will attempt to execute the main Nextflow pipeline.
-# There are additional sub-commands available to help make Bactopia easier to
-# use. They are:
-#
-#    bactopia build - Build Bactopia Conda environments
-#
-#    bactopia citations - Print citation for datasets, tools and Bactopia
-#
-#    bactopia datasets - Download/setup useful datasets for Bactopia
-#
-#    bactopia prepare - Create a 'file of filenames' for input FASTQ files
-#
-#    bactopia search - Query Taxon ID or Study Accession against ENA for input accessions
-#
-#    bactopia --citation - Print the Bactopia citation
-#    bactopia --version - Print the Bactopia version
-#
-# Examples:
-#
-# bactopia build
-# bactopia datasets --help
-# bactopia prepare --help
-# bactopia search --help
-# bactopia version
-# bactopia --help
-VERSION=2.2.0
-CONTAINER_VERSION="${VERSION%.*}.x"
+VERSION=3.0.0
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
-BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${CONTAINER_VERSION}" 
+BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
 # If no user input, print usage
 if [[ $# == 0 ]]; then
@@ -44,7 +12,7 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia citations - Print citation for datasets, tools and Bactopia"
     echo ""
-    echo "bactopia datasets - Download/setup useful datasets for Bactopia"
+    echo "bactopia datasets - Download optional datasets to supplement your analyses with Bactopia"
     echo ""
     echo "bactopia download - Build Bactopia Conda, Docker,and or Singularity environments "
     echo ""
@@ -52,16 +20,18 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
+    echo "bactopia summary - Generate a summary table from the Bactopia results"
+    echo ""
     echo "bactopia --citation - Print the Bactopia citation"
     echo "bactopia --version - Print the Bactopia version"
     echo ""
     echo "Print Usages:"
     echo "bactopia --help"
-    echo "bactopia datasets --help"
+    echo "bactopia citations --help"
     echo "bactopia download --help"
     echo "bactopia prepare --help"
     echo "bactopia search --help"
-    echo "bactopia tools --help"
+    echo "bactopia summary --help"
     echo ""
     echo "Example Commands"
     echo "bactopia --R1 SAMPLE_R1.fastq.gz --R2 SAMPLE_R2.fastq.gz --sample SAMPLE"
@@ -69,31 +39,32 @@ if [[ $# == 0 ]]; then
     echo ""
     echo "bactopia download --use_defaults"
     echo ""
-    echo "bactopia datasets --species 'Staphylococcus aureus'"
-    echo "bactopia --dataset dataset-dir --species 'staphylococcus-aureus' --accession SRX4563671"
-    echo ""
-    echo "bactopia prepare my-fastq-dir > my-fastqs.txt"
+    echo "bactopia prepare --path my-fastq-dir > my-fastqs.txt"
     echo "bactopia --fastqs my-fastqs.txt"
     echo ""
-    echo "bactopia search PRJNA480016 --limit 20"
+    echo "bactopia search --query PRJNA480016 --limit 20"
     echo "bactopia --accessions ena-accessions.txt"
+    echo ""
+    echo "bactopia summary --bactopia /path/to/bactopia/results"
     echo ""
     exit
 fi
 
-if [[ "$1" == "datasets" ]]; then
-    bactopia-datasets.py "${BACTOPIA_NF}" "${@:2}"
-elif [[ "$1" == "prepare" ]]; then
-    bactopia-prepare.py "${@:2}"
+if [[ "$1" == "prepare" ]]; then
+    bactopia-prepare "${@:2}"
 elif [[ "$1" == "search" ]]; then
-    bactopia-search.py "${@:2}"
+    bactopia-search "${@:2}"
+elif [[ "$1" == "datasets" ]]; then
+    bactopia-datasets --bactopia-path "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "download" ]]; then
-    bactopia-download.py "${BACTOPIA_NF}" "${@:2}"
+    bactopia-download --bactopia-path "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "citation" ]] || [[ "$1" == "--citation" ]]; then
     echo "Petit III RA, Read TD, Bactopia: a flexible pipeline for complete analysis of bacterial "
     echo "genomes. mSystems. 5 (2020), https://doi.org/10.1128/mSystems.00190-20"
 elif [[ "$1" == "citations" ]]; then
-    bactopia-citations.py --bactopia "${BACTOPIA_NF}" "${@:2}"
+    bactopia-citations --bactopia-path "${BACTOPIA_NF}" "${@:2}"
+elif [[ "$1" == "summary" ]]; then
+    bactopia-summary "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
@@ -102,7 +73,7 @@ else
     BUILD_TYPE="conda"
     if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]] || [[ "$*" == *"arcc"* ]]; then
         BUILD_TYPE="singularity"
-    elif  [[ "$*" == *"docker"* ]]; then
+    elif  [[ "$*" == *"docker"* ]] || [[ "$*" == *"arm"* ]]; then
         BUILD_TYPE="docker"
     fi
 
@@ -122,7 +93,7 @@ else
         fi
 
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
-        bactopia-download.py "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
+        bactopia-download --bactopia-path "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
     fi
 
     # Create custom work dir

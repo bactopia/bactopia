@@ -55,44 +55,40 @@ docs:
     or a species name (`--species`) for which to download all RefSeq genomes.
   output:
     tree: |
-      fastani/
-      ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
-      │       └── fastani
-      │           ├── nf-fastani.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── fastani-dag.dot
-      │   ├── fastani-report.html
-      │   ├── fastani-timeline.html
-      │   └── fastani-trace.txt
-      ├── fastani.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      <BACTOPIA_DIR>
+      └── bactopia-runs
+          └── fastani-<TIMESTAMP>
+              ├── fastani
+              │   ├── <SAMPLE_NAME>.tsv
+              │   └── logs
+              │       └── <REFERENCE_NAME>
+              │           ├── nf-fastani.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              ├── merged-results
+              │   ├── fastani.tsv
+              │   └── logs
+              │       └── fastani-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── fastani-dag.dot
+                  ├── fastani-report.html
+                  ├── fastani-timeline.html
+                  └── fastani-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | fastani.tsv  | A merged TSV file with `FastANI` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: fastani.tsv
+            description: A merged TSV file with `FastANI` results from all samples
       - name: FastANI
         description: |
           Below is a description of the _per-sample_ results from [FastANI](https://github.com/ParBLiSS/FastANI).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | FastANI results of all samples against a reference genome |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: FastANI results of all samples against a single samples
   citations:
     - csvtk
     - fastani

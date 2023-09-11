@@ -9,7 +9,11 @@ def get_schemas() {
     def schemas = []
     def is_workflow = params.workflows[params.wf].containsKey('is_workflow')
 
-    if (is_workflow == true) {
+    if (params.wf == "cleanyerreads") {
+        schemas << 'conf/schema/clean-yer-reads.json'
+    } else if (params.wf == "teton") {
+        schemas << 'conf/schema/teton.json'
+    } else if (is_workflow == true) {
         // Named workflow based of Bactopia
         schemas << 'conf/schema/bactopia.json'
     } else {
@@ -21,7 +25,6 @@ def get_schemas() {
         // Some work flows should include local files
         schemas << "conf/schema/local/${params.workflows[params.wf]['use_local']}.json"
     }
-
 
     if (params.workflows[params.wf].containsKey('includes')) {
         // Wrapper around multiple workflows
@@ -47,6 +50,8 @@ def get_schemas() {
         if (params.use_bakta) {
             // Annotate genomes with Bakta
             schemas += _get_module_schemas(params.workflows['bakta']["modules"])
+        } else {
+            schemas += "${params.workflows['prokka'].path}/params.json"
         }
     }
 
@@ -89,7 +94,13 @@ def _get_include_schemas(includes) {
 def _get_module_schemas(modules) {
     def module_schemas = []
     modules.each { it ->
-        module_schemas << "${params.workflows[it].path}/params.json"
+        if (params.wf == "cleanyerreads") {
+            module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
+        } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_initdb")) {
+            module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
+        } else {
+            module_schemas << "${params.workflows[it].path}/params.json"
+        }
     }
     return module_schemas
 }
@@ -163,7 +174,35 @@ def is_available_workflow(wf) {
 ========================================================================================
 */
 def saveFiles(Map args) {
-    /* Modeled after nf-core/modules saveFiles function */
+    /*
+    Modeled after nf-core/modules saveFiles function
+    
+    Example structure of output files:
+
+    <OUTDIR>/
+    ├── bactopia-runs
+    │   └── <WORKFLOW_NAME>-YYYYMMDD-HHMMSS
+    │       └── <PROCESS_NAME>
+    |       |   ├── logs
+    │       |   └── merged-results
+    │       └── <PROCESS_NAME>
+    │       |   └── <REF_NAME>
+    |       |       ├── logs
+    │       |       └── merged-results
+    │       ├── logs
+    │       ├── nf-reports
+    │       └── software-versions
+    └── <SAMPLE_NAME>
+        ├── main
+        │   └── <PROCESS_NAME>
+        │       └── logs
+        └── tools
+            ├── <PROCESS_NAME>
+            │   └── <REF_NAME>
+            │       └── logs
+            └── <PROCESS_NAME>
+                └── logs
+    */
     def final_output = null
     def filename = ""
     def found_ignore = false
@@ -171,14 +210,33 @@ def saveFiles(Map args) {
     def process_name = args.opts.process_name
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
+    def goto_base = false
     if (args.filename) {
         if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
             ext = args.filename.replace(".command.", "")
-            final_output = "logs/${process_name}/${logs_subdir}/nf-${process_name}.${ext}"
-        } else if (args.filename.endsWith('.log')  || args.filename.endsWith('.err') || args.filename.equals('versions.yml')) {
-            // Its a version file or  program specific log files
-            final_output = "logs/${process_name}/${logs_subdir}/${args.filename}"
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+                }
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/nf-${process_name}.${ext}"
+            }
+        } else if (args.filename.endsWith('.log') || args.filename.endsWith('.err') || args.filename.endsWith('.stdout') || args.filename.endsWith('.stderr') || args.filename.equals('versions.yml')) {
+            // Its a version file or program specific log files
+            if (args.opts.btype == "comparative") {
+                // comparative workflows will have subdir applied later
+                if (args.opts.logs_use_prefix) {
+                    final_output = "${process_name}/${args.prefix}/logs/${logs_subdir}/${args.filename}"
+                } else {
+                    final_output = "${process_name}/logs/${logs_subdir}/${args.filename}"
+                }
+            } else {
+                final_output = "${process_name}/${args.opts.subdir}/logs/${logs_subdir}/${args.filename}"
+            }
         } else {
             // Its a program output
             filename = args.filename
@@ -186,23 +244,15 @@ def saveFiles(Map args) {
                 filename = filename.replace("results/","")
             }
 
-            // *-error.txt should be at the base dir and 'blastdb' should go in blast folder
-            if (filename.endsWith("-error.txt") || filename.endsWith("-genome-size.txt") || publish_to_base == true) {
+            if (publish_to_base == true) {
+                goto_base = true
                 final_output = filename
-            } else if (filename.startsWith("blastdb/")) {
-                final_output = "blast/${filename}"
-            } else if (filename.startsWith("total_contigs_")) {
-                final_output = null
-            } else if (params.publish_dir.containsKey(process_name)) {
-                final_output = "${params.publish_dir[process_name]}/${filename}"
-                if (final_output.startsWith("/")) {
-                    final_output = filename
-                }
             } else {
-                if (args.opts.is_module || args.opts.is_db_download) {
-                    final_output = filename
-                } else {
+                if (args.opts.btype == "comparative") {
+                    // comparative workflows will have subdir applied later
                     final_output = "${process_name}/${filename}"
+                } else {
+                    final_output = "${process_name}/${args.opts.subdir}/${filename}"
                 }
             }
 
@@ -216,26 +266,58 @@ def saveFiles(Map args) {
             // Publish specific files to base
             publish_to_base_list.each {
                 if (filename.endsWith("${it}")) {
+                    goto_base = true
                     final_output = filename
                 }
             }
         }
-
-        return final_output == null ? null : final_output.replace("//", "/")
+        
+        if (final_output) {
+            if (args.opts.btype == "main" || args.opts.btype == "tools") {
+                // outdir/<SAMPLE_NAME>/{main|tools}
+                if (goto_base) {
+                    // my-sample/assembly-error.txt
+                    final_output = "${args.prefix}/${final_output}"
+                } else {
+                    // my-sample/bactopia-main/assembler
+                    if (process_name == "bakta" || process_name == "prokka") {
+                        // my-sample/bactopia-main/<process_name>/<output>
+                        final_output = "${args.prefix}/${args.opts.btype}/annotator/${final_output}"
+                    } else {
+                        // my-sample/bactopia-main/<output>
+                        final_output = "${args.prefix}/${args.opts.btype}/${final_output}"
+                    }
+                }
+            } else {
+                // $outdir/bactopia-runs/$rundir
+                // bactopia-runs/<WORKFLOW>-YYYYMMDD-HHMMSS/pangenome/core-genome.aln.gz
+                final_output = "bactopia-runs/${args.rundir}/${final_output}"
+            }
+            // Replace any double slashes
+            final_output = final_output.replace("//", "/")
+        }
     }
+
+    return final_output
 }
+
 
 def initOptions(Map args, String process_name) {
     /* Function to initialise default values and to generate a Groovy Map of available options for nf-core modules */
     def Map options = [:]
     options.args            = args.args ?: ''
+    options.args2           = args.args2 ?: ''
+    options.args3           = args.args3 ?: ''
     options.ignore          = args.ignore ?: []
+    options.is_main         = args.is_main ?: false
     options.is_module       = args.is_module ?: false
     options.is_db_download  = args.is_db_download ?: false
+    options.subdir          = args.subdir ?: ''
     options.logs_subdir     = args.logs_subdir ?: ''
     options.process_name    = args.process_name ?: process_name
     options.publish_to_base = args.publish_to_base ?: false
     options.suffix          = args.suffix ?: ''
+    options.logs_use_prefix = args.logs_use_prefix ?: false
 
     return options
 }

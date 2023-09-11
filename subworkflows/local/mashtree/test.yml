@@ -4,31 +4,31 @@
     - mashtree
     - bactopia-tools
   files:
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.begin
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.err
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.err
       contains: ['mashtree', 'mashDistance', 'matrix']
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.log
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.log
       contains: ['mashtree', 'mashDistance', 'matrix']
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.out
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.run
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.sh
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.sh
       contains: ['mashtree', 'END_VERSIONS']
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/nf-mashtree.trace
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/mashtree/mashtree/logs/mashtree/versions.yml
-      contains: ['mashtree', '1.2.0']
-    - path: bactopia-tools/mashtree/mashtree/mashtree.dnd
+    - path: bactopia/bactopia-runs/mashtree/mashtree/logs/versions.yml
+      md5sum: 96538caf6e99cea2c6efe23f3b70bd9f
+    - path: bactopia/bactopia-runs/mashtree/mashtree/mashtree.dnd
       contains: ['GCF_000009885', 'GCF_000017085']
-    - path: bactopia-tools/mashtree/mashtree/mashtree.tsv
+    - path: bactopia/bactopia-runs/mashtree/mashtree/mashtree.tsv
       contains: ['GCF_000009885', 'GCF_000017085']
-    - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-dag.dot
+    - path: bactopia/bactopia-runs/mashtree/nf-reports/mashtree-dag.dot
       contains: ['mashtreedag', 'MASHTREE', 'versions']
-    - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-report.html
+    - path: bactopia/bactopia-runs/mashtree/nf-reports/mashtree-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-timeline.html
+    - path: bactopia/bactopia-runs/mashtree/nf-reports/mashtree-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/mashtree/mashtree/nf-reports/mashtree-trace.txt
+    - path: bactopia/bactopia-runs/mashtree/nf-reports/mashtree-trace.txt
       contains: ['task_id']

@@ -44,44 +44,42 @@ docs:
     tp provide basic species identification and the predicted serotype (e.g. O174:H21).
   output:
     tree: |
-      shigeifinder/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── logs
-      │   │   └── shigeifinder
-      │   │       ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   └── <SAMPLE_NAME>.tsv
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── shigeifinder-dag.dot
-      │   ├── shigeifinder-report.html
-      │   ├── shigeifinder-timeline.html
-      │   └── shigeifinder-trace.txt
-      ├── shigeifinder.tsv
-      ├── software_versions_mqc.yml
-      └── software_versions.yml
+      │   └── tools
+      │       └── shigeifinder
+      │           ├── GCF_016726285.tsv
+      │           └── logs
+      │               ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── shigeifinder-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── shigeifinder-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── shigeifinder.tsv
+              └── nf-reports
+                  ├── shigeifinder-dag.dot
+                  ├── shigeifinder-report.html
+                  ├── shigeifinder-timeline.html
+                  └── shigeifinder-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | shigeifinder.tsv | A merged TSV file with `shigeifinder` results from all samples |
-      - name: shigeifinder
+          Below are results that are concatenated into a single file.
+        table:
+          - id: shigeifinder.tsv
+            description: A merged TSV file with `ShigEiFinder` results from all samples
+      - name: ShigEiFinder
         description: |
           Below is a description of the _per-sample_ results from [ShigEiFinder](https://github.com/LanLab/ShigEiFinder).
-        table: |
-          | Extension    | Description |
-          |--------------|-------------|
-          | .tsv         | A tab-delimited file with the predicted Shigella or EIEC serotype |
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with the predicted Shigella or EIEC serotype
   citations:
     - csvtk
     - shigeifinder

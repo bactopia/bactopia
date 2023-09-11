@@ -51,47 +51,56 @@ docs:
       to assess the completeness of your assembly.
   output:
     tree: |
-      busco/
-      ├── <LINEAGE>
-      │   ├── <SAMPLE_NAME>
-      │   │   ├── logs/
-      │   │   ├── prodigal_output/
-      │   │   ├── run_<LINEAGE>/
-      │   │   │   ├── busco_sequences
-      │   │   │   ├── full_table.tsv
-      │   │   │   ├── hmmer_output/
-      │   │   │   ├── missing_busco_list.tsv
-      │   │   │   ├── short_summary.json
-      │   │   │   └── short_summary.txt
-      │   │   ├── short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.json
-      │   │   └── short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.txt
-      │   ├── <LINEAGE>-summary.txt
-      │   └── logs
-      │       └── busco.log
-      ├── logs
-      │   ├── busco
-      │   │   └── <LINEAGE>
-      │   │       ├── nf-busco.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── busco-dag.dot
-      │   ├── busco-report.html
-      │   ├── busco-timeline.html
-      │   └── busco-trace.txt
-      ├── busco.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── busco
+      │           └── <BUSCO_LINEAGE>
+      │               ├── <SAMPLE_NAME>-summary.txt
+      │               ├── logs
+      │               │   ├── bbtools_{err|out}.log
+      │               │   ├── busco.log
+      │               │   ├── hmmsearch_{err|out}.log
+      │               │   ├── nf-busco.{begin,err,log,out,run,sh,trace}
+      │               │   ├── prodigal_{err|out}.log
+      │               │   ├── prodigal_mode_single_code_#_{err,out}.log
+      │               │   └── versions.yml
+      │               ├── prodigal_output
+      │               │   └── predicted_genes
+      │               │       ├── predicted.{faa,fna}
+      │               │       └── tmp
+      │               │           └── prodigal_mode_single_code_#.{faa,fna}
+      │               ├── run_<BUSCO_LINEAGE>
+      │               │   ├── busco_sequences
+      │               │   │   ├── fragmented_busco_sequences
+      │               │   │   │   └── <ID>.{faa,fna
+      │               │   │   ├── multi_copy_busco_sequences
+      │               │   │   └── single_copy_busco_sequences
+      │               │   │       └── <ID>.{faa,fna}
+      │               │   ├── full_table.tsv
+      │               │   ├── hmmer_output
+      │               │   │   └── <ID>.out
+      │               │   ├── missing_busco_list.tsv
+      │               │   └── short_summary.{json|txt}
+      │               └── short_summary.specific.bacteria_odb10.GCF_000292685.fna.{json|txt}
+      └── bactopia-runs
+          └── busco-<TIMESTAMP>
+              ├── merged-results
+              │   ├── busco.tsv
+              │   └── logs
+              │       └── busco-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── busco-dag.dot
+                  ├── busco-report.html
+                  ├── busco-timeline.html
+                  └── busco-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
+          Below are results that are concatenated into a single file.
         table: |
           | Filename    | Description                                |
           |-------------|--------------------------------------------|
@@ -99,21 +108,27 @@ docs:
       - name: busco
         description: |
           Below is a description of the _per-lineage_ results from [BUSCO](https://gitlab.com/ezlab/busco).
-        table: |
-          | Filename/Folder                                                             | Description                                                                         |
-          |-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-          | <LINEAGE>/<LINEAGE>-summary.txt                                             | Tab-delimited lineage results for all samples                                       |
-          | <LINEAGE>/logs/busco.log                                                    | Detailed information about the BUSCO run                                            |
-          | <LINEAGE>/<SAMPLE_NAME>/logs/                                               | Log files for individual tools per-sample                                           |
-          | <LINEAGE>/<SAMPLE_NAME>/prodigal_output/                                    | Outputs from the Prodigal gene-prediction step                                      |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/busco_sequences                       | FASTA format file for each BUSCO gene identified                                    |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/full_table.tsv                        | Complete results in a tab-delimited format with scores and lengths of BUSCO matches |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/hmmer_output                          | Tab-delimited output from HMMER                                                     |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/missing_busco_list.tsv                | Tab-delimited list of missing BUSCOs                                                |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/short_summary.json                    | A summary of BUSCO matches in JSON format                                           |
-          | <LINEAGE>/<SAMPLE_NAME>/run_<LINEAGE>/short_summary.txt                     | A summary of BUSCO matches                                                          |
-          | <LINEAGE>/<SAMPLE_NAME>/short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.json | A summary of BUSCO matches in JSON format per-sample                                |
-          | <LINEAGE>/<SAMPLE_NAME>/short_summary.specific.<LINEAGE>.<SAMPLE_NAME>.txt  | A summary of BUSCO matches per-sample                                               |
+        table:
+          - id: <SAMPLE_NAME>-summary.txt
+            description: A summary of the BUSCO results
+          - id: prodigal_output
+            description: Below are the outputs from the Prodigal gene-prediction step.
+          - id: run_<BUSCO_LINEAGE>/busco_sequences
+            description: FASTA format file for each BUSCO gene identified
+          - id: run_<BUSCO_LINEAGE>/full_table.tsv
+            description: Complete results in a tab-delimited format with scores and lengths of BUSCO matches
+          - id: run_<BUSCO_LINEAGE>/hmmer_output
+            description: Tab-delimited output from HMMER
+          - id: run_<BUSCO_LINEAGE>/missing_busco_list.tsv
+            description: Tab-delimited list of missing BUSCOs
+          - id: run_<BUSCO_LINEAGE>/short_summary.json
+            description: A summary of BUSCO matches in JSON format
+          - id: run_<BUSCO_LINEAGE>/short_summary.txt
+            description: A summary of BUSCO matches
+          - id: short_summary.specific.<BUSCO_LINEAGE>.<SAMPLE_NAME>.json
+            description: A summary of BUSCO matches in JSON format per-sample
+          - id: short_summary.specific.<BUSCO_LINEAGE>.<SAMPLE_NAME>.txt
+            description: A summary of BUSCO matches per-sample
   citations:
     - busco
     - csvtk

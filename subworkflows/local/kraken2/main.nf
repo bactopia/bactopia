@@ -1,9 +1,8 @@
 //
-// kraken2 - Taxonomic classification of sequence reads
+// kraken2 - Taxonomic classification of sequence reads 
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'kraken2')
-options.is_module = params.wf == 'kraken2' ? true : false
 options.args = [
     params.quick_mode ? "--quick" : "",
     params.use_mpa_style ? "--use-mpa-style" : "",
@@ -18,7 +17,7 @@ options.args = [
 DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
 
 include { KRAKEN2 as KRAKEN2_MODULE } from '../../../modules/nf-core/kraken2/main' addParams( options: options )
-
+ 
 workflow KRAKEN2 {
     take:
     reads // channel: [ val(meta), [ fasta ] ]
@@ -32,6 +31,6 @@ workflow KRAKEN2 {
     emit:
     classified = KRAKEN2_MODULE.out.classified
     unclassified = KRAKEN2_MODULE.out.unclassified
-    report = KRAKEN2_MODULE.out.report
+    kraken2_report = KRAKEN2_MODULE.out.kraken2_report
     versions = ch_versions // channel: [ versions.yml ]
 }

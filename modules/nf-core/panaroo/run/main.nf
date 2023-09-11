@@ -1,23 +1,21 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'panaroo')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::panaroo=1.3.0"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'panaroo')
+options.btype = options.btype ?: "comparative"
+conda_tools   = "bioconda::panaroo=1.3.3"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process PANAROO_RUN {
     tag "$meta.id"
     label 'process_high'
     label 'process_long'
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/panaroo:1.3.0--pyhdfd78af_0' :
-        'quay.io/biocontainers/panaroo:1.3.0--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/panaroo:1.3.3--pyhdfd78af_0' :
+        'quay.io/biocontainers/panaroo:1.3.3--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
@@ -32,7 +30,7 @@ process PANAROO_RUN {
     path "versions.yml"                                                             , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     mkdir gff
     cp -L gff-tmp/* gff/

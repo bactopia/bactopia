@@ -8,7 +8,6 @@ import java.util.zip.GZIPInputStream
 import org.yaml.snakeyaml.Yaml
 
 class Utils {
-
     //
     // When running with -profile conda, warn if channels have not been set-up appropriately
     //

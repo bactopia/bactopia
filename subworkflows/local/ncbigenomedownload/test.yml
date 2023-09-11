@@ -4,29 +4,28 @@
     - ncbigenomedownload
     - bactopia-tools
   files:
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/GCF_000292685.1_ASM29268v1_genomic.fna.gz
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/GCF_000292685.1_ASM29268v1_genomic.fna.gz
       md5sum: f61a1eb1b151f456ecf847802c1dffbb
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.begin
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.err
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.err
       contains: ['Checking']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.log
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.log
       contains: ['Checking']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.run
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.out
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.sh
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.sh
       contains: ['ncbi-genome-download', 'END_VERSIONS']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/nf-ncbigenomedownload.trace
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/logs/ncbigenomedownload/versions.yml
-      md5sum: e03eba2b6b311a0a8ea537583dea24b3
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-dag.dot
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/versions.yml
+      md5sum: c90ae9fe716b5283d951a7975596001f
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-dag.dot
       contains: ['ncbigenomedownloaddag', 'NCBIGENOMEDOWNLOAD', 'versions']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-report.html
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-timeline.html
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/ncbigenomedownload/ncbigenomedownload/nf-reports/ncbigenomedownload-trace.txt
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-trace.txt
       contains: ['task_id']

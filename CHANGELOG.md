@@ -4,6 +4,96 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
+
+### `Added`
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `abritamr` - A NATA accredited tool for AMR detection
+    - `blastn` - Search against nucleotide BLAST databases using nucleotide queries
+    - `blastp` - Search against protein BLAST databases using protein queries
+    - `blastx` - Search against protein BLAST databases using translated nucleotide queries
+    - `bracken` - Taxonomic classification and species abundance estimation of sequence reads
+    - `btyper3` - Taxonomic classification of Bacillus cereus group isolates
+    - `midas` - Estimate bacterial species abundances from FASTQ files
+    - `quast` - Assess the quality of assembled contigs
+    - `phispy` - Predict prophages in bacterial genomes
+    - `pneumocat` - Assign capsular type to Streptococcus pneumoniae from sequence reads
+    - `sra-human-scrubber` - Scrub human reads from FASTQ files
+    - `stecfinder` - Serotyping Shigella toxin producing Escherichia coli genomes
+    - `tblastn` - Search against translated nucleotide BLAST databases using protein queries
+    - `tblastx` - Search against translated nucleotide BLAST databases using translated nucleotide queries
+- per-release databases for `amrfinderplus` and `mlst`
+- new directory structure for outputs
+- Renamed `--R1`, `--R2`, and `--SE` to `--r1`, `--r2`, and `--se`
+- `--ont` now accepts a FASTQ file
+- GitHub Action to build environments
+- `fastp` is default read cleaner, can use previous methods with `--use_bbmap`
+- ability to use a BED file to mask regions in `snippy-core`
+- `--save_sketches` to save Mash sketches created during `mashtree` run5
+- Porechop is now optional (`--use_porechop`)
+- unified `publishDir` across modules
+- download datasets using `storeDir`
+    - `BACTOPIA:DATASETS`
+    - `ariba`
+    - `sra-human-scrubber`
+- bump program versions in modules
+    - `bakta`: 1.6.0 -> 1.8.2
+    - `blast`: 2.11.0 -> 2.14.1
+    - `busco`: 5.4.3 -> 5.5.0
+    - `csktk`: 0.25.0 -> 0.27.2
+    - `eggnog-mapper`: 2.1.9 -> 2.1.12
+    - `genotyphi`: 1.9.1 -> 2.0
+    - `gtdbtk`: 2.1.1 -> 2.3.2
+    - `gubbins`: 3.2.1 -> 3.3
+    - `iqtree`: 2.2.0.3 -> 2.2.2.7
+    - `fastani`: 1.33 -> 1.34
+    - `mashtree`: 1.2.0 -> 1.4.5
+    - `mob_suite`: 3.1.0 -> 3.1.7
+    - `multiqc`: 1.11 -> 1.15
+    - `mykrobe`: 0.12.0 -> 0.12.2
+    - `ncbi-amrfinderplus`: 3.10.45 -> 3.11.18
+    - `ncbi-genome-download`: 0.3.1 -> 0.3.3
+    - `panaroo`: 1.3.0 -> 1.3.3
+    - `pasty`: 1.0.0 -> 1.0.3
+    - `phyloflash`: 3.4 -> 3.4.2
+    - `rgi`: 6.0.1 -> 6.0.2
+    - `shigatyper`: 2.0.3 -> 2.0.5
+    - `shigeifinder`: 1.3.2 -> 1.3.5
+    - `tbprofiler`: 4.4.0 -> 5.0.0
+
+### `Fixed`
+- All modules correctly initiate `params.options`
+- OpenJDK java cpuset warning message (@idolawoye)
+- Broken badges in README.md
+- Pinned GSL to v2.6
+- symlink in amrfinder+ update (`bactopia datasets`)
+- hardcoded `--plus` in `amrfinderplus_run`
+- tests for new directory structure
+- `--nanohq` not being properly passed to `dragonflye`
+
+### `Removed`
+- Bactopia Steps
+    - `ANNOTATE_GENOME` - now handled by `prokka` or `bakta`
+    - `ANTIMICROBIAL_RESISTANCE` - now handled by `amrfinderplus`
+    - `CALL_VARIANTS` - now handled by `snippy`
+    - `SEQUENCE_TYPE` - now handled by `mlst`
+- `bactopia datasets` is now incorporated into `bactopia`
+- Conda/Containers for all bactopia-main steps
+- custom process labels, for generic `nf-core` process labels
+
+### `Enhancements to OSS`
+- add module for midas [nf-core/modules#2696](https://github.com/nf-core/modules/pull/2696)
+- add modules for sra-human-scrubber [nf-core/modules#2694](https://github.com/nf-core/modules/pull/2694)
+- add module for stecfinder [nf-core/modules#2702](https://github.com/nf-core/modules/pull/2702)
+- update midas pinnings to match docs [bioconda/bioconda-recipes#38566](https://github.com/bioconda/bioconda-recipes/pull/38566)
+- add missing scripts to MLST [bioconda/bioconda-recipes#38826](https://github.com/bioconda/bioconda-recipes/pull/38826)
+- fix GTDB-Tk container [bioconda/bioconda-recipes#40333](https://github.com/bioconda/bioconda-recipes/pull/40333)
+- patch ncbi-genome-download [bioconda-recipes#41640](https://github.com/bioconda/bioconda-recipes/pull/41640)
+- add module for pneumocat [nf-core/modules#3592](https://github.com/nf-core/modules/pull/3592)
+- add module for abritamr/run [nf-core/modules#3725](https://github.com/nf-core/modules/pull/3725)
+- fix hostrange() missing 1 required positional argument: 'database_directory' [phac-nml/mob-suite#149](https://github.com/phac-nml/mob-suite/pull/149)
+- add module for btyper3 [nf-core/modules#3817](https://github.com/nf-core/modules/pull/3817)
+
 ## v2.2.0 bactopia/bactopia "Tornado Tempo" - 2022/11/28
 
 ### `Added`

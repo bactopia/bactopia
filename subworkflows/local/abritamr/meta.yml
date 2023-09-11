@@ -1,0 +1,119 @@
+name: abritamr
+description: A NATA accredited tool for reporting the presence of antimicrobial resistance genes
+icon: false
+keywords:
+  - bacteria
+  - fasta
+  - antimicrobial resistance
+modules:
+  - abritamr
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: string
+      description: Tab-delimited file, combining non-empty summary files
+      pattern: "*.abritamr.txt"
+  - merged_tsv:
+      type: string
+      description: Tab-delimited report of results from all samples
+      pattern: "*.txt"
+  - matches:
+      type: file
+      description: Tab-delimited file, with a row per sequence, and columns representing functional drug classes
+      pattern: "*.summary_matches.txt"
+  - partials:
+      type: file
+      description: Tab-delimited file, with a row per sequence, and columns representing partial hits to functional drug classes
+      pattern: "*.summary_partials.txt"
+  - virulence:
+      type: string
+      description: Tab-delimited file, with a row per sequence, and columns representing AMRFinderPlus virulence gene classification
+      pattern: "*.summary_virulence.txt"
+  - out:
+      type: string
+      description: raw output from AMRFinder plus (per sequence)
+      pattern: "*.abritamr.txt"
+docs:
+  meta:
+    title: abritamr
+    description: >
+      A Bactopia Tool which uses abriTAMR to screen assemblies for antimicrobial 
+      resistance and virulence genes.
+  introduction: |
+      The `abritamr` module uses [abriTAMR](https://github.com/MDU-PHL/abritamr) for the 
+      detection of antimicrobial resistance and virulence genes. It makes use of
+      [AMRFinderPlus](https://github.com/ncbi/amr) and its accredited by NATA for use in
+      reporting presence of reportable AMR genes in Victoria Australia.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── abritamr
+      │           ├── <SAMPLE_NAME>.abritamr.txt
+      │           ├── <SAMPLE_NAME>.amrfinder.out
+      │           ├── <SAMPLE_NAME>.summary_matches.txt
+      │           ├── <SAMPLE_NAME>.summary_partials.txt
+      │           ├── <SAMPLE_NAME>.summary_virulence.txt
+      │           └── logs
+      │               ├── abritamr.log
+      │               ├── nf-abritamr.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── abritamr-<TIMESTAMP>
+              ├── merged-results
+              │   ├── abritamr.tsv
+              │   └── logs
+              │       └── abritamr-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── abritamr-dag.dot
+                  ├── abritamr-report.html
+                  ├── abritamr-timeline.html
+                  └── abritamr-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: abritamr.tsv
+            description: Tab-delimited report of results from all samples
+      - name: abritamr
+        description: |
+          Below is a description of the _per-sample_ results from [abriTAMR](https://github.com/MDU-PHL/abritamr).
+        is_extensions: true
+        table:
+          - id: .abritamr.txt
+            description: Tab-delimited file, combining non-empty summary files from abriTAMR
+          - id: .amrfinder.out
+            description: raw output from AMRFinder plus (per sequence)
+          - id: .summary_matches.txt
+            description: Tab-delimited file, with a row per sequence, and columns representing functional drug classes
+          - id: .summary_partials.txt
+            description: Tab-delimited file, with a row per sequence, and columns representing partial hits to functional drug classes
+          - id: .summary_virulence.txt
+            description: Tab-delimited file, with a row per sequence, and columns representing AMRFinderPlus virulence gene classification
+  citations:
+    - abritamr
+    - amrfinderplus
+    - csvtk

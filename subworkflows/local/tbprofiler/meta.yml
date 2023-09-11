@@ -53,43 +53,43 @@ docs:
     The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) 
     for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
   output:
-    tree: | 
-      tbprofiler/
+    tree: |
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.results.csv
-      │   ├── <SAMPLE_NAME>.results.json
-      │   ├── <SAMPLE_NAME>.results.txt
-      │   ├── bam
-      │   │   └── <SAMPLE_NAME>.bam
-      │   ├── logs
-      │   │   └── tbprofiler
-      │   │       ├── nf-tbprofiler.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   └── vcf
-      │       └── <SAMPLE_NAME>.targets.csq.vcf.gz
-      ├── logs
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── tbprofiler-dag.dot
-      │   ├── tbprofiler-report.html
-      │   ├── tbprofiler-timeline.html
-      │   └── tbprofiler-trace.txt
-      ├── software_versions.yml
-      └── software_versions.yml
+      │   └── tools
+      │       └── tbprofiler
+      │           ├── bam
+      │           │   └── <SAMPLE_NAME>.bam
+      │           ├── logs
+      │           │   ├── nf-tbprofiler.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>.results.csv
+      │           ├── <SAMPLE_NAME>.results.json
+      │           ├── <SAMPLE_NAME>.results.txt
+      │           └── vcf
+      │               └── <SAMPLE_NAME>.targets.csq.vcf.gz
+      └── bactopia-runs
+          └── tbprofiler-<TIMESTAMP>
+              └── nf-reports
+                  ├── tbprofiler-dag.dot
+                  ├── tbprofiler-report.html
+                  ├── tbprofiler-timeline.html
+                  └── tbprofiler-trace.txt
     add_note: true
     folders:
       - name: TBProfiler
         description: |
           Below is a description of the _per-sample_ results from [TBProfiler](https://github.com/jodyphelan/TBProfiler).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.results.csv  | A CSV formated `TBProfiler` result file of resistance and strain type |
-          | &lt;SAMPLE_NAME&gt;.results.json  | A JSON formated `TBProfiler` result file of resistance and strain type |
-          | &lt;SAMPLE_NAME&gt;.results.txt  | A text file with `TBProfiler` results |
-          | &lt;SAMPLE_NAME&gt;.bam  |BAM file with alignment details |
-          | &lt;SAMPLE_NAME&gt;.targets.csq.vcf.gz | VCF with variant info again refernce genomes |
+        table:
+          - id: <SAMPLE_NAME>.results.csv
+            description: A CSV formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.json
+            description: A JSON formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.txt
+            description: A text file with `TBProfiler` results
+          - id: <SAMPLE_NAME>.bam
+            description: BAM file with alignment details
+          - id: <SAMPLE_NAME>.targets.csq.vcf.gz
+            description: VCF with variant info again reference genomes
   citations:
     - tbprofiler

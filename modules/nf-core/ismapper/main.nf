@@ -1,17 +1,15 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'ismapper')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::ismapper=2.0.2"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'ismapper')
+options.btype = options.btype ?: "tools"
+conda_tools   = "bioconda::ismapper=2.0.2"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process ISMAPPER {
-    tag "$meta.id"
+    tag "$prefix"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options, logs_subdir: query_base) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
@@ -24,7 +22,7 @@ process ISMAPPER {
     path(query)
 
     output:
-    tuple val(meta), path("${query_base}/*"), emit: results
+    tuple val(meta), path("results/*"), emit: results
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml",emit: versions
@@ -47,14 +45,15 @@ process ISMAPPER {
     ismap \\
         $options.args \\
         --t $task.cpus \\
-        --output_dir results/ \\
+        --output_dir $prefix \\
         --queries $query_name \\
         --log ${prefix} \\
         --reference $reference_name \\
         --reads $reads
 
-    mkdir ${query_base}
-    mv results/${meta.id}/* ${query_base}
+    # Reorganize output files
+    mkdir results
+    mv $prefix/*/* results/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

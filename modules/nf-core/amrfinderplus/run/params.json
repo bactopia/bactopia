@@ -12,18 +12,6 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "amrfinder_db": {
-                    "type": "string",
-                    "description": "Path to your AMRFinder+ database as a tarball, if not given database will be built",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "force_update": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Force AMRFinder+ to rebuild the database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
                 "ident_min": {
                     "type": "number",
                     "default": -1,
@@ -49,6 +37,12 @@
                     "description": "NCBI genetic code for translated BLAST",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
+                },
+                "amrfinder_noplus": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disable running AMRFinder+ with the --plus option",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "report_common": {
                     "type": "boolean",

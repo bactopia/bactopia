@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
-options.is_module = params.wf == 'tbprofiler' ? true : false
 options.args = [
     params.call_whole_genome ? "--call_whole_genome" : "",
     params.calling_params ? "--calling_params ${params.calling_params}" : "",
@@ -12,10 +11,7 @@ options.args = [
     params.no_delly ? "--no_delly" : "",
     "--mapper ${params.mapper}",
     "--caller ${params.caller}",
-    "--min_depth ${params.tb_min_depth}",
-    "--af ${params.tb_af}",
-    "--reporting_af ${params.tb_reporting_af}",
-    "--coverage_fraction_threshold ${params.coverage_fraction_threshold}"
+    params.tbprofiler_opts ? "${params.calling_params}" : "",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { TBPROFILER_PROFILE as TBPROFILER_MODULE }  from '../../../modules/nf-core/tbprofiler/profile/main' addParams( options: options )

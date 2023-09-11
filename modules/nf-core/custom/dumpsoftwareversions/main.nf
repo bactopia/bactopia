@@ -1,22 +1,21 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'custom_dumpsoftwareversions')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::multiqc=1.11"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'custom_dumpsoftwareversions')
+options.btype = options.btype ?: "comparative"
+options.process_name = "software-versions"
+conda_tools   = "bioconda::multiqc=1.15"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/multiqc:1.11--pyhdfd78af_0' :
-        'quay.io/biocontainers/multiqc:1.11--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/multiqc:1.15--pyhdfd78af_0' :
+        'quay.io/biocontainers/multiqc:1.15--pyhdfd78af_0' }"
 
     input:
     path versions
@@ -28,8 +27,8 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
 
-
     script:
+    prefix = "software_versions"
     """
     #!/usr/bin/env python
     import datetime
@@ -87,6 +86,7 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     workflow_versions["Workflow"] = {
         "Nextflow": "$workflow.nextflow.version",
         "$workflow.manifest.name": "$workflow.manifest.version",
+        "command": "$workflow.commandLine",
         "date": datetime.datetime.now()
     }
 
@@ -100,11 +100,11 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     }
 
     with open("software_versions.yml", 'w') as f:
-        yaml.dump(workflow_versions, f, default_flow_style=False)
+        yaml.dump(workflow_versions, f, default_flow_style=False, width=float("inf"))
     with open("software_versions_mqc.yml", 'w') as f:
-        yaml.dump(versions_mqc, f, default_flow_style=False)
+        yaml.dump(versions_mqc, f, default_flow_style=False, width=float("inf"))
 
     with open('versions.yml', 'w') as f:
-        yaml.dump(module_versions, f, default_flow_style=False)
+        yaml.dump(module_versions, f, default_flow_style=False, width=float("inf"))
     """
 }

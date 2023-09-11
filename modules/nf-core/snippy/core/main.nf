@@ -1,9 +1,9 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'snippy-core')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::snippy=4.6.0 bioconda::vcf-annotator=0.7 bioconda::rename=1.601 bioconda::snpeff=5.0"
+options     = initOptions(params.containsKey("options") ? params.options : [:], 'snippy-core')
+options.btype = options.btype ?: "comparative"
+conda_tools = "bioconda::bactopia-variants=1.0.1"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -11,15 +11,15 @@ process SNIPPY_CORE {
     tag "${meta.id}"
     label "process_medium"
 
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
-
     conda (params.enable_conda ? conda_env : null)
-    container 'quay.io/bactopia/call_variants:2.2.0'
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/bactopia-variants:1.0.1--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-variants:1.0.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(vcf), path(aligned_fa)
     path reference
+    path mask
 
     output:
     tuple val(meta), path("results/*")                          , emit: results
@@ -35,6 +35,7 @@ process SNIPPY_CORE {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """
@@ -53,6 +54,7 @@ process SNIPPY_CORE {
         $options.args \\
         --ref $final_reference \\
         --prefix $prefix \\
+        $mask_opt \\
         samples/*
 
     # Cleanup the alignment
@@ -72,11 +74,10 @@ process SNIPPY_CORE {
     mkdir results
     mv ${prefix}* results/
 
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/snippy //')
+        snippy: \$(echo \$(snippy --version 2>&1) | sed 's/^.*snippy //')
     END_VERSIONS
     """
 }

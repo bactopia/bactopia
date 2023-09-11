@@ -4,44 +4,44 @@
     - seroba
     - bactopia-tools
   files:
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.begin
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.out
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.run
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/seroba/seroba/logs/csvtk_concat/versions.yml
-      md5sum: 9363e850a553212163e484aa8c88a756
-    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-dag.dot
-      contains: ['serobadag', 'SEROBA', 'versions']
-    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/seroba/seroba/nf-reports/seroba-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/seroba/seroba/seroba.tsv
+    - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/seroba/merged-results/seroba.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.begin
+    - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-dag.dot
+      md5sum: a59071f842746266f80ab67bb3a06aa7
+    - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-trace.txt
+      contains: ['task_id']
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.err
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.err
       contains: ["Stage", "in"]
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.log
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.log
       contains: ["k-mers", "kmc", "results", "low"]
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.out
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.out
       contains: ["k-mers", "kmc", "results", "low"]
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.run
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.sh
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.sh
       contains: ['seroba', 'END_VERSIONS']
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/nf-seroba.trace
+    - path: bactopia/test/tools/seroba/logs/nf-seroba.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/seroba/seroba/test/logs/seroba/versions.yml
+    - path: bactopia/test/tools/seroba/logs/versions.yml
       md5sum: e61acfefb43811106cca7842c73e475f
-    - path: bactopia-tools/seroba/seroba/test/test.tsv
+    - path: bactopia/test/tools/seroba/test.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94

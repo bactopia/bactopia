@@ -45,44 +45,41 @@ docs:
     for antimicrobial resistance and virulence genes.
   output:
     tree: |
-      abricate/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.txt
-      │   └── logs
+      │   └── tools
       │       └── abricate
-      │           ├── nf-abricate.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── abricate
-      │   │   ├── nf-abricate.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── abricate-dag.dot
-      │   ├── abricate-report.html
-      │   ├── abricate-timeline.html
-      │   └── abricate-trace.txt
-      ├── abricate.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.txt
+      │           └── logs
+      │               ├── nf-abricate.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── abricate-<TIMESTAMP>
+              ├── merged-results
+              │   ├── abricate.tsv
+              │   └── logs
+              │       └── abricate-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── abricate-dag.dot
+                  ├── abricate-report.html
+                  ├── abricate-timeline.html
+                  └── abricate-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | abricate.tsv | A merged TSV file with `Abricate` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: abricate.tsv
+            description: A merged TSV file with `Abricate` results from all samples
       - name: Abricate
         description: |
           Below is a description of the _per-sample_ results from [Abricate](https://github.com/tseemann/abricate).
-        table: |
-          | Filename | Description |
-          |-----------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tzt      | A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output) |
+        table:
+          - id: <SAMPLE_NAME>.txt
+            description: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
   citations:
     - abricate
     - arg_annot

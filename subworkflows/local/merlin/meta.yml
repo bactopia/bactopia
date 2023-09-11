@@ -62,262 +62,437 @@ docs:
     
     | Genus/Species | Tools |
     |---------------|-------|
-    | Escherichia / Shigella   | [ECTyper](/bactopia-tools/ectyper/), [ShigaTyper](/bactopia-tools/shigtyper/), [ShigEiFinder](/bactopia-tools/shigeityper/)  |
-    | Haemophilus   | [hicap](/bactopia-tools/hicap/), [HpsuisSero](/bactopia-tools/ssuissero/) |
-    | Klebsiella | [Kleborate](/bactopia-tools/kleborate/) |
-    | Legionella | [legsta](/bactopia-tools/legsta/) |
-    | Listeria | [LisSero](/bactopia-tools/lissero/) |
-    | Mycobacterium | [TBProfiler](/bactopia-tools/tbprofiler/) |
-    | Neisseria | [meningotype](/bactopia-tools/meningotype/), [ngmaster](/bactopia-tools/ngmaster/) |
-    | Pseudomonas | [pasty](/bactopia-tools/pasty/) |
-    | Salmonella | [SeqSero2](/bactopia-tools/seqsero2/), [SISTR](/bactopia-tools/sistr/) |
-    | Staphylococcus | [AgrVATE](/bactopia-tools/agrvate/), [spaTyper](/bactopia-tools/spatyper/), [staphopia-sccmec](/bactopia-tools/staphopiasccmec/) |
-    | Streptococcus | [emmtyper](/bactopia-tools/emmtyper/), [pbptyper](/bactopia-tools/pbptyper/), [SsuisSero](/bactopia-tools/ssuissero/) |
+    | Escherichia / Shigella   | [ECTyper](../bactopia-tools/ectyper.md), [ShigaTyper](../bactopia-tools/shigatyper.md), [ShigEiFinder](../bactopia-tools/shigeifinder.md)  |
+    | Haemophilus   | [hicap](../bactopia-tools/hicap.md), [HpsuisSero](../bactopia-tools/ssuissero.md) |
+    | Klebsiella | [Kleborate](../bactopia-tools/kleborate.md) |
+    | Legionella | [legsta](../bactopia-tools/legsta.md) |
+    | Listeria | [LisSero](../bactopia-tools/lissero.md) |
+    | Mycobacterium | [TBProfiler](../bactopia-tools/tbprofiler.md) |
+    | Neisseria | [meningotype](../bactopia-tools/meningotype.md), [ngmaster](../bactopia-tools/ngmaster.md) |
+    | Pseudomonas | [pasty](../bactopia-tools/pasty.md) |
+    | Salmonella | [SeqSero2](../bactopia-tools/seqsero2.md), [SISTR](../bactopia-tools/sistr.md) |
+    | Staphylococcus | [AgrVATE](../bactopia-tools/agrvate.md), [spaTyper](../bactopia-tools/spatyper.md), [staphopia-sccmec](../bactopia-tools/staphopiasccmec.md) |
+    | Streptococcus | [emmtyper](../bactopia-tools/emmtyper.md), [pbptyper](../bactopia-tools/pbptyper.md), [SsuisSero](../bactopia-tools/ssuissero.md) |
   
     Merlin is avialable as an independent Bactopia Tool, or in the Bactopia with the `--ask_merlin` parameter. Even better,
     if you want to force Merlin to execute all species-specific tools (no matter the distance), you can use `--full_merlin`.
     Then all the spells will be unleashed!
   output:
     tree: |
-      merlin/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── agrvate
-      │   │   ├── <SAMPLE_NAME>-agr_gp.tab
-      │   │   ├── <SAMPLE_NAME>-blastn_log.txt
-      │   │   └── <SAMPLE_NAME>-summary.tab
-      │   ├── ectyper
-      │   │   ├── <SAMPLE_NAME>.tsv
-      │   │   └── blast_output_alleles.txt
-      │   ├── emmtyper
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── hicap
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── hpsuissero
-      │   │   └── <SAMPLE_NAME>_serotyping_res.tsv
-      │   ├── kleborate
-      │   │   └── <SAMPLE_NAME>.results.txt
-      │   ├── legsta
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── lissero
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── logs
-      │   │   └── <BACTOPIA_TOOL>
-      │   │       ├── nf-<BACTOPIA_TOOL>.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   ├── mashdist
-      │   │   └── <SAMPLE_NAME>-dist.txt
-      │   ├── meningotype
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── ngmaster
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── seqsero2
-      │   │   ├── <SAMPLE_NAME>_log.txt
-      │   │   ├── <SAMPLE_NAME>_result.tsv
-      │   │   └── <SAMPLE_NAME>_result.txt
-      │   ├── sistr
-      │   │   ├── <SAMPLE_NAME>-allele.fasta.gz
-      │   │   ├── <SAMPLE_NAME>-allele.json.gz
-      │   │   ├── <SAMPLE_NAME>-cgmlst.csv
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── spatyper
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   ├── ssuissero
-      │   │   └── <SAMPLE_NAME>_serotyping_res.tsv
-      │   ├── staphopiasccmec
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   └── tbprofiler
-      │       ├── <SAMPLE_NAME>.results.csv
-      │       ├── <SAMPLE_NAME>.results.json
-      │       ├── <SAMPLE_NAME>.results.txt
-      │       ├── bam
-      │       │   └── <SAMPLE_NAME>.bam
-      │       └── vcf
-      │           └── <SAMPLE_NAME>.targets.csq.vcf.gz
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   └── <BACTOPIA_TOOL>
-      │   │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── merlin-dag.dot
-      │   ├── merlin-report.html
-      │   ├── merlin-timeline.html
-      │   └── merlin-trace.txt
-      ├── agrvate.tsv
-      ├── ectyper.tsv
-      ├── emmtyper.tsv
-      ├── hicap.tsv
-      ├── hpsuissero.tsv
-      ├── kleborate.tsv
-      ├── legsta.tsv
-      ├── lissero.tsv
-      ├── meningotype.tsv
-      ├── ngmaster.tsv
-      ├── seqsero2.tsv
-      ├── sistr.tsv
-      ├── software_versions.yml
-      ├── software_versions_mqc.yml
-      ├── spatyper.tsv
-      ├── ssuissero.tsv
-      └── staphopiasccmec.tsv
+      │   └── tools
+      │       ├── agrvate
+      │       │   ├── <SAMPLE_NAME>-agr_gp.tab
+      │       │   ├── <SAMPLE_NAME>-blastn_log.txt
+      │       │   ├── <SAMPLE_NAME>-hmm-log.txt
+      │       │   ├── <SAMPLE_NAME>-hmm.tab
+      │       │   ├── <SAMPLE_NAME>-summary.tab
+      │       │   └── logs
+      │       │       ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── ectyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   ├── blast_output_alleles.txt
+      │       │   └── logs
+      │       │       ├── ectyper.log
+      │       │       ├── nf-ectyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── emmtyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-emmtyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── genotyphi
+      │       │   ├── <SAMPLE_NAME>.csv
+      │       │   ├── <SAMPLE_NAME>.json
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── genotyphi
+      │       │       │   ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
+      │       │       │   └── versions.yml
+      │       │       └── mykrobe
+      │       │           ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
+      │       │           └── versions.yml
+      │       ├── hicap
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-hicap.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── hpsuissero
+      │       │   ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │       │   └── logs
+      │       │       ├── nf-hpsuissero.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── kleborate
+      │       │   ├── <SAMPLE_NAME>.results.txt
+      │       │   └── logs
+      │       │       ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── legsta
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-legsta.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── mashdist
+      │       │   └── merlin
+      │       │       ├── <SAMPLE_NAME>-dist.txt
+      │       │       └── logs
+      │       │           ├── nf-mashdist.{begin,err,log,out,run,sh,trace}
+      │       │           └── versions.yml
+      │       ├── meningotype
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-meningotype.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── ngmaster
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-ngmaster.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── pasty
+      │       │   ├── <SAMPLE_NAME>.blastn.tsv
+      │       │   ├── <SAMPLE_NAME>.details.tsv
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-pasty.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── pbptyper
+      │       │   ├── <SAMPLE_NAME>-1A.tblastn.tsv
+      │       │   ├── <SAMPLE_NAME>-2B.tblastn.tsv
+      │       │   ├── <SAMPLE_NAME>-2X.tblastn.tsv
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-pbptyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── seqsero2
+      │       │   ├── <SAMPLE_NAME>_log.txt
+      │       │   ├── <SAMPLE_NAME>_result.tsv
+      │       │   ├── <SAMPLE_NAME>_result.txt
+      │       │   └── logs
+      │       │       ├── nf-seqsero2.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── seroba
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-seroba.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── shigatyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-shigatyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── shigeifinder
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── sistr
+      │       │   ├── <SAMPLE_NAME>-allele.fasta.gz
+      │       │   ├── <SAMPLE_NAME>-allele.json.gz
+      │       │   ├── <SAMPLE_NAME>-cgmlst.csv
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-sistr.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── spatyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── ssuissero
+      │       │   ├── <SAMPLE_NAME>_serotyping_res.tsv
+      │       │   └── logs
+      │       │       ├── nf-ssuissero.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── staphopiasccmec
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── stecfinder
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-stecfinder.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       └── tbprofiler
+      │           ├── <SAMPLE_NAME>.results.csv
+      │           ├── <SAMPLE_NAME>.results.json
+      │           ├── <SAMPLE_NAME>.results.txt
+      │           ├── bam
+      │           │   └── <SAMPLE_NAME>.bam
+      │           ├── logs
+      │           │   ├── nf-tbprofiler.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           └── vcf
+      │               └── <SAMPLE_NAME>.targets.csq.vcf.gz
+      └── bactopia-runs
+          └── merlin-<TIMESTAMP>
+              ├── merged-results
+              │   ├── agrvate.tsv
+              │   ├── ectyper.tsv
+              │   ├── emmtyper.tsv
+              │   ├── genotyphi.tsv
+              │   ├── hicap.tsv
+              │   ├── hpsuissero.tsv
+              │   ├── kleborate.tsv
+              │   ├── legsta.tsv
+              │   ├── logs
+              │   │   └── <BACTOPIA_TOOL>-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   ├── meningotype.tsv
+              │   ├── ngmaster.tsv
+              │   ├── pasty.tsv
+              │   ├── pbptyper.tsv
+              │   ├── seqsero2.tsv
+              │   ├── seroba.tsv
+              │   ├── shigatyper.tsv
+              │   ├── shigeifinder.tsv
+              │   ├── sistr.tsv
+              │   ├── spatyper.tsv
+              │   ├── ssuissero.tsv
+              │   ├── staphopiasccmec.tsv
+              │   └── stecfinder.tsv
+              └── nf-reports
+                  ├── merlin-dag.dot
+                  ├── merlin-report.html
+                  ├── merlin-timeline.html
+                  └── merlin-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
-          | ectyper.tsv | A merged TSV file with `ECTyper` results from all samples |
-          | emmtyper.tsv | A merged TSV file with `emmtyper` results from all samples |
-          | hicap.tsv  | A merged TSV file with `hicap` results from all samples |
-          | hpsuissero.tsv | A merged TSV file with `HpsuisSero` results from all samples |
-          | kleborate.tsv | A merged TSV file with `Kleborate` results from all samples |
-          | legsta.tsv  | A merged TSV file with `legsta` results from all samples |
-          | lissero.tsv  | A merged TSV file with `LisSero` results from all samples |
-          | meningotype.tsv  | A merged TSV file with `meningotype` results from all samples |
-          | ngmaster.tsv  | A merged TSV file with `ngmaster` results from all samples |
-          | seqsero2.tsv  | A merged TSV file with `seqsero2` results from all samples |
-          | sistr.tsv  | A merged TSV file with `SISTR` results from all samples |
-          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
-          | ssuissero.tsv  | A merged TSV file with `SsuisSero` results from all samples |
-          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: agrvate.tsv
+            description: A merged TSV file with `AgrVATE` results from all samples
+          - id: ectyper.tsv
+            description: A merged TSV file with `ECTyper` results from all samples
+          - id: emmtyper.tsv
+            description: A merged TSV file with `emmtyper` results from all samples
+          - id: genotyphi.tsv
+            description: A merged TSV file with `genotyphi` results from all samples
+          - id: hicap.tsv
+            description: A merged TSV file with `hicap` results from all samples
+          - id: hpsuissero.tsv
+            description: A merged TSV file with `HpsuisSero` results from all samples
+          - id: kleborate.tsv
+            description: A merged TSV file with `Kleborate` results from all samples
+          - id: legsta.tsv
+            description: A merged TSV file with `legsta` results from all samples
+          - id: lissero.tsv
+            description: A merged TSV file with `LisSero` results from all samples
+          - id: meningotype.tsv
+            description: A merged TSV file with `meningotype` results from all samples
+          - id: ngmaster.tsv
+            description: A merged TSV file with `ngmaster` results from all samples
+          - id: pasty.tsv
+            description: A merged TSV file with `pasty` results from all samples
+          - id: pbptyper.tsv
+            description: A merged TSV file with `pbptyper` results from all samples
+          - id: seqsero2.tsv
+            description: A merged TSV file with `seqsero2` results from all samples
+          - id: seroba.tsv
+            description: A merged TSV file with `seroba` results from all samples
+          - id: shigatyper.tsv
+            description: A merged TSV file with `ShigaTyper` results from all samples
+          - id: shigeifinder.tsv
+            description: A merged TSV file with `ShigEiFinder` results from all samples
+          - id: sistr.tsv
+            description: A merged TSV file with `SISTR` results from all samples
+          - id: spatyper.tsv
+            description: A merged TSV file with `spaTyper` results from all samples
+          - id: ssuissero.tsv
+            description: A merged TSV file with `SsuisSero` results from all samples
+          - id: staphopiasccmec.tsv
+            description: A merged TSV file with `staphopia-sccmec` results from all samples
+          - id: stecfinder.tsv
+            description: A merged TSV file with `stecfinder` results from all samples
       - name: AgrVATE
         description: |
           Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
-        table: |
-          | Extension       | Description |
-          |-----------------|-------------|
-          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
-          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
-          | -summary.tab    | A final summary report for _agr_ typing |
+        is_extensions: true
+        table:
+          - id: -agr_gp.tab
+            description: A detailed report for _agr_ kmer matches
+          - id: -blastn_log.txt
+            description: Log files from programs called by `AgrVATE`
+          - id: -summary.tab
+            description: A final summary report for _agr_ typing
       - name: ECTyper
         description: |
           Below is a description of the _per-sample_ results from [ECTyper](https://github.com/phac-nml/ecoli_serotyping).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ECTyper` result, see [ECTyper - Report format](https://github.com/phac-nml/ecoli_serotyping#report-format) for details  |
-          | blast_output_alleles.txt | Allele report generated from BLAST results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `ECTyper` result, see [ECTyper - Report format](https://github.com/phac-nml/ecoli_serotyping#report-format) for details
+          - id: blast_output_alleles.txt
+            description: Allele report generated from BLAST results
       - name: emmtyper
         description: |
           Below is a description of the _per-sample_ results from [emmtyper](https://github.com/MDU-PHL/emmtyper).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `emmtyper` result, see [emmtyper - Result format](https://github.com/MDU-PHL/emmtyper#result-format) for details  |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `emmtyper` result, see [emmtyper - Result format](https://github.com/MDU-PHL/emmtyper#result-format) for details
       - name: hicap
         description: |
           Below is a description of the _per-sample_ results from [hicap](https://github.com/scwatts/hicap).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.gbk  | GenBank file and cap locus annotations |
-          | &lt;SAMPLE_NAME&gt;.svg  | Visualization of annotated cap locus |
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `hicap` results |
+        table:
+          - id: <SAMPLE_NAME>.gbk
+            description: GenBank file and cap locus annotations
+          - id: <SAMPLE_NAME>.svg
+            description: Visualization of annotated cap locus
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `hicap` results
       - name: HpsuisSero
         description: |
           Below is a description of the _per-sample_ results from [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `HpsuisSero` result |
+        table:
+          - id: <SAMPLE_NAME>_serotyping_res.tsv
+            description: A tab-delimited file with `HpsuisSero` result
+      - name: GenoTyphi
+        description: |
+          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/katholt/genotyphi). A
+          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/katholt/genotyphi/blob/main/README.md#explanation-of-columns-in-the-output)
+        table:
+          - id: <SAMPLE_NAME>_predictResults.tsv
+            description: A tab-delimited file with `GenoTyphi` results
+          - id: <SAMPLE_NAME>.csv
+            description: The output of `mykrobe predict` in comma-separated format
+          - id: <SAMPLE_NAME>.json
+            description: The output of `mykrobe predict` in JSON format
       - name: Kleborate
         description: |
           Below is a description of the _per-sample_ results from [Kleborate](https://github.com/katholt/Kleborate).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.results.tsv  | A tab-delimited file with `Kleborate` result, see [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details |
+        table: 
+          - id: <SAMPLE_NAME>.results.txt
+            description: A tab-delimited file with `Kleborate` result, see  [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details.
       - name: legsta
         description: |
           Below is a description of the _per-sample_ results from [legsta](https://github.com/tseemann/legsta).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `legsta` result, see [legsta - Output](https://github.com/tseemann/legsta#output) for more details
       - name: LisSero
         description: |
           Below is a description of the _per-sample_ results from [LisSero](https://github.com/MDU-PHL/LisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `LisSero` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `LisSero` results
       - name: Mash
         description: |
           Below is a description of the _per-sample_ results from [Mash](https://github.com/marbl/Mash).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;-dist.txt  | A tab-delimited file with `mash dist` results |
+        table:
+          - id: <SAMPLE_NAME>-dist.txt
+            description: A tab-delimited file with `mash dist` results
       - name: meningotype
         description: |
           Below is a description of the _per-sample_ results from [meningotype](https://github.com/MDU-PHL/meningotype) .
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `meningotype` result |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `meningotype` result
       - name: ngmaster
         description: |
           Below is a description of the _per-sample_ results from [ngmaster](https://github.com/MDU-PHL/ngmaster).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ngmaster` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `ngmaster` results
+      - name: pasty
+        description: |
+          Below is a description of the _per-sample_ results from [pasty](https://github.com/rpetit3/pasty).
+        is_extensions: true
+        table:
+          - id: .blastn.tsv 
+            description: A tab-delimited file of all blast hits
+          - id: .details.tsv
+            description: A tab-delimited file with details for each serogroup
+          - id: .tsv
+            description: A tab-delimited file with the predicted serogroup
+      - name: pbptyper
+        description: |
+          Below is a description of the _per-sample_ results from [pbptyper](https://github.com/rpetit3/pbptyper).
+        is_extensions: true
+        table:
+          - id: .tblastn.tsv
+            description: A tab-delimited file of all blast hits
+          - id: .tsv
+            description: A tab-delimited file with the predicted PBP type
       - name: SeqSero2
         description: |
           Below is a description of the _per-sample_ results from [SeqSero2](https://github.com/denglab/SeqSero2).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SeqSero2` results |
-          | &lt;SAMPLE_NAME&gt;.txt  | A text file with key-value pairs of `SeqSero2` results |
+        table:
+          - id: <SAMPLE_NAME>_result.tsv
+            description: A tab-delimited file with `SeqSero2` results
+          - id: <SAMPLE_NAME>_result.txt
+            description: A text file with key-value pairs of `SeqSero2` results
+      - name: Seroba
+        description: |
+          Below is a description of the _per-sample_ results from [Seroba](https://github.com/sanger-pathogens/seroba).
+          More details about the outputs are available from [Seroba - Output](https://sanger-pathogens.github.io/seroba/#output).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with the predicted serotype
+          - id: detailed_serogroup_info.txt
+            description: Detailed information about the predicted results
+      - name: ShigaTyper
+        description: |
+          Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
+        table:
+          - id: <SAMPLE_NAME>-hits.tsv
+            description: Detailed statistics about each individual gene hit
+          - id: <SAMPLE_NAME>.tsv
+            description: The final predicted serotype by `ShigaTyper`
+      - name: ShigEiFinder
+        description: |
+          Below is a description of the _per-sample_ results from [ShigEiFinder](https://github.com/LanLab/ShigEiFinder).
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with the predicted Shigella or EIEC serotype
       - name: SISTR
         description: |
           Below is a description of the _per-sample_ results from [SISTR](https://github.com/phac-nml/sistr_cmd).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;-allele.fasta.gz  | A FASTA file of the cgMLST allele search results  |
-          | &lt;SAMPLE_NAME&gt;-allele.json.gz  | JSON formated cgMLST allele search results, see [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details |
-          | &lt;SAMPLE_NAME&gt;-cgmlst.csv  | A comma-delimited summary of the cgMLST allele search results |
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details |
+        table:
+          - id: <SAMPLE_NAME>-allele.fasta.gz
+            description: A FASTA file of the cgMLST allele search results
+          - id: <SAMPLE_NAME>-allele.json.gz
+            description: JSON formated cgMLST allele search results, see  [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details
+          - id: <SAMPLE_NAME>-cgmlst.csv
+            description: A comma-delimited summary of the cgMLST allele search results
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details
       - name: spaTyper
         description: |
           Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `spaTyper` result
       - name: SsuisSero
         description: |
           Below is a description of the _per-sample_ results from [SsuisSero](https://github.com/jimmyliu1326/SsuisSero).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;_serotyping_res.tsv  | A tab-delimited file with `SsuisSero` results |
+        table:
+          - id: <SAMPLE_NAME>_serotyping_res.tsv
+            description: A tab-delimited file with `SsuisSero` results
       - name: staphopia-sccmec
         description: |
           Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `staphopia-sccmec` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `staphopia-sccmec` results
       - name: TBProfiler
         description: |
           Below is a description of the _per-sample_ results from [TBProfiler](https://github.com/jodyphelan/TBProfiler).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.results.csv  | A CSV formated `TBProfiler` result file of resistance and strain type |
-          | &lt;SAMPLE_NAME&gt;.results.json  | A JSON formated `TBProfiler` result file of resistance and strain type |
-          | &lt;SAMPLE_NAME&gt;.results.txt  | A text file with `TBProfiler` results |
-          | &lt;SAMPLE_NAME&gt;.bam  |BAM file with alignment details |
-          | &lt;SAMPLE_NAME&gt;.targets.csq.vcf.gz | VCF with variant info again refernce genomes |
+        table:
+          - id: <SAMPLE_NAME>.results.csv
+            description: A CSV formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.json
+            description: A JSON formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.txt
+            description: A text file with `TBProfiler` results
+          - id: <SAMPLE_NAME>.bam
+            description: BAM file with alignment details
+          - id: <SAMPLE_NAME>.targets.csq.vcf.gz
+            description: VCF with variant info again reference genomes
   citations:
     - agrvate
     - csvtk

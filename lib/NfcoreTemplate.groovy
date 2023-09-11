@@ -265,8 +265,8 @@ class NfcoreTemplate {
                 ${colors.blue}  \\__ \\ || (_| | |_) | | | | (_) | |_) | | (_| |   ${colors.reset}
                 ${colors.blue}  |___/\\__\\__,_| .__/|_| |_|\\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}               |_|               |_|                 ${colors.reset}
-                ${colors.purple}  staphopia v${workflow.manifest.version}${colors.reset}
-                ${colors.purple}  ${worflow_description} ${colors.reset}
+                ${colors.cyan}  staphopia v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan}  ${worflow_description} ${colors.reset}
                 -${colors.dim}------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
@@ -280,12 +280,60 @@ class NfcoreTemplate {
                 ${colors.blue}  |  __/ | | | ||  __/ | | (_) | |_) | | (_| |      ${colors.reset}
                 ${colors.blue}   \\___|_| |_|\\__\\___|_|  \\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}                               |_|                  ${colors.reset}
-                ${colors.purple}  enteropia v${workflow.manifest.version}${colors.reset}
-                ${colors.purple}  ${worflow_description} ${colors.reset}
+                ${colors.cyan}  enteropia v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan}  ${worflow_description} ${colors.reset}
                 -${colors.dim}---------------------------------------------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
-        } else if (logo_name == "tools") {
+        } else if (logo_name == "cleanyerreads") {
+            String.format(
+                """\n
+                -${colors.dim}------------------------------------------------------------------------${colors.reset}-
+                ${colors.blue}    ____ _                   __   __          ____                _              ${colors.reset}
+                ${colors.blue}   / ___| | ___  __ _ _ __   \\ \\ / /__ _ __  |  _ \\ ___  __ _  __| |___       ${colors.reset}
+                ${colors.blue}  | |   | |/ _ \\/ _` | '_ \\   \\ V / _ \\ '__| | |_) / _ \\/ _` |/ _` / __|    ${colors.reset}
+                ${colors.blue}  | |___| |  __/ (_| | | | |   | |  __/ |    |  _ <  __/ (_| | (_| \\__ \\       ${colors.reset}
+                ${colors.blue}   \\____|_|\\___|\\__,_|_| |_|   |_|\\___|_|    |_| \\_\\___|\\__,_|\\__,_|___/ ${colors.reset}
+                ${colors.blue} ${colors.reset}
+                ${colors.blue}                      ⠀⠀⡶⠛⠲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡶⠚⢲⡀⠀           ${colors.reset}
+                ${colors.blue}                      ⣰⠛⠃⠀⢠⣏⠀⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣀⡀⠀⠀⠀⣸⡇⠀⠈⠙⣧         ${colors.reset}
+                ${colors.blue}                      ⠸⣦⣤⣄⠀⠙⢷⣤⣶⠟⠛⢉⣁⣠⣤⣤⣤⣀⣉⠙⠻⢷⣤⡾⠋⢀⣠⣤⣴⠟        ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⠈⠳⣤⡾⠋⣀⣴⣿⣿⠿⠿⠟⠛⠿⠿⣿⣿⣶⣄⠙⢿⣦⠟⠁⠀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢀⣾⠟⢀⣼⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣷⡄⠹⣷⡀⠀⠀⠀          ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⣾⡏⢠⣿⣿⡯⠤⠤⠤⠒⠒⠒⠒⠒⠒⠒⠤⠤⠽⣿⣿⡆⠹⣷⡀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⢸⣟⣠⡿⠿⠟⠒⣒⣒⣈⣉⣉⣉⣉⣉⣉⣉⣁⣒⣒⡛⠻⠿⢤⣹⣇⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⣾⡭⢤⣤⣠⡞⠉⠉⢀⣀⣀⠀⠀⠀⠀⢀⣀⣀⠀⠈⢹⣦⣤⡤⠴⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⣿⡇⢸⣿⣿⣇⠀⣼⣿⣿⣿⣷⠀⠀⣼⣿⣿⣿⣷⠀⢸⣿⣿⡇⠀⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⢻⡇⠸⣿⣿⣿⡄⢿⣿⣿⣿⡿⠀⠀⢿⣿⣿⣿⡿⢀⣿⣿⣿⡇⢸⣿⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠸⣿⡀⢿⣿⣿⣿⣆⠉⠛⠋⠁⢴⣶⠀⠉⠛⠉⣠⣿⣿⣿⡿⠀⣾⠇⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢻⣷⡈⢻⣿⣿⣿⣿⣶⣤⣀⣈⣁⣀⡤⣴⣿⣿⣿⣿⡿⠁⣼⠟⠀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠀⢀⣽⣷⣄⠙⢿⣿⣿⡟⢲⠧⡦⠼⠤⢷⢺⣿⣿⡿⠋⣠⣾⢿⣄⠀⠀⠀         ${colors.reset}
+                ${colors.blue}                      ⢰⠟⠛⠟⠁⣨⡿⢷⣤⣈⠙⢿⡙⠒⠓⠒⠓⠚⣹⠛⢉⣠⣾⠿⣧⡀⠙⠋⠙⣆         ${colors.reset}
+                ${colors.blue}                      ⠹⣄⡀⠀⠐⡏⠀⠀⠉⠛⠿⣶⣿⣦⣤⣤⣤⣶⣷⡾⠟⠋⠀⠀⢸⡇⠀⢠⣤⠟         ${colors.reset}
+                ${colors.blue}                      ⠀⠀⠳⢤⠼⠃⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠘⠷⢤⠾⠁⠀         ${colors.reset}
+                ${colors.blue} ${colors.reset}
+                ${colors.cyan} clean-yer-reads v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan} ${worflow_description} ${colors.reset}
+                -${colors.dim}------------------------------------------------------------------------${colors.reset}-
+                """.stripIndent()
+            )
+        } else if (logo_name == "teton") {
+            String.format(
+                """\n
+                -${colors.dim}------------------------------------------------------------------${colors.reset}-
+                ${colors.blue}   _       _                          _     *                     ${colors.reset}
+                ${colors.blue}  | |_ ___| |_ ___  _ __       *     / \\_       *   /\\'__       ${colors.reset}
+                ${colors.blue}  | __/ _ \\ __/ _ \\| '_ \\       /\\ _/    \\        _/  /  \\  * ${colors.reset}
+                ${colors.blue}  | ||  __/ || (_) | | | |     /\\/\\  /\\/  \\_   _^/  ^/    `--.  ${colors.reset}
+                ${colors.blue}   \\__\\___|\\__\\___/|_| |_|    /    \\/  \\    \\ /.' ^_   \\_   .'\\ ${colors.reset}
+                ${colors.blue}                                      Art by Joan Stark         ${colors.reset}
+                ${colors.blue}  ${colors.reset}
+                ${colors.cyan}  teton v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan}  ${worflow_description}${colors.reset}
+                -${colors.dim}------------------------------------------------------------------${colors.reset}-
+                """.stripIndent()
+            )
+        }  else if (logo_name == "tools") {
             String.format(
                 """\n
                 -${colors.dim}------------------------------------------------------------------${colors.reset}-
@@ -295,8 +343,8 @@ class NfcoreTemplate {
                 ${colors.blue}  | |_) | (_| | (__| || (_) | |_) | | (_| | | || (_) | (_) | \\__ \\        ${colors.reset}
                 ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_|  \\__\\___/ \\___/|_|___/ ${colors.reset}
                 ${colors.blue}                            |_|                                            ${colors.reset}
-                ${colors.purple}  ${workflow.manifest.name} tools ${worflow_name} v${workflow.manifest.version}${colors.reset}
-                ${colors.purple}  ${worflow_description} ${colors.reset}
+                ${colors.cyan}  ${workflow.manifest.name} tools ${worflow_name} v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan}  ${worflow_description} ${colors.reset}
                 -${colors.dim}------------------------------------------------------------------${colors.reset}-
                 """.stripIndent()
             )
@@ -310,8 +358,8 @@ class NfcoreTemplate {
                 ${colors.blue}  | |_) | (_| | (__| || (_) | |_) | | (_| |      ${colors.reset}
                 ${colors.blue}  |_.__/ \\__,_|\\___|\\__\\___/| .__/|_|\\__,_| ${colors.reset}
                 ${colors.blue}                            |_|                  ${colors.reset}
-                ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
-                ${colors.purple}  ${worflow_description} ${colors.reset}
+                ${colors.cyan}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}
+                ${colors.cyan}  ${worflow_description} ${colors.reset}
                 -${colors.dim}-------------------------------------------${colors.reset}-
                 """.stripIndent()
             )

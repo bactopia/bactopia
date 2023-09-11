@@ -1,0 +1,272 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/qc_reads/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "qc_reads_parameters": {
+            "title": "QC Reads Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "use_bbmap": {
+                    "type": "boolean",
+                    "description": "Illumina reads will be QC'd using BBMap",
+                    "help": "",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "use_porechop": {
+                    "type": "boolean",
+                    "default": "turned off",
+                    "description": "Use Porechop to remove adapters from ONT reads",
+                    "help": "",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_qc": {
+                    "type": "boolean",
+                    "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",
+                    "help": "This is really only useful if you have already QC'd your reads, or have a specific need",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "skip_qc_plots": {
+                    "type": "boolean",
+                    "description": "QC Plot creation by FastQC or Nanoplot will be skipped",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "enable_error_correction": {
+                    "type": "boolean",
+                    "description": "Enable FLASH error correction of reads (requires genome size).",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "adapters": {
+                    "type": "string",
+                    "description": "A FASTA file containing adapters to remove",
+                    "help": "By default, Bactopia will use the adapters provided by BBmap",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "adapter_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding adapters.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 23,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "phix": {
+                    "type": "string",
+                    "description": "phiX174 reference genome to remove",
+                    "help": "By default, use the phiX genome provided by BBmap",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "phix_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding phiX174.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 31,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "ktrim": {
+                    "type": "string",
+                    "default": "r",
+                    "description": "Trim reads to remove bases matching reference kmers",
+                    "help": "Choices are: 'f' - do not trim, 'r' - trim ot the right, 'l' - trim to the left",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "r",
+                        "l"
+                    ]
+                },
+                "mink": {
+                    "type": "integer",
+                    "description": "Look for shorter kmers at read tips down to this length, when k-trimming or masking.",
+                    "help": "0 means disabled. Enabling this will disable maskmiddle",
+                    "default": 11,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "hdist": {
+                    "type": "integer",
+                    "description": "Maximum Hamming distance for ref kmers (subs only)",
+                    "help": "Memory use is proportional to (3*K)^hdist",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "tpe": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "When kmer right-trimming, trim both reads to the minimum length of either",
+                    "help": "Choices are: 'f' - do not equally trim, 't' - equally trim ot the right",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "tbo": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Trim adapters based on where paired reads overlap",
+                    "help": "Choices are: 'f' - do not trim by overlap, 't' - trim by overlap",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qtrim": {
+                    "type": "string",
+                    "default": "rl",
+                    "description": "Trim read ends to remove bases with quality below trimq.",
+                    "help": "Performed AFTER looking for kmers. Choices are: \n\n\t'rl' (trim both ends, Default)\n\t'f' (neither end)\n\t'r' (right end only)\n\t'l' (left end only)\n\t'w' (sliding window)",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "rl",
+                        "f",
+                        "r",
+                        "l",
+                        "w"
+                    ]
+                },
+                "trimq": {
+                    "type": "integer",
+                    "description": "Regions with average quality BELOW this will be trimmed if qtrim is set to something other than f",
+                    "default": 6,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "maq": {
+                    "type": "integer",
+                    "description": "Reads with average quality (after trimming) below this will be discarded",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "minlength": {
+                    "type": "integer",
+                    "description": "Reads shorter than this after trimming will be discarded",
+                    "help": "Pairs will be discarded if both are shorter",
+                    "default": 35,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ftm": {
+                    "type": "integer",
+                    "description": "If positive, right-trim length to be equal to zero, modulo this number",
+                    "default": 5,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "tossjunk": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Discard reads with invalid characters as bases",
+                    "help": "Choices are: 'f' - keep all reads, 't' - toss reads with ambiguous bases",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "ain": {
+                    "type": "string",
+                    "default": "f",
+                    "description": "When detecting pair names, allow identical names",
+                    "help": "Choices are: 'f' - requires /1 and /2 or 1: and 2:",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qout": {
+                    "type": "string",
+                    "default": "33",
+                    "description": "PHRED offset to use for output FASTQs",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "33",
+                        "64"
+                    ]
+                },
+                "maxcor": {
+                    "type": "integer",
+                    "description": "Max number of corrections within a 20bp window",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "sampleseed": {
+                    "type": "integer",
+                    "description": "Set to a positive number to use as the random number generator seed for sampling",
+                    "default": 42,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "ont_minlength": {
+                    "type": "integer",
+                    "description": "ONT Reads shorter than this will be discarded",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "ont_minqual": {
+                    "type": "integer",
+                    "description": "Minimum average read quality filter of ONT reads",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "porechop_opts": {
+                    "type": "integer",
+                    "description": "Extra Porechop options in quotes",
+                    "help": "Example would be: '--adapter_threshold 50'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "nanoplot_opts": {
+                    "type": "integer",
+                    "description": "Extra NanoPlot options in quotes",
+                    "help": "Example would be: '--maxlength 10000'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bbduk_opts": {
+                    "type": "integer",
+                    "description": "Extra BBDuk options in quotes",
+                    "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "fastp_opts": {
+                    "type": "integer",
+                    "description": "Extra fastp options in quotes",
+                    "help": "Example would be: '--disable_length_filtering'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/qc_reads_parameters"
+        }
+    ]
+}

@@ -17,7 +17,6 @@ input:
       type: file
       description: A Neisseria gonorrhoeae fasta file.
       pattern: "*.{fna,fna.gz}"
-
 output:
   - meta:
       type: map
@@ -47,44 +46,41 @@ docs:
     _in silico_ multi-antigen sequence typing for _Neisseria gonorrhoeae_ (NG-MAST).
   output:
     tree: |
-      ngmaster/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── ngmaster
-      │           ├── nf-ngmaster.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── ngmaster-dag.dot
-      │   ├── ngmaster-report.html
-      │   ├── ngmaster-timeline.html
-      │   └── ngmaster-trace.txt
-      ├── ngmaster.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-ngmaster.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── ngmaster-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── ngmaster-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── ngmaster.tsv
+              └── nf-reports
+                  ├── ngmaster-dag.dot
+                  ├── ngmaster-report.html
+                  ├── ngmaster-timeline.html
+                  └── ngmaster-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | ngmaster.tsv  | A merged TSV file with `ngmaster` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: ngmaster.tsv
+            description: A merged TSV file with `ngmaster` results from all samples
       - name: ngmaster
         description: |
           Below is a description of the _per-sample_ results from [ngmaster](https://github.com/MDU-PHL/ngmaster).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `ngmaster` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `ngmaster` results
   citations:
     - csvtk
     - ngmaster

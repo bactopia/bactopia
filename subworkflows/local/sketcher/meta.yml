@@ -1,0 +1,75 @@
+name: sketcher
+description: Assortment of tools for sketching sequences
+icon: false
+keywords:
+  - sourmash
+  - mash
+  - sketch
+modules:
+  - sketcher
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: sketcher
+    description: >
+      A Bactopia Tool which uses Mash and Sourmash to create sketches and query
+      RefSeq and GTDB.
+  introduction: |
+      The `sketcher` module uses [Mash](https://github.com/marbl/Mash) and
+      [Sourmash](https://github.com/dib-lab/sourmash) to create sketches and query
+      [RefSeq](https://www.ncbi.nlm.nih.gov/refseq/) and [GTDB](https://gtdb.ecogenomic.org/).
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── main
+      │       └── sketcher
+      │           ├── logs
+      │           │   ├── nf-sketcher.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>-k{21|31}.msh
+      │           ├── <SAMPLE_NAME>-mash-refseq88-k21.txt
+      │           ├── <SAMPLE_NAME>-sourmash-gtdb-rs207-k31.txt
+      │           └── <SAMPLE_NAME>.sig
+      └── bactopia-runs
+          └── bactopia-<TIMESTAMP>
+              └── nf-reports
+                  ├── bactopia-dag.dot
+                  ├── bactopia-report.html
+                  ├── bactopia-timeline.html
+                  └── bactopia-trace.txt
+    add_note: false
+    folders:
+      - name: sketcher
+        description: |
+          Below is a description of the _per-sample_ results from the `sketcher` subworkflow.
+        table:
+          - id: <SAMPLE_NAME>-k{21\|31}.msh
+            description: A Mash sketch of the input assembly for k=21 and k=31
+          - id: <SAMPLE_NAME>-mash-refseq88-k21.txt
+            description: The results of querying the Mash sketch against RefSeq88
+          - id: <SAMPLE_NAME>-sourmash-gtdb-rs207-k31.txt
+            description: The results of querying the Sourmash sketch against GTDB-rs207
+          - id: <SAMPLE_NAME>.sig
+            description: A Sourmash sketch of the input assembly for k=21, k=31, and k=51
+  citations:
+    - gtdb
+    - mash
+    - mash_screen
+    - ncbi_refseq
+    - sourmash

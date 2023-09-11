@@ -1,14 +1,14 @@
 //
 // prokka - Whole genome annotation of small genomes (bacterial, archeal, viral)
 //
-PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
-PROTEINS = params.proteins ? file(params.proteins) : []
 prokka_args = [
-    params.compliant ? "--compliant" : "",
     "--evalue ${params.prokka_evalue}",
     "--coverage ${params.prokka_coverage}",
+    "--centre ${params.centre}",
     "${params.prokka_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
+PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
+PROTEINS = params.proteins ? file(params.proteins) : []
 
 include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
 
@@ -33,5 +33,6 @@ workflow PROKKA {
     tbl = PROKKA_MODULE.out.tbl
     txt = PROKKA_MODULE.out.txt
     tsv = PROKKA_MODULE.out.tsv
+    blastdb = PROKKA_MODULE.out.blastdb
     versions = ch_versions // channel: [ versions.yml ]
 }

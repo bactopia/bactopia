@@ -2,47 +2,45 @@
   command: bash -c 'nextflow run ./subworkflows/local/abricate/test.nf -entry test_abricate --wf abricate -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - abricate
-    - bactopia-tools
+    - tools
   files:
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/GCF_000292685.txt
-      md5sum: 69af3321b0bc808b7ef85f102395736f
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.err
-      contains: ["database", "genes", "Done"]
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.log
-      contains: ["database", "genes", "Done"]
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.run
+    - path: bactopia/bactopia-runs/abricate/merged-results/abricate.tsv
+      contains: ['FILE', 'NUM_FOUND']
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.sh
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.sh
       contains: ['abricate', 'END_VERSIONS']
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/nf-abricate.trace
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/abricate/abricate/GCF_000292685/logs/abricate/versions.yml
-      md5sum: 883068280465b2816cfae24f8ba0ec3c
-    - path: bactopia-tools/abricate/abricate/abricate.txt
-      md5sum: e8391c1a2090cde184f6e350c0c3db30
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.err
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.log
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.sh
-      contains: ['abricate', 'END_VERSIONS']
-    - path: bactopia-tools/abricate/abricate/logs/abricate/nf-abricate.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/abricate/abricate/logs/abricate/versions.yml
-      md5sum: 5a36c88a5b83e21e4e920d931deae2e2
-    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-dag.dot
+    - path: bactopia/bactopia-runs/abricate/merged-results/logs/abricate-concat/versions.yml
+      contains: ['abricate']
+    - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-dag.dot
       contains: ['abricatedag', 'ABRICATE', 'versions']
-    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-report.html
+    - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-timeline.html
+    - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/abricate/abricate/nf-reports/abricate-trace.txt
+    - path: bactopia/bactopia-runs/abricate/nf-reports/abricate-trace.txt
       contains: ['task_id']
+    - path: bactopia/GCF_000292685/tools/abricate/GCF_000292685.txt
+      contains: ['FILE', 'COVERAGE', 'RESISTANCE']
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.err
+      contains: ["database", "genes", "Done"]
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.log
+      contains: ["database", "genes", "Done"]
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.sh
+      contains: ['abricate', 'END_VERSIONS']
+    - path: bactopia/GCF_000292685/tools/abricate/logs/nf-abricate.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/tools/abricate/logs/versions.yml
+      md5sum: 883068280465b2816cfae24f8ba0ec3c

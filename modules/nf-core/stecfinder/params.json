@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/stecfinder/params.json",
+    "title": "STECFinder Module",
+    "description": "A module to serotyping shigella toxin producing E. coli (STEC)",
+    "type": "object",
+    "definitions": {
+        "stecfinder_parameters": {
+            "title": "STECFinder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "stecfinder_use_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Paired-end Illumina reads will be used instead of assemblies",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_hits": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show detailed gene search results",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_cutoff": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Minimum read coverage for gene to be called",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_length": {
+                    "type": "number",
+                    "default": 50.0,
+                    "description": "Percentage of gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_ipah_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Percentage of ipaH gene length needed for positive gene call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_ipah_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive ipaH gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_stx_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Percentage of stx gene length needed for positive gene call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_stx_depth": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Minimum depth for positive stx gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_o_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Percentage of wz_ gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_o_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive qz_ gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_h_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Percentage of fliC gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_h_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive fliC gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/stecfinder_parameters"
+        }
+    ]
+}

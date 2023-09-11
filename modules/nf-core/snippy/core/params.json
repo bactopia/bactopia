@@ -10,12 +10,29 @@
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
                 "maxhap": {
                     "type": "integer",
                     "description": "Largest haplotype to decompose",
                     "default": 100,
                     "fa_icon": "fas fa-angle-double-down"
+                },
+                "mask": {
+                    "type": "string",
+                    "description": "BED file of sites to mask",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "mask_char": {
+                    "type": "string",
+                    "description": "Masking character",
+                    "default": "X",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "snippy_core_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for snippy-core",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         }

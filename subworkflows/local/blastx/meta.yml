@@ -1,0 +1,85 @@
+name: blastx
+description: Search against protein BLAST databases using translated nucleotide queries
+icon: false
+keywords:
+  - fasta
+  - blast
+  - alignment
+modules:
+  - blastx
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta file containing queries sequences
+      pattern: "*.{fa,fasta}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: BLASTX results in TSV format
+      pattern: "*.blastx.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of BLASTX results for all samples
+      pattern: "*.tsv"
+docs:
+  meta:
+    title: blastx
+    description: >
+      A Bactopia Tool which uses BLASTX to query translated nucleotide sequences against protein databases.
+  introduction: |
+      The `blastx` module uses [BLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+      to query translated nucleotide sequences against protein databases for each sample.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── blastx
+      │           ├── <SAMPLE_NAME>.blastx.tsv
+      │           └── logs
+      │               ├── nf-blastx.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── blastx-<TIMESTAMP>
+              ├── merged-results
+              │   ├── blastx.tsv
+              │   └── logs
+              │       └── blastx-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── blastx-dag.dot
+                  ├── blastx-report.html
+                  ├── blastx-timeline.html
+                  └── blastx-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: blastx.tsv
+            description: A merged TSV file with `blastx` results from all samples
+      - name: blastx
+        description: |
+          Below is a description of the _per-sample_ results from [BLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs).
+        table:
+          - id: <SAMPLE_NAME>.blastx.tsv
+            description: A TSV file with `blastx` results for a single sample
+  citations:
+    - blast
+    - csvtk

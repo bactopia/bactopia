@@ -4,67 +4,67 @@
     - clonalframeml
     - bactopia-tools
   files:
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta
       md5sum: 78864175ed8ebd617121837e2624a5f8
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.em.txt
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.em.txt
       md5sum: 8a93c4d39c326b3ec0c471f067384498
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.emsim.txt
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.emsim.txt
       contains: ['theta']
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.importation_status.txt
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.importation_status.txt
       md5sum: cd67d32ee61ed2bb56dc6d8e302b1517
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.labelled_tree.newick
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.labelled_tree.newick
       md5sum: 66634ad58496ac73b7752ce0a7c02dad
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.masked.aln.gz
-    - path: bactopia-tools/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.masked.aln.gz
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt
       md5sum: b4cbfac7ceaa2558f33d97a64694c32c
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.begin
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.err
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.err
       contains: ['Checking', 'Reading']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.log
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.log
       contains: ['newick', 'Reading', 'Done']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.out
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.out
       contains: ['newick', 'Read', 'done']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.run
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.sh
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.sh
       contains: ['ClonalFrameML', 'END_VERSIONS']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/nf-clonalframeml.trace
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/clonalframeml/versions.yml
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/versions.yml
       md5sum: f5a4fbafe6ab9c7959cb229adcfde883
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.begin
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.err
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.log
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.err
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.out
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.out
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.run
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.sh
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.sh
       contains: ['iqtree', 'END_VERSIONS']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/nf-iqtree-fast.trace
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/start-tree.log
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
-    - path: bactopia-tools/clonalframeml/clonalframeml/logs/iqtree-fast/versions.yml
-      md5sum: 28d683c4be220179533b54d5b8563e31
-    - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-dag.dot
-      contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
-    - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/clonalframeml/clonalframeml/nf-reports/clonalframeml-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.bionj
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/versions.yml
+      md5sum: 2c582783714228521f9152e660761748
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.bionj
       contains: ['GCF_000292685']
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.ckp.gz
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.iqtree
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.ckp.gz
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.iqtree
       contains: ['REFERENCES', 'Date', 'GCF_002849995']
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.mldist
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.mldist
       contains: ['GCF_000292685', 'GCF_000300075', 'GCF_002849995']
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.model.gz
-    - path: bactopia-tools/clonalframeml/clonalframeml/start-tree.treefile
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.model.gz
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.treefile
       contains: ['GCF_902713755']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-dag.dot
+      contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-trace.txt
+      contains: ['task_id']

@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/btyper3/params.json",
+    "title": "BTyper3 Module",
+    "description": "A module for taxonomic classification of Bacillus cereus group isolates.",
+    "type": "object",
+    "definitions": {
+        "btyper3_parameters": {
+            "title": "BTyper3 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "bt_virulence_identity": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "Minimum percent amino acid/nucleotide identity threshold for a virulence gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "bt_virulence_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage threshold for a virulence gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bt_identity": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum percent amino acid identity threshold for a Bt toxin gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "bt_coverage": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "Minimum percent coverage threshold for a Bt toxin gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bt_overlap": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "Specify maximum proportion of overlap for overlapping Bt toxin genes to be considered separate genes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bt_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to BTyper3",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/btyper3_parameters"
+        }
+    ]
+}

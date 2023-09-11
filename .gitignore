@@ -1,6 +1,9 @@
 bactopia-tests/
 temp/
-datasets/
+data/datasets/*.gz
+data/datasets/*.msh
+data/datasets/*.db
+./datasets/
 test_data
 conda/envs
 conf/aws.config

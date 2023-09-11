@@ -1,5 +1,5 @@
 name: prokka
-description: Whole genome annotation of small genomes (bacterial, archeal, viral)
+description: Whole genome annotation of small genomes (bacterial, archaeal, viral)
 introduction: |
   The `prokka` module uses [Prokka](https://github.com/tseemann/prokka) to rapidly annotate bacterial 
   genomes and plasmids.
@@ -83,5 +83,69 @@ output:
       type: file
       description: tab-separated file of all features (locus_tag,ftype,len_bp,gene,EC_number,COG,product)
       pattern: "*.{tsv}"
-citations:
-  - prokka
+docs:
+  meta:
+    title: stecfinder
+    description: >-
+      A Bactopia Tool which uses Prokka to rapidly provide annotations in a standardized fashion.
+  introduction: |
+    The `prokka` module uses [Prokka](https://github.com/tseemann/prokka) to rapidly annotate bacterial 
+    genomes in a standardized fashion.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── main
+      │       └── annotator
+      │           └── prokka
+      │               ├── <SAMPLE_NAME>-blastdb.tar.gz
+      │               ├── <SAMPLE_NAME>.faa.gz
+      │               ├── <SAMPLE_NAME>.ffn.gz
+      │               ├── <SAMPLE_NAME>.fna.gz
+      │               ├── <SAMPLE_NAME>.fsa.gz
+      │               ├── <SAMPLE_NAME>.gbk.gz
+      │               ├── <SAMPLE_NAME>.gff.gz
+      │               ├── <SAMPLE_NAME>.sqn.gz
+      │               ├── <SAMPLE_NAME>.tbl.gz
+      │               ├── <SAMPLE_NAME>.tsv
+      │               ├── <SAMPLE_NAME>.txt
+      │               └── logs
+      │                   ├── <SAMPLE_NAME>.{err|log}
+      │                   ├── nf-prokka.{begin,err,log,out,run,sh,trace}
+      │                   └── versions.yml
+      └── bactopia-runs
+          └── prokka-<TIMESTAMP>
+              └── nf-reports
+                  ├── prokka-dag.dot
+                  ├── prokka-report.html
+                  ├── prokka-timeline.html
+                  └── prokka-trace.txt
+    add_note: false
+    folders:
+      - name: Prokka
+        description: |
+          Below is a description of the _per-sample_ results from [Prokka](https://github.com/tseemann/prokka).
+        is_extensions: true
+        table:
+        - id: .blastdb.tar.gz
+          description: A gzipped tar archive of BLAST+ database of the contigs, genes, and proteins
+        - id: .faa.gz
+          description: Protein FASTA file of the translated CDS sequences.
+        - id: .ffn.gz
+          description: Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+        - id: .fna.gz
+          description: Nucleotide FASTA file of the input contig sequences.
+        - id: .gbk.gz
+          description: This is a standard GenBank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-GenBank, with one record for each sequence.
+        - id: .gff.gz
+          description: This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.
+        - id: .sqn.gz
+          description: An ASN1 format "Sequin" file for submission to GenBank. It needs to be edited to set the correct taxonomy, authors, related publication etc.
+        - id: .tbl.gz
+          description: Feature Table file, used by "tbl2asn" to create the .sqn file.
+        - id: .tsv
+          description: Tab-separated file of all features (locus_tag,ftype,len_bp,gene,EC_number,COG,product)
+        - id: .txt
+          description: Statistics relating to the annotated features found.
+  citations:
+    - prokka

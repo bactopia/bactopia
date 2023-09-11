@@ -48,46 +48,44 @@ docs:
     Shigella serotype using Illumina (single or paired-end) or Oxford Nanopore reads.
   output:
     tree: |
-      shigatyper/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-hits.tsv
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── shigatyper
-      │           ├── nf-shigatyper.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── shigatyper-dag.dot
-      │   ├── shigatyper-report.html
-      │   ├── shigatyper-timeline.html
-      │   └── shigatyper-trace.txt
-      ├── shigatyper.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>-hits.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-shigatyper.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── shigatyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── shigatyper-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── shigatyper.tsv
+              └── nf-reports
+                  ├── shigatyper-dag.dot
+                  ├── shigatyper-report.html
+                  ├── shigatyper-timeline.html
+                  └── shigatyper-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | shigatyper.tsv | A merged TSV file with `ShigaTyper` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: shigatyper.tsv
+            description: A merged TSV file with `ShigaTyper` results from all samples
       - name: ShigaTyper
         description: |
           Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
-        table: |
-          | Filename               | Description                                             |
-          |------------------------|---------------------------------------------------------|
-          | <SAMPLE_NAME>-hits.tsv | Detailed statistics about each individual gene hit      |
-          | <SAMPLE_NAME>.tsv      | The final predicted serotype by `ShigaTyper`            |
+        table:
+          - id: <SAMPLE_NAME>-hits.tsv
+            description: Detailed statistics about each individual gene hit
+          - id: <SAMPLE_NAME>.tsv
+            description: The final predicted serotype by `ShigaTyper`
   citations:
     - csvtk
     - shigatyper

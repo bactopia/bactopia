@@ -1,0 +1,8 @@
+- name: teton-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf teton -c nextflow.config --help > teton-help.txt'
+  tags:
+    - bactopia_help
+    - teton
+  files:
+    - path: teton-help.txt
+      contains: ['teton', 'bactopia', 'version', 'dependencies']

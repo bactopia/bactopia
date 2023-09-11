@@ -11,5 +11,7 @@ workflow test_amrfinderplus {
         file(params.test_data['species']['portiera']['genome']['faa_gz'], checkIfExists: true)
     )
 
-    AMRFINDERPLUS ( inputs )
+    db = file(params.test_data['datasets']['amrdb']['amrfinder'], checkIfExists: true)
+
+    AMRFINDERPLUS ( inputs, db )
 }

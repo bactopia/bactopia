@@ -28,9 +28,7 @@ WorkflowBactopiaTools.initialise(workflow, params, log, schema_filename=SCHEMAS)
 /* All certain steps to be rerun
 include { ANNOTATE_GENOME } from '../modules/local/bactopia/annotate_genome/main'
 include { ASSEMBLE_GENOME } from '../modules/local/bactopia/assemble_genome/main'
-include { ANTIMICROBIAL_RESISTANCE } from '../modules/local/bactopia/antimicrobial_resistance/main'
 include { BLAST } from '../modules/local/bactopia/blast/main'
-include { CALL_VARIANTS } from '../modules/local/bactopia/call_variants/main'
 include { MAPPING_QUERY } from '../modules/local/bactopia/mapping_query/main'
 include { MINMER_QUERY } from '../modules/local/bactopia/minmer_query/main'
 */
@@ -41,10 +39,16 @@ if (params.containsKey('accession')) {
     include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
 }
 if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/abricate/main';
+if (params.wf == 'abritamr') include { ABRICATE } from '../subworkflows/local/abritamr/main';
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';
 if (params.wf == 'bakta') include { BAKTA } from '../subworkflows/local/bakta/main';
+if (params.wf == 'blastn') include { BLASTN } from '../subworkflows/local/blastn/main';
+if (params.wf == 'blastp') include { BLASTP } from '../subworkflows/local/blastp/main';
+if (params.wf == 'blastx') include { BLASTX } from '../subworkflows/local/blastx/main';
+if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/bracken/main';
+if (params.wf == 'btyper3') include { BTYPER3 } from '../subworkflows/local/btyper3/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -65,7 +69,9 @@ if (params.wf == 'mashdist') include { MASHDIST } from '../subworkflows/local/ma
 if (params.wf == 'mashtree') include { MASHTREE } from '../subworkflows/local/mashtree/main';
 if (params.wf == 'mcroni') include { MCRONI } from '../subworkflows/local/mcroni/main';
 if (params.wf == 'meningotype') include { MENINGOTYPE } from '../subworkflows/local/meningotype/main';
+if (params.wf == 'merlin') include { DATASETS } from '../modules/local/bactopia/datasets/main'
 if (params.wf == 'merlin') include { MERLIN } from '../subworkflows/local/merlin/main';
+if (params.wf == 'midas') include { MIDAS } from '../subworkflows/local/midas/main';
 if (params.wf == 'mlst') include { MLST } from '../subworkflows/local/mlst/main';
 if (params.wf == 'mobsuite') include { MOBSUITE } from '../subworkflows/local/mobsuite/main';
 if (params.wf == 'mykrobe') include { MYKROBE } from '../subworkflows/local/mykrobe/main';
@@ -74,7 +80,10 @@ if (params.wf == 'pangenome') include { PANGENOME } from '../subworkflows/local/
 if (params.wf == 'pangenome') include { PROKKA } from '../subworkflows/local/prokka/main';
 if (params.wf == 'pasty') include { PASTY } from '../subworkflows/local/pasty/main';
 if (params.wf == 'pbptyper') include { PBPTYPER } from '../subworkflows/local/pbptyper/main';
+if (params.wf == 'phispy') include { PHISPY } from '../subworkflows/local/phispy/main';
 if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflows/local/plasmidfinder/main';
+if (params.wf == 'pneumocat') include { PNEUMOCAT } from '../subworkflows/local/pneumocat/main';
+if (params.wf == 'quast') include { QUAST } from '../subworkflows/local/quast/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
@@ -86,14 +95,22 @@ if (params.wf == 'spatyper') include { SPATYPER } from '../subworkflows/local/sp
 if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/ssuissero/main';
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
+if (params.wf == 'stecfinder') include { STECFINDER } from '../subworkflows/local/stecfinder/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
+if (params.wf == 'tblastn') include { TBLASTN } from '../subworkflows/local/tblastn/main';
+if (params.wf == 'tblastx') include { TBLASTX } from '../subworkflows/local/tblastx/main';
+if (params.wf == 'teton') include { TETON } from '../subworkflows/local/teton/main';
+
+if (['amrfinderplus', 'mlst'].contains(params.wf)) {
+    include { DATASETS } from '../modules/local/bactopia/datasets/main'
+}
 
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ========================================================================================
 */
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main' addParams( options: [publish_to_base: true] )
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ========================================================================================
@@ -137,11 +154,15 @@ workflow BACTOPIATOOLS {
     if (params.wf == 'abricate') {
         ABRICATE(samples)
         ch_versions = ch_versions.mix(ABRICATE.out.versions)
-    } else if (params.wf == 'agrvate') {
+    } else if (params.wf == 'abritamr') {
+        ABRITAMR(samples)
+        ch_versions = ch_versions.mix(ABRITAMR.out.versions)
+    }  else if (params.wf == 'agrvate') {
         AGRVATE(samples)
         ch_versions = ch_versions.mix(AGRVATE.out.versions)
     } else if (params.wf == 'amrfinderplus') {
-        AMRFINDERPLUS(samples)
+        DATASETS()
+        AMRFINDERPLUS(samples, DATASETS.out.amrfinderplus_db)
         ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
     } else if (params.wf == 'ariba') {
         ARIBA(samples)
@@ -149,9 +170,23 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'bakta') {
         BAKTA(samples)
         ch_versions = ch_versions.mix(BAKTA.out.versions)
+    } else if (params.wf == 'blastn') {
+        BLASTN(samples)
+        ch_versions = ch_versions.mix(BLASTN.out.versions)
+    } else if (params.wf == 'blastp') {
+        BLASTP(samples)
+        ch_versions = ch_versions.mix(BLASTP.out.versions)
+    } else if (params.wf == 'blastx') {
+        BLASTX(samples)
+        ch_versions = ch_versions.mix(BLASTX.out.versions)
+    } else if (params.wf == 'bracken') {
+        BRACKEN(samples)
+        ch_versions = ch_versions.mix(BRACKEN.out.versions)
+    } else if (params.wf == 'btyper3') {
+        BTYPER3(samples)
+        ch_versions = ch_versions.mix(BTYPER3.out.versions)
     } else if (params.wf == 'busco') {
-        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'busco'], fna]}.set{ ch_merge_fna }
-        BUSCO(ch_merge_fna)
+        BUSCO(samples)
         ch_versions = ch_versions.mix(BUSCO.out.versions)
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
@@ -212,10 +247,15 @@ workflow BACTOPIATOOLS {
         MENINGOTYPE(samples)
         ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)
     } else if (params.wf == 'merlin') {
-        MERLIN(samples)
+        DATASETS()
+        MERLIN(samples, DATASETS.out.mash_db)
         ch_versions = ch_versions.mix(MERLIN.out.versions)
+    } else if (params.wf == 'midas') {
+        MIDAS(samples)
+        ch_versions = ch_versions.mix(MIDAS.out.versions)
     } else if (params.wf == 'mlst') {
-        MLST(samples)
+        DATASETS()
+        MLST(samples, DATASETS.out.mlst_db)
         ch_versions = ch_versions.mix(MLST.out.versions)
     } else if (params.wf == 'mobsuite') {
         MOBSUITE(samples)
@@ -236,9 +276,18 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'pbptyper') {
         PBPTYPER(samples)
         ch_versions = ch_versions.mix(PBPTYPER.out.versions)
+    } else if (params.wf == 'phispy') {
+        PHISPY(samples)
+        ch_versions = ch_versions.mix(PHISPY.out.versions)
     } else if (params.wf == 'plasmidfinder') {
         PLASMIDFINDER(samples)
         ch_versions = ch_versions.mix(PLASMIDFINDER.out.versions)
+    } else if (params.wf == 'pneumocat') {
+        PNEUMOCAT(samples)
+        ch_versions = ch_versions.mix(PNEUMOCAT.out.versions)
+    } else if (params.wf == 'quast') {
+        QUAST(samples)
+        ch_versions = ch_versions.mix(QUAST.out.versions)
     } else if (params.wf == 'rgi') {
         RGI(samples)
         ch_versions = ch_versions.mix(RGI.out.versions)
@@ -272,9 +321,21 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'staphopiasccmec') {
         STAPHOPIASCCMEC(samples)
         ch_versions = ch_versions.mix(STAPHOPIASCCMEC.out.versions)
+    } else if (params.wf == 'stecfinder') {
+        STECFINDER(samples)
+        ch_versions = ch_versions.mix(STECFINDER.out.versions)
     } else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)
+    } else if (params.wf == 'tblastn') {
+        TBLASTN(samples)
+        ch_versions = ch_versions.mix(TBLASTN.out.versions)
+    } else if (params.wf == 'tblastx') {
+        TBLASTX(samples)
+        ch_versions = ch_versions.mix(TBLASTX.out.versions)
+    } else if (params.wf == 'teton') {
+        TETON(samples)
+        ch_versions = ch_versions.mix(TETON.out.versions)
     }
 
     // Collect Versions

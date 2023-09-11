@@ -1,35 +1,34 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'gtdb')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::gtdbtk=2.1.1"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
+options.btype = options.btype ?: "tools"
+conda_tools   = "bioconda::gtdbtk=2.3.2"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process GTDBTK_CLASSIFYWF {
     tag "${meta.id}"
     label 'process_high'
-    publishDir "${publish_dir}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gtdbtk:2.1.1--pyhdfd78af_1' :
-        'quay.io/biocontainers/gtdbtk:2.1.1--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/gtdbtk:2.3.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/gtdbtk:2.3.2--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fna, stageAs: 'fna-tmp/*')
     path db, stageAs: 'gtdb/*'
 
     output:
-    path "results/*"   , emit: results
+    path "results/*"                                        , emit: results
+    tuple val(meta), path("results/${prefix}.*.summary.tsv"), emit: tsv
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "$is_tarball" == "true" ]; then
@@ -49,6 +48,7 @@ process GTDBTK_CLASSIFYWF {
         --pplacer_cpus $task.cpus \\
         --genome_dir ./fna \\
         --out_dir results \\
+        --skip_ani_screen \\
         --prefix ${prefix}
 
     cat <<-END_VERSIONS > versions.yml

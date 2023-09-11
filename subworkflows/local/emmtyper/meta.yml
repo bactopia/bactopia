@@ -47,45 +47,41 @@ docs:
     emm-typing of _Streptococcus pyogenes_ using a de novo or complete assembly.
   output:
     tree: |
-      emmtyper/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── emmtyper
-      │           ├── emmtyper.log
-      │           ├── nf-emmtyper.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── emmtyper.tsv
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── emmtyper-dag.dot
-      │   ├── emmtyper-report.html
-      │   ├── emmtyper-timeline.html
-      │   └── emmtyper-trace.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-emmtyper.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── emmtyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── emmtyper.tsv
+              │   └── logs
+              │       └── emmtyper-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── emmtyper-dag.dot
+                  ├── emmtyper-report.html
+                  ├── emmtyper-timeline.html
+                  └── emmtyper-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | emmtyper.tsv | A merged TSV file with `emmtyper` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: emmtyper.tsv
+            description: A merged TSV file with `emmtyper` results from all samples
       - name: emmtyper
         description: |
           Below is a description of the _per-sample_ results from [emmtyper](https://github.com/MDU-PHL/emmtyper).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `emmtyper` result, see [emmtyper - Result format](https://github.com/MDU-PHL/emmtyper#result-format) for details  |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `emmtyper` result, see [emmtyper - Result format](https://github.com/MDU-PHL/emmtyper#result-format) for details
   citations:
     - csvtk
     - emmtyper

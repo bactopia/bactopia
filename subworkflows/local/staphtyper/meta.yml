@@ -71,84 +71,82 @@ docs:
     please feel free to suggest it be added!~
   output:
     tree: |
-      staphtyper/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── agrvate
-      │   │   ├── <SAMPLE_NAME>-agr_gp.tab
-      │   │   ├── <SAMPLE_NAME>-blastn_log.txt
-      │   │   └── <SAMPLE_NAME>-summary.tab
-      │   ├── logs
-      │   │   ├── agrvate
-      │   │   │   ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
-      │   │   │   └── versions.yml
-      │   │   ├── spatyper
-      │   │   │   ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
-      │   │   │   └── versions.yml
-      │   │   └── staphopiasccmec
-      │   │       ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   ├── spatyper
-      │   │   └── <SAMPLE_NAME>.tsv
-      │   └── staphopiasccmec
-      │       └── <SAMPLE_NAME>.tsv
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── agrvate
-      │   │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   │   └── versions.yml
-      │   │   ├── spatyper
-      │   │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   │   └── versions.yml
-      │   │   └── staphopiasccmec
-      │   │       ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │       └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── staphtyper-dag.dot
-      │   ├── staphtyper-report.html
-      │   ├── staphtyper-timeline.html
-      │   └── staphtyper-trace.txt
-      ├── agrvate.tsv
-      ├── software_versions.yml
-      ├── software_versions_mqc.yml
-      ├── spatyper.tsv
-      └── staphopiasccmec.tsv
+      │   └── tools
+      │       ├── agrvate
+      │       │   ├── <SAMPLE_NAME>-agr_gp.tab
+      │       │   ├── <SAMPLE_NAME>-blastn_log.txt
+      │       │   ├── <SAMPLE_NAME>-summary.tab
+      │       │   └── logs
+      │       │       ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── spatyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       └── staphopiasccmec
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── staphtyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── agrvate.tsv
+              │   ├── logs
+              │   │   ├── agrvate-concat
+              │   │   │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │   │   └── versions.yml
+              │   │   ├── spatyper-concat
+              │   │   │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │   │   └── versions.yml
+              │   │   └── staphopiasccmec-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   ├── spatyper.tsv
+              │   └── staphopiasccmec.tsv
+              └── nf-reports
+                  ├── staphtyper-dag.dot
+                  ├── staphtyper-report.html
+                  ├── staphtyper-timeline.html
+                  └── staphtyper-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
-          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
-          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: agrvate.tsv
+            description: A merged TSV file with `AgrVATE` results from all samples
+          - id: spatyper.tsv
+            description: A merged TSV file with `spaTyper` results from all samples
+          - id: staphopiasccmec.tsv
+            description: A merged TSV file with `staphopia-sccmec` results from all samples
       - name: AgrVATE
         description: |
           Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
-        table: |
-          | Extension       | Description |
-          |-----------------|-------------|
-          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
-          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
-          | -summary.tab    | A final summary report for _agr_ typing |
+        is_extensions: true
+        table:
+          - id: -agr_gp.tab
+            description: A detailed report for _agr_ kmer matches
+          - id: -blastn_log.txt
+            description: Log files from programs called by `AgrVATE`
+          - id: -summary.tab
+            description: A final summary report for _agr_ typing
       - name: spaTyper
         description: |
           Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `spaTyper` result
       - name: staphopia-sccmec
         description: |
           Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `staphopia-sccmec` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `staphopia-sccmec` results
   citations:
     - agrvate
     - csvtk

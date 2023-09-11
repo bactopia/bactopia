@@ -1,0 +1,8 @@
+- name: bracken-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf bracken -c nextflow.config --help > bracken-help.txt'
+  tags:
+    - bactopia_help
+    - bracken
+  files:
+    - path: bracken-help.txt
+      contains: ['bracken', 'bactopia', 'version', 'dependencies']

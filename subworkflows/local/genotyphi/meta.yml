@@ -55,49 +55,52 @@ docs:
       from the outputs of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe).
   output:
     tree: |
-      genotyphi/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.csv
-      │   ├── <SAMPLE_NAME>.json
-      │   ├── <SAMPLE_NAME>_predictResults.tsv
-      │   └── logs
+      │   └── tools
       │       └── genotyphi
-      │           ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── genotyphi-dag.dot
-      │   ├── genotyphi-report.html
-      │   ├── genotyphi-timeline.html
-      │   └── genotyphi-trace.txt
-      ├── genotyphi.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── logs
+      │           │   ├── genotyphi
+      │           │   │   ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
+      │           │   │   └── versions.yml
+      │           │   └── mykrobe
+      │           │       ├── nf-genotyphi.{begin,err,log,out,run,sh,trace}
+      │           │       └── versions.yml
+      │           ├── test.csv
+      │           ├── test.json
+      │           └── test_predictResults.tsv
+      └── bactopia-runs
+          └── genotyphi-<TIMESTAMP>
+              ├── merged-results
+              │   ├── genotyphi.tsv
+              │   └── logs
+              │       └── genotyphi-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── genotyphi-dag.dot
+                  ├── genotyphi-report.html
+                  ├── genotyphi-timeline.html
+                  └── genotyphi-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | genotyphi.tsv | A merged TSV file with `GenoTyphi` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: genotyphi.tsv
+            description: A merged TSV file with `GenoTyphi` results from all samples
       - name: GenoTyphi
         description: |
           Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/katholt/genotyphi). A
           full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/katholt/genotyphi/blob/main/README.md#explanation-of-columns-in-the-output)
-        table: |
-          | Filename              | Description |
-          |-----------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;_predictResults.tsv  | The the predicted genotype by `GenoTyphi` |
-          | &lt;SAMPLE_NAME&gt;.csv  | The output of `mykrobe predict` in comma-separated format |
-          | &lt;SAMPLE_NAME&gt;.json | The output of `mykrobe predict` in JSON format |
+        table:
+          - id: <SAMPLE_NAME>_predictResults.tsv
+            description: A tab-delimited file with `GenoTyphi` results
+          - id: <SAMPLE_NAME>.csv
+            description: The output of `mykrobe predict` in comma-separated format
+          - id: <SAMPLE_NAME>.json
+            description: The output of `mykrobe predict` in JSON format
   citations:
     - csvtk
     - genotyphi

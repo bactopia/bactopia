@@ -10,5 +10,7 @@ workflow test_mlst {
         file(params.test_data['species']['staphylococcus_aureus']['genome']['fna'], checkIfExists: true)
     )
 
-    MLST ( inputs )
+    db = file(params.test_data['datasets']['mlst'], checkIfExists: true)
+
+    MLST ( inputs, db )
 }

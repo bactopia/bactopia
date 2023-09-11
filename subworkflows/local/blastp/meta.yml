@@ -1,0 +1,85 @@
+name: blastp
+description: Search against protein BLAST databases using protein queries
+icon: false
+keywords:
+  - fasta
+  - blast
+  - alignment
+modules:
+  - blastp
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta file containing queries sequences
+      pattern: "*.{fa,fasta}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: BLASTP results in TSV format
+      pattern: "*.blastp.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of BLASTP results for all samples
+      pattern: "*.tsv"
+docs:
+  meta:
+    title: blastp
+    description: >
+      A Bactopia Tool which uses BLASTP to query protein sequences against protein databases.
+  introduction: |
+      The `blastp` module uses [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+      to query protein sequences against protein databases for each sample.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── blastp
+      │           ├── <SAMPLE_NAME>.blastp.tsv
+      │           └── logs
+      │               ├── nf-blastp.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── blastp-<TIMESTAMP>
+              ├── merged-results
+              │   ├── blastp.tsv
+              │   └── logs
+              │       └── blastp-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── blastp-dag.dot
+                  ├── blastp-report.html
+                  ├── blastp-timeline.html
+                  └── blastp-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: blastp.tsv
+            description: A merged TSV file with `blastp` results from all samples
+      - name: blastp
+        description: |
+          Below is a description of the _per-sample_ results from [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs).
+        table:
+          - id: <SAMPLE_NAME>.blastp.tsv
+            description: A TSV file with `blastp` results for a single sample
+  citations:
+    - blast
+    - csvtk

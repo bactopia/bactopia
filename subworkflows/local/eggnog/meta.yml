@@ -80,42 +80,49 @@ docs:
     from the eggNOG database to more precisely functionally annotate than traditional homology methods.
   output:
     tree: |
-      eggnog/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.emapper.annotations
-      │   ├── <SAMPLE_NAME>.emapper.hits
-      │   ├── <SAMPLE_NAME>.emapper.seed_orthologs
-      │   └── logs
+      │   └── tools
       │       └── eggnog
-      │           ├── nf-eggnog.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   └── eggnog-trace.txt
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.emapper.annotations
+      │           ├── <SAMPLE_NAME>.emapper.hits
+      │           ├── <SAMPLE_NAME>.emapper.seed_orthologs
+      │           └── logs
+      │               ├── nf-eggnog.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── eggnog-<TIMESTAMP>
+              └── nf-reports
+                  ├── eggnog-dag.dot
+                  ├── eggnog-report.html
+                  ├── eggnog-timeline.html
+                  └── eggnog-trace.txt
     add_note: false
     folders:
       - name: eggNOG-mapper
         description: |
           Below is a description of the _per-sample_ results from [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper).
           For full details about each of the eggNOG output files, see
-          [eggNOG-mapper - Ouputs](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.7#Output_format).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.emapper.annotations           | Results from the annotation phase |
-          | &lt;SAMPLE_NAME&gt;.emapper.hits                  | Results from the search phase, from HMMER, Diamond or MMseqs2 |
-          | &lt;SAMPLE_NAME&gt;.emapper.seed_orthologs        | Results from parsing the hits |
-          | &lt;SAMPLE_NAME&gt;.emapper.annotations.xlsx      | (Optional) Annotations in .xlsx format |
-          | &lt;SAMPLE_NAME&gt;.emapper.orthologs             | (Optional) List of orthologs found for each query |
-          | &lt;SAMPLE_NAME&gt;.emapper.genepred.fasta        | (Optional) Sequences of predicted CDS |
-          | &lt;SAMPLE_NAME&gt;.emapper.gff                   | (Optional) GFF of predicted CDS |
-          | &lt;SAMPLE_NAME&gt;.emapper.no_annotations.fasta  | (Optional) Sequences without annotation |
-          | &lt;SAMPLE_NAME&gt;.emapper.pfam                  | (Optional) Positions of the PFAM domains identified |
+          [eggNOG-mapper - Outputs](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.7#Output_format).
+        table:
+          - id: <SAMPLE_NAME>.emapper.annotations
+            description: Results from the annotation phase
+          - id: <SAMPLE_NAME>.emapper.hits
+            description: Results from the search phase, from HMMER, Diamond or MMseqs2
+          - id: <SAMPLE_NAME>.emapper.seed_orthologs
+            description: Results from parsing the hits
+          - id: <SAMPLE_NAME>.emapper.annotations.xlsx
+            description: (Optional) Annotations in .xlsx format
+          - id: <SAMPLE_NAME>.emapper.orthologs
+            description: (Optional) List of orthologs found for each query
+          - id: <SAMPLE_NAME>.emapper.genepred.fasta
+            description: (Optional) Sequences of predicted CDS
+          - id: <SAMPLE_NAME>.emapper.gff
+            description: (Optional) GFF of predicted CDS
+          - id: <SAMPLE_NAME>.emapper.no_annotations.fasta
+            description: (Optional) Sequences without annotation
+          - id: <SAMPLE_NAME>.emapper.pfam
+            description: (Optional) Positions of the PFAM domains identified
   citations:
     - eggnog_mapper
     - eggnog_db

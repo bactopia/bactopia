@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/teton.json",
+    "title": "Teton pipeline parameters",
+    "description": "Host read removal and taxonomic classification with species abundance estimation",
+    "type": "object",
+    "definitions": {
+        "input_parameters": {
+            "title": "Required Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "",
+            "properties": {
+                "samples": {
+                    "type": "string",
+                    "description": "A FOFN (via bactopia prepare) with sample names and paths to FASTQ/FASTAs to process\n",
+                    "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-file-alt",
+                    "header": "### For Procesessing Multiple Samples"
+                },
+                "R1": {
+                    "type": "string",
+                    "description": "First set of compressed (gzip) paired-end FASTQ reads (requires --R2 and --sample)",
+                    "help": "Requires `--R2` and `--sample`. Cannot be used with `--samples` or `--SE` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive",
+                    "header": "### For Processing A Single Sample"
+                },
+                "R2": {
+                    "type": "string",
+                    "description": "Second set of compressed (gzip) paired-end FASTQ reads (requires --R1 and --sample)",
+                    "help": "Requires `--R1` and `--sample`. Cannot be used with `--samples` or `--SE` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "SE": {
+                    "type": "string",
+                    "description": "Compressed (gzip) single-end FASTQ reads  (requires --sample)",
+                    "help": "Requires `--sample`. Cannot be used with `--samples` or `--R1|--R2` (unless `--hybrid` used).",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "ont": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Treat `--SE` or `--accession` as long reads for analysis. (requires --sample if using --SE)",
+                    "fa_icon": "fas fa-level-up"
+                },
+                "sample": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-file"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "A file containing ENA/SRA Experiment accessions or NCBI Assembly accessions to processed",
+                    "fa_icon": "fas fa-file-alt",
+                    "header": "### For Downloading from SRA/ENA or NCBI Assembly\n  **Note: Downloaded assemblies will have error free Illumina reads simulated for processing.**"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "fa_icon": "fas fa-font"
+                },
+                "check_samples": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Validate the input FOFN provided by --samples",
+                    "fa_icon": "fas fa-level-up"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_parameters"
+        }
+    ]
+}

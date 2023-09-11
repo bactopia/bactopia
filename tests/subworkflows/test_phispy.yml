@@ -1,0 +1,8 @@
+- name: phispy-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf phispy -c nextflow.config --help > phispy-help.txt'
+  tags:
+    - bactopia_help
+    - phispy
+  files:
+    - path: phispy-help.txt
+      contains: ['phispy', 'bactopia', 'version', 'dependencies']

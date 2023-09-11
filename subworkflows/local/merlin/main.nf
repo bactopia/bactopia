@@ -15,6 +15,7 @@ include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { PASTY } from '../pasty/main';
 include { PBPTYPER } from '../pbptyper/main';
+include { PNEUMOCAT } from '../pneumocat/main';
 include { SEQSERO2 } from '../seqsero2/main';
 include { SEROBA } from '../seroba/main';
 include { SHIGATYPER } from '../shigatyper/main';
@@ -22,27 +23,32 @@ include { SHIGEIFINDER } from '../shigeifinder/main';
 include { SISTR } from '../sistr/main';
 include { SSUISSERO } from '../ssuissero/main';
 include { STAPHTYPER } from '../staphtyper/main';
+include { STECFINDER } from '../stecfinder/main';
 include { TBPROFILER } from '../tbprofiler/main';
 
 workflow MERLIN {
     take:
     assembly // channel: [ val(meta), [ assembly ] ]
+    mash_db // channel: [ mash_db ]
 
     main:
     ch_versions = Channel.empty()
 
     // ID potential species
-    MERLINDIST(assembly)
+    MERLINDIST(assembly, mash_db)
 
     // Escherichia/Shigella
     MERLINDIST.out.escherichia.map{meta, assembly, found -> [meta, assembly]}.set{ ch_escherichia }
     MERLINDIST.out.escherichia_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_escherichia_fq }
+    MERLINDIST.out.escherichia_fna_fq.map{meta, assembly, reads, found -> [meta, assembly, reads]}.set{ ch_escherichia_fna_fq }
     ECTYPER(ch_escherichia)
     ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
     SHIGATYPER(ch_escherichia_fq)
     ch_versions = ch_versions.mix(SHIGATYPER.out.versions.first())
     SHIGEIFINDER(ch_escherichia)
     ch_versions = ch_versions.mix(SHIGEIFINDER.out.versions.first())
+    STECFINDER(ch_escherichia_fna_fq)
+    ch_versions = ch_versions.mix(STECFINDER.out.versions.first())
 
     // Haemophilus
     MERLINDIST.out.haemophilus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_haemophilus }
@@ -101,10 +107,13 @@ workflow MERLIN {
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
     MERLINDIST.out.streptococcus_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq }
+    MERLINDIST.out.streptococcus_fq_cat.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq_cat }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
     PBPTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(PBPTYPER.out.versions.first())
+    PNEUMOCAT(ch_streptococcus_fq_cat)
+    ch_versions = ch_versions.mix(PNEUMOCAT.out.versions.first())
     SEROBA(ch_streptococcus_fq)
     ch_versions = ch_versions.mix(SEROBA.out.versions.first())
     SSUISSERO(ch_streptococcus)

@@ -54,44 +54,41 @@ docs:
     _spa_ types to _Staphylococcus aureus_ assemblies.
   output:
     tree: |
-      spatyper/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── spatyper
-      │           ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── spatyper-dag.dot
-      │   ├── spatyper-report.html
-      │   ├── spatyper-timeline.html
-      │   └── spatyper-trace.txt
-      ├── software_versions.yml
-      ├── software_versions_mqc.yml
-      └── spatyper.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── spatyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── spatyper-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── spatyper.tsv
+              └── nf-reports
+                  ├── spatyper-dag.dot
+                  ├── spatyper-report.html
+                  ├── spatyper-timeline.html
+                  └── spatyper-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | spatyper.tsv  | A merged TSV file with `spaTyper` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: spatyper.tsv
+            description: A merged TSV file with `spaTyper` results from all samples
       - name: spaTyper
         description: |
           Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `spaTyper` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `spaTyper` result
   citations:
     - csvtk
     - spatyper

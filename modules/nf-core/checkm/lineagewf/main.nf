@@ -1,22 +1,20 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'checkm')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::checkm-genome=1.2.2"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'checkm')
+options.btype = options.btype ?: "tools"
+conda_tools   = "bioconda::checkm-genome=1.2.2"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process CHECKM_LINEAGEWF {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/checkm-genome:1.2.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.2--pyhdfd78af_1' :
+        'quay.io/biocontainers/checkm-genome:1.2.2--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -47,6 +45,7 @@ process CHECKM_LINEAGEWF {
         $options.args
 
     find ./results/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
+    mv results/checkm.log ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

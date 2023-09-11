@@ -1,0 +1,94 @@
+- name: bracken-test
+  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bracken
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-dag.dot
+      contains: ['brackendag', 'BRACKEN', 'versions']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-trace.txt
+      contains: ['task_id']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.abundances.txt
+      contains: ['Candidatus', 'Clostridium', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt
+      contains: ['Candidatus', 'Clostridium', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.krona.html
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.report.txt
+      contains: ['Candidatus', 'Clostridium', 'root']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.tsv
+      contains: ['Candidatus', 'bracken_secondary_species_abundance', 'SRR2838702']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.classified_1.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.classified_2.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.kraken2.krona.html
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.kraken2.report.txt
+      contains: ['Candidatus', 'Clostridium', 'root']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/tools/bracken/logs/versions.yml
+      md5sum: 9bc7a68e6fd16c2dfe5f6eb0d687439f
+
+- name: bracken-test-tarball
+  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken_tarball --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bracken
+    - bracken-tarball
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-dag.dot
+      contains: ['brackendag', 'BRACKEN', 'versions']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bracken/nf-reports/bracken-trace.txt
+      contains: ['task_id']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.abundances.txt
+      contains: ['Candidatus', 'Clostridium', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt
+      contains: ['Candidatus', 'Clostridium', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.krona.html
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.report.txt
+      contains: ['Candidatus', 'Clostridium', 'root']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.bracken.tsv
+      contains: ['Candidatus', 'bracken_secondary_species_abundance', 'SRR2838702']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.classified_1.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.classified_2.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.kraken2.krona.html
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.kraken2.report.txt
+      contains: ['Candidatus', 'Clostridium', 'root']
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.unclassified_1.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/SRR2838702.unclassified_2.fastq.gz
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia/SRR2838702/tools/bracken/logs/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/tools/bracken/logs/versions.yml
+      md5sum: dafd32420071ec6ea5b9df4866c5c7c0

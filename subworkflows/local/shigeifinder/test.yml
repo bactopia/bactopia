@@ -4,44 +4,41 @@
     - shigeifinder
     - bactopia-tools
   files:
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/GCF_016726285.tsv
-      md5sum: aa4996a8f1027de2483b70687c0e8f00
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.begin
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.err
-      contains: ['bwa', 'genes', 'present']
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.log
-      contains: ['bwa', 'genes', 'present']
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.run
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.sh
-      contains: ['shigeifinder', 'END_VERSIONS']
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/nf-shigeifinder.trace
-      contains: ['nextflow.trace']
-    - path: bactopia-tools/shigeifinder/shigeifinder/GCF_016726285/logs/shigeifinder/versions.yml
-      md5sum: b678d07e56355d1a478a94c4308c5c7b
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.begin
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.err
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.log
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.out
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.sh
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/nf-csvtk_concat.trace
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia-tools/shigeifinder/shigeifinder/logs/csvtk_concat/versions.yml
-      md5sum: 621c5b78e76402a39f85235c3e78e631
-    - path: bactopia-tools/shigeifinder/shigeifinder/nf-reports/shigeifinder-dag.dot
-      md5sum: 5914a59b73e9a7042d00c30ac4ee1a83
-    - path: bactopia-tools/shigeifinder/shigeifinder/nf-reports/shigeifinder-report.html
-      contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia-tools/shigeifinder/shigeifinder/nf-reports/shigeifinder-timeline.html
-      contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia-tools/shigeifinder/shigeifinder/nf-reports/shigeifinder-trace.txt
-      contains: ['task_id']
-    - path: bactopia-tools/shigeifinder/shigeifinder/shigeifinder.tsv
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/logs/shigeifinder-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/shigeifinder/merged-results/shigeifinder.tsv
       md5sum: 25be6cf1161e59d9a4eab8db8f9b9ebb
+    - path: bactopia/bactopia-runs/shigeifinder/nf-reports/shigeifinder-dag.dot
+      contains: ['shigeifinder', 'SHIGEIFINDER', 'versions']
+    - path: bactopia/bactopia-runs/shigeifinder/nf-reports/shigeifinder-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/shigeifinder/nf-reports/shigeifinder-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/shigeifinder/nf-reports/shigeifinder-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_016726285/tools/shigeifinder/GCF_016726285.tsv
+      md5sum: aa4996a8f1027de2483b70687c0e8f00
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.err
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.log
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.out
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.sh
+      contains: ['shigeifinder', 'END_VERSIONS']
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/nf-shigeifinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_016726285/tools/shigeifinder/logs/versions.yml
+      md5sum: b678d07e56355d1a478a94c4308c5c7b

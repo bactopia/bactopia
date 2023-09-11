@@ -9,20 +9,19 @@ options.args = [
     "--fragLen ${params.frag_len}",
     "--minFraction ${params.min_fraction}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
+options.subdir = params.run_name
 
 include { FASTANI as FASTANI_MODULE } from '../../../modules/nf-core/fastani/main' addParams( options: options )
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: options.is_module ? '' : 'fastani'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'fastani-concat', process_name: params.merge_folder] )
 
 workflow FASTANI {
     take:
     query // channel: [ val(meta), [ fasta ] ]
-    reference // channel: [ fastas ]
+    reference // channel: [ val(meta), [ fasta ] ]
 
     main:
     ch_versions = Channel.empty()
-    ch_fastani_reference = Channel.empty()
+    ch_fastani_reference = reference
     query.collect{meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}.set{ ch_fastani_query }
     if (params.skip_pairwise) {
         // All against each reference

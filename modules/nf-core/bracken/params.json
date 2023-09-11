@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/kraken2/params.json",
+    "title": "Kraken2 Module",
+    "description": "A module for taxonomic classification of sequence reads",
+    "type": "object",
+    "definitions": {
+        "kraken2_bracken_parameters": {
+            "title": "Kraken2 and Bracken Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kraken2_db": {
+                    "type": "string",
+                    "description": "The a single tarball or path to a Kraken2 formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "kraken2_quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_read_length": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Read length to get all classifications for (0 = determine at runtime)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_level": {
+                    "type": "string",
+                    "default": "S",
+                    "description": "Level to estimate abundance at",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_threshold": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Reads required PRIOR to abundance estimation to perform re-estimation",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "skip_krona": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip the creation of a Krona report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/kraken2_bracken_parameters"
+        }
+    ]
+}

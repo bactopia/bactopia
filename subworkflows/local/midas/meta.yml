@@ -1,0 +1,80 @@
+name: midas
+description: Estimate species abundances from FASTQ files
+icon: false
+keywords:
+  - classify
+  - metagenomics
+  - fastq
+modules:
+  - midas
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: midas
+    description: >
+      A Bactopia Tool which uses MIDAS to estimate the abundance of bacterial species in a sample. 
+  introduction: |
+      The `midas` module uses [MIDAS](https://github.com/snayfach/MIDAS) to estimate the
+      abundance of bacterial species in a sample. MIDAS makes use of a database with 
+      more than 30,000 reference genomes to estimate abundances.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── midas
+      │           ├── <SAMPLE_NAME>.midas.abundances.txt
+      │           ├── <SAMPLE_NAME>.midas.adjusted.abundances.txt
+      │           ├── <SAMPLE_NAME>.midas.tsv
+      │           └── logs
+      │               ├── nf-midas.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── midas-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── midas-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── midas.tsv
+              └── nf-reports
+                  ├── midas-dag.dot
+                  ├── midas-report.html
+                  ├── midas-timeline.html
+                  └── midas-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: midas.tsv
+            description: A summary of the MIDAS results for all samples
+      - name: MIDAS
+        description: |
+          Below is a description of the _per-sample_ results from [MIDAS](https://github.com/snayfach/MIDAS).
+        table:
+          - id: <SAMPLE_NAME>.midas.abundances.txt
+            description: A TSV file containing the abundance of each bacterial species in the sample
+          - id: <SAMPLE_NAME>.midas.adjusted.abundances.txt
+            description: A TSV file containing the abundance of each bacterial species in the sample (adjusted for unclassified reads)
+          - id: <SAMPLE_NAME>.midas.tsv
+            description: A TSV file containing the abundance of each bacterial species in the sample
+  citations:
+    - csvtk
+    - midas

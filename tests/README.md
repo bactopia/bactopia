@@ -10,25 +10,46 @@ Taking a cue from [nf-core/test-datasets](https://github.com/nf-core/test-datase
 
 As testing expands, more test data will be added to `bactopia-tests`. Please keep in mind, much like nf-core's `test-datasets` repo, you are more than welcome to use the data in `bactopia-tests` for your own testing.
 
-## Getting Setup
+## Bactopia CI Setup
 
-The testing in Bactopia allows you to test the `conda`, `docker`, or `singularity` profiles. Well, there's nothing stopping you from testing your own profiles, but those are the ones I will maintain. In order to get started testing Bactopia you will want to make sure you have `pytest` and `pytest-workflows` installed. (*Note: these packages will be included in the conda install of Bactopia v2.0.0, but until then you will need to install them*)
+*Below are mostly notes for myself (Robert), when updating and working with the CI. If you make use of this, you will need to make modifications to fit your system.*
+
+The testing in Bactopia allows you to test the `conda`, `docker`, or `singularity` profiles using `pytest` and `pytest-workflows`. Here are notes on how things have been set up on a self-hosted GHA runner. Worth noting also, [Mambaforge](https://github.com/conda-forge/miniforge) is being used for Conda.
+
 
 ```{bash}
-mamba create -n bactopia-testing -c conda-forge -c bioconda bactopia pytest pytest-workflow
-conda activate bactopia-testing
+# If no screen
+screen -S bactopia-ci
+# else
+screen -Dr bactopia-ci
 
-# If using conda for testing
-bactopia build --default
+# Move to working directory
+cd /data/storage/bactopia-ci
 
-# If using singularity for testing
-bactopia pull --default
+# Rebuild the bactopia-dev environment
+mamba create -n bactopia-dev -y -c rpetit3 -c conda-forge -c bioconda bactopia
+conda activate bactopia-dev
 
 # Clone Bactopia repo
-git clone git@github.com:bactopia/bactopia.git
-git branch --set-upstream-to=origin/dsl2 dsl2
-git pull 
-git checkout -b dsl2
+rm -rf bactopia/
+git clone --branch dev git@github.com:bactopia/bactopia.git
+cd bactopia/
+git pull
+cd ..
+
+# Download necessary environments (our case all of them!)
+# This will take a while, but its only needed occasionally
+mkdir -p envs
+cd envs
+bactopia-download \
+    --bactopia-path /data/storage/bactopia-ci/bactopia \
+    --envtype all \
+    --build-all \
+    --condadir /data/storage/bactopia-ci/envs/conda \
+    --singularity_cache /data/storage/bactopia-ci/envs/singularity \
+    --verbose
+
+# 
 
 # Clone Bactopia-Tests repo (optional, but saves downloading each test)
 git clone git@github.com:bactopia/bactopia-tests.git

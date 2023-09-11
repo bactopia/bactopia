@@ -1,0 +1,89 @@
+name: bracken
+description: Estimate taxonomic abundance of samples from Kraken2 results
+icon: false
+keywords:
+  - classify
+  - metagenomics
+  - fastq
+modules:
+  - bracken
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: bracken
+    description: >
+      A Bactopia Tool which uses Bracken (and Kraken2) to estimate taxonomic abundance of samples.
+  introduction: |
+      The `bracken` module uses [Bracken](https://github.com/jenniferlu717/Bracken) to estimate
+      taxonomic abundance of samples. This Bactopia Tool will also run [Kraken2](https://ccb.jhu.edu/software/kraken2/), 
+      automatically and generate [Krona](https://github.com/marbl/Krona) charts for both Bracken and Kraken2.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── bracken
+      │           ├── <SAMPLE_NAME>.bracken.abundances.txt
+      │           ├── <SAMPLE_NAME>.bracken.adjusted.abundances.txt
+      │           ├── <SAMPLE_NAME>.bracken.krona.html
+      │           ├── <SAMPLE_NAME>.bracken.report.txt
+      │           ├── <SAMPLE_NAME>.bracken.tsv
+      │           ├── <SAMPLE_NAME>.classified_{1,2}.fastq.gz
+      │           ├── <SAMPLE_NAME>.kraken2.krona.html
+      │           ├── <SAMPLE_NAME>.kraken2.output.txt
+      │           ├── <SAMPLE_NAME>.kraken2.report.txt
+      │           ├── <SAMPLE_NAME>.unclassified_{1,2}.fastq.gz
+      │           └── logs
+      │               ├── nf-bracken.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── bracken-<TIMESTAMP>
+              └── nf-reports
+                  ├── bracken-dag.dot
+                  ├── bracken-report.html
+                  ├── bracken-timeline.html
+                  └── bracken-trace.txt
+    add_note: false
+    folders:
+        - name: Bracken & Kraken2
+          description: |
+            Below is a description of the _per-sample_ results from [Bracken](https://github.com/jenniferlu717/Bracken)
+            and [Kraken2](https://github.com/DerrickWood/kraken2).
+          table:
+            - id: <SAMPLE_NAME>.bracken.abundances.txt
+              description: Bracken abundance estimates for each taxon.
+            - id: <SAMPLE_NAME>.bracken.adjusted.abundances.txt
+              description: Bracken abundance estimates for each taxon adjusted for inclusion of unclassified reads
+            - id: <SAMPLE_NAME>.bracken.krona.html
+              description: Krona chart of Bracken abundance estimates
+            - id: <SAMPLE_NAME>.bracken.report.txt
+              description: Bracken report containing stats about classified and not classified reads See [Bracken - Output Formats](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual)
+            - id: <SAMPLE_NAME>.classified_{1|2}.fastq.gz
+              description: Reads classified to belong to any of the taxa on the Kraken2 database.
+            - id: <SAMPLE_NAME>.kraken2.krona.html
+              description: Krona chart of Kraken2 abundance estimates
+            - id: <SAMPLE_NAME>.kraken2.output.txt
+              description: Kraken2 output file containing the taxonomic classification of each read
+            - id: <SAMPLE_NAME>.kraken2.report.txt
+              description: Kraken2 report containing stats about classified and not classified reads See [Kraken2 - Output Formats](https://github.com/DerrickWood/kraken2/wiki/Manual#output-formats) for more details
+            - id: <SAMPLE_NAME>.unclassified_{1,2}.fastq.gz
+              description: Reads not classified to belong to any of the taxa on the Kraken2 database.
+  citations:
+    - bracken
+    - kraken2
+    - krona

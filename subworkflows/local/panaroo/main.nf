@@ -3,7 +3,6 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'panaroo')
-options.is_module = params.wf == 'panaroo' ? true : false
 options.args = [
     params.merge_paralogs ? "--merge_paralogs" : "",
     "--clean-mode ${params.panaroo_mode}",

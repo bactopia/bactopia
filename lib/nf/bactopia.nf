@@ -117,29 +117,45 @@ def handle_multiple_fqs(read_set) {
     return fqs
 }
 
-def process_fofn(line, genome_size) {
+def process_fofn(line, genome_size, species) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
     meta.id = line.sample
     meta.runtype = line.runtype
-    meta.genome_size = genome_size
+    meta.species = line.species
+    if (genome_size) {
+        // User provided via --genome_size, use it
+        meta.genome_size = genome_size
+    } else {
+        // Use size available in FOFN
+        meta.genome_size = line.genome_size
+    }
+
+    if (species) {
+        // User provided via --species, use it
+        meta.species = species
+    } else {
+        // Use species available in FOFN
+        meta.species = line.species
+    }
+    
     if (line.sample) {
         if (line.runtype == 'single-end' || line.runtype == 'ont') {
             return tuple(meta, [file(line.r1)], [params.empty_r2], file(params.empty_extra))
         } else if (line.runtype == 'paired-end') {
             return tuple(meta, [file(line.r1)], [file(line.r2)], file(params.empty_extra))
-        } else if (line.runtype == 'hybrid') {
+        } else if (line.runtype == 'hybrid' || line.runtype == 'short_polish') {
             return tuple(meta, [file(line.r1)], [file(line.r2)], file(line.extra))
         } else if (line.runtype == 'assembly') {
             return tuple(meta, [params.empty_r1], [params.empty_r2], file(line.extra))
         } else if (line.runtype == 'merge-pe') {
             return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(params.empty_extra))
-        } else if (line.runtype == 'hybrid-merge-pe') {
+        } else if (line.runtype == 'hybrid-merge-pe' || line.runtype == 'short_polish-merge-pe') {
             return tuple(meta, handle_multiple_fqs(line.r1), handle_multiple_fqs(line.r2), file(line.extra))
         } else if (line.runtype == 'merge-se') {
             return tuple(meta, handle_multiple_fqs(line.r1), [params.empty_r2], file(params.empty_extra))
         } else {
-            log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, merge-pe, hybrid-merge-pe, merge-se, or assembly")
+            log.error("Invalid runtype ${line.runtype} found, please correct to continue. Expected: single-end, paired-end, hybrid, short_polish, merge-pe, hybrid-merge-pe, short_polish-merge-pe, merge-se, or assembly")
             exit 1
         }
     } else {
@@ -148,310 +164,80 @@ def process_fofn(line, genome_size) {
     }
 }
 
-def process_accessions(accession, genome_size, is_single_accession) {
+def process_accessions(line, genome_size, species) {
+    /* Parse line and determine if single end or paired reads*/
+    def meta = [:]
+
+    if (line.accession.startsWith('GCF') || line.accession.startsWith('GCA')) {
+        meta.id = line.accession.split(/\./)[0]
+        meta.runtype = "assembly_accession"
+        meta.genome_size = genome_size
+        meta.species = species
+        return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+    } else if (line.accession.startsWith('DRX') || line.accession.startsWith('ERX') || line.accession.startsWith('SRX')) {
+        meta.id = line.accession
+        meta.runtype = line.runtype == 'ont' ? "sra_accession_ont" : "sra_accession"
+
+        // If genome_size is provided, use it, otherwise use the genome_size from the FOFN
+        meta.genome_size = genome_size > 0 ? genome_size : line.genome_size
+
+        // If species is provided, use it, otherwise use the species from the FOFN
+        meta.species = species ? species : line.species
+    } else {
+        log.error("Invalid accession: ${line.accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
+        exit 1
+    }
+    return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+}
+
+def process_accession(accession, genome_size, species) {
     /* Parse line and determine if single end or paired reads*/
     def meta = [:]
     meta.genome_size = genome_size
+    meta.species = species
+
     if (accession.length() > 0) {
         if (accession.startsWith('GCF') || accession.startsWith('GCA')) {
             meta.id = accession.split(/\./)[0]
             meta.runtype = "assembly_accession"
-            return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
         } else if (accession.startsWith('DRX') || accession.startsWith('ERX') || accession.startsWith('SRX')) {
-            if (is_single_accession) {
-                meta.id = accession
-                meta.runtype = params.ont ? "sra_accession_ont" : "sra_accession"
-            } else {
-                // Multiple accessions so split
-                meta.id = accession.split(/\t/)[0]
-                meta.runtype = accession.split(/\t/)[1] == 'ont' ? "sra_accession_ont" : "sra_accession"
-            }
-            return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
+            meta.id = accession
+            meta.runtype = params.ont ? "sra_accession_ont" : "sra_accession"
         } else {
             log.error("Invalid accession: ${accession} is not an accepted accession type. Accessions must be Assembly (GCF_*, GCA*) or Exeriment (DRX*, ERX*, SRX*) accessions. Please correct to continue.\n\nYou can use 'bactopia search' to convert BioProject, BioSample, or Run accessions into an Experiment accession.")
             exit 1
         }
+        return tuple(meta, [params.empty_r1], [params.empty_r2], file(params.empty_extra))
     }
 }
 
-def create_input_channel(runtype, genome_size) {
+def create_input_channel(runtype, genome_size, species) {
     if (runtype == "is_fofn") {
         return Channel.fromPath( params.samples )
             .splitCsv(header: true, strip: true, sep: '\t')
-            .map { row -> process_fofn(row, genome_size) }
+            .map { row -> process_fofn(row, genome_size, species) }
     } else if (runtype == "is_accessions") {
         return Channel.fromPath( params.accessions )
-            .splitText()
-            .map { line -> process_accessions(line.trim(), genome_size, false) }
+            .splitCsv(header:true, strip: true, sep: '\t')
+            .map { row -> process_accessions(row, genome_size, species) }
     } else if (runtype == "is_accession") {
-        return Channel.fromList([process_accessions(params.accession, genome_size, true)])
+        return Channel.fromList([process_accession(params.accession, genome_size, species)])
     } else {
         def meta = [:]
         meta.id = params.sample
         meta.runtype = runtype
         meta.genome_size = genome_size
+        meta.species = species
         if (runtype == "paired-end") {
-            return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.empty_extra))])
+            return Channel.fromList([tuple(meta, [file(params.r1)], [file(params.r2)], file(params.empty_extra))])
         } else if (runtype == "hybrid" || runtype == "short_polish") {
-            return Channel.fromList([tuple(meta, [file(params.R1)], [file(params.R2)], file(params.SE))])
+            return Channel.fromList([tuple(meta, [file(params.r1)], [file(params.r2)], file(params.ont))])
         } else if (runtype == "assembly") {
             return Channel.fromList([tuple(meta, [params.empty_r1], [params.empty_r2], file(params.assembly))])
-        } else {
-            return Channel.fromList([tuple(meta, [file(params.SE)], [params.empty_r2], file(params.empty_extra))])
+        } else if (runtype == "ont") {
+            return Channel.fromList([tuple(meta, [file(params.ont)], [params.empty_r2], file(params.empty_extra))])
+        }  else {
+            return Channel.fromList([tuple(meta, [file(params.se)], [params.empty_r2], file(params.empty_extra))])
         }
     }
-}
-
-
-/*
-========================================================================================
-    Import Bactopia Datasets
-========================================================================================
-*/
-def read_json(json_file) {
-    slurp = new JsonSlurper()
-    return slurp.parseText(file(json_file).text)
-}
-
-
-def format_species(species) {
-    /* Format species name to accepted format. */
-    name = false
-    if (species) {
-        name = species.toLowerCase()
-        if (species.contains(" ")) {
-            name = name.replace(" ", "-")
-        }
-    }
-
-    return name
-}
-
-def print_dataset_info(dataset_list, dataset_info) {
-    if (dataset_list.size() > 0) {
-        log.info "Found ${dataset_list.size()} ${dataset_info}"
-        count = 0
-        try {
-            dataset_list.each {
-                if (count < 5) {
-                    log.info "\t${it}"
-                } else {
-                    log.info "\t...More than 5, truncating..."
-                    throw new Exception("break")
-                }
-                count++
-            }
-        } catch (Exception e) {}
-    }
-}
-
-def dataset_exists(dataset_path) {
-    if (file(dataset_path).exists()) {
-        return true
-    } else {
-        log.warn "Warning: ${dataset_path} does not exist and will not be used for analysis."
-    }
-}
-
-def setup_datasets() {
-    species = format_species(params.species)
-    datasets = [
-        'amr': [],
-        'ariba': [],
-        'minmer': [],
-        'mlst': [],
-        'references': [],
-        'blast': [],
-        'mapping': [],
-        'adapters': params.adapters ? file(params.adapters) : file(params.empty_adapters),
-        'phix': params.phix ? file(params.phix) : file(params.empty_phix),
-        'proteins': file(params.empty_proteins),
-        'training_set': file(params.empty_tf),
-        'genome_size': params.genome_size
-    ]
-    genome_size = ['min': 0, 'median': 0, 'mean': 0, 'max': 0]
-    if (params.datasets) {
-        dataset_path = params.datasets
-        available_datasets = read_json("${dataset_path}/summary.json")
-
-        // Antimicrobial Resistance Datasets
-        if (params.skip_amr) {
-            log.info "Found '--skip_amr', datasets for AMRFinder+ will not be used for analysis."
-        } else {
-            if (available_datasets.containsKey('antimicrobial-resistance')) {
-                available_datasets['antimicrobial-resistance'].each {
-                    if (dataset_exists("${dataset_path}/antimicrobial-resistance/${it.name}")) {
-                        datasets['amr'] << file("${dataset_path}/antimicrobial-resistance/${it.name}")
-                    }
-                }
-                print_dataset_info(datasets['amr'], "Antimicrobial resistance datasets")
-            }
-        }
-
-        // Ariba Datasets
-        if (available_datasets.containsKey('ariba')) {
-            available_datasets['ariba'].each {
-                if (dataset_exists("${dataset_path}/ariba/${it.name}")) {
-                    datasets['ariba'] << file("${dataset_path}/ariba/${it.name}")
-                }
-            }
-            print_dataset_info(datasets['ariba'] , "ARIBA datasets")
-        }
-
-        // RefSeq/GenBank Check
-        if (available_datasets.containsKey('minmer')) {
-            if (available_datasets['minmer'].containsKey('sketches')) {
-                available_datasets['minmer']['sketches'].each {
-                    if (dataset_exists("${dataset_path}/minmer/${it}")) {
-                        datasets['minmer'] << file("${dataset_path}/minmer/${it}")
-                    }
-                }
-            }
-        }
-        print_dataset_info(datasets['minmer'], "minmer sketches/signatures")
-
-        if (species) {
-            if (available_datasets.containsKey('species-specific')) {
-                if (available_datasets['species-specific'].containsKey(species)) {
-                    species_db = available_datasets['species-specific'][species]
-
-                    // Species-specific genome size
-                    if (species_db.containsKey('genome_size')) {
-                        if (['min', 'median', 'mean', 'max'].contains(datasets['genome_size'])) {
-                            datasets['genome_size'] = species_db['genome_size'][params.genome_size]
-                        }
-                    }
-
-                    // Prokka proteins and/or Prodigal training set
-                    if (species_db.containsKey('annotation')) {
-                        if (species_db['annotation'].containsKey('proteins')) {
-                            prokka = "${dataset_path}/${species_db['annotation']['proteins']}"
-                            if (dataset_exists(prokka)) {
-                                datasets['proteins'] = file(prokka)
-                                log.info "Found Prokka proteins file"
-                                log.info "\t${datasets['proteins']}"
-                            }
-                        }
-
-                        if (species_db['annotation'].containsKey('training_set')) {
-                            prodigal_tf = "${dataset_path}/${species_db['annotation']['training_set']}"
-                            if (dataset_exists(prodigal_tf)) {
-                                datasets['training_set'] = file(prodigal_tf)
-                                log.info "Found Prodigal training file"
-                                log.info "\t${datasets['training_set'] }"
-                            }
-                        }
-                    }
-
-                    // Species-specific RefSeq Mash sketch for auto variant calling
-                    if (!params.disable_auto_variants) {
-                        if (species_db.containsKey('minmer')) {
-                            if (species_db['minmer'].containsKey('mash')) {
-                                refseq_minmer = "${dataset_path}/${species_db['minmer']['mash']}"
-                                if (dataset_exists(refseq_minmer)) {
-                                    datasets['references'] << file(refseq_minmer)
-                                    log.info "Found Mash Sketch of auto variant calling"
-                                    log.info "\t${refseq_minmer}"
-                                }
-                            }
-                        }
-                    }
-
-                    // MLST 
-                    if (species_db.containsKey('mlst')) {
-                        species_db['mlst'].each { schema, vals ->
-                            vals.each { key, val ->
-                                if (key != "last_updated") {
-                                    if (dataset_exists("${dataset_path}/${val}")) {
-                                        datasets['mlst'] << file("${dataset_path}/${val}")
-                                    }
-                                }
-                            }
-                        }
-                        print_dataset_info(datasets['mlst'], "MLST datasets")
-                    }
-
-                    if (species_db.containsKey('optional')) {
-                        // References to call variants against
-                        if (species_db['optional'].containsKey('reference-genomes')) {
-                            file("${dataset_path}/${species_db['optional']['reference-genomes']}").list().each() {
-                                if (dataset_exists("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")) {
-                                    datasets['references'] << file("${dataset_path}/${species_db['optional']['reference-genomes']}/${it}")
-                                }
-                            }
-                            print_dataset_info(datasets['references'], "reference genomes")
-                        }
-                        
-                        // Sequences for per-base mapping
-                        if (species_db['optional'].containsKey('mapping-sequences')) {
-                            mapping_path = "${dataset_path}/${species_db['optional']['mapping-sequences']}"
-                            mapping_total = file(mapping_path).list().size()
-                            if (mapping_total > 0) {
-                                datasets['mapping'] << file(mapping_path)
-                            }
-                            print_dataset_info(datasets['mapping'], "dir(s) of FASTAs to align reads against")
-                        }
-
-                        // FASTAs to BLAST
-                        if (species_db['optional'].containsKey('blast')) {
-                            species_db['optional']['blast'].each() {
-                                blast_path = "${dataset_path}/${it}"
-                                if (dataset_exists(blast_path)) {
-                                    if (file(blast_path).list().size() > 0) {
-                                        datasets['blast'] << file(blast_path)
-                                    }
-                                }
-                            }
-                            print_dataset_info(datasets['blast'], "dir(s) of FASTAs to query with BLAST")
-                        }
-                    }
-                } else {
-                    log.error "Species '${params.species}' not available, please check spelling " +
-                              "or use '--available_datasets' to verify the dataset has been set " +
-                              "up. Exiting"
-                    exit 1
-                }
-            } else {
-                log.error "Species '${params.species}' not available, please check spelling or " +
-                          "use '--available_datasets' to verify the dataset has been set up. Exiting"
-                exit 1
-            }
-        } else {
-            log.info "--species not given, skipping the following processes (analyses):"
-            log.info "\tblast (genes, proteins, primers)"
-            log.info "\tcall_variants"
-            log.info "\tmapping_query"
-            log.info "\tsequence_type"
-            if (['min', 'median', 'mean', 'max'].contains(params.genome_size)) {
-                log.error "Asked for genome size '${params.genome_size}' which requires a " +
-                          "species to be given. Please give a species or specify " +
-                          "a valid genome size. Exiting"
-                exit 1
-            }
-        }
-    } else {
-        log.info "--datasets not given, skipping the following processes (analyses):"
-        log.info "\tantimicrobial resistance"
-        log.info "\tariba_analysis"
-        log.info "\tblast (genes, proteins, primers)"
-        log.info "\tcall_variants"
-        log.info "\tmapping_query"
-        log.info "\tminmer_query"
-        log.info "\tsequence_type"
-    }
-
-    if (datasets['genome_size'] == null){
-        log.info "Genome size not available, it will be estimated."
-        datasets['genome_size'] = 0
-    } else if (datasets['genome_size'].toInteger() > 0) {
-        log.info "Will use ${datasets['genome_size']} bp for genome size"
-    } else if (datasets['genome_size'].toInteger() == 0) {
-        log.info "Found ${datasets['genome_size']} bp for genome size, it will be estimated."
-    }
-    
-    log.info "\nIf something looks wrong, now's your chance to back out (CTRL+C 3 times). "
-    log.info "Sleeping for ${params.sleep_time} seconds..."
-    sleep(params.sleep_time * 1000)
-    log.info "--------------------------------------------------------------------"
-    return datasets
 }

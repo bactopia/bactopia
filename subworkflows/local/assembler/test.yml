@@ -1,0 +1,695 @@
+- name: assembler-se_skesa
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_se --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_se
+    - assembler_se_skesa
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['skesa', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['skesa', 'fasta', 'removed', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'skesa', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill-se.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 3e25df3e4019a1ef305a2c110d12ac9e
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+
+- name: assembler-se_spades
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_se --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_se
+    - assembler_se_spades
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['spades', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['spades', 'fasta', 'removed', 'shovill', 'Done', 'Thank you', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'spades', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill-se.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 3e25df3e4019a1ef305a2c110d12ac9e
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/spades-unpolished.gfa.gz
+
+- name: assembler-se_megahit
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_se --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_se
+    - assembler_se_megahit
+  files:
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['megahit', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['megahit', 'fasta', 'removed', 'shovill', 'Done', 'Extract', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed", 'megahit', 'Extract', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ["shovill", 'megahit', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill-se.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 3e25df3e4019a1ef305a2c110d12ac9e
+    - path: bactopia/portiera/main/assembler/megahit-unpolished.gfa.gz
+    - path: bactopia/portiera/main/assembler/portiera-assembly-error.txt
+      md5sum: 173bfef2b0d5bd31c1b76cb37de67d3c
+    - path: bactopia/portiera/main/assembler/portiera-error.fna.gz
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+
+- name: assembler-se_velvet
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_se --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_se
+    - assembler_se_velvet
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['velvet', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['velvet', 'fasta', 'removed', 'shovill', 'Done', 'Inputting', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'velvet', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill-se.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 3e25df3e4019a1ef305a2c110d12ac9e
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+    - path: bactopia/portiera/main/assembler/velvet-unpolished.gfa.gz
+
+- name: assembler-pe_skesa
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_pe --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_pe
+    - assembler_pe_skesa
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flash.hist
+    - path: bactopia/portiera/main/assembler/flash.histogram
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['skesa', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['skesa', 'fasta', 'removed', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['skesa', 'Distinct', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'skesa', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill.log
+      contains: ['skesa', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: e16c349ed6815e53930f7ffe6a7bfe31
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+
+- name: assembler-pe_spades
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_pe --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler spades'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_pe
+    - assembler_pe_spades
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: bactopia/portiera/main/assembler/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['spades', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['spades', 'fasta', 'removed', 'shovill', 'Done', 'Thank you', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['spades', 'Thank you', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'spades', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill.log
+      contains: ['spades', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: e16c349ed6815e53930f7ffe6a7bfe31
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/spades-unpolished.gfa.gz
+
+- name: assembler-pe_megahit
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_pe --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler megahit'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_pe
+    - assembler_pe_megahit
+  files:
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: bactopia/portiera/main/assembler/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['megahit', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['megahit', 'fasta', 'removed', 'shovill', 'Done', 'Extract', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed", 'megahit', 'Extract', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ["shovill", 'megahit', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill.log
+      contains: ['megahit', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: e16c349ed6815e53930f7ffe6a7bfe31
+    - path: bactopia/portiera/main/assembler/megahit-unpolished.gfa.gz
+    - path: bactopia/portiera/main/assembler/portiera-assembly-error.txt
+      md5sum: 173bfef2b0d5bd31c1b76cb37de67d3c
+    - path: bactopia/portiera/main/assembler/portiera-error.fna.gz
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+
+- name: assembler-pe_velvet
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_pe --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --shovill_assembler velvet'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_pe
+    - assembler_pe_velvet
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flash.hist
+      md5sum: d8d7e97f5d3852d4eb5341e3f171efc6
+    - path: bactopia/portiera/main/assembler/flash.histogram
+      md5sum: f45cd0764ec250094a43a050fabca9be
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ['velvet', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['velvet', 'fasta', 'removed', 'shovill', 'Done', 'Inputting', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['velvet', 'Inputting', 'pilon']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['shovill', 'velvet', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/shovill.log
+      contains: ['velvet', 'shovill', 'Done']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: e16c349ed6815e53930f7ffe6a7bfe31
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/shovill.corrections
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/velvet-unpolished.gfa.gz
+
+- name: assembler-hybrid
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_hybrid --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_hybrid
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['unicycler', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/unicycler.log
+      contains: ['unicycler', 'complete', 'Saving']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 2e6bd6eec63b11939965e16fac507047
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/unicycler-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/unicycler-unpolished.gfa.gz
+
+- name: assembler-flye
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_nanopore --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_nanopore
+    - assembler_flye
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flye-info.txt
+      contains: ["seq_name"]
+    - path: bactopia/portiera/main/assembler/flye-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/flye-unpolished.gfa.gz
+    - path: bactopia/portiera/main/assembler/logs/dragonflye.log
+      contains: ["dragonflye","flye"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ["dragonflye", "flye"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ["removed", "dragonflye", "flye"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed", "flye"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['flye', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 48ef4021a79c8b84dc914daf54658724
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+
+- name: assembler-miniasm 
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_nanopore --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler miniasm'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_nanopore
+    - assembler_miniasm
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/dragonflye.log
+      contains: ["dragonflye","miniasm"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ["dragonflye","miniasm"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ["removed", "dragonflye","miniasm"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed","miniasm"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['miniasm', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 48ef4021a79c8b84dc914daf54658724
+    - path: bactopia/portiera/main/assembler/miniasm-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/miniasm-unpolished.gfa.gz
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+
+- name: assembler-raven
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_nanopore --wf assembler -c nextflow.config ${BACTOPIA_ARGS} --dragonflye_assembler raven'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_nanopore
+    - assembler_raven
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/logs/dragonflye.log
+      contains: ["dragonflye", "raven"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ["dragonflye", "raven"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ["removed", "dragonflye", "raven"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed", "raven"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['raven', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 48ef4021a79c8b84dc914daf54658724
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]
+    - path: bactopia/portiera/main/assembler/raven-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/raven-unpolished.gfa.gz
+
+- name: assembler-short_polish
+  command: bash -c 'nextflow run ./subworkflows/local/assembler/test.nf -entry test_assembler_short_polish --wf assembler -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - assembler
+    - assembler_short_polish
+  files:
+    - path: bactopia/bactopia-runs/assembler/merged-results/assembly-scan.tsv
+      contains: ["total_contig"]
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/assembler/merged-results/logs/assembly-scan-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-dag.dot
+      contains: ['assemblerdag', 'ASSEMBLER', 'versions']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/assembler/nf-reports/assembler-trace.txt
+      contains: ['task_id']
+    - path: bactopia/portiera/main/assembler/flye-info.txt
+      contains: ["seq_name"]
+    - path: bactopia/portiera/main/assembler/flye-unpolished.fasta.gz
+    - path: bactopia/portiera/main/assembler/flye-unpolished.gfa.gz
+    - path: bactopia/portiera/main/assembler/logs/dragonflye.log
+      contains: ["dragonflye", "Polypolish"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.err
+      contains: ["dragonflye", "Polypolish"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.log
+      contains: ["removed", "dragonflye", "flye", "polypolish"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.out
+      contains: ["removed", "flye"]
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.sh
+      contains: ['polypolish', 'END_VERSIONS']
+    - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/portiera/main/assembler/logs/versions.yml
+      md5sum: 1d314cef9ccaeaa0a89323441a0cdf4b
+    - path: bactopia/portiera/main/assembler/portiera.fna.gz
+    - path: bactopia/portiera/main/assembler/portiera.tsv
+      contains: ["total_contig"]

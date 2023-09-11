@@ -1,0 +1,3 @@
+#! /bin/bash
+
+bactopia --wf teton "${@:1}"

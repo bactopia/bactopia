@@ -1,0 +1,8 @@
+- name: btyper3-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf btyper3 -c nextflow.config --help > btyper3-help.txt'
+  tags:
+    - bactopia_help
+    - btyper3
+  files:
+    - path: btyper3-help.txt
+      contains: ['btyper3', 'bactopia', 'version', 'dependencies']

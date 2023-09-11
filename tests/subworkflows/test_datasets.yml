@@ -1,0 +1,8 @@
+- name: datasets-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf datasets -c nextflow.config --help > datasets-help.txt'
+  tags:
+    - bactopia_help_disable
+    - datasets_disable
+  files:
+    - path: datasets-help.txt
+      contains: ['datasets', 'bactopia', 'version', 'dependencies']

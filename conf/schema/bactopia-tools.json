@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "The path to bactopia results to use as inputs",
                     "help": "The required inputs will be automatically selected by the subworkflow.",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-bacterium"
                 }
             }
         },
@@ -25,19 +25,19 @@
             "type": "object",
             "description": "Use these parameters to specify which samples to include or exclude.",
             "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-solid fa-filter",
             "properties": {
                 "include": {
                     "type": "string",
                     "description": "A text file containing sample names (one per line) to include from the analysis",
                     "help": "The expected format is a single sample per line.",
-                    "fa_icon": "fas fa-angle-double-up"
+                    "fa_icon": "far fa-square-plus"
                 },
                 "exclude": {
                     "type": "string",
                     "description": "A text file containing sample names (one per line) to exclude from the analysis",
                     "help": "The expected format is a single sample per line.",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "far fa-square-minus"
                 }
             }
         }

@@ -19,14 +19,12 @@ options.args = [
     "--force",
     "--verbose",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
+options.subdir = params.ariba_db
 
 include { ARIBA_GETREF } from '../../../modules/nf-core/ariba/getref/main' addParams( )
 include { ARIBA_RUN } from '../../../modules/nf-core/ariba/run/main' addParams( options: options )
-
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$" --lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-report'] )
-    include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--lazy-quotes', publish_to_base: true, logs_subdir: 'ariba-summary'] )
-}
+include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$" --lazy-quotes', logs_subdir: "${params.ariba_db}-report", process_name: params.merge_folder] )
+include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--lazy-quotes', logs_subdir: "${params.ariba_db}-summary", process_name: params.merge_folder] )
 
 workflow ARIBA {
     take:
@@ -37,29 +35,21 @@ workflow ARIBA {
     ch_merged_report = Channel.empty()
     ch_merged_summary = Channel.empty()
 
-    if (file("${params.ariba_dir}/${params.ariba_db}.tar.gz").exists()) {
-        // Run Ariba
-        ARIBA_RUN(reads, file("${params.ariba_dir}/${params.ariba_db}.tar.gz"))
-        ch_versions = ch_versions.mix(ARIBA_RUN.out.versions.first())
-    } else {
-        // Build database and run Ariba
-        ARIBA_GETREF(params.ariba_db)
-        ARIBA_RUN(reads, ARIBA_GETREF.out.db)
-        ch_versions = ch_versions.mix(ARIBA_GETREF.out.versions)
-        ch_versions = ch_versions.mix(ARIBA_RUN.out.versions.first())
-    }
+    // Build database and run Ariba
+    ARIBA_GETREF(params.ariba_db)
+    ARIBA_RUN(reads, ARIBA_GETREF.out.db)
+    ch_versions = ch_versions.mix(ARIBA_RUN.out.versions.first())
 
-    if (params.is_subworkflow) {
-        ARIBA_RUN.out.report.collect{meta, report -> report}.map{ report -> [[id:'ariba-report'], report]}.set{ ch_merge_report }
-        CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
-        ch_merged_report = ch_merged_report.mix(CSVTK_CONCAT_REPORT.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT_REPORT.out.versions)
+    ARIBA_RUN.out.report.collect{meta, report -> report}.map{ report -> [[id:"${params.ariba_db}-report"], report]}.set{ ch_merge_report }
+    CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
+    ch_merged_report = ch_merged_report.mix(CSVTK_CONCAT_REPORT.out.csv)
+    ch_versions = ch_versions.mix(CSVTK_CONCAT_REPORT.out.versions)
 
-        ARIBA_RUN.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'ariba-summary'], summary]}.set{ ch_merge_summary }
-        CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
-        ch_merged_summary = ch_merged_summary.mix(CSVTK_CONCAT_SUMMARY.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT_SUMMARY.out.versions)
-    }
+    ARIBA_RUN.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:"${params.ariba_db}-summary"], summary]}.set{ ch_merge_summary }
+    CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
+    ch_merged_summary = ch_merged_summary.mix(CSVTK_CONCAT_SUMMARY.out.csv)
+    ch_versions = ch_versions.mix(CSVTK_CONCAT_SUMMARY.out.versions)
+
 
     emit:
     results = ARIBA_RUN.out.results

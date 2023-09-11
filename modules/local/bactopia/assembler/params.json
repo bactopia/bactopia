@@ -1,0 +1,213 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/assemble_genome/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A flexible pipeline for complete analysis of bacterial genomes",
+    "type": "object",
+    "definitions": {
+        "assemble_genome_parameters": {
+            "title": "Assembler Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "shovill_assembler": {
+                    "type": "string",
+                    "default": "skesa",
+                    "description": "Assembler to be used by Shovill",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "skesa",
+                        "megahit",
+                        "spades",
+                        "velvet"
+                    ]
+                },
+                "dragonflye_assembler": {
+                    "type": "string",
+                    "default": "flye",
+                    "description": "Assembler to be used by Dragonflye",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "flye",
+                        "miniasm",
+                        "raven"
+                    ]
+                },
+                "use_unicycler": {
+                    "type": "boolean",
+                    "description": "Use unicycler for paired end assembly",
+                    "fa_icon": "fas fa-cut",
+                    "hidden": true
+                },
+                "min_contig_len": {
+                    "type": "integer",
+                    "description": "Minimum contig length <0=AUTO>",
+                    "default": 500,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_contig_cov": {
+                    "type": "integer",
+                    "description": "Minimum contig coverage <0=AUTO>",
+                    "default": 2,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "contig_namefmt": {
+                    "type": "string",
+                    "description": "Format of contig FASTA IDs in 'printf' style",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Shovill",
+                    "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_kmers": {
+                    "type": "string",
+                    "description": "K-mers to use <blank=AUTO>",
+                    "help": "This would allow you to specify the kmer lengths to be used",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "dragonflye_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Dragonflye",
+                    "help": "Example for Medaka would be: '--nanohq'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "trim": {
+                    "type": "boolean",
+                    "description": "Enable adaptor trimming",
+                    "fa_icon": "fas fa-cut",
+                    "hidden": true
+                },
+                "no_stitch": {
+                    "type": "boolean",
+                    "description": "Disable read stitching for paired-end reads",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "no_corr": {
+                    "type": "boolean",
+                    "description": "Disable post-assembly correction",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "unicycler_mode": {
+                    "type": "string",
+                    "default": "normal",
+                    "description": "Bridging mode used by Unicycler",
+                    "help": "Choices are:\n\n\tconservative = smaller contigs, lowest misassembly rate\n\tnormal = moderate contig size and misassembly rate (Default)\n\tbold = longest contigs, higher misassembly rate",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "conservative",
+                        "normal",
+                        "bold"
+                    ]
+                },
+                "min_polish_size": {
+                    "type": "integer",
+                    "description": "Contigs shorter than this value (bp) will not be polished using Pilon",
+                    "default": 10000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_component_size": {
+                    "type": "integer",
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_dead_end_size": {
+                    "type": "integer",
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "nanohq": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "For Flye, use '--nano-hq' instead of --nano-raw",
+                    "fa_icon": "fas fa-redo"
+                },
+                "medaka_model": {
+                    "type": "string",
+                    "description": "The model to use for Medaka polishing",
+                    "help": "This should be the same model used for base calling",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "medaka_rounds": {
+                    "type": "integer",
+                    "description": "The number of Medaka polishing rounds to conduct",
+                    "default": 0,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "racon_rounds": {
+                    "type": "integer",
+                    "description": "The number of Racon polishing rounds to conduct",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "no_polish": {
+                    "type": "boolean",
+                    "description": "Skip the assembly polishing step",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "no_miniasm": {
+                    "type": "boolean",
+                    "description": "Skip miniasm+Racon bridging",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "no_rotate": {
+                    "type": "boolean",
+                    "description": "Do not rotate completed replicons to start at a standard gene",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "reassemble": {
+                    "type": "boolean",
+                    "default": false,
+                    "hidden": true,
+                    "description": "If reads were simulated, they will be used to create a new assembly.",
+                    "fa_icon": "fas fa-redo"
+                },
+                "polypolish_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Polypolish for short read polishing",
+                    "default": 1,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "pilon_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Pilon for short read polishing",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/assemble_genome_parameters"
+        }
+    ]
+}

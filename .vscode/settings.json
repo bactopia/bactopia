@@ -1,0 +1,10 @@
+{
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "master"
+    ],
+    "cSpell.words": [
+        "btype",
+        "infodir",
+        "subdir"
+    ]
+}

@@ -54,6 +54,13 @@
                     "default": 10000,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
+                },
+                "save_sketches": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save sketches created during the process",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         }

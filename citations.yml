@@ -146,6 +146,13 @@ tools:
     cite: |
       Seemann T [Abricate: mass screening of contigs for antimicrobial and virulence genes](https://github.com/tseemann/abricate) (GitHub)
 
+  abritamr:
+    name: abriTAMR
+    link: https://github.com/MDU-PHL/abritamr
+    description: A pipeline for running AMRfinderPlus and collating results into functional classes
+    cite: |
+      Sherry NL, Horan KA, Ballard SA, Gonҫalves da Silva A, Gorrie CL, Schultz MB, Stevens K, Valcanis M, Sait ML, Stinear TP, Howden BP, and Seemann T [An ISO-certified genomics workflow for identification and surveillance of antimicrobial resistance.](https://doi.org/10.1038/s41467-022-35713-4) _Nature Communications_, 14(1), 60. (2023)
+
   agrvate:
     name: AgrVATE
     link: https://github.com/VishnuRaghuram94/AgrVATE
@@ -244,6 +251,27 @@ tools:
     cite: |
       Langmead B, Salzberg SL [Fast gapped-read alignment with Bowtie 2.](http://dx.doi.org/10.1038/nmeth.1923) _Nat. Methods._ 9, 357–359 (2012)
 
+  bracken:
+    name: Bracken
+    link: https://github.com/jenniferlu717/Bracken
+    description: Bracken a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample
+    cite: |
+      Lu J, Breitwieser FP, Thielen P, and Salzberg SL [Bracken: estimating species abundance in metagenomics data.](https://doi.org/10.7717/peerj-cs.104) _PeerJ Computer Science_, 3, e104. (2017)
+
+  btyper2:
+    name: BTyper3
+    link: https://github.com/lmc297/BTyper3
+    description: In silico taxonomic classification of Bacillus cereus group genomes using whole-genome sequencing data
+    cite: |
+      Carroll LM, Wiedmann M, Kovac J [Proposal of a Taxonomic Nomenclature for the Bacillus cereus Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes.](https://doi.org/10.1128/mBio.00034-20) _mBio_, 11(1). (2020)
+
+  btyper3:
+    name: BTyper3
+    link: https://github.com/lmc297/BTyper3
+    description: In silico taxonomic classification of Bacillus cereus group genomes using whole-genome sequencing data
+    cite: |
+      Carroll LM, Cheng RA, Kovac J [No Assembly Required: Using BTyper3 to Assess the Congruency of a Proposed Taxonomic Framework for the Bacillus cereus Group With Historical Typing Methods.](https://doi.org/10.3389/fmicb.2020.580691) _Frontiers in Microbiology_, 11, 580691. (2020)
+
   busco:
     name: BUSCO
     link: https://gitlab.com/ezlab/busco
@@ -300,6 +328,13 @@ tools:
     cite: |
       Buchfink B, Xie C, Huson DH [Fast and sensitive protein alignment using DIAMOND.](http://dx.doi.org/10.1038/nmeth.3176) _Nat. Methods._ 12, 59–60 (2015)
 
+  dragonflye:
+    name: Dragonflye
+    link: https://github.com/rpetit3/dragonflye
+    description: Assemble bacterial isolate genomes from Nanopore reads.
+    cite: |
+      Petit III RA [Dragonflye: Assemble bacterial isolate genomes from Nanopore reads.](https://github.com/rpetit3/dragonflye) (GitHub)
+
   ectyper:
     name: ECTyper
     link: https://github.com/phac-nml/ecoli_serotyping
@@ -347,6 +382,13 @@ tools:
     description: Output FASTQ summary statistics in JSON format
     cite: |
       Petit III RA [fastq-scan: generate summary statistics of input FASTQ sequences.](https://github.com/rpetit3/fastq-scan) (GitHub)
+
+  fastp:
+    name: fastp
+    link: https://github.com/OpenGene/fastp
+    description: A tool designed to provide fast all-in-one preprocessing for FastQ files
+    cite: |
+      Chen S, Zhou Y, Chen Y, and Gu J [fastp: an ultra-fast all-in-one FASTQ preprocessor.](https://doi.org/10.1093/bioinformatics/bty560) _Bioinformatics_, 34(17), i884–i890. (2018)
 
   fasttree:
     name: FastTree
@@ -495,6 +537,13 @@ tools:
     cite: |
       Wood DE, Lu J, Langmead B [Improved metagenomic analysis with Kraken 2.](https://doi.org/10.1186/s13059-019-1891-0) *Genome Biology*, 20(1), 257. (2019)
 
+  krona:
+    name: Krona
+    link: https://github.com/marbl/Krona
+    description: Interactively explore metagenomes and more from a web browser
+    cite: |
+      Ondov BD, Bergman NH, and Phillippy AM [Interactive metagenomic visualization in a Web browser.](https://doi.org/10.1186/1471-2105-12-385) _BMC Bioinformatics_, 12, 385. (2011)
+
   legsta:
     name: legsta
     link: https://github.com/tseemann/legsta
@@ -566,7 +615,7 @@ tools:
 
   medaka:
     name: Medaka
-    link:
+    link: https://github.com/nanoporetech/medaka
     description: Sequence correction provided by ONT Research
     cite: |
       ONT Research [Medaka: Sequence correction provided by ONT Research](https://github.com/nanoporetech/medaka) (GitHub)
@@ -591,6 +640,13 @@ tools:
     description: Scan contig files against PubMLST typing schemes
     cite: |
       Seemann T [mlst: scan contig files against PubMLST typing schemes](https://github.com/tseemann/mlst) (GitHub)
+
+  midas:
+    name: MIDAS
+    link: https://github.com/snayfach/MIDAS
+    description: An integrated pipeline for estimating strain-level genomic variation from metagenomic data
+    cite: |
+      Nayfach S, Rodriguez-Mueller B, Garud N, and Pollard KS [An integrated metagenomics pipeline for strain profiling reveals novel patterns of bacterial transmission and biogeography.](https://doi.org/10.1101/gr.201863.115) _Genome Research_, 26(11), 1612–1625. (2016)
 
   minced:
     name: MinCED
@@ -690,6 +746,13 @@ tools:
     cite: |
       Petit III RA [pbptyper: In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies](https://github.com/rpetit3/pbptyper) (GitHub)
 
+  phispy:
+    name: PhiSpy
+    link: https://github.com/linsalrob/PhiSpy
+    description: Prediction of prophages from bacterial genomes
+    cite: |
+      Akhter S, Aziz RK, and Edwards RA [PhiSpy: a novel algorithm for finding prophages in bacterial genomes that combines similarity- and composition-based strategies.](https://doi.org/10.1093/nar/gks406) _Nucleic Acids Research_, 40(16), e126. (2012)
+
   phyloflash:
     name: phyloFlash
     link: https://github.com/HRGV/phyloFlash
@@ -724,6 +787,13 @@ tools:
     description: Identifies plasmids in total or partial sequenced isolates of bacteria
     cite: |
       Carattoli A, Zankari E, García-Fernández A, Voldby Larsen M, Lund O, Villa L, Møller Aarestrup F, Hasman H [In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing.](https://doi.org/10.1128/AAC.02412-14) _Antimicrobial Agents and Chemotherapy_ 58(7), 3895–3903. (2014)
+
+  pneumocat:
+    name: PneumoCaT
+    link: https://github.com/ukhsa-collaboration/PneumoCaT
+    description: Pneumococcal Capsular Typing tool for NGS data
+    cite: |
+      Kapatai G, Sheppard CL, Al-Shahib A, Litt DJ, Underwood AP, Harrison TG, and Fry NK [Whole genome sequencing of Streptococcus pneumoniae: development, evaluation and verification of targets for serogroup and serotype prediction using an automated pipeline.](https://doi.org/10.7717/peerj.2477) PeerJ, 4, e2477. (2016)
 
   porechop:
     name: Porechop
@@ -865,6 +935,13 @@ tools:
     cite: |
       Seemann T [Shovill: De novo assembly pipeline for Illumina paired reads](https://github.com/tseemann/shovill) (GitHub)
 
+  shovill_se:
+    name: Shovill-SE
+    link: https://github.com/rpetit3/shovill
+    description: A fork of Shovill that includes support for single end reads.
+    cite: |
+      Petit III RA [Shovill-SE: A fork of Shovill that includes support for single end reads.](https://github.com/rpetit3/shovill) (GitHub)
+
   signalp:
     name: SignalP
     link: http://www.cbs.dtu.dk/services/SignalP-4.0/
@@ -942,6 +1019,13 @@ tools:
     cite: |
       Harmsen D, Claus H, Witte W, Rothgänger J, Claus H, Turnwald D, and Vogel U [Typing of methicillin-resistant _Staphylococcus aureus_ in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) _J. Clin. Microbiol._ 41:5442-5448 (2003)
 
+  srahumanscrubber:
+    name: SRA Human Scrubber
+    link: https://github.com/ncbi/sra-human-scrubber
+    description: An SRA tool that takes as input local fastq file from a clinical infection sample, identifies and removes any significant human read, and outputs the edited (cleaned) fastq file that can safely be used for SRA submission
+    cite: |
+      Katz KS, Shutov O, Lapoint R, Kimelman M, Brister JR, and O’Sullivan C [STAT: a fast, scalable, MinHash-based k-mer tool to assess Sequence Read Archive next-generation sequence submissions.](https://doi.org/10.1186/s13059-021-02490-0) _Genome Biology_, 22(1), 270 (2021)
+
   ssuissero:
     name: SsuisSero
     link: https://github.com/jimmyliu1326/SsuisSero
@@ -955,6 +1039,13 @@ tools:
     description: A standalone version of Staphopia's SCCmec typing method.
     cite: |
       Petit III RA, Read TD [_Staphylococcus aureus_ viewed from the perspective of 40,000+ genomes.](http://dx.doi.org/10.7717/peerj.5261) _PeerJ_ 6, e5261 (2018)
+
+  stecfinder:
+    name: STECFinder
+    link: https://github.com/LanLab/STECFinder
+    description: Clustering and Serotyping of Shigatoxin producing _E. coli_ (STEC) using genomic cluster specific markers
+    cite: |
+      Zhang X, Payne M, Kaur S, and Lan R [Improved Genomic Identification, Clustering, and Serotyping of Shiga Toxin-Producing Escherichia coli Using Cluster/Serotype-Specific Gene Markers.](https://doi.org/10.3389/fcimb.2021.772574) _Frontiers in Cellular and Infection Microbiology_, 11, 772574. (2021)
 
   tbprofiler:
     name: TBProfiler

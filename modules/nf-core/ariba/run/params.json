@@ -10,7 +10,27 @@
             "type": "object",
             "description": "",
             "default": "",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
+                "ariba_db": {
+                    "type": "string",
+                    "description": "A database to query, if unavailable it will be downloaded to the path given by --datasets_cache",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "enum": [
+                        "argannot",
+                        "card",
+                        "ncbi",
+                        "megares",
+                        "plasmidfinder",
+                        "resfinder",
+                        "srst2_argannot",
+                        "vfdb_core",
+                        "vfdb_full",
+                        "virulencefinder"
+                    ],
+                    "is_required": true
+                },
                 "nucmer_min_id": {
                     "type": "integer",
                     "description": "Minimum alignment identity (delta-filter -i)",

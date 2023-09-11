@@ -30,6 +30,10 @@ input:
       type: file
       description: Reference genome in GenBank format
       pattern: "*.{gbk,gbk.gz,gbff,gbff.gz}"
+  - mask:
+      type: file
+      description: Optional BED file of sites to mask
+      pattern: "*.{bed}"
 output:
   - meta:
       type: map

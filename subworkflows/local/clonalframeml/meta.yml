@@ -18,18 +18,48 @@ input:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - INPUT_FILE:
+  - msa:
       type: file
-      description: Description of input file
+      description: A multiple seqeunce alignmnet in FASTA format
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+  - newick:
+      type: file
+      description: A Newick formated tree based on multiple sequence alignment
+      pattern: "*.{newick,treefile,dnd}"
 output:
-  - FILETYPE:
-      type: file
-      description: Output file description
-      pattern: '*.{bam}'
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
   - versions:
       type: file
       description: File containing software versions
-      pattern: 'versions.yml'
+      pattern: "versions.yml"
+  - emsim:
+      type: file
+      description: Bootstrapped values for the three parameters R/theta, nu and delta
+      pattern: "*.emsim.txt"
+  - em:
+      type: file
+      description: Point estimates for R/theta, nu, delta and the branch lengths
+      pattern: "*.em.txt"
+  - fasta:
+      type: file
+      description: Sequence reconstructed by maximum likelihood
+      pattern: "*.ML_sequence.fasta"
+  - newick:
+      type: file
+      description: Tree with all nodes labelled
+      pattern: "*.labelled_tree.newick"
+  - pos_ref:
+      type: file
+      description: CSV mapping input sequence files to the sequences in the *.ML_sequence.fasta
+      pattern: "*.position_cross_reference.txt"
+  - status:
+      type: file
+      description: List of reconstructed recombination events
+      pattern: "*.importation_status.txt"
 citations:
   - clonalframeml
   - iqtree

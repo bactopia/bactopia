@@ -1,23 +1,20 @@
 // Import generic module functions
 include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
-options     = initOptions(params.options ? params.options : [:], 'fastani')
-publish_dir = params.is_subworkflow ? "${params.outdir}/bactopia-tools/${params.wf}/${params.run_name}" : params.outdir
-conda_tools = "bioconda::fastani=1.33"
-conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
+RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+options       = initOptions(params.containsKey("options") ? params.options : [:], 'fastani')
+options.btype = options.btype ?: "comparative"
+conda_tools   = "bioconda::fastani=1.34"
+conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
+conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process FASTANI {
     tag "${reference_name}"
     label 'process_medium'
-    publishDir "${publish_dir}/${reference_name}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/fastani:1.33--h0fdf51a_1' :
-        'quay.io/biocontainers/fastani:1.33--h0fdf51a_1' }"
-
+        'https://depot.galaxyproject.org/singularity/fastani:1.34--h4dfc31f_0' :
+        'quay.io/biocontainers/fastani:1.34--h4dfc31f_0' }"
 
     input:
     tuple val(meta), path(query, stageAs: 'query-tmp/*')
@@ -30,10 +27,11 @@ process FASTANI {
     path "versions.yml"                     , emit: versions
 
     script:
-    def prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
+    options.logs_subdir = reference_name
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $reference_fasta

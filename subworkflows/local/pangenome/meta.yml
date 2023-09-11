@@ -55,176 +55,205 @@ docs:
     using [Scoary](https://github.com/AdmiralenOla/Scoary).
   output:
     tree: |
-      pangenome/
-      ├── clonalframeml
-      │   ├── core-genome.ML_sequence.fasta
-      │   ├── core-genome.em.txt
-      │   ├── core-genome.emsim.txt
-      │   ├── core-genome.importation_status.txt
-      │   ├── core-genome.labelled_tree.newick
-      │   └── core-genome.position_cross_reference.txt
-      ├── {iqtree,iqtree-fast}
-      │   ├── core-genome.alninfo
-      │   ├── {core-genome,start-tree}.bionj
-      │   ├── {core-genome,start-tree}.ckp.gz
-      │   ├── core-genome.contree
-      │   ├── {core-genome,start-tree}.mldist
-      │   ├── {core-genome,start-tree}.model.gz
-      │   ├── core-genome.splits.nex
-      │   ├── {core-genome,start-tree}.treefile
-      │   └── core-genome.ufboot
-      ├── logs
-      │   ├── clonalframeml
-      │   │   ├── nf-clonalframeml.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── custom_dumpsoftwareversions
-      │   │   ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── {iqtree,iqtree-fast}
-      │   │   ├── core-genome.log
-      │   │   ├── nf-iqtree.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── pirate
-      │   │   ├── nf-pirate.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── roary
-      │   │   ├── nf-roary.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── snpdists
-      │       ├── nf-snpdists.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── pangenome-dag.dot
-      │   ├── pangenome-report.html
-      │   ├── pangenome-timeline.html
-      │   └── pangenome-trace.txt
-      ├── panaroo
-      │   ├── aligned_gene_sequences
-      │   ├── combined_DNA_CDS.fasta.gz
-      │   ├── combined_protein_CDS.fasta.gz
-      │   ├── combined_protein_cdhit_out.txt
-      │   ├── combined_protein_cdhit_out.txt.clstr
-      │   ├── core_alignment_header.embl
-      │   ├── core_gene_alignment.aln
-      │   ├── final_graph.gml
-      │   ├── gene_data.csv
-      │   ├── gene_presence_absence.Rtab
-      │   ├── gene_presence_absence.csv
-      │   ├── gene_presence_absence_roary.csv
-      │   ├── pan_genome_reference.fa
-      │   ├── pre_filt_graph.gml
-      │   ├── struct_presence_absence.Rtab
-      │   └── summary_statistics.txt
-      ├── pirate
-      │   ├── PIRATE.gene_families.ordered.tsv
-      │   ├── PIRATE.gene_families.tsv
-      │   ├── PIRATE.genomes_per_allele.tsv
-      │   ├── PIRATE.pangenome_summary.txt
-      │   ├── PIRATE.unique_alleles.tsv
-      │   ├── binary_presence_absence.fasta.gz
-      │   ├── binary_presence_absence.nwk
-      │   ├── cluster_alleles.tab
-      │   ├── co-ords
-      │   │   └── <SAMPLE_NAME>.co-ords.tab
-      │   ├── core_alignment.fasta.gz
-      │   ├── core_alignment.gff
-      │   ├── feature_sequences
-      │   │   └── <GENE_FAMILY>.{aa|nucleotide|.fasta
-      │   ├── gene_presence_absence.csv
-      │   ├── genome2loci.tab
-      │   ├── genome_list.txt
-      │   ├── loci_list.tab
-      │   ├── loci_paralog_categories.tab
-      │   ├── modified_gffs
-      │   │   └── <SAMPLE_NAME>.gff
-      │   ├── pan_sequences.fasta.gz
-      │   ├── pangenome.connected_blocks.tsv
-      │   ├── pangenome.edges
-      │   ├── pangenome.gfa
-      │   ├── pangenome.order.tsv
-      │   ├── pangenome.reversed.tsv
-      │   ├── pangenome.syntenic_blocks.tsv
-      │   ├── pangenome.temp
-      │   ├── pangenome_alignment.fasta.gz
-      │   ├── pangenome_alignment.gff
-      │   ├── pangenome_iterations
-      │   │   ├── pan_sequences.{50|60|70|80|90|95|98}.reclustered.reinflated
-      │   │   ├── pan_sequences.blast.output
-      │   │   ├── pan_sequences.cdhit_clusters
-      │   │   ├── pan_sequences.core_clusters.tab
-      │   │   ├── pan_sequences.mcl_log.txt
-      │   │   └── pan_sequences.representative.fasta
-      │   ├── paralog_clusters.tab
-      │   ├── representative_sequences.faa
-      │   └── representative_sequences.ffn
-      ├── roary
-      │   ├── accessory.header.embl
-      │   ├── accessory.tab
-      │   ├── accessory_binary_genes.fa.gz
-      │   ├── accessory_binary_genes.fa.newick
-      │   ├── accessory_graph.dot
-      │   ├── blast_identity_frequency.Rtab
-      │   ├── clustered_proteins
-      │   ├── core_accessory.header.embl
-      │   ├── core_accessory.tab
-      │   ├── core_accessory_graph.dot
-      │   ├── core_alignment_header.embl
-      │   ├── gene_presence_absence.Rtab
-      │   ├── gene_presence_absence.csv
-      │   ├── number_of_conserved_genes.Rtab
-      │   ├── number_of_genes_in_pan_genome.Rtab
-      │   ├── number_of_new_genes.Rtab
-      │   ├── number_of_unique_genes.Rtab
-      │   ├── pan_genome_reference.fa.gz
-      │   └── summary_statistics.txt
-      ├── core-genome.aln.gz
-      ├── core-genome.distance.tsv
-      ├── core-genome.iqtree
-      ├── core-genome.masked.aln.gz
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      <BACTOPIA_DIR>
+      └── bactopia-runs
+          └── pangenome-<TIMESTAMP>
+              ├── clonalframeml
+              │   ├── core-genome.ML_sequence.fasta
+              │   ├── core-genome.em.txt
+              │   ├── core-genome.emsim.txt
+              │   ├── core-genome.importation_status.txt
+              │   ├── core-genome.labelled_tree.newick
+              │   ├── core-genome.position_cross_reference.txt
+              │   └── logs
+              │       ├── nf-clonalframeml.{begin,err,log,out,run,sh,trace}
+              │       └── versions.yml
+              ├── core-genome.aln.gz
+              ├── core-genome.distance.tsv
+              ├── core-genome.iqtree
+              ├── core-genome.masked.aln.gz
+              ├── iqtree
+              │   ├── core-genome.alninfo
+              │   ├── core-genome.bionj
+              │   ├── core-genome.ckp.gz
+              │   ├── core-genome.contree
+              │   ├── core-genome.mldist
+              │   ├── core-genome.splits.nex
+              │   ├── core-genome.treefile
+              │   ├── core-genome.ufboot
+              │   └── logs
+              │       ├── core-genome.log
+              │       ├── nf-iqtree.{begin,err,log,out,run,sh,trace}
+              │       └── versions.yml
+              ├── iqtree-fast
+              │   ├── logs
+              │   │   ├── nf-iqtree-fast.{begin,err,log,out,run,sh,trace}
+              │   │   ├── start-tree.log
+              │   │   └── versions.yml
+              │   ├── start-tree.bionj
+              │   ├── start-tree.ckp.gz
+              │   ├── start-tree.iqtree
+              │   ├── start-tree.mldist
+              │   ├── start-tree.model.gz
+              │   └── start-tree.treefile
+              ├── nf-reports
+              │   ├── pangenome-dag.dot
+              │   ├── pangenome-report.html
+              │   ├── pangenome-timeline.html
+              │   └── pangenome-trace.txt
+              ├── panaroo
+              │   ├── aligned_gene_sequences
+              │   ├── alignment_entropy.csv
+              │   ├── combined_DNA_CDS.fasta
+              │   ├── combined_protein_CDS.fasta
+              │   ├── combined_protein_cdhit_out.txt
+              │   ├── combined_protein_cdhit_out.txt.clstr
+              │   ├── core_alignment_filtered_header.embl
+              │   ├── core_alignment_header.embl
+              │   ├── core_gene_alignment_filtered.aln
+              │   ├── final_graph.gml
+              │   ├── gene_data.csv
+              │   ├── gene_presence_absence.Rtab
+              │   ├── gene_presence_absence.csv
+              │   ├── gene_presence_absence_roary.csv
+              │   ├── logs
+              │   │   ├── nf-panaroo.{begin,err,log,out,run,sh,trace}
+              │   │   └── versions.yml
+              │   ├── pan_genome_reference.fa
+              │   ├── pre_filt_graph.gml
+              │   ├── struct_presence_absence.Rtab
+              │   └── summary_statistics.txt
+              ├── pirate
+              │   ├── PIRATE.gene_families.ordered.tsv
+              │   ├── PIRATE.gene_families.tsv
+              │   ├── PIRATE.genomes_per_allele.tsv
+              │   ├── PIRATE.pangenome_summary.txt
+              │   ├── PIRATE.unique_alleles.tsv
+              │   ├── binary_presence_absence.fasta.gz
+              │   ├── binary_presence_absence.nwk
+              │   ├── cluster_alleles.tab
+              │   ├── co-ords
+              │   │   └── <SAMPLE_NAME>.co-ords.tab
+              │   ├── core_alignment.fasta.gz
+              │   ├── core_alignment.gff
+              │   ├── feature_sequences
+              │   │   └── <GENE_FAMILY>.{aa|nucleotide|.fasta.gz
+              │   ├── gene_presence_absence.csv
+              │   ├── genome2loci.tab
+              │   ├── genome_list.txt
+              │   ├── loci_list.tab
+              │   ├── loci_paralog_categories.tab
+              │   ├── logs
+              │   │   ├── nf-pirate.{begin,err,log,out,run,sh,trace}
+              │   │   ├── results
+              │   │   │   ├── PIRATE.log
+              │   │   │   ├── link_clusters.log
+              │   │   │   └── split_groups.log
+              │   │   └── versions.yml
+              │   ├── modified_gffs
+              │   ├── pan_sequences.fasta.gz
+              │   ├── pangenome.connected_blocks.tsv
+              │   ├── pangenome.edges
+              │   ├── pangenome.gfa
+              │   ├── pangenome.order.tsv
+              │   ├── pangenome.reversed.tsv
+              │   ├── pangenome.syntenic_blocks.tsv
+              │   ├── pangenome.temp
+              │   ├── pangenome_alignment.fasta.gz
+              │   ├── pangenome_alignment.gff
+              │   ├── pangenome_iterations
+              │   │   ├── pan_sequences.{50|60|70|80|90|95|98}.reclustered.reinflated
+              │   │   ├── pan_sequences.blast.output
+              │   │   ├── pan_sequences.cdhit_clusters
+              │   │   ├── pan_sequences.core_clusters.tab
+              │   │   ├── pan_sequences.mcl_log.txt
+              │   │   └── pan_sequences.representative.fasta.gz
+              │   ├── pangenome_log.txt
+              │   ├── paralog_clusters.tab
+              │   ├── representative_sequences.faa
+              │   └── representative_sequences.ffn
+              ├── roary
+              │   ├── accessory.header.embl
+              │   ├── accessory.tab
+              │   ├── accessory_binary_genes.fa.gz
+              │   ├── accessory_binary_genes.fa.newick
+              │   ├── accessory_graph.dot
+              │   ├── blast_identity_frequency.Rtab
+              │   ├── clustered_proteins
+              │   ├── core_accessory.header.embl
+              │   ├── core_accessory.tab
+              │   ├── core_accessory_graph.dot
+              │   ├── core_alignment_header.embl
+              │   ├── gene_presence_absence.Rtab
+              │   ├── gene_presence_absence.csv
+              │   ├── logs
+              │   │   ├── nf-roary.{begin,err,log,out,run,sh,trace}
+              │   │   └── versions.yml
+              │   ├── number_of_conserved_genes.Rtab
+              │   ├── number_of_genes_in_pan_genome.Rtab
+              │   ├── number_of_new_genes.Rtab
+              │   ├── number_of_unique_genes.Rtab
+              │   ├── pan_genome_reference.fa.gz
+              │   └── summary_statistics.txt
+              └── snpdists
+                  └── logs
+                      ├── nf-snpdists.{begin,err,log,out,run,sh,trace}
+                      └── versions.yml
     add_note: false
     folders:
-      - name: Top Level
+      - name: Main Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | core-genome.aln.gz        | A multiple sequence alignment FASTA of the core genome |
-          | core-genome.distance.tsv  | Core genome Pair-wise SNP distance for each sample |
-          | core-genome.iqtree        | Full result of the IQ-TREE core genome phylogeny |
-          | core-genome.masked.aln.gz | A core-genome alignment with the recomination masked |
+          Below are main results of the `pangenome` Bactopia Tool.
+        table:
+          - id: core-genome.aln.gz
+            description: A multiple sequence alignment FASTA of the core genome
+          - id: core-genome.distance.tsv
+            description: Core genome pair-wise SNP distance for each sample
+          - id: core-genome.iqtree
+            description: Full result of the IQ-TREE core genome phylogeny
+          - id: core-genome.masked.aln.gz
+            description: A core-genome alignment with the recombination masked
       - name: ClonalFrameML
         description: |
           Below is a description of the [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML) results. For more details about
           ClonalFrameML outputs see [ClonalFrameML - Outputs](https://github.com/xavierdidelot/clonalframeml/wiki#output).
-        table: |
-          | Filename | Description |
-          |----------|-------------|
-          | core-genome.ML_sequence.fasta | The sequence reconstructed by maximum likelihood for all internal nodes of the phylogeny, as well as for all missing data in the input sequences |
-          | core-genome.em.txt | The point estimates for R/theta, nu, delta and the branch lengths |
-          | core-genome.emsim.txt | The bootstrapped values for the three parameters R/theta, nu and delta |
-          | core-genome.importation_status.txt | The list of reconstructed recombination events |
-          | core-genome.labelled_tree.newick | The output tree with all nodes labelled so that they can be referred to in other files |
-          | core-genome.position_cross_reference.txt | A vector of comma-separated values indicating for each location in the input sequence file the corresponding position in the sequences in the output *ML_sequence.fasta* file |
+        table:
+          - id: core-genome.ML_sequence.fasta
+            description: The sequence reconstructed by maximum likelihood for all internal nodes of the phylogeny, as well as for all missing data in the input sequences
+          - id: core-genome.em.txt
+            description: The point estimates for R/theta, nu, delta and the branch lengths
+          - id: core-genome.emsim.txt
+            description: The bootstrapped values for the three parameters R/theta, nu and delta
+          - id: core-genome.importation_status.txt
+            description: The list of reconstructed recombination events
+          - id: core-genome.labelled_tree.newick
+            description: The output tree with all nodes labelled so that they can be referred to in other files
+          - id: core-genome.position_cross_reference.txt
+            description: A vector of comma-separated values indicating for each location in the input sequence file the corresponding position in the sequences in the output *ML_sequence.fasta* file
       - name: IQ-TREE
         description: |
           Below is a description of the [IQ-TREE](http://www.iqtree.org/) results. If ClonalFrameML is executed, a fast tree
           is created and given the prefix `start-tree`, the final tree has the prefix `core-genome`. For more details about
           IQ-TREE outputs see [IQ-TREE - Outputs](https://github.com/Cibiv/IQ-TREE/wiki/Web-Server-Tutorial#analysis-results).
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | core-genome.alninfo | Alignment site statistics |
-          | {core-genome,start-tree}.bionj | A neighbor joining tree produced by BIONJ |
-          | {core-genome,start-tree}.ckp.gz | IQ-TREE writes a checkpoint file |
-          | core-genome.contree | Consensus tree with assigned branch supports where branch lengths are optimized on the original alignment; printed if Ultrafast Bootstrap is selected |
-          | {core-genome,start-tree}.mldist | Contains the likelihood distances |
-          | {core-genome,start-tree}.model.gz | Information about all models tested |
-          | core-genome.splits.nex | Support values in percentage for all splits (bipartitions), computed as the occurence frequencies in the bootstrap trees |
-          | {core-genome,start-tree}.treefile | Maximum likelihood tree in NEWICK format, can be visualized with treeviewer programs |
-          | core-genome.ufboot | Trees created during the bootstrap steps |
+        table:
+          - id: core-genome.alninfo
+            description: Alignment site statistics
+          - id: "{core-genome,start-tree}.bionj"
+            description: A neighbor joining tree produced by BIONJ
+          - id: "{core-genome,start-tree}.ckp.gz"
+            description: IQ-TREE writes a checkpoint file
+          - id: core-genome.contree
+            description: Consensus tree with assigned branch supports where branch lengths are optimized on the original alignment; printed if Ultrafast Bootstrap is selected
+          - id: "{core-genome,start-tree}.mldist"
+            description: Contains the likelihood distances
+          - id: "{core-genome,start-tree}.model.gz"
+            description: Information about all models tested
+          - id: core-genome.splits.nex
+            description: Support values in percentage for all splits (bipartitions), computed as the occurence frequencies in the bootstrap trees
+          - id: "{core-genome,start-tree}.treefile"
+            description: Maximum likelihood tree in NEWICK format, can be visualized with treeviewer programs
+          - id: core-genome.ufboot
+            description: Trees created during the bootstrap steps
       - name: PIRATE
         description: |
           Below is a description of the [PIRATE](https://github.com/SionBayliss/PIRATE) results. For more details about
@@ -234,44 +263,79 @@ docs:
 
               By default PIRATE is used to create the pan-genome. If `--use_panaroo` or `--use_roary` are given, `pirate` outputs will
               not be available only Panaroo or Roary outputs.
-        table: |
-          | Filename | Description |
-          |----------|-------------|
-          | PIRATE.gene_families.ordered.tsv | Tabular summary of all gene families ordered on syntenic regions in the pangenome graph |
-          | PIRATE.gene_families.tsv | Tabular summary of all gene families |
-          | PIRATE.genomes_per_allele.tsv | A list of genomes associated with each allele |
-          | PIRATE.pangenome_summary.txt | Short summary of the number and frequency of genes in the pangenome |
-          | PIRATE.unique_alleles.tsv | Tabular summary of all unique alleles of each gene family |
-          | binary_presence_absence.{fasta.gz,nwk} | A tree (.nwk) generated by fasttree from binary gene_family presence-absence data and the fasta file used to create it |
-          | cluster_alleles.tab | List of alleles in paralogous clusters |
-          | co-ords/${SAMPLE_NAME}.co-ords.tab | Gene feature co-ordinates for each sample |
-          | core_alignment.fasta.gz | Gene-by-gene nucleotide alignments of the core genome created using MAFFT |
-          | core_alignment.gff | Annotation containing the position of the gene family within the core genome alignment |
-          | feature_sequences/${GENE_FAMILY}.{aa\|nucleotide}.fasta | Amino acid and nucleotide sequences for each gene family |
-          | gene_presence_absence.csv | Lists each gene and which samples it is present in |
-          | genome2loci.tab | List of loci for each genome |
-          | genome_list.txt | List of genomes in the analysis |
-          | loci_list.tab | List of loci and their associated genomes |
-          | loci_paralog_categories.tab | Concatenation of classified paralogs |
-          | modified_gffs/${SAMPLE_NAME}.gff | GFF3 files which have been standardised for PIRATE |
-          | pan_sequences.fasta.gz | All representative sequences in the pangenome  |
-          | pangenome.connected_blocks.tsv | List of connected blocks in the pangenome graph |
-          | pangenome.edges | List of classified edges in the pangenome graph |
-          | pangenome.gfa | GFA network file representing all unique connections between gene families |
-          | pangenome.order.tsv | Sorted list gene_families file on pangenome graph |
-          | pangenome.reversed.tsv | List of reversed blocks in the pangenome graph |
-          | pangenome.syntenic_blocks.tsv | List of syntenic blocks in the pangenome graph |
-          | pangenome_alignment.fasta.gz | Gene-by-gene nucleotide alignments of the full pangenome created using MAFFT |
-          | pangenome_alignment.gff | Annotation containing the position of the gene family within the pangenome alignment |
-          | pangenome_iterations/pan_sequences.{50\|60\|70\|80\|90\|95\|98}.reclustered.reinflated | List of clusters for each reinflation threshold  |
-          | pangenome_iterations/pan_sequences.blast.output | BLAST output of sequences against representatives and self hits. |
-          | pangenome_iterations/pan_sequences.cdhit_clusters | A list of CDHIT representative clusters |
-          | pangenome_iterations/pan_sequences.core_clusters.tab | A list of core clusters. |
-          | pangenome_iterations/pan_sequences.mcl_log.txt | A log file from `mcxdeblast` and `mcl` |
-          | pangenome_iterations/pan_sequences.representative.fasta | FASTA file with sequences for each representative cluster |
-          | paralog_clusters.tab | List of paralogous clusters |
-          | representative_sequences.faa | Representative protein sequences for each gene family |
-          | representative_sequences.ffn | Representative gene sequences for each gene family |
+        table:
+          - id: PIRATE.gene_families.ordered.tsv
+            description: Tabular summary of all gene families ordered on syntenic regions in the pangenome graph
+          - id: PIRATE.gene_families.tsv
+            description: Tabular summary of all gene families
+          - id: PIRATE.genomes_per_allele.tsv
+            description: A list of genomes associated with each allele
+          - id: PIRATE.pangenome_summary.txt
+            description: Short summary of the number and frequency of genes in the pangenome
+          - id: PIRATE.unique_alleles.tsv
+            description: Tabular summary of all unique alleles of each gene family
+          - id: binary_presence_absence.{fasta.gz,nwk}
+            description: A tree (.nwk) generated by fasttree from binary gene_family presence-absence data and the fasta file used to create it
+          - id: cluster_alleles.tab
+            description: List of alleles in paralogous clusters
+          - id: co-ords/${SAMPLE_NAME}.co-ords.tab
+            description: Gene feature co-ordinates for each sample
+          - id: core_alignment.fasta.gz
+            description: Gene-by-gene nucleotide alignments of the core genome created using MAFFT
+          - id: core_alignment.gff
+            description: Annotation containing the position of the gene family within the core genome alignment
+          - id: feature_sequences/${GENE_FAMILY}.{aa|nucleotide}.fasta
+            description: Amino acid and nucleotide sequences for each gene family
+          - id: gene_presence_absence.csv
+            description: Lists each gene and which samples it is present in
+          - id: genome2loci.tab
+            description: List of loci for each genome
+          - id: genome_list.txt
+            description: List of genomes in the analysis
+          - id: loci_list.tab
+            description: List of loci and their associated genomes
+          - id: loci_paralog_categories.tab
+            description: Concatenation of classified paralogs
+          - id: modified_gffs/${SAMPLE_NAME}.gff
+            description: GFF3 files which have been standardised for PIRATE
+          - id: pan_sequences.fasta.gz
+            description: All representative sequences in the pangenome
+          - id: pangenome.connected_blocks.tsv
+            description: List of connected blocks in the pangenome graph
+          - id: pangenome.edges
+            description: List of classified edges in the pangenome graph
+          - id: pangenome.gfa
+            description: GFA network file representing all unique connections between gene families
+          - id: pangenome.order.tsv
+            description: Sorted list gene_families file on pangenome graph
+          - id: pangenome.reversed.tsv
+            description: List of reversed blocks in the pangenome graph
+          - id: pangenome.syntenic_blocks.tsv
+            description: List of syntenic blocks in the pangenome graph
+          - id: pangenome.temp
+            description: Temporary file used by PIRATE
+          - id: pangenome_alignment.fasta.gz
+            description: Gene-by-gene nucleotide alignments of the full pangenome created using MAFFT
+          - id: pangenome_alignment.gff
+            description: Annotation containing the position of the gene family within the pangenome alignment
+          - id: pangenome_iterations/pan_sequences.{50|60|70|80|90|95|98}.reclustered.reinflated
+            description: List of clusters for each reinflation threshold
+          - id: pangenome_iterations/pan_sequences.blast.output
+            description: BLAST output of sequences against representatives and self hits.
+          - id: pangenome_iterations/pan_sequences.cdhit_clusters
+            description: A list of CDHIT representative clusters
+          - id: pangenome_iterations/pan_sequences.core_clusters.tab
+            description: A list of core clusters.
+          - id: pangenome_iterations/pan_sequences.mcl_log.txt
+            description: A log file from `mcxdeblast` and `mcl`
+          - id: pangenome_iterations/pan_sequences.representative.fasta
+            description: FASTA file with sequences for each representative cluster
+          - id: pangenome_log.txt
+            description: Log file from PIRATE
+          - id: paralog_clusters.tab
+            description: List of paralogous clusters
+          - id: representative_sequences.{faa,ffn}
+            description: Representative protein and gene sequences for each gene family
       - name: Panaroo
         description: |
           Below is a description of the [Panaroo](https://github.com/gtonkinhill/panaroo) results. For more details about
@@ -280,25 +344,39 @@ docs:
           !!! note "Only available when `--use_panaroo` is given"
 
               By default PIRATE is used to create the pan-genome, unless `--use_panaroo` is given.
-        table: |
-          | Filename | Description |
-          |----------|-------------|
-          | aligned_gene_sequences | A directory of per-gene alignments |
-          | combined_DNA_CDS.fasta.gz | All nucleotide sequence for the annotated genes  |
-          | combined_protein_CDS.fasta.gz | All protein sequence for the annotated proeteins |
-          | combined_protein_cdhit_out.txt | Log output from CD-HIT |
-          | combined_protein_cdhit_out.txt.clstr | Cluster information from CD-HIT |
-          | core_alignment_header.embl | The core/pan-genome alignment in EMBL format |
-          | core_gene_alignment.aln.gz | The core/pan-genome alignment in FASTA format |
-          | final_graph.gml | The final pan-genome graph generated by Panaroo |
-          | gene_data.csv | CSV linking each gene sequnece and annotation to the internal representations |
-          | gene_presence_absence.Rtab | A binary tab seperated version of the `gene_presence_absence.csv`` |
-          | gene_presence_absence.csv | Lists each gene and which samples it is present in |
-          | gene_presence_absence_roary.csv | Lists each gene and which samples it is present in in the same format as Roary |
-          | pan_genome_reference.fa.gz | FASTA file which contains a single representative nucleotide sequence from each of the clusters in the pan genome (core and accessory) |
-          | pre_filt_graph.gml | An intermeadiate pan-genome graph generated by Panaroo |
-          | struct_presence_absence.Rtab | A csv file which lists the presence and abscence of different genomic rearrangement events |
-          | summary_statistics.txt | Number of genes in the core and accessory |
+        table: 
+          - id: aligned_gene_sequences
+            description: A directory of per-gene alignments
+          - id: combined_DNA_CDS.fasta.gz
+            description: All nucleotide sequence for the annotated genes
+          - id: combined_protein_CDS.fasta.gz
+            description: All protein sequence for the annotated proeteins
+          - id: combined_protein_cdhit_out.txt
+            description: Log output from CD-HIT
+          - id: combined_protein_cdhit_out.txt.clstr
+            description: Cluster information from CD-HIT
+          - id: core_alignment_header.embl
+            description: The core/pan-genome alignment in EMBL format
+          - id: core_gene_alignment.aln.gz
+            description: The core/pan-genome alignment in FASTA format
+          - id: final_graph.gml
+            description: The final pan-genome graph generated by Panaroo
+          - id: gene_data.csv
+            description: CSV linking each gene sequnece and annotation to the internal representations
+          - id: gene_presence_absence.Rtab
+            description: A binary tab seperated version of the `gene_presence_absence.csv`
+          - id: gene_presence_absence.csv
+            description: Lists each gene and which samples it is present in
+          - id: gene_presence_absence_roary.csv
+            description: Lists each gene and which samples it is present in in the same format as Roary
+          - id: pan_genome_reference.fa.gz
+            description: FASTA file which contains a single representative nucleotide sequence from each of the clusters in the pan genome (core and accessory)
+          - id: pre_filt_graph.gml
+            description: An intermeadiate pan-genome graph generated by Panaroo
+          - id: struct_presence_absence.Rtab
+            description: A csv file which lists the presence and abscence of different genomic rearrangement events
+          - id: summary_statistics.txt
+            description: Number of genes in the core and accessory
       - name: Roary
         description: |
           Below is a description of the [Roary](https://github.com/sanger-pathogens/Roary/) results. For more details about
@@ -307,28 +385,45 @@ docs:
           !!! note "Only available when `--use_roary` is given"
 
               By default PIRATE is used to create the pan-genome, unless `--use_roary` is given.
-        table: |
-          | Filename | Description |
-          |----------|-------------|
-          | accessory.header.embl | Tab/EMBL formatted file of accessory genes |
-          | accessory.tab | Tab/EMBL formatted file of accessory genes |
-          | accessory_binary_genes.fa | A FASTA file with binary presence and absence of accessory genes |
-          | accessory_binary_genes.fa.newick | A tree created using the binary presence and absence of accessory genes |
-          | accessory_graph.dot | A graph in DOT format of how genes are linked together at the contig level in the accessory genome |
-          | blast_identity_frequency.Rtab | Blast results for percentage idenity graph |
-          | clustered_proteins | Groups file where each line lists the sequences in a cluster |
-          | core_accessory.header.embl | Tab/EMBL formatted file of core genes |
-          | core_accessory.tab | Tab/EMBL formatted file of core genes |
-          | core_accessory_graph.dot | A graph in DOT format of how genes are linked together at the contig level in the pan genome |
-          | core_alignment_header.embl | Tab/EMBL formatted file of core genome alignment |
-          | gene_presence_absence.csv | Lists each gene and which samples it is present in |
-          | gene_presence_absence.Rtab | Tab delimited binary matrix with the presence and absence of each gene in each sample |
-          | number_of_conserved_genes.Rtab | Graphs on how the pan genome varies as genomes are added (in random orders) |
-          | number_of_genes_in_pan_genome.Rtab | Graphs on how the pan genome varies as genomes are added (in random orders) |
-          | number_of_new_genes.Rtab | Graphs on how the pan genome varies as genomes are added (in random orders) |
-          | number_of_unique_genes.Rtab | Graphs on how the pan genome varies as genomes are added (in random orders) |
-          | pan_genome_reference.fa.gz | FASTA file which contains a single representative nucleotide sequence from each of the clusters in the pan genome (core and accessory) |
-          | summary_statistics.txt | Number of genes in the core and accessory |
+        table:
+          - id: accessory.header.embl
+            description: EMBL formatted file of accessory genes
+          - id: accessory.tab
+            description: Tab-delimited formatted file of accessory genes
+          - id: accessory_binary_genes.fa
+            description: A FASTA file with binary presence and absence of accessory genes
+          - id: accessory_binary_genes.fa.newick
+            description: A tree created using the binary presence and absence of accessory genes
+          - id: accessory_graph.dot
+            description: A graph in DOT format of how genes are linked together at the contig level in the accessory genome
+          - id: blast_identity_frequency.Rtab
+            description: Blast results for percentage idenity graph
+          - id: clustered_proteins
+            description: Groups file where each line lists the sequences in a cluster
+          - id: core_accessory.header.embl
+            description: EMBL formatted file of core genes
+          - id: core_accessory.tab
+            description: Tab-delimited formatted file of core genes
+          - id: core_accessory_graph.dot
+            description: A graph in DOT format of how genes are linked together at the contig level in the pan genome
+          - id: core_alignment_header.embl
+            description: EMBL formatted file of core genome alignment
+          - id: gene_presence_absence.csv
+            description: Lists each gene and which samples it is present in
+          - id: gene_presence_absence.Rtab
+            description: Tab delimited binary matrix with the presence and absence of each gene in each sample
+          - id: number_of_conserved_genes.Rtab
+            description: Graphs on how the pan genome varies as genomes are added (in random orders)
+          - id: number_of_genes_in_pan_genome.Rtab
+            description: Graphs on how the pan genome varies as genomes are added (in random orders)
+          - id: number_of_new_genes.Rtab
+            description: Graphs on how the pan genome varies as genomes are added (in random orders)
+          - id: number_of_unique_genes.Rtab
+            description: Graphs on how the pan genome varies as genomes are added (in random orders)
+          - id: pan_genome_reference.fa.gz
+            description: FASTA file which contains a single representative nucleotide sequence from each of the clusters in the pan genome (core and accessory)
+          - id: summary_statistics.txt
+            description: Number of genes in the core and accessory
   citations:
     - clonalframeml
     - iqtree

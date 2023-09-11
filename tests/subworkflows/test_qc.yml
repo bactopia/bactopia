@@ -1,0 +1,8 @@
+- name: qc-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf qc -c nextflow.config --help > qc-help.txt'
+  tags:
+    - bactopia_help_disable
+    - qc_disable
+  files:
+    - path: qc-help.txt
+      contains: ['qc', 'bactopia', 'version', 'dependencies']

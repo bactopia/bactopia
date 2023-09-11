@@ -1,0 +1,8 @@
+- name: blastx-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf blastx -c nextflow.config --help > blastx-help.txt'
+  tags:
+    - bactopia_help
+    - blastx
+  files:
+    - path: blastx-help.txt
+      contains: ['blastx', 'bactopia', 'version', 'dependencies']

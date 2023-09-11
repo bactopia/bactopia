@@ -57,50 +57,50 @@ docs:
     or SISTR, for serovar prediction of Salmonella assemblies.
   output:
     tree: |
-      sistr/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-allele.fasta.gz
-      │   ├── <SAMPLE_NAME>-allele.json.gz
-      │   ├── <SAMPLE_NAME>-cgmlst.csv
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── sistr
-      │           ├── nf-sistr.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── sistr-dag.dot
-      │   ├── sistr-report.html
-      │   ├── sistr-timeline.html
-      │   └── sistr-trace.txt
-      ├── sistr.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>-allele.fasta.gz
+      │           ├── <SAMPLE_NAME>-allele.json.gz
+      │           ├── <SAMPLE_NAME>-cgmlst.csv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-sistr.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── sistr-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── sistr-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── sistr.tsv
+              └── nf-reports
+                  ├── sistr-dag.dot
+                  ├── sistr-report.html
+                  ├── sistr-timeline.html
+                  └── sistr-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | sistr.tsv  | A merged TSV file with `SISTR` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: sistr.tsv
+            description: A merged TSV file with `SISTR` results from all samples
       - name: SISTR
         description: |
           Below is a description of the _per-sample_ results from [SISTR](https://github.com/phac-nml/sistr_cmd).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;-allele.fasta.gz  | A FASTA file of the cgMLST allele search results  |
-          | &lt;SAMPLE_NAME&gt;-allele.json.gz  | JSON formated cgMLST allele search results, see [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details |
-          | &lt;SAMPLE_NAME&gt;-cgmlst.csv  | A comma-delimited summary of the cgMLST allele search results |
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details |
+        table:
+          - id: <SAMPLE_NAME>-allele.fasta.gz
+            description: A FASTA file of the cgMLST allele search results
+          - id: <SAMPLE_NAME>-allele.json.gz
+            description: JSON formated cgMLST allele search results, see  [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details
+          - id: <SAMPLE_NAME>-cgmlst.csv
+            description: A comma-delimited summary of the cgMLST allele search results
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details
   citations:
     - csvtk
     - sistr

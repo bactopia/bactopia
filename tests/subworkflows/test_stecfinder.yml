@@ -1,0 +1,8 @@
+- name: stecfinder-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf stecfinder -c nextflow.config --help > stecfinder-help.txt'
+  tags:
+    - bactopia_help
+    - stecfinder
+  files:
+    - path: stecfinder-help.txt
+      contains: ['stecfinder', 'bactopia', 'version', 'dependencies']

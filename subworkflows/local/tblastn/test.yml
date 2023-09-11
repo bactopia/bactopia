@@ -1,0 +1,89 @@
+- name: tblastn-test
+  command: bash -c 'nextflow run ./subworkflows/local/tblastn/test.nf -entry test_tblastn --wf tblastn -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - tblastn
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/tblastn/merged-results/tblastn.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-dag.dot
+      contains: ['tblastndag', 'TBLASTN', 'versions']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-trace.txt
+      contains: ['task_id']
+    - path: bactopia/SRX1390622/tools/tblastn/SRX1390622.tblastn.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.err
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.log
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.out
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.sh
+      contains: ['tblastn', 'END_VERSIONS']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/versions.yml
+      md5sum: c6c83cf9a0ca3a400c923feca9b88d07
+
+- name: tblastn-test_gz
+  command: bash -c 'nextflow run ./subworkflows/local/tblastn/test.nf -entry test_tblastn_gz --wf tblastn -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - tblastn
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/tblastn/merged-results/tblastn.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/tblastn/merged-results/logs/tblastn-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-dag.dot
+      contains: ['tblastndag', 'TBLASTN', 'versions']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/tblastn/nf-reports/tblastn-trace.txt
+      contains: ['task_id']
+    - path: bactopia/SRX1390622/tools/tblastn/SRX1390622.tblastn.tsv
+      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.err
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.log
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.out
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.sh
+      contains: ['tblastn', 'END_VERSIONS']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/nf-tblastn.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRX1390622/tools/tblastn/logs/versions.yml
+      md5sum: bbf653d96871a63433b5e848fba069fc

@@ -10,13 +10,13 @@
             "type": "object",
             "description": "",
             "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
+            "fa_icon": "fa-solid fa-toolbox",
             "properties": {
                 "typing_only": {
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fa-solid fa-toggle-on"
                 }
             }
         }

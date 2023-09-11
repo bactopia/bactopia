@@ -1,0 +1,50 @@
+{% set version = '3.0.0' %}
+
+package:
+  name: bactopia
+  version: {{ version }}
+
+source:
+  url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
+
+build:
+  noarch: python
+  number: 0
+
+requirements:
+  host:
+    - pip
+    - python >3.8
+  run:
+    - bactopia-py >=1.0.8
+    - conda >=22.11.0
+    - coreutils
+    - mamba >=1.1.0
+    - nextflow >=21.10.0
+    - python >=3.9
+    - sed
+    - wget
+    - pytest
+    - pytest-workflow
+    - importlib-metadata <5
+
+test:
+  commands:
+    - "bactopia --version"
+    - "bactopia prepare"
+    - "bactopia search"
+    - "bactopia summary --help"
+
+about:
+  home: https://bactopia.github.io/
+  license: MIT
+  license_file: LICENSE
+  summary: Bactopia is a flexible pipeline for complete analysis of bacterial genomes.
+  dev_url: https://github.com/bactopia/bactopia/
+
+extra:
+  recipe-maintainers:
+    - rpetit3
+  identifiers:
+    - biotools:bactopia
+    - doi:10.1128/mSystems.00190-20

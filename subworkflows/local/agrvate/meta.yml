@@ -46,48 +46,48 @@ docs:
       to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ assemblies.
   output:
     tree: |
-      agrvate/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>-agr_gp.tab
-      │   ├── <SAMPLE_NAME>-blastn_log.txt
-      │   ├── <SAMPLE_NAME>-summary.tab
-      │   └── logs
+      │   └── tools
       │       └── agrvate
-      │           ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── agrvate-dag.dot
-      │   ├── agrvate-report.html
-      │   ├── agrvate-timeline.html
-      │   └── agrvate-trace.txt
-      ├── agrvate.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>-agr_gp.tab
+      │           ├── <SAMPLE_NAME>-blastn_log.txt
+      │           ├── <SAMPLE_NAME>-summary.tab
+      │           └── logs
+      │               ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── agrvate-<TIMESTAMP>
+              ├── merged-results
+              │   ├── agrvate.tsv
+              │   └── logs
+              │       └── agrvate-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── agrvate-dag.dot
+                  ├── agrvate-report.html
+                  ├── agrvate-timeline.html
+                  └── agrvate-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | agrvate.tsv | A merged TSV file with `AgrVATE` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: agrvate.tsv
+            description: A merged TSV file with `AgrVATE` results from all samples
       - name: AgrVATE
         description: |
           Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
-        table: |
-          | Extension       | Description |
-          |-----------------|-------------|
-          | -agr_gp.tab     | Detailed report for _agr_ kmer matches |
-          | -blastn_log.txt | Log files from programs called by `AgrVATE` |
-          | -summary.tab    | A final summary report for _agr_ typing |
+        is_extensions: true
+        table:
+          - id: -agr_gp.tab
+            description: A detailed report for _agr_ kmer matches
+          - id: -blastn_log.txt
+            description: Log files from programs called by `AgrVATE`
+          - id: -summary.tab
+            description: A final summary report for _agr_ typing
   citations:
     - agrvate
     - csvtk

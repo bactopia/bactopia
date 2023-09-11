@@ -1,0 +1,8 @@
+- name: sketcher-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf sketcher -c nextflow.config --help > sketcher-help.txt'
+  tags:
+    - bactopia_help_disable
+    - sketcher_disable
+  files:
+    - path: sketcher-help.txt
+      contains: ['sketcher', 'bactopia', 'version', 'dependencies']

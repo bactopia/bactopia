@@ -1,0 +1,91 @@
+- name: stecfinder-test
+  command: bash -c 'nextflow run ./subworkflows/local/stecfinder/test.nf -entry test_stecfinder --wf stecfinder -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - stecfinder
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/stecfinder.tsv
+      md5sum: 91a65684b28801f54a8681958ba90fe7
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-dag.dot
+      contains: ['stecfinderdag', 'STECFINDER', 'versions']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_002949675/tools/stecfinder/GCF_002949675.tsv
+      md5sum: 91a65684b28801f54a8681958ba90fe7
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.err
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.log
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.sh
+      contains: ['stecfinder', 'END_VERSIONS']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/versions.yml
+      md5sum: 3fd794d6409df767db5be5cda2695265
+
+- name: stecfinder-pe-test
+  command: bash -c 'nextflow run ./subworkflows/local/stecfinder/test.nf -entry test_stecfinder_pe --wf stecfinder -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - stecfinder
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/logs/stecfinder-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/stecfinder/merged-results/stecfinder.tsv
+      md5sum: 1e28b9d9eaad96dbb6d2739c2c0ea505
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-dag.dot
+      contains: ['stecfinderdag', 'STECFINDER_PE', 'versions']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/stecfinder/nf-reports/stecfinder-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_002949675/tools/stecfinder/GCF_002949675.tsv
+      md5sum: 1e28b9d9eaad96dbb6d2739c2c0ea505
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.err
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.log
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.sh
+      contains: ['stecfinder', 'END_VERSIONS']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/nf-stecfinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_002949675/tools/stecfinder/logs/versions.yml
+      md5sum: bc5304f5e9ea845ac8046b2e5c09ef34

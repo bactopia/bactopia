@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/midas/species/params.json",
+    "title": "Bactopia pipeline parameters",
+    "description": "A module for determining the species abundance of a sample",
+    "type": "object",
+    "definitions": {
+        "midas_species_parameters": {
+            "title": "MIDAS species Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "midas_db": {
+                    "type": "string",
+                    "description": "A single tarball or path to a MIDAS formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "midas_word_size": {
+                    "type": "integer",
+                    "description": "Word size for BLAST search",
+                    "default": 28,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "midas_aln_cov": {
+                    "type": "number",
+                    "description": "Discard reads with alignment coverage < ALN_COV",
+                    "default": 0.75,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "midas_opts": {
+                    "type": "string",
+                    "description": "Extra MIDAS options",
+                    "fa_icon": "fas fa-italic"
+                },
+                "midas_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep all temporary files created by MIDAS",
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/midas_species_parameters"
+        }
+    ]
+}

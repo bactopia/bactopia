@@ -58,44 +58,48 @@ docs:
     translated gene matches from assemblies.
   output:
     tree: |
-      gamma
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.fasta
-      │   ├── <SAMPLE_NAME>.gamma
-      │   ├── <SAMPLE_NAME>.gff
-      │   ├── <SAMPLE_NAME>.psl
-      │   └── logs
+      │   └── tools
       │       └── gamma
-      │           ├── nf-gamma.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── gamma.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           └── gamma
+      │               ├── <SAMPLE_NAME>.gamma
+      │               ├── <SAMPLE_NAME>.psl
+      │               └── logs
+      │                   ├── nf-gamma.{begin,err,log,out,run,sh,trace}
+      │                   └── versions.yml
+      └── bactopia-runs
+          └── gamma-<TIMESTAMP>
+              ├── merged-results
+              │   ├── gamma.tsv
+              │   └── logs
+              │       └── gamma-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── gamma-dag.dot
+                  ├── gamma-report.html
+                  ├── gamma-timeline.html
+                  └── gamma-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | gamma.tsv   | A merged TSV file with `GAMMA` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: gamma.tsv
+            description: A merged TSV file with `GAMMA` results from all samples
       - name: GAMMA
         description: |
           Below is a description of the _per-sample_ results from [GAMMA](https://github.com/rastanton/GAMMA).
-        table: |
-          | Extension     | Description |
-          |---------------|-------------|
-          | .fasta        | Annotated gene sequences is FASTA format  |
-          | .gamma        | A TSV file with annotated gene matches |
-          | .gff          | Annotated gene matches is GFF3 format  |
-          | .psl          | A PSL file with BLAT gene alignments   |
+        table:
+          - id: <SAMPLE_NAME>.fasta
+            description: Annotated gene sequences is FASTA format
+          - id: <SAMPLE_NAME>.gamma
+            description: A TSV file with annotated gene matches
+          - id: <SAMPLE_NAME>.gff
+            description: Annotated gene matches is GFF3 format
+          - id: <SAMPLE_NAME>.psl
+            description: A PSL file with BLAT gene alignments
   citations:
     - gamma

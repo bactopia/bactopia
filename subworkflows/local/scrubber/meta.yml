@@ -1,0 +1,79 @@
+name: scrubber
+description: Scrub human reads from FASTQ files
+icon: false
+keywords:
+  - filter
+  - human
+modules:
+  - srahumanscrubber_initdb
+  - srahumanscrubber_scrub
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+    type: file
+    description: |
+      List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+      respectively.
+  - db:
+      type: file
+      description: |
+        Path to sra-human-scrubber database
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - scrubbed:
+      type: file
+      description: |
+        FASTQs with human reads removed.
+      pattern: "*{.scrubbed.fastq.gz}"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: scrubber
+    description: >-
+      A Bactopia Tool which uses sra-human-scrubber to identify and remove any potential
+      human reads.
+  introduction: |
+      The `scrubber` module uses [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/)
+      to identify and remove any potential human reads.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── srahumanscrubber
+      │           ├── <SAMPLE_NAME>_R1.scrubbed.fastq.gz
+      │           ├── <SAMPLE_NAME>_R2.scrubbed.fastq.gz
+      │           ├── <SAMPLE_NAME>.scrubbed.fastq.gz
+      │           └── logs
+      │               ├── nf-srahumanscrubber.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── scrubber-<TIMESTAMP>
+              └── nf-reports
+                  ├── scrubber-dag.dot
+                  ├── scrubber-report.html
+                  ├── scrubber-timeline.html
+                  └── scrubber-trace.txt
+    add_note: false
+    folders:
+      - name: scrubber
+        description: |
+          Below is a description of the _per-sample_ results from
+          [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/).
+        is_extensions: true
+        table:
+          - id: .scrubbed.fastq.gz
+            description: FASTQs with any flagged human reads removed.
+  citations:
+    - srahumanscrubber

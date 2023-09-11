@@ -47,44 +47,41 @@ docs:
     to assign SCCmec types to _Staphylococcus aureus_ assemblies.
   output:
     tree: |
-      staphopiasccmec/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.tsv
-      │   └── logs
+      │   └── tools
       │       └── staphopiasccmec
-      │           ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── custom_dumpsoftwareversions
-      │       ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── staphopiasccmec-dag.dot
-      │   ├── staphopiasccmec-report.html
-      │   ├── staphopiasccmec-timeline.html
-      │   └── staphopiasccmec-trace.txt
-      ├── software_versions.yml
-      ├── software_versions_mqc.yml
-      └── staphopiasccmec.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── staphopiasccmec-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── staphopiasccmec-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── staphopiasccmec.tsv
+              └── nf-reports
+                  ├── staphopiasccmec-dag.dot
+                  ├── staphopiasccmec-report.html
+                  ├── staphopiasccmec-timeline.html
+                  └── staphopiasccmec-trace.txt
     add_note: true
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | staphopiasccmec.tsv  | A merged TSV file with `staphopia-sccmec` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: staphopiasccmec
+            description: A merged TSV file with `staphopia-sccmec` results from all samples
       - name: staphopia-sccmec
         description: |
           Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.tsv  | A tab-delimited file with `staphopia-sccmec` results |
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `staphopia-sccmec` results
   citations:
     - csvtk
     - staphopiasccmec

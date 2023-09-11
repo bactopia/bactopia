@@ -1,0 +1,75 @@
+- name: sketcher-pe
+  command: bash -c 'nextflow run ./subworkflows/local/sketcher/test.nf -entry test_sketcher_pe -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - sketcher
+    - sketcher_pe
+  files:
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'SKETCHER', 'versions']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.err
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.log
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
+      contains: ['mash', 'sourmash', 'END_VERSIONS']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/output/main/sketcher/logs/versions.yml
+      md5sum: 34c3efbea4984d9b4c2626797915d5ea
+    - path: bactopia/output/main/sketcher/output-k21.msh
+    - path: bactopia/output/main/sketcher/output-k31.msh
+    - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt
+      md5sum: f095a76d9e71aa814be756ef413b626c
+    - path: bactopia/output/main/sketcher/output-sourmash-gtdb-rs207-k31.txt
+      md5sum: 733b0d2c06b8f9c1a70f2da3ca8a5b96
+    - path: bactopia/output/main/sketcher/output.sig
+
+- name: sketcher-se
+  command: bash -c 'nextflow run ./subworkflows/local/sketcher/test.nf -entry test_sketcher_se -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - sketcher
+    - sketcher_se
+  files:
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'SKETCHER', 'versions']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.err
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.log
+      contains: ['Estimated', 'coverage', 'sourmash', 'saved']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
+      contains: ['mash', 'sourmash', 'END_VERSIONS']
+    - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/output/main/sketcher/logs/versions.yml
+      md5sum: c21c9e1e4e3f41a36a5e0116aef269b7
+    - path: bactopia/output/main/sketcher/output-k21.msh
+    - path: bactopia/output/main/sketcher/output-k31.msh
+    - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt
+      md5sum: 063e00f7f761e2087c4ba02a45e9bafa
+    - path: bactopia/output/main/sketcher/output-sourmash-gtdb-rs207-k31.txt
+      md5sum: 733b0d2c06b8f9c1a70f2da3ca8a5b96
+    - path: bactopia/output/main/sketcher/output.sig

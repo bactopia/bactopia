@@ -3,14 +3,10 @@
 //
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'agrvate')
-options.is_module = params.wf == 'agrvate' ? true : false
 options.args = params.typing_only ? '--typing_only' : ''
 
 include { AGRVATE as AGRVATE_MODULE } from '../../../modules/nf-core/agrvate/main' addParams( options: options )
-
-if (params.is_subworkflow) {
-    include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', publish_to_base: true, logs_subdir: options.is_module ? '' : 'agrvate'] )
-}
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '-C "$"', logs_subdir: 'agrvate-concat', process_name: params.merge_folder] )
 
 workflow AGRVATE {
     take:
@@ -23,12 +19,10 @@ workflow AGRVATE {
     AGRVATE_MODULE(fasta)
     ch_versions = ch_versions.mix(AGRVATE_MODULE.out.versions.first())
 
-    if (params.is_subworkflow) {
-        AGRVATE_MODULE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
-        CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
-        ch_merged_agrvate = ch_merged_agrvate.mix(CSVTK_CONCAT.out.csv)
-        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    }
+    AGRVATE_MODULE.out.summary.collect{meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
+    CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
+    ch_merged_agrvate = ch_merged_agrvate.mix(CSVTK_CONCAT.out.csv)
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     tsv = AGRVATE_MODULE.out.summary

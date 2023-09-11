@@ -53,51 +53,50 @@ docs:
     resistance genes in assemblies.
   output:
     tree: |
-      rgi/
+      <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
-      │   ├── <SAMPLE_NAME>.json
-      │   ├── <SAMPLE_NAME>.txt
-      │   └── logs
+      │   └── tools
       │       └── rgi
-      │           ├── nf-rgi.{begin,err,log,out,run,sh,trace}
-      │           └── versions.yml
-      ├── logs
-      │   ├── csvtk_concat
-      │   │   ├── nf-csvtk_concat.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   ├── custom_dumpsoftwareversions
-      │   │   ├── nf-custom_dumpsoftwareversions.{begin,err,log,out,run,sh,trace}
-      │   │   └── versions.yml
-      │   └── rgi_heatmap
-      │       ├── nf-rgi_heatmap.{begin,err,log,out,run,sh,trace}
-      │       └── versions.yml
-      ├── nf-reports
-      │   ├── rgi-dag.dot
-      │   ├── rgi-report.html
-      │   ├── rgi-timeline.html
-      │   └── rgi-trace.txt
-      ├── rgi-20.{csv,eps,png}
-      ├── rgi.tsv
-      ├── software_versions.yml
-      └── software_versions_mqc.yml
+      │           ├── <SAMPLE_NAME>.json
+      │           ├── <SAMPLE_NAME>.txt
+      │           └── logs
+      │               ├── nf-rgi.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── rgi-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   ├── rgi-concat
+              │   │   │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │   │   └── versions.yml
+              │   │   └── rgi-heatmap
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   ├── rgi-2.{csv,eps,png}
+              │   └── rgi.tsv
+              └── nf-reports
+                  ├── rgi-dag.dot
+                  ├── rgi-report.html
+                  ├── rgi-timeline.html
+                  └── rgi-trace.txt
     add_note: false
     folders:
-      - name: Top Level
+      - name: Merged Results
         description: |
-          Below are results that are in the base directory.
-        table: |
-          | Filename    | Description |
-          |-------------|-------------|
-          | rgi-20.{csv,eps,png}  | Heatmap representations as text and images, see [RGI - Heatmap](https://github.com/arpcard/rgi#generating-heat-maps-of-rgi-main-results) for more details |
-          | rgi.tsv  | A merged TSV file with `rgi` results from all samples |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: rgi.tsv
+            description: A merged TSV file with `rgi` results from all samples
+          - id: rgi-2.{csv,eps,png}
+            description: Heatmap representations as text and images, see [RGI - Heatmap](https://github.com/arpcard/rgi#generating-heat-maps-of-rgi-main-results) for more details
       - name: rgi
         description: |
           Below is a description of the _per-sample_ results from [RGI](https://github.com/arpcard/rgi).
-        table: |
-          | Filename                 | Description |
-          |--------------------------|-------------|
-          | &lt;SAMPLE_NAME&gt;.json  | A JSON file with `rgi` results |
-          | &lt;SAMPLE_NAME&gt;.txt  | A tab-delimited file with `egi` results, see [RGI - Output Details](https://github.com/arpcard/rgi#rgi-main-tab-delimited-output-details) for more details |
+        table:
+          - id: <SAMPLE_NAME>.json
+            description: A JSON file with `rgi` results
+          - id: <SAMPLE_NAME>.txt
+            description: A tab-delimited file with `egi` results, see [RGI - Output Details](https://github.com/arpcard/rgi#rgi-main-tab-delimited-output-details) for more details
   citations:
     - csvtk
     - rgi
