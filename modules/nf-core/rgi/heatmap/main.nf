@@ -14,7 +14,7 @@ process RGI_HEATMAP {
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/rgi:6.0.2--pyha8f3691_0' :
-        'quay.io/biocontainers/rgi:6.0.2--pyha8f3691_0 ' }"
+        'quay.io/biocontainers/rgi:6.0.2--pyha8f3691_0' }"
 
     input:
     tuple val(meta), path(json, stageAs: 'json/*')
