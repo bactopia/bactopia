@@ -4,6 +4,12 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v3.0.1 bactopia/bactopia "" - 2023/??/??
+
+### `Fixed`
+
+- typo in sketcher module
+
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
 ### `Added`
