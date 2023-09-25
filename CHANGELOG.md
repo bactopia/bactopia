@@ -8,7 +8,9 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Fixed`
 
-- typo in sketcher module
+- variable name in sketcher module
+- `--para-off` not correctly implemented in PIRATE module
+- extra space in RGI container image name
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
