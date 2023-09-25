@@ -18,12 +18,6 @@
                     "description": "Base directory to write results to",
                     "fa_icon": "fas fa-folder"
                 },
-                "run_name": {
-                    "type": "string",
-                    "default": "bactopia",
-                    "description": "Name of the directory to hold results",
-                    "fa_icon": "fas fa-folder"
-                },
                 "skip_compression": {
                     "type": "boolean",
                     "default": false,

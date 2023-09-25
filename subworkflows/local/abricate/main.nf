@@ -8,7 +8,7 @@ options.args = [
     "--minid ${params.minid}",
     "--mincov ${params.mincov}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-
+options.subdir = params.abricate_db
 include { ABRICATE_RUN } from '../../../modules/nf-core/abricate/run/main' addParams( options: options )
 include { ABRICATE_SUMMARY } from '../../../modules/nf-core/abricate/summary/main' addParams( options: [logs_subdir: 'abricate-concat', process_name: params.merge_folder] )
 

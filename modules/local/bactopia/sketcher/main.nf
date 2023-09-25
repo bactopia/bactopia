@@ -45,9 +45,8 @@ process SKETCHER {
     sourmash sketch dna ${options.args2} --merge ${prefix} -o ${prefix}.sig ${fasta}
 
     # Mash Screen
-
     echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq88-k21.txt
-    gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${$mash_name} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
+    gzip -cd ${fasta} | mash screen ${options.args3} -p ${task.cpus} ${mash_name} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
 
     # Sourmash classify
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt
