@@ -11,6 +11,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - variable name in sketcher module
 - `--para-off` not correctly implemented in PIRATE module
 - extra space in RGI container image name
+- sourmash version STDERR not parsed out
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 

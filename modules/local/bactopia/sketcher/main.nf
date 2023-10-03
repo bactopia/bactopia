@@ -55,7 +55,7 @@ process SKETCHER {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
-        sourmash: \$(echo \$(sourmash --version 2>&1) | sed 's/sourmash //;')
+        sourmash: \$(echo \$(sourmash --version 2>&1) | sed 's/.*sourmash //;')
     END_VERSIONS
     """
 }
