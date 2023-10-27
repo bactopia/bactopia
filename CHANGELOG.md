@@ -6,12 +6,17 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ## v3.0.1 bactopia/bactopia "" - 2023/??/??
 
+### `Added`
+
+- Updated `bactopia-assembler` to include updated Medaka models
+
 ### `Fixed`
 
 - variable name in sketcher module
 - `--para-off` not correctly implemented in PIRATE module
 - extra space in RGI container image name
 - sourmash version STDERR not parsed out
+- FASTQC writing to /tmp dir on HPC when non-readable
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
