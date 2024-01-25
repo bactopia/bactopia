@@ -203,7 +203,21 @@ def _collect_inputs(sample, dir, extension) {
         }
     } else {
         input = "${base_dir}/${PATHS[extension]}/${sample}.${extension}"
-        if (extension == "faa" || extension == "gbk" || extension == "gff") {
+        if (extension == "gbk") {
+            // Default to Bakta (gbff)
+            input = "${base_dir}/${PATHS[extension]}/bakta/${sample}.gbff"
+            if (!file("${input}").exists() && !file("${input}.gz").exists()) {
+                // Fall back on Prokka (gbk)
+                input = "${base_dir}/${PATHS[extension]}/prokka/${sample}.${extension}"
+            }
+        } else if (extension == "gff") {
+            // Default to Bakta (gff3)
+            input = "${base_dir}/${PATHS[extension]}/bakta/${sample}.gff3"
+            if (!file("${input}").exists() && !file("${input}.gz").exists()) {
+                // Fall back on Prokka (gff)
+                input = "${base_dir}/${PATHS[extension]}/prokka/${sample}.${extension}"
+            }
+        } else if (extension == "faa") {
             // Default to Bakta faa
             input = "${base_dir}/${PATHS[extension]}/bakta/${sample}.${extension}"
             if (!file("${input}").exists() && !file("${input}.gz").exists()) {

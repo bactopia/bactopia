@@ -22,8 +22,8 @@ process BRACKEN {
 
     output:
     tuple val(meta), path("${prefix}.bracken.tsv")       , emit: tsv
-    tuple val(meta), path('*classified*')                , emit: classified
-    tuple val(meta), path('*unclassified*')              , emit: unclassified
+    tuple val(meta), path('*classified*')                , emit: classified, optional: true
+    tuple val(meta), path('*unclassified*')              , emit: unclassified, optional: true
     tuple val(meta), path("${prefix}.kraken2.report.txt"), emit: kraken2_report
     tuple val(meta), path("${prefix}.kraken2.output.txt"), emit: kraken2_output, optional: true
     tuple val(meta), path("${prefix}.bracken.report.txt"), emit: bracken_report
@@ -98,9 +98,6 @@ process BRACKEN {
     head -n 1 bracken.temp > ${prefix}.bracken.abundances.txt
     grep -v "fraction_total_reads\$" bracken.temp | sort -k 7 -rn >> ${prefix}.bracken.abundances.txt
 
-    # Compress Kraken FASTQs
-    pigz -p $task.cpus *.fastq
-
     # Adjust bracken to include unclassified and produce summary
     kraken-bracken-summary.py \\
         ${prefix} \\
@@ -122,6 +119,20 @@ process BRACKEN {
             --output bracken-krona.temp
         ktImportText -o ${prefix}.bracken.krona.html bracken-krona.temp
         rm *-krona.temp
+    fi
+
+    # Clean up large files produced by Kraken2/Bracken
+    if [ "${params.kraken2_keep_raw_output}" == "false" ]; then
+        # Remove kraken2 STDOUT output file
+        rm ${prefix}.kraken2.output.txt
+    fi
+
+    if [ "${params.kraken2_remove_filtered_reads}" == "true" ]; then
+        # Remove filtered FASTQs
+        rm *.fastq
+    else
+        # Compress Kraken FASTQs
+        pigz -p $task.cpus *.fastq
     fi
 
     cat <<-END_VERSIONS > versions.yml

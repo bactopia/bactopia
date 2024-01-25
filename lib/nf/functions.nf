@@ -46,12 +46,14 @@ def get_schemas() {
         }
     }
 
-    if (params.containsKey('use_bakta')) {
-        if (params.use_bakta) {
-            // Annotate genomes with Bakta
-            schemas += _get_module_schemas(params.workflows['bakta']["modules"])
-        } else {
-            schemas += "${params.workflows['prokka'].path}/params.json"
+    if (params.wf == "bactopia" || params.wf == "staphopia") {
+        if (params.containsKey('use_bakta')) {
+            if (params.use_bakta) {
+                // Annotate genomes with Bakta
+                schemas += _get_module_schemas(params.workflows['bakta']["modules"])
+            } else {
+                schemas += "${params.workflows['prokka'].path}/params.json"
+            }
         }
     }
 
@@ -96,7 +98,7 @@ def _get_module_schemas(modules) {
     modules.each { it ->
         if (params.wf == "cleanyerreads") {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
-        } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_initdb")) {
+        } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_initdb" || it == "kraken2")) {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else {
             module_schemas << "${params.workflows[it].path}/params.json"
@@ -211,6 +213,7 @@ def saveFiles(Map args) {
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []
     def goto_base = false
+    def special_subdir = params.wf == "teton" ? "teton" : ""
     if (args.filename) {
         if (args.filename.startsWith('.command')) {
             // Its a Nextflow process file, rename to "nf-<PROCESS_NAME>.*"
@@ -273,19 +276,21 @@ def saveFiles(Map args) {
         }
         
         if (final_output) {
-            if (args.opts.btype == "main" || args.opts.btype == "tools") {
+            if (args.opts.btype == "main" || args.opts.btype == "tools" || args.opts.btype == "teton") {
                 // outdir/<SAMPLE_NAME>/{main|tools}
                 if (goto_base) {
                     // my-sample/assembly-error.txt
-                    final_output = "${args.prefix}/${final_output}"
+                    final_output = "${args.prefix}/${special_subdir}/${final_output}"
                 } else {
                     // my-sample/bactopia-main/assembler
                     if (process_name == "bakta" || process_name == "prokka") {
                         // my-sample/bactopia-main/<process_name>/<output>
-                        final_output = "${args.prefix}/${args.opts.btype}/annotator/${final_output}"
+                        final_output = "${args.prefix}/${special_subdir}/${args.opts.btype}/annotator/${final_output}"
                     } else {
-                        // my-sample/bactopia-main/<output>
-                        final_output = "${args.prefix}/${args.opts.btype}/${final_output}"
+                        // my-sample/bactopia/main/<output>
+                        // my-sample/bactopia/tools/<output>
+                        // my-sample/bactopia/teton/<output>
+                        final_output = "${args.prefix}/${special_subdir}/${args.opts.btype}/${final_output}"
                     }
                 }
             } else {
