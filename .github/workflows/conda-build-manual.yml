@@ -18,7 +18,7 @@ jobs:
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-variant: Miniforge
+          miniforge-variant: Miniforge3
           miniforge-version: latest
           activate-environment: anaconda-client-env
 
