@@ -26,4 +26,4 @@ jobs:
           # Start build
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
           cd data/conda/ && conda build -c conda-forge -c bioconda -c defaults --output-folder . . 
-          anaconda upload -t ${{ secrets.ANACONDA_TOKEN }} --force ./noarch/*.tar.bz2
+          anaconda upload --token ${{ secrets.ANACONDA_TOKEN }} --force ./noarch/*.tar.bz2
