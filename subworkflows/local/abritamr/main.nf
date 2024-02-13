@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'abritamr')
 options.args = [
     params.abritamr_identity ? "--identity ${params.abritamr_identity} " : "",
-    params.abritamr_species ? "--identity ${params.abritamr_species} " : ""
+    params.abritamr_species ? "--species ${params.abritamr_species} " : ""
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { ABRITAMR_RUN } from '../../../modules/nf-core/abritamr/run/main' addParams( options: options )
