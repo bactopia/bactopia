@@ -3,8 +3,17 @@
         "master"
     ],
     "cSpell.words": [
+        "bakta",
         "btype",
+        "CACHEDIR",
+        "cleanyerreads",
+        "getenv",
         "infodir",
-        "subdir"
+        "nfconfig",
+        "println",
+        "prokka",
+        "staphopia",
+        "subdir",
+        "Subworkflow"
     ]
 }

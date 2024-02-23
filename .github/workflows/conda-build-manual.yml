@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push 
         run: |
           # Start build
-          conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
+          conda install -c conda-forge -c bioconda anaconda-client conda-verify
           cd data/conda/ && conda build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
         env:

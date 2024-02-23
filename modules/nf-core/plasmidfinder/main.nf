@@ -23,7 +23,7 @@ process PLASMIDFINDER {
     output:
     tuple val(meta), path("*.json")                 , emit: json
     tuple val(meta), path("*.txt")                  , emit: txt
-    tuple val(meta), path("*.tsv")                  , emit: tsv
+    tuple val(meta), path("${prefix}.tsv")          , emit: tsv
     tuple val(meta), path("*-hit_in_genome_seq.fsa"), emit: genome_seq
     tuple val(meta), path("*-plasmid_seqs.fsa")     , emit: plasmid_seq
     path "*.{log,err}", emit: logs, optional: true
@@ -48,9 +48,12 @@ process PLASMIDFINDER {
     # Rename hard-coded outputs with prefix to avoid name collisions
     mv data.json ${prefix}.json
     mv results.txt ${prefix}.txt
-    mv results_tab.tsv ${prefix}.tsv
     mv Hit_in_genome_seq.fsa ${prefix}-hit_in_genome_seq.fsa
     mv Plasmid_seqs.fsa ${prefix}-plasmid_seqs.fsa
+
+    # Add sample name to TSV results
+    head -n 1 results_tab.tsv | sed "s/^/Sample\t/" > ${prefix}.tsv
+    tail -n +2 results_tab.tsv | sed "s/^/${prefix}\t/" >> ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
