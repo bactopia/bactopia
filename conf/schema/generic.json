@@ -215,6 +215,13 @@
                     "fa_icon": "fas fa-clipboard-list",
                     "hidden": true
                 },
+                "container_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to Apptainer, Docker, or Singularityu. (e.g. Singularity: '-D `pwd`'",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
                 "disable_scratch": {
                     "type": "boolean",
                     "default": false,
