@@ -6,7 +6,7 @@
     "type": "object",
     "definitions": {
         "tbprofiler_parameters": {
-            "title": "TBProfiler Parameters",
+            "title": "TBProfiler Profile Parameters",
             "type": "object",
             "description": "",
             "default": "",
@@ -17,14 +17,12 @@
                     "default": false,
                     "description": "Call whole genome",
                     "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
                 },
                 "mapper": {
                     "type": "string",
                     "default": "bwa",
                     "description": "Mapping tool to use. If you are using nanopore data it will default to minimap2",
                     "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true,
                     "enum": ["bwa", "minimap2", "bowtie2", "bwa-mem2"]
                 },
                 "caller": {
@@ -32,7 +30,6 @@
                     "default": "freebayes",
                     "description": "Variant calling tool to use",
                     "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true,
                     "enum": ["bcftools", "gatk", "freebayes"]
                 },
                 "calling_params": {

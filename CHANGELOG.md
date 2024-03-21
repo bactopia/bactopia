@@ -9,6 +9,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ### `Added`
 
 - Updated `bactopia-assembler` to include updated Medaka models
+- TB Profiler results are now merged with `collate` command
 
 ### `Fixed`
 

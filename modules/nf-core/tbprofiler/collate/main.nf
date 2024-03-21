@@ -2,12 +2,12 @@
 include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
-options.btype = options.btype ?: "tools"
+options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::tb-profiler=6.0.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
-process TBPROFILER_PROFILE {
+process TBPROFILER_COLLATE {
     tag "$meta.id"
     label 'process_medium'
 
@@ -17,33 +17,26 @@ process TBPROFILER_PROFILE {
         'quay.io/biocontainers/tb-profiler:6.0.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(reads)
+    tuple val(meta), path(json, stageAs: 'results/*')
 
     output:
-    tuple val(meta), path("bam/*.bam")     , emit: bam
-    tuple val(meta), path("results/*.csv") , emit: csv, optional: true
-    tuple val(meta), path("results/*.json"), emit: json
-    tuple val(meta), path("results/*.txt") , emit: txt, optional: true
-    tuple val(meta), path("vcf/*.vcf.gz")  , emit: vcf
-    path "*.{log,err}"                     , emit: logs, optional: true
-    path ".command.*"                      , emit: nf_logs
-    path "versions.yml"                    , emit: versions
+    tuple val(meta), path("tbprofiler.csv")   , emit: csv
+    tuple val(meta), path("tbprofiler.variants.csv"), emit: variants_csv
+    tuple val(meta), path("tbprofiler.variants.txt"), emit: variants_txt
+    tuple val(meta), path("*.itol..txt")            , emit: itol, optional: true
+    path "*.{log,err}"                              , emit: logs, optional: true
+    path ".command.*"                               , emit: nf_logs
+    path "versions.yml"                             , emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
-    def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """
+    tb-profiler collate --help
+
     tb-profiler \\
-        profile \\
+        collate \\
         $options.args \\
-        $platform \\
-        --csv \\
-        --txt \\
-        --prefix ${prefix} \\
-        --threads $task.cpus \\
-        --no_trim \\
-        $input_reads
+        --format csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

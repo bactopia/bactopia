@@ -142,6 +142,7 @@ process GATHER {
                     # Download from NCBI assembly and simulate reads
                     mkdir fasta/
                     ncbi-genome-download bacteria -o ./ -F fasta -p ${task.cpus} \\
+                                                -u "https://ftp.ncbi.nlm.nih.gov/genomes" \\
                                                 -s ${section} -A accession.txt -r 50 ${no_cache}
                     find . -name "*${prefix}*.fna.gz" | xargs -I {} mv {} fasta/
                     rename 's/(GC[AF]_\\d+).*/\$1.fna.gz/' fasta/*
