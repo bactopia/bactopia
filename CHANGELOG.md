@@ -10,6 +10,23 @@ description: A full list of Bactopia releases and a description of the changes.
 
 - Updated `bactopia-assembler` to include updated Medaka models
 - TB Profiler results are now merged with `collate` command
+- bump program versions in modules
+    - `abritamr`: 1.0.14 -> 1.0.17
+    - `bactopia-teton`: 1.0.1 -> 1.0.2
+    - `bactopia-variants`: 1.0.1 -> 1.0.2
+    - `bakta`: 1.8.2 -> 1.9.3
+    - `blast`: 2.14.1 -> 2.15.0
+    - `busco`: 5.5.0 -> 5.7.0
+    - `gubbins`: 3.3.0 -> 3.3.4
+    - `multiqc`: 1.15 -> 1.21
+    - `mashtree`: 1.4.5 -> 1.4.6
+    - `mykrobe`: 0.12.2 -> 0.13.0
+    - `ncbi-amrfinderplus`: 3.11.18 -> 3.12.8
+    - `panaroo`: 1.3.3 -> 1.4.2
+    - `rgi`: 6.0.2 -> 6.0.3
+    - `sistr`: 1.1.1 -> 1.1.2
+    - `stecfinder`: 1.1.0 -> 1.1.1
+    - `tbprofiler`: 5.0.0 -> 6.1.0
 
 ### `Fixed`
 
