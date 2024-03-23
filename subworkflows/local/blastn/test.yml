@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: 05f4d83f9689ca445c89d2c14286042e
+      md5sum: e7b15a1f93b7936b51f64d5f8cfa1430
 
 - name: blastn-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/blastn/test.nf -entry test_blastn_gz --wf blastn -c nextflow.config ${BACTOPIA_ARGS}'
@@ -86,7 +86,7 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: 265c014c7328186a307cb9430da090af
+      md5sum: 3467e2150f3731b6d4af94bbdc821435
 
 - name: blastn-test_use_genes
   command: bash -c 'nextflow run ./subworkflows/local/blastn/test.nf -entry test_blastn_use_genes --wf blastn -c nextflow.config ${BACTOPIA_ARGS}'
@@ -131,4 +131,4 @@
     - path: bactopia/SRX1390622/tools/blastn/logs/nf-blastn.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastn/logs/versions.yml
-      md5sum: 0ff2ad9ce7ba1cc1fad83f8d59143d95
+      md5sum: 9a2a043009edd887f1c9b030639ad297

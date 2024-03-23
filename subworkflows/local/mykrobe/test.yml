@@ -42,7 +42,7 @@
     - path: bactopia/test/tools/mykrobe/logs/nf-mykrobe.trace
       contains: ['nextflow.trace']
     - path: bactopia/test/tools/mykrobe/logs/versions.yml
-      md5sum: 9b226e8dcf0cbd7a9055291126babfd0
+      md5sum: cb986756df70555ad35b1644d1bd403c
     - path: bactopia/test/tools/mykrobe/test.csv
       contains: ["susceptibility", "staph", "variants"]
     - path: bactopia/test/tools/mykrobe/test.json

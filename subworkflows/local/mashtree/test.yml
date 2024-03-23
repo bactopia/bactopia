@@ -19,7 +19,7 @@
     - path: bactopia/bactopia-runs/mashtree/mashtree/logs/nf-mashtree.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/mashtree/mashtree/logs/versions.yml
-      md5sum: 96538caf6e99cea2c6efe23f3b70bd9f
+      md5sum: 46f17a27efed26210ef70f8e835fbfc5
     - path: bactopia/bactopia-runs/mashtree/mashtree/mashtree.dnd
       contains: ['GCF_000009885', 'GCF_000017085']
     - path: bactopia/bactopia-runs/mashtree/mashtree/mashtree.tsv

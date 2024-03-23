@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: 42af37b58f6cc9837dda5793201993ad
+      md5sum: 9f491f4e6eb74583235d93a8602bdc18
 
 - name: blastp-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/blastp/test.nf -entry test_blastp_gz --wf blastp -c nextflow.config ${BACTOPIA_ARGS}'
@@ -86,4 +86,4 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: e05afd6a41f0da42f1986bc55cc3be16
+      md5sum: d112a07590e131823d0c9c58d6c5b9d1
