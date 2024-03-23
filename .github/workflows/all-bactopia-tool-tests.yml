@@ -1,4 +1,4 @@
-name: All Bactopia Tool Tests
+name: All Bactopia Tests
 
 on: workflow_dispatch
   #schedule:

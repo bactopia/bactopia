@@ -9,7 +9,10 @@ description: A full list of Bactopia releases and a description of the changes.
 ### `Added`
 
 - Updated `bactopia-assembler` to include updated Medaka models
+- profile for `arcc_hawk`
 - TB Profiler results are now merged with `collate` command
+- sample name to plasmidfinder results
+- support config files from nf-core/configs
 - bump program versions in modules
     - `abritamr`: 1.0.14 -> 1.0.17
     - `bactopia-teton`: 1.0.1 -> 1.0.2
@@ -35,6 +38,11 @@ description: A full list of Bactopia releases and a description of the changes.
 - extra space in RGI container image name
 - sourmash version STDERR not parsed out
 - FASTQC writing to /tmp dir on HPC when non-readable
+- abricate and ariba not using output subdirectory
+- nextflow tower typos @iferres
+- phispy not working with Bakta genbank files
+- missed check of `--download_bakta` param in main workflow
+- quast not working when estimated genome size is 0
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
