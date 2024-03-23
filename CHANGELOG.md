@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.0.1 bactopia/bactopia "" - 2023/??/??
+## v3.0.1 bactopia/bactopia "" - 2024/03/??
 
 ### `Added`
 
@@ -13,6 +13,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - TB Profiler results are now merged with `collate` command
 - sample name to plasmidfinder results
 - support config files from nf-core/configs
+- updated AMRFinder+ database for v3.12.8
 - bump program versions in modules
     - `abritamr`: 1.0.14 -> 1.0.17
     - `bactopia-teton`: 1.0.1 -> 1.0.2
