@@ -28,7 +28,11 @@ jobs:
           echo "BACTOPIA_TMP=/data/storage/bactopia-tmp/${{ github.run_id }}" >> $GITHUB_ENV
           echo "NXF_SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
           echo "SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
-          mkdir "/data/storage/bactopia-tmp/${{ github.run_id }}"
+          echo "SINGULARITY_TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          echo "TMP=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          echo "TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          echo "NUMBA_CACHE_DIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          mkdir -p "/data/storage/bactopia-tmp/${{ github.run_id }}/tmp"
           chmod -R 777 "/data/storage/bactopia-tmp/${{ github.run_id }}"
 
       - name: Singularity Profile
@@ -37,7 +41,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | grep -v -E "teton" | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile singularity --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_pull_docker_container --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
       - name: Docker Profile
