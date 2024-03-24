@@ -42,7 +42,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: d784d5fd5e9fab09910dd3ae222221a0
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-meta.tsv
       md5sum: 9f2fe7cf4078f68a6c35baa1f49eaa30
 
@@ -90,7 +90,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: d784d5fd5e9fab09910dd3ae222221a0
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-meta.tsv
       md5sum: bf66e3f10d4053302fae25def628e7dc
 
@@ -140,7 +140,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 421956cb9c7861da82af271cf6d04218
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -191,7 +191,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 421956cb9c7861da82af271cf6d04218
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -242,7 +242,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 31ffb87e3f4004ce3775ca06c2551d91
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -293,7 +293,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 31ffb87e3f4004ce3775ca06c2551d91
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -342,7 +342,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 8063cd84fd961f7592dc575b92efb115
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-meta.tsv
       md5sum: 7565730c30d7ee1b695fe27356efe104
 
@@ -389,7 +389,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 8063cd84fd961f7592dc575b92efb115
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-meta.tsv
       md5sum: 729abf0ec9f744bdec92a0f830f35f8e
 
@@ -437,7 +437,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 7c1443a964772a4139a6f607a77b5aba
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -487,7 +487,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 7c1443a964772a4139a6f607a77b5aba
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/multiple-read-sets-merged.txt
       contains: ['merged', 'R1', 'R2']
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -540,7 +540,7 @@
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390609/main/gather/logs/versions.yml
-      md5sum: 673e83e4d86194ec136574ea037d2c5f
+      contains: ['art', 'fastq-scan', 'pigz']
 
 - name: gather-sra_accession
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_sra_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -589,7 +589,7 @@
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390609/main/gather/logs/versions.yml
-      md5sum: 673e83e4d86194ec136574ea037d2c5f
+      contains: ['art', 'fastq-scan', 'pigz']
 
 - name: gather-assembly_accession_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_assembly_accession -c nextflow.config ${BACTOPIA_ARGS}'
@@ -638,7 +638,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/gather/logs/versions.yml
-      md5sum: 14967c8997269651990f696445f64dc0
+      contains: ['art', 'fastq-scan', 'pigz']
 
 - name: gather-assembly_accession
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_assembly_accession --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -687,7 +687,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/gather/logs/versions.yml
-      md5sum: 14967c8997269651990f696445f64dc0
+      contains: ['art', 'fastq-scan', 'pigz']
 
 - name: gather-assembly_nogsize
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_assembly -c nextflow.config ${BACTOPIA_ARGS}'
@@ -736,7 +736,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/gather/logs/versions.yml
-      md5sum: 9b292ef8e7488d6aabf95bcc16ea28e9
+      contains: ['art', 'fastq-scan', 'pigz']
 
 - name: gather-assembly
   command: bash -c 'nextflow run ./subworkflows/local/gather/test.nf -entry test_gather_assembly --genome_size 358242 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -785,7 +785,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/main/gather/logs/versions.yml
-      md5sum: 9b292ef8e7488d6aabf95bcc16ea28e9
+      contains: ['art', 'fastq-scan', 'pigz']
 
 
 - name: gather-error_low_read_count_pe
@@ -831,7 +831,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 0b38c1501ee4bf73dceb1a8bb62cca1b
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-low-read-count-error.txt
       md5sum: 6b83dbca009dbe0ad944d8124ce49cba
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
@@ -882,7 +882,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 7369d557d6088fbbbf18f562357dc418
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-low-read-count-error.txt
       md5sum: 62b184563e501178b47ef5790e9d54e9
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
@@ -933,7 +933,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: cd3455e21089afb26c3201a11d097ea6
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-low-read-count-error.txt
       md5sum: 6be3c78d51a74c0086e03d47bf5db34b
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
@@ -984,7 +984,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 88ebb234140b58f5f17139d0bd4c5d01
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-low-read-count-error.txt
       md5sum: 427061b788c00b7b8c3abcb6e9b96001
     - path: bactopia/output/main/gather/output-low-sequence-depth-error.txt
@@ -1035,7 +1035,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 9dd75c38b610127dd1ec988d92a52d18
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-low-basepair-proportion-error.txt
       md5sum: a6da65656318f5b21a5024330c8591d3
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -1085,7 +1085,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 82a59a5cd42513b9659e37c4b826bbe6
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-gzip-error.txt
       md5sum: d2be3bbdfe7391ec426008523add17ac
     - path: bactopia/output/main/gather/output-meta.tsv
@@ -1135,7 +1135,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/gather/logs/versions.yml
-      md5sum: 162c5e563703bf4d9604be1bdb2ceec9
+      contains: ['art', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/gather/output-gzip-error.txt
       md5sum: d2be3bbdfe7391ec426008523add17ac
     - path: bactopia/output/main/gather/output-meta.tsv

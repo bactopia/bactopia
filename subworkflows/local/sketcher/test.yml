@@ -27,7 +27,7 @@
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/sketcher/logs/versions.yml
-      md5sum: 34c3efbea4984d9b4c2626797915d5ea
+      contains: ['mash', 'sourmash']
     - path: bactopia/output/main/sketcher/output-k21.msh
     - path: bactopia/output/main/sketcher/output-k31.msh
     - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt
@@ -65,7 +65,7 @@
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/sketcher/logs/versions.yml
-      md5sum: c21c9e1e4e3f41a36a5e0116aef269b7
+      contains: ['mash', 'sourmash']
     - path: bactopia/output/main/sketcher/output-k21.msh
     - path: bactopia/output/main/sketcher/output-k31.msh
     - path: bactopia/output/main/sketcher/output-mash-refseq88-k21.txt

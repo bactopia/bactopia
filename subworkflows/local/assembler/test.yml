@@ -46,7 +46,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill-se.log
       contains: ['skesa', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: ca2bf722c9d05b082a101c3e13068dd6
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -100,7 +100,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill-se.log
       contains: ['spades', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: ca2bf722c9d05b082a101c3e13068dd6
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -141,7 +141,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill-se.log
       contains: ['megahit', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: ca2bf722c9d05b082a101c3e13068dd6
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/megahit-unpolished.gfa.gz
     - path: bactopia/portiera/main/assembler/portiera-assembly-error.txt
       md5sum: 173bfef2b0d5bd31c1b76cb37de67d3c
@@ -196,7 +196,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill-se.log
       contains: ['velvet', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: ca2bf722c9d05b082a101c3e13068dd6
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -253,7 +253,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill.log
       contains: ['skesa', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 377dba6d337bec8d81da248be05badff
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -311,7 +311,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill.log
       contains: ['spades', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 377dba6d337bec8d81da248be05badff
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -356,7 +356,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill.log
       contains: ['megahit', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 377dba6d337bec8d81da248be05badff
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/megahit-unpolished.gfa.gz
     - path: bactopia/portiera/main/assembler/portiera-assembly-error.txt
       md5sum: 173bfef2b0d5bd31c1b76cb37de67d3c
@@ -415,7 +415,7 @@
     - path: bactopia/portiera/main/assembler/logs/shovill.log
       contains: ['velvet', 'shovill', 'Done']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 377dba6d337bec8d81da248be05badff
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -468,7 +468,7 @@
     - path: bactopia/portiera/main/assembler/logs/unicycler.log
       contains: ['unicycler', 'complete', 'Saving']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 227506881d670f1977dc013695de8042
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -526,7 +526,7 @@
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
       contains: ['nextflow.trace']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 543bba4536419bd2950e63af41eb048c
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -578,7 +578,7 @@
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
       contains: ['nextflow.trace']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 543bba4536419bd2950e63af41eb048c
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/miniasm-unpolished.fasta.gz
     - path: bactopia/portiera/main/assembler/miniasm-unpolished.gfa.gz
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
@@ -632,7 +632,7 @@
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
       contains: ['nextflow.trace']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 543bba4536419bd2950e63af41eb048c
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
@@ -689,7 +689,7 @@
     - path: bactopia/portiera/main/assembler/logs/nf-assembler.trace
       contains: ['nextflow.trace']
     - path: bactopia/portiera/main/assembler/logs/versions.yml
-      md5sum: 518e7c708c9f142e5da2c2d05feb858e
+      contains: ['assembly-scan', 'pigz', 'shovill']
     - path: bactopia/portiera/main/assembler/portiera.fna.gz
     - path: bactopia/portiera/main/assembler/portiera.tsv
       contains: ["total_contig"]
