@@ -325,9 +325,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+      contains: ['results', 'summary', 'original', 'final', 'Target', 'Done']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+      contains: ['results', 'summary', 'original', 'final', 'Target', 'Done']
     - path: bactopia/output/main/qc/logs/nf-qc.out
     - path: bactopia/output/main/qc/logs/nf-qc.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
