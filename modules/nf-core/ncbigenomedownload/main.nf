@@ -48,18 +48,18 @@ process NCBIGENOMEDOWNLOAD {
         if [ "${meta.limit}" != "null" ]; then
             ncbi-genome-download $opts -g "${meta.species}" --dry-run | grep -v "Considering" > accession-list.txt
             shuf accession-list.txt | head -n ${meta.limit} | cut -f 1,1  > accession-subset.txt
-            ncbi-genome-download $opts -A accession-subset.txt
+            ncbi-genome-download $opts -u "https://ftp.ncbi.nlm.nih.gov/genomes" -A accession-subset.txt
         else
             ncbi-genome-download $opts -g "${meta.species}"
         fi
     fi
 
     if [ "${meta.accession}" != "null" ]; then
-        ncbi-genome-download $opts -A ${meta.accession}
+        ncbi-genome-download $opts -u "https://ftp.ncbi.nlm.nih.gov/genomes" -A ${meta.accession}
     fi
 
     if [ "${meta.has_accessions}" == "true" ]; then
-        ncbi-genome-download $opts -A ${accessions}
+        ncbi-genome-download $opts -u "https://ftp.ncbi.nlm.nih.gov/genomes" -A ${accessions}
     fi
 
     cat <<-END_VERSIONS > versions.yml
