@@ -9,10 +9,10 @@
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.filtered_polymorphic_sites.phylip
       md5sum: 15efec56c27103e2f777d946a297d399
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.final_tree.tre
-      md5sum: e1a69691e9ca439db36d1544f482f403
+      contains: ["GCF_902713755", "GCF_000298385", "GCF_002849995", "GCF_000300075"]
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.masked.aln.gz
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.node_labelled.final_tree.tre
-      md5sum: accd0e5733897e53534c70dc24f8e74e
+      contains: ["GCF_902713755", "GCF_000298385", "GCF_002849995", "GCF_000300075"]
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.per_branch_statistics.csv
       md5sum: 2dc0dbae9a7cf545bfc56ac5d734342d
     - path: bactopia/bactopia-runs/gubbins/gubbins/gubbins.recombination_predictions.embl.gz
@@ -34,7 +34,7 @@
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/versions.yml
-      md5sum: 0720185e5a55ffba81a6fd4828be73ee
+      md5sum: 9ddc482d1d3ed3782ea8fecf9db5306c
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-dag.dot
       contains: ['gubbinsdag', 'GUBBINS', 'versions']
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-report.html

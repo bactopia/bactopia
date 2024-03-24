@@ -1,0 +1,24 @@
+name: custom_wget
+description: Custom module used to download files using wget
+keywords:
+  - wget
+  - custom
+  - version
+tools:
+  - custom:
+      description: Custom module used to download files using wget
+      homepage: https://github.com/nf-core/tools
+      documentation: https://github.com/nf-core/tools
+
+output:
+  - download:
+      type: file
+      description: Downloaded file from input URL
+      pattern: "*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@rpetit3"

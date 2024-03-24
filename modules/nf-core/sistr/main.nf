@@ -13,8 +13,8 @@ process SISTR {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.2--pyhca03a8a_0' :
-        'quay.io/biocontainers/sistr_cmd:1.1.2--pyhca03a8a_0' }"
+        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.2--pyhca03a8a_1' :
+        'quay.io/biocontainers/sistr_cmd:1.1.2--pyhca03a8a_1' }"
 
     input:
     tuple val(meta), path(fasta)

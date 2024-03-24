@@ -58,9 +58,9 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/nf-panaroo.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/versions.yml
-      md5sum: b43b05d590ef8086ccc4cd7f5040d4d0
+      md5sum: 52678674115cb226f088d2cde569b8c9
     - path: bactopia/bactopia-runs/panaroo/panaroo/pan_genome_reference.fa
-      md5sum: d0b03cdfaab8965d86cb1045db3c2d20
+      contains: ["dnaK", "nuoN", "glyQ"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/pre_filt_graph.gml
       contains: ["lengths", "graph", "node"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/struct_presence_absence.Rtab

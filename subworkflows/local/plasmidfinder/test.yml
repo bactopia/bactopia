@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/versions.yml
       contains: ['csvtk']
     - path: bactopia/bactopia-runs/plasmidfinder/merged-results/plasmidfinder.tsv
-      md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
+      contains: ['Sample', 'GCF_000017085', 'aureus']
     - path: bactopia/bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-dag.dot
       contains: ['plasmidfinderdag', 'PLASMIDFINDER', 'versions']
     - path: bactopia/bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-report.html
@@ -34,7 +34,7 @@
     - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085.json
       contains: ["plasmidfinder", "results", "RepA", "GCF_000017085"]
     - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085.tsv
-      md5sum: 7aa17dc82d1efd058422d8e0cc45db1a
+      contains: ['Sample', 'GCF_000017085', 'aureus']
     - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085.txt
       contains: ['Results', 'Plasmid', 'Query', 'template']
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.begin

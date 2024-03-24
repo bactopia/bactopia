@@ -13,8 +13,8 @@ process GUBBINS {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gubbins:3.3.4--py310pl5321he4a0461_0' :
-        'quay.io/biocontainers/gubbins:3.3.4--py310pl5321he4a0461_0' }"
+        'https://depot.galaxyproject.org/singularity/gubbins:3.3.4--py39pl5321he4a0461_1' :
+        'quay.io/biocontainers/gubbins:3.3.4--py39pl5321he4a0461_1' }"
 
     input:
     tuple val(meta), path(msa)

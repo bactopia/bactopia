@@ -35,7 +35,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: 06e837b60e52d63b0f5b53d25f63924d
+      md5sum: f4bc8f0efac4a9d957a06ac5efb2853c
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
       md5sum: b0fba4469a915df9872ca077eb2cf808
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj
@@ -98,7 +98,7 @@
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/versions.yml
-      md5sum: 0362757dde048c5c4f118e8ec2256330
+      md5sum: d491166dddb81e68df7da2e8a8695985
     - path: bactopia/bactopia-runs/snippy/snpdists/core-snp.distance.tsv
       md5sum: eca1078f443287c1bfdac84cdbce50b5
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.begin
@@ -133,7 +133,7 @@
     - path: bactopia/test0/tools/snippy/snippy/logs/test0.log
       contains: ["snippy", "snpEff", "test0", "consensus"]
     - path: bactopia/test0/tools/snippy/snippy/logs/versions.yml
-      md5sum: b2fc8299d29a9b4c2cda418ecb04592d
+      md5sum: 83e1315aaa8e45a6fc36e669334f22d6
     - path: bactopia/test0/tools/snippy/snippy/test0.aligned.fa.gz
     - path: bactopia/test0/tools/snippy/snippy/test0.annotated.vcf.gz
     - path: bactopia/test0/tools/snippy/snippy/test0.bam
@@ -171,7 +171,7 @@
     - path: bactopia/test1/tools/snippy/snippy/logs/test1.log
       contains: ["snippy", "snpEff", "test1", "consensus"]
     - path: bactopia/test1/tools/snippy/snippy/logs/versions.yml
-      md5sum: b2fc8299d29a9b4c2cda418ecb04592d
+      md5sum: 83e1315aaa8e45a6fc36e669334f22d6
     - path: bactopia/test1/tools/snippy/snippy/test1.aligned.fa.gz
     - path: bactopia/test1/tools/snippy/snippy/test1.annotated.vcf.gz
     - path: bactopia/test1/tools/snippy/snippy/test1.bam
@@ -209,7 +209,7 @@
     - path: bactopia/test2/tools/snippy/snippy/logs/test2.log
       contains: ["snippy", "snpEff", "test2", "consensus"]
     - path: bactopia/test2/tools/snippy/snippy/logs/versions.yml
-      md5sum: b2fc8299d29a9b4c2cda418ecb04592d
+      md5sum: 83e1315aaa8e45a6fc36e669334f22d6
     - path: bactopia/test2/tools/snippy/snippy/test2.aligned.fa.gz
     - path: bactopia/test2/tools/snippy/snippy/test2.annotated.vcf.gz
     - path: bactopia/test2/tools/snippy/snippy/test2.bam
@@ -247,7 +247,7 @@
     - path: bactopia/test3/tools/snippy/snippy/logs/test3.log
       contains: ["snippy", "snpEff", "test3", "consensus"]
     - path: bactopia/test3/tools/snippy/snippy/logs/versions.yml
-      md5sum: b2fc8299d29a9b4c2cda418ecb04592d
+      md5sum: 83e1315aaa8e45a6fc36e669334f22d6
     - path: bactopia/test3/tools/snippy/snippy/test3.aligned.fa.gz
     - path: bactopia/test3/tools/snippy/snippy/test3.annotated.vcf.gz
     - path: bactopia/test3/tools/snippy/snippy/test3.bam
@@ -285,7 +285,7 @@
     - path: bactopia/test4/tools/snippy/snippy/logs/test4.log
       contains: ["snippy", "snpEff", "test4", "consensus"]
     - path: bactopia/test4/tools/snippy/snippy/logs/versions.yml
-      md5sum: b2fc8299d29a9b4c2cda418ecb04592d
+      md5sum: 83e1315aaa8e45a6fc36e669334f22d6
     - path: bactopia/test4/tools/snippy/snippy/test4.aligned.fa.gz
     - path: bactopia/test4/tools/snippy/snippy/test4.annotated.vcf.gz
     - path: bactopia/test4/tools/snippy/snippy/test4.bam
@@ -345,7 +345,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: e763a9a67609a03acd4dfec3e2071234
+      md5sum: dc520752b4284352ee7e847a0eba8afc
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
       md5sum: 3538bdd4729b861eb66eb3e69060812d
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj
@@ -408,7 +408,7 @@
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/versions.yml
-      md5sum: 02f01df9b4b6a6be837acbc9bced050a
+      md5sum: db38179edfe377c5d2f5b325e1d32357
     - path: bactopia/bactopia-runs/snippy/snpdists/core-snp.distance.tsv
       md5sum: eca1078f443287c1bfdac84cdbce50b5
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.begin
@@ -443,7 +443,7 @@
     - path: bactopia/test0/tools/snippy/snippy/logs/test0.log
       contains: ["snippy", "snpEff", "test0", "consensus"]
     - path: bactopia/test0/tools/snippy/snippy/logs/versions.yml
-      md5sum: 90cc2953b8258a258cbdf45e82689115
+      md5sum: 06a418bccf2e26153a11324f523cd2ab
     - path: bactopia/test0/tools/snippy/snippy/test0.aligned.fa.gz
     - path: bactopia/test0/tools/snippy/snippy/test0.annotated.vcf.gz
     - path: bactopia/test0/tools/snippy/snippy/test0.bam
@@ -481,7 +481,7 @@
     - path: bactopia/test1/tools/snippy/snippy/logs/test1.log
       contains: ["snippy", "snpEff", "test1", "consensus"]
     - path: bactopia/test1/tools/snippy/snippy/logs/versions.yml
-      md5sum: 90cc2953b8258a258cbdf45e82689115
+      md5sum: 06a418bccf2e26153a11324f523cd2ab
     - path: bactopia/test1/tools/snippy/snippy/test1.aligned.fa.gz
     - path: bactopia/test1/tools/snippy/snippy/test1.annotated.vcf.gz
     - path: bactopia/test1/tools/snippy/snippy/test1.bam
@@ -519,7 +519,7 @@
     - path: bactopia/test2/tools/snippy/snippy/logs/test2.log
       contains: ["snippy", "snpEff", "test2", "consensus"]
     - path: bactopia/test2/tools/snippy/snippy/logs/versions.yml
-      md5sum: 90cc2953b8258a258cbdf45e82689115
+      md5sum: 06a418bccf2e26153a11324f523cd2ab
     - path: bactopia/test2/tools/snippy/snippy/test2.aligned.fa.gz
     - path: bactopia/test2/tools/snippy/snippy/test2.annotated.vcf.gz
     - path: bactopia/test2/tools/snippy/snippy/test2.bam
@@ -557,7 +557,7 @@
     - path: bactopia/test3/tools/snippy/snippy/logs/test3.log
       contains: ["snippy", "snpEff", "test3", "consensus"]
     - path: bactopia/test3/tools/snippy/snippy/logs/versions.yml
-      md5sum: 90cc2953b8258a258cbdf45e82689115
+      md5sum: 06a418bccf2e26153a11324f523cd2ab
     - path: bactopia/test3/tools/snippy/snippy/test3.aligned.fa.gz
     - path: bactopia/test3/tools/snippy/snippy/test3.annotated.vcf.gz
     - path: bactopia/test3/tools/snippy/snippy/test3.bam
@@ -595,7 +595,7 @@
     - path: bactopia/test4/tools/snippy/snippy/logs/test4.log
       contains: ["snippy", "snpEff", "test4", "consensus"]
     - path: bactopia/test4/tools/snippy/snippy/logs/versions.yml
-      md5sum: 90cc2953b8258a258cbdf45e82689115
+      md5sum: 06a418bccf2e26153a11324f523cd2ab
     - path: bactopia/test4/tools/snippy/snippy/test4.aligned.fa.gz
     - path: bactopia/test4/tools/snippy/snippy/test4.annotated.vcf.gz
     - path: bactopia/test4/tools/snippy/snippy/test4.bam

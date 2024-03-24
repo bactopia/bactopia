@@ -6,18 +6,12 @@
     "type": "object",
     "definitions": {
         "kraken2_parameters": {
-            "title": "Kraken2 Parameters",
+            "title": "Scrubber (Kraken2) Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "kraken2_db": {
-                    "type": "string",
-                    "description": "The a single tarball or path to a Kraken2 formatted database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "is_required": true
-                },
                 "quick_mode": {
                     "type": "boolean",
                     "default": false,
@@ -81,7 +75,7 @@
                 "remove_filtered_reads": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Discard the classified and unclassified FASTQs produced by Kraken2",
+                    "description": "Discard the classified and unclassified FASTQs prduced by Kraken2",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 }

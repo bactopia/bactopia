@@ -44,6 +44,14 @@ description: A full list of Bactopia releases and a description of the changes.
 - phispy not working with Bakta genbank files
 - missed check of `--download_bakta` param in main workflow
 - quast not working when estimated genome size is 0
+- `abricate` now gets database subdirectories
+
+### `Enhancements to OSS`
+
+- fix amrfinderplus pinning in abritamr [bioconda/bioconda-recipes#46714](https://github.com/bioconda/bioconda-recipes/pull/46714)
+- adjust python pinning in gubbins [bioconda/bioconda-recipes#46713](https://github.com/bioconda/bioconda-recipes/pull/46713)
+- fix issue with sistr container [bioconda/bioconda-recipes#46712](https://github.com/bioconda/bioconda-recipes/pull/46712)
+- update rgi pinning for pyrodigal [bioconda/bioconda-recipes#46669](https://github.com/bioconda/bioconda-recipes/pull/46669)
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 

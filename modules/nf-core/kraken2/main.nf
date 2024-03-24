@@ -32,9 +32,9 @@ process KRAKEN2 {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def paired = meta.single_end ? "" : "--paired"
-    classified_naming = params.wf == "teton" ? "host" : "classified"
+    classified_naming = params.wf == "teton" || params.wf == "scrubber" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq"   : "${prefix}.${classified_naming}#.fastq"
-    unclassified_naming = params.wf == "teton" ? "scrubbed" : "unclassified"
+    unclassified_naming = params.wf == "teton" || params.wf == "scrubber" ? "scrubbed" : "unclassified"
     unclassified = meta.single_end ? "${prefix}.${unclassified_naming}.fastq" : "${prefix}.${unclassified_naming}#.fastq"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
@@ -67,9 +67,15 @@ process KRAKEN2 {
     fi
 
     if [ "$unclassified_naming" == "scrubbed" ]; then
+        # Rename scrubbed reads
+        if [ "$meta.single_end" == "false" ]; then
+            mv ${prefix}.${unclassified_naming}_1.fastq.gz ${prefix}_R1.scrubbed.fastq.gz
+            mv ${prefix}.${unclassified_naming}_2.fastq.gz ${prefix}_R2.scrubbed.fastq.gz
+        fi
+
         # Quick stats on reads
         zcat ${reads} | fastq-scan > original.json
-        zcat ${prefix}.scrubbed* | fastq-scan > scrubbed.json
+        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
         # Remove host reads
