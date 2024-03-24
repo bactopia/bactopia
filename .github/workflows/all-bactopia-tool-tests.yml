@@ -6,7 +6,7 @@ on: workflow_dispatch
     #- cron:  '30 1 * * 1,4'
 
 jobs:
-  bactopia-tools-tests:
+  bactopia-tests:
     runs-on: self-hosted
     defaults:
       run:
