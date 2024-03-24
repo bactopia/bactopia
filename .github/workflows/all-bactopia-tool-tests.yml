@@ -27,11 +27,11 @@ jobs:
           echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
           echo "BACTOPIA_TMP=/data/storage/bactopia-tmp/${{ github.run_id }}" >> $GITHUB_ENV
           echo "NXF_SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
+          echo "NXF_SINGULARITY_HOME_MOUNT=true" >> $GITHUB_ENV
           echo "SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
           echo "SINGULARITY_TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
           echo "TMP=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
           echo "TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
-          echo "NUMBA_CACHE_DIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
           mkdir -p "/data/storage/bactopia-tmp/${{ github.run_id }}/tmp"
           chmod -R 777 "/data/storage/bactopia-tmp/${{ github.run_id }}"
 

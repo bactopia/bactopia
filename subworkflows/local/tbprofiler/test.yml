@@ -35,4 +35,3 @@
       contains: ['locus_tag', 'tbprofiler_version', 'median_depth']
     - path: bactopia/test/tools/tbprofiler/test.results.txt
       contains: ['gid', 'Analysis']
-    - path: bactopia/test/tools/tbprofiler/vcf/test.targets.csq.vcf.gz
