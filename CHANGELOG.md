@@ -16,6 +16,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - updated AMRFinder+ database for v3.12.8
 - bump program versions in modules
     - `abritamr`: 1.0.14 -> 1.0.17
+    - `bactopia-assembler`: 1.0.3 -> 1.0.4
     - `bactopia-teton`: 1.0.1 -> 1.0.2
     - `bactopia-variants`: 1.0.1 -> 1.0.2
     - `bakta`: 1.8.2 -> 1.9.3
@@ -52,6 +53,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - adjust python pinning in gubbins [bioconda/bioconda-recipes#46713](https://github.com/bioconda/bioconda-recipes/pull/46713)
 - fix issue with sistr container [bioconda/bioconda-recipes#46712](https://github.com/bioconda/bioconda-recipes/pull/46712)
 - update rgi pinning for pyrodigal [bioconda/bioconda-recipes#46669](https://github.com/bioconda/bioconda-recipes/pull/46669)
+- pin tabix version in snippy [bioconda/bioconda-recipes#46458](https://github.com/bioconda/bioconda-recipes/pull/46458)
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 

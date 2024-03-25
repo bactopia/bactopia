@@ -4,7 +4,7 @@ RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_c
 options        = initOptions(params.options ? params.options : [:], 'assembler')
 options.ignore = [".fastq.gz"]
 options.btype  = options.btype ?: "main"
-conda_tools    = "bioconda::bactopia-assembler=1.0.3"
+conda_tools    = "bioconda::bactopia-assembler=1.0.4"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -15,8 +15,8 @@ process ASSEMBLER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-assembler:1.0.3--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-assembler:1.0.3--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-assembler:1.0.4--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-assembler:1.0.4--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fq), path(extra)
@@ -93,7 +93,8 @@ process ASSEMBLER {
             ${options.args2} \\
             --namefmt "${contig_namefmt}" \\
             --cpus ${task.cpus} \\
-            --ram ${shovill_ram}; then
+            --ram ${shovill_ram} \\
+            --noreorient; then
 
             # Check if error is due to no contigs
             if grep "has zero contigs" results/dragonflye.log; then
