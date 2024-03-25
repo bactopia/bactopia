@@ -6,24 +6,36 @@
 ![Bactopia Logo](data/bactopia-logo.png)
 
 # Bactopia
-Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The goal of Bactopia is to process your data with a broad set of tools, so that you can get to the fun part of analyses quicker!
+Bactopia is a flexible pipeline for complete analysis of bacterial genomes. The goal of Bactopia
+is to process your data with a broad set of tools, so that you can get to the fun part of
+analyses quicker!
 
-Bactopia can be split into three main parts: [Bactopia Datasets](https://bactopia.github.io/datasets/), [Bactopia Analysis Pipeline](https://bactopia.github.io/#bactopia-workflow), and [Bactopia Tools](https://bactopia.github.io/bactopia-tools/).
+Bactopia can be split into two main parts:
+[Bactopia Analysis Pipeline](https://bactopia.github.io/latest/beginners-guide/), and
+[Bactopia Tools](https://bactopia.github.io/latest/bactopia-tools/).
 
-![Bactopia Overview](data/bactopia-overview.png)
 
-Bactopia Datasets provide a framework for including many existing public datasets, as well as private datasets, into your analysis The process of downloading, building, and (or) configuring these datasets for Bactopia has been automated.
-
-Bactopia Analysis Pipeline is the main *per-isolate* workflow in Bactopia. Built with  [Nextflow](https://www.nextflow.io/), input FASTQs (local or available from SRA/ENA) are put through numerous analyses including: quality control, assembly, annotation, reference mapping, variant calling, minmer sketch queries, blast alignments, insertion site prediction, sequence typing, and more. The Bactopia Analysis Pipeline automatically selects which analyses to include based on the available Bactopia Datasets.
+Bactopia Analysis Pipeline is the main *per-isolate* workflow in Bactopia. Built with
+[Nextflow](https://www.nextflow.io/), input FASTQs (local or available from SRA/ENA)
+are put through numerous analyses including: quality control, assembly, annotation,
+minmer sketch queries, sequence typing, and more.
 
 ![Bactopia Overview](data/bactopia-workflow.png)
 
-Bactopia Tools are a set a independent workflows for comparative analyses. The comparative analyses may include summary reports, pan-genome, or phylogenetic tree construction. Using the [predictable output structure](https://bactopia.github.io/output-overview/) of Bactopia you can pick and choose which samples to include for processing with a Bactopia Tool.
+Bactopia Tools are a set a independent workflows for comparative analyses. The comparative analyses
+may include summary reports, pan-genome, or phylogenetic tree construction. Using the
+[predictable output structure](https://bactopia.github.io/latest/full-guide/) of Bactopia you can
+pick and choose which samples to include for processing with a Bactopia Tool.
 
-Bactopia was inspired by [Staphopia](https://staphopia.emory.edu/), a workflow we (Tim Read and myself) released that targets *Staphylococcus aureus* genomes. Using what we learned from Staphopia and user feedback, Bactopia was developed from scratch with usability, portability, and speed in mind from the start.
+Bactopia was inspired by [Staphopia](https://staphopia.github.io/), a workflow we (Tim Read and myself)
+released that targets *Staphylococcus aureus* genomes. Using what we learned from Staphopia and user
+feedback, Bactopia was developed from scratch with usability, portability, and speed in mind from
+the start.
 
 # Documentation
-Documentation for Bactopia is available at https://bactopia.github.io/. The documentation includes a tutorial replicating [Staphopia](https://staphopia.emory.edu) and a complete overview of Bactopia. I highly encourage you check it out!
+Documentation for Bactopia is available at https://bactopia.github.io/. The documentation includes
+a tutorial replicating [Staphopia](https://staphopia.github.io/) and a complete overview of
+Bactopia. I highly encourage you check it out!
 
 # Quick Start
 ```
@@ -51,11 +63,19 @@ bactopia --accessions accessions.txt --dataset datasets --outdir ${OUTDIR}
 ```
 
 # Installation
-Bactopia has **a lot** of tools built into its workflow. As you can imagine, all these tools lead to numerous dependencies, and navigating dependencies can often turn into a very frustrating process. With this in mind, from the onset Bactopia was developed to only include programs that are installable using [Conda](https://conda.io/en/latest/).
+Bactopia has **a lot** of tools built into its workflow. As you can imagine, all these tools
+lead to numerous dependencies, and navigating dependencies can often turn into a very
+frustrating process. With this in mind, from the onset Bactopia was developed to only
+include programs that are installable using [Conda](https://conda.io/en/latest/).
 
-Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. In other words, it makes it super easy to get the tools you need installed! The [official Conda documentation](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) is a good starting point for getting started with Conda. Bactopia has been tested using the [Miniconda installer](https://conda.io/en/latest/miniconda.html), but the [Anaconda installer](https://www.anaconda.com/distribution/) should work the same.
+Conda is an open source package management system and environment management system that runs
+on Windows, macOS and Linux. In other words, it makes it super easy to get the tools you need
+installed! The [official Conda documentation](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
+is a good starting point for getting started with Conda. Bactopia has been tested using the
+[Miniforge installer](https://github.com/conda-forge/miniforgel), but the
+[Anaconda installer](https://www.anaconda.com/distribution/) should work the same.
 
-Once you have Conda all set up, you are ready to create an environment for Bactopia. I personally recommend you used [mamba](https://github.com/mamba-org/mamba) (_soooo fast!_) to install Bactopia, but either of these commands should work:
+Once you have Conda all set up, you are ready to create an environment for Bactopia.
 
 ```
 # Recommended
@@ -65,7 +85,8 @@ mamba create -n bactopia -c conda-forge -c bioconda bactopia
 conda create -n bactopia -c conda-forge -c bioconda bactopia
 ```
 
-After a few minutes you will have a new conda environment suitably named *bactopia*. To activate this environment, you will can use the following command:
+After a few minutes you will have a new conda environment suitably named *bactopia*. To
+activate this environment, you will can use the following command:
 
 ```
 conda activate bactopia
@@ -74,14 +95,19 @@ conda activate bactopia
 And voilà, you are all set to get started processing your data!
 
 # Please Cite Datasets and Tools
-If you have used Bactopia in your work, please be sure to cite any datasets or tools you may have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.github.io/acknowledgements/). 
+If you have used Bactopia in your work, please be sure to cite any datasets or tools you may
+have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.github.io/latest/impact-and-outreach/acknowledgements/). 
 
 *If a citation needs to be updated please let me know!*
 
 # Acknowledgements
-Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly every component of Bactopia was created by others and made freely available to the public.
 
-I would like to personally extend my many thanks and gratitude to the authors of these software packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!) if we ever encounter one another in person. Really, thank you very much!
+Bactopia is truly a case of *"standing upon the shoulders of giants"*. Nearly every component
+of Bactopia was created by others and made freely available to the public.
+
+I would like to personally extend my many thanks and gratitude to the authors of these software
+packages and public datasets. If you've made it this far, I owe you a beer 🍻 (or coffee ☕!)
+if we ever encounter one another in person. Really, thank you very much!
 
 # Alternatives
 In case Bactopia doesn't fit your needs, here are some alternatives you can checkout. I personally haven't used them, but you might find them to fit your needs! If you ran into issues using Bactopia, please feel free to [reach out](https://github.com/bactopia/bactopia/issues/new/choose)!
@@ -123,3 +149,15 @@ Petit III RA, Read TD, *Bactopia: a flexible pipeline for complete analysis of b
 
 * Robert A. Petit III
 * Twitter: [@rpetit3](https://twitter.com/rpetit3)
+
+## Funding
+
+Support for this project came (in part) from an Emory Public Health Bioinformatics Fellowship
+funded by the [CDC Emerging Infections Program (U50CK000485) PPHF/ACA: Enhancing Epidemiology and Laboratory Capacity](https://dph.georgia.gov/EIP),
+the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), and
+the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/).
+
+
+![Georgia Emerging Infections Program](data/gaeip-banner.png)
+![Wyoming Public Health Division](data/wyphd-banner.jpg)
+![Center for Applied Pathogen Epidemiology and Outbreak Control](data/cape-banner.png)

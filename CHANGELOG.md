@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.0.1 bactopia/bactopia "" - 2024/03/??
+## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
 
 ### `Added`
 
