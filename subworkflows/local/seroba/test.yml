@@ -20,7 +20,7 @@
     - path: bactopia/bactopia-runs/seroba/merged-results/seroba.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94
     - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-dag.dot
-      md5sum: a59071f842746266f80ab67bb3a06aa7
+      contains: ['serobadag', 'SEROBA', 'versions']
     - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-report.html
       contains: ['html', 'Nextflow', 'Report']
     - path: bactopia/bactopia-runs/seroba/nf-reports/seroba-timeline.html

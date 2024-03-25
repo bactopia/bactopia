@@ -32,7 +32,7 @@
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/kraken2/logs/versions.yml
-      md5sum: 95cd3bacf8fa7d6f24cd6a539966ee3f
+      md5sum: 1bf6c7edd3b3090ae68f75f6db354736
 
 - name: kraken2-test-tarball
   command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2_tarball --wf kraken2 -c nextflow.config ${BACTOPIA_ARGS}'
@@ -69,4 +69,4 @@
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/kraken2/logs/versions.yml
-      md5sum: a61f15dab97c2fb0374fc6156e0f446b
+      md5sum: f6e71f7db9aa79ff598b29485f2496d0

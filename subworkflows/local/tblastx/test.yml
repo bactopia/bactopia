@@ -41,7 +41,7 @@
     - path: bactopia/SRX1390622/tools/tblastx/logs/nf-tblastx.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/tblastx/logs/versions.yml
-      md5sum: 120c6925adb5648d8cbbc7580a8f2973
+      md5sum: 437af4df6d319abf59d1f04fb89ceb97
 
 - name: tblastx-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/tblastx/test.nf -entry test_tblastx_gz --wf tblastx -c nextflow.config ${BACTOPIA_ARGS}'
@@ -86,4 +86,4 @@
     - path: bactopia/SRX1390622/tools/tblastx/logs/nf-tblastx.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/tblastx/logs/versions.yml
-      md5sum: 18a4801a563bfac01aa252fae6e608b7
+      md5sum: 29318e469b9018d56b2af2636dc954c5

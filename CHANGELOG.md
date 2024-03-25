@@ -4,6 +4,57 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
+
+### `Added`
+
+- Updated `bactopia-assembler` to include updated Medaka models
+- profile for `arcc_hawk`
+- TB Profiler results are now merged with `collate` command
+- sample name to plasmidfinder results
+- support config files from nf-core/configs
+- updated AMRFinder+ database for v3.12.8
+- bump program versions in modules
+    - `abritamr`: 1.0.14 -> 1.0.17
+    - `bactopia-assembler`: 1.0.3 -> 1.0.4
+    - `bactopia-teton`: 1.0.1 -> 1.0.2
+    - `bactopia-variants`: 1.0.1 -> 1.0.2
+    - `bakta`: 1.8.2 -> 1.9.3
+    - `blast`: 2.14.1 -> 2.15.0
+    - `busco`: 5.5.0 -> 5.7.0
+    - `gubbins`: 3.3.0 -> 3.3.4
+    - `multiqc`: 1.15 -> 1.21
+    - `mashtree`: 1.4.5 -> 1.4.6
+    - `mykrobe`: 0.12.2 -> 0.13.0
+    - `ncbi-amrfinderplus`: 3.11.18 -> 3.12.8
+    - `panaroo`: 1.3.3 -> 1.4.2
+    - `rgi`: 6.0.2 -> 6.0.3
+    - `sistr`: 1.1.1 -> 1.1.2
+    - `stecfinder`: 1.1.0 -> 1.1.1
+    - `tbprofiler`: 5.0.0 -> 6.1.0
+
+### `Fixed`
+
+- variable name in sketcher module
+- `--para-off` not correctly implemented in PIRATE module
+- extra space in RGI container image name
+- sourmash version STDERR not parsed out
+- FASTQC writing to /tmp dir on HPC when non-readable
+- abricate and ariba not using output subdirectory
+- nextflow tower typos @iferres
+- phispy not working with Bakta genbank files
+- missed check of `--download_bakta` param in main workflow
+- quast not working when estimated genome size is 0
+- `abricate` now gets database subdirectories
+
+### `Enhancements to OSS`
+
+- fix amrfinderplus pinning in abritamr [bioconda/bioconda-recipes#46714](https://github.com/bioconda/bioconda-recipes/pull/46714)
+- adjust python pinning in gubbins [bioconda/bioconda-recipes#46713](https://github.com/bioconda/bioconda-recipes/pull/46713)
+- fix issue with sistr container [bioconda/bioconda-recipes#46712](https://github.com/bioconda/bioconda-recipes/pull/46712)
+- update rgi pinning for pyrodigal [bioconda/bioconda-recipes#46669](https://github.com/bioconda/bioconda-recipes/pull/46669)
+- pin tabix version in snippy [bioconda/bioconda-recipes#46458](https://github.com/bioconda/bioconda-recipes/pull/46458)
+
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
 ### `Added`

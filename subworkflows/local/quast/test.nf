@@ -13,3 +13,14 @@ workflow test_quast {
 
     QUAST ( inputs )
 }
+
+workflow test_quast_noref {
+
+    inputs = tuple(
+        [ id:"GCF_000292685" ],
+        file(params.test_data['species']['portiera']['genome']['fna_gz'], checkIfExists: true),
+        file(params.test_data['species']['portiera']['genome']['meta_noref'], checkIfExists: true)
+    )
+
+    QUAST ( inputs )
+}

@@ -39,7 +39,7 @@ if (params.containsKey('accession')) {
     include { NCBIGENOMEDOWNLOAD } from '../subworkflows/local/ncbigenomedownload/main'
 }
 if (params.wf == 'abricate') include { ABRICATE } from '../subworkflows/local/abricate/main';
-if (params.wf == 'abritamr') include { ABRICATE } from '../subworkflows/local/abritamr/main';
+if (params.wf == 'abritamr') include { ABRITAMR } from '../subworkflows/local/abritamr/main';
 if (params.wf == 'agrvate') include { AGRVATE } from '../subworkflows/local/agrvate/main';
 if (params.wf == 'amrfinderplus') include { AMRFINDERPLUS } from '../subworkflows/local/amrfinderplus/main';
 if (params.wf == 'ariba') include { ARIBA } from '../subworkflows/local/ariba/main';

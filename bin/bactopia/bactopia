@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION=3.0.0
+VERSION=3.0.1
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
@@ -21,6 +21,8 @@ if [[ $# == 0 ]]; then
     echo "bactopia search - Query Taxon ID or Study Accession against ENA for input accessions"
     echo ""
     echo "bactopia summary - Generate a summary table from the Bactopia results"
+    echo ""
+    echo "bactopia atb-formatter - Restructure All-the-Bacteria assemblies to allow usage with Bactopia Tools"
     echo ""
     echo "bactopia --citation - Print the Bactopia citation"
     echo "bactopia --version - Print the Bactopia version"
@@ -65,6 +67,8 @@ elif [[ "$1" == "citations" ]]; then
     bactopia-citations --bactopia-path "${BACTOPIA_NF}" "${@:2}"
 elif [[ "$1" == "summary" ]]; then
     bactopia-summary "${@:2}"
+elif [[ "$1" == "atb-formatter" ]]; then
+    bactopia-atb-formatter "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else

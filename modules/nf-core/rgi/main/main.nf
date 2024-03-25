@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/funct
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'rgi')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::rgi=6.0.2"
+conda_tools   = "bioconda::rgi=6.0.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process RGI_MAIN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/rgi:6.0.2--pyha8f3691_0' :
-        'quay.io/biocontainers/rgi:6.0.2--pyha8f3691_0 ' }"
+        'https://depot.galaxyproject.org/singularity/rgi:6.0.3--pyha8f3691_0' :
+        'quay.io/biocontainers/rgi:6.0.3--pyha8f3691_0' }"
 
     input:
     tuple val(meta), path(fasta)

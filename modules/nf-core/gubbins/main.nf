@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'gubbins')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::gubbins=3.3.0"
+conda_tools   = "bioconda::gubbins=3.3.4"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process GUBBINS {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gubbins:3.3.0--py310pl5321h8472f5a_0' :
-        'quay.io/biocontainers/gubbins:3.3.0--py310pl5321h8472f5a_0' }"
+        'https://depot.galaxyproject.org/singularity/gubbins:3.3.4--py39pl5321he4a0461_1' :
+        'quay.io/biocontainers/gubbins:3.3.4--py39pl5321he4a0461_1' }"
 
     input:
     tuple val(meta), path(msa)

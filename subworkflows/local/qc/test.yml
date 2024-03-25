@@ -30,7 +30,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'Insert', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output_R1.fastq.gz
     - path: bactopia/output/main/qc/output_R2.fastq.gz
     - path: bactopia/output/main/qc/summary/output.fastp.html
@@ -85,7 +85,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output.fastq.gz
     - path: bactopia/output/main/qc/summary/output-final.json
       md5sum: db692de5d929a17b319f13f0366f1a03
@@ -129,7 +129,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: bactopia/output/main/qc/output_R1.fastq.gz
@@ -181,7 +181,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output-qc-skipped.txt
       md5sum: 81538b5573ca3720b779bf3bcf0945af
     - path: bactopia/output/main/qc/output.fastq.gz
@@ -226,7 +226,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 1f12a3a51a1070504eebdaaf891fc1f2
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output-low-read-count-error.txt
       md5sum: 0c223c4cc227bbc49cea5021a6e6bcbf
     - path: bactopia/output/main/qc/output-low-sequence-coverage-error.txt
@@ -287,7 +287,7 @@
     - path: bactopia/output/main/qc/logs/output-fastp.log
       contains: ['Detecting', 'adapter', 'reads', 'JSON']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 365e3ace9fdd3e39297aefaebe31f59f
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output-low-read-count-error.txt
       md5sum: 9d9fc23fc3e4747c2ece318de93df7fc
     - path: bactopia/output/main/qc/output-low-sequence-coverage-error.txt
@@ -325,9 +325,9 @@
     - path: bactopia/output/main/qc/logs/nf-qc.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/qc/logs/nf-qc.err
-      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+      contains: ['results', 'summary', 'original', 'final', 'Target', 'Done']
     - path: bactopia/output/main/qc/logs/nf-qc.log
-      contains: ['results', 'summary', 'original', 'final','rasusa', 'Target', 'Done']
+      contains: ['results', 'summary', 'original', 'final', 'Target', 'Done']
     - path: bactopia/output/main/qc/logs/nf-qc.out
     - path: bactopia/output/main/qc/logs/nf-qc.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
@@ -336,7 +336,7 @@
     - path: bactopia/output/main/qc/logs/nf-qc.trace
       contains: ['nextflow.trace']
     - path: bactopia/output/main/qc/logs/versions.yml
-      md5sum: 1a4a2c6fccd4c2ad13923f83776f9b85
+      contains: ['bbduk', 'fastq-scan', 'pigz']
     - path: bactopia/output/main/qc/output.fastq.gz
     - path: bactopia/output/main/qc/summary/output-final.json
     - path: bactopia/output/main/qc/summary/output-final_NanoPlot-report.html

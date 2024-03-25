@@ -122,11 +122,13 @@ class WorkflowBactopia {
             // Using Bakta, requires path to database
             if (params.use_bakta) {
                 if (params.bakta_db) {
-                    if (Utils.isLocal(params.bakta_db)) {
-                        if (params.bakta_db.endsWith(".tar.gz")) {
-                            error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
-                        } else {
-                            error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                    if (!params.download_bakta) {
+                        if (Utils.isLocal(params.bakta_db)) {
+                            if (params.bakta_db.endsWith(".tar.gz")) {
+                                error += Utils.fileNotFound(params.bakta_db, 'bakta_db', log)
+                            } else {
+                                error += Utils.fileNotFound("${params.bakta_db}/bakta.db", 'bakta_db', log)
+                            }
                         }
                     }
                 } else {

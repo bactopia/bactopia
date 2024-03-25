@@ -47,6 +47,6 @@
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/versions.yml
-      md5sum: 70b7c16bd3f101f8ccf96a5640b7e2f8
+      md5sum: 4f2f3c349d4e30d595aeb67fc4934afd
     - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta
       md5sum: f774ed2069f1dfacd930673b748faaac

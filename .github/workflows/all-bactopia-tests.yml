@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout bactopia/bactopia
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: ${{ github.run_id }}/bactopia
 
@@ -26,40 +26,48 @@ jobs:
           echo "BACTOPIA_TESTS=/data/storage/bactopia-ci/bactopia-tests/data" >> $GITHUB_ENV
           echo "BACTOPIA_WORKSPACE=${GITHUB_WORKSPACE}/${{ github.run_id }}/bactopia" >> $GITHUB_ENV
           echo "BACTOPIA_TMP=/data/storage/bactopia-tmp/${{ github.run_id }}" >> $GITHUB_ENV
-          mkdir "/data/storage/bactopia-tmp/${{ github.run_id }}"
-
-      - name: Conda Profile
-        run: |
-          source /data/storage/bactopia-ci/mambaforge/etc/profile.d/conda.sh
-          conda activate bactopia-ci
-          cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="-profile test --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
-
-      - name: Docker Profile
-        run: |
-          source /data/storage/bactopia-ci/mambaforge/etc/profile.d/conda.sh
-          conda activate bactopia-ci
-          cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="-profile test,docker --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
+          echo "NXF_SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
+          echo "NXF_SINGULARITY_HOME_MOUNT=true" >> $GITHUB_ENV
+          echo "SINGULARITY_CACHEDIR=/data/storage/bactopia-ci/envs/singularity" >> $GITHUB_ENV
+          echo "SINGULARITY_TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          echo "TMP=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          echo "TMPDIR=/data/storage/bactopia-tmp/${{ github.run_id }}/tmp" >> $GITHUB_ENV
+          mkdir -p "/data/storage/bactopia-tmp/${{ github.run_id }}/tmp"
+          chmod -R 777 "/data/storage/bactopia-tmp/${{ github.run_id }}"
 
       - name: Singularity Profile
         run: |
-          source /data/storage/bactopia-ci/mambaforge/etc/profile.d/conda.sh
+          source /data/storage/bactopia-ci/miniforge/etc/profile.d/conda.sh
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls modules/local/bactopia | xargs -I {} -P 10 -n 1\
-              bash -c 'BACTOPIA_ARGS="-profile test,singularity --singularity_cache ${{ env.BACTOPIA_SINGULARITY }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
-                       pytest --wt 10 --symlink --kwdof -o "testpaths=tests modules/local/bactopia" --git-aware --tag {}'
+          ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
+              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_pull_docker_container --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
+
+      - name: Docker Profile
+        run: |
+          source /data/storage/bactopia-ci/miniforge/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
+              bash -c 'BACTOPIA_ARGS="-profile docker --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
+
+      - name: Conda Profile
+        run: |
+          source /data/storage/bactopia-ci/miniforge/etc/profile.d/conda.sh
+          conda activate bactopia-ci
+          conda clean --all -y
+          cd ${{ env.BACTOPIA_WORKSPACE }}
+          ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
+              bash -c 'BACTOPIA_ARGS="--is_ci --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+                       pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
       - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: logs-bactopia
+          name: logs-bactopia-tools
           path: |
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.out
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/log.err
@@ -69,8 +77,7 @@ jobs:
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/work/**/*.out
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/work/**/*stderr.txt
             ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/work/**/*stdout.txt
-            ${{ env.BACTOPIA_TMP }}/pytest_workflow_*/*/work/**/*versions.yml
-           
+            
       - name: Cleanup
         if: always()
         run: rm -rf ${GITHUB_WORKSPACE}/${{ github.run_id }} ${{ env.BACTOPIA_TMP }}

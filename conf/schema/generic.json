@@ -14,14 +14,8 @@
             "properties": {
                 "outdir": {
                     "type": "string",
-                    "default": "./",
-                    "description": "Base directory to write results to",
-                    "fa_icon": "fas fa-folder"
-                },
-                "run_name": {
-                    "type": "string",
                     "default": "bactopia",
-                    "description": "Name of the directory to hold results",
+                    "description": "Base directory to write results to",
                     "fa_icon": "fas fa-folder"
                 },
                 "skip_compression": {
@@ -153,6 +147,54 @@
                 }
             }
         },
+        "institutional_config_options": {
+            "title": "Institutional config options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Parameters used to describe centralized config profiles. These should not be edited.",
+            "help_text": "The centralized nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "properties": {
+                "custom_config_version": {
+                    "type": "string",
+                    "description": "Git commit id for Institutional configs.",
+                    "default": "master",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "custom_config_base": {
+                    "type": "string",
+                    "description": "Base directory for Institutional configs.",
+                    "default": "https://raw.githubusercontent.com/nf-core/configs/master",
+                    "hidden": true,
+                    "help_text": "If you're running offline, Nextflow will not be able to fetch the institutional config files from the internet. If you don't need them, then this is not a problem. If you do need them, you should download the files from the repo and tell Nextflow where to find them with this parameter.",
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_name": {
+                    "type": "string",
+                    "description": "Institutional config name.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_description": {
+                    "type": "string",
+                    "description": "Institutional config description.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_contact": {
+                    "type": "string",
+                    "description": "Institutional config contact information.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_url": {
+                    "type": "string",
+                    "description": "Institutional config URL link.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                }
+            }
+        },
         "nextflow_profile_parameters": {
             "title": "Nextflow Profile Parameters",
             "type": "object",
@@ -186,10 +228,10 @@
                     "help": "",
                     "fa_icon": "fas fa-folder"
                 },
-                "singularity_cache": {
+                "singularity_cache_dir": {
                     "type": "string",
                     "description": "Directory where remote Singularity images are stored.",
-                    "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR evironment variable overrides this parameter",
+                    "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR environment variable overrides this parameter",
                     "fa_icon": "fas fa-folder",
                     "hidden": true
                 },
@@ -218,6 +260,13 @@
                     "type": "string",
                     "default": "",
                     "description": "Additional options to pass to the executor. (e.g. SLURM: '--account=my_acct_name'",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "container_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to Apptainer, Docker, or Singularityu. (e.g. Singularity: '-D `pwd`'",
                     "fa_icon": "fas fa-clipboard-list",
                     "hidden": true
                 },

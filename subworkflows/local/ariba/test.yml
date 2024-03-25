@@ -4,41 +4,41 @@
     - ariba
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-runs/ariba/merged-results/card-report.tsv
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/card-report.tsv
       contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]
-    - path: bactopia/bactopia-runs/ariba/merged-results/card-summary.csv
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/card-summary.csv
       contains: ["name", "novel_var", "Clostridioides"]
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.begin
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.err
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.log
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.out
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.run
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.err
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.log
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.out
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-report/versions.yml
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/versions.yml
       md5sum: 344624d16fe24cfad6e9f45a19be708f
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.begin
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.err
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.log
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.out
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.run
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.err
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.log
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.out
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.run
       contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/ariba/merged-results/logs/card-summary/versions.yml
+    - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/versions.yml
       md5sum: 6551889c4545016b96a75751d9efdb38
-    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-dag.dot
+    - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-dag.dot
       contains: ['aribadag', 'ARIBA', 'versions']
-    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-report.html
+    - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-report.html
       contains: ['html', 'Nextflow', 'Report']
-    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-timeline.html
+    - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-timeline.html
       contains: ['html', 'Nextflow', 'timeline']
-    - path: bactopia/bactopia-runs/ariba/nf-reports/ariba-trace.txt
+    - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-trace.txt
       contains: ['task_id']
     - path: bactopia/SRR2838702/tools/ariba/card/SRR2838702-report.tsv
       contains: ["ariba_ref_name", "reads", "resistance", "Clostridioides"]

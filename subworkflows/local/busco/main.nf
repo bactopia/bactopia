@@ -13,7 +13,7 @@ options.args = [
     "--evalue ${params.busco_evalue}",
     "--limit ${params.busco_limit}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-options.subdir = params.run_name
+options.subdir = params.busco_lineage
 options.logs_use_prefix = true
 
 include { BUSCO as BUSCO_MODULE } from '../../../modules/nf-core/busco/main' addParams( options: options )

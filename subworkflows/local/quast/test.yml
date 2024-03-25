@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/quast/test.nf -entry test_quast --wf quast -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - quast
+    - quast_ref
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.begin
@@ -70,3 +71,76 @@
       contains: ["Assembly", "contigs", "predicted", "NG90"]
     - path: bactopia/GCF_000292685/tools/quast/transposed_report.txt
       contains: ["Assembly", "contigs", "predicted", "NG90"]
+
+- name: quast-test_noref
+  command: bash -c 'nextflow run ./subworkflows/local/quast/test.nf -entry test_quast_noref --wf quast -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - quast
+    - quast_noref
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/quast/merged-results/quast.tsv
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-dag.dot
+      contains: ['quastdag', 'QUAST', 'versions']
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/quast/nf-reports/quast-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_000292685/tools/quast/GCF_000292685.tsv
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/GCF_000292685_GC_content_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/GC_content_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/Nx_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/basic_stats/cumulative_plot.pdf
+    - path: bactopia/GCF_000292685/tools/quast/icarus.html
+    - path: bactopia/GCF_000292685/tools/quast/icarus_viewers/contig_size_viewer.html
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.err
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.log
+      contains: ["Creating", "Contig", "versions", "QUAST"]
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.out
+      contains: ["Creating", "Contig", "versions", "QUAST"]
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.run
+      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.sh
+      contains: ['quast', 'END_VERSIONS']
+    - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/tools/quast/logs/quast.log
+      contains: ['Version', 'QUAST']
+    - path: bactopia/GCF_000292685/tools/quast/logs/versions.yml
+      md5sum: c69b765c4528b4e974c36a0d82b644b9
+    - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer.stderr
+      md5sum: 390dc7df727903e33d8127f8f12d9cf5
+    - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer_genes.gff
+      contains: ["version", "NC_018507", "CDS", "exon"]
+    - path: bactopia/GCF_000292685/tools/quast/report.html
+      contains: ['QUAST']
+    - path: bactopia/GCF_000292685/tools/quast/report.pdf
+    - path: bactopia/GCF_000292685/tools/quast/report.tex
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/GCF_000292685/tools/quast/report.tsv
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/GCF_000292685/tools/quast/report.txt
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/GCF_000292685/tools/quast/transposed_report.tex
+      contains: ["Assembly", "contigs", "predicted"]
+    - path: bactopia/GCF_000292685/tools/quast/transposed_report.txt
+      contains: ["Assembly", "contigs", "predicted"]

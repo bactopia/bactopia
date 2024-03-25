@@ -329,18 +329,30 @@ process QC {
             fi
 
             if [ "\${ENABLE_ILLUMINA}" -eq "1" ]; then
+                # Fix issue on HPC when /tmp not writable
+                mkdir -p ./tmp
                 if [[ "${meta.single_end}" == "false" || "\${IS_HYBRID}" -eq "1" ]]; then
                     # Paired-End Reads
                     ln -s ${fq[0]} ${prefix}_R1-original.fastq.gz
                     ln -s ${fq[1]} ${prefix}_R2-original.fastq.gz
                     ln -s results/${prefix}_R1.fastq.gz ${prefix}_R1-final.fastq.gz
                     ln -s results/${prefix}_R2.fastq.gz ${prefix}_R2-final.fastq.gz
-                    fastqc --noextract -f fastq -t ${task.cpus} ${prefix}_R1-original.fastq.gz ${prefix}_R2-original.fastq.gz ${prefix}_R1-final.fastq.gz ${prefix}_R2-final.fastq.gz
+                    fastqc \
+                        --noextract \
+                        --dir ./tmp \
+                        -f fastq \
+                        -t ${task.cpus} \
+                        ${prefix}_R1-original.fastq.gz ${prefix}_R2-original.fastq.gz ${prefix}_R1-final.fastq.gz ${prefix}_R2-final.fastq.gz
                 else
                     # Single-End Reads
                     ln -s ${fq[0]} ${prefix}-original.fastq.gz
                     ln -s results/${prefix}.fastq.gz ${prefix}-final.fastq.gz
-                    fastqc --noextract -f fastq -t ${task.cpus} ${prefix}-original.fastq.gz ${prefix}-final.fastq.gz
+                    fastqc \
+                        --noextract \
+                        --dir ./tmp \
+                        -f fastq \
+                        -t ${task.cpus} \
+                        ${prefix}-original.fastq.gz ${prefix}-final.fastq.gz
                 fi
                 mv *_fastqc.html *_fastqc.zip results/summary/
             fi

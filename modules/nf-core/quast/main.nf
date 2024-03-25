@@ -35,9 +35,11 @@ process QUAST {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    est_ref_size=\$(tail -n 1 $meta_file | cut -f 7)
-    if [ "\${est_ref_size}" != "0" ]; then
-        est_ref_size="--est-ref-size \${est_ref_size}"
+    est_ref_size=""
+    # Use rev to get the last column easily, then re-reverse it
+    ref_size=\$(tail -n 1 $meta_file | rev | cut -f 1 | rev)
+    if [ "\${ref_size}" != "0" ]; then
+        est_ref_size="--est-ref-size \${ref_size}"
     fi
 
     quast ${fasta_name} \${est_ref_size} \\

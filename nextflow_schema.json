@@ -17,43 +17,43 @@
                     "format": "file-path",
                     "mimetype": "text/csv",
                     "description": "A FOFN with sample names and paths to FASTQ/FASTAs to process\n",
-                    "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
+                    "help": "Created using `bactopia prepare`. Cannot be used with `--r1|--r2` or `--se`",
                     "fa_icon": "fas fa-file-alt",
                     "header": "### For Procesessing Multiple Samples"
                 },
-                "R1": {
+                "r1": {
                     "type": "string",
-                    "description": "First set of compressed (gzip) paired-end FASTQ reads (requires --R2 and --sample)",
-                    "help": "Requires `--R2` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "description": "First set of compressed (gzip) paired-end FASTQ reads (requires --r2 and --sample)",
+                    "help": "Requires `--r2` and `--sample`. Cannot be used with `--fastqs` or `--se` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive",
                     "header": "### For Processing A Single Sample"
                 },
-                "R2": {
+                "r2": {
                     "type": "string",
-                    "description": "Second set of compressed (gzip) paired-end FASTQ reads (requires --R1 and --sample)",
-                    "help": "Requires `--R1` and `--sample`. Cannot be used with `--fastqs` or `--SE` (unless `--hybrid` used).",
+                    "description": "Second set of compressed (gzip) paired-end FASTQ reads (requires --r1 and --sample)",
+                    "help": "Requires `--r1` and `--sample`. Cannot be used with `--fastqs` or `--se` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
-                "SE": {
+                "se": {
                     "type": "string",
                     "description": "Compressed (gzip) single-end FASTQ reads  (requires --sample)",
-                    "help": "Requires `--sample`. Cannot be used with `--fastqs` or `--R1|--R2` (unless `--hybrid` used).",
+                    "help": "Requires `--sample`. Cannot be used with `--fastqs` or `--r1|--r2` (unless `--hybrid` used).",
                     "fa_icon": "fas fa-file-archive"
                 },
                 "ont": {
                     "type": "boolean",
-                    "description": "Treat `--SE` as long reads for analysis. (requires --sample)",
+                    "description": "Treat `--se` as long reads for analysis. (requires --sample)",
                     "fa_icon": "fas fa-level-up"
                 },
                 "hybrid": {
                     "type": "boolean",
-                    "description": "Treat `--SE` as long reads for hybrid assembly.  (requires --R1, --R2, --SE and --sample)",
+                    "description": "Treat `--se` as long reads for hybrid assembly.  (requires --r1, --r2, --se and --sample)",
                     "fa_icon": "fas fa-level-up"
                 },
                 "sample": {
                     "type": "string",
                     "description": "Sample name to use for the input sequences\n",
-                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "help": "Required when using `--r1|--r2` or `--se`",
                     "fa_icon": "fas fa-file"
                 },
                 "accessions": {
@@ -65,7 +65,7 @@
                 "accession": {
                     "type": "string",
                     "description": "Sample name to use for the input sequences\n",
-                    "help": "Required when using `--R1|--R2` or `--SE`",
+                    "help": "Required when using `--r1|--r2` or `--se`",
                     "fa_icon": "fas fa-font"
                 },
                 "assembly": {

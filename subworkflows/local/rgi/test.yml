@@ -31,7 +31,7 @@
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/rgi/merged-results/logs/rgi-heatmap/versions.yml
-      md5sum: c16a8469ca85a97204a631a52190323d
+      md5sum: 47dd197ef74cfe2af440ddf5b6a56c72
     - path: bactopia/bactopia-runs/rgi/merged-results/rgi-2.csv
       contains: ["gene", "Klebsiella", "Escherichia"]
     - path: bactopia/bactopia-runs/rgi/merged-results/rgi-2.eps
@@ -64,7 +64,7 @@
     - path: bactopia/GCA_000027305/tools/rgi/logs/nf-rgi.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCA_000027305/tools/rgi/logs/versions.yml
-      md5sum: 81482750f2ba727c718e24bf844293e8
+      md5sum: 8a5ec5372a0936c4f30740344b771701
     - path: bactopia/GCF_900478275/tools/rgi/GCF_900478275.json
       contains: ["type_match", "model_name", "orf_dna_sequence"]
     - path: bactopia/GCF_900478275/tools/rgi/GCF_900478275.txt
@@ -82,4 +82,4 @@
     - path: bactopia/GCF_900478275/tools/rgi/logs/nf-rgi.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_900478275/tools/rgi/logs/versions.yml
-      md5sum: 81482750f2ba727c718e24bf844293e8
+      md5sum: 8a5ec5372a0936c4f30740344b771701

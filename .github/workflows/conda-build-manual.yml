@@ -15,19 +15,18 @@ jobs:
         with:
           ref: dev
 
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-variant: Mambaforge
+          miniforge-variant: Miniforge3
           miniforge-version: latest
           activate-environment: anaconda-client-env
-          use-mamba: true
 
       - name: Build and Push 
         run: |
           # Start build
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
-          cd data/conda/ && mamba build -c conda-forge -c bioconda -c defaults --output-folder . . 
+          cd data/conda/ && conda build -c conda-forge -c bioconda -c defaults --output-folder . . 
           anaconda upload --force ./noarch/*.tar.bz2
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}

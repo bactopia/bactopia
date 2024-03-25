@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'pirate')
 options.is_module = params.wf == 'pirate' ? true : false
 options.args = [
-    params.para_off ? "--para_off" : "",
+    params.para_off ? "--para-off" : "",
     params.pan_opt ? "--pan-opt '${params.pan_opt}'" : "",
     params.z ? "-z 2" : "",
     "--steps ${params.steps}",

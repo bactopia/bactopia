@@ -30,10 +30,9 @@ if (params.check_samples) {
 */
 
 // Core
-include { GATHER_SAMPLES } from '../modules/local/bactopia/gather_samples/main'
+include { GATHER } from '../subworkflows/local/gather/main'
 include { BRACKEN } from '../subworkflows/local/bracken/main'
-include { MIDAS } from '../subworkflows/local/midas/main'
-include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [publish_to_base: true, ignore: [".fna.gz"]] )
+include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [ignore: [".fna.gz"]] )
 include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [publish_to_base: true] )
 include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true] )
 
@@ -57,29 +56,21 @@ workflow TETON {
     ch_join_teton = Channel.empty()
 
     // Core Steps
-    GATHER_SAMPLES(create_input_channel(run_type, params.genome_size))
-    ch_versions = ch_versions.mix(GATHER_SAMPLES.out.versions.first())
+    GATHER(create_input_channel(run_type, params.genome_size, params.species))
+    ch_versions = ch_versions.mix(GATHER.out.versions.first())
 
     // Remove host reads
-    SCRUBBER(GATHER_SAMPLES.out.raw_fastq)
+    SCRUBBER(GATHER.out.fastq_only)
     ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
     // Taxon Classification & Abundance
     BRACKEN(SCRUBBER.out.scrubbed)
     ch_versions = ch_versions.mix(BRACKEN.out.versions)
 
-    if (params.midas_db) {
-        // Species Abundance
-        MIDAS(SCRUBBER.out.scrubbed)
-        ch_versions = ch_versions.mix(MIDAS.out.versions)
-
-        // Join Bracken and MIDAS results
-        CSVTK_JOIN(BRACKEN.out.tsv.join(MIDAS.out.tsv, by:[0]), 'tsv', 'tsv', 'sample')
-        CSVTK_JOIN.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'teton'], csv]}.set{ ch_merge_teton }
-        ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
-    } else {
-        BRACKEN.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'teton'], tsv]}.set{ ch_merge_teton }
-    }
+    // Join Scrubber and Bracken results
+    CSVTK_JOIN(SCRUBBER.out.tsv.join(BRACKEN.out.tsv, by:[0]), 'tsv', 'tsv', 'sample')
+    CSVTK_JOIN.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'teton'], csv]}.set{ ch_merge_teton }
+    ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
 
     // Join the results
     CSVTK_CONCAT(ch_merge_teton, 'tsv', 'tsv')

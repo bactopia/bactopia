@@ -29,7 +29,7 @@
     - path: bactopia/GCF_000292685/tools/abritamr/logs/nf-abritamr.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/abritamr/logs/versions.yml
-      md5sum: 603690c9d9ad1d9cf8faa026765195d1
+      md5sum: 76491e13fdc40c767869c29792969379
     - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-dag.dot
       contains: ['abritamr', 'ABRITAMR', 'versions']
     - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-report.html
