@@ -20,7 +20,7 @@
                 },
                 "use_porechop": {
                     "type": "boolean",
-                    "default": "turned off",
+                    "default": false,
                     "description": "Use Porechop to remove adapters from ONT reads",
                     "help": "",
                     "fa_icon": "fas fa-fast-forward"
@@ -47,6 +47,7 @@
                 "adapters": {
                     "type": "string",
                     "description": "A FASTA file containing adapters to remove",
+                    "default": "/home/robert_petit/bactopia/data/EMPTY_ADAPTERS",
                     "help": "By default, Bactopia will use the adapters provided by BBmap",
                     "fa_icon": "fas fa-file-alt",
                     "hidden": true
@@ -62,6 +63,7 @@
                 "phix": {
                     "type": "string",
                     "description": "phiX174 reference genome to remove",
+                    "default": "/home/robert_petit/bactopia/data/EMPTY_PHIX",
                     "help": "By default, use the phiX genome provided by BBmap",
                     "fa_icon": "fas fa-file-alt",
                     "hidden": true
@@ -235,28 +237,28 @@
                     "hidden": true
                 },
                 "porechop_opts": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "Extra Porechop options in quotes",
                     "help": "Example would be: '--adapter_threshold 50'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 },
                 "nanoplot_opts": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "Extra NanoPlot options in quotes",
                     "help": "Example would be: '--maxlength 10000'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 },
                 "bbduk_opts": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "Extra BBDuk options in quotes",
                     "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t'",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
                 },
                 "fastp_opts": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "Extra fastp options in quotes",
                     "help": "Example would be: '--disable_length_filtering'",
                     "fa_icon": "fas fa-italic",
