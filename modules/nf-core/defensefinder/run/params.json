@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/defensefinder/run/params.json",
+    "title": "defense-finder Module",
+    "description": "A module to identify anti-phage systems in assemblies",
+    "type": "object",
+    "definitions": {
+        "defensefinder_parameters": {
+            "title": "defense-finder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "df_coverage": {
+                    "type": "number",
+                    "description": "Minimal percentage of coverage for each profiles",
+                    "default": 0.4,
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "df_dbtype": {
+                    "type": "string",
+                    "description": "The macsyfinder --db-type option",
+                    "default": "ordered_replicon",
+                    "fa_icon": "fas fa-italic",
+                    "enum": [
+                        "ordered_replicon",
+                        "gembase",
+                        "unordered"
+                    ]
+                },
+                "df_preserveraw": {
+                    "type": "boolean",
+                    "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "df_nocutga": {
+                    "type": "boolean",
+                    "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/defensefinder_parameters"
+        }
+    ]
+}

@@ -6,6 +6,18 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ## v3.0.2 bactopia/bactopia "" 2024/??/??
 
+### `Added`
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `defensefinder` - Systematic search of all known anti-phage systems
+
+### `Fixed`
+
+- missing schema for clean-yer-reads
+
+### `Enhancements to OSS`
+
+- pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
+
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
 
 ### `Added`
