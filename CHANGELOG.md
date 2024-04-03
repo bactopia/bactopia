@@ -13,6 +13,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - full support of config files from nf-core/configs
     - no longer prints efficiency for `standard`, `docker`, and `singularity` profiles
     - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
+    - always import `base.config`
 
 ### `Fixed`
 

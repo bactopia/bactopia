@@ -43,7 +43,6 @@ process CSVTK_CONCAT {
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
         --infile-list fofn.txt
-        $csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
