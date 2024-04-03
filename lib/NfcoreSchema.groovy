@@ -195,6 +195,7 @@ class NfcoreSchema {
         Integer num_hidden = 0
         String required_output = ''
         String optional_output = ''
+        String param_required = ''
         String output = ''
         if (print_example == true) {
             output += 'Typical pipeline command:\n\n'
@@ -227,7 +228,11 @@ class NfcoreSchema {
                     }
                 }
                 if (group_params.get(param).containsKey('header')) {
-                    param_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
+                    param_output += '  ' + colors.underlined + colors.bold + group_params.get(param).header + colors.reset + '\n'
+
+                    if (group_params.get(param).header.endsWith('Assembly')) {
+                        param_output += '  ' + colors.dim + 'Note: Error free Illumina reads are simulated for assemblies' + colors.reset + '\n'
+                    }
                 }
 
                 def type = '[' + group_params.get(param).type + ']'
@@ -254,8 +259,10 @@ class NfcoreSchema {
                 param_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
                 num_params += 1
                 
-                if (group_params.get(param).containsKey('is_required') || group == "Required Parameters") {
+                if (group == "Required Parameters") {
                     group_required += param_output
+                } else if (group_params.get(param).containsKey('is_required')) {
+                    param_required += param_output
                 } else {
                     group_optional += param_output
                 }
@@ -266,6 +273,12 @@ class NfcoreSchema {
                 optional_output += group_output + group_optional + '\n'
             }
         }
+
+        if (param_required.length() > 0) {
+            required_output += "\n  ### Workflow Specific\n"
+            required_output += param_required
+        }
+
         def Map help = [:]
         required_output = colors.underlined + colors.bold + 'Required Parameters' + colors.reset + '\n' + required_output
         help['output'] = output + required_output + optional_output
@@ -280,6 +293,7 @@ class NfcoreSchema {
         Map colors = NfcoreTemplate.logColours(params.monochrome_logs)
         Integer num_hidden = 0
         String required_output = ''
+        String param_required = ''
         String output = ''
         Map params_map = paramsLoad("${workflow.projectDir}", schema_filename)
         Integer max_chars = paramsMaxChars(params_map) + 1
@@ -298,7 +312,11 @@ class NfcoreSchema {
                     }
                 }
                 if (group_params.get(param).containsKey('header')) {
-                    param_output += "  " + group_params.get(param).header + colors.dim + colors.reset + "\n"
+                    param_output += '  ' + colors.underlined + colors.bold + group_params.get(param).header + colors.reset + '\n'
+
+                    if (group_params.get(param).header.endsWith('Assembly')) {
+                        param_output += '  ' + colors.dim + 'Note: Error free Illumina reads are simulated for assemblies' + colors.reset + '\n'
+                    }
                 }
 
                 def type = '[' + group_params.get(param).type + ']'
@@ -324,8 +342,10 @@ class NfcoreSchema {
                 param_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
                 num_params += 1
 
-                if (group_params.get(param).containsKey('is_required') || group == "Required Parameters") {
+                if (group == "Required Parameters") {
                     group_output += param_output
+                } else if (group_params.get(param).containsKey('is_required')) {
+                    param_required += param_output
                 }
             }
 
@@ -334,7 +354,11 @@ class NfcoreSchema {
             }
         }
 
-        required_output
+        if (param_required.length() > 0) {
+            required_output += '\n  ' + colors.underlined + colors.bold + "Workflow Specific" + colors.reset + '\n'
+            required_output += param_required
+        }
+
         if (num_hidden > 0){
             output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params (or --help_all) to show them !!\n" + colors.reset
         }

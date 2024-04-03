@@ -17,14 +17,14 @@
                     "description": "A FOFN (via bactopia prepare) with sample names and paths to FASTQ/FASTAs to process\n",
                     "help": "Created using `bactopia prepare`. Cannot be used with `--R1|--R2` or `--SE`",
                     "fa_icon": "fas fa-file-alt",
-                    "header": "### For Procesessing Multiple Samples"
+                    "header": "Processing Multiple Samples"
                 },
                 "r1": {
                     "type": "string",
                     "description": "First set of compressed (gzip) Illumina paired-end FASTQ reads (requires --r2 and --sample)",
                     "help": "Requires `--r2` and `--sample`. Cannot be used with `--samples` or `--se`.",
                     "fa_icon": "fas fa-file-archive",
-                    "header": "### For Processing A Single Sample"
+                    "header": "Processing A Single Sample"
                 },
                 "r2": {
                     "type": "string",
@@ -53,7 +53,7 @@
                     "type": "string",
                     "description": "A file containing ENA/SRA Experiment accessions or NCBI Assembly accessions to processed",
                     "fa_icon": "fas fa-file-alt",
-                    "header": "### For Downloading from SRA/ENA or NCBI Assembly\n  **Note: Downloaded assemblies will have error free Illumina reads simulated for processing.**"
+                    "header": "Downloading from SRA/ENA or NCBI Assembly"
                 },
                 "accession": {
                     "type": "string",
