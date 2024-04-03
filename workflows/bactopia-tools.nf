@@ -7,8 +7,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 include { collect_samples; collect_local_files } from '../lib/nf/bactopia_tools'
-include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { get_schemas } from '../lib/nf/functions'
 
 /*
 ========================================================================================
@@ -119,7 +118,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 ========================================================================================
 */
 workflow BACTOPIATOOLS {
-    print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     ch_local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     ch_local_files = Channel.fromList(collect_local_files(params.containsKey('assembly') ? params.assembly : null , params.containsKey('assembly_pattern') ? params.assembly_pattern : null))

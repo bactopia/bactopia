@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus_update')
 conda_tools = "bioconda::ncbi-amrfinderplus=3.12.8"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")

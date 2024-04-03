@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
 conda_tools = "bioconda::gtdbtk=2.3.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")

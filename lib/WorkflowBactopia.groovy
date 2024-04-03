@@ -98,11 +98,6 @@ class WorkflowBactopia {
             error += Utils.isPositiveInteger(params.genome_size, 'genome_size', log)
         }
 
-        if (params.min_time > params.max_time) {
-            log.error "The value for min_time (${params.min_time}) exceeds max_time (${params.max_time}), Please correct to continue."
-            error += 1
-        }
-
         if (params.containsKey('adapters')){
             if (params.adapters) {
                 if (Utils.isLocal(params.adapters)) {

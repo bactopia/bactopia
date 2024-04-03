@@ -7,8 +7,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 include { create_input_channel; check_input_fofn } from '../lib/nf/bactopia'
-include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { get_schemas } from '../lib/nf/functions'
 
 /*
 ========================================================================================
@@ -50,7 +49,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 */
 
 workflow TETON {
-    print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     ch_merged_teton = Channel.empty()
     ch_join_teton = Channel.empty()

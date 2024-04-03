@@ -7,8 +7,12 @@ description: A full list of Bactopia releases and a description of the changes.
 ## v3.0.2 bactopia/bactopia "" 2024/??/??
 
 ### `Added`
+
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `defensefinder` - Systematic search of all known anti-phage systems
+- full support of config files from nf-core/configs
+    - no longer prints efficiency for `standard`, `docker`, and `singularity` profiles
+    - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
 
 ### `Fixed`
 
