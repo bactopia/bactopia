@@ -107,57 +107,6 @@ def _get_module_schemas(modules) {
     return module_schemas
 }
 
-def get_resources(profile, max_memory, max_cpus) {
-    /* Adjust memory/cpu requests for standard profile only */
-    def Map resources = [:]
-    resources.MAX_MEMORY = max_memory
-    resources.MAX_MEMORY_INT = resources.MAX_MEMORY.toString().split(" ")[0]
-    resources.MAX_CPUS = max_cpus.toInteger()
-    resources.MAX_CPUS_75 = Math.round(resources.MAX_CPUS * 0.75)
-    resources.MAX_CPUS_50 = Math.round(resources.MAX_CPUS * 0.50)
-    resources.MAX_CPUS_1 = 1
-    return resources
-}
-
-def _get_max_memory(requested) {
-    /* Get the maximum available memory for the given system */
-    def available = Math.floor(Double.parseDouble(SysHelper.getAvailMemory().toGiga().toString().split(" ")[0])).toInteger()
-    if (available < requested.toInteger()) {
-        log.warn "Maximum memory (${requested}) was adjusted to fit your system (${available})"
-        return available
-    }
-
-    return requested
-}
-
-def _get_max_cpus(requested) {
-    /* Get the maximum available cpus for the given system */
-    def available = SysHelper.getAvailCpus()
-    if (available < requested) {
-        log.warn "Maximum CPUs (${requested}) was adjusted to fit your system (${available})"
-        return available
-    }
-    
-    return requested
-}
-
-def print_efficiency() {
-    /* Inform user how local bactiopia run will use resources */
-    if (['standard', 'docker', 'singularity'].contains(workflow.profile)) {
-        // This is a local run on a single machine
-        available = SysHelper.getAvailCpus()
-        tasks = Math.round(available / params.max_cpus)
-        log.info """
-            Each task will use a maximum of ${params.max_cpus} CPUs out of the available ${available}
-            CPUs. At most ${tasks} task(s) will be run at a time, this can affect
-            the efficiency of Bactopia. You can use the '-qs' parameter to
-            alter the number of tasks to run at a time (e.g. '-qs 2', means
-            only 2 tasks or a maximum of ${2 * params.max_cpus} CPUs will be used at once)
-        """.stripIndent()
-        log.info ""
-    }
-}
-
 def is_available_workflow(wf) {
     if (params.available_workflows['bactopia'].contains(wf)) {
         return true

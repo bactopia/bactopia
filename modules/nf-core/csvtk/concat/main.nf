@@ -16,7 +16,7 @@ process CSVTK_CONCAT {
         'quay.io/biocontainers/csvtk:0.27.2--h9ee0642_0' }"
 
     input:
-    tuple val(meta), path(csv)
+    tuple val(meta), path(csv, stageAs: 'inputs/*')
     val in_format
     val out_format
 
@@ -32,6 +32,9 @@ process CSVTK_CONCAT {
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     """
+    # Create a file of files for csvtk
+    ls inputs/ | awk '{ print "inputs/"\$1 }' > fofn.txt
+
     csvtk \\
         concat \\
         $options.args \\
@@ -39,6 +42,7 @@ process CSVTK_CONCAT {
         ${delimiter}  \\
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
+        --infile-list fofn.txt
         $csv
 
     cat <<-END_VERSIONS > versions.yml

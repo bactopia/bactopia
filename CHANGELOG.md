@@ -17,6 +17,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ### `Fixed`
 
 - missing schema for clean-yer-reads
+- use `--infile-list` with `csvtk concat` to support 10k+ inputs
 
 ### `Enhancements to OSS`
 
