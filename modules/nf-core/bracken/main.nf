@@ -8,7 +8,7 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 
 process BRACKEN {
     tag "$meta.id"
-    label 'process_high'
+    label 'process_medium'
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

@@ -8,12 +8,20 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Added`
 
+- Named Workflows
+    - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Reads
+        - Use `clean-yer-reads`, `cyr` or `bactopia --wf cleanyerreads`
+    - `teton` - Host removal and taxon classification with estimated abundances
+        - Use `teton` or `bactopia --wf teton`
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `defensefinder` - Systematic search of all known anti-phage systems
+    - `scrubber` - Remove human reads from FASTQ files
+        - screen human reads with `kraken2` (_against human pangenome_) or `sra-human-scrubber`
 - full support of config files from nf-core/configs
     - no longer prints efficiency for `standard`, `docker`, and `singularity` profiles
     - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
     - always import `base.config`
+- `amrfinderplus` by combining results from genes, proteins and gff (coordinates)
 
 ### `Fixed`
 

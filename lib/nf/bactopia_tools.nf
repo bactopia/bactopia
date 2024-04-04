@@ -170,6 +170,21 @@ def _collect_inputs(sample, dir, extension) {
                 return tuple([id:sample, single_end:false, is_compressed:false, runtype:'illumina'], [file("${fna}")], [file(pe1), file(pe2)])
             }
         }
+    } else if (extension == 'fna_faa_gff') {
+        // Default to Bakta faa
+        faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"
+        gff = "${base_dir}/${PATHS['faa']}/bakta/${sample}.gff3"
+        if (!file("${faa}").exists() && !file("${faa}.gz").exists()) {
+            // Fall back on Prokka
+            faa = "${base_dir}/${PATHS['faa']}/prokka/${sample}.faa"
+            gff = "${base_dir}/${PATHS['faa']}/bakta/${sample}.gff"
+        }
+
+        if (file("${fna}.gz").exists() && file("${faa}.gz").exists() && file("${gff}.gz").exists()) {
+            return tuple([id:sample, is_compressed:true], [file("${fna}.gz")], [file("${faa}.gz")], [file("${gff}.gz")])
+        } else if (file(fna).exists() && file(faa).exists() && file(gff).exists() {
+            return tuple([id:sample, is_compressed:false], [file("${fna}")], [file("${faa}")], [file("${gff}")])
+        }
     } else if (extension == 'fna_faa') {
         // Default to Bakta faa
         faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"

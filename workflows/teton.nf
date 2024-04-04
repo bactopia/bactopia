@@ -32,8 +32,8 @@ if (params.check_samples) {
 include { GATHER } from '../subworkflows/local/gather/main'
 include { BRACKEN } from '../subworkflows/local/bracken/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [ignore: [".fna.gz"]] )
-include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [publish_to_base: true] )
-include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [process_name: "teton-report"] )
+include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'teton-concat', process_name: params.merge_folder] )
 
 /*
 ========================================================================================

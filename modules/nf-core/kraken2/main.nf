@@ -24,16 +24,20 @@ process KRAKEN2 {
     tuple val(meta), path('*.scrub.report.tsv')                , emit: scrub_report, optional: true
     tuple val(meta), path("*.${classified_naming}*.fastq.gz")  , emit: classified, optional: true
     tuple val(meta), path("*.${unclassified_naming}*.fastq.gz"), emit: unclassified, optional: true
+    tuple val(meta), path("*.${classified_naming}*.fastq.gz")  , path("EMPTY_EXTRA"), emit: classified_extra, optional: true
+    tuple val(meta), path("*.${unclassified_naming}*.fastq.gz"), path("EMPTY_EXTRA"), emit: unclassified_extra, optional: true
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    meta.single_end = reads[1] == null ? true : false
+    meta.is_paired = reads[1] == null ? false : true
     def paired = meta.single_end ? "" : "--paired"
-    classified_naming = params.wf == "teton" || params.wf == "scrubber" ? "host" : "classified"
+    classified_naming = params.wf == "teton" || params.wf == "scrubber" || params.wf == "cleanyerreads" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq"   : "${prefix}.${classified_naming}#.fastq"
-    unclassified_naming = params.wf == "teton" || params.wf == "scrubber" ? "scrubbed" : "unclassified"
+    unclassified_naming = params.wf == "teton" || params.wf == "scrubber" || params.wf == "cleanyerreads" ? "scrubbed" : "unclassified"
     unclassified = meta.single_end ? "${prefix}.${unclassified_naming}.fastq" : "${prefix}.${unclassified_naming}#.fastq"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
@@ -80,6 +84,9 @@ process KRAKEN2 {
         # Remove host reads
         rm ${prefix}.host*.fastq.gz
     fi
+
+    # Used for clean-yer-reads
+    touch EMPTY_EXTRA
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

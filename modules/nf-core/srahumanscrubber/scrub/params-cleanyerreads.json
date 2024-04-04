@@ -6,12 +6,18 @@
     "type": "object",
     "definitions": {
         "srahumanscrubber_scrub_parameters": {
-            "title": "sra-human-scrubber Parameters",
+            "title": "Scrubber (sra-human-scrubber) Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "use_srascrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use SRAHumanScrubber for scrubbing human reads",
+                    "fa_icon": "fas fa-file-alt"
+                }
             }
         }
     },

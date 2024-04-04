@@ -12,6 +12,12 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "use_k2scrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use Kraken2 with Human Pan-genome for scrubbing human reads",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "quick_mode": {
                     "type": "boolean",
                     "default": false,

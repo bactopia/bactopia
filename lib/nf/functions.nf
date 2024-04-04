@@ -98,7 +98,7 @@ def _get_module_schemas(modules) {
     modules.each { it ->
         if (params.wf == "cleanyerreads") {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
-        } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_initdb" || it == "kraken2")) {
+        } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_scrub" || it == "kraken2")) {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else {
             module_schemas << "${params.workflows[it].path}/params.json"

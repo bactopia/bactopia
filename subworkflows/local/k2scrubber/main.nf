@@ -43,6 +43,7 @@ workflow K2SCRUBBER {
 
     emit:
     scrubbed = KRAKEN2.out.unclassified
+    scrubbed_extra = KRAKEN2.out.unclassified_extra
     human = KRAKEN2.out.classified
     kraken2_report = KRAKEN2.out.kraken2_report
     scrub_report = KRAKEN2.out.scrub_report

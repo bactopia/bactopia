@@ -275,7 +275,7 @@ class NfcoreSchema {
         }
 
         if (param_required.length() > 0) {
-            required_output += "\n  ### Workflow Specific\n"
+            required_output += '\n  ' + colors.underlined + colors.bold + "Workflow Specific" + colors.reset + '\n'
             required_output += param_required
         }
 

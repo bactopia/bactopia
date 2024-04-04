@@ -21,7 +21,7 @@ process PROKKA {
     path prodigal_tf
 
     output:
-    tuple val(meta), path("results/*.{ffn,ffn.gz}"), path("results/*.{faa,faa.gz}"), emit: annotations
+    tuple val(meta), path("results/*.{fna,fna.gz}"), path("results/*.{faa,faa.gz}"), path("results/*.{gff,gff.gz}"), emit: annotations
     tuple val(meta), path("results/*.{gff,gff.gz}"), emit: gff
     tuple val(meta), path("results/*.{gbk,gbk.gz}"), emit: gbk
     tuple val(meta), path("results/*.{fna,fna.gz}"), emit: fna

@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'qc')
-options.ignore = ['.fna.gz']
+options.ignore = ['.fna.gz', "EMPTY_EXTRA"]
 options.btype  = options.btype ?: "main"
 conda_tools    = "bioconda::bactopia-qc=1.0.2"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
@@ -23,6 +23,7 @@ process QC {
 
     output:
     tuple val(meta), path("results/${prefix}*.fastq.gz"), path("extra/*"), emit: fastq, optional: true
+    tuple val(meta), path("results/${prefix}*.fastq.gz")                 , emit: fastq_only, optional: true
     path "results/*"
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
