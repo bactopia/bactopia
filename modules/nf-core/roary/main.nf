@@ -32,7 +32,14 @@ process ROARY {
     """
     mkdir gff
     cp -L gff-tmp/* gff/
-    find gff/ -name "*.gff.gz" | xargs gunzip
+    find gff/ -name "*.gff.gz" | xargs -r gunzip
+
+    # Roary only supports .gff extension, will need to adjust for gff3 (Bakta) files
+    # https://github.com/sanger-pathogens/Roary/blob/master/lib/Bio/Roary/PrepareInputFiles.pm#L82
+    # note for later: "xargs -r" will not run if no files are found
+    find gff/ -name "*.gff3.gz" | xargs -r gunzip
+    for file in gff/*.gff3; do mv "\$file" "\${file%.gff3}.gff"; done
+
     roary \\
         $options.args \\
         -p $task.cpus \\

@@ -80,14 +80,25 @@ if __name__ == '__main__':
         'bracken_secondary_species_abundance',
         'bracken_unclassified_abundance'
     ]
-    results = [
-        args.prefix,
-        bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
-        "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
-        bracken['name'].iloc[1] if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "No secondary abundance > 1%",
-        "{0:.5f}".format(bracken['fraction_total_reads'].iloc[1]) if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "",
-        "{0:.5f}".format(unclassified_count / total_count)
-    ]
+    if len(bracken) > 1:
+        results = [
+            args.prefix,
+            bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
+            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
+            bracken['name'].iloc[1] if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "No secondary abundance > 1%",
+            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[1]) if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "",
+            "{0:.5f}".format(unclassified_count / total_count)
+        ]
+    else:
+        results = [
+            args.prefix,
+            bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
+            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
+            "No secondary abundance > 1%",
+            "",
+            "{0:.5f}".format(unclassified_count / total_count)
+        ]
+
     with open("{0}.bracken.tsv".format(args.prefix), "wt") as fh_out:
         fh_out.write("{}\n".format('\t'.join(cols)))
         fh_out.write("{}\n".format('\t'.join(results)))

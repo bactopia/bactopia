@@ -33,13 +33,16 @@ process PANAROO_RUN {
     """
     mkdir gff
     cp -L gff-tmp/* gff/
-    find gff/ -name "*.gff.gz" | xargs gunzip
+    find gff/ -name "*.gz" | xargs gunzip
+
+    # Make FOFN of gff (Prokka) and gff3 (Bakta) files
+    find gff/ -name "*.gff" -or -name "*.gff3" > gff-fofn.txt
 
     panaroo \\
         $options.args \\
         -t $task.cpus \\
         -o results \\
-        -i gff/*.gff
+        -i gff-fofn.txt
 
     # Cleanup
     find . -name "*.fas" | xargs -I {} -P $task.cpus -n 1 gzip {}
