@@ -29,6 +29,7 @@ process GUBBINS {
     tuple val(meta), path("*.branch_base_reconstruction.embl.gz"), emit: embl_branch
     tuple val(meta), path("*.final_tree.tre")                    , emit: tree
     tuple val(meta), path("*.node_labelled.final_tree.tre")      , emit: tree_labelled
+    tuple val(meta), path("*.final_bootstrapped_tree.tre")       , emit: bootstrap_tree, optional: true
     path "*.{log,err}"                           , optional: true, emit: logs
     path ".command.*"                                            , emit: nf_logs
     path "versions.yml"                                          , emit: versions

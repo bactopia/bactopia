@@ -62,5 +62,9 @@ output:
       type: file
       description: Recombination removed RAxML phylogenetic tree (nodes labelled)
       pattern: "*.{node_labelled.final_tree.tre}"
+  - bootstrap_tree:
+      type: file
+      description: Recombination removed RAxML phylogenetic tree with bootstrap values
+      pattern: "*.{final_tree.tre}"
 authors:
   - "@avantonder"
