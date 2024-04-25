@@ -16,7 +16,7 @@ requirements:
     - pip
     - python >3.8
   run:
-    - bactopia-py >=1.0.9
+    - bactopia-py >=1.10.0
     - conda >=22.11.0
     - coreutils
     - mamba >=1.1.0
