@@ -25,9 +25,11 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Fixed`
 
-- missing schema for clean-yer-reads
+- missing schema for clean-yer-reads and teton
 - use `--infile-list` with `csvtk concat` to support 10k+ inputs
 - `pangenome` when Bakta GFF (`*.gff3`) files are provided
+- missing file export in `gubbins`
+
 
 ### `Enhancements to OSS`
 
