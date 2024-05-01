@@ -172,10 +172,12 @@ def _collect_inputs(sample, dir, extension) {
         }
     } else if (extension == 'fna_faa_gff') {
         // Default to Bakta faa
+        fna = "${base_dir}/${PATHS['faa']}/bakta/${sample}.fna"
         faa = "${base_dir}/${PATHS['faa']}/bakta/${sample}.faa"
         gff = "${base_dir}/${PATHS['faa']}/bakta/${sample}.gff3"
         if (!file("${faa}").exists() && !file("${faa}.gz").exists()) {
             // Fall back on Prokka
+            fna = "${base_dir}/${PATHS['faa']}/prokka/${sample}.fna"
             faa = "${base_dir}/${PATHS['faa']}/prokka/${sample}.faa"
             gff = "${base_dir}/${PATHS['faa']}/prokka/${sample}.gff"
         }
