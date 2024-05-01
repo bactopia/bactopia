@@ -33,7 +33,7 @@
                 "minscore": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Minumum score out of 100 to match a scheme",
+                    "description": "Minimum score out of 100 to match a scheme",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "nopath": {

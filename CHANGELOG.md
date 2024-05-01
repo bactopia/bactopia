@@ -22,6 +22,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
     - always import `base.config`
 - `amrfinderplus` by combining results from genes, proteins and gff (coordinates)
+- `--amrfinder_db` and `--mlst_db` to specify custom databases
 
 ### `Fixed`
 

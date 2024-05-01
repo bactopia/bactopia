@@ -28,7 +28,11 @@ workflow AMRFINDERPLUS {
     ch_merged_reports = Channel.empty()
 
     // Run AMRFinder
-    AMRFINDERPLUS_RUN ( fasta, db )
+    if (params.amrfinder_db) {
+        AMRFINDERPLUS_RUN(fasta, file(params.amrfinder_db))
+    } else {
+        AMRFINDERPLUS_RUN(fasta, db)
+    }
     ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions.first())
 
     // Merge results

@@ -22,7 +22,12 @@ workflow MLST {
     main:
     ch_versions = Channel.empty()
 
-    MLST_MODULE(fasta, db)
+    if (params.mlst_db) {
+        MLST_MODULE(fasta, file(params.mlst_db))
+    } else {
+        MLST_MODULE(fasta, db)
+    }
+
     ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first())
 
     // Merge results
