@@ -95,8 +95,8 @@ docs:
             description: A merged TSV file with `GenoTyphi` results from all samples
       - name: GenoTyphi
         description: |
-          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/katholt/genotyphi). A
-          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/katholt/genotyphi/blob/main/README.md#explanation-of-columns-in-the-output)
+          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/typhoidgenomics/genotyphi/). A
+          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/typhoidgenomics/genotyphi/tree/main?tab=readme-ov-file#explanation-of-columns-in-the-output)
         table:
           - id: <SAMPLE_NAME>_predictResults.tsv
             description: A tab-delimited file with `GenoTyphi` results
