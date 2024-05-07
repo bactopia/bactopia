@@ -36,6 +36,7 @@ process AMRFINDERPLUS_RUN {
     faa_name = proteins.getName().replace(".gz", "")
     gff_name = gff.getName().replace(".gz", "")
     annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "$fna_is_compressed" == "true" ]; then
         gzip -c -d $genes > $fna_name
@@ -50,7 +51,13 @@ process AMRFINDERPLUS_RUN {
     fi
 
     # Extract database
-    tar xzf $db
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        AMRFINDER_DB=\$(find database/ -name "AMR.LIB" | sed 's=AMR.LIB==')
+    else
+        AMRFINDER_DB=\$(find $db/ -name "AMR.LIB" | sed 's=AMR.LIB==')
+    fi
 
     # Full AMRFinderPlus search combining results
     amrfinder \\
@@ -60,13 +67,13 @@ process AMRFINDERPLUS_RUN {
         --annotation_format $annotation_format \\
         $organism_param \\
         $options.args \\
-        --database amrfinderplus/ \\
+        --database \$AMRFINDER_DB \\
         --threads $task.cpus \\
         --name $prefix > ${prefix}.tsv
 
     # Clean up
     DB_VERSION=\$(echo \$(echo \$(amrfinder --database amrfinderplus --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
-    rm -rf amrfinderplus/
+    rm -rf database/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

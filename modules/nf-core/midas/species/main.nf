@@ -40,7 +40,6 @@ process MIDAS_SPECIES {
         MIDAS_DB=\$(find $db/ -name "genome_info.txt" | sed 's=genome_info.txt==')
     fi
 
-    env
     run_midas.py \\
         species \\
         results \\

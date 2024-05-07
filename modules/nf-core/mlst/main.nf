@@ -27,24 +27,38 @@ process MLST {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    tar -xzvf $db
+    # Extract database
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        MLST_DB=\$(find database/ -name "mlst.fa" | sed 's=blast/mlst.fa==')
+    else
+        MLST_DB=\$(find $db/ -name "mlst.fa" | sed 's=blast/mlst.fa==')
+    fi
 
     mlst \\
         --threads $task.cpus \\
-        --blastdb mlstdb/blast/mlst.fa \\
-        --datadir mlstdb/pubmlst \\
+        --blastdb \$MLST_DB/blast/mlst.fa \\
+        --datadir \$MLST_DB/pubmlst \\
         $options.args \\
         $fasta \\
         > ${prefix}.tsv
 
     # Cleanup
-    rm -rf mlstdb
+    rm -rf database/
+
+    if [[ -f "\$MLST_DB/DB_VERSION" ]]; then
+        DB_VERSION=\$(cat \$MLST_DB/DB_VERSION)
+    else
+        DB_VERSION="custom database"
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         mlst: \$( echo \$(mlst --version 2>&1) | sed 's/mlst //' )
-        mlst-database: \$( cat mlstdb/DB_VERSION )
+        mlst-database: \$( echo \$DB_VERSION )
     END_VERSIONS
     """
 }

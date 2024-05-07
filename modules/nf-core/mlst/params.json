@@ -45,7 +45,7 @@
                 "mlst_db": {
                     "type": "string",
                     "default": "",
-                    "description": "A custom MLST database to use. Contents should be within a directory called 'mlstdb'",
+                    "description": "A custom MLST database to use, either a tarball or a directory",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
