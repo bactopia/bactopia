@@ -23,6 +23,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - always import `base.config`
 - `amrfinderplus` by combining results from genes, proteins and gff (coordinates)
 - `--amrfinder_db` and `--mlst_db` to specify custom databases
+- mlst and amrfinder databases can now be either a tarball or directory
 
 ### `Fixed`
 
@@ -31,13 +32,15 @@ description: A full list of Bactopia releases and a description of the changes.
 - use `--infile-list` with `csvtk concat` to support 10k+ inputs
 - `pangenome` when Bakta GFF (`*.gff3`) files are provided
 - missing file export in `gubbins`
-
+- writing to non-default values for `--bactopia`
 
 ### `Enhancements to OSS`
 
 - pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
 
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
+
+_"That's My Girl" is a phrase my youngest says quite often when playing with her friends_
 
 ### `Added`
 
@@ -89,6 +92,8 @@ description: A full list of Bactopia releases and a description of the changes.
 - pin tabix version in snippy [bioconda/bioconda-recipes#46458](https://github.com/bioconda/bioconda-recipes/pull/46458)
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
+
+_"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Brown Dog")_
 
 ### `Added`
 - Bactopia Tools (`bactopia --wf <NAME>`)
