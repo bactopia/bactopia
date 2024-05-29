@@ -20,14 +20,16 @@ process BRACKEN {
     path db
 
     output:
-    tuple val(meta), path("${prefix}.bracken.tsv")       , emit: tsv
-    tuple val(meta), path('*classified*')                , emit: classified, optional: true
-    tuple val(meta), path('*unclassified*')              , emit: unclassified, optional: true
-    tuple val(meta), path("${prefix}.kraken2.report.txt"), emit: kraken2_report
-    tuple val(meta), path("${prefix}.kraken2.output.txt"), emit: kraken2_output, optional: true
-    tuple val(meta), path("${prefix}.bracken.report.txt"), emit: bracken_report
-    tuple val(meta), path("*.abundances.txt")            , emit: abundances
-    tuple val(meta), path("*.krona.html")                , emit: krona
+    tuple val(meta), path("${prefix}.bracken.tsv")                        , emit: tsv
+    tuple val(meta), path('*classified*')                                 , emit: classified, optional: true
+    tuple val(meta), path('*unclassified*')                               , emit: unclassified, optional: true
+    tuple val(meta), path("${prefix}.kraken2.report.txt")                 , emit: kraken2_report
+    tuple val(meta), path("${prefix}.kraken2.output.txt")                 , emit: kraken2_output, optional: true
+    tuple val(meta), path("${prefix}.bracken.report.txt")                 , emit: bracken_report
+    tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
+    tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
+    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
+    tuple val(meta), path("${prefix}.bracken.top.adjusted.abundances.txt"), emit: topn_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -40,6 +42,7 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
+    def topn = params.bracken_topn + 1
     """
     if [ "$is_tarball" == "true" ]; then
         mkdir database
@@ -95,7 +98,7 @@ process BRACKEN {
 
     # Sort bracken report by 'fraction_total_reads' (column 7)
     head -n 1 bracken.temp > ${prefix}.bracken.abundances.txt
-    grep -v "fraction_total_reads\$" bracken.temp | sort -k 7 -rn >> ${prefix}.bracken.abundances.txt
+    grep -v "fraction_total_reads\$" bracken.temp | sort -k 7 -rn -t \$'\t' >> ${prefix}.bracken.abundances.txt
 
     # Adjust bracken to include unclassified and produce summary
     kraken-bracken-summary.py \\
@@ -103,6 +106,13 @@ process BRACKEN {
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\
         ${prefix}.bracken.abundances.txt
+
+    # Create a top N report
+    if [ "${params.bracken_topn_include_unclassified}" == "true" ]; then
+        head -n ${topn} ${prefix}.bracken.adjusted.abundances.txt > ${prefix}.bracken.top.adjusted.abundances.txt
+    else
+        grep -v "unclassified" ${prefix}.bracken.adjusted.abundances.txt | head -n ${topn} > ${prefix}.bracken.top.adjusted.abundances.txt
+    fi
 
     # Create a Krona report from reports
     if [ "${params.skip_krona}" == "false" ]; then

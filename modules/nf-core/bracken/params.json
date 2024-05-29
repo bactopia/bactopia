@@ -113,6 +113,20 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
+                "bracken_topn": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Number of taxa to include in the reduced abundance estimation",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_topn_include_unclassified": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include unclassified reads in the reduced abundance estimation",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
                 "skip_krona": {
                     "type": "boolean",
                     "default": false,
