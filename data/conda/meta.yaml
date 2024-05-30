@@ -27,6 +27,7 @@ requirements:
     - pytest
     - pytest-workflow
     - importlib-metadata <5
+    - openpyxl
 
 test:
   commands:

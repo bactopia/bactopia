@@ -3,7 +3,7 @@
 kraken-bracken-summary.py
 """
 PROGRAM = "kraken-bracken-summary"
-VERSION = "3.0.0"
+VERSION = "2.2.2"
 import sys
 
 def kraken2_unclassified_count(kraken2_report):
@@ -80,25 +80,14 @@ if __name__ == '__main__':
         'bracken_secondary_species_abundance',
         'bracken_unclassified_abundance'
     ]
-    if len(bracken) > 1:
-        results = [
-            args.prefix,
-            bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
-            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
-            bracken['name'].iloc[1] if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "No secondary abundance > 1%",
-            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[1]) if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "",
-            "{0:.5f}".format(unclassified_count / total_count)
-        ]
-    else:
-        results = [
-            args.prefix,
-            bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
-            "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
-            "No secondary abundance > 1%",
-            "",
-            "{0:.5f}".format(unclassified_count / total_count)
-        ]
-
+    results = [
+        args.prefix,
+        bracken['name'].iloc[0] if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "No primary abundance > 1%",
+        "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
+        bracken['name'].iloc[1] if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "No secondary abundance > 1%",
+        "{0:.5f}".format(bracken['fraction_total_reads'].iloc[1]) if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "",
+        "{0:.5f}".format(unclassified_count / total_count)
+    ]
     with open("{0}.bracken.tsv".format(args.prefix), "wt") as fh_out:
         fh_out.write("{}\n".format('\t'.join(cols)))
         fh_out.write("{}\n".format('\t'.join(results)))
@@ -116,4 +105,5 @@ if __name__ == '__main__':
     bracken = pd.concat([bracken, unclassified], axis=0)
     bracken = bracken.sort_values(by='fraction_total_reads', ascending=False)
     bracken.insert(0, 'sample', args.prefix)
+    bracken['percent_total_reads'] = (bracken['new_est_reads'] / total_count) * 100
     bracken.to_csv("{0}.bracken.adjusted.abundances.txt".format(args.prefix), sep='\t', float_format='%.5f', index=False)

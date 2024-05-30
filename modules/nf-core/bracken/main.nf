@@ -29,7 +29,6 @@ process BRACKEN {
     tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
     tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
     tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
-    tuple val(meta), path("${prefix}.bracken.top.adjusted.abundances.txt"), emit: topn_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -42,7 +41,6 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
-    def topn = params.bracken_topn + 1
     """
     if [ "$is_tarball" == "true" ]; then
         mkdir database
@@ -106,13 +104,6 @@ process BRACKEN {
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\
         ${prefix}.bracken.abundances.txt
-
-    # Create a top N report
-    if [ "${params.bracken_topn_include_unclassified}" == "true" ]; then
-        head -n ${topn} ${prefix}.bracken.adjusted.abundances.txt > ${prefix}.bracken.top.adjusted.abundances.txt
-    else
-        grep -v "unclassified" ${prefix}.bracken.adjusted.abundances.txt | head -n ${topn} > ${prefix}.bracken.top.adjusted.abundances.txt
-    fi
 
     # Create a Krona report from reports
     if [ "${params.skip_krona}" == "false" ]; then

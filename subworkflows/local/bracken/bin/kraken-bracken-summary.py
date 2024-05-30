@@ -3,7 +3,7 @@
 kraken-bracken-summary.py
 """
 PROGRAM = "kraken-bracken-summary"
-VERSION = "2.2.0"
+VERSION = "2.2.2"
 import sys
 
 def kraken2_unclassified_count(kraken2_report):
@@ -105,4 +105,5 @@ if __name__ == '__main__':
     bracken = pd.concat([bracken, unclassified], axis=0)
     bracken = bracken.sort_values(by='fraction_total_reads', ascending=False)
     bracken.insert(0, 'sample', args.prefix)
+    bracken['percent_total_reads'] = (bracken['new_est_reads'] / total_count) * 100
     bracken.to_csv("{0}.bracken.adjusted.abundances.txt".format(args.prefix), sep='\t', float_format='%.5f', index=False)
