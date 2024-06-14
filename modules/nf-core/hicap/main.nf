@@ -3,7 +3,7 @@ include { get_resources; initOptions; saveFiles } from '../../../lib/nf/function
 RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'hicap')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::hicap=1.0.3"
+conda_tools   = "bioconda::hicap=1.0.4"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process HICAP {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/hicap:1.0.3--py_0' :
-        'quay.io/biocontainers/hicap:1.0.3--py_0' }"
+        'https://depot.galaxyproject.org/singularity/hicap:1.0.4--pyhdfd78af_0' :
+        'quay.io/biocontainers/hicap:1.0.4--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
