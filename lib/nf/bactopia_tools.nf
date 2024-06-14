@@ -20,14 +20,14 @@ def collect_samples(bactopia_dir, extension, include_list, exclude_list) {
     exclusions = []
     IGNORE_LIST = ['.nextflow', 'bactopia-info', 'bactopia-tools', 'work', 'bactopia-runs']
     if (include_list) {
-        new File(include_list).eachLine { line -> 
+        file(include_list).eachLine { line ->
             inclusions << line.trim().split('\t')[0]
         }
         include_all = false
         log.info "Including ${inclusions.size} samples for analysis"
     }
     else if (exclude_list) {
-        new File(exclude_list).eachLine { line -> 
+        file(exclude_list).eachLine { line ->
             exclusions << line.trim().split('\t')[0]
         }
         log.info "Excluding ${exclusions.size} samples from the analysis"
