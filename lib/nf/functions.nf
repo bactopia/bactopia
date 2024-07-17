@@ -3,8 +3,6 @@
     Functions specific to Bactopia
 ========================================================================================
 */
-import nextflow.util.SysHelper
-
 def get_schemas() {
     def schemas = []
     def is_workflow = params.workflows[params.wf].containsKey('is_workflow')

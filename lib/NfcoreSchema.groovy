@@ -526,7 +526,21 @@ class NfcoreSchema {
             if (group_params) {
                 output += colors.bold + group + colors.reset + '\n'
                 for (param in group_params.keySet()) {
-                    output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  group_params.get(param) + colors.reset + '\n'
+                    if (param == 'max_memory') {
+                        if (params.resources.max_memory_adjusted) {
+                            output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  params.resources.max_memory + colors.reset + " (Original request (" + colors.green + group_params.get(param) + colors.reset + ") adjusted to fit your system)\n"
+                        } else {
+                            output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  group_params.get(param) + colors.reset + '\n'
+                        }
+                    } else if (param == 'max_cpus') {
+                        if (params.resources.max_cpus_adjusted) {
+                            output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  params.resources.max_cpus + colors.reset + " (Original request (" + colors.green + group_params.get(param) + colors.reset + ") adjusted to fit your system)\n"
+                        } else {
+                            output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  group_params.get(param) + colors.reset + '\n'
+                        }
+                    } else {
+                        output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  group_params.get(param) + colors.reset + '\n'
+                    }
                 }
                 output += '\n'
             }
