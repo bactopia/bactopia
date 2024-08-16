@@ -1,0 +1,8 @@
+- name: hostile-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf hostile -c nextflow.config --help > hostile-help.txt'
+  tags:
+    - bactopia_help
+    - hostile
+  files:
+    - path: hostile-help.txt
+      contains: ['hostile', 'bactopia', 'version', 'dependencies']

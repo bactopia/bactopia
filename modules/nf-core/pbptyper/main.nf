@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'pbptyper')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::pbptyper=1.0.4" 
+conda_tools   = "bioconda::pbptyper=2.0.0" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process PBPTYPER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/pbptyper:1.0.4--hdfd78af_0' :
-        'quay.io/biocontainers/pbptyper:1.0.4--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/pbptyper:2.0.0--hdfd78af_0' :
+        'quay.io/biocontainers/pbptyper:2.0.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -31,11 +31,12 @@ process PBPTYPER {
     pbptyper \\
         $options.args \\
         --prefix $prefix \\
-        --assembly $fasta
+        --input $fasta
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        pbptyper: \$(echo \$(pbptyper --version 2>&1) | sed 's/^.*pbptyper, version //;' )
+        pbptyper: \$(echo \$(pbptyper --version 2>&1) | sed 's/.*pbptyper, version //;s/ .*\$//' )
+        camlhmp: \$(echo \$(pasty --version 2>&1) | sed 's/.*camlhmp, version //;s/ schema.*\$//' )
     END_VERSIONS
     """
 }
