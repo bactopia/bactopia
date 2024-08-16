@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.0.2 bactopia/bactopia "" 2024/??/??
+## v3.1.0 bactopia/bactopia "" 2024/??/??
 
 ### `Added`
 
@@ -15,6 +15,7 @@ description: A full list of Bactopia releases and a description of the changes.
         - Use `teton` or `bactopia --wf teton`
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `defensefinder` - Systematic search of all known anti-phage systems
+    - `sccmec` - SCCmec typing of _Staphylococcus aureus_ genomes
     - `scrubber` - Remove human reads from FASTQ files
         - screen human reads with `kraken2` (_against human pangenome_) or `sra-human-scrubber`
 - full support of config files from nf-core/configs
@@ -24,6 +25,10 @@ description: A full list of Bactopia releases and a description of the changes.
 - `amrfinderplus` by combining results from genes, proteins and gff (coordinates)
 - `--amrfinder_db` and `--mlst_db` to specify custom databases
 - mlst and amrfinder databases can now be either a tarball or directory
+- `pangenome` tool now uses panaroo as the default pangenome tool
+- bump program versions in modules
+    - `pasty`: 1.0.3 -> 2.0.1
+    - `pbptyper`: 1.0.4 -> 2.0.0
 
 ### `Fixed`
 
