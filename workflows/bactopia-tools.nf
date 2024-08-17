@@ -85,6 +85,7 @@ if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflow
 if (params.wf == 'pneumocat') include { PNEUMOCAT } from '../subworkflows/local/pneumocat/main';
 if (params.wf == 'quast') include { QUAST } from '../subworkflows/local/quast/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
+if (params.wf == 'sccmec') include { SCCMEC } from '../subworkflows/local/sccmec/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
@@ -293,6 +294,10 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'rgi') {
         RGI(samples)
         ch_versions = ch_versions.mix(RGI.out.versions)
+    } else if (params.wf == 'sccmec') {
+        SCCMEC(samples)
+        ch_versions = ch_versions.mix(SCCMEC.out.versions)
+    }
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
