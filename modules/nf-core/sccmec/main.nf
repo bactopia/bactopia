@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sccmec')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::sccmec=1.1.0" 
+conda_tools   = "bioconda::sccmec=1.2.0" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process SCCMEC {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sccmec:1.1.0--hdfd78af_0' :
-        'quay.io/biocontainers/sccmec:1.1.0--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/sccmec:1.2.0--hdfd78af_0' :
+        'quay.io/biocontainers/sccmec:1.2.0--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
