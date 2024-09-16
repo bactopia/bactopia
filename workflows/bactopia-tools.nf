@@ -297,7 +297,6 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'sccmec') {
         SCCMEC(samples)
         ch_versions = ch_versions.mix(SCCMEC.out.versions)
-    }
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
