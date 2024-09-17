@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'kleborate')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::kleborate=2.3.2"
+conda_tools   = "bioconda::kleborate=3.0.9"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process KLEBORATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/kleborate:2.3.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/kleborate:2.3.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/kleborate:3.0.9--pyhdfd78af_0' :
+        'quay.io/biocontainers/kleborate:3.0.9--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fastas)

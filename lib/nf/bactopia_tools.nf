@@ -135,13 +135,26 @@ def _collect_inputs(sample, dir, extension) {
 
     base_dir = "${dir}/${sample}/main/"
     se = "${base_dir}/${PATHS['fastq']}/${sample}.fastq.gz"
-    ont = "${base_dir}/${PATHS['fastq']}/.ont"
+    ont = "${base_dir}/${PATHS['fastq']}/${sample}-final_NanoPlot-report.html"
     pe1 = "${base_dir}/${PATHS['fastq']}/${sample}_R1.fastq.gz"
     pe2 = "${base_dir}/${PATHS['fastq']}/${sample}_R2.fastq.gz"
     fna = "${base_dir}/${PATHS['fna']}/${sample}.fna"
     meta = "${base_dir}/${PATHS['meta']}/${sample}-meta.tsv"
 
-    if (extension == 'fastq') {
+    ont = false
+    if (file("${base_dir}/${PATHS['fastq']}/summary/${sample}-final_NanoPlot-report.html").exists()) {
+        // the se read is ONT data
+        ont = true
+    }
+
+    if (extension == "illumina_fastq") {
+        // Prioritize PE reads first
+        if (file(pe1).exists() && file(pe2).exists()) {
+            return tuple([id:sample, single_end:false, runtype:'illumina'], [file(pe1), file(pe2)])
+        } else if (file(se).exists() && !ont) {
+            return tuple([id:sample, single_end:true, runtype:'illumina'], [file(se)])
+        }
+    } else if (extension == 'fastq') {
         if (file(se).exists()) {
             if (file(ont).exists()) {
                 return tuple([id:sample, single_end:true, runtype:'ont'], [file(se)])
@@ -154,7 +167,7 @@ def _collect_inputs(sample, dir, extension) {
     } else if (extension == 'fna_fastq') {
         if (file(se).exists()) {
             runtype = "illumina"
-            if (file(ont).exists()) {
+            if (ont) {
                 runtype = "ont"
             }
 

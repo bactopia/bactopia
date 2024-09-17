@@ -5,8 +5,8 @@ options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::defense-finder=1.2.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
-DF_VERSION     = "1.2.2"
-DF_MODELS_VERSION = "1.2.4"
+DF_VERSION     = "1.3.0"
+DF_MODELS_VERSION = "1.3.0"
 CASFINDER_VERSION = "3.1.0"
 
 process DEFENSEFINDER_RUN {
@@ -15,8 +15,8 @@ process DEFENSEFINDER_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/defense-finder:1.2.2--pyhdfd78af_1' :
-        'quay.io/biocontainers/defense-finder:1.2.2--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/defense-finder:1.3.0--pyhdfd78af_1' :
+        'quay.io/biocontainers/defense-finder:1.3.0--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)

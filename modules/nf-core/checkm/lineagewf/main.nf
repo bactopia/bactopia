@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'checkm')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::checkm-genome=1.2.2"
+conda_tools   = "bioconda::checkm-genome=1.2.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process CHECKM_LINEAGEWF {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.2--pyhdfd78af_1' :
-        'quay.io/biocontainers/checkm-genome:1.2.2--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.3--pyhdfd78af_1' :
+        'quay.io/biocontainers/checkm-genome:1.2.3--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)

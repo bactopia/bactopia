@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/local/bactopia/datasets/params.json",
+    "title": "Datasets Module",
+    "description": "A module downloading datasets to be used by Bactopia",
+    "type": "object",
+    "definitions": {
+        "datasets_parameters": {
+            "title": "Datasets Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/datasets_parameters"
+        }
+    ]
+}

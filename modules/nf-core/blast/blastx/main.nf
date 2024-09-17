@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'blastx')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::blast=2.15.0"
+conda_tools   = "bioconda::blast=2.16.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process BLAST_BLASTX {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/blast:2.15.0--pl5321h6f7f691_1' :
-        'quay.io/biocontainers/blast:2.15.0--pl5321h6f7f691_1' }"
+        'https://depot.galaxyproject.org/singularity/blast:2.16.0--pl5321h6f7f691_1' :
+        'quay.io/biocontainers/blast:2.16.0--pl5321h6f7f691_1' }"
 
     input:
     tuple val(meta), path(blastdb)

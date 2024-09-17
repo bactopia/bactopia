@@ -27,7 +27,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - mlst and amrfinder databases can now be either a tarball or directory
 - `pangenome` tool now uses panaroo as the default pangenome tool
 - bump program versions in modules
-    - `pasty`: 1.0.3 -> 2.0.1
+    - `pasty`: 1.0.3 -> 2.2.0
     - `pbptyper`: 1.0.4 -> 2.0.0
 
 ### `Fixed`
@@ -38,6 +38,8 @@ description: A full list of Bactopia releases and a description of the changes.
 - `pangenome` when Bakta GFF (`*.gff3`) files are provided
 - missing file export in `gubbins`
 - writing to non-default values for `--bactopia`
+- import of ONT reads over illumina reads in certain bactopia tools (e.g. snippy) (_Thanks D2_)
+- bactopia/datasets envs not being build by `bactopia download`
 
 ### `Enhancements to OSS`
 
