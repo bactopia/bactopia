@@ -12,12 +12,6 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "use_panaroo": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use Panaroo instead of PIRATE in the 'pangenome' subworkflow",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
                 "panaroo_mode": {
                     "type": "string",
                     "default": "strict",

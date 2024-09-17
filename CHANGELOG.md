@@ -26,9 +26,25 @@ description: A full list of Bactopia releases and a description of the changes.
 - `--amrfinder_db` and `--mlst_db` to specify custom databases
 - mlst and amrfinder databases can now be either a tarball or directory
 - `pangenome` tool now uses panaroo as the default pangenome tool
+- file with reference name and samples included for `snippy` run
+- `snippy` can now use `--accession` to download a genbank file from NCBI
 - bump program versions in modules
-    - `pasty`: 1.0.3 -> 2.2.0
+    - `abritamr`: 1.0.17 -> 1.0.19
+    - `bakta`: 1.9.3 -> 1.9.4
+    - `blast`: 2.15.0 -> 2.16.0
+    - `busco`: 5.7.0 -> 5.7.1
+    - `checkm`: 1.2.2 -> 1.2.3
+    - `defensefinder`: 1.2.2 -> 1.3.0
+    - `gtdbtk`: 2.3.2 -> 2.4.0
+    - `hicap`: 1.0.3 -> 1.0.4 (@MartinVad)
+    - `kleborate`: 2.3.2 -> 3.0.9
+    - `mobsuite`: 3.1.8 -> 3.1.9
+    - `panaroo`: 1.4.2 -> 1.5.0
+    - `pasty`: 1.0.3 -> 2.2.1
     - `pbptyper`: 1.0.4 -> 2.0.0
+    - `seqsero2`: 1.2.1 -> 1.3.1
+    - `stecfinder`: 1.1.1 -> 1.21.2
+    - `tbprofiler`: 6.1.0 -> 6.3.0
 
 ### `Fixed`
 
@@ -38,8 +54,10 @@ description: A full list of Bactopia releases and a description of the changes.
 - `pangenome` when Bakta GFF (`*.gff3`) files are provided
 - missing file export in `gubbins`
 - writing to non-default values for `--bactopia`
+- `--include` file on cloud storage (@rwilliams)
 - import of ONT reads over illumina reads in certain bactopia tools (e.g. snippy) (_Thanks D2_)
 - bactopia/datasets envs not being build by `bactopia download`
+- `snippy` puts files in subdirectory based on reference name
 
 ### `Enhancements to OSS`
 

@@ -122,7 +122,7 @@ workflow BACTOPIATOOLS {
     ch_versions = Channel.empty()
     ch_local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     ch_local_files = Channel.fromList(collect_local_files(params.containsKey('assembly') ? params.assembly : null , params.containsKey('assembly_pattern') ? params.assembly_pattern : null))
-    
+
     // Include public genomes (optional)
     ch_gather_files = Channel.empty()
     if (params.containsKey('accession')) {
@@ -141,7 +141,9 @@ workflow BACTOPIATOOLS {
             ch_versions = ch_versions.mix(PROKKA.out.versions.first())
             ch_gather_files = PROKKA.out.gff
         } else {
-            ch_gather_files = ch_downloads
+            if (params.mix_downloads) {
+                ch_gather_files = ch_downloads
+            }
         }
     } else {
         ch_gather_files = ch_local_files
@@ -313,7 +315,13 @@ workflow BACTOPIATOOLS {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)
     } else if (params.wf == 'snippy') {
-        SNIPPY(samples)
+        if (params.reference) {
+            // user provided --reference
+            SNIPPY(samples, [[id: 'snippy'], file(params.reference)])
+        } else {
+            // user provided --accession
+            SNIPPY(samples, ch_downloads.first())
+        }
         ch_versions = ch_versions.mix(SNIPPY.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)

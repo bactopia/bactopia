@@ -29,7 +29,7 @@ core_opts.args = [
     "--mask-char ${params.mask_char}",
     params.snippy_core_opts ? "${params.snippy_core_opts}" : "",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-core_opts.publish_to_base = [".full.aln.gz"]
+core_opts.publish_to_base = [".full.aln.gz", ".samples.txt"]
 core_opts.suffix = "core-snp"
 
 include { SNIPPY_RUN as SNIPPY_RUN_MODULE }  from '../../../modules/nf-core/snippy/run/main' addParams( options: snippy_opts )
@@ -41,19 +41,20 @@ include { SNPDISTS } from '../../../modules/nf-core/snpdists/main' addParams( op
 workflow SNIPPY {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    reference // channel: [ val(meta), [ fasta ] ]
 
     main:
     ch_versions = Channel.empty()
 
     // Run Snippy per-sample
-    SNIPPY_RUN_MODULE(reads, file(params.reference))
+    SNIPPY_RUN_MODULE(reads, reference)
     ch_versions = ch_versions.mix(SNIPPY_RUN_MODULE.out.versions.first())
 
     // Identify core SNPs
     SNIPPY_RUN_MODULE.out.vcf.collect{meta, vcf -> vcf}.map{ vcf -> [[id:'snippy-core'], vcf]}.set{ ch_merge_vcf }
     SNIPPY_RUN_MODULE.out.aligned_fa.collect{meta, aligned_fa -> aligned_fa}.map{ aligned_fa -> [[id:'snippy-core'], aligned_fa]}.set{ ch_merge_aligned_fa }
     ch_merge_vcf.join( ch_merge_aligned_fa ).set{ ch_snippy_core }
-    SNIPPY_CORE_MODULE(ch_snippy_core, file(params.reference), MASK)
+    SNIPPY_CORE_MODULE(ch_snippy_core, reference, MASK)
     ch_versions = ch_versions.mix(SNIPPY_CORE_MODULE.out.versions.first())
 
     // Per-sample SNP distances
