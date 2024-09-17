@@ -58,6 +58,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - import of ONT reads over illumina reads in certain bactopia tools (e.g. snippy) (_Thanks D2_)
 - bactopia/datasets envs not being build by `bactopia download`
 - `snippy` puts files in subdirectory based on reference name
+- removed pneumocat from Merlin as it doesn't gracefully fail on negative results
 
 ### `Enhancements to OSS`
 
