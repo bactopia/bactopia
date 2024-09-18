@@ -12,8 +12,8 @@ process ABRITAMR_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/abritamr:1.0.19--pyh5707d69_1' :
-        'quay.io/biocontainers/abritamr:1.0.19--pyh5707d69_1' }"
+        'https://depot.galaxyproject.org/singularity/abritamr:1.0.19--pyhdfd78af_0' :
+        'quay.io/biocontainers/abritamr:1.0.19--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
