@@ -12,8 +12,8 @@ process BLAST_TBLASTN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/blast:2.16.0--pl5321h6f7f691_1' :
-        'quay.io/biocontainers/blast:2.16.0--pl5321h6f7f691_1' }"
+        'https://depot.galaxyproject.org/singularity/blast:2.16.0--hc155240_2' :
+        'quay.io/biocontainers/blast:2.16.0--hc155240_2' }"
 
     input:
     tuple val(meta), path(blastdb)
