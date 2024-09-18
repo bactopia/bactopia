@@ -15,8 +15,8 @@ process DEFENSEFINDER_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/defense-finder:1.3.0--pyhdfd78af_1' :
-        'quay.io/biocontainers/defense-finder:1.3.0--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/defense-finder:1.3.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/defense-finder:1.3.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
