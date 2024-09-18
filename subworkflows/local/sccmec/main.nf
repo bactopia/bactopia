@@ -4,8 +4,10 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'sccmec')
 options.args = [
-    "--min-pident ${params.sccmec_min_pident}",
-    "--min-coverage ${params.sccmec_min_coverage}",
+    "--min-targets-pident ${params.sccmec_min_targets_pident}",
+    "--min-targets-coverage ${params.sccmec_min_targets_coverage}",
+    "--min-regions-pident ${params.sccmec_min_regions_pident}",
+    "--min-regions-coverage ${params.sccmec_min_regions_coverage}",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { SCCMEC as SCCMEC_MODULE } from '../../../modules/nf-core/sccmec/main' addParams( options: options )
@@ -29,6 +31,9 @@ workflow SCCMEC {
     emit:
     tsv = SCCMEC_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    blast = SCCMEC_MODULE.out.blast
+    targets = SCCMEC_MODULE.out.targets
+    target_details = SCCMEC_MODULE.out.target_details
+    regions = SCCMEC_MODULE.out.regions
+    regions_details = SCCMEC_MODULE.out.regions_details
     versions = ch_versions
 }

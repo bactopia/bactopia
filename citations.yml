@@ -886,6 +886,13 @@ tools:
     cite: |
       Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R [The Sequence Alignment/Map format and SAMtools](http://dx.doi.org/10.1093/bioinformatics/btp352). _Bioinformatics_ 25, 2078–2079 (2009)
 
+  sccmec:
+    name: sccmec
+    link: https://github.com/rpetit3/sccmec
+    description: A tool for typing SCCmec cassettes in assemblies.
+    cite: |
+      Petit III RA, Read TD [sccmec: A tool for typing SCCmec cassettes in assemblies](https://github.com/rpetit3/sccmec) (GitHub)
+
   scoary:
     name: Scoary
     link: https://github.com/AdmiralenOla/Scoary

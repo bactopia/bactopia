@@ -20,8 +20,10 @@ process SCCMEC {
 
     output:
     tuple val(meta), path("${prefix}.tsv"), emit: tsv
-    tuple val(meta), path("*.blastn.tsv") , emit: blast
-    tuple val(meta), path("*.details.tsv"), emit: details
+    tuple val(meta), path("*.targets.blastn.tsv") , emit: targets
+    tuple val(meta), path("*.targets.details.tsv"), emit: target_details
+    tuple val(meta), path("*.regions.blastn.tsv") , emit: regions
+    tuple val(meta), path("*.regions.details.tsv"), emit: regions_details
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions

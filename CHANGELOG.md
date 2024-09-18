@@ -28,6 +28,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - `pangenome` tool now uses panaroo as the default pangenome tool
 - file with reference name and samples included for `snippy` run
 - `snippy` can now use `--accession` to download a genbank file from NCBI
+- replaced `staphopiasccmec` with `sccmec` in `staphtyper`
 - bump program versions in modules
     - `abritamr`: 1.0.17 -> 1.0.19
     - `bakta`: 1.9.3 -> 1.9.4

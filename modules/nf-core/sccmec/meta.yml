@@ -39,14 +39,22 @@ output:
       type: file
       description: A tab-delimited file with the predicted PBP type
       pattern: "*.tsv"
-  - blast:
+  - targets:
       type: file
-      description: A tab-delimited file of all blast hits
-      pattern: "*.blastn.tsv"
-  - details:
+      description: A tab-delimited file of all target-specific blast hits
+      pattern: "*.targets.blastn.tsv"
+  - targets_details:
       type: file
-      description: A tab-delimited file with details for each serogroup
-      pattern: "*.details.tsv"
+      description: A tab-delimited file with details for each type based on targets
+      pattern: "*.targets.details.tsv"
+  - regions:
+      type: file
+      description: A tab-delimited file of all full cassette blast hits
+      pattern: "*.regions.blastn.tsv"
+  - regions_details:
+      type: file
+      description: A tab-delimited file with details for each type based on full cassettes
+      pattern: "*.regions.details.tsv"
 
 authors:
   - "@rpetit3"

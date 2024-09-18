@@ -31,10 +31,22 @@ output:
       type: file
       description: A merged TSV of all sccmec result files
       pattern: "sccmec.tsv"
-  - blast:
+  - targets:
       type: file
-      description: A tab-delimited file of all blast hits
-      pattern: "*.tblastn.tsv"
+      description: A tab-delimited file of all target-specific blast hits
+      pattern: "*.targets.blastn.tsv"
+  - targets_details:
+      type: file
+      description: A tab-delimited file with details for each type based on targets
+      pattern: "*.targets.details.tsv"
+  - regions:
+      type: file
+      description: A tab-delimited file of all full cassette blast hits
+      pattern: "*.regions.blastn.tsv"
+  - regions_details:
+      type: file
+      description: A tab-delimited file with details for each type based on full cassettes
+      pattern: "*.regions.details.tsv"
   - versions:
       type: file
       description: File containing software versions
@@ -54,8 +66,10 @@ docs:
       ├── <SAMPLE_NAME>
       │   └── tools
       │       └── sccmec
-      │           ├── <SAMPLE_NAME>.blastn.tsv
-      │           ├── <SAMPLE_NAME>.details.tsv
+              │   ├── <SAMPLE_NAME>.targets.blastn.tsv
+              │   ├── <SAMPLE_NAME>.targets.details.tsv
+              │   ├── <SAMPLE_NAME>.regions.blastn.tsv
+              │   ├── <SAMPLE_NAME>.regions.details.tsv
       │           ├── <SAMPLE_NAME>.tsv
       │           └── logs
       │               ├── nf-sccmec.{begin,err,log,out,run,sh,trace}
@@ -86,12 +100,16 @@ docs:
           Below is a description of the _per-sample_ results from [sccmec](https://github.com/rpetit3/sccmec).
         is_extensions: true
         table:
-          - id: .blastn.tsv
-            description: A tab-delimited file of all blast hits
-          - id: .details.tsv
-            description: A tab-delimited file with details for each serogroup
           - id: .tsv
-            description: A tab-delimited file with the predicted PBP type
+            description: A tab-delimited file with the predicted type
+          - id: .targets.blastn.tsv
+            description: A tab-delimited file of all target-specific blast hits
+          - id: .targets.details.tsv
+            description: A tab-delimited file with details for each type based on targets
+          - id: .regions.blastn.tsv
+            description: A tab-delimited file of all full cassette blast hits
+          - id: .regions.details.tsv
+            description: A tab-delimited file with details for each type based on full cassettes
   citations:
     - csvtk
     - sccmec
