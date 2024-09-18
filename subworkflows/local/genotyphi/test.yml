@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf-merged-results.trace
@@ -33,7 +33,7 @@
     - path: bactopia/test/tools/genotyphi/logs/genotyphi/nf-genotyphi.log
     - path: bactopia/test/tools/genotyphi/logs/genotyphi/nf-genotyphi.out
     - path: bactopia/test/tools/genotyphi/logs/genotyphi/nf-genotyphi.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/genotyphi/logs/genotyphi/nf-genotyphi.sh
       contains: ['parse', 'END_VERSIONS']
     - path: bactopia/test/tools/genotyphi/logs/genotyphi/nf-genotyphi.trace
@@ -48,7 +48,7 @@
       contains: ['mykrobe', 'typhi', 'finished']
     - path: bactopia/test/tools/genotyphi/logs/mykrobe/nf-genotyphi.out
     - path: bactopia/test/tools/genotyphi/logs/mykrobe/nf-genotyphi.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/genotyphi/logs/mykrobe/nf-genotyphi.sh
       contains: ['mykrobe', 'END_VERSIONS']
     - path: bactopia/test/tools/genotyphi/logs/mykrobe/nf-genotyphi.trace

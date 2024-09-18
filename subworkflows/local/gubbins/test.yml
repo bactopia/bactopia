@@ -28,13 +28,13 @@
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.out
       contains: ["RAxML", "Alignment", "Substitution", "final"]
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.sh
       contains: ["run_gubbins.py", "END_VERSIONS"]
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/gubbins/gubbins/logs/versions.yml
-      md5sum: 9ddc482d1d3ed3782ea8fecf9db5306c
+      md5sum: 225305b06090ec9dac2334067308c53d
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-dag.dot
       contains: ['gubbinsdag', 'GUBBINS', 'versions']
     - path: bactopia/bactopia-runs/gubbins/nf-reports/gubbins-report.html

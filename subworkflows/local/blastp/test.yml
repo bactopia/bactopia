@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
@@ -35,13 +35,13 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.log
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.out
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.sh
       contains: ['blastp', 'END_VERSIONS']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: 9f491f4e6eb74583235d93a8602bdc18
+      md5sum: 306da31cb5dbfd3fa73b18efc1388841
 
 - name: blastp-test_gz
   command: bash -c 'nextflow run ./subworkflows/local/blastp/test.nf -entry test_blastp_gz --wf blastp -c nextflow.config ${BACTOPIA_ARGS}'
@@ -57,7 +57,7 @@
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.trace
@@ -80,10 +80,10 @@
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.log
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.out
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.sh
       contains: ['blastp', 'END_VERSIONS']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRX1390622/tools/blastp/logs/versions.yml
-      md5sum: d112a07590e131823d0c9c58d6c5b9d1
+      md5sum: 64f2ab752ea897edf4a40980b1ec6901

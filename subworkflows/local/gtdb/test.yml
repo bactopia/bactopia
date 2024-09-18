@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.trace
@@ -55,7 +55,7 @@
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.log
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.out
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.sh
       contains: ['gtdb', 'END_VERSIONS']
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.trace
@@ -82,7 +82,7 @@
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.trace
@@ -125,7 +125,7 @@
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.log
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.out
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.sh
       contains: ['gtdb', 'END_VERSIONS']
     - path: bactopia/test/tools/gtdb/logs/nf-gtdb.trace

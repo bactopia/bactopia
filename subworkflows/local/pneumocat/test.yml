@@ -15,7 +15,7 @@
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.out
       contains: ['bowtie']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.sh
       md5sum: 5bd69dbe12701c939a222a69b5da6518
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.trace

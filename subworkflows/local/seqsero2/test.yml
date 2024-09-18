@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.trace
@@ -28,7 +28,7 @@
     - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_log.txt
-      md5sum: 67a633ace7d179f8debd89e17de69fe7
+      contains: ['O_scores', 'H_scores', 'Salmonella']
     - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_result.tsv
       contains: ['GCF_016028495', 'Salmonella', 'Typhimurium']
     - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_result.txt
@@ -41,10 +41,10 @@
     - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.out
       contains: ['GCF_016028495', 'Salmonella', 'Typhimurium', 'Note']
     - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.sh
       contains: ['SeqSero2', 'END_VERSIONS']
     - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_016028495/tools/seqsero2/logs/versions.yml
-      md5sum: 946abb502396439bced7ef487946ca2c
+      md5sum: 9cb72302e4cfdf6cf561d734daa97c05

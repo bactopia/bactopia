@@ -25,7 +25,7 @@
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.out
       contains: ['newick', 'Read', 'done']
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.sh
       contains: ['ClonalFrameML', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.trace
@@ -46,7 +46,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.out
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.sh
       contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.trace
@@ -90,7 +90,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.out
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.sh
       contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.trace
@@ -163,7 +163,7 @@
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.out
       contains: ['PIRATE', 'completed']
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.sh
       contains: ['PIRATE', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/nf-pirate.trace
@@ -245,7 +245,7 @@
       contains: ['snp-dists', 'Read']
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.out
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.trace

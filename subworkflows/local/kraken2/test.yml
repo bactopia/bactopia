@@ -26,7 +26,7 @@
       contains: ['Loading', 'classified', 'unclassified']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.out
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.sh
       contains: ['kraken2', 'END_VERSIONS']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.trace
@@ -63,7 +63,7 @@
       contains: ['Loading', 'classified', 'unclassified']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.out
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.sh
       contains: ['kraken2', 'END_VERSIONS']
     - path: bactopia/SRR2838702/tools/kraken2/logs/nf-kraken2.trace

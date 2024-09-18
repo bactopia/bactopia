@@ -11,7 +11,7 @@
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.trace
@@ -45,7 +45,7 @@
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.out
       contains: ["Creating", "Contig", "versions", "QUAST"]
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.sh
       contains: ['quast', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.trace
@@ -85,7 +85,7 @@
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/quast/merged-results/logs/quast-concat/nf-merged-results.trace
@@ -118,7 +118,7 @@
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.out
       contains: ["Creating", "Contig", "versions", "QUAST"]
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.sh
       contains: ['quast', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/quast/logs/nf-quast.trace

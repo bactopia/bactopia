@@ -44,7 +44,7 @@
       contains: ['bwa_index', 'Version', 'Real']
     - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.out
     - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.sh
       contains: ['ismap', 'END_VERSIONS']
     - path: bactopia/SRR2838702/tools/ismapper/ismapper/logs/nf-ismapper.trace

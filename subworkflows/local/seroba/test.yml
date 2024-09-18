@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/seroba/merged-results/logs/seroba-concat/nf-merged-results.trace
@@ -36,7 +36,7 @@
     - path: bactopia/test/tools/seroba/logs/nf-seroba.out
       contains: ["k-mers", "kmc", "results", "low"]
     - path: bactopia/test/tools/seroba/logs/nf-seroba.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/seroba/logs/nf-seroba.sh
       contains: ['seroba', 'END_VERSIONS']
     - path: bactopia/test/tools/seroba/logs/nf-seroba.trace

@@ -29,7 +29,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.out
       contains: ["RAxML", "Alignment", "Substitution", "final"]
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.sh
       contains: ['gubbins', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
@@ -63,7 +63,7 @@
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.out
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.sh
       contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.trace
@@ -92,7 +92,7 @@
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.sh
       contains: ['snippy-core', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.trace
@@ -109,7 +109,7 @@
       contains: ['snp-dists', 'Read']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.out
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.trace
@@ -125,7 +125,7 @@
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.trace
@@ -163,7 +163,7 @@
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.trace
@@ -201,7 +201,7 @@
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.trace
@@ -239,7 +239,7 @@
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.trace
@@ -277,7 +277,7 @@
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.trace
@@ -339,7 +339,7 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.out
       contains: ["RAxML", "Alignment", "Substitution", "final"]
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.sh
       contains: ['gubbins', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
@@ -373,7 +373,7 @@
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.out
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.sh
       contains: ['iqtree', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.trace
@@ -402,7 +402,7 @@
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.sh
       contains: ['snippy-core', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/nf-snippy-core.trace
@@ -419,7 +419,7 @@
       contains: ['snp-dists', 'Read']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.out
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.trace
@@ -435,7 +435,7 @@
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test0/tools/snippy/snippy/logs/nf-snippy.trace
@@ -473,7 +473,7 @@
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test1/tools/snippy/snippy/logs/nf-snippy.trace
@@ -511,7 +511,7 @@
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test2/tools/snippy/snippy/logs/nf-snippy.trace
@@ -549,7 +549,7 @@
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test3/tools/snippy/snippy/logs/nf-snippy.trace
@@ -587,7 +587,7 @@
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.out
       md5sum: fa319889ecf3bef06c44f7c1e989f018
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.sh
       contains: ['snippy', 'END_VERSIONS']
     - path: bactopia/test4/tools/snippy/snippy/logs/nf-snippy.trace

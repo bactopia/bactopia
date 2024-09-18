@@ -36,7 +36,7 @@ process PBPTYPER {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         pbptyper: \$(echo \$(pbptyper --version 2>&1) | sed 's/.*pbptyper, version //;s/ .*\$//' )
-        camlhmp: \$(echo \$(pasty --version 2>&1) | sed 's/.*camlhmp, version //;s/ schema.*\$//' )
+        camlhmp: \$(echo \$(pbptyper --version 2>&1) | sed 's/.*camlhmp, version //;s/ schema.*\$//' )
     END_VERSIONS
     """
 }

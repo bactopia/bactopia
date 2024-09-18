@@ -11,7 +11,7 @@
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.trace
@@ -42,7 +42,7 @@
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/nf-busco.out
       contains: ["Start", "Fragmented", "done"]
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/nf-busco.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/nf-busco.sh
       contains: ['busco', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/nf-busco.trace
@@ -56,7 +56,7 @@
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/prodigal_out.log
       md5sum: 50752acb1c5a20be886bfdfc06635bcb
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/versions.yml
-      md5sum: 79800901f8e3462158093c07bc2aeba9
+      md5sum: ea3ec104c7bfd8754582543dc7536af5
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/.checkpoint
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.faa
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.fna
