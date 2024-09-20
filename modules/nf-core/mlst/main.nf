@@ -46,14 +46,14 @@ process MLST {
         $fasta \\
         > ${prefix}.tsv
 
-    # Cleanup
-    rm -rf database/
-
     if [[ -f "\$MLST_DB/DB_VERSION" ]]; then
         DB_VERSION=\$(cat \$MLST_DB/DB_VERSION)
     else
         DB_VERSION="custom database"
     fi
+
+    # Cleanup
+    rm -rf database/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

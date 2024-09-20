@@ -1,9 +1,8 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { SNIPPY } from './main.nf' addParams(reference: params.test_data['species']['portiera']['genome']['gbk_gz'])
-include { SNIPPY as SNIPPY_MASK } from './main.nf' addParams(reference: params.test_data['species']['portiera']['genome']['gbk_gz'],
-                                                             mask: params.test_data['species']['portiera']['genome']['bed'])
+include { SNIPPY } from './main.nf' addParams()
+include { SNIPPY as SNIPPY_MASK } from './main.nf' addParams(mask: params.test_data['species']['portiera']['genome']['bed'])
 
 workflow test_snippy {
     inputs = Channel.of(
@@ -24,7 +23,7 @@ workflow test_snippy {
           file(params.test_data['species']['shigella_dysenteriae']['illumina']['r2'], checkIfExists: true)]]
     )
 
-    SNIPPY(inputs)
+    SNIPPY(inputs, [['id': 'snippy'], file(params.test_data['species']['portiera']['genome']['gbk_gz'])])
 }
 
 workflow test_snippy_mask {
@@ -46,5 +45,5 @@ workflow test_snippy_mask {
           file(params.test_data['species']['shigella_dysenteriae']['illumina']['r2'], checkIfExists: true)]]
     )
 
-    SNIPPY_MASK(inputs)
+    SNIPPY_MASK(inputs, [['id': 'snippy'], file(params.test_data['species']['portiera']['genome']['gbk_gz'])])
 }

@@ -3,13 +3,6 @@ nextflow.enable.dsl = 2
 
 include { K2SCRUBBER } from './main.nf' 
 
-workflow test_k2scrubber {
-
-    inputs = tuple( )
-
-    K2SCRUBBER ( inputs )
-}
-
 
 include { SCRUBBER } from './main.nf' addParams(scrubber_db: params.test_data['datasets']['scrubber'])
 
@@ -21,7 +14,7 @@ workflow test_scrubber_pe {
          file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
     )
 
-    SCRUBBER ( inputs )
+    K2SCRUBBER ( inputs )
 }
 
 workflow test_scrubber_se {
@@ -31,5 +24,5 @@ workflow test_scrubber_se {
         [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)]
     )
 
-    SCRUBBER ( inputs )
+    K2SCRUBBER ( inputs )
 }

@@ -76,6 +76,5 @@ workflow MERLINDIST {
     staphylococcus = MERLINDIST_MODULE.out.staphylococcus
     streptococcus  = MERLINDIST_MODULE.out.streptococcus
     streptococcus_fq = MERLINDIST_MODULE.out.streptococcus_fq
-    streptococcus_fq_cat = MERLINDIST_MODULE.out.streptococcus_fq_cat
     versions = ch_versions // channel: [ versions.yml ]
 }

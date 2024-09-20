@@ -53,6 +53,6 @@ docs:
           |-----------------------|-------------|
           |  |  |
   citations:
+    - bracken
     - kraken2
-    - midas
     - srahumanscrubber

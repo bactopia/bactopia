@@ -38,7 +38,7 @@ process PIRATE {
     # https://github.com/SionBayliss/PIRATE/blob/master/scripts/run_PIRATE.pl#L153
     # note for later: "xargs -r" will not run if no files are found
     find gff/ -name "*.gff3.gz" | xargs -r gunzip
-    for file in gff/*.gff3; do mv "\$file" "\${file%.gff3}.gff"; done
+    find gff/ -name "*.gff3" -print0 | while read -d \$'\0' file; do mv "\$file" "\${file%.gff3}.gff"; done
 
     PIRATE \\
         $options.args \\

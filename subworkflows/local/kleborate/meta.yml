@@ -57,7 +57,7 @@ docs:
       ├── <SAMPLE_NAME>
       │   └── tools
       │       └── kleborate
-      │           ├── <SAMPLE_NAME>.results.txt
+      │           ├── <SAMPLE_NAME>.txt
       │           └── logs
       │               ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
@@ -86,7 +86,7 @@ docs:
         description: |
           Below is a description of the _per-sample_ results from [Kleborate](https://github.com/katholt/Kleborate).
         table: 
-          - id: <SAMPLE_NAME>.results.txt
+          - id: <SAMPLE_NAME>.txt
             description: A tab-delimited file with `Kleborate` result, see  [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details.
   citations:
     - csvtk

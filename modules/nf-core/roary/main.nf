@@ -38,7 +38,7 @@ process ROARY {
     # https://github.com/sanger-pathogens/Roary/blob/master/lib/Bio/Roary/PrepareInputFiles.pm#L82
     # note for later: "xargs -r" will not run if no files are found
     find gff/ -name "*.gff3.gz" | xargs -r gunzip
-    for file in gff/*.gff3; do mv "\$file" "\${file%.gff3}.gff"; done
+    find gff/ -name "*.gff3" -print0 | while read -d \$'\0' file; do mv "\$file" "\${file%.gff3}.gff"; done
 
     roary \\
         $options.args \\

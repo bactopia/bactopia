@@ -61,21 +61,29 @@
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/spatyper/logs/versions.yml
       md5sum: 85b827cfeaa814eebb2519bfbbffc090
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/GCF_000017085.tsv
-      md5sum: 718ce0a77a9edd79c639b2c8e61aded9
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.begin
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.regions.blastn.tsv
+      md5sum: ca426de41052a9f0bdcfb538610e5aa6
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.regions.details.tsv
+      md5sum: 61aed78e4c7aa5cf5aabda523783cb7f
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.targets.blastn.tsv
+      md5sum: 5cd7054ed50c7d360feac0e51db54ac6
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.targets.details.tsv
+      md5sum: 8938065005a5f984229c09cd4d9f91e2
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.tsv
+      md5sum: b686b469533a84eba91fa18b36900328
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.err
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.log
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.out
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.run
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.err
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.log
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.out
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.sh
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.sh
       contains: ['sccmec', 'END_VERSIONS']
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/nf-staphopiasccmec.trace
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.trace
       contains: ['nextflow.trace']
-    - path: bactopia/GCF_000017085/tools/staphopiasccmec/logs/versions.yml
-      md5sum: 46ea307e20d99b14cf6055ccc71aa7af
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/versions.yml
+      md5sum: 8920b27e94152125ef5dd2ffdf000bc2
     - path: bactopia/bactopia-runs/merlin/merged-results/agrvate.tsv
       contains: ['agr_group', 'GCF_000017085']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/agrvate-concat/nf-merged-results.begin
@@ -104,23 +112,23 @@
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/spatyper-concat/versions.yml
       contains: ['csvtk']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.err
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.log
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.out
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/versions.yml
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/versions.yml
       contains: ['csvtk']
     - path: bactopia/bactopia-runs/merlin/merged-results/spatyper.tsv
       md5sum: 6afe7a90c591e32107d86c0e81029f54
-    - path: bactopia/bactopia-runs/merlin/merged-results/staphopiasccmec.tsv
-      md5sum: 09c32087d2d3c4613926c1762b21e5ec
+    - path: bactopia/bactopia-runs/merlin/merged-results/sccmec.tsv
+      md5sum: a99db81bca70a5c9d19a126ff4bd6bff
     - path: bactopia/bactopia-runs/merlin/nf-reports/merlin-dag.dot
       contains: ['merlindag', 'MERLIN', 'versions']
     - path: bactopia/bactopia-runs/merlin/nf-reports/merlin-report.html
@@ -519,20 +527,28 @@
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/ssuissero/logs/versions.yml
       md5sum: 611e2f52c019e0b5d57b3f5951df11e4
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/GCF_000292685.tsv
-      md5sum: ee71fcf51b6834659300b63edb3046c0
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.begin
+    - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.regions.blastn.tsv
+      md5sum: ca426de41052a9f0bdcfb538610e5aa6
+    - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.regions.details.tsv
+      md5sum: d8568654b8455ddebf37283918805b46
+    - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.targets.blastn.tsv
+      md5sum: 5cd7054ed50c7d360feac0e51db54ac6
+    - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.targets.details.tsv
+      md5sum: 8938065005a5f984229c09cd4d9f91e2
+    - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.tsv
+      md5sum: da49131b3619e12fac7c1efef5e109d0
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.err
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.log
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.out
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.run
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.err
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.log
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.out
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.sh
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.sh
       contains: ['sccmec', 'END_VERSIONS']
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/nf-staphopiasccmec.trace
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.trace
       contains: ['nextflow.trace']
-    - path: bactopia/GCF_000292685/tools/staphopiasccmec/logs/versions.yml
+    - path: bactopia/GCF_000292685/tools/sccmec/logs/versions.yml
       md5sum: c4a93a87d2c8563872be442a236ed10d
     - path: bactopia/GCF_000292685/tools/stecfinder/GCF_000292685.tsv
       md5sum: d301a1d94e4171fa59506a5089a67d4c
@@ -836,18 +852,18 @@
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/ssuissero-concat/versions.yml
       contains: ['csvtk']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.err
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.log
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.out
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.run
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/nf-merged-results.trace
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/merlin/merged-results/logs/staphopiasccmec-concat/versions.yml
+    - path: bactopia/bactopia-runs/merlin/merged-results/logs/sccmec-concat/versions.yml
       contains: ['csvtk']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/stecfinder-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -884,7 +900,7 @@
       md5sum: a698352823875171696e5e7ed7015c13
     - path: bactopia/bactopia-runs/merlin/merged-results/ssuissero.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
-    - path: bactopia/bactopia-runs/merlin/merged-results/staphopiasccmec.tsv
+    - path: bactopia/bactopia-runs/merlin/merged-results/sccmec.tsv
       md5sum: 485229890cdcfc5876e8c735cf1ed273
     - path: bactopia/bactopia-runs/merlin/merged-results/stecfinder.tsv
       md5sum: d301a1d94e4171fa59506a5089a67d4c

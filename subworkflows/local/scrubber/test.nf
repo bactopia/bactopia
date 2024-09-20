@@ -23,3 +23,24 @@ workflow test_scrubber_se {
 
     SCRUBBER ( inputs )
 }
+
+workflow test_srascrubber_pe {
+
+    inputs = tuple(
+        [ id:"SRR2838702", single_end:false ],
+        [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)]
+    )
+
+    SCRUBBER ( inputs )
+}
+
+workflow test_srascrubber_se {
+
+    inputs = tuple(
+        [ id:"SRR2838702", single_end:true ],
+        [file(params.test_data['species']['portiera']['illumina']['se'], checkIfExists: true)]
+    )
+
+    SCRUBBER ( inputs )
+}

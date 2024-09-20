@@ -1,8 +1,0 @@
-- name: srahumanscrubber-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf srahumanscrubber -c nextflow.config --help > srahumanscrubber-help.txt'
-  tags:
-    - bactopia_help
-    - srahumanscrubber
-  files:
-    - path: srahumanscrubber-help.txt
-      contains: ['srahumanscrubber', 'bactopia', 'version', 'dependencies']

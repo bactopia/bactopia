@@ -38,7 +38,7 @@ process SCCMEC {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        sccmec: \$(echo \$(sccmec --version 2>&1) | sed 's/.*sccmec, version //;s/ .*\$//' )
+        sccmec: \$(echo \$(sccmec --version 2>&1) | sed 's/.*sccmec_regions, version //;s/ .*\$//' )
         camlhmp: \$(echo \$(sccmec --version 2>&1) | sed 's/.*camlhmp, version //;s/ schema.*\$//' )
     END_VERSIONS
     """

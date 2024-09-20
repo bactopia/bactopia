@@ -27,7 +27,7 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: bactopia/bactopia-runs/kleborate/nf-reports/kleborate-trace.txt
       contains: ['task_id']
-    - path: bactopia/GCF_000009885/tools/kleborate/GCF_000009885.results.txt
+    - path: bactopia/GCF_000009885/tools/kleborate/GCF_000009885.txt
       contains: ['strain', 'GCF_000009885']
     - path: bactopia/GCF_000009885/tools/kleborate/logs/nf-kleborate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
@@ -43,4 +43,4 @@
     - path: bactopia/GCF_000009885/tools/kleborate/logs/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000009885/tools/kleborate/logs/versions.yml
-      md5sum: 041d3867387e9cdb927b06ed8c93b25b
+      md5sum: dc32484c104e1d16574463ebdc65c62e

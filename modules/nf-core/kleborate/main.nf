@@ -27,10 +27,14 @@ process KLEBORATE {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
+    mkdir results/
     kleborate \\
         $options.args \\
-        --outfile ${prefix}.results.txt \\
+        --outdir results/ \\
         --assemblies $fastas
+
+    # Rename output file to include the prefix name
+    find results/ -name "*output.txt" -print0 | while read -d \$'\0' file; do mv "\$file" "${prefix}.txt"; done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,5 +1,5 @@
 - name: ncbigenomedownload-test
-  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload --max_time 1 --format fasta --accession GCF_000292685.1 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload --max_time 1 --format fasta --accession "GCF_000292685.1" -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - ncbigenomedownload
     - bactopia-tools

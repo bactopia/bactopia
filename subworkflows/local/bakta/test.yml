@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bakta
+    - bakta-nontarball
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-dag.dot

@@ -29,7 +29,7 @@
     - path: bactopia/SRR2838702/tools/scrubber/logs/nf-scrubber.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/scrubber/logs/versions.yml
-      md5sum: 9223d0f9690923042b457b010e88d45c
+      md5sum: 9bc739e3974b0008de9060d7661f47ad
 
 - name: k2scrubber-test-se
   command: bash -c 'nextflow run ./subworkflows/local/scrubber/test.nf -entry test_scrubber_se --wf scrubber -c nextflow.config ${BACTOPIA_ARGS}'
@@ -61,4 +61,4 @@
     - path: bactopia/SRR2838702/tools/scrubber/logs/nf-scrubber.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/scrubber/logs/versions.yml
-      md5sum: 2feea5bb3fda5f9fe18d461b430ac276
+      md5sum: 68dc1872b55979fb5bf43a29db18db02

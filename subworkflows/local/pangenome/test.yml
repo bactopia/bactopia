@@ -1,7 +1,323 @@
-- name: pangenome-test
-  command: bash -c 'nextflow run ./subworkflows/local/pangenome/test.nf -entry test_pangenome --wf pangenome -c nextflow.config ${BACTOPIA_ARGS}'
+- name: pangenome-test-panaroo
+  command: bash -c 'nextflow run ./subworkflows/local/pangenome/test.nf -entry test_pangenome_panaroo --wf pangenome -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - pangenome
+    - pangenome_panaroo
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.ML_sequence.fasta
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.em.txt
+      contains: ['theta']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.emsim.txt
+      contains: ['theta']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.importation_status.txt
+      contains: ['GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.labelled_tree.newick
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.position_cross_reference.txt
+      contains: ['0']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.err
+      contains: ['Parsing', 'Writing', 'Done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.log
+      contains: ['newick', 'Reading', 'Done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.out
+      contains: ['newick', 'Read', 'done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.sh
+      contains: ['ClonalFrameML', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/versions.yml
+      md5sum: c62ad2727617a431ff5546061fa9aa2e
+    - path: bactopia/bactopia-runs/pangenome/core-genome.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/core-genome.distance.tsv
+    - path: bactopia/bactopia-runs/pangenome/core-genome.iqtree
+      contains: ['REFERENCES', 'GCF_000292685', 'Total']
+    - path: bactopia/bactopia-runs/pangenome/core-genome.masked.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/core_gene_alignment.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.err
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.out
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/start-tree.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/versions.yml
+      md5sum: 4ff4a0654bde8bd95f832910deaf77f8
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.bionj
+      contains: ['GCF_000292685']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.ckp.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.iqtree
+      contains: ['REFERENCES', 'GCF_000292685', 'Total']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.mldist
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.model.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.treefile
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.alninfo
+      contains: ['Alignment', 'Uninformative']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.bionj
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.ckp.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.contree
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.mldist
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.splits.nex
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.treefile
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/core-genome.ufboot
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/core-genome.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.err
+      md5sum: 5c8b25156b4a548a956e2d982a598dcb
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.log
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.out
+      contains: ['IQ-TREE', 'Ultrafast', 'Date']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/iqtree/logs/versions.yml
+      md5sum: 18254bbe93625bea3c264b82223fef44
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-dag.dot
+      contains: ['pangenomedag', 'shape', 'digraph']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-runs/pangenome/panaroo/aligned_gene_sequences/aceE.aln.fas.gz
+    - path: bactopia/bactopia-runs/pangenome/panaroo/aligned_gene_sequences/aceF.aln.fas.gz
+    - path: bactopia/bactopia-runs/pangenome/panaroo/aligned_gene_sequences/ybeY.aln.fas.gz
+    - path: bactopia/bactopia-runs/pangenome/panaroo/aligned_gene_sequences/zwf.aln.fas.gz
+    - path: bactopia/bactopia-runs/pangenome/panaroo/alignment_entropy.csv
+      contains: ["aln", "0", "group"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/combined_DNA_CDS.fasta
+      md5sum: 2f5664e694d498225b52248fa4b24b6a
+    - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_CDS.fasta
+      md5sum: 211369f6fadc0ca496e1e995bf79f4e8
+    - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt
+      md5sum: 23ff423c379afccd9cedd6d1037e5489
+    - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt.clstr
+      md5sum: 5dd1f7714e4149af1063059d70409a60
+    - path: bactopia/bactopia-runs/pangenome/panaroo/core_alignment_filtered_header.embl
+      contains: ["Genome", "feature", "Sequence"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/core_alignment_header.embl
+      contains: ["Genome", "feature", "Sequence"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/core_gene_alignment_filtered.aln
+    - path: bactopia/bactopia-runs/pangenome/panaroo/final_graph.gml
+      contains: ["lengths", "graph", "node"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/gene_data.csv
+      md5sum: ff1a9a6f3fdc3874042643e3d916e8b7
+    - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence.Rtab
+      md5sum: 02719e2300ee7da9ecf09c65112b26c3
+    - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence.csv
+      contains: ["rpoC_2", "Gene", "capB"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence_roary.csv
+      contains: ["rpoC_2", "Gene", "capB", "Accessory"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.err
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.log
+      contains: ["gff3", "completed", "Processing", "core"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.out
+      contains: ["gff3", "completed", "Processing", "core"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.sh
+      md5sum: a5eccf8cec02cceb6b95604c7a4f3178
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/nf-panaroo.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/panaroo/logs/versions.yml
+      md5sum: a17c45a1b49d4c63950ed335b1b6327a
+    - path: bactopia/bactopia-runs/pangenome/panaroo/pan_genome_reference.fa
+      contains: ["dnaK", "nuoN", "glyQ"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/pre_filt_graph.gml
+      contains: ["lengths", "graph", "node"]
+    - path: bactopia/bactopia-runs/pangenome/panaroo/struct_presence_absence.Rtab
+      md5sum: 036f7a52ef1bf7e6aa5ffa71bf9a71cb
+    - path: bactopia/bactopia-runs/pangenome/panaroo/summary_statistics.txt
+      md5sum: 13aed452f6edd445b65d9bf0cfd75ff7
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.err
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.log
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.out
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.sh
+      contains: ['snp-dists', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/versions.yml
+      md5sum: 8a7b6b2e2b37f62dffc394a73882989d
+
+- name: pangenome-test-roary
+  command: bash -c 'nextflow run ./subworkflows/local/pangenome/test.nf -entry test_pangenome_roary --wf pangenome --use_roary -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - pangenome
+    - pangenome_roary
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.ML_sequence.fasta
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.em.txt
+      contains: ['theta']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.emsim.txt
+      contains: ['theta']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.importation_status.txt
+      contains: ['GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.labelled_tree.newick
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.position_cross_reference.txt
+      contains: ['0']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.err
+      contains: ['Parsing', 'Writing', 'Done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.log
+      contains: ['newick', 'Reading', 'Done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.out
+      contains: ['newick', 'Read', 'done']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.sh
+      contains: ['ClonalFrameML', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/versions.yml
+      md5sum: 945c71114aa5fb80aa46d63e4d694930
+    - path: bactopia/bactopia-runs/pangenome/core-genome.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/core-genome.distance.tsv
+      md5sum: cd50eba22a2a6e1fff3238c415f3ccb2
+    - path: bactopia/bactopia-runs/pangenome/core-genome.masked.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/core_gene_alignment.aln.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.err
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.out
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/nf-iqtree-fast.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/start-tree.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/versions.yml
+      md5sum: 62fbf13bd6f4e4010f9471dc93673ee8
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.bionj
+      contains: ['GCF_000292685']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.ckp.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.iqtree
+      contains: ['REFERENCES', 'GCF_000292685', 'Total']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.mldist
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.model.gz
+    - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.treefile
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-dag.dot
+      contains: ['pangenomedag', 'shape', 'digraph']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-trace.txt
+      contains: ['task_id']
+    - path: bactopia/bactopia-runs/pangenome/roary/accessory.header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia/bactopia-runs/pangenome/roary/accessory.tab
+      contains: ['FT']
+    - path: bactopia/bactopia-runs/pangenome/roary/accessory_binary_genes.fa.gz
+    - path: bactopia/bactopia-runs/pangenome/roary/accessory_binary_genes.fa.newick
+      contains: ['GCF_00029838', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/pangenome/roary/accessory_graph.dot
+      contains: ['/* list of nodes */']
+    - path: bactopia/bactopia-runs/pangenome/roary/blast_identity_frequency.Rtab
+      md5sum: 1ee1bcf6b987bedbc694c6555b3d6e02
+    - path: bactopia/bactopia-runs/pangenome/roary/clustered_proteins
+      contains: ['JKHLNHAL_00087']
+    - path: bactopia/bactopia-runs/pangenome/roary/core_accessory.header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia/bactopia-runs/pangenome/roary/core_accessory.tab
+      contains: ['FT                   /taxa="GCF_000292685 GCF_000298385 GCF_002849995"']
+    - path: bactopia/bactopia-runs/pangenome/roary/core_accessory_graph.dot
+      contains: ['/* list of nodes */']
+    - path: bactopia/bactopia-runs/pangenome/roary/core_alignment_header.embl
+      contains: ['ID   Genome standard; DNA; PRO; 1234 BP.']
+    - path: bactopia/bactopia-runs/pangenome/roary/gene_presence_absence.Rtab
+    - path: bactopia/bactopia-runs/pangenome/roary/gene_presence_absence.csv
+      contains: ['"Gene","Non-unique Gene name","Annotation","No. isolates","No. sequences"']
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.err
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.log
+      contains: ['cite', 'Roary']
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.out
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.sh
+      contains: ['roary', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/nf-roary.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/roary/logs/versions.yml
+      md5sum: 9f87e05530daed0f1303127a37646da9
+    - path: bactopia/bactopia-runs/pangenome/roary/number_of_conserved_genes.Rtab
+      contains: ['2']
+    - path: bactopia/bactopia-runs/pangenome/roary/number_of_genes_in_pan_genome.Rtab
+      contains: ['2']
+    - path: bactopia/bactopia-runs/pangenome/roary/number_of_new_genes.Rtab
+      contains: ['2']
+    - path: bactopia/bactopia-runs/pangenome/roary/number_of_unique_genes.Rtab
+      contains: ['2']
+    - path: bactopia/bactopia-runs/pangenome/roary/pan_genome_reference.fa.gz
+    - path: bactopia/bactopia-runs/pangenome/roary/summary_statistics.txt
+      md5sum: c8e3a5956c4ccf71ae54e1775ca023b0
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.err
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.log
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.out
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.sh
+      contains: ['snp-dists', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pangenome/snpdists/logs/versions.yml
+      md5sum: b414258f290c95fdfdc82d1557dc9a9e
+
+- name: pangenome-test-pirate
+  command: bash -c 'nextflow run ./subworkflows/local/pangenome/test.nf -entry test_pangenome_pirate --wf pangenome --use_pirate -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - pangenome
+    - pangenome_pirate
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/core-genome.ML_sequence.fasta

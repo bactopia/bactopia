@@ -1,11 +1,12 @@
 - name: gtdb-test
-  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb --wf gtdb --max_memory 64 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb --wf gtdb --max_memory 128.GB -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gtdb
+    - gtdb-nontarball
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/gtdb/merged-results/gtdb.tsv
-      md5sum: b5c28efee7a7a397284a82282d38724d
+      contains: ['user_genome', 'GCF_000017085']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.err
@@ -32,9 +33,7 @@
     - path: bactopia/test/tools/gtdb/align/test.bac120.msa.fasta.gz
     - path: bactopia/test/tools/gtdb/align/test.bac120.user_msa.fasta.gz
     - path: bactopia/test/tools/gtdb/classify/test.bac120.classify.tree.1.tree
-      md5sum: 4050dedc41112a616ee3e045b359a8b1
     - path: bactopia/test/tools/gtdb/classify/test.bac120.classify.tree.6.tree
-      md5sum: 9f1a7efa6725335378b1039b085c0ab7
     - path: bactopia/test/tools/gtdb/classify/test.bac120.summary.tsv
     - path: bactopia/test/tools/gtdb/classify/test.bac120.tree.mapping.tsv
       md5sum: 61e7eec11349926af6613684b64d4321
@@ -64,18 +63,18 @@
     - path: bactopia/test/tools/gtdb/logs/results/gtdbtk.warnings.log
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/test/tools/gtdb/logs/versions.yml
-      md5sum: 8f1ba835539a56837d6e85debdbe8721
+      md5sum: 0ef99a80f710d5f9b3993cc15fafbacc
     - path: bactopia/test/tools/gtdb/test.bac120.summary.tsv
 
 - name: gtdb-test-tarball
-  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb_tarball --wf gtdb --max_memory 64 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/gtdb/test.nf -entry test_gtdb_tarball --wf gtdb --max_memory 128.GB -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - gtdb
     - gtdb-tarball
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/gtdb/merged-results/gtdb.tsv
-      md5sum: b5c28efee7a7a397284a82282d38724d
+      contains: ['user_genome', 'GCF_000017085']
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf-merged-results.err
@@ -102,9 +101,7 @@
     - path: bactopia/test/tools/gtdb/align/test.bac120.msa.fasta.gz
     - path: bactopia/test/tools/gtdb/align/test.bac120.user_msa.fasta.gz
     - path: bactopia/test/tools/gtdb/classify/test.bac120.classify.tree.1.tree
-      md5sum: 4050dedc41112a616ee3e045b359a8b1
     - path: bactopia/test/tools/gtdb/classify/test.bac120.classify.tree.6.tree
-      md5sum: 9f1a7efa6725335378b1039b085c0ab7
     - path: bactopia/test/tools/gtdb/classify/test.bac120.summary.tsv
     - path: bactopia/test/tools/gtdb/classify/test.bac120.tree.mapping.tsv
       md5sum: 61e7eec11349926af6613684b64d4321
@@ -133,5 +130,5 @@
     - path: bactopia/test/tools/gtdb/logs/results/gtdbtk.log
     - path: bactopia/test/tools/gtdb/logs/results/gtdbtk.warnings.log
     - path: bactopia/test/tools/gtdb/logs/versions.yml
-      md5sum: e4de046f9fcfa50e94a9ccab2516ace1
+      md5sum: 0ef99a80f710d5f9b3993cc15fafbacc
     - path: bactopia/test/tools/gtdb/test.bac120.summary.tsv

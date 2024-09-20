@@ -12,67 +12,23 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "skip_resistance": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Turn off resistance genes screening",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "skip_kaptive": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Turn off Kaptive screening of K and O loci",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "min_identity": {
-                    "type": "number",
-                    "description": "Minimum alignment percent identity for main results",
-                    "default": 90.0,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "kleborate_min_coverage": {
-                    "type": "number",
-                    "description": "Minimum alignment percent coverage for main results",
-                    "default": 80.0,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_spurious_identity": {
-                    "type": "number",
-                    "description": "Minimum alignment percent identity for spurious results",
-                    "default": 80.0,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_spurious_coverage": {
-                    "type": "number",
-                    "description": "Minimum alignment percent coverage for spurious results",
-                    "default": 40.0,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_kaptive_confidence": {
+                "kleborate_preset": {
                     "type": "string",
-                    "default": "Good",
-                    "description": "Minimum Kaptive confidence to call K/O loci - confidence levels below this will be reported as unknown",
+                    "default": "kpsc",
+                    "description": "Preset module to use for Kleborate",
                     "fa_icon": "fas fa-boxes",
-                    "hidden": true,
+                    "hidden": false,
                     "enum": [
-                        "None",
-                        "Low",
-                        "Good",
-                        "High",
-                        "Very_high",
-                        "Perfect"
+                        "kpsc",
+                        "kosc",
+                        "escherichia"
                     ]
                 },
-                "force_index": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Rebuild the BLAST index at the start of execution",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                "kleborate_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for Kleborate",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         }
