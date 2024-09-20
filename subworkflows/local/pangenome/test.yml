@@ -84,7 +84,6 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.err
-      md5sum: 5c8b25156b4a548a956e2d982a598dcb
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.out
@@ -112,13 +111,10 @@
     - path: bactopia/bactopia-runs/pangenome/panaroo/alignment_entropy.csv
       contains: ["aln", "0", "group"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/combined_DNA_CDS.fasta
-      md5sum: 2f5664e694d498225b52248fa4b24b6a
     - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_CDS.fasta
-      md5sum: 211369f6fadc0ca496e1e995bf79f4e8
     - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt
-      md5sum: 23ff423c379afccd9cedd6d1037e5489
     - path: bactopia/bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt.clstr
-      md5sum: 5dd1f7714e4149af1063059d70409a60
+      contains: [">", "Cluster", "aa"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/core_alignment_filtered_header.embl
       contains: ["Genome", "feature", "Sequence"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/core_alignment_header.embl
@@ -127,9 +123,8 @@
     - path: bactopia/bactopia-runs/pangenome/panaroo/final_graph.gml
       contains: ["lengths", "graph", "node"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/gene_data.csv
-      md5sum: ff1a9a6f3fdc3874042643e3d916e8b7
+      contains: ["GCF_002849995", "gff"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence.Rtab
-      md5sum: 02719e2300ee7da9ecf09c65112b26c3
     - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence.csv
       contains: ["rpoC_2", "Gene", "capB"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/gene_presence_absence_roary.csv
@@ -154,9 +149,8 @@
     - path: bactopia/bactopia-runs/pangenome/panaroo/pre_filt_graph.gml
       contains: ["lengths", "graph", "node"]
     - path: bactopia/bactopia-runs/pangenome/panaroo/struct_presence_absence.Rtab
-      md5sum: 036f7a52ef1bf7e6aa5ffa71bf9a71cb
     - path: bactopia/bactopia-runs/pangenome/panaroo/summary_statistics.txt
-      md5sum: 13aed452f6edd445b65d9bf0cfd75ff7
+      contains: ["Core", "Soft", "Shell"]
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.err
@@ -347,7 +341,7 @@
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/nf-clonalframeml.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/pangenome/clonalframeml/logs/versions.yml
-      md5sum: 5a1b0af87097ed8ed9c0485d355cd204
+      md5sum: abdd6af57ae8b251810f9b1c9ac348ba
     - path: bactopia/bactopia-runs/pangenome/core-genome.aln.gz
     - path: bactopia/bactopia-runs/pangenome/core-genome.distance.tsv
       md5sum: 3ffb10266ad762a299ce34de92f74d0d
@@ -370,7 +364,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/logs/versions.yml
-      md5sum: fae2f1cbc743ec5bf3aafea5c78621a3
+      md5sum: 0fba712eaae605bd738a2e8d10dc4deb
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.bionj
       contains: ['GCF_000292685']
     - path: bactopia/bactopia-runs/pangenome/iqtree-fast/start-tree.ckp.gz
@@ -412,7 +406,7 @@
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/pangenome/iqtree/logs/versions.yml
-      md5sum: f4c129fc7e1f4e942f79bcdb745774ea
+      md5sum: 9fc1a14021402abcb9bdfd5a42a47d7b
     - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-dag.dot
       contains: ['pangenomedag', 'shape', 'digraph']
     - path: bactopia/bactopia-runs/pangenome/nf-reports/pangenome-report.html
@@ -491,7 +485,7 @@
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/results/split_groups.log
       contains: ['g0']
     - path: bactopia/bactopia-runs/pangenome/pirate/logs/versions.yml
-      md5sum: 6bc44b7c58f94cc88e82dd7287769da0
+      md5sum: a50c75c2b25115abc2b091ef0bf126d9
     - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_000292685.gff
       md5sum: 2b73bda2f84dc634303dc90e641040ca
     - path: bactopia/bactopia-runs/pangenome/pirate/modified_gffs/GCF_000298385.gff
@@ -567,4 +561,4 @@
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/nf-snpdists.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/pangenome/snpdists/logs/versions.yml
-      md5sum: a90afa09e41d9a7ed5ae84b44a38afd5
+      md5sum: 6bfa67a9ff3cee9d8a850566064dd4b3

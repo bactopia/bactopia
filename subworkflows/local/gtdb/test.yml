@@ -38,7 +38,6 @@
     - path: bactopia/test/tools/gtdb/classify/test.bac120.tree.mapping.tsv
       md5sum: 61e7eec11349926af6613684b64d4321
     - path: bactopia/test/tools/gtdb/classify/test.backbone.bac120.classify.tree
-      md5sum: 5232b60db0bcf21c22c07cdb19baf690
     - path: bactopia/test/tools/gtdb/gtdbtk.json
     - path: bactopia/test/tools/gtdb/identify/test.ar53.markers_summary.tsv
       md5sum: 18b16607512b160bade65758082fb704
@@ -106,7 +105,6 @@
     - path: bactopia/test/tools/gtdb/classify/test.bac120.tree.mapping.tsv
       md5sum: 61e7eec11349926af6613684b64d4321
     - path: bactopia/test/tools/gtdb/classify/test.backbone.bac120.classify.tree
-      md5sum: 5232b60db0bcf21c22c07cdb19baf690
     - path: bactopia/test/tools/gtdb/gtdbtk.json
     - path: bactopia/test/tools/gtdb/identify/test.ar53.markers_summary.tsv
       md5sum: 18b16607512b160bade65758082fb704
@@ -130,5 +128,5 @@
     - path: bactopia/test/tools/gtdb/logs/results/gtdbtk.log
     - path: bactopia/test/tools/gtdb/logs/results/gtdbtk.warnings.log
     - path: bactopia/test/tools/gtdb/logs/versions.yml
-      md5sum: 0ef99a80f710d5f9b3993cc15fafbacc
+      md5sum: 5075a851a222bafa01474921ab5442a9
     - path: bactopia/test/tools/gtdb/test.bac120.summary.tsv

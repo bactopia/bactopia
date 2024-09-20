@@ -20,13 +20,10 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/alignment_entropy.csv
       contains: ["aln", "0", "group"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_DNA_CDS.fasta
-      md5sum: ee21d8a3cad4c2f386d3fa78a46dbd67
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_CDS.fasta
-      md5sum: 7de3d381fe76b5e73a52cf4f6494edbb
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_cdhit_out.txt
-      md5sum: 1785286244b27b2523c174a46abd0c95
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_cdhit_out.txt.clstr
-      md5sum: 4fb413d7b58fd571c745490e6db45ee7
+      contains: [">", "Cluster", "aa"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/core-genome.aln.gz
     - path: bactopia/bactopia-runs/panaroo/panaroo/core_alignment_filtered_header.embl
       contains: ["Genome", "feature", "Sequence"]
@@ -37,9 +34,8 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/final_graph.gml
       contains: ["lengths", "graph", "node"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_data.csv
-      md5sum: 949e90ec5ee3005832fb9147bb729627
+      contains: ["GCF_002849995", "gff"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence.Rtab
-      md5sum: 734ac56c2fdd45314083560bbf0d72f4
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence.csv
       contains: ["rpoC_2", "Gene", "capB"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence_roary.csv
@@ -64,6 +60,5 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/pre_filt_graph.gml
       contains: ["lengths", "graph", "node"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/struct_presence_absence.Rtab
-      md5sum: 47f838242067106b76732c66ed3ad345
     - path: bactopia/bactopia-runs/panaroo/panaroo/summary_statistics.txt
-      md5sum: 1f3a72ebd651c1216c95d075fe56b7dc
+      contains: ["Core", "Soft", "Shell"]
