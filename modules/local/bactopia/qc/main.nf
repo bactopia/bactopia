@@ -3,7 +3,7 @@ include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'qc')
 options.ignore = ['.fna.gz', "EMPTY_EXTRA"]
 options.btype  = options.btype ?: "main"
-conda_tools    = "bioconda::bactopia-qc=1.0.2"
+conda_tools    = "bioconda::bactopia-qc=1.0.3"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process QC {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-qc:1.0.2--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-qc:1.0.2--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-qc:1.0.3--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-qc:1.0.3--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(fq), path(extra)
@@ -222,10 +222,11 @@ process QC {
         if [ "\${ERROR}" -eq "0" ]; then
             if (( \${TOTAL_BP} > 0 )); then
                 if [ "\${ENABLE_ONT}" -eq "1" ]; then
-                    rasusa -i filt-ont.fq \
+                    rasusa reads \
                         -c ${params.coverage} \
                         -g ${meta.genome_size} \
-                        -s ${params.sampleseed} 1> subsample-ont.fq
+                        -s ${params.sampleseed} \
+                        filt-ont.fq 1> subsample-ont.fq
                 fi
 
                 if [ "\${ENABLE_ILLUMINA}" -eq "1" ]; then
@@ -481,7 +482,7 @@ process QC {
     if [[ "${params.skip_qc_plots}" == "false" ]]; then
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*\$//')
+        bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBTools version //;s/ .*\$//')
         fastp: \$(echo \$(fastp --version 2>&1) | sed -e "s/fastp //g")
         fastqc: \$(echo \$(fastqc --version 2>&1) | sed 's/^.*FastQC v//')
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
@@ -495,7 +496,7 @@ process QC {
     else
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBMap version //;s/ .*\$//')
+        bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBTools version //;s/ .*\$//')
         fastp: \$(echo \$(fastp --version 2>&1) | sed -e "s/fastp //g")
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
         lighter: \$(echo \$(lighter -v 2>&1) | sed 's/Lighter v//')

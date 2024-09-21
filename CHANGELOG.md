@@ -60,6 +60,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - bactopia/datasets envs not being build by `bactopia download`
 - `snippy` puts files in subdirectory based on reference name
 - removed pneumocat from Merlin as it doesn't gracefully fail on negative results
+- all the tests
 
 ### `Enhancements to OSS`
 

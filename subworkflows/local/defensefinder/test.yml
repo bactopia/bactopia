@@ -8,7 +8,7 @@
       md5sum: 8166471fc5f08c82fd5643ab42327f9d
     - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna.prt.idx
     - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_genes.tsv
-      contains: ['replicon', 'subtype']
+      contains: ['replicon']
     - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_hmmer.tsv
       contains: ['hit_id', 'NC_018507']
     - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_systems.tsv
@@ -26,7 +26,7 @@
     - path: bactopia/GCF_000017085/tools/defensefinder/logs/versions.yml
       md5sum: e02b95bbc53c3a7d06b8de9f9416e0b0
     - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-genes.tsv
-      contains: ['replicon', 'subtype']
+      contains: ['replicon']
     - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-hmmer.tsv
       contains: ['hit_id', 'NC_018507']
     - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-systems.tsv

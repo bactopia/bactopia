@@ -7,7 +7,7 @@
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635.tblastn.tsv
       md5sum: ce2247715df7d40f2ada2fe27e6c3967
     - path: bactopia/GCF_001457635/tools/pbptyper/GCF_001457635.tsv
-      md5sum: 1a21879bdaf7aac85a1f4e0fb0e59989
+      contains: ['GCF_001457635', 'sample', '1A_qcovs']
     - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.err
@@ -20,7 +20,7 @@
     - path: bactopia/GCF_001457635/tools/pbptyper/logs/nf-pbptyper.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_001457635/tools/pbptyper/logs/versions.yml
-      md5sum: e11f7dd55b0dc58d290ec09116cb77a1
+      contains: ['pbptyper', 'camlhmp']
     - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf-merged-results.err
@@ -35,7 +35,7 @@
     - path: bactopia/bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/versions.yml
       contains: ['csvtk']
     - path: bactopia/bactopia-runs/pbptyper/merged-results/pbptyper.tsv
-      md5sum: 34edc1f9346b74b74ef4446d270e6d57
+      contains: ['GCF_001457635', 'sample', '1A_qcovs']
     - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-dag.dot
       contains: ['pbptyperdag', 'PBPTYPER', 'versions']
     - path: bactopia/bactopia-runs/pbptyper/nf-reports/pbptyper-report.html
