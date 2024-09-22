@@ -8,6 +8,7 @@ keywords:
 modules:
   - mash_dist
   - agrvate
+  - clermontyping
   - ectyper
   - emmtyper
   - hicap
@@ -267,6 +268,8 @@ docs:
         table:
           - id: agrvate.tsv
             description: A merged TSV file with `AgrVATE` results from all samples
+          - id: clermontyping.csv
+            description: A merged TSV file with `ClermonTyping` results from all samples
           - id: ectyper.tsv
             description: A merged TSV file with `ECTyper` results from all samples
           - id: emmtyper.tsv
@@ -295,6 +298,8 @@ docs:
             description: A merged TSV file with `seqsero2` results from all samples
           - id: seroba.tsv
             description: A merged TSV file with `seroba` results from all samples
+          - id: shigapass.csv
+            description: A merged CSV file with `ShigaPass` results from all samples
           - id: shigatyper.tsv
             description: A merged TSV file with `ShigaTyper` results from all samples
           - id: shigeifinder.tsv
@@ -320,6 +325,19 @@ docs:
             description: Log files from programs called by `AgrVATE`
           - id: -summary.tab
             description: A final summary report for _agr_ typing
+      - name: ClermonTyping
+        description: |
+          Below is a description of the _per-sample_ results from [ClermonTyping](https://github.com/happykhan/ClermonTyping).
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.blast.xml
+            description: A BLAST XML file with the results of the ClermonTyping analysis
+          - id: <SAMPLE_NAME>.html
+            description: A HTML file with the results of the ClermonTyping analysis
+          - id: <SAMPLE_NAME>.mash.tsv
+            description: A TSV file with the Mash distances
+          - id: <SAMPLE_NAME>.phylogroups.txt
+            description: A TSV file with the final phylogroup assignments
       - name: ECTyper
         description: |
           Below is a description of the _per-sample_ results from [ECTyper](https://github.com/phac-nml/ecoli_serotyping).
@@ -434,6 +452,13 @@ docs:
             description: A tab-delimited file with the predicted serotype
           - id: detailed_serogroup_info.txt
             description: Detailed information about the predicted results
+      - name: ShigaPass
+        description: |
+          Below is a description of the _per-sample_ results from [ShigaPass](https://github.com/imanyass/ShigaPass).
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.csv
+            description: A CSV file with the predicted Shigella or EIEC serotype
       - name: ShigaTyper
         description: |
           Below is a description of the _per-sample_ results from [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper).
@@ -495,6 +520,7 @@ docs:
             description: VCF with variant info again reference genomes
   citations:
     - agrvate
+    - clermontyping
     - csvtk
     - ectyper
     - emmtyper
@@ -511,6 +537,7 @@ docs:
     - pasty
     - pbptyper
     - seqsero2
+    - shigapass
     - shigatyper
     - shigeifinder
     - sistr

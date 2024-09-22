@@ -3,6 +3,7 @@
 //
 
 include { MERLINDIST } from '../mashdist/main';
+include { CLERMONTYPING } from '../clermontyping/main';
 include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
@@ -41,6 +42,8 @@ workflow MERLIN {
     MERLINDIST.out.escherichia.map{meta, assembly, found -> [meta, assembly]}.set{ ch_escherichia }
     MERLINDIST.out.escherichia_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_escherichia_fq }
     MERLINDIST.out.escherichia_fna_fq.map{meta, assembly, reads, found -> [meta, assembly, reads]}.set{ ch_escherichia_fna_fq }
+    CLERMONTYPING(ch_escherichia)
+    ch_versions = ch_versions.mix(CLERMONTYPING.out.versions.first())
     ECTYPER(ch_escherichia)
     ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
     SHIGAPASS(ch_escherichia)

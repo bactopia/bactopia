@@ -307,6 +307,13 @@ tools:
     cite: |
       Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW [CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes.](http://dx.doi.org/10.1101/gr.186072.114) _Genome Res_ 25, 1043–1055 (2015)
 
+  clermontyping:
+    name: ClermontTyping
+    link: https://github.com/happykhan/ClermonTyping
+    description: Easy-to-use and accurate in silico method for _Escherichia_ genus strain phylotyping
+    cite: |
+      Beghain J, Bridier-Nahmias A, Le Nagard H, Denamur E, Clermont O. [ClermonTyping: an easy-to-use and accurate in silico method for Escherichia genus strain phylotyping.](https://doi.org/10.1099/mgen.0.000192) Microbial Genomics, 4(7), e000192. (2018)
+
   clonalframeml:
     name: ClonalFramML
     link: https://github.com/xavierdidelot/ClonalFrameML
