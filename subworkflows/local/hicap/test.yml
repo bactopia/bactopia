@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/hicap/merged-results/logs/hicap-concat/nf-merged-results.trace
@@ -38,13 +38,13 @@
     - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.sh
       contains: ['hicap', 'END_VERSIONS']
     - path: bactopia/GCA_000027305/tools/hicap/logs/nf-hicap.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCA_000027305/tools/hicap/logs/versions.yml
-      md5sum: 406d486f223d7fb759cc7eeeda2bb4a8
+      md5sum: 19f7e02b7308bea491658e6bce48d105
     - path: bactopia/GCF_900478275/tools/hicap/GCF_900478275.gbk
       md5sum: 562d026956903354ac80721f501335d4
     - path: bactopia/GCF_900478275/tools/hicap/GCF_900478275.svg
@@ -60,10 +60,10 @@
     - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.sh
       contains: ['hicap', 'END_VERSIONS']
     - path: bactopia/GCF_900478275/tools/hicap/logs/nf-hicap.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_900478275/tools/hicap/logs/versions.yml
-      md5sum: 406d486f223d7fb759cc7eeeda2bb4a8
+      md5sum: 19f7e02b7308bea491658e6bce48d105

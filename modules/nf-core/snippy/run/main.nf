@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'snippy')
 options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::bactopia-variants=1.0.2"
@@ -18,7 +17,7 @@ process SNIPPY_RUN {
 
     input:
     tuple val(meta), path(reads)
-    path reference
+    tuple val(ref_meta), path(reference)
 
     output:
     tuple val(meta), path("results/${prefix}.aligned.fa.gz")                                    , emit: aligned_fa
@@ -52,6 +51,7 @@ process SNIPPY_RUN {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     reference_name = reference.getSimpleName()
+    options.subdir = reference_name
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $final_reference

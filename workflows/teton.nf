@@ -7,8 +7,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 include { create_input_channel; check_input_fofn } from '../lib/nf/bactopia'
-include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { get_schemas } from '../lib/nf/functions'
 
 /*
 ========================================================================================
@@ -33,8 +32,8 @@ if (params.check_samples) {
 include { GATHER } from '../subworkflows/local/gather/main'
 include { BRACKEN } from '../subworkflows/local/bracken/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [ignore: [".fna.gz"]] )
-include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [publish_to_base: true] )
-include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true] )
+include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [process_name: "teton-report"] )
+include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'teton-concat', process_name: params.merge_folder] )
 
 /*
 ========================================================================================
@@ -50,7 +49,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 */
 
 workflow TETON {
-    print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     ch_merged_teton = Channel.empty()
     ch_join_teton = Channel.empty()

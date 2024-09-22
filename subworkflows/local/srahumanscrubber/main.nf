@@ -6,19 +6,11 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'srahumanscrubber')
 options.is_module = params.wf == 'scrubber' ? true : false
 options.args = ""
-options.ignore = [".db"]
 
 include { SRAHUMANSCRUBBER_INITDB } from '../../../modules/nf-core/srahumanscrubber/initdb/main' addParams( )
+include { SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
 
-if (params.wf == 'teton') {
-    include { SRAHUMANSCRUBBER_SCRUB_TETON as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-} else if (params.wf == 'cleanyerreads') {
-    include { SRAHUMANSCRUBBER_SCRUB_MAIN as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-} else {
-    include { SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-}
-
-workflow SCRUBBER {
+workflow SRAHUMANSCRUBBER {
     take:
     reads // channel: [ val(meta), [ reads ] ]
 
@@ -31,5 +23,7 @@ workflow SCRUBBER {
 
     emit:
     scrubbed = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
+    scrubbed_extra = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
+    scrub_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
     versions = ch_versions // channel: [ versions.yml ]
 }

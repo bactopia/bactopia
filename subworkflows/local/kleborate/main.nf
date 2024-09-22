@@ -4,14 +4,8 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'kleborate')
 options.args = [
-    params.skip_resistance ? "" : "--resistance",
-    params.skip_kaptive ? "" : "--kaptive",
-    params.force_index ? "--force_index" : "",
-    "--min_identity ${params.min_identity}",
-    "--min_coverage ${params.kleborate_min_coverage}",
-    "--min_spurious_identity ${params.min_spurious_identity}",
-    "--min_spurious_coverage ${params.min_spurious_coverage}",
-    "--min_kaptive_confidence ${params.min_kaptive_confidence}"
+    "--preset ${params.kleborate_preset}",
+    params.kleborate_opts ? "${params.kleborate_opts}" : "",
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { KLEBORATE as KLEBORATE_MODULE } from '../../../modules/nf-core/kleborate/main' addParams( options: options )

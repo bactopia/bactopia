@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES   = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'snippy-core')
 options.btype = options.btype ?: "comparative"
 conda_tools = "bioconda::bactopia-variants=1.0.2"
@@ -18,7 +17,7 @@ process SNIPPY_CORE {
 
     input:
     tuple val(meta), path(vcf), path(aligned_fa)
-    path reference
+    tuple val(ref_meta), path(reference)
     path mask
 
     output:
@@ -29,6 +28,7 @@ process SNIPPY_CORE {
     tuple val(meta), path("results/${prefix}.tab.gz")           , emit: tab
     tuple val(meta), path("results/${prefix}.vcf.gz")           , emit: vcf
     tuple val(meta), path("results/${prefix}.txt")              , emit: txt
+    tuple val(meta), path("${reference_name}.samples.txt")     , emit: samples
     path "*.{log,err}"                          , optional: true, emit: logs
     path ".command.*"                                           , emit: nf_logs
     path "versions.yml"                                         , emit: versions
@@ -37,7 +37,8 @@ process SNIPPY_CORE {
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
-    def final_reference = reference.getName().replace(".gz", "")
+    final_reference = reference.getName().replace(".gz", "")
+    reference_name = reference.getSimpleName()
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $final_reference
@@ -45,6 +46,7 @@ process SNIPPY_CORE {
 
     # Collect samples into necessary folders
     mkdir samples
+    find . -name "*.vcf.gz" | sed 's/.vcf.gz//;s=./==' > ${reference_name}.samples.txt
     find . -name "*.vcf.gz" | sed 's/.vcf.gz//' | xargs -I {} bash -c 'mkdir samples/{}'
     find . -name "*.vcf.gz" | sed 's/.vcf.gz//' | xargs -I {} bash -c 'gzip -cdf {}.vcf.gz > samples/{}/{}.vcf'
     find . -name "*.aligned.fa.gz" | sed 's/.aligned.fa.gz//' | xargs -I {} bash -c 'gzip -cdf {}.aligned.fa.gz > samples/{}/{}.aligned.fa'

@@ -1,0 +1,96 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/kraken2/params.json",
+    "title": "Kraken2 Module",
+    "description": "A module for taxonomic classification of sequence reads",
+    "type": "object",
+    "definitions": {
+        "kraken2_parameters": {
+            "title": "Scrubber (Kraken2) Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_k2scrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use Kraken2 with Human Pan-genome for scrubbing human reads",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "remove_filtered_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Discard the classified and unclassified FASTQs prduced by Kraken2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/kraken2_parameters"
+        }
+    ]
+}

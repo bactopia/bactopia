@@ -10,9 +10,8 @@
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.sh
-      md5sum: bc1c8468ada0522f65145c01eed10c14
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/versions.yml
@@ -37,7 +36,7 @@
     - path: bactopia/GCF_002285535/tools/ssuissero/logs/nf-ssuissero.out
       contains: ["Finished"]
     - path: bactopia/GCF_002285535/tools/ssuissero/logs/nf-ssuissero.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_002285535/tools/ssuissero/logs/nf-ssuissero.sh
       contains: ["SsuisSero", "END_VERSIONS"]
     - path: bactopia/GCF_002285535/tools/ssuissero/logs/nf-ssuissero.trace

@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'clonalframeml')
 options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5"

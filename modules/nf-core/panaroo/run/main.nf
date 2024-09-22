@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'panaroo')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::panaroo=1.4.2"
+conda_tools   = "bioconda::panaroo=1.5.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +13,8 @@ process PANAROO_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/panaroo:1.4.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/panaroo:1.4.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/panaroo:1.5.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/panaroo:1.5.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
@@ -34,13 +33,16 @@ process PANAROO_RUN {
     """
     mkdir gff
     cp -L gff-tmp/* gff/
-    find gff/ -name "*.gff.gz" | xargs gunzip
+    find gff/ -name "*.gz" | xargs gunzip
+
+    # Make FOFN of gff (Prokka) and gff3 (Bakta) files
+    find gff/ -name "*.gff" -or -name "*.gff3" > gff-fofn.txt
 
     panaroo \\
         $options.args \\
         -t $task.cpus \\
         -o results \\
-        -i gff/*.gff
+        -i gff-fofn.txt
 
     # Cleanup
     find . -name "*.fas" | xargs -I {} -P $task.cpus -n 1 gzip {}

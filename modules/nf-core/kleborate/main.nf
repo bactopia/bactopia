@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'kleborate')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::kleborate=2.3.2"
+conda_tools   = "bioconda::kleborate=3.0.9"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +12,8 @@ process KLEBORATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/kleborate:2.3.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/kleborate:2.3.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/kleborate:3.0.9--pyhdfd78af_0' :
+        'quay.io/biocontainers/kleborate:3.0.9--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fastas)
@@ -28,10 +27,14 @@ process KLEBORATE {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
+    mkdir results/
     kleborate \\
         $options.args \\
-        --outfile ${prefix}.results.txt \\
+        --outdir results/ \\
         --assemblies $fastas
+
+    # Rename output file to include the prefix name
+    find results/ -name "*output.txt" -print0 | while read -d \$'\0' file; do mv "\$file" "${prefix}.txt"; done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

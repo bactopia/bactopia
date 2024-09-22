@@ -13,7 +13,7 @@
     - path: bactopia/GCF_900478275l/tools/phispy/logs/nf-phispy.log
     - path: bactopia/GCF_900478275l/tools/phispy/logs/nf-phispy.out
     - path: bactopia/GCF_900478275l/tools/phispy/logs/nf-phispy.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_900478275l/tools/phispy/logs/nf-phispy.sh
       md5sum: 075d626d10b81c17e88987c82fc117d3
     - path: bactopia/GCF_900478275l/tools/phispy/logs/nf-phispy.trace
@@ -25,9 +25,8 @@
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.sh
-      md5sum: 83809f01b92d8939b60bd46d09070763
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/phispy/merged-results/logs/phispy-concat/versions.yml

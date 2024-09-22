@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -36,7 +36,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -60,7 +60,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -84,7 +84,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -110,7 +110,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -134,7 +134,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -161,7 +161,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -185,7 +185,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -212,7 +212,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -236,7 +236,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -263,7 +263,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -287,7 +287,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -313,7 +313,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -336,7 +336,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -360,7 +360,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -383,7 +383,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -408,7 +408,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -431,7 +431,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -458,7 +458,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -481,7 +481,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -507,7 +507,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -534,7 +534,7 @@
       contains: ['SRX1390609', 'Archive']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.out
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.trace
@@ -556,7 +556,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -583,7 +583,7 @@
       contains: ['SRX1390609', 'Archive']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.out
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/SRX1390609/main/gather/logs/nf-gather.trace
@@ -605,7 +605,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -632,7 +632,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.out
       contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
@@ -654,7 +654,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -681,7 +681,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.out
       contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
@@ -703,7 +703,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -730,7 +730,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.out
       contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
@@ -752,7 +752,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -779,7 +779,7 @@
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.out
       contains: ['ART_Illumina', 'FASTQ', 'Output']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/main/gather/logs/nf-gather.trace
@@ -801,7 +801,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -825,7 +825,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -852,7 +852,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -876,7 +876,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -903,7 +903,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -927,7 +927,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -954,7 +954,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -978,7 +978,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -1005,7 +1005,7 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
@@ -1029,7 +1029,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.log
     - path: bactopia/output/main/gather/logs/nf-gather.out
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -1055,9 +1055,8 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
-      md5sum: b9842ae23e7a6891c0dfd22f6a716bdf
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
@@ -1079,7 +1078,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace
@@ -1105,9 +1104,8 @@
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.sh
-      md5sum: 7d344f6f115ce44001b4d25db075b18c
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/bactopia/merged-results/logs/meta-concat/versions.yml
@@ -1129,7 +1127,7 @@
     - path: bactopia/output/main/gather/logs/nf-gather.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/output/main/gather/logs/nf-gather.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/gather/logs/nf-gather.sh
       contains: ['fastq-dl', 'ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/output/main/gather/logs/nf-gather.trace

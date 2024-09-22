@@ -1,0 +1,54 @@
+- name: sccmec-test
+  command: bash -c 'nextflow run ./subworkflows/local/sccmec/test.nf -entry test_sccmec --wf sccmec -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - sccmec
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.regions.blastn.tsv
+      md5sum: ca426de41052a9f0bdcfb538610e5aa6
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.regions.details.tsv
+      md5sum: d8568654b8455ddebf37283918805b46
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.targets.blastn.tsv
+      md5sum: 5cd7054ed50c7d360feac0e51db54ac6
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.targets.details.tsv
+      md5sum: 8938065005a5f984229c09cd4d9f91e2
+    - path: bactopia/GCF_000017085/tools/sccmec/GCF_000017085.tsv
+      md5sum: da49131b3619e12fac7c1efef5e109d0
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.err
+      contains: ['sccmec', 'GCF_000017085', 'Processing']
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.log
+      contains: ['sccmec', 'GCF_000017085', 'Processing']
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.run
+      contains: ['nxf_main', '$NXF_ENTRY']
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.sh
+      contains: ['sccmec', 'END_VERSIONS']
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/nf-sccmec.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000017085/tools/sccmec/logs/versions.yml
+      md5sum: e0cbcaa4843190e3cbb05b316414cebd
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.run
+      contains: ['nxf_main', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/sccmec/merged-results/logs/sccmec-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/sccmec/merged-results/sccmec.tsv
+      md5sum: 7b28813993e6b0b48532bb2b161bc975
+    - path: bactopia/bactopia-runs/sccmec/nf-reports/sccmec-dag.dot
+      contains: ['sccmecdag', 'SCCMEC', 'versions']
+    - path: bactopia/bactopia-runs/sccmec/nf-reports/sccmec-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/sccmec/nf-reports/sccmec-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/sccmec/nf-reports/sccmec-trace.txt
+      contains: ['task_id']

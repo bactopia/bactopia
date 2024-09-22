@@ -21,7 +21,7 @@
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
       contains: ['mash', 'sourmash', 'END_VERSIONS']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace
@@ -59,7 +59,7 @@
       contains: ['Estimated', 'coverage', 'sourmash', 'saved']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.out
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.sh
       contains: ['mash', 'sourmash', 'END_VERSIONS']
     - path: bactopia/output/main/sketcher/logs/nf-sketcher.trace

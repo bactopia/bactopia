@@ -1,0 +1,102 @@
+name: clermontyping
+description: in silico phylotyping of Escherichia genus
+icon: false
+tags:
+  - Escherichia coli
+  - fasta
+  - phylotype
+modules:
+  - clermontyping
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample clermontyping result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all clermontyping result files
+      pattern: "clermontyping.tsv"
+  - results:
+      type: file
+      description: Additional output files from clermontyping
+      pattern: "*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  meta:
+    title: clermontyping
+    description: >-
+      A Bactopia Tool which uses ClermonTyping to conduct _in silico_ phylotyping
+      of _Escherichia_ genomes.
+  introduction: |
+    The `clermontyping` module used [ClermonTyping](https://github.com/happykhan/ClermonTyping)
+    to conduct _in silico_ prediction of phylotype for _Escherichia_ genomes. It uses the
+    genome assemblies to be assign them to _E. albertii_, _E. fergusonii_, _Escherichia_
+    clades I–V, _E. coli sensu stricto_ as well as to the main _E. coli_ phylogroups
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── clermontyping
+      │           ├── <SAMPLE_NAME>.blast.xml
+      │           ├── <SAMPLE_NAME>.html
+      │           ├── <SAMPLE_NAME>.mash.tsv
+      │           ├── <SAMPLE_NAME>.phylogroups.txt
+      │           └── logs
+      │               ├── nf-clermontyping.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── clermontyping
+              ├── merged-results
+              │   ├── clermontyping.tsv
+              │   └── logs
+              │       └── clermontyping-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── clermontyping-dag.dot
+                  ├── clermontyping-report.html
+                  ├── clermontyping-timeline.html
+                  └── clermontyping-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: clermontyping.csv
+            description: A merged TSV file with `ClermonTyping` results from all samples
+      - name: ClermonTyping
+        description: |
+          Below is a description of the _per-sample_ results from [ClermonTyping](https://github.com/happykhan/ClermonTyping).
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.blast.xml
+            description: A BLAST XML file with the results of the ClermonTyping analysis
+          - id: <SAMPLE_NAME>.html
+            description: A HTML file with the results of the ClermonTyping analysis
+          - id: <SAMPLE_NAME>.mash.tsv
+            description: A TSV file with the Mash distances
+          - id: <SAMPLE_NAME>.phylogroups.txt
+            description: A TSV file with the final phylogroup assignments
+  citations:
+    - clermontyping
+    - csvtk

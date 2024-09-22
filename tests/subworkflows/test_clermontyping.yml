@@ -1,0 +1,8 @@
+- name: clermontyping-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf clermontyping -c nextflow.config --help > clermontyping-help.txt'
+  tags:
+    - bactopia_help
+    - clermontyping
+  files:
+    - path: clermontyping-help.txt
+      contains: ['clermontyping', 'bactopia', 'version', 'dependencies']

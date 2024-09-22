@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/defense-finder/update/params.json",
+    "title": "defense-finder update Module",
+    "description": "A module to identify anti-phage systems in assemblies",
+    "type": "object",
+    "definitions": {
+        "defensefinder_update_parameters": {
+            "title": "defense-finder update Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/defensefinder_update_parameters"
+        }
+    ]
+}

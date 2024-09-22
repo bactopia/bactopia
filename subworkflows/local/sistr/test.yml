@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/sistr/merged-results/logs/sistr-concat/nf-merged-results.trace
@@ -39,7 +39,7 @@
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.log
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.out
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.sh
       contains: ['sistr', 'END_VERSIONS']
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.trace

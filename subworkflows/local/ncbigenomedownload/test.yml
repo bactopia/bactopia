@@ -1,5 +1,5 @@
 - name: ncbigenomedownload-test
-  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload --max_time 1 --format fasta --accession GCF_000292685.1 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload --max_time 5.m --format fasta --accession "GCF_000292685.1" -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - ncbigenomedownload
     - bactopia-tools
@@ -14,7 +14,7 @@
       contains: ['Checking']
     - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.out
     - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.sh
       contains: ['ncbi-genome-download', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.trace

@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.trace
@@ -42,7 +42,7 @@
     - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.sh
       contains: ['ectyper', 'END_VERSIONS']
     - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.trace

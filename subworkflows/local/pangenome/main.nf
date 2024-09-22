@@ -1,12 +1,12 @@
 //
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
-if (params.use_panaroo) {
-    include { PANAROO as PG_TOOL } from '../panaroo/main' addParams( options: [publish_to_base: [".aln.gz"]] )
+if (params.use_pirate) {
+    include { PIRATE as PG_TOOL } from '../pirate/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 } else if (params.use_roary) {
     include { ROARY as PG_TOOL } from '../roary/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 } else {
-    include { PIRATE as PG_TOOL } from '../pirate/main' addParams( options: [publish_to_base: [".aln.gz"]] )
+    include { PANAROO as PG_TOOL } from '../panaroo/main' addParams( options: [publish_to_base: [".aln.gz"]] )
 }
 
 include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".masked.aln.gz"]] )

@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'gubbins')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::gubbins=3.3.4"
+conda_tools   = "bioconda::gubbins=3.3.5"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +12,8 @@ process GUBBINS {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gubbins:3.3.4--py39pl5321he4a0461_1' :
-        'quay.io/biocontainers/gubbins:3.3.4--py39pl5321he4a0461_1' }"
+        'https://depot.galaxyproject.org/singularity/gubbins:3.3.5--py39pl5321he4a0461_0' :
+        'quay.io/biocontainers/gubbins:3.3.5--py39pl5321he4a0461_0' }"
 
     input:
     tuple val(meta), path(msa)
@@ -30,6 +29,7 @@ process GUBBINS {
     tuple val(meta), path("*.branch_base_reconstruction.embl.gz"), emit: embl_branch
     tuple val(meta), path("*.final_tree.tre")                    , emit: tree
     tuple val(meta), path("*.node_labelled.final_tree.tre")      , emit: tree_labelled
+    tuple val(meta), path("*.final_bootstrapped_tree.tre")       , emit: bootstrap_tree, optional: true
     path "*.{log,err}"                           , optional: true, emit: logs
     path ".command.*"                                            , emit: nf_logs
     path "versions.yml"                                          , emit: versions

@@ -5,21 +5,13 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'scrubber')
 options.is_module = params.wf == 'scrubber' ? true : false
 options.args = ""
-options.ignore = [".db"]
+options.ignore = [".db", "EMPTY_EXTRA"]
 
-/*
-include { SRAHUMANSCRUBBER_INITDB } from '../../../modules/nf-core/srahumanscrubber/initdb/main' addParams( )
-
-if (params.wf == 'teton') {
-    include { SRAHUMANSCRUBBER_SCRUB_TETON as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
-} else if (params.wf == 'cleanyerreads') {
-    include { SRAHUMANSCRUBBER_SCRUB_MAIN as SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
+if (params.use_srascrubber) {
+    include { SRAHUMANSCRUBBER as SCRUBBER_METHOD } from '../srahumanscrubber/main' addParams( options: options )
 } else {
-    include { SRAHUMANSCRUBBER_SCRUB } from '../../../modules/nf-core/srahumanscrubber/scrub/main' addParams( options: options )
+    include { K2SCRUBBER as SCRUBBER_METHOD } from '../k2scrubber/main' addParams( options: options )
 }
-*/
-
-include { K2SCRUBBER } from '../k2scrubber/main' addParams( options: options )
 
 workflow SCRUBBER {
     take:
@@ -28,14 +20,12 @@ workflow SCRUBBER {
     main:
     ch_versions = Channel.empty()
 
-    K2SCRUBBER(reads)
-
-    //SRAHUMANSCRUBBER_INITDB()
-    //SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
-    ch_versions = ch_versions.mix(K2SCRUBBER.out.versions.first())
+    SCRUBBER_METHOD(reads)
+    ch_versions = ch_versions.mix(SCRUBBER_METHOD.out.versions.first())
 
     emit:
-    scrubbed = K2SCRUBBER.out.scrubbed
-    tsv = K2SCRUBBER.out.scrub_report
+    scrubbed = SCRUBBER_METHOD.out.scrubbed
+    scrubbed_extra = SCRUBBER_METHOD.out.scrubbed_extra
+    tsv = SCRUBBER_METHOD.out.scrub_report
     versions = ch_versions // channel: [ versions.yml ]
 }

@@ -1,20 +1,20 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::gtdbtk=2.3.2"
+conda_tools   = "bioconda::gtdbtk=2.4.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
 process GTDBTK_CLASSIFYWF {
     tag "${meta.id}"
     label 'process_high'
+    label 'process_high_memory'
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gtdbtk:2.3.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/gtdbtk:2.3.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/gtdbtk:2.4.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/gtdbtk:2.4.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fna, stageAs: 'fna-tmp/*')

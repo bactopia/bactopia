@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf-merged-results.trace
@@ -37,7 +37,7 @@
     - path: bactopia/GCF_001682305/tools/mcroni/logs/nf-mcroni.log
     - path: bactopia/GCF_001682305/tools/mcroni/logs/nf-mcroni.out
     - path: bactopia/GCF_001682305/tools/mcroni/logs/nf-mcroni.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_001682305/tools/mcroni/logs/nf-mcroni.sh
       contains: ['mcroni', 'END_VERSIONS']
     - path: bactopia/GCF_001682305/tools/mcroni/logs/nf-mcroni.trace

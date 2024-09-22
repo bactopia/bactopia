@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'snpdists')
 options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::snp-dists=0.8.2"

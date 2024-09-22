@@ -1,0 +1,41 @@
+name: shigapass
+description: ShigaPass is a new in silico tool used to predict Shigella serotypes and to differentiate between Shigella, EIEC (Enteroinvasive E. coli), and non Shigella/EIEC using assembled whole genomes.
+keywords:
+  - bacteria
+  - shigella
+  - stec
+tools:
+  - shigapass:
+      description: Mass screening of contigs for antibiotic resistance genes
+      homepage: https://github.com/imanyass/ShigaPass
+      documentation: https://github.com/imanyass/ShigaPass
+      tool_dev_url: https://github.com/imanyass/ShigaPass
+      licence: ["GPL v3"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - assembly:
+      type: file
+      description: FASTA, GenBank or EMBL formatted file. Note that the standard input for ShigaPass is a file of file paths - here for paralellisation a fasta file is required.
+      pattern: "*.{fa,fasta,fna,fa.gz,fasta.gz,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - report:
+      type: file
+      description: Comma-delimited report of results
+      pattern: "*.{csv}"
+authors:
+  - "@maxlcummins"
+maintainers:
+  - "@maxlcummins"

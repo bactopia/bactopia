@@ -7,8 +7,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 include { collect_samples; collect_local_files } from '../lib/nf/bactopia_tools'
-include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { get_schemas } from '../lib/nf/functions'
 
 /*
 ========================================================================================
@@ -51,6 +50,8 @@ if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/brac
 if (params.wf == 'btyper3') include { BTYPER3 } from '../subworkflows/local/btyper3/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
+if (params.wf == 'clermontyping') include { CLERMONTYPING } from '../subworkflows/local/clermontyping/main';
+if (params.wf == 'defensefinder') include { DEFENSEFINDER } from '../subworkflows/local/defensefinder/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
 if (params.wf == 'emmtyper') include { EMMTYPER } from '../subworkflows/local/emmtyper/main';
@@ -85,8 +86,10 @@ if (params.wf == 'plasmidfinder') include { PLASMIDFINDER } from '../subworkflow
 if (params.wf == 'pneumocat') include { PNEUMOCAT } from '../subworkflows/local/pneumocat/main';
 if (params.wf == 'quast') include { QUAST } from '../subworkflows/local/quast/main';
 if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
+if (params.wf == 'sccmec') include { SCCMEC } from '../subworkflows/local/sccmec/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
+if (params.wf == 'shigapass') include { SHIGAPASS } from '../subworkflows/local/shigapass/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'shigeifinder') include { SHIGEIFINDER } from '../subworkflows/local/shigeifinder/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
@@ -118,11 +121,10 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 ========================================================================================
 */
 workflow BACTOPIATOOLS {
-    print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     ch_local_samples = Channel.fromList(collect_samples(params.bactopia, params.workflows[params.wf].ext, params.include, params.exclude))
     ch_local_files = Channel.fromList(collect_local_files(params.containsKey('assembly') ? params.assembly : null , params.containsKey('assembly_pattern') ? params.assembly_pattern : null))
-    
+
     // Include public genomes (optional)
     ch_gather_files = Channel.empty()
     if (params.containsKey('accession')) {
@@ -141,7 +143,9 @@ workflow BACTOPIATOOLS {
             ch_versions = ch_versions.mix(PROKKA.out.versions.first())
             ch_gather_files = PROKKA.out.gff
         } else {
-            ch_gather_files = ch_downloads
+            if (params.mix_downloads) {
+                ch_gather_files = ch_downloads
+            }
         }
     } else {
         ch_gather_files = ch_local_files
@@ -191,6 +195,12 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
         ch_versions = ch_versions.mix(CHECKM.out.versions)
+    } else if (params.wf == 'clermontyping') {
+        CLERMONTYPING(samples)
+        ch_versions = ch_versions.mix(CLERMONTYPING.out.versions)
+    } else if (params.wf == 'defensefinder') {
+        DEFENSEFINDER(samples)
+        ch_versions = ch_versions.mix(DEFENSEFINDER.out.versions)
     } else if (params.wf == 'ectyper') {
         ECTYPER(samples)
         ch_versions = ch_versions.mix(ECTYPER.out.versions)
@@ -291,12 +301,18 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'rgi') {
         RGI(samples)
         ch_versions = ch_versions.mix(RGI.out.versions)
+    } else if (params.wf == 'sccmec') {
+        SCCMEC(samples)
+        ch_versions = ch_versions.mix(SCCMEC.out.versions)
     } else if (params.wf == 'seqsero2') {
         SEQSERO2(samples)
         ch_versions = ch_versions.mix(SEQSERO2.out.versions)
     } else if (params.wf == 'seroba') {
         SEROBA(samples)
         ch_versions = ch_versions.mix(SEROBA.out.versions)
+    } else if (params.wf == 'shigapass') {
+        SHIGAPASS(samples)
+        ch_versions = ch_versions.mix(SHIGAPASS.out.versions)
     } else if (params.wf == 'shigatyper') {
         SHIGATYPER(samples)
         ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
@@ -307,7 +323,13 @@ workflow BACTOPIATOOLS {
         SISTR(samples)
         ch_versions = ch_versions.mix(SISTR.out.versions)
     } else if (params.wf == 'snippy') {
-        SNIPPY(samples)
+        if (params.reference) {
+            // user provided --reference
+            SNIPPY(samples, [[id: 'snippy'], file(params.reference)])
+        } else {
+            // user provided --accession
+            SNIPPY(samples, ch_downloads.first())
+        }
         ch_versions = ch_versions.mix(SNIPPY.out.versions)
     } else if (params.wf == 'spatyper') {
         SPATYPER(samples)

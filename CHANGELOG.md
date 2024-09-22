@@ -4,7 +4,83 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
+
+_"Dance Powder" is related to the Alabasta arc in One Piece which my kids currently on_
+
+### `Added`
+
+- Named Workflows
+    - `clean-yer-reads` - Use Bactopia's read QC steps to Clean-Yer-Reads
+        - Use `clean-yer-reads`, `cyr` or `bactopia --wf cleanyerreads`
+    - `teton` - Host removal and taxon classification with estimated abundances
+        - Use `teton` or `bactopia --wf teton`
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `clermontyping` - Clermont's Escherichia phylogrouping
+    - `defensefinder` - Systematic search of all known anti-phage systems
+    - `sccmec` - SCCmec typing of _Staphylococcus aureus_ genomes
+    - `scrubber` - Remove human reads from FASTQ files
+        - screen human reads with `kraken2` (_against human pangenome_) or `sra-human-scrubber`
+    - `shigapass` - Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
+- full support of config files from nf-core/configs
+    - no longer prints efficiency for `standard`, `docker`, and `singularity` profiles
+    - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
+    - always import `base.config`
+- `amrfinderplus` by combining results from genes, proteins and gff (coordinates)
+- `--amrfinder_db` and `--mlst_db` to specify custom databases
+- mlst and amrfinder databases can now be either a tarball or directory
+- `pangenome` tool now uses panaroo as the default pangenome tool
+- file with reference name and samples included for `snippy` run
+- `snippy` can now use `--accession` to download a genbank file from NCBI
+- replaced `staphopiasccmec` with `sccmec` in `staphtyper`
+- bump program versions in modules
+    - `abritamr`: 1.0.17 -> 1.0.19
+    - `bakta`: 1.9.3 -> 1.9.4
+    - `blast`: 2.15.0 -> 2.16.0
+    - `busco`: 5.7.0 -> 5.7.1
+    - `checkm`: 1.2.2 -> 1.2.3
+    - `defensefinder`: 1.2.2 -> 1.3.0
+    - `gtdbtk`: 2.3.2 -> 2.4.0
+    - `hicap`: 1.0.3 -> 1.0.4 (@MartinVad)
+    - `kleborate`: 2.3.2 -> 3.0.9
+    - `mobsuite`: 3.1.8 -> 3.1.9
+    - `panaroo`: 1.4.2 -> 1.5.0
+    - `pasty`: 1.0.3 -> 2.2.1
+    - `pbptyper`: 1.0.4 -> 2.0.0
+    - `seqsero2`: 1.2.1 -> 1.3.1
+    - `stecfinder`: 1.1.1 -> 1.21.2
+    - `tbprofiler`: 6.1.0 -> 6.3.0
+
+### `Fixed`
+
+- missing schema for clean-yer-reads and teton
+- pinning of bioperl in prokka module with `strict` channel priority
+- use `--infile-list` with `csvtk concat` to support 10k+ inputs
+- `pangenome` when Bakta GFF (`*.gff3`) files are provided
+- missing file export in `gubbins`
+- writing to non-default values for `--bactopia`
+- `--include` file on cloud storage (@rwilliams)
+- import of ONT reads over illumina reads in certain bactopia tools (e.g. snippy) (_Thanks D2_)
+- bactopia/datasets envs not being build by `bactopia download`
+- `snippy` puts files in subdirectory based on reference name
+- removed pneumocat from Merlin as it doesn't gracefully fail on negative results
+- all the tests
+- typo in `bactopia-tools.nf` (thank you! @pvanheus)
+
+### `Enhancements to OSS`
+
+- pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
+- add recipe for `camlhmp` [bioconda/bioconda-recipes#47453](https://github.com/bioconda/bioconda-recipes/pull/47453)
+- add recipe for `sccmec` [bioconda/bioconda-recipes#47600](https://github.com/bioconda/bioconda-recipes/pull/47600)
+- update recipe for genotyphi [bioconda/bioconda-recipes#47664](https://github.com/bioconda/bioconda-recipes/pull/47664)
+- disable phone home snpeff [bioconda/bioconda-recipes#48007](https://github.com/bioconda/bioconda-recipes/pull/48007)
+- clermontyping use share folder [bioconda/bioconda-recipes#49372](https://github.com/bioconda/bioconda-recipes/pull/49372)
+- add recipe for scrubby [bioconda/bioconda-recipes#49373](https://github.com/bioconda/bioconda-recipes/pull/49373)
+- rebuild pasty [bioconda/bioconda-recipes#50068](https://github.com/bioconda/bioconda-recipes/pull/50068)
+
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
+
+_"That's My Girl" is a phrase my youngest says quite often when playing with her friends_
 
 ### `Added`
 
@@ -56,6 +132,8 @@ description: A full list of Bactopia releases and a description of the changes.
 - pin tabix version in snippy [bioconda/bioconda-recipes#46458](https://github.com/bioconda/bioconda-recipes/pull/46458)
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
+
+_"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Brown Dog")_
 
 ### `Added`
 - Bactopia Tools (`bactopia --wf <NAME>`)

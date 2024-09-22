@@ -23,12 +23,6 @@
                     "default": 95,
                     "description": "Minimum percent coverage to count a hit",
                     "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "pbptyper_min_ani": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum S. pneumoniae ANI to predict PBP Type",
-                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

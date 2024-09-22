@@ -1,10 +1,181 @@
-- name: teton-test
-  command: bash -c 'nextflow run ./subworkflows/local/teton/test.nf -entry test_teton --wf teton -c nextflow.config ${BACTOPIA_ARGS}'
+- name: teton-test-pe
+  command: bash -c 'nextflow run ./subworkflows/local/teton/test.nf -entry test_teton_pe --wf teton -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - teton
+    - teton-pe
     - bactopia-tools
   files:
-    - path: OUTPUTFILE
-      contains: ['TEXT_A', 'TEXT_B']
-    - path: OUTPUTFILE
-      md5sum: a1000000000000000000000000000000
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.abundances.txt
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.krona.html
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.report.txt
+      contains: ['Candidatus', 'root']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.tsv
+      contains: ['Candidatus', 'bracken_secondary_species_abundance', 'SRR2838702']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.kraken2.krona.html
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.kraken2.report.txt
+      contains: ['Candidatus', 'root']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/versions.yml
+      md5sum: b533a4a61fc0695027b2d18dd9ef9e48
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702.kraken2.report.txt
+      md5sum: 3fe5344a2740df1f082230a3848c169c
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702.scrub.report.tsv
+      md5sum: 1040e4d42ff1571887f4c3a806673a7b
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702_R1.scrubbed.fastq.gz
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702_R2.scrubbed.fastq.gz
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.err
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.log
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.sh
+      md5sum: eed1ac47b1e51effa953475b78d255d8
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/versions.yml
+      md5sum: 0ff5626c56fea876acd5927176b16ccc
+    - path: bactopia/bactopia-runs/teton/merged-results/bracken-adjusted.tsv
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/bactopia-runs/teton/merged-results/bracken-species-abundance.tsv
+      contains: ['Candidatus', 'bracken_primary_species']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/versions.yml
+      md5sum: d741d56d0699500dbaba6c9d407cd667
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/versions.yml
+      md5sum: 240810a912e800ef8691454b3fa4de54
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-dag.dot
+      contains: ['tetondag', 'TETON', 'versions']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-trace.txt
+      contains: ['task_id']
+
+- name: teton-test-se
+  command: bash -c 'nextflow run ./subworkflows/local/teton/test.nf -entry test_teton_se --wf teton -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - teton
+    - teton-se
+    - bactopia-tools
+  files:
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.abundances.txt
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.krona.html
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.report.txt
+      contains: ['Candidatus', 'root']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.bracken.tsv
+      contains: ['Candidatus', 'bracken_secondary_species_abundance', 'SRR2838702']
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.kraken2.krona.html
+    - path: bactopia/SRR2838702/teton/tools/bracken/SRR2838702.kraken2.report.txt
+      contains: ['Candidatus', 'root']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.err
+      contains: ['sequences', 'classified', 'unclassified']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.log
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.out
+      contains: ['BRACKEN', 'species', 'complete']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.sh
+      contains: ['kraken2', 'bracken', 'END_VERSIONS']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/nf-bracken.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/teton/tools/bracken/logs/versions.yml
+      md5sum: cc5eece80c683bc87fc8eb832902c030
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702.kraken2.report.txt
+      md5sum: 1dbe70be046a19b7085268ae0e02cbe1
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702.scrub.report.tsv
+      md5sum: 65c9f82426b9425d8d1556f3b6b8839a
+    - path: bactopia/SRR2838702/teton/tools/scrubber/SRR2838702.scrubbed.fastq.gz
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.err
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.log
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.out
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.sh
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/teton/tools/scrubber/logs/versions.yml
+      md5sum: 70bdf3df4da9dc99a5644510762ecf55
+    - path: bactopia/bactopia-runs/teton/merged-results/bracken-adjusted.tsv
+      contains: ['Candidatus', 'kraken_assigned_reads']
+    - path: bactopia/bactopia-runs/teton/merged-results/bracken-species-abundance.tsv
+      contains: ['Candidatus', 'bracken_primary_species']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/versions.yml
+      md5sum: 052427faa59c5bc584abec1e7c504cf7
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.sh
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/versions.yml
+      md5sum: 92bdf1950ffdfdf8c8ad1701f9ba3792
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-dag.dot
+      contains: ['tetondag', 'TETON', 'versions']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/teton/nf-reports/teton-trace.txt
+      contains: ['task_id']
+

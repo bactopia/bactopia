@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf-merged-results.trace
@@ -35,7 +35,7 @@
     - path: bactopia/GCF_001047255/tools/ngmaster/logs/nf-ngmaster.log
     - path: bactopia/GCF_001047255/tools/ngmaster/logs/nf-ngmaster.out
     - path: bactopia/GCF_001047255/tools/ngmaster/logs/nf-ngmaster.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_001047255/tools/ngmaster/logs/nf-ngmaster.sh
       contains: ['ngmaster', 'END_VERSIONS']
     - path: bactopia/GCF_001047255/tools/ngmaster/logs/nf-ngmaster.trace

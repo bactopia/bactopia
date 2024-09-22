@@ -62,6 +62,12 @@
                     "type": "string",
                     "description": "Extra AMRFinder+ options in quotes.",
                     "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "amrfinder_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

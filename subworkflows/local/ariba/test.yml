@@ -13,7 +13,7 @@
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.log
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.out
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.trace
@@ -25,7 +25,7 @@
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.log
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.out
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.sh
       contains: ['csvtk', 'concat', "END_VERSIONS"]
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.trace
@@ -59,7 +59,7 @@
     - path: bactopia/SRR2838702/tools/ariba/card/logs/nf-ariba.out
       contains: ["card", "Making", "done!"]
     - path: bactopia/SRR2838702/tools/ariba/card/logs/nf-ariba.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/ariba/card/logs/nf-ariba.sh
       contains: ['ariba', 'END_VERSIONS']
     - path: bactopia/SRR2838702/tools/ariba/card/logs/nf-ariba.trace

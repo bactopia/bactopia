@@ -51,8 +51,12 @@ docs:
       A Bactopia Tool which uses GenoTyphi to genotype Salmonella Typhi from the outputs
       of Mykrobe.
   introduction: |
-      The `genotyphi` module uses [GenoTyphi](https://github.com/katholt/genotyphi) to genotype Salmonella Typhi
-      from the outputs of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe).
+      The `genotyphi` module uses [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) to
+      call Typhi lineages, AMR determines and plasmid markers in Salmonella Typhi samples.
+      Samples are first processed by [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) using `mykrobe predict`
+      with `typhi` specified as the species. Then the Mykrobe results are then processed by the
+      [parse_typhi_mykrobe.py](https://github.com/typhoidgenomics/genotyphi/blob/main/typhimykrobe/parse_typhi_mykrobe.py)
+      script available from GenoTyphi.
   output:
     tree: |
       <BACTOPIA_DIR>
@@ -92,8 +96,8 @@ docs:
             description: A merged TSV file with `GenoTyphi` results from all samples
       - name: GenoTyphi
         description: |
-          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/katholt/genotyphi). A
-          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/katholt/genotyphi/blob/main/README.md#explanation-of-columns-in-the-output)
+          Below is a description of the _per-sample_ results from [GenoTyphi](https://github.com/typhoidgenomics/genotyphi/). A
+          full description of the GenoTyphi output is available at [GenoTyphi - Output](https://github.com/typhoidgenomics/genotyphi/tree/main?tab=readme-ov-file#explanation-of-columns-in-the-output)
         table:
           - id: <SAMPLE_NAME>_predictResults.tsv
             description: A tab-delimited file with `GenoTyphi` results

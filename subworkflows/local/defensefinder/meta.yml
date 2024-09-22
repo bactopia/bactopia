@@ -1,0 +1,130 @@
+name: defensefinder
+description: Systematic search of all known anti-phage systems
+icon: false
+keywords:
+  - phage
+  - fasta
+modules:
+  - defensefinder
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - genes_tsv:
+      type: file
+      description: A tab-delimited file with each gene found in the system for a single sample
+      pattern: "*defense_finder_genes.tsv"
+  - merged_genes_tsv:
+      type: file
+      description: A merged TSV of all genes found in the system for all samples
+      pattern: "defensefinder-genes.tsv"
+  - hmmer_tsv:
+      type: file
+      description: A tab-delimited file with each HMM hit for a single sample
+      pattern: "*defense_finder_hmmer.tsv"
+  - merged_hmmer_tsv:
+      type: file
+      description: A merged TSV of all HMM hits for all samples
+      pattern: "defensefinder-hmmer.tsv"
+  - systems_tsv:
+      type: file
+      description: A tab-delimited file with information about each system found for a single sample
+      pattern: "*defense_finder_systems.tsv"
+  - merged_systems_tsv:
+      type: file
+      description: A merged TSV of all information about systems found for all samples
+      pattern: "defensefinder-systems.tsv"
+  - proteins:
+      type: file
+      description: A FASTA file containing all proteins found in the system for a single sample
+      pattern: "*.prt"
+  - proteins_index:
+      type: file
+      description: A FASTA index file for the proteins file
+      pattern: "*.prt.idx"
+  - macsydata_raw:
+      type: file
+      description: A raw MACSyFinder output file (requires --df_preserveraw)
+      pattern: "*.macsydata.tar.gz"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: defensefinder
+    description: >
+      A Bactopia Tool which uses defense-finder to rapidly identify all known anti-phage
+      systems in a bacterial genome.
+  introduction: |
+      The `defensefinder` module uses the [defense-finder](https://github.com/mdmparis/defense-finder)
+      for the identification of all known anti-phage systems.
+  output:
+    tree: |
+      <BACOTPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── defensefinder
+      │           ├── <SAMPLE_NAME>.fna.prt
+      │           ├── <SAMPLE_NAME>.fna.prt.idx
+      │           ├── <SAMPLE_NAME>.fna_defense_finder_{genes|hmmer|systems}.tsv
+      │           ├── <SAMPLE_NAME>.macsydata.tar.gz
+      │           └── logs
+      │               ├── nf-defensefinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── defensefinder-<TIMESTAMP>
+              ├── merged-results
+              │   ├── defensefinder-{genes|hmmer|systems}.tsv
+              │   └── logs
+              │       └── defensefinder-{genes|hmmer|systems}-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── defensefinder-dag.dot
+                  ├── defensefinder-report.html
+                  ├── defensefinder-timeline.html
+                  └── defensefinder-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: defensefinder-genes.tsv
+            description: A merged TSV of all genes found in the system for all samples
+          - id: defensefinder-hmmer.tsv
+            description: A merged TSV of all HMM hits for all samples
+          - id: defensefinder-systems.tsv
+            description: A merged TSV of all information about systems found for all samples
+      - name: defensefinder
+        description: |
+          Below is a description of the _per-sample_ results from [defense-finder](https://github.com/mdmparis/defense-finder).
+        table:
+          - id: <SAMPLE_NAME>.fna.prt
+            description: A FASTA file containing all proteins found in the system for a single sample
+          - id: <SAMPLE_NAME>.fna.prt.idx
+            description: A index file for the proteins file
+          - id: <SAMPLE_NAME>.fna_defense_finder_genes.tsv
+            description: A tab-delimited file with each gene found in the system for a single sample
+          - id: <SAMPLE_NAME>.fna_defense_finder_hmmer.tsv
+            description: A tab-delimited file with each HMM hit for a single sample
+          - id: <SAMPLE_NAME>.fna_defense_finder_systems.tsv
+            description: A tab-delimited file with information about each system found for a single sample
+          - id: <SAMPLE_NAME>.macsydata.tar.gz
+            description: A raw MACSyFinder output file (requires --df_preserveraw)
+  citations:
+    - defensefinder
+    - csvtk

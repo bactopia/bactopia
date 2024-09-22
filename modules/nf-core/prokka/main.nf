@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'prokka')
 options.btype = options.btype ?: "main"
-conda_tools   = "bioconda::prokka=1.14.6 bioconda::perl-bioperl=1.7.2"
+conda_tools   = "bioconda::prokka=1.14.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +12,8 @@ process PROKKA {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/prokka:1.14.6--pl526_0' :
-        'quay.io/biocontainers/prokka:1.14.6--pl526_0' }"
+        'https://depot.galaxyproject.org/singularity/prokka:1.14.6--pl5321hdfd78af_5' :
+        'quay.io/biocontainers/prokka:1.14.6--pl5321hdfd78af_5' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -22,7 +21,7 @@ process PROKKA {
     path prodigal_tf
 
     output:
-    tuple val(meta), path("results/*.{ffn,ffn.gz}"), path("results/*.{faa,faa.gz}"), emit: annotations
+    tuple val(meta), path("results/*.{fna,fna.gz}"), path("results/*.{faa,faa.gz}"), path("results/*.{gff,gff.gz}"), emit: annotations
     tuple val(meta), path("results/*.{gff,gff.gz}"), emit: gff
     tuple val(meta), path("results/*.{gbk,gbk.gz}"), emit: gbk
     tuple val(meta), path("results/*.{fna,fna.gz}"), emit: fna

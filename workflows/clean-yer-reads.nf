@@ -7,8 +7,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 include { create_input_channel; check_input_fofn } from '../lib/nf/bactopia'
-include { get_resources; get_schemas; print_efficiency } from '../lib/nf/functions'
-RESOURCES = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { get_schemas } from '../lib/nf/functions'
 
 /*
 ========================================================================================
@@ -33,7 +32,7 @@ if (params.check_samples) {
 include { GATHER } from '../subworkflows/local/gather/main'
 include { QC } from '../subworkflows/local/qc/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main'
-
+include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'scrubber-concat', process_name: params.merge_folder] )
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -47,20 +46,24 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 ========================================================================================
 */
 workflow CLEANYERREADS {
-    print_efficiency(RESOURCES.MAX_CPUS)
     ch_versions = Channel.empty()
     
     // Core steps
     GATHER(create_input_channel(run_type, params.genome_size, params.species))
     ch_versions = ch_versions.mix(GATHER.out.versions.first())
 
-    if (params.enable_scrubber) {
+    if (params.use_k2scrubber || params.use_srascrubber) {
         // Remove host reads
-        SCRUBBER(GATHER.out.raw_fastq)
+        SCRUBBER(GATHER.out.fastq_only)
         ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
+        // Merge scrub reports
+        SCRUBBER.out.tsv.collect{meta, summary -> summary}.map{ summary -> [[id:'scrubber'], summary]}.set{ ch_merge_scrubber }
+        CSVTK_CONCAT(ch_merge_scrubber, 'tsv', 'tsv')
+        ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+
         // Clean up scrubbed reads
-        QC(SCRUBBER.out.scrubbed)
+        QC(SCRUBBER.out.scrubbed_extra)
         ch_versions = ch_versions.mix(QC.out.versions.first())
     } else {
         // Clean up raw reads

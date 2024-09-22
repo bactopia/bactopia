@@ -16,7 +16,8 @@
                     "type": "string",
                     "description": "The path to bactopia results to use as inputs",
                     "help": "The required inputs will be automatically selected by the subworkflow.",
-                    "fa_icon": "fas fa-bacterium"
+                    "fa_icon": "fas fa-bacterium",
+                    "header": "Bactopia Results"
                 }
             }
         },

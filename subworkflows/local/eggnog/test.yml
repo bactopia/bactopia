@@ -27,7 +27,7 @@
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.out
       contains: ['Functional', 'eggNOG', 'FINISHED']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.sh
       contains: ['eggnog', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace
@@ -65,7 +65,7 @@
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.out
       contains: ['Functional', 'eggNOG', 'FINISHED']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.sh
       contains: ['eggnog', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/eggnog/logs/nf-eggnog.trace

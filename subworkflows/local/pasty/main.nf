@@ -4,8 +4,8 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'pasty')
 options.args = [
-    "--min_pident ${params.pasty_min_pident}",
-    "--min_coverage ${params.pasty_min_coverage}"
+    "--min-pident ${params.pasty_min_pident}",
+    "--min-coverage ${params.pasty_min_coverage}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
 include { PASTY as PASTY_MODULE } from '../../../modules/nf-core/pasty/main' addParams( options: options )

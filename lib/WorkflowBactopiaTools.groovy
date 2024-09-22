@@ -162,12 +162,16 @@ class WorkflowBactopiaTools {
                 missing_required += "--traits"
             }
         } else if (params.wf == "snippy") {
-            if (params.reference) {
+            if (params.accession && params.reference) {
+                log.error "'--accession' and '--reference' cannot be used together"
+                error += 1
+            } else if (params.reference) {
                 if (Utils.isLocal(params.reference)) {
                     error += Utils.fileNotFound(params.reference, 'reference', log)
                 }
-            } else {
-                missing_required += "--reference"
+            } else if (!params.accession && !params.reference) {
+                log.error "Either '--accession' and '--reference' is required"
+                error += 1
             }
         } else if (params.wf == "srahumanscrubber") {
             if (params.scrubber_db) {

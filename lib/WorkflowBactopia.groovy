@@ -98,11 +98,6 @@ class WorkflowBactopia {
             error += Utils.isPositiveInteger(params.genome_size, 'genome_size', log)
         }
 
-        if (params.min_time > params.max_time) {
-            log.error "The value for min_time (${params.min_time}) exceeds max_time (${params.max_time}), Please correct to continue."
-            error += 1
-        }
-
         if (params.containsKey('adapters')){
             if (params.adapters) {
                 if (Utils.isLocal(params.adapters)) {
@@ -136,29 +131,21 @@ class WorkflowBactopia {
                     error += 1
                 }
             }
-        }
-
-        // Check for existing output directory
-        /*
-        if (Utils.isLocal(params.outdir)) {
-            // Only run this if local files
-            if (!workflow.resume) {
-                def Integer files_found = 0
-                new File("${params.outdir}/bactopia-comparative/${params.wf}/${params.run_name}").eachDirRecurse { item ->
-                    if (item.toString().contains("nf-reports")) {
-                        return
+        } else if (params.wf == "teton") {
+            // Needed for Teton workflow
+            if (params.kraken2_db) {
+                if (Utils.isLocal(params.kraken2_db)) {
+                    if (params.kraken2_db.endsWith(".tar.gz")) {
+                        error += Utils.fileNotFound(params.kraken2_db, 'kraken2_db', log)
                     } else {
-                        files_found += 1
+                        error += Utils.fileNotFound("${params.kraken2_db}/hash.k2d", 'kraken2_db', log)
                     }
                 }
-
-                if (files_found > 0 && !params.force) {
-                    log.error("Output for ${params.run_name} (--run_name) already exists in ${params.outdir} (--outdir), ${params.wf} will not continue unless '--force' is used, a different run name (--run_name), or a different output directory (--outdir) is used.")
-                    error += 1
-                }
+            } else {
+                log.error "Teton workflow requires '--kraken2_db' to be provided"
+                error += 1
             }
         }
-        */
 
         if (error > 0) {
             log.error("ERROR: Validation of pipeline parameters failed!\nPlease correct to continue")

@@ -3,6 +3,7 @@
 //
 
 include { MERLINDIST } from '../mashdist/main';
+include { CLERMONTYPING } from '../clermontyping/main';
 include { ECTYPER } from '../ectyper/main';
 include { EMMTYPER } from '../emmtyper/main';
 include { HICAP } from '../hicap/main';
@@ -15,9 +16,9 @@ include { MENINGOTYPE } from '../meningotype/main';
 include { NGMASTER } from '../ngmaster/main';
 include { PASTY } from '../pasty/main';
 include { PBPTYPER } from '../pbptyper/main';
-include { PNEUMOCAT } from '../pneumocat/main';
 include { SEQSERO2 } from '../seqsero2/main';
 include { SEROBA } from '../seroba/main';
+include { SHIGAPASS } from '../shigapass/main';
 include { SHIGATYPER } from '../shigatyper/main';
 include { SHIGEIFINDER } from '../shigeifinder/main';
 include { SISTR } from '../sistr/main';
@@ -41,8 +42,12 @@ workflow MERLIN {
     MERLINDIST.out.escherichia.map{meta, assembly, found -> [meta, assembly]}.set{ ch_escherichia }
     MERLINDIST.out.escherichia_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_escherichia_fq }
     MERLINDIST.out.escherichia_fna_fq.map{meta, assembly, reads, found -> [meta, assembly, reads]}.set{ ch_escherichia_fna_fq }
+    CLERMONTYPING(ch_escherichia)
+    ch_versions = ch_versions.mix(CLERMONTYPING.out.versions.first())
     ECTYPER(ch_escherichia)
     ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
+    SHIGAPASS(ch_escherichia)
+    ch_versions = ch_versions.mix(SHIGAPASS.out.versions.first())
     SHIGATYPER(ch_escherichia_fq)
     ch_versions = ch_versions.mix(SHIGATYPER.out.versions.first())
     SHIGEIFINDER(ch_escherichia)
@@ -107,13 +112,10 @@ workflow MERLIN {
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{meta, assembly, found -> [meta, assembly]}.set{ ch_streptococcus }
     MERLINDIST.out.streptococcus_fq.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq }
-    MERLINDIST.out.streptococcus_fq_cat.map{meta, reads, found -> [meta, reads]}.set{ ch_streptococcus_fq_cat }
     EMMTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
     PBPTYPER(ch_streptococcus)
     ch_versions = ch_versions.mix(PBPTYPER.out.versions.first())
-    PNEUMOCAT(ch_streptococcus_fq_cat)
-    ch_versions = ch_versions.mix(PNEUMOCAT.out.versions.first())
     SEROBA(ch_streptococcus_fq)
     ch_versions = ch_versions.mix(SEROBA.out.versions.first())
     SSUISSERO(ch_streptococcus)

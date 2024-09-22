@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
 options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::tb-profiler=6.1.0"
+conda_tools   = "bioconda::tb-profiler=6.3.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +12,8 @@ process TBPROFILER_COLLATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/tb-profiler:6.1.0--pyhdfd78af_1' :
-        'quay.io/biocontainers/tb-profiler:6.1.0--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/tb-profiler:6.3.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/tb-profiler:6.3.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(json, stageAs: 'results/*')

@@ -1,10 +1,9 @@
 
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'seqsero2')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::seqsero2=1.2.1"
+conda_tools   = "bioconda::seqsero2=1.3.1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +13,8 @@ process SEQSERO2 {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/seqsero2:1.2.1--py_0' :
-        'quay.io/biocontainers/seqsero2:1.2.1--py_0' }"
+        'https://depot.galaxyproject.org/singularity/seqsero2:1.3.1--pyhdfd78af_1' :
+        'quay.io/biocontainers/seqsero2:1.3.1--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(seqs)

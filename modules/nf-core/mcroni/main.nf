@@ -1,6 +1,5 @@
 def VERSION = '1.0.4' // Version information not provided by tool on CLI
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'mcroni')
 options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::mcroni=1.0.4 conda-forge::python=3.9"

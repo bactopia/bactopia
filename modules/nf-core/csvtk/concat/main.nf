@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'csvtk_concat')
 options.btype = options.btype ?: "comparative"
 conda_tools   = "bioconda::csvtk=0.27.2"
@@ -17,7 +16,7 @@ process CSVTK_CONCAT {
         'quay.io/biocontainers/csvtk:0.27.2--h9ee0642_0' }"
 
     input:
-    tuple val(meta), path(csv)
+    tuple val(meta), path(csv, stageAs: 'inputs/*')
     val in_format
     val out_format
 
@@ -33,6 +32,9 @@ process CSVTK_CONCAT {
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     """
+    # Create a file of files for csvtk
+    ls inputs/ | awk '{ print "inputs/"\$1 }' > fofn.txt
+
     csvtk \\
         concat \\
         $options.args \\
@@ -40,7 +42,7 @@ process CSVTK_CONCAT {
         ${delimiter}  \\
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
-        $csv
+        --infile-list fofn.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

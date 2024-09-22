@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/sccmec/params.json",
+    "title": "sccmec Module",
+    "description": "A tool for typing SCCmec cassettes in assemblies",
+    "type": "object",
+    "definitions": {
+        "sccmec_parameters": {
+            "title": "sccmec Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "sccmec_min_targets_pident": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent identity to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_targets_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_pident": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum percent identity to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_coverage": {
+                    "type": "integer",
+                    "default": 93,
+                    "description": "Minimum percent coverage to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/sccmec_parameters"
+        }
+    ]
+}

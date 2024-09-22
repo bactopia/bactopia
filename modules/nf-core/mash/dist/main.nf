@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'mashdist')
 options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::mash=2.3"
@@ -82,7 +81,6 @@ process MERLIN_DIST {
     tuple val(meta), path(query), path("staphylococcus.*"), emit: staphylococcus, optional: true
     tuple val(meta), path(query), path("streptococcus.*") , emit: streptococcus, optional: true
     tuple val(meta), path(reads), path("streptococcus.*") , emit: streptococcus_fq, optional: true
-    tuple val(meta), path(reads), path("streptococcus_cat.*") , emit: streptococcus_fq_cat, optional: true
     path "*.genus", emit: genus, optional: true
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -118,9 +116,6 @@ process MERLIN_DIST {
                 touch haemophilus.genus
             elif [ "\${i}" == "streptococcus" ]; then
                 touch streptococcus.genus
-
-                # PneumoCAT fails on non-Streptococcus samples
-                touch streptococcus_cat.genus
             else
                 touch \${i}.genus
             fi

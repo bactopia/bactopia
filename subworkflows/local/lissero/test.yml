@@ -13,7 +13,7 @@
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/lissero/merged-results/logs/lissero-concat/nf-merged-results.trace
@@ -39,7 +39,7 @@
     - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.sh
       contains: ['lissero', 'END_VERSIONS']
     - path: bactopia/GCF_002285835/tools/lissero/logs/nf-lissero.trace

@@ -12,7 +12,7 @@
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.sh
       contains: ["csvtk", "END_VERSIONS"]
     - path: bactopia/bactopia-runs/legsta/merged-results/logs/legsta-concat/nf-merged-results.trace
@@ -38,7 +38,7 @@
     - path: bactopia/GCF_000048645/tools/legsta/logs/nf-legsta.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000048645/tools/legsta/logs/nf-legsta.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000048645/tools/legsta/logs/nf-legsta.sh
       contains: ["legsta", "END_VERSIONS"]
     - path: bactopia/GCF_000048645/tools/legsta/logs/nf-legsta.trace

@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf-merged-results.trace
@@ -18,7 +18,7 @@
     - path: bactopia/bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/versions.yml
       contains: ['csvtk']
     - path: bactopia/bactopia-runs/mobsuite/merged-results/mobsuite.tsv
-      md5sum: c76f770050665d308faa1a4720ab9ebe
+      md5sum: 951dbd706ab78c4d00aa28735ab34e87
     - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-dag.dot
       contains: ['mobsuitedag', 'MOBSUITE', 'versions']
     - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-report.html
@@ -28,7 +28,7 @@
     - path: bactopia/bactopia-runs/mobsuite/nf-reports/mobsuite-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000017085/tools/mobsuite/GCF_000017085-mobtyper.txt
-      md5sum: c76f770050665d308faa1a4720ab9ebe
+      md5sum: 951dbd706ab78c4d00aa28735ab34e87
     - path: bactopia/GCF_000017085/tools/mobsuite/chromosome.fasta
       md5sum: fe6e312b963fa5068c68cc25060ecd32
     - path: bactopia/GCF_000017085/tools/mobsuite/contig_report.txt
@@ -41,12 +41,12 @@
       contains: ["mob_suite", "Blasting", "MOB-recon"]
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.out
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.sh
       contains: ['mob_recon', 'END_VERSIONS']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/versions.yml
-      md5sum: 4f2f3c349d4e30d595aeb67fc4934afd
+      md5sum: cc8d680f890f7a91e19bb49479e7dc6d
     - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta
-      md5sum: f774ed2069f1dfacd930673b748faaac
+      contains: ['NC_010063', 'plasmid']

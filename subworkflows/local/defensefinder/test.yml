@@ -1,0 +1,77 @@
+- name: defensefinder-test
+  command: bash -c 'nextflow run ./subworkflows/local/defensefinder/test.nf -entry test_defensefinder --wf defensefinder -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - defensefinder
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna.prt
+      md5sum: 8166471fc5f08c82fd5643ab42327f9d
+    - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna.prt.idx
+    - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_genes.tsv
+      contains: ['replicon']
+    - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_hmmer.tsv
+      contains: ['hit_id', 'NC_018507']
+    - path: bactopia/GCF_000017085/tools/defensefinder/GCF_000292685.fna_defense_finder_systems.tsv
+      contains: ['sys_id', 'genes_count']
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.begin
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.err
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.log
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.out
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.sh
+      contains: ['defense-finder', 'END_VERSIONS']
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/nf-defensefinder.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000017085/tools/defensefinder/logs/versions.yml
+      md5sum: e02b95bbc53c3a7d06b8de9f9416e0b0
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-genes.tsv
+      contains: ['replicon']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-hmmer.tsv
+      contains: ['hit_id', 'NC_018507']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/defensefinder-systems.tsv
+      contains: ['sys_id', 'genes_count']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/versions.yml
+      md5sum: c243797dfc35df0ac66500db1688d474
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/versions.yml
+      md5sum: 64297cc7b07d0b28ec1a29b496bd8c4f
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.begin
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/versions.yml
+      md5sum: 42601203a89560cb51de4874e22e7771
+    - path: bactopia/bactopia-runs/defensefinder/nf-reports/defensefinder-dag.dot
+      contains: ['defensefinderdag', 'DEFENSEFINDER', 'versions']
+    - path: bactopia/bactopia-runs/defensefinder/nf-reports/defensefinder-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/defensefinder/nf-reports/defensefinder-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/defensefinder/nf-reports/defensefinder-trace.txt
+      contains: ['task_id']

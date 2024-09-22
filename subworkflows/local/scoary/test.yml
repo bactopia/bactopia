@@ -24,7 +24,7 @@
     - path: bactopia/bactopia-runs/scoary/scoary/logs/nf-scoary.out
       contains: ["Performing", "Tallying", "Storing", "finished"]
     - path: bactopia/bactopia-runs/scoary/scoary/logs/nf-scoary.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/scoary/scoary/logs/nf-scoary.sh
       contains: ['scoary', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/scoary/scoary/logs/nf-scoary.trace

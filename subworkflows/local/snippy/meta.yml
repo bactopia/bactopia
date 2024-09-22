@@ -82,6 +82,7 @@ docs:
           └── snippy-<TIMESTAMP>
               ├── core-snp-clean.full.aln.gz
               ├── core-snp.full.aln.gz
+              ├── <REFERENCE_NAME>.samples.txt
               ├── gubbins
               │   ├── core-snp.branch_base_reconstruction.embl.gz
               │   ├── core-snp.filtered_polymorphic_sites.fasta.gz
@@ -144,6 +145,8 @@ docs:
             description: Full result of the IQ-TREE core genome phylogeny
           - id: core-genome.masked.aln.gz
             description: A core-SNP alignment with the recombination masked
+          - id: <REFERENCE_NAME>.samples.txt
+            description: The reference and samples used in the run
       - name: Gubbins
         description: |
           Below is a description of the [Gubbins](https://github.com/nickjcroucher/gubbins) results. For more details about

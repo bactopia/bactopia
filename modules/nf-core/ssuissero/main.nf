@@ -1,5 +1,5 @@
-include { get_resources; initOptions; saveFiles } from '../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+// Import generic module functions
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ssuissero')
 options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::ssuissero=1.0.1" 

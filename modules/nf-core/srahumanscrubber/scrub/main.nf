@@ -1,9 +1,8 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES     = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sra-human-scrubber')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::sra-human-scrubber=2.2.1"
+conda_tools   = "bioconda::bactopia-teton=1.0.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -14,8 +13,8 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.2.1--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.2.1--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.0.2--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-teton:1.0.2--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)
@@ -23,6 +22,8 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     output:
     tuple val(meta), path("*.scrubbed.fastq.gz"), emit: scrubbed
+    tuple val(meta), path("*.scrubbed.fastq.gz"), path("EMPTY_EXTRA"), emit: scrubbed_extra
+    tuple val(meta), path('*.scrub.report.tsv') , emit: scrub_report, optional: true
     path "*.{log,err}"                          , emit: logs, optional: true
     path ".command.*"                           , emit: nf_logs
     path "versions.yml"                         , emit: versions
@@ -30,6 +31,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     script:
     prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
     meta.single_end = reads[1] == null ? true : false
+    meta.is_paired = reads[1] == null ? false : true
     if (meta.single_end) {
         """
         # Scrub human reads
@@ -37,8 +39,17 @@ process SRAHUMANSCRUBBER_SCRUB {
             scrub.sh -d $db -p $task.cpus | \
             gzip > ${prefix}.scrubbed.fastq.gz
 
+        # Quick stats on reads
+        zcat ${reads} | fastq-scan > original.json
+        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+
+        # Used for clean-yer-reads
+        touch EMPTY_EXTRA
+
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
+            fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
             sra-human-scrubber: $VERSION
         END_VERSIONS
         """
@@ -52,114 +63,17 @@ process SRAHUMANSCRUBBER_SCRUB {
             scrub.sh -d $db -p $task.cpus | \
             gzip > ${prefix}_R2.scrubbed.fastq.gz
 
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            sra-human-scrubber: $VERSION
-        END_VERSIONS
-        """
-    }
-}
+        # Quick stats on reads
+        zcat ${reads} | fastq-scan > original.json
+        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-process SRAHUMANSCRUBBER_SCRUB_MAIN {
-    tag "$meta.id"
-    label 'process_low'
-
-    conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.2.1--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.2.1--hdfd78af_0' }"
-
-    input:
-    tuple val(meta), path(reads), path(extra)
-    path db
-
-    output:
-    tuple val(meta), path("*.scrubbed.fastq.gz"), path(extra), emit: scrubbed
-    path "*.{log,err}" , emit: logs, optional: true
-    path ".command.*"  , emit: nf_logs
-    path "versions.yml", emit: versions
-
-    script:
-    prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
-    meta.single_end = reads[1] == null ? true : false
-    if (meta.single_end) {
-        """
-        # Scrub human reads
-        zcat ${reads} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}.scrubbed.fastq.gz
+        # Used for clean-yer-reads
+        touch EMPTY_EXTRA
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
-            sra-human-scrubber: $VERSION
-        END_VERSIONS
-        """
-    } else {
-        """
-        # Scrub human reads
-        zcat ${reads[0]} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}_R1.scrubbed.fastq.gz
-        zcat ${reads[1]} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}_R2.scrubbed.fastq.gz
-
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            sra-human-scrubber: $VERSION
-        END_VERSIONS
-        """
-    }
-}
-
-process SRAHUMANSCRUBBER_SCRUB_TETON {
-    tag "$meta.id"
-    label 'process_low'
-    publishDir "${publish_dir}/${meta.id}", mode: params.publish_dir_mode, overwrite: params.force,
-        saveAs: { filename -> saveFiles(filename:filename, opts:options) }
-    
-    conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sra-human-scrubber:2.2.1--hdfd78af_0' :
-        'quay.io/biocontainers/sra-human-scrubber:2.2.1--hdfd78af_0' }"
-
-    input:
-    tuple val(meta), path(reads), path(extra), path(genome_size)
-    path db
-
-    output:
-    tuple val(meta), path("*.scrubbed.fastq.gz"), emit: scrubbed
-    path "*.{log,err}"                          , emit: logs, optional: true
-    path ".command.*"                           , emit: nf_logs
-    path "versions.yml"                         , emit: versions
-
-    script:
-    def prefix =  options.suffix ? "${options.suffix}" : "${meta.id}"
-    meta.single_end = reads[1] == null ? true : false
-    if (meta.single_end) {
-        """
-        # Scrub human reads
-        zcat ${reads} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}.scrubbed.fastq.gz
-
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            sra-human-scrubber: $VERSION
-        END_VERSIONS
-        """
-    } else {
-        """
-        # Scrub human reads
-        zcat ${reads[0]} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}_R1.scrubbed.fastq.gz
-        zcat ${reads[1]} | \
-            scrub.sh -d $db -p $task.cpus | \
-            gzip > ${prefix}_R2.scrubbed.fastq.gz
-
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
+            fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
             sra-human-scrubber: $VERSION
         END_VERSIONS
         """

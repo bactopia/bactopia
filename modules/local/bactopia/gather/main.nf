@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'gather')
 options.ignore = [".fastq.gz", ".fna.gz"]
 options.btype  = options.btype ?: "main"

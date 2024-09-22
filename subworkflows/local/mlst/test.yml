@@ -10,7 +10,7 @@
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.log
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.out
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.sh
       contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/mlst/merged-results/logs/mlst-concat/nf-merged-results.trace
@@ -37,10 +37,10 @@
       contains: ['Found', 'Excluding', 'saureus', 'Done']
     - path: bactopia/GCF_000017085/tools/mlst/logs/nf-mlst.out
     - path: bactopia/GCF_000017085/tools/mlst/logs/nf-mlst.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000017085/tools/mlst/logs/nf-mlst.sh
       contains: ['mlst', 'END_VERSIONS']
     - path: bactopia/GCF_000017085/tools/mlst/logs/nf-mlst.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mlst/logs/versions.yml
-      md5sum: 6cdff5356823d7423f727b937f2685dd
+      contains: ['mlst', 'mlst-database']

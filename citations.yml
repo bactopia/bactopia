@@ -307,6 +307,13 @@ tools:
     cite: |
       Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW [CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes.](http://dx.doi.org/10.1101/gr.186072.114) _Genome Res_ 25, 1043–1055 (2015)
 
+  clermontyping:
+    name: ClermontTyping
+    link: https://github.com/happykhan/ClermonTyping
+    description: Easy-to-use and accurate in silico method for _Escherichia_ genus strain phylotyping
+    cite: |
+      Beghain J, Bridier-Nahmias A, Le Nagard H, Denamur E, Clermont O. [ClermonTyping: an easy-to-use and accurate in silico method for Escherichia genus strain phylotyping.](https://doi.org/10.1099/mgen.0.000192) Microbial Genomics, 4(7), e000192. (2018)
+
   clonalframeml:
     name: ClonalFramML
     link: https://github.com/xavierdidelot/ClonalFrameML
@@ -886,6 +893,13 @@ tools:
     cite: |
       Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R [The Sequence Alignment/Map format and SAMtools](http://dx.doi.org/10.1093/bioinformatics/btp352). _Bioinformatics_ 25, 2078–2079 (2009)
 
+  sccmec:
+    name: sccmec
+    link: https://github.com/rpetit3/sccmec
+    description: A tool for typing SCCmec cassettes in assemblies.
+    cite: |
+      Petit III RA, Read TD [sccmec: A tool for typing SCCmec cassettes in assemblies](https://github.com/rpetit3/sccmec) (GitHub)
+
   scoary:
     name: Scoary
     link: https://github.com/AdmiralenOla/Scoary
@@ -913,6 +927,13 @@ tools:
     description: k-mer based pipeline to identify the serotype of _Streptococcus pneumoniae_ from Illumina NGS reads
     cite: |
       Epping L, van Tonder AJ, Gladstone RA, The Global Pneumococcal Sequencing Consortium, Bentley SD, Page AJ, Keane JA [SeroBA: rapid high-throughput serotyping of Streptococcus pneumoniae from whole genome sequence data.](https://doi.org/10.1099/mgen.0.000186) _Microbial Genomics_, 4(7) (2018)
+
+  shigapass:
+    name: shigapass
+    link: https://github.com/imanyass/ShigaPass
+    description: An in silico tool to predict Shigella serotypes
+    cite: |
+      Yassine I, Hansen EE, Lefèvre S, Ruckly C, Carle I, Lejay-Collin M, Fabre L, Rafei R, Pardos de la Gandara M, Daboussi F, Shahin A, Weill FX [ShigaPass: an in silico tool predicting Shigella serotypes from whole-genome sequencing assemblies.](https://doi.org/10.1099%2Fmgen.0.000961) _Microb Genomics_ 9(3) (2023)
 
   shigatyper:
     name: ShigaTyper

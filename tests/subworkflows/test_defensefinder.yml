@@ -1,0 +1,8 @@
+- name: defensefinder-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf defensefinder -c nextflow.config --help > defensefinder-help.txt'
+  tags:
+    - bactopia_help
+    - defensefinder
+  files:
+    - path: defensefinder-help.txt
+      contains: ['defensefinder', 'bactopia', 'version', 'dependencies']

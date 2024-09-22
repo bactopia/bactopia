@@ -1,6 +1,5 @@
 // Import generic module functions
-include { get_resources; initOptions; saveFiles } from '../../../../lib/nf/functions'
-RESOURCES      = get_resources(workflow.profile, params.max_memory, params.max_cpus)
+include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'assembler')
 options.ignore = [".fastq.gz"]
 options.btype  = options.btype ?: "main"
@@ -10,8 +9,7 @@ conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.c
 
 process ASSEMBLER {
     tag "${meta.id}"
-    label "process_low"
-    label "assemble_genome"
+    label (params.use_unicycler ? "process_medium" : "process_low")
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?

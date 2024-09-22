@@ -41,7 +41,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_pull_docker_container --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile singularity --singularity_pull_docker_container --max_retry 1 --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
       - name: Docker Profile
@@ -50,7 +50,7 @@ jobs:
           conda activate bactopia-ci
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="-profile docker --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="-profile docker --max_retry 1 --is_ci --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
       - name: Conda Profile
@@ -60,12 +60,12 @@ jobs:
           conda clean --all -y
           cd ${{ env.BACTOPIA_WORKSPACE }}
           ls subworkflows/local/ | grep -v -E "teton|srahumanscrubber" | xargs -I {} -P 20 \
-              bash -c 'BACTOPIA_ARGS="--is_ci --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
+              bash -c 'BACTOPIA_ARGS="--max_retry 1 --is_ci --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
       - name: Upload logs on failure
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: logs-bactopia-tools
           path: |

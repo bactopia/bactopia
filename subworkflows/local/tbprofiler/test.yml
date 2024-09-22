@@ -22,16 +22,16 @@
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.out
       contains: ['Using', 'Running', 'Loading', 'Writing']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.sh
       contains: ['tb-profiler', 'END_VERSIONS']
     - path: bactopia/test/tools/tbprofiler/logs/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia/test/tools/tbprofiler/logs/versions.yml
-      md5sum: f325188a7b7cb206a4212a71119b6ae7
+      md5sum: 27dba3949bd2a0426dd06844b4b837cb
     - path: bactopia/test/tools/tbprofiler/test.results.csv
       contains: ['gid', 'Analysis']
     - path: bactopia/test/tools/tbprofiler/test.results.json
-      contains: ['locus_tag', 'tbprofiler_version', 'median_depth']
+      contains: ['locus_tag', 'version', 'median_depth']
     - path: bactopia/test/tools/tbprofiler/test.results.txt
       contains: ['gid', 'Analysis']

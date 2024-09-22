@@ -23,13 +23,13 @@
     - path: bactopia/GCF_000292685/tools/abritamr/logs/nf-abritamr.out
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/abritamr/logs/nf-abritamr.run
-      contains: ['NEXTFLOW TASK', '$NXF_ENTRY']
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/abritamr/logs/nf-abritamr.sh
       contains: ['abritamr', 'END_VERSIONS']
     - path: bactopia/GCF_000292685/tools/abritamr/logs/nf-abritamr.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/abritamr/logs/versions.yml
-      md5sum: 76491e13fdc40c767869c29792969379
+      md5sum: a8ada0249f67b17995200230fea9eed3
     - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-dag.dot
       contains: ['abritamr', 'ABRITAMR', 'versions']
     - path: bactopia/bactopia-runs/abritamr/nf-reports/abritamr-report.html
