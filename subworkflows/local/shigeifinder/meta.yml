@@ -39,8 +39,8 @@ docs:
       A Bactopia Tool which uses ShigEiFinder to conduct _in silico_ prediction
       of serotype for Shigella and EIEC genomes.
   introduction: |
-    The `shigeifinder` module used [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct
-    _in silico_ prediction of serotype for Shigella and EIED. It uses the genome assemblies
+    The `shigeifinder` module uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct
+    _in silico_ prediction of serotype for Shigella and EIEC. It uses the genome assemblies
     tp provide basic species identification and the predicted serotype (e.g. O174:H21).
   output:
     tree: |

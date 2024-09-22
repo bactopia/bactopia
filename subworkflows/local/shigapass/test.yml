@@ -1,0 +1,47 @@
+- name: shigapass-test
+  command: bash -c 'nextflow run ./subworkflows/local/shigapass/test.nf -entry test_shigapass --wf shigapass -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - shigapass
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_016726285/tools/shigapass/GCF_016726285.csv
+      md5sum: dae8bed71ba1289b6fa5e8c080c13c3d
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.err
+      contains: ['DONE']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.log
+      contains: ['GCF_016726285', 'Profile', 'MLST']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.out
+      contains: ['GCF_016726285', 'Profile', 'MLST']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.sh
+      contains: ['ShigaPass', 'END_VERSIONS']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/nf-shigapass.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_016726285/tools/shigapass/logs/versions.yml
+      md5sum: bd783959adaf423a1387da951cfafa2a
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/shigapass/merged-results/logs/shigapass-concat/versions.yml
+      md5sum: 367e9fbfb37f953a52748a680a6ea0d0
+    - path: bactopia/bactopia-runs/shigapass/merged-results/shigapass.csv
+      md5sum: dae8bed71ba1289b6fa5e8c080c13c3d
+    - path: bactopia/bactopia-runs/shigapass/nf-reports/shigapass-dag.dot
+      contains: ['shigapass', 'SHIGAPASS', 'versions']
+    - path: bactopia/bactopia-runs/shigapass/nf-reports/shigapass-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/shigapass/nf-reports/shigapass-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/shigapass/nf-reports/shigapass-trace.txt
+      contains: ['task_id']

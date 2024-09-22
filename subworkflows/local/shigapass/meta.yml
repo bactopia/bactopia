@@ -1,0 +1,85 @@
+name: shigapass
+description: Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
+icon: false
+keywords:
+  - shigella
+  - eiec
+  - fasta
+  - serotype
+modules:
+  - shigapass
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - csv:
+      type: file
+      description: A summary of the per-sample shigapass result
+      pattern: "*.csv"
+  - merged_csv:
+      type: file
+      description: A merged CSV of all shigapass result files
+      pattern: "shigapass.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  meta:
+    title: shigapass
+    description: >-
+      A Bactopia Tool which uses ShigaPass to conduct _in silico_ prediction
+      of serotype for Shigella and EIEC genomes.
+  introduction: |
+    The `shigapass` module uses [ShigaPass](https://github.com/imanyass/ShigaPass) for
+    _in silico_ prediction of serotypes in _Shigella_ assemblies. It will also differentiate
+    between _Shigella_, EIEC (Enteroinvasive _E. coli_) and non _Shigella_/EIEC.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── shigapass
+      │           ├── <SAMPLE_NAME>.csv
+      │           └── logs
+      │               ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── shigapass
+              ├── merged-results
+              │   ├── logs
+              │   │   └── shigapass-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── shigapass.csv
+              └── nf-reports
+                  ├── shigapass-dag.dot
+                  ├── shigapass-report.html
+                  ├── shigapass-timeline.html
+                  └── shigapass-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: shigapass.csv
+            description: A merged CSV file with `ShigaPass` results from all samples
+      - name: ShigaPass
+        description: |
+          Below is a description of the _per-sample_ results from [ShigaPass](https://github.com/imanyass/ShigaPass).
+        is_extensions: true
+        table:
+          - id: <SAMPLE_NAME>.csv
+            description: A CSV file with the predicted Shigella or EIEC serotype
+  citations:
+    - csvtk
+    - shigapass

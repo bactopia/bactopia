@@ -33,6 +33,7 @@ process SHIGEIFINDER {
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $fasta > $fasta_name
     fi
+
     shigeifinder \\
         $options.args \\
         --output ${prefix}.tsv \\

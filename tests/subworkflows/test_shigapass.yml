@@ -1,0 +1,8 @@
+- name: shigapass-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf shigapass -c nextflow.config --help > shigapass-help.txt'
+  tags:
+    - bactopia_help
+    - shigapass
+  files:
+    - path: shigapass-help.txt
+      contains: ['shigapass', 'bactopia', 'version', 'dependencies']

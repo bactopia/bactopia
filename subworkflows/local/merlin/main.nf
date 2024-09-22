@@ -17,6 +17,7 @@ include { PASTY } from '../pasty/main';
 include { PBPTYPER } from '../pbptyper/main';
 include { SEQSERO2 } from '../seqsero2/main';
 include { SEROBA } from '../seroba/main';
+include { SHIGAPASS } from '../shigapass/main';
 include { SHIGATYPER } from '../shigatyper/main';
 include { SHIGEIFINDER } from '../shigeifinder/main';
 include { SISTR } from '../sistr/main';
@@ -42,6 +43,8 @@ workflow MERLIN {
     MERLINDIST.out.escherichia_fna_fq.map{meta, assembly, reads, found -> [meta, assembly, reads]}.set{ ch_escherichia_fna_fq }
     ECTYPER(ch_escherichia)
     ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
+    SHIGAPASS(ch_escherichia)
+    ch_versions = ch_versions.mix(SHIGAPASS.out.versions.first())
     SHIGATYPER(ch_escherichia_fq)
     ch_versions = ch_versions.mix(SHIGATYPER.out.versions.first())
     SHIGEIFINDER(ch_escherichia)

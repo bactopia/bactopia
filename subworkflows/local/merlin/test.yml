@@ -2,6 +2,7 @@
   command: bash -c 'nextflow run ./subworkflows/local/merlin/test.nf -entry test_merlin --wf merlin -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - merlin
+    - merlin-standard
     - bactopia-tools
   files:
     - path: bactopia/GCF_000017085/tools/agrvate/GCF_000017085-agr_gp.tab

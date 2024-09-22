@@ -88,6 +88,7 @@ if (params.wf == 'rgi') include { RGI } from '../subworkflows/local/rgi/main';
 if (params.wf == 'sccmec') include { SCCMEC } from '../subworkflows/local/sccmec/main';
 if (params.wf == 'seqsero2') include { SEQSERO2 } from '../subworkflows/local/seqsero2/main';
 if (params.wf == 'seroba') include { SEROBA } from '../subworkflows/local/seroba/main';
+if (params.wf == 'shigapass') include { SHIGAPASS } from '../subworkflows/local/shigapass/main';
 if (params.wf == 'shigatyper') include { SHIGATYPER } from '../subworkflows/local/shigatyper/main';
 if (params.wf == 'shigeifinder') include { SHIGEIFINDER } from '../subworkflows/local/shigeifinder/main';
 if (params.wf == 'sistr') include { SISTR } from '../subworkflows/local/sistr/main';
@@ -305,6 +306,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'seroba') {
         SEROBA(samples)
         ch_versions = ch_versions.mix(SEROBA.out.versions)
+    } else if (params.wf == 'shigapass') {
+        SHIGAPASS(samples)
+        ch_versions = ch_versions.mix(SHIGAPASS.out.versions)
     } else if (params.wf == 'shigatyper') {
         SHIGATYPER(samples)
         ch_versions = ch_versions.mix(SHIGATYPER.out.versions)

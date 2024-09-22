@@ -18,6 +18,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `sccmec` - SCCmec typing of _Staphylococcus aureus_ genomes
     - `scrubber` - Remove human reads from FASTQ files
         - screen human reads with `kraken2` (_against human pangenome_) or `sra-human-scrubber`
+    - `shigapass` - Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
 - full support of config files from nf-core/configs
     - no longer prints efficiency for `standard`, `docker`, and `singularity` profiles
     - now required non-integer values for `--max_time` (e.g. `4.h`) and `--max_memory` (e.g. `8.GB`)
@@ -61,6 +62,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - `snippy` puts files in subdirectory based on reference name
 - removed pneumocat from Merlin as it doesn't gracefully fail on negative results
 - all the tests
+- typo in `bactopia-tools.nf` (thank you! @pvanheus)
 
 ### `Enhancements to OSS`
 
