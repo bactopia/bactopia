@@ -16,7 +16,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Call whole genome",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "mapper": {
                     "type": "string",
