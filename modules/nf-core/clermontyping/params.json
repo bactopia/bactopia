@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "df_coverage": {
+                "clermon_threshold": {
                     "type": "number",
                     "description": "Do not use contigs under this size",
                     "default": 0,
