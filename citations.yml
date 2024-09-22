@@ -328,6 +328,13 @@ tools:
     cite: |
       Shen, W [csvtk: A cross-platform, efficient and practical CSV/TSV toolkit in Golang.](https://github.com/shenwei356/csvtk/) (GitHub)
 
+  defensefinder:
+    name: DefenseFinder
+    link: https://github.com/mdmparis/defense-finder
+    description: Systematic search of all known anti-phage systems.
+    cite: |
+      Tesson F, Hervé A, Mordret E, Touchon M, d’Humières C, Cury J, Bernheim A [Systematic and quantitative view of the antiviral arsenal of prokaryotes.](https://doi.org/10.1038/s41467-022-30269-9) Nature Communications, 13(1), 2561. (2022)
+
   diamond:
     name: DIAMOND
     link: https://github.com/bbuchfink/diamond
