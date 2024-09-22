@@ -17,7 +17,7 @@
                     "description": "Do not use contigs under this size",
                     "default": 0,
                     "fa_icon": "fas fa-file-alt"
-                },
+                }
             }
         }
     },
