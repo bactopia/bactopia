@@ -50,7 +50,7 @@ docs:
       │       └── shigapass
       │           ├── <SAMPLE_NAME>.csv
       │           └── logs
-      │               ├── nf-shigeifinder.{begin,err,log,out,run,sh,trace}
+      │               ├── nf-shigapass.{begin,err,log,out,run,sh,trace}
       │               └── versions.yml
       └── bactopia-runs
           └── shigapass

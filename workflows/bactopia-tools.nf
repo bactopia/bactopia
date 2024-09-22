@@ -50,6 +50,7 @@ if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/brac
 if (params.wf == 'btyper3') include { BTYPER3 } from '../subworkflows/local/btyper3/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
+if (params.wf == 'clermontyping') include { CLERMONTYPING } from '../subworkflows/local/clermontyping/main';
 if (params.wf == 'defensefinder') include { DEFENSEFINDER } from '../subworkflows/local/defensefinder/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
 if (params.wf == 'eggnog') include { EGGNOG } from '../subworkflows/local/eggnog/main';
@@ -194,6 +195,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
         ch_versions = ch_versions.mix(CHECKM.out.versions)
+    } else if (params.wf == 'clermontyping') {
+        CLERMONTYPING(samples)
+        ch_versions = ch_versions.mix(CLERMONTYPING.out.versions)
     } else if (params.wf == 'defensefinder') {
         DEFENSEFINDER(samples)
         ch_versions = ch_versions.mix(DEFENSEFINDER.out.versions)

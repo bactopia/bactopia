@@ -4,7 +4,9 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.1.0 bactopia/bactopia "" 2024/??/??
+## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
+
+_"Dance Powder" is related to the Alabasta arc in One Piece which my kids currently on_
 
 ### `Added`
 
@@ -14,6 +16,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `teton` - Host removal and taxon classification with estimated abundances
         - Use `teton` or `bactopia --wf teton`
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `clermontyping` - Clermont's Escherichia phylogrouping
     - `defensefinder` - Systematic search of all known anti-phage systems
     - `sccmec` - SCCmec typing of _Staphylococcus aureus_ genomes
     - `scrubber` - Remove human reads from FASTQ files
@@ -67,6 +70,13 @@ description: A full list of Bactopia releases and a description of the changes.
 ### `Enhancements to OSS`
 
 - pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
+- add recipe for `camlhmp` [bioconda/bioconda-recipes#47453](https://github.com/bioconda/bioconda-recipes/pull/47453)
+- add recipe for `sccmec` [bioconda/bioconda-recipes#47600](https://github.com/bioconda/bioconda-recipes/pull/47600)
+- update recipe for genotyphi [bioconda/bioconda-recipes#47664](https://github.com/bioconda/bioconda-recipes/pull/47664)
+- disable phone home snpeff [bioconda/bioconda-recipes#48007](https://github.com/bioconda/bioconda-recipes/pull/48007)
+- clermontyping use share folder [bioconda/bioconda-recipes#49372](https://github.com/bioconda/bioconda-recipes/pull/49372)
+- add recipe for scrubby [bioconda/bioconda-recipes#49373](https://github.com/bioconda/bioconda-recipes/pull/49373)
+- rebuild pasty [bioconda/bioconda-recipes#50068](https://github.com/bioconda/bioconda-recipes/pull/50068)
 
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
 

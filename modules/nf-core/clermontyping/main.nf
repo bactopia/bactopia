@@ -1,5 +1,5 @@
 // Import generic module functions
-include { initOptions; saveFiles } from '../../../../lib/nf/functions'
+include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'clermontyping')
 options.btype = options.btype ?: "tools"
 conda_tools   = "bioconda::clermontyping=24.02"
@@ -19,8 +19,8 @@ process CLERMONTYPING {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/*")                    , emit: results
-    tuple val(meta), path("results/${prefix}-results.txt"), emit: tsv
+    tuple val(meta), path("results/*")                        , emit: results
+    tuple val(meta), path("results/${prefix}.phylogroups.txt"), emit: tsv
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
@@ -34,10 +34,23 @@ process CLERMONTYPING {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    clermonTyping \\
+    clermonTyping.sh \\
         --fasta $fasta_name \\
-        --name results/ \\
+        --name results \\
         $options.args
+
+    # Remove temporary files and rename outputs
+    rm results/$fasta_name
+    rm -rf results/db
+    rm -rf results/results.R
+    mv results/${fasta_name}.xml results/${prefix}.blast.xml
+    mv results/${fasta_name}_mash_screen.tab results/${prefix}.mash.tsv
+    mv results/results.html results/${prefix}.html
+
+    # add column names to phylogroups file
+    echo "sample<TAB>detected_genes<TAB>quadruplex_genes<TAB>quadruplex_alleles<TAB>phylogroup<TAB>mash_group" | sed 's/<TAB>/\t/g' > results/${prefix}.phylogroups.txt
+    cat results/results_phylogroups.txt >> results/${prefix}.phylogroups.txt
+    rm results/results_phylogroups.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
