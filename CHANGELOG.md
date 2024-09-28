@@ -4,6 +4,13 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## v3.x.x bactopia/bactopia "" 2024/xx/xx
+
+### `Fixed`
+
+- debugging print in `functions.nf`
+- fixed `params.max_retry` in local profiles
+
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
 _"Dance Powder" is related to the Alabasta arc in One Piece which my kids currently on_

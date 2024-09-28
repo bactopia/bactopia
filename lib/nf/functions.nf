@@ -93,12 +93,10 @@ def _get_include_schemas(includes) {
 
 def _get_module_schemas(modules) {
     def module_schemas = []
-    println("MODULES: ${modules}")
     modules.each { it ->
         if (params.wf == "cleanyerreads") {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_scrub" || it == "kraken2")) {
-            println("${params.workflows[it].path}/params-${params.wf}.json")
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else {
             module_schemas << "${params.workflows[it].path}/params.json"
