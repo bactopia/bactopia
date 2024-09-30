@@ -10,6 +10,7 @@ description: A full list of Bactopia releases and a description of the changes.
 
 - debugging print in `functions.nf`
 - fixed `params.max_retry` in local profiles
+- `nextflow.config` accessing `param` vals before they are set
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
