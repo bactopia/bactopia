@@ -3,6 +3,7 @@
 //
 include { SCRUBBER } from '../scrubber/main'
 include { BRACKEN } from '../bracken/main'
+include { BACTOPIA_SAMPLESHEET } from '../../../modules/local/bactopia/teton/main'
 include { CSVTK_JOIN } from '../../../modules/nf-core/csvtk/join/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
 include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [publish_to_base: true, logs_subdir: 'amrfinderplus-proteins'] )
 
@@ -12,20 +13,19 @@ workflow TETON {
 
     main:
     ch_versions = Channel.empty()
+    ch_reads = Channel.empty()
 
-    if (params.skip_scrubber) {
-        // Taxon Classification & Abundance
-        BRACKEN(reads)
-        ch_versions = ch_versions.mix(BRACKEN.out.versions)
-    } else {
-        // Remove host reads
-        SCRUBBER(reads)
-        ch_versions = ch_versions.mix(SCRUBBER.out.versions)
+    // Remove host reads
+    SCRUBBER(reads)
+    ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
-        // Taxon Classification & Abundance
-        BRACKEN(SCRUBBER.out.scrubbed)
-        ch_versions = ch_versions.mix(BRACKEN.out.versions)
-    }
+    // Taxon Classification & Abundance
+    BRACKEN(SCRUBBER.out.scrubbed)
+    ch_versions = ch_versions.mix(BRACKEN.out.versions)
+
+    // Determine genome size and create sample sheet
+    BACTOPIA_SAMPLESHEET(BRACKEN.out.teton_classification)
+    ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
 
     emit:
     versions = ch_versions // channel: [ versions.yml ]

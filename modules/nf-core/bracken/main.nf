@@ -28,6 +28,8 @@ process BRACKEN {
     tuple val(meta), path("${prefix}.bracken.report.txt")                 , emit: bracken_report
     tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
     tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
+    tuple val(meta), path("${prefix}.bracken.classification.txt")         , emit: classification
+    tuple val(meta), path("${prefix}.bracken.classification.txt"), path("fastqs/${prefix}*.fastq.gz"), emit: teton_classification
     tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
@@ -103,7 +105,12 @@ process BRACKEN {
         ${prefix} \\
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\
-        ${prefix}.bracken.abundances.txt
+        ${prefix}.bracken.abundances.txt \\
+        --max_secondary_percent ${params.bracken_max_secondary_percent}
+
+    # move primary FASTQs
+    mkdir fastqs/
+    cp ${reads} fastqs/
 
     # Create a Krona report from reports
     if [ "${params.skip_krona}" == "false" ]; then

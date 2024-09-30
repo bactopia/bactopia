@@ -113,6 +113,13 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
+                "bracken_max_secondary_percent": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "The maximum percent abundance for the secondary species, if exceeded, sample will remain unclassified",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
                 "skip_krona": {
                     "type": "boolean",
                     "default": false,
@@ -129,3 +136,6 @@
         }
     ]
 }
+
+
+bracken_max_secondary_abudance = 0.01

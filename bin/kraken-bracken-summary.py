@@ -48,6 +48,8 @@ if __name__ == '__main__':
                         help='The BRacken updated Kraken2 report')
     parser.add_argument('bracken_abundances', metavar="BRACKEN_ABUNDANCES", type=str,
                         help='The Bracken output with abundances')
+    parser.add_argument('--max_secondary_percent', metavar="FLOAT", type=float, default=0.01,
+                        help='The maximum percent abundance for the secondary species, if exceeded, sample will remain unclassified')
     parser.add_argument('--version', action='version',
                         version=f'{PROGRAM} {VERSION}')
 
@@ -107,3 +109,12 @@ if __name__ == '__main__':
     bracken.insert(0, 'sample', args.prefix)
     bracken['percent_total_reads'] = (bracken['new_est_reads'] / total_count) * 100
     bracken.to_csv("{0}.bracken.adjusted.abundances.txt".format(args.prefix), sep='\t', float_format='%.5f', index=False)
+
+    # Write out the top hit if the secondary is less than --min_percent
+    with open("{0}.bracken.classification.txt".format(args.prefix), "wt") as fh_out:
+        fh_out.write("sample\tclassification\n")
+        if bracken['fraction_total_reads'].iloc[1] < args.max_secondary_percent:
+            fh_out.write("{0}\t{1}\n".format(args.prefix, bracken['name'].iloc[0]))
+        else:
+            fh_out.write("{0}\t{1}\n".format(args.prefix, "UNKNOWN_SPECIES"))
+
