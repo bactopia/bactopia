@@ -11,7 +11,7 @@ process MLST {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mlst:2.23.0--hdfd78af_1' :
         'quay.io/biocontainers/mlst:2.23.0--hdfd78af_1' }"
 

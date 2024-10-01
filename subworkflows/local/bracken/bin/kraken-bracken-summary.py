@@ -113,7 +113,8 @@ if __name__ == '__main__':
     # Write out the top hit if the secondary is less than --min_percent
     with open("{0}.bracken.classification.txt".format(args.prefix), "wt") as fh_out:
         fh_out.write("sample\tclassification\n")
-        if bracken['fraction_total_reads'].iloc[1] < args.max_secondary_percent:
+        secondary_abundance = bracken[bracken['name'] != "unclassified"]['fraction_total_reads'].iloc[1]
+        if secondary_abundance < args.max_secondary_percent:
             fh_out.write("{0}\t{1}\n".format(args.prefix, bracken['name'].iloc[0]))
         else:
             fh_out.write("{0}\t{1}\n".format(args.prefix, "UNKNOWN_SPECIES"))

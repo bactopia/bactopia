@@ -99,18 +99,31 @@ workflow.onComplete {
     workDir = new File("${workflow.workDir}")
 
     println """
-    Bactopia Execution Summary
-    ---------------------------
+    Staphopia Execution Summary
+    -------------------------------
+    Workflow         : ${params.wf}
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}
     Command Line     : ${workflow.commandLine}
-    Resumed          : ${workflow.resume}
+    Profile          : ${workflow.profile}
     Completed At     : ${workflow.complete}
     Duration         : ${workflow.duration}
     Success          : ${workflow.success}
     Exit Code        : ${workflow.exitStatus}
     Error Report     : ${workflow.errorReport ?: '-'}
     Launch Dir       : ${workflow.launchDir}
+    ${colors.bgreen}Merged Results${colors.reset}   : ${colors.green}${params.outdir}/bactopia-runs/${params.rundir}${colors.reset}
+
+    Further analyze your samples using Bactopia Tools, with the following command:
+    --------------------------------------------------------------------------------
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf <REPLACE_WITH_BACTOPIA_TOOL_NAME>${colors.reset}
+
+    Examples:
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf pangenome${colors.reset}
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf mobsuite${colors.reset}
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf busco${colors.reset}
+
+    See the full list of available Bactopia Tools: ${colors.cyan}bactopia --list_wfs${colors.reset}
     """
 }
 

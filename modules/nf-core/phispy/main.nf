@@ -33,7 +33,7 @@ process PHISPY {
     path "versions.yml", emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     mkdir results/
     PhiSpy.py \\

@@ -25,7 +25,7 @@ process LEGSTA {
     path "versions.yml"           , emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     legsta \\
         $options.args \\

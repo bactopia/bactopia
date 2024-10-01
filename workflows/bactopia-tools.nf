@@ -373,11 +373,13 @@ workflow.onComplete {
     workDir = new File("${workflow.workDir}")
 
     println """
-    Bactopia Tools: `${params.wf} Execution Summary
-    ---------------------------
+    Bactopia Tools Execution Summary
+    ------------------------------------
+    Workflow         : ${params.wf}
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}
     Command Line     : ${workflow.commandLine}
+    Profile          : ${workflow.profile}
     Resumed          : ${workflow.resume}
     Completed At     : ${workflow.complete}
     Duration         : ${workflow.duration}
@@ -385,6 +387,7 @@ workflow.onComplete {
     Exit Code        : ${workflow.exitStatus}
     Error Report     : ${workflow.errorReport ?: '-'}
     Launch Dir       : ${workflow.launchDir}
+    ${colors.bgreen}Merged Results${colors.reset}   : ${colors.green}${params.outdir}/bactopia-runs/${params.rundir}${colors.reset}
     """
 }
 

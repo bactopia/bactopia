@@ -11,7 +11,7 @@ process GENOTYPHI_PARSE {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/genotyphi:2.0--hdfd78af_0' :
         'quay.io/biocontainers/genotyphi:2.0--hdfd78af_0' }"
 

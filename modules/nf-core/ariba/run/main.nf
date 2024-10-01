@@ -31,7 +31,7 @@ process ARIBA_RUN {
     meta.single_end == false
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     db_name = db.getName().replace('.tar.gz', '')
     """
     tar -xzvf ${db}

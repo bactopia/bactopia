@@ -100,10 +100,12 @@ workflow.onComplete {
 
     println """
     Bactopia Execution Summary
-    ---------------------------
+    ------------------------------
+    Workflow         : ${params.wf}
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}
     Command Line     : ${workflow.commandLine}
+    Profile          : ${workflow.profile}
     Resumed          : ${workflow.resume}
     Completed At     : ${workflow.complete}
     Duration         : ${workflow.duration}
@@ -111,6 +113,18 @@ workflow.onComplete {
     Exit Code        : ${workflow.exitStatus}
     Error Report     : ${workflow.errorReport ?: '-'}
     Launch Dir       : ${workflow.launchDir}
+    ${colors.bgreen}Merged Results${colors.reset}   : ${colors.green}${params.outdir}/bactopia-runs/${params.rundir}${colors.reset}
+
+    Further analyze your samples using Bactopia Tools, with the following command:
+    --------------------------------------------------------------------------------
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf <REPLACE_WITH_BACTOPIA_TOOL_NAME>${colors.reset}
+
+    Examples:
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf pangenome${colors.reset}
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf merlin${colors.reset}
+    ${colors.cyan}bactopia -profile ${workflow.profile} --bactopia ${params.outdir} --wf sccmec${colors.reset}
+
+    See the full list of available Bactopia Tools: ${colors.cyan}bactopia --list_wfs${colors.reset}
     """
 }
 

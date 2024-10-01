@@ -56,6 +56,7 @@ workflow BRACKEN {
     bracken_report = BRACKEN_MODULE.out.bracken_report
     abundances = BRACKEN_MODULE.out.abundances
     classification = BRACKEN_MODULE.out.classification
+    teton_classification = BRACKEN_MODULE.out.teton_classification
     adjusted_abundances = BRACKEN_MODULE.out.adjusted_abundances
     merged_adjusted_abundances = CSVTK_CONCAT_ADJUSTED.out.csv
     versions = ch_versions // channel: [ versions.yml ]

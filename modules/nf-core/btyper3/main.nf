@@ -47,17 +47,4 @@ process BTYPER3 {
         btyper3: \$(echo \$(btyper3 --version 2>&1) | sed 's/^.*btyper3 //;' ))
     END_VERSIONS
     """
-
-    stub:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    """
-    mkdir results
-    touch results/${prefix}_final_results.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        btyper3: \$(echo \$(btyper3 --version 2>&1) | sed 's/^.*btyper3 //;' ))
-    END_VERSIONS
-    """
 }

@@ -11,7 +11,7 @@ process RGI_MAIN {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/rgi:6.0.3--pyha8f3691_0' :
         'quay.io/biocontainers/rgi:6.0.3--pyha8f3691_0' }"
 
