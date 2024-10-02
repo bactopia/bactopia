@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION=3.1.0
+VERSION=3.1.1
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
