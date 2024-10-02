@@ -4,13 +4,22 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.x.x bactopia/bactopia "" 2024/xx/xx
+## v3.1.1 bactopia/bactopia "" 2024/xx/xx
+
+### `Added`
+
+- `teton` now outputs a bactopia sample sheet with species and genome size filled out
+    - `sizemeup` uses the bracken output to determine genome size
+- more metrics and helper text at end of runs
+- bump program versions in modules
+    - `bactopia-teton`: 1.0.2 -> 1.1.0
 
 ### `Fixed`
 
 - debugging print in `functions.nf`
 - fixed `params.max_retry` in local profiles
 - `nextflow.config` accessing `param` vals before they are set
+- removed lingering `task.ext` which were not used
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
