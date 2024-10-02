@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'teton-prepare')
 options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::bactopia-teton=1.1.0
+conda_tools   = "bioconda::bactopia-teton=1.1.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
