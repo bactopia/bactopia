@@ -59,7 +59,8 @@ process PROKKA {
     if [ "$params.prokka_debug" == "true" ]; then
         export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
         env
-        bactopia-prokka \\
+        mkdir tmp_prokka/
+        TMPDIR=tmp_prokka/ bactopia-prokka \\
             $options.args \\
             --cpus $task.cpus \\
             --prefix $prefix \\
@@ -68,6 +69,7 @@ process PROKKA {
             $proteins_opt \\
             $prodigal_opt \\
             $fasta_name
+        rm -rf tmp_prokka/
     else
         prokka \\
             $options.args \\

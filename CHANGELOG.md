@@ -11,6 +11,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - `teton` now outputs a bactopia sample sheet with species and genome size filled out
     - `sizemeup` uses the bracken output to determine genome size
 - more metrics and helper text at end of runs
+- `snippy` use a local directory for `--tmpdir`
 - bump program versions in modules
     - `bactopia-teton`: 1.0.2 -> 1.1.0
 

@@ -62,12 +62,14 @@ process SNIPPY_RUN {
         exit 1
     fi
 
+    mkdir tmp_snippy/
     snippy \\
         $options.args \\
         --cpus $task.cpus \\
         --outdir $prefix \\
         --reference $final_reference \\
         --prefix $prefix \\
+        --tmpdir tmp_snippy/ \\
         $read_inputs
 
     # Add GenBank annotations
@@ -89,7 +91,7 @@ process SNIPPY_RUN {
         --mincov ${params.mincov} > ${prefix}/${prefix}.consensus.subs.masked.fa
 
     # Clean Up
-    rm -rf ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz*
+    rm -rf tmp_snippy/ ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz*
 
     if [[ ${params.skip_compression} == "false" ]]; then
         find ${prefix}/ -type f | \
