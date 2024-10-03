@@ -230,7 +230,7 @@
                     "help": "",
                     "fa_icon": "fas fa-folder"
                 },
-                "singularity_cache_dir": {
+                "singularity_cache": {
                     "type": "string",
                     "description": "Directory where remote Singularity images are stored.",
                     "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR environment variable overrides this parameter",

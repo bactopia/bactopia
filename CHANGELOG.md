@@ -21,6 +21,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - fixed `params.max_retry` in local profiles
 - `nextflow.config` accessing `param` vals before they are set
 - removed lingering `task.ext` which were not used
+- replace `--singularity_cache_dir` with `--singularity_cache` to match `bactopia download`
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
