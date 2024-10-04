@@ -69,6 +69,8 @@ elif [[ "$1" == "summary" ]]; then
     bactopia-summary "${@:2}"
 elif [[ "$1" == "atb-formatter" ]]; then
     bactopia-atb-formatter "${@:2}"
+elif [[ "$1" == "atb-downloader" ]]; then
+    bactopia-atb-downloader "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
 else
