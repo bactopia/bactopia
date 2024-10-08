@@ -1,0 +1,8 @@
+- name: sylph-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf sylph -c nextflow.config --help > sylph-help.txt'
+  tags:
+    - bactopia_help
+    - sylph
+  files:
+    - path: sylph-help.txt
+      contains: ['sylph', 'bactopia', 'version', 'dependencies']

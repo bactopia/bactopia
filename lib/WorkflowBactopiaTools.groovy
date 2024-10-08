@@ -183,6 +183,14 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--scrubber_db"
             }
+        } else if (params.wf == "sylph") {
+            if (params.sylph_db) {
+                if (Utils.isLocal(params.sylph_db)) {
+                    error += Utils.fileNotFound(params.sylph_db, 'sylph_db', log)
+                }
+            } else {
+                missing_required += "--sylph_db"
+            }
         } else if (params.wf == "tblastn") {
             if (params.tblastn_query) {
                 if (Utils.isLocal(params.tblastn_query)) {

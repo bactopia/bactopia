@@ -12,6 +12,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `sizemeup` uses the bracken output to determine genome size
 - more metrics and helper text at end of runs
 - `snippy` use a local directory for `--tmpdir`
+- `bactopia atb-downloader` to download ATB assemblies by BioSample, TaxID, or species
 - bump program versions in modules
     - `bactopia-teton`: 1.0.2 -> 1.1.0
 

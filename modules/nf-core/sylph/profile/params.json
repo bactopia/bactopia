@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/sylph/profile/params.json",
+    "title": "Sylph Profile Module",
+    "description": "A module to for taxonomic profiling by abundance-corrected minhash",
+    "type": "object",
+    "definitions": {
+        "sylph_profile_parameters": {
+            "title": "Sylph Profile Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "sylph_db": {
+                    "type": "string",
+                    "description": "The path to a sylph formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "sylph_k": {
+                    "type": "integer",
+                    "default": 31,
+                    "description": "K-mer size for sketching",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_min_spacing": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "Minimum spacing between selected k-mers on the database genomes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_subsample_rate": {
+                    "type": "integer",
+                    "default": 200,
+                    "description": "Subsample rate for sketching",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_min_ani": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum adjusted ANI to consider. Smaller than 95 for profile will give inaccurate results.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sylph_min_kmers": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Exclude genomes with less than this number of sampled k-mers",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_min_correct": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Minimum k-mer multiplicity needed for coverage correction. Higher values gives more precision but lower sensitivity",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_estimate_unknown": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Estimate true coverage and scale sequence abundance in `profile` by estimated unknown sequence percentage",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "sylph_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for Sylph",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/sylph_profile_parameters"
+        }
+    ]
+}

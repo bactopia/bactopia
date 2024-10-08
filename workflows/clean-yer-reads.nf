@@ -82,6 +82,7 @@ workflow CLEANYERREADS {
 */
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
+    def colors = NfcoreTemplate.logColours(params.monochrome_logs)
 
     println """
     clean-yer-reads Execution Summary

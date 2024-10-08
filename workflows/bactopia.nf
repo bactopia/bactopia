@@ -97,6 +97,7 @@ workflow BACTOPIA {
 */
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
+    def colors = NfcoreTemplate.logColours(params.monochrome_logs)
 
     println """
     Bactopia Execution Summary

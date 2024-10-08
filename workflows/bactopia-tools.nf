@@ -99,6 +99,7 @@ if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 if (params.wf == 'stecfinder') include { STECFINDER } from '../subworkflows/local/stecfinder/main';
+if (params.wf == 'sylph') include { SYLPH } from '../subworkflows/local/sylph/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
 if (params.wf == 'tblastn') include { TBLASTN } from '../subworkflows/local/tblastn/main';
 if (params.wf == 'tblastx') include { TBLASTX } from '../subworkflows/local/tblastx/main';
@@ -346,7 +347,10 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'stecfinder') {
         STECFINDER(samples)
         ch_versions = ch_versions.mix(STECFINDER.out.versions)
-    } else if (params.wf == 'tbprofiler') {
+    } else if (params.wf == 'sylph') {
+        SYLPH(samples)
+        ch_versions = ch_versions.mix(SYLPH.out.versions)
+    }  else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)
     } else if (params.wf == 'tblastn') {
@@ -371,6 +375,7 @@ workflow BACTOPIATOOLS {
 */
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
+    def colors = NfcoreTemplate.logColours(params.monochrome_logs)
 
     println """
     Bactopia Tools Execution Summary
