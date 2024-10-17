@@ -8,6 +8,8 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Added`
 
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `sylph` - taxonomic profiling and genome querying for metagenomic samples
 - `teton` now outputs a bactopia sample sheet with species and genome size filled out
     - `sizemeup` uses the bracken output to determine genome size
 - more metrics and helper text at end of runs
