@@ -7,7 +7,7 @@ keywords:
 tools:
   - "plasmidfinder":
       description: "PlasmidFinder allows identification of plasmids in total or partial sequenced isolates of bacteria."
-      homepage: "https://cge.cbs.dtu.dk/services/PlasmidFinder/"
+      homepage: "https://cge.food.dtu.dk/services/PlasmidFinder/"
       documentation: "https://bitbucket.org/genomicepidemiology/plasmidfinder"
       tool_dev_url: "https://bitbucket.org/genomicepidemiology/plasmidfinder"
       doi: "10.1128/AAC.02412-14"
