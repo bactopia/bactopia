@@ -63,6 +63,9 @@ process DEFENSEFINDER_RUN {
         rm -rf defense-finder-tmp/ 
     fi
 
+    # Cleanup intermediate files and unused outputs
+    rm -rf models/ defense-finder/
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         defense-finder: ${DF_VERSION}
