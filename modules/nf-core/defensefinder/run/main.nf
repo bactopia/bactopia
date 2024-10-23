@@ -41,19 +41,19 @@ process DEFENSEFINDER_RUN {
     # Extract database
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
     tar -xf $db
-    mkdir -p defense-finder-tmp/defense-finder
-    TMPDIR=defense-finder-tmp/defense-finder macsydata \\
+    mkdir -p df-tmp/df
+    TMPDIR=df-tmp/df macsydata \\
         install \\
         --target defense-finder/ \\
         models/defense-finder-models-v${DF_MODELS_VERSION}.tar.gz
 
-    mkdir -p defense-finder-tmp/CasFinder
-    TMPDIR=defense-finder-tmp/CasFinder macsydata \\
+    mkdir -p df-tmp/cf
+    TMPDIR=df-tmp/cf macsydata \\
         install \\
         --target defense-finder/ \\
         models/CasFinder-${CASFINDER_VERSION}.tar.gz
 
-    TMPDIR=defense-finder-tmp/ defense-finder \\
+    TMPDIR=df-tmp/ defense-finder \\
         run \\
         $options.args \\
         --workers $task.cpus \\
@@ -66,7 +66,7 @@ process DEFENSEFINDER_RUN {
     fi
 
     # Cleanup intermediate files and unused outputs
-    rm -rf models/ defense-finder/ defense-finder-tmp/
+    rm -rf models/ defense-finder/ df-tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
