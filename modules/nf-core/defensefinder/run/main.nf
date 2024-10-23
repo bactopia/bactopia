@@ -38,20 +38,22 @@ process DEFENSEFINDER_RUN {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    set -x
     # Extract database
+    # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
     tar -xf $db
-    macsydata \\
+    mkdir -p defense-finder-tmp/defense-finder
+    TMPDIR=defense-finder-tmp/defense-finder macsydata \\
         install \\
         --target defense-finder/ \\
         models/defense-finder-models-v${DF_MODELS_VERSION}.tar.gz
 
-    macsydata \\
+    mkdir -p defense-finder-tmp/CasFinder
+    TMPDIR=defense-finder-tmp/CasFinder macsydata \\
         install \\
         --target defense-finder/ \\
         models/CasFinder-${CASFINDER_VERSION}.tar.gz
 
-    defense-finder \\
+    TMPDIR=defense-finder-tmp/ defense-finder \\
         run \\
         $options.args \\
         --workers $task.cpus \\
@@ -64,7 +66,7 @@ process DEFENSEFINDER_RUN {
     fi
 
     # Cleanup intermediate files and unused outputs
-    rm -rf models/ defense-finder/
+    rm -rf models/ defense-finder/ defense-finder-tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
