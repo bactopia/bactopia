@@ -51,6 +51,9 @@ process SISTR {
     gzip ${prefix}-allele.json
     gzip ${prefix}-allele.fasta
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         sistr: \$(echo \$(sistr --version 2>&1) | sed 's/^.*sistr_cmd //; s/ .*\$//' )

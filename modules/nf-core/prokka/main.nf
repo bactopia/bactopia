@@ -104,6 +104,9 @@ process PROKKA {
     mv ${prefix}/${prefix}.log ./
     mv ${prefix}/ results/
 
+    # Cleanup intermediate files
+    rm -rf ${fasta_name} blastdb/ results/*.pdb results/*.pjs results/*.pot results/*.ptf results/*.pto
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         makeblastdb: \$( echo \$(makeblastdb -version 2>&1) | sed 's/^.*makeblastdb: //;s/ .*\$//')

@@ -41,6 +41,9 @@ process SSUISSERO {
         -x fasta \\
         -t $task.cpus
 
+    # Cleanup
+    rm -rf ${fasta_name} blast_res/
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ssuissero: $VERSION

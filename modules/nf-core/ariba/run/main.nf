@@ -57,6 +57,9 @@ process ARIBA_RUN {
     mv ${db_name}/summary.csv ${db_name}/${prefix}-summary.csv
     mv ${db_name}/ results/
 
+    # Cleanup
+    rm -rf ${db_name}db
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ariba:  \$(echo \$(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*\$//')

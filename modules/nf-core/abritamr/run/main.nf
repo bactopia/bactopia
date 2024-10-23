@@ -53,6 +53,9 @@ process ABRITAMR_RUN {
         mv results/abritamr.txt ./${prefix}.abritamr.txt
     fi
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         abritamr: \$(echo \$(abritamr --version 2>&1) | sed 's/^.*abritamr //' ))

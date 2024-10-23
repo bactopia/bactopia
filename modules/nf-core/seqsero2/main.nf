@@ -35,6 +35,7 @@ process SEQSERO2 {
     if [ "$is_compressed_fna" == "true" ]; then
         gzip -c -d ${seqs[0]} > $seq_name
     fi
+
     SeqSero2_package.py \\
         $options.args \\
         -d results/ \\
@@ -45,6 +46,9 @@ process SEQSERO2 {
     mv results/SeqSero_log.txt results/${prefix}_log.txt
     mv results/SeqSero_result.tsv results/${prefix}_result.tsv
     mv results/SeqSero_result.txt results/${prefix}_result.txt
+
+    # Cleanup
+    rm -rf results/${seq_name} ${seq_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

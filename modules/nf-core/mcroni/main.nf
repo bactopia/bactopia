@@ -44,6 +44,9 @@ process MCRONI {
         sed -i 's/NA\$/NA\\tNA/' ${prefix}_table.tsv
     fi
 
+    # Cleanup
+    rm -rf ${fasta_name} ${fasta_name}.ndb ${fasta_name}.not ${fasta_name}.ntf ${fasta_name}.nto
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         mcroni: $VERSION

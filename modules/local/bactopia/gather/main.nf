@@ -266,7 +266,6 @@ process GATHER {
         IS_PAIRED="false"
     fi
 
-
     # Dump meta values to a TSV
     echo "sample<TAB>runtype<TAB>original_runtype<TAB>is_paired<TAB>is_compressed<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
     echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>\$IS_PAIRED<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv

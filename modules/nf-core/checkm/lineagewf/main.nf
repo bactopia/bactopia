@@ -46,6 +46,9 @@ process CHECKM_LINEAGEWF {
     find ./results/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
     mv results/checkm.log ./
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         checkm: \$(echo \$(checkm -h 2>&1) | sed 's/.*CheckM v//;s/ .*\$//')

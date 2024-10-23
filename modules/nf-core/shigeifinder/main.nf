@@ -40,6 +40,9 @@ process SHIGEIFINDER {
         -t $task.cpus \\
         -i $fasta_name
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         shigeifinder: $VERSION

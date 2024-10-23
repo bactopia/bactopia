@@ -24,7 +24,7 @@ process SKETCHER {
     output:
     tuple val(meta), path("${prefix}.sig")                        , emit: sig
     tuple val(meta), path("${prefix}-k*.msh")                     , emit: msh
-    tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")        , emit: mash
+    tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")      , emit: mash
     tuple val(meta), path("${prefix}-sourmash-gtdb-rs207-k31.txt"), emit: sourmash
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
@@ -49,6 +49,9 @@ process SKETCHER {
 
     # Sourmash classify
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt
+
+    # Cleanup
+    rm -rf ${mash_name}
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml

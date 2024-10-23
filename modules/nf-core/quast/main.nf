@@ -50,6 +50,9 @@ process QUAST {
     mv results/quast.log ./
     mv results/transposed_report.tsv results/${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         quast: \$(quast --version 2>&1 | sed 's/^.*QUAST v//; s/ .*\$//')

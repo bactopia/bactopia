@@ -40,6 +40,9 @@ process MYKROBE_PREDICT {
         --output ${prefix} \\
         --seq $seqs
 
+    # Cleanup
+    rm -rf mykrobe
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         mykrobe: \$(echo \$(mykrobe --version 2>&1) | sed 's/^.*mykrobe v//' )

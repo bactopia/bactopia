@@ -40,7 +40,7 @@ process CLERMONTYPING {
         $options.args
 
     # Remove temporary files and rename outputs
-    rm results/$fasta_name
+    rm results/${fasta_name} ${fasta_name}
     rm -rf results/db
     rm -rf results/results.R
     mv results/${fasta_name}.xml results/${prefix}.blast.xml

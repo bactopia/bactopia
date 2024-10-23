@@ -41,6 +41,9 @@ process ECTYPER {
         --input $fasta_name
     mv output.tsv ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ectyper: \$(echo \$(ectyper --version 2>&1)  | sed 's/.*ectyper //; s/ .*\$//')

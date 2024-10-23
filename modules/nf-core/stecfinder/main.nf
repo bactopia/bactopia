@@ -38,6 +38,9 @@ process STECFINDER {
         $options.args \\
         -t $task.cpus > ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${seq_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         stecfinder: \$(echo \$(stecfinder --version 2>&1) | sed 's/^.*STECFinder version: //;' )

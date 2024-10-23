@@ -42,6 +42,9 @@ process BTYPER3 {
 
     mv btyper3_final_results/ results/
 
+    # Cleanup
+    rm -rf ${fasta_name} ${fasta_name}.njs
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         btyper3: \$(echo \$(btyper3 --version 2>&1) | sed 's/^.*btyper3 //;' ))

@@ -44,6 +44,9 @@ process CSVTK_CONCAT {
         --out-file ${prefix}.${out_extension} \\
         --infile-list fofn.txt
 
+    # Cleanup
+    rm -rf fofn.txt
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         csvtk: \$(echo \$( csvtk version | sed -e "s/csvtk v//g" ))

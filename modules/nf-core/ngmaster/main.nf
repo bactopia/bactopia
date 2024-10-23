@@ -38,6 +38,9 @@ process NGMASTER {
         $fasta_name \\
         > ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ngmaster: \$( echo \$(ngmaster --version 2>&1) | sed 's/^.*ngmaster //' )

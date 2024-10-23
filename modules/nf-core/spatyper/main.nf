@@ -42,6 +42,9 @@ process SPATYPER {
         --fasta $fasta_name \\
         --output ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         spatyper: \$( echo \$(spaTyper --version 2>&1) | sed 's/^.*spaTyper //' )

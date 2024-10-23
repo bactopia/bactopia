@@ -38,6 +38,9 @@ process EMMTYPER {
         $fasta_name \\
         > ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         emmtyper: \$( echo \$(emmtyper --version 2>&1) | sed 's/^.*emmtyper v//' )

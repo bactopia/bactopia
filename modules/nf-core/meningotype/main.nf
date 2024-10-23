@@ -38,6 +38,9 @@ process MENINGOTYPE {
         $fasta_name \\
         > ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         meningotype: \$( echo \$(meningotype --version 2>&1) | sed 's/^.*meningotype v//' )

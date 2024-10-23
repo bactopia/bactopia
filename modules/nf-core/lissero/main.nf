@@ -39,6 +39,9 @@ process LISSERO {
         > ${prefix}.tsv
     sed -i 's/^.*${fasta_name}/${fasta_name}/' ${prefix}.tsv
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         lissero: \$( echo \$(lissero --version 2>&1) | sed 's/^.*LisSero //' )

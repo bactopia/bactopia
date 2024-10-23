@@ -55,6 +55,9 @@ process HICAP {
         sed -i 's/#isolate/isolate/' ${meta.id}.tsv
     fi
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         hicap: \$( echo \$( hicap --version 2>&1 ) | sed 's/^.*hicap //' )

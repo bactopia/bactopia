@@ -44,6 +44,9 @@ process GAMMA {
         $db \\
         $prefix
 
+    # Cleanup
+    rm -rf ${fasta_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         gamma: $VERSION

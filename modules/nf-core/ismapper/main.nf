@@ -54,6 +54,9 @@ process ISMAPPER {
     mkdir results
     mv $prefix/*/* results/
 
+    # Cleanup
+    rm -rf ${reference_name} ${query_name}
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ismapper: \$( echo \$( ismap --version 2>&1 ) | sed 's/^.*ismap //' )

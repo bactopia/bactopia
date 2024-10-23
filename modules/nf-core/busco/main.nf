@@ -66,9 +66,12 @@ process BUSCO {
     # cleanup output directory structure
     find results/ -name "*.log" | xargs -I {} mv {} ./
     find results/ -type d -path "*logs" | xargs -I {} rm -rf {}
+    find results/ -type f -name "*.fna" | xargs -I {} gzip {}
+    find results/ -type f -name "*.faa" | xargs -I {} gzip {}
+    find results/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
     mv results/batch_summary.txt results/${prefix}-summary.txt
     mv results/${fasta_name}/* results/
-    rm -rf results/${fasta_name}
+    rm -rf results/${fasta_name} busco_downloads/ tmp*/
 
     # Busco outputs additional trailing tabs, clean them up
     sed -i 's/\t\t\t\$//' results/${prefix}-summary.txt
