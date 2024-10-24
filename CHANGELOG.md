@@ -15,6 +15,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - more metrics and helper text at end of runs
 - `snippy` use a local directory for `--tmpdir`
 - `bactopia atb-downloader` to download ATB assemblies by BioSample, TaxID, or species
+- within task clean up to help reduce `work` directory size
 - bump program versions in modules
     - `bactopia-teton`: 1.0.2 -> 1.1.0
 
@@ -25,6 +26,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - `nextflow.config` accessing `param` vals before they are set
 - removed lingering `task.ext` which were not used
 - replace `--singularity_cache_dir` with `--singularity_cache` to match `bactopia download`
+- `gamma` not checking for `--gamma_db` at runtime
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
