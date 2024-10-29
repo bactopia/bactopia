@@ -83,6 +83,12 @@ process BAKTA_RUN {
         gzip --best results/${prefix}.hypotheticals.faa
     fi
 
+    # Clean up
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+    rm -rf blastdb/
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bakta: \$( echo \$(bakta --version 2>&1) | sed 's/^.*bakta //' )

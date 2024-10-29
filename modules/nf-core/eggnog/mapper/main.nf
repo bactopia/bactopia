@@ -52,6 +52,12 @@ process EGGNOG_MAPPER {
         --output $prefix \\
         -i $fasta
 
+    # Cleanup
+    if [ "$is_tarball" == "true" ]; then
+        # Delete the untarred database
+        rm -rf database
+    fi
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         eggnog-mapper: \$( echo \$(emapper.py --version 2>&1)| sed 's/.* emapper-//;s/ .*//')

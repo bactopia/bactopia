@@ -16,7 +16,7 @@ process TBPROFILER_COLLATE {
         'quay.io/biocontainers/tb-profiler:6.3.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(json, stageAs: 'results/*')
+    tuple val(meta), path(json, stageAs: 'results-tmp/*')
 
     output:
     tuple val(meta), path("tbprofiler.csv")   , emit: csv
@@ -30,7 +30,10 @@ process TBPROFILER_COLLATE {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
-    tb-profiler collate --help
+    # Uncompress the JSON files
+    mkdir results
+    cp -L results-tmp/* results/
+    find results/ -name "*.json.gz" | xargs gunzip
 
     tb-profiler \\
         collate \\

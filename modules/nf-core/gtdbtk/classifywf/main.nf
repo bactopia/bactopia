@@ -50,6 +50,18 @@ process GTDBTK_CLASSIFYWF {
         --out_dir results \\
         --skip_ani_screen \\
         --prefix ${prefix}
+    mv results/*.log ./
+
+    # Cleanup
+    if [ "$is_tarball" == "true" ]; then
+        # Delete the untarred database
+        rm -rf database
+    fi
+    if [ "${params.gtdb_keep_msa}" == "false" ]; then
+        # Delete MSA of submitted and reference genomes.
+        rm -rf results/align/*.msa.fasta.gz
+    fi
+    rm -rf fna/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

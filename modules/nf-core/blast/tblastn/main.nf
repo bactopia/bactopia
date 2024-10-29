@@ -47,6 +47,9 @@ process BLAST_TBLASTN {
     echo "$outcols" | sed 's/<TAB>/\t/g' > ${prefix}.tblastn.tsv
     sed 's/^/${prefix}\t/' ${prefix}.txt >> ${prefix}.tblastn.tsv
 
+    # Cleanup
+    rm -rf blastdb/ ${prefix}.txt
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         tblastn: \$(tblastn -version 2>&1 | sed 's/^.*tblastn: //; s/ .*\$//')

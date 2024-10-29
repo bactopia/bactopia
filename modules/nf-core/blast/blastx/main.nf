@@ -45,6 +45,9 @@ process BLAST_BLASTX {
     echo "$outcols" | sed 's/<TAB>/\t/g' > ${prefix}.blastx.tsv
     sed 's/^/${prefix}\t/' ${prefix}.txt >> ${prefix}.blastx.tsv
 
+    # Cleanup
+    rm -rf blastdb/ ${prefix}.txt
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         blastx: \$(blastx -version 2>&1 | sed 's/^.*blastx: //; s/ .*\$//')

@@ -4,7 +4,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.1.1 bactopia/bactopia "" 2024/xx/xx
+## v3.2.0 bactopia/bactopia "" 2024/xx/xx
 
 ### `Added`
 
@@ -16,6 +16,8 @@ description: A full list of Bactopia releases and a description of the changes.
 - `snippy` use a local directory for `--tmpdir`
 - `bactopia atb-downloader` to download ATB assemblies by BioSample, TaxID, or species
 - within task clean up to help reduce `work` directory size
+    - `gtdb`: add `--gtdb_keep_msa` to keep GTDB MSA files, ortherwise remove
+    - `kraken2`: replace `--remove_filtered_reads` with `--keep_filtered_reads` to keep classified and unclassified reads
 - bump program versions in modules
     - `bactopia-teton`: 1.0.2 -> 1.1.0
 
@@ -27,6 +29,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - removed lingering `task.ext` which were not used
 - replace `--singularity_cache_dir` with `--singularity_cache` to match `bactopia download`
 - `gamma` not checking for `--gamma_db` at runtime
+- tests using single protein (typo in file name config)
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 

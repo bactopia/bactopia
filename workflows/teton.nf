@@ -70,7 +70,7 @@ workflow TETON {
     ch_versions = ch_versions.mix(BRACKEN.out.versions)
 
     // Determine genome size and create sample sheet
-    BACTOPIA_SAMPLESHEET(BRACKEN.out.teton_classification)
+    BACTOPIA_SAMPLESHEET(BRACKEN.out.classification)
     ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
 
     // Join Scrubber and Bracken results

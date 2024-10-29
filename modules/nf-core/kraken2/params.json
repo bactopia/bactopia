@@ -78,10 +78,10 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "remove_filtered_reads": {
+                "keep_filtered_reads": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Discard the classified and unclassified FASTQs produced by Kraken2",
+                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 }

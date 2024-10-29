@@ -51,6 +51,12 @@ process MIDAS_SPECIES {
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
     midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
 
+    # Cleanup
+    rm -rf results/
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         midas: $VERSION

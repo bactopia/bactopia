@@ -29,7 +29,6 @@ process BRACKEN {
     tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
     tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
     tuple val(meta), path("${prefix}.bracken.classification.txt")         , emit: classification
-    tuple val(meta), path("${prefix}.bracken.classification.txt"), path("fastqs/${prefix}*.fastq.gz"), emit: teton_classification
     tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
@@ -43,6 +42,7 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
+    meta.teton_reads = reads.join(",")
     """
     if [ "$is_tarball" == "true" ]; then
         mkdir database
@@ -108,10 +108,6 @@ process BRACKEN {
         ${prefix}.bracken.abundances.txt \\
         --max_secondary_percent ${params.bracken_max_secondary_percent}
 
-    # move primary FASTQs
-    mkdir fastqs/
-    cp ${reads} fastqs/
-
     # Create a Krona report from reports
     if [ "${params.skip_krona}" == "false" ]; then
         # Kraken2
@@ -125,21 +121,25 @@ process BRACKEN {
             --report ${prefix}.bracken.report.txt \\
             --output bracken-krona.temp
         ktImportText -o ${prefix}.bracken.krona.html bracken-krona.temp
-        rm *-krona.temp
     fi
 
     # Clean up large files produced by Kraken2/Bracken
+    rm *.temp
     if [ "${params.kraken2_keep_raw_output}" == "false" ]; then
         # Remove kraken2 STDOUT output file
         rm ${prefix}.kraken2.output.txt
     fi
 
-    if [ "${params.kraken2_remove_filtered_reads}" == "true" ]; then
-        # Remove filtered FASTQs
-        rm *.fastq
-    else
+    if [ "${params.kraken2_keep_filtered_reads}" == "true" ]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
+    else
+        # Remove filtered FASTQs
+        rm *.fastq
+    fi
+
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
     fi
 
     cat <<-END_VERSIONS > versions.yml

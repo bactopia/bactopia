@@ -60,29 +60,34 @@ process KRAKEN2 {
         $options.args \\
         $reads > /dev/null
 
-    # Clean up large files produced by Kraken2/Bracken
-    if [ "${params.remove_filtered_reads}" == "true" ]; then
-        # Remove filtered FASTQs
-        rm *.fastq
-    else
-        # Compress Kraken FASTQs
-        pigz -p $task.cpus *.fastq
-    fi
-
+    # If scrubbing, rename and summarize
     if [ "$unclassified_naming" == "scrubbed" ]; then
         # Rename scrubbed reads
         if [ "$meta.single_end" == "false" ]; then
-            mv ${prefix}.${unclassified_naming}_1.fastq.gz ${prefix}_R1.scrubbed.fastq.gz
-            mv ${prefix}.${unclassified_naming}_2.fastq.gz ${prefix}_R2.scrubbed.fastq.gz
+            mv ${prefix}.${unclassified_naming}_1.fastq ${prefix}_R1.scrubbed.fastq
+            mv ${prefix}.${unclassified_naming}_2.fastq ${prefix}_R2.scrubbed.fastq
         fi
 
         # Quick stats on reads
         zcat ${reads} | fastq-scan > original.json
-        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        zcat *.scrubbed.fastq | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
         # Remove host reads
-        rm ${prefix}.host*.fastq.gz
+        rm ${prefix}.host*.fastq
+    fi
+
+    # Clean up database and large files produced by Kraken2
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+
+    if [ "${params.keep_filtered_reads}" == "true" ]; then
+        # Compress Kraken FASTQs
+        pigz -p $task.cpus *.fastq
+    else
+        # Remove filtered FASTQs
+        rm *.fastq
     fi
 
     # Used for clean-yer-reads
