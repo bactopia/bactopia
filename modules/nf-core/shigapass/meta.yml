@@ -6,7 +6,7 @@ keywords:
   - stec
 tools:
   - shigapass:
-      description: Mass screening of contigs for antibiotic resistance genes
+      description: Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
       homepage: https://github.com/imanyass/ShigaPass
       documentation: https://github.com/imanyass/ShigaPass
       tool_dev_url: https://github.com/imanyass/ShigaPass
