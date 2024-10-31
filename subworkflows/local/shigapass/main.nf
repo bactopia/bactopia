@@ -5,7 +5,7 @@ include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'shigapass')
 
 include { SHIGAPASS as SHIGAPASS_MODULE } from '../../../modules/nf-core/shigapass/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'shigapass-summary-concat', process_name: params.merge_folder] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'shigapass-concat', process_name: params.merge_folder] )
 
 workflow SHIGAPASS {
     take:
