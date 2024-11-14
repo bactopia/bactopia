@@ -156,6 +156,7 @@ def saveFiles(Map args) {
     def filename = ""
     def found_ignore = false
     def logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
+    logs_subdir = logs_subdir == "use-prefix" ? args.prefix : logs_subdir
     def process_name = args.opts.process_name
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []

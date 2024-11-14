@@ -11,7 +11,8 @@ if (params.use_pirate) {
 
 include { CLONALFRAMEML } from '../clonalframeml/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".masked.aln.gz"]] )
 include { IQTREE as FINAL_TREE } from '../iqtree/main' addParams( options: [suffix: 'core-genome', ignore: [".aln.gz"], publish_to_base: [".iqtree"]] )
-include { SNPDISTS } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true] )
+include { SNPDISTS as SNPDISTS_UNMASKED } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-genome.distance', publish_to_base: true, logs_subdir: "unmasked-aln"] )
+include { SNPDISTS as SNPDISTS_MASKED } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-genome.masked.distance', publish_to_base: true, logs_subdir: "masked-aln"] )
 include { SCOARY } from '../scoary/main'
 
 workflow PANGENOME {
@@ -26,8 +27,8 @@ workflow PANGENOME {
     ch_versions = ch_versions.mix(PG_TOOL.out.versions)
 
     // Per-sample SNP distances
-    SNPDISTS(PG_TOOL.out.aln)
-    ch_versions = ch_versions.mix(SNPDISTS.out.versions)
+    SNPDISTS_UNMASKED(PG_TOOL.out.aln)
+    ch_versions = ch_versions.mix(SNPDISTS_UNMASKED.out.versions)
     
     // Identify Recombination
     if (!params.skip_recombination) {
@@ -42,6 +43,7 @@ workflow PANGENOME {
             FINAL_TREE(PG_TOOL.out.aln)
         } else {
             FINAL_TREE(CLONALFRAMEML.out.masked_aln)
+            SNPDISTS_MASKED(CLONALFRAMEML.out.masked_aln)
         }
         ch_versions = ch_versions.mix(FINAL_TREE.out.versions)
     }

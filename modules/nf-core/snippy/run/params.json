@@ -68,6 +68,13 @@
                     "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
                     "fa_icon": "fas fa-italic"
                 },
+                "snippy_remove_bam": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Delete BAM files after variant calling",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
                 "snippy_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for Snippy",

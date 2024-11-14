@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'custom_dumpsoftwareversions')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 options.process_name = "software-versions"
 conda_tools   = "bioconda::multiqc=1.24.1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")

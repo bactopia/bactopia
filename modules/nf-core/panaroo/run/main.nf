@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'panaroo')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::panaroo=1.5.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -46,11 +46,20 @@ process PANAROO_RUN {
 
     # Cleanup
     find . -name "*.fas" | xargs -I {} -P $task.cpus -n 1 gzip {}
+    find . -name "*.fa" | xargs -I {} -P $task.cpus -n 1 gzip {}
+    find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
+    find . -name "*.aln" | xargs -I {} -P $task.cpus -n 1 gzip {}
+    find . -name "*.gml" | xargs -I {} -P $task.cpus -n 1 gzip {}
 
-    if [[ -f "results/core_gene_alignment.aln" ]]; then
-        gzip results/core_gene_alignment.aln
+    if [[ -f "results/core_gene_alignment.aln.gz" ]]; then
         cp results/core_gene_alignment.aln.gz ./core-genome.aln.gz
     fi
+
+    if [[ -f "results/gene_data.csv" ]]; then
+        gzip results/gene_data.csv
+    fi
+
+    rm -rf gff/ gff-fofn.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

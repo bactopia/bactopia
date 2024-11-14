@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ncbigenomedownload')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::ncbi-genome-download=0.3.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -21,20 +21,21 @@ process NCBIGENOMEDOWNLOAD {
 
     output:
     path("*.gz")                            , emit: all
-    path("*_genomic.gbff.gz")               , emit: gbk     , optional: true
-    path("*_genomic.fna.gz")                , emit: fna     , optional: true
-    path("*_rm.out.gz")                     , emit: rm      , optional: true
-    path("*_feature_table.txt.gz")          , emit: features, optional: true
-    path("*_genomic.gff.gz")                , emit: gff     , optional: true
-    path("*_protein.faa.gz")                , emit: faa     , optional: true
-    path("*_protein.gpff.gz")               , emit: gpff    , optional: true
-    path("*_wgsmaster.gbff.gz")             , emit: wgs_gbk , optional: true
-    path("*_cds_from_genomic.fna.gz")       , emit: cds     , optional: true
-    path("*_rna.fna.gz")                    , emit: rna     , optional: true
-    path("*_rna_from_genomic.fna.gz")       , emit: rna_fna , optional: true
-    path("*_assembly_report.txt")           , emit: report  , optional: true
-    path("*_assembly_stats.txt")            , emit: stats   , optional: true
-    path "*.{log,err}"                      , emit: logs    , optional: true
+    path("*_genomic.gbff.gz")               , emit: gbk       , optional: true
+    path("*_genomic.fna.gz")                , emit: fna       , optional: true
+    path("*_rm.out.gz")                     , emit: rm        , optional: true
+    path("*_feature_table.txt.gz")          , emit: features  , optional: true
+    path("*_genomic.gff.gz")                , emit: gff       , optional: true
+    path("*_protein.faa.gz")                , emit: faa       , optional: true
+    path("*_protein.gpff.gz")               , emit: gpff      , optional: true
+    path("*_wgsmaster.gbff.gz")             , emit: wgs_gbk   , optional: true
+    path("*_cds_from_genomic.fna.gz")       , emit: cds       , optional: true
+    path("*_rna.fna.gz")                    , emit: rna       , optional: true
+    path("*_rna_from_genomic.fna.gz")       , emit: rna_fna   , optional: true
+    path("*_assembly_report.txt")           , emit: report    , optional: true
+    path("*_assembly_stats.txt")            , emit: stats     , optional: true
+    path "*.{log,err}"                      , emit: logs      , optional: true
+    path "accession-*.txt"                  , emit: accessions, optional: true
     path ".command.*"                       , emit: nf_logs
     path "versions.yml"                     , emit: versions
 

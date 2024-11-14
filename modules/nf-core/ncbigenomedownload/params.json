@@ -59,6 +59,12 @@
                     "description": "Limit the number of assemblies to download",
                     "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
                     "fa_icon": "fas fa-italic"
+                }, 
+                "keep_downloads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         }

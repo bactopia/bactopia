@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'sketcher')
 options.ignore = [".fastq.gz"]
-options.btype  = options.btype ?: "main"
+options.btype  = "main"
 conda_tools    = "bioconda::bactopia-sketcher=1.0.1"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools

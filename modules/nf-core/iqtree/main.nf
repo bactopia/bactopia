@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'iqtree')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::iqtree=2.2.2.7"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -37,6 +37,11 @@ process IQTREE {
         -nt $task.cpus \\
         -ntmax $task.cpus \\
         -pre $prefix
+
+    # Only gzip files if they exist
+    if [[ -f "${prefix}.alninfo" ]]; then
+        gzip ${prefix}.alninfo
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

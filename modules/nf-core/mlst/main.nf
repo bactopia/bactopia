@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'mlst')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::mlst=2.23.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -57,7 +57,7 @@ process MLST {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        mlst: \$( echo \$(mlst --version 2>&1) | sed 's/mlst //' )
+        mlst: \$( echo \$(mlst --version 2>&1) | sed 's/^.*mlst //' )
         mlst-database: \$( echo \$DB_VERSION )
     END_VERSIONS
     """

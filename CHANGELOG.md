@@ -15,9 +15,13 @@ description: A full list of Bactopia releases and a description of the changes.
 - more metrics and helper text at end of runs
 - `snippy` use a local directory for `--tmpdir`
 - `bactopia atb-downloader` to download ATB assemblies by BioSample, TaxID, or species
+- `pangenome` add SNP dists for both masked and unmasked alignments
 - within task clean up to help reduce `work` directory size
     - `gtdb`: add `--gtdb_keep_msa` to keep GTDB MSA files, ortherwise remove
     - `kraken2`: replace `--remove_filtered_reads` with `--keep_filtered_reads` to keep classified and unclassified reads
+    - `ncbigenomedownload`: add `--keep_genomes` to publish downloaded genomes, default leave in `work` directory
+        - this also affects Prokka annotations in the `pangenome` workflow
+    - `snippy`: add `--snippy_remove_bam` to remove BAM files after variant calling
 - bump program versions in modules
     - `bactopia-teton`: 1.0.2 -> 1.1.0
 
@@ -30,6 +34,10 @@ description: A full list of Bactopia releases and a description of the changes.
 - replace `--singularity_cache_dir` with `--singularity_cache` to match `bactopia download`
 - `gamma` not checking for `--gamma_db` at runtime
 - tests using single protein (typo in file name config)
+- `pangenome` mislabeling pangenome tool used (_was using the correct tool_)
+- downloaded genomes added to `--bactopia` directory for `pangenome`
+- useless use of `options.btype ?:` in modules (_it didn't actually do anything because `options.btype` was always empty_)
+- version capture in `dragonflye` and `mlst`
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 

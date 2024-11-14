@@ -1,7 +1,12 @@
 //
 // prokka - Whole genome annotation of small genomes (bacterial, archeal, viral)
 //
-prokka_args = [
+include { initOptions } from '../../../lib/nf/functions'
+options = initOptions(params.containsKey("options") ? params.options : [:], 'prokka')
+options.ignore = params.wf == 'pangenome' ? (params.keep_downloads ? [] : [".gz", ".txt", ".tsv"] ) : []
+options.logs_subdir = params.wf == 'pangenome' ? "use-prefix" : ""
+options.is_module = true
+options.args = [
     "--evalue ${params.prokka_evalue}",
     "--coverage ${params.prokka_coverage}",
     "--centre ${params.centre}",
@@ -9,8 +14,7 @@ prokka_args = [
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
 PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
 PROTEINS = params.proteins ? file(params.proteins) : []
-
-include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/prokka/main' addParams( options: [ args: "${prokka_args}", is_module: true] )
+include { PROKKA as PROKKA_MODULE } from '../../../modules/nf-core/prokka/main' addParams( options: options )
 
 workflow PROKKA {
     take:
