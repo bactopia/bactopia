@@ -58,7 +58,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     unclassified_count = kraken2_unclassified_count(args.kraken2_report)
-    total_count = unclassified_count + braken_root_count(args.bracken_report)
+    
+    # Allow for if 100% of reads are successfully assigned
+    if unclassified_count == None:
+        total_count = 100
+    else:
+        total_count = unclassified_count + braken_root_count(args.bracken_report)
 
     """
     Read Bracken abundances
@@ -86,23 +91,24 @@ if __name__ == '__main__':
         "{0:.5f}".format(bracken['fraction_total_reads'].iloc[0]) if bracken['fraction_total_reads'].iloc[0] >= 0.01 else "",
         bracken['name'].iloc[1] if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "No secondary abundance > 1%",
         "{0:.5f}".format(bracken['fraction_total_reads'].iloc[1]) if bracken['fraction_total_reads'].iloc[1] >= 0.01 else "",
-        "{0:.5f}".format(unclassified_count / total_count)
+        "{0:.5f}".format(unclassified_count / total_count) if unclassified_count != None else ""
     ]
     with open("{0}.bracken.tsv".format(args.prefix), "wt") as fh_out:
         fh_out.write("{}\n".format('\t'.join(cols)))
         fh_out.write("{}\n".format('\t'.join(results)))
 
-    # Add unclassified to data table and re-sort
-    unclassified = pd.DataFrame.from_dict({
-        'name': ['unclassified'],
-        'taxonomy_id': [0],
-        'taxonomy_lvl': ['U'],
-        'kraken_assigned_reads': [unclassified_count],
-        'added_reads': [0],
-        'new_est_reads': [unclassified_count],
-        'fraction_total_reads': [unclassified_count / total_count]
-    })
-    bracken = pd.concat([bracken, unclassified], axis=0)
+    if unclassified_count != None:
+        # Add unclassified to data table and re-sort
+        unclassified = pd.DataFrame.from_dict({
+            'name': ['unclassified'],
+            'taxonomy_id': [0],
+            'taxonomy_lvl': ['U'],
+            'kraken_assigned_reads': [unclassified_count],
+            'added_reads': [0],
+            'new_est_reads': [unclassified_count],
+            'fraction_total_reads': [unclassified_count / total_count]
+        })
+        bracken = pd.concat([bracken, unclassified], axis=0)
     bracken = bracken.sort_values(by='fraction_total_reads', ascending=False)
     bracken.insert(0, 'sample', args.prefix)
     bracken['percent_total_reads'] = (bracken['new_est_reads'] / total_count) * 100
