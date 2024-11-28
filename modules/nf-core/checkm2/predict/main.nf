@@ -21,8 +21,8 @@ process CHECKM2_PREDICT {
     //tuple val(dbmeta), path(db) // left from original nf-core module
 
     output:
-    tuple val(meta), path("${prefix}"),                             emit: results
-    tuple val(meta), path("${prefix}/quality_report.tsv"),  emit: tsv
+    tuple val(meta), path("results/*"),                             emit: results
+    tuple val(meta), path("results/quality_report.tsv"),  emit: tsv
     path "*.{log,err}",                                             emit: logs, optional: true
     path ".command.*",                                              emit: nf_logs
     path "versions.yml",                                            emit: versions
@@ -48,10 +48,12 @@ process CHECKM2_PREDICT {
     checkm2 \\
         predict \\
         --input ${fasta} \\
-        --output-directory ${prefix} \\
+        --output-directory results \\
         --threads ${task.cpus} \\
         --database_path $db \\
         $options.args
+
+    mv results/checkm2.log ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
