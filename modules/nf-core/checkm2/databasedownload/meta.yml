@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "checkm2_databasedownload"
+description: CheckM2 database download
+keywords:
+  - checkm
+  - mag
+  - metagenome
+  - quality
+  - completeness
+  - contamination
+  - bins
+tools:
+  - "checkm2":
+      description: "CheckM2 - Rapid assessment of genome bin quality using machine learning"
+      homepage: "https://github.com/chklovski/CheckM2"
+      doi: "10.1038/s41592-023-01940-w"
+      licence: ["GPL v3"]
+      identifier: ""
+
+input:
+  - - db_zenodo_id:
+        type: integer
+        description: Zenodo ID of the CheckM2 database to download
+
+output:
+  - database:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing database information
+            e.g. `[ id:'test', version:1 ]`
+      - checkm2_db_v${db_version}.dmnd:
+          type: file
+          description: CheckM2 database file
+          pattern: "checkm2_db_v*.dmnd"
+  - versions:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+authors:
+  - "@dialvarezs"

@@ -307,6 +307,14 @@ tools:
     cite: |
       Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW [CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes.](http://dx.doi.org/10.1101/gr.186072.114) _Genome Res_ 25, 1043–1055 (2015)
 
+checkm2:
+    name: CheckM2
+    link: https://github.com/chklovski/CheckM2
+    description: Rapid assessment of genome bin quality using machine learning
+    cite: |
+      
+      Chklovksi A [Abricate: mass screening of contigs for antimicrobial and virulence genes](https://github.com/chklovski/CheckM2) (GitHub)
+
   clermontyping:
     name: ClermontTyping
     link: https://github.com/happykhan/ClermonTyping

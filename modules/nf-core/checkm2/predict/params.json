@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/checkm2/predict/params.json",
+    "title": "CheckM2 Module",
+    "description": "A module to assess the assembly quality of your samples",
+    "type": "object",
+    "definitions": {
+        "checkm_parameters": {
+            "title": "CheckM2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fa-solid fa-toolbox",
+            "properties": {
+                "lowmem": {
+                    "type": "boolean",
+                    "description": "Low memory mode. Reduces DIAMOND blocksize to significantly reduce RAM usage at the expense of longer runtime",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "general": {
+                    "type": "boolean",
+                    "description": "Force the use of the general quality prediction model (gradient boost)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "specific ": {
+                    "type": "boolean",
+                    "description": "Force the use of the specific quality prediction model (neural network)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "allmodels ": {
+                    "type": "boolean",
+                    "description": "Output quality prediction for both models for each genome.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "genes": {
+                    "type": "boolean",
+                    "description": "Treat input files as protein files. [Default: False]",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "database_path": {
+                    "type": "string",
+                    "description": "Provide a location for the CheckM2 database for a given predict run",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }              
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/checkm_parameters"
+        }
+    ]
+}
