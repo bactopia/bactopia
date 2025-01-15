@@ -7,96 +7,116 @@ keywords:
 modules:
   - checkm
 input:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
-  - assembly:
-      type: file
-      description: The final assembly in FASTA format
-      pattern: "*.{fna,fna.gz}"
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'test' ]`
+    - fasta:
+        type: file
+        description: One or multiple FASTA files of each bin
+        pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+  - - dbmeta:
+        type: map
+        description: |
+          Groovy Map containing database information
+          e.g. `[ id:'test', version:1 ]`
+    - db:
+        type: file
+        description: CheckM2 database
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
+  - checkm2_output:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}:
+          type: directory
+          description: CheckM2 output directory
+          pattern: "${prefix}/"
+  - checkm2_tsv:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}/quality_report.tsv:
+          type: file
+          description: CheckM2 summary completeness statistics table
+          pattern: "*.tsv"
   - versions:
-      type: file
-      description: File containing software versions
-      pattern: "versions.yml"
-  - results:
-      type: file
-      description: The full results of CheckM for each sample
-      pattern: "*"
-  - report:
-      type: file
-      description: Tab-delimited report of results for a single sample
-      pattern: "*.{txt}"
-  - merged_reports:
-      type: file
-      description: Tab-delimited report of results from all samples
-      pattern: "*.{txt}"
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
 docs:
   meta:
-    title: checkm
+    title: checkm2
     description: >-
-      A Bactopia Tool which uses CheckM to assess the quality of microbial
-      genomes recovered from isolates.
+      A Bactopia Tool which uses CheckM2 for rapid assessment of genome bin quality using machine learning.
   introduction: |
-    The `checkm` module is used [CheckM](https://github.com/Ecogenomics/CheckM) to assess the quality of microbial
+    The `checkm` module is used [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality of microbial
     genomes recovered from isolates, single cells, and metagenomes.
   output:
     tree: |
       <BACTOPIA_DIR>
       ├── <SAMPLE_NAME>
       │   └── tools
-      │       └── checkm
-      │           ├── <SAMPLE_NAME>-genes.aln
-      │           ├── <SAMPLE_NAME>-results.txt
-      │           ├── bins/
-      │           ├── lineage.ms
-      │           ├── logs
-      │           │   ├── checkm.log
-      │           │   ├── nf-checkm.{begin,err,log,out,run,sh,trace}
-      │           │   └── versions.yml
-      │           └── storage/
+      │       └── checkm2
+      │           ├── diamond_output
+      │           │   └── DIAMOND_RESULTS.tsv
+      │           ├── protein_files
+      │           |   └── SRR2838702.faa
+      │           └── quality_report.tsv
       └── bactopia-runs
-          └── checkm-<TIMESTAMP>
+          └── checkm2-<TIMESTAMP>
               ├── merged-results
-              │   ├── checkm.tsv
+              │   ── checkm2.tsv
               │   └── logs
-              │       └── checkm-concat
-              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │       └── checkm2-concat
+              │           ├── nf-merged-results.begin
+              │           ├── nf-merged-results.err
+              │           ├── nf-merged-results.log
+              │           ├── nf-merged-results.out
+              │           ├── nf-merged-results.run
+              │           ├── nf-merged-results.sh
+              │           ├── nf-merged-results.trace
               │           └── versions.yml
-              └── nf-reports
-                  ├── checkm-dag.dot
-                  ├── checkm-report.html
-                  ├── checkm-timeline.html
-                  └── checkm-trace.txt
+              ├── nf-reports
+              │   ├── checkm-dag.dot
+              │   ├── checkm-report.html
+              │   ├── checkm-timeline.html
+              │   └── checkm-trace.txt
+              └── software-versions
+                  └── logs
+                  │   ├── checkm-report.html
+                  │   ├── checkm-timeline.html
+                  │   └── checkm-trace.txt
+                  ├──── nf-merged-results.trace
+                  └──── nf-merged-results.trace
     add_note: false
     folders:
       - name: Merged Results
         description: |
           Below are results that are concatenated into a single file.
         table:
-          - id: checkm.tsv
-            description: A merged TSV file with `checkm` results from all samples
-      - name: CheckM
+          - id: checkm2.tsv
+            description: A merged TSV file with `checkm2` results from all samples
+      - name: CheckM2
         description: |
-          Below is a description of the _per-sample_ results from [CheckM](https://github.com/Ecogenomics/CheckM).
+          Below is a description of the _per-sample_ results from [CheckM2](├).
         table:
-          - id: <SAMPLE_NAME>-genes.aln
-            description: Alignment of multi-copy genes and their AAI identity
-          - id: <SAMPLE_NAME>-results.txt
-            description: Final results of Final results of [CheckM's lineage_wf](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow)
-          - id: bins/
-            description: A folder with inputs (e.g. proteins) for processing by `CheckM`
-          - id: lineage.ms
+          - id: diamond_output/
+            description: A folder with intermediate results from `CheckM2` processing
+          - id: DIAMOND_RESULTS.tsv
+            description: 
+          - id: protein_files/
+            description: 
+          - id: SRR2838702.faa
             description: Output file describing marker set for each bin
-          - id: storage/
-            description: A folder with intermediate results from `CheckM` processing
+          - id: quality_report.tsv
+            description: Output file describing marker set for each bin
   citations:
-    - checkm
+    - checkm2
     - csvtk
