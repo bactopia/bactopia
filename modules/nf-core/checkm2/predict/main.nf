@@ -41,20 +41,6 @@ process CHECKM2_PREDICT {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    # Decompress fasta file if compressed
-    if [ "$db_is_compressed" == "true" ]; then
-        mkdir database
-        gunzip -c $db > database/checkm2_db.dmnd
-        CHECKM2_DB=\$(find database/ -name "*.dmnd")
-        fi
-
-    # Check if db is a tarball and if so extract and decompress it
-    if [ "$db_is_tarball" == "true" ]; then
-        mkdir database
-        tar -xzf $db -C database
-        CHECKM2_DB=\$(find database/ -name "*.dmnd")
-    fi
-
     # Check if db is a directory
     if [ -d "$db" ]; then
         echo "Database is a directory, expected a .dmnd file. Searching for .dmnd file in directory"
