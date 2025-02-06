@@ -39,7 +39,7 @@
                 },
                 "checkm2_db": {
                     "type": "string",
-                    "description": "Provide a location for the CheckM2 database for a given predict run",
+                    "description": "Path to a folder containing CheckM2 database (or where it should be downloaded to).",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }              
             }
