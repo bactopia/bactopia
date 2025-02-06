@@ -54,6 +54,11 @@ process EMMTYPER {
             > ${prefix}.tsv
     fi
 
+    # If 'tmp' is not in $fasta_name, remove '.tmp' from the output files contents
+    if [ $fasta_name != *.tmp* ]; then
+        sed -i 's/.tmp\t/\t/g' ${prefix}.tsv
+    fi
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
