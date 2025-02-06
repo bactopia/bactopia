@@ -2,10 +2,10 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/checkm2/predict/params.json",
     "title": "CheckM2 Module",
-    "description": "A module to assess the assembly quality of your samples",
+    "description": "Rapid assessment of genome bin quality using machine learning",
     "type": "object",
     "definitions": {
-        "checkm_parameters": {
+        "checkm2_parameters": {
             "title": "CheckM2 Parameters",
             "type": "object",
             "description": "",
@@ -37,7 +37,7 @@
                     "description": "Treat input files as protein files. [Default: False]",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "database_path": {
+                "checkm2_db": {
                     "type": "string",
                     "description": "Provide a location for the CheckM2 database for a given predict run",
                     "fa_icon": "fas fa-expand-arrows-alt"
@@ -47,7 +47,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/checkm_parameters"
+            "$ref": "#/definitions/checkm2_parameters"
         }
     ]
 }

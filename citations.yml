@@ -313,7 +313,7 @@ checkm2:
     description: Rapid assessment of genome bin quality using machine learning
     cite: |
       
-      Chklovksi A [Abricate: mass screening of contigs for antimicrobial and virulence genes](https://github.com/chklovski/CheckM2) (GitHub)
+      Chklovksi A [Rapid assessment of genome bin quality using machine learning](https://github.com/chklovski/CheckM2) (GitHub)
 
   clermontyping:
     name: ClermontTyping
