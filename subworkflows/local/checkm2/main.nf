@@ -31,11 +31,17 @@ workflow CHECKM2 {
         CHECKM2_DATABASEDOWNLOAD()
 
         CHECKM2_PREDICT(fasta, CHECKM2_DATABASEDOWNLOAD.out.db)
+
     } else {
         CHECKM2_PREDICT(fasta, DATABASE)
         }
 
     ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions.first())
+
+    if (params.download_checkm2) {
+        ch_versions = ch_versions.mix(CHECKM2_DATABASEDOWNLOAD.out.versions)
+    }
+
 
     CHECKM2_PREDICT.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'checkm2'], tsv]}.set{ ch_merge_checkm2 }
     CSVTK_CONCAT(ch_merge_checkm2, 'tsv', 'tsv')

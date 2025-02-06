@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { CHECKM2 } from './main.nf' addParams(database_path: params.database_path)
+include { CHECKM2 } from './main.nf' addParams(checkm2_db: params.checkm2_db)
 
 workflow test_checkm2 {
 

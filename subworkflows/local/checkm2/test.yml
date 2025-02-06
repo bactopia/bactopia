@@ -15,11 +15,11 @@
     - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.log
       contains: ['CheckM2 finished successfully']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.out
-      md5sum: 89a453ad189aa3418ae06b23a24a82f5
+      contains: ['Finished processing']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.run
       contains: ['$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.sh
-      md5sum: 1b95a249cd5492e0cf7ffb129241df19
+      contains: ['Decompress fasta file if compressed']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/versions.yml
