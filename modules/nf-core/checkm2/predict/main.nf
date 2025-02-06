@@ -31,8 +31,6 @@ process CHECKM2_PREDICT {
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
-    def db_is_compressed = db.getName().endsWith(".dmnd.gz") ? true : false
-    def db_is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     echo $db
     
