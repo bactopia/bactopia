@@ -39,21 +39,11 @@ process CHECKM2_PREDICT {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    # Check if db is a directory
+    # Check if db is a directory - if so, find the diamond database
     if [ -d "$db" ]; then
-        echo "Database is a directory, expected a .dmnd file. Searching for .dmnd file in directory"
         CHECKM2_DB=\$(find ${db}/ -name "*.dmnd")
-    fi
-
-    # Check if db ends in .dmnd
-    if [ "$db" == "*.dmnd" ]; then
+    else
         CHECKM2_DB=$db
-    fi
-
-    # Check if CHECKM2_DB is set
-    if [ -z "\$CHECKM2_DB" ]; then
-        echo "ERROR: No database found. Please provide a .dmnd file or a directory containing a .dmnd file"
-        exit 1
     fi
 
     checkm2 \\
