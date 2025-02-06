@@ -8,10 +8,13 @@ options.args = [
     params.general ? "" : "--general",
     params.specific ? "--specific" : "",
     params.allmodels ? "--allmodels" : "",
-    params.genes ? "--genes" : ""
+    params.genes ? "--genes" : "",
+    "${params.checkm2_opts}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-DATABASE = params.database_path ? file(params.database_path) : []
+DATABASE = params.checkm2_db ? file(params.checkm2_db) : []
 
+
+include { CHECKM2_DATABASEDOWNLOAD } from '../../../modules/nf-core/checkm2/databasedownload/main' addParams( )
 include { CHECKM2_PREDICT } from '../../../modules/nf-core/checkm2/predict/main' addParams( options: options )
 include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'checkm2-concat', process_name: params.merge_folder] )
 
@@ -23,7 +26,15 @@ workflow CHECKM2 {
     ch_versions = Channel.empty()
     ch_merged_checkm2 = Channel.empty()
 
-    CHECKM2_PREDICT(fasta, DATABASE)
+    if (params.download_checkm2) {
+        // Force CHECKM2_DATABASEDOWNLOAD to wait
+        CHECKM2_DATABASEDOWNLOAD()
+
+        CHECKM2_PREDICT(fasta, CHECKM2_DATABASEDOWNLOAD.out.db)
+    } else {
+        CHECKM2_PREDICT(fasta, DATABASE)
+        }
+
     ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions.first())
 
     CHECKM2_PREDICT.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'checkm2'], tsv]}.set{ ch_merge_checkm2 }
