@@ -36,7 +36,7 @@
     - path: bactopia/GCF_006364235/tools/emmtyper/logs/nf-emmtyper.log
       contains: ['emmtyper', 'Finished']
     - path: bactopia/GCF_006364235/tools/emmtyper/logs/nf-emmtyper.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      md5sum: 68b329da9893e34099c7d8ad5cb9c940
     - path: bactopia/GCF_006364235/tools/emmtyper/logs/nf-emmtyper.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_006364235/tools/emmtyper/logs/nf-emmtyper.sh

@@ -17,6 +17,7 @@ process EMMTYPER {
 
     input:
     tuple val(meta), path(fasta)
+    path db
 
     output:
     tuple val(meta), path("*.tsv")          , emit: tsv
@@ -33,10 +34,26 @@ process EMMTYPER {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    emmtyper \\
-        $options.args \\
-        $fasta_name \\
-        > ${prefix}.tsv
+    echo $db
+
+    # Conditionally add the database if it is provided by user
+    if [ "$db" == "" ]; then
+        emmtyper \\
+            $options.args \\
+            $fasta_name \\
+            > ${prefix}.tsv
+    else
+
+        # Make the blast database
+        makeblastdb -in $db -dbtype nucl
+
+        emmtyper \\
+            --blast_db $db \\
+            $options.args \\
+            $fasta_name \\
+            > ${prefix}.tsv
+    fi
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
