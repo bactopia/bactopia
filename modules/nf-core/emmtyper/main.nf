@@ -34,8 +34,6 @@ process EMMTYPER {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    echo $db
-
     # Conditionally add the database if it is provided by user
     if [ "$db" == "" ]; then
         emmtyper \\
@@ -43,7 +41,6 @@ process EMMTYPER {
             $fasta_name \\
             > ${prefix}.tsv
     else
-
         # Make the blast database
         makeblastdb -in $db -dbtype nucl
 
@@ -52,6 +49,9 @@ process EMMTYPER {
             $options.args \\
             $fasta_name \\
             > ${prefix}.tsv
+
+        # Remove the blast database
+        rm $db*
     fi
 
     # If 'tmp' is not in $fasta_name, remove '.tmp' from the output files contents
