@@ -17,7 +17,7 @@ process EMMTYPER {
 
     input:
     tuple val(meta), path(fasta)
-    path db
+    path blastdb
 
     output:
     tuple val(meta), path("*.tsv")          , emit: tsv
@@ -37,7 +37,7 @@ process EMMTYPER {
     echo $db
 
     # Conditionally add the database if it is provided by user
-    if [ "$db" == "" ]; then
+    if [ "$blastdb" == "" ]; then
         emmtyper \\
             $options.args \\
             $fasta_name \\
@@ -45,10 +45,10 @@ process EMMTYPER {
     else
 
         # Make the blast database
-        makeblastdb -in $db -dbtype nucl
+        makeblastdb -in $blastdb -dbtype nucl
 
         emmtyper \\
-            --blast_db $db \\
+            --blast_db $blastdb \\
             $options.args \\
             $fasta_name \\
             > ${prefix}.tsv
