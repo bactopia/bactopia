@@ -19,7 +19,7 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": ["blast", "pcr"]
                 },
-                "blast_db": {
+                "emmtyper_blastdb": {
                     "type": "string",
                     "description": "Path to custom EMM BLAST DB.",
                     "fa_icon": "fas fa-file-alt"

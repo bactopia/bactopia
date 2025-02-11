@@ -15,7 +15,7 @@ options.args = [
     "--min-good ${params.min_good}",
     "--max-size ${params.max_size}"
 ].join(' ').replaceAll("\\s{2,}", " ").trim()
-BLAST_DB = params.blast_db ? file(params.blast_db) : []
+BLASTDB = params.emmtyper_blastdb ? file(params.emmtyper_blastdb) : []
 
 include { EMMTYPER as EMMTYPER_MODULE } from '../../../modules/nf-core/emmtyper/main' addParams( options: options )
 include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'emmtyper-concat', process_name: params.merge_folder] )
@@ -27,7 +27,7 @@ workflow EMMTYPER {
     main:
     ch_versions = Channel.empty()
 
-    EMMTYPER_MODULE(fasta, BLAST_DB)
+    EMMTYPER_MODULE(fasta, BLASTDB)
 
     ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions.first())
 
