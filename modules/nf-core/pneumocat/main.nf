@@ -23,9 +23,9 @@ process PNEUMOCAT {
     meta.single_end == false
 
     output:
-    tuple val(meta), path("*.xml")               , optional: true, emit: xml
-    tuple val(meta), path("coverage_summary.txt"), optional: true, emit: txt
-    path "*.{stdout,stderr}"                     , optional: true, emit: logs
+    tuple val(meta), path("*.xml")                 , optional: true, emit: xml
+    tuple val(meta), path("*.coverage_summary.txt"), optional: true, emit: txt
+    path "*.{stdout,stderr}"                       , optional: true, emit: logs
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -38,6 +38,7 @@ process PNEUMOCAT {
         --output_dir ./
 
     # clean up
+    rm -rf *.bam *.bai ComponentComplete.txt
 
     # PneumoCAT uses first match in a glob, so moves between R1 and R2
     if [ -f ${prefix}_R1.results.xml ]; then
@@ -46,6 +47,7 @@ process PNEUMOCAT {
         mv ${prefix}_R2.results.xml ${prefix}.results.xml
     fi
     mv logs/* ./
+    mv coverage_summary.txt ${prefix}.coverage_summary.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

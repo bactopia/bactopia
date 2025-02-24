@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sistr')
 options.btype = "tools"
-conda_tools   = "bioconda::sistr_cmd=1.1.2"
+conda_tools   = "bioconda::sistr_cmd=1.1.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process SISTR {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.2--pyhca03a8a_1' :
-        'quay.io/biocontainers/sistr_cmd:1.1.2--pyhca03a8a_1' }"
+        'https://depot.galaxyproject.org/singularity/sistr_cmd:1.1.3-pyhca03a8a_1' :
+        'quay.io/biocontainers/sistr_cmd:1.1.3--pyhca03a8a_1' }"
 
     input:
     tuple val(meta), path(fasta)

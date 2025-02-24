@@ -6,7 +6,7 @@
   files:
     - path: bactopia/ERR1438863/tools/pneumocat/ERR1438863.results.xml
       md5sum: a9d9d8db3cbeff3f45859bed7eadaf9b
-    - path: bactopia/ERR1438863/tools/pneumocat/coverage_summary.txt
+    - path: bactopia/ERR1438863/tools/pneumocat/ERR1438863.coverage_summary.txt
       md5sum: 72016a38b82c726548cf5b58794c4938
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.begin
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.err
@@ -17,9 +17,11 @@
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.sh
-      md5sum: 5bd69dbe12701c939a222a69b5da6518
+      contains: ['PneumoCaT', 'coverage_summary', 'END_VERSIONS']
     - path: bactopia/ERR1438863/tools/pneumocat/logs/nf-pneumocat.trace
       contains: ['nextflow.trace']
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/pneumo_capsular_typing.stderr
+    - path: bactopia/ERR1438863/tools/pneumocat/logs/pneumo_capsular_typing.stdout
     - path: bactopia/ERR1438863/tools/pneumocat/logs/versions.yml
       md5sum: a142274035f6b258122e4863a90eb64f
     - path: bactopia/bactopia-runs/pneumocat/nf-reports/pneumocat-dag.dot

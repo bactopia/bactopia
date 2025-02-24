@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sylph')
 options.btype = "tools"
-conda_tools   = "bioconda::sylph=0.6.1"
+conda_tools   = "bioconda::sylph=0.8.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process SYLPH_PROFILE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sylph:0.6.1--h4ac6f70_0' :
-        'quay.io/biocontainers/sylph:0.6.1--h4ac6f70_0' }"
+        'https://depot.galaxyproject.org/singularity/sylph:0.8.0--h919a2d8_0' :
+        'quay.io/biocontainers/sylph:0.8.0--h919a2d8_0' }"
 
     input:
     tuple val(meta), path(reads)

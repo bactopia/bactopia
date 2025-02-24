@@ -70,11 +70,11 @@ process KRAKEN2 {
 
         # Quick stats on reads
         zcat ${reads} | fastq-scan > original.json
-        zcat *.scrubbed.fastq | fastq-scan > scrubbed.json
+        cat *.scrubbed.fastq | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove host reads
-        rm ${prefix}.host*.fastq
+        # Remove host reads and temp json files
+        rm ${prefix}.host*.fastq original.json scrubbed.json
     fi
 
     # Clean up database and large files produced by Kraken2
@@ -82,7 +82,7 @@ process KRAKEN2 {
         rm -rf database
     fi
 
-    if [ "${params.keep_filtered_reads}" == "true" ]; then
+    if [[ "${params.keep_filtered_reads}" == "true" || "${params.wf}" == "scrubber" ]]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
     else

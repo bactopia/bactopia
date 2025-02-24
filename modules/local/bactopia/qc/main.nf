@@ -356,6 +356,7 @@ process QC {
                         ${prefix}-original.fastq.gz ${prefix}-final.fastq.gz
                 fi
                 mv *_fastqc.html *_fastqc.zip results/summary/
+                rm -rf tmp/
             fi
         fi
     fi

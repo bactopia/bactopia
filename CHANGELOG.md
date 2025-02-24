@@ -4,12 +4,12 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.2.0 bactopia/bactopia "" 2024/xx/xx
+## v3.2.0 bactopia/bactopia "" 2025/xx/xx
 
 ### `Added`
 
 - Bactopia Tools (`bactopia --wf <NAME>`)
-    - `sylph` - taxonomic profiling and genome querying for metagenomic samples
+    - `sylph` - taxonomic profiling and genome querying for meta-genomic samples
 - `teton` now outputs a bactopia sample sheet with species and genome size filled out
     - `sizemeup` uses the bracken output to determine genome size
 - more metrics and helper text at end of runs
@@ -17,13 +17,28 @@ description: A full list of Bactopia releases and a description of the changes.
 - `bactopia atb-downloader` to download ATB assemblies by BioSample, TaxID, or species
 - `pangenome` add SNP dists for both masked and unmasked alignments
 - within task clean up to help reduce `work` directory size
-    - `gtdb`: add `--gtdb_keep_msa` to keep GTDB MSA files, ortherwise remove
+    - `gtdb`: add `--gtdb_keep_msa` to keep GTDB MSA files, otherwise remove
     - `kraken2`: replace `--remove_filtered_reads` with `--keep_filtered_reads` to keep classified and unclassified reads
     - `ncbigenomedownload`: add `--keep_genomes` to publish downloaded genomes, default leave in `work` directory
         - this also affects Prokka annotations in the `pangenome` workflow
     - `snippy`: add `--snippy_remove_bam` to remove BAM files after variant calling
 - bump program versions in modules
-    - `bactopia-teton`: 1.0.2 -> 1.1.0
+    - `amrfinderplus`: 3.12.8 -> 4.0.19
+    - `bactopia-teton`: 1.0.2 -> 1.1.1
+    - `bakta`: 1.9.4 -> 1.10.4
+    - `busco`: 5.7.1 -> 5.8.2
+    - `csvtk`: 0.27.2 -> 0.31.0
+    - `ectyper`: 1.0.0 -> 2.0.0
+    - `gubbins`: 3.3.5 -> 3.4
+    - `iqtree`: 2.2.2.7 -> 2.3.6
+    - `kleborate`: 3.0.9 -> 3.1.3
+    - `multiqc`: 1.24.1 -> 1.27.1
+    - `panaroo`: 1.5.0 -> 1.5.1
+    - `quast`: 5.2.0 -> 5.3.0
+    - `sister`: 1.1.2 -> 1.1.3
+    - `sylph`: 0.6.1 -> 0.8.0
+    - `tbprofiler`: 6.3.0 -> 6.6.2
+
 
 ### `Fixed`
 
@@ -38,6 +53,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - downloaded genomes added to `--bactopia` directory for `pangenome`
 - useless use of `options.btype ?:` in modules (_it didn't actually do anything because `options.btype` was always empty_)
 - version capture in `dragonflye` and `mlst`
+- mismatch in `defensefinder` conda and container versions
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 

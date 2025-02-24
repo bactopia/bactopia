@@ -345,3 +345,66 @@
       md5sum: 8ab506a3931d855f1dc4b203415f958e
     - path: bactopia/output/main/qc/summary/output-original_NanoPlot-report.html
     - path: bactopia/output/main/qc/summary/output-original_NanoPlot.tar.gz
+
+- name: qc-hybrid
+  command: bash -c 'nextflow run ./subworkflows/local/qc/test.nf -entry test_qc_hybrid -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bactopia
+    - qc
+    - qc_hybrid
+  files:
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-dag.dot
+      contains: ['bactopiadag', 'QC', 'versions']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/bactopia/nf-reports/bactopia-trace.txt
+      contains: ['task_id']
+    - path: bactopia/output/main/qc/logs/nf-qc.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/output/main/qc/logs/nf-qc.err
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
+    - path: bactopia/output/main/qc/logs/nf-qc.log
+      contains: ['Approx', 'complete', 'Processed', 'ReformatReads']
+    - path: bactopia/output/main/qc/logs/nf-qc.out
+      contains: ['Analysis', 'complete']
+    - path: bactopia/output/main/qc/logs/nf-qc.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/output/main/qc/logs/nf-qc.sh
+      contains: ['bbduk', 'nanoq', 'fastq-scan', 'END_VERSIONS']
+    - path: bactopia/output/main/qc/logs/nf-qc.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/output/main/qc/logs/output-fastp.log
+      contains: ['Detecting', 'adapter', 'reads', 'Insert', 'JSON']
+    - path: bactopia/output/main/qc/logs/versions.yml
+      contains: ['bbduk', 'fastq-scan', 'pigz']
+    - path: bactopia/output/main/qc/output_R1.fastq.gz
+    - path: bactopia/output/main/qc/output_R2.fastq.gz
+    - path: bactopia/output/main/qc/output.fastq.gz
+    - path: bactopia/output/main/qc/summary/output.fastp.html
+    - path: bactopia/output/main/qc/summary/output.fastp.json
+      md5sum: b1b8258495a9db686bec3bd1e4ae589c
+    - path: bactopia/output/main/qc/summary/output_R1-final.json
+      md5sum: eb4b6a1b03b4f977276effdaf857faec
+    - path: bactopia/output/main/qc/summary/output_R1-final_fastqc.html
+    - path: bactopia/output/main/qc/summary/output_R1-final_fastqc.zip
+    - path: bactopia/output/main/qc/summary/output_R1-original.json
+      md5sum: d6e2d971517ed08bc6ca3790b88b515b
+    - path: bactopia/output/main/qc/summary/output_R1-original_fastqc.html
+    - path: bactopia/output/main/qc/summary/output_R1-original_fastqc.zip
+    - path: bactopia/output/main/qc/summary/output_R2-final.json
+      md5sum: 080e9c45ec9380f337688900e946c4b3
+    - path: bactopia/output/main/qc/summary/output_R2-final_fastqc.html
+    - path: bactopia/output/main/qc/summary/output_R2-final_fastqc.zip
+    - path: bactopia/output/main/qc/summary/output_R2-original.json
+      md5sum: 8510db56c52bc73a359c047e2e66688c
+    - path: bactopia/output/main/qc/summary/output_R2-original_fastqc.html
+    - path: bactopia/output/main/qc/summary/output_R2-original_fastqc.zip
+    - path: bactopia/output/main/qc/summary/output-final.json
+    - path: bactopia/output/main/qc/summary/output-final_NanoPlot-report.html
+    - path: bactopia/output/main/qc/summary/output-final_NanoPlot.tar.gz
+    - path: bactopia/output/main/qc/summary/output-original.json
+      md5sum: 8ab506a3931d855f1dc4b203415f958e
+    - path: bactopia/output/main/qc/summary/output-original_NanoPlot-report.html
+    - path: bactopia/output/main/qc/summary/output-original_NanoPlot.tar.gz

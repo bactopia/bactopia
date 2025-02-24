@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'quast')
 options.btype = "tools"
-conda_tools   = "bioconda::quast=5.2.0"
+conda_tools   = "bioconda::quast=5.3.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process QUAST {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/quast:5.2.0--py39pl5321h2add14b_2' :
-        'quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_2' }"
+        'https://depot.galaxyproject.org/singularity/quast:5.3.0--py39pl5321heaaa4ec_0' :
+        'quay.io/biocontainers/quast:5.3.0--py39pl5321heaaa4ec_0' }"
 
     input:
     tuple val(meta), path(fasta), path(meta_file)

@@ -54,8 +54,10 @@ process ISMAPPER {
     mkdir results
     mv $prefix/*/* results/
 
-    # Cleanup
-    rm -rf ${reference_name} ${query_name}
+    # Cleanup and compress FASTQ and BED files
+    rm -rf ${reference_name} ${query_name} ${prefix}/
+    find results/ -name "*.fastq" | xargs -I {} gzip {}
+    find results/ -name "*.bed" | xargs -I {} gzip {}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

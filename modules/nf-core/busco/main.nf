@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'busco')
 options.btype = "tools"
-conda_tools   = "bioconda::busco=5.7.1"
+conda_tools   = "bioconda::busco=5.8.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process BUSCO {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/busco:5.7.1--pyhdfd78af_1' :
-        'quay.io/biocontainers/busco:5.7.1--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/busco:5.8.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/busco:5.8.2--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)

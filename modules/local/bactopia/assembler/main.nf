@@ -20,7 +20,6 @@ process ASSEMBLER {
     tuple val(meta), path(fq), path(extra)
 
     output:
-    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), path("fastqs/${prefix}*.fastq.gz"), emit: fna_fastq, optional: true
     tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), emit: fna, optional: true
     tuple val(meta), path("results/${prefix}.tsv")         , emit: tsv, optional: true
     path "results/*"                                       , emit: results
@@ -191,21 +190,6 @@ process ASSEMBLER {
             xargs -I {} pigz -n --best -p ${task.cpus} {}
     fi
     find results -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
-
-    # Move primary fastqs
-    mkdir fastqs/
-    if [ "${meta.runtype}" == "hybrid" ]; then
-        # Used Unicycler, so Illumina reads are expected to be best
-        cp ${r1} fastqs/
-        cp ${r2} fastqs/
-    elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" || "${meta.single_end}" == "true" ]]; then
-        # Used Dragonflye or Illumina single-end reads, so use these reads going forward
-        cp ${se} fastqs/
-    else
-        # Illumina Pair-end reads
-        cp ${r1} fastqs/
-        cp ${r2} fastqs/
-    fi
 
     # Capture versions
     if [[ "\$OSTYPE" == "darwin"* ]]; then
