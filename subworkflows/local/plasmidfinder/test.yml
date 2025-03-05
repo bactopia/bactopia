@@ -27,10 +27,8 @@
       contains: ['html', 'Nextflow', 'timeline']
     - path: bactopia/bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-trace.txt
       contains: ['task_id']
-    - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085-hit_in_genome_seq.fsa
-      md5sum: aa23c76c32c24285e8466c31cddb837c
-    - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085-plasmid_seqs.fsa
-      md5sum: ba224a3b41f1d92a915f3b3b5a10890d
+    - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085-hit_in_genome_seq.fsa.gz
+    - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085-plasmid_seqs.fsa.gz
     - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085.json
       contains: ["plasmidfinder", "results", "RepA", "GCF_000017085"]
     - path: bactopia/GCF_000017085/tools/plasmidfinder/GCF_000017085.tsv

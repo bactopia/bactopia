@@ -19,8 +19,8 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/aligned_gene_sequences/alaS.aln.fas.gz
     - path: bactopia/bactopia-runs/panaroo/panaroo/alignment_entropy.csv
       contains: ["aln", "0", "group"]
-    - path: bactopia/bactopia-runs/panaroo/panaroo/combined_DNA_CDS.fasta
-    - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_CDS.fasta
+    - path: bactopia/bactopia-runs/panaroo/panaroo/combined_DNA_CDS.fasta.gz
+    - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_CDS.fasta.gz
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_cdhit_out.txt
     - path: bactopia/bactopia-runs/panaroo/panaroo/combined_protein_cdhit_out.txt.clstr
       contains: [">", "Cluster", "aa"]
@@ -30,14 +30,11 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/core_alignment_header.embl
       contains: ["Genome", "feature", "Sequence"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/core_gene_alignment.aln.gz
-    - path: bactopia/bactopia-runs/panaroo/panaroo/core_gene_alignment_filtered.aln
-    - path: bactopia/bactopia-runs/panaroo/panaroo/final_graph.gml
-      contains: ["lengths", "graph", "node"]
-    - path: bactopia/bactopia-runs/panaroo/panaroo/gene_data.csv
-      contains: ["GCF_002849995", "gff"]
+    - path: bactopia/bactopia-runs/panaroo/panaroo/core_gene_alignment_filtered.aln.gz
+    - path: bactopia/bactopia-runs/panaroo/panaroo/final_graph.gml.gz
+    - path: bactopia/bactopia-runs/panaroo/panaroo/gene_data.csv.gz
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence.Rtab
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence.csv
-      contains: ["rpoC_2", "Gene", "capB"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/gene_presence_absence_roary.csv
       contains: ["rpoC_2", "Gene", "capB", "Accessory"]
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/nf-panaroo.begin
@@ -50,15 +47,13 @@
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/nf-panaroo.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/nf-panaroo.sh
-      md5sum: 1e7ebb9014d010b200820597e8235bad
+      md5sum: 6fa01d74d31ba2d7a9969c6e3e78547d
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/nf-panaroo.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/panaroo/panaroo/logs/versions.yml
-      md5sum: 3f9f3d8bab3c7969419f4ceb874d65e2
-    - path: bactopia/bactopia-runs/panaroo/panaroo/pan_genome_reference.fa
-      contains: ["dnaK", "nuoN", "glyQ"]
-    - path: bactopia/bactopia-runs/panaroo/panaroo/pre_filt_graph.gml
-      contains: ["lengths", "graph", "node"]
+      md5sum: 5014ed49040e02775bc79c50f4816f12
+    - path: bactopia/bactopia-runs/panaroo/panaroo/pan_genome_reference.fa.gz
+    - path: bactopia/bactopia-runs/panaroo/panaroo/pre_filt_graph.gml.gz
     - path: bactopia/bactopia-runs/panaroo/panaroo/struct_presence_absence.Rtab
     - path: bactopia/bactopia-runs/panaroo/panaroo/summary_statistics.txt
       contains: ["Core", "Soft", "Shell"]

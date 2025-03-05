@@ -27,16 +27,11 @@
       md5sum: 778695ee4fa2b02241731cc44ce927fb
     - path: bactopia/bactopia-runs/pirate/pirate/cluster_alleles.tab
       contains: ['g0001']
-    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000292685.co-ords.tab
-      md5sum: d5ca0f06ca7ea1f5486683d5859bc9b8
-    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000298385.co-ords.tab
-      md5sum: a24d6048b3074242bb558c7fa27a8b03
-    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000300075.co-ords.tab
-      md5sum: 21532b58b708a0ea2490f7e9509982e7
-    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_002849995.co-ords.tab
-      md5sum: 0c08228585f4fa95686e9b025e0fe9c1
-    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_902713755.co-ords.tab
-      md5sum: 6bea5163af8f9612821166c3a069dd56
+    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000292685.co-ords.tab.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000298385.co-ords.tab.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_000300075.co-ords.tab.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_002849995.co-ords.tab.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/co-ords/GCF_902713755.co-ords.tab.gz
     - path: bactopia/bactopia-runs/pirate/pirate/core-genome.aln.gz
     - path: bactopia/bactopia-runs/pirate/pirate/core_alignment.fasta.gz
     - path: bactopia/bactopia-runs/pirate/pirate/core_alignment.gff
@@ -80,16 +75,11 @@
       contains: ['g0']
     - path: bactopia/bactopia-runs/pirate/pirate/logs/versions.yml
       md5sum: fbda8822b425f63332e8d3d64ae6c787
-    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000292685.gff
-      md5sum: 2b73bda2f84dc634303dc90e641040ca
-    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000298385.gff
-      md5sum: b1a9d6557d47e09249f08a7acdbbd618
-    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000300075.gff
-      md5sum: 082185a0e46efe63d60d1ff5311c80bc
-    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_002849995.gff
-      md5sum: 68532fc9bb639e6d83c731a069f60cf8
-    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_902713755.gff
-      md5sum: c9b95a4c325c8df4c7430137b0adacbd
+    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000292685.gff.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000298385.gff.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_000300075.gff.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_002849995.gff.gz
+    - path: bactopia/bactopia-runs/pirate/pirate/modified_gffs/GCF_902713755.gff.gz
     - path: bactopia/bactopia-runs/pirate/pirate/pan_sequences.fasta.gz
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome.connected_blocks.tsv
       contains: ['block_number']
@@ -121,13 +111,11 @@
       contains: ['GCF_000298385_00242']
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.98.reclustered.reinflated
       contains: ['GCF_000298385_00242']
-    - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.blast.output
-      contains: ['GCF_002849995', 'GCF_000292685']
+    - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.blast.output.gz
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.cdhit_clusters
       contains: ['GCF_000298385_00081']
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.core_clusters.tab
-    - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.mcl_log.txt
-      contains: ['chaos']
+    - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.mcl_log.txt.gz
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.gz
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.pdb
     - path: bactopia/bactopia-runs/pirate/pirate/pangenome_iterations/pan_sequences.representative.fasta.pot

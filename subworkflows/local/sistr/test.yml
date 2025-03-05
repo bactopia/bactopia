@@ -45,4 +45,4 @@
     - path: bactopia/GCF_016028495/tools/sistr/logs/nf-sistr.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_016028495/tools/sistr/logs/versions.yml
-      md5sum: 92799fc66ab9a577152eeb7e2186bc7e
+      md5sum: a6930ab4f1431ec7aa75ccef67914042

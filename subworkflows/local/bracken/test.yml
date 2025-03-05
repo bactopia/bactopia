@@ -1,5 +1,5 @@
 - name: bracken-test
-  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken --wf bracken --kraken2_keep_filtered_reads -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bracken
     - bactopia-tools
@@ -46,7 +46,7 @@
       contains: ['bracken', 'krakentools', 'python']
 
 - name: bracken-test-tarball
-  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken_tarball --wf bracken -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/bracken/test.nf -entry test_bracken_tarball --wf bracken --kraken2_keep_filtered_reads -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - bracken
     - bracken-tarball

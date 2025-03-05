@@ -5,7 +5,7 @@
     - bactopia-tools
   files:
     - path: bactopia/SRR2838702/tools/amrfinderplus/SRR2838702.tsv
-      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+      md5sum: 376a8991c8eb010ea64c796115fb9b8d
     - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.err
@@ -20,9 +20,9 @@
     - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/amrfinderplus/logs/versions.yml
-      md5sum: 896b32c2821cf98c19c533c542f9e822
+      md5sum: 31b5dcea2e0bfbf6dde15f0498287e53
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/amrfinderplus.tsv
-      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+      md5sum: 376a8991c8eb010ea64c796115fb9b8d
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.err
