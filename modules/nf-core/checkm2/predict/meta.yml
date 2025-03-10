@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "checkm2_predict"
+description: CheckM2 bin quality prediction
+keywords:
+  - checkm
+  - mag
+  - metagenome
+  - quality
+  - completeness
+  - contamination
+  - bins
+tools:
+  - "checkm2":
+      description: "CheckM2 - Rapid assessment of genome bin quality using machine learning"
+      homepage: "https://github.com/chklovski/CheckM2"
+      doi: "10.1038/s41592-023-01940-w"
+      licence: ["GPL v3"]
+      identifier: ""
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'test' ]`
+    - fasta:
+        type: file
+        description: One or multiple FASTA files of each bin
+        pattern: "*.{fasta,fna,fa}"
+  - - dbmeta:
+        type: map
+        description: |
+          Groovy Map containing database information
+          e.g. `[ id:'test', version:1 ]`
+    - db:
+        type: file
+        description: CheckM2 database
+output:
+  - checkm2_output:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}:
+          type: directory
+          description: CheckM2 output directory
+          pattern: "${prefix}/"
+  - checkm2_tsv:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}/quality_report.tsv:
+          type: file
+          description: CheckM2 summary completeness statistics table
+          pattern: "*.tsv"
+  - versions:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+authors:
+  - "@dialvarezs"

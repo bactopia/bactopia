@@ -1,0 +1,122 @@
+name: checkm2
+description: Assess the assembly quality of your samples
+icon: false
+keywords:
+  - fasta
+  - assembly quality
+modules:
+  - checkm
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'test' ]`
+    - fasta:
+        type: file
+        description: One or multiple FASTA files of each bin
+        pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+  - - dbmeta:
+        type: map
+        description: |
+          Groovy Map containing database information
+          e.g. `[ id:'test', version:1 ]`
+    - db:
+        type: file
+        description: CheckM2 database
+output:
+  - checkm2_output:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}:
+          type: directory
+          description: CheckM2 output directory
+          pattern: "${prefix}/"
+  - checkm2_tsv:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - ${prefix}/quality_report.tsv:
+          type: file
+          description: CheckM2 summary completeness statistics table
+          pattern: "*.tsv"
+  - versions:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+docs:
+  meta:
+    title: checkm2
+    description: >-
+      A Bactopia Tool which uses CheckM2 for rapid assessment of genome bin quality using machine learning.
+  introduction: |
+    The `checkm` module is used [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality of microbial
+    genomes recovered from isolates, single cells, and metagenomes.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── checkm2
+      │           ├── diamond_output
+      │           │   └── DIAMOND_RESULTS.tsv
+      │           ├── protein_files
+      │           |   └── SRR2838702.faa
+      │           └── quality_report.tsv
+      └── bactopia-runs
+          └── checkm2-<TIMESTAMP>
+              ├── merged-results
+              │   ── checkm2.tsv
+              │   └── logs
+              │       └── checkm2-concat
+              │           ├── nf-merged-results.begin
+              │           ├── nf-merged-results.err
+              │           ├── nf-merged-results.log
+              │           ├── nf-merged-results.out
+              │           ├── nf-merged-results.run
+              │           ├── nf-merged-results.sh
+              │           ├── nf-merged-results.trace
+              │           └── versions.yml
+              ├── nf-reports
+              │   ├── checkm-dag.dot
+              │   ├── checkm-report.html
+              │   ├── checkm-timeline.html
+              │   └── checkm-trace.txt
+              └── software-versions
+                  └── logs
+                  │   ├── checkm-report.html
+                  │   ├── checkm-timeline.html
+                  │   └── checkm-trace.txt
+                  ├──── nf-merged-results.trace
+                  └──── nf-merged-results.trace
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: checkm2.tsv
+            description: A merged TSV file with `checkm2` results from all samples
+      - name: CheckM2
+        description: |
+          Below is a description of the _per-sample_ results from [CheckM2](├).
+        table:
+          - id: diamond_output/
+            description: A folder with intermediate results from `CheckM2` processing
+          - id: DIAMOND_RESULTS.tsv
+            description: 
+          - id: protein_files/
+            description: 
+          - id: SRR2838702.faa
+            description: Output file describing marker set for each bin
+          - id: quality_report.tsv
+            description: Output file describing marker set for each bin
+  citations:
+    - checkm2
+    - csvtk

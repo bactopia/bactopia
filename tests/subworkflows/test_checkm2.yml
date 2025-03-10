@@ -1,0 +1,8 @@
+- name: checkm2-bactopia_help
+  command: bash -c 'nextflow run ./main.nf --wf checkm2 -c nextflow.config --help > checkm2-help.txt'
+  tags:
+    - bactopia_help
+    - checkm2
+  files:
+    - path: checkm2-help.txt
+      contains: ['checkm2', 'bactopia', 'version', 'dependencies']
