@@ -24,28 +24,24 @@
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/checkm2/logs/versions.yml
       md5sum: 9072bb76312befd45ab9df837df42b54
-    - path: bactopia/GCF_000292685/tools/checkm2/protein_files/GCF_000292685.faa
-      md5sum: 8166471fc5f08c82fd5643ab42327f9d
-    - path: bactopia/GCF_000292685/tools/checkm2/quality_report.tsv
-      md5sum: b6132198e008148fc11c6f396b89fb5b
+    - path: bactopia/GCF_000292685/tools/checkm2/protein_files/GCF_000292685.faa.gz
+    - path: bactopia/GCF_000292685/tools/checkm2/GCF_000292685.tsv
+      contains: ['Name', 'GCF_000292685']
     - path: bactopia/bactopia-runs/checkm2/merged-results/checkm2.tsv
-      md5sum: b6132198e008148fc11c6f396b89fb5b
+      contains: ['Name', 'GCF_000292685']
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.err
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.log
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.out
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.run
       contains: ['$NXF_ENTRY']
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.sh
-      md5sum: 7f623767f918ce72f76ba140455c0e53
+      contains: ['csvtk', 'END_VERSIONS']
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/versions.yml
-      md5sum: 55942c9c926300b00f0f7801ec8d487b
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-dag.dot
       md5sum: 3d1955d5b657d3f74bcb19564685d1e5
     - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-report.html

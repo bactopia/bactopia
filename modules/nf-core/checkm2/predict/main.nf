@@ -19,13 +19,12 @@ process CHECKM2_PREDICT {
     tuple val(meta), path(fasta)
     path db
 
-
     output:
-    tuple val(meta), path("results/*"),                             emit: results
-    tuple val(meta), path("results/quality_report.tsv"),  emit: tsv
-    path "*.{log,err}",                                             emit: logs, optional: true
-    path ".command.*",                                              emit: nf_logs
-    path "versions.yml",                                            emit: versions
+    tuple val(meta), path("results/*"),             emit: results
+    tuple val(meta), path("results/${prefix}.tsv"), emit: tsv
+    path "*.{log,err}",                             emit: logs, optional: true
+    path ".command.*",                              emit: nf_logs
+    path "versions.yml",                            emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
@@ -55,19 +54,10 @@ process CHECKM2_PREDICT {
         $options.args
 
     mv results/checkm2.log ./
+    mv results/quality_report.tsv results/${prefix}.tsv
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        checkm2: \$(checkm2 --version)
-    END_VERSIONS
-    """
-
-    stub:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    """
-    mkdir -p ${prefix}/diamond_output ${prefix}/protein_files
-    touch ${prefix}/quality_report.tsv ${prefix}/checkm2.log
+    # Cleanup
+    gzip results/protein_files/*.faa
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

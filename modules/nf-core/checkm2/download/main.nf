@@ -8,7 +8,7 @@ conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.co
 
 import groovy.json.JsonSlurper
 
-process CHECKM2_DATABASEDOWNLOAD {
+process CHECKM2_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
@@ -20,27 +20,26 @@ process CHECKM2_DATABASEDOWNLOAD {
         'quay.io/biocontainers/aria2:1.36.0' }"
 
     output:
-    path "checkm2_db_v${db_version}.dmnd"     , emit: db
-    path "CONTENTS.json", emit: contents
-    path "*.{log,err}" , emit: logs, optional: true
-    path ".command.*"  , emit: nf_logs
-    path "versions.yml", emit: versions
+    path "checkm2_db_v${db_version}.dmnd", emit: db
+    path "contents.json"                 , emit: json
+    path "*.{log,err}"                   , emit: logs, optional: true
+    path ".command.*"                    , emit: nf_logs
+    path "versions.yml"                  , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
-    def args        = task.ext.args ?: ''
-    zenodo_id       = 5571251  // Default to latest version 
-    api_data        = (new JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
-    db_version      = api_data.metadata.version
-    checksum        = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
-    meta            = [id: 'checkm2_db', version: db_version]
+    zenodo_id  = 5571251  // Default to latest version 
+    api_data   = (new JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
+    db_version = api_data.metadata.version
+    checksum   = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
+    meta       = [id: 'checkm2_db', version: db_version]
     """
     # Automatic download is broken when using singularity/apptainer (https://github.com/chklovski/CheckM2/issues/73)
     # So it's necessary to download the database manually
     aria2c \
-        ${args} \
+        ${options.args} \
         --checksum ${checksum} \
         https://zenodo.org/records/${zenodo_id}/files/checkm2_database.tar.gz
 
@@ -50,6 +49,8 @@ process CHECKM2_DATABASEDOWNLOAD {
     db_path=\$(find -name *.dmnd)
     mv \$db_path checkm2_db_v${db_version}.dmnd
     rmdir CheckM2_database
+
+    mv CONTENTS.json contents.json
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

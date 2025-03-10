@@ -51,7 +51,7 @@ process EMMTYPER {
             > ${prefix}.tsv
 
         # Remove the blast database
-        rm $db*
+        rm $blastdb.*
     fi
 
     # If 'tmp' is not in $fasta_name, remove '.tmp' from the output files contents

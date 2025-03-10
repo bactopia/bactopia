@@ -9,6 +9,7 @@ description: A full list of Bactopia releases and a description of the changes.
 ### `Added`
 
 - Bactopia Tools (`bactopia --wf <NAME>`)
+    - `checkm2` - Rapid assessment of genome bin quality using machine learning @maxlcummins
     - `sylph` - taxonomic profiling and genome querying for meta-genomic samples
 - `teton` now outputs a bactopia sample sheet with species and genome size filled out
     - `sizemeup` uses the bracken output to determine genome size
@@ -22,13 +23,13 @@ description: A full list of Bactopia releases and a description of the changes.
     - `ncbigenomedownload`: add `--keep_genomes` to publish downloaded genomes, default leave in `work` directory
         - this also affects Prokka annotations in the `pangenome` workflow
     - `snippy`: add `--snippy_remove_bam` to remove BAM files after variant calling
+- support for custom databases in `emmtyper` @maxlcummins
 - bump program versions in modules
     - `amrfinderplus`: 3.12.8 -> 4.0.19
     - `bactopia-teton`: 1.0.2 -> 1.1.1
-    - `bakta`: 1.9.4 -> 1.10.4
+    - `bakta`: 1.9.4 -> 1.11.0
     - `busco`: 5.7.1 -> 5.8.2
     - `csvtk`: 0.27.2 -> 0.31.0
-    - `ectyper`: 1.0.0 -> 2.0.0
     - `gubbins`: 3.3.5 -> 3.4
     - `iqtree`: 2.2.2.7 -> 2.3.6
     - `kleborate`: 3.0.9 -> 3.1.3
@@ -38,7 +39,6 @@ description: A full list of Bactopia releases and a description of the changes.
     - `sister`: 1.1.2 -> 1.1.3
     - `sylph`: 0.6.1 -> 0.8.0
     - `tbprofiler`: 6.3.0 -> 6.6.2
-
 
 ### `Fixed`
 

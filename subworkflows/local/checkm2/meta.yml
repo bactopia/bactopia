@@ -7,56 +7,38 @@ keywords:
 modules:
   - checkm
 input:
-  - - meta:
+  - meta:
         type: map
         description: |
           Groovy Map containing sample information
           e.g. `[ id:'test' ]`
-    - fasta:
-        type: file
-        description: One or multiple FASTA files of each bin
-        pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
-  - - dbmeta:
-        type: map
-        description: |
-          Groovy Map containing database information
-          e.g. `[ id:'test', version:1 ]`
-    - db:
-        type: file
-        description: CheckM2 database
+  - fasta:
+      type: file
+      description: One or multiple FASTA files of each bin
+      pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+  - db:
+      type: file
+      description: CheckM2 database
 output:
   - checkm2_output:
-      - meta:
-          type: map
-          description: |
-            Groovy Map containing sample information
-            e.g. `[ id:'test' ]`
-      - ${prefix}:
-          type: directory
-          description: CheckM2 output directory
-          pattern: "${prefix}/"
+      type: directory
+      description: CheckM2 output directory
+      pattern: "${prefix}/"
   - checkm2_tsv:
-      - meta:
-          type: map
-          description: |
-            Groovy Map containing sample information
-            e.g. `[ id:'test' ]`
-      - ${prefix}/quality_report.tsv:
-          type: file
-          description: CheckM2 summary completeness statistics table
-          pattern: "*.tsv"
+      type: file
+      description: CheckM2 summary completeness statistics table
+      pattern: "*.tsv"
   - versions:
-      - versions.yml:
-          type: file
-          description: File containing software versions
-          pattern: "versions.yml"
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
 docs:
   meta:
     title: checkm2
     description: >-
       A Bactopia Tool which uses CheckM2 for rapid assessment of genome bin quality using machine learning.
   introduction: |
-    The `checkm` module is used [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality of microbial
+    The `checkm2` module is used [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality of microbial
     genomes recovered from isolates, single cells, and metagenomes.
   output:
     tree: |

@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'tbprofiler')
 options.btype = "comparative"
-conda_tools   = "bioconda::tb-profiler=6.6.2"
+conda_tools   = "bioconda::tb-profiler=6.6.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process TBPROFILER_COLLATE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/tb-profiler:6.6.2--pyhdfd78af_0' :
-        'quay.io/biocontainers/tb-profiler:6.6.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/tb-profiler:6.6.3--pyhdfd78af_0' :
+        'quay.io/biocontainers/tb-profiler:6.6.3--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(json, stageAs: 'results-tmp/*')
@@ -30,6 +30,10 @@ process TBPROFILER_COLLATE {
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
+    # Copy database to working directory
+    mkdir -p database
+    cp -r \$(dirname \$(which tb-profiler))/../share/tbprofiler/* database/
+
     # Uncompress the JSON files
     mkdir results
     cp -L results-tmp/* results/
@@ -38,11 +42,12 @@ process TBPROFILER_COLLATE {
     tb-profiler \\
         collate \\
         $options.args \\
+        --db_dir database/ \\
         --format csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        tb-profiler:  \$( echo \$(tb-profiler version 2>&1) | sed 's/tb-profiler version //')
+        tb-profiler:  \$( echo \$(tb-profiler collate --version 2>&1) | sed 's/.*tb-profiler version //')
     END_VERSIONS
     """
 }

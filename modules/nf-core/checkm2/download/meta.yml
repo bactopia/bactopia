@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
-name: "checkm2_databasedownload"
+name: "checkm2_download"
 description: CheckM2 database download
 keywords:
   - checkm
@@ -18,21 +18,23 @@ tools:
       identifier: ""
 
 output:
-  - database:
-      - meta:
-          type: map
-          description: |
-            Groovy Map containing database information
-            e.g. `[ id:'test', version:1 ]`
-      - checkm2_db_v${db_version}.dmnd:
-          type: file
-          description: CheckM2 database file
-          pattern: "checkm2_db_v*.dmnd"
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing database information
+        e.g. `[ id:'test', version:1 ]`
+  - db:
+      type: file
+      description: CheckM2 database file
+      pattern: "checkm2_db_v*.dmnd"
+  - json:
+      type: file
+      description: Zenodo JSON response
+      pattern: "contents.json"
   - versions:
-      - versions.yml:
-          type: file
-          description: File containing software versions
-          pattern: "versions.yml"
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
 authors:
   - "@dialvarezs"
   - "@maxlcummins"

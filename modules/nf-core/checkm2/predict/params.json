@@ -12,36 +12,36 @@
             "default": "",
             "fa_icon": "fa-solid fa-toolbox",
             "properties": {
-                "lowmem": {
+                "checkm2_lowmem": {
                     "type": "boolean",
                     "description": "Low memory mode. Reduces DIAMOND blocksize to significantly reduce RAM usage at the expense of longer runtime",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "general": {
+                "checkm2_general": {
                     "type": "boolean",
                     "description": "Force the use of the general quality prediction model (gradient boost)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "specific ": {
+                "checkm2_specific": {
                     "type": "boolean",
                     "description": "Force the use of the specific quality prediction model (neural network)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "allmodels ": {
+                "checkm2_allmodels": {
                     "type": "boolean",
                     "description": "Output quality prediction for both models for each genome.",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "genes": {
+                "checkm2_genes": {
                     "type": "boolean",
                     "description": "Treat input files as protein files. [Default: False]",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "checkm2_db": {
+                "checkm2_opts": {
                     "type": "string",
-                    "description": "Path to a folder containing CheckM2 database (or where it should be downloaded to).",
+                    "description": "Additional options to pass to CheckM2",
                     "fa_icon": "fas fa-expand-arrows-alt"
-                }              
+                }
             }
         }
     },
