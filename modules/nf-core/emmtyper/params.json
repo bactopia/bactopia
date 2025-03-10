@@ -19,6 +19,11 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": ["blast", "pcr"]
                 },
+                "emmtyper_blastdb": {
+                    "type": "string",
+                    "description": "Path to custom EMM BLAST DB.",
+                    "fa_icon": "fas fa-file-alt"
+                },
                 "cluster_distance": {
                     "type": "integer",
                     "default": 500,
