@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'plasmidfinder')
 options.btype = "tools"
-conda_tools   = "bioconda::plasmidfinder=2.1.6=py310hdfd78af_1"
+conda_tools   = "bioconda::plasmidfinder=2.1.6=py310hdfd78af_1 python=3.10.4"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 def VERSION   = '2.1.6' // Version information not provided by tool on CLI

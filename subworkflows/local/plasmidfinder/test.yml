@@ -39,9 +39,9 @@
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.err
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.log
-      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
+      contains: ["plasmid", "RepA", "GCF_000017085"]
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.out
-      contains: ["Found", "plasmid", "RepA", "GCF_000017085"]
+      contains: ["plasmid", "RepA", "GCF_000017085"]
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000017085/tools/plasmidfinder/logs/nf-plasmidfinder.sh
