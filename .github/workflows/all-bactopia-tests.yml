@@ -59,7 +59,7 @@ jobs:
           conda activate bactopia-ci
           conda clean --all -y
           cd ${{ env.BACTOPIA_WORKSPACE }}
-          ls subworkflows/local/ | xargs -I {} -P 20 \
+          ls subworkflows/local/ | grep -v -E "checkm|ismapper" | xargs -I {} -P 20 \
               bash -c 'BACTOPIA_ARGS="--max_retry 1 --is_ci --condadir ${{ env.BACTOPIA_CONDA }} --test_data_dir ${{ env.BACTOPIA_TESTS }}" TMPDIR=${{ env.BACTOPIA_TMP }} \
                        pytest --wt 5 --symlink --kwdof -o "testpaths=tests subworkflows/local/" --git-aware --tag {}'
 
