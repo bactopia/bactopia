@@ -10,12 +10,14 @@ def kraken2_unclassified_count(kraken2_report):
     """
       0.23	4500	4500	U	0	unclassified
     """
+    unclassified_count = 0
     with open(kraken2_report, 'rt') as fh:
         for line in fh:
             line = line.rstrip()
             cols = line.split("\t")
             if cols[3] == "U":
-                return int(cols[2])
+                unclassified_count = int(cols[2])
+    return unclassified_count
 
 def braken_root_count(bracken_report):
     """
@@ -59,10 +61,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    unclassified_count = kraken2_unclassified_count(args.kraken2_report)
-    
     # Allow for if 100% of reads are successfully assigned
-    if unclassified_count == None:
+    unclassified_count = kraken2_unclassified_count(args.kraken2_report)
+    if unclassified_count == 0:
         total_count = 100
     else:
         total_count = unclassified_count + braken_root_count(args.bracken_report)
