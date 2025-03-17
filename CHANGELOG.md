@@ -54,6 +54,7 @@ description: A full list of Bactopia releases and a description of the changes.
 - useless use of `options.btype ?:` in modules (_it didn't actually do anything because `options.btype` was always empty_)
 - version capture in `dragonflye` and `mlst`
 - mismatch in `defensefinder` conda and container versions
+- `kraken-bracken-summary.py` failing with 0 unclassified reads @maxlcummins
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
