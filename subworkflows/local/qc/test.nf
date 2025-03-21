@@ -42,3 +42,17 @@ workflow test_qc_nanopore {
 
     QC ( inputs )
 }
+
+workflow test_qc_hybrid {
+
+    inputs = tuple(
+        [id:"output", runtype:"hybrid", genome_size:350000],
+        [file(params.test_data['species']['portiera']['illumina']['r1'], checkIfExists: true),
+         file(params.test_data['species']['portiera']['illumina']['r2'], checkIfExists: true)],
+        [file(params.test_data['species']['portiera']['nanopore']['se'], checkIfExists: true)],
+        file(params.test_data['empty']['adapters'], checkIfExists: true),
+        file(params.test_data['empty']['phix'], checkIfExists: true)
+    )
+
+    QC ( inputs )
+}

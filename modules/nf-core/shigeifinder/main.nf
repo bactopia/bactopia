@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'shigeifinder')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::shigeifinder=1.3.5"
+options.btype = "tools"
+conda_tools   = "bioconda::shigeifinder=1.3.5 python=3.11.4"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -39,6 +39,9 @@ process SHIGEIFINDER {
         --output ${prefix}.tsv \\
         -t $task.cpus \\
         -i $fasta_name
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

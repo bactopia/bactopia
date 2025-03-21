@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'snippy')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::bactopia-variants=1.0.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -22,8 +22,8 @@ process SNIPPY_RUN {
     output:
     tuple val(meta), path("results/${prefix}.aligned.fa.gz")                                    , emit: aligned_fa
     tuple val(meta), path("results/${prefix}.annotated.vcf.gz")                                 , emit: annotated_vcf
-    tuple val(meta), path("results/${prefix}.bam")                                              , emit: bam
-    tuple val(meta), path("results/${prefix}.bam.bai")                                          , emit: bai
+    tuple val(meta), path("results/${prefix}.bam")                              , optional: true, emit: bam
+    tuple val(meta), path("results/${prefix}.bam.bai")                          , optional: true, emit: bai
     tuple val(meta), path("results/${prefix}.bed.gz")                                           , emit: bed
     tuple val(meta), path("results/${prefix}.consensus.fa.gz")                                  , emit: consensus_fa
     tuple val(meta), path("results/${prefix}.consensus.subs.fa.gz")                             , emit: consensus_subs_fa
@@ -62,12 +62,14 @@ process SNIPPY_RUN {
         exit 1
     fi
 
+    mkdir tmp_snippy/
     snippy \\
         $options.args \\
         --cpus $task.cpus \\
         --outdir $prefix \\
         --reference $final_reference \\
         --prefix $prefix \\
+        --tmpdir tmp_snippy/ \\
         $read_inputs
 
     # Add GenBank annotations
@@ -89,7 +91,11 @@ process SNIPPY_RUN {
         --mincov ${params.mincov} > ${prefix}/${prefix}.consensus.subs.masked.fa
 
     # Clean Up
-    rm -rf ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz*
+    rm -rf tmp_snippy/ ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz* ${final_reference}
+
+    if [[ ${params.snippy_remove_bam} == "true" ]]; then
+        rm ${prefix}/${prefix}.bam ${prefix}/${prefix}.bam.bai
+    fi
 
     if [[ ${params.skip_compression} == "false" ]]; then
         find ${prefix}/ -type f | \

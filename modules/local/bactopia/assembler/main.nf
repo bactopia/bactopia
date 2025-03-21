@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'assembler')
 options.ignore = [".fastq.gz"]
-options.btype  = options.btype ?: "main"
+options.btype  = "main"
 conda_tools    = "bioconda::bactopia-assembler=1.0.4"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -20,7 +20,6 @@ process ASSEMBLER {
     tuple val(meta), path(fq), path(extra)
 
     output:
-    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), path("fastqs/${prefix}*.fastq.gz"), emit: fna_fastq, optional: true
     tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), emit: fna, optional: true
     tuple val(meta), path("results/${prefix}.tsv")         , emit: tsv, optional: true
     path "results/*"                                       , emit: results
@@ -192,21 +191,6 @@ process ASSEMBLER {
     fi
     find results -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
 
-    # Move primary fastqs
-    mkdir fastqs/
-    if [ "${meta.runtype}" == "hybrid" ]; then
-        # Used Unicycler, so Illumina reads are expected to be best
-        cp ${r1} fastqs/
-        cp ${r2} fastqs/
-    elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" || "${meta.single_end}" == "true" ]]; then
-        # Used Dragonflye or Illumina single-end reads, so use these reads going forward
-        cp ${se} fastqs/
-    else
-        # Illumina Pair-end reads
-        cp ${r1} fastqs/
-        cp ${r2} fastqs/
-    fi
-
     # Capture versions
     if [[ "\$OSTYPE" == "darwin"* ]]; then
     
@@ -238,7 +222,7 @@ process ASSEMBLER {
         any2fasta: \$(echo \$(any2fasta -v 2>&1) | sed 's/^.*any2fasta //')
         assembly-scan: \$(echo \$(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
         bwa: \$(echo \$(bwa 2>&1) | sed 's/^.*Version: //;s/ .*\$//')
-        dragonflye: \$(dragonflye --version 2>&1 | sed 's/^.*dragonflye //' )
+        dragonflye: \$(echo \$(dragonflye --version 2>&1) | sed 's/^.*dragonflye //' )
         flash: \$(echo \$(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*\$//')
         flye: \$(echo \$(flye --version))
         medaka: \$(echo \$(medaka --version 2>&1) | sed 's/medaka //')

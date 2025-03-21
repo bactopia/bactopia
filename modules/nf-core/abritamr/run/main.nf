@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'abritamr')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::abritamr=1.0.19"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -52,6 +52,9 @@ process ABRITAMR_RUN {
         # This file is not always present
         mv results/abritamr.txt ./${prefix}.abritamr.txt
     fi
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

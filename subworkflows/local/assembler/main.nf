@@ -71,7 +71,6 @@ workflow ASSEMBLER {
 
     emit:
     fna = ASSEMBLER_MODULE.out.fna
-    fna_fastq = ASSEMBLER_MODULE.out.fna_fastq
     tsv = ASSEMBLER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions // channel: [ versions.yml ]

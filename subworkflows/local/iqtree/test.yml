@@ -22,9 +22,8 @@
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/test.log
       contains: ['IQ-TREE', 'Ultrafast', 'Date']
     - path: bactopia/bactopia-runs/iqtree/iqtree/logs/versions.yml
-      md5sum: 1ec296e7de2f7cae81775f63cd010b54
-    - path: bactopia/bactopia-runs/iqtree/iqtree/test.alninfo
-      md5sum: 4e3bfd442dad9d4b8469e03039cadb4c
+      md5sum: 1f460002c1e500af8fff6a914b504587
+    - path: bactopia/bactopia-runs/iqtree/iqtree/test.alninfo.gz
     - path: bactopia/bactopia-runs/iqtree/iqtree/test.bionj
       contains: ['GCF_000292685']
     - path: bactopia/bactopia-runs/iqtree/iqtree/test.ckp.gz

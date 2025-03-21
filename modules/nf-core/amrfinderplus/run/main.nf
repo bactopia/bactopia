@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'amrfinderplus')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::ncbi-amrfinderplus=3.12.8"
+options.btype = "tools"
+conda_tools   = "bioconda::ncbi-amrfinderplus=4.0.19"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process AMRFINDERPLUS_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:3.12.8--h283d18e_0' :
-        'quay.io/biocontainers/ncbi-amrfinderplus:3.12.8--h283d18e_0' }"
+        'https://depot.galaxyproject.org/singularity/ncbi-amrfinderplus:4.0.19--hf69ffd2_0' :
+        'quay.io/biocontainers/ncbi-amrfinderplus:4.0.19--hf69ffd2_0' }"
 
     input:
     tuple val(meta), path(genes), path(proteins), path(gff)

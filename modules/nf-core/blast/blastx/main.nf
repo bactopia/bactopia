@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'blastx')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::blast=2.16.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -44,6 +44,9 @@ process BLAST_BLASTX {
     # Add column names, include column for sample name
     echo "$outcols" | sed 's/<TAB>/\t/g' > ${prefix}.blastx.tsv
     sed 's/^/${prefix}\t/' ${prefix}.txt >> ${prefix}.blastx.tsv
+
+    # Cleanup
+    rm -rf blastdb/ ${prefix}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

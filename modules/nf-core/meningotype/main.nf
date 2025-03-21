@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'meningotype')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::meningotype=0.8.5"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -37,6 +37,9 @@ process MENINGOTYPE {
         $options.args \\
         $fasta_name \\
         > ${prefix}.tsv
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

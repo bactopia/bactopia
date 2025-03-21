@@ -52,13 +52,13 @@ datasets_ariba:
 
   plasmidfinder:
     name: PlasmidFinder
-    link: https://cge.cbs.dtu.dk/services/PlasmidFinder/
+    link: https://cge.food.dtu.dk/services/PlasmidFinder/
     cite: |
       Carattoli A, Zankari E, García-Fernández A, Larsen MV, Lund O, Villa L, Aarestrup FM, Hasman H [In silico detection and typing of plasmids using PlasmidFinder and plasmid multilocus sequence typing.](https://doi.org/10.1128/aac.02412-14) _Antimicrob. Agents Chemother._ 58, 3895–3903 (2014)
 
   resfinder:
     name: ResFinder
-    link: https://cge.cbs.dtu.dk//services/ResFinder/
+    link: https://cge.food.dtu.dk//services/ResFinder/
     cite: |
       Zankari E, Hasman H, Cosentino S, Vestergaard M, Rasmussen S, Lund O, Aarestrup FM, Larsen MV [Identification of acquired antimicrobial resistance genes.](https://doi.org/10.1093/jac/dks261) _J. Antimicrob. Chemother._ 67, 2640–2644 (2012)
 
@@ -76,7 +76,7 @@ datasets_ariba:
 
   virulencefinder:
     name: VirulenceFinder
-    link: https://cge.cbs.dtu.dk/services/VirulenceFinder/
+    link: https://cge.food.dtu.dk/services/VirulenceFinder/
     cite: |
       Joensen KG, Scheutz F, Lund O, Hasman H, Kaas RS, Nielsen EM, Aarestrup FM [Real-time whole-genome sequencing for routine typing, surveillance, and outbreak detection of verotoxigenic _Escherichia coli_.](https://doi.org/10.1128/jcm.03617-13) _J. Clin. Microbiol._ 52, 1501–1510 (2014)
 
@@ -306,6 +306,14 @@ tools:
     description: Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes
     cite: |
       Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW [CheckM: assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes.](http://dx.doi.org/10.1101/gr.186072.114) _Genome Res_ 25, 1043–1055 (2015)
+
+checkm2:
+    name: CheckM2
+    link: https://github.com/chklovski/CheckM2
+    description: Rapid assessment of genome bin quality using machine learning
+    cite: |
+      
+      Chklovksi A [Rapid assessment of genome bin quality using machine learning](https://github.com/chklovski/CheckM2) (GitHub)
 
   clermontyping:
     name: ClermontTyping
@@ -1042,7 +1050,7 @@ tools:
 
   spatyper_db:
     name: spaTyper Database
-    link: https://cge.cbs.dtu.dk/services/spatyper/
+    link: https://cge.food.dtu.dk/services/spatyper/
     description: Database used by spaTyper
     cite: |
       Harmsen D, Claus H, Witte W, Rothgänger J, Claus H, Turnwald D, and Vogel U [Typing of methicillin-resistant _Staphylococcus aureus_ in a university hospital setting using a novel software for spa-repeat determination and database management.](https://doi.org/10.1128/jcm.41.12.5442-5448.2003) _J. Clin. Microbiol._ 41:5442-5448 (2003)

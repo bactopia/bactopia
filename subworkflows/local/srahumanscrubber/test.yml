@@ -19,7 +19,7 @@
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.sh
-      md5sum: e84eff5212cbceecf66d4a7cfcf7a821
+      contains: ['scrub.sh', 'zcat', 'summary']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/versions.yml
@@ -53,7 +53,7 @@
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.sh
-      md5sum: 16e3df0b8dd91454d2bf251b9600a57e
+      contains: ['scrub.sh', 'zcat', 'summary']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/nf-srahumanscrubber.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/tools/srahumanscrubber/logs/versions.yml

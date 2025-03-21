@@ -39,6 +39,9 @@ process ARIBA_GETREF {
     mv ${db_name}/ ariba-${db_name}/
     tar -zcvf ariba-${db_name}.tar.gz ariba-${db_name}/
 
+    # Cleanup
+    rm -rf ariba-${db_name}/
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ariba:  \$(echo \$(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*\$//')

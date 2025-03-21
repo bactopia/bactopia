@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'pneumocat')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::pneumocat=1.2.1 bioconda::bowtie2==2.3.5"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -23,9 +23,9 @@ process PNEUMOCAT {
     meta.single_end == false
 
     output:
-    tuple val(meta), path("*.xml")               , optional: true, emit: xml
-    tuple val(meta), path("coverage_summary.txt"), optional: true, emit: txt
-    path "*.{stdout,stderr}"                     , optional: true, emit: logs
+    tuple val(meta), path("*.xml")                 , optional: true, emit: xml
+    tuple val(meta), path("*.coverage_summary.txt"), optional: true, emit: txt
+    path "*.{stdout,stderr}"                       , optional: true, emit: logs
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
 
@@ -38,6 +38,7 @@ process PNEUMOCAT {
         --output_dir ./
 
     # clean up
+    rm -rf *.bam *.bai ComponentComplete.txt
 
     # PneumoCAT uses first match in a glob, so moves between R1 and R2
     if [ -f ${prefix}_R1.results.xml ]; then
@@ -46,6 +47,7 @@ process PNEUMOCAT {
         mv ${prefix}_R2.results.xml ${prefix}.results.xml
     fi
     mv logs/* ./
+    mv coverage_summary.txt ${prefix}.coverage_summary.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

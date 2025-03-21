@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'qc')
 options.ignore = ['.fna.gz', "EMPTY_EXTRA"]
-options.btype  = options.btype ?: "main"
+options.btype  = "main"
 conda_tools    = "bioconda::bactopia-qc=1.0.3"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -356,6 +356,7 @@ process QC {
                         ${prefix}-original.fastq.gz ${prefix}-final.fastq.gz
                 fi
                 mv *_fastqc.html *_fastqc.zip results/summary/
+                rm -rf tmp/
             fi
         fi
     fi

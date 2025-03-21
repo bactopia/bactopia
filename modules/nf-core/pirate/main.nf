@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'pirate')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::pirate=1.0.5 bioconda::perl-bioperl=1.7.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -53,6 +53,13 @@ process PIRATE {
     if [[ -f "results/core_alignment.fasta.gz" ]]; then
         cp results/core_alignment.fasta.gz ./core-genome.aln.gz
     fi
+
+    # Cleanup
+    rm -rf gff/
+    gzip results/co-ords/*.tab
+    gzip results/modified_gffs/*.gff
+    gzip results/pangenome_iterations/pan_sequences.blast.output
+    gzip results/pangenome_iterations/pan_sequences.mcl_log.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

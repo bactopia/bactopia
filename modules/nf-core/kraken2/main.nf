@@ -1,8 +1,8 @@
 // Import generic module functions 
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'kraken2')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::bactopia-teton=1.0.4"
+options.btype = "tools"
+conda_tools   = "bioconda::bactopia-teton=1.1.1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process KRAKEN2 {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.0.4--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-teton:1.0.4--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.1.1--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-teton:1.1.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)
@@ -60,29 +60,34 @@ process KRAKEN2 {
         $options.args \\
         $reads > /dev/null
 
-    # Clean up large files produced by Kraken2/Bracken
-    if [ "${params.remove_filtered_reads}" == "true" ]; then
-        # Remove filtered FASTQs
-        rm *.fastq
-    else
-        # Compress Kraken FASTQs
-        pigz -p $task.cpus *.fastq
-    fi
-
+    # If scrubbing, rename and summarize
     if [ "$unclassified_naming" == "scrubbed" ]; then
         # Rename scrubbed reads
         if [ "$meta.single_end" == "false" ]; then
-            mv ${prefix}.${unclassified_naming}_1.fastq.gz ${prefix}_R1.scrubbed.fastq.gz
-            mv ${prefix}.${unclassified_naming}_2.fastq.gz ${prefix}_R2.scrubbed.fastq.gz
+            mv ${prefix}.${unclassified_naming}_1.fastq ${prefix}_R1.scrubbed.fastq
+            mv ${prefix}.${unclassified_naming}_2.fastq ${prefix}_R2.scrubbed.fastq
         fi
 
         # Quick stats on reads
         zcat ${reads} | fastq-scan > original.json
-        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        cat *.scrubbed.fastq | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove host reads
-        rm ${prefix}.host*.fastq.gz
+        # Remove host reads and temp json files
+        rm ${prefix}.host*.fastq original.json scrubbed.json
+    fi
+
+    # Clean up database and large files produced by Kraken2
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+
+    if [[ "${params.keep_filtered_reads}" == "true" || "${params.wf}" == "scrubber" ]]; then
+        # Compress Kraken FASTQs
+        pigz -p $task.cpus *.fastq
+    else
+        # Remove filtered FASTQs
+        rm *.fastq
     fi
 
     # Used for clean-yer-reads

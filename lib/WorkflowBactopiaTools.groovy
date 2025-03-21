@@ -96,6 +96,14 @@ class WorkflowBactopiaTools {
             } else {
                 missing_required += "--eggnog_db"
             }
+        } else if (params.wf == "gamma") {
+            if (params.gamma_db) {
+                if (Utils.isLocal(params.gamma_db)) {
+                    error += Utils.fileNotFound(params.gamma_db, 'gamma_db', log)
+                } 
+            } else {
+                missing_required += "--gamma_db"
+            }
         } else if (params.wf == "gtdb") {
             if (params.gtdb) {
                 if (!params.download_gtdb) {
@@ -182,6 +190,14 @@ class WorkflowBactopiaTools {
                 }
             } else {
                 missing_required += "--scrubber_db"
+            }
+        } else if (params.wf == "sylph") {
+            if (params.sylph_db) {
+                if (Utils.isLocal(params.sylph_db)) {
+                    error += Utils.fileNotFound(params.sylph_db, 'sylph_db', log)
+                }
+            } else {
+                missing_required += "--sylph_db"
             }
         } else if (params.wf == "tblastn") {
             if (params.tblastn_query) {

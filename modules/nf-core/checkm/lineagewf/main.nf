@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'checkm')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::checkm-genome=1.2.3"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -11,7 +11,7 @@ process CHECKM_LINEAGEWF {
     label 'process_medium'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/checkm-genome:1.2.3--pyhdfd78af_0' :
         'quay.io/biocontainers/checkm-genome:1.2.3--pyhdfd78af_0' }"
 
@@ -45,6 +45,9 @@ process CHECKM_LINEAGEWF {
 
     find ./results/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
     mv results/checkm.log ./
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

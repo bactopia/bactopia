@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'bracken')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::bactopia-teton=1.0.4"
+options.btype = "tools"
+conda_tools   = "bioconda::bactopia-teton=1.1.1"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,23 +12,24 @@ process BRACKEN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.0.4--hdfd78af_0' :
-        'quay.io/biocontainers/bactopia-teton:1.0.4--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bactopia-teton:1.1.1--hdfd78af_0' :
+        'quay.io/biocontainers/bactopia-teton:1.1.1--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(reads)
     path db
 
     output:
-    tuple val(meta), path("${prefix}.bracken.tsv")                        , emit: tsv
-    tuple val(meta), path('*classified*')                                 , emit: classified, optional: true
-    tuple val(meta), path('*unclassified*')                               , emit: unclassified, optional: true
-    tuple val(meta), path("${prefix}.kraken2.report.txt")                 , emit: kraken2_report
-    tuple val(meta), path("${prefix}.kraken2.output.txt")                 , emit: kraken2_output, optional: true
-    tuple val(meta), path("${prefix}.bracken.report.txt")                 , emit: bracken_report
-    tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
-    tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
-    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
+    tuple val(meta), path("${prefix}.bracken.tsv")                            , emit: tsv
+    tuple val(meta), path('*classified*')                                     , emit: classified, optional: true
+    tuple val(meta), path('*unclassified*')                                   , emit: unclassified, optional: true
+    tuple val(meta), path("${prefix}.kraken2.report.txt")                     , emit: kraken2_report
+    tuple val(meta), path("${prefix}.kraken2.output.txt")                     , emit: kraken2_output, optional: true
+    tuple val(meta), path("${prefix}.bracken.report.txt")                     , emit: bracken_report
+    tuple val(meta), path("*.krona.html")                                     , emit: krona, optional: true
+    tuple val(meta), path("${prefix}.bracken.abundances.txt")                 , emit: abundances
+    tuple val(meta), path("${prefix}.bracken.classification.txt")             , emit: classification
+    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")        , emit: adjusted_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions
@@ -41,6 +42,7 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
+    meta.teton_reads = reads.join(",")
     """
     if [ "$is_tarball" == "true" ]; then
         mkdir database
@@ -103,7 +105,8 @@ process BRACKEN {
         ${prefix} \\
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\
-        ${prefix}.bracken.abundances.txt
+        ${prefix}.bracken.abundances.txt \\
+        --max_secondary_percent ${params.bracken_max_secondary_percent}
 
     # Create a Krona report from reports
     if [ "${params.skip_krona}" == "false" ]; then
@@ -118,21 +121,25 @@ process BRACKEN {
             --report ${prefix}.bracken.report.txt \\
             --output bracken-krona.temp
         ktImportText -o ${prefix}.bracken.krona.html bracken-krona.temp
-        rm *-krona.temp
     fi
 
     # Clean up large files produced by Kraken2/Bracken
+    rm *.temp
     if [ "${params.kraken2_keep_raw_output}" == "false" ]; then
         # Remove kraken2 STDOUT output file
         rm ${prefix}.kraken2.output.txt
     fi
 
-    if [ "${params.kraken2_remove_filtered_reads}" == "true" ]; then
-        # Remove filtered FASTQs
-        rm *.fastq
-    else
+    if [ "${params.kraken2_keep_filtered_reads}" == "true" ]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
+    else
+        # Remove filtered FASTQs
+        rm *.fastq
+    fi
+
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
     fi
 
     cat <<-END_VERSIONS > versions.yml

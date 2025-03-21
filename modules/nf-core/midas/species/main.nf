@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sra-human-scrubber')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::midas=1.3.2=pyh7cba7a3_7"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -50,6 +50,12 @@ process MIDAS_SPECIES {
 
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
     midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
+
+    # Cleanup
+    rm -rf results/
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

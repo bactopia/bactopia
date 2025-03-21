@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'lissero')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::lissero=0.4.9"
+options.btype = "tools"
+conda_tools   = "bioconda::lissero=0.4.9 conda-forge::python=3.9.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -38,6 +38,9 @@ process LISSERO {
         $fasta_name \\
         > ${prefix}.tsv
     sed -i 's/^.*${fasta_name}/${fasta_name}/' ${prefix}.tsv
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

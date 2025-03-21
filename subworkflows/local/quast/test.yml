@@ -53,7 +53,7 @@
     - path: bactopia/GCF_000292685/tools/quast/logs/quast.log
       contains: ['Version', 'QUAST']
     - path: bactopia/GCF_000292685/tools/quast/logs/versions.yml
-      md5sum: 7dae1e03b0d1199851a1c393bc72c039
+      md5sum: 1fd80d83f5ca3119c24bd76db677bee6
     - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer.stderr
       md5sum: 390dc7df727903e33d8127f8f12d9cf5
     - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer_genes.gff
@@ -126,7 +126,7 @@
     - path: bactopia/GCF_000292685/tools/quast/logs/quast.log
       contains: ['Version', 'QUAST']
     - path: bactopia/GCF_000292685/tools/quast/logs/versions.yml
-      md5sum: c69b765c4528b4e974c36a0d82b644b9
+      md5sum: e46a3fa88127408d5bf5346bb8198dc3
     - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer.stderr
       md5sum: 390dc7df727903e33d8127f8f12d9cf5
     - path: bactopia/GCF_000292685/tools/quast/predicted_genes/GCF_000292685_glimmer_genes.gff

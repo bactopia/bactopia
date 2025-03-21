@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ismapper')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::ismapper=2.0.2"
+options.btype = "tools"
+conda_tools   = "bioconda::ismapper=2.0.2 python=3.9.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -53,6 +53,11 @@ process ISMAPPER {
     # Reorganize output files
     mkdir results
     mv $prefix/*/* results/
+
+    # Cleanup and compress FASTQ and BED files
+    rm -rf ${reference_name} ${query_name} ${prefix}/
+    find results/ -name "*.fastq" | xargs -I {} gzip {}
+    find results/ -name "*.bed" | xargs -I {} gzip {}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

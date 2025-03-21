@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'gtdb')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::gtdbtk=2.4.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -50,6 +50,18 @@ process GTDBTK_CLASSIFYWF {
         --out_dir results \\
         --skip_ani_screen \\
         --prefix ${prefix}
+    mv results/*.log ./
+
+    # Cleanup
+    if [ "$is_tarball" == "true" ]; then
+        # Delete the untarred database
+        rm -rf database
+    fi
+    if [ "${params.gtdb_keep_msa}" == "false" ]; then
+        # Delete MSA of submitted and reference genomes.
+        rm -rf results/align/*.msa.fasta.gz
+    fi
+    rm -rf fna/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

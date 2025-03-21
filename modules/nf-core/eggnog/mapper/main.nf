@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'eggnog_mapper')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::eggnog-mapper=2.1.12"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -51,6 +51,12 @@ process EGGNOG_MAPPER {
         --data_dir \$EGGNOG_DB \\
         --output $prefix \\
         -i $fasta
+
+    # Cleanup
+    if [ "$is_tarball" == "true" ]; then
+        # Delete the untarred database
+        rm -rf database
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

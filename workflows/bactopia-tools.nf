@@ -50,6 +50,7 @@ if (params.wf == 'bracken') include { BRACKEN } from '../subworkflows/local/brac
 if (params.wf == 'btyper3') include { BTYPER3 } from '../subworkflows/local/btyper3/main';
 if (params.wf == 'busco') include { BUSCO } from '../subworkflows/local/busco/main';
 if (params.wf == 'checkm') include { CHECKM } from '../subworkflows/local/checkm/main';
+if (params.wf == 'checkm2') include { CHECKM2 } from '../subworkflows/local/checkm2/main';
 if (params.wf == 'clermontyping') include { CLERMONTYPING } from '../subworkflows/local/clermontyping/main';
 if (params.wf == 'defensefinder') include { DEFENSEFINDER } from '../subworkflows/local/defensefinder/main';
 if (params.wf == 'ectyper') include { ECTYPER } from '../subworkflows/local/ectyper/main';
@@ -99,6 +100,7 @@ if (params.wf == 'ssuissero') include { SSUISSERO } from '../subworkflows/local/
 if (params.wf == 'staphtyper') include { STAPHTYPER } from '../subworkflows/local/staphtyper/main';
 if (params.wf == 'staphopiasccmec') include { STAPHOPIASCCMEC } from '../subworkflows/local/staphopiasccmec/main';
 if (params.wf == 'stecfinder') include { STECFINDER } from '../subworkflows/local/stecfinder/main';
+if (params.wf == 'sylph') include { SYLPH } from '../subworkflows/local/sylph/main';
 if (params.wf == 'tbprofiler') include { TBPROFILER } from '../subworkflows/local/tbprofiler/main';
 if (params.wf == 'tblastn') include { TBLASTN } from '../subworkflows/local/tblastn/main';
 if (params.wf == 'tblastx') include { TBLASTX } from '../subworkflows/local/tblastx/main';
@@ -195,6 +197,9 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'checkm') {
         CHECKM(samples)
         ch_versions = ch_versions.mix(CHECKM.out.versions)
+    } else if (params.wf == 'checkm2') {
+        CHECKM2(samples)
+        ch_versions = ch_versions.mix(CHECKM2.out.versions)
     } else if (params.wf == 'clermontyping') {
         CLERMONTYPING(samples)
         ch_versions = ch_versions.mix(CLERMONTYPING.out.versions)
@@ -277,7 +282,7 @@ workflow BACTOPIATOOLS {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
     } else if (params.wf == 'pangenome') {
-        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_panaroo? 'panaroo' : (params.use_roary ? 'roary' : 'pirate')], gff]}.set{ ch_merge_gff }
+        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_pirate? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
     } else if (params.wf == 'pasty') {
@@ -346,7 +351,10 @@ workflow BACTOPIATOOLS {
     } else if (params.wf == 'stecfinder') {
         STECFINDER(samples)
         ch_versions = ch_versions.mix(STECFINDER.out.versions)
-    } else if (params.wf == 'tbprofiler') {
+    } else if (params.wf == 'sylph') {
+        SYLPH(samples)
+        ch_versions = ch_versions.mix(SYLPH.out.versions)
+    }  else if (params.wf == 'tbprofiler') {
         TBPROFILER(samples)
         ch_versions = ch_versions.mix(TBPROFILER.out.versions)
     } else if (params.wf == 'tblastn') {
@@ -371,13 +379,16 @@ workflow BACTOPIATOOLS {
 */
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
+    def colors = NfcoreTemplate.logColours(params.monochrome_logs)
 
     println """
-    Bactopia Tools: `${params.wf} Execution Summary
-    ---------------------------
+    Bactopia Tools Execution Summary
+    ------------------------------------
+    Workflow         : ${params.wf}
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}
     Command Line     : ${workflow.commandLine}
+    Profile          : ${workflow.profile}
     Resumed          : ${workflow.resume}
     Completed At     : ${workflow.complete}
     Duration         : ${workflow.duration}
@@ -385,6 +396,7 @@ workflow.onComplete {
     Exit Code        : ${workflow.exitStatus}
     Error Report     : ${workflow.errorReport ?: '-'}
     Launch Dir       : ${workflow.launchDir}
+    ${colors.bgreen}Merged Results${colors.reset}   : ${colors.green}${params.outdir}/bactopia-runs/${params.rundir}${colors.reset}
     """
 }
 

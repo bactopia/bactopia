@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'plasmidfinder')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::plasmidfinder=2.1.6=py310hdfd78af_1"
+options.btype = "tools"
+conda_tools   = "bioconda::plasmidfinder=2.1.6=py310hdfd78af_1 python=3.10.4"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 def VERSION   = '2.1.6' // Version information not provided by tool on CLI
@@ -20,11 +20,11 @@ process PLASMIDFINDER {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("*.json")                 , emit: json
-    tuple val(meta), path("*.txt")                  , emit: txt
-    tuple val(meta), path("${prefix}.tsv")          , emit: tsv
-    tuple val(meta), path("*-hit_in_genome_seq.fsa"), emit: genome_seq
-    tuple val(meta), path("*-plasmid_seqs.fsa")     , emit: plasmid_seq
+    tuple val(meta), path("*.json")                   , emit: json
+    tuple val(meta), path("*.txt")                    , emit: txt
+    tuple val(meta), path("${prefix}.tsv")            , emit: tsv
+    tuple val(meta), path("*-hit_in_genome_seq.fsa.gz"), emit: genome_seq
+    tuple val(meta), path("*-plasmid_seqs.fsa.gz")     , emit: plasmid_seq
     path "*.{log,err}", emit: logs, optional: true
     path ".command.*", emit: nf_logs
     path "versions.yml", emit: versions
@@ -53,6 +53,10 @@ process PLASMIDFINDER {
     # Add sample name to TSV results
     head -n 1 results_tab.tsv | sed "s/^/Sample\t/" > ${prefix}.tsv
     tail -n +2 results_tab.tsv | sed "s/^/${prefix}\t/" >> ${prefix}.tsv
+
+    # Cleanup
+    gzip *.fsa
+    rm -rf ${fasta_name} results_tab.tsv tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

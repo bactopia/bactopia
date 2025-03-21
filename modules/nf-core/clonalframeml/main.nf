@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'clonalframeml')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::clonalframeml=1.12 bioconda::maskrc-svg=0.5"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -19,16 +19,16 @@ process CLONALFRAMEML {
     tuple val(meta), path(msa), path(newick)
 
     output:
-    tuple val(meta), path("*.emsim.txt")                   , emit: emsim, optional: true
-    tuple val(meta), path("*.em.txt")                      , emit: em
-    tuple val(meta), path("*.importation_status.txt")      , emit: status
-    tuple val(meta), path("*.labelled_tree.newick")        , emit: newick
-    tuple val(meta), path("*.ML_sequence.fasta")           , emit: fasta
-    tuple val(meta), path("*.position_cross_reference.txt"), emit: pos_ref
-    tuple val(meta), path("*.masked.aln.gz")               , emit: masked_aln
-    path "*.{log,err}"                                     , emit: logs, optional: true
-    path ".command.*"                                      , emit: nf_logs
-    path "versions.yml"                                    , emit: versions
+    tuple val(meta), path("*.emsim.txt")                     , emit: emsim, optional: true
+    tuple val(meta), path("*.em.txt")                        , emit: em
+    tuple val(meta), path("*.importation_status.txt")        , emit: status
+    tuple val(meta), path("*.labelled_tree.newick")          , emit: newick
+    tuple val(meta), path("*.ML_sequence.fasta.gz")          , emit: fasta
+    tuple val(meta), path("*.position_cross_reference.txt.gz"), emit: pos_ref
+    tuple val(meta), path("*.masked.aln.gz")                 , emit: masked_aln
+    path "*.{log,err}"                                       , emit: logs, optional: true
+    path ".command.*"                                        , emit: nf_logs
+    path "versions.yml"                                      , emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
@@ -47,6 +47,11 @@ process CLONALFRAMEML {
 
     maskrc-svg.py $prefix --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
     gzip ${prefix}.masked.aln
+
+    # Cleanup
+    rm ${msa_name}
+    gzip *.ML_sequence.fasta
+    gzip *.position_cross_reference.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

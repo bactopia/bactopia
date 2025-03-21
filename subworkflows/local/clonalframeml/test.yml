@@ -4,8 +4,7 @@
     - clonalframeml
     - bactopia-tools
   files:
-    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta
-      md5sum: 78864175ed8ebd617121837e2624a5f8
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta.gz
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.em.txt
       md5sum: 8a93c4d39c326b3ec0c471f067384498
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.emsim.txt
@@ -15,8 +14,7 @@
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.labelled_tree.newick
       md5sum: 66634ad58496ac73b7752ce0a7c02dad
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.masked.aln.gz
-    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt
-      md5sum: b4cbfac7ceaa2558f33d97a64694c32c
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt.gz
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.err
@@ -49,7 +47,7 @@
     - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/start-tree.log
       contains: ['iqtree', 'Kernel', 'written']
     - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/versions.yml
-      md5sum: 2c582783714228521f9152e660761748
+      md5sum: d0a6c682d0f4bc4ef9cd95bde410524e
     - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.bionj
       contains: ['GCF_000292685']
     - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.ckp.gz

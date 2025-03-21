@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'sccmec')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::sccmec=1.2.0" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -29,7 +29,7 @@ process SCCMEC {
     path "versions.yml", emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     """
     sccmec \\
         $options.args \\

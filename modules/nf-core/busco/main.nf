@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'busco')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::busco=5.7.1"
+options.btype = "tools"
+conda_tools   = "bioconda::busco=5.8.2"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process BUSCO {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/busco:5.7.1--pyhdfd78af_1' :
-        'quay.io/biocontainers/busco:5.7.1--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/busco:5.8.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/busco:5.8.2--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -66,9 +66,12 @@ process BUSCO {
     # cleanup output directory structure
     find results/ -name "*.log" | xargs -I {} mv {} ./
     find results/ -type d -path "*logs" | xargs -I {} rm -rf {}
+    find results/ -type f -name "*.fna" | xargs -I {} gzip {}
+    find results/ -type f -name "*.faa" | xargs -I {} gzip {}
+    find results/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
     mv results/batch_summary.txt results/${prefix}-summary.txt
     mv results/${fasta_name}/* results/
-    rm -rf results/${fasta_name}
+    rm -rf results/${fasta_name} busco_downloads/ tmp*/
 
     # Busco outputs additional trailing tabs, clean them up
     sed -i 's/\t\t\t\$//' results/${prefix}-summary.txt

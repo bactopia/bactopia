@@ -9,13 +9,13 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip
-      md5sum: d7318d1e1e3497bc6c268dae34972f1e
+      md5sum: 6b28f015a6b2083f4e3b36a8a7caef53
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.final_tree.tre
-      md5sum: 78c79b29a36a34548fdc59aed29343b4
+      md5sum: fc069695b409442ca66b8ecc29153c39
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.node_labelled.final_tree.tre
-      md5sum: 95a00666f6e7f04b5dcf8fa3b9ec30b5
+      md5sum: c447bd4a1b55096f5c0d04e6f754e723
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.per_branch_statistics.csv
-      md5sum: b9deecaf94fb3049956356c1ecc7c10e
+      md5sum: ca0c4c5fbe82905870fa0a03f08218de
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.embl.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.gff.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz
@@ -35,9 +35,8 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: fea1df8c7180ceab1f148854ef9c1979
-    - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
-      md5sum: b0fba4469a915df9872ca077eb2cf808
+      md5sum: eb4159f03b6292252f76a65af5a03a85
+    - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo.gz
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj
       contains: ['test']
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.ckp.gz
@@ -69,7 +68,7 @@
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/versions.yml
-      md5sum: c04a175666aaa68582bb36208ee37733
+      md5sum: d569b540eccd5185e377226199ef1dce
     - path: bactopia/bactopia-runs/snippy/nf-reports/snippy-dag.dot
       contains: ['snippydag', 'SNIPPY', 'versions']
     - path: bactopia/bactopia-runs/snippy/nf-reports/snippy-report.html
@@ -99,23 +98,37 @@
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/versions.yml
       md5sum: a43ee563bc700a04ab25bfc2f5ced3d7
-    - path: bactopia/bactopia-runs/snippy/snpdists/core-snp.distance.tsv
-      md5sum: eca1078f443287c1bfdac84cdbce50b5
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.begin
+    - path: bactopia/bactopia-runs/snippy/core-snp.distance.tsv
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.err
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.err
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.log
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.log
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.out
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.run
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.out
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.sh
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.trace
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/versions.yml
-      md5sum: 15c50a79a2e8f5a96107199f849a9a77
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/versions.yml
+      md5sum: edbd52b1de005531f4bede3ea658e44f
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.err
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.log
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.out
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.sh
+      contains: ['snp-dists', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/versions.yml
+      md5sum: 7bd45a970efee6b6af089a0826a1f13e
     - path: bactopia/test0/tools/snippy/GCF_000292685/logs/nf-snippy.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/test0/tools/snippy/GCF_000292685/logs/nf-snippy.err
@@ -314,13 +327,13 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip
-      md5sum: d7318d1e1e3497bc6c268dae34972f1e
+      md5sum: 6b28f015a6b2083f4e3b36a8a7caef53
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.final_tree.tre
-      md5sum: 78c79b29a36a34548fdc59aed29343b4
+      md5sum: fc069695b409442ca66b8ecc29153c39
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.node_labelled.final_tree.tre
-      md5sum: 95a00666f6e7f04b5dcf8fa3b9ec30b5
+      md5sum: c447bd4a1b55096f5c0d04e6f754e723
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.per_branch_statistics.csv
-      md5sum: b9deecaf94fb3049956356c1ecc7c10e
+      md5sum: ca0c4c5fbe82905870fa0a03f08218de
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.embl.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.gff.gz
     - path: bactopia/bactopia-runs/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz
@@ -340,9 +353,8 @@
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/nf-gubbins.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/gubbins/logs/versions.yml
-      md5sum: c0fe9e8467878fd9ddd876cacd20d426
-    - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo
-      md5sum: 3538bdd4729b861eb66eb3e69060812d
+      md5sum: be2933cc2a03cedfac05e9c65c275f8c
+    - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.alninfo.gz
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.bionj
       contains: ['test']
     - path: bactopia/bactopia-runs/snippy/iqtree/core-snp.ckp.gz
@@ -374,7 +386,7 @@
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/nf-iqtree.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/iqtree/logs/versions.yml
-      md5sum: 553a232ace7e6bcb246b87f0e2d26752
+      md5sum: 887148fe3eba8074c2f618267e74301f
     - path: bactopia/bactopia-runs/snippy/nf-reports/snippy-dag.dot
       contains: ['snippydag', 'SNIPPY', 'versions']
     - path: bactopia/bactopia-runs/snippy/nf-reports/snippy-report.html
@@ -404,23 +416,37 @@
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/snippy/snippy-core/logs/versions.yml
       md5sum: 9378410d9018d8abce482b529fecbb87
-    - path: bactopia/bactopia-runs/snippy/snpdists/core-snp.distance.tsv
-      md5sum: eca1078f443287c1bfdac84cdbce50b5
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.begin
+    - path: bactopia/bactopia-runs/snippy/core-snp.distance.tsv
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.err
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.err
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.log
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.log
       contains: ['snp-dists', 'Read']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.out
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.run
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.out
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.sh
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.sh
       contains: ['snp-dists', 'END_VERSIONS']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/nf-snpdists.trace
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/nf-snpdists.trace
       contains: ['nextflow.trace']
-    - path: bactopia/bactopia-runs/snippy/snpdists/logs/versions.yml
-      md5sum: 3c83a09255b761100bf1866213e21ada
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/masked-aln/versions.yml
+      md5sum: 2a93134ad09bef20918d16e2c2c338f1
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.err
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.log
+      contains: ['snp-dists', 'Read']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.out
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.sh
+      contains: ['snp-dists', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/nf-snpdists.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/snippy/snpdists/logs/unmasked-aln/versions.yml
+      md5sum: 892995fffb72530cb1e3740ed5e5a65a
     - path: bactopia/test0/tools/snippy/GCF_000292685/logs/nf-snippy.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/test0/tools/snippy/GCF_000292685/logs/nf-snippy.err

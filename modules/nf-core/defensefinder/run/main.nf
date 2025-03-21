@@ -1,12 +1,12 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'defensefinder')
-options.btype = options.btype ?: "tools"
-conda_tools   = "bioconda::defense-finder=1.2.2"
+options.btype = "tools"
+conda_tools   = "bioconda::defense-finder=2.0.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
-DF_VERSION     = "1.3.0"
-DF_MODELS_VERSION = "1.3.0"
+DF_VERSION     = "2.0.0"
+DF_MODELS_VERSION = "2.0.2"
 CASFINDER_VERSION = "3.1.0"
 
 process DEFENSEFINDER_RUN {
@@ -15,8 +15,8 @@ process DEFENSEFINDER_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/defense-finder:1.3.0--pyhdfd78af_0' :
-        'quay.io/biocontainers/defense-finder:1.3.0--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/defense-finder:2.0.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/defense-finder:2.0.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -38,20 +38,22 @@ process DEFENSEFINDER_RUN {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    set -x
     # Extract database
+    # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
     tar -xf $db
-    macsydata \\
+    mkdir -p df-tmp/df
+    TMPDIR=df-tmp/df HOME=df-tmp/ macsydata \\
         install \\
         --target defense-finder/ \\
         models/defense-finder-models-v${DF_MODELS_VERSION}.tar.gz
 
-    macsydata \\
+    mkdir -p df-tmp/cf
+    TMPDIR=df-tmp/cf HOME=df-tmp/ macsydata \\
         install \\
         --target defense-finder/ \\
         models/CasFinder-${CASFINDER_VERSION}.tar.gz
 
-    defense-finder \\
+    TMPDIR=df-tmp/ HOME=df-tmp/ defense-finder \\
         run \\
         $options.args \\
         --workers $task.cpus \\
@@ -62,6 +64,9 @@ process DEFENSEFINDER_RUN {
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/
         rm -rf defense-finder-tmp/ 
     fi
+
+    # Cleanup intermediate files and unused outputs
+    rm -rf models/ defense-finder/ df-tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

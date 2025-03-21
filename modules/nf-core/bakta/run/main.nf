@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'bakta')
-options.btype = options.btype ?: "main"
-conda_tools   = "bioconda::bakta=1.9.4"
+options.btype = "main"
+conda_tools   = "bioconda::bakta=1.11.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process BAKTA_RUN {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bakta:1.9.4--pyhdfd78af_0' :
-        'quay.io/biocontainers/bakta:1.9.4--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/bakta:1.11.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/bakta:1.11.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -82,6 +82,12 @@ process BAKTA_RUN {
         gzip --best results/${prefix}.gff3
         gzip --best results/${prefix}.hypotheticals.faa
     fi
+
+    # Clean up
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+    rm -rf blastdb/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

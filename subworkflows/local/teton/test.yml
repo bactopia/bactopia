@@ -48,7 +48,7 @@
     - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.run
       contains: ['$NXF_ENTRY']
     - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.sh
-      md5sum: eed1ac47b1e51effa953475b78d255d8
+      md5sum: 49fe21a3810060a0ffb27a52ae165f88
     - path: bactopia/SRR2838702/teton/tools/scrubber/logs/nf-scrubber.trace
       contains: ['nextflow.trace']
     - path: bactopia/SRR2838702/teton/tools/scrubber/logs/versions.yml
@@ -68,7 +68,7 @@
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/versions.yml
-      md5sum: d741d56d0699500dbaba6c9d407cd667
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.err
@@ -80,7 +80,7 @@
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/versions.yml
-      md5sum: 240810a912e800ef8691454b3fa4de54
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/teton/nf-reports/teton-dag.dot
       contains: ['tetondag', 'TETON', 'versions']
     - path: bactopia/bactopia-runs/teton/nf-reports/teton-report.html
@@ -157,7 +157,7 @@
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-adjusted-concat/versions.yml
-      md5sum: 052427faa59c5bc584abec1e7c504cf7
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.err
@@ -169,7 +169,7 @@
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/teton/merged-results/logs/bracken-species-abundance-concat/versions.yml
-      md5sum: 92bdf1950ffdfdf8c8ad1701f9ba3792
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/teton/nf-reports/teton-dag.dot
       contains: ['tetondag', 'TETON', 'versions']
     - path: bactopia/bactopia-runs/teton/nf-reports/teton-report.html

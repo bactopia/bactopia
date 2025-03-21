@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ssuissero')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::ssuissero=1.0.1" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -12,7 +12,7 @@ process SSUISSERO {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ssuissero:1.0.1--hdfd78af_1' :
         'quay.io/biocontainers/ssuissero:1.0.1--hdfd78af_1' }"
 
@@ -26,7 +26,7 @@ process SSUISSERO {
     path "versions.yml"           , emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -40,6 +40,9 @@ process SSUISSERO {
         -s $prefix \\
         -x fasta \\
         -t $task.cpus
+
+    # Cleanup
+    rm -rf ${fasta_name} blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

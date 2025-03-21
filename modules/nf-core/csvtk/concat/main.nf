@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'csvtk_concat')
-options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::csvtk=0.27.2"
+options.btype = "comparative"
+conda_tools   = "bioconda::csvtk=0.31.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process CSVTK_CONCAT {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/csvtk:0.27.2--h9ee0642_0' :
-        'quay.io/biocontainers/csvtk:0.27.2--h9ee0642_0' }"
+        'https://depot.galaxyproject.org/singularity/csvtk:0.31.0--h9ee0642_0' :
+        'quay.io/biocontainers/csvtk:0.31.0--h9ee0642_0' }"
 
     input:
     tuple val(meta), path(csv, stageAs: 'inputs/*')
@@ -43,6 +43,9 @@ process CSVTK_CONCAT {
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
         --infile-list fofn.txt
+
+    # Cleanup
+    rm -rf fofn.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

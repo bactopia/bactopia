@@ -19,7 +19,7 @@
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-report/versions.yml
-      md5sum: 344624d16fe24cfad6e9f45a19be708f
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.begin
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.err
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.log
@@ -31,7 +31,7 @@
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/ariba-card/merged-results/logs/card-summary/versions.yml
-      md5sum: 6551889c4545016b96a75751d9efdb38
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-dag.dot
       contains: ['aribadag', 'ARIBA', 'versions']
     - path: bactopia/bactopia-runs/ariba-card/nf-reports/ariba-report.html

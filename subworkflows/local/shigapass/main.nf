@@ -18,12 +18,13 @@ workflow SHIGAPASS {
     ch_versions = ch_versions.mix(SHIGAPASS_MODULE.out.versions.first())
 
     // Merge results
-    SHIGAPASS_MODULE.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'shigapass'], csv]}.set{ ch_merge_shigapass }
-    CSVTK_CONCAT(ch_merge_shigapass, 'csv', 'csv')
+    SHIGAPASS_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'shigapass'], tsv]}.set{ ch_merge_shigapass }
+    CSVTK_CONCAT(ch_merge_shigapass, 'tsv', 'tsv')
+
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
-    csv = SHIGAPASS_MODULE.out.csv
-    merged_csv = CSVTK_CONCAT.out.csv
+    tsv = SHIGAPASS_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
     versions = ch_versions
 }

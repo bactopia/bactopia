@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'emmtyper')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::emmtyper=0.2.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -17,6 +17,7 @@ process EMMTYPER {
 
     input:
     tuple val(meta), path(fasta)
+    path blastdb
 
     output:
     tuple val(meta), path("*.tsv")          , emit: tsv
@@ -33,10 +34,34 @@ process EMMTYPER {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    emmtyper \\
-        $options.args \\
-        $fasta_name \\
-        > ${prefix}.tsv
+    # Conditionally add the database if it is provided by user
+    if [ "$blastdb" == "" ]; then
+        emmtyper \\
+            $options.args \\
+            $fasta_name \\
+            > ${prefix}.tsv
+    else
+        # Make the blast database
+        makeblastdb -in $blastdb -dbtype nucl
+
+        emmtyper \\
+            --blast_db $blastdb \\
+            $options.args \\
+            $fasta_name \\
+            > ${prefix}.tsv
+
+        # Remove the blast database
+        rm $blastdb.*
+    fi
+
+    # If 'tmp' is not in $fasta_name, remove '.tmp' from the output files contents
+    if [ $fasta_name != *.tmp* ]; then
+        sed -i 's/.tmp\t/\t/g' ${prefix}.tsv
+    fi
+
+
+    # Cleanup
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ariba')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::ariba=2.14.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -31,7 +31,7 @@ process ARIBA_RUN {
     meta.single_end == false
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     db_name = db.getName().replace('.tar.gz', '')
     """
     tar -xzvf ${db}
@@ -56,6 +56,9 @@ process ARIBA_RUN {
     mv ${db_name}/report.tsv ${db_name}/${prefix}-report.tsv
     mv ${db_name}/summary.csv ${db_name}/${prefix}-summary.csv
     mv ${db_name}/ results/
+
+    # Cleanup
+    rm -rf ${db_name}db
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

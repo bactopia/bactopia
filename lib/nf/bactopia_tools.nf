@@ -156,7 +156,7 @@ def _collect_inputs(sample, dir, extension) {
         }
     } else if (extension == 'fastq') {
         if (file(se).exists()) {
-            if (file(ont).exists()) {
+            if (ont) {
                 return tuple([id:sample, single_end:true, runtype:'ont'], [file(se)])
             } else {
                 return tuple([id:sample, single_end:true, runtype:'illumina'], [file(se)])

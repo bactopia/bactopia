@@ -5,7 +5,7 @@
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/busco.tsv
-      md5sum: b5118703a4b6ef1274f9f894ebe2ed5c
+      contains: ["Input_file", "GCF_000292685", "bacteria_odb10"]
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.begin
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.err
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.log
@@ -17,7 +17,7 @@
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-concat/versions.yml
-      md5sum: b45e81d6e1c8a0b37a7b3ea491992002
+      contains: ["csvtk"]
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/nf-reports/busco-dag.dot
       contains: ['buscodag', 'BUSCO', 'versions']
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/nf-reports/busco-report.html
@@ -27,7 +27,7 @@
     - path: bactopia/bactopia-runs/busco-bacteria_odb10/nf-reports/busco-trace.txt
       contains: ['task_id']
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/GCF_000292685-summary.txt
-      md5sum: b5118703a4b6ef1274f9f894ebe2ed5c
+      contains: ["Input_file", "GCF_000292685", "bacteria_odb10"]
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/bbtools_err.log
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/bbtools_out.log
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/busco.log
@@ -56,29 +56,27 @@
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/prodigal_out.log
       md5sum: 50752acb1c5a20be886bfdfc06635bcb
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/logs/versions.yml
-      md5sum: ea3ec104c7bfd8754582543dc7536af5
+      md5sum: 8d2b0429966f183a36a57900626a8bb5
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/.checkpoint
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.fna
-      md5sum: ddc508a18f60e7f3314534df50cdf8ca
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/tmp/prodigal_mode_single_code_11.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/tmp/prodigal_mode_single_code_11.fna
-      md5sum: ddc508a18f60e7f3314534df50cdf8ca
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/predicted.fna.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/tmp/prodigal_mode_single_code_11.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/prodigal_output/predicted_genes/tmp/prodigal_mode_single_code_11.fna.gz
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/.bbtools_output/.checkpoint
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/fragmented_busco_sequences/1272633at2.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/fragmented_busco_sequences/1272633at2.fna
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1054741at2.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1054741at2.fna
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1132353at2.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1132353at2.fna
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/961486at2.faa
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/961486at2.fna
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/fragmented_busco_sequences/1272633at2.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/fragmented_busco_sequences/1272633at2.fna.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1054741at2.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1054741at2.fna.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1132353at2.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/1132353at2.fna.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/961486at2.faa.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/busco_sequences/single_copy_busco_sequences/961486at2.fna.gz
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/full_table.tsv
       contains: ["BUSCO", "Complete", "Fragmented", "Missing"]
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/.checkpoint
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1054741at2.out
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1132353at2.out
-    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/961486at2.out
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1054741at2.out.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/1132353at2.out.gz
+    - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/hmmer_output/961486at2.out.gz
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/missing_busco_list.tsv
       contains: ["BUSCO", "at2"]
     - path: bactopia/GCF_000292685/tools/busco/bacteria_odb10/run_bacteria_odb10/short_summary.json

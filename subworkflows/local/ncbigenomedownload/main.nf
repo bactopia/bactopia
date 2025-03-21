@@ -4,6 +4,7 @@
 include { initOptions } from '../../../lib/nf/functions'
 options = initOptions(params.containsKey("options") ? params.options : [:], 'ncbigenomedownload')
 options.is_module = params.wf == 'ncbigenomedownload' ? true : false
+options.ignore = params.keep_downloads ? [] : [".gz"]
 options.args = [
     params.kingdom,
     "--section ${params.section}",

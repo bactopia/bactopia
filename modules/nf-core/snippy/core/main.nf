@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options     = initOptions(params.containsKey("options") ? params.options : [:], 'snippy-core')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools = "bioconda::bactopia-variants=1.0.2"
 conda_name  = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env   = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -61,7 +61,7 @@ process SNIPPY_CORE {
 
     # Cleanup the alignment
     snippy-clean_full_aln ${prefix}.full.aln > ${prefix}-clean.full.aln
-    rm *ref.fa
+    rm -rf *ref.fa ${final_reference} samples/
 
     # Compress outputs
     if [[ ${params.skip_compression} == "false" ]]; then

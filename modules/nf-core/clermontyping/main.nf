@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'clermontyping')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::clermontyping=24.02"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -11,7 +11,7 @@ process CLERMONTYPING {
     label 'process_low'
 
     conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/clermontyping:24.02--py312hdfd78af_1' :
         'quay.io/biocontainers/clermontyping:24.02--py312hdfd78af_1' }"
 
@@ -40,7 +40,7 @@ process CLERMONTYPING {
         $options.args
 
     # Remove temporary files and rename outputs
-    rm results/$fasta_name
+    rm results/${fasta_name} ${fasta_name}
     rm -rf results/db
     rm -rf results/results.R
     mv results/${fasta_name}.xml results/${prefix}.blast.xml

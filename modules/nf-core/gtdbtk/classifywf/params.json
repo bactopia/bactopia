@@ -45,6 +45,13 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
+                "gtdb_keep_msa": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the MSA file for all submitted and reference genomes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
                 "force_gtdb": {
                     "type": "boolean",
                     "default": false,

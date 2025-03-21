@@ -36,7 +36,8 @@ include { SNIPPY_RUN as SNIPPY_RUN_MODULE }  from '../../../modules/nf-core/snip
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE }  from '../../../modules/nf-core/snippy/core/main' addParams( options: core_opts )
 include { GUBBINS } from '../gubbins/main' addParams( options: [suffix: 'core-snp', ignore: [".aln.gz"]] )
 include { IQTREE } from '../iqtree/main' addParams( options: [suffix: 'core-snp', ignore: [".aln.gz"]] )
-include { SNPDISTS } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-snp.distance'] )
+include { SNPDISTS as SNPDISTS_UNMASKED } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-snp.distance', publish_to_base: true, logs_subdir: "unmasked-aln"] )
+include { SNPDISTS as SNPDISTS_MASKED } from '../../../modules/nf-core/snpdists/main' addParams( options: [suffix: 'core-snp.masked.distance', publish_to_base: true, logs_subdir: "masked-aln"] )
 
 workflow SNIPPY {
     take:
@@ -58,14 +59,15 @@ workflow SNIPPY {
     ch_versions = ch_versions.mix(SNIPPY_CORE_MODULE.out.versions.first())
 
     // Per-sample SNP distances
-    SNPDISTS(SNIPPY_CORE_MODULE.out.clean_full_aln)
-    ch_versions = ch_versions.mix(SNPDISTS.out.versions)
+    SNPDISTS_UNMASKED(SNIPPY_CORE_MODULE.out.clean_full_aln)
+    ch_versions = ch_versions.mix(SNPDISTS_UNMASKED.out.versions)
 
     // Identify Recombination
     if (!params.skip_recombination) {
         // Run Gubbins
         GUBBINS(SNIPPY_CORE_MODULE.out.clean_full_aln)
         ch_versions = ch_versions.mix(GUBBINS.out.versions)
+        SNPDISTS_MASKED(GUBBINS.out.masked_aln)
     }
 
     // Create core-snp phylogeny
@@ -112,14 +114,15 @@ workflow SNIPPY_CORE {
     ch_versions = ch_versions.mix(SNIPPY_CORE_MODULE.out.versions.first())
 
     // Per-sample SNP distances
-    SNPDISTS(SNIPPY_CORE_MODULE.out.clean_full_aln)
-    ch_versions = ch_versions.mix(SNPDISTS.out.versions)
+    SNPDISTS_UNMASKED(SNIPPY_CORE_MODULE.out.clean_full_aln)
+    ch_versions = ch_versions.mix(SNPDISTS_UNMASKED.out.versions)
 
     // Identify Recombination
     if (!params.skip_recombination) {
         // Run Gubbins
         GUBBINS(SNIPPY_CORE_MODULE.out.clean_full_aln)
         ch_versions = ch_versions.mix(GUBBINS.out.versions)
+        SNPDISTS_MASKED(GUBBINS.out.masked_aln)
     }
 
     // Create core-snp phylogeny

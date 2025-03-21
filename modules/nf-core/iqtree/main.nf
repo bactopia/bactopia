@@ -1,8 +1,8 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'iqtree')
-options.btype = options.btype ?: "comparative"
-conda_tools   = "bioconda::iqtree=2.2.2.7"
+options.btype = "comparative"
+conda_tools   = "bioconda::iqtree=2.4.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -13,8 +13,8 @@ process IQTREE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/iqtree:2.2.2.7--h21ec9f0_2' :
-        'quay.io/biocontainers/iqtree:2.2.2.7--h21ec9f0_2' }"
+        'https://depot.galaxyproject.org/singularity/iqtree:2.4.0--h503566f_0' :
+        'quay.io/biocontainers/iqtree:2.4.0--h503566f_0' }"
 
     input:
     tuple val(meta), path(alignment)
@@ -37,6 +37,11 @@ process IQTREE {
         -nt $task.cpus \\
         -ntmax $task.cpus \\
         -pre $prefix
+
+    # Only gzip files if they exist
+    if [[ -f "${prefix}.alninfo" ]]; then
+        gzip ${prefix}.alninfo
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

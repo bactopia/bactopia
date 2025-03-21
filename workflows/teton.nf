@@ -30,10 +30,14 @@ if (params.check_samples) {
 
 // Core
 include { GATHER } from '../subworkflows/local/gather/main'
+include { BACTOPIA_SAMPLESHEET } from '../modules/local/bactopia/teton/main'
 include { BRACKEN } from '../subworkflows/local/bracken/main'
 include { SCRUBBER } from '../subworkflows/local/scrubber/main' addParams( options: [ignore: [".fna.gz"]] )
 include { CSVTK_JOIN } from '../modules/nf-core/csvtk/join/main' addParams( options: [process_name: "teton-report"] )
 include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'teton-concat', process_name: params.merge_folder] )
+include { CSVTK_CONCAT as CSVTK_CONCAT_SIZEMEUP } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'sizemeup', process_name: params.merge_folder] )
+include { CSVTK_CONCAT as CSVTK_CONCAT_BACTERIA } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'teton-prepare-bacteria', process_name: params.merge_folder] )
+include { CSVTK_CONCAT as CSVTK_CONCAT_NONBACTERIA } from '../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'teton-prepare-nonbacteria', process_name: params.merge_folder] )
 
 /*
 ========================================================================================
@@ -65,14 +69,24 @@ workflow TETON {
     BRACKEN(SCRUBBER.out.scrubbed)
     ch_versions = ch_versions.mix(BRACKEN.out.versions)
 
+    // Determine genome size and create sample sheet
+    BACTOPIA_SAMPLESHEET(BRACKEN.out.classification)
+    ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
+
     // Join Scrubber and Bracken results
     CSVTK_JOIN(SCRUBBER.out.tsv.join(BRACKEN.out.tsv, by:[0]), 'tsv', 'tsv', 'sample')
     CSVTK_JOIN.out.csv.collect{meta, csv -> csv}.map{ csv -> [[id:'teton'], csv]}.set{ ch_merge_teton }
     ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
 
-    // Join the results
+    // Merge the results
     CSVTK_CONCAT(ch_merge_teton, 'tsv', 'tsv')
     ch_merged_teton = ch_merged_teton.mix(CSVTK_CONCAT.out.csv)
+    BACTOPIA_SAMPLESHEET.out.bacteria_tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'teton-prepare'], tsv]}.set{ ch_merge_prepare }
+    CSVTK_CONCAT_BACTERIA(ch_merge_prepare, 'tsv', 'tsv')
+    BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'teton-prepare-nonbacteria'], tsv]}.set{ ch_merge_prepare_non }
+    CSVTK_CONCAT_NONBACTERIA(ch_merge_prepare_non, 'tsv', 'tsv')
+    BACTOPIA_SAMPLESHEET.out.sizemeup.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'sizemeup'], tsv]}.set{ ch_merge_sizemeup }
+    CSVTK_CONCAT_SIZEMEUP(ch_merge_sizemeup, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     // Collect Versions
@@ -86,13 +100,16 @@ workflow TETON {
 */
 workflow.onComplete {
     workDir = new File("${workflow.workDir}")
+    def colors = NfcoreTemplate.logColours(params.monochrome_logs)
 
     println """
-    Bactopia Execution Summary
+    Teton Execution Summary
     ---------------------------
+    Workflow         : ${params.wf}
     Bactopia Version : ${workflow.manifest.version}
     Nextflow Version : ${nextflow.version}
     Command Line     : ${workflow.commandLine}
+    Profile          : ${workflow.profile}
     Resumed          : ${workflow.resume}
     Completed At     : ${workflow.complete}
     Duration         : ${workflow.duration}
@@ -100,6 +117,11 @@ workflow.onComplete {
     Exit Code        : ${workflow.exitStatus}
     Error Report     : ${workflow.errorReport ?: '-'}
     Launch Dir       : ${workflow.launchDir}
+    ${colors.bgreen}Merged Results${colors.reset}   : ${colors.green}${params.outdir}/bactopia-runs/${params.rundir}${colors.reset}
+    
+    Further analyze bacterial samples using Bactopia, with the following command:
+    --------------------------------------------------------------------------------
+    ${colors.cyan}bactopia -profile ${workflow.profile} --samples ${params.outdir}/bactopia-runs/${params.rundir}/merged-results/teton-prepare.tsv${colors.reset}
     """
 }
 

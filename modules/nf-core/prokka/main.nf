@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'prokka')
-options.btype = options.btype ?: "main"
+options.btype = params.wf == 'pangenome' ? 'comparative' : 'main'
 conda_tools   = "bioconda::prokka=1.14.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -59,7 +59,8 @@ process PROKKA {
     if [ "$params.prokka_debug" == "true" ]; then
         export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
         env
-        bactopia-prokka \\
+        mkdir tmp_prokka/
+        TMPDIR=tmp_prokka/ bactopia-prokka \\
             $options.args \\
             --cpus $task.cpus \\
             --prefix $prefix \\
@@ -68,6 +69,7 @@ process PROKKA {
             $proteins_opt \\
             $prodigal_opt \\
             $fasta_name
+        rm -rf tmp_prokka/
     else
         prokka \\
             $options.args \\
@@ -101,6 +103,9 @@ process PROKKA {
     mv ${prefix}/${prefix}.err ./
     mv ${prefix}/${prefix}.log ./
     mv ${prefix}/ results/
+
+    # Cleanup intermediate files
+    rm -rf ${fasta_name} blastdb/ results/*.pdb results/*.pjs results/*.pot results/*.ptf results/*.pto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

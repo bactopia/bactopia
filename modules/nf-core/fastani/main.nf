@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'fastani')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::fastani=1.34"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -47,7 +47,10 @@ process FASTANI {
         -o fastani-result.tmp
 
     echo "query<TAB>reference<TAB>ani<TAB>mapped_fragments<TAB>total_fragments" | sed 's/<TAB>/\t/g' > ${reference_name}.tsv
-    sed 's=^query/==' fastani-result.tmp>> ${reference_name}.tsv
+    sed 's=^query/==' fastani-result.tmp >> ${reference_name}.tsv
+
+    # Cleanup
+    rm -rf $reference_fasta query/ query-list.txt fastani-result.tmp
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

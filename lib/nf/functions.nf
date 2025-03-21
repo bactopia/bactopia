@@ -93,12 +93,10 @@ def _get_include_schemas(includes) {
 
 def _get_module_schemas(modules) {
     def module_schemas = []
-    println("MODULES: ${modules}")
     modules.each { it ->
         if (params.wf == "cleanyerreads") {
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else if (params.wf == "teton" && (it == "gather" || it == "srahumanscrubber_scrub" || it == "kraken2")) {
-            println("${params.workflows[it].path}/params-${params.wf}.json")
             module_schemas << "${params.workflows[it].path}/params-${params.wf}.json"
         } else {
             module_schemas << "${params.workflows[it].path}/params.json"
@@ -158,6 +156,7 @@ def saveFiles(Map args) {
     def filename = ""
     def found_ignore = false
     def logs_subdir = args.containsKey('logs_subdir') ? args.logs_subdir : args.opts.logs_subdir
+    logs_subdir = logs_subdir == "use-prefix" ? args.prefix : logs_subdir
     def process_name = args.opts.process_name
     def publish_to_base = args.opts.publish_to_base.getClass() == Boolean ? args.opts.publish_to_base : false
     def publish_to_base_list = args.opts.publish_to_base.getClass() == ArrayList ? args.opts.publish_to_base : []

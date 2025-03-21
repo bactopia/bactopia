@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'roary')
-options.btype = options.btype ?: "comparative"
+options.btype = "comparative"
 conda_tools   = "bioconda::roary=3.13.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -52,6 +52,9 @@ process ROARY {
     if [[ -f "results/core_gene_alignment.aln.gz" ]]; then
         cp results/core_gene_alignment.aln.gz ./core-genome.aln.gz
     fi
+
+    # clean up
+    rm -rf gff/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

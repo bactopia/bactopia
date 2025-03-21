@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options        = initOptions(params.options ? params.options : [:], 'gather')
 options.ignore = [".fastq.gz", ".fna.gz"]
-options.btype  = options.btype ?: "main"
+options.btype  = "main"
 conda_tools    = "bioconda::bactopia-gather=1.0.4"
 conda_name     = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env      = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -172,7 +172,6 @@ process GATHER {
     fi
 
     # Validate input FASTQs
-    IS_PAIRED="unknown"
     if [ "${params.skip_fastq_check}" == "false" ]; then
         ERROR=0
         # Check paired-end reads have same read counts
@@ -250,6 +249,21 @@ process GATHER {
         if [ "\${ERROR}" -eq "1" ]; then
             mv fastqs/ failed-tests-fastqs/
         fi
+    fi
+
+    # Determine paired status
+    IS_PAIRED="unknown"
+    if [ -f  "fastqs/${prefix}_R2.fastq.gz" ]; then
+        # Paired-end
+        IS_PAIRED="true"
+    else
+        # Single-end
+        IS_PAIRED="false"
+    fi
+
+    # Short polish should not be considered paired-end
+    if [ "${runtype}" == "short_polish" ]; then
+        IS_PAIRED="false"
     fi
 
     # Dump meta values to a TSV

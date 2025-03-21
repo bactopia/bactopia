@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'hpsuissero')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::hpsuissero=1.0.1" 
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -26,7 +26,7 @@ process HPSUISSERO {
     path "versions.yml"           , emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
@@ -40,6 +40,9 @@ process HPSUISSERO {
         -s $prefix \\
         -x fasta \\
         -t $task.cpus
+
+    # Cleanup
+    rm -rf ${fasta_name} blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

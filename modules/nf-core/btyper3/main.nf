@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'btyper3')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::btyper3=3.4.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -42,18 +42,8 @@ process BTYPER3 {
 
     mv btyper3_final_results/ results/
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        btyper3: \$(echo \$(btyper3 --version 2>&1) | sed 's/^.*btyper3 //;' ))
-    END_VERSIONS
-    """
-
-    stub:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    """
-    mkdir results
-    touch results/${prefix}_final_results.txt
+    # Cleanup
+    rm -rf ${fasta_name} ${fasta_name}.njs
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

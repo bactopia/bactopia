@@ -1,7 +1,7 @@
 // Import generic module functions
 include { initOptions; saveFiles } from '../../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'mobsuite')
-options.btype = options.btype ?: "tools"
+options.btype = "tools"
 conda_tools   = "bioconda::mob_suite=3.1.9"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
@@ -19,13 +19,13 @@ process MOBSUITE_RECON {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/chromosome.fasta") , emit: chromosome
-    tuple val(meta), path("results/contig_report.txt"), emit: contig_report
-    tuple val(meta), path("results/plasmid_*.fasta")  , emit: plasmids        , optional: true
+    tuple val(meta), path("results/chromosome.fasta.gz")    , emit: chromosome
+    tuple val(meta), path("results/contig_report.txt")      , emit: contig_report
+    tuple val(meta), path("results/plasmid_*.fasta.gz")     , emit: plasmids        , optional: true
     tuple val(meta), path("results/${prefix}-mobtyper.txt") , emit: mobtyper_results, optional: true
-    path "*.{log,err}"                                , emit: logs, optional: true
-    path ".command.*"                                 , emit: nf_logs
-    path "versions.yml"                               , emit: versions
+    path "*.{log,err}" , emit: logs, optional: true
+    path ".command.*"  , emit: nf_logs
+    path "versions.yml", emit: versions
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
@@ -46,6 +46,10 @@ process MOBSUITE_RECON {
     if [[ -f "results/mobtyper_results.txt" ]]; then
         mv results/mobtyper_results.txt results/${prefix}-mobtyper.txt
     fi
+
+    # Cleanup
+    gzip results/*.fasta
+    rm -rf ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
