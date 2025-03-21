@@ -4,7 +4,9 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
-## v3.2.0 bactopia/bactopia "" 2025/xx/xx
+## v3.2.0 bactopia/bactopia "Black Bulls" 2025/03/21
+
+_"Black Bulls" is related to the best magic squad in Black Clover my kids currently watching_
 
 ### `Added`
 
