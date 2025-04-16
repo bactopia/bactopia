@@ -29,8 +29,7 @@
       contains: ['task_id']
     - path: bactopia/GCF_000017085/tools/mobsuite/GCF_000017085-mobtyper.txt
       md5sum: 951dbd706ab78c4d00aa28735ab34e87
-    - path: bactopia/GCF_000017085/tools/mobsuite/chromosome.fasta
-      md5sum: fe6e312b963fa5068c68cc25060ecd32
+    - path: bactopia/GCF_000017085/tools/mobsuite/chromosome.fasta.gz
     - path: bactopia/GCF_000017085/tools/mobsuite/contig_report.txt
       contains: ["sample_id", "Staphylococcus", "plasmid"]
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/nf-mobsuite.begin
@@ -48,5 +47,4 @@
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000017085/tools/mobsuite/logs/versions.yml
       md5sum: cc8d680f890f7a91e19bb49479e7dc6d
-    - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta
-      contains: ['NC_010063', 'plasmid']
+    - path: bactopia/GCF_000017085/tools/mobsuite/plasmid_AA840.fasta.gz

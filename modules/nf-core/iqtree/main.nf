@@ -13,8 +13,8 @@ process IQTREE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/iqtree:2.4.0--hdbdd923_0' :
-        'quay.io/biocontainers/iqtree:2.4.0--hdbdd923_0' }"
+        'https://depot.galaxyproject.org/singularity/iqtree:2.4.0--h503566f_0' :
+        'quay.io/biocontainers/iqtree:2.4.0--h503566f_0' }"
 
     input:
     tuple val(meta), path(alignment)

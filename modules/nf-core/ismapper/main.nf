@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ismapper')
 options.btype = "tools"
-conda_tools   = "bioconda::ismapper=2.0.2"
+conda_tools   = "bioconda::ismapper=2.0.2 python=3.9.6"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 

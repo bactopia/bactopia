@@ -20,16 +20,16 @@ process BRACKEN {
     path db
 
     output:
-    tuple val(meta), path("${prefix}.bracken.tsv")                        , emit: tsv
-    tuple val(meta), path('*classified*')                                 , emit: classified, optional: true
-    tuple val(meta), path('*unclassified*')                               , emit: unclassified, optional: true
-    tuple val(meta), path("${prefix}.kraken2.report.txt")                 , emit: kraken2_report
-    tuple val(meta), path("${prefix}.kraken2.output.txt")                 , emit: kraken2_output, optional: true
-    tuple val(meta), path("${prefix}.bracken.report.txt")                 , emit: bracken_report
-    tuple val(meta), path("*.krona.html")                                 , emit: krona, optional: true
-    tuple val(meta), path("${prefix}.bracken.abundances.txt")             , emit: abundances
-    tuple val(meta), path("${prefix}.bracken.classification.txt")         , emit: classification
-    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")    , emit: adjusted_abundances
+    tuple val(meta), path("${prefix}.bracken.tsv")                            , emit: tsv
+    tuple val(meta), path('*classified*')                                     , emit: classified, optional: true
+    tuple val(meta), path('*unclassified*')                                   , emit: unclassified, optional: true
+    tuple val(meta), path("${prefix}.kraken2.report.txt")                     , emit: kraken2_report
+    tuple val(meta), path("${prefix}.kraken2.output.txt")                     , emit: kraken2_output, optional: true
+    tuple val(meta), path("${prefix}.bracken.report.txt")                     , emit: bracken_report
+    tuple val(meta), path("*.krona.html")                                     , emit: krona, optional: true
+    tuple val(meta), path("${prefix}.bracken.abundances.txt")                 , emit: abundances
+    tuple val(meta), path("${prefix}.bracken.classification.txt")             , emit: classification
+    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")        , emit: adjusted_abundances
     path "*.{log,err}" , emit: logs, optional: true
     path ".command.*"  , emit: nf_logs
     path "versions.yml", emit: versions

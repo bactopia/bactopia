@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/checkm2/download/params.json",
+    "title": "CheckM2 Module",
+    "description": "A module to assess the assembly quality of your samples",
+    "type": "object",
+    "definitions": {
+        "checkm2_download_parameters": {
+            "title": "CheckM2 Database Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "checkm2_db": {
+                    "type": "string",
+                    "description": "Path to a folder containing CheckM2 database (or where it should be downloaded to).",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "download_checkm2": {
+                    "type": "boolean",
+                    "description": "Download the CheckM2 database to the path given by --checkm2_db",
+                    "default": false,
+                    "fa_icon": "fas fa-italic"
+                }   
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/checkm2_download_parameters"
+        }
+    ]
+}

@@ -16,7 +16,7 @@ process BACTOPIA_SAMPLESHEET {
         'quay.io/biocontainers/bactopia-teton:1.1.1--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(classification), path(reads)
+    tuple val(meta), path(classification)
 
     output:
     tuple val(meta), path("${prefix}.bacteria.tsv")   , emit: bacteria_tsv
@@ -29,7 +29,6 @@ process BACTOPIA_SAMPLESHEET {
 
     script:
     prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
-    fastqs = reads.join(",")
     """
     # determine genome size and create sample sheet
     sizemeup \\
@@ -46,7 +45,7 @@ process BACTOPIA_SAMPLESHEET {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        sizemeup: \$(echo \$(sizemeup --version 2>&1) | sed 's/.*sizemeup, version //;s/ .*\$//' )
+        sizemeup: \$(echo \$(sizemeup --version 2>&1) | sed 's/.*sizemeup-main, version //;s/ .*\$//' )
     END_VERSIONS
     """
 }

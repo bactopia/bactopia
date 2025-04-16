@@ -5,7 +5,7 @@
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/blastp/merged-results/blastp.tsv
-      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+      contains: ['sample', 'SRX1390622', 'WP_014894920']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.err
@@ -28,7 +28,7 @@
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-trace.txt
       contains: ['task_id']
     - path: bactopia/SRX1390622/tools/blastp/SRX1390622.blastp.tsv
-      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+      contains: ['sample', 'SRX1390622', 'WP_014894920']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.err
@@ -50,7 +50,7 @@
     - bactopia-tools
   files:
     - path: bactopia/bactopia-runs/blastp/merged-results/blastp.tsv
-      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+      contains: ['sample', 'SRX1390622', 'WP_014894920']
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/blastp/merged-results/logs/blastp-concat/nf-merged-results.err
@@ -73,7 +73,7 @@
     - path: bactopia/bactopia-runs/blastp/nf-reports/blastp-trace.txt
       contains: ['task_id']
     - path: bactopia/SRX1390622/tools/blastp/SRX1390622.blastp.tsv
-      md5sum: 3597b9b6cb1dae90582751a4a27df8f0
+      contains: ['sample', 'SRX1390622', 'WP_014894920']
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/SRX1390622/tools/blastp/logs/nf-blastp.err

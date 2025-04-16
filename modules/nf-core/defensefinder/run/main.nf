@@ -42,18 +42,18 @@ process DEFENSEFINDER_RUN {
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
     tar -xf $db
     mkdir -p df-tmp/df
-    TMPDIR=df-tmp/df macsydata \\
+    TMPDIR=df-tmp/df HOME=df-tmp/ macsydata \\
         install \\
         --target defense-finder/ \\
         models/defense-finder-models-v${DF_MODELS_VERSION}.tar.gz
 
     mkdir -p df-tmp/cf
-    TMPDIR=df-tmp/cf macsydata \\
+    TMPDIR=df-tmp/cf HOME=df-tmp/ macsydata \\
         install \\
         --target defense-finder/ \\
         models/CasFinder-${CASFINDER_VERSION}.tar.gz
 
-    TMPDIR=df-tmp/ defense-finder \\
+    TMPDIR=df-tmp/ HOME=df-tmp/ defense-finder \\
         run \\
         $options.args \\
         --workers $task.cpus \\

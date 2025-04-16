@@ -2,7 +2,7 @@
 include { initOptions; saveFiles } from '../../../lib/nf/functions'
 options       = initOptions(params.containsKey("options") ? params.options : [:], 'ectyper')
 options.btype = "tools"
-conda_tools   = "bioconda::ectyper=2.0.0"
+conda_tools   = "bioconda::ectyper=1.0.0"
 conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
 conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
 
@@ -12,8 +12,8 @@ process ECTYPER {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ectyper:2.0.0--pyhdfd78af_1' :
-        'quay.io/biocontainers/ectyper:2.0.0--pyhdfd78af_1' }"
+        'https://depot.galaxyproject.org/singularity/ectyper:1.0.0--pyhdfd78af_1' :
+        'quay.io/biocontainers/ectyper:1.0.0--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(fasta)

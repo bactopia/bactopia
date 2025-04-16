@@ -194,7 +194,7 @@
     - path: bactopia/GCF_000292685/tools/ectyper/logs/versions.yml
       md5sum: eb37a2a9b73e312a306e198975dedd8c
     - path: bactopia/GCF_000292685/tools/emmtyper/GCF_000292685.tsv
-      md5sum: 6b638803cd53f64c61b706966e05d321
+      md5sum: bf0bc232459b360c681b799acdcbff67
     - path: bactopia/GCF_000292685/tools/emmtyper/logs/nf-emmtyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/emmtyper/logs/nf-emmtyper.err
@@ -245,7 +245,7 @@
     - path: bactopia/GCF_000292685/tools/genotyphi/logs/mykrobe/nf-genotyphi.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/genotyphi/logs/mykrobe/versions.yml
-      md5sum: 9cdfd2c4d37bb5cea0e119855ebcdbbb
+      md5sum: 7cf21acd51b2fe32aa88228b16100d61
     - path: bactopia/GCF_000292685/tools/hicap/GCF_000292685.tsv
       md5sum: d0e5562f06fa63e264e3c1d2ffee580b
     - path: bactopia/GCF_000292685/tools/hicap/logs/nf-hicap.begin
@@ -263,7 +263,7 @@
     - path: bactopia/GCF_000292685/tools/hicap/logs/nf-hicap.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/hicap/logs/versions.yml
-      md5sum: 0b1257a5aa492ea30bc3201fc2afcdb7
+      md5sum: 7c59eca4c49e68e0b66432e9e660da39
     - path: bactopia/GCF_000292685/tools/hpsuissero/GCF_000292685_serotyping_res.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
     - path: bactopia/GCF_000292685/tools/hpsuissero/logs/nf-hpsuissero.begin
@@ -281,8 +281,7 @@
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/hpsuissero/logs/versions.yml
       md5sum: eaec88a7d7a11910c868a48b8a8cbc5e
-    - path: bactopia/GCF_000292685/tools/kleborate/GCF_000292685.results.txt
-      md5sum: 69fffd648e56dd1ffaa57bdca43ca560
+    - path: bactopia/GCF_000292685/tools/kleborate/GCF_000292685.txt
     - path: bactopia/GCF_000292685/tools/kleborate/logs/nf-kleborate.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/kleborate/logs/nf-kleborate.err
@@ -297,7 +296,7 @@
     - path: bactopia/GCF_000292685/tools/kleborate/logs/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/kleborate/logs/versions.yml
-      md5sum: 08f5908250d8ea7c55220d528ebfb305
+      md5sum: 5f29b3ada98014deeb86a0acd61556fc
     - path: bactopia/GCF_000292685/tools/legsta/GCF_000292685.tsv
       md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia/GCF_000292685/tools/legsta/logs/nf-legsta.begin
@@ -363,11 +362,8 @@
     - path: bactopia/GCF_000292685/tools/ngmaster/logs/versions.yml
       md5sum: 3fc12e68850a28a347a8b6aed41eaad0
     - path: bactopia/GCF_000292685/tools/pasty/GCF_000292685.blastn.tsv
-      md5sum: d6a96a41b622542cccf02facf6957c02
     - path: bactopia/GCF_000292685/tools/pasty/GCF_000292685.details.tsv
-      md5sum: bde366a9756cd1ed72f853e35f6c153a
     - path: bactopia/GCF_000292685/tools/pasty/GCF_000292685.tsv
-      md5sum: 711801f9e60c024637db200b37f22cb6
     - path: bactopia/GCF_000292685/tools/pasty/logs/nf-pasty.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/pasty/logs/nf-pasty.err
@@ -380,15 +376,10 @@
     - path: bactopia/GCF_000292685/tools/pasty/logs/nf-pasty.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/pasty/logs/versions.yml
-      md5sum: 09092981ad4710fa98b47d175c32ea77
-    - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685-1A.tblastn.tsv
-      md5sum: 16bb26284bd7bf2327337fc95c055429
-    - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685-2B.tblastn.tsv
-      md5sum: 16bb26284bd7bf2327337fc95c055429
-    - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685-2X.tblastn.tsv
-      md5sum: 16bb26284bd7bf2327337fc95c055429
+      md5sum: 80bf561dc63520994b70b665bd9d02f5
+    - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685.tblastn.tsv
     - path: bactopia/GCF_000292685/tools/pbptyper/GCF_000292685.tsv
-      md5sum: c14d5109e23ad3dc093ec7b0ea0c9d53
+      md5sum: b86e25dd2f628bce82d956d3530433d8
     - path: bactopia/GCF_000292685/tools/pbptyper/logs/nf-pbptyper.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/pbptyper/logs/nf-pbptyper.err
@@ -401,7 +392,7 @@
     - path: bactopia/GCF_000292685/tools/pbptyper/logs/nf-pbptyper.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/pbptyper/logs/versions.yml
-      md5sum: cf991e3ac23ab36ee8da9e4bd79a4215
+      md5sum: 637a9986053ca8e6a26e80c7ff928419
     - path: bactopia/GCF_000292685/tools/seqsero2/GCF_000292685_log.txt
       md5sum: d00242dfa734b5abb3622a6048f0b4fb
     - path: bactopia/GCF_000292685/tools/seqsero2/GCF_000292685_result.tsv
@@ -422,7 +413,7 @@
     - path: bactopia/GCF_000292685/tools/seqsero2/logs/nf-seqsero2.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/seqsero2/logs/versions.yml
-      md5sum: 2142aa564553527be417594e89c7092a
+      md5sum: f0d79d7d931e3be42e744020d3cc97c1
     - path: bactopia/GCF_000292685/tools/seroba/GCF_000292685.tsv
       md5sum: b3983df1ed608ca335bfcb66b22b8b94
     - path: bactopia/GCF_000292685/tools/seroba/logs/nf-seroba.begin
@@ -492,7 +483,7 @@
     - path: bactopia/GCF_000292685/tools/sistr/logs/nf-sistr.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/sistr/logs/versions.yml
-      md5sum: 1b8b8a46ffa9afdd2646ab3968ed85ab
+      md5sum: 80e36550e7c3c4a0dfa8ec30eee330e4
     - path: bactopia/GCF_000292685/tools/spatyper/GCF_000292685.tsv
       md5sum: a698352823875171696e5e7ed7015c13
     - path: bactopia/GCF_000292685/tools/spatyper/logs/nf-spatyper.begin
@@ -529,15 +520,14 @@
     - path: bactopia/GCF_000292685/tools/ssuissero/logs/versions.yml
       md5sum: 611e2f52c019e0b5d57b3f5951df11e4
     - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.regions.blastn.tsv
-      md5sum: ca426de41052a9f0bdcfb538610e5aa6
+      md5sum: cd4c6302332b99a6a7fecc091aaf6030
     - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.regions.details.tsv
-      md5sum: d8568654b8455ddebf37283918805b46
+      md5sum: d43838c11442e8920b69e77580044c3c
     - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.targets.blastn.tsv
-      md5sum: 5cd7054ed50c7d360feac0e51db54ac6
     - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.targets.details.tsv
-      md5sum: 8938065005a5f984229c09cd4d9f91e2
+      md5sum: 5a0494bfee042ef37e185f52aa3e21a9
     - path: bactopia/GCF_000292685/tools/sccmec/GCF_000292685.tsv
-      md5sum: da49131b3619e12fac7c1efef5e109d0
+      md5sum: 921b8626fda1a5ae5b22e394b8afc223
     - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.err
@@ -550,7 +540,7 @@
     - path: bactopia/GCF_000292685/tools/sccmec/logs/nf-sccmec.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/sccmec/logs/versions.yml
-      md5sum: c4a93a87d2c8563872be442a236ed10d
+      md5sum: 2fd8bf1b5b3c1b8673fb1e66f5ce6653
     - path: bactopia/GCF_000292685/tools/stecfinder/GCF_000292685.tsv
       md5sum: d301a1d94e4171fa59506a5089a67d4c
     - path: bactopia/GCF_000292685/tools/stecfinder/logs/nf-stecfinder.begin
@@ -565,37 +555,31 @@
     - path: bactopia/GCF_000292685/tools/stecfinder/logs/nf-stecfinder.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/stecfinder/logs/versions.yml
-      md5sum: 4540196bbe3a669bb58b053416a9f53f
+      md5sum: 3bd87380c3a55efd1714d3ab511587ed
     - path: bactopia/GCF_000292685/tools/tbprofiler/GCF_000292685.results.csv
       contains: ['TBProfiler', 'Strain', 'freebayes']
-    - path: bactopia/GCF_000292685/tools/tbprofiler/GCF_000292685.results.json
-      contains: ['tbprofiler_version', 'tbdb', 'freebayes']
     - path: bactopia/GCF_000292685/tools/tbprofiler/GCF_000292685.results.txt
       contains: ['gid', 'Analysis', 'freebayes']
     - path: bactopia/GCF_000292685/tools/tbprofiler/bam/GCF_000292685.bam
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.begin
       md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.err
-      contains: ['Calling', 'variants', 'Indexing']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.log
-      contains: ['tbprofiler', 'Running', 'finished']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.out
-      contains: ['tbprofiler', 'Running', 'finished']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.sh
-      md5sum: 92bc771eed4e7ec56e5457caa6f640e6
+      md5sum: 41a5f6ae0702eb7ea147012dc39746c4
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/nf-tbprofiler.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000292685/tools/tbprofiler/logs/versions.yml
-      md5sum: 68f526da324d0b2bd59a4c95a8fd0700
-    - path: bactopia/GCF_000292685/tools/tbprofiler/vcf/GCF_000292685.targets.csq.vcf.gz
+      md5sum: 599181a4a6859429e006ec5cd093f9e9
     - path: bactopia/bactopia-runs/merlin/merged-results/agrvate.tsv
       contains: ['agr_group', 'GCF_000292685']
     - path: bactopia/bactopia-runs/merlin/merged-results/ectyper.tsv
       md5sum: a8e6673164ac13e84b42ab690a2721da
     - path: bactopia/bactopia-runs/merlin/merged-results/emmtyper.tsv
-      md5sum: 6b638803cd53f64c61b706966e05d321
+      md5sum: bf0bc232459b360c681b799acdcbff67
     - path: bactopia/bactopia-runs/merlin/merged-results/genotyphi.tsv
       contains: ['genome', 'GCF_000292685', 'typhi']
     - path: bactopia/bactopia-runs/merlin/merged-results/hicap.tsv
@@ -603,7 +587,7 @@
     - path: bactopia/bactopia-runs/merlin/merged-results/hpsuissero.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
     - path: bactopia/bactopia-runs/merlin/merged-results/kleborate.tsv
-      md5sum: 69fffd648e56dd1ffaa57bdca43ca560
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: bactopia/bactopia-runs/merlin/merged-results/legsta.tsv
       md5sum: ef72b8e2104dfcce33ee836450670200
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/agrvate-concat/nf-merged-results.begin
@@ -666,7 +650,7 @@
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/hicap-concat/nf-merged-results.run
       contains: ['NXF_DEBUG', '$NXF_ENTRY']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/hicap-concat/nf-merged-results.sh
-      md5sum: f3da7396a3749eb5fdeb35b2d04f61d1
+      contains: ['csvtk']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/hicap-concat/nf-merged-results.trace
       contains: ['nextflow.trace']
     - path: bactopia/bactopia-runs/merlin/merged-results/logs/hicap-concat/versions.yml
@@ -884,9 +868,9 @@
     - path: bactopia/bactopia-runs/merlin/merged-results/ngmaster.tsv
       md5sum: ce47645c145b3d4c49f8087175383227
     - path: bactopia/bactopia-runs/merlin/merged-results/pasty.tsv
-      md5sum: 711801f9e60c024637db200b37f22cb6
+      md5sum: beb51cae1e81c8e0fe3f5f14cfa4aa92
     - path: bactopia/bactopia-runs/merlin/merged-results/pbptyper.tsv
-      md5sum: c14d5109e23ad3dc093ec7b0ea0c9d53
+      md5sum: 861f41e0a6b85b10901a93d5d2d59143
     - path: bactopia/bactopia-runs/merlin/merged-results/seqsero2.tsv
       contains: ['name', 'GCF_000292685', 'Salmonella.']
     - path: bactopia/bactopia-runs/merlin/merged-results/seroba.tsv
@@ -902,7 +886,7 @@
     - path: bactopia/bactopia-runs/merlin/merged-results/ssuissero.tsv
       md5sum: 9a26304dc4e57bd347045deecfaac0a6
     - path: bactopia/bactopia-runs/merlin/merged-results/sccmec.tsv
-      md5sum: 485229890cdcfc5876e8c735cf1ed273
+      md5sum: 21dfec4a76ccbb542ba685724bd1b6dd
     - path: bactopia/bactopia-runs/merlin/merged-results/stecfinder.tsv
       md5sum: d301a1d94e4171fa59506a5089a67d4c
     - path: bactopia/bactopia-runs/merlin/nf-reports/merlin-dag.dot

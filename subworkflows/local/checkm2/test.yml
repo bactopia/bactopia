@@ -1,0 +1,52 @@
+- name: checkm2-test
+  command: bash -c 'nextflow run ./subworkflows/local/checkm2/test.nf -entry test_checkm2 --wf checkm2 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - checkm2
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_000292685/tools/checkm2/diamond_output/DIAMOND_RESULTS.tsv
+      md5sum: 49d67ea50cb2d3c68f358066981335ce
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/checkm2.log
+      contains: ['CheckM2 finished successfully']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.err
+      contains: ['CheckM2 finished successfully']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.log
+      contains: ['CheckM2 finished successfully']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.out
+      contains: ['Finished processing']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.sh
+      contains: ['Decompress fasta file if compressed']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/nf-checkm2.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/tools/checkm2/logs/versions.yml
+      md5sum: 9072bb76312befd45ab9df837df42b54
+    - path: bactopia/GCF_000292685/tools/checkm2/protein_files/GCF_000292685.faa.gz
+    - path: bactopia/GCF_000292685/tools/checkm2/GCF_000292685.tsv
+      contains: ['Name', 'GCF_000292685']
+    - path: bactopia/bactopia-runs/checkm2/merged-results/checkm2.tsv
+      contains: ['Name', 'GCF_000292685']
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/checkm2/merged-results/logs/checkm2-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-dag.dot
+      md5sum: 3d1955d5b657d3f74bcb19564685d1e5
+    - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/checkm2/nf-reports/checkm2-trace.txt
+      contains: ['task_id']

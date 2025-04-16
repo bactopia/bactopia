@@ -36,6 +36,11 @@ process KLEBORATE {
     # Rename output file to include the prefix name
     find results/ -name "*output.txt" -print0 | while read -d \$'\0' file; do mv "\$file" "${prefix}.txt"; done
 
+    # Negative results will not have an output file
+    if [ ! -f "${prefix}.txt" ]; then
+        touch "${prefix}.txt"
+    fi
+
     # cleanup
     rm -rf results/
 

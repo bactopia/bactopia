@@ -43,4 +43,4 @@
     - path: bactopia/GCF_000009885/tools/kleborate/logs/nf-kleborate.trace
       contains: ['nextflow.trace']
     - path: bactopia/GCF_000009885/tools/kleborate/logs/versions.yml
-      md5sum: dc32484c104e1d16574463ebdc65c62e
+      md5sum: 642172154348a5e625a66d682ea19967

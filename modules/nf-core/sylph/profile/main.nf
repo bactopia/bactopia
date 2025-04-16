@@ -12,8 +12,8 @@ process SYLPH_PROFILE {
 
     conda (params.enable_conda ? conda_env : null)
     container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sylph:0.8.0--h919a2d8_0' :
-        'quay.io/biocontainers/sylph:0.8.0--h919a2d8_0' }"
+        'https://depot.galaxyproject.org/singularity/sylph:0.8.0--ha6fb395_0' :
+        'quay.io/biocontainers/sylph:0.8.0--ha6fb395_0' }"
 
     input:
     tuple val(meta), path(reads)

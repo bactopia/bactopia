@@ -1,5 +1,5 @@
 - name: kraken2-test
-  command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2 --wf kraken2 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2 --wf kraken2 --keep_filtered_reads -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - kraken2
     - bactopia-tools
@@ -35,7 +35,7 @@
       md5sum: 1bf6c7edd3b3090ae68f75f6db354736
 
 - name: kraken2-test-tarball
-  command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2_tarball --wf kraken2 -c nextflow.config ${BACTOPIA_ARGS}'
+  command: bash -c 'nextflow run ./subworkflows/local/kraken2/test.nf -entry test_kraken2_tarball --wf kraken2 --keep_filtered_reads -c nextflow.config ${BACTOPIA_ARGS}'
   tags:
     - kraken2
     - kraken2-tarball
