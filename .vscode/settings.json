@@ -47,5 +47,6 @@
         ".nf-test",
         "work",
         ".skeleton"
-    ]
+    ],
+    "nextflow.telemetry.enabled": true
 }
