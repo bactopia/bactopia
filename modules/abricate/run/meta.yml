@@ -3,7 +3,7 @@ description: Screen assemblies for antimicrobial resistance against multiple dat
 keywords:
   - bacteria
   - assembly
-  - antimicrobial reistance
+  - antimicrobial resistance
 tools:
   - abricate:
       description: Mass screening of contigs for antibiotic resistance genes
