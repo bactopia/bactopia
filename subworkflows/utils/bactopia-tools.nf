@@ -7,69 +7,60 @@
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-//include { SAMPLESHEET_TO_CHANNEL    } from '../samplesheet_to_channel'
-include { UTILS_NEXTFLOW_PIPELINE   } from './nextflow'
-include { UTILS_NFCORE_PIPELINE     } from './nfcore'
-include { UTILS_NFSCHEMA_PLUGIN     } from './schema'
-include { completionEmail           } from './nfcore'
-include { completionSummary         } from './nfcore'
-include { dashedLine                } from './nfcore'
-include { getWorkflowVersion        } from './nfcore'
-include { imNotification            } from './nfcore'
-include { logColours                } from './nfcore'
-include { paramsSummaryMap          } from 'plugin/nf-schema'
-include { samplesheetToList         } from 'plugin/nf-schema'
-include { workflowCitation          } from './nfcore'
+include { bactopiaToolInputs } from 'plugin/nf-bactopia'
+include { paramsSummaryLog   } from 'plugin/nf-bactopia'
+include { validateParameters } from 'plugin/nf-bactopia'
 
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    SUBWORKFLOW TO INITIALISE PIPELINE
+    Subworkflow to initialize the Bactopia Tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow BACTOPIATOOL_INIT {
 
     take:
-    version           // boolean: Display version and exit
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
-    nextflow_cli_args //   array: List of positional nextflow CLI args
-    outdir            //  string: The output directory where the results will be saved
 
     main:
 
-    versions = Channel.empty()
+    // Handle parameters
+    log.info paramsSummaryLog(workflow)
+    validateParameters(null, true)
 
-    //
-    // Print version and exit if required and dump pipeline parameters to JSON file
-    //
-    UTILS_NEXTFLOW_PIPELINE (
-        version,
-        true,
-        outdir,
-        workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
-    )
+    // Collect inputs, and create appropriate tuples for 'samples' channel
+    ch_samples = Channel.empty()
+    bactopiaToolInputs(params.bactopia, params.workflow.ext, params.include, params.exclude).each { sample ->
+        def meta = sample[0]
+        def inputs = []
+        def extra = []
+        def extra2 = []
 
-    //
-    // Validate parameters and generate parameter summary to stdout
-    //
-    UTILS_NFSCHEMA_PLUGIN (
-        workflow,
-        validate_params,
-        null,
-        monochrome_logs,
-        params.workflow.logo_name,
-        params.workflow.name,
-        params.workflow.description
-    )
+        // Convert string inputs to files
+        if (sample[1].size() > 0) {
+            sample[1].each { inputs << file(it) }
+        }
 
-    //
-    // Check config provided to the pipeline
-    //
-    UTILS_NFCORE_PIPELINE(nextflow_cli_args)
+        if (sample[2].size() > 0) {
+            sample[2].each { extra << file(it) }
+        } 
+
+        if (sample[3].size() > 0) {
+            sample[3].each { extra2 << file(it) }
+            
+        } 
+
+        // Create the expected tuple
+        if (extra2.size() > 0) {
+            ch_samples << tuple(meta, inputs, extra, extra2)
+        } else if (extra.size() > 0) {
+            ch_samples << tuple(meta, inputs, extra)
+        } else {
+            ch_samples << tuple(meta, inputs)
+        }
+    }
 
     emit:
-    versions
+    samples = ch_samples
 }

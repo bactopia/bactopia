@@ -1,14 +1,6 @@
 //
 // abricate - Mass screening of contigs for antimicrobial and virulence genes
 //
-include { initOptions } from '../../../lib/nf/functions'
-options = initOptions(params.containsKey("options") ? params.options : [:], 'abricate')
-options.args = [
-    "--db ${params.abricate_db}",
-    "--minid ${params.minid}",
-    "--mincov ${params.mincov}"
-].join(' ').replaceAll("\\s{2,}", " ").trim()
-options.subdir = params.abricate_db
 include { ABRICATE_RUN } from '../../modules/abricate/run/main' //addParams( options: options )
 include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main' //addParams( options: [logs_subdir: 'abricate-concat', process_name: params.merge_folder] )
 
@@ -30,6 +22,24 @@ workflow ABRICATE {
 
     emit:
     tsv = ABRICATE_RUN.out.report
+    logs = ABRICATE_RUN.out.logs.mix(
+        ABRICATE_SUMMARY.out.logs
+    )
+    nf_logs = ABRICATE_RUN.out.nf_begin.mix(
+        ABRICATE_RUN.out.nf_err,
+        ABRICATE_RUN.out.nf_log,
+        ABRICATE_RUN.out.nf_out,
+        ABRICATE_RUN.out.nf_run,
+        ABRICATE_RUN.out.nf_sh,
+        ABRICATE_RUN.out.nf_trace,
+        ABRICATE_SUMMARY.out.nf_begin,
+        ABRICATE_SUMMARY.out.nf_err,
+        ABRICATE_SUMMARY.out.nf_log,
+        ABRICATE_SUMMARY.out.nf_out,
+        ABRICATE_SUMMARY.out.nf_run,
+        ABRICATE_SUMMARY.out.nf_sh,
+        ABRICATE_SUMMARY.out.nf_trace
+    )
     merged_tsv = ch_merged_abricate
     versions = ch_versions // channel: [ versions.yml ]
 }

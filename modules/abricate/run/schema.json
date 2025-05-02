@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nf-core/abricate/run/params.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/abricate/run/schema.json",
     "title": "Abricate Module",
     "description": "A module for mass screening of contigs for antimicrobial and virulence genes",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "abricate_parameters": {
             "title": "Abricate Parameters",
             "type": "object",
@@ -35,7 +35,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/abricate_parameters"
+            "$ref": "#/$defs/abricate_parameters"
         }
     ]
 }

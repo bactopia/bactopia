@@ -1,39 +1,30 @@
-// Import generic module functions
-include { initOptions; saveFiles } from '../../../../lib/nf/functions'
-options       = initOptions(params.containsKey("options") ? params.options : [:], 'abricate')
-options.btype = "comparative"
-conda_tools   = "bioconda::abricate=1.0.1"
-conda_name    = conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-")
-conda_env     = file("${params.condadir}/${conda_name}").exists() ? "${params.condadir}/${conda_name}" : conda_tools
-
 process ABRICATE_SUMMARY {
     tag "$meta.id"
     label 'process_low'
 
-    ext conda_tools: "bioconda::abricate=1.0.1",
-        conda_name: ext.conda_tools.replace("=", "-").replace(":", "-").replace(" ", "-"),
-        conda_env: file("${params.condadir}/${ext.conda_name}").exists() ? "${params.condadir}/${ext.conda_name}" : ext.conda_tools
-
-    conda (params.enable_conda ? conda_env : null)
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/abricate:1.0.1--ha8f3691_1' :
-        'quay.io/biocontainers/abricate:1.0.1--ha8f3691_1' }"
-
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-c278c7398beb73294d78639a864352abef2931ce:ba3e6d2157eac2d38d22e62ec87675e12adb1010-0':
-        'biocontainers/mulled-v2-c278c7398beb73294d78639a864352abef2931ce:ba3e6d2157eac2d38d22e62ec87675e12adb1010-0' }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(reports)
 
     output:
-    tuple val(meta), path("*.tsv"), emit: report
-    path "*.{log,err}"            , emit: logs, optional: true
-    path ".command.*"             , emit: nf_logs
-    path "versions.yml"           , emit: versions
+    tuple val(meta), path("*.tsv")       , emit: report
+    tuple val(meta), path("*.{log,err}") , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml"), emit: versions
 
     script:
-    prefix = options.suffix ? "${options.suffix}" : "${meta.id}"
+    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
+    meta.output_dir = "${task.ext.rundir}/${task.ext.process_name}"
+    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
+    meta.process_name = task.ext.process_name
     """
     abricate \\
         --summary \\

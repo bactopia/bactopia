@@ -234,7 +234,7 @@ def bactopiaLogo(workflow, monochrome_logs=true, logo_name="bactopia", worflow_n
             -${colors.dim}------------------------------------------------------------------${colors.reset}-
             """.stripIndent()
         )
-    } else if (logo_name == "tools") {
+    } else if (logo_name == "bactopia-tools") {
         logo = String.format(
             """\n
             -${colors.dim}------------------------------------------------------------------${colors.reset}-
