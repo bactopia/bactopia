@@ -1,5 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl = 2
 nextflow.preview.output = true
 
 /*
@@ -27,7 +26,9 @@ include { workflowSummary   } from 'plugin/nf-bactopia'
 workflow {
 
     main:
-    BACTOPIATOOL_INIT(params.validate_params)
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+
+    
     ABRICATE(BACTOPIATOOL_INIT.out.samples)
 
     workflow.onComplete {
@@ -41,35 +42,22 @@ workflow {
     versions = ABRICATE.out.versions
 }
 
-
-
-/*
-    tsv = ABRICATE_RUN.out.report
-    run_logs = ABRICATE_RUN.out.logs
-    run_nf_logs = ABRICATE_RUN.out.nf_logs
-    summary_logs = ABRICATE_SUMMARY.out.logs
-    summary_nf_logs = ABRICATE_SUMMARY.out.nf_logs
-    merged_tsv = ch_merged_abricate
-    versions = ch_versions // channel: [ versions.yml ]
-*/
-
 output {
-    'results' {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    'logs' {
+    logs {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    'nf_logs' {
+    nf_logs {
         path { meta, file -> {
             file >> "${meta.logs_dir}/nf${file.name}"
         } }
     }
-    'versions' {
+    versions {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
 
 /*
 ========================================================================================
