@@ -1,0 +1,48 @@
+name: roary
+description: Rapid large-scale prokaryote pan genome analysis
+keywords:
+  - pangenome
+  - orthology
+  - core genome
+tools:
+  - roary:
+      description: Rapid large-scale prokaryote pan genome analysis
+      homepage: https://sanger-pathogens.github.io/Roary/
+      documentation: https://github.com/sanger-pathogens/Roary
+      tool_dev_url: https://github.com/sanger-pathogens/Roary
+      doi: "10.1093/bioinformatics/btv421"
+      licence: ['GPL v3']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - gff:
+      type: file
+      description: GFF3 files to be analyzed
+      pattern: "*.{gff,gff.gz,gff3,gff3.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - results:
+      type: file
+      description: All Roary output files
+      pattern: "results/*"
+  - aln:
+      type: file
+      description: Core genome alignment in FASTA format
+      pattern: "core-genome.aln.gz"
+  - csv:
+      type: file
+      description: Gene presence/absence table
+      pattern: "gene_presence_absence.csv"
+authors:
+  - "@rpetit3"

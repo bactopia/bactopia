@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/gtdbtk/classifywf/schema.json",
+    "title": "GTDB-Tk Classify Workflow Parameters",
+    "description": "The schema for GTDB-Tk classify workflow parameters",
+    "type": "object",
+    "properties": {
+        "min_af": {
+            "type": "number",
+            "default": 0.65,
+            "description": "Minimum alignment fraction to classify genome"
+        },
+        "min_perc_aa": {
+            "type": "integer",
+            "default": 10,
+            "description": "Minimum percentage of AA in the MSA"
+        },
+        "gtdb_tmp": {
+            "type": "string",
+            "default": "/tmp",
+            "description": "Specify alternative directory for temporary files"
+        },
+        "gtdb_use_scratch": {
+            "type": "boolean",
+            "default": false,
+            "description": "Reduce memory usage by writing to scratch directory"
+        },
+        "gtdb_debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "Create intermediate files for debugging purposes"
+        },
+        "gtdb_keep_msa": {
+            "type": "boolean",
+            "default": false,
+            "description": "Keep multiple sequence alignment files"
+        },
+        "force_gtdb": {
+            "type": "boolean",
+            "default": false,
+            "description": "Force overwrite of existing files"
+        }
+    }
+}

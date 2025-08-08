@@ -1,0 +1,69 @@
+name: checkm2_download
+description: Download CheckM2 database for genome quality assessment
+keywords:
+  - checkm2
+  - download
+  - database
+tools:
+  - aria2:
+      description: |
+        A lightweight multi-protocol & multi-source command-line download utility
+      homepage: https://aria2.github.io/
+      documentation: https://aria2.github.io/manual/en/html/
+      licence: ["GPL v2"]
+  - checkm2:
+      description: |
+        CheckM2 rapidly assesses the quality of bacterial and archaeal genomes using machine learning
+      homepage: https://github.com/chklovski/CheckM2
+      documentation: https://github.com/chklovski/CheckM2
+      tool_dev_url: https://github.com/chklovski/CheckM2
+      doi: 10.1038/s41592-023-01940-w
+      licence: ["GPL v3"]
+input: []
+output:
+  - db:
+      type: file
+      description: CheckM2 database file
+      pattern: "*.dmnd"
+  - json:
+      type: file
+      description: Database contents metadata
+      pattern: "contents.json"
+  - logs:
+      type: file
+      description: Process logs
+      pattern: "*.{log,err}"
+  - nf_begin:
+      type: file
+      description: Nextflow begin file
+      pattern: ".command.begin"
+  - nf_err:
+      type: file
+      description: Nextflow error file
+      pattern: ".command.err"
+  - nf_log:
+      type: file
+      description: Nextflow log file
+      pattern: ".command.log"
+  - nf_out:
+      type: file
+      description: Nextflow output file
+      pattern: ".command.out"
+  - nf_run:
+      type: file
+      description: Nextflow run file
+      pattern: ".command.run"
+  - nf_sh:
+      type: file
+      description: Nextflow script file
+      pattern: ".command.sh"
+  - nf_trace:
+      type: file
+      description: Nextflow trace file
+      pattern: ".command.trace"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@rpetit3"

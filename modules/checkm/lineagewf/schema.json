@@ -1,0 +1,72 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "CheckM Lineage Workflow Module",
+    "type": "object",
+    "properties": {
+        "checkm_unique": {
+            "type": "integer",
+            "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set",
+            "default": 10
+        },
+        "checkm_multi": {
+            "type": "integer",
+            "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set",
+            "default": 10
+        },
+        "aai_strain": {
+            "type": "number",
+            "description": "Threshold used to identify strain heterogeneity",
+            "default": 0.9
+        },
+        "checkm_length": {
+            "type": "number",
+            "description": "Fraction of marker sequence required to be aligned for inclusion",
+            "default": 0.7
+        },
+        "full_tree": {
+            "type": ["boolean", "null"],
+            "description": "Use the full reference tree",
+            "default": null
+        },
+        "ignore_thresholds": {
+            "type": ["boolean", "null"],
+            "description": "Ignore model-specific score thresholds",
+            "default": null
+        },
+        "checkm_ali": {
+            "type": ["boolean", "null"],
+            "description": "Generate HMMER alignment file for markers",
+            "default": null
+        },
+        "checkm_nt": {
+            "type": ["boolean", "null"],
+            "description": "Generate nucleotide gene sequences for markers",
+            "default": null
+        },
+        "force_domain": {
+            "type": ["boolean", "null"],
+            "description": "Use domain-level marker set",
+            "default": null
+        },
+        "no_refinement": {
+            "type": ["boolean", "null"],
+            "description": "Do not perform lineage-specific marker set refinement",
+            "default": null
+        },
+        "individual_markers": {
+            "type": ["boolean", "null"],
+            "description": "Treat each marker as an independent measure of genome quality",
+            "default": null
+        },
+        "skip_adj_correction": {
+            "type": ["boolean", "null"],
+            "description": "Skip adjacent marker correction",
+            "default": null
+        },
+        "skip_pseudogene_correction": {
+            "type": ["boolean", "null"],
+            "description": "Skip pseudogene correction",
+            "default": null
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/agrvate/schema.json",
+    "title": "AgrVATE Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "AgrVATE Parameters",
+            "type": "object",
+            "description": "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants",
+            "properties": {
+                "typing_only": {
+                    "title": "Only report agr typing",
+                    "type": "boolean",
+                    "description": "Only report agr typing, do not report agr operon variants",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-off"
+                }
+            }
+        }
+    }
+}

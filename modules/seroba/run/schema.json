@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/seroba/run/schema.json",
+    "title": "bactopia/modules/seroba/run module",
+    "description": "A Module to run SeroBA for Streptococcus pneumoniae serotyping",
+    "type": "object",
+    "properties": {
+        "seroba_noclean": {
+            "type": "boolean",
+            "default": false,
+            "description": "Do not clean up intermediate files",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "seroba_coverage": {
+            "type": "integer",
+            "default": 20,
+            "description": "Minimum coverage required",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

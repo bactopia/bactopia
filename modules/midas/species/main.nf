@@ -1,0 +1,63 @@
+process MIDAS_SPECIES {
+    tag "$meta.id"
+    label 'process_medium'
+
+    conda "${task.ext.conda}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        "${task.ext.singularity}" :
+        "${task.ext.docker}" }"
+
+    input:
+    tuple val(meta), path(reads)
+    path db
+
+    output:
+    tuple val(meta), path("${prefix}.midas.tsv"), emit: tsv
+    tuple val(meta), path("*.abundances.txt")   , emit: abundances
+    path "versions.yml"                          , emit: versions
+    path ".command.begin"                        , emit: begin
+    path ".command.err"                          , emit: err
+    path ".command.log"                          , emit: log
+    path ".command.out"                          , emit: out
+    path ".command.run"                          , emit: run
+    path ".command.sh"                           , emit: sh
+    path ".command.trace"                        , emit: trace
+
+    script:
+    def args = task.ext.args ?: ''
+    def VERSION = '1.3.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    prefix = task.ext.prefix ?: "${meta.id}"
+    def read_opts = meta.single_end ? "-1 ${reads[0]}" : "-1 ${reads[0]} -2 ${reads[1]}"
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+    """
+    if [ "$is_tarball" == "true" ]; then
+        mkdir database
+        tar -xzf $db -C database
+        MIDAS_DB=\$(find database/ -name "genome_info.txt" | sed 's=genome_info.txt==')
+    else
+        MIDAS_DB=\$(find $db/ -name "genome_info.txt" | sed 's=genome_info.txt==')
+    fi
+
+    run_midas.py \\
+        species \\
+        results \\
+        $read_opts \\
+        $args \\
+        -d \${MIDAS_DB} \\
+        -t $task.cpus
+
+    mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
+    midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
+
+    # Cleanup
+    rm -rf results/
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        midas: $VERSION
+    END_VERSIONS
+    """
+}

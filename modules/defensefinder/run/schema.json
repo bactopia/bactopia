@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/defensefinder/run/schema.json",
+    "title": "Defense-Finder Run Parameters",
+    "description": "The schema for Defense-Finder run parameters",
+    "type": "object",
+    "properties": {
+        "df_preserveraw": {
+            "type": "boolean",
+            "default": false,
+            "description": "Preserve raw macsydata files"
+        },
+        "df_nocutga": {
+            "type": "boolean",
+            "default": false,
+            "description": "Use no cut GA"
+        },
+        "df_coverage": {
+            "type": "number",
+            "default": 0.4,
+            "description": "Coverage threshold"
+        },
+        "df_dbtype": {
+            "type": "string",
+            "default": "ordered_replicon",
+            "description": "Database type to use"
+        }
+    }
+}

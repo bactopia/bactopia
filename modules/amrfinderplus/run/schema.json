@@ -1,0 +1,77 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/amrfinderplus/run/schema.json",
+    "title": "AMRFinderPlus Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "AMRFinderPlus Parameters",
+            "type": "object",
+            "description": "Identify antimicrobial resistance genes",
+            "properties": {
+                "ident_min": {
+                    "title": "Minimum identity for a blast-based hit",
+                    "type": "number",
+                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
+                    "default": -1,
+                    "fa_icon": "fas fa-percent"
+                },
+                "coverage_min": {
+                    "title": "Minimum coverage of reference protein",
+                    "type": "number",
+                    "description": "Minimum coverage of the reference protein (0..1)",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-chart-area"
+                },
+                "organism": {
+                    "title": "Taxon for point mutation identification",
+                    "type": "string",
+                    "description": "Taxon for point mutation identification",
+                    "default": "",
+                    "fa_icon": "fas fa-bacterium"
+                },
+                "amrfinder_noplus": {
+                    "title": "Disable running AMRFinderPlus with the --plus flag",
+                    "type": "boolean",
+                    "description": "Disables running AMRFinderPlus with the --plus flag",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-off"
+                },
+                "translation_table": {
+                    "title": "NCBI genetic code",
+                    "type": "integer",
+                    "description": "NCBI translation table number",
+                    "default": 11,
+                    "fa_icon": "fas fa-language"
+                },
+                "report_common": {
+                    "title": "Report proteins common to a taxonomy group",
+                    "type": "boolean",
+                    "description": "Report proteins common to a taxonomy group",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-off"
+                },
+                "report_all_equal": {
+                    "title": "Report all equally-scoring BLAST and HMM matches",
+                    "type": "boolean",
+                    "description": "Report all equally-scoring BLAST and HMM matches",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-off"
+                },
+                "amrfinder_opts": {
+                    "title": "Extra AMRFinderPlus options",
+                    "type": "string",
+                    "description": "Extra options to pass to AMRFinderPlus",
+                    "default": "",
+                    "fa_icon": "fas fa-cog"
+                },
+                "amrfinder_db": {
+                    "title": "AMRFinderPlus database",
+                    "type": "string",
+                    "description": "Path to AMRFinderPlus database",
+                    "default": "",
+                    "fa_icon": "fas fa-database"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+- name: ismapper test
+  command: nextflow run ./subworkflows/ismapper/test.nf -entry test_ismapper -c ./tests/config/nextflow.config -c ./tests/subworkflows/ismapper/nextflow.config
+  tags:
+    - ismapper
+  files:
+    - path: output/ismapper/results/
+      should_exist: true
+    - path: output/ismapper/versions.yml

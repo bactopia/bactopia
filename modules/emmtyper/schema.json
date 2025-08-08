@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/emmtyper/schema.json",
+    "title": "emmtyper Parameters",
+    "description": "The schema for emmtyper parameters",
+    "type": "object",
+    "properties": {
+        "emmtyper_wf": {
+            "type": "string",
+            "default": "blast",
+            "description": "Workflow to use for typing (blast or pcr)"
+        },
+        "emmtyper_blastdb": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Path to custom BLAST database"
+        },
+        "cluster_distance": {
+            "type": "integer",
+            "default": 500,
+            "description": "Distance between cluster members"
+        },
+        "percid": {
+            "type": "integer",
+            "default": 95,
+            "description": "Minimum percent identity"
+        },
+        "culling_limit": {
+            "type": "integer",
+            "default": 5,
+            "description": "BLAST culling limit"
+        },
+        "mismatch": {
+            "type": "integer",
+            "default": 5,
+            "description": "Maximum number of mismatches"
+        },
+        "align_diff": {
+            "type": "integer",
+            "default": 5,
+            "description": "Maximum difference in alignment length"
+        },
+        "gap": {
+            "type": "integer",
+            "default": 2,
+            "description": "Gap penalty"
+        },
+        "min_perfect": {
+            "type": "integer",
+            "default": 15,
+            "description": "Minimum number of perfect matches"
+        },
+        "min_good": {
+            "type": "integer",
+            "default": 15,
+            "description": "Minimum number of good matches"
+        },
+        "max_size": {
+            "type": "integer",
+            "default": 2000,
+            "description": "Maximum amplicon size"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/abritamr/run/schema.json",
+    "title": "abriTAMR Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "abriTAMR Parameters",
+            "type": "object",
+            "description": "A NATA accredited tool for reporting the presence of antimicrobial resistance genes",
+            "properties": {
+                "abritamr_identity": {
+                    "title": "Identity threshold for gene matching",
+                    "type": "number",
+                    "description": "Minimum percent identity for gene matching",
+                    "fa_icon": "fas fa-percent",
+                    "default": null
+                },
+                "abritamr_species": {
+                    "title": "Species to use for resistance gene detection",
+                    "type": "string",
+                    "description": "Species name for species-specific resistance gene detection",
+                    "fa_icon": "fas fa-bacterium",
+                    "default": null
+                }
+            }
+        }
+    }
+}

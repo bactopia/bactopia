@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/rgi/main/schema.json",
+    "title": "bactopia/modules/rgi/main module",
+    "description": "A Module to run RGI (Resistance Gene Identifier) main analysis",
+    "type": "object",
+    "properties": {
+        "use_diamond": {
+            "type": "boolean",
+            "default": false,
+            "description": "Use DIAMOND alignment tool instead of BLAST",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "include_loose": {
+            "type": "boolean",
+            "default": false,
+            "description": "Include loose hits in addition to strict hits",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "exclude_nudge": {
+            "type": "boolean",
+            "default": false,
+            "description": "Exclude nudged hits from results",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "rgi_category": {
+            "type": "string",
+            "default": "",
+            "description": "Specify a category",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "rgi_frequency": {
+            "type": "boolean",
+            "default": false,
+            "description": "Include frequency data",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "rgi_cluster": {
+            "type": "string",
+            "default": "",
+            "description": "Clustering option",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "rgi_display": {
+            "type": "string",
+            "default": "plain",
+            "description": "Display format for results",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

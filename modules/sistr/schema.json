@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sistr/schema.json",
+    "title": "bactopia/modules/sistr module",
+    "description": "A Module to run SISTR for Salmonella in silico typing",
+    "type": "object",
+    "properties": {
+        "full_cgmlst": {
+            "type": "boolean",
+            "default": false,
+            "description": "Use the full cgMLST database",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

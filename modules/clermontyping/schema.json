@@ -1,0 +1,12 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ClermonTyping Module",
+    "type": "object",
+    "properties": {
+        "clermon_threshold": {
+            "type": "integer",
+            "description": "Threshold for ClermonTyping phylogroup assignment",
+            "default": 0
+        }
+    }
+}

@@ -1,0 +1,39 @@
+name: eggnog_download
+description: Download eggNOG database files for annotation
+keywords:
+  - eggnog
+  - database
+  - download
+  - annotation
+tools:
+  - eggnog:
+      description: "Fast genome-wide functional annotation through orthology assignment"
+      homepage: "http://eggnog-mapper.embl.de/"
+      documentation: "https://github.com/eggnogdb/eggnog-mapper/wiki"
+      tool_dev_url: "https://github.com/eggnogdb/eggnog-mapper"
+      doi: "10.1093/nar/gkab1061"
+      licence: ["GPL v2"]
+
+input: []
+
+output:
+  - db:
+      type: directory
+      description: Directory containing downloaded eggNOG database files
+      pattern: "eggnog/"
+  - db_tarball:
+      type: file
+      description: Tarball containing eggNOG database files (optional)
+      pattern: "eggnog.tar.gz"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

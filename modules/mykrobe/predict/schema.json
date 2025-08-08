@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "mykrobe_species": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Mykrobe species to use"
+        },
+        "kmer": {
+            "type": "integer",
+            "default": 21,
+            "description": "Kmer length",
+            "hidden": true
+        },
+        "min_depth": {
+            "type": "integer",
+            "default": 1,
+            "description": "Minimum depth",
+            "hidden": true
+        },
+        "model": {
+            "type": "string",
+            "default": "kmer_count",
+            "description": "Genotyping model to use",
+            "hidden": true
+        },
+        "report_all_calls": {
+            "type": "boolean",
+            "default": false,
+            "description": "Report all calls"
+        },
+        "mykrobe_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Extra Mykrobe options",
+            "hidden": true
+        }
+    }
+}

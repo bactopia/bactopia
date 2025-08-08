@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/scoary/schema.json",
+    "title": "bactopia/modules/scoary module",
+    "description": "A Module to run Scoary for pan-genome wide association studies",
+    "type": "object",
+    "properties": {
+        "traits": {
+            "type": "string",
+            "description": "Input trait file (CSV)",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "p_value_cutoff": {
+            "type": "number",
+            "default": 0.05,
+            "description": "P-value cut-off for significance",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "correction": {
+            "type": "string",
+            "default": "I",
+            "description": "Apply the indicated correction for multiple testing",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "permute": {
+            "type": "integer",
+            "default": 0,
+            "description": "Number of permutations to perform",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "start_col": {
+            "type": "integer",
+            "default": 15,
+            "description": "Column in gene presence/absence file where individual strain info starts",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

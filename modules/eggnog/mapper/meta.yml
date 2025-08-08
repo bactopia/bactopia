@@ -1,0 +1,85 @@
+name: eggnog_mapper
+description: Functional annotation of proteins using eggNOG orthology data
+keywords:
+  - eggnog
+  - annotation
+  - orthology
+  - proteins
+tools:
+  - eggnog:
+      description: "Fast genome-wide functional annotation through orthology assignment"
+      homepage: "http://eggnog-mapper.embl.de/"
+      documentation: "https://github.com/eggnogdb/eggnog-mapper/wiki"
+      tool_dev_url: "https://github.com/eggnogdb/eggnog-mapper"
+      doi: "10.1093/nar/gkab1061"
+      licence: ["GPL v2"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Protein sequences in FASTA format
+      pattern: "*.{fa,fasta,faa}"
+  - db:
+      type: directory or file
+      description: eggNOG database directory or tarball
+      pattern: "*"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - hits:
+      type: file
+      description: Diamond/MMseqs2 hits file
+      pattern: "*.emapper.hits"
+  - seed_orthologs:
+      type: file
+      description: Seed orthologs file
+      pattern: "*.emapper.seed_orthologs"
+  - annotations:
+      type: file
+      description: Tab-delimited annotations file
+      pattern: "*.emapper.annotations"
+  - xlsx:
+      type: file
+      description: Excel format annotations (optional)
+      pattern: "*.emapper.annotations.xlsx"
+  - orthologs:
+      type: file
+      description: Orthologs file (optional)
+      pattern: "*.emapper.orthologs"
+  - genepred:
+      type: file
+      description: Predicted genes (optional)
+      pattern: "*.emapper.genepred.fasta"
+  - gff:
+      type: file
+      description: GFF format annotations (optional)
+      pattern: "*.emapper.gff"
+  - no_anno:
+      type: file
+      description: Sequences without annotations (optional)
+      pattern: "*.emapper.no_annotations.fasta"
+  - pfam:
+      type: file
+      description: PFAM annotations (optional)
+      pattern: "*.emapper.pfam"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

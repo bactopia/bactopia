@@ -1,0 +1,91 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/snippy/run/schema.json",
+    "title": "Snippy Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "Snippy Parameters",
+            "type": "object",
+            "description": "Rapid variant calling from sequence reads",
+            "properties": {
+                "reference": {
+                    "title": "Reference genome in GenBank format",
+                    "type": "string",
+                    "description": "Path to reference genome in GenBank format",
+                    "fa_icon": "fas fa-file-alt",
+                    "default": null
+                },
+                "mapqual": {
+                    "title": "Minimum read mapping quality",
+                    "type": "integer",
+                    "description": "Minimum read mapping quality to consider",
+                    "default": 60,
+                    "fa_icon": "fas fa-chart-line"
+                },
+                "basequal": {
+                    "title": "Minimum base quality",
+                    "type": "integer",
+                    "description": "Minimum base quality to consider",
+                    "default": 13,
+                    "fa_icon": "fas fa-chart-line"
+                },
+                "mincov": {
+                    "title": "Minimum coverage",
+                    "type": "integer",
+                    "description": "Minimum coverage of variant site",
+                    "default": 10,
+                    "fa_icon": "fas fa-chart-line"
+                },
+                "minfrac": {
+                    "title": "Minimum proportion for variant",
+                    "type": "number",
+                    "description": "Minimum proportion for variant evidence (0=AUTO)",
+                    "default": 0,
+                    "fa_icon": "fas fa-percent"
+                },
+                "minqual": {
+                    "title": "Minimum QUAL score",
+                    "type": "integer",
+                    "description": "Minimum QUAL score to accept in VCF",
+                    "default": 100,
+                    "fa_icon": "fas fa-medal"
+                },
+                "maxsoft": {
+                    "title": "Maximum soft clipping",
+                    "type": "integer",
+                    "description": "Maximum soft clipping to allow",
+                    "default": 10,
+                    "fa_icon": "fas fa-cut"
+                },
+                "bwaopt": {
+                    "title": "Extra BWA MEM options",
+                    "type": "string",
+                    "description": "Extra BWA MEM options, eg. -x pacbio",
+                    "fa_icon": "fas fa-cog",
+                    "default": null
+                },
+                "fbopt": {
+                    "title": "Extra Freebayes options",
+                    "type": "string",
+                    "description": "Extra Freebayes options, eg. --ploidy 1",
+                    "fa_icon": "fas fa-cog",
+                    "default": null
+                },
+                "snippy_remove_bam": {
+                    "title": "Remove BAM files",
+                    "type": "boolean",
+                    "description": "Remove BAM files after processing",
+                    "default": false,
+                    "fa_icon": "fas fa-trash"
+                },
+                "snippy_opts": {
+                    "title": "Extra Snippy options",
+                    "type": "string",
+                    "description": "Extra options to pass to Snippy",
+                    "fa_icon": "fas fa-cog",
+                    "default": null
+                }
+            }
+        }
+    }
+}

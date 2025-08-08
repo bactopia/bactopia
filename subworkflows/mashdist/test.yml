@@ -1,0 +1,8 @@
+- name: mashdist test
+  command: nextflow run ./subworkflows/mashdist/test.nf -entry test_mashdist -c ./tests/config/nextflow.config -c ./tests/subworkflows/mashdist/nextflow.config
+  tags:
+    - mashdist
+  files:
+    - path: output/mashdist/test.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: output/mashdist/versions.yml

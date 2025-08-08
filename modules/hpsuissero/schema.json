@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/hpsuissero/schema.json",
+    "title": "HpsuisSero Parameters",
+    "description": "The schema for HpsuisSero parameters",
+    "type": "object",
+    "properties": {}
+}

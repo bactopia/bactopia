@@ -1,0 +1,48 @@
+name: seqsero2
+description: Salmonella serotype prediction from genome sequencing data
+keywords:
+  - Salmonella
+  - serotype
+  - prediction
+tools:
+  - seqsero2:
+      description: Salmonella serotype prediction from genome sequencing data
+      homepage: https://github.com/denglab/SeqSero2
+      documentation: https://github.com/denglab/SeqSero2
+      tool_dev_url: https://github.com/denglab/SeqSero2
+      doi: "10.1128/AEM.01746-19"
+      licence: ['GPL v2']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: FASTA or FASTQ file(s)
+      pattern: "*.{fasta,fna,fa,fastq,fq,fasta.gz,fna.gz,fa.gz,fastq.gz,fq.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - log:
+      type: file
+      description: SeqSero2 log file
+      pattern: "*_log.txt"
+  - tsv:
+      type: file
+      description: SeqSero2 results in TSV format
+      pattern: "*_result.tsv"
+  - txt:
+      type: file
+      description: SeqSero2 results in text format
+      pattern: "*_result.txt"
+authors:
+  - "@rpetit3"

@@ -1,0 +1,78 @@
+name: btyper3
+description: In silico typing and characterization of Bacillus cereus group genomes
+keywords:
+  - bacillus
+  - typing
+  - virulence
+tools:
+  - btyper3:
+      description: |
+        BTyper3 is a tool for typing Bacillus cereus group isolates
+        using assembled genomes
+      homepage: https://github.com/lmc297/BTyper3
+      documentation: https://github.com/lmc297/BTyper3
+      tool_dev_url: https://github.com/lmc297/BTyper3
+      doi: 10.1128/microbiolspec.GPP3-0067-2019
+      licence: ["GPL v3"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Assembly in FASTA format
+      pattern: "*.{fa,fna,fasta,fa.gz,fna.gz,fasta.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: BTyper3 final results
+      pattern: "*_final_results.txt"
+  - results:
+      type: file
+      description: Directory containing all BTyper3 output files
+      pattern: "results/*"
+  - logs:
+      type: file
+      description: Process logs
+      pattern: "*.{log,err}"
+  - nf_begin:
+      type: file
+      description: Nextflow begin file
+      pattern: ".command.begin"
+  - nf_err:
+      type: file
+      description: Nextflow error file
+      pattern: ".command.err"
+  - nf_log:
+      type: file
+      description: Nextflow log file
+      pattern: ".command.log"
+  - nf_out:
+      type: file
+      description: Nextflow output file
+      pattern: ".command.out"
+  - nf_run:
+      type: file
+      description: Nextflow run file
+      pattern: ".command.run"
+  - nf_sh:
+      type: file
+      description: Nextflow script file
+      pattern: ".command.sh"
+  - nf_trace:
+      type: file
+      description: Nextflow trace file
+      pattern: ".command.trace"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@rpetit3"

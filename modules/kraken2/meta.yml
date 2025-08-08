@@ -1,0 +1,74 @@
+name: kraken2
+description: Taxonomic classification of reads using Kraken2
+keywords:
+  - kraken2
+  - classification
+  - taxonomy
+  - fastq
+  - metagenomics
+tools:
+  - kraken2:
+      description: "Taxonomic sequence classification system"
+      homepage: "https://ccb.jhu.edu/software/kraken2/"
+      documentation: "https://github.com/DerrickWood/kraken2/wiki"
+      tool_dev_url: "https://github.com/DerrickWood/kraken2"
+      doi: "10.1186/s13059-019-1891-0"
+      licence: ["MIT"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Paired-end or single-end fastq files
+      pattern: "*.{fastq,fq,fastq.gz,fq.gz}"
+  - db:
+      type: file or directory
+      description: Kraken2 database directory or tarball
+      pattern: "*"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - kraken2_report:
+      type: file
+      description: Kraken2 report file
+      pattern: "*.kraken2.report.txt"
+  - scrub_report:
+      type: file
+      description: Scrubbing report (optional)
+      pattern: "*.scrub.report.tsv"
+  - classified:
+      type: file
+      description: Classified reads (optional)
+      pattern: "*.classified*.fastq.gz"
+  - unclassified:
+      type: file
+      description: Unclassified reads (optional)
+      pattern: "*.unclassified*.fastq.gz"
+  - classified_extra:
+      type: tuple
+      description: Classified reads with extra placeholder file
+      pattern: "[*.classified*.fastq.gz, EMPTY_EXTRA]"
+  - unclassified_extra:
+      type: tuple
+      description: Unclassified reads with extra placeholder file
+      pattern: "[*.unclassified*.fastq.gz, EMPTY_EXTRA]"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

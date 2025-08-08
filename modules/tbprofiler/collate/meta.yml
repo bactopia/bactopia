@@ -1,0 +1,81 @@
+name: tbprofiler_collate
+description: Collate TB-Profiler results from multiple samples
+keywords:
+  - tuberculosis
+  - drug resistance
+  - collate
+  - summary
+tools:
+  - tb-profiler:
+      description: Predict drug resistance and strain type for Mycobacterium tuberculosis
+      homepage: https://github.com/jodyphelan/TBProfiler
+      documentation: https://jodyphelan.gitbook.io/tb-profiler/
+      tool_dev_url: https://github.com/jodyphelan/TBProfiler
+      doi: "10.1186/s13073-019-0650-x"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: Groovy Map containing sample information
+  - json:
+      type: file
+      description: TB-Profiler JSON output files
+      pattern: "*.json{,.gz}"
+
+output:
+  - csv:
+      type: file
+      description: Main collated results in CSV format
+      pattern: "tbprofiler.csv"
+  - variants_csv:
+      type: file
+      description: Collated variants in CSV format
+      pattern: "tbprofiler.variants.csv"
+  - variants_txt:
+      type: file
+      description: Collated variants in text format
+      pattern: "tbprofiler.variants.txt"
+  - itol:
+      type: file
+      description: iTOL formatted files (optional)
+      pattern: "*.itol.*.txt"
+  - logs:
+      type: file
+      description: Log files (if applicable)
+      pattern: "*.{log,err}"
+  - begin:
+      type: file
+      description: Process begin marker file
+      pattern: ".command.begin"
+  - err:
+      type: file
+      description: Process stderr log
+      pattern: ".command.err"
+  - log:
+      type: file
+      description: Process log
+      pattern: ".command.log"
+  - out:
+      type: file
+      description: Process stdout log
+      pattern: ".command.out"
+  - run:
+      type: file
+      description: Process run script
+      pattern: ".command.run"
+  - sh:
+      type: file
+      description: Process shell script
+      pattern: ".command.sh"
+  - trace:
+      type: file
+      description: Process trace log
+      pattern: ".command.trace"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@rpetit3"

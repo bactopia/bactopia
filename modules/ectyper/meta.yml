@@ -1,0 +1,53 @@
+name: ectyper
+description: In silico prediction of Escherichia coli serotype
+keywords:
+  - escherichia coli
+  - e. coli
+  - serotype
+  - typing
+tools:
+  - ectyper:
+      description: "ECTyper - in silico prediction of Escherichia coli serotype from raw reads or assembled genomes"
+      homepage: "https://github.com/phac-nml/ecoli_serotyping"
+      documentation: "https://github.com/phac-nml/ecoli_serotyping"
+      tool_dev_url: "https://github.com/phac-nml/ecoli_serotyping"
+      doi: "10.1093/bioinformatics/btac135"
+      licence: ["Apache-2.0"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA formatted assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: Tab-delimited ectyper output
+      pattern: "*.tsv"
+  - txt:
+      type: file
+      description: Detailed output file
+      pattern: "*.txt"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

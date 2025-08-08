@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/tbprofiler/profile/schema.json",
+    "title": "bactopia/tbprofiler/profile module",
+    "description": "Profile Mycobacterium tuberculosis for drug resistance and strain type",
+    "type": "object",
+    "definitions": {
+        "tbprofiler_profile_parameters": {
+            "title": "TB-Profiler Profile Parameters",
+            "type": "object",
+            "description": "Parameters for TB-Profiler analysis",
+            "properties": {
+                "call_whole_genome": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Call variants across the whole genome"
+                },
+                "mapper": {
+                    "type": "string",
+                    "default": "bwa",
+                    "description": "Mapping tool to use",
+                    "enum": ["bwa", "minimap2", "bowtie2", "bwa-mem2"]
+                },
+                "caller": {
+                    "type": "string",
+                    "default": "freebayes",
+                    "description": "Variant calling tool to use",
+                    "enum": ["freebayes", "bcftools", "gatk", "lofreq"]
+                },
+                "calling_params": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional parameters for variant caller"
+                },
+                "suspect": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use the suspect suite of tools"
+                },
+                "no_flagstat": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't run flagstat"
+                },
+                "no_delly": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't run delly"
+                },
+                "tbprofiler_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional TB-Profiler options"
+                }
+            },
+            "required": []
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/tbprofiler_profile_parameters"
+        }
+    ]
+}

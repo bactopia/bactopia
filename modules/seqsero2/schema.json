@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/seqsero2/schema.json",
+    "title": "bactopia/modules/seqsero2 module",
+    "description": "A Module to run SeqSero2 for Salmonella serotype prediction",
+    "type": "object",
+    "properties": {
+        "run_mode": {
+            "type": "string",
+            "default": "k",
+            "description": "SeqSero2 workflow ('a', 'k' allele mode)",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "input_type": {
+            "type": "string",
+            "default": "assembly",
+            "description": "Input type ('1' fastq, '2' fasta, '3' for paired-end reads, '4' single-end reads, '5' assembly, '6' for paired-end reads, k-mer",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "bwa_mode": {
+            "type": "string",
+            "default": "mem",
+            "description": "BWA algorithm mode ('mem', 'sam')",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

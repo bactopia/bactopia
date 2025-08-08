@@ -1,0 +1,67 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sylph/profile/schema.json",
+    "title": "bactopia/sylph/profile module",
+    "description": "Profile metagenome samples against a database using Sylph",
+    "type": "object",
+    "definitions": {
+        "sylph_profile_parameters": {
+            "title": "Sylph Profile Parameters",
+            "type": "object",
+            "description": "Parameters for Sylph profiling",
+            "properties": {
+                "sylph_db": {
+                    "type": ["string", "null"],
+                    "default": null,
+                    "description": "Path to Sylph database file"
+                },
+                "sylph_k": {
+                    "type": "integer",
+                    "default": 31,
+                    "description": "K-mer size for sketching"
+                },
+                "sylph_min_spacing": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "Minimum spacing between selected k-mers"
+                },
+                "sylph_subsample_rate": {
+                    "type": "integer",
+                    "default": 200,
+                    "description": "Subsampling rate for sketching"
+                },
+                "sylph_min_ani": {
+                    "type": "number",
+                    "default": 95,
+                    "description": "Minimum ANI threshold for reporting"
+                },
+                "sylph_min_kmers": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum k-mer count threshold"
+                },
+                "sylph_min_correct": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Minimum number of correct k-mers"
+                },
+                "sylph_estimate_unknown": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Estimate unknown sequences"
+                },
+                "sylph_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional Sylph options"
+                }
+            },
+            "required": []
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/sylph_profile_parameters"
+        }
+    ]
+}

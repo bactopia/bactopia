@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/ectyper/schema.json",
+    "title": "ECTyper Parameters",
+    "description": "The schema for ECTyper parameters",
+    "type": "object",
+    "properties": {
+        "opid": {
+            "type": "integer",
+            "default": 90,
+            "description": "Minimum percent identity for O-antigen allele match"
+        },
+        "hpid": {
+            "type": "integer",
+            "default": 95,
+            "description": "Minimum percent identity for H-antigen allele match"
+        },
+        "opcov": {
+            "type": "integer",
+            "default": 90,
+            "description": "Minimum percent coverage for O-antigen allele"
+        },
+        "hpcov": {
+            "type": "integer",
+            "default": 50,
+            "description": "Minimum percent coverage for H-antigen allele"
+        },
+        "verify": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable/disable verification of O and H antigen predictions"
+        },
+        "print_alleles": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable/disable printing of allele sequences"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "finetype": {
+            "type": "boolean",
+            "default": false,
+            "description": "In addition to determining the PorA and FetA, determine finetyping"
+        },
+        "porB": {
+            "type": "boolean",
+            "default": false,
+            "description": "In addition to determining the PorA and FetA, determine PorB"
+        },
+        "bast": {
+            "type": "boolean",
+            "default": false,
+            "description": "In addition to determining the PorA and FetA, determine Bast"
+        },
+        "mlst": {
+            "type": "boolean",
+            "default": false,
+            "description": "In addition to determining the PorA and FetA, determine MLST"
+        },
+        "all": {
+            "type": "boolean",
+            "default": false,
+            "description": "Perform all typing"
+        }
+    }
+}

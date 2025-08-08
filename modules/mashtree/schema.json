@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "trunclength": {
+            "type": "integer",
+            "default": 250,
+            "description": "Truncate sequences to this length when determining the species",
+            "hidden": true
+        },
+        "sortorder": {
+            "type": "string",
+            "default": "ABC",
+            "description": "Sort the genomes in the output in the given format",
+            "hidden": true
+        },
+        "genomesize": {
+            "type": "integer",
+            "default": 5000000,
+            "description": "Genome size of the input samples",
+            "hidden": true
+        },
+        "mindepth": {
+            "type": "integer",
+            "default": 5,
+            "description": "Minimum depth to count a sketch",
+            "hidden": true
+        },
+        "kmerlength": {
+            "type": "integer",
+            "default": 21,
+            "description": "Kmer size to use for sketching",
+            "hidden": true
+        },
+        "sketchsize": {
+            "type": "integer",
+            "default": 10000,
+            "description": "Number of kmers to use when sketching",
+            "hidden": true
+        },
+        "save_sketches": {
+            "type": "boolean",
+            "default": false,
+            "description": "Keep intermediate sketch files"
+        }
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/prokka/schema.json",
+    "title": "bactopia/modules/prokka module",
+    "description": "A Module to run Prokka, rapid prokaryotic genome annotation",
+    "type": "object",
+    "properties": {
+        "prokka_evalue": {
+            "type": "string",
+            "default": "1e-09",
+            "description": "Similarity e-value cut-off",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "prokka_coverage": {
+            "type": "integer",
+            "default": 80,
+            "description": "Minimum coverage on query protein",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "compliant": {
+            "type": "boolean",
+            "default": false,
+            "description": "Force Genbank/ENA/DDJB compliance",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "centre": {
+            "type": "string",
+            "default": "Bactopia",
+            "description": "Sequencing centre ID",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "prokka_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Extra Prokka options in quotes",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "prokka_debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "Debug mode for Prokka",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

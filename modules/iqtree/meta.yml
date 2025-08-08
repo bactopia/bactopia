@@ -1,0 +1,56 @@
+name: iqtree
+description: Efficient software for phylogenomic inference
+keywords:
+  - phylogeny
+  - iqtree
+  - tree
+tools:
+  - iqtree:
+      description: "Efficient software for phylogenomic inference"
+      homepage: "http://www.iqtree.org/"
+      documentation: "http://www.iqtree.org/doc/"
+      tool_dev_url: "https://github.com/iqtree/iqtree2"
+      doi: "10.1093/molbev/msaa015"
+      licence: ["GPL v2"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - alignment:
+      type: file
+      description: Multiple sequence alignment file
+      pattern: "*.{fa,fasta,phy,nex}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - results:
+      type: files
+      description: All IQ-TREE output files
+      pattern: "${prefix}*"
+  - phylogeny:
+      type: file
+      description: Phylogenetic tree file
+      pattern: "*.treefile"
+  - aln_tree:
+      type: tuple
+      description: Tuple containing alignment and tree files
+      pattern: "[alignment, treefile]"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

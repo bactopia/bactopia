@@ -1,0 +1,74 @@
+name: defensefinder_run
+description: Run Defense-Finder to detect defense systems in bacterial genomes
+keywords:
+  - bacteria
+  - defense
+  - crispr
+  - phage
+  - defense-finder
+tools:
+  - defensefinder:
+      description: "Defense-Finder detects known prokaryotic defense systems in bacterial and archaeal genomes"
+      homepage: "https://defense-finder.mdmparis-lab.com/"
+      documentation: "https://github.com/mdmparis/defense-finder"
+      tool_dev_url: "https://github.com/mdmparis/defense-finder"
+      doi: "10.1093/nar/gkac562"
+      licence: ["GPL v3"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta/multi-fasta file containing protein sequences (regular or gzipped)
+      pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+  - db:
+      type: file
+      description: Defense-Finder models database
+      pattern: "*.tar"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - genes_tsv:
+      type: file
+      description: TSV file containing defense genes
+      pattern: "*_defense_finder_genes.tsv"
+  - hmmer_tsv:
+      type: file
+      description: TSV file containing hmmer hits
+      pattern: "*_defense_finder_hmmer.tsv"
+  - systems_tsv:
+      type: file
+      description: TSV file containing defense systems
+      pattern: "*_defense_finder_systems.tsv"
+  - proteins:
+      type: file
+      description: Protein sequences file
+      pattern: "*.prt"
+  - proteins_index:
+      type: file
+      description: Protein sequences index file
+      pattern: "*.prt.idx"
+  - macsydata_raw:
+      type: file
+      description: Raw macsydata files (optional)
+      pattern: "*.macsydata.tar.gz"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

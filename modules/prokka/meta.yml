@@ -1,0 +1,88 @@
+name: prokka
+description: Annotate prokaryotic genomes
+keywords:
+  - prokka  
+  - annotation
+  - prokaryotic
+tools:
+  - prokka:
+      description: Rapid annotation of prokaryotic genomes
+      homepage: https://github.com/tseemann/prokka
+      documentation: https://github.com/tseemann/prokka
+      tool_dev_url: https://github.com/tseemann/prokka
+      doi: "10.1093/bioinformatics/btu153"
+      licence: ['GPL v2']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input FASTA file (contigs or complete genome)
+      pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+  - proteins:
+      type: file
+      description: Fasta file of trusted proteins to first annotate from
+      pattern: "*.{fasta,faa,fa,fasta.gz,faa.gz,fa.gz}"
+  - prodigal_tf:
+      type: file
+      description: Training file to use for gene prediction
+      pattern: "*.{tf}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - gff:
+      type: file
+      description: annotation in GFF3 format, containing both sequences and annotations
+      pattern: "*.{gff,gff.gz}"
+  - gbk:
+      type: file
+      description: annotation in GenBank format, containing both sequences and annotations
+      pattern: "*.{gbk,gbk.gz}"
+  - fna:
+      type: file
+      description: nucleotide FASTA file of the input contig sequences
+      pattern: "*.{fna,fna.gz}"
+  - faa:
+      type: file
+      description: protein FASTA file of the annotated genes
+      pattern: "*.{faa,faa.gz}"
+  - ffn:
+      type: file
+      description: nucleotide FASTA file of the annotated genes
+      pattern: "*.{ffn,ffn.gz}"
+  - sqn:
+      type: file
+      description: an ASN1 format "Sequin" file for submission to GenBank
+      pattern: "*.{sqn,sqn.gz}"
+  - fsa:
+      type: file
+      description: nucleotide FASTA file of the input contig sequences (with adjusted sequence headers)
+      pattern: "*.{fsa,fsa.gz}"
+  - tbl:
+      type: file
+      description: feature table file
+      pattern: "*.{tbl,tbl.gz}"
+  - txt:
+      type: file
+      description: summary statistics about the annotation
+      pattern: "*.txt"
+  - tsv:
+      type: file
+      description: tab-separated file of all features (locus_tag,ftype,gene,EC_number,COG,product)
+      pattern: "*.tsv"
+  - blastdb:
+      type: file
+      description: a compressed tar.gz archive of BLAST databases created from the input sequences and annotations
+      pattern: "*-blastdb.tar.gz"
+authors:
+  - "@rpetit3"

@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bakta/download/schema.json",
+    "title": "Bakta Download Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "Bakta Download Parameters",
+            "type": "object",
+            "description": "Download Bakta database",
+            "properties": {
+                "download_bakta": {
+                    "title": "Download Bakta database",
+                    "type": "boolean",
+                    "description": "Download the Bakta database",
+                    "default": false,
+                    "fa_icon": "fas fa-download"
+                },
+                "bakta_db": {
+                    "title": "Bakta database path",
+                    "type": "string",
+                    "description": "Path to existing Bakta database or where to download",
+                    "default": null,
+                    "fa_icon": "fas fa-database"
+                },
+                "bakta_db_type": {
+                    "title": "Bakta database type",
+                    "type": "string",
+                    "description": "Type of Bakta database to download (light or full)",
+                    "default": "full",
+                    "fa_icon": "fas fa-database"
+                },
+                "bakta_save_as_tarball": {
+                    "title": "Save database as tarball",
+                    "type": "boolean",
+                    "description": "Save the downloaded database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-archive"
+                }
+            }
+        }
+    }
+}

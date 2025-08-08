@@ -1,0 +1,37 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "BLAST TBLASTX Module",
+    "type": "object",
+    "properties": {
+        "tblastx_query": {
+            "type": ["string", "null"],
+            "description": "Query sequence(s) for TBLASTX",
+            "default": null
+        },
+        "tblastx_outfmt": {
+            "type": "string",
+            "description": "Output format specification",
+            "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+        },
+        "tblastx_opts": {
+            "type": "string",
+            "description": "Additional TBLASTX options",
+            "default": ""
+        },
+        "tblastx_qcov_hsp_perc": {
+            "type": "integer",
+            "description": "Percent query coverage per hsp",
+            "default": 50
+        },
+        "tblastx_max_target_seqs": {
+            "type": "integer",
+            "description": "Maximum number of aligned sequences to keep",
+            "default": 2000
+        },
+        "tblastx_use_genes": {
+            "type": "boolean",
+            "description": "Use genes (ffn) instead of contigs (fna) for database",
+            "default": false
+        }
+    }
+}

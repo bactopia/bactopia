@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "midas_db": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Path to MIDAS database"
+        },
+        "midas_word_size": {
+            "type": "integer",
+            "default": 28,
+            "description": "Word size for alignment",
+            "hidden": true
+        },
+        "midas_aln_cov": {
+            "type": "number",
+            "default": 0.75,
+            "description": "Minimum alignment coverage for species identification",
+            "hidden": true
+        },
+        "midas_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for MIDAS",
+            "hidden": true
+        },
+        "midas_debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable debug mode"
+        }
+    }
+}

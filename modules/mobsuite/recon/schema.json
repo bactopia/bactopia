@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "mb_max_contig_size": {
+            "type": "integer",
+            "default": 310000,
+            "description": "Maximum contig size to include in analysis",
+            "hidden": true
+        },
+        "mb_min_contig_size": {
+            "type": "integer",
+            "default": 1000,
+            "description": "Minimum contig size to include in analysis",
+            "hidden": true
+        },
+        "mb_max_plasmid_size": {
+            "type": "integer",
+            "default": 350000,
+            "description": "Maximum plasmid size to include in analysis",
+            "hidden": true
+        },
+        "mobsuite_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Extra MOB-suite options",
+            "hidden": true
+        }
+    }
+}

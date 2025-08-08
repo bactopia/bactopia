@@ -1,0 +1,53 @@
+name: srahumanscrubber_scrub
+description: Remove human reads from FASTQ files using SRA Human Scrubber
+keywords:
+  - human
+  - contamination
+  - scrubber
+  - decontamination
+tools:
+  - srahumanscrubber:
+      description: SRA Human Read Scrubber is a tool for removing human reads from sequencing data
+      homepage: https://github.com/ncbi/sra-human-scrubber
+      documentation: https://github.com/ncbi/sra-human-scrubber
+      tool_dev_url: https://github.com/ncbi/sra-human-scrubber
+      doi: ""
+      licence: ['Public Domain']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: FASTQ file(s) to be scrubbed
+      pattern: "*.{fastq,fq,fastq.gz,fq.gz}"
+  - db:
+      type: file
+      description: SRA Human Scrubber database directory
+      pattern: "*"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - scrubbed:
+      type: file
+      description: Scrubbed FASTQ files with human reads removed
+      pattern: "*.scrubbed.fastq.gz"
+  - scrubbed_extra:
+      type: file
+      description: Scrubbed FASTQ files with placeholder for pipeline compatibility
+      pattern: "*.scrubbed.fastq.gz"
+  - scrub_report:
+      type: file
+      description: Report of scrubbing statistics
+      pattern: "*.scrub.report.tsv"
+authors:
+  - "@rpetit3"

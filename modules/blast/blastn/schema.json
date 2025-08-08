@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "BLAST BLASTN Module",
+    "type": "object",
+    "properties": {
+        "blastn_query": {
+            "type": ["string", "null"],
+            "description": "Query sequence(s) for BLASTN",
+            "default": null
+        },
+        "blastn_outfmt": {
+            "type": "string",
+            "description": "Output format specification",
+            "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+        },
+        "blastn_opts": {
+            "type": "string",
+            "description": "Additional BLASTN options",
+            "default": ""
+        },
+        "blastn_perc_identity": {
+            "type": "integer",
+            "description": "Percent identity threshold",
+            "default": 50
+        },
+        "blastn_qcov_hsp_perc": {
+            "type": "integer",
+            "description": "Percent query coverage per hsp",
+            "default": 50
+        },
+        "blastn_max_target_seqs": {
+            "type": "integer",
+            "description": "Maximum number of aligned sequences to keep",
+            "default": 2000
+        },
+        "blastn_use_genes": {
+            "type": "boolean",
+            "description": "Query against genes (.ffn) instead of contigs (.fna)",
+            "default": false
+        }
+    }
+}

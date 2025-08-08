@@ -1,0 +1,82 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/stecfinder/schema.json",
+    "title": "bactopia/stecfinder module",
+    "description": "Find STEC gene markers in E. coli genomes",
+    "type": "object",
+    "definitions": {
+        "stecfinder_parameters": {
+            "title": "STECFinder Parameters",
+            "type": "object",
+            "description": "Parameters for STECFinder analysis",
+            "properties": {
+                "stecfinder_use_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use reads instead of assembly"
+                },
+                "stecfinder_hits": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report all blast hits"
+                },
+                "stecfinder_cutoff": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Cutoff for average depth to report a gene"
+                },
+                "stecfinder_length": {
+                    "type": "number",
+                    "default": 50.0,
+                    "description": "Length threshold for all matches"
+                },
+                "stecfinder_ipah_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Length threshold for ipaH gene"
+                },
+                "stecfinder_ipah_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Depth threshold for ipaH gene"
+                },
+                "stecfinder_stx_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Length threshold for stx genes"
+                },
+                "stecfinder_stx_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Depth threshold for stx genes"
+                },
+                "stecfinder_o_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Length threshold for O antigen genes"
+                },
+                "stecfinder_o_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Depth threshold for O antigen genes"
+                },
+                "stecfinder_h_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Length threshold for H antigen genes"
+                },
+                "stecfinder_h_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Depth threshold for H antigen genes"
+                }
+            },
+            "required": []
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/stecfinder_parameters"
+        }
+    ]
+}

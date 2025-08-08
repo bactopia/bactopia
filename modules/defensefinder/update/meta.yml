@@ -1,0 +1,24 @@
+name: defensefinder_update
+description: Download Defense-Finder models database
+keywords:
+  - bacteria
+  - defense
+  - database
+  - download
+  - defense-finder
+tools:
+  - defensefinder:
+      description: "Defense-Finder detects known prokaryotic defense systems in bacterial and archaeal genomes"
+      homepage: "https://defense-finder.mdmparis-lab.com/"
+      documentation: "https://github.com/mdmparis/defense-finder"
+      tool_dev_url: "https://github.com/mdmparis/defense-finder"
+      doi: "10.1093/nar/gkac562"
+      licence: ["GPL v3"]
+
+input: []
+
+output:
+  - db:
+      type: file
+      description: Defense-Finder models database
+      pattern: "defense-finder-models-*.tar"

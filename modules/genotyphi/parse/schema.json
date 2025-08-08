@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/genotyphi/parse/schema.json",
+    "title": "GenoTyphi Parse Parameters",
+    "description": "The schema for GenoTyphi parse parameters",
+    "type": "object",
+    "properties": {
+        "kmer": {
+            "type": "integer",
+            "default": 21,
+            "description": "K-mer size for mykrobe"
+        },
+        "min_depth": {
+            "type": "integer",
+            "default": 1,
+            "description": "Minimum depth for mykrobe calls"
+        },
+        "model": {
+            "type": "string",
+            "default": "kmer_count",
+            "description": "Model to use for mykrobe"
+        },
+        "report_all_calls": {
+            "type": "boolean",
+            "default": false,
+            "description": "Report all mykrobe calls"
+        },
+        "mykrobe_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional mykrobe options"
+        }
+    }
+}

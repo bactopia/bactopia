@@ -1,0 +1,44 @@
+name: mashdist
+description: Calculate Mash distances between sequences
+keywords:
+  - ani
+  - distance
+modules:
+  - mash_dist
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - dist:
+      type: file
+      description: Per-sample summary of the Mash distance
+      pattern: "*.txt"
+  - merged_dist:
+      type: file
+      description: A merged summary of the each Mash distance
+      pattern: "mashdist.tsv"
+docs:
+  meta:
+    title: mashdist
+    description: >-
+      A Bactopia Tool which uses Mash to determine the Mash distance from
+      a given reference genome(s).
+  introduction: |
+    The `mashdist` module uses [Mash](https://github.com/marbl/Mash) to determine the Mash
+    distance from a given reference genome(s).

@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/eggnog/mapper/schema.json",
+    "title": "eggNOG Mapper Parameters",
+    "description": "The schema for eggNOG mapper parameters",
+    "type": "object",
+    "properties": {
+        "genepred": {
+            "type": "string",
+            "default": "search",
+            "description": "Gene prediction strategy"
+        },
+        "mode": {
+            "type": "string",
+            "default": "diamond",
+            "description": "Search mode (diamond, mmseqs, hmmer)"
+        },
+        "eggnog_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for eggNOG mapper"
+        }
+    }
+}

@@ -1,0 +1,89 @@
+name: gubbins
+description: Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences
+keywords:
+  - bacteria
+  - recombination
+  - phylogeny
+  - gubbins
+tools:
+  - gubbins:
+      description: "Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences"
+      homepage: "https://github.com/nickjcroucher/gubbins"
+      documentation: "https://github.com/nickjcroucher/gubbins/blob/master/docs/gubbins_manual.md"
+      tool_dev_url: "https://github.com/nickjcroucher/gubbins"
+      doi: "10.1093/nar/gku1196"
+      licence: ["GPL v2"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - msa:
+      type: file
+      description: Multiple sequence alignment file
+      pattern: "*.{fa,fasta,fa.gz,fasta.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - masked_aln:
+      type: file
+      description: Masked alignment with recombinant regions removed
+      pattern: "*.masked.aln.gz"
+  - fasta:
+      type: file
+      description: FASTA format alignment
+      pattern: "*.fasta.gz"
+  - gff:
+      type: file
+      description: GFF file of recombination predictions
+      pattern: "*.gff.gz"
+  - vcf:
+      type: file
+      description: VCF file of SNP calls
+      pattern: "*.vcf.gz"
+  - stats:
+      type: file
+      description: Per-branch statistics
+      pattern: "*.csv"
+  - phylip:
+      type: file
+      description: Phylip format alignment
+      pattern: "*.phylip"
+  - embl_predicted:
+      type: file
+      description: Recombination predictions in EMBL format
+      pattern: "*.recombination_predictions.embl.gz"
+  - embl_branch:
+      type: file
+      description: Branch base reconstruction in EMBL format
+      pattern: "*.branch_base_reconstruction.embl.gz"
+  - tree:
+      type: file
+      description: Final phylogenetic tree
+      pattern: "*.final_tree.tre"
+  - tree_labelled:
+      type: file
+      description: Node labelled final tree
+      pattern: "*.node_labelled.final_tree.tre"
+  - bootstrap_tree:
+      type: file
+      description: Final bootstrapped tree (optional)
+      pattern: "*.final_bootstrapped_tree.tre"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

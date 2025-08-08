@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/hicap/schema.json",
+    "title": "HiCAP Parameters",
+    "description": "The schema for HiCAP parameters",
+    "type": "object",
+    "properties": {
+        "database_dir": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Path to database directory"
+        },
+        "model_fp": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Path to prodigal model file"
+        },
+        "full_sequence": {
+            "type": "boolean",
+            "default": false,
+            "description": "Write full nucleotide sequence of cap locus"
+        },
+        "gene_coverage": {
+            "type": "number",
+            "default": 0.8,
+            "description": "Minimum gene coverage"
+        },
+        "gene_identity": {
+            "type": "number",
+            "default": 0.7,
+            "description": "Minimum gene identity"
+        },
+        "broken_gene_length": {
+            "type": "integer",
+            "default": 60,
+            "description": "Minimum broken gene length"
+        },
+        "broken_gene_identity": {
+            "type": "number",
+            "default": 0.8,
+            "description": "Minimum broken gene identity"
+        },
+        "hicap_debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "Run hicap in debug mode"
+        }
+    }
+}

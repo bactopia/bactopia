@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "pasty_min_pident": {
+            "type": "integer",
+            "default": 95,
+            "description": "Minimum percent identity to count a hit",
+            "hidden": true
+        },
+        "pasty_min_coverage": {
+            "type": "integer",
+            "default": 95,
+            "description": "Minimum percent coverage to count a hit",
+            "hidden": true
+        }
+    }
+}

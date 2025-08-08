@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/srahumanscrubber/initdb/schema.json",
+    "title": "bactopia/srahumanscrubber/initdb module",
+    "description": "Initialize human read removal database for SRA Human Scrubber",
+    "type": "object",
+    "definitions": {
+        "srahumanscrubber_initdb": {
+            "title": "SRA Human Scrubber Database Initialization Parameters",
+            "type": "object",
+            "description": "Parameters for SRA Human Scrubber database initialization",
+            "properties": {},
+            "required": []
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/srahumanscrubber_initdb"
+        }
+    ]
+}

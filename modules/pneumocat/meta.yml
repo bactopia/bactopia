@@ -1,0 +1,45 @@
+name: pneumocat
+description: Capsular typing of Streptococcus pneumoniae from Illumina reads
+keywords:
+  - pneumocat
+  - Streptococcus pneumoniae
+  - capsular typing
+  - serotyping
+tools:
+  - pneumocat:
+      description: PneumoCaT (Pneumococcal Capsular Typing) uses a two-step stepwise approach to assign capsular type to Streptococcus pneumoniae genomic data (Illumina)
+      homepage: https://github.com/phe-bioinformatics/PneumoCaT
+      documentation: https://github.com/phe-bioinformatics/PneumoCaT
+      tool_dev_url: https://github.com/phe-bioinformatics/PneumoCaT
+      doi: "10.7717/peerj.2477"
+      licence: ['GPL v3']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Input Illumina paired-end reads
+      pattern: "*.{fastq.gz,fq.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - xml:
+      type: file
+      description: The pneumocat result files in xml format
+      pattern: "*.xml"
+  - txt:
+      type: file
+      description: A file containing the coverage information acrosss the genes
+      pattern: "*.coverage_summary.txt"
+authors:
+  - "@rpetit3"

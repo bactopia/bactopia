@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/kleborate/schema.json",
+    "title": "Kleborate Parameters",
+    "description": "The schema for Kleborate parameters",
+    "type": "object",
+    "properties": {
+        "kleborate_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Kleborate"
+        },
+        "kleborate_preset": {
+            "type": "string",
+            "default": "kpsc",
+            "description": "Kleborate preset to use (kpsc, kosc, ecoli)"
+        }
+    }
+}

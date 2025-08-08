@@ -1,0 +1,47 @@
+process STECFINDER {
+    tag "$meta.id"
+    label 'process_low'
+
+    conda "${task.ext.conda_env}"
+    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/stecfinder:1.1.2--pyhdfd78af_0' :
+        'quay.io/biocontainers/stecfinder:1.1.2--pyhdfd78af_0' }"
+
+    input:
+    tuple val(meta), path(fasta), path(reads)
+
+    output:
+    tuple val(meta), path("*.tsv"), emit: tsv
+    path "*.{log,err}"            , emit: logs, optional: true
+    path ".command.begin"   , emit: begin
+    path ".command.err"     , emit: err
+    path ".command.log"     , emit: log
+    path ".command.out"     , emit: out
+    path ".command.run"     , emit: run
+    path ".command.sh"      , emit: sh
+    path ".command.trace"   , emit: trace
+    path "versions.yml"           , emit: versions
+
+    script:
+    prefix = task.ext.prefix ?: "${meta.id}"
+    def is_compressed = meta.is_compressed && !params.stecfinder_use_reads ? true : false
+    def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads
+    """
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d $fasta > $seq_name
+    fi
+
+    stecfinder \\
+        -i $seq_name \\
+        ${task.ext.args} \\
+        -t $task.cpus > ${prefix}.tsv
+
+    # Cleanup
+    rm -rf ${seq_name}
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        stecfinder: \$(echo \$(stecfinder --version 2>&1) | sed 's/^.*STECFinder version: //;' )
+    END_VERSIONS
+    """
+}

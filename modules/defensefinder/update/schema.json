@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/defensefinder/update/schema.json",
+    "title": "Defense-Finder Update Parameters",
+    "description": "The schema for Defense-Finder update parameters",
+    "type": "object",
+    "properties": {}
+}

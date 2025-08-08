@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "phispy_number": {
+            "type": "integer",
+            "default": 5,
+            "description": "Minimum consecutive prophage genes to be identified as prophage",
+            "hidden": true
+        },
+        "phispy_mincontigsize": {
+            "type": "integer",
+            "default": 5000,
+            "description": "Minimum contig size to analyze",
+            "hidden": true
+        },
+        "phispy_windowsize": {
+            "type": "integer",
+            "default": 30,
+            "description": "Window size of the sliding window",
+            "hidden": true
+        },
+        "phispy_nonprophage_genegaps": {
+            "type": "integer",
+            "default": 10,
+            "description": "Number of non-prophage genes between two prophages",
+            "hidden": true
+        },
+        "phispy_phage_genes": {
+            "type": "integer",
+            "default": 1,
+            "description": "Minimum number of genes that must be annotated as phage",
+            "hidden": true
+        },
+        "phispy_randomforest_trees": {
+            "type": "integer",
+            "default": 500,
+            "description": "Number of trees in the random forest",
+            "hidden": true
+        },
+        "phispy_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Extra PhiSpy options",
+            "hidden": true
+        }
+    }
+}

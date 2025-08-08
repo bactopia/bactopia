@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "scheme": {
+            "type": "string",
+            "default": "",
+            "description": "Don't autodetect, force this scheme on all inputs"
+        },
+        "minid": {
+            "type": "integer",
+            "default": 95,
+            "description": "Minimum DNA percent identity to declare a match",
+            "hidden": true
+        },
+        "mincov": {
+            "type": "integer",
+            "default": 10,
+            "description": "Minimum DNA percent coverage to declare a match",
+            "hidden": true
+        },
+        "minscore": {
+            "type": "integer",
+            "default": 50,
+            "description": "Minimum score to match a scheme",
+            "hidden": true
+        },
+        "nopath": {
+            "type": "boolean",
+            "default": false,
+            "description": "Strip directory from filename in output"
+        },
+        "mlst_db": {
+            "type": "string",
+            "default": "",
+            "description": "Path to MLST database"
+        }
+    }
+}

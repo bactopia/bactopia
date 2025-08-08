@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/lissero/schema.json",
+    "title": "LisSero Parameters",
+    "description": "The schema for LisSero parameters",
+    "type": "object",
+    "properties": {
+        "min_id": {
+            "type": "number",
+            "default": 95.0,
+            "description": "Minimum percent identity"
+        },
+        "min_cov": {
+            "type": "number",
+            "default": 95.0,
+            "description": "Minimum percent coverage"
+        }
+    }
+}

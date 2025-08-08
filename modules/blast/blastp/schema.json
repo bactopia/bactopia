@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "BLAST BLASTP Module",
+    "type": "object",
+    "properties": {
+        "blastp_query": {
+            "type": ["string", "null"],
+            "description": "Query sequence(s) for BLASTP",
+            "default": null
+        },
+        "blastp_outfmt": {
+            "type": "string",
+            "description": "Output format specification",
+            "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+        },
+        "blastp_opts": {
+            "type": "string",
+            "description": "Additional BLASTP options",
+            "default": ""
+        },
+        "blastp_qcov_hsp_perc": {
+            "type": "integer",
+            "description": "Percent query coverage per hsp",
+            "default": 50
+        },
+        "blastp_max_target_seqs": {
+            "type": "integer",
+            "description": "Maximum number of aligned sequences to keep",
+            "default": 2000
+        }
+    }
+}

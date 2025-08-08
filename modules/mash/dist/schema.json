@@ -1,0 +1,70 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mash/dist/schema.json",
+    "title": "Mash Dist Parameters",
+    "$defs": {
+        "parameters": {
+            "title": "Mash Dist Parameters",
+            "type": "object",
+            "description": "Calculate Mash distances between sequences",
+            "properties": {
+                "max_p": {
+                    "title": "Maximum p-value to report",
+                    "type": "number",
+                    "description": "Maximum p-value to report",
+                    "default": 0.05,
+                    "fa_icon": "fas fa-percent"
+                },
+                "max_dist": {
+                    "title": "Maximum distance to report",
+                    "type": "number",
+                    "description": "Maximum distance to report",
+                    "default": 0.1,
+                    "fa_icon": "fas fa-ruler"
+                },
+                "merlin_dist": {
+                    "title": "Maximum distance to report for Merlin",
+                    "type": "number",
+                    "description": "Maximum distance to report for Merlin",
+                    "default": 0.1,
+                    "fa_icon": "fas fa-ruler"
+                },
+                "mash_w": {
+                    "title": "Probability threshold for warning about low k-mer size",
+                    "type": "number",
+                    "description": "Probability threshold for warning about low k-mer size",
+                    "default": 0.0,
+                    "fa_icon": "fas fa-exclamation-triangle"
+                },
+                "mash_m": {
+                    "title": "Minimum copies of each k-mer",
+                    "type": "integer",
+                    "description": "Minimum copies of each k-mer required to pass noise filter for reads",
+                    "default": 1,
+                    "fa_icon": "fas fa-copy"
+                },
+                "mash_s": {
+                    "title": "Maximum number of non-redundant hashes",
+                    "type": "integer",
+                    "description": "Maximum number of non-redundant hashes",
+                    "default": 100000,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "mash_seed": {
+                    "title": "Seed to use for MinHash",
+                    "type": "integer",
+                    "description": "Seed to use for MinHash hashing",
+                    "default": 42,
+                    "fa_icon": "fas fa-seedling"
+                },
+                "ask_merlin": {
+                    "title": "Ask Merlin for species predictions",
+                    "type": "boolean",
+                    "description": "Use Mash distances to predict species",
+                    "default": false,
+                    "fa_icon": "fas fa-wizard"
+                }
+            }
+        }
+    }
+}

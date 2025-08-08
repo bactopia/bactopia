@@ -1,0 +1,85 @@
+name: tbprofiler_profile
+description: Profile Mycobacterium tuberculosis for drug resistance and strain type
+keywords:
+  - tuberculosis
+  - drug resistance
+  - typing
+  - variant calling
+tools:
+  - tb-profiler:
+      description: Predict drug resistance and strain type for Mycobacterium tuberculosis
+      homepage: https://github.com/jodyphelan/TBProfiler
+      documentation: https://jodyphelan.gitbook.io/tb-profiler/
+      tool_dev_url: https://github.com/jodyphelan/TBProfiler
+      doi: "10.1186/s13073-019-0650-x"
+      licence: ['GPL v3']
+
+input:
+  - meta:
+      type: map
+      description: Groovy Map containing sample information
+  - reads:
+      type: file
+      description: FastQ files (single or paired-end)
+      pattern: "*.{fastq,fastq.gz,fq,fq.gz}"
+
+output:
+  - bam:
+      type: file
+      description: Aligned BAM file
+      pattern: "bam/*.bam"
+  - csv:
+      type: file
+      description: Results in CSV format (optional)
+      pattern: "results/*.csv"
+  - json:
+      type: file
+      description: Compressed JSON results file
+      pattern: "results/*.json.gz"
+  - txt:
+      type: file
+      description: Results in text format (optional)
+      pattern: "results/*.txt"
+  - vcf:
+      type: file
+      description: Compressed VCF file with variants
+      pattern: "vcf/*.vcf.gz"
+  - logs:
+      type: file
+      description: Log files (if applicable)
+      pattern: "*.{log,err}"
+  - begin:
+      type: file
+      description: Process begin marker file
+      pattern: ".command.begin"
+  - err:
+      type: file
+      description: Process stderr log
+      pattern: ".command.err"
+  - log:
+      type: file
+      description: Process log
+      pattern: ".command.log"
+  - out:
+      type: file
+      description: Process stdout log
+      pattern: ".command.out"
+  - run:
+      type: file
+      description: Process run script
+      pattern: ".command.run"
+  - sh:
+      type: file
+      description: Process shell script
+      pattern: ".command.sh"
+  - trace:
+      type: file
+      description: Process trace log
+      pattern: ".command.trace"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@rpetit3"

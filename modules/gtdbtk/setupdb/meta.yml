@@ -1,0 +1,39 @@
+name: gtdbtk_setupdb
+description: Download and setup GTDB-Tk database
+keywords:
+  - gtdb
+  - database
+  - download
+  - setup
+tools:
+  - gtdbtk:
+      description: "A toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes"
+      homepage: "https://github.com/Ecogenomics/GTDBTk"
+      documentation: "https://ecogenomics.github.io/GTDBTk/"
+      tool_dev_url: "https://github.com/Ecogenomics/GTDBTk"
+      doi: "10.1093/bioinformatics/btz848"
+      licence: ["GPL v3"]
+
+input: []
+
+output:
+  - db:
+      type: directory
+      description: GTDB database directory
+      pattern: "gtdbtk/"
+  - db_tarball:
+      type: file
+      description: GTDB database tarball (optional)
+      pattern: "gtdbtk.tar.gz"
+  - logs:
+      type: file
+      description: Standard log files
+      pattern: "*.{log,err}"
+  - nf_logs:
+      type: file
+      description: Nextflow log files
+      pattern: ".command.*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

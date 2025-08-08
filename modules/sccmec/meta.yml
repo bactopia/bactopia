@@ -1,0 +1,57 @@
+name: sccmec
+description: Identify SCCmec elements in Staphylococcus aureus genomes
+keywords:
+  - SCCmec
+  - Staphylococcus aureus
+  - antimicrobial resistance
+  - cassette chromosome
+tools:
+  - sccmec:
+      description: A tool for identifying SCCmec elements in Staphylococcus aureus genomes
+      homepage: https://github.com/rpetit3/sccmec
+      documentation: https://github.com/rpetit3/sccmec
+      tool_dev_url: https://github.com/rpetit3/sccmec
+      doi: ""
+      licence: ['MIT']
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA file containing the genome assembly
+      pattern: "*.{fasta,fna,fa,fasta.gz,fna.gz,fa.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Main results file with SCCmec typing
+      pattern: "*.tsv"
+  - targets:
+      type: file
+      description: BLAST results for target sequences
+      pattern: "*.targets.blastn.tsv"
+  - target_details:
+      type: file
+      description: Detailed results for target matches
+      pattern: "*.targets.details.tsv"
+  - regions:
+      type: file
+      description: BLAST results for SCCmec regions
+      pattern: "*.regions.blastn.tsv"
+  - regions_details:
+      type: file
+      description: Detailed results for SCCmec region matches
+      pattern: "*.regions.details.tsv"
+authors:
+  - "@rpetit3"

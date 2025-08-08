@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "pf_mincov": {
+            "type": "number",
+            "default": 0.60,
+            "description": "Minimum coverage of the full gene to report",
+            "hidden": true
+        },
+        "pf_threshold": {
+            "type": "number",
+            "default": 0.90,
+            "description": "Minimum identity threshold",
+            "hidden": true
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ClonalFrameML Module",
+    "type": "object",
+    "properties": {
+        "skip_recombination": {
+            "type": "boolean",
+            "description": "Skip recombination detection",
+            "default": false
+        },
+        "emsim": {
+            "type": "integer",
+            "description": "Number of simulations for the estimation of uncertainty",
+            "default": 100
+        },
+        "clonal_opts": {
+            "type": "string",
+            "description": "Additional ClonalFrameML options",
+            "default": ""
+        }
+    }
+}

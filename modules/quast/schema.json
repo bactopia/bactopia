@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/quast/schema.json",
+    "title": "bactopia/modules/quast module",
+    "description": "A Module to run QUAST, a quality assessment tool for genome assemblies",
+    "type": "object",
+    "properties": {
+        "contig_thresholds": {
+            "type": "string",
+            "default": "0,1000,10000,100000,250000,1000000",
+            "description": "Comma-separated list of contig length thresholds",
+            "fa_icon": "fas fa-hashtag"
+        },
+        "plots_format": {
+            "type": "string",
+            "default": "pdf",
+            "description": "File format for plots (e.g., pdf, png)",
+            "fa_icon": "fas fa-hashtag"
+        }
+    }
+}

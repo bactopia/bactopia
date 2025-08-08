@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/legsta/schema.json",
+    "title": "Legsta Parameters",
+    "description": "The schema for Legsta parameters",
+    "type": "object",
+    "properties": {
+        "noheader": {
+            "type": "boolean",
+            "default": false,
+            "description": "Don't print header in output"
+        }
+    }
+}

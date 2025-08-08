@@ -1,0 +1,92 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Bracken Module",
+    "type": "object",
+    "properties": {
+        "kraken2_db": {
+            "type": ["string", "null"],
+            "description": "Path to Kraken2 database",
+            "default": null
+        },
+        "kraken2_quick_mode": {
+            "type": "boolean",
+            "description": "Enable quick operation mode for Kraken2",
+            "default": false
+        },
+        "kraken2_confidence": {
+            "type": "number",
+            "description": "Confidence score threshold for Kraken2",
+            "default": 0.0
+        },
+        "kraken2_minimum_base_quality": {
+            "type": "integer",
+            "description": "Minimum base quality score for Kraken2",
+            "default": 0
+        },
+        "kraken2_use_mpa_style": {
+            "type": "boolean",
+            "description": "Format output like MetaPhlAn",
+            "default": false
+        },
+        "kraken2_report_zero_counts": {
+            "type": "boolean",
+            "description": "Report taxa with zero counts",
+            "default": false
+        },
+        "kraken2_report_minimizer_data": {
+            "type": "boolean",
+            "description": "Report minimizer data",
+            "default": false
+        },
+        "kraken2_use_names": {
+            "type": "boolean",
+            "description": "Use names instead of taxonomy IDs",
+            "default": false
+        },
+        "kraken2_memory_mapping": {
+            "type": "boolean",
+            "description": "Use memory mapping for database",
+            "default": false
+        },
+        "kraken2_minimum_hit_groups": {
+            "type": "integer",
+            "description": "Minimum number of hit groups",
+            "default": 2
+        },
+        "kraken2_keep_filtered_reads": {
+            "type": "boolean",
+            "description": "Keep filtered reads as FASTQ files",
+            "default": false
+        },
+        "kraken2_keep_raw_output": {
+            "type": "boolean",
+            "description": "Keep raw Kraken2 output",
+            "default": false
+        },
+        "bracken_read_length": {
+            "type": "integer",
+            "description": "Read length for Bracken (0 = auto-detect)",
+            "default": 0
+        },
+        "bracken_level": {
+            "type": "string",
+            "description": "Taxonomic level for Bracken",
+            "default": "S"
+        },
+        "bracken_threshold": {
+            "type": "integer",
+            "description": "Minimum number of reads for Bracken",
+            "default": 0
+        },
+        "bracken_max_secondary_percent": {
+            "type": "number",
+            "description": "Maximum percent of secondary assignments",
+            "default": 0.01
+        },
+        "skip_krona": {
+            "type": "boolean",
+            "description": "Skip Krona report generation",
+            "default": false
+        }
+    }
+}
