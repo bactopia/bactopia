@@ -1,0 +1,51 @@
+- name: clermontyping-test
+  command: bash -c 'nextflow run ./subworkflows/local/clermontyping/test.nf -entry test_clermontyping --wf clermontyping -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - clermontyping
+    - bactopia-tools
+  files:
+    - path: bactopia/GCF_001695515/tools/clermontyping/GCF_001695515.blast.xml
+    - path: bactopia/GCF_001695515/tools/clermontyping/GCF_001695515.html
+    - path: bactopia/GCF_001695515/tools/clermontyping/GCF_001695515.mash.tsv
+      contains: ['mash_ref', 'fasta']
+    - path: bactopia/GCF_001695515/tools/clermontyping/GCF_001695515.phylogroups.txt
+      contains: ['sample', 'GCF_001695515', 'ArpAgpE']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.err
+      contains: ['Estimated', 'Writing', 'Mash']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.log
+      contains: ['Running', 'Making', 'End']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.out
+      contains: ['Running', 'ClermonTyping', 'End']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.sh
+      contains: ['clermonTyping', 'END_VERSIONS']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/nf-clermontyping.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_001695515/tools/clermontyping/logs/versions.yml
+      md5sum: 3f690a78711e2119ecd7413705a066d6
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/clermontyping.tsv
+      contains: ['sample', 'GCF_001695515', 'ArpAgpE']
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.run
+      contains: ['$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/clermontyping/nf-reports/clermontyping-dag.dot
+      contains: ['clermontypingdag', 'CLERMONTYPING', 'versions']
+    - path: bactopia/bactopia-runs/clermontyping/nf-reports/clermontyping-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/clermontyping/nf-reports/clermontyping-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/clermontyping/nf-reports/clermontyping-trace.txt
+      contains: ['task_id']

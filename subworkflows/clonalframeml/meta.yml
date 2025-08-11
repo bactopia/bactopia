@@ -1,0 +1,67 @@
+name: clonalframeml
+description: Predict recomination events in bacterial genomes
+introduction: |
+  The `clonalframeml` module uses [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML) to predict 
+  recombination in bacterial genomes. A starting tree is first created with [IQ-TREE](https://github.com/Cibiv/IQ-TREE) 
+  (`-fast` mode) using the input alignment. Then the alignment and tree are provided ClonalFrameML which uses 
+  maximum likelihood to predict recombinant regions in the alignment. Finally, [maskrc-svg](https://github.com/kwongj/maskrc-svg) 
+  is used to create and additional alignment with the recombinant regions masked.
+icon: false
+tags:
+  - alignment
+  - recombination
+modules:
+  - clonalframeml
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - msa:
+      type: file
+      description: A multiple seqeunce alignmnet in FASTA format
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+  - newick:
+      type: file
+      description: A Newick formated tree based on multiple sequence alignment
+      pattern: "*.{newick,treefile,dnd}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - emsim:
+      type: file
+      description: Bootstrapped values for the three parameters R/theta, nu and delta
+      pattern: "*.emsim.txt"
+  - em:
+      type: file
+      description: Point estimates for R/theta, nu, delta and the branch lengths
+      pattern: "*.em.txt"
+  - fasta:
+      type: file
+      description: Sequence reconstructed by maximum likelihood
+      pattern: "*.ML_sequence.fasta"
+  - newick:
+      type: file
+      description: Tree with all nodes labelled
+      pattern: "*.labelled_tree.newick"
+  - pos_ref:
+      type: file
+      description: CSV mapping input sequence files to the sequences in the *.ML_sequence.fasta
+      pattern: "*.position_cross_reference.txt"
+  - status:
+      type: file
+      description: List of reconstructed recombination events
+      pattern: "*.importation_status.txt"
+citations:
+  - clonalframeml
+  - iqtree
+  - iqtree_modelfinder
+  - maskrc_svg

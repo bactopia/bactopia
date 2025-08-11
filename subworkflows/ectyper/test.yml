@@ -1,0 +1,51 @@
+- name: ectyper-test
+  command: bash -c 'nextflow run ./subworkflows/local/ectyper/test.nf -entry test_ectyper --wf ectyper -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - ectyper
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/ectyper/merged-results/ectyper.tsv
+      md5sum: cc5b424c0877cd56de8c304aaf3ff1aa
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/ectyper/merged-results/logs/ectyper-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-dag.dot
+      contains: ['ectyperdag', 'ECTYPER', 'versions']
+    - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/ectyper/nf-reports/ectyper-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_001695515/tools/ectyper/GCF_001695515.tsv
+      md5sum: cc5b424c0877cd56de8c304aaf3ff1aa
+    - path: bactopia/GCF_001695515/tools/ectyper/blast_output_alleles.txt
+      md5sum: 8fefda3ab2f156e1a9fc8891076085b2
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/ectyper.log
+      contains: ['ectyper', 'Gathering', 'Serotype', 'successfully']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.err
+      contains: ['ectyper', 'INFO', 'successfully']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.log
+      contains: ['ectyper', 'INFO', 'successfully']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.out
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.sh
+      contains: ['ectyper', 'END_VERSIONS']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/nf-ectyper.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_001695515/tools/ectyper/logs/versions.yml
+      md5sum: 6e7716f9aeb79d7e4c4780efe159da11

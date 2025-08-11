@@ -1,0 +1,85 @@
+- name: bakta-test
+  command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bakta
+    - bakta-nontarball
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-dag.dot
+      contains: ['baktadag', 'BAKTA', 'versions']
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685-blastdb.tar.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.embl.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.faa.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.ffn.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.fna.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.gbff.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.gff3.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.hypotheticals.faa.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.hypotheticals.tsv
+      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.tsv
+      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.txt
+      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.err
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.log
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.out
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.sh
+      contains: ['bakta', 'END_VERSIONS']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/versions.yml
+      contains: ['bakta', 'makeblastdb']
+
+- name: bakta-test-tarball
+  command: bash -c 'nextflow run ./subworkflows/local/bakta/test.nf -entry test_bakta_tarball --wf bakta -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - bakta-tarball
+    - bakta
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-dag.dot
+      contains: ['baktadag', 'BAKTA', 'versions']
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/bakta/nf-reports/bakta-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685-blastdb.tar.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.embl.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.faa.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.ffn.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.fna.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.gbff.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.gff3.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.hypotheticals.faa.gz
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.hypotheticals.tsv
+      contains: ['Database', 'Bakta', 'RefSeq', 'contig_1']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.tsv
+      contains: ['Database', 'Bakta', 'DnaK', 'contig_1']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/GCF_000292685.txt
+      contains: ['Sequence', 'coding', 'Bakta', 'DOI']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.err
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.log
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.out
+      contains: ['predict', 'filtered', 'successfully', 'JSON']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.sh
+      contains: ['bakta', 'END_VERSIONS']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/nf-bakta.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000292685/main/annotator/bakta/logs/versions.yml
+      contains: ['bakta', 'makeblastdb']

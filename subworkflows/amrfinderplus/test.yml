@@ -1,0 +1,46 @@
+- name: amrfinderplus-test
+  command: bash -c 'nextflow run ./subworkflows/local/amrfinderplus/test.nf -entry test_amrfinderplus --wf amrfinderplus -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - amrfinderplus
+    - bactopia-tools
+  files:
+    - path: bactopia/SRR2838702/tools/amrfinderplus/SRR2838702.tsv
+      md5sum: 376a8991c8eb010ea64c796115fb9b8d
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.err
+      contains: ["amrfinder", "AMRFinder", "Running"]
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.log
+      contains: ["amrfinder", "AMRFinder", "Running"]
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.out
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.sh
+      contains: ['amrfinder', 'END_VERSIONS']
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/nf-amrfinderplus.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/SRR2838702/tools/amrfinderplus/logs/versions.yml
+      md5sum: 31b5dcea2e0bfbf6dde15f0498287e53
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/amrfinderplus.tsv
+      md5sum: 376a8991c8eb010ea64c796115fb9b8d
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-dag.dot
+      contains: ['amrfinderplus', 'AMRFINDER', 'versions']
+    - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-trace.txt
+      contains: ['task_id']

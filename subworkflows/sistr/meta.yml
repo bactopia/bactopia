@@ -1,0 +1,106 @@
+name: sistr
+description: Serovar prediction of Salmonella assemblies
+keywords:
+  - fasta
+  - salmonella
+  - typing
+modules:
+  - sistr
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Tab-delimited SISTR serovar prediction
+      pattern: "*.{tsv}"
+  - merged_tsv:
+      type: file
+      description: Tab-delimited report of results from all samples
+      pattern: "*.{tsv}"
+  - allele_json:
+      type: file
+      description: Allele sequences and info to JSON
+      pattern: "*.json.gz"
+  - allele_fasta:
+      type: file
+      description: FASTA file destination of novel cgMLST alleles
+      pattern: "*.fasta.gz"
+  - cgmlst_csv:
+      type: file
+      description: CSV file destination for cgMLST allelic profiles
+      pattern: "*.{csv}"
+docs:
+  meta:
+    title: sistr
+    description: >-
+      A Bactopia Tool which uses Salmonella In Silico Typing Resource, or SISTR, for
+      serovar prediction of Salmonella assemblies.
+  introduction: |
+    The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd),
+    or SISTR, for serovar prediction of Salmonella assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── sistr
+      │           ├── <SAMPLE_NAME>-allele.fasta.gz
+      │           ├── <SAMPLE_NAME>-allele.json.gz
+      │           ├── <SAMPLE_NAME>-cgmlst.csv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-sistr.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── sistr-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── sistr-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── sistr.tsv
+              └── nf-reports
+                  ├── sistr-dag.dot
+                  ├── sistr-report.html
+                  ├── sistr-timeline.html
+                  └── sistr-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: sistr.tsv
+            description: A merged TSV file with `SISTR` results from all samples
+      - name: SISTR
+        description: |
+          Below is a description of the _per-sample_ results from [SISTR](https://github.com/phac-nml/sistr_cmd).
+        table:
+          - id: <SAMPLE_NAME>-allele.fasta.gz
+            description: A FASTA file of the cgMLST allele search results
+          - id: <SAMPLE_NAME>-allele.json.gz
+            description: JSON formated cgMLST allele search results, see  [SISTR - cgMLST search results](https://github.com/phac-nml/sistr_cmd#cgmlst-allele-search-results) for more details
+          - id: <SAMPLE_NAME>-cgmlst.csv
+            description: A comma-delimited summary of the cgMLST allele search results
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `SISTR` results, see [SISTR - Primary results](https://github.com/phac-nml/sistr_cmd#primary-results-output--o-sistr-results) for more details
+  citations:
+    - csvtk
+    - sistr

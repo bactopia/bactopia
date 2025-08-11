@@ -1,0 +1,150 @@
+name: gtdb
+description: Identify marker genes and assign taxonomic classifications
+keywords:
+  - taxonomy
+modules:
+  - gtdbtk_setupdb
+  - gtdbtk_classifywf
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
+  - database:
+      type: The local copy of the taxonomic database used by GTDB-tk
+      description: The unzipped copy of the database
+      pattern: "*"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - summary:
+      type: file
+      description: A TSV summary file for the classification
+      pattern: "*.{summary.tsv}"
+  - tree:
+      type: file
+      description: NJ or UPGMA tree in Newick format produced from a multiple sequence alignment
+      pattern: "*.{classify.tree.gz}"
+  - markers:
+      type: file
+      description: A TSV summary file lineage markers used for the classification.
+      pattern: "*.{markers_summary.tsv}"
+  - msa:
+      type: file
+      description: Multiple sequence alignments file.
+      pattern: "*.{msa.fasta.gz}"
+  - user_msa:
+      type: file
+      description: Multiple sequence alignments file for the user-provided files.
+      pattern: "*.{user_msa.fasta.gz}"
+  - filtered:
+      type: file
+      description: A list of genomes with an insufficient number of amino acids in MSA..
+      pattern: "*.{filtered.tsv}"
+  - log:
+      type: file
+      description: GTDB-tk log file
+      pattern: "*.{log}"
+  - warnings:
+      type: file
+      description: GTDB-tk warnings log file
+      pattern: "*.{warnings.log}"
+  - failed:
+      type: file
+      description: A TSV summary of the genomes which GTDB-tk failed to classify.
+      pattern: "*.{failed_genomes.tsv}"
+docs:
+  meta:
+    title: gtdb
+    description: >-
+      A Bactopia Tool which uses GTDB-Tk's classify workflow to assign taxonomic classifications
+      to your set of samples.
+  introduction: |
+    The `gtdb` tool uses [GTDB-Tk's](https://github.com/Ecogenomics/GTDBTk) classify 
+    workflow to assign taxonomic classifications to your set of samples. This is 
+    done through the use of the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/). 
+    If you are unsure of your sequences, `gtdb` is useful tool to help determine
+    the taxonomy of your samples.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── gtdb
+      │           ├── align
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.filtered.tsv
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.msa.fasta.gz
+      │           │   └── <SAMPLE_NAME>.{ar122|bac120}.user_msa.fasta.gz
+      │           ├── classify
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.classify.tree.1.tree
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.classify.tree.6.tree
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+      │           │   ├── <SAMPLE_NAME>.{ar122|bac120}.tree.mapping.tsv
+      │           │   └── <SAMPLE_NAME>.backbone.{ar122|bac120}.classify.tree
+      │           ├── gtdbtk.json
+      │           ├── identify
+      │           │   ├── <SAMPLE_NAME>.ar53.markers_summary.tsv
+      │           │   ├── <SAMPLE_NAME>.bac120.markers_summary.tsv
+      │           │   ├── <SAMPLE_NAME>.failed_genomes.tsv
+      │           │   └── <SAMPLE_NAME>.translation_table_summary.tsv
+      │           ├── logs
+      │           │   ├── nf-gtdb.{begin,err,log,out,run,sh,trace}
+      │           │   ├── results
+      │           │   │   ├── gtdbtk.log
+      │           │   │   └── gtdbtk.warnings.log
+      │           │   └── versions.yml
+      │           └── <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+      └── bactopia-runs
+          └── gtdb-<TIMESTAMP>
+              ├── merged-results
+              │   ├── gtdb.tsv
+              │   └── logs
+              │       └── gtdb-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── gtdb-dag.dot
+                  ├── gtdb-report.html
+                  ├── gtdb-timeline.html
+                  └── gtdb-trace.txt
+    add_note: false
+    folders:
+      - name: GTDB-Tk
+        description: |
+          Below is a description of the _per-sample_ results from [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk).
+          For full details about each of the GTDB output files, see
+          [GTDB-Tk Classify Workflow](https://github.com/Ecogenomics/GTDBTk#classify-workflow) page.
+        table:
+          - id: <SAMPLE_NAME>.{ar122|bac120}.classify.tree
+            description: Reference tree in Newick format containing query genomes placed with pplacer
+          - id: <SAMPLE_NAME>.{ar122|bac120}.filtered.tsv
+            description: List of genomes with an insufficient number of amino acids in MSA
+          - id: <SAMPLE_NAME>.{ar122|bac120}.markers_summary.tsv
+            description: Markers used in generation of the concatenated MSA and the order in which they were applied
+          - id: <SAMPLE_NAME>.{ar122|bac120}.msa.fasta
+            description: FASTA file containing MSA of submitted and reference genomes
+          - id: <SAMPLE_NAME>.{ar122|bac120}.summary.tsv
+            description: A summary of classifications provided by GTDB-Tk, see [classification summary](https://github.com/Ecogenomics/GTDBTk#classification-summary-file) for more details
+          - id: <SAMPLE_NAME>.{ar122|bac120}.user_msa.fasta
+            description: FASTA file containing MSA of the submitted genomes
+          - id: <SAMPLE_NAME>.translation_table_summary.tsv
+            description: Summary of the translation table used for each genome
+          - id: <SAMPLE_NAME>.ar122.markers_summary.tsv
+            description: Summary of unique, duplicated, and missing markers within the 122 archaeal marker set for each submitted genome
+          - id: <SAMPLE_NAME>.bac120.markers_summary.tsv
+            description: Summary of unique, duplicated, and missing markers within the 120 bacterial marker set for each submitted genome
+  citations:
+    - gtdb
+    - gtdb_tk

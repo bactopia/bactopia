@@ -1,0 +1,95 @@
+name: tbprofiler
+description: Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
+
+icon: false
+tags:
+  - Mycobacterium tuberculosis
+  - resistance
+  - serotype
+modules:
+  - tbprofiler_profile
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: FASTQ file
+      pattern: "*.{fastq.gz,fq.gz}"
+output:
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - bam:
+      type: file
+      description: BAM file with alignment details
+      pattern: "*.bam"
+  - csv:
+      type: file
+      description: Optional CSV formated result file of resistance and strain type
+      pattern: "*.csv"
+  - json:
+      type: file
+      description: JSON formated result file of resistance and strain type
+      pattern: "*.json"
+  - txt:
+      type: file
+      description: Optional text file of resistance and strain type
+      pattern: "*.txt"
+  - vcf:
+      type: file
+      description: VCF with variant info again refernce genomes
+      pattern: "*.vcf"
+docs:
+  meta:
+    title: tbprofiler
+    description: >-
+      A Bactopia Tool which uses TBProfiler for profiling reads to determine resistance
+      and _Mycobacterium tuberculosis_ strain type.
+  introduction: |
+    The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) 
+    for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── tbprofiler
+      │           ├── bam
+      │           │   └── <SAMPLE_NAME>.bam
+      │           ├── logs
+      │           │   ├── nf-tbprofiler.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── <SAMPLE_NAME>.results.csv
+      │           ├── <SAMPLE_NAME>.results.json
+      │           ├── <SAMPLE_NAME>.results.txt
+      │           └── vcf
+      │               └── <SAMPLE_NAME>.targets.csq.vcf.gz
+      └── bactopia-runs
+          └── tbprofiler-<TIMESTAMP>
+              └── nf-reports
+                  ├── tbprofiler-dag.dot
+                  ├── tbprofiler-report.html
+                  ├── tbprofiler-timeline.html
+                  └── tbprofiler-trace.txt
+    add_note: true
+    folders:
+      - name: TBProfiler
+        description: |
+          Below is a description of the _per-sample_ results from [TBProfiler](https://github.com/jodyphelan/TBProfiler).
+        table:
+          - id: <SAMPLE_NAME>.results.csv
+            description: A CSV formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.json
+            description: A JSON formated `TBProfiler` result file of resistance and strain type
+          - id: <SAMPLE_NAME>.results.txt
+            description: A text file with `TBProfiler` results
+          - id: <SAMPLE_NAME>.bam
+            description: BAM file with alignment details
+          - id: <SAMPLE_NAME>.targets.csq.vcf.gz
+            description: VCF with variant info again reference genomes
+  citations:
+    - tbprofiler

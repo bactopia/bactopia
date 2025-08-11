@@ -1,0 +1,85 @@
+name: blastn
+description: Search against nucleotide BLAST databases using nucleotide queries
+icon: false
+keywords:
+  - fasta
+  - blast
+  - alignment
+modules:
+  - blastn
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: Input fasta file containing queries sequences
+      pattern: "*.{fa,fasta}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: BLASTN results in TSV format
+      pattern: "*.blastn.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of BLASTN results for all samples
+      pattern: "*.tsv"
+docs:
+  meta:
+    title: blastn
+    description: >
+      A Bactopia Tool which uses BLASTN to query nucleotide sequences against nucleotide databases (contigs or genes).
+  introduction: |
+      The `blastn` module uses [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+      to query nucleotide sequences against nucleotide databases (contigs or genes) for each sample.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── blastn
+      │           ├── <SAMPLE_NAME>.blastn.tsv
+      │           └── logs
+      │               ├── nf-blastn.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── blastn-<TIMESTAMP>
+              ├── merged-results
+              │   ├── blastn.tsv
+              │   └── logs
+              │       └── blastn-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── blastn-dag.dot
+                  ├── blastn-report.html
+                  ├── blastn-timeline.html
+                  └── blastn-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: blastn.tsv
+            description: A merged TSV file with `blastn` results from all samples
+      - name: blastn
+        description: |
+          Below is a description of the _per-sample_ results from [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs).
+        table:
+          - id: <SAMPLE_NAME>.blastn.tsv
+            description: A TSV file with `blastn` results for a single sample
+  citations:
+    - blast
+    - csvtk

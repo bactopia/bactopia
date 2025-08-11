@@ -1,0 +1,87 @@
+name: staphopiasccmec
+description: Primer based SCCmec typing of _Staphylococcus aureus_ genomes
+icon: false
+tags:
+  - amr
+  - fasta
+  - sccmec
+  - Staphylococcus aureus
+modules:
+  - staphopiasccmec
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - tsv:
+      type: file
+      description: Per-sample summary of the staphopia-sccmec assessement
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged summary of the staphopia-sccmec assessement
+      pattern: "staphopiasccmec.tsv"
+docs:
+  meta:
+    title: staphopiasccmec
+    description: >-
+      A Bactopia Tool which uses staphopia-sccmec to assign SCCmec types
+      to _Staphylococcus aureus_ assemblies.
+  introduction:
+    The `staphopiasccmec` module uses [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec)
+    to assign SCCmec types to _Staphylococcus aureus_ assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── staphopiasccmec
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-staphopiasccmec.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── staphopiasccmec-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── staphopiasccmec-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── staphopiasccmec.tsv
+              └── nf-reports
+                  ├── staphopiasccmec-dag.dot
+                  ├── staphopiasccmec-report.html
+                  ├── staphopiasccmec-timeline.html
+                  └── staphopiasccmec-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: staphopiasccmec
+            description: A merged TSV file with `staphopia-sccmec` results from all samples
+      - name: staphopia-sccmec
+        description: |
+          Below is a description of the _per-sample_ results from [staphopia-sccmec](https://github.com/staphopia/staphopia-sccmec).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `staphopia-sccmec` results
+  citations:
+    - csvtk
+    - staphopiasccmec

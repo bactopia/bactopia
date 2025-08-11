@@ -1,0 +1,46 @@
+//
+// assembler - Assembly of Illumina and ONT reads
+//
+include { ASSEMBLER as ASSEMBLER_MODULE } from '../../modules/local/assembler/main'
+include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+
+workflow ASSEMBLER {
+    take:
+    reads // channel: [ val(meta), [ reads ] ]
+
+    main:
+    ch_versions = Channel.empty()
+
+    // Assemble genomes
+    ASSEMBLER_MODULE(reads)
+    ch_versions = ch_versions.mix(ASSEMBLER_MODULE.out.versions)
+
+    // Merge summary of assemblies
+    ASSEMBLER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'assembly-scan'], tsv]}.set{ ch_merge_stats }
+    CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+
+    emit:
+    fna = ASSEMBLER_MODULE.out.fna
+    tsv = ASSEMBLER_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
+    logs = ASSEMBLER_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
+    nf_logs = ASSEMBLER_MODULE.out.nf_begin.mix(
+        ASSEMBLER_MODULE.out.nf_err,
+        ASSEMBLER_MODULE.out.nf_log,
+        ASSEMBLER_MODULE.out.nf_out,
+        ASSEMBLER_MODULE.out.nf_run,
+        ASSEMBLER_MODULE.out.nf_sh,
+        ASSEMBLER_MODULE.out.nf_trace,
+        CSVTK_CONCAT.out.nf_begin,
+        CSVTK_CONCAT.out.nf_err,
+        CSVTK_CONCAT.out.nf_log,
+        CSVTK_CONCAT.out.nf_out,
+        CSVTK_CONCAT.out.nf_run,
+        CSVTK_CONCAT.out.nf_sh,
+        CSVTK_CONCAT.out.nf_trace
+    )
+    versions = ch_versions // channel: [ versions.yml ]
+}

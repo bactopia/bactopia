@@ -1,0 +1,93 @@
+name: seroba
+description: Serotyping of Streptococcus pneumoniae from sequence reads
+icon: false
+keywords:
+  - serotype
+  - fastq
+  - Streptococcus pneumoniae
+modules:
+  - seroba
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: Input Illunina paired-end FASTQ files
+      pattern: "*.{fq.gz,fastq.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: The predicted per-sample serotype in tab-delimited format
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged file of all per-sample results
+      pattern: "seroba.tsv"
+  - txt:
+      type: file
+      description: A detailed description of the predicted serotype
+      pattern: "*.txt"
+docs:
+  meta:
+    title: seroba
+    description: >-
+      A Bactopia Tool which uses Seroba to predict the serotype of _Streptococcus pneumoniae_
+      samples with Illumina paired-end reads.
+  introduction: |
+      The `seroba` module uses [Seroba](https://github.com/sanger-pathogens/seroba) to predict the 
+      serotype of _Streptococcus pneumoniae_ samples with Illumina paired-end reads.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── seroba
+      │           ├── logs
+      │           │   ├── nf-seroba.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           └── <SAMPLE_NAME>.tsv
+      └── bactopia-runs
+          └── seroba-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── seroba-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── seroba.tsv
+              └── nf-reports
+                  ├── seroba-dag.dot
+                  ├── seroba-report.html
+                  ├── seroba-timeline.html
+                  └── seroba-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: seroba.tsv
+            description: A merged TSV file with `seroba` results from all samples
+      - name: Seroba
+        description: |
+          Below is a description of the _per-sample_ results from [Seroba](https://github.com/sanger-pathogens/seroba).
+          More details about the outputs are available from [Seroba - Output](https://sanger-pathogens.github.io/seroba/#output).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with the predicted serotype
+          - id: detailed_serogroup_info.txt
+            description: Detailed information about the predicted results
+  citations:
+    - csvtk
+    - seroba

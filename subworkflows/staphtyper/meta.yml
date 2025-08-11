@@ -1,0 +1,162 @@
+name: staphtyper
+description: Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
+tags:
+  - resistance
+  - Staphylococcus aureus
+  - virulence
+modules:
+  - agrvate
+  - spatyper
+  - sccmec
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - agrvate_tsv:
+      type: file
+      description: A summary of the per-sample agrvate assessement
+      pattern: "*-summary.tab"
+  - agrvate_merged_tsv:
+      type: file
+      description: A merged TSV of all agrvate summary files
+      pattern: "agrvate.tsv"
+  - spatyper_tsv:
+      type: file
+      description: Tab-delimited per-sample SpaTyper results
+      pattern: "*.tsv"
+  - spatyper_merged_tsv:
+      type: file
+      description: A merged TSV all SpaTyper results
+      pattern: "spatyper.tsv"
+  - sccmec_tsv:
+      type: file
+      description: Tab-delimited per-sample sccmec results
+      pattern: "*.tsv"
+  - sccmec_merged_tsv:
+      type: file
+      description: A merged TSV all sccmec results
+      pattern: "sccmec.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: staphtyper
+    description: >-
+      A Bactopia Tool which includes multiple tools that are specific for typing certain features
+      of _Staphylococcus aureus_.
+  introduction: |
+    The `staphtyper` subworkflow includes multiple tools that are specific for typing certain features
+    of *Staphylococcus aureus*. Currently `staphtyper` includes
+
+    1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
+    2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
+    3. [sccmec](https://github.com/rpetit3/sccmec) - SCCmec type
+
+    This tool will evolve with *S. aureus* genomics, so you can expect it to add more typing methods
+    (maybe even replace current methods) in the future. If a certain typing method for *S. aureus*
+    please feel free to suggest it be added!~
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       ├── agrvate
+      │       │   ├── <SAMPLE_NAME>-agr_gp.tab
+      │       │   ├── <SAMPLE_NAME>-blastn_log.txt
+      │       │   ├── <SAMPLE_NAME>-summary.tab
+      │       │   └── logs
+      │       │       ├── nf-agrvate.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       ├── spatyper
+      │       │   ├── <SAMPLE_NAME>.tsv
+      │       │   └── logs
+      │       │       ├── nf-spatyper.{begin,err,log,out,run,sh,trace}
+      │       │       └── versions.yml
+      │       └── sccmec
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-sccmec.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── staphtyper-<TIMESTAMP>
+              ├── merged-results
+              │   ├── agrvate.tsv
+              │   ├── logs
+              │   │   ├── agrvate-concat
+              │   │   │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │   │   └── versions.yml
+              │   │   ├── spatyper-concat
+              │   │   │   ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │   │   └── versions.yml
+              │   │   └── sccmec-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   ├── spatyper.tsv
+              │   └── sccmec.tsv
+              └── nf-reports
+                  ├── staphtyper-dag.dot
+                  ├── staphtyper-report.html
+                  ├── staphtyper-timeline.html
+                  └── staphtyper-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: agrvate.tsv
+            description: A merged TSV file with `AgrVATE` results from all samples
+          - id: spatyper.tsv
+            description: A merged TSV file with `spaTyper` results from all samples
+          - id: sccmec.tsv
+            description: A merged TSV file with `sccmec` results from all samples
+      - name: AgrVATE
+        description: |
+          Below is a description of the _per-sample_ results from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE).
+        is_extensions: true
+        table:
+          - id: -agr_gp.tab
+            description: A detailed report for _agr_ kmer matches
+          - id: -blastn_log.txt
+            description: Log files from programs called by `AgrVATE`
+          - id: -summary.tab
+            description: A final summary report for _agr_ typing
+      - name: spaTyper
+        description: |
+          Below is a description of the _per-sample_ results from [spaTyper](https://github.com/HCGB-IGTP/spaTyper).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `spaTyper` result
+      - name: sccmec
+        description: |
+          Below is a description of the _per-sample_ results from [sccmec](https://github.com/rpetit3/sccmec).
+        table:
+          - id: .tsv
+            description: A tab-delimited file with the predicted type
+          - id: .targets.blastn.tsv
+            description: A tab-delimited file of all target-specific blast hits
+          - id: .targets.details.tsv
+            description: A tab-delimited file with details for each type based on targets
+          - id: .regions.blastn.tsv
+            description: A tab-delimited file of all full cassette blast hits
+          - id: .regions.details.tsv
+            description: A tab-delimited file with details for each type based on full cassettes
+  citations:
+    - agrvate
+    - csvtk
+    - spatyper
+    - sccmec

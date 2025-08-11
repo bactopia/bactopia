@@ -1,0 +1,85 @@
+name: stecfinder
+description: Serotype of Shigatoxin producing E. coli using Illumina reads or assemblies
+icon: false
+keywords:
+  - stec
+  - serotype
+modules:
+  - stecfinder
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - seqs:
+      type: file
+      description: Illumina paired-end reads or an assembly
+      pattern: "*.{fastq.gz,fasta.gz,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: A tab-delimited report of results
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A tab-delimited report of results from all samples
+      pattern: "*.tsv"
+docs:
+  meta:
+    title: stecfinder
+    description: >
+      A Bactopia Tool which uses STECFinder to identify the serotype of Shigatoxin producing _E. coli_ (STEC).
+  introduction: |
+      The `stecfinder` module uses [STECFinder](https://github.com/LanLab/STECFinder) to identify
+      the serotype of Shigatoxin producing _E. coli_ (STEC). STECFinder identifies the serotype
+      as well as the O-antigen and H-antigens.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── stecfinder
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-stecfinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── stecfinder-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── stecfinder-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── stecfinder.tsv
+              └── nf-reports
+                  ├── stecfinder-dag.dot
+                  ├── stecfinder-report.html
+                  ├── stecfinder-timeline.html
+                  └── stecfinder-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: stecfinder.tsv
+            description: A summary of the `stecfinder` results for all samples
+      - name: STECFinder
+        description: |
+          Below is a description of the _per-sample_ results from [STECFinder](https://github.com/LanLab/STECFinder).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: The `stecfinder` results in tab-delimited format. See [STECFinder Column Descriptions](https://github.com/LanLab/STECFinder#column-descriptions) for more details.
+  citations:
+    - csvtk
+    - stecfinder

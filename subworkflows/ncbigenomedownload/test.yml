@@ -1,0 +1,31 @@
+- name: ncbigenomedownload-test
+  command: bash -c 'nextflow run ./subworkflows/local/ncbigenomedownload/test.nf -entry test_ncbigenomedownload --wf ncbigenomedownload --keep_downloads --max_time 5.m --format fasta --accession "GCF_000292685.1" -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - ncbigenomedownload
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/GCF_000292685.1_ASM29268v1_genomic.fna.gz
+      md5sum: f61a1eb1b151f456ecf847802c1dffbb
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.err
+      contains: ['Checking']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.log
+      contains: ['Checking']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.out
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.sh
+      contains: ['ncbi-genome-download', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/nf-ncbigenomedownload.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/ncbigenomedownload/logs/versions.yml
+      md5sum: c90ae9fe716b5283d951a7975596001f
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-dag.dot
+      contains: ['ncbigenomedownloaddag', 'NCBIGENOMEDOWNLOAD', 'versions']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/ncbigenomedownload/nf-reports/ncbigenomedownload-trace.txt
+      contains: ['task_id']

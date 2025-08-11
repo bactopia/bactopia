@@ -1,0 +1,94 @@
+name: kleborate
+description: Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
+icon: false
+tags:
+  - enterics
+  - fasta
+  - klebsiella
+  - serotype
+modules:
+  - kleborate
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Staphylococcus aureus fasta file.
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample kleborate result
+      pattern: "*-summary.tab"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all Kleborate result files
+      pattern: "kleborate.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+docs:
+  meta:
+    title: kleborate
+    description: >-
+      A Bactopia Tool which uses Kleborate to screen genome assemblies of _Klebsiella pneumoniae_
+      and the _Klebsiella pneumoniae_ species complex (KpSC).
+  introduction: |
+    The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of 
+    _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
+
+    - MLST, species,
+    - ICEKp associated virulence loci
+    - virulence plasmid associated loci
+    - antimicrobial resistance determinants,
+    - K (capsule) and O antigen (LPS) serotype prediction.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── kleborate
+      │           ├── <SAMPLE_NAME>.txt
+      │           └── logs
+      │               ├── nf-kleborate.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── kleborate-<TIMESTAMP>
+              ├── merged-results
+              │   ├── kleborate.tsv
+              │   └── logs
+              │       └── kleborate-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── kleborate-dag.dot
+                  ├── kleborate-report.html
+                  ├── kleborate-timeline.html
+                  └── kleborate-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: kleborate.tsv
+            description: A tab-delimited file with `Kleborate` results from all samples
+      - name: Kleborate
+        description: |
+          Below is a description of the _per-sample_ results from [Kleborate](https://github.com/katholt/Kleborate).
+        table: 
+          - id: <SAMPLE_NAME>.txt
+            description: A tab-delimited file with `Kleborate` result, see  [Kleborate - Example output](https://github.com/katholt/Kleborate/wiki/Tests-and-example-outputs#example-output) for more details.
+  citations:
+    - csvtk
+    - kleborate
+    - kaptive

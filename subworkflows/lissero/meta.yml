@@ -1,0 +1,86 @@
+name: lissero
+description: Serogroup typing prediction for _Listeria monocytogenes_
+icon: false
+tags:
+  - fasta
+  - Listeria monocytogenes
+  - serotype
+modules:
+  - lissero
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: A Listeria monocytogenes fasta file.
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A summary of the per-sample lissero result
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all lissero result files
+      pattern: "lissero.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  meta:
+    title: lissero
+    description: >-
+      A Bactopia Tool which uses LisSero for _in silico_ serotype prediction
+      for _Listeria monocytogenes_ assemblies.
+  introduction: |
+    The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for 
+    _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── lissero
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-lissero.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── lissero-<TIMESTAMP>
+              ├── merged-results
+              │   ├── lissero.tsv
+              │   └── logs
+              │       └── lissero-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── lissero-dag.dot
+                  ├── lissero-report.html
+                  ├── lissero-timeline.html
+                  └── lissero-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: lissero.tsv
+            description: A tab-delimited file with `LisSero` results from all samples
+      - name: LisSero
+        description: |
+          Below is a description of the _per-sample_ results from [LisSero](https://github.com/MDU-PHL/LisSero).
+        table:
+          - id: <SAMPLE_NAME>.tsv
+            description: A tab-delimited file with `LisSero` results
+  citations:
+    - csvtk
+    - lissero

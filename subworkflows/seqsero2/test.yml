@@ -1,0 +1,50 @@
+- name: seqsero2-test
+  command: bash -c 'nextflow run ./subworkflows/local/seqsero2/test.nf -entry test_seqsero2 --wf seqsero2 -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - seqsero2
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/seqsero2/merged-results/seqsero2.tsv
+      contains: ['GCF_016028495', 'Salmonella', 'Typhimurium']
+    - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-dag.dot
+      contains: ['seqsero2dag', 'SEQSERO2', 'versions']
+    - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/seqsero2/nf-reports/seqsero2-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_log.txt
+      contains: ['O_scores', 'H_scores', 'Salmonella']
+    - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_result.tsv
+      contains: ['GCF_016028495', 'Salmonella', 'Typhimurium']
+    - path: bactopia/GCF_016028495/tools/seqsero2/GCF_016028495_result.txt
+      contains: ['GCF_016028495', 'Salmonella', 'Typhimurium', 'Note']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.err
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.log
+      contains: ['GCF_016028495', 'Salmonella', 'Typhimurium', 'Note']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.out
+      contains: ['GCF_016028495', 'Salmonella', 'Typhimurium', 'Note']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.sh
+      contains: ['SeqSero2', 'END_VERSIONS']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/nf-seqsero2.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_016028495/tools/seqsero2/logs/versions.yml
+      md5sum: 9cb72302e4cfdf6cf561d734daa97c05

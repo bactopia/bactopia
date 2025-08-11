@@ -1,0 +1,104 @@
+name: mobsuite
+description: Reconstruct and annotate plasmids in bacterial assemblies
+icon: false
+keywords:
+  - plasmid
+  - annotation
+modules:
+  - mobsuite
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: FASTA assembly file
+      pattern: "*.{fasta,fasta.gz,fa,fa.gz,fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+  - chromosome:
+      type: file
+      description: FASTA file of all contigs found to belong to the chromosome
+      pattern: "chromosome.fasta"
+  - contig_report:
+      type: file
+      description: Assignment of the contig to chromosome or a particular plasmid grouping
+      pattern: "contig_report.txt"
+  - plasmids:
+      type: file
+      description: Each plasmid group is written to an individual FASTA
+      pattern: "plasmid_*.fasta"
+  - mobtyper_results:
+      type: file
+      description: Aggregate MOB-typer report files for all identified plasmid
+      pattern: "mobtyper_results.txt"
+docs:
+  meta:
+    title: mobsuite
+    description: >-
+      A Bactopia Tool which uses MOB-suite to reconstruct and annotate plasmids in
+      draft assemblies.
+  introduction:
+    The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
+    and annotate plasmids in draft assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── mobsuite
+      │           ├── <SAMPLE_NAME>-mobtyper.txt
+      │           ├── chromosome.fasta
+      │           ├── contig_report.txt
+      │           ├── logs
+      │           │   ├── nf-mobsuite.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           └── plasmid_<PLASMID_NAME>.fasta
+      └── bactopia-runs
+          └── mobsuite-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── mobsuite-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── mobsuite.tsv
+              └── nf-reports
+                  ├── mobsuite-dag.dot
+                  ├── mobsuite-report.html
+                  ├── mobsuite-timeline.html
+                  └── mobsuite-trace.txt
+
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: mobsuite.tsv
+            description: A merged TSV file with `mobsuite` results from all samples
+      - name: MOB-suite
+        description: |
+          Below is a description of the _per-sample_ results from [MOB-suite](https://github.com/phac-nml/mob-suite).
+        table:
+          - id: <SAMPLE_NAME>-mobtyper.txt
+            description: Aggregate MOB-typer report files for all identified plasmid, see [MOB-typer - report file](https://github.com/phac-nml/mob-suite#mob-typer-report-file-format) for more details
+          - id: chromosome.fasta
+            description: FASTA file of all contigs found to belong to the chromosome
+          - id: contig_report.txt
+            description: Assignment of the contig to chromosome or a particular plasmid grouping, see [MOB-recon - contig report](https://github.com/phac-nml/mob-suite#mob-recon-contig-report-format) for more details
+          - id: plasmid_<PLASMID_NAME>.fasta
+            description: Each plasmid group is written to an individual FASTA
+  citations:
+    - csvtk
+    - mobsuite
+    - mobsuite_db

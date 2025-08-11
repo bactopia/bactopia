@@ -12,6 +12,10 @@ work/
 trace.txt*
 *.simg
 
+# temp v4 folders
+modules-old/
+subworkflows-old/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

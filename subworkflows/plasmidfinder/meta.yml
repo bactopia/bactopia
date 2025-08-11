@@ -1,0 +1,109 @@
+name: plasmidfinder
+description: Plasmid identification from assemblies
+tags:
+  - plasmid
+  - fasta
+modules:
+  - plasmidfinder
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - json:
+      type: file
+      description: The results from analysis in JSON format
+      pattern: "*.json"
+  - txt:
+      type: file
+      description: The summary of results from analysis
+      pattern: "*.txt"
+  - tsv:
+      type: file
+      description: The results from analysis in TSV format
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all PlasmidFinder result files
+      pattern: "plasmidfinder.tsv"
+  - genome_seq:
+      type: file
+      description: FASTA of sequences in the input with a hit
+      pattern: "*-hit_in_genome_seq.fsa"
+  - plasmid_seq:
+      type: file
+      description: FASTA of plasmid sequences with a hit against the input
+      pattern: "*-plasmid_seqs.fsa"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+
+docs:
+  meta:
+    title: Bactopia Tools - 
+    description: |
+      A Bactopia Tool which uses
+  introduction: |
+      The `plasmidfinder` module identifies plasmids in total or partial sequenced isolates of bacteria.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── plasmidfinder
+      │           ├── <SAMPLE_NAME>-hit_in_genome_seq.fsa
+      │           ├── <SAMPLE_NAME>-plasmid_seqs.fsa
+      │           ├── <SAMPLE_NAME>.{json|tsv|txt}
+      │           └── logs
+      │               ├── nf-plasmidfinder.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── plasmidfinder-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── plasmidfinder-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── plasmidfinder.tsv
+              └── nf-reports
+                  ├── plasmidfinder-dag.dot
+                  ├── plasmidfinder-report.html
+                  ├── plasmidfinder-timeline.html
+                  └── plasmidfinder-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: plasmidfinder.tsv
+            description: A merged TSV file with `PlasmidFinder` results from all samples
+      - name: PlasmidFinder
+        description: |
+          Below is a description of the _per-sample_ results from [PlasmidFinder](https://bitbucket.org/genomicepidemiology/plasmidfinder/src/master/). 
+        table:
+          - id: <SAMPLE_NAME>.json
+            description: The results from analysis in JSON format
+          - id: <SAMPLE_NAME>.tsv
+            description: The results from analysis in TSV format
+          - id: <SAMPLE_NAME>.txt
+            description: A text file containing the result table and alignments
+          - id: <SAMPLE_NAME>-hit_in_genome_seq.fsa
+            description: A fasta file containing the best matching sequences from the query genome.
+          - id: <SAMPLE_NAME>-plasmid_seqs.fsa
+            description: A fasta file containing the best matching plasmid genes from the database.
+  citations:
+    - csvtk
+    - plasmidfinder

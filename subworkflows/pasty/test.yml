@@ -1,0 +1,48 @@
+- name: pasty-test
+  command: bash -c 'nextflow run ./subworkflows/local/pasty/test.nf -entry test_pasty --wf pasty -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - pasty
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.err
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.log
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.out
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.sh
+      contains: ['csvtk', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/nf-merged-results.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/pasty/merged-results/logs/pasty-concat/versions.yml
+      contains: ['csvtk']
+    - path: bactopia/bactopia-runs/pasty/merged-results/pasty.tsv
+      md5sum: 3f0b647b733d1c01212c1f475527aef4
+    - path: bactopia/bactopia-runs/pasty/nf-reports/pasty-dag.dot
+      contains: ['pastydag', 'PASTY', 'versions']
+    - path: bactopia/bactopia-runs/pasty/nf-reports/pasty-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/pasty/nf-reports/pasty-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/pasty/nf-reports/pasty-trace.txt
+      contains: ['task_id']
+    - path: bactopia/GCF_000006765/tools/pasty/GCF_000006765.blastn.tsv
+      md5sum: dcaf63876416cd5c19d868cfbf446258
+    - path: bactopia/GCF_000006765/tools/pasty/GCF_000006765.details.tsv
+      md5sum: 1215b1d8dd346836e07404c0a13c79f1
+    - path: bactopia/GCF_000006765/tools/pasty/GCF_000006765.tsv
+      md5sum: fdffd76c66ee57072cd5e8da474bba34
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.err
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.log
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.out
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.sh
+      contains: ['pasty', 'END_VERSIONS']
+    - path: bactopia/GCF_000006765/tools/pasty/logs/nf-pasty.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/GCF_000006765/tools/pasty/logs/versions.yml
+      md5sum: 0e3b57c028ccc20284044ee8f5ae8640

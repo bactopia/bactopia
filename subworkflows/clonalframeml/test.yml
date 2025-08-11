@@ -1,0 +1,68 @@
+- name: clonalframeml-test
+  command: bash -c 'nextflow run ./subworkflows/local/clonalframeml/test.nf -entry test_clonalframeml --wf clonalframeml -c nextflow.config ${BACTOPIA_ARGS}'
+  tags:
+    - clonalframeml
+    - bactopia-tools
+  files:
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.ML_sequence.fasta.gz
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.em.txt
+      md5sum: 8a93c4d39c326b3ec0c471f067384498
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.emsim.txt
+      contains: ['theta']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.importation_status.txt
+      md5sum: cd67d32ee61ed2bb56dc6d8e302b1517
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.labelled_tree.newick
+      md5sum: 66634ad58496ac73b7752ce0a7c02dad
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.masked.aln.gz
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/clonalframe.position_cross_reference.txt.gz
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.err
+      contains: ['Checking', 'Reading']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.log
+      contains: ['newick', 'Reading', 'Done']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.out
+      contains: ['newick', 'Read', 'done']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.sh
+      contains: ['ClonalFrameML', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/nf-clonalframeml.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/clonalframeml/clonalframeml/logs/versions.yml
+      md5sum: f5a4fbafe6ab9c7959cb229adcfde883
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.begin
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.err
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.out
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.run
+      contains: ['NXF_DEBUG', '$NXF_ENTRY']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.sh
+      contains: ['iqtree', 'END_VERSIONS']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/nf-iqtree-fast.trace
+      contains: ['nextflow.trace']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/start-tree.log
+      contains: ['iqtree', 'Kernel', 'written']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/logs/versions.yml
+      md5sum: d0a6c682d0f4bc4ef9cd95bde410524e
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.bionj
+      contains: ['GCF_000292685']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.ckp.gz
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.iqtree
+      contains: ['REFERENCES', 'Date', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.mldist
+      contains: ['GCF_000292685', 'GCF_000300075', 'GCF_002849995']
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.model.gz
+    - path: bactopia/bactopia-runs/clonalframeml/iqtree-fast/start-tree.treefile
+      contains: ['GCF_902713755']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-dag.dot
+      contains: ['clonalframemldag', 'CLONALFRAMEML', 'versions']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-report.html
+      contains: ['html', 'Nextflow', 'Report']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-timeline.html
+      contains: ['html', 'Nextflow', 'timeline']
+    - path: bactopia/bactopia-runs/clonalframeml/nf-reports/clonalframeml-trace.txt
+      contains: ['task_id']

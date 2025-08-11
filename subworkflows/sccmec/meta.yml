@@ -1,0 +1,115 @@
+name: sccmec
+description: A tool for typing SCCmec cassettes in assemblies
+icon: false
+keywords:
+  - fasta
+  - resistance
+  - Staphylococcus aureus
+modules:
+  - sccmec
+input:
+  - meta:
+    type: map
+    description: |
+      Groovy Map containing sample information
+      e.g. [ id:'test', single_end:false ]
+  - fasta:
+      type: file
+      description: The final assembly in FASTA format
+      pattern: "*.{fna,fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - tsv:
+      type: file
+      description: A tab-delimited file with the predicted PBP type
+      pattern: "*.tsv"
+  - merged_tsv:
+      type: file
+      description: A merged TSV of all sccmec result files
+      pattern: "sccmec.tsv"
+  - targets:
+      type: file
+      description: A tab-delimited file of all target-specific blast hits
+      pattern: "*.targets.blastn.tsv"
+  - targets_details:
+      type: file
+      description: A tab-delimited file with details for each type based on targets
+      pattern: "*.targets.details.tsv"
+  - regions:
+      type: file
+      description: A tab-delimited file of all full cassette blast hits
+      pattern: "*.regions.blastn.tsv"
+  - regions_details:
+      type: file
+      description: A tab-delimited file with details for each type based on full cassettes
+      pattern: "*.regions.details.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: 'versions.yml'
+docs:
+  meta:
+    title: sccmec
+    description: >-
+      A Bactopia Tool which uses sccmec for typing SCCmec cassettes
+      in _Staphylococcus aureus_ assemblies.
+  introduction: |
+      The `sccmec` module uses [sccmec](https://github.com/rpetit3/sccmec) for typing
+      SCCmec cassettes in _Staphylococcus aureus_ assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── sccmec
+              │   ├── <SAMPLE_NAME>.targets.blastn.tsv
+              │   ├── <SAMPLE_NAME>.targets.details.tsv
+              │   ├── <SAMPLE_NAME>.regions.blastn.tsv
+              │   ├── <SAMPLE_NAME>.regions.details.tsv
+      │           ├── <SAMPLE_NAME>.tsv
+      │           └── logs
+      │               ├── nf-sccmec.{begin,err,log,out,run,sh,trace}
+      │               └── versions.yml
+      └── bactopia-runs
+          └── sccmec-<TIMESTAMP>
+              ├── merged-results
+              │   ├── logs
+              │   │   └── sccmec-concat
+              │   │       ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │   │       └── versions.yml
+              │   └── sccmec.tsv
+              └── nf-reports
+                  ├── sccmec-dag.dot
+                  ├── sccmec-report.html
+                  ├── sccmec-timeline.html
+                  └── sccmec-trace.txt
+    add_note: true
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: sccmec.tsv
+            description: A merged TSV file with `sccmec` results from all samples
+      - name: sccmec
+        description: |
+          Below is a description of the _per-sample_ results from [sccmec](https://github.com/rpetit3/sccmec).
+        is_extensions: true
+        table:
+          - id: .tsv
+            description: A tab-delimited file with the predicted type
+          - id: .targets.blastn.tsv
+            description: A tab-delimited file of all target-specific blast hits
+          - id: .targets.details.tsv
+            description: A tab-delimited file with details for each type based on targets
+          - id: .regions.blastn.tsv
+            description: A tab-delimited file of all full cassette blast hits
+          - id: .regions.details.tsv
+            description: A tab-delimited file with details for each type based on full cassettes
+  citations:
+    - csvtk
+    - sccmec

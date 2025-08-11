@@ -1,0 +1,116 @@
+name: btyper3
+description: Taxonomic classification of Bacillus cereus group isolates
+icon: false
+keywords:
+  - classify
+  - bacillus cereus group
+  - fasta
+modules:
+  - btyper3
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - fasta:
+      type: file
+      description: A genome assembly in FASTA format.
+      pattern: "*.{fasta|fasta.gz|fa|fa.gz|fna|fna.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - tsv:
+      type: file
+      description: Tab-delimited file of Btyper3 results
+      pattern: "*_final_results.txt"
+  - results:
+      type: file
+      description: A directory of results from Btyper3 run
+      pattern: "results/*"
+docs:
+  meta:
+    title: btyper3
+    description: >
+      A Bactopia Tool which uses BTyper3 to classify Bacillus cereus group isolates from
+      genome assemblies.
+  introduction: |
+      The `btyper3` module uses [BTyper3](https://github.com/lmc297/BTyper3) to classify
+      Bacillus cereus group isolates from genome assemblies.
+  output:
+    tree: |
+      <BACTOPIA_DIR>
+      ├── <SAMPLE_NAME>
+      │   └── tools
+      │       └── btyper3
+      │           ├── <SAMPLE_NAME>_final_results.txt
+      │           ├── bt
+      │           │   └── <SAMPLE_NAME>_bt.txt
+      │           ├── logs
+      │           │   ├── <SAMPLE_NAME>.log
+      │           │   ├── nf-btyper3.{begin,err,log,out,run,sh,trace}
+      │           │   └── versions.yml
+      │           ├── mlst
+      │           │   └── <SAMPLE_NAME>_mlst.txt
+      │           ├── panC
+      │           │   └── <SAMPLE_NAME>_panC.txt
+      │           ├── species
+      │           │   └── <SAMPLE_NAME>_species_fastani.txt
+      │           ├── subspecies
+      │           │   └── <SAMPLE_NAME>_subspecies_fastani.txt
+      │           ├── typestrains
+      │           │   └── <SAMPLE_NAME>_typestrains_fastani.txt
+      │           └── virulence
+      │               └── <SAMPLE_NAME>_virulence.txt
+      └── bactopia-runs
+          └── btyper3-<TIMESTAMP>
+              ├── merged-results
+              │   ├── btyper3.tsv
+              │   └── logs
+              │       └── btyper3-concat
+              │           ├── nf-merged-results.{begin,err,log,out,run,sh,trace}
+              │           └── versions.yml
+              └── nf-reports
+                  ├── btyper3-dag.dot
+                  ├── btyper3-report.html
+                  ├── btyper3-timeline.html
+                  └── btyper3-trace.txt
+    add_note: false
+    folders:
+      - name: Merged Results
+        description: |
+          Below are results that are concatenated into a single file.
+        table:
+          - id: btyper3.tsv
+            description: A merged TSV file with `BTyper3` results from all samples
+      - name: btyper3
+        description: |
+          Below is a description of the _per-sample_ results from [BTyper3](https://github.com/lmc297/BTyper3).
+        is_extensions: true
+        table:
+          - id: _final_results.txt
+            description: A final tab-delimited file of BTyper3 results
+          - id: _bt.txt
+            description: BLAST results from Bt genes detection
+          - id: _mlst.txt
+            description: BLAST results against a MLST database
+          - id: _panC.txt
+            description: BLAST results from panC group assignment
+          - id: _species_fastani.txt
+            description: FastANI results for species assignment
+          - id: _subspecies_fastani.txt
+            description: FastANI results for subspecies assignment
+          - id: _typestrains_fastani.txt
+            description: FastANI results for type strain comparison
+          - id: _virulence.txt
+            description: BLAST results against a virulence database
+  citations:
+    - btyper2
+    - btyper3

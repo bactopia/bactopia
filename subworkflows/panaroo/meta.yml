@@ -1,0 +1,42 @@
+name: panaroo
+description: Pipeline for pangenome investigations
+introduction: |
+  The `panaroo` module uses [Panaroo](https://github.com/gtonkinhill/panaroo) to create a pan-genome of 
+  your samples.
+icon: false
+tags:
+  - gff
+  - pan-genome
+  - alignment
+modules:
+  - panaroo
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - gff:
+      type: file
+      description: A set of GFF3 formatted files
+      pattern: "*.{gff,gff.gz}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - aln:
+      type: file
+      description: Core-genome alignment produced by Panaroo
+      pattern: "*.aln.gz"
+  - csv:
+      type: file
+      description: Gene presence/absence CSV compatible with Scoary
+      pattern: "*.csv"
+citations:
+  - panaroo

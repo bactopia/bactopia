@@ -10,9 +10,6 @@ process SEROBA_RUN {
     input:
     tuple val(meta), path(reads)
 
-    when:
-    meta.single_end == false
-
     output:
     tuple val(meta), path("results/${prefix}.tsv")                              , emit: tsv
     tuple val(meta), path("results/detailed_serogroup_info.txt"), optional: true, emit: txt
