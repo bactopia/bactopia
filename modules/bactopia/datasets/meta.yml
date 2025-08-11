@@ -1,0 +1,37 @@
+name: datasets
+description: Download datasets to be used by Bactopia
+keywords:
+  - download
+  - datasets
+  - bactopia
+tools:
+  - wget:
+      description: |
+        GNU Wget is a free software package for retrieving files using HTTP, HTTPS, FTP and FTPS
+      homepage: https://www.gnu.org/software/wget/
+      documentation: https://www.gnu.org/software/wget/manual/
+      licence: ["GPL v3"]
+
+input:
+  - None
+
+output:
+  - amrfinderplus_db:
+      type: file
+      description: AMRFinderPlus database
+      pattern: "*/amrfinderplus.tar.gz"
+  - mlst_db:
+      type: file
+      description: MLST database
+      pattern: "*/mlst.tar.gz"
+  - mash_db:
+      type: file
+      description: Mash database
+      pattern: "mash-refseq88.k21.msh.xz"
+  - sourmash_db:
+      type: file
+      description: Sourmash database
+      pattern: "gtdb-rs207.genomic-reps.dna.k31.lca.json.gz"
+
+authors:
+  - "@rpetit3"

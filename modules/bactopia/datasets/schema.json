@@ -1,0 +1,7 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Datasets Module",
+    "description": "A module downloading datasets to be used by Bactopia",
+    "type": "object",
+    "properties": {}
+}
