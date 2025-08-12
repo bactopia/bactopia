@@ -4,22 +4,24 @@ process ARIBA_GETREF {
     storeDir params.datasets_cache
     publishDir params.datasets_cache
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.conda_env}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? 
+        task.ext.container_image : 
+        task.ext.container }"
 
     input:
     val(db_name)
 
     output:
-    path("ariba-${db_name}.tar.gz") , emit: db
-    path ".command.begin"           , emit: nf_begin
-    path ".command.err"             , emit: nf_err
-    path ".command.log"             , emit: nf_log
-    path ".command.out"             , emit: nf_out
-    path ".command.run"             , emit: nf_run
-    path ".command.sh"              , emit: nf_sh
-    path ".command.trace"           , emit: nf_trace
-    path "versions.yml"             , emit: versions
+    path("ariba-${db_name}.tar.gz"), emit: db
+    path ".command.begin", emit: begin, optional: true
+    path ".command.err", emit: err
+    path ".command.log", emit: log_file
+    path ".command.out", emit: out
+    path ".command.run", emit: run
+    path ".command.sh", emit: sh
+    path ".command.trace", emit: trace
+    path "versions.yml", emit: versions
 
     script:
     """

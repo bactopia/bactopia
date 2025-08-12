@@ -27,26 +27,18 @@ workflow {
     }
 
     publish:
-    tsv = RGI.out.tsv
-    merged_tsv = RGI.out.merged_tsv
-    json = RGI.out.json
-    heatmap = RGI.out.heatmap
+    results = RGI.out.tsv.mix(
+        RGI.out.merged_tsv,
+        RGI.out.json,
+        RGI.out.heatmap
+    )
     logs = RGI.out.logs
     nf_logs = RGI.out.nf_logs
     versions = RGI.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    json {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    heatmap {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

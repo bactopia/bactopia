@@ -8,22 +8,25 @@ process CHECKM2_DOWNLOAD {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     output:
-    path "checkm2_db_v${db_version}.dmnd", emit: db
-    path "contents.json"                 , emit: json
-    path "*.{log,err}"                   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                              , emit: nf_begin
-    tuple val(meta), path(".command.err")                                , emit: nf_err
-    tuple val(meta), path(".command.log")                                , emit: nf_log
-    tuple val(meta), path(".command.out")                                , emit: nf_out
-    tuple val(meta), path(".command.run")                                , emit: nf_run
-    tuple val(meta), path(".command.sh")                                 , emit: nf_sh
-    tuple val(meta), path(".command.trace")                              , emit: nf_trace
-    path "versions.yml"                  , emit: versions
+    path "checkm2_db_v${db_version}.dmnd"  , emit: db
+    path "contents.json"                   , emit: json
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     zenodo_id  = 5571251  // Default to latest version 
     api_data   = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
     db_version = api_data.metadata.version

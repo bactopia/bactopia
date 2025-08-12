@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = LEGSTA.out.tsv
-    merged_tsv = LEGSTA.out.merged_tsv
+    results = LEGSTA.out.tsv.mix(
+        LEGSTA.out.merged_tsv
+    )
     logs = LEGSTA.out.logs
     nf_logs = LEGSTA.out.nf_logs
     versions = LEGSTA.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

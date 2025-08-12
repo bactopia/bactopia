@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    csv = MYKROBE.out.csv
-    json = MYKROBE.out.json
-    merged_csv = MYKROBE.out.merged_csv
+    results = MYKROBE.out.csv.mix(
+        MYKROBE.out.json,
+        MYKROBE.out.merged_csv
+    )
     logs = MYKROBE.out.logs
     nf_logs = MYKROBE.out.nf_logs
     versions = MYKROBE.out.versions
 }
 
 output {
-    csv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    json {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_csv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -27,14 +27,14 @@ workflow {
     }
 
     publish:
-    phylogeny = IQTREE.out.phylogeny
+    results = IQTREE.out.phylogeny
     logs = IQTREE.out.logs
     nf_logs = IQTREE.out.nf_logs
     versions = IQTREE.out.versions
 }
 
 output {
-    phylogeny {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -2,7 +2,7 @@ process SKETCHER {
     tag "${meta.id}"
     label "process_low"
 
-    conda "${task.ext.conda}"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         "${task.ext.singularity}${task.ext.singularity_version}" :
         "${task.ext.docker}${task.ext.docker_version}" }"
@@ -17,18 +17,21 @@ process SKETCHER {
     tuple val(meta), path("${prefix}-k*.msh")                     , emit: msh
     tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")      , emit: mash
     tuple val(meta), path("${prefix}-sourmash-gtdb-rs207-k31.txt"), emit: sourmash
-    path "*.{log,err}", emit: logs, optional: true
-    path ".command.out", emit: nf_out
-    path ".command.err", emit: nf_err
-    path ".command.log", emit: nf_log
-    path ".command.sh", emit: nf_sh
-    path ".command.trace", emit: nf_trace
-    path ".command.run", emit: nf_run, optional: true
-    path ".command.begin", emit: nf_begin
-    path "versions.yml", emit: versions
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.out")  , emit: nf_nf_out
+    tuple val(meta), path(".command.err")  , emit: nf_nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_nf_log
+    tuple val(meta), path(".command.sh")   , emit: nf_nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_nf_trace
+    tuple val(meta), path(".command.run")  , emit: nf_nf_run, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_nf_begin
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     prefix = task.ext.suffix ? "${task.ext.suffix}" : "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     def is_compressed = mash_db.getName().endsWith(".xz") ? true : false
     def mash_name = mash_db.getName().replace(".xz", "")
     """

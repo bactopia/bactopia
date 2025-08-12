@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = PASTY.out.tsv
-    blast = PASTY.out.blast
-    merged_tsv = PASTY.out.merged_tsv
+    results = PASTY.out.tsv.mix(
+        PASTY.out.blast,
+        PASTY.out.merged_tsv
+    )
     logs = PASTY.out.logs
     nf_logs = PASTY.out.nf_logs
     versions = PASTY.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    blast {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

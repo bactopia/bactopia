@@ -27,9 +27,10 @@ workflow {
     }
 
     publish:
-    results = CHECKM.out.results
-    report = CHECKM.out.report
-    merged_reports = CHECKM.out.merged_reports
+    results = CHECKM.out.results.mix(
+        CHECKM.out.report,
+        CHECKM.out.merged_reports
+    )
     logs = CHECKM.out.logs
     nf_logs = CHECKM.out.nf_logs
     versions = CHECKM.out.versions
@@ -37,12 +38,6 @@ workflow {
 
 output {
     results {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    report {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_reports {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = MIDAS.out.tsv
-    abundances = MIDAS.out.abundances
-    merged_tsv = MIDAS.out.merged_tsv
+    results = MIDAS.out.tsv.mix(
+        MIDAS.out.abundances,
+        MIDAS.out.merged_tsv
+    )
     logs = MIDAS.out.logs
     nf_logs = MIDAS.out.nf_logs
     versions = MIDAS.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    abundances {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

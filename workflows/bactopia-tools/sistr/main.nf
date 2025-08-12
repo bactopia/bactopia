@@ -1,30 +1,62 @@
 #!/usr/bin/env nextflow
 nextflow.preview.output = true
 
-include { BACTOPIATOOL_INIT } from '../../lib/nf/bactopia-tool/init'
-include { SISTR } from '../../subworkflows/sistr/main'
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { SISTR         } from '../../../subworkflows/sistr/main'
+include { workflowSummary   } from 'plugin/nf-bactopia'
 
+/*
+========================================================================================
+    RUN MAIN WORKFLOW
+========================================================================================
+*/
 workflow {
-    // Initialize samples
-    samples = BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
 
-    SISTR(samples)
+    main:
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    
+    SISTR(BACTOPIATOOL_INIT.out.samples)
 
-    publish {
-        SISTR.out.tsv >> 'sistr'
-        SISTR.out.merged_tsv >> 'sistr'
-        SISTR.out.allele_fasta >> 'sistr'
-        SISTR.out.allele_json >> 'sistr'
-        SISTR.out.cgmlst_csv >> 'sistr'
-        SISTR.out.logs >> 'logs/sistr'
-        SISTR.out.nf_logs >> 'logs/nextflow'
+    workflow.onComplete {
+        log.info workflowSummary()
     }
 
-    output {
-        meta {
-            output_dir = "bactopia-tools/${meta.id}/${meta.output_dir}"
-            logs_dir = "bactopia-tools/${meta.id}/${meta.logs_dir}"
-            process_name = "${meta.process_name}"
-        }
+    publish:
+    results = BACTOPIATOOL_INIT.out.tsv.mix(
+        BACTOPIATOOL_INIT.out.merged_tsv,
+        BACTOPIATOOL_INIT.out.allele_fasta,
+        BACTOPIATOOL_INIT.out.allele_json,
+        BACTOPIATOOL_INIT.out.cgmlst_csv
+    )
+    logs = SISTR.out.logs
+    nf_logs = SISTR.out.nf_logs
+    versions = SISTR.out.versions
+}
+
+output {
+    results {
+        path { meta, _file -> "${meta.output_dir}/" }
+    }
+    logs {
+        path { meta, _file -> "${meta.logs_dir}/" }
+    }
+    nf_logs {
+        path { meta, file -> {
+            file >> "${meta.logs_dir}/nf${file.name}"
+        } }
+    }
+    versions {
+        path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
+
+/*
+========================================================================================
+    THE END
+========================================================================================
+*/

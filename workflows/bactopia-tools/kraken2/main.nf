@@ -27,14 +27,14 @@ workflow {
     }
 
     publish:
-    kraken2_report = KRAKEN2.out.kraken2_report
+    results = KRAKEN2.out.kraken2_report
     logs = KRAKEN2.out.logs
     nf_logs = KRAKEN2.out.nf_logs
     versions = KRAKEN2.out.versions
 }
 
 output {
-    kraken2_report {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

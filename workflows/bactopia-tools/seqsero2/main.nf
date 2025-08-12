@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = SEQSERO2.out.tsv
-    txt = SEQSERO2.out.txt
-    merged_tsv = SEQSERO2.out.merged_tsv
+    results = SEQSERO2.out.tsv.mix(
+        SEQSERO2.out.txt,
+        SEQSERO2.out.merged_tsv
+    )
     logs = SEQSERO2.out.logs
     nf_logs = SEQSERO2.out.nf_logs
     versions = SEQSERO2.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    txt {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

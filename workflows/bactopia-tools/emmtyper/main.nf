@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = EMMTYPER.out.tsv
-    merged_tsv = EMMTYPER.out.merged_tsv
+    results = EMMTYPER.out.tsv.mix(
+        EMMTYPER.out.merged_tsv
+    )
     logs = EMMTYPER.out.logs
     nf_logs = EMMTYPER.out.nf_logs
     versions = EMMTYPER.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

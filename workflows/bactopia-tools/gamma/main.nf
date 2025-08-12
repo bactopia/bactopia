@@ -27,12 +27,9 @@ workflow {
     }
 
     publish:
-    results = GAMMA.out.gamma.mix(
-        GAMMA.out.psl,
-        GAMMA.out.fasta,
-        GAMMA.out.gff
+    results = GAMMA.out.gamma.mix(.mix(
+        GAMMA.out.merged_gamma
     )
-    merged_gamma = GAMMA.out.merged_gamma
     logs = GAMMA.out.logs
     nf_logs = GAMMA.out.nf_logs
     versions = GAMMA.out.versions
@@ -40,9 +37,6 @@ workflow {
 
 output {
     results {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_gamma {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

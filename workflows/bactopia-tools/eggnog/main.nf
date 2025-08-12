@@ -27,14 +27,14 @@ workflow {
     }
 
     publish:
-    hits = EGGNOG.out.hits
+    results = EGGNOG.out.hits
     logs = EGGNOG.out.logs
     nf_logs = EGGNOG.out.nf_logs
     versions = EGGNOG.out.versions
 }
 
 output {
-    hits {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

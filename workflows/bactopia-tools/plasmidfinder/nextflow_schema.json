@@ -61,6 +61,14 @@
                 }
             }
         },
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        },
         "optional_parameters": {
             "title": "Optional Parameters",
             "type": "object",
@@ -269,19 +277,14 @@
                 },
                 "registry": {
                     "type": "string",
-                    "default": "dockerhub",
+                    "default": "quay.io",
                     "hidden": true,
-                    "description": "Docker registry to pull containers from.",
-                    "fa_icon": "fas fa-box",
-                    "enum": [
-                        "dockerhub",
-                        "quay",
-                        "github"
-                    ]
+                    "description": "Registry to pull Docker containers from.",
+                    "fa_icon": "fas fa-box"
                 },
                 "datasets_cache": {
                     "type": "string",
-                    "default": "<BACTOPIA_DIR>/data/datasets",
+                    "default": "<HOME>/.bactopia/datasets",
                     "description": "Directory where downloaded datasets should be stored.",
                     "help": "",
                     "fa_icon": "fas fa-folder"
@@ -417,6 +420,9 @@
         },
         {
             "$ref": "#/$defs/plasmidfinder_parameters"
+        },
+        {
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

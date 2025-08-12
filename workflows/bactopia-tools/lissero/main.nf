@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = LISSERO.out.tsv
-    merged_tsv = LISSERO.out.merged_tsv
+    results = LISSERO.out.tsv.mix(
+        LISSERO.out.merged_tsv
+    )
     logs = LISSERO.out.logs
     nf_logs = LISSERO.out.nf_logs
     versions = LISSERO.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

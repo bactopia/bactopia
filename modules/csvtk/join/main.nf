@@ -14,14 +14,14 @@ process CSVTK_JOIN {
     output:
     tuple val(meta), path("${prefix}.${out_extension}"), emit: csv
     tuple val(meta), path("*.{log,err}")               , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")             , emit: nf_begin
-    tuple val(meta), path(".command.err")               , emit: nf_err
-    tuple val(meta), path(".command.log")               , emit: nf_log
-    tuple val(meta), path(".command.out")               , emit: nf_out
-    tuple val(meta), path(".command.run")               , emit: nf_run
-    tuple val(meta), path(".command.sh")                , emit: nf_sh
-    tuple val(meta), path(".command.trace")             , emit: nf_trace
-    tuple val(meta), path("versions.yml")               , emit: versions
+    tuple val(meta), path(".command.begin")            , emit: nf_begin
+    tuple val(meta), path(".command.err")              , emit: nf_err
+    tuple val(meta), path(".command.log")              , emit: nf_log
+    tuple val(meta), path(".command.out")              , emit: nf_out
+    tuple val(meta), path(".command.run")              , emit: nf_run
+    tuple val(meta), path(".command.sh")               , emit: nf_sh
+    tuple val(meta), path(".command.trace")            , emit: nf_trace
+    tuple val(meta), path("versions.yml")              , emit: versions
 
     script:
     prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"

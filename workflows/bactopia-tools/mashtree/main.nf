@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tree = MASHTREE.out.tree
-    matrix = MASHTREE.out.matrix
-    sketches = MASHTREE.out.sketches
+    results = MASHTREE.out.tree.mix(
+        MASHTREE.out.matrix,
+        MASHTREE.out.sketches
+    )
     logs = MASHTREE.out.logs
     nf_logs = MASHTREE.out.nf_logs
     versions = MASHTREE.out.versions
 }
 
 output {
-    tree {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    matrix {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    sketches {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

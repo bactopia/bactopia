@@ -2,9 +2,8 @@ process DEFENSEFINDER_RUN {
     tag "$meta.id"
     label 'process_low'
 
-    conda "${task.ext.conda}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}":"${task.ext.docker}" }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(fasta)
@@ -17,18 +16,24 @@ process DEFENSEFINDER_RUN {
     tuple val(meta), path("*.prt")                       , emit: proteins
     tuple val(meta), path("*.prt.idx")                   , emit: proteins_index
     tuple val(meta), path("${prefix}.macsydata.tar.gz")  , emit: macsydata_raw, optional: true
-    path "*.{log,err}", emit: logs, optional: true
-    path ".command.{begin,err,log,out,run,sh,trace}", emit: nf_logs
-    path "versions.yml", emit: versions
+    tuple val(meta), path("*.{log,err}")                 , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")              , emit: nf_begin
+    tuple val(meta), path(".command.err")                , emit: nf_err
+    tuple val(meta), path(".command.log")                , emit: nf_log
+    tuple val(meta), path(".command.out")                , emit: nf_out
+    tuple val(meta), path(".command.run")                , emit: nf_run
+    tuple val(meta), path(".command.sh")                 , emit: nf_sh
+    tuple val(meta), path(".command.trace")              , emit: nf_trace
+    tuple val(meta), path("versions.yml")                , emit: versions
 
     script:
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     """
     echo "task.ext.args: ${task.ext.args}"
-    
-    # Create .command.begin
-    date > .command.begin
     
     # Extract database
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)

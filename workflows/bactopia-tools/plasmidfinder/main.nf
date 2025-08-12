@@ -27,26 +27,18 @@ workflow {
     }
 
     publish:
-    tsv = PLASMIDFINDER.out.tsv
-    merged_tsv = PLASMIDFINDER.out.merged_tsv
-    genome_seq = PLASMIDFINDER.out.genome_seq
-    plasmid_seq = PLASMIDFINDER.out.plasmid_seq
+    results = PLASMIDFINDER.out.tsv.mix(
+        PLASMIDFINDER.out.merged_tsv,
+        PLASMIDFINDER.out.genome_seq,
+        PLASMIDFINDER.out.plasmid_seq
+    )
     logs = PLASMIDFINDER.out.logs
     nf_logs = PLASMIDFINDER.out.nf_logs
     versions = PLASMIDFINDER.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    genome_seq {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    plasmid_seq {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

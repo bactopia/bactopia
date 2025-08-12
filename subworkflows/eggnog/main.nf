@@ -11,32 +11,27 @@ workflow EGGNOG {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
 
-    DATABASE = params.eggnog_db ? file(params.eggnog_db) : []
 
     if (params.download_eggnog) {
         // Force EGGNOG_MAPPER to wait
         EGGNOG_DOWNLOAD()
         ch_versions = ch_versions.mix(EGGNOG_DOWNLOAD.out.versions)
         ch_logs = ch_logs.mix(EGGNOG_DOWNLOAD.out.logs)
-        ch_nf_logs = ch_nf_logs.mix(EGGNOG_DOWNLOAD.out.nf_logs)
-        
-        if (params.eggnog_save_as_tarball) {
-            EGGNOG_MAPPER(faa, EGGNOG_DOWNLOAD.out.db_tarball)
-        } else {
-            EGGNOG_MAPPER(faa, EGGNOG_DOWNLOAD.out.db)
-        }
-    } else {
-        EGGNOG_MAPPER(faa, DATABASE)
-    }
     ch_versions = ch_versions.mix(EGGNOG_MAPPER.out.versions.first())
     ch_logs = ch_logs.mix(EGGNOG_MAPPER.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(EGGNOG_MAPPER.out.nf_logs)
 
     emit:
     hits = EGGNOG_MAPPER.out.hits
-    logs = ch_logs // channel: [ val(meta), [ logs ] ]
-    nf_logs = ch_nf_logs // channel: [ val(meta), [ nf_logs ] ]
+    DATABASE = params.eggnog_db ? file(params.eggnog_db) : []
+    logs = ch_logs
+    nf_logs = EGGNOG_DOWNLOAD.out.nf_begin.mix(
+        EGGNOG_DOWNLOAD.out.nf_err,
+        EGGNOG_DOWNLOAD.out.nf_log,
+        EGGNOG_DOWNLOAD.out.nf_out,
+        EGGNOG_DOWNLOAD.out.nf_run,
+        EGGNOG_DOWNLOAD.out.nf_sh,
+        EGGNOG_DOWNLOAD.out.nf_trace
+    )
     versions = ch_versions
 }

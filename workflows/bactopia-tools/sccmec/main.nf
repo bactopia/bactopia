@@ -27,34 +27,20 @@ workflow {
     }
 
     publish:
-    tsv = SCCMEC.out.tsv
-    merged_tsv = SCCMEC.out.merged_tsv
-    targets = SCCMEC.out.targets
-    target_details = SCCMEC.out.target_details
-    regions = SCCMEC.out.regions
-    regions_details = SCCMEC.out.regions_details
+    results = SCCMEC.out.tsv.mix(
+        SCCMEC.out.merged_tsv,
+        SCCMEC.out.targets,
+        SCCMEC.out.target_details,
+        SCCMEC.out.regions,
+        SCCMEC.out.regions_details
+    )
     logs = SCCMEC.out.logs
     nf_logs = SCCMEC.out.nf_logs
     versions = SCCMEC.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    targets {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    target_details {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    regions {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    regions_details {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

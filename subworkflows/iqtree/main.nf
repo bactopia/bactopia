@@ -10,16 +10,20 @@ workflow IQTREE {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-
     IQTREE_MODULE(aln)
     ch_versions = ch_versions.mix(IQTREE_MODULE.out.versions.first())
     ch_logs = ch_logs.mix(IQTREE_MODULE.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(IQTREE_MODULE.out.nf_logs)
 
     emit:
     phylogeny = IQTREE_MODULE.out.phylogeny
-    logs = ch_logs // channel: [ val(meta), [ logs ] ]
-    nf_logs = ch_nf_logs // channel: [ val(meta), [ nf_logs ] ]
-    versions = ch_versions // channel: [ versions.yml ]
+    logs = ch_logs
+    nf_logs = IQTREE_MODULE.out.nf_begin.mix(
+        IQTREE_MODULE.out.nf_err,
+        IQTREE_MODULE.out.nf_log,
+        IQTREE_MODULE.out.nf_out,
+        IQTREE_MODULE.out.nf_run,
+        IQTREE_MODULE.out.nf_sh,
+        IQTREE_MODULE.out.nf_trace
+    )
+    versions = ch_versions
 }

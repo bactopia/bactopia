@@ -2,10 +2,8 @@ process TBPROFILER_PROFILE {
     tag "$meta.id"
     label 'process_medium'
 
-    conda "${task.ext.conda_env}"
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/tb-profiler:6.6.3--pyhdfd78af_0' :
-        'quay.io/biocontainers/tb-profiler:6.6.3--pyhdfd78af_0' }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(reads)
@@ -16,18 +14,21 @@ process TBPROFILER_PROFILE {
     tuple val(meta), path("results/*.json.gz"), emit: json
     tuple val(meta), path("results/*.txt")    , emit: txt, optional: true
     tuple val(meta), path("vcf/*.vcf.gz")     , emit: vcf
-    path "*.{log,err}" , emit: logs, optional: true
-    path ".command.begin"   , emit: begin
-    path ".command.err"     , emit: err
-    path ".command.log"     , emit: log
-    path ".command.out"     , emit: out
-    path ".command.run"     , emit: run
-    path ".command.sh"      , emit: sh
-    path ".command.trace"   , emit: trace
-    path "versions.yml", emit: versions
+    tuple val(meta), path("*.{log,err}")      , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")   , emit: nf_begin
+    tuple val(meta), path(".command.err")     , emit: nf_err
+    tuple val(meta), path(".command.log")     , emit: nf_log
+    tuple val(meta), path(".command.out")     , emit: nf_out
+    tuple val(meta), path(".command.run")     , emit: nf_run
+    tuple val(meta), path(".command.sh")      , emit: nf_sh
+    tuple val(meta), path(".command.trace")   , emit: nf_trace
+    tuple val(meta), path("versions.yml")     , emit: versions
 
     script:
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
     def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """

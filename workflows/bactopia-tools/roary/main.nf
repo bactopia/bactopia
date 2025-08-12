@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    aln = ROARY.out.aln
-    csv = ROARY.out.csv
+    results = ROARY.out.aln.mix(
+        ROARY.out.csv
+    )
     logs = ROARY.out.logs
     nf_logs = ROARY.out.nf_logs
     versions = ROARY.out.versions
 }
 
 output {
-    aln {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    csv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

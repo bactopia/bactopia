@@ -10,25 +10,25 @@ process BRACKEN {
     path db
 
     output:
-    tuple val(meta), path("${prefix}.bracken.tsv")                            , emit: tsv
-    tuple val(meta), path('*classified*')                                     , emit: classified, optional: true
-    tuple val(meta), path('*unclassified*')                                   , emit: unclassified, optional: true
-    tuple val(meta), path("${prefix}.kraken2.report.txt")                     , emit: kraken2_report
-    tuple val(meta), path("${prefix}.kraken2.output.txt")                     , emit: kraken2_output, optional: true
-    tuple val(meta), path("${prefix}.bracken.report.txt")                     , emit: bracken_report
-    tuple val(meta), path("*.krona.html")                                     , emit: krona, optional: true
-    tuple val(meta), path("${prefix}.bracken.abundances.txt")                 , emit: abundances
-    tuple val(meta), path("${prefix}.bracken.classification.txt")             , emit: classification
-    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt")        , emit: adjusted_abundances
-    path "*.{log,err}" , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                              , emit: nf_begin
-    tuple val(meta), path(".command.err")                                , emit: nf_err
-    tuple val(meta), path(".command.log")                                , emit: nf_log
-    tuple val(meta), path(".command.out")                                , emit: nf_out
-    tuple val(meta), path(".command.run")                                , emit: nf_run
-    tuple val(meta), path(".command.sh")                                 , emit: nf_sh
-    tuple val(meta), path(".command.trace")                              , emit: nf_trace
-    path "versions.yml", emit: versions
+    tuple val(meta), path("${prefix}.bracken.tsv")                    , emit: tsv
+    tuple val(meta), path('*classified*')                             , emit: classified, optional: true
+    tuple val(meta), path('*unclassified*')                           , emit: unclassified, optional: true
+    tuple val(meta), path("${prefix}.kraken2.report.txt")             , emit: kraken2_report
+    tuple val(meta), path("${prefix}.kraken2.output.txt")             , emit: kraken2_output, optional: true
+    tuple val(meta), path("${prefix}.bracken.report.txt")             , emit: bracken_report
+    tuple val(meta), path("*.krona.html")                             , emit: krona, optional: true
+    tuple val(meta), path("${prefix}.bracken.abundances.txt")         , emit: abundances
+    tuple val(meta), path("${prefix}.bracken.classification.txt")     , emit: classification
+    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt"), emit: adjusted_abundances
+    tuple val(meta), path("*.{log,err}" )  , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"

@@ -11,25 +11,36 @@ workflow K2SCRUBBER {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-
     WGET_HPRC()
     ch_versions = ch_versions.mix(WGET_HPRC.out.versions)
     ch_logs = ch_logs.mix(WGET_HPRC.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(WGET_HPRC.out.nf_logs)
-
     KRAKEN2(reads, WGET_HPRC.out.download)
     ch_versions = ch_versions.mix(KRAKEN2.out.versions)
     ch_logs = ch_logs.mix(KRAKEN2.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(KRAKEN2.out.nf_logs)
 
     emit:
-    scrubbed = KRAKEN2.out.unclassified
-    scrubbed_extra = KRAKEN2.out.unclassified_extra
+
+    emit:
     human = KRAKEN2.out.classified
     kraken2_report = KRAKEN2.out.kraken2_report
     scrub_report = KRAKEN2.out.scrub_report
-    logs = ch_logs // channel: [ val(meta), [ logs ] ]
-    nf_logs = ch_nf_logs // channel: [ val(meta), [ nf_logs ] ]
-    versions = ch_versions // channel: [ versions.yml ]
+    scrubbed = KRAKEN2.out.unclassified
+    scrubbed_extra = KRAKEN2.out.unclassified_extra
+    logs = ch_logs
+    nf_logs = KRAKEN2.out.nf_begin.mix(
+        KRAKEN2.out.nf_err,
+        KRAKEN2.out.nf_log,
+        KRAKEN2.out.nf_out,
+        KRAKEN2.out.nf_run,
+        KRAKEN2.out.nf_sh,
+        KRAKEN2.out.nf_trace,
+        WGET_HPRC.out.nf_begin,
+        WGET_HPRC.out.nf_err,
+        WGET_HPRC.out.nf_log,
+        WGET_HPRC.out.nf_out,
+        WGET_HPRC.out.nf_run,
+        WGET_HPRC.out.nf_sh,
+        WGET_HPRC.out.nf_trace
+    )
+    versions = ch_versions
 }

@@ -27,14 +27,14 @@ workflow {
     }
 
     publish:
-    csv = SCOARY.out.csv
+    results = SCOARY.out.csv
     logs = SCOARY.out.logs
     nf_logs = SCOARY.out.nf_logs
     versions = SCOARY.out.versions
 }
 
 output {
-    csv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

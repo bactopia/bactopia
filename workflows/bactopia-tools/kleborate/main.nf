@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = KLEBORATE.out.tsv
-    merged_tsv = KLEBORATE.out.merged_tsv
+    results = KLEBORATE.out.tsv.mix(
+        KLEBORATE.out.merged_tsv
+    )
     logs = KLEBORATE.out.logs
     nf_logs = KLEBORATE.out.nf_logs
     versions = KLEBORATE.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

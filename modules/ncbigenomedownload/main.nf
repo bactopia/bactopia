@@ -2,43 +2,45 @@ process NCBIGENOMEDOWNLOAD {
     tag "$meta.id"
     label 'process_low'
 
-    conda "${task.ext.conda}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}" :
-        "${task.ext.docker}" }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     val meta
     path accessions
 
     output:
-    path("*.gz")                            , emit: all
-    path("*_genomic.gbff.gz")               , emit: gbk       , optional: true
-    path("*_genomic.fna.gz")                , emit: fna       , optional: true
-    path("*_rm.out.gz")                     , emit: rm        , optional: true
-    path("*_feature_table.txt.gz")          , emit: features  , optional: true
-    path("*_genomic.gff.gz")                , emit: gff       , optional: true
-    path("*_protein.faa.gz")                , emit: faa       , optional: true
-    path("*_protein.gpff.gz")               , emit: gpff      , optional: true
-    path("*_wgsmaster.gbff.gz")             , emit: wgs_gbk   , optional: true
-    path("*_cds_from_genomic.fna.gz")       , emit: cds       , optional: true
-    path("*_rna.fna.gz")                    , emit: rna       , optional: true
-    path("*_rna_from_genomic.fna.gz")       , emit: rna_fna   , optional: true
-    path("*_assembly_report.txt")           , emit: report    , optional: true
-    path("*_assembly_stats.txt")            , emit: stats     , optional: true
-    path "accession-*.txt"                  , emit: accessions, optional: true
-    path "versions.yml"                     , emit: versions
-    path ".command.begin"                   , emit: begin
-    path ".command.err"                     , emit: err
-    path ".command.log"                     , emit: log
-    path ".command.out"                     , emit: out
-    path ".command.run"                     , emit: run
-    path ".command.sh"                      , emit: sh
-    path ".command.trace"                   , emit: trace
+    tuple val(meta), path("*.gz")                            , emit: all
+    tuple val(meta), path("*_genomic.gbff.gz")               , emit: gbk       , optional: true
+    tuple val(meta), path("*_genomic.fna.gz")                , emit: fna       , optional: true
+    tuple val(meta), path("*_rm.out.gz")                     , emit: rm        , optional: true
+    tuple val(meta), path("*_feature_table.txt.gz")          , emit: features  , optional: true
+    tuple val(meta), path("*_genomic.gff.gz")                , emit: gff       , optional: true
+    tuple val(meta), path("*_protein.faa.gz")                , emit: faa       , optional: true
+    tuple val(meta), path("*_protein.gpff.gz")               , emit: gpff      , optional: true
+    tuple val(meta), path("*_wgsmaster.gbff.gz")             , emit: wgs_gbk   , optional: true
+    tuple val(meta), path("*_cds_from_genomic.fna.gz")       , emit: cds       , optional: true
+    tuple val(meta), path("*_rna.fna.gz")                    , emit: rna       , optional: true
+    tuple val(meta), path("*_rna_from_genomic.fna.gz")       , emit: rna_fna   , optional: true
+    tuple val(meta), path("*_assembly_report.txt")           , emit: report    , optional: true
+    tuple val(meta), path("*_assembly_stats.txt")            , emit: stats     , optional: true
+    tuple val(meta), path("accession-*.txt")                 , emit: accessions, optional: true
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     def has_accessions = accessions ? true : false
     def opts = "${args} --output-folder ./ --flat-output -p ${task.cpus} -r ${params.max_retry}"
     """

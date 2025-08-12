@@ -2,28 +2,29 @@ process STAPHOPIASCCMEC {
     tag "$meta.id"
     label 'process_low'
 
-    conda "${task.ext.conda_env}"
-    container "${ workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/staphopia-sccmec:1.0.0--hdfd78af_0' :
-        'quay.io/biocontainers/staphopia-sccmec:1.0.0--hdfd78af_0' }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("*.tsv"), emit: tsv
-    path "*.{log,err}", emit: logs, optional: true
-    path ".command.begin"   , emit: begin
-    path ".command.err"     , emit: err
-    path ".command.log"     , emit: log
-    path ".command.out"     , emit: out
-    path ".command.run"     , emit: run
-    path ".command.sh"      , emit: sh
-    path ".command.trace"   , emit: trace
-    path "versions.yml", emit: versions
+    tuple val(meta), path("*.tsv")          , emit: tsv
+    tuple val(meta), path("*.{log,err}")    , emit: logs, optional: true
+    tuple val(meta), path(".command.begin") , emit: nf_begin
+    tuple val(meta), path(".command.err")   , emit: nf_err
+    tuple val(meta), path(".command.log")   , emit: nf_log
+    tuple val(meta), path(".command.out")   , emit: nf_out
+    tuple val(meta), path(".command.run")   , emit: nf_run
+    tuple val(meta), path(".command.sh")    , emit: nf_sh
+    tuple val(meta), path(".command.trace") , emit: nf_trace
+    tuple val(meta), path("versions.yml")   , emit: versions
 
     script:
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """

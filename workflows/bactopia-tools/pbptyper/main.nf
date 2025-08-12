@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = PBPTYPER.out.tsv
-    blast = PBPTYPER.out.blast
-    merged_tsv = PBPTYPER.out.merged_tsv
+    results = PBPTYPER.out.tsv.mix(
+        PBPTYPER.out.blast,
+        PBPTYPER.out.merged_tsv
+    )
     logs = PBPTYPER.out.logs
     nf_logs = PBPTYPER.out.nf_logs
     versions = PBPTYPER.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    blast {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

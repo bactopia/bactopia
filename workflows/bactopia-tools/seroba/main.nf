@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = SEROBA.out.tsv
-    merged_tsv = SEROBA.out.merged_tsv
+    results = SEROBA.out.tsv.mix(
+        SEROBA.out.merged_tsv
+    )
     logs = SEROBA.out.logs
     nf_logs = SEROBA.out.nf_logs
     versions = SEROBA.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -10,20 +10,25 @@ workflow KRAKEN2 {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
 
-    DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
 
     KRAKEN2_MODULE(reads, DATABASE)
     ch_versions = ch_versions.mix(KRAKEN2_MODULE.out.versions)
     ch_logs = ch_logs.mix(KRAKEN2_MODULE.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(KRAKEN2_MODULE.out.nf_logs)
 
     emit:
+    DATABASE = params.kraken2_db ? file(params.kraken2_db) : []
     classified = KRAKEN2_MODULE.out.classified
-    unclassified = KRAKEN2_MODULE.out.unclassified
     kraken2_report = KRAKEN2_MODULE.out.kraken2_report
-    logs = ch_logs // channel: [ val(meta), [ logs ] ]
-    nf_logs = ch_nf_logs // channel: [ val(meta), [ nf_logs ] ]
-    versions = ch_versions // channel: [ versions.yml ]
+    unclassified = KRAKEN2_MODULE.out.unclassified
+    logs = ch_logs
+    nf_logs = KRAKEN2_MODULE.out.nf_begin.mix(
+        KRAKEN2_MODULE.out.nf_err,
+        KRAKEN2_MODULE.out.nf_log,
+        KRAKEN2_MODULE.out.nf_out,
+        KRAKEN2_MODULE.out.nf_run,
+        KRAKEN2_MODULE.out.nf_sh,
+        KRAKEN2_MODULE.out.nf_trace
+    )
+    versions = ch_versions
 }

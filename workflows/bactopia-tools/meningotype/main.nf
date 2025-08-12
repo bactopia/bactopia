@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = MENINGOTYPE.out.tsv
-    merged_tsv = MENINGOTYPE.out.merged_tsv
+    results = MENINGOTYPE.out.tsv.mix(
+        MENINGOTYPE.out.merged_tsv
+    )
     logs = MENINGOTYPE.out.logs
     nf_logs = MENINGOTYPE.out.nf_logs
     versions = MENINGOTYPE.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

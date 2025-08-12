@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = CLERMONTYPING.out.tsv
-    merged_tsv = CLERMONTYPING.out.merged_tsv
+    results = CLERMONTYPING.out.tsv.mix(
+        CLERMONTYPING.out.merged_tsv
+    )
     logs = CLERMONTYPING.out.logs
     nf_logs = CLERMONTYPING.out.nf_logs
     versions = CLERMONTYPING.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -27,14 +27,14 @@ workflow {
     }
 
     publish:
-    xml = PNEUMOCAT.out.xml
+    results = PNEUMOCAT.out.xml
     logs = PNEUMOCAT.out.logs
     nf_logs = PNEUMOCAT.out.nf_logs
     versions = PNEUMOCAT.out.versions
 }
 
 output {
-    xml {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

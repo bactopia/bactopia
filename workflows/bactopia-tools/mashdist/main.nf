@@ -30,18 +30,16 @@ workflow {
     }
 
     publish:
-    dist = MASHDIST.out.dist
-    merged_dist = MASHDIST.out.merged_dist
+    results = MASHDIST.out.dist.mix(
+        MASHDIST.out.merged_dist
+    )
     logs = MASHDIST.out.logs
     nf_logs = MASHDIST.out.nf_logs
     versions = MASHDIST.out.versions
 }
 
 output {
-    dist {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_dist {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

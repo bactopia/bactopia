@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = PHISPY.out.tsv
-    merged_tsv = PHISPY.out.merged_tsv
+    results = PHISPY.out.tsv.mix(
+        PHISPY.out.merged_tsv
+    )
     logs = PHISPY.out.logs
     nf_logs = PHISPY.out.nf_logs
     versions = PHISPY.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

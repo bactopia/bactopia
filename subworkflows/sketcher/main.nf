@@ -12,17 +12,23 @@ workflow SKETCHER {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-
     // Sketch FASTQs
     SKETCHER_MODULE(reads, mash_db, sourmash_db)
     ch_versions = ch_versions.mix(SKETCHER_MODULE.out.versions)
     ch_logs = ch_logs.mix(SKETCHER_MODULE.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(SKETCHER_MODULE.out.nf_logs)
+
+    emit:
 
     emit:
     sig = SKETCHER_MODULE.out.sig
     logs = ch_logs
-    nf_logs = ch_nf_logs
-    versions = ch_versions // channel: [ versions.yml ]
+    nf_logs = SKETCHER_MODULE.out.nf_begin.mix(
+        SKETCHER_MODULE.out.nf_err,
+        SKETCHER_MODULE.out.nf_log,
+        SKETCHER_MODULE.out.nf_out,
+        SKETCHER_MODULE.out.nf_run,
+        SKETCHER_MODULE.out.nf_sh,
+        SKETCHER_MODULE.out.nf_trace
+    )
+    versions = ch_versions
 }

@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = HPSUISSERO.out.tsv
-    merged_tsv = HPSUISSERO.out.merged_tsv
+    results = HPSUISSERO.out.tsv.mix(
+        HPSUISSERO.out.merged_tsv
+    )
     logs = HPSUISSERO.out.logs
     nf_logs = HPSUISSERO.out.nf_logs
     versions = HPSUISSERO.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

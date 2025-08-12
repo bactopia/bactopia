@@ -27,26 +27,18 @@ workflow {
     }
 
     publish:
-    gbk = HICAP.out.gbk
-    svg = HICAP.out.svg
-    tsv = HICAP.out.tsv
-    merged_tsv = HICAP.out.merged_tsv
+    results = HICAP.out.gbk.mix(
+        HICAP.out.svg,
+        HICAP.out.tsv,
+        HICAP.out.merged_tsv
+    )
     logs = HICAP.out.logs
     nf_logs = HICAP.out.nf_logs
     versions = HICAP.out.versions
 }
 
 output {
-    gbk {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    svg {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

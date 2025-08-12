@@ -2,10 +2,8 @@ process SRAHUMANSCRUBBER_SCRUB {
     tag "$meta.id"
     label 'process_low'
 
-    conda "${task.ext.conda}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}" :
-        "${task.ext.docker}" }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(reads)
@@ -15,19 +13,23 @@ process SRAHUMANSCRUBBER_SCRUB {
     tuple val(meta), path("*.scrubbed.fastq.gz"), emit: scrubbed
     tuple val(meta), path("*.scrubbed.fastq.gz"), path("EMPTY_EXTRA"), emit: scrubbed_extra
     tuple val(meta), path('*.scrub.report.tsv') , emit: scrub_report, optional: true
-    path "versions.yml"                         , emit: versions
-    path ".command.begin", emit: begin
-    path ".command.err", emit: err
-    path ".command.log", emit: log
-    path ".command.out", emit: out
-    path ".command.run", emit: run
-    path ".command.sh", emit: sh
-    path ".command.trace", emit: trace
+    tuple val(meta), path("*.{log,err}")        , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")     , emit: nf_begin
+    tuple val(meta), path(".command.err")       , emit: nf_err
+    tuple val(meta), path(".command.log")       , emit: nf_log
+    tuple val(meta), path(".command.out")       , emit: nf_out
+    tuple val(meta), path(".command.run")       , emit: nf_run
+    tuple val(meta), path(".command.sh")        , emit: nf_sh
+    tuple val(meta), path(".command.trace")     , emit: nf_trace
+    tuple val(meta), path("versions.yml")       , emit: versions
 
     script:
     def args = task.ext.args ?: ''
     def VERSION = '2.2.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     meta.single_end = reads[1] == null ? true : false
     meta.is_paired = reads[1] == null ? false : true
     if (meta.single_end) {

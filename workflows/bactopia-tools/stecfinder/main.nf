@@ -1,27 +1,59 @@
 #!/usr/bin/env nextflow
 nextflow.preview.output = true
 
-include { BACTOPIATOOL_INIT } from '../../lib/nf/bactopia-tool/init'
-include { STECFINDER } from '../../subworkflows/stecfinder/main'
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { STECFINDER    } from '../../../subworkflows/stecfinder/main'
+include { workflowSummary   } from 'plugin/nf-bactopia'
 
+/*
+========================================================================================
+    RUN MAIN WORKFLOW
+========================================================================================
+*/
 workflow {
-    // Initialize samples
-    samples = BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
 
-    STECFINDER(samples)
+    main:
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    
+    STECFINDER(BACTOPIATOOL_INIT.out.samples)
 
-    publish {
-        STECFINDER.out.tsv >> 'stecfinder'
-        STECFINDER.out.merged_tsv >> 'stecfinder'
-        STECFINDER.out.logs >> 'logs/stecfinder'
-        STECFINDER.out.nf_logs >> 'logs/nextflow'
+    workflow.onComplete {
+        log.info workflowSummary()
     }
 
-    output {
-        meta {
-            output_dir = "bactopia-tools/${meta.id}/${meta.output_dir}"
-            logs_dir = "bactopia-tools/${meta.id}/${meta.logs_dir}"
-            process_name = "${meta.process_name}"
-        }
+    publish:
+    results = BACTOPIATOOL_INIT.out.tsv.mix(
+        BACTOPIATOOL_INIT.out.merged_tsv
+    )
+    logs = STECFINDER.out.logs
+    nf_logs = STECFINDER.out.nf_logs
+    versions = STECFINDER.out.versions
+}
+
+output {
+    results {
+        path { meta, _file -> "${meta.output_dir}/" }
+    }
+    logs {
+        path { meta, _file -> "${meta.logs_dir}/" }
+    }
+    nf_logs {
+        path { meta, file -> {
+            file >> "${meta.logs_dir}/nf${file.name}"
+        } }
+    }
+    versions {
+        path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
+
+/*
+========================================================================================
+    THE END
+========================================================================================
+*/

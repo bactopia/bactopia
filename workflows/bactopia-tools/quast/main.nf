@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = QUAST.out.tsv
-    merged_tsv = QUAST.out.merged_tsv
+    results = QUAST.out.tsv.mix(
+        QUAST.out.merged_tsv
+    )
     logs = QUAST.out.logs
     nf_logs = QUAST.out.nf_logs
     versions = QUAST.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

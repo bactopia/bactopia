@@ -8,102 +8,7 @@
 #    'bactopia-download': download or build environments for running Bactopia analyses
 #    'bactopia-merge-schemas': merge schemas into a single 'nextflow_schema.json'
 #
-
-# 'available_workflows' includes a list of available "named" workflows and Bactopia Tools
-available_workflows:
-  bactopia:
-    - bactopia
-    - cleanyerreads
-    - staphopia
-    - teton
-    - updater
-  bactopiatools:
-    subworkflows:
-      - ariba
-      - bakta
-      - checkm2
-      - eggnog
-      - gtdb
-      - mashtree
-      - merlin
-      - pangenome
-      - scrubber
-      - snippy
-      - staphtyper
-      - tbprofiler
-    modules:
-      - abricate
-      - abritamr
-      - agrvate
-      - amrfinderplus
-      - blastn
-      - blastp
-      - blastx
-      - btyper3
-      - busco
-      - bracken
-      - checkm
-      - clermontyping
-      - defensefinder
-      - ectyper
-      - emmtyper
-      - fastani
-      - gamma
-      - genotyphi
-      - hicap
-      - hpsuissero
-      - ismapper
-      - kleborate
-      - kraken2
-      - legsta
-      - lissero
-      - mashdist
-      - mcroni
-      - meningotype
-      - midas
-      - mlst
-      - mobsuite
-      - mykrobe
-      - ngmaster
-      - pasty
-      - pbptyper
-      - phispy
-      - plasmidfinder
-      - pneumocat
-      - quast
-      - rgi
-      - sccmec
-      - seqsero2
-      - seroba
-      - shigapass
-      - shigatyper
-      - shigeifinder
-      - sistr
-      - spatyper
-      - ssuissero
-      - staphopiasccmec
-      - stecfinder
-      - sylph
-      - tblastn
-      - tblastx
-      - updater
-wf_has_subdir:
-  - ariba
-  - blastn
-  - blastp
-  - blastx
-  - bracken
-  - busco
-  - fastani
-  - gamma
-  - ismapper
-  - kraken2
-  - mashdist
-  - mashtree
-  - pangenome
-  - snippy
-  - tblastn
-  - tblastx
+# 'workflows' includes a list of available "named" workflows and Bactopia Tools
 workflows:
   #============================================================================================
   # Named Workflows
@@ -113,27 +18,26 @@ workflows:
   bactopia:
     description: "Bactopia is a flexible pipeline for complete analysis of bacterial genomes"
     includes:
-      - bactopia
-    is_workflow: true
-    modules:
-      - datasets
-      - gather
-      - qc
-      - assembler
-      - sketcher
       - amrfinderplus
       - mlst
+    is_workflow: true
+    modules:
+      - bactopia_datasets
+      - bactopia_gather
+      - bactopia_qc
+      - bactopia_assembler
+      - bactopia_sketcher
+      - csvtk_concat
   cleanyerreads:
     description: "Use Bactopia's read QC steps to Clean-Yer-Reads"
     includes:
-      - gather
-      - qc
-      - scrubber
+      - kraken2
     is_workflow: true
     modules:
-      - gather
-      - qc
-      - kraken2
+      - bactopia_gather
+      - bactopia_qc
+      - bactopia_scrubber
+      - csvtk_concat
   staphopia:
     description: "Staphopia is a pipeline for the analysis of Staphylococcus aureus genomes"
     includes:
@@ -143,75 +47,234 @@ workflows:
   teton:
     description: "Host removal and taxon classification with estimated abundances"
     includes:
-      - gather
       - scrubber
       - bracken
     is_workflow: true
     modules:
-      - gather
-      - kraken2
-      - bracken
+      - bactopia_gather
+      - csvtk_concat
+      - csvtk_join
   updater:
     description: "Update database builds for new Bactopia version"
     includes:
       - amrfinderplus
       - mlst
     is_workflow: true
-    modules:
-      - amrfinderplus
-      - mlst
   #============================================================================================
-  # Complex Bactopia Tools
+  # Bactopia Tools
   # 
-  # Below are complex Bactopia Tools consisting on a multiple modules (e.g. pangenome, snippy)
+  # Below are Bactopia Tools, which cannot be executed independently. Based on the value of 
+  # `ext`, the input files needed for the tool will be determined.
   #============================================================================================
+  abricate:
+    description: "Mass screening of contigs for antimicrobial and virulence genes"
+    ext: "fna"
+    modules:
+      - abricate_run
+  abritamr:
+    description: "A NATA accredited tool for reporting the presence of antimicrobial resistance genes"
+    ext: "fna"
+    modules:
+      - abritamr_run
+      - csvtk_concat
+  agrvate:
+    description: "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants"
+    ext: "fna"
+    modules:
+      - agrvate
+      - csvtk_concat
+  amrfinderplus:
+    description: "Identify antimicrobial resistance in genes or proteins"
+    ext: "fna_faa_gff"
+    modules:
+      - amrfinderplus_run
+      - csvtk_concat
   ariba:
     description: "Gene identification through local assemblies"
     ext: "fastq"
     modules:
       - ariba_getref
       - ariba_run
+      - csvtk_concat
   bakta:
     description: "Rapid annotation of bacterial genomes & plasmids"
     ext: "fna"
     modules:
       - bakta_download
       - bakta_run
+  blastn:
+    description: "Search against nucleotide BLAST databases using nucleotide queries"
+    ext: "blastdb"
+    modules:
+      - blast_blastn
+      - csvtk_concat
+  blastp:
+    description: "Search against protein BLAST databases using protein queries"
+    ext: "blastdb"
+    modules:
+      - blast_blastp
+      - csvtk_concat
+  blastx:
+    description: "Search against protein BLAST databases using translated nucleotide queries"
+    ext: "blastdb"
+    modules:
+      - blast_blastx
+      - csvtk_concat
+  bracken:
+    description: "Taxonomic classification and species abundance estimation of sequence reads"
+    ext: "fastq"
+    modules:
+      - bracken
+      - csvtk_concat
+  btyper3:
+    description: "Taxonomic classification of Bacillus cereus group isolates"
+    ext: "fna"
+    modules:
+      - btyper3
+      - csvtk_concat
+  busco:
+    description: "Assembly completeness based on evolutionarily informed expectations"
+    ext: "fna"
+    modules:
+      - busco
+      - csvtk_concat
+  checkm:
+    description: "Assess the assembly quality of your microbial samples"
+    ext: "fna"
+    modules:
+      - checkm_lineagewf
+      - csvtk_concat
   checkm2:
     description: "Rapid assessment of genome bin quality using machine learning"
     ext: "fna"
     modules:
       - checkm2_download
       - checkm2_predict
+      - csvtk_concat
+  clermontyping:
+    description: "in silico phylotyping of Escherichia genus"
+    ext: "fna"
+    modules:
+      - clermontyping
+      - csvtk_concat
+  defensefinder:
+    description: "Systematic search of all known anti-phage systems"
+    ext: "fna"
+    modules:
+      - defensefinder_run
+      - csvtk_concat
+  ectyper:
+    description: "In-silico prediction of Escherichia coli serotype"
+    ext: "fna"
+    modules:
+      - ectyper
+      - csvtk_concat
   eggnog:
     description: "Functional annotation of proteins using orthologous groups and phylogenies"
     ext: "faa"
     modules:
       - eggnog_download
       - eggnog_mapper
+  emmtyper:
+    description: "emm-typing of Streptococcus pyogenes assemblies"
+    ext: "fna"
+    modules:
+      - emmtyper
+      - csvtk_concat
   fastani:
     description: "Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)"
     ext: "fna"
-    path: "modules/fastani"
     modules:
       - ncbigenomedownload
-    use_local: "assembly"
+      - fastani
+      - csvtk_concat
+  gamma:
+    description: "Identification, classification, and annotation of translated gene matches"
+    ext: "fna"
+    modules:
+      - gamma
+      - csvtk_concat
+  genotyphi:
+    description: "Salmonella Typhi genotyping with Mykrobe outputs"
+    ext: "fastq"
+    modules:
+      - genotyphi_parse
+      - csvtk_concat
   gtdb:
     description: "Identify marker genes and assign taxonomic classifications"
     ext: "fna"
     modules:
       - gtdbtk_setupdb
       - gtdbtk_classifywf
+      - csvtk_concat
+  hicap:
+    description: "Identify cap locus serotype and structure in your Haemophilus influenzae assemblies"
+    ext: "fna"
+    modules:
+      - hicap
+      - csvtk_concat
+  hpsuissero:
+    description: "Rapid Haemophilus parasuis Serotyping of assemblies"
+    ext: "fna"
+    modules:
+      - hpsuissero
+      - csvtk_concat
+  ismapper:
+    description: "Identify insertion sites positions in bacterial genomes"
+    ext: "fastq"
+    modules:
+      - ismapper
+  kleborate:
+    description: "Screen for MLST, sub-species, and other Klebsiella related genes of interest"
+    ext: "fna"
+    modules:
+      - kleborate
+      - csvtk_concat
+  kraken2:
+    description: "Taxonomic classification of sequence reads"
+    ext: "fastq"
+    modules:
+      - kraken2
+  legsta:
+    description: "Typing of Legionella pneumophila assemblies"
+    ext: "fna"
+    modules:
+      - legsta
+      - csvtk_concat
+  lissero:
+    description: "Serogroup typing prediction for Listeria monocytogenes"
+    ext: "fna"
+    modules:
+      - lissero
+      - csvtk_concat
+  mashdist:
+    description: "Calculate Mash distances between sequences"
+    ext: "fna"
+    modules:
+      - mash_dist
+      - csvtk_concat
   mashtree:
     description: "Create a trees using Mash distances"
     ext: "fna"
-    path: "modules/mashtree"
     modules:
       - ncbigenomedownload
+      - mashtree
+  mcroni:
+    description: "Sequence variation in mobilized colistin resistance (mcr-1) genes"
+    ext: "fna"
+    modules:
+      - mcroni
+      - csvtk_concat
+  meningotype:
+    description: "Serotyping of Neisseria meningitidis"
+    ext: "fna"
+    modules:
+      - meningotype
+      - csvtk_concat
   merlin:
     description: "MinmER assisted species-specific bactopia tool seLectIoN"
     ext: "fna_fastq"
-    modules:
+    includes:
       - mashdist
       - agrvate
       - clermontyping
@@ -237,28 +300,143 @@ workflows:
       - ssuissero
       - sccmec
       - stecfinder
-      - tbprofiler_profile
-      - tbprofiler_collate
+      - tbprofiler
+    modules:
+      - csvtk_concat
+  midas:
+    description: "Estimate species abundances from FASTQ files"
+    ext: "fastq"
+    modules:
+      - midas_species
+      - csvtk_concat
+  mlst:
+    description: "Scan contig files against PubMLST typing schemes"
+    ext: "fna"
+    modules:
+      - mlst
+      - csvtk_concat
+  mobsuite:
+    description: "Reconstruct and annotate plasmids in bacterial assemblies"
+    ext: "fna"
+    modules:
+      - mobsuite_recon
+      - csvtk_concat
+  mykrobe:
+    description: "Antimicrobial resistance detection for specific species"
+    ext: "fastq"
+    modules:
+      - mykrobe_predict
+      - csvtk_concat
+  ngmaster:
+    description: "Multi-antigen sequence typing for Neisseria gonorrhoeae"
+    ext: "fna"
+    modules:
+      - ngmaster
+      - csvtk_concat
   pangenome:
     description: "Pangenome analysis with optional core-genome phylogeny"
     ext: "gff"
+    includes:
+      - prokka
     modules:
       - ncbigenomedownload
       - pirate
       - roary
-      - panaroo
-      - prokka
+      - panaroo_run
       - iqtree
       - clonalframeml
       - snpdists
       - scoary
-    use_local: "gff"
+  pasty:
+    description: "Serogrouping of Pseudomonas aeruginosa isolates"
+    ext: "fna"
+    modules:
+      - pasty
+      - csvtk_concat
+  pbptyper:
+    description: "Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae"
+    ext: "fna"
+    modules:
+      - pbptyper
+      - csvtk_concat
+  phispy:
+    description: "Predict prophages in bacterial genomes"
+    ext: "gbk"
+    modules:
+      - phispy
+      - csvtk_concat
+  plasmidfinder:
+    description: "Plasmid identification from assemblies"
+    ext: "fna"
+    modules:
+      - plasmidfinder
+      - csvtk_concat
+  pneumocat:
+    description: "Assign capsular type to Streptococcus pneumoniae from sequence reads"
+    ext: "fastq"
+    modules:
+      - pneumocat
+  quast:
+    description: "Assess the quality of assembled contigs"
+    ext: "fna_meta"
+    modules:
+      - quast
+      - csvtk_concat
+  rgi:
+    description: "Predict antibiotic resistance from assemblies"
+    ext: "fna"
+    modules:
+      - rgi_main
+      - csvtk_concat
+  sccmec:
+    description: "A tool for SCCmec typing of Staphylococcus aureus genomes"
+    ext: "fna"
+    modules:
+      - sccmec
+      - csvtk_concat
   scrubber:
     description: "Scrub human reads from FASTQ files"
     ext: "fastq"
-    modules:
+    includes:
       - kraken2
+    modules:
       - srahumanscrubber_scrub
+  seqsero2:
+    description: "Salmonella serotype prediction from reads or assemblies"
+    ext: "fna"
+    modules:
+      - seqsero2
+      - csvtk_concat
+  seroba:
+    description: "Serotyping of Streptococcus pneumoniae from sequence reads"
+    ext: "fastq"
+    modules:
+      - seroba_run
+      - csvtk_concat
+  shigapass:
+    description: "Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC"
+    ext: "fna"
+    modules:
+      - shigapass
+      - csvtk_concat
+  shigatyper:
+    description: "Shigella serotype from Illumina or Oxford Nanopore reads"
+    ext: "fastq"
+    modules:
+      - shigatyper
+      - csvtk_concat
+  shigeifinder:
+    description: "Shigella and EIEC serotyping from assemblies"
+    ext: "fna"
+    modules:
+      - shigeifinder
+      - csvtk_concat
+  sistr:
+    description: "Serovar prediction of Salmonella assemblies"
+    ext: "fna"
+    modules:
+      - sistr
+      - csvtk_concat
   snippy:
     description: "Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny"
     ext: "illumina_fastq"
@@ -269,321 +447,161 @@ workflows:
       - gubbins
       - iqtree
       - snpdists
+  spatyper:
+    description: "Computational method for finding spa types in Staphylococcus aureus"
+    ext: "fna"
+    modules:
+      - spatyper
+      - csvtk_concat
+  ssuissero:
+    description: "Rapid Streptococcus suis Serotyping of assemblies"
+    ext: "fna"
+    modules:
+      - ssuissero
+      - csvtk_concat
+  staphopiasccmec:
+    description: "Primer based SCCmec typing of Staphylococcus aureus genomes"
+    ext: "fna"
+    modules:
+      - staphopiasccmec
+      - csvtk_concat
   staphtyper:
     description: "Includes AgrVATE, SpaTyper and sccmec for Staphylococcus aureus"
     ext: "fna"
-    modules:
+    includes:
       - agrvate
       - spatyper
       - sccmec
+    modules:
+      - csvtk_concat
+  stecfinder:
+    description: "Serotyping Shigella toxin producing Escherichia coli genomes"
+    ext: "fna_fastq"
+    modules:
+      - stecfinder
+      - csvtk_concat
+  sylph:
+    description: "Taxonomic profiling by abundance-corrected minhash"
+    ext: "fastq"
+    modules:
+      - sylph_profile
+  tblastn:
+    description: "Search against translated nucleotide BLAST databases using protein queries"
+    ext: "blastdb"
+    modules:
+      - blast_tblastn
+      - csvtk_concat
+  tblastx:
+    description: "Search against translated nucleotide BLAST databases using translated nucleotide queries"
+    ext: "blastdb"
+    modules:
+      - blast_tblastx
+      - csvtk_concat
   tbprofiler:
     description: "Detect resistance and lineages of Mycobacterium tuberculosis genomes"
     ext: "fastq"
     modules:
       - tbprofiler_profile
       - tbprofiler_collate
-  #============================================================================================
-  # Simple Bactopia Tools
-  # 
-  # Below are Bactopia Tools consisting on a single module or tool
-  #============================================================================================
-  assembler:
-    path: "modules/assembler"
-  datasets:
-    path: "modules/datasets"
-  gather:
-    path: "modules/gather"
-  sketcher:
-    path: "modules/sketcher"
-  qc:
-    path: "modules/qc"
-  abricate:
-    description: "Mass screening of contigs for antimicrobial and virulence genes"
-    ext: "fna"
-    path: "modules/abricate/run"
-  abritamr:
-    description: "A NATA accredited tool for reporting the presence of antimicrobial resistance genes"
-    ext: "fna"
-    path: "modules/abritamr/run"
-  agrvate:
-    description: "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants"
-    ext: "fna"
-    path: "modules/agrvate"
-  amrfinderplus:
-    description: "Identify antimicrobial resistance in genes or proteins"
-    ext: "fna_faa_gff"
-    path: "modules/amrfinderplus/run"
-  ariba_getref:
-    path: "modules/ariba/getref"
-  ariba_run:
-    path: "modules/ariba/run"
-  bakta_download:
-    path: "modules/bakta/download"
-  bakta_run:
-    path: "modules/bakta/run"
-  blastn:
-    description: "Search against nucleotide BLAST databases using nucleotide queries"
-    ext: "blastdb"
-    path: "modules/blast/blastn"
-  blastp:
-    description: "Search against protein BLAST databases using protein queries"
-    ext: "blastdb"
-    path: "modules/blast/blastp"
-  blastx:
-    description: "Search against protein BLAST databases using translated nucleotide queries"
-    ext: "blastdb"
-    path: "modules/blast/blastx"
-  bracken:
-    description: "Taxonomic classification and species abundance estimation of sequence reads"
-    ext: "fastq"
-    path: "modules/bracken"
-  btyper3:
-    description: "Taxonomic classification of Bacillus cereus group isolates"
-    ext: "fna"
-    path: "modules/btyper3"
-  busco:
-    description: "Assembly completeness based on evolutionarily informed expectations"
-    ext: "fna"
-    path: "modules/busco"
-  checkm:
-    description: "Assess the assembly quality of your microbial samples"
-    ext: "fna"
-    path: "modules/checkm/lineagewf"
-  checkm2_download:
-    path: "modules/checkm2/download"
-  checkm2_predict:
-    path: "modules/checkm2/predict"
-  clonalframeml:
-    description: "Predict recombination events in bacterial genomes"
-    path: "modules/clonalframeml"
-  csvtk_concat:
-    path: "modules/csvtk/concat"
-  csvtk_join:
-    path: "modules/csvtk/join"
-  custom_dumpsoftwareversions:
-    path: "modules/custom/dumpsoftwareversions"
-  custom_wget:
-    path: "modules/custom/wget"
-  clermontyping:
-    description: "in silico phylotyping of Escherichia genus"
-    ext: "fna"
-    path: "modules/clermontyping"
-  defensefinder:
-    description: "Systematic search of all known anti-phage systems"
-    ext: "fna"
-    path: "modules/defensefinder/run"
-  ectyper:
-    description: "In-silico prediction of Escherichia coli serotype"
-    ext: "fna"
-    path: "modules/ectyper"
-  eggnog_download:
-    path: "modules/eggnog/download"
-  eggnog_mapper:
-    path: "modules/eggnog/mapper"
-  emmtyper:
-    description: "emm-typing of Streptococcus pyogenes assemblies"
-    ext: "fna"
-    path: "modules/emmtyper"
-  gtdbtk_setupdb:
-    path: "modules/gtdbtk/setupdb"
-  gtdbtk_classifywf:
-    path: "modules/gtdbtk/classifywf"
-  gamma:
-    description: "Identification, classification, and annotation of translated gene matches"
-    ext: "fna"
-    path: "modules/gamma"
-  genotyphi:
-    description: "Salmonella Typhi genotyping with Mykrobe outputs"
-    ext: "fastq"
-    path: "modules/genotyphi/parse"
-  gubbins:
-    description: "Rapid phylogenetic analysis of recombinant bacterial sequences"
-    path: "modules/gubbins"
-  hicap:
-    description: "Identify cap locus serotype and structure in your Haemophilus influenzae assemblies"
-    ext: "fna"
-    path: "modules/hicap"
-  hpsuissero:
-    description: "Rapid Haemophilus parasuis Serotyping of assemblies"
-    ext: "fna"
-    path: "modules/hpsuissero"
-  iqtree:
-    description: "Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm."
-    path: "modules/iqtree"
-  ismapper:
-    description: "Identify insertion sites positions in bacterial genomes"
-    ext: "fastq"
-    path: "modules/ismapper"
-  kleborate:
-    description: "Screen for MLST, sub-species, and other Klebsiella related genes of interest"
-    ext: "fna"
-    path: "modules/kleborate"
-  kraken2:
-    description: "Taxonomic classification of sequence reads"
-    ext: "fastq"
-    path: "modules/kraken2"
-  legsta:
-    description: "Typing of Legionella pneumophila assemblies"
-    ext: "fna"
-    path: "modules/legsta"
-  lissero:
-    description: "Serogroup typing prediction for Listeria monocytogenes"
-    ext: "fna"
-    path: "modules/lissero"
-  mashdist:
-    description: "Calculate Mash distances between sequences"
-    ext: "fna"
-    path: "modules/mash/dist"
-  mcroni:
-    description: "Sequence variation in mobilized colistin resistance (mcr-1) genes"
-    ext: "fna"
-    path: "modules/mcroni"
-  meningotype:
-    description: "Serotyping of Neisseria meningitidis"
-    ext: "fna"
-    path: "modules/meningotype"
-  midas:
-    description: "Estimate species abundances from FASTQ files"
-    ext: "fastq"
-    path: "modules/midas/species"
-  mlst:
-    description: "Scan contig files against PubMLST typing schemes"
-    ext: "fna"
-    path: "modules/mlst"
-  mobsuite:
-    description: "Reconstruct and annotate plasmids in bacterial assemblies"
-    ext: "fna"
-    path: "modules/mobsuite/recon"
-  mykrobe:
-    description: "Antimicrobial resistance detection for specific species"
-    ext: "fastq"
-    path: "modules/mykrobe/predict"
-  ncbigenomedownload:
-    description: "Quickly download assemblies from NCBI's Assembly database"
-    path: "modules/ncbigenomedownload"
-  ngmaster:
-    description: "Multi-antigen sequence typing for Neisseria gonorrhoeae"
-    ext: "fna"
-    path: "modules/ngmaster"
-  panaroo:
-    description: "Pipeline for pangenome investigations"
-    ext: "gff"
-    path: "modules/panaroo/run"
-  pasty:
-    description: "Serogrouping of Pseudomonas aeruginosa isolates"
-    ext: "fna"
-    path: "modules/pasty"
-  pbptyper:
-    description: "Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae"
-    ext: "fna"
-    path: "modules/pbptyper"
-  phispy:
-    description: "Predict prophages in bacterial genomes"
-    ext: "gbk"
-    path: "modules/phispy"
-  pirate:
-    description: "Pangenome toolbox for bacterial genomes"
-    ext: "gff"
-    path: "modules/pirate"
-  plasmidfinder:
-    description: "Plasmid identification from assemblies"
-    ext: "fna"
-    path: "modules/plasmidfinder"
-  pneumocat:
-    description: "Assign capsular type to Streptococcus pneumoniae from sequence reads"
-    ext: "fastq"
-    path: "modules/pneumocat"
-  prokka:
-    description: "Whole genome annotation of small genomes (bacterial, archeal, viral)"
-    ext: "fna"
-    path: "modules/prokka"
-  quast:
-    description: "Assess the quality of assembled contigs"
-    ext: "fna_meta"
-    path: "modules/quast"
-  rgi:
-    description: "Predict antibiotic resistance from assemblies"
-    ext: "fna"
-    path: "modules/rgi/main"
-  roary:
-    description: "Rapid large-scale prokaryote pangenome analysis"
-    ext: "gff"
-    path: "modules/roary"
-  sccmec:
-    description: "A tool for SCCmec typing of Staphylococcus aureus genomes"
-    ext: "fna"
-    path: "modules/sccmec"
-  scoary:
-    description: "GWAS analysis using pangenome outputs"
-    ext: "csv"
-    path: "modules/scoary"
-  seqsero2:
-    description: "Salmonella serotype prediction from reads or assemblies"
-    ext: "fna"
-    path: "modules/seqsero2"
-  seroba:
-    description: "Serotyping of Streptococcus pneumoniae from sequence reads"
-    ext: "fastq"
-    path: "modules/seroba/run"
-  shigapass:
-    description: "Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC"
-    ext: "fna"
-    path: "modules/shigapass"
-  shigatyper:
-    description: "Shigella serotype from Illumina or Oxford Nanopore reads"
-    ext: "fastq"
-    path: "modules/shigatyper"
-  shigeifinder:
-    description: "Shigella and EIEC serotyping from assemblies"
-    ext: "fna"
-    path: "modules/shigeifinder"
-  sistr:
-    description: "Serovar prediction of Salmonella assemblies"
-    ext: "fna"
-    path: "modules/sistr"
-  snippy_run:
-    description: "Rapid variant calling from Illumina sequence reads"
-    path: "modules/snippy/run"
-  snippy_core:
-    description: "Core-SNP alignment from Snippy outputs"
-    path: "modules/snippy/core"
-  snpdists:
-    description: "Pairwise SNP distance matrix from a FASTA sequence alignment"
-    ext: "fna"
-    path: "modules/snpdists"
-  spatyper:
-    description: "Computational method for finding spa types in Staphylococcus aureus"
-    ext: "fna"
-    path: "modules/spatyper"
-  srahumanscrubber_initdb:
-    path: "modules/srahumanscrubber/initdb"
-  srahumanscrubber_scrub:
-    path: "modules/srahumanscrubber/scrub"
-  staphopiasccmec:
-    description: "Primer based SCCmec typing of Staphylococcus aureus genomes"
-    ext: "fna"
-    path: "modules/staphopiasccmec"
-  stecfinder:
-    description: "Serotyping Shigella toxin producing Escherichia coli genomes"
-    ext: "fna_fastq"
-    path: "modules/stecfinder"
-  ssuissero:
-    description: "Rapid Streptococcus suis Serotyping of assemblies"
-    ext: "fna"
-    path: "modules/ssuissero"
-  sylph:
-    description: "Taxonomic profiling by abundance-corrected minhash"
-    ext: "fastq"
-    path: "modules/sylph/profile"
-  tblastn:
-    description: "Search against translated nucleotide BLAST databases using protein queries"
-    ext: "blastdb"
-    path: "modules/blast/tblastn"
-  tblastx:
-    description: "Search against translated nucleotide BLAST databases using translated nucleotide queries"
-    ext: "blastdb"
-    path: "modules/blast/tblastx"
-  tbprofiler_profile:
-    path: "modules/tbprofiler/profile"
-  tbprofiler_collate:
-    path: "modules/tbprofiler/collate"
+
+# All available modules
+modules:
+  - abricate_run
+  - abritamr_run
+  - agrvate
+  - amrfinderplus
+  - amrfinderplus_run
+  - ariba_getref
+  - ariba_run
+  - bactopia_assembler
+  - bactopia_datasets
+  - bactopia_gather
+  - bactopia_qc
+  - bactopia_sketcher
+  - bactopia_teton
+  - bakta_download
+  - bakta_run
+  - blast_blastn
+  - blast_blastp
+  - blast_blastx
+  - blast_tblastn
+  - blast_tblastx
+  - bracken
+  - btyper3
+  - busco
+  - checkm_lineagewf
+  - checkm2_download
+  - checkm2_predict
+  - clermontyping
+  - clonalframeml
+  - csvtk_concat
+  - csvtk_join
+  - custom_dumpsoftwareversions
+  - custom_wget
+  - datasets
+  - defensefinder_run
+  - ectyper
+  - eggnog_download
+  - eggnog_mapper
+  - emmtyper
+  - fastani
+  - gamma
+  - gather
+  - genotyphi
+  - genotyphi_parse
+  - gtdbtk_classifywf
+  - gtdbtk_setupdb
+  - gubbins
+  - hicap
+  - hpsuissero
+  - iqtree
+  - ismapper
+  - kleborate
+  - kraken2
+  - legsta
+  - lissero
+  - mash_dist
+  - mashdist
+  - mashtree
+  - mcroni
+  - meningotype
+  - midas_species
+  - mlst
+  - mobsuite_recon
+  - mykrobe_predict
+  - ncbigenomedownload
+  - ngmaster
+  - panaroo_run
+  - pasty
+  - pbptyper
+  - phispy
+  - pirate
+  - plasmidfinder
+  - pneumocat
+  - prokka
+  - qc
+  - quast
+  - rgi_main
+  - roary
+  - sccmec
+  - scoary
+  - seqsero2
+  - seroba
+  - seroba_run
+  - shigapass
+  - shigatyper
+  - shigeifinder
+  - sistr
+  - sketcher
+  - snippy_core
+  - snippy_run
+  - snpdists
+  - spatyper
+  - srahumanscrubber_initdb
+  - srahumanscrubber_scrub
+  - ssuissero
+  - staphopiasccmec
+  - stecfinder
+  - sylph_profile
+  - tbprofiler_collate
+  - tbprofiler_profile

@@ -1,41 +1,75 @@
 #!/usr/bin/env nextflow
 nextflow.preview.output = true
 
-include { BACTOPIATOOL_INIT } from '../../lib/nf/bactopia-tool/init'
-include { SNIPPY } from '../../subworkflows/snippy/main'
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { SNIPPY        } from '../../../subworkflows/snippy/main'
+include { workflowSummary   } from 'plugin/nf-bactopia'
 
+/*
+========================================================================================
+    RUN MAIN WORKFLOW
+========================================================================================
+*/
 workflow {
-    // Initialize samples
-    samples = BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
 
-    // Create reference channel
-    ch_reference = Channel.fromPath(params.reference)
-                          .map { file -> [[id: file.getSimpleName()], file] }
+    main:
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    
+    SNIPPY(BACTOPIATOOL_INIT.out.samples)
 
-    SNIPPY(samples, ch_reference)
-
-    publish {
-        SNIPPY.out.consensus_subs_fa >> 'snippy'
-        SNIPPY.out.consensus_subs_masked_fa >> 'snippy'
-        SNIPPY.out.coverage >> 'snippy'
-        SNIPPY.out.csv >> 'snippy'
-        SNIPPY.out.filt_vcf >> 'snippy'
-        SNIPPY.out.gff >> 'snippy'
-        SNIPPY.out.html >> 'snippy'
-        SNIPPY.out.raw_vcf >> 'snippy'
-        SNIPPY.out.subs_vcf >> 'snippy'
-        SNIPPY.out.tab >> 'snippy'
-        SNIPPY.out.txt >> 'snippy'
-        SNIPPY.out.vcf >> 'snippy'
-        SNIPPY.out.logs >> 'logs/snippy'
-        SNIPPY.out.nf_logs >> 'logs/nextflow'
+    workflow.onComplete {
+        log.info workflowSummary()
     }
 
-    output {
-        meta {
-            output_dir = "bactopia-tools/${meta.id}/${meta.output_dir}"
-            logs_dir = "bactopia-tools/${meta.id}/${meta.logs_dir}"
-            process_name = "${meta.process_name}"
-        }
+    publish:
+    results = BACTOPIATOOL_INIT.out.aligned_fa.mix(
+        BACTOPIATOOL_INIT.out.annotated_vcf,
+        BACTOPIATOOL_INIT.out.bam,
+        BACTOPIATOOL_INIT.out.bai,
+        BACTOPIATOOL_INIT.out.bed,
+        BACTOPIATOOL_INIT.out.consensus_fa,
+        BACTOPIATOOL_INIT.out.consensus_subs_fa,
+        BACTOPIATOOL_INIT.out.consensus_subs_masked_fa,
+        BACTOPIATOOL_INIT.out.coverage,
+        BACTOPIATOOL_INIT.out.csv,
+        BACTOPIATOOL_INIT.out.filt_vcf,
+        BACTOPIATOOL_INIT.out.gff,
+        BACTOPIATOOL_INIT.out.html,
+        BACTOPIATOOL_INIT.out.raw_vcf,
+        BACTOPIATOOL_INIT.out.subs_vcf,
+        BACTOPIATOOL_INIT.out.tab,
+        BACTOPIATOOL_INIT.out.txt,
+        BACTOPIATOOL_INIT.out.vcf
+    )
+    logs = SNIPPY.out.logs
+    nf_logs = SNIPPY.out.nf_logs
+    versions = SNIPPY.out.versions
+}
+
+output {
+    results {
+        path { meta, _file -> "${meta.output_dir}/" }
+    }
+    logs {
+        path { meta, _file -> "${meta.logs_dir}/" }
+    }
+    nf_logs {
+        path { meta, file -> {
+            file >> "${meta.logs_dir}/nf${file.name}"
+        } }
+    }
+    versions {
+        path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
+
+/*
+========================================================================================
+    THE END
+========================================================================================
+*/

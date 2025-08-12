@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = SHIGAPASS.out.tsv
-    merged_tsv = SHIGAPASS.out.merged_tsv
+    results = SHIGAPASS.out.tsv.mix(
+        SHIGAPASS.out.merged_tsv
+    )
     logs = SHIGAPASS.out.logs
     nf_logs = SHIGAPASS.out.nf_logs
     versions = SHIGAPASS.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

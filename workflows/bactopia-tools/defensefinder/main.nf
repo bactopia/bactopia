@@ -27,16 +27,11 @@ workflow {
     }
 
     publish:
-    results = DEFENSEFINDER.out.genes_tsv.mix(
-        DEFENSEFINDER.out.hmmer_tsv,
-        DEFENSEFINDER.out.systems_tsv,
-        DEFENSEFINDER.out.proteins,
-        DEFENSEFINDER.out.proteins_index,
-        DEFENSEFINDER.out.macsydata_raw
+    results = DEFENSEFINDER.out.genes_tsv.mix(.mix(
+        DEFENSEFINDER.out.merged_genes_tsv,
+        DEFENSEFINDER.out.merged_hmmer_tsv,
+        DEFENSEFINDER.out.merged_systems_tsv
     )
-    merged_genes_tsv = DEFENSEFINDER.out.merged_genes_tsv
-    merged_hmmer_tsv = DEFENSEFINDER.out.merged_hmmer_tsv
-    merged_systems_tsv = DEFENSEFINDER.out.merged_systems_tsv
     logs = DEFENSEFINDER.out.logs
     nf_logs = DEFENSEFINDER.out.nf_logs
     versions = DEFENSEFINDER.out.versions
@@ -44,15 +39,6 @@ workflow {
 
 output {
     results {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_genes_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_hmmer_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_systems_tsv {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

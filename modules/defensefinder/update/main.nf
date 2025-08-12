@@ -4,19 +4,23 @@ process DEFENSEFINDER_UPDATE {
     storeDir params.datasets_cache
     publishDir params.datasets_cache
 
-    conda "${task.ext.conda}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}":"${task.ext.docker}" }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     output:
     path "defense-finder-models-${task.ext.df_models_version}.tar", emit: db
+    path ".command.begin", emit: nf_begin
+    path ".command.err"  , emit: nf_err
+    path ".command.log"  , emit: nf_log
+    path ".command.out"  , emit: nf_out
+    path ".command.run"  , emit: nf_run
+    path ".command.sh"   , emit: nf_sh
+    path ".command.trace", emit: nf_trace
+    path "versions.yml"  , emit: versions
 
     script:
     """
     echo "task.ext.args: ${task.ext.args}"
-    
-    # Create .command.begin
-    date > .command.begin
     
     mkdir models
     wget \\

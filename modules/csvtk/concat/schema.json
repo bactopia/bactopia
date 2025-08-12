@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/csvtk/concat/schema.json",
+    "title": "csvtk concat Module",
+    "description": "A module to to concatenate CSV/TSV output files",
+    "type": "object",
+    "$defs": {
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/csvtk_concat_parameters"
+        }
+    ]
+}

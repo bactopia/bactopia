@@ -30,18 +30,16 @@ workflow {
     }
 
     publish:
-    tsv = MLST.out.tsv
-    merged_tsv = MLST.out.merged_tsv
+    results = MLST.out.tsv.mix(
+        MLST.out.merged_tsv
+    )
     logs = MLST.out.logs
     nf_logs = MLST.out.nf_logs
     versions = MLST.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

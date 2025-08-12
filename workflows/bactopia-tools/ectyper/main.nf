@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = ECTYPER.out.tsv
-    txt = ECTYPER.out.txt
-    merged_tsv = ECTYPER.out.merged_tsv
+    results = ECTYPER.out.tsv.mix(
+        ECTYPER.out.txt,
+        ECTYPER.out.merged_tsv
+    )
     logs = ECTYPER.out.logs
     nf_logs = ECTYPER.out.nf_logs
     versions = ECTYPER.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    txt {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

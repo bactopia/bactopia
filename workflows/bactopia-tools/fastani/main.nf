@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = FASTANI.out.tsv
-    merged_tsv = FASTANI.out.merged_tsv
+    results = FASTANI.out.tsv.mix(
+        FASTANI.out.merged_tsv
+    )
     logs = FASTANI.out.logs
     nf_logs = FASTANI.out.nf_logs
     versions = FASTANI.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

@@ -27,26 +27,18 @@ workflow {
     }
 
     publish:
-    tsv = GENOTYPHI.out.tsv
-    merged_tsv = GENOTYPHI.out.merged_tsv
-    csv = GENOTYPHI.out.csv
-    json = GENOTYPHI.out.json
+    results = GENOTYPHI.out.tsv.mix(
+        GENOTYPHI.out.merged_tsv,
+        GENOTYPHI.out.csv,
+        GENOTYPHI.out.json
+    )
     logs = GENOTYPHI.out.logs
     nf_logs = GENOTYPHI.out.nf_logs
     versions = GENOTYPHI.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    csv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    json {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

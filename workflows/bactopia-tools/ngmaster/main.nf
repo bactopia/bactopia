@@ -27,18 +27,16 @@ workflow {
     }
 
     publish:
-    tsv = NGMASTER.out.tsv
-    merged_tsv = NGMASTER.out.merged_tsv
+    results = NGMASTER.out.tsv.mix(
+        NGMASTER.out.merged_tsv
+    )
     logs = NGMASTER.out.logs
     nf_logs = NGMASTER.out.nf_logs
     versions = NGMASTER.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

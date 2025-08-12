@@ -11,13 +11,8 @@ workflow BAKTA {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-
     // Set up input files
-    DATABASE = params.bakta_db ? file(params.bakta_db) : []
-    PROTEINS = params.proteins ? file(params.proteins) : []
-    PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
-    REPLICONS = params.replicons ? file(params.replicons) : []
+
 
     if (params.download_bakta) {
         // Force BAKTA_DOWNLOAD to wait
@@ -34,9 +29,15 @@ workflow BAKTA {
 
     ch_versions = ch_versions.mix(BAKTA_RUN.out.versions.first())
     ch_logs = ch_logs.mix(BAKTA_RUN.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(BAKTA_RUN.out.nf_logs)
 
     emit:
+    tsv = BAKTA_RUN.out.tsv
+    json = BAKTA_RUN.out.json
+    txt = BAKTA_RUN.out.txt
+    DATABASE = params.bakta_db ? file(params.bakta_db) : []
+    PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
+    PROTEINS = params.proteins ? file(params.proteins) : []
+    REPLICONS = params.replicons ? file(params.replicons) : []
     annotations = BAKTA_RUN.out.annotations
     embl = BAKTA_RUN.out.embl
     faa = BAKTA_RUN.out.faa
@@ -46,11 +47,22 @@ workflow BAKTA {
     gff = BAKTA_RUN.out.gff
     hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
     hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
-    json = BAKTA_RUN.out.json
     plot = BAKTA_RUN.out.plot
-    tsv = BAKTA_RUN.out.tsv
-    txt = BAKTA_RUN.out.txt
     logs = ch_logs
-    nf_logs = ch_nf_logs
-    versions = ch_versions // channel: [ versions.yml ]
+    nf_logs = BAKTA_DOWNLOAD.out.nf_begin.mix(
+        BAKTA_DOWNLOAD.out.nf_err,
+        BAKTA_DOWNLOAD.out.nf_log,
+        BAKTA_DOWNLOAD.out.nf_out,
+        BAKTA_DOWNLOAD.out.nf_run,
+        BAKTA_DOWNLOAD.out.nf_sh,
+        BAKTA_DOWNLOAD.out.nf_trace,
+        BAKTA_RUN.out.nf_begin,
+        BAKTA_RUN.out.nf_err,
+        BAKTA_RUN.out.nf_log,
+        BAKTA_RUN.out.nf_out,
+        BAKTA_RUN.out.nf_run,
+        BAKTA_RUN.out.nf_sh,
+        BAKTA_RUN.out.nf_trace
+    )
+    versions = ch_versions
 }

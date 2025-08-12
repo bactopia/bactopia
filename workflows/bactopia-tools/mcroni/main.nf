@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    tsv = MCRONI.out.tsv
-    merged_tsv = MCRONI.out.merged_tsv
-    fa = MCRONI.out.fa
+    results = MCRONI.out.tsv.mix(
+        MCRONI.out.merged_tsv,
+        MCRONI.out.fa
+    )
     logs = MCRONI.out.logs
     nf_logs = MCRONI.out.nf_logs
     versions = MCRONI.out.versions
 }
 
 output {
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    fa {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

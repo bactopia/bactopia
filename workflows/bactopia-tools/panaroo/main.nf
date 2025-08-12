@@ -27,22 +27,17 @@ workflow {
     }
 
     publish:
-    aln = PANAROO.out.aln
-    csv = PANAROO.out.csv
-    panaroo_csv = PANAROO.out.panaroo_csv
+    results = PANAROO.out.aln.mix(
+        PANAROO.out.csv,
+        PANAROO.out.panaroo_csv
+    )
     logs = PANAROO.out.logs
     nf_logs = PANAROO.out.nf_logs
     versions = PANAROO.out.versions
 }
 
 output {
-    aln {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    csv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    panaroo_csv {
+    results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {

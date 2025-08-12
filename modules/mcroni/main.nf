@@ -2,29 +2,30 @@ process MCRONI {
     tag "$meta.id"
     label 'process_low'
 
-    conda "${task.ext.conda}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}" :
-        "${task.ext.docker}" }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("*.tsv")               , emit: tsv
-    tuple val(meta), path("*.fa"), optional: true, emit: fa
-    path "versions.yml"                           , emit: versions
-    path ".command.begin"                         , emit: begin
-    path ".command.err"                           , emit: err
-    path ".command.log"                           , emit: log
-    path ".command.out"                           , emit: out
-    path ".command.run"                           , emit: run
-    path ".command.sh"                            , emit: sh
-    path ".command.trace"                         , emit: trace
+    tuple val(meta), path("*.tsv")         , emit: tsv
+    tuple val(meta), path("*.fa")          , emit: fa, optional: true
+    tuple val(meta), path("versions.yml")  , emit: versions
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
 
     script:
     def VERSION = '1.0.4' // Version information not provided by tool on CLI
     prefix = task.ext.prefix ?: "${meta.id}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """

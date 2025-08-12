@@ -27,9 +27,10 @@ workflow {
     }
 
     publish:
-    results = GTDB.out.results
-    tsv = GTDB.out.tsv
-    merged_tsv = GTDB.out.merged_tsv
+    results = GTDB.out.results.mix(
+        GTDB.out.tsv,
+        GTDB.out.merged_tsv
+    )
     logs = GTDB.out.logs
     nf_logs = GTDB.out.nf_logs
     versions = GTDB.out.versions
@@ -37,12 +38,6 @@ workflow {
 
 output {
     results {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    tsv {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    merged_tsv {
         path { meta, _file -> "${meta.output_dir}/" }
     }
     logs {
