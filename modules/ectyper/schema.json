@@ -1,10 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/ectyper/schema.json",
-    "title": "ECTyper Parameters",
-    "description": "The schema for ECTyper parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ectyper/schema.json",
+    "title": "ECTyper Module",
+    "description": "A module for serotyping Escherichia coli genomes",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "ectyper_parameters": {
+            "title": "ECTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "opid": {
             "type": "integer",
             "default": 90,
@@ -35,5 +42,12 @@
             "default": false,
             "description": "Enable/disable printing of allele sequences"
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ectyper_parameters"
+        }
+    ]
 }

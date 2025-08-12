@@ -4,11 +4,13 @@
     "title": "bactopia/sylph/profile module",
     "description": "Profile metagenome samples against a database using Sylph",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "sylph_profile_parameters": {
             "title": "Sylph Profile Parameters",
             "type": "object",
-            "description": "Parameters for Sylph profiling",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "sylph_db": {
                     "type": ["string", "null"],
@@ -55,13 +57,12 @@
                     "default": "",
                     "description": "Additional Sylph options"
                 }
-            },
-            "required": []
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/sylph_profile_parameters"
+            "$ref": "#/$defs/sylph_profile_parameters"
         }
     ]
 }

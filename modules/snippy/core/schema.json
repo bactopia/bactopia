@@ -1,0 +1,45 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/snippy/core/schema.json",
+    "title": "Snippy-Core parameters",
+    "description": "A module for rapid variant calling from sequence reads",
+    "type": "object",
+    "$defs": {
+        "snippycore_parameters": {
+            "title": "Snippy-Core Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "maxhap": {
+                    "type": "integer",
+                    "description": "Largest haplotype to decompose",
+                    "default": 100,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "mask": {
+                    "type": "string",
+                    "description": "BED file of sites to mask",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "mask_char": {
+                    "type": "string",
+                    "description": "Masking character",
+                    "default": "X",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "snippy_core_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for snippy-core",
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/snippycore_parameters"
+        }
+    ]
+}

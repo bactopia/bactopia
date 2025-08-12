@@ -1,7 +1,23 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ssuissero/schema.json",
-    "title": "bactopia/modules/ssuissero module",
-    "description": "A Module to run SsuisSero for Streptococcus suis serotyping",
-    "type": "object"
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ssuissero/schema.json",
+    "title": "SsuisSero Module",
+    "description": "A module serotype prediction of Streptococcus suis assemblies",
+    "type": "object",
+    "$defs": {
+        "ssuissero_parameters": {
+            "title": "SsuisSero Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ssuissero_parameters"
+        }
+    ]
 }

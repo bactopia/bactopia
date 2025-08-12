@@ -1,38 +1,53 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "scheme": {
-            "type": "string",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mlst/schema.json",
+    "title": "MLST Module",
+    "description": "A module for automatic MLST calling from assembled contigs",
+    "type": "object",
+    "$defs": {
+        "mlst_parameters": {
+            "title": "MLST Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Don't autodetect, force this scheme on all inputs"
-        },
-        "minid": {
-            "type": "integer",
-            "default": 95,
-            "description": "Minimum DNA percent identity to declare a match",
-            "hidden": true
-        },
-        "mincov": {
-            "type": "integer",
-            "default": 10,
-            "description": "Minimum DNA percent coverage to declare a match",
-            "hidden": true
-        },
-        "minscore": {
-            "type": "integer",
-            "default": 50,
-            "description": "Minimum score to match a scheme",
-            "hidden": true
-        },
-        "nopath": {
-            "type": "boolean",
-            "default": false,
-            "description": "Strip directory from filename in output"
-        },
-        "mlst_db": {
-            "type": "string",
-            "default": "",
-            "description": "Path to MLST database"
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "scheme": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Don't autodetect, force this scheme on all inputs"
+                },
+                "minid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'"
+                },
+                "mincov": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Minimum DNA percent coverage to report partial allele at all"
+                },
+                "minscore": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum score out of 100 to match a scheme"
+                },
+                "nopath": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Strip filename paths from FILE column"
+                },
+                "mlst_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A custom MLST database to use, either a tarball or a directory"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mlst_parameters"
+        }
+    ]
 }

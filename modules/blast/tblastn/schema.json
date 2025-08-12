@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "BLAST TBLASTN Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/blast/tblastn/schema.json",
+    "title": "TBLASTN Module",
+    "description": "A module for rapidly aligning against contigs and genes",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "blast_parameters": {
+            "title": "TBLASTN Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "tblastn_query": {
             "type": ["string", "null"],
             "description": "Query sequence(s) for TBLASTN",
@@ -33,5 +42,12 @@
             "description": "Use genes (ffn) instead of contigs (fna) for database",
             "default": false
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/blast_parameters"
+        }
+    ]
 }

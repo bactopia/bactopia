@@ -1,7 +1,23 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/rgi/heatmap/schema.json",
-    "title": "bactopia/modules/rgi/heatmap module",
-    "description": "A Module to create heatmaps from RGI JSON output files",
-    "type": "object"
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/rgi/heatmap/schema.json",
+    "title": "RGI Heatmap Module",
+    "description": "A module to create heatmaps from RGI JSON output files",
+    "type": "object",
+    "$defs": {
+        "rgi_heatmap_parameters": {
+            "title": "RGI Heatmap Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/rgi_heatmap_parameters"
+        }
+    ]
 }

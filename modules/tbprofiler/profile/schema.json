@@ -4,11 +4,13 @@
     "title": "bactopia/tbprofiler/profile module",
     "description": "Profile Mycobacterium tuberculosis for drug resistance and strain type",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "tbprofiler_profile_parameters": {
             "title": "TB-Profiler Profile Parameters",
             "type": "object",
-            "description": "Parameters for TB-Profiler analysis",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "call_whole_genome": {
                     "type": "boolean",
@@ -52,13 +54,12 @@
                     "default": "",
                     "description": "Additional TB-Profiler options"
                 }
-            },
-            "required": []
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/tbprofiler_profile_parameters"
+            "$ref": "#/$defs/tbprofiler_profile_parameters"
         }
     ]
 }

@@ -1,38 +1,53 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "use_pirate": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use PIRATE for pangenome analysis"
-        },
-        "steps": {
-            "type": "string",
-            "default": "50,60,70,80,90,95,98",
-            "description": "% identity thresholds to use for pangenome construction",
-            "hidden": true
-        },
-        "features": {
-            "type": "string",
-            "default": "CDS",
-            "description": "Choose features to use for pangenome construction",
-            "hidden": true
-        },
-        "para_off": {
-            "type": "boolean",
-            "default": false,
-            "description": "Switch off paralog identification"
-        },
-        "z": {
-            "type": "boolean",
-            "default": false,
-            "description": "Retain all intermediate files"
-        },
-        "pan_opt": {
-            "type": "string",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/pirate/schema.json",
+    "title": "PIRATE Module",
+    "description": "A module for determining the building a pangenome",
+    "type": "object",
+    "$defs": {
+        "pirate_parameters": {
+            "title": "PIRATE Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Additional PIRATE options",
-            "hidden": true
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_pirate": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow"
+                },
+                "steps": {
+                    "type": "string",
+                    "default": "50,60,70,80,90,95,98",
+                    "description": "Percent identity thresholds to use for pangenome construction"
+                },
+                "features": {
+                    "type": "string",
+                    "default": "CDS",
+                    "description": "Comma-delimited features to use for pangenome construction"
+                },
+                "para_off": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Switch off paralog identification"
+                },
+                "z": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Retain all PIRATE intermediate files"
+                },
+                "pan_opt": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional arguments to pass to pangenome contruction."
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/pirate_parameters"
+        }
+    ]
 }

@@ -1,7 +1,23 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/shigeifinder/schema.json",
-    "title": "bactopia/modules/shigeifinder module",
-    "description": "A Module to run ShigEiFinder for differentiation and characterization of Shigella and EIEC genomes",
-    "type": "object"
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/shigeifinder/schema.json",
+    "title": "ShigEiFinder Module",
+    "description": "A module serotype prediction of Shigella and EIEC assemblies",
+    "type": "object",
+    "$defs": {
+        "shigeifinder_parameters": {
+            "title": "ShigEiFinder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/shigeifinder_parameters"
+        }
+    ]
 }

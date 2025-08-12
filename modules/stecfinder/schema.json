@@ -4,11 +4,13 @@
     "title": "bactopia/stecfinder module",
     "description": "Find STEC gene markers in E. coli genomes",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "stecfinder_parameters": {
             "title": "STECFinder Parameters",
             "type": "object",
-            "description": "Parameters for STECFinder analysis",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "stecfinder_use_reads": {
                     "type": "boolean",
@@ -70,13 +72,12 @@
                     "default": 1.0,
                     "description": "Depth threshold for H antigen genes"
                 }
-            },
-            "required": []
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/stecfinder_parameters"
+            "$ref": "#/$defs/stecfinder_parameters"
         }
     ]
 }

@@ -1,15 +1,28 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sistr/schema.json",
-    "title": "bactopia/modules/sistr module",
-    "description": "A Module to run SISTR for Salmonella in silico typing",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sistr/schema.json",
+    "title": "SISTR Module",
+    "description": "A module for serovar prediction of Salmonella assemblies",
     "type": "object",
-    "properties": {
-        "full_cgmlst": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use the full cgMLST database",
-            "fa_icon": "fas fa-hashtag"
+    "$defs": {
+        "sistr_parameters": {
+            "title": "SISTR Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "full_cgmlst": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": " Use the full set of cgMLST alleles which can include highly similar alleles"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/sistr_parameters"
+        }
+    ]
 }

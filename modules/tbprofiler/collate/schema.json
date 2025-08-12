@@ -4,11 +4,13 @@
     "title": "bactopia/tbprofiler/collate module",
     "description": "Collate TB-Profiler results from multiple samples",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "tbprofiler_collate_parameters": {
             "title": "TB-Profiler Collate Parameters",
             "type": "object",
-            "description": "Parameters for collating TB-Profiler results",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "itol": {
                     "type": "boolean",
@@ -30,13 +32,12 @@
                     "default": false,
                     "description": "Mark missing data"
                 }
-            },
-            "required": []
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/tbprofiler_collate_parameters"
+            "$ref": "#/$defs/tbprofiler_collate_parameters"
         }
     ]
 }

@@ -1,28 +1,33 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/abritamr/run/schema.json",
-    "title": "abriTAMR Parameters",
+    "title": "abriTAMR Run Module",
+    "description": "A module to identify antimicrobial resistance in assembled contigs",
+    "type": "object",
     "$defs": {
-        "parameters": {
+        "abritamr_parameters": {
             "title": "abriTAMR Parameters",
             "type": "object",
-            "description": "A NATA accredited tool for reporting the presence of antimicrobial resistance genes",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "abritamr_identity": {
-                    "title": "Identity threshold for gene matching",
-                    "type": "number",
-                    "description": "Minimum percent identity for gene matching",
-                    "fa_icon": "fas fa-percent",
-                    "default": null
-                },
                 "abritamr_species": {
-                    "title": "Species to use for resistance gene detection",
                     "type": "string",
-                    "description": "Species name for species-specific resistance gene detection",
-                    "fa_icon": "fas fa-bacterium",
-                    "default": null
+                    "description": "Use species specific point mutations, must provide a valid species",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "abritamr_identity": {
+                    "type": "integer",
+                    "description": "Minimum identity of matches with amrfinder (0 - 1.0), defaults to amrfinder preset",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/abritamr_parameters"
+        }
+    ]
 }

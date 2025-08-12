@@ -1,21 +1,23 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ariba/getref/schema.json",
-    "title": "ARIBA getref Parameters",
+    "title": "Ariba GetRef Module",
+    "description": "A module for gene identification through local assemblies",
+    "type": "object",
     "$defs": {
-        "parameters": {
-            "title": "ARIBA getref Parameters",
+        "ariba_getref_parameters": {
+            "title": "Ariba GetRef Parameters",
             "type": "object",
-            "description": "Download and prepare ARIBA reference databases",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "datasets_cache": {
-                    "title": "Directory to cache datasets",
-                    "type": "string",
-                    "description": "Directory where downloaded databases will be stored",
-                    "default": "",
-                    "fa_icon": "fas fa-folder"
-                }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ariba_getref_parameters"
+        }
+    ]
 }

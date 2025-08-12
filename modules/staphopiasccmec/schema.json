@@ -4,24 +4,25 @@
     "title": "bactopia/staphopiasccmec module",
     "description": "Predicts SCCmec types for Staphylococcus aureus genomes",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "staphopiasccmec_parameters": {
             "title": "Staphopia SCCmec Parameters",
             "type": "object",
-            "description": "Parameters for predicting SCCmec types in S. aureus genomes",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "hamming": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report the hamming distance of each type"
                 }
-            },
-            "required": []
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/staphopiasccmec_parameters"
+            "$ref": "#/$defs/staphopiasccmec_parameters"
         }
     ]
 }

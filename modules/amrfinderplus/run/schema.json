@@ -1,12 +1,16 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/amrfinderplus/run/schema.json",
-    "title": "AMRFinderPlus Parameters",
+    "title": "AMRFinder+ Module",
+    "description": "A module to identify antimicrobial resistance in genes or proteins",
+    "type": "object",
     "$defs": {
-        "parameters": {
-            "title": "AMRFinderPlus Parameters",
+        "amrfinderplus_parameters": {
+            "title": "AMRFinder+ Parameters",
             "type": "object",
-            "description": "Identify antimicrobial resistance genes",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "ident_min": {
                     "title": "Minimum identity for a blast-based hit",
@@ -73,5 +77,10 @@
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/amrfinderplus_parameters"
+        }
+    ]
 }

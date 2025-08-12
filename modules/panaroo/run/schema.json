@@ -1,6 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/panaroo/run/schema.json",
+    "title": "Panaroo Run Module",
+    "description": "A module for running Panaroo pangenome analysis",
+    "type": "object",
+    "$defs": {
+        "panaroo_run_parameters": {
+            "title": "Panaroo Run Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "panaroo_mode": {
             "type": "string",
             "default": "strict",
@@ -47,12 +58,18 @@
             "type": "boolean",
             "default": false,
             "description": "Don't split paralogs"
-        },
-        "panaroo_opts": {
-            "type": "string",
-            "default": "",
-            "description": "Extra Panaroo options",
-            "hidden": true
+                },
+                "panaroo_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Extra Panaroo options"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/panaroo_run_parameters"
+        }
+    ]
 }

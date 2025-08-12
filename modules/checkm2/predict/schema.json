@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "CheckM2 Predict Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/checkm2/predict/schema.json",
+    "title": "CheckM2 Module",
+    "description": "Rapid assessment of genome bin quality using machine learning",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "checkm2_parameters": {
+            "title": "CheckM2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "checkm2_lowmem": {
             "type": ["boolean", "null"],
             "description": "Enable low memory mode",
@@ -33,5 +42,12 @@
             "description": "Additional CheckM2 options",
             "default": ""
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/checkm2_parameters"
+        }
+    ]
 }

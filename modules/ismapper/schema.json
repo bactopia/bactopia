@@ -1,91 +1,76 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ismapper/schema.json",
-    "title": "ISMapper Parameters",
+    "title": "ISMapper Module",
+    "description": "A module for identifying insertion sites",
+    "type": "object",
     "$defs": {
-        "parameters": {
+        "ismapper_parameters": {
             "title": "ISMapper Parameters",
             "type": "object",
-            "description": "Identify insertion sites positions in bacterial genomes",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "reference": {
-                    "title": "Reference genome in GenBank format",
                     "type": "string",
-                    "description": "Path to reference genome in GenBank format",
-                    "fa_icon": "fas fa-file-alt",
-                    "default": null
+                    "description": "Reference genome for typing against in GenBank format"
                 },
                 "insertions": {
-                    "title": "Multifasta file with insertion sequences",
                     "type": "string",
-                    "description": "Path to multifasta file with insertion sequences to search for",
-                    "fa_icon": "fas fa-dna",
-                    "default": null
+                    "description": "Multifasta file with insertion sequence(s) to be mapped to"
                 },
                 "min_clip": {
-                    "title": "Minimum size for softclipped region",
                     "type": "integer",
-                    "description": "Minimum size for softclipped region to be extracted from initial mapping",
                     "default": 10,
-                    "fa_icon": "fas fa-cut"
+                    "description": "Minimum size for softclipped region to be extracted from initial mapping"
                 },
                 "max_clip": {
-                    "title": "Maximum size for softclipped region",
                     "type": "integer",
-                    "description": "Maximum size for softclipped region to be extracted from initial mapping",
                     "default": 30,
-                    "fa_icon": "fas fa-cut"
+                    "description": "Maximum size for softclipped regions to be included"
                 },
                 "cutoff": {
-                    "title": "Minimum depth for mapped region",
                     "type": "integer",
-                    "description": "Minimum depth for mapped region to be kept in bed file",
                     "default": 6,
-                    "fa_icon": "fas fa-chart-line"
+                    "description": "Minimum depth for mapped region to be kept in bed file"
                 },
                 "novel_gap_size": {
-                    "title": "Distance to merge novel IS elements",
                     "type": "integer",
-                    "description": "Distance in base pairs between left and right flanks to be called a novel IS element",
                     "default": 15,
-                    "fa_icon": "fas fa-ruler"
+                    "description": "Distance in base pairs between left and right flanks to be called a novel hit"
                 },
                 "min_range": {
-                    "title": "Minimum percent size of IS",
                     "type": "number",
-                    "description": "Minimum percent size of the IS element to be considered a hit",
                     "default": 0.9,
-                    "fa_icon": "fas fa-percent"
+                    "description": "Minimum percent size of the gap to be called a known hit"
                 },
                 "max_range": {
-                    "title": "Maximum percent size of IS",
                     "type": "number",
-                    "description": "Maximum percent size of the IS element to be considered a hit",
                     "default": 1.1,
-                    "fa_icon": "fas fa-percent"
+                    "description": "Maximum percent size of the gap to be called a known hit"
                 },
                 "merging": {
-                    "title": "Distance to merge overlapping IS regions",
                     "type": "integer",
-                    "description": "Value for merging overlapping IS element regions",
                     "default": 100,
-                    "fa_icon": "fas fa-object-group"
+                    "description": "Value for merging left and right hits in bed files together to simply calculation of closest and intersecting regions"
                 },
                 "ismap_all": {
-                    "title": "Switch on all alignment reporting",
                     "type": "boolean",
-                    "description": "Report all alignments (for paired reads, output reads pairs on the same chromosome only) in SAM file",
-                    "fa_icon": "fas fa-check-square",
-                    "default": null
+                    "default": false,
+                    "description": "Switch on all alignment reporting for bwa"
                 },
                 "ismap_minqual": {
-                    "title": "Minimum mapping quality",
                     "type": "integer",
-                    "description": "Minimum mapping quality for reads to be retained",
                     "default": 30,
-                    "fa_icon": "fas fa-medal"
+                    "description": "Mapping quality score for bwa"
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ismapper_parameters"
+        }
+    ]
 }

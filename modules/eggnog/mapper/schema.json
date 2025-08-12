@@ -1,24 +1,40 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/eggnog/mapper/schema.json",
-    "title": "eggNOG Mapper Parameters",
-    "description": "The schema for eggNOG mapper parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/eggnog/mapper/schema.json",
+    "title": "eggNOG Mapper Module",
+    "description": "A module for annotating proteins using eggNOG databases",
     "type": "object",
-    "properties": {
-        "genepred": {
-            "type": "string",
-            "default": "search",
-            "description": "Gene prediction strategy"
-        },
-        "mode": {
-            "type": "string",
-            "default": "diamond",
-            "description": "Search mode (diamond, mmseqs, hmmer)"
-        },
-        "eggnog_opts": {
-            "type": "string",
+    "$defs": {
+        "eggnog_mapper_parameters": {
+            "title": "eggNOG Mapper Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Additional options for eggNOG mapper"
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "genepred": {
+                    "type": "string",
+                    "default": "search",
+                    "description": "Method to use for gene prediction",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mode": {
+                    "type": "string",
+                    "default": "diamond",
+                    "description": "Method to search against eggNOG sequences",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "eggnog_opts": {
+                    "type": "string",
+                    "description": "Extra eggNOG Mapper options in quotes",
+                    "fa_icon": "fas fa-italic"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/eggnog_mapper_parameters"
+        }
+    ]
 }

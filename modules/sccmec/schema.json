@@ -1,33 +1,43 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sccmec/schema.json",
-    "title": "bactopia/modules/sccmec module",
-    "description": "A Module to identify SCCmec regions in Staphylococcus aureus genomes",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/sccmec/schema.json",
+    "title": "sccmec Module",
+    "description": "A tool for typing SCCmec cassettes in assemblies",
     "type": "object",
-    "properties": {
-        "sccmec_min_targets_pident": {
-            "type": "integer",
-            "default": 90,
-            "description": "Minimum percent identity for target matches",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "sccmec_min_targets_coverage": {
-            "type": "integer",
-            "default": 80,
-            "description": "Minimum coverage for target matches",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "sccmec_min_regions_pident": {
-            "type": "integer",
-            "default": 85,
-            "description": "Minimum percent identity for region matches",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "sccmec_min_regions_coverage": {
-            "type": "integer",
-            "default": 93,
-            "description": "Minimum coverage for region matches",
-            "fa_icon": "fas fa-hashtag"
+    "$defs": {
+        "sccmec_parameters": {
+            "title": "sccmec Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "sccmec_min_targets_pident": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent identity to count a target hit"
+                },
+                "sccmec_min_targets_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage to count a target hit"
+                },
+                "sccmec_min_regions_pident": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum percent identity to count a region hit"
+                },
+                "sccmec_min_regions_coverage": {
+                    "type": "integer",
+                    "default": 93,
+                    "description": "Minimum percent coverage to count a region hit"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/sccmec_parameters"
+        }
+    ]
 }

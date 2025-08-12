@@ -1,15 +1,28 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/srahumanscrubber/scrub/schema.json",
-    "title": "bactopia/modules/srahumanscrubber/scrub module",
-    "description": "A Module to run SRA Human Scrubber for removing human reads",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/srahumanscrubber/scrub/schema.json",
+    "title": "SRA Human Scrubber Module",
+    "description": "A module to run SRA Human Scrubber for removing human reads",
     "type": "object",
-    "properties": {
-        "use_srascrubber": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use SRA Human Scrubber to remove human reads",
-            "fa_icon": "fas fa-hashtag"
+    "$defs": {
+        "srahumanscrubber_parameters": {
+            "title": "SRA Human Scrubber Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_srascrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use SRA Human Scrubber to remove human reads"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/srahumanscrubber_parameters"
+        }
+    ]
 }

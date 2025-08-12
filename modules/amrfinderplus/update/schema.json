@@ -1,21 +1,28 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/amrfinderplus/update/schema.json",
-    "title": "AMRFinderPlus Update Parameters",
+    "title": "AMRFinderPlus Update Module",
+    "description": "Download the latest AMRFinderPlus database",
+    "type": "object",
     "$defs": {
-        "parameters": {
+        "amrfinderplus_update_parameters": {
             "title": "AMRFinderPlus Update Parameters",
             "type": "object",
-            "description": "Download the latest AMRFinderPlus database",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "datasets_cache": {
-                    "title": "Directory to cache datasets",
                     "type": "string",
                     "description": "Directory where downloaded databases will be stored",
-                    "default": "",
-                    "fa_icon": "fas fa-folder"
+                    "default": ""
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/amrfinderplus_update_parameters"
+        }
+    ]
 }

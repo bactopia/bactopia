@@ -1,33 +1,48 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "midas_db": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Path to MIDAS database"
-        },
-        "midas_word_size": {
-            "type": "integer",
-            "default": 28,
-            "description": "Word size for alignment",
-            "hidden": true
-        },
-        "midas_aln_cov": {
-            "type": "number",
-            "default": 0.75,
-            "description": "Minimum alignment coverage for species identification",
-            "hidden": true
-        },
-        "midas_opts": {
-            "type": "string",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/midas/species/schema.json",
+    "title": "MIDAS Species Module",
+    "description": "A module for identifying species using MIDAS",
+    "type": "object",
+    "$defs": {
+        "midas_species_parameters": {
+            "title": "MIDAS Species Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Additional options for MIDAS",
-            "hidden": true
-        },
-        "midas_debug": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable debug mode"
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "midas_db": {
+                    "type": ["string", "null"],
+                    "default": null,
+                    "description": "Path to MIDAS database"
+                },
+                "midas_word_size": {
+                    "type": "integer",
+                    "default": 28,
+                    "description": "Word size for alignment"
+                },
+                "midas_aln_cov": {
+                    "type": "number",
+                    "default": 0.75,
+                    "description": "Minimum alignment coverage for species identification"
+                },
+                "midas_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options for MIDAS"
+                },
+                "midas_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable debug mode"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/midas_species_parameters"
+        }
+    ]
 }

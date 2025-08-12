@@ -1,0 +1,217 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bactopia/qc/schema.json",
+    "title": "Bactopia QC Module",
+    "description": "A module for quality control of bacterial sequencing reads",
+    "type": "object",
+    "$defs": {
+        "qc_parameters": {
+            "title": "QC Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_bbmap": {
+                    "type": "boolean",
+                    "description": "Illumina reads will be QC'd using BBMap"
+                },
+                "use_porechop": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use Porechop to remove adapters from ONT reads"
+                },
+                "skip_qc": {
+                    "type": "boolean",
+                    "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",
+                    "help": "This is really only useful if you have already QC'd your reads, or have a specific need"
+                },
+                "skip_qc_plots": {
+                    "type": "boolean",
+                    "description": "QC Plot creation by FastQC or Nanoplot will be skipped"
+                },
+                "skip_error_correction": {
+                    "type": "boolean",
+                    "description": "FLASH error correction of reads will be skipped."
+                },
+                "adapters": {
+                    "type": "string",
+                    "description": "A FASTA file containing adapters to remove",
+                    "default": "/home/robert_petit/bactopia/data/EMPTY_ADAPTERS",
+                    "help": "By default, Bactopia will use the adapters provided by BBmap"
+                },
+                "adapter_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding adapters.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 23
+                },
+                "phix": {
+                    "type": "string",
+                    "description": "phiX174 reference genome to remove",
+                    "default": "/home/robert_petit/bactopia/data/EMPTY_PHIX",
+                    "help": "By default, use the phiX genome provided by BBmap"
+                },
+                "phix_k": {
+                    "type": "integer",
+                    "description": "Kmer length used for finding phiX174.",
+                    "help": "Adapters shorter than k will not be found",
+                    "default": 31
+                },
+                "ktrim": {
+                    "type": "string",
+                    "default": "r",
+                    "description": "Trim reads to remove bases matching reference kmers",
+                    "help": "Choices are: 'f' - do not trim, 'r' - trim ot the right, 'l' - trim to the left",
+                    "enum": [
+                        "f",
+                        "r",
+                        "l"
+                    ]
+                },
+                "mink": {
+                    "type": "integer",
+                    "description": "Look for shorter kmers at read tips down to this length, when k-trimming or masking.",
+                    "help": "0 means disabled. Enabling this will disable maskmiddle",
+                    "default": 11
+                },
+                "hdist": {
+                    "type": "integer",
+                    "description": "Maximum Hamming distance for ref kmers (subs only)",
+                    "help": "Memory use is proportional to (3*K)^hdist",
+                    "default": 1
+                },
+                "tpe": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "When kmer right-trimming, trim both reads to the minimum length of either",
+                    "help": "",
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "tbo": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Trim adapters based on where paired reads overlap",
+                    "help": "",
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qtrim": {
+                    "type": "string",
+                    "default": "rl",
+                    "description": "Trim read ends to remove bases with quality below trimq.",
+                    "help": "Performed AFTER looking for kmers.  Values: rl (trim both ends), f (neither end), r (right end only), l (left end only), w (sliding window).",
+                    "enum": [
+                        "f",
+                        "l",
+                        "r",
+                        "rl",
+                        "w"
+                    ]
+                },
+                "trimq": {
+                    "type": "integer",
+                    "default": 6,
+                    "description": "Regions with average quality BELOW this will be trimmed"
+                },
+                "maq": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Reads with average quality BELOW this will be discarded."
+                },
+                "minlength": {
+                    "type": "integer",
+                    "default": 35,
+                    "description": "Reads shorter than this after trimming will be discarded."
+                },
+                "ftm": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "If positive, right-trim length to be equal to zero, modulo this number."
+                },
+                "tossjunk": {
+                    "type": "string",
+                    "default": "t",
+                    "description": "Discard reads with invalid characters as bases",
+                    "enum": [
+                        "f",
+                        "t"
+                    ]
+                },
+                "qc_ram": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Amount of RAM in gigabytes for QC",
+                    "help": "This amount of RAM will be allocated for QC of Illumina reads"
+                },
+                "longtime": {
+                    "type": "integer",
+                    "default": 500,
+                    "description": "Cutoff to identify long ONT reads for alignment.",
+                    "help": "Primarily used to improve Flye medaka polishing."
+                },
+                "shorttime": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Cutoff to identify short ONT reads to be removed."
+                },
+                "minqual": {
+                    "type": "integer",
+                    "default": 7,
+                    "description": "Minimum average read quality filter of ONT reads."
+                },
+                "porechop_opts": {
+                    "type": "string",
+                    "description": "Extra Porechop options in quotes"
+                },
+                "nanoplot_opts": {
+                    "type": "string",
+                    "description": "Extra NanoPlot options in quotes"
+                },
+                "bbmap_opts": {
+                    "type": "string",
+                    "description": "Extra BBMap options in quotes"
+                },
+                "flash_opts": {
+                    "type": "string",
+                    "description": "Extra FLASH options in quotes"
+                },
+                "flash": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Use FLASH to merge paired-end reads",
+                    "help": "Use ''--skip_error_correction'' to disable error correction",
+                    "enum": [
+                        "true",
+                        "false"
+                    ]
+                },
+                "min_flash_overlap": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "The minimum required overlap length between two reads to merge them."
+                },
+                "max_flash_overlap": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "The maximum overlap length expected between two reads to merge them."
+                },
+                "max_flash_mismatch": {
+                    "type": "number",
+                    "default": 0.25,
+                    "description": "The mismatch ratio allowed between overlapped paired-end reads."
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/qc_parameters"
+        }
+    ]
+}

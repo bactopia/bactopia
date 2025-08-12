@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "Bracken Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bracken/schema.json",
+    "title": "Kraken2 Module",
+    "description": "A module for taxonomic classification of sequence reads",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "kraken2_bracken_parameters": {
+            "title": "Kraken2 and Bracken Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "kraken2_db": {
             "type": ["string", "null"],
             "description": "Path to Kraken2 database",
@@ -88,5 +97,12 @@
             "description": "Skip Krona report generation",
             "default": false
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/kraken2_bracken_parameters"
+        }
+    ]
 }

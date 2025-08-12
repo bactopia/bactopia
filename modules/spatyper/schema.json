@@ -1,25 +1,36 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/spatyper/schema.json",
-    "title": "bactopia/modules/spatyper module",
-    "description": "A Module to run spaTyper for Staphylococcus aureus spa typing",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/spatyper/schema.json",
+    "title": "SpaTyper Module",
+    "description": "A module for spa typing Staphylococcus aureus",
     "type": "object",
-    "properties": {
-        "repeats": {
-            "type": "string",
-            "description": "Custom repeat file",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "repeat_order": {
-            "type": "string",
-            "description": "Custom repeat order file",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "do_enrich": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enrich the spa type database with the types from this sample",
-            "fa_icon": "fas fa-hashtag"
+    "$defs": {
+        "spatyper_parameters": {
+            "title": "spaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "repeats": {
+                    "type": "string",
+                    "description": "List of spa repeats"
+                },
+                "repeat_order": {
+                    "type": "string",
+                    "description": "List spa types and order of repeats"
+                },
+                "do_enrich": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do PCR product enrichment"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/spatyper_parameters"
+        }
+    ]
 }

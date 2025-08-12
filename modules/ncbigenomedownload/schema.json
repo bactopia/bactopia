@@ -1,60 +1,68 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "species": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Species to download"
-        },
-        "accession": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Accession to download"
-        },
-        "accessions": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "File with accessions to download"
-        },
-        "limit": {
-            "type": ["integer", "null"],
-            "default": null,
-            "description": "Limit number of downloads"
-        },
-        "format": {
-            "type": "string",
-            "default": "fasta",
-            "description": "Format to download",
-            "hidden": true
-        },
-        "section": {
-            "type": "string",
-            "default": "refseq",
-            "description": "NCBI section to download from",
-            "hidden": true
-        },
-        "assembly_level": {
-            "type": "string",
-            "default": "complete",
-            "description": "Assembly level",
-            "hidden": true
-        },
-        "kingdom": {
-            "type": "string",
-            "default": "bacteria",
-            "description": "Kingdom to download",
-            "hidden": true
-        },
-        "keep_downloads": {
-            "type": "boolean",
-            "default": false,
-            "description": "Keep downloaded files"
-        },
-        "max_retry": {
-            "type": "integer",
-            "default": 10,
-            "description": "Maximum download retries",
-            "hidden": true
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ncbigenomedownload/schema.json",
+    "title": "NCBI Genome Download Module",
+    "description": "A module to download assemblies from NCBI's Assembly database",
+    "type": "object",
+    "$defs": {
+        "ncbigenomedownload_parameters": {
+            "title": "NCBI Genome Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "species": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Name of the species to download assemblies"
+                },
+                "accession": {
+                    "type": "string",
+                    "default": "",
+                    "description": "An NCBI Assembly accession to be downloaded"
+                },
+                "accessions": {
+                    "type": "string",
+                    "default": "",
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded"
+                },
+                "format": {
+                    "type": "string",
+                    "default": "fasta",
+                    "description": "Comma separated list of formats to download"
+                },
+                "section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "NCBI section to download"
+                },
+                "assembly_level": {
+                    "type": "string",
+                    "default": "complete",
+                    "description": "Comma separated list of assembly levels to download"
+                },
+                "kingdom": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Comma separated list of formats to download"
+                },
+                "limit": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Limit the number of assemblies to download"
+                },
+                "keep_downloads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save downloaded files into the bactopia-runs folder"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ncbigenomedownload_parameters"
+        }
+    ]
 }

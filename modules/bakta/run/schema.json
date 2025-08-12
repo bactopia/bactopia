@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "Bakta Run Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bakta/run/schema.json",
+    "title": "Bakta Module",
+    "description": "A module for rapidly annotating baterial genomes",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "bakta_parameters": {
+            "title": "Bakta Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "min_contig_length": {
             "type": "integer",
             "description": "Minimum contig size (--min-contig-length)",
@@ -128,5 +137,12 @@
             "description": "Use Bakta for annotation",
             "default": false
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/bakta_parameters"
+        }
+    ]
 }

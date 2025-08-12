@@ -1,10 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/emmtyper/schema.json",
-    "title": "emmtyper Parameters",
-    "description": "The schema for emmtyper parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/emmtyper/schema.json",
+    "title": "emmtyper Module",
+    "description": "A module for emm-typing of Streptococcus pyogenes",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "emmtyper_parameters": {
+            "title": "emmtyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "emmtyper_wf": {
             "type": "string",
             "default": "blast",
@@ -60,5 +67,12 @@
             "default": 2000,
             "description": "Maximum amplicon size"
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/emmtyper_parameters"
+        }
+    ]
 }

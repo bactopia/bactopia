@@ -1,46 +1,63 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "trunclength": {
-            "type": "integer",
-            "default": 250,
-            "description": "Truncate sequences to this length when determining the species",
-            "hidden": true
-        },
-        "sortorder": {
-            "type": "string",
-            "default": "ABC",
-            "description": "Sort the genomes in the output in the given format",
-            "hidden": true
-        },
-        "genomesize": {
-            "type": "integer",
-            "default": 5000000,
-            "description": "Genome size of the input samples",
-            "hidden": true
-        },
-        "mindepth": {
-            "type": "integer",
-            "default": 5,
-            "description": "Minimum depth to count a sketch",
-            "hidden": true
-        },
-        "kmerlength": {
-            "type": "integer",
-            "default": 21,
-            "description": "Kmer size to use for sketching",
-            "hidden": true
-        },
-        "sketchsize": {
-            "type": "integer",
-            "default": 10000,
-            "description": "Number of kmers to use when sketching",
-            "hidden": true
-        },
-        "save_sketches": {
-            "type": "boolean",
-            "default": false,
-            "description": "Keep intermediate sketch files"
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mashtree/schema.json",
+    "title": "Mashtree Module",
+    "description": "A module to create a tree using Mash distance",
+    "type": "object",
+    "$defs": {
+        "mashtree_parameters": {
+            "title": "Mashtree Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "trunclength": {
+                    "type": "integer",
+                    "default": 250,
+                    "description": "How many characters to keep in a filename"
+                },
+                "sortorder": {
+                    "type": "string",
+                    "default": "ABC",
+                    "description": "For neighbor-joining, the sort order can make a difference.",
+                    "enum": [
+                        "ABC",
+                        "random",
+                        "input-order"
+                    ]
+                },
+                "genomesize": {
+                    "type": "integer",
+                    "default": 5000000,
+                    "description": "Genome size of the input samples"
+                },
+                "mindepth": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "If mindepth is zero, then it will be chosen in a smart but slower method, to discard lower-abundance kmers."
+                },
+                "kmerlength": {
+                    "type": "integer",
+                    "default": 21,
+                    "description": "Hashes will be based on strings of this many nucleotides"
+                },
+                "sketchsize": {
+                    "type": "integer",
+                    "default": 10000,
+                    "description": "Each sketch will have at most this many non-redundant min-hashes"
+                },
+                "save_sketches": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save sketches created during the process"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mashtree_parameters"
+        }
+    ]
 }

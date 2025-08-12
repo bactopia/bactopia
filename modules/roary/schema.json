@@ -1,57 +1,63 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/roary/schema.json",
-    "title": "bactopia/modules/roary module",
-    "description": "A Module to run Roary, a rapid large-scale prokaryote pan genome analysis tool",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/roary/schema.json",
+    "title": "Roary Module",
+    "description": "A module for building a pangenome",
     "type": "object",
-    "properties": {
-        "use_prank": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use PRANK instead of MAFFT for core-genome alignment",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "i": {
-            "type": "integer",
-            "default": 95,
-            "description": "Minimum percentage identity for blastp",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "cd": {
-            "type": "integer",
-            "default": 99,
-            "description": "Percentage of isolates a gene must be in to be core",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "g": {
-            "type": "integer",
-            "default": 50000,
-            "description": "Maximum number of clusters",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "s": {
-            "type": "boolean",
-            "default": false,
-            "description": "Don't split paralogs",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "ap": {
-            "type": "boolean",
-            "default": false,
-            "description": "Allow paralogs in core alignment",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "iv": {
-            "type": "number",
-            "default": 1.5,
-            "description": "MCL inflation value",
-            "fa_icon": "fas fa-hashtag"
-        },
-        "use_roary": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use Roary for pan-genome analysis",
-            "fa_icon": "fas fa-hashtag"
+    "$defs": {
+        "roary_parameters": {
+            "title": "Roary Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_prank": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use PRANK instead of MAFFT for core gene"
+                },
+                "use_roary": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow"
+                },
+                "i": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percentage identity for blastp"
+                },
+                "cd": {
+                    "type": "integer",
+                    "default": 99,
+                    "description": "Percentage of isolates a gene must be in to be core"
+                },
+                "g": {
+                    "type": "integer",
+                    "default": 50000,
+                    "description": "Maximum number of clusters"
+                },
+                "s": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do not split paralogs"
+                },
+                "ap": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Allow paralogs in core alignment"
+                },
+                "iv": {
+                    "type": "number",
+                    "default": 1.5,
+                    "description": "MCL inflation value"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/roary_parameters"
+        }
+    ]
 }

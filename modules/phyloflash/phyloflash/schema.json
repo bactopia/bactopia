@@ -1,10 +1,28 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "allow_multiple_16s": {
-            "type": "boolean",
-            "default": false,
-            "description": "Allow multiple 16S sequences"
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/phyloflash/phyloflash/schema.json",
+    "title": "PhyloFlash Module",
+    "description": "A module for rapid reconstruction of SSU rRNAs",
+    "type": "object",
+    "$defs": {
+        "phyloflash_parameters": {
+            "title": "PhyloFlash Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "allow_multiple_16s": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Allow multiple 16S sequences"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/phyloflash_parameters"
+        }
+    ]
 }

@@ -1,0 +1,162 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bactopia/assembler/schema.json",
+    "title": "Bactopia Assembler Module",
+    "description": "A module for bacterial genome assembly",
+    "type": "object",
+    "$defs": {
+        "assembler_parameters": {
+            "title": "Assembler Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "shovill_assembler": {
+                    "type": "string",
+                    "default": "skesa",
+                    "description": "Assembler to be used by Shovill",
+                    "enum": [
+                        "skesa",
+                        "megahit",
+                        "spades",
+                        "velvet"
+                    ]
+                },
+                "dragonflye_assembler": {
+                    "type": "string",
+                    "default": "flye",
+                    "description": "Assembler to be used by Dragonflye",
+                    "enum": [
+                        "flye",
+                        "miniasm",
+                        "raven"
+                    ]
+                },
+                "use_unicycler": {
+                    "type": "boolean",
+                    "description": "Use unicycler for paired end assembly"
+                },
+                "min_contig_len": {
+                    "type": "integer",
+                    "description": "Minimum contig length <0=AUTO>",
+                    "default": 500
+                },
+                "min_contig_cov": {
+                    "type": "integer",
+                    "description": "Minimum contig coverage <0=AUTO>",
+                    "default": 2
+                },
+                "contig_namefmt": {
+                    "type": "string",
+                    "description": "Format of contig FASTA IDs in 'printf' style"
+                },
+                "shovill_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Shovill",
+                    "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'"
+                },
+                "shovill_kmers": {
+                    "type": "string",
+                    "description": "K-mers to use <blank=AUTO>",
+                    "help": "This would allow you to specify the kmer lengths to be used"
+                },
+                "dragonflye_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Dragonflye",
+                    "help": "Example for Medaka would be: '--nanohq'"
+                },
+                "trim": {
+                    "type": "boolean",
+                    "description": "Enable adaptor trimming"
+                },
+                "no_stitch": {
+                    "type": "boolean",
+                    "description": "Disable read stitching for paired-end reads"
+                },
+                "no_corr": {
+                    "type": "boolean",
+                    "description": "Disable correction of overlapping paired-end reads"
+                },
+                "flash_opts": {
+                    "type": "string",
+                    "description": "Extra FLASH options in quotes"
+                },
+                "assemble_with_haslr": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use HASLR for assembly of Nanopore reads"
+                },
+                "haslr_opts": {
+                    "type": "string",
+                    "description": "Extra HASLR options in quotes"
+                },
+                "polypolish_rounds": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Number of polishing rounds with Polypolish"
+                },
+                "polypolish_careful": {
+                    "type": "string",
+                    "default": "--careful",
+                    "description": "Polypolish will ignore any reads with multiple alignments"
+                },
+                "polypolish_opts": {
+                    "type": "string",
+                    "description": "Extra Polypolish options in quotes"
+                },
+                "skip_polishing": {
+                    "type": "boolean",
+                    "description": "Skip the assembly polishing step"
+                },
+                "skip_rotation": {
+                    "type": "boolean",
+                    "description": "Skip the assembly rotation step"
+                },
+                "skip_medaka": {
+                    "type": "boolean",
+                    "description": "Skip assembly polishing with Medaka when --nf_max_memory 16.GB or less"
+                },
+                "medaka_model": {
+                    "type": "string",
+                    "default": "r941_min_hac_g507",
+                    "description": "The Medaka model to use"
+                },
+                "medaka_opts": {
+                    "type": "string",
+                    "description": "Extra Medaka options in quotes"
+                },
+                "skip_pilon": {
+                    "type": "boolean",
+                    "description": "Skip assembly polishing with Pilon when --hybrid is used"
+                },
+                "racon_rounds": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Number of polishing rounds with Racon"
+                },
+                "no_polish": {
+                    "type": "boolean",
+                    "description": "Skip assembly polishing with Racon/Medaka"
+                },
+                "no_minipolish": {
+                    "type": "boolean",
+                    "description": "Skip assembly polishing with Minipolish (Miniasm specific)"
+                },
+                "reassemble": {
+                    "type": "boolean",
+                    "description": "If reads were simulated, reassemble to tested against truth genome"
+                },
+                "keep_all_files": {
+                    "type": "boolean",
+                    "description": "Keep all intermediate files"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/assembler_parameters"
+        }
+    ]
+}

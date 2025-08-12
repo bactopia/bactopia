@@ -1,39 +1,63 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-        "mykrobe_species": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Mykrobe species to use"
-        },
-        "kmer": {
-            "type": "integer",
-            "default": 21,
-            "description": "Kmer length",
-            "hidden": true
-        },
-        "min_depth": {
-            "type": "integer",
-            "default": 1,
-            "description": "Minimum depth",
-            "hidden": true
-        },
-        "model": {
-            "type": "string",
-            "default": "kmer_count",
-            "description": "Genotyping model to use",
-            "hidden": true
-        },
-        "report_all_calls": {
-            "type": "boolean",
-            "default": false,
-            "description": "Report all calls"
-        },
-        "mykrobe_opts": {
-            "type": "string",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mykrobe/predict/schema.json",
+    "title": "Mykrobe Module",
+    "description": "A module for antimicrobial resistance detection for specific species",
+    "type": "object",
+    "$defs": {
+        "mykrobe_parameters": {
+            "title": "Mykrobe Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Extra Mykrobe options",
-            "hidden": true
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "mykrobe_species": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Species panel to use",
+                    "enum": [
+                        "sonnei",
+                        "staph",
+                        "tb",
+                        "typhi"
+                    ]
+                },
+                "kmer": {
+                    "type": "integer",
+                    "default": 21,
+                    "description": "K-mer length"
+                },
+                "min_depth": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum depth"
+                },
+                "model": {
+                    "type": "string",
+                    "default": "kmer_count",
+                    "description": "Genotype model used.",
+                    "enum": [
+                        "kmer_count",
+                        "median_depth"
+                    ]
+                },
+                "report_all_calls": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report all calls"
+                },
+                "mykrobe_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Extra Mykrobe options in quotes"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mykrobe_parameters"
+        }
+    ]
 }

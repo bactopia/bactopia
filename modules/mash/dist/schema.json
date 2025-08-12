@@ -1,70 +1,72 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mash/dist/schema.json",
-    "title": "Mash Dist Parameters",
+    "title": "Mash Dist Module",
+    "description": "A module for calculating Mash distances between seqeunces",
+    "type": "object",
     "$defs": {
-        "parameters": {
-            "title": "Mash Dist Parameters",
+        "mash_dist_parameters": {
+            "title": "mashdist Parameters",
             "type": "object",
-            "description": "Calculate Mash distances between sequences",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "max_p": {
-                    "title": "Maximum p-value to report",
-                    "type": "number",
-                    "description": "Maximum p-value to report",
-                    "default": 0.05,
-                    "fa_icon": "fas fa-percent"
-                },
-                "max_dist": {
-                    "title": "Maximum distance to report",
-                    "type": "number",
-                    "description": "Maximum distance to report",
-                    "default": 0.1,
-                    "fa_icon": "fas fa-ruler"
-                },
-                "merlin_dist": {
-                    "title": "Maximum distance to report for Merlin",
-                    "type": "number",
-                    "description": "Maximum distance to report for Merlin",
-                    "default": 0.1,
-                    "fa_icon": "fas fa-ruler"
-                },
-                "mash_w": {
-                    "title": "Probability threshold for warning about low k-mer size",
-                    "type": "number",
-                    "description": "Probability threshold for warning about low k-mer size",
-                    "default": 0.0,
-                    "fa_icon": "fas fa-exclamation-triangle"
-                },
-                "mash_m": {
-                    "title": "Minimum copies of each k-mer",
-                    "type": "integer",
-                    "description": "Minimum copies of each k-mer required to pass noise filter for reads",
-                    "default": 1,
-                    "fa_icon": "fas fa-copy"
-                },
-                "mash_s": {
-                    "title": "Maximum number of non-redundant hashes",
-                    "type": "integer",
-                    "description": "Maximum number of non-redundant hashes",
-                    "default": 100000,
-                    "fa_icon": "fas fa-hashtag"
+                "mash_sketch": {
+                    "type": "string",
+                    "description": "The reference sequence as a Mash Sketch (.msh file)"
                 },
                 "mash_seed": {
-                    "title": "Seed to use for MinHash",
                     "type": "integer",
-                    "description": "Seed to use for MinHash hashing",
                     "default": 42,
-                    "fa_icon": "fas fa-seedling"
+                    "description": "Seed to provide to the hash function"
                 },
-                "ask_merlin": {
-                    "title": "Ask Merlin for species predictions",
+                "mash_table": {
                     "type": "boolean",
-                    "description": "Use Mash distances to predict species",
                     "default": false,
-                    "fa_icon": "fas fa-wizard"
+                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)"
+                },
+                "mash_m": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum copies of each k-mer required to pass noise filter for reads"
+                },
+                "mash_w": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Probability threshold for warning about low k-mer size."
+                },
+                "max_p": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum p-value to report."
+                },
+                "max_dist": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum distance to report."
+                },
+                "merlin_dist": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum distance to report when using Merlin ."
+                },
+                "full_merlin": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance"
+                },
+                "use_fastqs": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Query with FASTQs instead of the assemblies"
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mash_dist_parameters"
+        }
+    ]
 }

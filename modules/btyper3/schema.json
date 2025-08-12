@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/btyper3/schema.json",
     "title": "BTyper3 Module",
+    "description": "A module for taxonomic classification of Bacillus cereus group isolates.",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "btyper3_parameters": {
+            "title": "BTyper3 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "bt_virulence_identity": {
             "type": "integer",
             "description": "Minimum percent identity for virulence factors",
@@ -33,5 +42,12 @@
             "description": "Additional BTyper3 options",
             "default": ""
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/btyper3_parameters"
+        }
+    ]
 }

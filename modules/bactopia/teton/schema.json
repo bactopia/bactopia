@@ -4,17 +4,19 @@
     "title": "Bactopia Teton Module",
     "description": "A schema for the Bactopia Teton module",
     "type": "object",
-    "defs": {
+    "$defs": {
         "teton_parameters": {
             "title": "Teton Parameters",
             "type": "object",
-            "description": "Parameters for adjusting Teton sample sheet preparation",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {}
         }
     },
     "allOf": [
         {
-            "$ref": "#/defs/teton_parameters"
+            "$ref": "#/$defs/teton_parameters"
         }
     ]
 }

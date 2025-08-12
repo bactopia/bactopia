@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "BLAST BLASTX Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/blast/blastx/schema.json",
+    "title": "BLASTX Module",
+    "description": "A module for rapidly aligning against proteins",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "blast_parameters": {
+            "title": "BLASTX Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "blastx_query": {
             "type": ["string", "null"],
             "description": "Query sequence(s) for BLASTX",
@@ -28,5 +37,12 @@
             "description": "Maximum number of aligned sequences to keep",
             "default": 2000
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/blast_parameters"
+        }
+    ]
 }

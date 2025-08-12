@@ -1,22 +1,40 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/clonalframeml/schema.json",
     "title": "ClonalFrameML Module",
+    "description": "A module for identifying recombination events in bacteria",
     "type": "object",
-    "properties": {
-        "skip_recombination": {
-            "type": "boolean",
-            "description": "Skip recombination detection",
-            "default": false
-        },
-        "emsim": {
-            "type": "integer",
-            "description": "Number of simulations for the estimation of uncertainty",
-            "default": 100
-        },
-        "clonal_opts": {
-            "type": "string",
-            "description": "Additional ClonalFrameML options",
-            "default": ""
+    "$defs": {
+        "clonalframeml_parameters": {
+            "title": "ClonalFrameML Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "emsim": {
+                    "type": "integer",
+                    "description": "Number of simulations to estimate uncertainty in the EM results",
+                    "default": 100,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "clonal_opts": {
+                    "type": "string",
+                    "description": "Extra ClonalFrameML options in quotes",
+                    "fa_icon": "fas fa-italic"
+                },
+                "skip_recombination": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip ClonalFrameML execution in subworkflows",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/clonalframeml_parameters"
+        }
+    ]
 }

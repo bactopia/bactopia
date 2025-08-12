@@ -1,9 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "Gather Parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bactopia/gather/schema.json",
+    "title": "Gather Module",
     "description": "A flexible pipeline for complete analysis of bacterial genomes",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "gather_parameters": {
+            "title": "Gather Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "skip_fastq_check": {
             "type": "boolean",
             "description": "Skip minimum requirement checks for input FASTQs"
@@ -42,14 +50,21 @@
             "type": "integer",
             "description": "Maximum times to attempt downloads",
             "default": 3
-        },
-        "use_ena": {
-            "type": "boolean",
-            "description": "Download FASTQs from ENA"
-        },
-        "no_cache": {
-            "type": "boolean",
-            "description": "Skip caching the assembly summary file from ncbi-genome-download"
+                },
+                "use_ena": {
+                    "type": "boolean",
+                    "description": "Download FASTQs from ENA"
+                },
+                "no_cache": {
+                    "type": "boolean",
+                    "description": "Skip caching the assembly summary file from ncbi-genome-download"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gather_parameters"
+        }
+    ]
 }

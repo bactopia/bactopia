@@ -1,6 +1,22 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/custom/dumpsoftwareversions/schema.json",
     "title": "Custom Dump Software Versions Module",
+    "description": "A module to dump software versions",
     "type": "object",
-    "properties": {}
+    "$defs": {
+        "dumpsoftwareversions_parameters": {
+            "title": "Dump Software Versions Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/dumpsoftwareversions_parameters"
+        }
+    ]
 }

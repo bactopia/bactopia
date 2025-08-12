@@ -1,39 +1,53 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/iqtree/schema.json",
-    "title": "IQ-TREE Parameters",
-    "description": "The schema for IQ-TREE parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/iqtree/schema.json",
+    "title": "IQ-TREE Module",
+    "description": "Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm.",
     "type": "object",
-    "properties": {
-        "iqtree_model": {
-            "type": "string",
-            "default": "HKY",
-            "description": "Substitution model for IQ-TREE"
-        },
-        "bb": {
-            "type": "integer",
-            "default": 1000,
-            "description": "Ultrafast bootstrap replicates"
-        },
-        "alrt": {
-            "type": "integer",
-            "default": 1000,
-            "description": "SH-like approximate likelihood ratio test (SH-aLRT) replicates"
-        },
-        "asr": {
-            "type": "boolean",
-            "default": false,
-            "description": "Ancestral state reconstruction by empirical Bayes"
-        },
-        "iqtree_opts": {
-            "type": "string",
+    "$defs": {
+        "iqtree_parameters": {
+            "title": "IQ-TREE Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Additional IQ-TREE options"
-        },
-        "skip_phylogeny": {
-            "type": "boolean",
-            "default": false,
-            "description": "Skip phylogeny reconstruction"
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "iqtree_model": {
+                    "type": "string",
+                    "default": "HKY",
+                    "description": "Substitution model name"
+                },
+                "bb": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Ultrafast bootstrap replicates"
+                },
+                "alrt": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "SH-like approximate likelihood ratio test replicates"
+                },
+                "asr": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ancestral state reconstruction by empirical Bayes"
+                },
+                "iqtree_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Extra IQ-TREE options in quotes."
+                },
+                "skip_phylogeny": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip IQ-TREE execution in subworkflows"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/iqtree_parameters"
+        }
+    ]
 }

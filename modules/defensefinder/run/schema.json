@@ -1,10 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/defensefinder/run/schema.json",
-    "title": "Defense-Finder Run Parameters",
-    "description": "The schema for Defense-Finder run parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/defensefinder/run/schema.json",
+    "title": "defense-finder Module",
+    "description": "A module to identify anti-phage systems in assemblies",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "defensefinder_parameters": {
+            "title": "defense-finder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "df_preserveraw": {
             "type": "boolean",
             "default": false,
@@ -25,5 +32,12 @@
             "default": "ordered_replicon",
             "description": "Database type to use"
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/defensefinder_parameters"
+        }
+    ]
 }

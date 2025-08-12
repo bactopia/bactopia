@@ -1,12 +1,16 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/snippy/run/schema.json",
-    "title": "Snippy Parameters",
+    "title": "Snippy Run Module",
+    "description": "Rapid variant calling from sequence reads",
+    "type": "object",
     "$defs": {
-        "parameters": {
-            "title": "Snippy Parameters",
+        "snippy_run_parameters": {
+            "title": "Snippy Run Parameters",
             "type": "object",
-            "description": "Rapid variant calling from sequence reads",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "reference": {
                     "title": "Reference genome in GenBank format",
@@ -87,5 +91,10 @@
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/snippy_run_parameters"
+        }
+    ]
 }

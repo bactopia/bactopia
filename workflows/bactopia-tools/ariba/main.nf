@@ -1,0 +1,60 @@
+#!/usr/bin/env nextflow
+nextflow.preview.output = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { ARIBA             } from '../../../subworkflows/ariba/main'
+include { workflowSummary   } from 'plugin/nf-bactopia'
+
+/*
+========================================================================================
+    RUN MAIN WORKFLOW
+========================================================================================
+*/
+workflow {
+
+    main:
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    
+    ARIBA(BACTOPIATOOL_INIT.out.samples)
+
+    workflow.onComplete {
+        log.info workflowSummary()
+    }
+
+    publish:
+    results = ARIBA.out.results.mix(
+        ARIBA.out.merged_report,
+        ARIBA.out.merged_summary
+    )
+    logs = ARIBA.out.logs
+    nf_logs = ARIBA.out.nf_logs
+    versions = ARIBA.out.versions
+}
+
+output {
+    results {
+        path { meta, _file -> "${meta.output_dir}/" }
+    }
+    logs {
+        path { meta, _file -> "${meta.logs_dir}/" }
+    }
+    nf_logs {
+        path { meta, file -> {
+            file >> "${meta.logs_dir}/nf${file.name}"
+        } }
+    }
+    versions {
+        path { meta, _file -> "${meta.logs_dir}/" }
+    }
+}
+
+/*
+========================================================================================
+    THE END
+========================================================================================
+*/

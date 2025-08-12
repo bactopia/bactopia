@@ -4,18 +4,19 @@
     "title": "bactopia/srahumanscrubber/initdb module",
     "description": "Initialize human read removal database for SRA Human Scrubber",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "srahumanscrubber_initdb": {
             "title": "SRA Human Scrubber Database Initialization Parameters",
             "type": "object",
-            "description": "Parameters for SRA Human Scrubber database initialization",
-            "properties": {},
-            "required": []
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/srahumanscrubber_initdb"
+            "$ref": "#/$defs/srahumanscrubber_initdb"
         }
     ]
 }

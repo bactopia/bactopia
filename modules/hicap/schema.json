@@ -1,49 +1,63 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/hicap/schema.json",
-    "title": "HiCAP Parameters",
-    "description": "The schema for HiCAP parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/hicap/schema.json",
+    "title": "hicap Module",
+    "description": "A module for in-silico typing of the H. influenzae capsule locus",
     "type": "object",
-    "properties": {
-        "database_dir": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Path to database directory"
-        },
-        "model_fp": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Path to prodigal model file"
-        },
-        "full_sequence": {
-            "type": "boolean",
-            "default": false,
-            "description": "Write full nucleotide sequence of cap locus"
-        },
-        "gene_coverage": {
-            "type": "number",
-            "default": 0.8,
-            "description": "Minimum gene coverage"
-        },
-        "gene_identity": {
-            "type": "number",
-            "default": 0.7,
-            "description": "Minimum gene identity"
-        },
-        "broken_gene_length": {
-            "type": "integer",
-            "default": 60,
-            "description": "Minimum broken gene length"
-        },
-        "broken_gene_identity": {
-            "type": "number",
-            "default": 0.8,
-            "description": "Minimum broken gene identity"
-        },
-        "hicap_debug": {
-            "type": "boolean",
-            "default": false,
-            "description": "Run hicap in debug mode"
+    "$defs": {
+        "hicap_parameters": {
+            "title": "hicap Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "database_dir": {
+                    "type": ["string", "null"],
+                    "default": null,
+                    "description": "Directory containing locus database"
+                },
+                "model_fp": {
+                    "type": ["string", "null"],
+                    "default": null,
+                    "description": "Path to prodigal model"
+                },
+                "full_sequence": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Write the full input sequence out to the genbank file rather than just the region surrounding and including the locus"
+                },
+                "hicap_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "hicap will print debug messages"
+                },
+                "gene_coverage": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Minimum percentage coverage to consider a single gene complete"
+                },
+                "gene_identity": {
+                    "type": "number",
+                    "default": 0.7,
+                    "description": "Minimum percentage identity to consider a single gene complete"
+                },
+                "broken_gene_length": {
+                    "type": "integer",
+                    "default": 60,
+                    "description": "Minimum length to consider a broken gene"
+                },
+                "broken_gene_identity": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Minimum percentage identity to consider a broken gene"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/hicap_parameters"
+        }
+    ]
 }

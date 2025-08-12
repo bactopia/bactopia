@@ -1,12 +1,29 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/clermontyping/schema.json",
     "title": "ClermonTyping Module",
+    "description": "A module to for in silico phylotyping of Escherichia genus",
     "type": "object",
-    "properties": {
-        "clermon_threshold": {
-            "type": "integer",
-            "description": "Threshold for ClermonTyping phylogroup assignment",
-            "default": 0
+    "$defs": {
+        "clermontyping_parameters": {
+            "title": "ClermonTyping Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "clermon_threshold": {
+                    "type": "number",
+                    "description": "Do not use contigs under this size",
+                    "default": 0,
+                    "fa_icon": "fas fa-file-alt"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/clermontyping_parameters"
+        }
+    ]
 }

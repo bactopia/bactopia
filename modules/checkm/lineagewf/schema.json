@@ -1,8 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "CheckM Lineage Workflow Module",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/checkm/lineagewf/schema.json",
+    "title": "CheckM Module",
+    "description": "A module to assess the assembly quality of your samples",
     "type": "object",
-    "properties": {
+    "$defs": {
+        "checkm_parameters": {
+            "title": "CheckM Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
         "checkm_unique": {
             "type": "integer",
             "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set",
@@ -68,5 +77,12 @@
             "description": "Skip pseudogene correction",
             "default": null
         }
-    }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/checkm_parameters"
+        }
+    ]
 }

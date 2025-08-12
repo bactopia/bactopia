@@ -1,12 +1,16 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bakta/download/schema.json",
-    "title": "Bakta Download Parameters",
+    "title": "Bakta Module",
+    "description": "A module for rapidly annotating baterial genomes",
+    "type": "object",
     "$defs": {
-        "parameters": {
+        "bakta_download_parameters": {
             "title": "Bakta Download Parameters",
             "type": "object",
-            "description": "Download Bakta database",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "download_bakta": {
                     "title": "Download Bakta database",
@@ -38,5 +42,10 @@
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/bakta_download_parameters"
+        }
+    ]
 }

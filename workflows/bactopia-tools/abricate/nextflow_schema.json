@@ -11,16 +11,13 @@
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
             "help_text": "",
-            "required": [
-                "bactopia"
-            ],
             "properties": {
                 "bactopia": {
                     "type": "string",
                     "description": "The path to bactopia results to use as inputs",
                     "help": "The required inputs will be automatically selected by the subworkflow.",
                     "fa_icon": "fas fa-bacterium",
-                    "header": "Bactopia Results",
+                    "header": "Bactopia Results"
                 }
             }
         },
@@ -56,30 +53,19 @@
                     "type": "string",
                     "default": "ncbi",
                     "description": "Database to use",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "enum": [
-                        "card",
-                        "ecoh",
-                        "ecoli_vf",
-                        "megares",
-                        "ncbi",
-                        "plasmidfinder",
-                        "resfinder",
-                        "vfdb"
-                    ]
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "minid": {
-                    "type": "number",
+                    "type": "integer",
                     "default": 80,
                     "description": "Minimum DNA percent identity",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "mincov": {
-                    "type": "number",
-                    "default": "80",
+                    "type": "integer",
+                    "default": 80,
                     "description": "Minimum DNA percent coverage",
-                    "help_text": "Minimum percent coverage of the query sequence by the subject sequence",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -291,13 +277,13 @@
                 },
                 "registry": {
                     "type": "string",
-                    "default": "quay.io",
+                    "default": "dockerhub",
                     "hidden": true,
                     "description": "Docker registry to pull containers from.",
                     "fa_icon": "fas fa-box",
                     "enum": [
                         "dockerhub",
-                        "quay.io",
+                        "quay",
                         "github"
                     ]
                 },
@@ -409,6 +395,18 @@
                     "type": "boolean",
                     "description": "List the available workflows and Bactopia Tools to use with '--wf'",
                     "fa_icon": "fas fa-list"
+                },
+                "show_hidden_params": {
+                    "type": "boolean",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "far fa-eye",
+                    "hidden": true
+                },
+                "help_all": {
+                    "type": "boolean",
+                    "description": "An alias for --help --show_hidden_params",
+                    "fa_icon": "fas fa-question-circle"
                 },
                 "version": {
                     "type": "boolean",

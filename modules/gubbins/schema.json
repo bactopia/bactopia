@@ -1,49 +1,63 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/gubbins/schema.json",
-    "title": "Gubbins Parameters",
-    "description": "The schema for Gubbins parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/gubbins/schema.json",
+    "title": "Gubbins Module",
+    "description": "A module for identifying recombination events in bacteria",
     "type": "object",
-    "properties": {
-        "iterations": {
-            "type": "integer",
-            "default": 5,
-            "description": "Maximum number of iterations"
-        },
-        "min_snps": {
-            "type": "integer",
-            "default": 3,
-            "description": "Minimum number of SNPs to identify a recombination block"
-        },
-        "min_window_size": {
-            "type": "integer",
-            "default": 100,
-            "description": "Minimum window size"
-        },
-        "max_window_size": {
-            "type": "integer",
-            "default": 10000,
-            "description": "Maximum window size"
-        },
-        "filter_percentage": {
-            "type": "number",
-            "default": 25.0,
-            "description": "Filter percentage for taxa to be included"
-        },
-        "remove_identical_sequences": {
-            "type": "boolean",
-            "default": false,
-            "description": "Remove identical sequences"
-        },
-        "skip_recombination": {
-            "type": "boolean",
-            "default": false,
-            "description": "Skip recombination detection"
-        },
-        "gubbin_opts": {
-            "type": "string",
+    "$defs": {
+        "gubbins_parameters": {
+            "title": "Gubbins Parameters",
+            "type": "object",
+            "description": "",
             "default": "",
-            "description": "Additional Gubbins options"
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "iterations": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Maximum number of iterations"
+                },
+                "min_snps": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Min SNPs to identify a recombination block"
+                },
+                "min_window_size": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Minimum window size"
+                },
+                "max_window_size": {
+                    "type": "integer",
+                    "default": 10000,
+                    "description": "Maximum window size"
+                },
+                "filter_percentage": {
+                    "type": "number",
+                    "default": 25.0,
+                    "description": "Filter out taxa with more than this percentage of gaps"
+                },
+                "remove_identical_sequences": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Remove identical sequences"
+                },
+                "gubbin_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Extra Gubbins options in quotes"
+                },
+                "skip_recombination": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip Gubbins execution in subworkflows"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gubbins_parameters"
+        }
+    ]
 }

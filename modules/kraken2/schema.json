@@ -1,69 +1,77 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/kraken2/schema.json",
-    "title": "Kraken2 Parameters",
-    "description": "The schema for Kraken2 parameters",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/kraken2/schema.json",
+    "title": "Kraken2 Module",
+    "description": "A module for taxonomic classification of sequence reads",
     "type": "object",
-    "properties": {
-        "use_k2scrubber": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use K2 scrubber mode"
-        },
-        "kraken2_db": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Path to Kraken2 database"
-        },
-        "quick_mode": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable quick operation mode"
-        },
-        "confidence": {
-            "type": "number",
-            "default": 0.0,
-            "description": "Confidence score threshold"
-        },
-        "minimum_base_quality": {
-            "type": "integer",
-            "default": 0,
-            "description": "Minimum base quality used in classification"
-        },
-        "use_mpa_style": {
-            "type": "boolean",
-            "default": false,
-            "description": "Format report output like Kraken 1's kraken-mpa-report"
-        },
-        "report_zero_counts": {
-            "type": "boolean",
-            "default": false,
-            "description": "Report taxa with no reads"
-        },
-        "report_minimizer_data": {
-            "type": "boolean",
-            "default": false,
-            "description": "Report minimizer data"
-        },
-        "use_names": {
-            "type": "boolean",
-            "default": false,
-            "description": "Print scientific names instead of just taxids"
-        },
-        "memory_mapping": {
-            "type": "boolean",
-            "default": false,
-            "description": "Avoids loading database into memory"
-        },
-        "minimum_hit_groups": {
-            "type": "integer",
-            "default": 2,
-            "description": "Minimum number of hit groups needed to make a call"
-        },
-        "keep_filtered_reads": {
-            "type": "boolean",
-            "default": false,
-            "description": "Keep filtered reads instead of removing them"
+    "$defs": {
+        "kraken2_parameters": {
+            "title": "Kraken2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kraken2_db": {
+                    "type": "string",
+                    "description": "The a single tarball or path to a Kraken2 formatted database"
+                },
+                "quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)"
+                },
+                "confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1"
+                },
+                "minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification"
+                },
+                "use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report"
+                },
+                "report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero"
+                },
+                "report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report"
+                },
+                "use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids"
+                },
+                "memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM"
+                },
+                "minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call"
+                },
+                "keep_filtered_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2"
+                }
+            }
         }
-    }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/kraken2_parameters"
+        }
+    ]
 }
