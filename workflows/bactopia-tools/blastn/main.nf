@@ -27,7 +27,12 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    BLASTN(BACTOPIATOOL_INIT.out.samples)
+
+    // Set up query file
+    BLASTN(
+        BACTOPIATOOL_INIT.out.samples,
+        params.blastn_query ? file(params.blastn_query) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

@@ -1,10 +1,8 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
+params.scrubber_db = "${params.test_data['datasets']['scrubber']}"
 
-include { K2SCRUBBER } from './main.nf' 
-
-
-include { SCRUBBER } from './main.nf' addParams(scrubber_db: params.test_data['datasets']['scrubber'])
+include { K2SCRUBBER } from './main.nf'
 
 workflow test_scrubber_pe {
 

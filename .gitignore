@@ -15,6 +15,8 @@ trace.txt*
 # temp v4 folders
 modules-old/
 subworkflows-old/
+.v4/
+.nextflow/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

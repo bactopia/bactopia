@@ -40,8 +40,8 @@ process PROKKA {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.output_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
 
     // Contig ID must <= 37 characters

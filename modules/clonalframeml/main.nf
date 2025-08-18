@@ -28,8 +28,8 @@ process CLONALFRAMEML {
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")

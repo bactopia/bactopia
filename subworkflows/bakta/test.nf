@@ -1,8 +1,9 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-include { BAKTA } from './main.nf' addParams(bakta_db: params.test_data['datasets']['bakta'])
-include { BAKTA as BAKTA_TARBALL } from './main.nf' addParams(bakta_db: params.test_data['datasets']['bakta_tarball'])
+params.bakta_db = "${params.test_data['datasets']['bakta']}"
+include { BAKTA } from './main.nf'
+include { BAKTA as BAKTA_TARBALL } from './main.nf'
 
 workflow test_bakta {
 

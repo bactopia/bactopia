@@ -1,6 +1,9 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
-include { ASSEMBLER } from './main.nf' addParams(reassemble: false, min_genome_size: 0)
+params.reassemble = false
+params.min_genome_size = 0
+
+include { ASSEMBLER } from './main.nf'
 
 workflow test_assembler_se {
     // [sample, runtype, single_end], fastqs, extra, genome_size

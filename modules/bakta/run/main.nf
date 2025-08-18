@@ -37,8 +37,8 @@ process BAKTA_RUN {
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.output_dir = "${meta.id}/main/annotator/bakta/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/main/annotator/bakta/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigal-tf ${prodigal_tf[0]}" : ""

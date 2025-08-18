@@ -32,8 +32,8 @@ process BRACKEN {
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
     def paired = meta.single_end ? "" : "--paired"
     classified = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
