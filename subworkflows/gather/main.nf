@@ -11,17 +11,17 @@ workflow GATHER {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+    
     // Gather genomes (local, assembly, SRA/ENA)
     GATHER_MODULE(reads)
     ch_versions = ch_versions.mix(GATHER_MODULE.out.versions)
     ch_logs = ch_logs.mix(GATHER_MODULE.out.logs)
+
     // Merge meta values for each sample
     GATHER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meta'], tsv]}.set{ ch_merge_stats }
     CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
-
-    emit:
 
     emit:
     tsv = GATHER_MODULE.out.tsv

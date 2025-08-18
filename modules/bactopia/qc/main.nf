@@ -247,7 +247,7 @@ process QC {
                 fi
                 rm ${prefix}-error-reads.fq
                 
-                # Subsampling 
+                # Sub-sampling 
                 reformat.sh -Xmx${xmx} \
                     in=final-r1.fq out=subsample-r1.fq samplebasestarget=\${TOTAL_BP} seed=${params.sampleseed} \
                     ${qin} interleaved=f overwrite=t ${reformat_opts}

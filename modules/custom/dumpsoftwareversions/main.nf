@@ -12,13 +12,13 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
     path "software_versions.yml"           , emit: yml
     path "software_versions_mqc.yml"       , emit: mqc_yml
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_nf_trace
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:

@@ -9,13 +9,13 @@ process CUSTOM_WGET {
     output:
     path "${task.ext.args2}", emit: download
     path "*.{log,err}"      , emit: logs, optional: true
-    path ".command.begin"   , emit: nf_nf_begin
-    path ".command.err"     , emit: nf_nf_err
-    path ".command.log"     , emit: nf_nf_log
-    path ".command.out"     , emit: nf_nf_out
-    path ".command.run"     , emit: nf_nf_run
-    path ".command.sh"      , emit: nf_nf_sh
-    path ".command.trace"   , emit: nf_nf_trace
+    path ".command.begin"   , emit: nf_begin
+    path ".command.err"     , emit: nf_err
+    path ".command.log"     , emit: nf_log
+    path ".command.out"     , emit: nf_out
+    path ".command.run"     , emit: nf_run
+    path ".command.sh"      , emit: nf_sh
+    path ".command.trace"   , emit: nf_trace
     path "versions.yml"     , emit: versions
 
     script:

@@ -11,16 +11,16 @@ workflow CLONALFRAMEML {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+    
     // Create a quick start tree
     IQTREE(alignment)
     ch_versions = ch_versions.mix(IQTREE.out.versions)
     ch_logs = ch_logs.mix(IQTREE.out.logs)
+
     // Run ClonalFrameML
     CLONALFRAME(IQTREE.out.aln_tree)
     ch_versions = ch_versions.mix(CLONALFRAME.out.versions)
     ch_logs = ch_logs.mix(CLONALFRAME.out.logs)
-
-    emit:
 
     emit:
     masked_aln = CLONALFRAME.out.masked_aln

@@ -19,8 +19,6 @@ workflow K2SCRUBBER {
     ch_logs = ch_logs.mix(KRAKEN2.out.logs)
 
     emit:
-
-    emit:
     human = KRAKEN2.out.classified
     kraken2_report = KRAKEN2.out.kraken2_report
     scrub_report = KRAKEN2.out.scrub_report

@@ -19,8 +19,6 @@ workflow QC {
     ch_logs = ch_logs.mix(QC_MODULE.out.logs)
 
     emit:
-
-    emit:
     ADAPTERS = params.adapters ? file(params.adapters) : []
     PHIX = params.phix ? file(params.phix) : []
     fastq = QC_MODULE.out.fastq

@@ -48,13 +48,13 @@ workflow TETON {
     nonbacteria_tsv = BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
     sizemeup = BACTOPIA_SAMPLESHEET.out.sizemeup
     logs = ch_logs
-    nf_logs = BACTOPIA_SAMPLESHEET.out.nf_nf_begin.mix(
-        BACTOPIA_SAMPLESHEET.out.nf_nf_err,
-        BACTOPIA_SAMPLESHEET.out.nf_nf_log,
-        BACTOPIA_SAMPLESHEET.out.nf_nf_out,
-        BACTOPIA_SAMPLESHEET.out.nf_nf_run,
-        BACTOPIA_SAMPLESHEET.out.nf_nf_sh,
-        BACTOPIA_SAMPLESHEET.out.nf_nf_trace,
+    nf_logs = BACTOPIA_SAMPLESHEET.out.nf_begin.mix(
+        BACTOPIA_SAMPLESHEET.out.nf_err,
+        BACTOPIA_SAMPLESHEET.out.nf_log,
+        BACTOPIA_SAMPLESHEET.out.nf_out,
+        BACTOPIA_SAMPLESHEET.out.nf_run,
+        BACTOPIA_SAMPLESHEET.out.nf_sh,
+        BACTOPIA_SAMPLESHEET.out.nf_trace,
         BRACKEN.out.nf_logs,
         CSVTK_CONCAT.out.nf_begin,
         CSVTK_CONCAT.out.nf_err,
