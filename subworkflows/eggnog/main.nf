@@ -18,6 +18,7 @@ workflow EGGNOG {
         EGGNOG_DOWNLOAD()
         ch_versions = ch_versions.mix(EGGNOG_DOWNLOAD.out.versions)
         ch_logs = ch_logs.mix(EGGNOG_DOWNLOAD.out.logs)
+    }
     ch_versions = ch_versions.mix(EGGNOG_MAPPER.out.versions.first())
     ch_logs = ch_logs.mix(EGGNOG_MAPPER.out.logs)
 

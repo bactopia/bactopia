@@ -8,6 +8,7 @@ nextflow.preview.output = true
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
 include { ARIBA             } from '../../../subworkflows/ariba/main'
+include { paramsHelp        } from 'plugin/nf-bactopia'
 include { workflowSummary   } from 'plugin/nf-bactopia'
 
 /*
@@ -18,8 +19,14 @@ include { workflowSummary   } from 'plugin/nf-bactopia'
 workflow {
 
     main:
+    // Check if help is requested
+    if (params.help) {
+        log.info paramsHelp()
+        exit 0
+    }
+
+    // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    
     ARIBA(BACTOPIATOOL_INIT.out.samples)
 
     workflow.onComplete {

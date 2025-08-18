@@ -13,7 +13,7 @@ workflow SYLPH {
 
     // Run sylph profile
     SYLPH_PROFILE(reads, DATABASE)
-    ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions.first()
+    ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions.first())
 
     emit:
     tsv = SYLPH_PROFILE.out.tsv

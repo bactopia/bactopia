@@ -12,12 +12,12 @@ workflow HPSUISSERO {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     HPSUISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(HPSUISSERO_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(HPSUISSERO_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(HPSUISSERO_MODULE.out.logs)
 
     // Merge results
-    HPSUISSERO_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'hpsuissero'], tsv]}.set{ ch_merge_hpsuissero }
+    HPSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hpsuissero'], tsv]}.set{ ch_merge_hpsuissero }
     CSVTK_CONCAT(ch_merge_hpsuissero, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

@@ -252,7 +252,7 @@ workflow BACTOPIATOOLS {
         MASHDIST(samples)
         ch_versions = ch_versions.mix(MASHDIST.out.versions)
     } else if (params.wf == 'mashtree') {
-        samples.collect{meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
+        samples.collect{_meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
         MASHTREE(ch_merge_fna)
         ch_versions = ch_versions.mix(MASHTREE.out.versions)
     } else if (params.wf == 'mcroni') {
@@ -282,7 +282,7 @@ workflow BACTOPIATOOLS {
         NGMASTER(samples)
         ch_versions = ch_versions.mix(NGMASTER.out.versions)
     } else if (params.wf == 'pangenome') {
-        samples.collect{meta, gff -> gff}.map{ gff -> [[id: params.use_pirate? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff]}.set{ ch_merge_gff }
+        samples.collect{_meta, gff -> gff}.map{ gff -> [[id: params.use_pirate? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff]}.set{ ch_merge_gff }
         PANGENOME(ch_merge_gff)
         ch_versions = ch_versions.mix(PANGENOME.out.versions)
     } else if (params.wf == 'pasty') {

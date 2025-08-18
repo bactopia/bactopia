@@ -14,12 +14,12 @@ workflow EMMTYPER {
 
 
     EMMTYPER_MODULE(fasta, BLASTDB)
-    ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(EMMTYPER_MODULE.out.logs)
 
     // Merge results
-    EMMTYPER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'emmtyper'], tsv]}.set{ ch_merge_emmtyper }
+    EMMTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'emmtyper'], tsv]}.set{ ch_merge_emmtyper }
     CSVTK_CONCAT(ch_merge_emmtyper, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

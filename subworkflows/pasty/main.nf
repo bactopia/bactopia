@@ -12,12 +12,12 @@ workflow PASTY {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     PASTY_MODULE(fasta)
-    ch_versions = ch_versions.mix(PASTY_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(PASTY_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(PASTY_MODULE.out.logs)
 
     // Merge results
-    PASTY_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'pasty'], tsv]}.set{ ch_merge_pasty }
+    PASTY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'pasty'], tsv]}.set{ ch_merge_pasty }
     CSVTK_CONCAT(ch_merge_pasty, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

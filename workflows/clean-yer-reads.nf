@@ -58,7 +58,7 @@ workflow CLEANYERREADS {
         ch_versions = ch_versions.mix(SCRUBBER.out.versions)
 
         // Merge scrub reports
-        SCRUBBER.out.tsv.collect{meta, summary -> summary}.map{ summary -> [[id:'scrubber'], summary]}.set{ ch_merge_scrubber }
+        SCRUBBER.out.tsv.collect{_meta, summary -> summary}.map{ summary -> [[id:'scrubber'], summary]}.set{ ch_merge_scrubber }
         CSVTK_CONCAT(ch_merge_scrubber, 'tsv', 'tsv')
         ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 

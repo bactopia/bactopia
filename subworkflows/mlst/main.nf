@@ -18,12 +18,12 @@ workflow MLST {
         MLST_MODULE(fasta, db)
     }
 
-    ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(MLST_MODULE.out.logs)
 
     // Merge results
-    MLST_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'mlst'], tsv]}.set{ ch_merge_mlst }
+    MLST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mlst'], tsv]}.set{ ch_merge_mlst }
     CSVTK_CONCAT(ch_merge_mlst, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

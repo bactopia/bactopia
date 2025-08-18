@@ -12,12 +12,12 @@ workflow CLERMONTYPING {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     CLERMONTYPING_MODULE(fasta)
-    ch_versions = ch_versions.mix(CLERMONTYPING_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(CLERMONTYPING_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CLERMONTYPING_MODULE.out.logs)
 
     // Merge results
-    CLERMONTYPING_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'clermontyping'], tsv]}.set{ ch_merge_clermontyping }
+    CLERMONTYPING_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'clermontyping'], tsv]}.set{ ch_merge_clermontyping }
     CSVTK_CONCAT(ch_merge_clermontyping, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

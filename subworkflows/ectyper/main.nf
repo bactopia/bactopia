@@ -12,12 +12,12 @@ workflow ECTYPER {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     ECTYPER_MODULE(fasta)
-    ch_versions = ch_versions.mix(ECTYPER_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(ECTYPER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(ECTYPER_MODULE.out.logs)
 
     // Merge results
-    ECTYPER_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}.set{ ch_merge_ectyper }
+    ECTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}.set{ ch_merge_ectyper }
     CSVTK_CONCAT(ch_merge_ectyper, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

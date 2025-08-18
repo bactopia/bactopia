@@ -12,12 +12,12 @@ workflow KLEBORATE {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     KLEBORATE_MODULE(fasta)
-    ch_versions = ch_versions.mix(KLEBORATE_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(KLEBORATE_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(KLEBORATE_MODULE.out.logs)
 
     // Merge results
-    KLEBORATE_MODULE.out.txt.collect{meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}.set{ ch_merge_kleborate }
+    KLEBORATE_MODULE.out.txt.collect{_meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}.set{ ch_merge_kleborate }
     CSVTK_CONCAT(ch_merge_kleborate, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

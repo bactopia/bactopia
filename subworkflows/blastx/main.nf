@@ -20,7 +20,7 @@ workflow BLASTX {
     ch_logs = ch_logs.mix(BLASTX_MODULE.out.logs)
 
     // Merge results
-    BLASTX_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'blastx'], tsv]}.set{ ch_merge_blastx }
+    BLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastx'], tsv]}.set{ ch_merge_blastx }
     CSVTK_CONCAT(ch_merge_blastx, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

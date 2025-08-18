@@ -12,12 +12,12 @@ workflow LEGSTA {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     LEGSTA_MODULE(fasta)
-    ch_versions = ch_versions.mix(LEGSTA_MODULE.out.versions.first()
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions))
+    ch_versions = ch_versions.mix(LEGSTA_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(LEGSTA_MODULE.out.logs)
 
     // Merge results
-    LEGSTA_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'legsta'], tsv]}.set{ ch_merge_legsta }
+    LEGSTA_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'legsta'], tsv]}.set{ ch_merge_legsta }
     CSVTK_CONCAT(ch_merge_legsta, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)

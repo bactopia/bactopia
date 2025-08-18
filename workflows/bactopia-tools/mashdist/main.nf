@@ -8,6 +8,7 @@ nextflow.preview.output = true
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
 include { MASHDIST          } from '../../../subworkflows/mashdist/main'
+include { paramsHelp        } from 'plugin/nf-bactopia'
 include { workflowSummary   } from 'plugin/nf-bactopia'
 
 /*
@@ -18,11 +19,17 @@ include { workflowSummary   } from 'plugin/nf-bactopia'
 workflow {
 
     main:
+    // Check if help is requested
+    if (params.help) {
+        log.info paramsHelp()
+        exit 0
+    }
+
+    // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     
     // Reference sketch should be provided via params
     ch_reference = file(params.reference_sketch, checkIfExists: true)
-    
     MASHDIST(BACTOPIATOOL_INIT.out.samples, ch_reference)
 
     workflow.onComplete {

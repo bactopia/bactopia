@@ -9,6 +9,7 @@ nextflow.preview.output = true
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
 include { AMRFINDERPLUS     } from '../../../subworkflows/amrfinderplus/main'
 include { DATASETS          } from '../../../modules/bactopia/datasets/main'
+include { paramsHelp        } from 'plugin/nf-bactopia'
 include { workflowSummary   } from 'plugin/nf-bactopia'
 
 /*
@@ -19,8 +20,14 @@ include { workflowSummary   } from 'plugin/nf-bactopia'
 workflow {
 
     main:
+    // Check if help is requested
+    if (params.help) {
+        log.info paramsHelp()
+        exit 0
+    }
+
+    // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    
     DATASETS()
     AMRFINDERPLUS(BACTOPIATOOL_INIT.out.samples, DATASETS.out.amrfinderplus_db)
 
