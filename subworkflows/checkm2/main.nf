@@ -8,20 +8,21 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow CHECKM2 {
     take:
     fasta // channel: [ val(meta), [ fasta ] ]
+    database // channel: [ database ]
+    download_db // boolean
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     ch_merged_checkm2 = Channel.empty()
-    DATABASE = params.checkm2_db ? file(params.checkm2_db) : []
 
-    if (params.download_checkm2) {
+    if (download_db) {
         CHECKM2_DOWNLOAD()
         CHECKM2_PREDICT(fasta, CHECKM2_DOWNLOAD.out.db)
         ch_versions = ch_versions.mix(CHECKM2_DOWNLOAD.out.versions)
         ch_logs = ch_logs.mix(CHECKM2_DOWNLOAD.out.logs)
     } else {
-        CHECKM2_PREDICT(fasta, DATABASE)
+        CHECKM2_PREDICT(fasta, database)
     }
     
     ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions.first())

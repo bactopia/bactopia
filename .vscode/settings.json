@@ -65,6 +65,7 @@
         "hpsuissero",
         "htmlcov",
         "idmodulo",
+        "infile",
         "infodir",
         "initdb",
         "initialisation",
@@ -184,7 +185,8 @@
         "vmem",
         "webassets",
         "xzvf",
-        "zcvf"
+        "zcvf",
+        "zenodo"
     ],
     "nextflow.suppressFutureWarnings": false,
     "nextflow.files.exclude": [

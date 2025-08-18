@@ -25,12 +25,13 @@ process CSVTK_JOIN {
 
     script:
     prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    out_extension = out_format == "tsv" ? 'tsv' : 'csv'
+    subdir = meta.subdir ? "${meta.subdir}/" : ''
+    meta.output_dir = "${task.ext.rundir}/merged-results"
+    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${meta.id}-concat/${subdir}"
     meta.process_name = task.ext.process_name
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
-    out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     """
     csvtk \\
         join \\

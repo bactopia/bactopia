@@ -2,8 +2,6 @@ process CHECKM2_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
-    publishDir "${params.checkm2_db}", mode: params.publish_dir_mode, overwrite: true
-
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
@@ -20,12 +18,10 @@ process CHECKM2_DOWNLOAD {
     tuple val(meta), path(".command.trace"), emit: nf_trace
     tuple val(meta), path("versions.yml")  , emit: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta = [:]
+    meta.output_dir = "${task.ext.download_dir}"
+    meta.logs_dir = "${task.ext.download_dir}/logs"
     meta.process_name = task.ext.process_name
     zenodo_id  = 5571251  // Default to latest version 
     api_data   = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
