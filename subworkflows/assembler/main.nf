@@ -1,7 +1,7 @@
 //
 // assembler - Assembly of Illumina and ONT reads
 //
-include { ASSEMBLER as ASSEMBLER_MODULE } from '../../modules/local/assembler/main'
+include { ASSEMBLER as ASSEMBLER_MODULE } from '../../modules/bactopia/assembler/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
 workflow ASSEMBLER {

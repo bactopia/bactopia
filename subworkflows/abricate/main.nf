@@ -1,8 +1,8 @@
 //
 // abricate - Mass screening of contigs for antimicrobial and virulence genes
 //
-include { ABRICATE_RUN } from '../../modules/abricate/run/main' //addParams( options: options )
-include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main' //addParams( options: [logs_subdir: 'abricate-concat', process_name: params.merge_folder] )
+include { ABRICATE_RUN } from '../../modules/abricate/run/main'
+include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'
 
 workflow ABRICATE {
     take:

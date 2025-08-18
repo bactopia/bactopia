@@ -18,7 +18,7 @@ workflow BTYPER3 {
     ch_logs = ch_logs.mix(BTYPER3_MODULE.out.logs)
 
     // Merge results
-    BTYPER3_MODULE.out.tsv.collect{meta, tsv -> tsv}.map{ tsv -> [[id:'btyper3'], tsv]}.set{ ch_merge_btyper3 }
+    BTYPER3_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'btyper3'], tsv]}.set{ ch_merge_btyper3 }
     CSVTK_CONCAT(ch_merge_btyper3, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
