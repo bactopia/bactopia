@@ -12,7 +12,6 @@ workflow EMMTYPER {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
 
-
     EMMTYPER_MODULE(fasta, BLASTDB)
     ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions.first())
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)

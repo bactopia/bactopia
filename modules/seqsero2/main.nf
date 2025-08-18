@@ -15,7 +15,7 @@ process SEQSERO2 {
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log_file
+    tuple val(meta), path(".command.log")  , emit: nf_log
     tuple val(meta), path(".command.out")  , emit: nf_out
     tuple val(meta), path(".command.run")  , emit: nf_run
     tuple val(meta), path(".command.sh")   , emit: nf_sh

@@ -11,7 +11,7 @@ process MCRONI {
     output:
     tuple val(meta), path("*.tsv")         , emit: tsv
     tuple val(meta), path("*.fa")          , emit: fa, optional: true
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
     tuple val(meta), path(".command.log")  , emit: nf_log
@@ -19,6 +19,7 @@ process MCRONI {
     tuple val(meta), path(".command.run")  , emit: nf_run
     tuple val(meta), path(".command.sh")   , emit: nf_sh
     tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     def VERSION = '1.0.4' // Version information not provided by tool on CLI

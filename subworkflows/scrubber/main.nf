@@ -19,7 +19,7 @@ workflow SCRUBBER {
         SRAHUMANSCRUBBER(reads)
         ch_versions = ch_versions.mix(SRAHUMANSCRUBBER.out.versions.first())
         ch_logs = ch_logs.mix(SRAHUMANSCRUBBER.out.logs)
-        ch_scrub_report = ch_scrub_report.mix(SRAHUMANSCRUBBER.out.tsv)
+        ch_scrub_report = ch_scrub_report.mix(SRAHUMANSCRUBBER.out.scrub_report)
         ch_scrubbed = ch_scrubbed.mix(SRAHUMANSCRUBBER.out.scrubbed)
         ch_scrubbed_extra = ch_scrubbed_extra.mix(SRAHUMANSCRUBBER.out.scrubbed_extra)
     } else {
@@ -35,23 +35,11 @@ workflow SCRUBBER {
     ch_nf_logs = Channel.empty()
     if (params.use_srascrubber) {
         ch_nf_logs = ch_nf_logs.mix(
-            SRAHUMANSCRUBBER.out.nf_begin,
-            SRAHUMANSCRUBBER.out.nf_err,
-            SRAHUMANSCRUBBER.out.nf_log,
-            SRAHUMANSCRUBBER.out.nf_out,
-            SRAHUMANSCRUBBER.out.nf_run,
-            SRAHUMANSCRUBBER.out.nf_sh,
-            SRAHUMANSCRUBBER.out.nf_trace
+            SRAHUMANSCRUBBER.out.nf_logs
         )
     } else {
         ch_nf_logs = ch_nf_logs.mix(
-            K2SCRUBBER.out.nf_begin,
-            K2SCRUBBER.out.nf_err,
-            K2SCRUBBER.out.nf_log,
-            K2SCRUBBER.out.nf_out,
-            K2SCRUBBER.out.nf_run,
-            K2SCRUBBER.out.nf_sh,
-            K2SCRUBBER.out.nf_trace
+            K2SCRUBBER.out.nf_logs,
         )
     }
 

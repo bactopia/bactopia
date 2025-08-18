@@ -16,25 +16,28 @@ workflow PANGENOME {
 
     main:
     ch_versions = Channel.empty()
-
     ch_logs = Channel.empty()
+
     // Choose pangenome tool based on params
     if (params.use_pirate) {
         PIRATE(gff)
-
+        ch_versions = ch_versions.mix(PIRATE.out.versions)
+        ch_logs = ch_logs.mix(PIRATE.out.logs)
     } else if (params.use_roary) {
         ROARY(gff)
-
+        ch_versions = ch_versions.mix(ROARY.out.versions)
+        ch_logs = ch_logs.mix(ROARY.out.logs)
     } else {
         PANAROO(gff)
-
+        ch_versions = ch_versions.mix(PANAROO.out.versions)
+        ch_logs = ch_logs.mix(PANAROO.out.logs)
     }
-    ch_versions = ch_versions.mix(ch_pg_versions)
-    ch_logs = ch_logs.mix(ch_pg_logs)
+
     // Per-sample SNP distances
     SNPDISTS_UNMASKED(ch_pg_aln)
     ch_versions = ch_versions.mix(SNPDISTS_UNMASKED.out.versions)
     ch_logs = ch_logs.mix(SNPDISTS_UNMASKED.out.logs)
+
     // Identify Recombination
     if (!params.skip_recombination) {
         // Run ClonalFrameML
