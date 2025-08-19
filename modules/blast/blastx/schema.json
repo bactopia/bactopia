@@ -12,31 +12,31 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "blastx_query": {
-            "type": ["string", "null"],
-            "description": "Query sequence(s) for BLASTX",
-            "default": null
-        },
-        "blastx_outfmt": {
-            "type": "string",
-            "description": "Output format specification",
-            "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
-        },
-        "blastx_opts": {
-            "type": "string",
-            "description": "Additional BLASTX options",
-            "default": ""
-        },
-        "blastx_qcov_hsp_perc": {
-            "type": "integer",
-            "description": "Percent query coverage per hsp",
-            "default": 50
-        },
-        "blastx_max_target_seqs": {
-            "type": "integer",
-            "description": "Maximum number of aligned sequences to keep",
-            "default": 2000
-        }
+                "blastx_query": {
+                    "type": ["string", "null"],
+                    "description": "Query sequence(s) for BLASTX",
+                    "default": null
+                },
+                "blastx_outfmt": {
+                    "type": "string",
+                    "description": "Output format specification",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+                },
+                "blastx_opts": {
+                    "type": "string",
+                    "description": "Additional BLASTX options",
+                    "default": ""
+                },
+                "blastx_qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50
+                },
+                "blastx_max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000
+                }
             }
         }
     },

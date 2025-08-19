@@ -7,16 +7,15 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow BLASTX {
     take:
     reads // channel: [ val(meta), [ fasta ] ]
+    query // channel: [ fasta ]
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    QUERY = params.blastx_query ? file(params.blastx_query) : []
 
     // Run BLASTX
-    BLASTX_MODULE(reads, QUERY)
+    BLASTX_MODULE(reads, query)
     ch_versions = ch_versions.mix(BLASTX_MODULE.out.versions)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     ch_logs = ch_logs.mix(BLASTX_MODULE.out.logs)
 
     // Merge results

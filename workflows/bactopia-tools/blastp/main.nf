@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    BLASTP(BACTOPIATOOL_INIT.out.samples)
+    BLASTP(
+        BACTOPIATOOL_INIT.out.samples,
+        params.blastp_query ? file(params.blastp_query) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

@@ -29,9 +29,6 @@ process SNIPPY_CORE {
     tuple val(meta), path(".command.trace")                     , emit: nf_trace
     tuple val(meta), path("versions.yml")                       , emit: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
     prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
     reference_name = reference.getSimpleName()
