@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -35,7 +35,8 @@ workflow {
 
     publish:
     results = QUAST.out.tsv.mix(
-        QUAST.out.merged_tsv
+        QUAST.out.merged_tsv,
+        QUAST.out.supplemental
     )
     logs = QUAST.out.logs
     nf_logs = QUAST.out.nf_logs

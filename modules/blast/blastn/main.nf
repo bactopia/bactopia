@@ -27,9 +27,9 @@ process BLAST_BLASTN {
     meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
     // genes -> ffn, contigs -> fna
-    def db_type = params.blastn_use_genes ? "ffn" : "fna"
+    def db_type = task.ext.use_genes ? "ffn" : "fna"
     def which_cat = query.getName().endsWith(".gz") ? "zcat" : "cat"
-    def outcols = "sample ${params.blastn_outfmt}".replace(" ", "<TAB>")
+    def outcols = "sample ${task.ext.outfmt}".replace(" ", "<TAB>")
     """
     tar -xzf $blastdb
     

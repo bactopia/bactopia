@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -34,11 +34,11 @@ workflow {
     }
 
     publish:
-    results = BACTOPIATOOL_INIT.out.tsv.mix(
-        BACTOPIATOOL_INIT.out.merged_tsv,
-        BACTOPIATOOL_INIT.out.allele_fasta,
-        BACTOPIATOOL_INIT.out.allele_json,
-        BACTOPIATOOL_INIT.out.cgmlst_csv
+    results = SISTR.out.tsv.mix(
+        SISTR.out.merged_tsv,
+        SISTR.out.allele_fasta,
+        SISTR.out.allele_json,
+        SISTR.out.cgmlst_csv
     )
     logs = SISTR.out.logs
     nf_logs = SISTR.out.nf_logs

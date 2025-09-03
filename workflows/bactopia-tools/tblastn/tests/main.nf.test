@@ -1,0 +1,65 @@
+nextflow_pipeline {
+    name "Test tblastn Workflow"
+    script "../main.nf"
+    config "../../../../conf/test.config"
+    tag "tblastn"
+    tag "bactopia-tools"
+
+    test("tblastn (single-protein.faa.gz) - SRR2838702|portiera|blastdb") {
+        when {
+            params {
+                bactopia_test = "/species/portiera/compressed"
+                test_dataset = "datasets/blast/single-protein.faa.gz"
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("tblastn (single-protein.faa) - SRR2838702|portiera|blastdb") {
+        when {
+            params {
+                bactopia_test = "/species/portiera/compressed"
+                test_dataset = "datasets/blast/single-protein.faa"
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

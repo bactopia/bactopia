@@ -27,7 +27,7 @@ process BLAST_BLASTX {
     meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
     meta.process_name = task.ext.process_name
     def which_cat = query.getName().endsWith(".gz") ? "zcat" : "cat"
-    def outcols = "sample ${params.blastx_outfmt}".replace(" ", "<TAB>")
+    def outcols = "sample ${task.ext.outfmt}".replace(" ", "<TAB>")
     """
     tar -xzf $blastdb
     

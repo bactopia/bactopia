@@ -6,29 +6,29 @@ include { PROKKA as PROKKA_MODULE } from '../../modules/prokka/main'
 workflow PROKKA {
     take:
     fasta // channel: [ val(meta), [ assemblies ] ]
+    proteins
+    prodigal_tf
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
 
-
-    PROKKA_MODULE(fasta, PROTEINS, PRODIGAL_TF)
+    // Run Prokka
+    PROKKA_MODULE(fasta, proteins, prodigal_tf)
     ch_versions = ch_versions.mix(PROKKA_MODULE.out.versions.first())
     ch_logs = ch_logs.mix(PROKKA_MODULE.out.logs)
 
     emit:
-    tsv = PROKKA_MODULE.out.tsv
-    txt = PROKKA_MODULE.out.txt
-    gbk = PROKKA_MODULE.out.gbk
-    PRODIGAL_TF = params.prodigal_tf ? file(params.prodigal_tf) : []
-    PROTEINS = params.proteins ? file(params.proteins) : []
     annotations = PROKKA_MODULE.out.annotations
     blastdb = PROKKA_MODULE.out.blastdb
     faa = PROKKA_MODULE.out.faa
     ffn = PROKKA_MODULE.out.ffn
     fna = PROKKA_MODULE.out.fna
     fsa = PROKKA_MODULE.out.fsa
+    gbk = PROKKA_MODULE.out.gbk
     gff = PROKKA_MODULE.out.gff
+    tsv = PROKKA_MODULE.out.tsv
+    txt = PROKKA_MODULE.out.txt
     sqn = PROKKA_MODULE.out.sqn
     tbl = PROKKA_MODULE.out.tbl
     logs = ch_logs

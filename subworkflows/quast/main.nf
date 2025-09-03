@@ -21,6 +21,7 @@ workflow QUAST {
 
     emit:
     tsv = QUAST_MODULE.out.tsv
+    supplemental = QUAST_MODULE.out.supplemental
     merged_tsv = CSVTK_CONCAT.out.csv
     logs = QUAST_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs

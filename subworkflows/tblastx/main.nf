@@ -7,13 +7,13 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow TBLASTX {
     take:
     reads // channel: [ val(meta), [ fasta ] ]
+    query
 
     main:
     ch_versions = Channel.empty()
-    QUERY = params.tblastx_query ? file(params.tblastx_query) : []
 
     // Run TBLASTX
-    TBLASTX_MODULE(reads, QUERY)
+    TBLASTX_MODULE(reads, query)
     ch_versions = ch_versions.mix(TBLASTX_MODULE.out.versions)
 
     // Merge results

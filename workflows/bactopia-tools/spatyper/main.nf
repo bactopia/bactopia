@@ -20,22 +20,26 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    SPATYPER(BACTOPIATOOL_INIT.out.samples)
+    SPATYPER(
+        BACTOPIATOOL_INIT.out.samples,
+        params.repeats ? file(params.repeats, checkIfExists: true) : [],
+        params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()
     }
 
     publish:
-    results = BACTOPIATOOL_INIT.out.tsv.mix(
-        BACTOPIATOOL_INIT.out.merged_tsv
+    results = SPATYPER.out.tsv.mix(
+        SPATYPER.out.merged_tsv
     )
     logs = SPATYPER.out.logs
     nf_logs = SPATYPER.out.nf_logs

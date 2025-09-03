@@ -1,0 +1,116 @@
+{
+    "sccmec - GCF_000017085|staphylococcus_aureus|uncompressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/sccmec",
+                "GCF_000017085/tools/sccmec/GCF_000017085.regions.blastn.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.regions.details.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.targets.blastn.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.targets.details.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.tsv",
+                "GCF_000017085/tools/sccmec/logs",
+                "GCF_000017085/tools/sccmec/logs/nf.command.begin",
+                "GCF_000017085/tools/sccmec/logs/nf.command.err",
+                "GCF_000017085/tools/sccmec/logs/nf.command.log",
+                "GCF_000017085/tools/sccmec/logs/nf.command.out",
+                "GCF_000017085/tools/sccmec/logs/nf.command.run",
+                "GCF_000017085/tools/sccmec/logs/nf.command.sh",
+                "GCF_000017085/tools/sccmec/logs/nf.command.trace",
+                "GCF_000017085/tools/sccmec/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/sccmec",
+                "bactopia-runs/sccmec/merged-results",
+                "bactopia-runs/sccmec/merged-results/logs",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.begin",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.err",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.log",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.out",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.run",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.sh",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.trace",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/versions.yml",
+                "bactopia-runs/sccmec/merged-results/sccmec.tsv",
+                "bactopia-runs/sccmec/nf-reports",
+                "bactopia-runs/sccmec/nf-reports/sccmec-dag.dot",
+                "bactopia-runs/sccmec/nf-reports/sccmec-report.html",
+                "bactopia-runs/sccmec/nf-reports/sccmec-timeline.html"
+            ],
+            [
+                "GCF_000017085.regions.blastn.tsv:md5,ca426de41052a9f0bdcfb538610e5aa6",
+                "GCF_000017085.regions.details.tsv:md5,d8568654b8455ddebf37283918805b46",
+                "GCF_000017085.targets.blastn.tsv:md5,5cd7054ed50c7d360feac0e51db54ac6",
+                "GCF_000017085.targets.details.tsv:md5,8938065005a5f984229c09cd4d9f91e2",
+                "GCF_000017085.tsv:md5,da49131b3619e12fac7c1efef5e109d0",
+                "versions.yml:md5,cd9ded724580f921a03643bfaece66ee",
+                "versions.yml:md5,c6ede7b0533855a33c127cafa29de747",
+                "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T13:29:36.010509765"
+    },
+    "sccmec - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/sccmec",
+                "GCF_000017085/tools/sccmec/GCF_000017085.regions.blastn.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.regions.details.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.targets.blastn.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.targets.details.tsv",
+                "GCF_000017085/tools/sccmec/GCF_000017085.tsv",
+                "GCF_000017085/tools/sccmec/logs",
+                "GCF_000017085/tools/sccmec/logs/nf.command.begin",
+                "GCF_000017085/tools/sccmec/logs/nf.command.err",
+                "GCF_000017085/tools/sccmec/logs/nf.command.log",
+                "GCF_000017085/tools/sccmec/logs/nf.command.out",
+                "GCF_000017085/tools/sccmec/logs/nf.command.run",
+                "GCF_000017085/tools/sccmec/logs/nf.command.sh",
+                "GCF_000017085/tools/sccmec/logs/nf.command.trace",
+                "GCF_000017085/tools/sccmec/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/sccmec",
+                "bactopia-runs/sccmec/merged-results",
+                "bactopia-runs/sccmec/merged-results/logs",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.begin",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.err",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.log",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.out",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.run",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.sh",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/nf.command.trace",
+                "bactopia-runs/sccmec/merged-results/logs/sccmec-concat/versions.yml",
+                "bactopia-runs/sccmec/merged-results/sccmec.tsv",
+                "bactopia-runs/sccmec/nf-reports",
+                "bactopia-runs/sccmec/nf-reports/sccmec-dag.dot",
+                "bactopia-runs/sccmec/nf-reports/sccmec-report.html",
+                "bactopia-runs/sccmec/nf-reports/sccmec-timeline.html"
+            ],
+            [
+                "GCF_000017085.regions.blastn.tsv:md5,ca426de41052a9f0bdcfb538610e5aa6",
+                "GCF_000017085.regions.details.tsv:md5,d8568654b8455ddebf37283918805b46",
+                "GCF_000017085.targets.blastn.tsv:md5,5cd7054ed50c7d360feac0e51db54ac6",
+                "GCF_000017085.targets.details.tsv:md5,8938065005a5f984229c09cd4d9f91e2",
+                "GCF_000017085.tsv:md5,da49131b3619e12fac7c1efef5e109d0",
+                "versions.yml:md5,cd9ded724580f921a03643bfaece66ee",
+                "versions.yml:md5,c6ede7b0533855a33c127cafa29de747",
+                "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T13:29:10.005233502"
+    }
+}

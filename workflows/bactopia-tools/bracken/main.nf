@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }

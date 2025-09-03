@@ -7,13 +7,13 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow SPATYPER {
     take:
     fasta // channel: [ val(meta), [ assemblies ] ]
+    repeats
+    repeat_order
 
     main:
     ch_versions = Channel.empty()
-    REPEATS = params.repeats ? file(params.repeats, checkIfExists: true) : []
-    REPEAT_ORDER = params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
 
-    SPATYPER_MODULE(fasta, REPEATS, REPEAT_ORDER)
+    SPATYPER_MODULE(fasta, repeats, repeat_order)
     ch_versions = ch_versions.mix(SPATYPER_MODULE.out.versions.first())
 
     // Merge results

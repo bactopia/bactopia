@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -34,8 +34,8 @@ workflow {
     }
 
     publish:
-    results = BACTOPIATOOL_INIT.out.tsv.mix(
-        BACTOPIATOOL_INIT.out.merged_tsv
+    results = SSUISSERO.out.tsv.mix(
+        SSUISSERO.out.merged_tsv
     )
     logs = SSUISSERO.out.logs
     nf_logs = SSUISSERO.out.nf_logs

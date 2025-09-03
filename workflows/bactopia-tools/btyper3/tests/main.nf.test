@@ -1,0 +1,34 @@
+nextflow_pipeline {
+    name "Test BTyper3 Workflow"
+    script "../main.nf"
+    config "../../../../conf/test.config"
+    tag "btype3"
+    tag "bactopia-tools"
+
+    test("bacillus_anthracis - GCF_000008445") {
+        when {
+            params {
+                bactopia_test = "/species/bacillus_anthracis"
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

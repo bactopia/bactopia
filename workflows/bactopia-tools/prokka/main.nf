@@ -20,14 +20,18 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    PROKKA(BACTOPIATOOL_INIT.out.samples)
+    PROKKA(
+        BACTOPIATOOL_INIT.out.samples,
+        params.proteins ? file(params.proteins) : [],
+        params.prodigal_tf ? file(params.prodigal_tf) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

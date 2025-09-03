@@ -10,6 +10,7 @@
 include { bactopiaToolInputs } from 'plugin/nf-bactopia'
 include { paramsSummaryLog   } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'
+include { workflowSummary   } from 'plugin/nf-bactopia'
 
 
 /*
@@ -29,11 +30,27 @@ workflow BACTOPIATOOL_INIT {
     main:
     // Handle parameters
     log.info paramsSummaryLog(workflow)
-    validateParameters(null, true)
+    def validation = validateParameters(null, true)
+    if (validation.hasErrors) {
+        log.info validation.error
+        log.info workflowSummary()
+        error(" ")
+    } else {
+        log.info validation.logs
+    }
 
     // Collect inputs, and create appropriate tuples for 'samples' channel
     def ch_samples = Channel.empty()
-    bactopiaToolInputs(bactopia_path, workflow_ext, include_path, exclude_path).each { sample ->
+    def collectedInputs = bactopiaToolInputs(bactopia_path, workflow_ext, include_path, exclude_path)
+    if (collectedInputs.hasErrors) {
+        log.info collectedInputs.error
+        log.info workflowSummary()
+        error(" ")
+    } else {
+        log.info collectedInputs.logs
+        sleep(5000)
+    }
+    collectedInputs.samples.each { sample ->
         def meta = sample[0]
         def inputs = []
         def extra = []
@@ -61,7 +78,7 @@ workflow BACTOPIATOOL_INIT {
         } else {
             ch_samples << tuple(meta, inputs)
         }
-    }
+    }.println()
 
     emit:
     samples = ch_samples

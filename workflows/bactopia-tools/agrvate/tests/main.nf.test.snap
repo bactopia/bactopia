@@ -1,0 +1,110 @@
+{
+    "agrvate - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/agrvate",
+                "GCF_000017085/tools/agrvate/GCF_000017085-summary.tab",
+                "GCF_000017085/tools/agrvate/logs",
+                "GCF_000017085/tools/agrvate/logs/nf.command.begin",
+                "GCF_000017085/tools/agrvate/logs/nf.command.err",
+                "GCF_000017085/tools/agrvate/logs/nf.command.log",
+                "GCF_000017085/tools/agrvate/logs/nf.command.out",
+                "GCF_000017085/tools/agrvate/logs/nf.command.run",
+                "GCF_000017085/tools/agrvate/logs/nf.command.sh",
+                "GCF_000017085/tools/agrvate/logs/nf.command.trace",
+                "GCF_000017085/tools/agrvate/logs/versions.yml",
+                "GCF_000017085/tools/agrvate/supplemental",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-agr_gp.tab",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-blastn_log.txt",
+                "bactopia-runs",
+                "bactopia-runs/agrvate",
+                "bactopia-runs/agrvate/merged-results",
+                "bactopia-runs/agrvate/merged-results/agrvate.tsv",
+                "bactopia-runs/agrvate/merged-results/logs",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.begin",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.err",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.log",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.out",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.run",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.sh",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.trace",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/versions.yml",
+                "bactopia-runs/agrvate/nf-reports",
+                "bactopia-runs/agrvate/nf-reports/agrvate-dag.dot",
+                "bactopia-runs/agrvate/nf-reports/agrvate-report.html",
+                "bactopia-runs/agrvate/nf-reports/agrvate-timeline.html"
+            ],
+            [
+                "GCF_000017085-summary.tab:md5,b483a3d6ca1908ab813427b06751e51a",
+                "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035",
+                "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
+                "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
+                "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T14:46:25.757474675"
+    },
+    "agrvate - GCF_000017085|staphylococcus_aureus|uncompressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/agrvate",
+                "GCF_000017085/tools/agrvate/GCF_000017085-summary.tab",
+                "GCF_000017085/tools/agrvate/logs",
+                "GCF_000017085/tools/agrvate/logs/nf.command.begin",
+                "GCF_000017085/tools/agrvate/logs/nf.command.err",
+                "GCF_000017085/tools/agrvate/logs/nf.command.log",
+                "GCF_000017085/tools/agrvate/logs/nf.command.out",
+                "GCF_000017085/tools/agrvate/logs/nf.command.run",
+                "GCF_000017085/tools/agrvate/logs/nf.command.sh",
+                "GCF_000017085/tools/agrvate/logs/nf.command.trace",
+                "GCF_000017085/tools/agrvate/logs/versions.yml",
+                "GCF_000017085/tools/agrvate/supplemental",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-agr_gp.tab",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-blastn_log.txt",
+                "bactopia-runs",
+                "bactopia-runs/agrvate",
+                "bactopia-runs/agrvate/merged-results",
+                "bactopia-runs/agrvate/merged-results/agrvate.tsv",
+                "bactopia-runs/agrvate/merged-results/logs",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.begin",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.err",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.log",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.out",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.run",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.sh",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/nf.command.trace",
+                "bactopia-runs/agrvate/merged-results/logs/agrvate-concat/versions.yml",
+                "bactopia-runs/agrvate/nf-reports",
+                "bactopia-runs/agrvate/nf-reports/agrvate-dag.dot",
+                "bactopia-runs/agrvate/nf-reports/agrvate-report.html",
+                "bactopia-runs/agrvate/nf-reports/agrvate-timeline.html"
+            ],
+            [
+                "GCF_000017085-summary.tab:md5,b483a3d6ca1908ab813427b06751e51a",
+                "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035",
+                "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
+                "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
+                "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T14:46:45.883346101"
+    }
+}

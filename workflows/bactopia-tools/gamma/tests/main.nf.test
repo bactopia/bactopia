@@ -1,0 +1,37 @@
+nextflow_pipeline {
+    name "Test GAMMA Workflow"
+    script "../main.nf"
+    config "../../../../conf/test.config"
+    tag "gamma"
+    tag "bactopia-tools"
+
+    test("GAMMA - GCF_000292685|portiera|compressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/portiera/compressed"
+                gamma_test = "/species/portiera/uncompressed/main/annotator/prokka/GCF_000292685.ffn"
+                test_dataset = ""
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

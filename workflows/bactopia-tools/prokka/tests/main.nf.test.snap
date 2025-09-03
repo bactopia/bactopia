@@ -1,0 +1,53 @@
+{
+    "Prokka - GCF_000292685|portiera|compressed_fasta": {
+        "content": [
+            1,
+            [
+                "GCF_000292685",
+                "GCF_000292685/main",
+                "GCF_000292685/main/annotator",
+                "GCF_000292685/main/annotator/prokka",
+                "GCF_000292685/main/annotator/prokka/prokka",
+                "GCF_000292685/main/annotator/prokka/prokka/logs",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/GCF_000292685.err",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/GCF_000292685.log",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.begin",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.err",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.log",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.out",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.run",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.sh",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/nf.command.trace",
+                "GCF_000292685/main/annotator/prokka/prokka/logs/versions.yml",
+                "GCF_000292685/main/annotator/prokka/prokka/results",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685-blastdb.tar.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.faa.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.ffn.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.fna.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.fsa.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.gbk.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.gff.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.sqn.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.tbl.gz",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.tsv",
+                "GCF_000292685/main/annotator/prokka/prokka/results/GCF_000292685.txt",
+                "bactopia-runs",
+                "bactopia-runs/prokka",
+                "bactopia-runs/prokka/nf-reports",
+                "bactopia-runs/prokka/nf-reports/prokka-dag.dot",
+                "bactopia-runs/prokka/nf-reports/prokka-report.html",
+                "bactopia-runs/prokka/nf-reports/prokka-timeline.html"
+            ],
+            [
+                "versions.yml:md5,07a1de950ab52a1008fe77033f6f3281",
+                "GCF_000292685.tsv:md5,2b7d5a306fd8ffa44f5c1e9f2e3cce05",
+                "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T12:32:27.908347445"
+    }
+}

@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -34,7 +34,10 @@ workflow {
     }
 
     publish:
-    results = AGRVATE.out.tsv.mix(AGRVATE.out.merged_tsv)
+    results = AGRVATE.out.tsv.mix(
+        AGRVATE.out.merged_tsv,
+        AGRVATE.out.supplemental
+    )
     logs = AGRVATE.out.logs
     nf_logs = AGRVATE.out.nf_logs
     versions = AGRVATE.out.versions

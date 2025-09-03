@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = GAMMA.out.gamma.mix(.mix(
+    results = GAMMA.out.gamma.mix(
         GAMMA.out.merged_gamma
     )
     logs = GAMMA.out.logs

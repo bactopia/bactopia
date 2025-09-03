@@ -1,0 +1,65 @@
+nextflow_pipeline {
+    name "Test spatyper Workflow"
+    script "../main.nf"
+    config "../../../../conf/test.config"
+    tag "spatyper"
+    tag "bactopia-tools"
+
+    test("spatyper - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/staphylococcus_aureus/compressed"
+                test_dataset = ""
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("spatyper - GCF_000017085|staphylococcus_aureus|uncompressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/staphylococcus_aureus/uncompressed"
+                test_dataset = ""
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

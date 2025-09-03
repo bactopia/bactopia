@@ -1,0 +1,52 @@
+{
+    "GAMMA - GCF_000292685|portiera|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000292685",
+                "GCF_000292685/tools",
+                "GCF_000292685/tools/gamma",
+                "GCF_000292685/tools/gamma/gamma",
+                "GCF_000292685/tools/gamma/gamma/GCF_000292685.gamma",
+                "GCF_000292685/tools/gamma/gamma/logs",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.begin",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.err",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.log",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.out",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.run",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.sh",
+                "GCF_000292685/tools/gamma/gamma/logs/nf.command.trace",
+                "GCF_000292685/tools/gamma/gamma/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/gamma",
+                "bactopia-runs/gamma/merged-results",
+                "bactopia-runs/gamma/merged-results/gamma.tsv",
+                "bactopia-runs/gamma/merged-results/logs",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.begin",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.err",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.log",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.out",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.run",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.sh",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.trace",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/versions.yml",
+                "bactopia-runs/gamma/nf-reports",
+                "bactopia-runs/gamma/nf-reports/gamma-dag.dot",
+                "bactopia-runs/gamma/nf-reports/gamma-report.html",
+                "bactopia-runs/gamma/nf-reports/gamma-timeline.html"
+            ],
+            [
+                "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
+                "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb",
+                "gamma.tsv:md5,b3995811a625996f8572cdf33b3f1c55",
+                "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-26T10:51:50.385174386"
+    }
+}

@@ -23,9 +23,6 @@ process ARIBA_RUN {
     tuple val(meta), path(".command.trace")               , emit: nf_trace
     tuple val(meta), path("versions.yml")                 , emit: versions
 
-    when:
-    meta.single_end == false
-
     script:
     prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"

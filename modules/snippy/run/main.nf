@@ -38,9 +38,6 @@ process SNIPPY_RUN {
     tuple val(meta), path(".command.trace")                                   , emit: nf_trace
     tuple val(meta), path("versions.yml")                                     , emit: versions
 
-    when:
-    meta.runtype != "ont"
-
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     reference_name = reference.getSimpleName()

@@ -9,17 +9,17 @@ process QUAST {
     tuple val(meta), path(fasta), path(meta_file)
 
     output:
-    tuple val(meta), path("results/${meta.id}.tsv"), emit: tsv
-    tuple val(meta), path("results/*")             , emit: results
-    tuple val(meta), path("*.{log,err}")           , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")        , emit: nf_begin
-    tuple val(meta), path(".command.err")          , emit: nf_err
-    tuple val(meta), path(".command.log")          , emit: nf_log
-    tuple val(meta), path(".command.out")          , emit: nf_out
-    tuple val(meta), path(".command.run")          , emit: nf_run
-    tuple val(meta), path(".command.sh")           , emit: nf_sh
-    tuple val(meta), path(".command.trace")        , emit: nf_trace
-    tuple val(meta), path("versions.yml")          , emit: versions
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("supplemental/*"), emit: supplemental
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     def args = task.ext.args ?: ''
@@ -42,13 +42,13 @@ process QUAST {
     fi
 
     quast ${fasta_name} \${est_ref_size} \\
-        -o results \\
+        -o supplemental \\
         --threads ${task.cpus} \\
         $args \\
         --glimmer
 
-    mv results/quast.log ./
-    mv results/transposed_report.tsv results/${prefix}.tsv
+    mv supplemental/quast.log ./
+    mv supplemental/transposed_report.tsv ${prefix}.tsv
 
     # Cleanup
     rm -rf ${fasta_name}

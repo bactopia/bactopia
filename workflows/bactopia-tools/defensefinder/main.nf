@@ -20,7 +20,7 @@ workflow {
 
     main:
     // Check if help is requested
-    if (params.help) {
+    if (params.help || params.help_all) {
         log.info paramsHelp()
         exit 0
     }
@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = DEFENSEFINDER.out.genes_tsv.mix(.mix(
+    results = DEFENSEFINDER.out.genes_tsv.mix(
         DEFENSEFINDER.out.merged_genes_tsv,
         DEFENSEFINDER.out.merged_hmmer_tsv,
         DEFENSEFINDER.out.merged_systems_tsv

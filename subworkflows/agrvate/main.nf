@@ -22,6 +22,7 @@ workflow AGRVATE {
 
     emit:
     tsv = AGRVATE_MODULE.out.summary
+    supplemental = AGRVATE_MODULE.out.supplemental
     merged_tsv = ch_merged_agrvate
     logs = AGRVATE_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
