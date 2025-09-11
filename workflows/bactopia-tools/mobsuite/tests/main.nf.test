@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test MobSuite Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "mobsuite"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("MobSuite - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/staphylococcus_aureus/compressed"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

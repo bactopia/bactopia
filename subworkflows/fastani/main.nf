@@ -28,7 +28,7 @@ workflow FASTANI {
         ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
     }
 
-    ch_versions = ch_versions.mix(FASTANI_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(FASTANI_MODULE.out.versions)
 
     emit:
     tsv = FASTANI_MODULE.out.tsv

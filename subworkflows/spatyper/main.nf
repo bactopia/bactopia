@@ -14,7 +14,7 @@ workflow SPATYPER {
     ch_versions = Channel.empty()
 
     SPATYPER_MODULE(fasta, repeats, repeat_order)
-    ch_versions = ch_versions.mix(SPATYPER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SPATYPER_MODULE.out.versions)
 
     // Merge results
     SPATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'spatyper'], tsv]}.set{ ch_merge_spatyper }

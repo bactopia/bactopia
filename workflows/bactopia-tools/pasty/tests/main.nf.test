@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test pasty Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "pasty"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("pasty - GCF_000006765|pseudomonas_aeruginosa|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/pseudomonas_aeruginosa"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

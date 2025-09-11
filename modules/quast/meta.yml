@@ -43,6 +43,6 @@ output:
   - results:
       type: file
       description: All QUAST output files
-      pattern: "results/*"
+      pattern: "supplemental/*"
 authors:
   - "@rpetit3"

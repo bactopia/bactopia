@@ -1,0 +1,51 @@
+{
+    "AMRFinder+ - GCF_000292685|portiera|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/amrfinderplus",
+                "SRR2838702/tools/amrfinderplus/SRR2838702.tsv",
+                "SRR2838702/tools/amrfinderplus/logs",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.begin",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.err",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.log",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.out",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.run",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.sh",
+                "SRR2838702/tools/amrfinderplus/logs/nf.command.trace",
+                "SRR2838702/tools/amrfinderplus/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/amrfinderplus",
+                "bactopia-runs/amrfinderplus/merged-results",
+                "bactopia-runs/amrfinderplus/merged-results/amrfinderplus.tsv",
+                "bactopia-runs/amrfinderplus/merged-results/logs",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.begin",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.err",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.log",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.out",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.run",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.sh",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/nf.command.trace",
+                "bactopia-runs/amrfinderplus/merged-results/logs/amrfinderplus-concat/versions.yml",
+                "bactopia-runs/amrfinderplus/nf-reports",
+                "bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-dag.dot",
+                "bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-report.html",
+                "bactopia-runs/amrfinderplus/nf-reports/amrfinderplus-timeline.html"
+            ],
+            [
+                "SRR2838702.tsv:md5,376a8991c8eb010ea64c796115fb9b8d",
+                "versions.yml:md5,76231c1d67ae9a4f4e32482603a2db22",
+                "amrfinderplus.tsv:md5,376a8991c8eb010ea64c796115fb9b8d",
+                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-03T11:39:16.469554161"
+    }
+}

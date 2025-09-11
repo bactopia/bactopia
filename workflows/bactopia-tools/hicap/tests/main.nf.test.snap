@@ -1,0 +1,68 @@
+{
+    "hicap - haemophilus_influenzae|compressed_fasta": {
+        "content": [
+            3,
+            [
+                "GCA_000027305",
+                "GCA_000027305/tools",
+                "GCA_000027305/tools/hicap",
+                "GCA_000027305/tools/hicap/GCA_000027305.tsv",
+                "GCA_000027305/tools/hicap/logs",
+                "GCA_000027305/tools/hicap/logs/nf.command.begin",
+                "GCA_000027305/tools/hicap/logs/nf.command.err",
+                "GCA_000027305/tools/hicap/logs/nf.command.log",
+                "GCA_000027305/tools/hicap/logs/nf.command.out",
+                "GCA_000027305/tools/hicap/logs/nf.command.run",
+                "GCA_000027305/tools/hicap/logs/nf.command.sh",
+                "GCA_000027305/tools/hicap/logs/nf.command.trace",
+                "GCA_000027305/tools/hicap/logs/versions.yml",
+                "GCF_900478275",
+                "GCF_900478275/tools",
+                "GCF_900478275/tools/hicap",
+                "GCF_900478275/tools/hicap/GCF_900478275.gbk",
+                "GCF_900478275/tools/hicap/GCF_900478275.svg",
+                "GCF_900478275/tools/hicap/GCF_900478275.tsv",
+                "GCF_900478275/tools/hicap/logs",
+                "GCF_900478275/tools/hicap/logs/nf.command.begin",
+                "GCF_900478275/tools/hicap/logs/nf.command.err",
+                "GCF_900478275/tools/hicap/logs/nf.command.log",
+                "GCF_900478275/tools/hicap/logs/nf.command.out",
+                "GCF_900478275/tools/hicap/logs/nf.command.run",
+                "GCF_900478275/tools/hicap/logs/nf.command.sh",
+                "GCF_900478275/tools/hicap/logs/nf.command.trace",
+                "bactopia-runs",
+                "bactopia-runs/hicap",
+                "bactopia-runs/hicap/merged-results",
+                "bactopia-runs/hicap/merged-results/hicap.tsv",
+                "bactopia-runs/hicap/merged-results/logs",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.begin",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.err",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.log",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.out",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.run",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.sh",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/nf.command.trace",
+                "bactopia-runs/hicap/merged-results/logs/hicap-concat/versions.yml",
+                "bactopia-runs/hicap/nf-reports",
+                "bactopia-runs/hicap/nf-reports/hicap-dag.dot",
+                "bactopia-runs/hicap/nf-reports/hicap-report.html",
+                "bactopia-runs/hicap/nf-reports/hicap-timeline.html"
+            ],
+            [
+                "GCA_000027305.tsv:md5,a4ffb126a74f38f0d7409027c982a84a",
+                "versions.yml:md5,583376a04d00362892444651f0f00a07",
+                "GCF_900478275.gbk:md5,562d026956903354ac80721f501335d4",
+                "GCF_900478275.svg:md5,4fb94871dd0fdd8b4496049668176631",
+                "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+                "hicap.tsv:md5,fdbf89f0a652b1186e6348eadb7fd4cb",
+                "versions.yml:md5,0c84033bcf201f320a96434ff2545e4a"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-04T13:52:44.075779082"
+    }
+}

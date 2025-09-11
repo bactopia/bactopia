@@ -29,7 +29,7 @@ workflow GTDB {
         CLASSIFY(fasta, DATABASE)
     }
     
-    ch_versions = ch_versions.mix(CLASSIFY.out.versions.first())
+    ch_versions = ch_versions.mix(CLASSIFY.out.versions)
     ch_logs = ch_logs.mix(CLASSIFY.out.logs)
     
     // Merge results

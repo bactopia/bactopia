@@ -12,7 +12,7 @@ workflow QUAST {
     ch_versions = Channel.empty()
 
     QUAST_MODULE(fasta)
-    ch_versions = ch_versions.mix(QUAST_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(QUAST_MODULE.out.versions)
 
     // Merge results
     QUAST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'quast'], tsv]}.set{ ch_merge_quast}

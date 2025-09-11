@@ -41,7 +41,7 @@ process PROKKA {
     def fasta_name = fasta.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
     // Contig ID must <= 37 characters

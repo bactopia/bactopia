@@ -27,7 +27,7 @@ process QC {
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     meta.single_end = fq[1] == null ? true : false
     is_assembly = meta.runtype.startsWith('assembly') ? true : false

@@ -12,7 +12,7 @@ workflow NGMASTER {
     ch_versions = Channel.empty()
 
     NGMASTER_MODULE(fasta)
-    ch_versions = ch_versions.mix(NGMASTER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(NGMASTER_MODULE.out.versions)
 
     // Merge results
     NGMASTER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}.set{ ch_merge_ngmaster }

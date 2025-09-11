@@ -13,7 +13,7 @@ workflow BTYPER3 {
     ch_logs = Channel.empty()
 
     BTYPER3_MODULE(fasta)
-    ch_versions = ch_versions.mix(BTYPER3_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(BTYPER3_MODULE.out.versions)
     ch_logs = ch_logs.mix(BTYPER3_MODULE.out.logs)
 
     // Merge results

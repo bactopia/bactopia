@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test Legsta Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "legsta"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("Legsta - GCF_000048645|legionella_pneumophila|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/legionella_pneumophila"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

@@ -15,7 +15,7 @@ workflow HICAP {
     MODEL_FP = params.model_fp ? file(params.model_fp) : []
 
     HICAP_MODULE(fasta, DATABASE_DIR, MODEL_FP)
-    ch_versions = ch_versions.mix(HICAP_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(HICAP_MODULE.out.versions)
     ch_logs = ch_logs.mix(HICAP_MODULE.out.logs)
 
     // Aggregate results

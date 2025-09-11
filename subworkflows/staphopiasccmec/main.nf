@@ -12,7 +12,7 @@ workflow STAPHOPIASCCMEC {
     ch_versions = Channel.empty()
 
     STAPHOPIASCCMEC_MODULE(fasta)
-    ch_versions = ch_versions.mix(STAPHOPIASCCMEC_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(STAPHOPIASCCMEC_MODULE.out.versions)
 
     // Merge results
     STAPHOPIASCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}.set{ ch_merge_sccmec }

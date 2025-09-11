@@ -12,7 +12,7 @@ workflow MCRONI {
     ch_versions = Channel.empty()
 
     MCRONI_MODULE(fasta)
-    ch_versions = ch_versions.mix(MCRONI_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(MCRONI_MODULE.out.versions)
 
     // Merge results
     MCRONI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mcroni'], tsv]}.set{ ch_merge_mcroni }

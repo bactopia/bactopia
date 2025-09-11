@@ -12,8 +12,7 @@ workflow PBPTYPER {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     PBPTYPER_MODULE(fasta)
-    ch_versions = ch_versions.mix(PBPTYPER_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(PBPTYPER_MODULE.out.versions)
     ch_logs = ch_logs.mix(PBPTYPER_MODULE.out.logs)
 
     // Merge results

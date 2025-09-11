@@ -13,7 +13,7 @@ workflow SRAHUMANSCRUBBER {
 
     SRAHUMANSCRUBBER_INITDB()
     SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
-    ch_versions = ch_versions.mix(SRAHUMANSCRUBBER_SCRUB.out.versions.first())
+    ch_versions = ch_versions.mix(SRAHUMANSCRUBBER_SCRUB.out.versions)
 
     emit:
     scrubbed = SRAHUMANSCRUBBER_SCRUB.out.scrubbed

@@ -11,7 +11,7 @@ workflow PNEUMOCAT {
     ch_versions = Channel.empty()
 
     PNEUMOCAT_MODULE(fastq)
-    ch_versions = ch_versions.mix(PNEUMOCAT_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(PNEUMOCAT_MODULE.out.versions)
 
     emit:
     xml = PNEUMOCAT_MODULE.out.xml

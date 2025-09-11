@@ -11,9 +11,15 @@ workflow TBPROFILER {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+
+    // Run TBProfiler
     TBPROFILER_PROFILE(reads)
     ch_versions = ch_versions.mix(TBPROFILER_PROFILE.out.versions)
     ch_logs = ch_logs.mix(TBPROFILER_PROFILE.out.logs)
+
+    // Merge results
+    TBPROFILER_PROFILE.out.json.collect{_meta, json -> json}.map{ json -> [[id:'tbprofiler'], json]}.set{ ch_merge_tbprofiler }
+    TBPROFILER_COLLATE(ch_merge_tbprofiler)
     ch_versions = ch_versions.mix(TBPROFILER_COLLATE.out.versions)
     ch_logs = ch_logs.mix(TBPROFILER_COLLATE.out.logs)
 

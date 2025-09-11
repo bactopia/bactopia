@@ -14,7 +14,7 @@ workflow ABRITAMR {
 
     // Run AMRFinder
     ABRITAMR_RUN ( fasta )
-    ch_versions = ch_versions.mix(ABRITAMR_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(ABRITAMR_RUN.out.versions)
 
     // Merge results
     ABRITAMR_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'abritamr'], summary]}.set{ ch_merge_summary }

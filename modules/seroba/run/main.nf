@@ -9,8 +9,8 @@ process SEROBA_RUN {
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("results/${prefix}.tsv")                              , emit: tsv
-    tuple val(meta), path("results/detailed_serogroup_info.txt"), optional: true, emit: txt
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("supplemental/detailed_serogroup_info.txt"), optional: true, emit: txt
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -25,16 +25,16 @@ process SEROBA_RUN {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     seroba \\
         runSerotyping \\
         $reads \\
-        results $args
+        supplemental $args
 
     # Avoid name collisions
-    mv results/pred.tsv results/${prefix}.tsv
+    mv supplemental/pred.tsv ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

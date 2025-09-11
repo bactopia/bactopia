@@ -25,9 +25,9 @@ workflow STAPHTYPER {
     SCCMEC(fasta)
 
     // gather versions
-    ch_versions = ch_versions.mix(AGRVATE.out.versions.first())
-    ch_versions = ch_versions.mix(SPATYPER.out.versions.first())
-    ch_versions = ch_versions.mix(SCCMEC.out.versions.first())
+    ch_versions = ch_versions.mix(AGRVATE.out.versions)
+    ch_versions = ch_versions.mix(SPATYPER.out.versions)
+    ch_versions = ch_versions.mix(SCCMEC.out.versions)
 
     // Merge AgrVATE
     AGRVATE.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }

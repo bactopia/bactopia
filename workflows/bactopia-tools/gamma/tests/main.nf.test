@@ -9,7 +9,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                gamma_test = "/species/portiera/uncompressed/main/annotator/prokka/GCF_000292685.ffn"
+                gamma_test = "/datasets/generic/genes.ffn"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

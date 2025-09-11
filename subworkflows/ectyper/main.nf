@@ -11,9 +11,10 @@ workflow ECTYPER {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+
+    // Run ECTyper
     ECTYPER_MODULE(fasta)
-    ch_versions = ch_versions.mix(ECTYPER_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(ECTYPER_MODULE.out.versions)
     ch_logs = ch_logs.mix(ECTYPER_MODULE.out.logs)
 
     // Merge results

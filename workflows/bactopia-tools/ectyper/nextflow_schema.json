@@ -73,11 +73,6 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Enable/disable verification of O and H antigen predictions"
-                },
-                "print_alleles": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable/disable printing of allele sequences"
                 }
             }
         },

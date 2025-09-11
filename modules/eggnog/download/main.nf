@@ -21,11 +21,10 @@ process EGGNOG_DOWNLOAD {
 
     script:
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def args = task.ext.args ?: ''
     """
-    echo "task.ext.args: ${task.ext.args}"
     mkdir eggnog
     download_eggnog_data.py \\
         $args \\

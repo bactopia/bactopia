@@ -12,7 +12,7 @@ workflow MYKROBE {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     MYKROBE_PREDICT(reads, params.mykrobe_species)
-    ch_versions = ch_versions.mix(MYKROBE_PREDICT.out.versions.first())
+    ch_versions = ch_versions.mix(MYKROBE_PREDICT.out.versions)
     ch_logs = ch_logs.mix(MYKROBE_PREDICT.out.logs)
     
     // Merge results

@@ -21,7 +21,6 @@ process GTDBTK_SETUPDB {
 
     script:
     """
-    echo "task.ext.args: ${task.ext.args}"
     
     # Create .command.begin
     date > .command.begin

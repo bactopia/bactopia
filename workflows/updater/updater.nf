@@ -32,10 +32,10 @@ workflow UPDATER {
     ch_versions = Channel.empty()
 
     AMRFINDERPLUS_UPDATE()
-    ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions.first())
+    ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
 
     MLST_UPDATE()
-    ch_versions = ch_versions.mix(MLST_UPDATE.out.versions.first())
+    ch_versions = ch_versions.mix(MLST_UPDATE.out.versions)
 
     // Collect Versions
     CUSTOM_DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())

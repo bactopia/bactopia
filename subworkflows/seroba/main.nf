@@ -12,7 +12,7 @@ workflow SEROBA {
     ch_versions = Channel.empty()
 
     SEROBA_RUN(fasta)
-    ch_versions = ch_versions.mix(SEROBA_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(SEROBA_RUN.out.versions)
 
     // Merge results
     SEROBA_RUN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seroba'], tsv]}.set{ ch_merge_seroba }

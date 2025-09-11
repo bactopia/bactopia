@@ -25,7 +25,7 @@ process AMRFINDERPLUS_RUN {
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def fna_is_compressed = genes.getName().endsWith(".gz") ? true : false
     def faa_is_compressed = proteins.getName().endsWith(".gz") ? true : false

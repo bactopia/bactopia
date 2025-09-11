@@ -12,8 +12,7 @@ workflow KLEBORATE {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     KLEBORATE_MODULE(fasta)
-    ch_versions = ch_versions.mix(KLEBORATE_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(KLEBORATE_MODULE.out.versions)
     ch_logs = ch_logs.mix(KLEBORATE_MODULE.out.logs)
 
     // Merge results

@@ -59,7 +59,7 @@ workflow TETON {
 
     // Core Steps
     GATHER(create_input_channel(run_type, params.genome_size, params.species))
-    ch_versions = ch_versions.mix(GATHER.out.versions.first())
+    ch_versions = ch_versions.mix(GATHER.out.versions)
 
     // Remove host reads
     SCRUBBER(GATHER.out.fastq_only)

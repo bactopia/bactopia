@@ -11,9 +11,10 @@ workflow HPSUISSERO {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+
+    // Run HpsuisSero
     HPSUISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(HPSUISSERO_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(HPSUISSERO_MODULE.out.versions)
     ch_logs = ch_logs.mix(HPSUISSERO_MODULE.out.logs)
 
     // Merge results

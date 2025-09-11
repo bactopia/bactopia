@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test ShigaTyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "shigatyper"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("ShigaTyper - Multiple|shigella_dysenteriae|compressed_fastq") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/shigella_dysenteriae/reads"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

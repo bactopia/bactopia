@@ -12,8 +12,7 @@ workflow MENINGOTYPE {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     MENINGOTYPE_MODULE(fasta)
-    ch_versions = ch_versions.mix(MENINGOTYPE_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(MENINGOTYPE_MODULE.out.versions)
     ch_logs = ch_logs.mix(MENINGOTYPE_MODULE.out.logs)
 
     // Merge results

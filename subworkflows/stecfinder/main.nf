@@ -12,7 +12,7 @@ workflow STECFINDER {
     ch_versions = Channel.empty()
 
     STECFINDER_MODULE(seqs)
-    ch_versions = ch_versions.mix(STECFINDER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(STECFINDER_MODULE.out.versions)
 
     // Merge results
     STECFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}.set{ ch_merge_stecfinder }

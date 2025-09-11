@@ -1,0 +1,51 @@
+{
+    "HpsuisSero - GCF_002777395|glaesserella_parasuis|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_002777395",
+                "GCF_002777395/tools",
+                "GCF_002777395/tools/hpsuissero",
+                "GCF_002777395/tools/hpsuissero/GCF_002777395_serotyping_res.tsv",
+                "GCF_002777395/tools/hpsuissero/logs",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.begin",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.err",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.log",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.out",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.run",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.sh",
+                "GCF_002777395/tools/hpsuissero/logs/nf.command.trace",
+                "GCF_002777395/tools/hpsuissero/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/hpsuissero",
+                "bactopia-runs/hpsuissero/merged-results",
+                "bactopia-runs/hpsuissero/merged-results/hpsuissero.tsv",
+                "bactopia-runs/hpsuissero/merged-results/logs",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.begin",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.err",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.log",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.out",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.run",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.sh",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/nf.command.trace",
+                "bactopia-runs/hpsuissero/merged-results/logs/hpsuissero-concat/versions.yml",
+                "bactopia-runs/hpsuissero/nf-reports",
+                "bactopia-runs/hpsuissero/nf-reports/hpsuissero-dag.dot",
+                "bactopia-runs/hpsuissero/nf-reports/hpsuissero-report.html",
+                "bactopia-runs/hpsuissero/nf-reports/hpsuissero-timeline.html"
+            ],
+            [
+                "GCF_002777395_serotyping_res.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+                "versions.yml:md5,5a1275f48afabd2f73a93a99ed4843dd",
+                "hpsuissero.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+                "versions.yml:md5,f6953ae2271fe2a3415f7a5450e4f046"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-04T13:47:50.306962815"
+    }
+}

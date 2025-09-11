@@ -12,7 +12,7 @@ workflow PHISPY {
     ch_versions = Channel.empty()
 
     PHISPY_MODULE(gbk)
-    ch_versions = ch_versions.mix(PHISPY_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(PHISPY_MODULE.out.versions)
 
     // Merge results
     PHISPY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'phispy'], tsv]}.set{ ch_merge_phispy }

@@ -12,36 +12,31 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "opid": {
-            "type": "integer",
-            "default": 90,
-            "description": "Minimum percent identity for O-antigen allele match"
-        },
-        "hpid": {
-            "type": "integer",
-            "default": 95,
-            "description": "Minimum percent identity for H-antigen allele match"
-        },
-        "opcov": {
-            "type": "integer",
-            "default": 90,
-            "description": "Minimum percent coverage for O-antigen allele"
-        },
-        "hpcov": {
-            "type": "integer",
-            "default": 50,
-            "description": "Minimum percent coverage for H-antigen allele"
-        },
-        "verify": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable/disable verification of O and H antigen predictions"
-        },
-        "print_alleles": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable/disable printing of allele sequences"
-        }
+                "opid": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent identity for O-antigen allele match"
+                },
+                "hpid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent identity for H-antigen allele match"
+                },
+                "opcov": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent coverage for O-antigen allele"
+                },
+                "hpcov": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum percent coverage for H-antigen allele"
+                },
+                "verify": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable/disable verification of O and H antigen predictions"
+                }
             }
         }
     },

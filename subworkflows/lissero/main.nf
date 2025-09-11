@@ -12,8 +12,7 @@ workflow LISSERO {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     LISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(LISSERO_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(LISSERO_MODULE.out.versions)
     ch_logs = ch_logs.mix(LISSERO_MODULE.out.logs)
 
     // Merge results

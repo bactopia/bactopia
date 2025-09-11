@@ -15,7 +15,7 @@ workflow PROKKA {
 
     // Run Prokka
     PROKKA_MODULE(fasta, proteins, prodigal_tf)
-    ch_versions = ch_versions.mix(PROKKA_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(PROKKA_MODULE.out.versions)
     ch_logs = ch_logs.mix(PROKKA_MODULE.out.logs)
 
     emit:

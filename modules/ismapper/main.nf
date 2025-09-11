@@ -11,21 +11,21 @@ process ISMAPPER {
     path(query)
 
     output:
-    tuple val(meta), path("results/*")      , emit: results
-    tuple val(meta), path("*.{log,err}")    , emit: logs, optional: true
-    tuple val(meta), path(".command.begin") , emit: nf_begin
-    tuple val(meta), path(".command.err")   , emit: nf_err
-    tuple val(meta), path(".command.log")   , emit: nf_log
-    tuple val(meta), path(".command.out")   , emit: nf_out
-    tuple val(meta), path(".command.run")   , emit: nf_run
-    tuple val(meta), path(".command.sh")    , emit: nf_sh
-    tuple val(meta), path(".command.trace") , emit: nf_trace
-    tuple val(meta), path("versions.yml")   , emit: versions
+    tuple val(meta), path("supplemental/*"), emit: results
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
@@ -49,13 +49,13 @@ process ISMAPPER {
         --reads $reads
 
     # Reorganize output files
-    mkdir results
-    mv $prefix/*/* results/
+    mkdir supplemental
+    mv $prefix/*/* supplemental/
 
     # Cleanup and compress FASTQ and BED files
     rm -rf ${reference_name} ${query_name} ${prefix}/
-    find results/ -name "*.fastq" | xargs -I {} gzip {}
-    find results/ -name "*.bed" | xargs -I {} gzip {}
+    find supplemental/ -name "*.fastq" | xargs -I {} gzip {}
+    find supplemental/ -name "*.bed" | xargs -I {} gzip {}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

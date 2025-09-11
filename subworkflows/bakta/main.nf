@@ -27,7 +27,7 @@ workflow BAKTA {
         BAKTA_RUN(fasta, DATABASE, PROTEINS, PRODIGAL_TF, REPLICONS)
     }
 
-    ch_versions = ch_versions.mix(BAKTA_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(BAKTA_RUN.out.versions)
     ch_logs = ch_logs.mix(BAKTA_RUN.out.logs)
 
     emit:

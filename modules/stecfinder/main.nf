@@ -23,7 +23,7 @@ process STECFINDER {
     script:
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = meta.is_compressed && !params.stecfinder_use_reads ? true : false
     def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads

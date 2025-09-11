@@ -12,7 +12,7 @@ workflow SHIGAPASS {
     ch_versions = Channel.empty()
 
     SHIGAPASS_MODULE(fasta)
-    ch_versions = ch_versions.mix(SHIGAPASS_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGAPASS_MODULE.out.versions)
 
     // Merge results
     SHIGAPASS_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigapass'], tsv]}.set{ ch_merge_shigapass }

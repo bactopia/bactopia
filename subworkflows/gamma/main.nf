@@ -13,7 +13,7 @@ workflow GAMMA {
     ch_merged_gamma = Channel.empty()
 
     GAMMA_MODULE(fasta, file(params.gamma_db))
-    ch_versions = ch_versions.mix(GAMMA_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(GAMMA_MODULE.out.versions)
 
     // Merge results
     GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}.set{ ch_merge_gamma }

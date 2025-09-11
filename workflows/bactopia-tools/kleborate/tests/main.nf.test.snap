@@ -1,0 +1,51 @@
+{
+    "Kleborate - GCF_000009885|klebsiella_pneumoniae|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000009885",
+                "GCF_000009885/tools",
+                "GCF_000009885/tools/kleborate",
+                "GCF_000009885/tools/kleborate/GCF_000009885.txt",
+                "GCF_000009885/tools/kleborate/logs",
+                "GCF_000009885/tools/kleborate/logs/nf.command.begin",
+                "GCF_000009885/tools/kleborate/logs/nf.command.err",
+                "GCF_000009885/tools/kleborate/logs/nf.command.log",
+                "GCF_000009885/tools/kleborate/logs/nf.command.out",
+                "GCF_000009885/tools/kleborate/logs/nf.command.run",
+                "GCF_000009885/tools/kleborate/logs/nf.command.sh",
+                "GCF_000009885/tools/kleborate/logs/nf.command.trace",
+                "GCF_000009885/tools/kleborate/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/kleborate",
+                "bactopia-runs/kleborate/merged-results",
+                "bactopia-runs/kleborate/merged-results/kleborate.tsv",
+                "bactopia-runs/kleborate/merged-results/logs",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.begin",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.err",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.log",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.out",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.run",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.sh",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/nf.command.trace",
+                "bactopia-runs/kleborate/merged-results/logs/kleborate-concat/versions.yml",
+                "bactopia-runs/kleborate/nf-reports",
+                "bactopia-runs/kleborate/nf-reports/kleborate-dag.dot",
+                "bactopia-runs/kleborate/nf-reports/kleborate-report.html",
+                "bactopia-runs/kleborate/nf-reports/kleborate-timeline.html"
+            ],
+            [
+                "GCF_000009885.txt:md5,c57d096f3518528b0b04a573863bef1a",
+                "versions.yml:md5,c66e07701233347ada58564f341bcd2d",
+                "kleborate.tsv:md5,c57d096f3518528b0b04a573863bef1a",
+                "versions.yml:md5,2351aac91e4aee5e9cfa2bd7a6a1bda0"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-05T10:14:17.178779983"
+    }
+}

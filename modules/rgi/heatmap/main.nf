@@ -23,8 +23,8 @@ process RGI_HEATMAP {
     script:
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.output_dir = "${task.ext.rundir}/merged-results/"
+    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     NUM_SAMPLES=\$(ls json/ | wc -l)

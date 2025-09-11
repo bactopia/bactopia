@@ -12,7 +12,7 @@ workflow SISTR {
     ch_versions = Channel.empty()
 
     SISTR_MODULE(fasta)
-    ch_versions = ch_versions.mix(SISTR_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SISTR_MODULE.out.versions)
 
     // Merge results
     SISTR_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sistr'], tsv]}.set{ ch_merge_sistr }

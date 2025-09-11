@@ -11,9 +11,10 @@ workflow CLERMONTYPING {
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+
+    // Run clermontyping
     CLERMONTYPING_MODULE(fasta)
-    ch_versions = ch_versions.mix(CLERMONTYPING_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(CLERMONTYPING_MODULE.out.versions)
     ch_logs = ch_logs.mix(CLERMONTYPING_MODULE.out.logs)
 
     // Merge results

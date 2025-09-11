@@ -13,7 +13,7 @@ workflow AGRVATE {
     ch_merged_agrvate = Channel.empty()
 
     AGRVATE_MODULE(fasta)
-    ch_versions = ch_versions.mix(AGRVATE_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(AGRVATE_MODULE.out.versions)
 
     AGRVATE_MODULE.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
     CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')

@@ -18,7 +18,7 @@ workflow ARIBA {
     // Build database and run Ariba
     ARIBA_GETREF(params.ariba_db)
     ARIBA_RUN(reads, ARIBA_GETREF.out.db)
-    ch_versions = ch_versions.mix(ARIBA_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(ARIBA_RUN.out.versions)
 
     ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${params.ariba_db}-report"], report]}.set{ ch_merge_report }
     CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')

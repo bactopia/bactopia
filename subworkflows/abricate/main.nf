@@ -13,7 +13,7 @@ workflow ABRICATE {
     ch_merged_abricate = Channel.empty()
 
     ABRICATE_RUN(fasta)
-    ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions)
 
     ABRICATE_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:'abricate'], report]}.set{ ch_merge_abricate }
     ABRICATE_SUMMARY(ch_merge_abricate)

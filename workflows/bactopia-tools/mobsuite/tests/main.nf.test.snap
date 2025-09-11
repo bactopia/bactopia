@@ -1,0 +1,55 @@
+{
+    "MobSuite - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/mobsuite",
+                "GCF_000017085/tools/mobsuite/GCF_000017085-chromosome.fasta.gz",
+                "GCF_000017085/tools/mobsuite/GCF_000017085-contig_report.txt",
+                "GCF_000017085/tools/mobsuite/GCF_000017085-mobtyper.txt",
+                "GCF_000017085/tools/mobsuite/logs",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.begin",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.err",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.log",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.out",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.run",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.sh",
+                "GCF_000017085/tools/mobsuite/logs/nf.command.trace",
+                "GCF_000017085/tools/mobsuite/logs/versions.yml",
+                "GCF_000017085/tools/mobsuite/plasmid_AA840.fasta.gz",
+                "bactopia-runs",
+                "bactopia-runs/mobsuite",
+                "bactopia-runs/mobsuite/merged-results",
+                "bactopia-runs/mobsuite/merged-results/logs",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.begin",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.err",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.log",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.out",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.run",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.sh",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/nf.command.trace",
+                "bactopia-runs/mobsuite/merged-results/logs/mobsuite-concat/versions.yml",
+                "bactopia-runs/mobsuite/merged-results/mobsuite.tsv",
+                "bactopia-runs/mobsuite/nf-reports",
+                "bactopia-runs/mobsuite/nf-reports/mobsuite-dag.dot",
+                "bactopia-runs/mobsuite/nf-reports/mobsuite-report.html",
+                "bactopia-runs/mobsuite/nf-reports/mobsuite-timeline.html"
+            ],
+            [
+                "GCF_000017085-contig_report.txt:md5,82e2079c35c1f808716f1dfd607ac235",
+                "GCF_000017085-mobtyper.txt:md5,951dbd706ab78c4d00aa28735ab34e87",
+                "versions.yml:md5,6382560b7378f1c8df5a4b1485126c25",
+                "versions.yml:md5,e586a98fe29a48792ce661d2649ada18",
+                "mobsuite.tsv:md5,951dbd706ab78c4d00aa28735ab34e87"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-05T10:35:35.510354215"
+    }
+}

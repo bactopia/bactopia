@@ -18,8 +18,7 @@ workflow MLST {
         MLST_MODULE(fasta, db)
     }
 
-    ch_versions = ch_versions.mix(MLST_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(MLST_MODULE.out.versions)
     ch_logs = ch_logs.mix(MLST_MODULE.out.logs)
 
     // Merge results

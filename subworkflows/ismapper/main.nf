@@ -13,7 +13,7 @@ workflow ISMAPPER_WORKFLOW {
     ch_versions = Channel.empty()
 
     ISMAPPER(ch_reads, ch_reference, ch_insertions)
-    ch_versions = ch_versions.mix(ISMAPPER.out.versions.first())
+    ch_versions = ch_versions.mix(ISMAPPER.out.versions)
 
     emit:
     results  = ISMAPPER.out.results

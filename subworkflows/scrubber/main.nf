@@ -17,14 +17,14 @@ workflow SCRUBBER {
 
     if (params.use_srascrubber) {
         SRAHUMANSCRUBBER(reads)
-        ch_versions = ch_versions.mix(SRAHUMANSCRUBBER.out.versions.first())
+        ch_versions = ch_versions.mix(SRAHUMANSCRUBBER.out.versions)
         ch_logs = ch_logs.mix(SRAHUMANSCRUBBER.out.logs)
         ch_scrub_report = ch_scrub_report.mix(SRAHUMANSCRUBBER.out.scrub_report)
         ch_scrubbed = ch_scrubbed.mix(SRAHUMANSCRUBBER.out.scrubbed)
         ch_scrubbed_extra = ch_scrubbed_extra.mix(SRAHUMANSCRUBBER.out.scrubbed_extra)
     } else {
         K2SCRUBBER(reads)
-        ch_versions = ch_versions.mix(K2SCRUBBER.out.versions.first())
+        ch_versions = ch_versions.mix(K2SCRUBBER.out.versions)
         ch_logs = ch_logs.mix(K2SCRUBBER.out.logs)
         ch_scrub_report = ch_scrub_report.mix(K2SCRUBBER.out.scrub_report)
         ch_scrubbed = ch_scrubbed.mix(K2SCRUBBER.out.scrubbed)

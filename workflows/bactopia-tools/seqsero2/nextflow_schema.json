@@ -58,15 +58,6 @@
                         "k"
                     ]
                 },
-                "input_type": {
-                    "type": "string",
-                    "default": "assembly",
-                    "description": "Input format to analyze. 'assembly' or 'fastq'",
-                    "enum": [
-                        "assembly",
-                        "fastq"
-                    ]
-                },
                 "bwa_mode": {
                     "type": "string",
                     "default": "mem",

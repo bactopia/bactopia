@@ -46,92 +46,92 @@ workflow MERLIN {
     MERLINDIST.out.escherichia_fq.map{_meta, _reads, _found -> [_meta, _reads]}.set{ ch_escherichia_fq }
     MERLINDIST.out.escherichia_fna_fq.map{_meta, _assembly, _reads, _found -> [_meta, _assembly, _reads]}.set{ ch_escherichia_fna_fq }
     CLERMONTYPING(ch_escherichia)
-    ch_versions = ch_versions.mix(CLERMONTYPING.out.versions.first())
+    ch_versions = ch_versions.mix(CLERMONTYPING.out.versions)
     ch_logs = ch_logs.mix(CLERMONTYPING.out.logs)
 
     ECTYPER(ch_escherichia)
-    ch_versions = ch_versions.mix(ECTYPER.out.versions.first())
+    ch_versions = ch_versions.mix(ECTYPER.out.versions)
     ch_logs = ch_logs.mix(ECTYPER.out.logs)
 
     SHIGAPASS(ch_escherichia)
-    ch_versions = ch_versions.mix(SHIGAPASS.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGAPASS.out.versions)
     ch_logs = ch_logs.mix(SHIGAPASS.out.logs)
 
     SHIGATYPER(ch_escherichia_fq)
-    ch_versions = ch_versions.mix(SHIGATYPER.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGATYPER.out.versions)
     ch_logs = ch_logs.mix(SHIGATYPER.out.logs)
 
     SHIGEIFINDER(ch_escherichia)
-    ch_versions = ch_versions.mix(SHIGEIFINDER.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGEIFINDER.out.versions)
     ch_logs = ch_logs.mix(SHIGEIFINDER.out.logs)
 
     STECFINDER(ch_escherichia_fna_fq)
-    ch_versions = ch_versions.mix(STECFINDER.out.versions.first())
+    ch_versions = ch_versions.mix(STECFINDER.out.versions)
     ch_logs = ch_logs.mix(STECFINDER.out.logs)
 
     // Haemophilus
     MERLINDIST.out.haemophilus.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_haemophilus }
     HICAP(ch_haemophilus)
-    ch_versions = ch_versions.mix(HICAP.out.versions.first())
+    ch_versions = ch_versions.mix(HICAP.out.versions)
     ch_logs = ch_logs.mix(HICAP.out.logs)
 
     HPSUISSERO(ch_haemophilus)
-    ch_versions = ch_versions.mix(HPSUISSERO.out.versions.first())
+    ch_versions = ch_versions.mix(HPSUISSERO.out.versions)
     ch_logs = ch_logs.mix(HPSUISSERO.out.logs)
 
     // Klebsiella
     MERLINDIST.out.klebsiella.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_klebsiella }
     KLEBORATE(ch_klebsiella)
-    ch_versions = ch_versions.mix(KLEBORATE.out.versions.first())
+    ch_versions = ch_versions.mix(KLEBORATE.out.versions)
     ch_logs = ch_logs.mix(KLEBORATE.out.logs)
 
     // Legionella 
     MERLINDIST.out.legionella.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_legionella }
     LEGSTA(ch_legionella)
-    ch_versions = ch_versions.mix(LEGSTA.out.versions.first())
+    ch_versions = ch_versions.mix(LEGSTA.out.versions)
     ch_logs = ch_logs.mix(LEGSTA.out.logs)
 
     // Listeria 
     MERLINDIST.out.listeria.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_listeria }
     LISSERO(ch_listeria)
-    ch_versions = ch_versions.mix(LISSERO.out.versions.first())
+    ch_versions = ch_versions.mix(LISSERO.out.versions)
     ch_logs = ch_logs.mix(LISSERO.out.logs)
 
     // Mycobacterium 
     MERLINDIST.out.mycobacterium_fq.map{_meta, _reads, _found -> [_meta, _reads]}.set{ ch_mycobacterium_fq }
     TBPROFILER(ch_mycobacterium_fq)
-    ch_versions = ch_versions.mix(TBPROFILER.out.versions.first())
+    ch_versions = ch_versions.mix(TBPROFILER.out.versions)
     ch_logs = ch_logs.mix(TBPROFILER.out.logs)
 
     // Neisseria 
     MERLINDIST.out.neisseria.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_neisseria }
     MENINGOTYPE(ch_neisseria)
-    ch_versions = ch_versions.mix(MENINGOTYPE.out.versions.first())
+    ch_versions = ch_versions.mix(MENINGOTYPE.out.versions)
     ch_logs = ch_logs.mix(MENINGOTYPE.out.logs)
 
     NGMASTER(ch_neisseria)
-    ch_versions = ch_versions.mix(NGMASTER.out.versions.first())
+    ch_versions = ch_versions.mix(NGMASTER.out.versions)
     ch_logs = ch_logs.mix(NGMASTER.out.logs)
 
     // Pseudomonas 
     MERLINDIST.out.pseudomonas.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_pseudomonas }
     PASTY(ch_pseudomonas)
-    ch_versions = ch_versions.mix(PASTY.out.versions.first())
+    ch_versions = ch_versions.mix(PASTY.out.versions)
     ch_logs = ch_logs.mix(PASTY.out.logs)
 
     // Salmonella 
     MERLINDIST.out.salmonella.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_salmonella }
     MERLINDIST.out.salmonella_fq.map{_meta, _reads, _found -> [_meta, _reads]}.set{ ch_salmonella_fq }
     GENOTYPHI(ch_salmonella_fq)
-    ch_versions = ch_versions.mix(GENOTYPHI.out.versions.first())
+    ch_versions = ch_versions.mix(GENOTYPHI.out.versions)
     ch_logs = ch_logs.mix(GENOTYPHI.out.logs)
 
     SEQSERO2(ch_salmonella)
-    ch_versions = ch_versions.mix(SEQSERO2.out.versions.first())
+    ch_versions = ch_versions.mix(SEQSERO2.out.versions)
     ch_logs = ch_logs.mix(SEQSERO2.out.logs)
 
     SISTR(ch_salmonella)
-    ch_versions = ch_versions.mix(SISTR.out.versions.first())
+    ch_versions = ch_versions.mix(SISTR.out.versions)
     ch_logs = ch_logs.mix(SISTR.out.logs)
 
     // Staphylococcus 
@@ -144,19 +144,19 @@ workflow MERLIN {
     MERLINDIST.out.streptococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_streptococcus }
     MERLINDIST.out.streptococcus_fq.map{_meta, _reads, _found -> [_meta, _reads]}.set{ ch_streptococcus_fq }
     EMMTYPER(ch_streptococcus)
-    ch_versions = ch_versions.mix(EMMTYPER.out.versions.first())
+    ch_versions = ch_versions.mix(EMMTYPER.out.versions)
     ch_logs = ch_logs.mix(EMMTYPER.out.logs)
 
     PBPTYPER(ch_streptococcus)
-    ch_versions = ch_versions.mix(PBPTYPER.out.versions.first())
+    ch_versions = ch_versions.mix(PBPTYPER.out.versions)
     ch_logs = ch_logs.mix(PBPTYPER.out.logs)
 
     SEROBA(ch_streptococcus_fq)
-    ch_versions = ch_versions.mix(SEROBA.out.versions.first())
+    ch_versions = ch_versions.mix(SEROBA.out.versions)
     ch_logs = ch_logs.mix(SEROBA.out.logs)
 
     SSUISSERO(ch_streptococcus)
-    ch_versions = ch_versions.mix(SSUISSERO.out.versions.first())
+    ch_versions = ch_versions.mix(SSUISSERO.out.versions)
     ch_logs = ch_logs.mix(SSUISSERO.out.logs)
 
     emit:

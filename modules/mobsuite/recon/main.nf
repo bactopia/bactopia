@@ -9,10 +9,10 @@ process MOBSUITE_RECON {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/chromosome.fasta.gz")   , emit: chromosome
-    tuple val(meta), path("results/contig_report.txt")     , emit: contig_report
-    tuple val(meta), path("results/plasmid_*.fasta.gz")    , emit: plasmids        , optional: true
-    tuple val(meta), path("results/${prefix}-mobtyper.txt"), emit: mobtyper_results, optional: true
+    tuple val(meta), path("${prefix}-chromosome.fasta.gz"), emit: chromosome
+    tuple val(meta), path("${prefix}-contig_report.txt")  , emit: contig_report
+    tuple val(meta), path("plasmid_*.fasta.gz")           , emit: plasmids        , optional: true
+    tuple val(meta), path("${prefix}-mobtyper.txt")       , emit: mobtyper_results, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -27,7 +27,7 @@ process MOBSUITE_RECON {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
@@ -40,16 +40,26 @@ process MOBSUITE_RECON {
         --infile $fasta_name \\
         $args \\
         --num_threads $task.cpus \\
-        --outdir results \\
+        --outdir supplemental \\
         --sample_id $prefix
 
-    if [[ -f "results/mobtyper_results.txt" ]]; then
-        mv results/mobtyper_results.txt results/${prefix}-mobtyper.txt
+    if [[ -f "supplemental/mobtyper_results.txt" ]]; then
+        mv supplemental/mobtyper_results.txt ${prefix}-mobtyper.txt
+    fi
+
+    if [[ -f "supplemental/chromosome.fasta" ]]; then
+        mv supplemental/chromosome.fasta ${prefix}-chromosome.fasta
+        gzip ${prefix}-chromosome.fasta
+    fi
+
+    if [[ -f "supplemental/contig_report.txt" ]]; then
+        mv supplemental/contig_report.txt ${prefix}-contig_report.txt
     fi
 
     # Cleanup
-    gzip results/*.fasta
-    rm -rf ${fasta_name}
+    gzip supplemental/*.fasta
+    mv supplemental/*.fasta.gz ./
+    rm -rf ${fasta_name} supplemental/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -14,7 +14,7 @@ workflow CHECKM {
     ch_merged_checkm = Channel.empty()
 
     CHECKM_LINEAGEWF(fasta)
-    ch_versions = ch_versions.mix(CHECKM_LINEAGEWF.out.versions.first())
+    ch_versions = ch_versions.mix(CHECKM_LINEAGEWF.out.versions)
     ch_logs = ch_logs.mix(CHECKM_LINEAGEWF.out.logs)
 
     CHECKM_LINEAGEWF.out.tsv.collect{ _meta, tsv -> tsv }.map{ tsv -> [[id:'checkm'], tsv] }.set{ ch_merge_checkm }

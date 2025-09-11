@@ -12,7 +12,7 @@ workflow PLASMIDFINDER {
     ch_versions = Channel.empty()
 
     PLASMIDFINDER_MODULE(fasta)
-    ch_versions = ch_versions.mix(PLASMIDFINDER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(PLASMIDFINDER_MODULE.out.versions)
 
     // Merge results
     PLASMIDFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'plasmidfinder'], tsv]}.set{ ch_merge_plasmidfinder }

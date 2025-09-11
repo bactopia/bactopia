@@ -12,8 +12,7 @@ workflow LEGSTA {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     LEGSTA_MODULE(fasta)
-    ch_versions = ch_versions.mix(LEGSTA_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    ch_versions = ch_versions.mix(LEGSTA_MODULE.out.versions)
     ch_logs = ch_logs.mix(LEGSTA_MODULE.out.logs)
 
     // Merge results

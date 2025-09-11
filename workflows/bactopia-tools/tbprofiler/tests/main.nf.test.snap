@@ -1,0 +1,23 @@
+{
+    "TBProfiler - GCF_000292685|portiera|compressed_fasta": {
+        "content": [
+            0,
+            [
+                "bactopia-runs",
+                "bactopia-runs/tbprofiler",
+                "bactopia-runs/tbprofiler/nf-reports",
+                "bactopia-runs/tbprofiler/nf-reports/tbprofiler-dag.dot",
+                "bactopia-runs/tbprofiler/nf-reports/tbprofiler-report.html",
+                "bactopia-runs/tbprofiler/nf-reports/tbprofiler-timeline.html"
+            ],
+            [
+                
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-05T12:21:28.620126567"
+    }
+}

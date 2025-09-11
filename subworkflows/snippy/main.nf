@@ -13,7 +13,7 @@ workflow SNIPPY {
 
     // Run Snippy per-sample
     SNIPPY_RUN(ch_reads, ch_reference)
-    ch_versions = ch_versions.mix(SNIPPY_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(SNIPPY_RUN.out.versions)
 
     emit:
     aligned_fa               = SNIPPY_RUN.out.aligned_fa

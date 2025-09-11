@@ -70,9 +70,9 @@
                     "default": 70
                 },
                 "bt_overlap": {
-                    "type": "integer",
+                    "type": "number",
                     "description": "Minimum percent overlap",
-                    "default": 70
+                    "default": 0.7
                 },
                 "bt_opts": {
                     "type": "string",

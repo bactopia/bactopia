@@ -11,7 +11,7 @@ workflow IQTREE {
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     IQTREE_MODULE(aln)
-    ch_versions = ch_versions.mix(IQTREE_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(IQTREE_MODULE.out.versions)
     ch_logs = ch_logs.mix(IQTREE_MODULE.out.logs)
 
     emit:

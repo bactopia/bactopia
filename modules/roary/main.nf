@@ -10,9 +10,9 @@ process ROARY {
     tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("results/*")                        , emit: results
-    tuple val(meta), path("core-genome.aln.gz")               , emit: aln, optional: true
-    tuple val(meta), path("results/gene_presence_absence.csv"), emit: csv, optional: true
+    tuple val(meta), path("supplemental/*")                        , emit: results
+    tuple val(meta), path("core-genome.aln.gz")                    , emit: aln, optional: true
+    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -25,9 +25,8 @@ process ROARY {
 
     script:
     def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -43,14 +42,14 @@ process ROARY {
     roary \\
         $args \\
         -p $task.cpus \\
-        -f results/ \\
+        -f supplemental/ \\
         gff/*.gff
 
-    gzip results/*.aln
-    gzip results/*.fa
+    gzip supplemental/*.aln
+    gzip supplemental/*.fa
 
-    if [[ -f "results/core_gene_alignment.aln.gz" ]]; then
-        cp results/core_gene_alignment.aln.gz ./core-genome.aln.gz
+    if [[ -f "supplemental/core_gene_alignment.aln.gz" ]]; then
+        cp supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
     fi
 
     # clean up

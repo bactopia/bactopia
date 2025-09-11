@@ -12,7 +12,7 @@ workflow SSUISSERO {
     ch_versions = Channel.empty()
 
     SSUISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(SSUISSERO_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SSUISSERO_MODULE.out.versions)
 
     // Merge results
     SSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ssuissero'], tsv]}.set{ ch_merge_ssuissero }

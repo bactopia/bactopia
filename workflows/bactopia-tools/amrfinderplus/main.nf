@@ -42,7 +42,7 @@ workflow {
     )
     logs = AMRFINDERPLUS.out.logs
     nf_logs = AMRFINDERPLUS.out.nf_logs
-    versions = AMRFINDERPLUS.out.versions.mix(DATASETS.out.versions)
+    versions = AMRFINDERPLUS.out.versions
 }
 
 output {

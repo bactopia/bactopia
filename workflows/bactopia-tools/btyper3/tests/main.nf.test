@@ -2,13 +2,15 @@ nextflow_pipeline {
     name "Test BTyper3 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "btype3"
+    tag "btyper3"
     tag "bactopia-tools"
 
-    test("bacillus_anthracis - GCF_000008445") {
+    test("BTyper3 - GCF_000008445|bacillus_anthracis|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/bacillus_anthracis"
+                test_dataset = ""
+                is_ci = true
                 outdir = "$outputDir"
             }
         }

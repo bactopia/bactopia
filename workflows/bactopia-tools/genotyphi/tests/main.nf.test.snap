@@ -1,0 +1,66 @@
+{
+    "Genotyphi - GCF_000292685|portiera|compressed_fastq": {
+        "content": [
+            3,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/genotyphi",
+                "SRR2838702/tools/genotyphi/SRR2838702.csv",
+                "SRR2838702/tools/genotyphi/SRR2838702.json",
+                "SRR2838702/tools/genotyphi/SRR2838702_predictResults.tsv",
+                "SRR2838702/tools/genotyphi/logs",
+                "SRR2838702/tools/genotyphi/logs/genotyphi",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.begin",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.err",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.log",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.out",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.run",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.sh",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/nf.command.trace",
+                "SRR2838702/tools/genotyphi/logs/genotyphi/versions.yml",
+                "SRR2838702/tools/genotyphi/logs/mykrobe",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.begin",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.err",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.log",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.out",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.run",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.sh",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/nf.command.trace",
+                "SRR2838702/tools/genotyphi/logs/mykrobe/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/genotyphi",
+                "bactopia-runs/genotyphi/merged-results",
+                "bactopia-runs/genotyphi/merged-results/genotyphi.tsv",
+                "bactopia-runs/genotyphi/merged-results/logs",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.begin",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.err",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.log",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.out",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.run",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.sh",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/nf.command.trace",
+                "bactopia-runs/genotyphi/merged-results/logs/genotyphi-concat/versions.yml",
+                "bactopia-runs/genotyphi/nf-reports",
+                "bactopia-runs/genotyphi/nf-reports/genotyphi-dag.dot",
+                "bactopia-runs/genotyphi/nf-reports/genotyphi-report.html",
+                "bactopia-runs/genotyphi/nf-reports/genotyphi-timeline.html"
+            ],
+            [
+                "SRR2838702.csv:md5,643005849779eff11e0efe92802b08b7",
+                "SRR2838702.json:md5,11d0f10a53184817ebadd0dfaa90dee0",
+                "SRR2838702_predictResults.tsv:md5,57125b95efd9a10265c05a5933b624e1",
+                "versions.yml:md5,d8debae1bdcd6e4662223d9b812dd3d7",
+                "versions.yml:md5,58cc026392506e5ec5266f0276d70c35",
+                "genotyphi.tsv:md5,57125b95efd9a10265c05a5933b624e1",
+                "versions.yml:md5,1e61ab9091b0ddd88b14c86fa3488bea"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-04T10:39:20.082917379"
+    }
+}

@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    EMMTYPER(BACTOPIATOOL_INIT.out.samples)
+    EMMTYPER(
+        BACTOPIATOOL_INIT.out.samples,
+        params.emmtyper_blastdb ? file(params.emmtyper_blastdb) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

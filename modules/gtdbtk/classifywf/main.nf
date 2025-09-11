@@ -11,27 +11,26 @@ process GTDBTK_CLASSIFYWF {
     path db, stageAs: 'gtdb/*'
 
     output:
-    tuple val(meta), path("results/*")                      , emit: results
-    tuple val(meta), path("results/${prefix}.*.summary.tsv"), emit: tsv
-    tuple val(meta), path("*.{log,err}")                    , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                 , emit: nf_begin
-    tuple val(meta), path(".command.err")                   , emit: nf_err
-    tuple val(meta), path(".command.log")                   , emit: nf_log
-    tuple val(meta), path(".command.out")                   , emit: nf_out
-    tuple val(meta), path(".command.run")                   , emit: nf_run
-    tuple val(meta), path(".command.sh")                    , emit: nf_sh
-    tuple val(meta), path(".command.trace")                 , emit: nf_trace
-    tuple val(meta), path("versions.yml")                   , emit: versions
+    tuple val(meta), path("supplemental/*")         , emit: results
+    tuple val(meta), path("${prefix}.*.summary.tsv"), emit: tsv
+    tuple val(meta), path("*.{log,err}")            , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")         , emit: nf_begin
+    tuple val(meta), path(".command.err")           , emit: nf_err
+    tuple val(meta), path(".command.log")           , emit: nf_log
+    tuple val(meta), path(".command.out")           , emit: nf_out
+    tuple val(meta), path(".command.run")           , emit: nf_run
+    tuple val(meta), path(".command.sh")            , emit: nf_sh
+    tuple val(meta), path(".command.trace")         , emit: nf_trace
+    tuple val(meta), path("versions.yml")           , emit: versions
 
     script:
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    echo "task.ext.args: ${task.ext.args}"
     if [ "$is_tarball" == "true" ]; then
         mkdir database
         tar -xzf $db -C database
@@ -48,10 +47,11 @@ process GTDBTK_CLASSIFYWF {
         --cpus $task.cpus \\
         --pplacer_cpus $task.cpus \\
         --genome_dir ./fna \\
-        --out_dir results \\
+        --out_dir supplemental \\
         --skip_ani_screen \\
         --prefix ${prefix}
-    mv results/*.log ./
+    mv supplemental/*.log ./
+    mv supplemental/*.summary.tsv ./
 
     # Cleanup
     if [ "$is_tarball" == "true" ]; then
@@ -60,7 +60,7 @@ process GTDBTK_CLASSIFYWF {
     fi
     if [ "${task.ext.gtdb_keep_msa}" == "false" ]; then
         # Delete MSA of submitted and reference genomes.
-        rm -rf results/align/*.msa.fasta.gz
+        rm -rf supplemental/align/*.msa.fasta.gz
     fi
     rm -rf fna/
 

@@ -40,8 +40,11 @@ workflow {
         GENOTYPHI.out.json
     )
     logs = GENOTYPHI.out.logs
+    logs2 = GENOTYPHI.out.logs2
     nf_logs = GENOTYPHI.out.nf_logs
+    nf_logs2 = GENOTYPHI.out.nf_logs2
     versions = GENOTYPHI.out.versions
+    versions2 = GENOTYPHI.out.versions2
 }
 
 output {
@@ -51,13 +54,24 @@ output {
     logs {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
+    logs2 {
+        path { meta, _file -> "${meta.logs_dir2}/" }
+    }
     nf_logs {
         path { meta, file -> {
             file >> "${meta.logs_dir}/nf${file.name}"
         } }
     }
+    nf_logs2 {
+        path { meta, file -> {
+            file >> "${meta.logs_dir2}/nf${file.name}"
+        } }
+    }
     versions {
         path { meta, _file -> "${meta.logs_dir}/" }
+    }
+    versions2 {
+        path { meta, _file -> "${meta.logs_dir2}/" }
     }
 }
 

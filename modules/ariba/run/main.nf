@@ -10,23 +10,23 @@ process ARIBA_RUN {
     path(db)
 
     output:
-    tuple val(meta), path("results/*")                    , emit: results
-    tuple val(meta), path("results/${prefix}-report.tsv") , emit: report
-    tuple val(meta), path("results/${prefix}-summary.csv"), emit: summary
-    tuple val(meta), path("*.{log,err}")                  , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")               , emit: nf_begin
-    tuple val(meta), path(".command.err")                 , emit: nf_err
-    tuple val(meta), path(".command.log")                 , emit: nf_log
-    tuple val(meta), path(".command.out")                 , emit: nf_out
-    tuple val(meta), path(".command.run")                 , emit: nf_run
-    tuple val(meta), path(".command.sh")                  , emit: nf_sh
-    tuple val(meta), path(".command.trace")               , emit: nf_trace
-    tuple val(meta), path("versions.yml")                 , emit: versions
+    tuple val(meta), path("${prefix}-report.tsv") , emit: report
+    tuple val(meta), path("${prefix}-summary.csv"), emit: summary
+    tuple val(meta), path("supplemental/*")       , emit: results
+    tuple val(meta), path("*.{log,err}")          , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")       , emit: nf_begin
+    tuple val(meta), path(".command.err")         , emit: nf_err
+    tuple val(meta), path(".command.log")         , emit: nf_log
+    tuple val(meta), path(".command.out")         , emit: nf_out
+    tuple val(meta), path(".command.run")         , emit: nf_run
+    tuple val(meta), path(".command.sh")          , emit: nf_sh
+    tuple val(meta), path(".command.trace")       , emit: nf_trace
+    tuple val(meta), path("versions.yml")         , emit: versions
 
     script:
     prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     db_name = db.getName().replace('.tar.gz', '')
     """
@@ -49,9 +49,9 @@ process ARIBA_RUN {
         --row_filter n
 
     # Rename to avoid naming collisions
-    mv ${db_name}/report.tsv ${db_name}/${prefix}-report.tsv
-    mv ${db_name}/summary.csv ${db_name}/${prefix}-summary.csv
-    mv ${db_name}/ results/
+    mv ${db_name}/report.tsv ./${prefix}-report.tsv
+    mv ${db_name}/summary.csv ./${prefix}-summary.csv
+    mv ${db_name}/ supplemental/
 
     # Cleanup
     rm -rf ${db_name}db

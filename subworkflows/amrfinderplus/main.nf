@@ -20,7 +20,7 @@ workflow AMRFINDERPLUS {
     } else {
         AMRFINDERPLUS_RUN(fasta, db)
     }
-    ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions.first())
+    ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
 
     // Merge results
     AMRFINDERPLUS_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:'amrfinderplus'], report]}.set{ ch_merge_report }

@@ -80,13 +80,13 @@ workflow BACTOPIA {
     }
 
     // Collect Versions
-    ch_versions = ch_versions.mix(GATHER.out.versions.first())
-    ch_versions = ch_versions.mix(QC.out.versions.first())
-    ch_versions = ch_versions.mix(ASSEMBLER.out.versions.first())
-    ch_versions = ch_versions.mix(ANNOTATOR.out.versions.first())
-    ch_versions = ch_versions.mix(SKETCHER.out.versions.first())
-    ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions.first())
-    ch_versions = ch_versions.mix(MLST.out.versions.first())
+    ch_versions = ch_versions.mix(GATHER.out.versions)
+    ch_versions = ch_versions.mix(QC.out.versions)
+    ch_versions = ch_versions.mix(ASSEMBLER.out.versions)
+    ch_versions = ch_versions.mix(ANNOTATOR.out.versions)
+    ch_versions = ch_versions.mix(SKETCHER.out.versions)
+    ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
+    ch_versions = ch_versions.mix(MLST.out.versions)
     DUMPSOFTWAREVERSIONS(ch_versions.unique().collectFile())
 }
 

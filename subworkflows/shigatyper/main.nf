@@ -12,7 +12,7 @@ workflow SHIGATYPER {
     ch_versions = Channel.empty()
 
     SHIGATYPER_MODULE(reads)
-    ch_versions = ch_versions.mix(SHIGATYPER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGATYPER_MODULE.out.versions)
 
     // Merge results
     SHIGATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigatyper'], tsv]}.set{ ch_merge_shigatyper }

@@ -12,7 +12,7 @@ workflow BUSCO {
     ch_versions = Channel.empty()
 
     BUSCO_MODULE(fasta)
-    ch_versions = ch_versions.mix(BUSCO_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(BUSCO_MODULE.out.versions)
 
     // Merge the results
     BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'busco'], tsv]}.set{ ch_merge_busco }

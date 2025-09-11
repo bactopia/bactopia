@@ -1,0 +1,53 @@
+{
+    "pasty - GCF_000006765|pseudomonas_aeruginosa|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000006765",
+                "GCF_000006765/tools",
+                "GCF_000006765/tools/pasty",
+                "GCF_000006765/tools/pasty/GCF_000006765.blastn.tsv",
+                "GCF_000006765/tools/pasty/GCF_000006765.tsv",
+                "GCF_000006765/tools/pasty/logs",
+                "GCF_000006765/tools/pasty/logs/nf.command.begin",
+                "GCF_000006765/tools/pasty/logs/nf.command.err",
+                "GCF_000006765/tools/pasty/logs/nf.command.log",
+                "GCF_000006765/tools/pasty/logs/nf.command.out",
+                "GCF_000006765/tools/pasty/logs/nf.command.run",
+                "GCF_000006765/tools/pasty/logs/nf.command.sh",
+                "GCF_000006765/tools/pasty/logs/nf.command.trace",
+                "GCF_000006765/tools/pasty/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/pasty",
+                "bactopia-runs/pasty/merged-results",
+                "bactopia-runs/pasty/merged-results/logs",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.begin",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.err",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.log",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.out",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.run",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.sh",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/nf.command.trace",
+                "bactopia-runs/pasty/merged-results/logs/pasty-concat/versions.yml",
+                "bactopia-runs/pasty/merged-results/pasty.tsv",
+                "bactopia-runs/pasty/nf-reports",
+                "bactopia-runs/pasty/nf-reports/pasty-dag.dot",
+                "bactopia-runs/pasty/nf-reports/pasty-report.html",
+                "bactopia-runs/pasty/nf-reports/pasty-timeline.html"
+            ],
+            [
+                "GCF_000006765.blastn.tsv:md5,dcaf63876416cd5c19d868cfbf446258",
+                "GCF_000006765.tsv:md5,fdffd76c66ee57072cd5e8da474bba34",
+                "versions.yml:md5,0356132ceb204ae511870a5e1fcb6d17",
+                "versions.yml:md5,d806f451289eb221f11075799712603e",
+                "pasty.tsv:md5,3f0b647b733d1c01212c1f475527aef4"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-05T10:43:54.92597469"
+    }
+}

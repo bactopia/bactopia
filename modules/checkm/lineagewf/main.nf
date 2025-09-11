@@ -9,8 +9,8 @@ process CHECKM_LINEAGEWF {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/*")                    , emit: results
-    tuple val(meta), path("results/${prefix}-results.txt"), emit: tsv
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("supplemental/*"), emit: results
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -24,7 +24,7 @@ process CHECKM_LINEAGEWF {
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
@@ -34,16 +34,17 @@ process CHECKM_LINEAGEWF {
     fi
 
     checkm \\
-        lineage_wf ./ results/ \\
+        lineage_wf ./ supplemental/ \\
         --tab_table \\
         --threads $task.cpus \\
         --pplacer_threads $task.cpus \\
-        --alignment_file results/${prefix}-genes.aln \\
-        --file results/${prefix}-results.txt \\
+        --alignment_file supplemental/${prefix}-genes.aln \\
+        --file supplemental/${prefix}-results.txt \\
         $task.ext.args
 
-    find ./results/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
-    mv results/checkm.log ./
+    find ./supplemental/ -name "*.faa" -or -name "*hmmer.analyze.txt" -or -name "*.fasta" | xargs gzip
+    mv supplemental/checkm.log ./
+    mv supplemental/${prefix}-results.txt ./${prefix}.tsv
 
     # Cleanup
     rm -rf ${fasta_name}

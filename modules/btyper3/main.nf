@@ -9,8 +9,8 @@ process BTYPER3 {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/*_final_results.txt"), emit: tsv
-    tuple val(meta), path("results/*")                  , emit: results
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("supplemental/*"), emit: results, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -24,7 +24,7 @@ process BTYPER3 {
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
@@ -39,7 +39,8 @@ process BTYPER3 {
         --output ./ \\
         --input ${fasta_name}
 
-    mv btyper3_final_results/ results/
+    mv btyper3_final_results/ supplemental/
+    mv supplemental/${prefix}_final_results.txt ./${prefix}.tsv
 
     # Cleanup
     rm -rf ${fasta_name} ${fasta_name}.njs

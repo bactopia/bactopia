@@ -1,0 +1,61 @@
+{
+    "abriTAMR - GCF_001682305|escherichia_coli_mcr1|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_001682305",
+                "GCF_001682305/tools",
+                "GCF_001682305/tools/abritamr",
+                "GCF_001682305/tools/abritamr/GCF_001682305.abritamr.txt",
+                "GCF_001682305/tools/abritamr/GCF_001682305.amrfinder.out",
+                "GCF_001682305/tools/abritamr/GCF_001682305.summary_matches.txt",
+                "GCF_001682305/tools/abritamr/GCF_001682305.summary_partials.txt",
+                "GCF_001682305/tools/abritamr/GCF_001682305.summary_virulence.txt",
+                "GCF_001682305/tools/abritamr/logs",
+                "GCF_001682305/tools/abritamr/logs/abritamr.log",
+                "GCF_001682305/tools/abritamr/logs/nf.command.begin",
+                "GCF_001682305/tools/abritamr/logs/nf.command.err",
+                "GCF_001682305/tools/abritamr/logs/nf.command.log",
+                "GCF_001682305/tools/abritamr/logs/nf.command.out",
+                "GCF_001682305/tools/abritamr/logs/nf.command.run",
+                "GCF_001682305/tools/abritamr/logs/nf.command.sh",
+                "GCF_001682305/tools/abritamr/logs/nf.command.trace",
+                "GCF_001682305/tools/abritamr/logs/update_abritamr_db.log",
+                "GCF_001682305/tools/abritamr/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/abritamr",
+                "bactopia-runs/abritamr/merged-results",
+                "bactopia-runs/abritamr/merged-results/abritamr.tsv",
+                "bactopia-runs/abritamr/merged-results/logs",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.begin",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.err",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.log",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.out",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.run",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.sh",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/nf.command.trace",
+                "bactopia-runs/abritamr/merged-results/logs/abritamr-concat/versions.yml",
+                "bactopia-runs/abritamr/nf-reports",
+                "bactopia-runs/abritamr/nf-reports/abritamr-dag.dot",
+                "bactopia-runs/abritamr/nf-reports/abritamr-report.html",
+                "bactopia-runs/abritamr/nf-reports/abritamr-timeline.html"
+            ],
+            [
+                "GCF_001682305.abritamr.txt:md5,c8a6e412e4225f6c01e78825c5dfab50",
+                "GCF_001682305.amrfinder.out:md5,1070503be3c3b3506d29e143ba376f39",
+                "GCF_001682305.summary_matches.txt:md5,6d88c6ce446e22ed52f8036df6966c97",
+                "GCF_001682305.summary_partials.txt:md5,a88222d803d85194a05cd60eb4c02581",
+                "GCF_001682305.summary_virulence.txt:md5,121ef67c122d81fd3d8243dd6830971f",
+                "versions.yml:md5,072c6403f2c3fff1f68ec4dd55b4dd30",
+                "abritamr.tsv:md5,c8a6e412e4225f6c01e78825c5dfab50",
+                "versions.yml:md5,31f7f5153ed3b9aa6a6e432ec7939e0b"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.07.0"
+        },
+        "timestamp": "2025-09-04T12:10:23.869114145"
+    }
+}

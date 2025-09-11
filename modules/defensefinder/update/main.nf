@@ -1,27 +1,16 @@
 process DEFENSEFINDER_UPDATE {
     tag "update"
     label 'process_low'
-    storeDir params.datasets_cache
-    publishDir params.datasets_cache
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     output:
-    path "defense-finder-models-${task.ext.df_models_version}.tar", emit: db
-    path ".command.begin", emit: nf_begin
-    path ".command.err"  , emit: nf_err
-    path ".command.log"  , emit: nf_log
-    path ".command.out"  , emit: nf_out
-    path ".command.run"  , emit: nf_run
-    path ".command.sh"   , emit: nf_sh
-    path ".command.trace", emit: nf_trace
-    path "versions.yml"  , emit: versions
+    path "defense-finder/defense-finder-models-${task.ext.df_models_version}.tar", emit: db
+    path "defense-finder/logs/*", emit: logs, optional: true
 
     script:
     """
-    echo "task.ext.args: ${task.ext.args}"
-    
     mkdir models
     wget \\
         -O models/defense-finder-models-v${task.ext.df_models_version}.tar.gz \\
@@ -33,7 +22,18 @@ process DEFENSEFINDER_UPDATE {
 
     tar -cvf defense-finder-models-${task.ext.df_models_version}.tar models/
 
-    cat <<-END_VERSIONS > versions.yml
+    # Move outputs to tool specific folder
+    mkdir -p defense-finder/logs
+    mv defense-finder-models-${task.ext.df_models_version}.tar defense-finder/
+    cp .command.begin defense-finder/logs/nf.command.begin
+    cp .command.err defense-finder/logs/nf.command.err
+    cp .command.log defense-finder/logs/nf.command.log
+    cp .command.out defense-finder/logs/nf.command.out
+    cp .command.run defense-finder/logs/nf.command.run
+    cp .command.sh defense-finder/logs/nf.command.sh
+    cp .command.trace defense-finder/logs/nf.command.trace
+
+    cat <<-END_VERSIONS > defense-finder/logs/versions.yml
     "${task.process}":
         defense-finder: ${task.ext.df_version}
         defense-finder-models: ${task.ext.df_models_version}

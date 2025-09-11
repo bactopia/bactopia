@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test Pneumocat Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "pneumocat"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("Pneumocat - ERR1438863|streptococcus_pneumoniae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/streptococcus_pneumoniae/reads"
                 test_dataset = ""
                 is_ci = true
                 outdir = "$outputDir"

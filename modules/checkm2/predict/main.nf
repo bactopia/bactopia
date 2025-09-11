@@ -10,28 +10,26 @@ process CHECKM2_PREDICT {
     path db
 
     output:
-    tuple val(meta), path("results/*")            , emit: results
-    tuple val(meta), path("results/${prefix}.tsv"), emit: tsv
-    tuple val(meta), path("*.{log,err}")          , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")       , emit: nf_begin
-    tuple val(meta), path(".command.err")         , emit: nf_err
-    tuple val(meta), path(".command.log")         , emit: nf_log
-    tuple val(meta), path(".command.out")         , emit: nf_out
-    tuple val(meta), path(".command.run")         , emit: nf_run
-    tuple val(meta), path(".command.sh")          , emit: nf_sh
-    tuple val(meta), path(".command.trace")       , emit: nf_trace
-    tuple val(meta), path("versions.yml")         , emit: versions
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("supplemental/*"), emit: results
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
+    tuple val(meta), path(".command.begin"), emit: nf_begin
+    tuple val(meta), path(".command.err")  , emit: nf_err
+    tuple val(meta), path(".command.log")  , emit: nf_log
+    tuple val(meta), path(".command.out")  , emit: nf_out
+    tuple val(meta), path(".command.run")  , emit: nf_run
+    tuple val(meta), path(".command.sh")   , emit: nf_sh
+    tuple val(meta), path(".command.trace"), emit: nf_trace
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
-    """
-    echo $db
-    
+    """    
     # Decompress fasta file if compressed
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $fasta > $fasta_name
@@ -47,16 +45,16 @@ process CHECKM2_PREDICT {
     checkm2 \\
         predict \\
         --input ${fasta} \\
-        --output-directory results \\
+        --output-directory supplemental \\
         --threads ${task.cpus} \\
         --database_path \$CHECKM2_DB \\
         $task.ext.args
 
-    mv results/checkm2.log ./
-    mv results/quality_report.tsv results/${prefix}.tsv
+    mv supplemental/checkm2.log ./
+    mv supplemental/quality_report.tsv ./${prefix}.tsv
 
     # Cleanup
-    gzip results/protein_files/*.faa
+    gzip supplemental/protein_files/*.faa
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

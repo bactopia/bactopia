@@ -12,7 +12,7 @@ workflow SCCMEC {
     ch_versions = Channel.empty()
 
     SCCMEC_MODULE(fasta)
-    ch_versions = ch_versions.mix(SCCMEC_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SCCMEC_MODULE.out.versions)
 
     // Merge results
     SCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sccmec'], tsv]}.set{ ch_merge_sccmec }

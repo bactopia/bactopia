@@ -10,10 +10,10 @@ process PANAROO_RUN {
     tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("results/*")                                              , emit: results
-    tuple val(meta), path("core-genome.aln.gz")                     , optional: true, emit: aln
-    tuple val(meta), path("results/gene_presence_absence_roary.csv"), optional: true, emit: csv
-    tuple val(meta), path("results/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv
+    tuple val(meta), path("supplemental/*")                              , emit: results
+    tuple val(meta), path("core-genome.aln.gz")                          , optional: true, emit: aln
+    tuple val(meta), path("supplemental/gene_presence_absence_roary.csv"), optional: true, emit: csv
+    tuple val(meta), path("supplemental/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -26,9 +26,8 @@ process PANAROO_RUN {
 
     script:
     def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -41,7 +40,7 @@ process PANAROO_RUN {
     panaroo \\
         $args \\
         -t $task.cpus \\
-        -o results \\
+        -o supplemental \\
         -i gff-fofn.txt
 
     # Cleanup
@@ -51,12 +50,12 @@ process PANAROO_RUN {
     find . -name "*.aln" | xargs -I {} -P $task.cpus -n 1 gzip {}
     find . -name "*.gml" | xargs -I {} -P $task.cpus -n 1 gzip {}
 
-    if [[ -f "results/core_gene_alignment.aln.gz" ]]; then
-        cp results/core_gene_alignment.aln.gz ./core-genome.aln.gz
+    if [[ -f "supplemental/core_gene_alignment.aln.gz" ]]; then
+        cp supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
     fi
 
-    if [[ -f "results/gene_data.csv" ]]; then
-        gzip results/gene_data.csv
+    if [[ -f "supplemental/gene_data.csv" ]]; then
+        gzip supplemental/gene_data.csv
     fi
 
     cat <<-END_VERSIONS > versions.yml

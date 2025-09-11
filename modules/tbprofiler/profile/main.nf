@@ -10,9 +10,9 @@ process TBPROFILER_PROFILE {
 
     output:
     tuple val(meta), path("bam/*.bam")        , emit: bam
-    tuple val(meta), path("results/*.csv")    , emit: csv, optional: true
-    tuple val(meta), path("results/*.json.gz"), emit: json
-    tuple val(meta), path("results/*.txt")    , emit: txt, optional: true
+    tuple val(meta), path("supplemental/*.csv")    , emit: csv, optional: true
+    tuple val(meta), path("supplemental/*.json.gz"), emit: json
+    tuple val(meta), path("supplemental/*.txt")    , emit: txt, optional: true
     tuple val(meta), path("vcf/*.vcf.gz")     , emit: vcf
     tuple val(meta), path("*.{log,err}")      , emit: logs, optional: true
     tuple val(meta), path(".command.begin")   , emit: nf_begin
@@ -27,7 +27,7 @@ process TBPROFILER_PROFILE {
     script:
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
     def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
@@ -49,9 +49,7 @@ process TBPROFILER_PROFILE {
         $input_reads
 
     # Cleanup
-    gzip results/*.json
-
-    tb-profiler profile --version
+    gzip supplemental/*.json
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

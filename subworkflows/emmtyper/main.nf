@@ -7,14 +7,14 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow EMMTYPER {
     take:
     fasta // channel: [ val(meta), [ fasta ] ]
+    blastdb
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
 
-    EMMTYPER_MODULE(fasta, BLASTDB)
-    ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions.first())
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
+    EMMTYPER_MODULE(fasta, blastdb)
+    ch_versions = ch_versions.mix(EMMTYPER_MODULE.out.versions)
     ch_logs = ch_logs.mix(EMMTYPER_MODULE.out.logs)
 
     // Merge results
@@ -26,7 +26,6 @@ workflow EMMTYPER {
     emit:
     tsv = EMMTYPER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    BLASTDB = params.emmtyper_blastdb ? file(params.emmtyper_blastdb) : []
     logs = ch_logs
     nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
         CSVTK_CONCAT.out.nf_err,

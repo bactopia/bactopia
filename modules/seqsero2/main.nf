@@ -9,9 +9,8 @@ process SEQSERO2 {
     tuple val(meta), path(seqs)
 
     output:
-    tuple val(meta), path("results/*_log.txt")   , emit: log
-    tuple val(meta), path("results/*_result.tsv"), emit: tsv
-    tuple val(meta), path("results/*_result.txt"), emit: txt
+    tuple val(meta), path("${prefix}.tsv") , emit: tsv
+    tuple val(meta), path("${prefix}.txt") , emit: txt
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -26,7 +25,7 @@ process SEQSERO2 {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed_fna = seqs[0].getName().endsWith("fna.gz") ? true : false
     def seq_name = is_compressed_fna ? seqs[0].getName().replace(".gz", "") : "${seqs}"
@@ -37,17 +36,18 @@ process SEQSERO2 {
 
     SeqSero2_package.py \\
         $args \\
-        -d results/ \\
+        -d supplemental/ \\
         -n $prefix \\
         -p $task.cpus \\
+        -t 4 \\
         -i $seq_name
 
-    mv results/SeqSero_log.txt results/${prefix}_log.txt
-    mv results/SeqSero_result.tsv results/${prefix}_result.tsv
-    mv results/SeqSero_result.txt results/${prefix}_result.txt
+    mv supplemental/SeqSero_log.txt ./${prefix}.log
+    mv supplemental/SeqSero_result.tsv ./${prefix}.tsv
+    mv supplemental/SeqSero_result.txt ./${prefix}.txt
 
     # Cleanup
-    rm -rf results/${seq_name} ${seq_name}
+    rm -rf supplemental/ ${seq_name} 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

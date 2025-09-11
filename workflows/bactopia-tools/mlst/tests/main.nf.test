@@ -1,15 +1,15 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test mlst Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "mlst"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("mlst - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                bactopia_test = "/species/staphylococcus_aureus/compressed"
+                test_dataset = "/datasets/mlst/mlst.tar.gz"
                 is_ci = true
                 outdir = "$outputDir"
             }

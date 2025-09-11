@@ -16,7 +16,7 @@ workflow MASHDIST {
 
     // Run regular MASH_DIST (not Merlin mode)
     MASH_DIST(ch_seqs, ch_reference)
-    ch_versions = ch_versions.mix(MASH_DIST.out.versions.first())
+    ch_versions = ch_versions.mix(MASH_DIST.out.versions)
 
     // Collect and concat results
     MASH_DIST.out.dist.collect{_meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
@@ -41,7 +41,7 @@ workflow MERLINDIST {
     ch_versions = Channel.empty()
 
     MERLIN_DIST(ch_seqs, ch_mash_db)
-    ch_versions = ch_versions.mix(MERLIN_DIST.out.versions.first())
+    ch_versions = ch_versions.mix(MERLIN_DIST.out.versions)
 
     emit:
     dist               = MERLIN_DIST.out.dist

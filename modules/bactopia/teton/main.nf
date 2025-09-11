@@ -28,7 +28,7 @@ process BACTOPIA_SAMPLESHEET {
     script:
     prefix = task.ext.suffix ? "${task.ext.suffix}" : "${meta.id}"
     meta.output_dir = "${meta.id}/teton/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/teton/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/teton/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     # determine genome size and create sample sheet

@@ -1,11 +1,11 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test TBProfiler Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "tbprofiler"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("TBProfiler - GCF_000292685|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"

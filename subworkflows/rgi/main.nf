@@ -13,7 +13,7 @@ workflow RGI {
     ch_versions = Channel.empty()
 
     RGI_MAIN(fasta)
-    ch_versions = ch_versions.mix(RGI_MAIN.out.versions.first())
+    ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     // Merge TSVs
     RGI_MAIN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'rgi'], tsv]}.set{ ch_merge_rgi }

@@ -33,11 +33,11 @@ output:
   - tsv:
       type: file
       description: BTyper3 final results
-      pattern: "*_final_results.txt"
+      pattern: "*.tsv"
   - results:
       type: file
       description: Directory containing all BTyper3 output files
-      pattern: "results/*"
+      pattern: "supplemental/*"
   - logs:
       type: file
       description: Process logs

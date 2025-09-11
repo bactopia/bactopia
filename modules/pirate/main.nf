@@ -10,9 +10,10 @@ process PIRATE {
     tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("results/*")                        , emit: results
-    tuple val(meta), path("core-genome.aln.gz")               , emit: aln, optional: true
-    tuple val(meta), path("results/gene_presence_absence.csv"), emit: csv, optional: true
+    tuple val(meta), path("supplemental/*")                        , emit: results
+    tuple val(meta), path("core-genome.aln.gz")                    , emit: aln, optional: true
+    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: csv, optional: true
+    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: panaroo_csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -25,9 +26,8 @@ process PIRATE {
 
     script:
     def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
     meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -45,19 +45,19 @@ process PIRATE {
         --align \\
         --threads $task.cpus \\
         --input ./gff/ \\
-        --output results/
-    PIRATE_to_roary.pl -i results/PIRATE.*.tsv -o results/gene_presence_absence.csv
+        --output supplemental/
+    PIRATE_to_roary.pl -i supplemental/PIRATE.*.tsv -o supplemental/gene_presence_absence.csv
     find . -name "*.fasta" | xargs -I {} -P $task.cpus -n 1 gzip {}
 
     # Only copy files if they exist
-    if [[ -f "results/core_alignment.fasta.gz" ]]; then
-        cp results/core_alignment.fasta.gz ./core-genome.aln.gz
+    if [[ -f "supplemental/core_alignment.fasta.gz" ]]; then
+        cp supplemental/core_alignment.fasta.gz ./core-genome.aln.gz
     fi
 
     # Cleanup
     rm -rf gff/
-    gzip results/co-ords/*.tab
-    gzip results/modified_gffs/*.gff
+    gzip supplemental/co-ords/*.tab
+    gzip supplemental/modified_gffs/*.gff
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

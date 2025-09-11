@@ -50,7 +50,7 @@ workflow CLEANYERREADS {
     
     // Core steps
     GATHER(create_input_channel(run_type, params.genome_size, params.species))
-    ch_versions = ch_versions.mix(GATHER.out.versions.first())
+    ch_versions = ch_versions.mix(GATHER.out.versions)
 
     if (params.use_k2scrubber || params.use_srascrubber) {
         // Remove host reads
@@ -64,11 +64,11 @@ workflow CLEANYERREADS {
 
         // Clean up scrubbed reads
         QC(SCRUBBER.out.scrubbed_extra)
-        ch_versions = ch_versions.mix(QC.out.versions.first())
+        ch_versions = ch_versions.mix(QC.out.versions)
     } else {
         // Clean up raw reads
         QC(GATHER.out.raw_fastq)
-        ch_versions = ch_versions.mix(QC.out.versions.first())
+        ch_versions = ch_versions.mix(QC.out.versions)
     }
 
     // Collect Versions

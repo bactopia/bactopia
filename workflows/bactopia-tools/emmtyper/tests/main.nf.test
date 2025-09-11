@@ -1,15 +1,44 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test emmtyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "emmtyper"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("emmtyper - GCF_006364235|streptococcus_pyogenes|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/streptococcus_pyogenes"
                 test_dataset = ""
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("emmtyper (with --emmtyper_blastdb) - GCF_006364235|streptococcus_pyogenes|compressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/streptococcus_pyogenes"
+                test_dataset = "/datasets/emmtyper/emmtyper.tfa"
                 is_ci = true
                 outdir = "$outputDir"
             }

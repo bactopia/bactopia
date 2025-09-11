@@ -12,7 +12,7 @@ workflow SHIGEIFINDER {
     ch_versions = Channel.empty()
 
     SHIGEIFINDER_MODULE(fasta)
-    ch_versions = ch_versions.mix(SHIGEIFINDER_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SHIGEIFINDER_MODULE.out.versions)
 
     // Merge results
     SHIGEIFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigeifinder'], tsv]}.set{ ch_merge_shigeifinder }

@@ -25,7 +25,7 @@ workflow CHECKM2 {
         CHECKM2_PREDICT(fasta, database)
     }
     
-    ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions.first())
+    ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions)
     ch_logs = ch_logs.mix(CHECKM2_PREDICT.out.logs)
 
     // Merge results

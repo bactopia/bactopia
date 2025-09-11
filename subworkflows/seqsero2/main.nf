@@ -12,7 +12,7 @@ workflow SEQSERO2 {
     ch_versions = Channel.empty()
 
     SEQSERO2_MODULE(seqs)
-    ch_versions = ch_versions.mix(SEQSERO2_MODULE.out.versions.first())
+    ch_versions = ch_versions.mix(SEQSERO2_MODULE.out.versions)
 
     // Merge results
     SEQSERO2_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seqsero2'], tsv]}.set{ ch_merge_seqsero2 }

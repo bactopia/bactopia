@@ -13,7 +13,7 @@ workflow MOBSUITE {
     ch_logs = Channel.empty()
     
     MOBSUITE_RECON(fasta)
-    ch_versions = ch_versions.mix(MOBSUITE_RECON.out.versions.first())
+    ch_versions = ch_versions.mix(MOBSUITE_RECON.out.versions)
     ch_logs = ch_logs.mix(MOBSUITE_RECON.out.logs)
     
     // Merge results

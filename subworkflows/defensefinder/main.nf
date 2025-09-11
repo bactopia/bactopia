@@ -12,46 +12,78 @@ workflow DEFENSEFINDER {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
     ch_logs = Channel.empty()
+    ch_versions = Channel.empty()
+    ch_merged_genes = Channel.empty()
+    ch_merged_hmmer = Channel.empty()
+    ch_merged_systems = Channel.empty()
 
-
+    // Update Defensefinder
     DEFENSEFINDER_UPDATE()
-    ch_versions = ch_versions.mix(DEFENSEFINDER_UPDATE.out.versions)
-    ch_logs = ch_logs.mix(DEFENSEFINDER_UPDATE.out.logs)
+
+    // Run Defensefinder
+    DEFENSEFINDER_RUN(fasta, DEFENSEFINDER_UPDATE.out.db)
     ch_versions = ch_versions.mix(DEFENSEFINDER_RUN.out.versions)
     ch_logs = ch_logs.mix(DEFENSEFINDER_RUN.out.logs)
 
-    ch_versions = ch_versions.mix(GENES_CONCAT.out.versions)
+    // Merge results
+    DEFENSEFINDER_RUN.out.genes_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-genes'], tsv]}.set{ ch_merge_genes }
+    GENES_CONCAT(ch_merge_genes, 'tsv', 'tsv')
+    ch_merged_genes = ch_merged_genes.mix(GENES_CONCAT.out.csv)
     ch_logs = ch_logs.mix(GENES_CONCAT.out.logs)
+    ch_versions = ch_versions.mix(GENES_CONCAT.out.versions)
 
-    ch_versions = ch_versions.mix(HMMER_CONCAT.out.versions)
+    DEFENSEFINDER_RUN.out.hmmer_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-hmmer'], tsv]}.set{ ch_merge_hmmer }
+    HMMER_CONCAT(ch_merge_hmmer, 'tsv', 'tsv')
+    ch_merged_hmmer = ch_merged_hmmer.mix(HMMER_CONCAT.out.csv)
     ch_logs = ch_logs.mix(HMMER_CONCAT.out.logs)
+    ch_versions = ch_versions.mix(HMMER_CONCAT.out.versions)
 
-    ch_versions = ch_versions.mix(SYSTEMS_CONCAT.out.versions)
+    DEFENSEFINDER_RUN.out.systems_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-systems'], tsv]}.set{ ch_merge_systems }
+    SYSTEMS_CONCAT(ch_merge_systems, 'tsv', 'tsv')
+    ch_merged_systems = ch_merged_systems.mix(SYSTEMS_CONCAT.out.csv)
     ch_logs = ch_logs.mix(SYSTEMS_CONCAT.out.logs)
+    ch_versions = ch_versions.mix(SYSTEMS_CONCAT.out.versions)
 
     emit:
-    ch_merged_genes = ch_merged_genes.mix(GENES_CONCAT.out.csv)
-    ch_merged_hmmer = ch_merged_hmmer.mix(HMMER_CONCAT.out.csv)
-    ch_merged_systems = ch_merged_systems.mix(SYSTEMS_CONCAT.out.csv)
     genes_tsv = DEFENSEFINDER_RUN.out.genes_tsv
-    hmmer_tsv = DEFENSEFINDER_RUN.out.genes_tsv
-    macsydata_raw = DEFENSEFINDER_RUN.out.macsydata_raw
     merged_genes_tsv = ch_merged_genes
+    hmmer_tsv = DEFENSEFINDER_RUN.out.genes_tsv
     merged_hmmer_tsv = ch_merged_hmmer
+    systems_tsv = DEFENSEFINDER_RUN.out.systems_tsv
     merged_systems_tsv = ch_merged_systems
     proteins = DEFENSEFINDER_RUN.out.proteins
     proteins_index = DEFENSEFINDER_RUN.out.proteins_index
-    systems_tsv = DEFENSEFINDER_RUN.out.systems_tsv
+    macsydata_raw = DEFENSEFINDER_RUN.out.macsydata_raw
     logs = ch_logs
-    nf_logs = DEFENSEFINDER_UPDATE.out.nf_begin.mix(
-        DEFENSEFINDER_UPDATE.out.nf_err,
-        DEFENSEFINDER_UPDATE.out.nf_log,
-        DEFENSEFINDER_UPDATE.out.nf_out,
-        DEFENSEFINDER_UPDATE.out.nf_run,
-        DEFENSEFINDER_UPDATE.out.nf_sh,
-        DEFENSEFINDER_UPDATE.out.nf_trace
+    nf_logs = DEFENSEFINDER_RUN.out.nf_begin.mix(
+        DEFENSEFINDER_RUN.out.nf_err,
+        DEFENSEFINDER_RUN.out.nf_log,
+        DEFENSEFINDER_RUN.out.nf_out,
+        DEFENSEFINDER_RUN.out.nf_run,
+        DEFENSEFINDER_RUN.out.nf_sh,
+        DEFENSEFINDER_RUN.out.nf_trace,
+        GENES_CONCAT.out.nf_begin,
+        GENES_CONCAT.out.nf_err,
+        GENES_CONCAT.out.nf_log,
+        GENES_CONCAT.out.nf_out,
+        GENES_CONCAT.out.nf_run,
+        GENES_CONCAT.out.nf_sh,
+        GENES_CONCAT.out.nf_trace,
+        HMMER_CONCAT.out.nf_begin,
+        HMMER_CONCAT.out.nf_err,
+        HMMER_CONCAT.out.nf_log,
+        HMMER_CONCAT.out.nf_out,
+        HMMER_CONCAT.out.nf_run,
+        HMMER_CONCAT.out.nf_sh,
+        HMMER_CONCAT.out.nf_trace,
+        SYSTEMS_CONCAT.out.nf_begin,
+        SYSTEMS_CONCAT.out.nf_err,
+        SYSTEMS_CONCAT.out.nf_log,
+        SYSTEMS_CONCAT.out.nf_out,
+        SYSTEMS_CONCAT.out.nf_run,
+        SYSTEMS_CONCAT.out.nf_sh,
+        SYSTEMS_CONCAT.out.nf_trace
     )
     versions = ch_versions
 }
