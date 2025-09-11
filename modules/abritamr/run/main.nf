@@ -38,18 +38,18 @@ process ABRITAMR_RUN {
 
     abritamr run \\
         --contigs $fasta_name \\
-        --prefix results \\
+        --prefix $prefix \\
         $task.ext.args \\
         --jobs $task.cpus
 
     # Rename output files to prevent name collisions
-    mv results/summary_matches.txt ./${prefix}.summary_matches.txt
-    mv results/summary_partials.txt ./${prefix}.summary_partials.txt
-    mv results/summary_virulence.txt ./${prefix}.summary_virulence.txt
-    mv results/amrfinder.out ./${prefix}.amrfinder.out
+    mv ${prefix}/summary_matches.txt ./${prefix}.summary_matches.txt
+    mv ${prefix}/summary_partials.txt ./${prefix}.summary_partials.txt
+    mv ${prefix}/summary_virulence.txt ./${prefix}.summary_virulence.txt
+    mv ${prefix}/amrfinder.out ./${prefix}.amrfinder.out
     if [ -f results/abritamr.txt ]; then
         # This file is not always present
-        mv results/abritamr.txt ./${prefix}.abritamr.txt
+        mv ${prefix}/abritamr.txt ./${prefix}.abritamr.txt
     fi
 
     # Cleanup
