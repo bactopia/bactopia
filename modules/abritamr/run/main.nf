@@ -53,7 +53,7 @@ process ABRITAMR_RUN {
     fi
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${fasta_name} results/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
