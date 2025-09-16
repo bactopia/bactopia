@@ -10,6 +10,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/legionella_pneumophila"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

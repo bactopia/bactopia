@@ -7,13 +7,13 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow MIDAS {
     take:
     reads // channel: [ val(meta), [ fasta ] ]
+    database
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    DATABASE = params.midas_db ? file(params.midas_db) : []
 
-    MIDAS_SPECIES(reads, DATABASE)
+    MIDAS_SPECIES(reads, database)
     ch_versions = ch_versions.mix(MIDAS_SPECIES.out.versions)
     ch_logs = ch_logs.mix(MIDAS_SPECIES.out.logs)
     

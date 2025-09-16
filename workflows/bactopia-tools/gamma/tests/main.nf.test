@@ -5,12 +5,13 @@ nextflow_pipeline {
     tag "gamma"
     tag "bactopia-tools"
 
-    test("GAMMA - GCF_000292685|portiera|compressed_fasta") {
+    test("GAMMA - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 gamma_test = "/datasets/generic/genes.ffn"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

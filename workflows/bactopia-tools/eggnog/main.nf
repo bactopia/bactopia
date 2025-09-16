@@ -27,7 +27,11 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    EGGNOG(BACTOPIATOOL_INIT.out.samples)
+    EGGNOG(
+        BACTOPIATOOL_INIT.out.samples,
+        params.eggnog_db ? file(params.eggnog_db) : [],
+        params.download_eggnog
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

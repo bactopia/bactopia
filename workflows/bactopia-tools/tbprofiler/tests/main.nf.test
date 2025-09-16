@@ -5,11 +5,12 @@ nextflow_pipeline {
     tag "tbprofiler"
     tag "bactopia-tools"
 
-    test("TBProfiler - GCF_000292685|portiera|compressed_fasta") {
+    test("TBProfiler - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

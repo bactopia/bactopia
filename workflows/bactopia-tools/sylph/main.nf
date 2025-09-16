@@ -27,14 +27,14 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    SYLPH(BACTOPIATOOL_INIT.out.samples)
+    SYLPH(BACTOPIATOOL_INIT.out.samples, file(params.sylph_db))
 
     workflow.onComplete {
         log.info workflowSummary()
     }
 
     publish:
-    results = BACTOPIATOOL_INIT.out.tsv
+    results = SYLPH.out.tsv
     logs = SYLPH.out.logs
     nf_logs = SYLPH.out.nf_logs
     versions = SYLPH.out.versions

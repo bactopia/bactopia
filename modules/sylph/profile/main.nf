@@ -7,7 +7,7 @@ process SYLPH_PROFILE {
 
     input:
     tuple val(meta), path(reads)
-    path reference
+    path db
 
     output:
     tuple val(meta), path("${prefix}.tsv") , emit: tsv
@@ -30,11 +30,19 @@ process SYLPH_PROFILE {
     """
     sylph \\
         profile \\
-        $reference \\
+        $db \\
         $query_reads \\
         -t ${task.cpus} \\
         ${task.ext.args} \\
-        --output-file ${prefix}.tsv
+        --output-file ${prefix}.original.tsv
+
+    # Remove the "fasta.gz" from sample names in output
+    if [ "${meta.single_end}" == "true" ]; then
+        sed 's/^${prefix}.fastq.gz/${prefix}/' ${prefix}.original.tsv > ${prefix}.tsv
+    else
+        sed 's/^${prefix}_R1.fastq.gz/${prefix}/' ${prefix}.original.tsv > ${prefix}.tsv
+    fi
+    rm ${prefix}.original.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

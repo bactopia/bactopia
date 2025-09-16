@@ -5,11 +5,12 @@ nextflow_pipeline {
     tag "mykrobe"
     tag "bactopia-tools"
 
-    test("Mykrobe - GCF_000292685|portiera|compressed_fasta") {
+    test("Mykrobe - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "staph"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

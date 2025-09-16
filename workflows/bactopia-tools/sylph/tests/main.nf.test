@@ -1,15 +1,16 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test Sylph Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "sylph"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("Sylph - SRR2838702|portiera|compressed_fastq") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                test_dataset = "/datasets/sylph/sylph.syldb"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

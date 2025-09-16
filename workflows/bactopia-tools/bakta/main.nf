@@ -27,7 +27,15 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    BAKTA(BACTOPIATOOL_INIT.out.samples)
+    BAKTA(
+        BACTOPIATOOL_INIT.out.samples,
+        params.bakta_db ? file(params.bakta_db) : [],
+        params.download_bakta,
+        params.bakta_save_as_tarball,
+        params.proteins ? file(params.proteins) : [],
+        params.prodigal_tf ? file(params.prodigal_tf) : [],
+        params.replicons ? file(params.replicons) : []
+    )
 
     workflow.onComplete {
         log.info workflowSummary()
@@ -43,8 +51,6 @@ workflow {
         BAKTA.out.gff,
         BAKTA.out.hypotheticals_faa,
         BAKTA.out.hypotheticals_tsv,
-        BAKTA.out.json,
-        BAKTA.out.plot,
         BAKTA.out.tsv,
         BAKTA.out.txt
     )

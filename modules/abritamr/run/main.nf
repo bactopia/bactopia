@@ -47,13 +47,13 @@ process ABRITAMR_RUN {
     mv ${prefix}/summary_partials.txt ./${prefix}.summary_partials.txt
     mv ${prefix}/summary_virulence.txt ./${prefix}.summary_virulence.txt
     mv ${prefix}/amrfinder.out ./${prefix}.amrfinder.out
-    if [ -f results/abritamr.txt ]; then
+    if [ -f ${prefix}/abritamr.txt ]; then
         # This file is not always present
         mv ${prefix}/abritamr.txt ./${prefix}.abritamr.txt
     fi
 
     # Cleanup
-    rm -rf ${fasta_name} results/
+    rm -rf ${fasta_name} ${prefix}/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

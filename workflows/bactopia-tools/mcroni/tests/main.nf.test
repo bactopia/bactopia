@@ -10,6 +10,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/escherichia_coli_mcr1"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

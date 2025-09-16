@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    BRACKEN(BACTOPIATOOL_INIT.out.samples)
+    BRACKEN(
+        BACTOPIATOOL_INIT.out.samples,
+        file(params.kraken2_db)
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

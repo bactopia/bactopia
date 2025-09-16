@@ -11,7 +11,7 @@ import re
 from textwrap import dedent
 
 # 'output' should be the preferred sample name, but it's not always possible
-ACCEPTED_IDS = ['output', 'GCF_000292685', 'SRX1390609', 'GCF_000017085']
+ACCEPTED_IDS = ['output', 'SRR2838702', 'SRX1390609', 'GCF_000017085']
 
 # some processes have versions in subdirs (e.g. database names)
 HAS_SUBDIRS = ['blast', 'call_variants', 'sequence_type']

@@ -10,6 +10,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-gene.ffn.gz"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -40,6 +41,7 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-gene.ffn.gz"
                 blastx_use_genes = true
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -69,6 +71,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-gene.ffn"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

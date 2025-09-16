@@ -82,7 +82,7 @@ docs:
       │               │   │   └── <ID>.out
       │               │   ├── missing_busco_list.tsv
       │               │   └── short_summary.{json|txt}
-      │               └── short_summary.specific.bacteria_odb10.GCF_000292685.fna.{json|txt}
+      │               └── short_summary.specific.bacteria_odb10.SRR2838702.fna.{json|txt}
       └── bactopia-runs
           └── busco-<TIMESTAMP>
               ├── merged-results

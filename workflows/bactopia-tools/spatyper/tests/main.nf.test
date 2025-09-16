@@ -10,6 +10,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/staphylococcus_aureus/compressed"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -39,6 +40,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/staphylococcus_aureus/uncompressed"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

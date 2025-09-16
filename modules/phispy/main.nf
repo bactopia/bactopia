@@ -9,15 +9,15 @@ process PHISPY {
     tuple val(meta), path(gbk)
 
     output:
-    tuple val(meta), path("results/${prefix}.tsv")                     , emit: tsv
-    tuple val(meta), path("results/${prefix}_prophage_information.tsv"), optional:true, emit: information
-    tuple val(meta), path("results/${prefix}_bacteria.fasta")          , optional:true, emit: bacteria_fasta
-    tuple val(meta), path("results/${prefix}_bacteria.gbk")            , optional:true, emit: bacteria_gbk
-    tuple val(meta), path("results/${prefix}_phage.fasta")             , optional:true, emit: phage_fasta
-    tuple val(meta), path("results/${prefix}_phage.gbk")               , optional:true, emit: phage_gbk
-    tuple val(meta), path("results/${prefix}_prophage.gff3")           , optional:true, emit: prophage_gff
-    tuple val(meta), path("results/${prefix}_prophage.tbl")            , optional:true, emit: prophage_tbl
-    tuple val(meta), path("results/${prefix}_prophage.tsv")            , optional:true, emit: prophage_tsv
+    tuple val(meta), path("${prefix}.tsv")                                                 , emit: tsv
+    tuple val(meta), path("supplemental/${prefix}_prophage_information.tsv"), optional:true, emit: information
+    tuple val(meta), path("supplemental/${prefix}_bacteria.fasta")          , optional:true, emit: bacteria_fasta
+    tuple val(meta), path("supplemental/${prefix}_bacteria.gbk")            , optional:true, emit: bacteria_gbk
+    tuple val(meta), path("supplemental/${prefix}_phage.fasta")             , optional:true, emit: phage_fasta
+    tuple val(meta), path("supplemental/${prefix}_phage.gbk")               , optional:true, emit: phage_gbk
+    tuple val(meta), path("supplemental/${prefix}_prophage.gff3")           , optional:true, emit: prophage_gff
+    tuple val(meta), path("supplemental/${prefix}_prophage.tbl")            , optional:true, emit: prophage_tbl
+    tuple val(meta), path("supplemental/${prefix}_prophage.tsv")            , optional:true, emit: prophage_tsv
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -35,16 +35,16 @@ process PHISPY {
     meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
-    mkdir results/
+    mkdir supplemental/
     PhiSpy.py \\
         $args \\
         --threads $task.cpus \\
         -p $prefix \\
-        -o results \\
+        -o supplemental \\
         $gbk
 
-    mv results/${prefix}_prophage_coordinates.tsv results/${prefix}.tsv
-    mv results/${prefix}_phispy.log ${prefix}.log
+    mv supplemental/${prefix}_prophage_coordinates.tsv ${prefix}.tsv
+    mv supplemental/${prefix}_phispy.log ${prefix}.log
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

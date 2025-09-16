@@ -5,12 +5,13 @@ nextflow_pipeline {
     tag "quast"
     tag "bactopia-tools"
 
-    test("QUAST - GCF_000292685|portiera|compressed_fasta") {
+    test("QUAST - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset= ""
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

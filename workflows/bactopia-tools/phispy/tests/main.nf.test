@@ -1,15 +1,16 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test PhySpy Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "phispy"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("PhiSpy - haemophilus_influenzae|compressed_genbank") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/haemophilus_influenzae"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

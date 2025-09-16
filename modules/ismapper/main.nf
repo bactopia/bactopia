@@ -23,14 +23,14 @@ process ISMAPPER {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
+    def query_name = query.getName().replace(".gz", "")
     prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${query_name}"
+    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
     def query_compressed = query.getName().endsWith(".gz") ? true : false
-    def query_name = query.getName().replace(".gz", "")
     """
     if [ "$ref_compressed" == "true" ]; then
         gzip -c -d $reference > $reference_name

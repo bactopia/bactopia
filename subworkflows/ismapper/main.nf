@@ -1,9 +1,9 @@
 //
 // ismapper - Identify insertion sites positions in bacterial genomes
 //
-include { ISMAPPER } from '../../modules/ismapper/main'
+include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
 
-workflow ISMAPPER_WORKFLOW {
+workflow ISMAPPER {
     take:
     ch_reads      // channel: [ val(meta), [ reads ] ]
     ch_reference  // channel: reference genome file
@@ -12,12 +12,19 @@ workflow ISMAPPER_WORKFLOW {
     main:
     ch_versions = Channel.empty()
 
-    ISMAPPER(ch_reads, ch_reference, ch_insertions)
-    ch_versions = ch_versions.mix(ISMAPPER.out.versions)
+    ISMAPPER_MODULE(ch_reads, ch_reference, ch_insertions)
+    ch_versions = ch_versions.mix(ISMAPPER_MODULE.out.versions)
 
     emit:
-    results  = ISMAPPER.out.results
-    logs     = ISMAPPER.out.logs
-    nf_logs  = ISMAPPER.out.nf_begin.mix(ISMAPPER.out.nf_err, ISMAPPER.out.nf_log, ISMAPPER.out.nf_out, ISMAPPER.out.nf_run, ISMAPPER.out.nf_sh, ISMAPPER.out.nf_trace)
+    results = ISMAPPER_MODULE.out.results
+    logs = ISMAPPER_MODULE.out.logs
+    nf_logs = ISMAPPER_MODULE.out.nf_begin.mix(
+        ISMAPPER_MODULE.out.nf_err,
+        ISMAPPER_MODULE.out.nf_log,
+        ISMAPPER_MODULE.out.nf_out,
+        ISMAPPER_MODULE.out.nf_run,
+        ISMAPPER_MODULE.out.nf_sh,
+        ISMAPPER_MODULE.out.nf_trace
+    )
     versions = ch_versions
 }

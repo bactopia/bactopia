@@ -7,7 +7,7 @@ nextflow.preview.output = true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
-include { ISMAPPER_WORKFLOW } from '../../../subworkflows/ismapper/main'
+include { ISMAPPER } from '../../../subworkflows/ismapper/main'
 include { paramsHelp        } from 'plugin/nf-bactopia'
 include { workflowSummary   } from 'plugin/nf-bactopia'
 
@@ -28,20 +28,22 @@ workflow {
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     
-    // Reference and insertion sequences should be provided via params
-    ch_reference = file(params.reference, checkIfExists: true)
-    ch_insertions = file(params.insertions, checkIfExists: true)
-    ISMAPPER_WORKFLOW(BACTOPIATOOL_INIT.out.samples, ch_reference, ch_insertions)
+    // Reference and insertion sequences should be provided via params 
+    ISMAPPER(
+        BACTOPIATOOL_INIT.out.samples,
+        file(params.reference, checkIfExists: true),
+        file(params.insertions, checkIfExists: true)
+    )
 
     workflow.onComplete {
         log.info workflowSummary()
     }
 
     publish:
-    results = ISMAPPER_WORKFLOW.out.results
-    logs = ISMAPPER_WORKFLOW.out.logs
-    nf_logs = ISMAPPER_WORKFLOW.out.nf_logs
-    versions = ISMAPPER_WORKFLOW.out.versions
+    results = ISMAPPER.out.results
+    logs = ISMAPPER.out.logs
+    nf_logs = ISMAPPER.out.nf_logs
+    versions = ISMAPPER.out.versions
 }
 
 output {

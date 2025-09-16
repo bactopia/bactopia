@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    MIDAS(BACTOPIATOOL_INIT.out.samples)
+    MIDAS(
+        BACTOPIATOOL_INIT.out.samples,
+        file(params.midas_db)
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

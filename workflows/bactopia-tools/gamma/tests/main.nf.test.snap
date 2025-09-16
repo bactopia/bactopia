@@ -1,22 +1,22 @@
 {
-    "GAMMA - GCF_000292685|portiera|compressed_fasta": {
+    "GAMMA - SRR2838702|portiera|compressed_fasta": {
         "content": [
             2,
             [
-                "GCF_000292685",
-                "GCF_000292685/tools",
-                "GCF_000292685/tools/gamma",
-                "GCF_000292685/tools/gamma/gamma",
-                "GCF_000292685/tools/gamma/gamma/GCF_000292685.gamma",
-                "GCF_000292685/tools/gamma/gamma/logs",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.begin",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.err",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.log",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.out",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.run",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.sh",
-                "GCF_000292685/tools/gamma/gamma/logs/nf.command.trace",
-                "GCF_000292685/tools/gamma/gamma/logs/versions.yml",
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/gamma",
+                "SRR2838702/tools/gamma/gamma",
+                "SRR2838702/tools/gamma/gamma/SRR2838702.gamma",
+                "SRR2838702/tools/gamma/gamma/logs",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.begin",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.err",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.log",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.out",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.run",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.sh",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.trace",
+                "SRR2838702/tools/gamma/gamma/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/gamma",
                 "bactopia-runs/gamma/merged-results",
@@ -37,7 +37,7 @@
                 "bactopia-runs/gamma/nf-reports/gamma-timeline.html"
             ],
             [
-                "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
+                "SRR2838702.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
                 "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb",
                 "gamma.tsv:md5,b3995811a625996f8572cdf33b3f1c55",
                 "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"

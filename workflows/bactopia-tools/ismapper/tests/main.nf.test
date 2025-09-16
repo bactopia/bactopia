@@ -1,15 +1,16 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test ISMapper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "ismapper"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("ISMapper - SRR2838702|portiera|compressed_fastq") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                test_dataset = "/datasets/ismapper/is1016.fasta"
+                test_dataset2 = "/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz"
                 is_ci = true
                 outdir = "$outputDir"
             }

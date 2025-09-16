@@ -1,22 +1,22 @@
 {
-    "Abricate - GCF_000292685|portiera|compressed_fasta": {
+    "Abricate - SRR2838702|portiera|compressed_fasta": {
         "content": [
             2,
             [
-                "GCF_000292685",
-                "GCF_000292685/tools",
-                "GCF_000292685/tools/abricate",
-                "GCF_000292685/tools/abricate/ncbi",
-                "GCF_000292685/tools/abricate/ncbi/GCF_000292685.txt",
-                "GCF_000292685/tools/abricate/ncbi/logs",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.begin",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.err",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.log",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.out",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.run",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.sh",
-                "GCF_000292685/tools/abricate/ncbi/logs/nf.command.trace",
-                "GCF_000292685/tools/abricate/ncbi/logs/versions.yml",
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/abricate",
+                "SRR2838702/tools/abricate/ncbi",
+                "SRR2838702/tools/abricate/ncbi/SRR2838702.txt",
+                "SRR2838702/tools/abricate/ncbi/logs",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.begin",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.err",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.log",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.out",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.run",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.sh",
+                "SRR2838702/tools/abricate/ncbi/logs/nf.command.trace",
+                "SRR2838702/tools/abricate/ncbi/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/abricate-ncbi",
                 "bactopia-runs/abricate-ncbi/merged-results",
@@ -38,7 +38,7 @@
                 "bactopia-runs/abricate-ncbi/nf-reports/abricate-timeline.html"
             ],
             [
-                "GCF_000292685.txt:md5,69af3321b0bc808b7ef85f102395736f",
+                "SRR2838702.txt:md5,69af3321b0bc808b7ef85f102395736f",
                 "versions.yml:md5,3ea80ad2b577e57657a16b1b2d57aa54",
                 "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30",
                 "versions.yml:md5,bf7f81cba42bdb8cecb8cc900669ecf5"

@@ -35,9 +35,9 @@ process KRAKEN2 {
     meta.single_end = reads[1] == null ? true : false
     meta.is_paired = reads[1] == null ? false : true
     def paired = meta.single_end ? "" : "--paired"
-    classified_naming = params.wf == "teton" || params.wf == "scrubber" || params.wf == "cleanyerreads" ? "host" : "classified"
+    classified_naming = task.ext.wf == "teton" || task.ext.wf == "scrubber" || task.ext.wf == "cleanyerreads" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq"   : "${prefix}.${classified_naming}#.fastq"
-    unclassified_naming = params.wf == "teton" || params.wf == "scrubber" || params.wf == "cleanyerreads" ? "scrubbed" : "unclassified"
+    unclassified_naming = task.ext.wf == "teton" || task.ext.wf == "scrubber" || task.ext.wf == "cleanyerreads" ? "scrubbed" : "unclassified"
     unclassified = meta.single_end ? "${prefix}.${unclassified_naming}.fastq" : "${prefix}.${unclassified_naming}#.fastq"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
@@ -82,7 +82,7 @@ process KRAKEN2 {
         rm -rf database
     fi
 
-    if [[ "${task.ext.keep_filtered_reads}" == "true" || "${params.wf}" == "scrubber" ]]; then
+    if [[ "${task.ext.keep_filtered_reads}" == "true" || "${task.ext.wf}" == "scrubber" ]]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
     else

@@ -1,22 +1,22 @@
 {
-    "Mash Dist - GCF_000292685|portiera|compressed_fasta": {
+    "Mash Dist - SRR2838702|portiera|compressed_fasta": {
         "content": [
             2,
             [
-                "GCF_000292685",
-                "GCF_000292685/tools",
-                "GCF_000292685/tools/mashdist",
-                "GCF_000292685/tools/mashdist/mashdist",
-                "GCF_000292685/tools/mashdist/mashdist/GCF_000292685-dist.txt",
-                "GCF_000292685/tools/mashdist/mashdist/logs",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.begin",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.err",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.log",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.out",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.run",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.sh",
-                "GCF_000292685/tools/mashdist/mashdist/logs/nf.command.trace",
-                "GCF_000292685/tools/mashdist/mashdist/logs/versions.yml",
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/mashdist",
+                "SRR2838702/tools/mashdist/mashdist",
+                "SRR2838702/tools/mashdist/mashdist/SRR2838702-dist.txt",
+                "SRR2838702/tools/mashdist/mashdist/logs",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.begin",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.err",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.log",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.out",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.run",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.sh",
+                "SRR2838702/tools/mashdist/mashdist/logs/nf.command.trace",
+                "SRR2838702/tools/mashdist/mashdist/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/mashdist",
                 "bactopia-runs/mashdist/merged-results",
@@ -37,7 +37,7 @@
                 "bactopia-runs/mashdist/nf-reports/mashdist-timeline.html"
             ],
             [
-                "GCF_000292685-dist.txt:md5,ba9d178c2f9598e4c8d2dde49d59be50",
+                "SRR2838702-dist.txt:md5,ba9d178c2f9598e4c8d2dde49d59be50",
                 "versions.yml:md5,a5e76b9a562b0b311239e1342781fb42",
                 "versions.yml:md5,fa387a5652585c181be4884eb12f37b0",
                 "mashdist.tsv:md5,ba9d178c2f9598e4c8d2dde49d59be50"

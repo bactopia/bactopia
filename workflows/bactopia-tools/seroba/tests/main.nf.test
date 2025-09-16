@@ -5,11 +5,12 @@ nextflow_pipeline {
     tag "seroba"
     tag "bactopia-tools"
 
-    test("Seroba - GCF_000292685|portiera|compressed_fastq") {
+    test("Seroba - SRR2838702|portiera|compressed_fastq") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

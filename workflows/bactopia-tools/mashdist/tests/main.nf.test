@@ -5,12 +5,13 @@ nextflow_pipeline {
     tag "mashdist"
     tag "bactopia-tools"
 
-    test("Mash Dist - GCF_000292685|portiera|compressed_fasta") {
+    test("Mash Dist - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "/datasets/variants/refseq-genomes.msh"
                 test_dataset = ""
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

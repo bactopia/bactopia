@@ -6,13 +6,13 @@ include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
 workflow SYLPH {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    database
 
     main:
     ch_versions = Channel.empty()
-    DATABASE = params.sylph_db ? file(params.sylph_db) : []
 
     // Run sylph profile
-    SYLPH_PROFILE(reads, DATABASE)
+    SYLPH_PROFILE(reads, database)
     ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions)
 
     emit:

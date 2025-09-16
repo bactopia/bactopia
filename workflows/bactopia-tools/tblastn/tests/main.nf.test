@@ -10,6 +10,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-protein.faa.gz"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -39,6 +40,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-protein.faa"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

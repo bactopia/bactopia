@@ -63,7 +63,7 @@ process BRACKEN {
         $reads > ${prefix}.kraken2.output.txt
 
     # Get read length
-    if [ "${params.bracken_read_length}" == "0" ]; then
+    if [ "${task.ext.bracken_read_length}" == "0" ]; then
         OBS_READ_LENGTH=\$(zcat ${reads[0]} | fastq-scan -q | jq -r '.qc_stats.read_median')
         echo \$OBS_READ_LENGTH
         # Pre-built Bracken databases come with 50,75,100,150,200,250,300, split the difference
@@ -84,7 +84,7 @@ process BRACKEN {
         fi
     else
         # use user defined read length
-        READ_LENGTH="${params.bracken_read_length}"
+        READ_LENGTH="${task.ext.bracken_read_length}"
     fi
 
     bracken \\
@@ -105,10 +105,10 @@ process BRACKEN {
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\
         ${prefix}.bracken.abundances.txt \\
-        --max_secondary_percent ${params.bracken_max_secondary_percent}
+        --max_secondary_percent ${task.ext.bracken_max_secondary_percent}
 
     # Create a Krona report from reports
-    if [ "${params.skip_krona}" == "false" ]; then
+    if [ "${task.ext.skip_krona}" == "false" ]; then
         # Kraken2
         kreport2krona.py \\
             --report ${prefix}.kraken2.report.txt \\
@@ -124,12 +124,12 @@ process BRACKEN {
 
     # Clean up large files produced by Kraken2/Bracken
     rm *.temp
-    if [ "${params.kraken2_keep_raw_output}" == "false" ]; then
+    if [ "${task.ext.kraken2_keep_raw_output}" == "false" ]; then
         # Remove kraken2 STDOUT output file
         rm ${prefix}.kraken2.output.txt
     fi
 
-    if [ "${params.kraken2_keep_filtered_reads}" == "true" ]; then
+    if [ "${task.ext.kraken2_keep_filtered_reads}" == "true" ]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
     else

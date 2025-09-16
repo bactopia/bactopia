@@ -1,15 +1,16 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test EggNOG Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "eggnog"
     tag "bactopia-tools"
 
-    test("Abricate - GCF_000292685|portiera|compressed_fasta") {
+    test("eggnog - SRR2838702|portiera|single_protein") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                bactopia_test = "/species/portiera/single"
+                test_dataset = "/datasets/eggnog/"
+                test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
