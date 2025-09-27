@@ -23,8 +23,13 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
 
     script:
     prefix = "software_versions"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     #!/usr/bin/env python

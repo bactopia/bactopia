@@ -30,7 +30,6 @@
                     "title": "Taxon for point mutation identification",
                     "type": "string",
                     "description": "Taxon for point mutation identification",
-                    "default": "",
                     "fa_icon": "fas fa-bacterium"
                 },
                 "amrfinder_noplus": {

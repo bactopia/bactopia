@@ -1,12 +1,12 @@
 process BLAST_TBLASTN {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(blastdb)
+    tuple val(_meta), path(blastdb)
     path query
 
     output:
@@ -22,9 +22,14 @@ process BLAST_TBLASTN {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     // genes -> ffn, contigs -> fna
     def db_type = task.ext.use_genes ? "ffn" : "fna"

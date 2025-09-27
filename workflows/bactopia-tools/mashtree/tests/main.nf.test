@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test Mashtree Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "mashtree"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("Mashtree - multiple|haemophilus_influenzae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/haemophilus_influenzae/"
                 test_dataset = ""
                 test_dataset2 = ""
                 is_ci = true

@@ -1,5 +1,5 @@
 process ROARY {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_high'
     label 'process_long'
 
@@ -7,12 +7,12 @@ process ROARY {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
+    tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("supplemental/*")                        , emit: results
-    tuple val(meta), path("core-genome.aln.gz")                    , emit: aln, optional: true
-    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: csv, optional: true
+    tuple val(meta), path("roary/*")                        , emit: results
+    tuple val(meta), path("core-genome.aln.gz")             , emit: aln, optional: true
+    tuple val(meta), path("roary/gene_presence_absence.csv"), emit: csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -24,9 +24,14 @@ process ROARY {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -40,7 +45,7 @@ process ROARY {
     find gff/ -name "*.gff3" -print0 | while read -d \$'\0' file; do mv "\$file" "\${file%.gff3}.gff"; done
 
     roary \\
-        $args \\
+        ${task.ext.args} \\
         -p $task.cpus \\
         -f supplemental/ \\
         gff/*.gff
@@ -54,6 +59,8 @@ process ROARY {
 
     # clean up
     rm -rf gff/
+
+    mv supplemental/ roary/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -39,7 +39,6 @@
                 },
                 "mlst_db": {
                     "type": "string",
-                    "default": "",
                     "description": "A custom MLST database to use, either a tarball or a directory"
                 }
             }

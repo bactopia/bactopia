@@ -1,12 +1,12 @@
 process FASTANI {
-    tag "${reference_name}"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(query, stageAs: 'query-tmp/*')
+    tuple val(_meta), path(query, stageAs: 'query-tmp/*')
     each path(reference)
 
     output:
@@ -22,14 +22,18 @@ process FASTANI {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
-    task.ext.logs_subdir = reference_name
+    prefix = task.ext.prefix ?: "${reference_name}"
+    
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/fastani/logs/${prefix}"
+    meta.process_name = task.ext.process_name
     """
     if [ "$is_compressed" == "true" ]; then
         gzip -c -d $reference > $reference_fasta

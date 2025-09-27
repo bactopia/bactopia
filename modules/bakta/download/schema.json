@@ -23,7 +23,6 @@
                     "title": "Bakta database path",
                     "type": "string",
                     "description": "Path to existing Bakta database or where to download",
-                    "default": null,
                     "fa_icon": "fas fa-database"
                 },
                 "bakta_db_type": {

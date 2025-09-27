@@ -2,9 +2,10 @@
 """
 kraken-bracken-summary.py
 """
+import sys
 PROGRAM = "kraken-bracken-summary"
 VERSION = "2.2.2"
-import sys
+
 
 def kraken2_unclassified_count(kraken2_report):
     """
@@ -15,7 +16,8 @@ def kraken2_unclassified_count(kraken2_report):
             line = line.rstrip()
             cols = line.split("\t")
             if cols[3] == "U":
-                return int(cols[2])
+                return float(cols[2])
+
 
 def braken_root_count(bracken_report):
     """
@@ -27,6 +29,7 @@ def braken_root_count(bracken_report):
             cols = line.split("\t")
             if cols[3] == "R":
                 return float(cols[1])
+
 
 if __name__ == '__main__':
     import argparse as ap
@@ -58,9 +61,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     unclassified_count = kraken2_unclassified_count(args.kraken2_report)
-    
+
     # Allow for if 100% of reads are successfully assigned
-    if unclassified_count == None:
+    if unclassified_count is None:
         total_count = 100
     else:
         total_count = unclassified_count + braken_root_count(args.bracken_report)

@@ -6,10 +6,11 @@ nextflow.preview.output = true
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
-include { MASHTREE          } from '../../../subworkflows/mashtree/main'
-include { paramsHelp        } from 'plugin/nf-bactopia'
-include { workflowSummary   } from 'plugin/nf-bactopia'
+include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools'
+include { MASHTREE           } from '../../../subworkflows/mashtree/main'
+include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
+include { paramsHelp         } from 'plugin/nf-bactopia'
+include { workflowSummary    } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -27,7 +28,15 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    MASHTREE(BACTOPIATOOL_INIT.out.samples)
+    ch_samples = BACTOPIATOOL_INIT.out.samples
+
+    // Download if applicable
+    if (params.species || params.accession || params.accessions) {
+        NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
+        ch_samples = ch_samples.mix(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+    }
+
+    MASHTREE(ch_samples)
 
     workflow.onComplete {
         log.info workflowSummary()
@@ -38,7 +47,6 @@ workflow {
         MASHTREE.out.matrix,
         MASHTREE.out.sketches
     )
-    logs = MASHTREE.out.logs
     nf_logs = MASHTREE.out.nf_logs
     versions = MASHTREE.out.versions
 }
@@ -46,9 +54,6 @@ workflow {
 output {
     results {
         path { meta, _file -> "${meta.output_dir}/" }
-    }
-    logs {
-        path { meta, _file -> "${meta.logs_dir}/" }
     }
     nf_logs {
         path { meta, file -> {

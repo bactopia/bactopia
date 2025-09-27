@@ -13,8 +13,7 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "midas_db": {
-                    "type": ["string", "null"],
-                    "default": null,
+                    "type": "string",
                     "description": "Path to MIDAS database"
                 },
                 "midas_word_size": {

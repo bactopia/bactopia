@@ -1,12 +1,12 @@
 process QC {
-    tag "${meta.id}"
+    tag "${prefix}"
     label "process_low"
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(fq), path(extra)
+    tuple val(_meta), path(fq), path(extra)
     path adapters
     path phix
 
@@ -25,11 +25,17 @@ process QC {
     tuple val(meta), path("*-error.txt")   , optional: true
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     meta.single_end = fq[1] == null ? true : false
+    meta.runtype = _meta.runtype
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters

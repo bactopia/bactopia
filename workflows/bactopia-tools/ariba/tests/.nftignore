@@ -1,3 +1,6 @@
 **/*.{err,gz,html,log,pdf,stderr,stdout}
 **/nf.command.*
 bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/debug.report.tsv
+**/version_info.txt

@@ -5,14 +5,11 @@ include { SCOARY as SCOARY_MODULE } from '../../modules/scoary/main'
 
 workflow SCOARY {
     take:
-    csv // channel: [ val(meta), [ gff ] ]
+    csv // channel: [ val(meta), [ csv ] ]
+    traits
 
-    main:
-    ch_versions = Channel.empty()
-    SCOARY_TRAITS = params.traits ? file(params.traits) : []
-    
-    SCOARY_MODULE(csv, SCOARY_TRAITS)
-    ch_versions = ch_versions.mix(SCOARY_MODULE.out.versions)
+    main:    
+    SCOARY_MODULE(csv, traits)
 
     emit:
     csv = SCOARY_MODULE.out.csv
@@ -25,5 +22,5 @@ workflow SCOARY {
         SCOARY_MODULE.out.nf_sh,
         SCOARY_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = SCOARY_MODULE.out.versions
 }

@@ -40,7 +40,6 @@ workflow BAKTA {
     emit:
     tsv = BAKTA_RUN.out.tsv
     txt = BAKTA_RUN.out.txt
-    annotations = BAKTA_RUN.out.annotations
     embl = BAKTA_RUN.out.embl
     faa = BAKTA_RUN.out.faa
     ffn = BAKTA_RUN.out.ffn
@@ -49,6 +48,8 @@ workflow BAKTA {
     gff = BAKTA_RUN.out.gff
     hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
     hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
+    blastdb = BAKTA_RUN.out.blastdb
+    annotations = BAKTA_RUN.out.annotations
     logs = ch_logs
     nf_logs = BAKTA_RUN.out.nf_begin.mix(
         BAKTA_RUN.out.nf_err,

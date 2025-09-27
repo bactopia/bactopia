@@ -14,17 +14,14 @@
             "properties": {
                 "species": {
                     "type": "string",
-                    "default": "",
                     "description": "Name of the species to download assemblies"
                 },
                 "accession": {
                     "type": "string",
-                    "default": "",
                     "description": "An NCBI Assembly accession to be downloaded"
                 },
                 "accessions": {
                     "type": "string",
-                    "default": "",
                     "description": "An file of NCBI Assembly accessions (one per line) to be downloaded"
                 },
                 "format": {

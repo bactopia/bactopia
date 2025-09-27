@@ -1,11 +1,11 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test CheckM Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "checkm"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("CheckM - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"

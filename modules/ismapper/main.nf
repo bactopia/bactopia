@@ -1,12 +1,12 @@
 process ISMAPPER {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(reads)
+    tuple val(_meta), path(reads)
     path(reference)
     path(query)
 
@@ -24,9 +24,14 @@ process ISMAPPER {
 
     script:
     def query_name = query.getName().replace(".gz", "")
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${query_name}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
@@ -40,7 +45,7 @@ process ISMAPPER {
     fi
     
     ismap \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         --t $task.cpus \\
         --output_dir $prefix \\
         --queries $query_name \\

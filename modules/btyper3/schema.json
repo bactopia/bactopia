@@ -12,36 +12,36 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "bt_virulence_identity": {
-            "type": "integer",
-            "description": "Minimum percent identity for virulence factors",
-            "default": 70
-        },
-        "bt_virulence_coverage": {
-            "type": "integer",
-            "description": "Minimum percent coverage for virulence factors",
-            "default": 80
-        },
-        "bt_identity": {
-            "type": "integer",
-            "description": "Minimum percent identity for general genes",
-            "default": 50
-        },
-        "bt_coverage": {
-            "type": "integer",
-            "description": "Minimum percent coverage for general genes",
-            "default": 70
-        },
-        "bt_overlap": {
-            "type": "number",
-            "description": "Minimum percent overlap",
-            "default": 0.7
-        },
-        "bt_opts": {
-            "type": "string",
-            "description": "Additional BTyper3 options",
-            "default": ""
-        }
+                "bt_virulence_identity": {
+                    "type": "integer",
+                    "description": "Minimum percent identity for virulence factors",
+                    "default": 70
+                },
+                "bt_virulence_coverage": {
+                    "type": "integer",
+                    "description": "Minimum percent coverage for virulence factors",
+                    "default": 80
+                },
+                "bt_identity": {
+                    "type": "integer",
+                    "description": "Minimum percent identity for general genes",
+                    "default": 50
+                },
+                "bt_coverage": {
+                    "type": "integer",
+                    "description": "Minimum percent coverage for general genes",
+                    "default": 70
+                },
+                "bt_overlap": {
+                    "type": "number",
+                    "description": "Minimum percent overlap",
+                    "default": 0.7
+                },
+                "bt_opts": {
+                    "type": "string",
+                    "description": "Additional BTyper3 options",
+                    "default": ""
+                }
             }
         }
     },

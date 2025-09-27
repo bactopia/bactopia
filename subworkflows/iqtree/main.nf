@@ -8,15 +8,13 @@ workflow IQTREE {
     aln // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
     IQTREE_MODULE(aln)
-    ch_versions = ch_versions.mix(IQTREE_MODULE.out.versions)
-    ch_logs = ch_logs.mix(IQTREE_MODULE.out.logs)
 
     emit:
     phylogeny = IQTREE_MODULE.out.phylogeny
-    logs = ch_logs
+    aln_tree = IQTREE_MODULE.out.aln_tree
+    results = IQTREE_MODULE.out.results.mix(IQTREE_MODULE.out.phylogeny)
+    logs = IQTREE_MODULE.out.logs
     nf_logs = IQTREE_MODULE.out.nf_begin.mix(
         IQTREE_MODULE.out.nf_err,
         IQTREE_MODULE.out.nf_log,
@@ -25,5 +23,5 @@ workflow IQTREE {
         IQTREE_MODULE.out.nf_sh,
         IQTREE_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = IQTREE_MODULE.out.versions
 }

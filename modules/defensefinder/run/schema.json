@@ -12,26 +12,26 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "df_preserveraw": {
-            "type": "boolean",
-            "default": false,
-            "description": "Preserve raw macsydata files"
-        },
-        "df_nocutga": {
-            "type": "boolean",
-            "default": false,
-            "description": "Use no cut GA"
-        },
-        "df_coverage": {
-            "type": "number",
-            "default": 0.4,
-            "description": "Coverage threshold"
-        },
-        "df_dbtype": {
-            "type": "string",
-            "default": "ordered_replicon",
-            "description": "Database type to use"
-        }
+                "df_preserveraw": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Preserve raw macsydata files"
+                },
+                "df_nocutga": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use no cut GA"
+                },
+                "df_coverage": {
+                    "type": "number",
+                    "default": 0.4,
+                    "description": "Coverage threshold"
+                },
+                "df_dbtype": {
+                    "type": "string",
+                    "default": "ordered_replicon",
+                    "description": "Database type to use"
+                }
             }
         }
     },

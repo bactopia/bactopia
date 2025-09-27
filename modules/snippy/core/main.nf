@@ -1,12 +1,12 @@
 process SNIPPY_CORE {
-    tag "${meta.id}"
+    tag "${prefix}"
     label "process_medium"
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(vcf), path(aligned_fa)
+    tuple val(_meta), path(vcf), path(aligned_fa)
     tuple val(ref_meta), path(reference)
     path mask
 
@@ -30,10 +30,15 @@ process SNIPPY_CORE {
     tuple val(meta), path("versions.yml")                       , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
     reference_name = reference.getSimpleName()
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${reference_name}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${reference_name}/logs"
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name
     def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false

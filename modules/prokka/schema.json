@@ -14,12 +14,10 @@
             "properties": {
                 "proteins": {
                     "type": "string",
-                    "default": "",
                     "description": "FASTA file of trusted proteins to first annotate from"
                 },
                 "prodigal_tf": {
                     "type": "string",
-                    "default": "",
                     "description": "Training file to use for Prodigal"
                 },
                 "compliant": {

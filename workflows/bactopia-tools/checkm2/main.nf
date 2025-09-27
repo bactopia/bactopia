@@ -27,7 +27,11 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    CHECKM2(BACTOPIATOOL_INIT.out.samples)
+    CHECKM2(
+        BACTOPIATOOL_INIT.out.samples,
+        params.checkm2_db ? file(params.checkm2_db) : [],
+        params.download_checkm2
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

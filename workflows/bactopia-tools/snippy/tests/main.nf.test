@@ -1,15 +1,15 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test Snippy Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "snippy"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("Snippy - Mixed|compressed_fastq") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                bactopia_test = "/species/mixed/reads"
+                test_dataset = "species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz"
                 test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"

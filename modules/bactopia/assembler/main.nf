@@ -1,12 +1,12 @@
 process ASSEMBLER {
-    tag "${meta.id}"
+    tag "${prefix}"
     label (params.use_unicycler ? "process_medium" : "process_low")
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(fq), path(extra)
+    tuple val(_meta), path(fq), path(extra)
 
     output:
     tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), emit: fna, optional: true
@@ -23,9 +23,14 @@ process ASSEMBLER {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
     // Determine input reads

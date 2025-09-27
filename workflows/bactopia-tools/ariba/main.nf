@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    ARIBA(BACTOPIATOOL_INIT.out.samples)
+    ARIBA(
+        BACTOPIATOOL_INIT.out.samples,
+        params.ariba_db
+    )
 
     workflow.onComplete {
         log.info workflowSummary()
@@ -35,6 +38,8 @@ workflow {
 
     publish:
     results = ARIBA.out.results.mix(
+        ARIBA.out.report,
+        ARIBA.out.summary,
         ARIBA.out.merged_report,
         ARIBA.out.merged_summary
     )

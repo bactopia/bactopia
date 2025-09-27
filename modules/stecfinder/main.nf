@@ -1,12 +1,12 @@
 process STECFINDER {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
 
     input:
-    tuple val(meta), path(fasta), path(reads)
+    tuple val(_meta), path(fasta), path(reads)
 
     output:
     tuple val(meta), path("*.tsv")         , emit: tsv
@@ -21,9 +21,14 @@ process STECFINDER {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = meta.is_compressed && !params.stecfinder_use_reads ? true : false
     def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads

@@ -1,12 +1,12 @@
 process MASH_DIST {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(query)
+    tuple val(_meta), path(query)
     path reference
 
     output:
@@ -22,9 +22,14 @@ process MASH_DIST {
     tuple val(meta), path("versions.yml")   , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = reference.getName().endsWith(".xz") ? true : false
     def reference_name = reference.getName().replace(".xz", "")
@@ -37,9 +42,9 @@ process MASH_DIST {
     mash \\
         dist \\
         -p $task.cpus \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         $reference_name \\
-        $query >> ${prefix}-dist.txt
+        $query | sed 's/.fna.gz//g' | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -50,14 +55,14 @@ process MASH_DIST {
 
 process MERLIN_DIST {
     // Used by Merlin to extract species with matches
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(query), path(reads)
+    tuple val(_meta), path(query), path(reads)
     path reference
 
     output:
@@ -90,9 +95,14 @@ process MERLIN_DIST {
     tuple val(meta), path("versions.yml")                , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = reference.getName().endsWith(".xz") ? true : false
     def reference_name = reference.getName().replace(".xz", "")
@@ -106,7 +116,7 @@ process MERLIN_DIST {
         dist \\
         -C \\
         -p $task.cpus \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         $reference_name \\
         $query | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
@@ -125,7 +135,7 @@ process MERLIN_DIST {
             else
                 touch \${i}.genus
             fi
-        elif [ "${params.full_merlin}" == "true" ]; then
+        elif [ "${task.ext.full_merlin}" == "true" ]; then
             if [ "\${i}" == "shigella" ]; then
                 touch escherichia.genus
             elif [ "\${i}" == "glaesserella" ]; then

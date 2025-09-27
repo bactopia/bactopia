@@ -1,5 +1,5 @@
 process IQTREE {
-    tag "$prefix"
+    tag "${prefix}"
     label 'process_medium'
     label 'process_long'
 
@@ -7,13 +7,13 @@ process IQTREE {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(alignment)
+    tuple val(_meta), path(alignment)
 
     output:
-    tuple val(meta), path("${prefix}*")                         , emit: results
-    tuple val(meta), path("${prefix}.treefile")                 , emit: phylogeny
-    tuple val(meta), path(alignment), path("${prefix}.treefile"), emit: aln_tree
-    tuple val(meta), path("*.{log,err}")                        , emit: logs, optional: true
+    tuple val(meta), path("${process_name}/*")      , emit: results
+    tuple val(meta), path(treefile)                 , emit: phylogeny
+    tuple val(meta), path(alignment), path(treefile), emit: aln_tree
+    tuple val(meta), path("*.{log,err}")            , emit: logs, optional: true
     tuple val(meta), path(".command.begin") , emit: nf_begin
     tuple val(meta), path(".command.err")   , emit: nf_err
     tuple val(meta), path(".command.log")   , emit: nf_log
@@ -24,11 +24,18 @@ process IQTREE {
     tuple val(meta), path("versions.yml")   , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
+    prefix = task.ext.prefix ?: "${_meta.name}"
+    process_name = _meta.process_name ?: task.ext.process_name
+    args = process_name == "iqtree-fast" ? task.ext.fast_args : task.ext.args
+    treefile = process_name == "iqtree-fast" ? "${process_name}/${prefix}.treefile" : "${prefix}.treefile"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/${process_name}/logs/"
+    meta.process_name = process_name
     """
     iqtree \\
         $args \\
@@ -40,6 +47,15 @@ process IQTREE {
     # Only gzip files if they exist
     if [[ -f "${prefix}.alninfo" ]]; then
         gzip ${prefix}.alninfo
+    fi
+
+    mkdir temp
+    mv ${prefix}* temp/
+    mv temp/ ${process_name}/
+
+    if [ "${process_name}" != "iqtree-fast" ]; then
+        mv ${process_name}/${prefix}.treefile ./
+        mv ${process_name}/${alignment} ./
     fi
 
     cat <<-END_VERSIONS > versions.yml

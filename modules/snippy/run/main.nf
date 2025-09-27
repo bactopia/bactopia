@@ -1,12 +1,12 @@
 process SNIPPY_RUN {
-    tag "${meta.id} - ${reference_name}"
+    tag "${prefix} - ${reference_name}"
     label "process_low"
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(reads)
+    tuple val(_meta), path(reads)
     tuple val(ref_meta), path(reference)
 
     output:
@@ -39,10 +39,15 @@ process SNIPPY_RUN {
     tuple val(meta), path("versions.yml")                                     , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
     reference_name = reference.getSimpleName()
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${reference_name}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${reference_name}/logs"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name
     def read_inputs = meta.single_end ? "--se ${reads[0]}" : "--R1 ${reads[0]} --R2 ${reads[1]}"
     def is_compressed = reference.getName().endsWith(".gz") ? true : false

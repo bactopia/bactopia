@@ -1,27 +1,16 @@
 process ARIBA_GETREF {
     tag "$db_name"
     label 'process_low'
-    storeDir params.datasets_cache
-    publishDir params.datasets_cache
 
-    conda "${task.ext.conda_env}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? 
-        task.ext.container_image : 
-        task.ext.container }"
+    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     val(db_name)
 
     output:
-    path("ariba-${db_name}.tar.gz"), emit: db
-    path ".command.begin", emit: begin, optional: true
-    path ".command.err", emit: err
-    path ".command.log", emit: log_file
-    path ".command.out", emit: out
-    path ".command.run", emit: run
-    path ".command.sh", emit: sh
-    path ".command.trace", emit: trace
-    path "versions.yml", emit: versions
+    path "ariba/ariba-${db_name}.tar.gz", emit: db
+    path "ariba/logs/*", emit: logs, optional: true
 
     script:
     """
@@ -43,7 +32,18 @@ process ARIBA_GETREF {
     # Cleanup
     rm -rf ariba-${db_name}/
 
-    cat <<-END_VERSIONS > versions.yml
+    # Move outputs to tool specific folder
+    mkdir -p ariba/logs/${db_name}
+    mv ariba-${db_name}.tar.gz ariba/
+    cp .command.begin ariba/logs/${db_name}/nf.command.begin
+    cp .command.err ariba/logs/${db_name}/nf.command.err
+    cp .command.log ariba/logs/${db_name}/nf.command.log
+    cp .command.out ariba/logs/${db_name}/nf.command.out
+    cp .command.run ariba/logs/${db_name}/nf.command.run
+    cp .command.sh ariba/logs/${db_name}/nf.command.sh
+    cp .command.trace ariba/logs/${db_name}/nf.command.trace
+
+    cat <<-END_VERSIONS > ariba/logs/${db_name}/versions.yml
     "${task.process}":
         ariba:  \$(echo \$(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*\$//')
     END_VERSIONS

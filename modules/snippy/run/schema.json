@@ -17,7 +17,6 @@
                     "type": "string",
                     "description": "Path to reference genome in GenBank format",
                     "fa_icon": "fas fa-file-alt",
-                    "default": null
                 },
                 "mapqual": {
                     "title": "Minimum read mapping quality",

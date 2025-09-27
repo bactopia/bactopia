@@ -1,15 +1,15 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test CheckM2 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "checkm2"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("CheckM2 - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                test_dataset = "/datasets/checkm2/checkm2_db_v2.dmnd"
                 test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"

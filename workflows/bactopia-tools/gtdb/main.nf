@@ -27,7 +27,12 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    GTDB(BACTOPIATOOL_INIT.out.samples)
+    GTDB(
+        BACTOPIATOOL_INIT.out.samples,
+        params.gtdb ? file(params.gtdb) : [],
+        params.download_gtdb,
+        params.gtdb_save_as_tarball,
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

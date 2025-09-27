@@ -29,8 +29,10 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     
     // Reference sketch should be provided via params
-    ch_reference = file(params.mash_sketch, checkIfExists: true)
-    MASHDIST(BACTOPIATOOL_INIT.out.samples, ch_reference)
+    MASHDIST(
+        BACTOPIATOOL_INIT.out.samples,
+        file(params.mash_sketch, checkIfExists: true)
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

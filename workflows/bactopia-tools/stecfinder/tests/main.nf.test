@@ -1,14 +1,14 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test STECFinder Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "stecfinder"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("STECFinder - shigella_dysenteriae|compressed_fasta_and_fastq") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/shigella_dysenteriae/reads"
                 test_dataset = ""
                 test_dataset2 = ""
                 is_ci = true

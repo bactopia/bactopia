@@ -1,12 +1,12 @@
 process ABRICATE_SUMMARY {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(reports)
+    tuple val(_meta), path(reports)
 
     output:
     tuple val(meta), path("*.tsv")       , emit: report
@@ -21,7 +21,12 @@ process ABRICATE_SUMMARY {
     tuple val(meta), path("versions.yml"), emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
     meta.output_dir = "${task.ext.rundir}/${task.ext.process_name}"
     meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
     meta.process_name = task.ext.process_name

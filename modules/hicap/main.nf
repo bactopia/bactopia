@@ -1,12 +1,12 @@
 process HICAP {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(fasta)
+    tuple val(_meta), path(fasta)
     path database_dir
     path model_fp
 
@@ -25,10 +25,14 @@ process HICAP {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def database_args = database_dir ? "--database_dir ${database_dir}" : ""
     def model_args = model_fp ? "--model_fp ${model_fp}" : ""
@@ -43,16 +47,16 @@ process HICAP {
         --query_fp $fasta_name \\
         $database_args \\
         $model_args \\
-        $args \\
+        ${task.ext.args} \\
         --threads $task.cpus \\
         --debug \\
         -o ./
 
-    if [ ! -f ${meta.id}.tsv ]; then
-        echo "isolate<TAB>predicted_serotype<TAB>attributes<TAB>genes_identified<TAB>locus_location<TAB>region_I_genes<TAB>region_II_genes<TAB>region_III_genes<TAB>IS1016_hits" | sed 's/<TAB>/\t/g' > ${meta.id}.tsv
-        echo "${meta.id}<TAB>cap_not_found<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-" | sed 's/<TAB>/\t/g' >> ${meta.id}.tsv
+    if [ ! -f ${prefix}.tsv ]; then
+        echo "isolate<TAB>predicted_serotype<TAB>attributes<TAB>genes_identified<TAB>locus_location<TAB>region_I_genes<TAB>region_II_genes<TAB>region_III_genes<TAB>IS1016_hits" | sed 's/<TAB>/\t/g' > ${prefix}.tsv
+        echo "${prefix}<TAB>cap_not_found<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-<TAB>-" | sed 's/<TAB>/\t/g' >> ${prefix}.tsv
     else
-        sed -i 's/#isolate/isolate/' ${meta.id}.tsv
+        sed -i 's/#isolate/isolate/' ${prefix}.tsv
     fi
 
     # Cleanup

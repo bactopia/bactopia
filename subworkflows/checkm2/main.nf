@@ -9,22 +9,19 @@ workflow CHECKM2 {
     take:
     fasta // channel: [ val(meta), [ fasta ] ]
     database // channel: [ database ]
-    download_db // boolean
+    download_checkm2 // boolean
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
     ch_merged_checkm2 = Channel.empty()
 
-    if (download_db) {
+    if (download_checkm2) {
         CHECKM2_DOWNLOAD()
         CHECKM2_PREDICT(fasta, CHECKM2_DOWNLOAD.out.db)
-        ch_versions = ch_versions.mix(CHECKM2_DOWNLOAD.out.versions)
-        ch_logs = ch_logs.mix(CHECKM2_DOWNLOAD.out.logs)
     } else {
         CHECKM2_PREDICT(fasta, database)
     }
-    
     ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions)
     ch_logs = ch_logs.mix(CHECKM2_PREDICT.out.logs)
 

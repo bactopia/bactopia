@@ -1,34 +1,33 @@
 //
 // gtdb - Identify marker genes and assign taxonomic classifications
 //
-include { GTDBTK_SETUPDB as SETUPDB } from '../../modules/gtdbtk/setupdb/main'
+include { GTDBTK_DOWNLOAD as DOWNLOAD } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../modules/gtdbtk/classifywf/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
 workflow GTDB {
     take:
     fasta // channel: [ val(meta), [ assemblies ] ]
+    database
+    download_gtdb
+    save_as_tarball
 
     main:
     ch_versions = Channel.empty()
     ch_logs = Channel.empty()
-    DATABASE = ! params.download_gtdb ? file(params.gtdb) : []
 
-    if (params.download_gtdb) {
+    if (download_gtdb) {
         // Force CLASSIFY to wait
-        SETUPDB()
-        ch_versions = ch_versions.mix(SETUPDB.out.versions)
-        ch_logs = ch_logs.mix(SETUPDB.out.logs)
+        DOWNLOAD()
 
-        if (params.gtdb_save_as_tarball) {
-            CLASSIFY(fasta, SETUPDB.out.db_tarball)
+        if (save_as_tarball) {
+            CLASSIFY(fasta, DOWNLOAD.out.db_tarball)
         } else {
-            CLASSIFY(fasta, SETUPDB.out.db)
+            CLASSIFY(fasta, DOWNLOAD.out.db)
         }
     } else {
-        CLASSIFY(fasta, DATABASE)
+        CLASSIFY(fasta, database)
     }
-    
     ch_versions = ch_versions.mix(CLASSIFY.out.versions)
     ch_logs = ch_logs.mix(CLASSIFY.out.logs)
     

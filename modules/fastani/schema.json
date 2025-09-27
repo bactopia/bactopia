@@ -12,6 +12,12 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "fastani_reference": {
+                    "title": "Reference genome in FASTA format",
+                    "type": "string",
+                    "description": "Path to reference genome in FASTA format",
+                    "fa_icon": "fas fa-file-alt",
+                },
                 "kmer": {
                     "type": "integer",
                     "default": 16,
@@ -31,10 +37,10 @@
                     "description": "fragment length",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "skip_pairwise": {
+                "fastani_pairwise": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Only use RefSeq or local assemblies for ANI calculations",
+                    "description": "Conduct All-vs-All pairwise ANI calculations",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }

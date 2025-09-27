@@ -1,12 +1,12 @@
 process MYKROBE_PREDICT {
-    tag "$meta.id"
+    tag "$meta.name"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(seqs)
+    tuple val(_meta), path(seqs)
     val species
 
     output:
@@ -23,17 +23,20 @@ process MYKROBE_PREDICT {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.logs_dir2 = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     is_ont = meta.runtype == "ont" ? "--ont" : ""
     """
     mykrobe \\
         predict \\
-        $args $is_ont \\
+        $task.ext.args $is_ont \\
         --species $species \\
         --threads $task.cpus \\
         --sample $prefix \\

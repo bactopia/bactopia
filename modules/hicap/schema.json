@@ -13,13 +13,11 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "database_dir": {
-                    "type": ["string", "null"],
-                    "default": null,
+                    "type": "string",
                     "description": "Directory containing locus database"
                 },
                 "model_fp": {
-                    "type": ["string", "null"],
-                    "default": null,
+                    "type": "string",
                     "description": "Path to prodigal model"
                 },
                 "full_sequence": {

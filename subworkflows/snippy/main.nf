@@ -1,18 +1,23 @@
 //
 // snippy - Rapid variant calling from sequence reads
 //
-include { SNIPPY_RUN } from '../../modules/snippy/run/main'
-
+include { SNIPPY_RUN  } from '../../modules/snippy/run/main'
+include { SNIPPY_CORE } from '../../modules/snippy/core/main'
+include { GUBBINS     } from '../gubbins/main'
+include { IQTREE      } from '../iqtree/main'
+include { SNPDISTS as SNPDISTS_UNMASKED } from '../../modules/snpdists/main'
+include { SNPDISTS as SNPDISTS_MASKED   } from '../../modules/snpdists/main'
 workflow SNIPPY {
     take:
-    ch_reads     // channel: [ val(meta), [ reads ] ]
-    ch_reference // channel: [ val(meta), [ fasta ] ]
+    reads     // channel: [ val(meta), [ reads ] ]
+    reference // channel: [ val(meta), [ fasta ] ]
+    mask
 
     main:
     ch_versions = Channel.empty()
 
     // Run Snippy per-sample
-    SNIPPY_RUN(ch_reads, ch_reference)
+    SNIPPY_RUN(reads, reference)
     ch_versions = ch_versions.mix(SNIPPY_RUN.out.versions)
 
     emit:

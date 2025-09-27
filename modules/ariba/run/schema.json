@@ -15,7 +15,6 @@
                 "ariba_db": {
                     "type": "string",
                     "description": "A database to query, if unavailable it will be downloaded to the path given by --datasets_cache",
-                    "default": "",
                     "fa_icon": "fas fa-italic",
                     "enum": [
                         "argannot",

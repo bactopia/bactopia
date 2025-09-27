@@ -1,12 +1,12 @@
 process BAKTA_RUN {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(fasta)
+    tuple val(_meta), path(fasta)
     path db
     path proteins
     path prodigal_tf
@@ -36,9 +36,14 @@ process BAKTA_RUN {
     tuple val(meta), path("versions.yml")                              , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${meta.id}${task.ext.prefix}" : "${meta.id}"
-    meta.output_dir = "${meta.id}/main/annotator/bakta"
-    meta.logs_dir = "${meta.id}/main/annotator/bakta/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${prefix}/main/annotator/bakta/"
+    meta.logs_dir = "${prefix}/main/annotator/bakta/logs/"
     meta.process_name = task.ext.process_name
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigal-tf ${prodigal_tf[0]}" : ""
@@ -80,6 +85,13 @@ process BAKTA_RUN {
         gzip --best bakta/${prefix}.gff3
         gzip --best bakta/${prefix}.hypotheticals.faa
     fi
+
+    # Clean up
+    if [ "$is_tarball" == "true" ]; then
+        rm -rf database
+    fi
+    rm -rf blastdb/
+    mv bakta/*.log ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

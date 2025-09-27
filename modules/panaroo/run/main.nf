@@ -1,5 +1,5 @@
 process PANAROO_RUN {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_high'
     label 'process_long'
 
@@ -7,13 +7,13 @@ process PANAROO_RUN {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
+    tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("supplemental/*")                              , emit: results
-    tuple val(meta), path("core-genome.aln.gz")                          , optional: true, emit: aln
-    tuple val(meta), path("supplemental/gene_presence_absence_roary.csv"), optional: true, emit: csv
-    tuple val(meta), path("supplemental/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv
+    tuple val(meta), path("panaroo/*")                              , emit: results
+    tuple val(meta), path("core-genome.aln.gz")                     , optional: true, emit: aln
+    tuple val(meta), path("panaroo/gene_presence_absence_roary.csv"), optional: true, emit: csv
+    tuple val(meta), path("panaroo/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -25,9 +25,14 @@ process PANAROO_RUN {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/panaroo/logs"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -38,7 +43,7 @@ process PANAROO_RUN {
     find gff/ -name "*.gff" -or -name "*.gff3" > gff-fofn.txt
 
     panaroo \\
-        $args \\
+        ${task.ext.args} \\
         -t $task.cpus \\
         -o supplemental \\
         -i gff-fofn.txt
@@ -57,6 +62,8 @@ process PANAROO_RUN {
     if [[ -f "supplemental/gene_data.csv" ]]; then
         gzip supplemental/gene_data.csv
     fi
+
+    mv supplemental/ panaroo/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

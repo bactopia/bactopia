@@ -8,26 +8,13 @@ process CHECKM2_DOWNLOAD {
     output:
     path "checkm2_db_v${db_version}.dmnd"  , emit: db
     path "contents.json"                   , emit: json
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    path "logs/*", emit: logs, optional: true
 
     script:
-    meta = [:]
-    meta.output_dir = "${task.ext.download_dir}"
-    meta.logs_dir = "${task.ext.download_dir}/logs"
-    meta.process_name = task.ext.process_name
     zenodo_id  = 5571251  // Default to latest version 
     api_data   = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
     db_version = api_data.metadata.version
     checksum   = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
-    meta       = [id: 'checkm2_db', version: db_version]
     """
     # Automatic download is broken when using singularity/apptainer (https://github.com/chklovski/CheckM2/issues/73)
     # So it's necessary to download the database manually
@@ -37,7 +24,6 @@ process CHECKM2_DOWNLOAD {
         https://zenodo.org/records/${zenodo_id}/files/checkm2_database.tar.gz
 
     echo ${db_version}
-
     tar -xzf checkm2_database.tar.gz
     db_path=\$(find -name *.dmnd)
     mv \$db_path checkm2_db_v${db_version}.dmnd
@@ -45,7 +31,17 @@ process CHECKM2_DOWNLOAD {
 
     mv CONTENTS.json contents.json
 
-    cat <<-END_VERSIONS > versions.yml
+    # Move outputs to tool specific folder
+    mkdir -p logs
+    cp .command.begin logs/nf.command.begin
+    cp .command.err logs/nf.command.err
+    cp .command.log logs/nf.command.log
+    cp .command.out logs/nf.command.out
+    cp .command.run logs/nf.command.run
+    cp .command.sh logs/nf.command.sh
+    cp .command.trace logs/nf.command.trace
+
+    cat <<-END_VERSIONS > logs/versions.yml
     "${task.process}":
         aria2: \$(echo \$(aria2c --version 2>&1) | grep 'aria2 version' | cut -f3 -d ' ')
         checkm2_db: ${db_version}
@@ -55,8 +51,9 @@ process CHECKM2_DOWNLOAD {
     stub:
     """
     touch checkm_db.dmnd
-
-    cat <<-END_VERSIONS > versions.yml
+    touch contents.json
+    mkdir -p logs
+    cat <<-END_VERSIONS > logs/versions.yml
     "${task.process}":
         checkm2: \$(checkm2 --version)
     END_VERSIONS

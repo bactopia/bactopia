@@ -11,14 +11,12 @@ workflow GENOTYPHI {
 
     main:
     ch_versions = Channel.empty()
-    ch_versions2 = Channel.empty()
     ch_logs = Channel.empty()
-    ch_logs2 = Channel.empty()
 
     // Run Mykrobe
     MYKROBE_PREDICT(reads, "typhi")
-    ch_versions2 = ch_versions2.mix(MYKROBE_PREDICT.out.versions)
-    ch_logs2 = ch_logs2.mix(MYKROBE_PREDICT.out.logs)
+    ch_versions = ch_versions.mix(MYKROBE_PREDICT.out.versions)
+    ch_logs = ch_logs.mix(MYKROBE_PREDICT.out.logs)
 
     //Run GenoTyphi
     GENOTYPHI_PARSE(MYKROBE_PREDICT.out.json)
@@ -37,7 +35,6 @@ workflow GENOTYPHI {
     json = MYKROBE_PREDICT.out.json
     merged_tsv = CSVTK_CONCAT.out.csv
     logs = ch_logs
-    logs2 = ch_logs2
     nf_logs = GENOTYPHI_PARSE.out.nf_begin.mix(
         GENOTYPHI_PARSE.out.nf_err,
         GENOTYPHI_PARSE.out.nf_log,
@@ -45,6 +42,13 @@ workflow GENOTYPHI {
         GENOTYPHI_PARSE.out.nf_run,
         GENOTYPHI_PARSE.out.nf_sh,
         GENOTYPHI_PARSE.out.nf_trace,
+        MYKROBE_PREDICT.out.nf_begin,
+        MYKROBE_PREDICT.out.nf_err,
+        MYKROBE_PREDICT.out.nf_log,
+        MYKROBE_PREDICT.out.nf_out,
+        MYKROBE_PREDICT.out.nf_run,
+        MYKROBE_PREDICT.out.nf_sh,
+        MYKROBE_PREDICT.out.nf_trace,
         CSVTK_CONCAT.out.nf_begin,
         CSVTK_CONCAT.out.nf_err,
         CSVTK_CONCAT.out.nf_log,
@@ -53,14 +57,5 @@ workflow GENOTYPHI {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    nf_logs2 = MYKROBE_PREDICT.out.nf_begin.mix(
-        MYKROBE_PREDICT.out.nf_err,
-        MYKROBE_PREDICT.out.nf_log,
-        MYKROBE_PREDICT.out.nf_out,
-        MYKROBE_PREDICT.out.nf_run,
-        MYKROBE_PREDICT.out.nf_sh,
-        MYKROBE_PREDICT.out.nf_trace,
-    )
     versions = ch_versions
-    versions2 = ch_versions2
 }

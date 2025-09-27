@@ -28,6 +28,7 @@ workflows:
       - bactopia_assembler
       - bactopia_sketcher
       - csvtk_concat
+    path: workflows/bactopia
   cleanyerreads:
     description: "Use Bactopia's read QC steps to Clean-Yer-Reads"
     includes:
@@ -38,12 +39,14 @@ workflows:
       - bactopia_qc
       - bactopia_scrubber
       - csvtk_concat
+    path: workflows/cleanyerreads
   staphopia:
     description: "Staphopia is a pipeline for the analysis of Staphylococcus aureus genomes"
     includes:
       - bactopia
       - staphtyper
     is_workflow: true
+    path: workflows/staphopia
   teton:
     description: "Host removal and taxon classification with estimated abundances"
     includes:
@@ -54,12 +57,14 @@ workflows:
       - bactopia_gather
       - csvtk_concat
       - csvtk_join
+    path: workflows/teton
   updater:
     description: "Update database builds for new Bactopia version"
     includes:
       - amrfinderplus
       - mlst
     is_workflow: true
+    path: workflows/updater
   #============================================================================================
   # Bactopia Tools
   # 
@@ -71,24 +76,28 @@ workflows:
     ext: "fna"
     modules:
       - abricate_run
+    path: workflows/bactopia-tools/abricate
   abritamr:
     description: "A NATA accredited tool for reporting the presence of antimicrobial resistance genes"
     ext: "fna"
     modules:
       - abritamr_run
       - csvtk_concat
+    path: workflows/bactopia-tools/abritamr
   agrvate:
     description: "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants"
     ext: "fna"
     modules:
       - agrvate
       - csvtk_concat
+    path: workflows/bactopia-tools/agrvate
   amrfinderplus:
     description: "Identify antimicrobial resistance in genes or proteins"
     ext: "fna_faa_gff"
     modules:
       - amrfinderplus_run
       - csvtk_concat
+    path: workflows/bactopia-tools/amrfinderplus
   ariba:
     description: "Gene identification through local assemblies"
     ext: "fastq"
@@ -96,54 +105,63 @@ workflows:
       - ariba_getref
       - ariba_run
       - csvtk_concat
+    path: workflows/bactopia-tools/ariba
   bakta:
     description: "Rapid annotation of bacterial genomes & plasmids"
     ext: "fna"
     modules:
       - bakta_download
       - bakta_run
+    path: workflows/bactopia-tools/bakta
   blastn:
     description: "Search against nucleotide BLAST databases using nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_blastn
       - csvtk_concat
+    path: workflows/bactopia-tools/blastn
   blastp:
     description: "Search against protein BLAST databases using protein queries"
     ext: "blastdb"
     modules:
       - blast_blastp
       - csvtk_concat
+    path: workflows/bactopia-tools/blastp
   blastx:
     description: "Search against protein BLAST databases using translated nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_blastx
       - csvtk_concat
+    path: workflows/bactopia-tools/blastx
   bracken:
     description: "Taxonomic classification and species abundance estimation of sequence reads"
     ext: "fastq"
     modules:
       - bracken
       - csvtk_concat
+    path: workflows/bactopia-tools/bracken
   btyper3:
     description: "Taxonomic classification of Bacillus cereus group isolates"
     ext: "fna"
     modules:
       - btyper3
       - csvtk_concat
+    path: workflows/bactopia-tools/btyper3
   busco:
     description: "Assembly completeness based on evolutionarily informed expectations"
     ext: "fna"
     modules:
       - busco
       - csvtk_concat
+    path: workflows/bactopia-tools/busco
   checkm:
     description: "Assess the assembly quality of your microbial samples"
     ext: "fna"
     modules:
       - checkm_lineagewf
       - csvtk_concat
+    path: workflows/bactopia-tools/checkm
   checkm2:
     description: "Rapid assessment of genome bin quality using machine learning"
     ext: "fna"
@@ -151,36 +169,42 @@ workflows:
       - checkm2_download
       - checkm2_predict
       - csvtk_concat
+    path: workflows/bactopia-tools/checkm2
   clermontyping:
     description: "in silico phylotyping of Escherichia genus"
     ext: "fna"
     modules:
       - clermontyping
       - csvtk_concat
+    path: workflows/bactopia-tools/clermontyping
   defensefinder:
     description: "Systematic search of all known anti-phage systems"
     ext: "fna"
     modules:
       - defensefinder_run
       - csvtk_concat
+    path: workflows/bactopia-tools/defensefinder
   ectyper:
     description: "In-silico prediction of Escherichia coli serotype"
     ext: "fna"
     modules:
       - ectyper
       - csvtk_concat
+    path: workflows/bactopia-tools/ectyper
   eggnog:
     description: "Functional annotation of proteins using orthologous groups and phylogenies"
     ext: "faa"
     modules:
       - eggnog_download
       - eggnog_mapper
+    path: workflows/bactopia-tools/eggnog
   emmtyper:
     description: "emm-typing of Streptococcus pyogenes assemblies"
     ext: "fna"
     modules:
       - emmtyper
       - csvtk_concat
+    path: workflows/bactopia-tools/emmtyper
   fastani:
     description: "Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)"
     ext: "fna"
@@ -188,18 +212,21 @@ workflows:
       - ncbigenomedownload
       - fastani
       - csvtk_concat
+    path: workflows/bactopia-tools/fastani
   gamma:
     description: "Identification, classification, and annotation of translated gene matches"
     ext: "fna"
     modules:
       - gamma
       - csvtk_concat
+    path: workflows/bactopia-tools/gamma
   genotyphi:
     description: "Salmonella Typhi genotyping with Mykrobe outputs"
     ext: "fastq"
     modules:
       - genotyphi_parse
       - csvtk_concat
+    path: workflows/bactopia-tools/genotyphi
   gtdb:
     description: "Identify marker genes and assign taxonomic classifications"
     ext: "fna"
@@ -207,70 +234,82 @@ workflows:
       - gtdbtk_setupdb
       - gtdbtk_classifywf
       - csvtk_concat
+    path: workflows/bactopia-tools/gtdb
   hicap:
     description: "Identify cap locus serotype and structure in your Haemophilus influenzae assemblies"
     ext: "fna"
     modules:
       - hicap
       - csvtk_concat
+    path: workflows/bactopia-tools/hicap
   hpsuissero:
     description: "Rapid Haemophilus parasuis Serotyping of assemblies"
     ext: "fna"
     modules:
       - hpsuissero
       - csvtk_concat
+    path: workflows/bactopia-tools/hpsuissero
   ismapper:
     description: "Identify insertion sites positions in bacterial genomes"
     ext: "fastq"
     modules:
       - ismapper
+    path: workflows/bactopia-tools/ismapper
   kleborate:
     description: "Screen for MLST, sub-species, and other Klebsiella related genes of interest"
     ext: "fna"
     modules:
       - kleborate
       - csvtk_concat
+    path: workflows/bactopia-tools/kleborate
   kraken2:
     description: "Taxonomic classification of sequence reads"
     ext: "fastq"
     modules:
       - kraken2
+    path: workflows/bactopia-tools/kraken2
   legsta:
     description: "Typing of Legionella pneumophila assemblies"
     ext: "fna"
     modules:
       - legsta
       - csvtk_concat
+    path: workflows/bactopia-tools/legsta
   lissero:
     description: "Serogroup typing prediction for Listeria monocytogenes"
     ext: "fna"
     modules:
       - lissero
       - csvtk_concat
+    path: workflows/bactopia-tools/lissero
   mashdist:
     description: "Calculate Mash distances between sequences"
     ext: "fna"
     modules:
       - mash_dist
       - csvtk_concat
+    path: workflows/bactopia-tools/mashdist
   mashtree:
     description: "Create a trees using Mash distances"
     ext: "fna"
     modules:
       - ncbigenomedownload
       - mashtree
+    path: workflows/bactopia-tools/mashtree
   mcroni:
     description: "Sequence variation in mobilized colistin resistance (mcr-1) genes"
     ext: "fna"
     modules:
       - mcroni
       - csvtk_concat
+    path: workflows/bactopia-tools/mcroni
   meningotype:
     description: "Serotyping of Neisseria meningitidis"
     ext: "fna"
     modules:
       - meningotype
       - csvtk_concat
+    path: workflows/bactopia-tools/meningotype
   merlin:
     description: "MinmER assisted species-specific bactopia tool seLectIoN"
     ext: "fna_fastq"
@@ -303,36 +342,42 @@ workflows:
       - tbprofiler
     modules:
       - csvtk_concat
+    path: workflows/bactopia-tools/midas
   midas:
     description: "Estimate species abundances from FASTQ files"
     ext: "fastq"
     modules:
       - midas_species
       - csvtk_concat
+    path: workflows/bactopia-tools/midas
   mlst:
     description: "Scan contig files against PubMLST typing schemes"
     ext: "fna"
     modules:
       - mlst
       - csvtk_concat
+    path: workflows/bactopia-tools/mlst
   mobsuite:
     description: "Reconstruct and annotate plasmids in bacterial assemblies"
     ext: "fna"
     modules:
       - mobsuite_recon
       - csvtk_concat
+    path: workflows/bactopia-tools/mobsuite
   mykrobe:
     description: "Antimicrobial resistance detection for specific species"
     ext: "fastq"
     modules:
       - mykrobe_predict
       - csvtk_concat
+    path: workflows/bactopia-tools/mykrobe
   ngmaster:
     description: "Multi-antigen sequence typing for Neisseria gonorrhoeae"
     ext: "fna"
     modules:
       - ngmaster
       - csvtk_concat
+    path: workflows/bactopia-tools/ngmaster
   pangenome:
     description: "Pangenome analysis with optional core-genome phylogeny"
     ext: "gff"
@@ -340,6 +385,7 @@ workflows:
       - prokka
     modules:
       - ncbigenomedownload
+      - prokka
       - pirate
       - roary
       - panaroo_run
@@ -347,53 +393,62 @@ workflows:
       - clonalframeml
       - snpdists
       - scoary
+    path: workflows/bactopia-tools/pangenome
   pasty:
     description: "Serogrouping of Pseudomonas aeruginosa isolates"
     ext: "fna"
     modules:
       - pasty
       - csvtk_concat
+    path: workflows/bactopia-tools/pasty
   pbptyper:
     description: "Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae"
     ext: "fna"
     modules:
       - pbptyper
       - csvtk_concat
+    path: workflows/bactopia-tools/pbptyper
   phispy:
     description: "Predict prophages in bacterial genomes"
     ext: "gbk"
     modules:
       - phispy
       - csvtk_concat
+    path: workflows/bactopia-tools/phispy
   plasmidfinder:
     description: "Plasmid identification from assemblies"
     ext: "fna"
     modules:
       - plasmidfinder
       - csvtk_concat
+    path: workflows/bactopia-tools/plasmidfinder
   pneumocat:
     description: "Assign capsular type to Streptococcus pneumoniae from sequence reads"
     ext: "fastq"
     modules:
       - pneumocat
+    path: workflows/bactopia-tools/pneumocat
   quast:
     description: "Assess the quality of assembled contigs"
     ext: "fna_meta"
     modules:
       - quast
       - csvtk_concat
+    path: workflows/bactopia-tools/quast
   rgi:
     description: "Predict antibiotic resistance from assemblies"
     ext: "fna"
     modules:
       - rgi_main
       - csvtk_concat
+    path: workflows/bactopia-tools/rgi
   sccmec:
     description: "A tool for SCCmec typing of Staphylococcus aureus genomes"
     ext: "fna"
     modules:
       - sccmec
       - csvtk_concat
+    path: workflows/bactopia-tools/sccmec
   scrubber:
     description: "Scrub human reads from FASTQ files"
     ext: "fastq"
@@ -401,42 +456,49 @@ workflows:
       - kraken2
     modules:
       - srahumanscrubber_scrub
+    path: workflows/bactopia-tools/scrubber
   seqsero2:
     description: "Salmonella serotype prediction from reads or assemblies"
     ext: "fna"
     modules:
       - seqsero2
       - csvtk_concat
+    path: workflows/bactopia-tools/seqsero2
   seroba:
     description: "Serotyping of Streptococcus pneumoniae from sequence reads"
     ext: "fastq"
     modules:
       - seroba_run
       - csvtk_concat
+    path: workflows/bactopia-tools/seroba
   shigapass:
     description: "Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC"
     ext: "fna"
     modules:
       - shigapass
       - csvtk_concat
+    path: workflows/bactopia-tools/shigapass
   shigatyper:
     description: "Shigella serotype from Illumina or Oxford Nanopore reads"
     ext: "fastq"
     modules:
       - shigatyper
       - csvtk_concat
+    path: workflows/bactopia-tools/shigatyper
   shigeifinder:
     description: "Shigella and EIEC serotyping from assemblies"
     ext: "fna"
     modules:
       - shigeifinder
       - csvtk_concat
+    path: workflows/bactopia-tools/shigeifinder
   sistr:
     description: "Serovar prediction of Salmonella assemblies"
     ext: "fna"
     modules:
       - sistr
       - csvtk_concat
+    path: workflows/bactopia-tools/sistr
   snippy:
     description: "Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny"
     ext: "illumina_fastq"
@@ -447,24 +509,28 @@ workflows:
       - gubbins
       - iqtree
       - snpdists
+    path: workflows/bactopia-tools/snippy
   spatyper:
     description: "Computational method for finding spa types in Staphylococcus aureus"
     ext: "fna"
     modules:
       - spatyper
       - csvtk_concat
+    path: workflows/bactopia-tools/spatyper
   ssuissero:
     description: "Rapid Streptococcus suis Serotyping of assemblies"
     ext: "fna"
     modules:
       - ssuissero
       - csvtk_concat
+    path: workflows/bactopia-tools/ssuissero
   staphopiasccmec:
     description: "Primer based SCCmec typing of Staphylococcus aureus genomes"
     ext: "fna"
     modules:
       - staphopiasccmec
       - csvtk_concat
+    path: workflows/bactopia-tools/staphopiasccmec
   staphtyper:
     description: "Includes AgrVATE, SpaTyper and sccmec for Staphylococcus aureus"
     ext: "fna"
@@ -474,35 +540,41 @@ workflows:
       - sccmec
     modules:
       - csvtk_concat
+    path: workflows/bactopia-tools/staphtyper
   stecfinder:
     description: "Serotyping Shigella toxin producing Escherichia coli genomes"
     ext: "fna_fastq"
     modules:
       - stecfinder
       - csvtk_concat
+    path: workflows/bactopia-tools/stecfinder
   sylph:
     description: "Taxonomic profiling by abundance-corrected minhash"
     ext: "fastq"
     modules:
       - sylph_profile
+    path: workflows/bactopia-tools/sylph
   tblastn:
     description: "Search against translated nucleotide BLAST databases using protein queries"
     ext: "blastdb"
     modules:
       - blast_tblastn
       - csvtk_concat
+    path: workflows/bactopia-tools/tblastn
   tblastx:
     description: "Search against translated nucleotide BLAST databases using translated nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_tblastx
       - csvtk_concat
+    path: workflows/bactopia-tools/tblastx
   tbprofiler:
     description: "Detect resistance and lineages of Mycobacterium tuberculosis genomes"
     ext: "fastq"
     modules:
       - tbprofiler_profile
       - tbprofiler_collate
+    path: workflows/bactopia-tools/tbprofiler
 
 # All available modules
 modules:

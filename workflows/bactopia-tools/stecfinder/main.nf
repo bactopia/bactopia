@@ -7,7 +7,7 @@ nextflow.preview.output = true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
-include { STECFINDER    } from '../../../subworkflows/stecfinder/main'
+include { STECFINDER        } from '../../../subworkflows/stecfinder/main'
 include { paramsHelp        } from 'plugin/nf-bactopia'
 include { workflowSummary   } from 'plugin/nf-bactopia'
 

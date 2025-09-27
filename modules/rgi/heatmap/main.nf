@@ -1,12 +1,12 @@
 process RGI_HEATMAP {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_single'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(json, stageAs: 'json/*')
+    tuple val(_meta), path(json, stageAs: 'json/*')
 
     output:
     tuple val(meta), path("*.{csv,eps,png}"), emit: heatmap, optional: true
@@ -21,8 +21,12 @@ process RGI_HEATMAP {
     tuple val(meta), path("versions.yml")   , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
     meta.output_dir = "${task.ext.rundir}/merged-results/"
     meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
@@ -31,7 +35,7 @@ process RGI_HEATMAP {
     if [[ "\${NUM_SAMPLES}" -gt 1 ]]; then
         rgi \\
             heatmap \\
-            $args \\
+            ${task.ext.args} \\
             --output $prefix \\
             --input json/
     fi

@@ -1,0 +1,10 @@
+**/*.{err,gz,html,log,pdf,stderr,stdout}
+**/nf.command.*
+bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/*.{bionj,cdhit_clusters,clstr,contree,dot,edges,embl,faa,ffn,gfa,gff,iqtree,mldist,newick,nex,nwk,output,reinflated,Rtab,tab,temp,treefile,tsv,txt,ufboot}
+**/*.distance.tsv
+**/*clustered_proteins*
+**/gene_presence_absence.csv
+**/gene_presence_absence_roary.csv
+**/pan_sequences.representative.fasta*

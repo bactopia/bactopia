@@ -1,12 +1,12 @@
 process CSVTK_JOIN {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(csv1), path(csv2)
+    tuple val(_meta), path(csv1), path(csv2)
     val in_format
     val out_format
     val key
@@ -24,11 +24,16 @@ process CSVTK_JOIN {
     tuple val(meta), path("versions.yml")              , emit: versions
 
     script:
-    prefix = task.ext.prefix ? "${task.ext.prefix}" : "${meta.id}"
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
-    subdir = meta.subdir ? "${meta.subdir}/" : ''
+    subdir = _meta.subdir ? "${_meta.subdir}/" : ''
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
     meta.output_dir = "${task.ext.rundir}/merged-results"
-    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${meta.id}-concat/${subdir}"
+    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${prefix}-concat/${subdir}"
     meta.process_name = task.ext.process_name
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")

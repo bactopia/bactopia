@@ -9,6 +9,7 @@ include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../modules/csvtk/conca
 workflow ARIBA {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    db
 
     main:
     ch_versions = Channel.empty()
@@ -16,22 +17,24 @@ workflow ARIBA {
     ch_merged_summary = Channel.empty()
 
     // Build database and run Ariba
-    ARIBA_GETREF(params.ariba_db)
+    ARIBA_GETREF(db)
     ARIBA_RUN(reads, ARIBA_GETREF.out.db)
     ch_versions = ch_versions.mix(ARIBA_RUN.out.versions)
 
-    ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${params.ariba_db}-report"], report]}.set{ ch_merge_report }
+    ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${db}-report"], report]}.set{ ch_merge_report }
     CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
     ch_merged_report = ch_merged_report.mix(CSVTK_CONCAT_REPORT.out.csv)
     ch_versions = ch_versions.mix(CSVTK_CONCAT_REPORT.out.versions)
 
-    ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${params.ariba_db}-summary"], summary]}.set{ ch_merge_summary }
+    ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${db}-summary"], summary]}.set{ ch_merge_summary }
     CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
     ch_merged_summary = ch_merged_summary.mix(CSVTK_CONCAT_SUMMARY.out.csv)
     ch_versions = ch_versions.mix(CSVTK_CONCAT_SUMMARY.out.versions)
 
     emit:
     results = ARIBA_RUN.out.results
+    report = ARIBA_RUN.out.report
+    summary = ARIBA_RUN.out.summary
     merged_report = ch_merged_report
     merged_summary = ch_merged_summary
     logs = ARIBA_RUN.out.logs.mix(

@@ -1,12 +1,12 @@
 process PROKKA {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(fasta)
+    tuple val(_meta), path(fasta)
     path proteins
     path prodigal_tf
 
@@ -34,20 +34,29 @@ process PROKKA {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_opt = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    if (task.ext.wf == "pangenome") {
+        meta.output_dir = "${task.ext.rundir}/prokka/${prefix}"
+        meta.logs_dir = "${task.ext.rundir}/prokka/${prefix}/logs"
+    } else {
+        meta.output_dir = "${prefix}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}"
+        meta.logs_dir = "${prefix}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    }
     meta.process_name = task.ext.process_name
 
     // Contig ID must <= 37 characters
     def compliant = params.compliant ? "--compliant" : ""
-    def locustag = "--locustag ${meta.id}"
-    if ("gnl|${params.centre}|${meta.id}_100000".length() > 37) {
+    def locustag = "--locustag ${prefix}"
+    if ("gnl|${params.centre}|${prefix}_100000".length() > 37) {
         locustag = ""
         compliant = "--compliant"
     }
@@ -61,7 +70,7 @@ process PROKKA {
         env
         mkdir tmp_prokka/
         TMPDIR=tmp_prokka/ bactopia-prokka \\
-            $args \\
+            ${task.ext.args} \\
             --cpus $task.cpus \\
             --prefix $prefix \\
             ${compliant} \\
@@ -72,7 +81,7 @@ process PROKKA {
         rm -rf tmp_prokka/
     else
         prokka \\
-            $args \\
+            ${task.ext.args} \\
             --cpus $task.cpus \\
             --prefix $prefix \\
             ${compliant} \\

@@ -1,18 +1,80 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test FastANI Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "fastani"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("FastANI - haemophilus_influenzae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/portiera/compressed"
+                bactopia_test = "/species/haemophilus_influenzae"
+                test_dataset = "/species/haemophilus_influenzae/GCA_000027305/main/assembler/GCA_000027305.fna.gz"
+                test_dataset2 = ""
+                is_ci = true
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("FastANI (pairwise) - haemophilus_influenzae|compressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/haemophilus_influenzae"
                 test_dataset = ""
                 test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"
+                fastani_pairwise = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("FastANI (accession) - haemophilus_influenzae|compressed_fasta") {
+        when {
+            params {
+                bactopia_test = "/species/haemophilus_influenzae"
+                test_dataset = ""
+                test_dataset2 = ""
+                is_ci = true
+                outdir = "$outputDir"
+                accession = "GCF_020736045.1"
             }
         }
 

@@ -12,36 +12,36 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "checkm2_lowmem": {
-            "type": ["boolean", "null"],
-            "description": "Enable low memory mode",
-            "default": null
-        },
-        "checkm2_general": {
-            "type": ["boolean", "null"],
-            "description": "Use general model",
-            "default": null
-        },
-        "checkm2_specific": {
-            "type": ["boolean", "null"],
-            "description": "Use specific model",
-            "default": null
-        },
-        "checkm2_allmodels": {
-            "type": ["boolean", "null"],
-            "description": "Use all models",
-            "default": null
-        },
-        "checkm2_genes": {
-            "type": ["boolean", "null"],
-            "description": "Process genes instead of genomes",
-            "default": null
-        },
-        "checkm2_opts": {
-            "type": "string",
-            "description": "Additional CheckM2 options",
-            "default": ""
-        }
+                "checkm2_lowmem": {
+                    "type": ["boolean", "null"],
+                    "description": "Enable low memory mode",
+                    "default": null
+                },
+                "checkm2_general": {
+                    "type": ["boolean", "null"],
+                    "description": "Use general model",
+                    "default": null
+                },
+                "checkm2_specific": {
+                    "type": ["boolean", "null"],
+                    "description": "Use specific model",
+                    "default": null
+                },
+                "checkm2_allmodels": {
+                    "type": ["boolean", "null"],
+                    "description": "Use all models",
+                    "default": null
+                },
+                "checkm2_genes": {
+                    "type": ["boolean", "null"],
+                    "description": "Process genes instead of genomes",
+                    "default": null
+                },
+                "checkm2_opts": {
+                    "type": "string",
+                    "description": "Additional CheckM2 options",
+                    "default": ""
+                }
             }
         }
     },

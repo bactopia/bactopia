@@ -1,44 +1,63 @@
 //
-// clonalframeml - Predict recomination events in bacterial genomes
+// clonalframeml - Predict recombination events in bacterial genomes
 //
-include { IQTREE } from '../../modules/iqtree/main'
-include { CLONALFRAMEML as CLONALFRAME } from '../../modules/clonalframeml/main'
+include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalframeml/main'
+include { IQTREE                                } from '../iqtree/main'
+include { SNPDISTS                              } from '../snpdists/main'
 
 workflow CLONALFRAMEML {
     take:
     alignment // channel: [ val(meta), [ aln ] ]
 
     main:
-    ch_versions = Channel.empty()
+    ch_results = Channel.empty()
     ch_logs = Channel.empty()
+    ch_nf_logs = Channel.empty()
+    ch_versions = Channel.empty()
     
     // Create a quick start tree
-    IQTREE(alignment)
-    ch_versions = ch_versions.mix(IQTREE.out.versions)
+    alignment.collect{_meta, aln -> aln}.map{ aln -> [[name: "iqtree-fast", process_name: "iqtree-fast"], aln]}.set{ ch_aln }
+    IQTREE(ch_aln)
+    ch_results = ch_results.mix(IQTREE.out.results)
     ch_logs = ch_logs.mix(IQTREE.out.logs)
+    ch_nf_logs = ch_nf_logs.mix(IQTREE.out.nf_logs)
+    ch_versions = ch_versions.mix(IQTREE.out.versions)
 
     // Run ClonalFrameML
-    CLONALFRAME(IQTREE.out.aln_tree)
-    ch_versions = ch_versions.mix(CLONALFRAME.out.versions)
-    ch_logs = ch_logs.mix(CLONALFRAME.out.logs)
+    IQTREE.out.aln_tree.collect{_meta, aln, treefile -> [aln, treefile]}.map{ aln, treefile -> [[name: "core-genome", process_name: "clonalframeml"], aln, treefile]}.set{ ch_aln_tree }
+    CLONALFRAMEML_MODULE(ch_aln_tree)
+    ch_results = ch_results.mix(
+        CLONALFRAMEML_MODULE.out.emsim,
+        CLONALFRAMEML_MODULE.out.em,
+        CLONALFRAMEML_MODULE.out.status,
+        CLONALFRAMEML_MODULE.out.newick,
+        CLONALFRAMEML_MODULE.out.fasta,
+        CLONALFRAMEML_MODULE.out.pos_ref,
+        CLONALFRAMEML_MODULE.out.masked_aln
+    )
+    ch_versions = ch_versions.mix(CLONALFRAMEML_MODULE.out.versions)
+    ch_logs = ch_logs.mix(CLONALFRAMEML_MODULE.out.logs)
+
+    // Per-sample SNP distances
+    CLONALFRAMEML_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.masked.distance", process_name: "snpdists-masked"], aln]}.set{ ch_masked_aln }
+    SNPDISTS(ch_masked_aln)
+    ch_results = ch_results.mix(SNPDISTS.out.tsv)
+    ch_logs = ch_logs.mix(SNPDISTS.out.logs)
+    ch_nf_logs = ch_nf_logs.mix(SNPDISTS.out.nf_logs)
+    ch_versions = ch_versions.mix(SNPDISTS.out.versions)
 
     emit:
-    masked_aln = CLONALFRAME.out.masked_aln
+    masked_aln = CLONALFRAMEML_MODULE.out.masked_aln
+    results = ch_results
     logs = ch_logs
-    nf_logs = CLONALFRAME.out.nf_begin.mix(
-        CLONALFRAME.out.nf_err,
-        CLONALFRAME.out.nf_log,
-        CLONALFRAME.out.nf_out,
-        CLONALFRAME.out.nf_run,
-        CLONALFRAME.out.nf_sh,
-        CLONALFRAME.out.nf_trace,
-        IQTREE.out.nf_begin,
-        IQTREE.out.nf_err,
-        IQTREE.out.nf_log,
-        IQTREE.out.nf_out,
-        IQTREE.out.nf_run,
-        IQTREE.out.nf_sh,
-        IQTREE.out.nf_trace
+    nf_logs = ch_nf_logs.mix(
+        CLONALFRAMEML_MODULE.out.nf_begin,
+        CLONALFRAMEML_MODULE.out.nf_err,
+        CLONALFRAMEML_MODULE.out.nf_log,
+        CLONALFRAMEML_MODULE.out.nf_out,
+        CLONALFRAMEML_MODULE.out.nf_run,
+        CLONALFRAMEML_MODULE.out.nf_sh,
+        CLONALFRAMEML_MODULE.out.nf_trace
     )
     versions = ch_versions
 }

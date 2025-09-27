@@ -4,21 +4,14 @@
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'
 
 workflow NCBIGENOMEDOWNLOAD {
-    main:
-    ch_versions = Channel.empty()
-    
-    META = [
-        id: "",
-        limit: params.limit,
-        has_accessions: params.accessions ? true : false,
-        accession: params.accession,
-        species: params.species
-    ]
-    ACCESSIONS = params.accessions ? file(params.accessions) : []
 
-    NCBIGENOMEDOWNLOAD_MODULE(META, ACCESSIONS)
-    NCBIGENOMEDOWNLOAD_MODULE.out.all.flatten().map{ [[id: file(it).getSimpleName()], file(it)]}.set{ ch_to_bactopia_tools }
-    ch_versions = ch_versions.mix(NCBIGENOMEDOWNLOAD_MODULE.out.versions)
+    take:
+    accessions
+
+    main:
+    ch_to_bactopia_tools = Channel.empty()
+    NCBIGENOMEDOWNLOAD_MODULE(accessions)
+    NCBIGENOMEDOWNLOAD_MODULE.out.all.map{ [[id: file(it).getSimpleName()], file(it)]}.set{ ch_to_bactopia_tools }
 
     emit:
     bactopia_tools = ch_to_bactopia_tools
@@ -44,5 +37,5 @@ workflow NCBIGENOMEDOWNLOAD {
         NCBIGENOMEDOWNLOAD_MODULE.out.nf_sh,
         NCBIGENOMEDOWNLOAD_MODULE.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = NCBIGENOMEDOWNLOAD_MODULE.out.versions // channel: [ versions.yml ]
 }

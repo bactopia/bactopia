@@ -8,13 +8,15 @@ workflow ROARY {
     gff // channel: [ val(meta), [ gff ] ]
 
     main:
-    ch_versions = Channel.empty()
     ROARY_MODULE(gff)
-    ch_versions = ch_versions.mix(ROARY_MODULE.out.versions)
 
     emit:
     aln = ROARY_MODULE.out.aln
     csv = ROARY_MODULE.out.csv
+    results = ROARY_MODULE.out.results.mix(
+        ROARY_MODULE.out.aln,
+        ROARY_MODULE.out.csv
+    )
     logs = ROARY_MODULE.out.logs
     nf_logs = ROARY_MODULE.out.nf_begin.mix(
         ROARY_MODULE.out.nf_err,
@@ -24,5 +26,5 @@ workflow ROARY {
         ROARY_MODULE.out.nf_sh,
         ROARY_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = ROARY_MODULE.out.versions
 }

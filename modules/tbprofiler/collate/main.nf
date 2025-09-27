@@ -1,12 +1,12 @@
 process TBPROFILER_COLLATE {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(json, stageAs: 'results-tmp/*')
+    tuple val(_meta), path(json, stageAs: 'results-tmp/*')
 
     output:
     tuple val(meta), path("tbprofiler.csv")         , emit: csv
@@ -24,9 +24,14 @@ process TBPROFILER_COLLATE {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/merged-results"
+    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${task.ext.process_name}"
     meta.process_name = task.ext.process_name
     """
     # Copy database to working directory

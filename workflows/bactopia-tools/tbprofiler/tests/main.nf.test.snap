@@ -1,23 +1,49 @@
 {
     "TBProfiler - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/tbprofiler",
+                "SRR2838702/tools/tbprofiler/bam",
+                "SRR2838702/tools/tbprofiler/bam/SRR2838702.bam",
+                "SRR2838702/tools/tbprofiler/logs",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.begin",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.err",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.log",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.out",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.run",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.sh",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.trace",
+                "SRR2838702/tools/tbprofiler/logs/versions.yml",
+                "SRR2838702/tools/tbprofiler/supplemental",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.results.csv",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.results.json.gz",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.results.txt",
+                "SRR2838702/tools/tbprofiler/vcf",
+                "SRR2838702/tools/tbprofiler/vcf/SRR2838702.targets.vcf.gz",
                 "bactopia-runs",
                 "bactopia-runs/tbprofiler",
+                "bactopia-runs/tbprofiler/merged-results",
+                "bactopia-runs/tbprofiler/merged-results/logs",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/versions.yml",
+                "bactopia-runs/tbprofiler/merged-results/tbprofiler.csv",
                 "bactopia-runs/tbprofiler/nf-reports",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-dag.dot",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-report.html",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,2052c017b23871b2176f6f6fa280f169",
+                "versions.yml:md5,61e3c13751dc656dd3d6e47a18fb38d6"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
+            "nextflow": "25.08.0"
         },
-        "timestamp": "2025-09-05T12:21:28.620126567"
+        "timestamp": "2025-09-19T14:29:30.956064706"
     }
 }

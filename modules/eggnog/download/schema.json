@@ -12,46 +12,45 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "eggnog_db": {
-            "type": ["string", "null"],
-            "default": null,
-            "description": "Path to eggNOG database directory"
-        },
-        "eggnog_save_as_tarball": {
-            "type": "boolean",
-            "default": false,
-            "description": "Save the eggNOG database as a tarball"
-        },
-        "download_eggnog": {
-            "type": "boolean",
-            "default": false,
-            "description": "Download eggNOG database"
-        },
-        "skip_diamond": {
-            "type": "boolean",
-            "default": false,
-            "description": "Skip diamond database download"
-        },
-        "install_hmm": {
-            "type": "boolean",
-            "default": false,
-            "description": "Install HMM profiles"
-        },
-        "install_mmseq": {
-            "type": "boolean",
-            "default": false,
-            "description": "Install MMseqs2 database"
-        },
-        "install_pfam": {
-            "type": "boolean",
-            "default": false,
-            "description": "Install PFAM profiles"
-        },
-        "hmmer_taxid": {
-            "type": "integer",
-            "default": 2,
-            "description": "NCBI taxonomy ID for HMMER database"
-        }
+                "eggnog_db": {
+                    "type": "string",
+                    "description": "Path to eggNOG database directory"
+                },
+                "eggnog_save_as_tarball": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save the eggNOG database as a tarball"
+                },
+                "download_eggnog": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download eggNOG database"
+                },
+                "skip_diamond": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip diamond database download"
+                },
+                "install_hmm": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Install HMM profiles"
+                },
+                "install_mmseq": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Install MMseqs2 database"
+                },
+                "install_pfam": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Install PFAM profiles"
+                },
+                "hmmer_taxid": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "NCBI taxonomy ID for HMMER database"
+                }
             }
         }
     },

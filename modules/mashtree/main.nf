@@ -1,12 +1,12 @@
 process MASHTREE {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_medium'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(seqs)
+    tuple val(_meta), path(seqs)
 
     output:
     tuple val(meta), path("*.dnd")         , emit: tree
@@ -23,18 +23,28 @@ process MASHTREE {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.id}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/logs/"
     meta.process_name = task.ext.process_name
     """
+    mkdir mashtree-tmp
+
     mashtree \\
-        $args \\
+        ${task.ext.args} \\
         --numcpus $task.cpus \\
         --outmatrix ${prefix}.tsv \\
         --outtree ${prefix}.dnd \\
+        --tempdir mashtree-tmp/ \\
         $seqs
+
+    # Clean up
+    rm -rf mashtree-tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

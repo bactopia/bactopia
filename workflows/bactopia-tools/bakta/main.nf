@@ -42,7 +42,7 @@ workflow {
     }
 
     publish:
-    results = BAKTA.out.annotations.mix(
+    results = BAKTA.out.blastdb.mix(
         BAKTA.out.embl,
         BAKTA.out.faa,
         BAKTA.out.ffn,

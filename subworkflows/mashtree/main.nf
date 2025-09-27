@@ -5,20 +5,17 @@ include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
 
 workflow MASHTREE {
     take:
-    fasta // channel: [ val(meta), [ assemblies ] ]
+    fasta // channel: [ [meta], [assemblies] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    MASHTREE_MODULE(fasta)
-    ch_versions = ch_versions.mix(MASHTREE_MODULE.out.versions)
-    ch_logs = ch_logs.mix(MASHTREE_MODULE.out.logs)
+    fasta.collect{_meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
+    MASHTREE_MODULE(ch_merge_fna)
 
     emit:
     matrix = MASHTREE_MODULE.out.matrix
     sketches = MASHTREE_MODULE.out.sketches
     tree = MASHTREE_MODULE.out.tree
-    logs = ch_logs
+    logs = MASHTREE_MODULE.out.logs
     nf_logs = MASHTREE_MODULE.out.nf_begin.mix(
         MASHTREE_MODULE.out.nf_err,
         MASHTREE_MODULE.out.nf_log,
@@ -27,5 +24,5 @@ workflow MASHTREE {
         MASHTREE_MODULE.out.nf_sh,
         MASHTREE_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = MASHTREE_MODULE.out.versions
 }

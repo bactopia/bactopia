@@ -13,8 +13,7 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "sylph_db": {
-                    "type": ["string", "null"],
-                    "default": null,
+                    "type": "string",
                     "description": "Path to Sylph database file"
                 },
                 "sylph_k": {

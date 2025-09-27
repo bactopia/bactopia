@@ -1,5 +1,5 @@
 process PIRATE {
-    tag "$meta.id"
+    tag "${prefix}"
     label 'process_high'
     label 'process_long'
 
@@ -7,13 +7,13 @@ process PIRATE {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(meta), path(gff, stageAs: 'gff-tmp/*')
+    tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("supplemental/*")                        , emit: results
-    tuple val(meta), path("core-genome.aln.gz")                    , emit: aln, optional: true
-    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: csv, optional: true
-    tuple val(meta), path("supplemental/gene_presence_absence.csv"), emit: panaroo_csv, optional: true
+    tuple val(meta), path("pirate/*")                        , emit: results
+    tuple val(meta), path("core-genome.aln.gz")              , emit: aln, optional: true
+    tuple val(meta), path("pirate/gene_presence_absence.csv"), emit: csv, optional: true
+    tuple val(meta), path("pirate/gene_presence_absence.csv"), emit: panaroo_csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -25,9 +25,14 @@ process PIRATE {
     tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
-    def args = task.ext.args ?: ''
-    meta.output_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs"
     meta.process_name = task.ext.process_name
     """
     mkdir gff
@@ -41,7 +46,7 @@ process PIRATE {
     find gff/ -name "*.gff3" -print0 | while read -d \$'\0' file; do mv "\$file" "\${file%.gff3}.gff"; done
 
     PIRATE \\
-        $args \\
+        ${task.ext.args} \\
         --align \\
         --threads $task.cpus \\
         --input ./gff/ \\
@@ -58,6 +63,8 @@ process PIRATE {
     rm -rf gff/
     gzip supplemental/co-ords/*.tab
     gzip supplemental/modified_gffs/*.gff
+
+    mv supplemental/ pirate/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
