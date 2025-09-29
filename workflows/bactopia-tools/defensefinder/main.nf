@@ -34,16 +34,7 @@ workflow {
     }
 
     publish:
-    results = DEFENSEFINDER.out.genes_tsv.mix(
-        DEFENSEFINDER.out.merged_genes_tsv,
-        DEFENSEFINDER.out.hmmer_tsv,
-        DEFENSEFINDER.out.merged_hmmer_tsv,
-        DEFENSEFINDER.out.systems_tsv,
-        DEFENSEFINDER.out.merged_systems_tsv,
-        DEFENSEFINDER.out.proteins,
-        DEFENSEFINDER.out.proteins_index,
-        DEFENSEFINDER.out.macsydata_raw
-    )
+    results = DEFENSEFINDER.out.results
     logs = DEFENSEFINDER.out.logs
     nf_logs = DEFENSEFINDER.out.nf_logs
     versions = DEFENSEFINDER.out.versions

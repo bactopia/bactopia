@@ -9,20 +9,23 @@ workflow SHIGATYPER {
     reads // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SHIGATYPER_MODULE(reads)
-    ch_versions = ch_versions.mix(SHIGATYPER_MODULE.out.versions)
 
     // Merge results
     SHIGATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigatyper'], tsv]}.set{ ch_merge_shigatyper }
     CSVTK_CONCAT(ch_merge_shigatyper, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SHIGATYPER_MODULE.out.tsv
     hits = SHIGATYPER_MODULE.out.hits
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = SHIGATYPER_MODULE.out.tsv.mix(
+        SHIGATYPER_MODULE.out.hits,
+        CSVTK_CONCAT.out.csv
+    )
     logs = SHIGATYPER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -41,5 +44,7 @@ workflow SHIGATYPER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SHIGATYPER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

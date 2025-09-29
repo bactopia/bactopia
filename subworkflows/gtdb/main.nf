@@ -13,9 +13,6 @@ workflow GTDB {
     save_as_tarball
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
     if (download_gtdb) {
         // Force CLASSIFY to wait
         DOWNLOAD()
@@ -28,20 +25,24 @@ workflow GTDB {
     } else {
         CLASSIFY(fasta, database)
     }
-    ch_versions = ch_versions.mix(CLASSIFY.out.versions)
-    ch_logs = ch_logs.mix(CLASSIFY.out.logs)
     
     // Merge results
     CLASSIFY.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'gtdb'], tsv]}.set{ ch_merge_gtdb }
     CSVTK_CONCAT(ch_merge_gtdb, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = CLASSIFY.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    results = CLASSIFY.out.results
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = CLASSIFY.out.tsv.mix(
+        CLASSIFY.out.supplemental,
+        CSVTK_CONCAT.out.csv
+    )
+    logs = CLASSIFY.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CLASSIFY.out.nf_begin.mix(
         CLASSIFY.out.nf_err,
         CLASSIFY.out.nf_log,
@@ -57,5 +58,7 @@ workflow GTDB {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = CLASSIFY.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

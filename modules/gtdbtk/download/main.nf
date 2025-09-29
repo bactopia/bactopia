@@ -1,7 +1,6 @@
 process GTDBTK_DOWNLOAD {
     label 'process_low'
     label 'process_long'
-    publishDir "${params.gtdb}", mode: params.publish_dir_mode, overwrite: true
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"

@@ -9,21 +9,23 @@ workflow AGRVATE {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_merged_agrvate = Channel.empty()
-
     AGRVATE_MODULE(fasta)
-    ch_versions = ch_versions.mix(AGRVATE_MODULE.out.versions)
 
+    // Merge results
     AGRVATE_MODULE.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
     CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
-    ch_merged_agrvate = ch_merged_agrvate.mix(CSVTK_CONCAT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual output
     tsv = AGRVATE_MODULE.out.summary
     supplemental = AGRVATE_MODULE.out.supplemental
-    merged_tsv = ch_merged_agrvate
+    merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate output
+    results = AGRVATE_MODULE.out.summary.mix(
+        AGRVATE_MODULE.out.supplemental,
+        CSVTK_CONCAT.out.csv
+    )
     logs = AGRVATE_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -42,5 +44,7 @@ workflow AGRVATE {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = AGRVATE_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

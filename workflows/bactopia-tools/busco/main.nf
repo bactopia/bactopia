@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = BUSCO.out.results.mix(
-        BUSCO.out.tsv,
-        BUSCO.out.merged_tsv
-    )
+    results = BUSCO.out.results
     logs = BUSCO.out.logs
     nf_logs = BUSCO.out.nf_logs
     versions = BUSCO.out.versions

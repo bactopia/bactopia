@@ -9,22 +9,27 @@ workflow SISTR {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SISTR_MODULE(fasta)
-    ch_versions = ch_versions.mix(SISTR_MODULE.out.versions)
 
     // Merge results
     SISTR_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sistr'], tsv]}.set{ ch_merge_sistr }
     CSVTK_CONCAT(ch_merge_sistr, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SISTR_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
     allele_fasta = SISTR_MODULE.out.allele_fasta
     allele_json = SISTR_MODULE.out.allele_json
     cgmlst_csv = SISTR_MODULE.out.cgmlst_csv
+
+    // Generic aggregate outputs
+    results = SISTR_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv,
+        SISTR_MODULE.out.allele_fasta,
+        SISTR_MODULE.out.allele_json,
+        SISTR_MODULE.out.cgmlst_csv
+    )
     logs = SISTR_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -43,5 +48,7 @@ workflow SISTR {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SISTR_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

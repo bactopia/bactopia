@@ -9,24 +9,24 @@ workflow HPSUISSERO {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
-    // Run HpsuisSero
     HPSUISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(HPSUISSERO_MODULE.out.versions)
-    ch_logs = ch_logs.mix(HPSUISSERO_MODULE.out.logs)
 
     // Merge results
     HPSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hpsuissero'], tsv]}.set{ ch_merge_hpsuissero }
     CSVTK_CONCAT(ch_merge_hpsuissero, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = HPSUISSERO_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = HPSUISSERO_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = HPSUISSERO_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
         CSVTK_CONCAT.out.nf_err,
         CSVTK_CONCAT.out.nf_log,
@@ -42,5 +42,7 @@ workflow HPSUISSERO {
         HPSUISSERO_MODULE.out.nf_sh,
         HPSUISSERO_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = HPSUISSERO_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

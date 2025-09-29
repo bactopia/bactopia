@@ -6,28 +6,28 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
 workflow BLASTX {
     take:
-    reads // channel: [ val(meta), [ fasta ] ]
+    fasta // channel: [ val(meta), [ fasta ] ]
     query // channel: [ fasta ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
-    // Run BLASTX
-    BLASTX_MODULE(reads, query)
-    ch_versions = ch_versions.mix(BLASTX_MODULE.out.versions)
-    ch_logs = ch_logs.mix(BLASTX_MODULE.out.logs)
+    BLASTX_MODULE(fasta, query)
 
     // Merge results
     BLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastx'], tsv]}.set{ ch_merge_blastx }
     CSVTK_CONCAT(ch_merge_blastx, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = BLASTX_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = BLASTX_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = BLASTX_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = BLASTX_MODULE.out.nf_begin.mix(
         BLASTX_MODULE.out.nf_err,
         BLASTX_MODULE.out.nf_log,
@@ -43,5 +43,7 @@ workflow BLASTX {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = BLASTX_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

@@ -34,12 +34,7 @@ workflow {
     }
 
     publish:
-    results = SISTR.out.tsv.mix(
-        SISTR.out.merged_tsv,
-        SISTR.out.allele_fasta,
-        SISTR.out.allele_json,
-        SISTR.out.cgmlst_csv
-    )
+    results = SISTR.out.results
     logs = SISTR.out.logs
     nf_logs = SISTR.out.nf_logs
     versions = SISTR.out.versions

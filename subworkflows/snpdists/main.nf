@@ -8,11 +8,14 @@ workflow SNPDISTS {
     alignment // channel: [ val(meta), [ alignment ] ]
 
     main:
-    // Determine SNP differences in the alignment
     SNPDISTS_MODULE(alignment)
 
     emit:
+    // Individual outputs
     tsv = SNPDISTS_MODULE.out.tsv
+
+    // Generic aggregate outputs
+    results = SNPDISTS_MODULE.out.tsv
     logs = SNPDISTS_MODULE.out.logs
     nf_logs = SNPDISTS_MODULE.out.nf_begin.mix(
         SNPDISTS_MODULE.out.nf_err,

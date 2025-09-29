@@ -9,20 +9,23 @@ workflow MCRONI {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     MCRONI_MODULE(fasta)
-    ch_versions = ch_versions.mix(MCRONI_MODULE.out.versions)
 
     // Merge results
     MCRONI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mcroni'], tsv]}.set{ ch_merge_mcroni }
     CSVTK_CONCAT(ch_merge_mcroni, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = MCRONI_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
     fa = MCRONI_MODULE.out.fa
+
+    // Generic aggregate outputs
+    results = MCRONI_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv,
+        MCRONI_MODULE.out.fa
+    )
     logs = MCRONI_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -41,5 +44,7 @@ workflow MCRONI {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = MCRONI_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

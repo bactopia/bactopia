@@ -34,11 +34,7 @@ workflow {
     }
 
     publish:
-    results = PLASMIDFINDER.out.tsv.mix(
-        PLASMIDFINDER.out.merged_tsv,
-        PLASMIDFINDER.out.genome_seq,
-        PLASMIDFINDER.out.plasmid_seq
-    )
+    results = PLASMIDFINDER.out.results
     logs = PLASMIDFINDER.out.logs
     nf_logs = PLASMIDFINDER.out.nf_logs
     versions = PLASMIDFINDER.out.versions

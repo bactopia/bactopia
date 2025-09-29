@@ -9,26 +9,29 @@ workflow MOBSUITE {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    
     MOBSUITE_RECON(fasta)
-    ch_versions = ch_versions.mix(MOBSUITE_RECON.out.versions)
-    ch_logs = ch_logs.mix(MOBSUITE_RECON.out.logs)
     
     // Merge results
-    MOBSUITE_RECON.out.mobtyper_results.collect{_meta, summary -> summary}.map{ summary -> [[id:'mobsuite'], summary]}.set{ ch_merge_mobsuite }
+    MOBSUITE_RECON.out.txt.collect{_meta, summary -> summary}.map{ summary -> [[id:'mobsuite'], summary]}.set{ ch_merge_mobsuite }
     CSVTK_CONCAT(ch_merge_mobsuite, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    txt = MOBSUITE_RECON.out.txt
     merged_reports = CSVTK_CONCAT.out.csv
     chromosome = MOBSUITE_RECON.out.chromosome
     contig_report = MOBSUITE_RECON.out.contig_report
-    mobtyper_results = MOBSUITE_RECON.out.mobtyper_results
     plasmids = MOBSUITE_RECON.out.plasmids
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = MOBSUITE_RECON.out.txt.mix(
+        CSVTK_CONCAT.out.csv,
+        MOBSUITE_RECON.out.chromosome,
+        MOBSUITE_RECON.out.contig_report,
+        MOBSUITE_RECON.out.plasmids
+    )
+    logs = MOBSUITE_RECON.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = MOBSUITE_RECON.out.nf_begin.mix(
         MOBSUITE_RECON.out.nf_err,
         MOBSUITE_RECON.out.nf_log,
@@ -44,5 +47,7 @@ workflow MOBSUITE {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = MOBSUITE_RECON.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

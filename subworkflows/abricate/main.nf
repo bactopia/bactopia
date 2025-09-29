@@ -9,19 +9,21 @@ workflow ABRICATE {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_merged_abricate = Channel.empty()
-
     ABRICATE_RUN(fasta)
-    ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions)
 
+    // Merge results
     ABRICATE_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:'abricate'], report]}.set{ ch_merge_abricate }
     ABRICATE_SUMMARY(ch_merge_abricate)
-    ch_merged_abricate = ch_merged_abricate.mix(ABRICATE_SUMMARY.out.report)
-    ch_versions = ch_versions.mix(ABRICATE_SUMMARY.out.versions)
 
     emit:
+    // Individual outputs
     tsv = ABRICATE_RUN.out.report
+    merged_tsv = ABRICATE_SUMMARY.out.report
+
+    // Generic aggregate outputs
+    results = ABRICATE_RUN.out.report.mix(
+        ABRICATE_SUMMARY.out.report
+    )
     logs = ABRICATE_RUN.out.logs.mix(
         ABRICATE_SUMMARY.out.logs
     )
@@ -40,6 +42,7 @@ workflow ABRICATE {
         ABRICATE_SUMMARY.out.nf_sh,
         ABRICATE_SUMMARY.out.nf_trace
     )
-    merged_tsv = ch_merged_abricate
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ABRICATE_RUN.out.versions.mix(
+        ABRICATE_SUMMARY.out.versions
+    )
 }

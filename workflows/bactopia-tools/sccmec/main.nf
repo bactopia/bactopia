@@ -34,13 +34,7 @@ workflow {
     }
 
     publish:
-    results = SCCMEC.out.tsv.mix(
-        SCCMEC.out.merged_tsv,
-        SCCMEC.out.targets,
-        SCCMEC.out.target_details,
-        SCCMEC.out.regions,
-        SCCMEC.out.regions_details
-    )
+    results = SCCMEC.out.results
     logs = SCCMEC.out.logs
     nf_logs = SCCMEC.out.nf_logs
     versions = SCCMEC.out.versions

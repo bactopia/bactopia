@@ -9,22 +9,24 @@ workflow MENINGOTYPE {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
     MENINGOTYPE_MODULE(fasta)
-    ch_versions = ch_versions.mix(MENINGOTYPE_MODULE.out.versions)
-    ch_logs = ch_logs.mix(MENINGOTYPE_MODULE.out.logs)
 
     // Merge results
     MENINGOTYPE_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meningotype'], tsv]}.set{ ch_merge_meningotype }
     CSVTK_CONCAT(ch_merge_meningotype, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = MENINGOTYPE_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = MENINGOTYPE_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = MENINGOTYPE_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
         CSVTK_CONCAT.out.nf_err,
         CSVTK_CONCAT.out.nf_log,
@@ -40,5 +42,7 @@ workflow MENINGOTYPE {
         MENINGOTYPE_MODULE.out.nf_sh,
         MENINGOTYPE_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = MENINGOTYPE_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

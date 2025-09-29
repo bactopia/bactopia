@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = CLERMONTYPING.out.tsv.mix(
-        CLERMONTYPING.out.merged_tsv
-    )
+    results = CLERMONTYPING.out.results
     logs = CLERMONTYPING.out.logs
     nf_logs = CLERMONTYPING.out.nf_logs
     versions = CLERMONTYPING.out.versions

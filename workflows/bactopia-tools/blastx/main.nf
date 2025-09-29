@@ -37,7 +37,7 @@ workflow {
     }
 
     publish:
-    results = BLASTX.out.tsv.mix(BLASTX.out.merged_tsv)
+    results = BLASTX.out.results
     logs = BLASTX.out.logs
     nf_logs = BLASTX.out.nf_logs
     versions = BLASTX.out.versions

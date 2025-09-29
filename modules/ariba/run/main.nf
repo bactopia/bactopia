@@ -12,7 +12,7 @@ process ARIBA_RUN {
     output:
     tuple val(meta), path("${prefix}-report.tsv") , emit: report
     tuple val(meta), path("${prefix}-summary.csv"), emit: summary
-    tuple val(meta), path("supplemental/*")       , emit: results
+    tuple val(meta), path("supplemental/*")       , emit: supplemental
     tuple val(meta), path("*.{log,err}")          , emit: logs, optional: true
     tuple val(meta), path(".command.begin")       , emit: nf_begin
     tuple val(meta), path(".command.err")         , emit: nf_err

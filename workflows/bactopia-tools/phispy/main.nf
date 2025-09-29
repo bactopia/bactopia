@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = PHISPY.out.tsv.mix(
-        PHISPY.out.merged_tsv
-    )
+    results = PHISPY.out.results
     logs = PHISPY.out.logs
     nf_logs = PHISPY.out.nf_logs
     versions = PHISPY.out.versions

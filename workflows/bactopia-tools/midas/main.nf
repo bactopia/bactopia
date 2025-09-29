@@ -37,10 +37,7 @@ workflow {
     }
 
     publish:
-    results = MIDAS.out.tsv.mix(
-        MIDAS.out.abundances,
-        MIDAS.out.merged_tsv
-    )
+    results = MIDAS.out.results
     logs = MIDAS.out.logs
     nf_logs = MIDAS.out.nf_logs
     versions = MIDAS.out.versions

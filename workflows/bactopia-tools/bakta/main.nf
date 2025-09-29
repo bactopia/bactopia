@@ -42,18 +42,7 @@ workflow {
     }
 
     publish:
-    results = BAKTA.out.blastdb.mix(
-        BAKTA.out.embl,
-        BAKTA.out.faa,
-        BAKTA.out.ffn,
-        BAKTA.out.fna,
-        BAKTA.out.gbff,
-        BAKTA.out.gff,
-        BAKTA.out.hypotheticals_faa,
-        BAKTA.out.hypotheticals_tsv,
-        BAKTA.out.tsv,
-        BAKTA.out.txt
-    )
+    results = BAKTA.out.results
     logs = BAKTA.out.logs
     nf_logs = BAKTA.out.nf_logs
     versions = BAKTA.out.versions

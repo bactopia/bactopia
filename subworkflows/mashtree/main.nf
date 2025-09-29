@@ -12,9 +12,16 @@ workflow MASHTREE {
     MASHTREE_MODULE(ch_merge_fna)
 
     emit:
+    // Individual outputs
     matrix = MASHTREE_MODULE.out.matrix
     sketches = MASHTREE_MODULE.out.sketches
     tree = MASHTREE_MODULE.out.tree
+
+    // Generic aggregate outputs
+    results = MASHTREE_MODULE.out.matrix.mix(
+        MASHTREE_MODULE.out.sketches,
+        MASHTREE_MODULE.out.tree
+    )
     logs = MASHTREE_MODULE.out.logs
     nf_logs = MASHTREE_MODULE.out.nf_begin.mix(
         MASHTREE_MODULE.out.nf_err,

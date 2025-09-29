@@ -34,25 +34,7 @@ workflow {
     }
 
     publish:
-    results = BACTOPIATOOL_INIT.out.aligned_fa.mix(
-        BACTOPIATOOL_INIT.out.annotated_vcf,
-        BACTOPIATOOL_INIT.out.bam,
-        BACTOPIATOOL_INIT.out.bai,
-        BACTOPIATOOL_INIT.out.bed,
-        BACTOPIATOOL_INIT.out.consensus_fa,
-        BACTOPIATOOL_INIT.out.consensus_subs_fa,
-        BACTOPIATOOL_INIT.out.consensus_subs_masked_fa,
-        BACTOPIATOOL_INIT.out.coverage,
-        BACTOPIATOOL_INIT.out.csv,
-        BACTOPIATOOL_INIT.out.filt_vcf,
-        BACTOPIATOOL_INIT.out.gff,
-        BACTOPIATOOL_INIT.out.html,
-        BACTOPIATOOL_INIT.out.raw_vcf,
-        BACTOPIATOOL_INIT.out.subs_vcf,
-        BACTOPIATOOL_INIT.out.tab,
-        BACTOPIATOOL_INIT.out.txt,
-        BACTOPIATOOL_INIT.out.vcf
-    )
+    results = SNIPPY.out.results
     logs = SNIPPY.out.logs
     nf_logs = SNIPPY.out.nf_logs
     versions = SNIPPY.out.versions

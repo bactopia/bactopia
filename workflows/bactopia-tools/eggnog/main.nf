@@ -38,7 +38,7 @@ workflow {
     }
 
     publish:
-    results = EGGNOG.out.hits
+    results = EGGNOG.out.results
     logs = EGGNOG.out.logs
     nf_logs = EGGNOG.out.nf_logs
     versions = EGGNOG.out.versions

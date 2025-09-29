@@ -34,11 +34,7 @@ workflow {
     }
 
     publish:
-    results = GENOTYPHI.out.tsv.mix(
-        GENOTYPHI.out.merged_tsv,
-        GENOTYPHI.out.csv,
-        GENOTYPHI.out.json
-    )
+    results = GENOTYPHI.out.results
     logs = GENOTYPHI.out.logs
     nf_logs = GENOTYPHI.out.nf_logs
     versions = GENOTYPHI.out.versions

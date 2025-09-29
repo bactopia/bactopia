@@ -43,10 +43,7 @@ workflow {
     }
 
     publish:
-    results = MASHTREE.out.tree.mix(
-        MASHTREE.out.matrix,
-        MASHTREE.out.sketches
-    )
+    results = MASHTREE.out.results
     nf_logs = MASHTREE.out.nf_logs
     versions = MASHTREE.out.versions
 }

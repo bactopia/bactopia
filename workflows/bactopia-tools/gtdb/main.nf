@@ -39,10 +39,7 @@ workflow {
     }
 
     publish:
-    results = GTDB.out.results.mix(
-        GTDB.out.tsv,
-        GTDB.out.merged_tsv
-    )
+    results = GTDB.out.results
     logs = GTDB.out.logs
     nf_logs = GTDB.out.nf_logs
     versions = GTDB.out.versions

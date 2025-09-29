@@ -12,31 +12,31 @@ workflow ARIBA {
     db
 
     main:
-    ch_versions = Channel.empty()
-    ch_merged_report = Channel.empty()
-    ch_merged_summary = Channel.empty()
-
     // Build database and run Ariba
     ARIBA_GETREF(db)
     ARIBA_RUN(reads, ARIBA_GETREF.out.db)
-    ch_versions = ch_versions.mix(ARIBA_RUN.out.versions)
 
+    // Merge results
     ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${db}-report"], report]}.set{ ch_merge_report }
     CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
-    ch_merged_report = ch_merged_report.mix(CSVTK_CONCAT_REPORT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT_REPORT.out.versions)
 
     ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${db}-summary"], summary]}.set{ ch_merge_summary }
     CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
-    ch_merged_summary = ch_merged_summary.mix(CSVTK_CONCAT_SUMMARY.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT_SUMMARY.out.versions)
 
     emit:
-    results = ARIBA_RUN.out.results
+    // Individual outputs
     report = ARIBA_RUN.out.report
     summary = ARIBA_RUN.out.summary
-    merged_report = ch_merged_report
-    merged_summary = ch_merged_summary
+    merged_report = CSVTK_CONCAT_REPORT.out.csv
+    merged_summary = CSVTK_CONCAT_SUMMARY.out.csv
+
+    // Generic aggregate outputs
+    results = ARIBA_RUN.out.report.mix(
+        ARIBA_RUN.out.summary,
+        ARIBA_RUN.out.supplemental,
+        CSVTK_CONCAT_REPORT.out.csv,
+        CSVTK_CONCAT_SUMMARY.out.csv
+    )
     logs = ARIBA_RUN.out.logs.mix(
         CSVTK_CONCAT_REPORT.out.logs,
         CSVTK_CONCAT_SUMMARY.out.logs
@@ -63,5 +63,8 @@ workflow ARIBA {
         CSVTK_CONCAT_SUMMARY.out.nf_sh,
         CSVTK_CONCAT_SUMMARY.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ARIBA_RUN.out.versions.mix(
+        CSVTK_CONCAT_REPORT.out.versions,
+        CSVTK_CONCAT_SUMMARY.out.versions
+    )
 }

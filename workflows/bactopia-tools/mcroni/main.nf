@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = MCRONI.out.tsv.mix(
-        MCRONI.out.merged_tsv,
-        MCRONI.out.fa
-    )
+    results = MCRONI.out.results
     logs = MCRONI.out.logs
     nf_logs = MCRONI.out.nf_logs
     versions = MCRONI.out.versions

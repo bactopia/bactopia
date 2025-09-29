@@ -9,24 +9,24 @@ workflow CLERMONTYPING {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
-    // Run clermontyping
     CLERMONTYPING_MODULE(fasta)
-    ch_versions = ch_versions.mix(CLERMONTYPING_MODULE.out.versions)
-    ch_logs = ch_logs.mix(CLERMONTYPING_MODULE.out.logs)
 
     // Merge results
     CLERMONTYPING_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'clermontyping'], tsv]}.set{ ch_merge_clermontyping }
     CSVTK_CONCAT(ch_merge_clermontyping, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = CLERMONTYPING_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = CLERMONTYPING_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = CLERMONTYPING_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CLERMONTYPING_MODULE.out.nf_begin.mix(
         CLERMONTYPING_MODULE.out.nf_err,
         CLERMONTYPING_MODULE.out.nf_log,
@@ -42,5 +42,7 @@ workflow CLERMONTYPING {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = CLERMONTYPING_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

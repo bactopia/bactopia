@@ -37,18 +37,7 @@ workflow {
     }
 
     publish:
-    results = BRACKEN.out.tsv.mix(
-        BRACKEN.out.merged_tsv,
-        BRACKEN.out.classified,
-        BRACKEN.out.unclassified,
-        BRACKEN.out.kraken2_report,
-        BRACKEN.out.kraken2_output,
-        BRACKEN.out.bracken_report,
-        BRACKEN.out.abundances,
-        BRACKEN.out.classification,
-        BRACKEN.out.adjusted_abundances,
-        BRACKEN.out.merged_adjusted_abundances
-    )
+    results = BRACKEN.out.results
     logs = BRACKEN.out.logs
     nf_logs = BRACKEN.out.nf_logs
     versions = BRACKEN.out.versions

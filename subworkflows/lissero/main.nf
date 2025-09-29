@@ -9,22 +9,24 @@ workflow LISSERO {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
     LISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(LISSERO_MODULE.out.versions)
-    ch_logs = ch_logs.mix(LISSERO_MODULE.out.logs)
 
     // Merge results
     LISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'lissero'], tsv]}.set{ ch_merge_lissero }
     CSVTK_CONCAT(ch_merge_lissero, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = LISSERO_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = LISSERO_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = LISSERO_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
         CSVTK_CONCAT.out.nf_err,
         CSVTK_CONCAT.out.nf_log,
@@ -40,5 +42,7 @@ workflow LISSERO {
         LISSERO_MODULE.out.nf_sh,
         LISSERO_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = LISSERO_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

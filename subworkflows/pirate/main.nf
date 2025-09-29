@@ -11,9 +11,12 @@ workflow PIRATE {
     PIRATE_MODULE(gff)
 
     emit:
+    // Individual outputs
     aln = PIRATE_MODULE.out.aln
     csv = PIRATE_MODULE.out.csv
-    results = PIRATE_MODULE.out.results.mix(
+
+    // Generic aggregate outputs
+    results = PIRATE_MODULE.out.supplemental.mix(
         PIRATE_MODULE.out.aln,
         PIRATE_MODULE.out.csv
     )

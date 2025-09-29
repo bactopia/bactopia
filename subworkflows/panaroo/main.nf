@@ -11,10 +11,13 @@ workflow PANAROO {
     PANAROO_RUN(gff)
 
     emit:
+    // Individual outputs
     csv = PANAROO_RUN.out.csv
     aln = PANAROO_RUN.out.aln
     panaroo_csv = PANAROO_RUN.out.panaroo_csv
-    results = PANAROO_RUN.out.results.mix(
+
+    // Generic aggregate outputs
+    results = PANAROO_RUN.out.supplemental.mix(
         PANAROO_RUN.out.csv,
         PANAROO_RUN.out.aln,
         PANAROO_RUN.out.panaroo_csv

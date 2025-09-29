@@ -12,7 +12,11 @@ workflow SCOARY {
     SCOARY_MODULE(csv, traits)
 
     emit:
+    // Individual outputs
     csv = SCOARY_MODULE.out.csv
+
+    // Generic aggregate outputs
+    results = SCOARY_MODULE.out.csv
     logs = SCOARY_MODULE.out.logs
     nf_logs = SCOARY_MODULE.out.nf_begin.mix(
         SCOARY_MODULE.out.nf_err,

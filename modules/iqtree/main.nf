@@ -10,7 +10,7 @@ process IQTREE {
     tuple val(_meta), path(alignment)
 
     output:
-    tuple val(meta), path("${process_name}/*")      , emit: results
+    tuple val(meta), path("${process_name}/*")      , emit: supplemental
     tuple val(meta), path(treefile)                 , emit: phylogeny
     tuple val(meta), path(alignment), path(treefile), emit: aln_tree
     tuple val(meta), path("*.{log,err}")            , emit: logs, optional: true

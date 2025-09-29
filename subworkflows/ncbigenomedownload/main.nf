@@ -9,11 +9,11 @@ workflow NCBIGENOMEDOWNLOAD {
     accessions
 
     main:
-    ch_to_bactopia_tools = Channel.empty()
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
     NCBIGENOMEDOWNLOAD_MODULE.out.all.map{ [[id: file(it).getSimpleName()], file(it)]}.set{ ch_to_bactopia_tools }
 
     emit:
+    // Individual outputs
     bactopia_tools = ch_to_bactopia_tools
     gbk = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
     fna = NCBIGENOMEDOWNLOAD_MODULE.out.fna
@@ -28,6 +28,22 @@ workflow NCBIGENOMEDOWNLOAD {
     rna_fna = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
     report = NCBIGENOMEDOWNLOAD_MODULE.out.report
     stats = NCBIGENOMEDOWNLOAD_MODULE.out.stats
+
+    // Generic aggregate outputs
+    results = NCBIGENOMEDOWNLOAD_MODULE.out.gbk.mix(
+        NCBIGENOMEDOWNLOAD_MODULE.out.fna,
+        NCBIGENOMEDOWNLOAD_MODULE.out.rm,
+        NCBIGENOMEDOWNLOAD_MODULE.out.features,
+        NCBIGENOMEDOWNLOAD_MODULE.out.gff,
+        NCBIGENOMEDOWNLOAD_MODULE.out.faa,
+        NCBIGENOMEDOWNLOAD_MODULE.out.gpff,
+        NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk,
+        NCBIGENOMEDOWNLOAD_MODULE.out.cds,
+        NCBIGENOMEDOWNLOAD_MODULE.out.rna,
+        NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna,
+        NCBIGENOMEDOWNLOAD_MODULE.out.report,
+        NCBIGENOMEDOWNLOAD_MODULE.out.stats
+    )
     logs = NCBIGENOMEDOWNLOAD_MODULE.out.logs
     nf_logs = NCBIGENOMEDOWNLOAD_MODULE.out.nf_begin.mix(
         NCBIGENOMEDOWNLOAD_MODULE.out.nf_err,
@@ -37,5 +53,5 @@ workflow NCBIGENOMEDOWNLOAD {
         NCBIGENOMEDOWNLOAD_MODULE.out.nf_sh,
         NCBIGENOMEDOWNLOAD_MODULE.out.nf_trace
     )
-    versions = NCBIGENOMEDOWNLOAD_MODULE.out.versions // channel: [ versions.yml ]
+    versions = NCBIGENOMEDOWNLOAD_MODULE.out.versions
 }

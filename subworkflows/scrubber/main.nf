@@ -44,9 +44,16 @@ workflow SCRUBBER {
     }
 
     emit:
+    // Individual outputs
     tsv = ch_scrub_report
     scrubbed = ch_scrubbed
     scrubbed_extra = ch_scrubbed_extra
+
+    // Generic aggregate outputs
+    results = ch_scrub_report.mix(
+        ch_scrubbed,
+        ch_scrubbed_extra
+    )
     logs = ch_logs
     nf_logs = ch_nf_logs
     versions = ch_versions

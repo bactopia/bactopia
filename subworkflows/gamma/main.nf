@@ -9,24 +9,27 @@ workflow GAMMA {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_merged_gamma = Channel.empty()
-
     GAMMA_MODULE(fasta, file(params.gamma_db))
-    ch_versions = ch_versions.mix(GAMMA_MODULE.out.versions)
 
     // Merge results
     GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}.set{ ch_merge_gamma }
     CSVTK_CONCAT(ch_merge_gamma, 'tsv', 'tsv')
-    ch_merged_gamma = ch_merged_gamma.mix(CSVTK_CONCAT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     gamma = GAMMA_MODULE.out.gamma
-    merged_gamma = ch_merged_gamma
+    merged_gamma = CSVTK_CONCAT.out.csv
     psl = GAMMA_MODULE.out.psl
     fasta = GAMMA_MODULE.out.fasta
     gff = GAMMA_MODULE.out.gff
+
+    // Generic aggregate outputs
+    results = GAMMA_MODULE.out.gamma.mix(
+        CSVTK_CONCAT.out.csv,
+        GAMMA_MODULE.out.psl,
+        GAMMA_MODULE.out.fasta,
+        GAMMA_MODULE.out.gff
+    )
     logs = GAMMA_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -45,5 +48,7 @@ workflow GAMMA {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = GAMMA_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

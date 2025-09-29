@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = LEGSTA.out.tsv.mix(
-        LEGSTA.out.merged_tsv
-    )
+    results = LEGSTA.out.results
     logs = LEGSTA.out.logs
     nf_logs = LEGSTA.out.nf_logs
     versions = LEGSTA.out.versions

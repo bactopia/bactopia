@@ -11,9 +11,15 @@ workflow IQTREE {
     IQTREE_MODULE(aln)
 
     emit:
+    // Individual outputs
     phylogeny = IQTREE_MODULE.out.phylogeny
     aln_tree = IQTREE_MODULE.out.aln_tree
-    results = IQTREE_MODULE.out.results.mix(IQTREE_MODULE.out.phylogeny)
+
+    // Generic aggregate outputs
+    results = IQTREE_MODULE.out.phylogeny.mix(
+        IQTREE_MODULE.out.aln_tree,
+        IQTREE_MODULE.out.supplemental
+    )
     logs = IQTREE_MODULE.out.logs
     nf_logs = IQTREE_MODULE.out.nf_begin.mix(
         IQTREE_MODULE.out.nf_err,

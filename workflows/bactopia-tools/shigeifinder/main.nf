@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = SHIGEIFINDER.out.tsv.mix(
-        SHIGEIFINDER.out.merged_tsv
-    )
+    results = SHIGEIFINDER.out.results
     logs = SHIGEIFINDER.out.logs
     nf_logs = SHIGEIFINDER.out.nf_logs
     versions = SHIGEIFINDER.out.versions

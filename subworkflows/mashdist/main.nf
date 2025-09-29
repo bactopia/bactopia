@@ -11,22 +11,25 @@ workflow MASHDIST {
     reference // channel: reference sketch file
 
     main:
-    ch_versions = Channel.empty()
-
-    // Run regular MASH_DIST (not Merlin mode)
     MASH_DIST(seqs, reference)
-    ch_versions = ch_versions.mix(MASH_DIST.out.versions)
 
-    // Collect and concat results
+    // Merge results
     MASH_DIST.out.dist.collect{_meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
     CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
-    dist        = MASH_DIST.out.dist
+    // Individual outputs
+    dist = MASH_DIST.out.dist
     merged_dist = CSVTK_CONCAT.out.csv
-    logs        = MASH_DIST.out.logs.mix(CSVTK_CONCAT.out.logs)
-    nf_logs     = MASH_DIST.out.nf_begin.mix(
+
+    // Generic aggregate outputs
+    results  = MASH_DIST.out.dist.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = MASH_DIST.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
+    nf_logs  = MASH_DIST.out.nf_begin.mix(
         MASH_DIST.out.nf_err,
         MASH_DIST.out.nf_log,
         MASH_DIST.out.nf_out,
@@ -41,7 +44,9 @@ workflow MASHDIST {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions    = ch_versions
+    versions = MASH_DIST.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }
 
 workflow MERLINDIST {
@@ -50,31 +55,32 @@ workflow MERLINDIST {
     ch_mash_db  // channel: mash database
 
     main:
-    ch_versions = Channel.empty()
-
     MERLIN_DIST(ch_seqs, ch_mash_db)
-    ch_versions = ch_versions.mix(MERLIN_DIST.out.versions)
 
     emit:
-    dist               = MERLIN_DIST.out.dist
-    escherichia        = MERLIN_DIST.out.escherichia
-    escherichia_fq     = MERLIN_DIST.out.escherichia_fq
+    // Individual outputs
+    dist = MERLIN_DIST.out.dist
+    escherichia = MERLIN_DIST.out.escherichia
+    escherichia_fq = MERLIN_DIST.out.escherichia_fq
     escherichia_fna_fq = MERLIN_DIST.out.escherichia_fna_fq
-    haemophilus        = MERLIN_DIST.out.haemophilus
-    klebsiella         = MERLIN_DIST.out.klebsiella
-    legionella         = MERLIN_DIST.out.legionella
-    listeria           = MERLIN_DIST.out.listeria
-    mycobacterium      = MERLIN_DIST.out.mycobacterium
-    mycobacterium_fq   = MERLIN_DIST.out.mycobacterium_fq
-    neisseria          = MERLIN_DIST.out.neisseria
-    pseudomonas        = MERLIN_DIST.out.pseudomonas
-    salmonella         = MERLIN_DIST.out.salmonella
-    salmonella_fq      = MERLIN_DIST.out.salmonella_fq
-    staphylococcus     = MERLIN_DIST.out.staphylococcus
-    streptococcus      = MERLIN_DIST.out.streptococcus
-    streptococcus_fq   = MERLIN_DIST.out.streptococcus_fq
-    logs               = MERLIN_DIST.out.logs
-    nf_logs            = MERLIN_DIST.out.nf_begin.mix(
+    haemophilus = MERLIN_DIST.out.haemophilus
+    klebsiella = MERLIN_DIST.out.klebsiella
+    legionella = MERLIN_DIST.out.legionella
+    listeria = MERLIN_DIST.out.listeria
+    mycobacterium = MERLIN_DIST.out.mycobacterium
+    mycobacterium_fq = MERLIN_DIST.out.mycobacterium_fq
+    neisseria = MERLIN_DIST.out.neisseria
+    pseudomonas = MERLIN_DIST.out.pseudomonas
+    salmonella = MERLIN_DIST.out.salmonella
+    salmonella_fq = MERLIN_DIST.out.salmonella_fq
+    staphylococcus = MERLIN_DIST.out.staphylococcus
+    streptococcus = MERLIN_DIST.out.streptococcus
+    streptococcus_fq = MERLIN_DIST.out.streptococcus_fq
+
+    // Generic aggregate outputs
+    results = MERLIN_DIST.out.dist
+    logs = MERLIN_DIST.out.logs
+    nf_logs = MERLIN_DIST.out.nf_begin.mix(
         MERLIN_DIST.out.nf_err,
         MERLIN_DIST.out.nf_log,
         MERLIN_DIST.out.nf_out,
@@ -82,5 +88,5 @@ workflow MERLINDIST {
         MERLIN_DIST.out.nf_sh,
         MERLIN_DIST.out.nf_trace
     )
-    versions           = ch_versions
+    versions = MERLIN_DIST.out.versions
 }

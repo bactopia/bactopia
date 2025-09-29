@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = GAMMA.out.gamma.mix(
-        GAMMA.out.merged_gamma
-    )
+    results = GAMMA.out.results
     logs = GAMMA.out.logs
     nf_logs = GAMMA.out.nf_logs
     versions = GAMMA.out.versions

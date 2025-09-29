@@ -38,9 +38,7 @@ workflow {
     }
 
     publish:
-    results = SPATYPER.out.tsv.mix(
-        SPATYPER.out.merged_tsv
-    )
+    results = SPATYPER.out.results
     logs = SPATYPER.out.logs
     nf_logs = SPATYPER.out.nf_logs
     versions = SPATYPER.out.versions

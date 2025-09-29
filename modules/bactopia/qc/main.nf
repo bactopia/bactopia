@@ -13,6 +13,7 @@ process QC {
     output:
     tuple val(meta), path("results/${prefix}*.fastq.gz"), path("extra/*"), emit: fastq, optional: true
     tuple val(meta), path("results/${prefix}*.fastq.gz")                 , emit: fastq_only, optional: true
+    tuple val(meta), path("*-error.txt")   , emit: error, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -22,7 +23,6 @@ process QC {
     tuple val(meta), path(".command.sh")   , emit: nf_sh
     tuple val(meta), path(".command.trace"), emit: nf_trace
     tuple val(meta), path("versions.yml")  , emit: versions
-    tuple val(meta), path("*-error.txt")   , optional: true
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = AGRVATE.out.tsv.mix(
-        AGRVATE.out.merged_tsv,
-        AGRVATE.out.supplemental
-    )
+    results = AGRVATE.out.results
     logs = AGRVATE.out.logs
     nf_logs = AGRVATE.out.nf_logs
     versions = AGRVATE.out.versions

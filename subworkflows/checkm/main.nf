@@ -9,25 +9,25 @@ workflow CHECKM {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_merged_checkm = Channel.empty()
-
     CHECKM_LINEAGEWF(fasta)
-    ch_versions = ch_versions.mix(CHECKM_LINEAGEWF.out.versions)
-    ch_logs = ch_logs.mix(CHECKM_LINEAGEWF.out.logs)
 
+    // Merge results
     CHECKM_LINEAGEWF.out.tsv.collect{ _meta, tsv -> tsv }.map{ tsv -> [[id:'checkm'], tsv] }.set{ ch_merge_checkm }
     CSVTK_CONCAT(ch_merge_checkm, 'tsv', 'tsv')
-    ch_merged_checkm = ch_merged_checkm.mix(CSVTK_CONCAT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
-    results = CHECKM_LINEAGEWF.out.results
+    // Individual outputs
     report = CHECKM_LINEAGEWF.out.tsv
-    merged_reports = ch_merged_checkm
-    logs = ch_logs // channel: [ val(meta), [ logs ] ]
+    merged_reports = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = CHECKM_LINEAGEWF.out.tsv.mix(
+        CHECKM_LINEAGEWF.out.supplemental,
+        CSVTK_CONCAT.out.csv
+    )
+    logs = CHECKM_LINEAGEWF.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CHECKM_LINEAGEWF.out.nf_begin.mix(
         CHECKM_LINEAGEWF.out.nf_err,
         CHECKM_LINEAGEWF.out.nf_log,
@@ -43,5 +43,7 @@ workflow CHECKM {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = CHECKM_LINEAGEWF.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

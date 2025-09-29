@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = PNEUMOCAT.out.xml
+    results = PNEUMOCAT.out.results
     logs = PNEUMOCAT.out.logs
     nf_logs = PNEUMOCAT.out.nf_logs
     versions = PNEUMOCAT.out.versions

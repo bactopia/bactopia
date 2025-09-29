@@ -10,24 +10,26 @@ workflow FASTANI {
     reference // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_fastani_query = Channel.empty()
-    ch_fastani_reference = reference.map{_meta, fasta -> fasta}
     query.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}.set{ ch_fastani_query }
-
-    // Run FastANI
+    reference.map{_meta, fasta -> fasta}.set{ ch_fastani_reference }
     FASTANI_MODULE(ch_fastani_query, ch_fastani_reference)
-    ch_versions = ch_versions.mix(FASTANI_MODULE.out.versions)
 
     // Merge results
     FASTANI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}.set{ ch_merge_fastani }
     CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = FASTANI_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = FASTANI_MODULE.out.logs.mix(CSVTK_CONCAT.out.logs)
+
+    // Generic aggregate outputs
+    results = FASTANI_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = FASTANI_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = FASTANI_MODULE.out.nf_begin.mix(
         FASTANI_MODULE.out.nf_err,
         FASTANI_MODULE.out.nf_log,
@@ -43,5 +45,7 @@ workflow FASTANI {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = FASTANI_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

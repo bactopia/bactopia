@@ -7,32 +7,32 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow HICAP {
     take:
     fasta // channel: [ val(meta), [ fasta ] ]
+    database_dir
+    model_fp
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    DATABASE_DIR = params.database_dir ? file(params.database_dir) : []
-    MODEL_FP = params.model_fp ? file(params.model_fp) : []
+    HICAP_MODULE(fasta, database_dir, model_fp)
 
-    HICAP_MODULE(fasta, DATABASE_DIR, MODEL_FP)
-    ch_versions = ch_versions.mix(HICAP_MODULE.out.versions)
-    ch_logs = ch_logs.mix(HICAP_MODULE.out.logs)
-
-    // Aggregate results
-    CSVTK_CONCAT(
-        HICAP_MODULE.out.tsv.collect{it[1]}.map{ tsv -> [[id: 'hicap'], tsv]},
-        'tsv',
-        'tsv'
-    )
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
+    // Merge results
+    HICAP_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hicap'], tsv]}.set{ ch_merge_hicap }
+    CSVTK_CONCAT(ch_merge_hicap, 'tsv', 'tsv')
 
     emit:
+    // Individual outputs
     gbk = HICAP_MODULE.out.gbk
     svg = HICAP_MODULE.out.svg
     tsv = HICAP_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = HICAP_MODULE.out.gbk.mix(
+        HICAP_MODULE.out.svg,
+        HICAP_MODULE.out.tsv,
+        CSVTK_CONCAT.out.csv
+    )
+    logs = HICAP_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = HICAP_MODULE.out.nf_begin.mix(
         HICAP_MODULE.out.nf_err,
         HICAP_MODULE.out.nf_log,
@@ -48,5 +48,7 @@ workflow HICAP {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = HICAP_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

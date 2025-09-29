@@ -10,7 +10,7 @@ process ROARY {
     tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("roary/*")                        , emit: results
+    tuple val(meta), path("roary/*")                        , emit: supplemental
     tuple val(meta), path("core-genome.aln.gz")             , emit: aln, optional: true
     tuple val(meta), path("roary/gene_presence_absence.csv"), emit: csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true

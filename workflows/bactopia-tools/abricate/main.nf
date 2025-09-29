@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = ABRICATE.out.tsv.mix(ABRICATE.out.merged_tsv)
+    results = ABRICATE.out.results
     logs = ABRICATE.out.logs
     nf_logs = ABRICATE.out.nf_logs
     versions = ABRICATE.out.versions

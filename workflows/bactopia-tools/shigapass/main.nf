@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = SHIGAPASS.out.tsv.mix(
-        SHIGAPASS.out.merged_tsv
-    )
+    results = SHIGAPASS.out.results
     logs = SHIGAPASS.out.logs
     nf_logs = SHIGAPASS.out.nf_logs
     versions = SHIGAPASS.out.versions

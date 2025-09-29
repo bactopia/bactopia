@@ -10,17 +10,22 @@ workflow SKETCHER {
     sourmash_db // channel: [ sourmash_db ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
-    // Sketch FASTQs
     SKETCHER_MODULE(reads, mash_db, sourmash_db)
-    ch_versions = ch_versions.mix(SKETCHER_MODULE.out.versions)
-    ch_logs = ch_logs.mix(SKETCHER_MODULE.out.logs)
 
     emit:
+    // Individual outputs
     sig = SKETCHER_MODULE.out.sig
-    logs = ch_logs
+    msh = SKETCHER_MODULE.out.msh
+    mash = SKETCHER_MODULE.out.mash
+    sourmash = SKETCHER_MODULE.out.sourmash
+
+    // Generic aggregate outputs
+    results = SKETCHER_MODULE.out.sig.mix(
+        SKETCHER_MODULE.out.msh,
+        SKETCHER_MODULE.out.mash,
+        SKETCHER_MODULE.out.sourmash
+    )
+    logs = SKETCHER_MODULE.out.logs
     nf_logs = SKETCHER_MODULE.out.nf_begin.mix(
         SKETCHER_MODULE.out.nf_err,
         SKETCHER_MODULE.out.nf_log,
@@ -29,5 +34,5 @@ workflow SKETCHER {
         SKETCHER_MODULE.out.nf_sh,
         SKETCHER_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = SKETCHER_MODULE.out.versions
 }

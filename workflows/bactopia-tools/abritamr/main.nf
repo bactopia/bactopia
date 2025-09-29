@@ -34,13 +34,7 @@ workflow {
     }
 
     publish:
-    results = ABRITAMR.out.summary_tsv.mix(
-        ABRITAMR.out.merged_summary_tsv,
-        ABRITAMR.out.matches_tsv,
-        ABRITAMR.out.partials_tsv,
-        ABRITAMR.out.virulence_tsv,
-        ABRITAMR.out.amrfinder_tsv
-    )
+    results = ABRITAMR.out.results
     logs = ABRITAMR.out.logs
     nf_logs = ABRITAMR.out.nf_logs
     versions = ABRITAMR.out.versions

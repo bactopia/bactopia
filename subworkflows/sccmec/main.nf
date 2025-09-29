@@ -9,23 +9,29 @@ workflow SCCMEC {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SCCMEC_MODULE(fasta)
-    ch_versions = ch_versions.mix(SCCMEC_MODULE.out.versions)
 
     // Merge results
     SCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sccmec'], tsv]}.set{ ch_merge_sccmec }
     CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual output
     tsv = SCCMEC_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
     targets = SCCMEC_MODULE.out.targets
     target_details = SCCMEC_MODULE.out.target_details
     regions = SCCMEC_MODULE.out.regions
     regions_details = SCCMEC_MODULE.out.regions_details
+
+    // Generic aggregate output
+    results = SCCMEC_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv,
+        SCCMEC_MODULE.out.targets,
+        SCCMEC_MODULE.out.target_details,
+        SCCMEC_MODULE.out.regions,
+        SCCMEC_MODULE.out.regions_details
+    )
     logs = SCCMEC_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -44,5 +50,7 @@ workflow SCCMEC {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SCCMEC_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

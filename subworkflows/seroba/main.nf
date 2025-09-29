@@ -9,19 +9,23 @@ workflow SEROBA {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SEROBA_RUN(fasta)
-    ch_versions = ch_versions.mix(SEROBA_RUN.out.versions)
 
     // Merge results
     SEROBA_RUN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seroba'], tsv]}.set{ ch_merge_seroba }
     CSVTK_CONCAT(ch_merge_seroba, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SEROBA_RUN.out.tsv
+    txt = SEROBA_RUN.out.txt
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = SEROBA_RUN.out.tsv.mix(
+        SEROBA_RUN.out.txt,
+        CSVTK_CONCAT.out.csv
+    )
     logs = SEROBA_RUN.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +44,7 @@ workflow SEROBA {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SEROBA_RUN.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

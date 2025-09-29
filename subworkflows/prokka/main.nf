@@ -10,15 +10,10 @@ workflow PROKKA {
     prodigal_tf
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
-    // Run Prokka
     PROKKA_MODULE(fasta, proteins, prodigal_tf)
-    ch_versions = ch_versions.mix(PROKKA_MODULE.out.versions)
-    ch_logs = ch_logs.mix(PROKKA_MODULE.out.logs)
 
     emit:
+    // Individual outputs
     annotations = PROKKA_MODULE.out.annotations
     blastdb = PROKKA_MODULE.out.blastdb
     faa = PROKKA_MODULE.out.faa
@@ -31,7 +26,22 @@ workflow PROKKA {
     txt = PROKKA_MODULE.out.txt
     sqn = PROKKA_MODULE.out.sqn
     tbl = PROKKA_MODULE.out.tbl
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = PROKKA_MODULE.out.annotations.mix(
+        PROKKA_MODULE.out.blastdb,
+        PROKKA_MODULE.out.faa,
+        PROKKA_MODULE.out.ffn,
+        PROKKA_MODULE.out.fna,
+        PROKKA_MODULE.out.fsa,
+        PROKKA_MODULE.out.gbk,
+        PROKKA_MODULE.out.gff,
+        PROKKA_MODULE.out.tsv,
+        PROKKA_MODULE.out.txt,
+        PROKKA_MODULE.out.sqn,
+        PROKKA_MODULE.out.tbl
+    )
+    logs = PROKKA_MODULE.out.logs
     nf_logs = PROKKA_MODULE.out.nf_begin.mix(
         PROKKA_MODULE.out.nf_err,
         PROKKA_MODULE.out.nf_log,
@@ -40,5 +50,5 @@ workflow PROKKA {
         PROKKA_MODULE.out.nf_sh,
         PROKKA_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = PROKKA_MODULE.out.versions
 }

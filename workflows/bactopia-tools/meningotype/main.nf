@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = MENINGOTYPE.out.tsv.mix(
-        MENINGOTYPE.out.merged_tsv
-    )
+    results = MENINGOTYPE.out.results
     logs = MENINGOTYPE.out.logs
     nf_logs = MENINGOTYPE.out.nf_logs
     versions = MENINGOTYPE.out.versions

@@ -9,26 +9,29 @@ workflow ABRITAMR {
     fasta // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_merged_summaries = Channel.empty()
-
-    // Run AMRFinder
     ABRITAMR_RUN ( fasta )
-    ch_versions = ch_versions.mix(ABRITAMR_RUN.out.versions)
 
     // Merge results
     ABRITAMR_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'abritamr'], summary]}.set{ ch_merge_summary }
     CSVTK_CONCAT(ch_merge_summary, 'tsv', 'tsv')
-    ch_merged_summaries = ch_merged_summaries.mix(CSVTK_CONCAT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     summary_tsv = ABRITAMR_RUN.out.summary
-    merged_summary_tsv = ch_merged_summaries
+    merged_summary_tsv = CSVTK_CONCAT.out.csv
     matches_tsv = ABRITAMR_RUN.out.matches
     partials_tsv = ABRITAMR_RUN.out.partials
     virulence_tsv = ABRITAMR_RUN.out.virulence
     amrfinder_tsv = ABRITAMR_RUN.out.amrfinder
+
+    // Generic aggregate outputs
+    results = ABRITAMR_RUN.out.summary.mix(
+        CSVTK_CONCAT.out.csv,
+        ABRITAMR_RUN.out.matches,
+        ABRITAMR_RUN.out.partials,
+        ABRITAMR_RUN.out.virulence,
+        ABRITAMR_RUN.out.amrfinder
+    )
     logs = ABRITAMR_RUN.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -47,5 +50,7 @@ workflow ABRITAMR {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ABRITAMR_RUN.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

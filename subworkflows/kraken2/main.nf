@@ -9,18 +9,20 @@ workflow KRAKEN2 {
     database
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
     KRAKEN2_MODULE(reads, database)
-    ch_versions = ch_versions.mix(KRAKEN2_MODULE.out.versions)
-    ch_logs = ch_logs.mix(KRAKEN2_MODULE.out.logs)
 
     emit:
+    // Individual outputs
     classified = KRAKEN2_MODULE.out.classified
     kraken2_report = KRAKEN2_MODULE.out.kraken2_report
     unclassified = KRAKEN2_MODULE.out.unclassified
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = KRAKEN2_MODULE.out.classified.mix(
+        KRAKEN2_MODULE.out.kraken2_report,
+        KRAKEN2_MODULE.out.unclassified
+    )
+    logs = KRAKEN2_MODULE.out.logs
     nf_logs = KRAKEN2_MODULE.out.nf_begin.mix(
         KRAKEN2_MODULE.out.nf_err,
         KRAKEN2_MODULE.out.nf_log,
@@ -29,5 +31,5 @@ workflow KRAKEN2 {
         KRAKEN2_MODULE.out.nf_sh,
         KRAKEN2_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = KRAKEN2_MODULE.out.versions
 }

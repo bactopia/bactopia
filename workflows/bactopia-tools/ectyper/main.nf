@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = ECTYPER.out.tsv.mix(
-        ECTYPER.out.txt,
-        ECTYPER.out.merged_tsv
-    )
+    results = ECTYPER.out.results
     logs = ECTYPER.out.logs
     nf_logs = ECTYPER.out.nf_logs
     versions = ECTYPER.out.versions

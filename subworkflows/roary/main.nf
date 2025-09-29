@@ -11,9 +11,12 @@ workflow ROARY {
     ROARY_MODULE(gff)
 
     emit:
+    // Individual outputs
     aln = ROARY_MODULE.out.aln
     csv = ROARY_MODULE.out.csv
-    results = ROARY_MODULE.out.results.mix(
+
+    // Generic aggregate outputs
+    results = ROARY_MODULE.out.supplemental.mix(
         ROARY_MODULE.out.aln,
         ROARY_MODULE.out.csv
     )

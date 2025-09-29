@@ -9,19 +9,22 @@ workflow BUSCO {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     BUSCO_MODULE(fasta)
-    ch_versions = ch_versions.mix(BUSCO_MODULE.out.versions)
 
     // Merge the results
     BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'busco'], tsv]}.set{ ch_merge_busco }
     CSVTK_CONCAT(ch_merge_busco, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
-    results = BUSCO_MODULE.out.results
+    // Individual outputs
     tsv = BUSCO_MODULE.out.tsv
+    merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = BUSCO_MODULE.out.tsv.mix(
+        BUSCO_MODULE.out.supplemental,
+        CSVTK_CONCAT.out.csv
+    )
     logs = BUSCO_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,6 +43,7 @@ workflow BUSCO {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    merged_tsv = CSVTK_CONCAT.out.csv
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = BUSCO_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

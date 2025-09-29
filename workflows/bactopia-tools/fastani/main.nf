@@ -56,9 +56,7 @@ workflow {
     }
 
     publish:
-    results = FASTANI.out.tsv.mix(
-        FASTANI.out.merged_tsv
-    )
+    results = FASTANI.out.results
     logs = FASTANI.out.logs
     nf_logs = FASTANI.out.nf_logs
     versions = FASTANI.out.versions

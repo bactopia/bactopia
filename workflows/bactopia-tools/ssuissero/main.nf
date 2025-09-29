@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = SSUISSERO.out.tsv.mix(
-        SSUISSERO.out.merged_tsv
-    )
+    results = SSUISSERO.out.results
     logs = SSUISSERO.out.logs
     nf_logs = SSUISSERO.out.nf_logs
     versions = SSUISSERO.out.versions

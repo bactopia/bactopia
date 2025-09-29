@@ -9,20 +9,22 @@ workflow QUAST {
     fasta // channel: [ val(meta), [ fasta ], [ meta_files ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     QUAST_MODULE(fasta)
-    ch_versions = ch_versions.mix(QUAST_MODULE.out.versions)
 
     // Merge results
     QUAST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'quast'], tsv]}.set{ ch_merge_quast}
     CSVTK_CONCAT(ch_merge_quast, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = QUAST_MODULE.out.tsv
-    supplemental = QUAST_MODULE.out.supplemental
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = QUAST_MODULE.out.supplemental.mix(
+        QUAST_MODULE.out.tsv,
+        CSVTK_CONCAT.out.csv
+    )
     logs = QUAST_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -41,5 +43,7 @@ workflow QUAST {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = QUAST_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

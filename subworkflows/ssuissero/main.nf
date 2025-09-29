@@ -9,19 +9,21 @@ workflow SSUISSERO {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SSUISSERO_MODULE(fasta)
-    ch_versions = ch_versions.mix(SSUISSERO_MODULE.out.versions)
 
     // Merge results
     SSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ssuissero'], tsv]}.set{ ch_merge_ssuissero }
     CSVTK_CONCAT(ch_merge_ssuissero, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SSUISSERO_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = SSUISSERO_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = SSUISSERO_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +42,7 @@ workflow SSUISSERO {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SSUISSERO_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

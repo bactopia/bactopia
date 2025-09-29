@@ -37,9 +37,7 @@ workflow {
     }
 
     publish:
-    results = MLST.out.tsv.mix(
-        MLST.out.merged_tsv
-    )
+    results = MLST.out.results
     logs = MLST.out.logs
     nf_logs = MLST.out.nf_logs
     versions = MLST.out.versions

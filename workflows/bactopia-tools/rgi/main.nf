@@ -34,11 +34,7 @@ workflow {
     }
 
     publish:
-    results = RGI.out.tsv.mix(
-        RGI.out.merged_tsv,
-        RGI.out.json,
-        RGI.out.heatmap
-    )
+    results = RGI.out.results
     logs = RGI.out.logs
     nf_logs = RGI.out.nf_logs
     versions = RGI.out.versions

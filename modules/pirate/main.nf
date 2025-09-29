@@ -10,10 +10,9 @@ process PIRATE {
     tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("pirate/*")                        , emit: results
+    tuple val(meta), path("pirate/*")                        , emit: supplemental
     tuple val(meta), path("core-genome.aln.gz")              , emit: aln, optional: true
     tuple val(meta), path("pirate/gene_presence_absence.csv"), emit: csv, optional: true
-    tuple val(meta), path("pirate/gene_presence_absence.csv"), emit: panaroo_csv, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err

@@ -37,7 +37,7 @@ workflow {
     }
 
     publish:
-    results = TBLASTN.out.tsv.mix(TBLASTN.out.merged_tsv)
+    results = TBLASTN.out.results
     logs = TBLASTN.out.logs
     nf_logs = TBLASTN.out.nf_logs
     versions = TBLASTN.out.versions

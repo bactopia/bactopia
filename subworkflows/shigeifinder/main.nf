@@ -9,19 +9,21 @@ workflow SHIGEIFINDER {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SHIGEIFINDER_MODULE(fasta)
-    ch_versions = ch_versions.mix(SHIGEIFINDER_MODULE.out.versions)
 
     // Merge results
     SHIGEIFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigeifinder'], tsv]}.set{ ch_merge_shigeifinder }
     CSVTK_CONCAT(ch_merge_shigeifinder, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SHIGEIFINDER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = SHIGEIFINDER_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = SHIGEIFINDER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +42,7 @@ workflow SHIGEIFINDER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SHIGEIFINDER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

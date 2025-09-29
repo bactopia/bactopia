@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = SHIGATYPER.out.tsv.mix(
-        SHIGATYPER.out.hits,
-        SHIGATYPER.out.merged_tsv
-    )
+    results = SHIGATYPER.out.results
     logs = SHIGATYPER.out.logs
     nf_logs = SHIGATYPER.out.nf_logs
     versions = SHIGATYPER.out.versions

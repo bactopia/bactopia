@@ -38,18 +38,7 @@ workflow {
     }
 
     publish:
-    results = PROKKA.out.gff.mix(
-        PROKKA.out.gbk,
-        PROKKA.out.fna,
-        PROKKA.out.faa,
-        PROKKA.out.ffn,
-        PROKKA.out.sqn,
-        PROKKA.out.fsa,
-        PROKKA.out.tbl,
-        PROKKA.out.txt,
-        PROKKA.out.tsv,
-        PROKKA.out.blastdb
-    )
+    results = PROKKA.out.results
     logs = PROKKA.out.logs
     nf_logs = PROKKA.out.nf_logs
     versions = PROKKA.out.versions

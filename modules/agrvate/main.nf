@@ -44,8 +44,8 @@ process AGRVATE {
         $task.ext.args \\
         -i $fasta_name
 
-    mv ${meta.id}-results/ supplemental/
-    mv supplemental/${meta.id}-summary.tab ./
+    mv ${meta.name}-results/ supplemental/
+    mv supplemental/${meta.name}-summary.tab ./
 
     # Cleanup
     rm -rf ${fasta_name}

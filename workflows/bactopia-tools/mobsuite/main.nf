@@ -34,12 +34,7 @@ workflow {
     }
 
     publish:
-    results = MOBSUITE.out.chromosome.mix(
-        MOBSUITE.out.contig_report,
-        MOBSUITE.out.plasmids,
-        MOBSUITE.out.mobtyper_results,
-        MOBSUITE.out.merged_reports
-    )
+    results = MOBSUITE.out.results
     logs = MOBSUITE.out.logs
     nf_logs = MOBSUITE.out.nf_logs
     versions = MOBSUITE.out.versions

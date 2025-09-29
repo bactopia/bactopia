@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = BTYPER3.out.tsv.mix(BTYPER3.out.merged_tsv)
+    results = BTYPER3.out.results
     logs = BTYPER3.out.logs
     nf_logs = BTYPER3.out.nf_logs
     versions = BTYPER3.out.versions

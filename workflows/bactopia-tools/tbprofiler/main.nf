@@ -34,13 +34,7 @@ workflow {
     }
 
     publish:
-    results = TBPROFILER.out.bam.mix(
-        TBPROFILER.out.csv,
-        TBPROFILER.out.merged_csv,
-        TBPROFILER.out.json,
-        TBPROFILER.out.txt,
-        TBPROFILER.out.vcf
-    )
+    results = TBPROFILER.out.results
     logs = TBPROFILER.out.logs
     nf_logs = TBPROFILER.out.nf_logs
     versions = TBPROFILER.out.versions

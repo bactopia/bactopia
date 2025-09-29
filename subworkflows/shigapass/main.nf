@@ -9,20 +9,23 @@ workflow SHIGAPASS {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SHIGAPASS_MODULE(fasta)
-    ch_versions = ch_versions.mix(SHIGAPASS_MODULE.out.versions)
 
     // Merge results
     SHIGAPASS_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigapass'], tsv]}.set{ ch_merge_shigapass }
     CSVTK_CONCAT(ch_merge_shigapass, 'tsv', 'tsv')
 
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-
     emit:
+    // Individual outputs
     tsv = SHIGAPASS_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+    flex_tsv = SHIGAPASS_MODULE.out.flex_tsv
+
+    // Generic aggregate outputs
+    results = SHIGAPASS_MODULE.out.tsv.mix(
+        SHIGAPASS_MODULE.out.flex_tsv,
+        CSVTK_CONCAT.out.csv
+    )
     logs = SHIGAPASS_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -41,5 +44,7 @@ workflow SHIGAPASS {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SHIGAPASS_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

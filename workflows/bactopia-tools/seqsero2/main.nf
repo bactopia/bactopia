@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = SEQSERO2.out.tsv.mix(
-        SEQSERO2.out.txt,
-        SEQSERO2.out.merged_tsv
-    )
+    results = SEQSERO2.out.results
     logs = SEQSERO2.out.logs
     nf_logs = SEQSERO2.out.nf_logs
     versions = SEQSERO2.out.versions

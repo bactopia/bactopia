@@ -6,24 +6,25 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
 workflow TBLASTN {
     take:
-    reads // channel: [ val(meta), [ fasta ] ]
+    fasta // channel: [ val(meta), [ fasta ] ]
     query
 
     main:
-    ch_versions = Channel.empty()
-
-    // Run TBLASTN
-    TBLASTN_MODULE(reads, query)
-    ch_versions = ch_versions.mix(TBLASTN_MODULE.out.versions)
+    TBLASTN_MODULE(fasta, query)
 
     // Merge results
     TBLASTN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'tblastn'], tsv]}.set{ ch_merge_tblastn }
     CSVTK_CONCAT(ch_merge_tblastn, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = TBLASTN_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = TBLASTN_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = TBLASTN_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -42,5 +43,7 @@ workflow TBLASTN {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = TBLASTN_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

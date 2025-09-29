@@ -11,7 +11,7 @@ process PHYLOFLASH  {
     path  univec_db
 
     output:
-    tuple val(meta), path("${prefix}/*")     , emit: results
+    tuple val(meta), path("${prefix}/*")      , emit: supplemental
     file "${prefix}/${prefix}.toalign.fasta"  , emit: aln, optional: true
     file "${prefix}/${prefix}.phyloFlash.json", emit: summary, optional: true
     tuple val(meta), path("*.{log,err}")      , emit: logs, optional: true

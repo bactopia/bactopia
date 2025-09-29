@@ -14,13 +14,7 @@ workflow BAKTA {
     prodigal_tf
     replicons
 
-
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    // Set up input files
-
-
     if (download_bakta) {
         // Force BAKTA_DOWNLOAD to wait
         BAKTA_DOWNLOAD()
@@ -34,10 +28,8 @@ workflow BAKTA {
         BAKTA_RUN(fasta, database, proteins, prodigal_tf, replicons)
     }
 
-    ch_versions = ch_versions.mix(BAKTA_RUN.out.versions)
-    ch_logs = ch_logs.mix(BAKTA_RUN.out.logs)
-
     emit:
+    // Individual outputs
     tsv = BAKTA_RUN.out.tsv
     txt = BAKTA_RUN.out.txt
     embl = BAKTA_RUN.out.embl
@@ -50,7 +42,22 @@ workflow BAKTA {
     hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
     blastdb = BAKTA_RUN.out.blastdb
     annotations = BAKTA_RUN.out.annotations
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = BAKTA_RUN.out.tsv.mix(
+        BAKTA_RUN.out.txt,
+        BAKTA_RUN.out.embl,
+        BAKTA_RUN.out.faa,
+        BAKTA_RUN.out.ffn,
+        BAKTA_RUN.out.fna,
+        BAKTA_RUN.out.gbff,
+        BAKTA_RUN.out.gff,
+        BAKTA_RUN.out.hypotheticals_faa,
+        BAKTA_RUN.out.hypotheticals_tsv,
+        BAKTA_RUN.out.blastdb,
+        BAKTA_RUN.out.annotations
+    )
+    logs = BAKTA_RUN.out.logs
     nf_logs = BAKTA_RUN.out.nf_begin.mix(
         BAKTA_RUN.out.nf_err,
         BAKTA_RUN.out.nf_log,
@@ -59,5 +66,5 @@ workflow BAKTA {
         BAKTA_RUN.out.nf_sh,
         BAKTA_RUN.out.nf_trace
     )
-    versions = ch_versions
+    versions = BAKTA_RUN.out.versions
 }

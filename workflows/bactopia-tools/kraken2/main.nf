@@ -37,7 +37,7 @@ workflow {
     }
 
     publish:
-    results = KRAKEN2.out.kraken2_report
+    results = KRAKEN2.out.results
     logs = KRAKEN2.out.logs
     nf_logs = KRAKEN2.out.nf_logs
     versions = KRAKEN2.out.versions

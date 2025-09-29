@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = NGMASTER.out.tsv.mix(
-        NGMASTER.out.merged_tsv
-    )
+    results = NGMASTER.out.results
     logs = NGMASTER.out.logs
     nf_logs = NGMASTER.out.nf_logs
     versions = NGMASTER.out.versions

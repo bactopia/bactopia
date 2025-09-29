@@ -9,17 +9,17 @@ process BUSCO {
     tuple val(_meta), path(fasta)
 
     output:
-    tuple val(meta), path("results/*")                    , emit: results
-    tuple val(meta), path("results/${prefix}-summary.txt"), emit: tsv
-    tuple val(meta), path("*.{log,err}")                  , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")               , emit: nf_begin
-    tuple val(meta), path(".command.err")                 , emit: nf_err
-    tuple val(meta), path(".command.log")                 , emit: nf_log
-    tuple val(meta), path(".command.out")                 , emit: nf_out
-    tuple val(meta), path(".command.run")                 , emit: nf_run
-    tuple val(meta), path(".command.sh")                  , emit: nf_sh
-    tuple val(meta), path(".command.trace")               , emit: nf_trace
-    tuple val(meta), path("versions.yml")                 , emit: versions
+    tuple val(meta), path("supplemental/*")       , emit: supplemental
+    tuple val(meta), path("${prefix}-summary.txt"), emit: tsv
+    tuple val(meta), path("*.{log,err}")          , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")       , emit: nf_begin
+    tuple val(meta), path(".command.err")         , emit: nf_err
+    tuple val(meta), path(".command.log")         , emit: nf_log
+    tuple val(meta), path(".command.out")         , emit: nf_out
+    tuple val(meta), path(".command.run")         , emit: nf_run
+    tuple val(meta), path(".command.sh")          , emit: nf_sh
+    tuple val(meta), path(".command.trace")       , emit: nf_trace
+    tuple val(meta), path("versions.yml")         , emit: versions
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -61,24 +61,25 @@ process BUSCO {
     busco \\
         --cpu $task.cpus \\
         --in tmp-fasta/ \\
-        --out results \\
+        --out supplemental \\
         --lineage $lineage \\
         --mode genome \\
         --download_base_url=https://busco-data2.ezlab.org/v5/data \\
         $task.ext.args
 
     # cleanup output directory structure
-    find results/ -name "*.log" | xargs -I {} mv {} ./
-    find results/ -type d -path "*logs" | xargs -I {} rm -rf {}
-    find results/ -type f -name "*.fna" | xargs -I {} gzip {}
-    find results/ -type f -name "*.faa" | xargs -I {} gzip {}
-    find results/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
-    mv results/batch_summary.txt results/${prefix}-summary.txt
-    mv results/${fasta_name}/* results/
-    rm -rf results/${fasta_name} busco_downloads/ tmp*/
+    find supplemental/ -name "*.log" | xargs -I {} mv {} ./
+    find supplemental/ -type d -path "*logs" | xargs -I {} rm -rf {}
+    find supplemental/ -type f -name "*.fna" | xargs -I {} gzip {}
+    find supplemental/ -type f -name "*.faa" | xargs -I {} gzip {}
+    find supplemental/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
+    mv supplemental/batch_summary.txt supplemental/${prefix}-summary.txt
+    mv supplemental/${fasta_name}/* supplemental/
+    rm -rf supplemental/${fasta_name} busco_downloads/ tmp*/
 
     # Busco outputs additional trailing tabs, clean them up
-    sed -i 's/\t\t\t\$//' results/${prefix}-summary.txt
+    sed -i 's/\t\t\t\$//' supplemental/${prefix}-summary.txt
+    mv supplemental/${prefix}-summary.txt ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

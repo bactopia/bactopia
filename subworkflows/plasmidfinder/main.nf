@@ -9,23 +9,29 @@ workflow PLASMIDFINDER {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     PLASMIDFINDER_MODULE(fasta)
-    ch_versions = ch_versions.mix(PLASMIDFINDER_MODULE.out.versions)
 
     // Merge results
     PLASMIDFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'plasmidfinder'], tsv]}.set{ ch_merge_plasmidfinder }
     CSVTK_CONCAT(ch_merge_plasmidfinder, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
-    json = PLASMIDFINDER_MODULE.out.json
-    txt = PLASMIDFINDER_MODULE.out.txt
+    // Individual outputs
     tsv = PLASMIDFINDER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+    json = PLASMIDFINDER_MODULE.out.json
+    txt = PLASMIDFINDER_MODULE.out.txt
     genome_seq = PLASMIDFINDER_MODULE.out.genome_seq
     plasmid_seq = PLASMIDFINDER_MODULE.out.plasmid_seq
+
+    // Generic aggregate outputs
+    results = PLASMIDFINDER_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv,
+        PLASMIDFINDER_MODULE.out.json,
+        PLASMIDFINDER_MODULE.out.txt,
+        PLASMIDFINDER_MODULE.out.genome_seq,
+        PLASMIDFINDER_MODULE.out.plasmid_seq
+    )
     logs = PLASMIDFINDER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -44,5 +50,7 @@ workflow PLASMIDFINDER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = PLASMIDFINDER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

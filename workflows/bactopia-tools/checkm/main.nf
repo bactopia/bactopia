@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = CHECKM.out.results.mix(
-        CHECKM.out.report,
-        CHECKM.out.merged_reports
-    )
+    results = CHECKM.out.results
     logs = CHECKM.out.logs
     nf_logs = CHECKM.out.nf_logs
     versions = CHECKM.out.versions

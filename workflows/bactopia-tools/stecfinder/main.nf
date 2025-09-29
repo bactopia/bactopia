@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = STECFINDER.out.tsv.mix(
-        STECFINDER.out.merged_tsv
-    )
+    results = STECFINDER.out.results
     logs = STECFINDER.out.logs
     nf_logs = STECFINDER.out.nf_logs
     versions = STECFINDER.out.versions

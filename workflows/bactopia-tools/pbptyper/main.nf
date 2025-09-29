@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = PBPTYPER.out.tsv.mix(
-        PBPTYPER.out.blast,
-        PBPTYPER.out.merged_tsv
-    )
+    results = PBPTYPER.out.results
     logs = PBPTYPER.out.logs
     nf_logs = PBPTYPER.out.nf_logs
     versions = PBPTYPER.out.versions

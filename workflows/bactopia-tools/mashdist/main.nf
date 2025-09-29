@@ -39,9 +39,7 @@ workflow {
     }
 
     publish:
-    results = MASHDIST.out.dist.mix(
-        MASHDIST.out.merged_dist
-    )
+    results = MASHDIST.out.results
     logs = MASHDIST.out.logs
     nf_logs = MASHDIST.out.nf_logs
     versions = MASHDIST.out.versions

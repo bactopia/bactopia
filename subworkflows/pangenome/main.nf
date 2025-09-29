@@ -50,14 +50,17 @@ workflow PANGENOME {
     // Per-sample SNP distances
     ch_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.distance", process_name: "snpdists"], aln]}.set{ ch_unmasked_aln }
     SNPDISTS(ch_unmasked_aln)
-    ch_results = ch_results.mix(SNPDISTS.out.tsv)
+    ch_results = ch_results.mix(SNPDISTS.out.results)
     ch_logs = ch_logs.mix(SNPDISTS.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SNPDISTS.out.nf_logs)
     ch_versions = ch_versions.mix(SNPDISTS.out.versions)
 
     emit:
+    // Individual outputs
     aln = ch_aln
     csv = ch_csv
+
+    // Generic aggregate outputs
     results = ch_results
     logs = ch_logs
     nf_logs = ch_nf_logs

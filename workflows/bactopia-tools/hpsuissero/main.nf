@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = HPSUISSERO.out.tsv.mix(
-        HPSUISSERO.out.merged_tsv
-    )
+    results = HPSUISSERO.out.results
     logs = HPSUISSERO.out.logs
     nf_logs = HPSUISSERO.out.nf_logs
     versions = HPSUISSERO.out.versions

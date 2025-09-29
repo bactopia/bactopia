@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = QUAST.out.tsv.mix(
-        QUAST.out.merged_tsv,
-        QUAST.out.supplemental
-    )
+    results = QUAST.out.results
     logs = QUAST.out.logs
     nf_logs = QUAST.out.nf_logs
     versions = QUAST.out.versions

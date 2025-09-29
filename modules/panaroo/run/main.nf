@@ -10,7 +10,7 @@ process PANAROO_RUN {
     tuple val(_meta), path(gff, stageAs: 'gff-tmp/*')
 
     output:
-    tuple val(meta), path("panaroo/*")                              , emit: results
+    tuple val(meta), path("panaroo/*")                              , emit: supplemental
     tuple val(meta), path("core-genome.aln.gz")                     , optional: true, emit: aln
     tuple val(meta), path("panaroo/gene_presence_absence_roary.csv"), optional: true, emit: csv
     tuple val(meta), path("panaroo/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv

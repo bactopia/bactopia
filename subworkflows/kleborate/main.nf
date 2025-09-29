@@ -9,22 +9,24 @@ workflow KLEBORATE {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
     KLEBORATE_MODULE(fasta)
-    ch_versions = ch_versions.mix(KLEBORATE_MODULE.out.versions)
-    ch_logs = ch_logs.mix(KLEBORATE_MODULE.out.logs)
 
     // Merge results
     KLEBORATE_MODULE.out.txt.collect{_meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}.set{ ch_merge_kleborate }
     CSVTK_CONCAT(ch_merge_kleborate, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     tsv = KLEBORATE_MODULE.out.txt
     merged_tsv = CSVTK_CONCAT.out.csv
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = KLEBORATE_MODULE.out.txt.mix(
+        CSVTK_CONCAT.out.csv
+    )
+    logs = KLEBORATE_MODULE.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
         CSVTK_CONCAT.out.nf_err,
         CSVTK_CONCAT.out.nf_log,
@@ -40,5 +42,7 @@ workflow KLEBORATE {
         KLEBORATE_MODULE.out.nf_sh,
         KLEBORATE_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = KLEBORATE_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

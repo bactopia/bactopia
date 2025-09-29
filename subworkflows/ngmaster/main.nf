@@ -9,19 +9,21 @@ workflow NGMASTER {
     fasta // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     NGMASTER_MODULE(fasta)
-    ch_versions = ch_versions.mix(NGMASTER_MODULE.out.versions)
 
     // Merge results
     NGMASTER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}.set{ ch_merge_ngmaster }
     CSVTK_CONCAT(ch_merge_ngmaster, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = NGMASTER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = NGMASTER_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = NGMASTER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +42,7 @@ workflow NGMASTER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = NGMASTER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

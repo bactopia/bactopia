@@ -9,19 +9,21 @@ workflow STECFINDER {
     seqs // channel: [ val(meta), [ seqs ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     STECFINDER_MODULE(seqs)
-    ch_versions = ch_versions.mix(STECFINDER_MODULE.out.versions)
 
     // Merge results
     STECFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}.set{ ch_merge_stecfinder }
     CSVTK_CONCAT(ch_merge_stecfinder, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = STECFINDER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = STECFINDER_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = STECFINDER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +42,7 @@ workflow STECFINDER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = STECFINDER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

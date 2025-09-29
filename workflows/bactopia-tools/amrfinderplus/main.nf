@@ -28,18 +28,22 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    DATASETS()
-    AMRFINDERPLUS(BACTOPIATOOL_INIT.out.samples, DATASETS.out.amrfinderplus_db)
+
+    if (params.amrfinder_db) {
+        // User specified database
+        AMRFINDERPLUS(BACTOPIATOOL_INIT.out.samples, file(params.amrfinder_db))
+    } else {
+        // Use default database
+        DATASETS()
+        AMRFINDERPLUS(BACTOPIATOOL_INIT.out.samples, DATASETS.out.amrfinderplus_db)
+    }
 
     workflow.onComplete {
         log.info workflowSummary()
     }
 
     publish:
-    results = AMRFINDERPLUS.out.report.mix(
-        AMRFINDERPLUS.out.merged_tsv,
-        AMRFINDERPLUS.out.mutation_report
-    )
+    results = AMRFINDERPLUS.out.results
     logs = AMRFINDERPLUS.out.logs
     nf_logs = AMRFINDERPLUS.out.nf_logs
     versions = AMRFINDERPLUS.out.versions

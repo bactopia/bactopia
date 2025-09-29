@@ -9,22 +9,26 @@ workflow K2SCRUBBER {
     reads // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
     WGET_HPRC()
-    ch_versions = ch_versions.mix(WGET_HPRC.out.versions)
-    ch_logs = ch_logs.mix(WGET_HPRC.out.logs)
     KRAKEN2(reads, WGET_HPRC.out.download)
-    ch_versions = ch_versions.mix(KRAKEN2.out.versions)
-    ch_logs = ch_logs.mix(KRAKEN2.out.logs)
 
     emit:
+    // Individual outputs
     human = KRAKEN2.out.classified
     kraken2_report = KRAKEN2.out.kraken2_report
     scrub_report = KRAKEN2.out.scrub_report
     scrubbed = KRAKEN2.out.unclassified
     scrubbed_extra = KRAKEN2.out.unclassified_extra
-    logs = ch_logs
+
+    // Generic aggregate outputs
+    results = KRAKEN2.out.classified.mix(
+        KRAKEN2.out.kraken2_report,
+        KRAKEN2.out.scrub_report,
+        KRAKEN2.out.unclassified,
+    )
+    logs = KRAKEN2.out.logs.mix(
+        WGET_HPRC.out.logs
+    )
     nf_logs = KRAKEN2.out.nf_begin.mix(
         KRAKEN2.out.nf_err,
         KRAKEN2.out.nf_log,
@@ -40,5 +44,7 @@ workflow K2SCRUBBER {
         WGET_HPRC.out.nf_sh,
         WGET_HPRC.out.nf_trace
     )
-    versions = ch_versions
+    versions = WGET_HPRC.out.versions.mix(
+        KRAKEN2.out.versions
+    )
 }

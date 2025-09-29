@@ -37,9 +37,7 @@ workflow {
     }
 
     publish:
-    results = EMMTYPER.out.tsv.mix(
-        EMMTYPER.out.merged_tsv
-    )
+    results = EMMTYPER.out.results
     logs = EMMTYPER.out.logs
     nf_logs = EMMTYPER.out.nf_logs
     versions = EMMTYPER.out.versions

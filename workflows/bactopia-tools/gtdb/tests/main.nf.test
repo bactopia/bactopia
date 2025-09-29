@@ -1,15 +1,15 @@
 nextflow_pipeline {
-    name "Test Abricate Workflow"
+    name "Test GTDB Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "gtdb"
     tag "bactopia-tools"
 
-    test("Abricate - SRR2838702|portiera|compressed_fasta") {
+    test("GTDB - SRR2838702|portiera|compressed_fasta") {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = ""
+                test_dataset = "/datasets/gtdb/gtdbtk"
                 test_dataset2 = ""
                 is_ci = true
                 outdir = "$outputDir"

@@ -11,19 +11,21 @@ workflow SPATYPER {
     repeat_order
 
     main:
-    ch_versions = Channel.empty()
-
     SPATYPER_MODULE(fasta, repeats, repeat_order)
-    ch_versions = ch_versions.mix(SPATYPER_MODULE.out.versions)
 
     // Merge results
     SPATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'spatyper'], tsv]}.set{ ch_merge_spatyper }
     CSVTK_CONCAT(ch_merge_spatyper, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual output
     tsv = SPATYPER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate output
+    results = SPATYPER_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = SPATYPER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -42,5 +44,7 @@ workflow SPATYPER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SPATYPER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

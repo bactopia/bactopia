@@ -10,13 +10,10 @@ workflow ISMAPPER {
     ch_insertions // channel: insertion sequences file
 
     main:
-    ch_versions = Channel.empty()
-
     ISMAPPER_MODULE(ch_reads, ch_reference, ch_insertions)
-    ch_versions = ch_versions.mix(ISMAPPER_MODULE.out.versions)
 
     emit:
-    results = ISMAPPER_MODULE.out.results
+    results = ISMAPPER_MODULE.out.supplemental
     logs = ISMAPPER_MODULE.out.logs
     nf_logs = ISMAPPER_MODULE.out.nf_begin.mix(
         ISMAPPER_MODULE.out.nf_err,
@@ -26,5 +23,5 @@ workflow ISMAPPER {
         ISMAPPER_MODULE.out.nf_sh,
         ISMAPPER_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = ISMAPPER_MODULE.out.versions
 }

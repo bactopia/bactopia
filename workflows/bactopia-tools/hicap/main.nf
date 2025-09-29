@@ -27,18 +27,18 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    HICAP(BACTOPIATOOL_INIT.out.samples)
+    HICAP(
+        BACTOPIATOOL_INIT.out.samples,
+        params.database_dir ? file(params.database_dir) : [],
+        params.model_fp ? file(params.model_fp) : []
+    ) 
 
     workflow.onComplete {
         log.info workflowSummary()
     }
 
     publish:
-    results = HICAP.out.gbk.mix(
-        HICAP.out.svg,
-        HICAP.out.tsv,
-        HICAP.out.merged_tsv
-    )
+    results = HICAP.out.results
     logs = HICAP.out.logs
     nf_logs = HICAP.out.nf_logs
     versions = HICAP.out.versions

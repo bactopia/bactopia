@@ -9,15 +9,11 @@ workflow PHISPY {
     gbk // channel: [ val(meta), [ gbk ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     PHISPY_MODULE(gbk)
-    ch_versions = ch_versions.mix(PHISPY_MODULE.out.versions)
 
     // Merge results
     PHISPY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'phispy'], tsv]}.set{ ch_merge_phispy }
     CSVTK_CONCAT(ch_merge_phispy, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
     tsv = PHISPY_MODULE.out.tsv
@@ -40,5 +36,7 @@ workflow PHISPY {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = PHISPY_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

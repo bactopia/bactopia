@@ -47,7 +47,10 @@ workflow CLONALFRAMEML {
     ch_versions = ch_versions.mix(SNPDISTS.out.versions)
 
     emit:
+    // Individual outputs
     masked_aln = CLONALFRAMEML_MODULE.out.masked_aln
+
+    // Generic aggregate outputs
     results = ch_results
     logs = ch_logs
     nf_logs = ch_nf_logs.mix(

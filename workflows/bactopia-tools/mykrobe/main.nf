@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = MYKROBE.out.csv.mix(
-        MYKROBE.out.json,
-        MYKROBE.out.merged_csv
-    )
+    results = MYKROBE.out.results
     logs = MYKROBE.out.logs
     nf_logs = MYKROBE.out.nf_logs
     versions = MYKROBE.out.versions

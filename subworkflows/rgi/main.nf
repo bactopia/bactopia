@@ -10,26 +10,29 @@ workflow RGI {
     fasta // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     RGI_MAIN(fasta)
-    ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     // Merge TSVs
     RGI_MAIN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'rgi'], tsv]}.set{ ch_merge_rgi }
     CSVTK_CONCAT(ch_merge_rgi, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     // Create Heatmap
     RGI_MAIN.out.json.collect{_meta, json -> json}.map{ json -> [[id:'rgi'], json]}.set{ ch_merge_json }
     RGI_HEATMAP(ch_merge_json)
-    ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     emit:
+    // Individual outputs
     tsv = RGI_MAIN.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
     json = RGI_MAIN.out.json
     heatmap = RGI_HEATMAP.out.heatmap
+
+    // Generic aggregate outputs
+    results = RGI_MAIN.out.tsv.mix(
+        RGI_HEATMAP.out.heatmap,
+        CSVTK_CONCAT.out.csv,
+        RGI_MAIN.out.json
+    )
     logs = RGI_MAIN.out.logs.mix(
         RGI_HEATMAP.out.logs,
         CSVTK_CONCAT.out.logs
@@ -56,5 +59,8 @@ workflow RGI {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = RGI_MAIN.out.versions.mix(
+        RGI_HEATMAP.out.versions,
+        CSVTK_CONCAT.out.versions
+    )
 }

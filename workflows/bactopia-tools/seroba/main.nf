@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = SEROBA.out.tsv.mix(
-        SEROBA.out.merged_tsv
-    )
+    results = SEROBA.out.results
     logs = SEROBA.out.logs
     nf_logs = SEROBA.out.nf_logs
     versions = SEROBA.out.versions

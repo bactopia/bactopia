@@ -9,14 +9,14 @@ workflow SYLPH {
     database
 
     main:
-    ch_versions = Channel.empty()
-
-    // Run sylph profile
     SYLPH_PROFILE(reads, database)
-    ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SYLPH_PROFILE.out.tsv
+
+    // Generic aggregate outputs
+    results = SYLPH_PROFILE.out.tsv
     logs = SYLPH_PROFILE.out.logs
     nf_logs = SYLPH_PROFILE.out.nf_begin.mix(
         SYLPH_PROFILE.out.nf_err,
@@ -26,5 +26,5 @@ workflow SYLPH {
         SYLPH_PROFILE.out.nf_sh,
         SYLPH_PROFILE.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = SYLPH_PROFILE.out.versions
 }

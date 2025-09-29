@@ -9,19 +9,21 @@ workflow STAPHOPIASCCMEC {
     fasta // channel: [ val(meta), [ assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     STAPHOPIASCCMEC_MODULE(fasta)
-    ch_versions = ch_versions.mix(STAPHOPIASCCMEC_MODULE.out.versions)
 
     // Merge results
     STAPHOPIASCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}.set{ ch_merge_sccmec }
     CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = STAPHOPIASCCMEC_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = STAPHOPIASCCMEC_MODULE.out.tsv.mix(
+        CSVTK_CONCAT.out.csv
+    )
     logs = STAPHOPIASCCMEC_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -40,5 +42,7 @@ workflow STAPHOPIASCCMEC {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = STAPHOPIASCCMEC_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

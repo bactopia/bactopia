@@ -9,16 +9,19 @@ workflow SRAHUMANSCRUBBER {
     reads // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SRAHUMANSCRUBBER_INITDB()
     SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
-    ch_versions = ch_versions.mix(SRAHUMANSCRUBBER_SCRUB.out.versions)
 
     emit:
+    // Individual outputs
     scrubbed = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
     scrubbed_extra = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
     scrub_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
+
+    // Generic aggregate outputs
+    results = SRAHUMANSCRUBBER_SCRUB.out.scrubbed.mix(
+        SRAHUMANSCRUBBER_SCRUB.out.scrub_report
+    )
     logs = SRAHUMANSCRUBBER_SCRUB.out.logs
     nf_logs = SRAHUMANSCRUBBER_SCRUB.out.nf_begin.mix(
         SRAHUMANSCRUBBER_SCRUB.out.nf_err,
@@ -28,5 +31,5 @@ workflow SRAHUMANSCRUBBER {
         SRAHUMANSCRUBBER_SCRUB.out.nf_sh,
         SRAHUMANSCRUBBER_SCRUB.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = SRAHUMANSCRUBBER_SCRUB.out.versions
 }

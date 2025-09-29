@@ -9,20 +9,23 @@ workflow SEQSERO2 {
     seqs // channel: [ val(meta), [ fastqs or assemblies ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     SEQSERO2_MODULE(seqs)
-    ch_versions = ch_versions.mix(SEQSERO2_MODULE.out.versions)
 
     // Merge results
     SEQSERO2_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seqsero2'], tsv]}.set{ ch_merge_seqsero2 }
     CSVTK_CONCAT(ch_merge_seqsero2, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     tsv = SEQSERO2_MODULE.out.tsv
     txt = SEQSERO2_MODULE.out.txt
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = SEQSERO2_MODULE.out.tsv.mix(
+        SEQSERO2_MODULE.out.txt,
+        CSVTK_CONCAT.out.csv
+    )
     logs = SEQSERO2_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -41,5 +44,7 @@ workflow SEQSERO2 {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = SEQSERO2_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

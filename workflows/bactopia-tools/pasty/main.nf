@@ -34,10 +34,7 @@ workflow {
     }
 
     publish:
-    results = PASTY.out.tsv.mix(
-        PASTY.out.blast,
-        PASTY.out.merged_tsv
-    )
+    results = PASTY.out.results
     logs = PASTY.out.logs
     nf_logs = PASTY.out.nf_logs
     versions = PASTY.out.versions

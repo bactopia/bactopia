@@ -10,36 +10,42 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow TETON {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    db
 
     main:
-    ch_versions = Channel.empty()
+    ch_results = Channel.empty()
     ch_logs = Channel.empty()
+    ch_nf_logs = Channel.empty()
+    ch_versions = Channel.empty()
+
     // Remove host reads
     SCRUBBER(reads)
-    ch_versions = ch_versions.mix(SCRUBBER.out.versions)
+    ch_results = ch_results.mix(SCRUBBER.out.results)
     ch_logs = ch_logs.mix(SCRUBBER.out.logs)
+    ch_nf_logs = ch_nf_logs.mix(SCRUBBER.out.nf_logs)
+    ch_versions = ch_versions.mix(SCRUBBER.out.versions)
+
     // Taxon Classification & Abundance
-    BRACKEN(SCRUBBER.out.scrubbed)
-    ch_versions = ch_versions.mix(BRACKEN.out.versions)
+    BRACKEN(SCRUBBER.out.scrubbed, db)
+    ch_results = ch_results.mix(BRACKEN.out.results)
     ch_logs = ch_logs.mix(BRACKEN.out.logs)
+    ch_nf_logs = ch_nf_logs.mix(BRACKEN.out.nf_logs)
+    ch_versions = ch_versions.mix(BRACKEN.out.versions)
+
     // Determine genome size and create sample sheet
     BACTOPIA_SAMPLESHEET(BRACKEN.out.classification)
-    ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
+    ch_results = ch_results.mix(BACTOPIA_SAMPLESHEET.out.results)
     ch_logs = ch_logs.mix(BACTOPIA_SAMPLESHEET.out.logs)
+    ch_nf_logs = ch_nf_logs.mix(BACTOPIA_SAMPLESHEET.out.nf_logs)
+    ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
 
     // Merge bacteria TSVs
-    BACTOPIA_SAMPLESHEET.out.bacteria_tsv
-        .collect{_meta, tsv -> tsv}
-        .map{ tsv -> [[id:'teton-bacteria'], tsv]}
-        .set{ ch_merge_bacteria }
+    BACTOPIA_SAMPLESHEET.out.bacteria_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'teton-bacteria'], tsv]}.set{ ch_merge_bacteria }
     CSVTK_CONCAT(ch_merge_bacteria, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     // Merge nonbacteria TSVs 
-    BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
-        .collect{_meta, tsv -> tsv}
-        .map{ tsv -> [[id:'teton-nonbacteria'], tsv]}
-        .set{ ch_merge_nonbacteria }
+    BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'teton-nonbacteria'], tsv]}.set{ ch_merge_nonbacteria }
     CSVTK_JOIN(ch_merge_nonbacteria, 'tsv', 'tsv', 'inner')
     ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
 
@@ -48,8 +54,8 @@ workflow TETON {
     nonbacteria_tsv = BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
     sizemeup = BACTOPIA_SAMPLESHEET.out.sizemeup
     logs = ch_logs
-    nf_logs = BACTOPIA_SAMPLESHEET.out.nf_begin.mix(
-        BACTOPIA_SAMPLESHEET.out.nf_err,
+    nf_logs = ch_nf_logs.mix(
+        BACTOPIA_SAMPLESHEET.out.ch_nf_logs,
         BACTOPIA_SAMPLESHEET.out.nf_log,
         BACTOPIA_SAMPLESHEET.out.nf_out,
         BACTOPIA_SAMPLESHEET.out.nf_run,

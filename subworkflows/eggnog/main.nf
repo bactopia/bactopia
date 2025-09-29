@@ -11,9 +11,6 @@ workflow EGGNOG {
     download_eggnog
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-
     if (download_eggnog) {
         // Force EGGNOG_MAPPER to wait
         EGGNOG_DOWNLOAD()
@@ -21,12 +18,31 @@ workflow EGGNOG {
     } else {
         EGGNOG_MAPPER(faa, database)
     }
-    ch_versions = ch_versions.mix(EGGNOG_MAPPER.out.versions)
-    ch_logs = ch_logs.mix(EGGNOG_MAPPER.out.logs)
 
     emit:
+    // Individual outputs
     hits = EGGNOG_MAPPER.out.hits
-    logs = ch_logs
+    seed_orthologs = EGGNOG_MAPPER.out.seed_orthologs
+    annotations = EGGNOG_MAPPER.out.annotations
+    xlsx = EGGNOG_MAPPER.out.xlsx
+    orthologs = EGGNOG_MAPPER.out.orthologs
+    genepred = EGGNOG_MAPPER.out.genepred
+    gff = EGGNOG_MAPPER.out.gff
+    no_anno = EGGNOG_MAPPER.out.no_anno
+    pfam = EGGNOG_MAPPER.out.pfam
+
+    // Generic aggregate outputs
+    results = EGGNOG_MAPPER.out.hits.mix(
+        EGGNOG_MAPPER.out.seed_orthologs,
+        EGGNOG_MAPPER.out.annotations,
+        EGGNOG_MAPPER.out.xlsx,
+        EGGNOG_MAPPER.out.orthologs,
+        EGGNOG_MAPPER.out.genepred,
+        EGGNOG_MAPPER.out.gff,
+        EGGNOG_MAPPER.out.no_anno,
+        EGGNOG_MAPPER.out.pfam
+    )
+    logs = EGGNOG_MAPPER.out.logs
     nf_logs = EGGNOG_MAPPER.out.nf_begin.mix(
         EGGNOG_MAPPER.out.nf_err,
         EGGNOG_MAPPER.out.nf_log,
@@ -35,5 +51,5 @@ workflow EGGNOG {
         EGGNOG_MAPPER.out.nf_sh,
         EGGNOG_MAPPER.out.nf_trace
     )
-    versions = ch_versions
+    versions = EGGNOG_MAPPER.out.versions
 }

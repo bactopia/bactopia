@@ -39,7 +39,7 @@ workflow {
     }
 
     publish:
-    results = TBLASTX.out.tsv.mix(TBLASTX.out.merged_tsv)
+    results = TBLASTX.out.results
     logs = TBLASTX.out.logs
     nf_logs = TBLASTX.out.nf_logs
     versions = TBLASTX.out.versions

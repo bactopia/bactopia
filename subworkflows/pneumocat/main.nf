@@ -8,13 +8,17 @@ workflow PNEUMOCAT {
     fastq // channel: [ val(meta), [ fastq ] ]
 
     main:
-    ch_versions = Channel.empty()
-
     PNEUMOCAT_MODULE(fastq)
-    ch_versions = ch_versions.mix(PNEUMOCAT_MODULE.out.versions)
 
     emit:
+    // Individual outputs
     xml = PNEUMOCAT_MODULE.out.xml
+    txt = PNEUMOCAT_MODULE.out.txt
+
+    // Generic aggregate outputs
+    results = PNEUMOCAT_MODULE.out.xml.mix(
+        PNEUMOCAT_MODULE.out.txt
+    )
     logs = PNEUMOCAT_MODULE.out.logs
     nf_logs = PNEUMOCAT_MODULE.out.nf_begin.mix(
         PNEUMOCAT_MODULE.out.nf_err,
@@ -24,5 +28,5 @@ workflow PNEUMOCAT {
         PNEUMOCAT_MODULE.out.nf_sh,
         PNEUMOCAT_MODULE.out.nf_trace
     )
-    versions = ch_versions
+    versions = PNEUMOCAT_MODULE.out.versions
 }

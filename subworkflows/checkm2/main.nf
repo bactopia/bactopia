@@ -12,31 +12,30 @@ workflow CHECKM2 {
     download_checkm2 // boolean
 
     main:
-    ch_versions = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_merged_checkm2 = Channel.empty()
-
     if (download_checkm2) {
         CHECKM2_DOWNLOAD()
         CHECKM2_PREDICT(fasta, CHECKM2_DOWNLOAD.out.db)
     } else {
         CHECKM2_PREDICT(fasta, database)
     }
-    ch_versions = ch_versions.mix(CHECKM2_PREDICT.out.versions)
-    ch_logs = ch_logs.mix(CHECKM2_PREDICT.out.logs)
 
     // Merge results
     CHECKM2_PREDICT.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'checkm2'], tsv]}.set{ ch_merge_checkm2 }
     CSVTK_CONCAT(ch_merge_checkm2, 'tsv', 'tsv')
-    ch_merged_checkm2 = ch_merged_checkm2.mix(CSVTK_CONCAT.out.csv)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
 
     emit:
+    // Individual outputs
     report = CHECKM2_PREDICT.out.tsv
-    merged_reports = ch_merged_checkm2
-    results = CHECKM2_PREDICT.out.results
-    logs = ch_logs
+    merged_reports = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = CHECKM2_PREDICT.out.tsv.mix(
+        CHECKM2_PREDICT.out.supplemental,
+        CSVTK_CONCAT.out.csv
+    )
+    logs = CHECKM2_PREDICT.out.logs.mix(
+        CSVTK_CONCAT.out.logs
+    )
     nf_logs = CHECKM2_PREDICT.out.nf_begin.mix(
         CHECKM2_PREDICT.out.nf_err,
         CHECKM2_PREDICT.out.nf_log,
@@ -52,5 +51,7 @@ workflow CHECKM2 {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions
+    versions = CHECKM2_PREDICT.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

@@ -11,8 +11,8 @@ process MOBSUITE_RECON {
     output:
     tuple val(meta), path("${prefix}-chromosome.fasta.gz"), emit: chromosome
     tuple val(meta), path("${prefix}-contig_report.txt")  , emit: contig_report
-    tuple val(meta), path("plasmid_*.fasta.gz")           , emit: plasmids        , optional: true
-    tuple val(meta), path("${prefix}-mobtyper.txt")       , emit: mobtyper_results, optional: true
+    tuple val(meta), path("plasmid_*.fasta.gz")           , emit: plasmids, optional: true
+    tuple val(meta), path("${prefix}-mobtyper.txt")       , emit: txt, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err

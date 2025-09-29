@@ -9,21 +9,23 @@ workflow ASSEMBLER {
     reads // channel: [ val(meta), [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-
-    // Assemble genomes
     ASSEMBLER_MODULE(reads)
-    ch_versions = ch_versions.mix(ASSEMBLER_MODULE.out.versions)
 
-    // Merge summary of assemblies
+    // Merge results
     ASSEMBLER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'assembly-scan'], tsv]}.set{ ch_merge_stats }
     CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
-    ch_versions = ch_versions.mix(CSVTK_CONCAT.out.versions)
 
     emit:
+    // Individual outputs
     fna = ASSEMBLER_MODULE.out.fna
     tsv = ASSEMBLER_MODULE.out.tsv
     merged_tsv = CSVTK_CONCAT.out.csv
+
+    // Generic aggregate outputs
+    results = ASSEMBLER_MODULE.out.fna.mix(
+        ASSEMBLER_MODULE.out.tsv,
+        CSVTK_CONCAT.out.csv
+    )
     logs = ASSEMBLER_MODULE.out.logs.mix(
         CSVTK_CONCAT.out.logs
     )
@@ -42,5 +44,7 @@ workflow ASSEMBLER {
         CSVTK_CONCAT.out.nf_sh,
         CSVTK_CONCAT.out.nf_trace
     )
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ASSEMBLER_MODULE.out.versions.mix(
+        CSVTK_CONCAT.out.versions
+    )
 }

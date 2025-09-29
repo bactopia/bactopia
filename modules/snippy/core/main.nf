@@ -11,13 +11,13 @@ process SNIPPY_CORE {
     path mask
 
     output:
-    tuple val(meta), path("results/*")                          , emit: results
-    tuple val(meta), path("results/${prefix}.aln.gz")           , emit: aln
-    tuple val(meta), path("results/${prefix}.full.aln.gz")      , emit: full_aln
-    tuple val(meta), path("results/${prefix}-clean.full.aln.gz"), emit: clean_full_aln
-    tuple val(meta), path("results/${prefix}.tab.gz")           , emit: tab
-    tuple val(meta), path("results/${prefix}.vcf.gz")           , emit: vcf
-    tuple val(meta), path("results/${prefix}.txt")              , emit: txt
+    tuple val(meta), path("snippy-core/*")                          , emit: supplemental
+    tuple val(meta), path("snippy-core/${prefix}.aln.gz")           , emit: aln
+    tuple val(meta), path("snippy-core/${prefix}.full.aln.gz")      , emit: full_aln
+    tuple val(meta), path("snippy-core/${prefix}-clean.full.aln.gz"), emit: clean_full_aln
+    tuple val(meta), path("snippy-core/${prefix}.tab.gz")           , emit: tab
+    tuple val(meta), path("snippy-core/${prefix}.vcf.gz")           , emit: vcf
+    tuple val(meta), path("snippy-core/${prefix}.txt")              , emit: txt
     tuple val(meta), path("${reference_name}.samples.txt")     , emit: samples
     tuple val(meta), path("*.{log,err}")                        , emit: logs, optional: true
     tuple val(meta), path(".command.begin")                     , emit: nf_begin
@@ -77,8 +77,8 @@ process SNIPPY_CORE {
     fi
 
     # Move outputs
-    mkdir results
-    mv ${prefix}* results/
+    mkdir snippy-core
+    mv ${prefix}* snippy-core/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

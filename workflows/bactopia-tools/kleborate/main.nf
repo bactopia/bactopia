@@ -34,9 +34,7 @@ workflow {
     }
 
     publish:
-    results = KLEBORATE.out.tsv.mix(
-        KLEBORATE.out.merged_tsv
-    )
+    results = KLEBORATE.out.results
     logs = KLEBORATE.out.logs
     nf_logs = KLEBORATE.out.nf_logs
     versions = KLEBORATE.out.versions

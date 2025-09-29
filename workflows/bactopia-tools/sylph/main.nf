@@ -34,7 +34,7 @@ workflow {
     }
 
     publish:
-    results = SYLPH.out.tsv
+    results = SYLPH.out.results
     logs = SYLPH.out.logs
     nf_logs = SYLPH.out.nf_logs
     versions = SYLPH.out.versions

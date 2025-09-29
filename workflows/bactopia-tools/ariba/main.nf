@@ -37,12 +37,7 @@ workflow {
     }
 
     publish:
-    results = ARIBA.out.results.mix(
-        ARIBA.out.report,
-        ARIBA.out.summary,
-        ARIBA.out.merged_report,
-        ARIBA.out.merged_summary
-    )
+    results = ARIBA.out.results
     logs = ARIBA.out.logs
     nf_logs = ARIBA.out.nf_logs
     versions = ARIBA.out.versions
