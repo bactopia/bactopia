@@ -1,7 +1,5 @@
 process DATASETS {
     label "process_low"
-    storeDir params.datasets_cache
-    publishDir params.datasets_cache
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
@@ -22,13 +20,13 @@ process DATASETS {
     path "versions.yml"  , emit: versions
 
     script:
-    bactopia_version = params.amrfinder_url.replace("https://datasets.bactopia.com/datasets/","").replace("/amrfinderplus.tar.gz","")
+    bactopia_version = task.ext.amrfinder_url.replace("https://datasets.bactopia.com/datasets/","").replace("/amrfinderplus.tar.gz","")
     """
     mkdir -p ${bactopia_version}
-    wget -O ${bactopia_version}/amrfinderplus.tar.gz ${params.amrfinder_url}
-    wget -O ${bactopia_version}/mlst.tar.gz ${params.mlst_url}
-    wget -O gtdb-rs207.genomic-reps.dna.k31.lca.json.gz ${params.sourmash_url}
-    wget -O mash-refseq88.k21.msh.xz ${params.mash_url}
+    wget -O ${bactopia_version}/amrfinderplus.tar.gz ${task.ext.amrfinder_url}
+    wget -O ${bactopia_version}/mlst.tar.gz ${task.ext.mlst_url}
+    wget -O gtdb-rs207.genomic-reps.dna.k31.lca.json.gz ${task.ext.sourmash_url}
+    wget -O mash-refseq88.k21.msh.xz ${task.ext.mash_url}
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

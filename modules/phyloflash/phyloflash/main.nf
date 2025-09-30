@@ -52,7 +52,7 @@ process PHYLOFLASH  {
         MULTI="1"
     fi
 
-    if [ "${params.allow_multiple_16s}" == "true" ]; then
+    if [ "${task.ext.allow_multiple_16s}" == "true" ]; then
         MULTI="0"
     fi
 

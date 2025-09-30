@@ -68,7 +68,7 @@ process SNIPPY_CORE {
     rm -rf *ref.fa ${final_reference} samples/
 
     # Compress outputs
-    if [[ ${params.skip_compression} == "false" ]]; then
+    if [[ ${task.ext.skip_compression} == "false" ]]; then
         pigz -n --best -p ${task.cpus} ${prefix}.aln
         pigz -n --best -p ${task.cpus} ${prefix}.full.aln
         pigz -n --best -p ${task.cpus} ${prefix}-clean.full.aln

@@ -91,16 +91,16 @@ process SNIPPY_RUN {
         ${prefix}/${prefix}.consensus.subs.fa \\
         ${prefix}/${prefix}.subs.vcf \\
         ${prefix}/${prefix}.coverage.txt \\
-        --mincov ${params.mincov} > ${prefix}/${prefix}.consensus.subs.masked.fa
+        --mincov ${task.ext.mincov} > ${prefix}/${prefix}.consensus.subs.masked.fa
 
     # Clean Up
     rm -rf tmp_snippy/ ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz* ${final_reference}
 
-    if [[ ${params.snippy_remove_bam} == "true" ]]; then
+    if [[ ${task.ext.snippy_remove_bam} == "true" ]]; then
         rm ${prefix}/${prefix}.bam ${prefix}/${prefix}.bam.bai
     fi
 
-    if [[ ${params.skip_compression} == "false" ]]; then
+    if [[ ${task.ext.skip_compression} == "false" ]]; then
         find ${prefix}/ -type f | \
             grep -v -E "\\.bam\$|\\.bai\$|\\.log\$|\\.txt\$|\\.html\$|\\.tab\$" | \
             xargs -I {} pigz -n --best -p ${task.cpus} {}

@@ -54,9 +54,9 @@ process PROKKA {
     meta.process_name = task.ext.process_name
 
     // Contig ID must <= 37 characters
-    def compliant = params.compliant ? "--compliant" : ""
+    def compliant = task.ext.compliant ? "--compliant" : ""
     def locustag = "--locustag ${prefix}"
-    if ("gnl|${params.centre}|${prefix}_100000".length() > 37) {
+    if ("gnl|${task.ext.centre}|${prefix}_100000".length() > 37) {
         locustag = ""
         compliant = "--compliant"
     }
@@ -65,7 +65,7 @@ process PROKKA {
         gzip -c -d $fasta > $fasta_name
     fi
 
-    if [ "$params.prokka_debug" == "true" ]; then
+    if [ "$task.ext.prokka_debug" == "true" ]; then
         export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
         env
         mkdir tmp_prokka/
@@ -98,7 +98,7 @@ process PROKKA {
     cat ${prefix}/${prefix}.faa | makeblastdb -dbtype "prot" -title "Predicted protein sequences for ${prefix}" -out blastdb/${prefix}.faa
     tar -cvf - blastdb/ | gzip -c > ${prefix}/${prefix}-blastdb.tar.gz
 
-    if [[ "${params.skip_compression}" == "false" ]]; then
+    if [[ "${task.ext.skip_compression}" == "false" ]]; then
         gzip ${prefix}/*.gff
         gzip ${prefix}/*.gbk
         gzip ${prefix}/*.fna

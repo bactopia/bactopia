@@ -1,8 +1,6 @@
 process AMRFINDERPLUS_UPDATE {
     tag "update"
     label 'process_low'
-    storeDir params.datasets_cache
-    publishDir params.datasets_cache
 
     conda "${task.ext.conda_env}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? 
