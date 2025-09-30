@@ -24,6 +24,7 @@ workflow ASSEMBLER {
     // Generic aggregate outputs
     results = ASSEMBLER_MODULE.out.fna.mix(
         ASSEMBLER_MODULE.out.tsv,
+        ASSEMBLER_MODULE.out.error,
         CSVTK_CONCAT.out.csv
     )
     logs = ASSEMBLER_MODULE.out.logs.mix(

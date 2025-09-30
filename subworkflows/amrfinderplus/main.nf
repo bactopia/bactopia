@@ -25,8 +25,8 @@ workflow AMRFINDERPLUS {
 
     // Generic aggregate outputs
     results = AMRFINDERPLUS_RUN.out.report.mix(
-        CSVTK_CONCAT.out.csv,
-        AMRFINDERPLUS_RUN.out.mutation_report
+        AMRFINDERPLUS_RUN.out.mutation_report,
+        CSVTK_CONCAT.out.csv
     )
     logs = AMRFINDERPLUS_RUN.out.logs.mix(
         CSVTK_CONCAT.out.logs

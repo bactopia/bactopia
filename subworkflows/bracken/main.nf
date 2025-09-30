@@ -24,30 +24,33 @@ workflow BRACKEN {
     emit:
     // Individual outputs
     tsv = BRACKEN_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT_TSV.out.csv
-    abundances = BRACKEN_MODULE.out.abundances
-    adjusted_abundances = BRACKEN_MODULE.out.adjusted_abundances
-    bracken_report = BRACKEN_MODULE.out.bracken_report
-    classification = BRACKEN_MODULE.out.classification
     classified = BRACKEN_MODULE.out.classified
-    kraken2_output = BRACKEN_MODULE.out.kraken2_output
-    kraken2_report = BRACKEN_MODULE.out.kraken2_report
-    merged_adjusted_abundances = CSVTK_CONCAT_ADJUSTED.out.csv
     unclassified = BRACKEN_MODULE.out.unclassified
+    kraken2_report = BRACKEN_MODULE.out.kraken2_report
+    kraken2_output = BRACKEN_MODULE.out.kraken2_output
+    bracken_report = BRACKEN_MODULE.out.bracken_report
+    krona = BRACKEN_MODULE.out.krona
+    abundances = BRACKEN_MODULE.out.abundances
+    classification = BRACKEN_MODULE.out.classification
+    adjusted_abundances = BRACKEN_MODULE.out.adjusted_abundances
+    merged_tsv = CSVTK_CONCAT_TSV.out.csv
+    merged_adjusted_abundances = CSVTK_CONCAT_ADJUSTED.out.csv
 
     // Generic aggregate outputs
     results = BRACKEN_MODULE.out.tsv.mix(
-        CSVTK_CONCAT_TSV.out.csv,
-        BRACKEN_MODULE.out.abundances,
-        BRACKEN_MODULE.out.adjusted_abundances,
-        BRACKEN_MODULE.out.bracken_report,
-        BRACKEN_MODULE.out.classification,
         BRACKEN_MODULE.out.classified,
-        BRACKEN_MODULE.out.kraken2_output,
+        BRACKEN_MODULE.out.unclassified,
         BRACKEN_MODULE.out.kraken2_report,
+        BRACKEN_MODULE.out.kraken2_output,
+        BRACKEN_MODULE.out.bracken_report,
+        BRACKEN_MODULE.out.krona,
+        BRACKEN_MODULE.out.abundances,
+        BRACKEN_MODULE.out.classification,
+        BRACKEN_MODULE.out.adjusted_abundances,
+        CSVTK_CONCAT_TSV.out.csv,
         CSVTK_CONCAT_ADJUSTED.out.csv,
-        BRACKEN_MODULE.out.unclassified
     )
+
     logs = BRACKEN_MODULE.out.logs.mix(
         CSVTK_CONCAT_TSV.out.logs,
         CSVTK_CONCAT_ADJUSTED.out.logs

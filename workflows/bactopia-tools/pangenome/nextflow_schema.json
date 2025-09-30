@@ -491,7 +491,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "traits": {
+                "scoary_traits": {
                     "type": "string",
                     "description": "Input trait table (CSV) to test for associations"
                 },

@@ -28,8 +28,8 @@ process SCOARY {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "${task.ext.rundir}/${task.ext.process_name}/"
+    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs"
     meta.process_name = task.ext.process_name
     """
     scoary \\

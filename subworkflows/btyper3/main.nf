@@ -22,6 +22,7 @@ workflow BTYPER3 {
 
     // Generic aggregate outputs
     results = BTYPER3_MODULE.out.tsv.mix(
+        BTYPER3_MODULE.out.supplemental,
         CSVTK_CONCAT.out.csv
     )
     logs = BTYPER3_MODULE.out.logs.mix(

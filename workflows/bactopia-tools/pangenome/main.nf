@@ -84,8 +84,8 @@ workflow {
     }
 
     // Pan-genome GWAS
-    if (params.traits) {
-        SCOARY(PANGENOME.out.csv, file(params.traits))
+    if (params.scoary_traits) {
+        SCOARY(PANGENOME.out.csv, file(params.scoary_traits))
         ch_results = ch_results.mix(SCOARY.out.csv)
         ch_logs = ch_logs.mix(SCOARY.out.logs)
         ch_nf_logs = ch_nf_logs.mix(SCOARY.out.nf_logs)

@@ -10,33 +10,36 @@ process SNIPPY_RUN {
     tuple val(ref_meta), path(reference)
 
     output:
-    tuple val(meta), path("results/${prefix}.aligned.fa.gz")                  , emit: aligned_fa
-    tuple val(meta), path("results/${prefix}.annotated.vcf.gz")               , emit: annotated_vcf
-    tuple val(meta), path("results/${prefix}.bam")                            , emit: bam, optional: true
-    tuple val(meta), path("results/${prefix}.bam.bai")                        , emit: bai, optional: true
-    tuple val(meta), path("results/${prefix}.bed.gz")                         , emit: bed
-    tuple val(meta), path("results/${prefix}.consensus.fa.gz")                , emit: consensus_fa
-    tuple val(meta), path("results/${prefix}.consensus.subs.fa.gz")           , emit: consensus_subs_fa
-    tuple val(meta), path("results/${prefix}.consensus.subs.masked.fa.gz")    , emit: consensus_subs_masked_fa
-    tuple val(meta), path("results/${prefix}.coverage.txt.gz")                , emit: coverage
-    tuple val(meta), path("results/${prefix}.csv.gz")                         , emit: csv
-    tuple val(meta), path("results/${prefix}.filt.vcf.gz")                    , emit: filt_vcf
-    tuple val(meta), path("results/${prefix}.gff.gz")                         , emit: gff
-    tuple val(meta), path("results/${prefix}.html")                           , emit: html
-    tuple val(meta), path("results/${prefix}.raw.vcf.gz")                     , emit: raw_vcf
-    tuple val(meta), path("results/${prefix}.subs.vcf.gz")                    , emit: subs_vcf
-    tuple val(meta), path("results/${prefix}.tab")                            , emit: tab
-    tuple val(meta), path("results/${prefix}.txt")                            , emit: txt
-    tuple val(meta), path("results/${prefix}.vcf.gz")                         , emit: vcf
-    tuple val(meta), path("*.{log,err}")                                      , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                                   , emit: nf_begin
-    tuple val(meta), path(".command.err")                                     , emit: nf_err
-    tuple val(meta), path(".command.log")                                     , emit: nf_log
-    tuple val(meta), path(".command.out")                                     , emit: nf_out
-    tuple val(meta), path(".command.run")                                     , emit: nf_run
-    tuple val(meta), path(".command.sh")                                      , emit: nf_sh
-    tuple val(meta), path(".command.trace")                                   , emit: nf_trace
-    tuple val(meta), path("versions.yml")                                     , emit: versions
+    tuple val(meta), path("${prefix}.aligned.fa.gz")              , emit: aligned_fa, optional: true
+    tuple val(meta), path("${prefix}.vcf.gz")                     , emit: vcf, optional: true
+    tuple val(meta), path("${prefix}.error.aligned.fa.gz")        , emit: aligned_fa_error, optional: true
+    tuple val(meta), path("${prefix}.error.vcf.gz")               , emit: vcf_error, optional: true
+    tuple val(meta), path("${prefix}.error.txt")                  , emit: error, optional: true
+    tuple val(meta), path("${prefix}.annotated.vcf.gz")           , emit: annotated_vcf
+    tuple val(meta), path("${prefix}.bam")                        , emit: bam, optional: true
+    tuple val(meta), path("${prefix}.bam.bai")                    , emit: bai, optional: true
+    tuple val(meta), path("${prefix}.bed.gz")                     , emit: bed
+    tuple val(meta), path("${prefix}.consensus.fa.gz")            , emit: consensus_fa
+    tuple val(meta), path("${prefix}.consensus.subs.fa.gz")       , emit: consensus_subs_fa
+    tuple val(meta), path("${prefix}.consensus.subs.masked.fa.gz"), emit: consensus_subs_masked_fa
+    tuple val(meta), path("${prefix}.coverage.txt.gz")            , emit: coverage
+    tuple val(meta), path("${prefix}.csv.gz")                     , emit: csv
+    tuple val(meta), path("${prefix}.filt.vcf.gz")                , emit: filt_vcf
+    tuple val(meta), path("${prefix}.gff.gz")                     , emit: gff
+    tuple val(meta), path("${prefix}.html")                       , emit: html
+    tuple val(meta), path("${prefix}.raw.vcf.gz")                 , emit: raw_vcf
+    tuple val(meta), path("${prefix}.subs.vcf.gz")                , emit: subs_vcf
+    tuple val(meta), path("${prefix}.tab")                        , emit: tab
+    tuple val(meta), path("${prefix}.txt")                        , emit: txt
+    tuple val(meta), path("*.{log,err}")                          , emit: logs, optional: true
+    tuple val(meta), path(".command.begin")                       , emit: nf_begin
+    tuple val(meta), path(".command.err")                         , emit: nf_err
+    tuple val(meta), path(".command.log")                         , emit: nf_log
+    tuple val(meta), path(".command.out")                         , emit: nf_out
+    tuple val(meta), path(".command.run")                         , emit: nf_run
+    tuple val(meta), path(".command.sh")                          , emit: nf_sh
+    tuple val(meta), path(".command.trace")                       , emit: nf_trace
+    tuple val(meta), path("versions.yml")                         , emit: versions
 
     script:
     reference_name = reference.getSimpleName()
@@ -49,7 +52,7 @@ process SNIPPY_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name
-    def read_inputs = meta.single_end ? "--se ${reads[0]}" : "--R1 ${reads[0]} --R2 ${reads[1]}"
+    def read_inputs = _meta.single_end ? "--se ${reads[0]}" : "--R1 ${reads[0]} --R2 ${reads[1]}"
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """
@@ -103,8 +106,18 @@ process SNIPPY_RUN {
             xargs -I {} pigz -n --best -p ${task.cpus} {}
         pigz -n --best -p ${task.cpus} ${prefix}/${prefix}.coverage.txt
     fi
-    mv ${prefix}/ results/
-    mv results/*.log ./
+    mv ${prefix}/* ./
+
+    # Check for SNPs
+    TOTAL_SNPS=\$(wc -l < ${prefix}.tab)
+    echo "Total SNPS === \$TOTAL_SNPS"
+    if [[ "\$TOTAL_SNPS" -eq 1 ]]; then
+        # No SNPs were found
+        mv ${prefix}.aligned.fa.gz ${prefix}.error.aligned.fa.gz
+        mv ${prefix}.vcf.gz ${prefix}.error.vcf.gz
+        echo "No SNPs found using reference ${final_reference}, downstream analysis is discontinued for ${prefix}" | \
+        sed 's/^\\s*//' > ${prefix}-error.txt
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

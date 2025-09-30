@@ -13,11 +13,12 @@ workflow IQTREE {
     emit:
     // Individual outputs
     phylogeny = IQTREE_MODULE.out.phylogeny
+    alignment = IQTREE_MODULE.out.alignment
     aln_tree = IQTREE_MODULE.out.aln_tree
 
     // Generic aggregate outputs
     results = IQTREE_MODULE.out.phylogeny.mix(
-        IQTREE_MODULE.out.aln_tree,
+        IQTREE_MODULE.out.alignment,
         IQTREE_MODULE.out.supplemental
     )
     logs = IQTREE_MODULE.out.logs

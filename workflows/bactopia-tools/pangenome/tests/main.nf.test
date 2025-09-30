@@ -131,4 +131,35 @@ nextflow_pipeline {
             )
         }
     }
+
+    test("pangenome (roary, --traits) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = "/datasets/generic/gene_traits.csv"
+                test_dataset2 = ""
+                is_ci = true
+                outdir = "$outputDir"
+                use_roary = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
 }

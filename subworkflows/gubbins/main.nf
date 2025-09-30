@@ -2,6 +2,7 @@
 // gubbins - Rapid phylogenetic analysis of recombinant bacterial sequences
 //
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
+include { SNPDISTS                  } from '../snpdists/main'
 
 workflow GUBBINS {
     take:
@@ -9,6 +10,10 @@ workflow GUBBINS {
 
     main:
     GUBBINS_MODULE(alignment)
+    
+    // Per-sample SNP distances
+    GUBBINS_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.masked.distance", process_name: "snpdists-masked"], aln]}.set{ ch_masked_aln }
+    SNPDISTS(ch_masked_aln)
 
     emit:
     // Individual outputs
@@ -23,6 +28,7 @@ workflow GUBBINS {
     tree = GUBBINS_MODULE.out.tree
     tree_labelled = GUBBINS_MODULE.out.tree_labelled
     bootstrap_tree = GUBBINS_MODULE.out.bootstrap_tree
+    tsv = SNPDISTS.out.tsv
 
     // Generic aggregate outputs
     results = GUBBINS_MODULE.out.masked_aln.mix(
@@ -35,16 +41,22 @@ workflow GUBBINS {
         GUBBINS_MODULE.out.embl_branch,
         GUBBINS_MODULE.out.tree,
         GUBBINS_MODULE.out.tree_labelled,
-        GUBBINS_MODULE.out.bootstrap_tree
+        GUBBINS_MODULE.out.bootstrap_tree,
+        SNPDISTS.out.results
     )
-    logs = GUBBINS_MODULE.out.logs
+    logs = GUBBINS_MODULE.out.logs.mix(
+        SNPDISTS.out.logs
+    )
     nf_logs = GUBBINS_MODULE.out.nf_begin.mix(
         GUBBINS_MODULE.out.nf_err,
         GUBBINS_MODULE.out.nf_log,
         GUBBINS_MODULE.out.nf_out,
         GUBBINS_MODULE.out.nf_run,
         GUBBINS_MODULE.out.nf_sh,
-        GUBBINS_MODULE.out.nf_trace
+        GUBBINS_MODULE.out.nf_trace,
+        SNPDISTS.out.nf_logs
     )
-    versions = GUBBINS_MODULE.out.versions
+    versions = GUBBINS_MODULE.out.versions.mix(
+        SNPDISTS.out.versions
+    )
 }

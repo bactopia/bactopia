@@ -1,3 +1,6 @@
 **/*.{err,gz,html,log,pdf,stderr,stdout}
 **/nf.command.*
 bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/*.{bam,bai,bionj,contree,iqtree,mldist,nex,phylip,tre,treefile,txt,ufboot}
+**/*.per_branch_statistics.csv

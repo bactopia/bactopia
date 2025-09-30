@@ -2,7 +2,7 @@
 // ariba - Gene identification through local assemblies
 //
 include { ARIBA_GETREF } from '../../modules/ariba/getref/main'
-include { ARIBA_RUN } from '../../modules/ariba/run/main'
+include { ARIBA_RUN    } from '../../modules/ariba/run/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../modules/csvtk/concat/main'
 

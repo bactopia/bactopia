@@ -13,8 +13,8 @@ process SNIPPY_CORE {
     output:
     tuple val(meta), path("snippy-core/*")                          , emit: supplemental
     tuple val(meta), path("snippy-core/${prefix}.aln.gz")           , emit: aln
-    tuple val(meta), path("snippy-core/${prefix}.full.aln.gz")      , emit: full_aln
-    tuple val(meta), path("snippy-core/${prefix}-clean.full.aln.gz"), emit: clean_full_aln
+    tuple val(meta), path("${prefix}.full.aln.gz")       , emit: full_aln
+    tuple val(meta), path("${prefix}-clean.full.aln.gz") , emit: clean_full_aln
     tuple val(meta), path("snippy-core/${prefix}.tab.gz")           , emit: tab
     tuple val(meta), path("snippy-core/${prefix}.vcf.gz")           , emit: vcf
     tuple val(meta), path("snippy-core/${prefix}.txt")              , emit: txt
@@ -37,8 +37,8 @@ process SNIPPY_CORE {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
+    meta.output_dir = "${task.ext.rundir}/"
+    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs"
     meta.process_name = task.ext.process_name
     def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
@@ -79,6 +79,7 @@ process SNIPPY_CORE {
     # Move outputs
     mkdir snippy-core
     mv ${prefix}* snippy-core/
+    mv snippy-core/${prefix}-clean.full.aln.gz snippy-core/${prefix}.full.aln.gz ./
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

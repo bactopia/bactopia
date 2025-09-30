@@ -12,6 +12,7 @@ process IQTREE {
     output:
     tuple val(meta), path("${process_name}/*")      , emit: supplemental
     tuple val(meta), path(treefile)                 , emit: phylogeny
+    tuple val(meta), path(alignment)                , emit: alignment
     tuple val(meta), path(alignment), path(treefile), emit: aln_tree
     tuple val(meta), path("*.{log,err}")            , emit: logs, optional: true
     tuple val(meta), path(".command.begin") , emit: nf_begin
@@ -25,7 +26,7 @@ process IQTREE {
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
-    process_name = _meta.process_name ?: task.ext.process_name
+    process_name = _meta.process_name == "iqtree-fast" ? "iqtree-fast" : task.ext.process_name
     args = process_name == "iqtree-fast" ? task.ext.fast_args : task.ext.args
     treefile = process_name == "iqtree-fast" ? "${process_name}/${prefix}.treefile" : "${prefix}.treefile"
 

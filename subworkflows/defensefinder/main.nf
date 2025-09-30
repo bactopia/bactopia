@@ -2,9 +2,9 @@
 // defensefinder - Systematic search of all known anti-phage systems
 //
 include { DEFENSEFINDER_UPDATE } from '../../modules/defensefinder/update/main'
-include { DEFENSEFINDER_RUN } from '../../modules/defensefinder/run/main'
-include { CSVTK_CONCAT as GENES_CONCAT } from '../../modules/csvtk/concat/main'
-include { CSVTK_CONCAT as HMMER_CONCAT } from '../../modules/csvtk/concat/main'
+include { DEFENSEFINDER_RUN    } from '../../modules/defensefinder/run/main'
+include { CSVTK_CONCAT as GENES_CONCAT   } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT as HMMER_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as SYSTEMS_CONCAT } from '../../modules/csvtk/concat/main'
 
 workflow DEFENSEFINDER {
@@ -29,7 +29,7 @@ workflow DEFENSEFINDER {
     // Individual outputs
     genes_tsv = DEFENSEFINDER_RUN.out.genes_tsv
     merged_genes_tsv = GENES_CONCAT.out.csv
-    hmmer_tsv = DEFENSEFINDER_RUN.out.genes_tsv
+    hmmer_tsv = DEFENSEFINDER_RUN.out.hmmer_tsv
     merged_hmmer_tsv = HMMER_CONCAT.out.csv
     systems_tsv = DEFENSEFINDER_RUN.out.systems_tsv
     merged_systems_tsv = SYSTEMS_CONCAT.out.csv

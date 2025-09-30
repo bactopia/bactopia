@@ -22,6 +22,7 @@ workflow CLERMONTYPING {
 
     // Generic aggregate outputs
     results = CLERMONTYPING_MODULE.out.tsv.mix(
+        CLERMONTYPING_MODULE.out.supplemental,
         CSVTK_CONCAT.out.csv
     )
     logs = CLERMONTYPING_MODULE.out.logs.mix(

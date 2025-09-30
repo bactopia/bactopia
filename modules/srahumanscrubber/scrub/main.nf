@@ -26,13 +26,14 @@ process SRAHUMANSCRUBBER_SCRUB {
     script:
     def VERSION = '2.2.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
+    output_folder = task.ext.wf == "scrubber" ? "scrubber/${task.ext.process_name}" : "${task.ext.process_name}"
 
     // Create a new meta variable
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "${prefix}/tools/${output_folder}"
+    meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     meta.single_end = reads[1] == null ? true : false
     meta.is_paired = reads[1] == null ? false : true

@@ -9,10 +9,52 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/mixed/reads"
-                test_dataset = "species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz"
-                test_dataset2 = ""
+                test_dataset = ""
+                test_dataset2 = "/datasets/generic/GCF_000292685.gbk"
                 is_ci = true
                 outdir = "$outputDir"
+                min_window_size = 5000
+                mincov = 1
+                minqual = 1
+                basequal = 1
+                mapqual = 1
+                maxsoft = 1
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Snippy (mask) - Mixed|compressed_fastq") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/reads"
+                test_dataset = "/datasets/generic/GCF_000292685.bed"
+                test_dataset2 = "/datasets/generic/GCF_000292685.gbk"
+                is_ci = true
+                outdir = "$outputDir"
+                min_window_size = 5000
+                mincov = 1
+                minqual = 1
+                basequal = 1
+                mapqual = 1
+                maxsoft = 1
             }
         }
 

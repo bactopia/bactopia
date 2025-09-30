@@ -37,7 +37,7 @@ workflows:
     modules:
       - bactopia_gather
       - bactopia_qc
-      - bactopia_scrubber
+      - scrubber
       - csvtk_concat
     path: workflows/cleanyerreads
   staphopia:
@@ -424,7 +424,7 @@ workflows:
     path: workflows/bactopia-tools/plasmidfinder
   pneumocat:
     description: "Assign capsular type to Streptococcus pneumoniae from sequence reads"
-    ext: "fastq"
+    ext: "illumina_pe_fastq"
     modules:
       - pneumocat
     path: workflows/bactopia-tools/pneumocat
@@ -453,9 +453,13 @@ workflows:
     description: "Scrub human reads from FASTQ files"
     ext: "fastq"
     includes:
-      - kraken2
+      - workflows/bactopia-tools/scrubber
     modules:
+      - kraken2
+      - srahumanscrubber_initdb
       - srahumanscrubber_scrub
+      - wget
+      - csvtk_concat
     path: workflows/bactopia-tools/scrubber
   seqsero2:
     description: "Salmonella serotype prediction from reads or assemblies"
@@ -466,7 +470,7 @@ workflows:
     path: workflows/bactopia-tools/seqsero2
   seroba:
     description: "Serotyping of Streptococcus pneumoniae from sequence reads"
-    ext: "fastq"
+    ext: "illumina_pe_fastq"
     modules:
       - seroba_run
       - csvtk_concat
@@ -609,7 +613,6 @@ modules:
   - csvtk_concat
   - csvtk_join
   - custom_dumpsoftwareversions
-  - custom_wget
   - datasets
   - defensefinder_run
   - ectyper
@@ -677,3 +680,4 @@ modules:
   - sylph_profile
   - tbprofiler_collate
   - tbprofiler_profile
+  - wget
