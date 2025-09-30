@@ -18,7 +18,7 @@ options.args = [
 BLASTDB = params.emmtyper_blastdb ? file(params.emmtyper_blastdb) : []
 
 include { EMMTYPER as EMMTYPER_MODULE } from '../../../modules/nf-core/emmtyper/main' addParams( options: options )
-include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [logs_subdir: 'emmtyper-concat', process_name: params.merge_folder] )
+include { CSVTK_CONCAT } from '../../../modules/nf-core/csvtk/concat/main' addParams( options: [args: '--no-header-row', logs_subdir: 'emmtyper-concat', process_name: params.merge_folder] )
 
 workflow EMMTYPER {
     take:
