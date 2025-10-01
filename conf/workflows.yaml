@@ -342,6 +342,7 @@ workflows:
       - tbprofiler
     modules:
       - csvtk_concat
+      - bactopia_datasets
     path: workflows/bactopia-tools/midas
   midas:
     description: "Estimate species abundances from FASTQ files"

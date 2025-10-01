@@ -31,6 +31,11 @@ workflow MERLIN {
     take:
     assembly // channel: [ val(meta), [ assembly ] ]
     mash_db // channel: [ mash_db ]
+    emmtyper_blastdb
+    hicap_database_dir
+    hicap_model_fp
+    staphtyper_repeats
+    staphtyper_repeat_order
 
     main:
     // ID potential species
@@ -49,7 +54,7 @@ workflow MERLIN {
 
     // Haemophilus
     MERLINDIST.out.haemophilus.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_haemophilus }
-    HICAP(ch_haemophilus)
+    HICAP(ch_haemophilus, hicap_database_dir, hicap_model_fp)
     HPSUISSERO(ch_haemophilus)
 
     // Klebsiella
@@ -86,12 +91,12 @@ workflow MERLIN {
 
     // Staphylococcus 
     MERLINDIST.out.staphylococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_staphylococcus }
-    STAPHTYPER(ch_staphylococcus)
+    STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus 
     MERLINDIST.out.streptococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}.set{ ch_streptococcus }
     MERLINDIST.out.streptococcus_fq.map{_meta, _reads, _found -> [_meta, _reads]}.set{ ch_streptococcus_fq }
-    EMMTYPER(ch_streptococcus)
+    EMMTYPER(ch_streptococcus, emmtyper_blastdb)
     PBPTYPER(ch_streptococcus)
     SEROBA(ch_streptococcus_fq)
     SSUISSERO(ch_streptococcus)

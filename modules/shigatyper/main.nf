@@ -32,7 +32,7 @@ process SHIGATYPER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    if (meta.runtype == "ont") {
+    if (_meta.runtype == "ont") {
         """
         shigatyper \\
             ${task.ext.args} \\
@@ -45,10 +45,10 @@ process SHIGATYPER {
             shigatyper: \$(echo \$(shigatyper --version 2>&1) | sed 's/^.*ShigaTyper //' )
         END_VERSIONS
         """
-    } else if (meta.single_end) {
+    } else if (_meta.single_end) {
         """
         shigatyper \\
-            $args \\
+            ${task.ext.args}  \\
             --SE $reads \\
             --name $prefix
 
@@ -60,7 +60,7 @@ process SHIGATYPER {
     } else {
         """
         shigatyper \\
-            $args \\
+            ${task.ext.args}  \\
             --R1 ${reads[0]} \\
             --R2 ${reads[1]} \\
             --name $prefix
