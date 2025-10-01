@@ -1,6 +1,6 @@
 process ASSEMBLER {
     tag "${prefix}"
-    label (params.use_unicycler ? "process_medium" : "process_low")
+    label (task.ext.use_unicycler ? "process_medium" : "process_low")
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
@@ -52,7 +52,7 @@ process ASSEMBLER {
     is_hybrid = meta.runtype == "hybrid" ? "-l ${se}" : ""
 
     // Shovill
-    contig_namefmt = params.contig_namefmt ? params.contig_namefmt : "${prefix}_%05d"
+    contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
     shovill_ram = task.memory.toString().split(' ')[0].toInteger()-1
     shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
@@ -62,7 +62,7 @@ process ASSEMBLER {
     // Assembly inputs
     use_original_assembly = null
     if (meta.runtype.startsWith('assembly')) {
-        use_original_assembly = params.reassemble ? false : true
+        use_original_assembly = task.ext.reassemble ? false : true
     }
     """
     echo "R1 ${r1}"
@@ -72,7 +72,7 @@ process ASSEMBLER {
     if [ "${use_original_assembly}" == "true" ]; then
         mkdir results
         gzip -cd ${extra} > results/${prefix}.fna
-    elif [[ "${meta.runtype}" == "hybrid" || "${params.use_unicycler}" == "true" ]]; then
+    elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
         # Unicycler
         unicycler \\
             -1 ${r1} -2 ${r2} \\
@@ -124,11 +124,11 @@ process ASSEMBLER {
 
         # Rename Graphs
         if [ -f "results/contigs.gfa" ]; then
-            mv results/contigs.gfa results/${params.shovill_assembler}-unpolished.gfa
+            mv results/contigs.gfa results/${task.ext.shovill_assembler}-unpolished.gfa
         elif [ -f "results/contigs.fastg" ]; then
-            mv results/contigs.fastg results/${params.shovill_assembler}-unpolished.gfa
+            mv results/contigs.fastg results/${task.ext.shovill_assembler}-unpolished.gfa
         elif [ -f "results/contigs.LastGraph" ]; then
-            mv results/contigs.LastGraph results/${params.shovill_assembler}-unpolished.gfa
+            mv results/contigs.LastGraph results/${task.ext.shovill_assembler}-unpolished.gfa
         fi
 
         if [ -f "results/flye-info.txt" ]; then
@@ -141,11 +141,11 @@ process ASSEMBLER {
     if [ "\${TOTAL_CONTIGS}" -gt 0 ]; then
         assembly-scan results/${prefix}.fna --prefix ${prefix} > results/${prefix}.tsv
         TOTAL_CONTIG_SIZE=\$(cut -f 3 results/${prefix}.tsv | tail -n 1)
-        if [ "\${TOTAL_CONTIG_SIZE}" -lt ${params.min_genome_size} ]; then
+        if [ "\${TOTAL_CONTIG_SIZE}" -lt ${task.ext.min_genome_size} ]; then
             mv results/${prefix}.fna results/${prefix}-error.fna
             mv results/${prefix}.tsv results/${prefix}-error.tsv
             echo "${prefix} assembled size (\${TOTAL_CONTIG_SIZE} bp) is less than the minimum allowed genome
-                    size (${params.min_genome_size} bp). If this is unexpected, please investigate ${prefix} to
+                    size (${task.ext.min_genome_size} bp). If this is unexpected, please investigate ${prefix} to
                     determine a cause (e.g. metagenomic, contaminants, etc...) for the poor assembly.
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of ${prefix} will be discontinued." | \
@@ -160,7 +160,7 @@ process ASSEMBLER {
     fi
 
     # Cleanup and compress
-    if [ "${params.keep_all_files}" == "false" ]; then
+    if [ "${task.ext.keep_all_files}" == "false" ]; then
         # Remove intermediate files
         rm -rfv results/shovill.bam* \\
                 results/shovill-se.bam* \\
@@ -185,7 +185,7 @@ process ASSEMBLER {
                 results/velvet/
     fi
 
-    if [[ ${params.skip_compression} == "false" ]]; then
+    if [[ ${task.ext.skip_compression} == "false" ]]; then
         # Compress based on matched extensions
         find results/ -type f | \
             grep -E "\\.fna\$|\\.fasta\$|\\.fa\$|\\.gfa\$" | \

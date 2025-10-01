@@ -1,8 +1,6 @@
 process GATHER {
     tag "${prefix}"
     label "process_low"
-    maxForks params.max_downloads
-    maxRetries params.max_retry
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
@@ -40,10 +38,10 @@ process GATHER {
     runtype = meta.original_runtype
     is_assembly = runtype.startsWith('assembly') ? true : false
     is_compressed = extra ? (extra.getName().endsWith('gz') ? true : false) : false
-    no_cache = params.no_cache ? '-N' : ''
-    archive = params.use_ena ? (task.attempt >= 4 ? "SRA" : "ENA") : "SRA"
+    no_cache = task.ext.no_cache ? '-N' : ''
+    archive = task.ext.use_ena ? (task.attempt >= 4 ? "SRA" : "ENA") : "SRA"
     section = runtype == 'assembly_accession' ? (prefix.startsWith('GCF') ? 'refseq' : 'genbank') : null
-    fcov = params.coverage.toInteger() == 0 ? 150 : Math.round(params.coverage.toInteger() * 1.5)
+    fcov = task.ext.coverage.toInteger() == 0 ? 150 : Math.round(task.ext.coverage.toInteger() * 1.5)
     if (runtype == 'hybrid-merge-pe') {
         meta.runtype = 'hybrid'
     } else if (runtype == 'short_polish-merge-pe') {
@@ -55,7 +53,7 @@ process GATHER {
     } else if (runtype == 'sra_accession_ont') {
         meta.runtype = 'ont'
     }
-    meta.is_compressed = params.skip_compression ? false : true
+    meta.is_compressed = task.ext.skip_compression ? false : true
     qin = is_assembly ? 'qin=33' : 'qin=auto'
     """
     MERGED="multiple-read-sets-merged.txt"
@@ -111,8 +109,8 @@ process GATHER {
 
         touch extra/empty.fna.gz
     elif [ "${runtype}" == "sra_accession" ] || [ "${runtype}" == "sra_accession_ont" ]; then
-        if [ "${task.attempt}" == "${params.max_retry}" ]; then
-            echo "Unable to download ${prefix} from both SRA and ENA ${params.max_retry} times. This may or may 
+        if [ "${task.attempt}" == "${task.ext.max_retry}" ]; then
+            echo "Unable to download ${prefix} from both SRA and ENA ${task.ext.max_retry} times. This may or may 
                 not be a temporary connection issue. Rather than stop the whole Bactopia run, 
                 further analysis of ${prefix} will be discontinued." | \\
             sed 's/^\\s*//' > ${prefix}-fastq-download-error.txt
@@ -130,9 +128,9 @@ process GATHER {
         fi 
     elif [ "${is_assembly}" == "true" ]; then
         if [ "${runtype}" == "assembly_accession" ]; then
-            if [ "${task.attempt}" == "${params.max_retry}" ]; then
+            if [ "${task.attempt}" == "${task.ext.max_retry}" ]; then
                 touch extra/empty.fna.gz
-                echo "Unable to download ${prefix} from NCBI Assembly ${params.max_retry} times. This may or may
+                echo "Unable to download ${prefix} from NCBI Assembly ${task.ext.max_retry} times. This may or may
                     not be a temporary connection issue. Rather than stop the whole Bactopia run, 
                     further analysis of ${prefix} will be discontinued." | \\
                 sed 's/^\\s*//' > ${prefix}-assembly-download-error.txt
@@ -165,7 +163,7 @@ process GATHER {
         fi
 
         # Simulate reads from assembly, reads are 250bp without errors
-        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${params.sampleseed}\
+        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${task.ext.sampleseed}\
                         -na -qL 33 -qU 40 -o ${prefix}_R --id ${prefix} -i ${prefix}-art.fna
 
         mv ${prefix}_R1.fq fastqs/${prefix}_R1.fastq
@@ -176,10 +174,10 @@ process GATHER {
     fi
 
     # Validate input FASTQs
-    if [ "${params.skip_fastq_check}" == "false" ]; then
+    if [ "${task.ext.skip_fastq_check}" == "false" ]; then
         ERROR=0
         # Check paired-end reads have same read counts
-        OPTS="--sample ${prefix} --min_basepairs ${params.min_basepairs} --min_reads ${params.min_reads} --min_proportion ${params.min_proportion} --runtype ${runtype}"
+        OPTS="--sample ${prefix} --min_basepairs ${task.ext.min_basepairs} --min_reads ${task.ext.min_reads} --min_proportion ${task.ext.min_proportion} --runtype ${runtype}"
         if [ -f  "fastqs/${prefix}_R2.fastq.gz" ]; then
             # Paired-end
             IS_PAIRED="true"

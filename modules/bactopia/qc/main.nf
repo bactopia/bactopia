@@ -54,8 +54,8 @@ process QC {
     mkdir -p results
     touch results/.${meta.runtype}
     ERROR=0
-    MIN_COVERAGE=\$(( ${params.min_coverage}*${meta.genome_size} ))
-    TOTAL_BP=\$(( ${params.coverage}*${meta.genome_size} ))
+    MIN_COVERAGE=\$(( ${task.ext.min_coverage}*${meta.genome_size} ))
+    TOTAL_BP=\$(( ${task.ext.coverage}*${meta.genome_size} ))
     ENABLE_ONT=0
     ENABLE_ILLUMINA=0
     IS_HYBRID=0
@@ -78,7 +78,7 @@ process QC {
         touch extra/EMPTY_EXTRA
     fi
 
-    if [[ "${params.skip_qc}" == "true" ]]; then
+    if [[ "${task.ext.skip_qc}" == "true" ]]; then
         echo "Sequence QC was skipped for ${prefix}" > results/${prefix}-qc-skipped.txt
         if [ "\${IS_HYBRID}" -eq "1" ]; then
             # Illumina Paired-End Reads and Nanopore Reads
@@ -96,9 +96,9 @@ process QC {
     else
         if [ "\${ENABLE_ONT}" -eq "1" ]; then
             # QC the Nanopore reads
-            if [[ "${params.use_porechop}" == "true" ]]; then
+            if [[ "${task.ext.use_porechop}" == "true" ]]; then
                 # Remove Adapters
-                porechop --input ${ont_fq} ${params.porechop_opts} \
+                porechop --input ${ont_fq} ${task.ext.porechop_opts} \
                     --format fastq \
                     --threads ${task.cpus} > adapter-ont.fq
             else
@@ -107,14 +107,14 @@ process QC {
 
             # Filter reads based on length and quality
             nanoq --input adapter-ont.fq \
-                --min-qual ${params.ont_min_qual} \
-                --min-len ${params.ont_min_len} \
-                --max-len ${params.ont_max_len} \
+                --min-qual ${task.ext.ont_min_qual} \
+                --min-len ${task.ext.ont_min_len} \
+                --max-len ${task.ext.ont_max_len} \
                 --report nanoq.json | \
             rasusa --input /dev/stdin \
                 --depth \${TOTAL_BP} \
                 --genome-size ${meta.genome_size} \
-                --seed ${params.sampleseed} > results/${prefix}.fastq
+                --seed ${task.ext.sampleseed} > results/${prefix}.fastq
 
             # Compress
             pigz -c -p ${task.cpus} -n results/${prefix}.fastq > results/${prefix}.fastq.gz
@@ -134,23 +134,23 @@ process QC {
             rm adapter-ont.fq
 
             # Generate Reports
-            if [[ "${params.skip_qc_plots}" == "false" ]]; then
+            if [[ "${task.ext.skip_qc_plots}" == "false" ]]; then
                 NanoPlot --threads ${task.cpus} \
                     --fastq ${ont_fq} \
                     --N50 \
                     --title "${meta.id} ${meta.runtype} Raw QC" \
-                    --color ${params.nanoplot_color} \
-                    -f ${params.nanoplot_format} \
-                    --plots ${params.nanoplot_plots} \
+                    --color ${task.ext.nanoplot_color} \
+                    -f ${task.ext.nanoplot_format} \
+                    --plots ${task.ext.nanoplot_plots} \
                     -o ont-original
 
                 NanoPlot --threads ${task.cpus} \
                     --fastq results/${prefix}.fastq.gz \
                     --N50 \
                     --title "${meta.id} ${meta.runtype} Filtered QC" \
-                    --color ${params.nanoplot_color} \
-                    -f ${params.nanoplot_format} \
-                    --plots ${params.nanoplot_plots} \
+                    --color ${task.ext.nanoplot_color} \
+                    -f ${task.ext.nanoplot_format} \
+                    --plots ${task.ext.nanoplot_plots} \
                     -o ont-final
 
                 # Cleanup
@@ -173,7 +173,7 @@ process QC {
 
         if [ "\${ENABLE_ILLUMINA}" -eq "1" ]; then
             # Setup BBDuk preprocessing for fastp and/or Lighter
-            if [ "${params.use_bbmap}" == "true" ]; then
+            if [ "${task.ext.use_bbmap}" == "true" ]; then
                 # Randomly Subsample to 2x the expected coverage (prevent large fastq manipulation)
                 reformat.sh -Xmx${xmx} \
                     in=${fq[0]} out=subsample-r1.fq samplebasestarget=\$((\${TOTAL_BP}*2)) \
@@ -187,13 +187,13 @@ process QC {
                 bbduk.sh -Xmx${xmx} \
                     in=repair-r1.fq out=adapter-r1.fq ref=${adapter_file} \
                     stats=results/bbduk-adapter.txt threads=${task.cpus} overwrite=t \
-                    ktrim=r mink=${params.mink} hdist=${params.hdist} k=${params.adapter_k} tpe=${params.tpe} tbo=${params.tbo} ${adapter_opts}
+                    ktrim=r mink=${task.ext.mink} hdist=${task.ext.hdist} k=${task.ext.adapter_k} tpe=${task.ext.tpe} tbo=${task.ext.tbo} ${adapter_opts}
 
                 # Remove PhiX
                 bbduk.sh -Xmx${xmx} \
                     in=adapter-r1.fq out=phix-r1.fq ref=${phix_file} \
                     stats=results/bbduk-phix.txt threads=${task.cpus} overwrite=t \
-                    k=${params.phix_k} hdist=${params.hdist} ${phix_opts}
+                    k=${task.ext.phix_k} hdist=${task.ext.hdist} ${phix_opts}
 
                 # Lighter Error Correction
                 lighter -t ${task.cpus} -r phix-r1.fq -k 31 ${meta.genome_size} 0.1 ${lighter_opts}
@@ -255,7 +255,7 @@ process QC {
                 
                 # Sub-sampling 
                 reformat.sh -Xmx${xmx} \
-                    in=final-r1.fq out=subsample-r1.fq samplebasestarget=\${TOTAL_BP} seed=${params.sampleseed} \
+                    in=final-r1.fq out=subsample-r1.fq samplebasestarget=\${TOTAL_BP} seed=${task.ext.sampleseed} \
                     ${qin} interleaved=f overwrite=t ${reformat_opts}
                 rm final-r1.fq
 
@@ -295,7 +295,7 @@ process QC {
                 fi
 
                 # Generate Reports
-                if [[ "${params.skip_qc_plots}" == "false" ]]; then
+                if [[ "${task.ext.skip_qc_plots}" == "false" ]]; then
                     if [ "${meta.single_end}" == "false" ]; then
                         # Paired-End Reads
                         ln -s ${fq[0]} ${prefix}_R1.fastq.gz
@@ -381,7 +381,7 @@ process QC {
     fi
 
     # Capture versions
-    if [[ "${params.skip_qc_plots}" == "false" ]]; then
+    if [[ "${task.ext.skip_qc_plots}" == "false" ]]; then
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBTools version //;s/ .*\$//')
