@@ -27,7 +27,10 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    GAMMA(BACTOPIATOOL_INIT.out.samples)
+    GAMMA(
+        BACTOPIATOOL_INIT.out.samples,
+        file(params.gamma_db, checkIfExists: true)
+    )
 
     workflow.onComplete {
         log.info workflowSummary()

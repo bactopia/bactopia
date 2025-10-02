@@ -7,9 +7,10 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow GAMMA {
     take:
     fasta // channel: [ val(meta), [ fasta ] ]
+    db
 
     main:
-    GAMMA_MODULE(fasta, file(params.gamma_db))
+    GAMMA_MODULE(fasta, db)
 
     // Merge results
     GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}.set{ ch_merge_gamma }

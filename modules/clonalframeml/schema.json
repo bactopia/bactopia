@@ -21,7 +21,9 @@
                 "clonal_opts": {
                     "type": "string",
                     "description": "Extra ClonalFrameML options in quotes",
-                    "fa_icon": "fas fa-italic"
+                    "help": "Useful if you would like to fine tune your ClonalFrameML analysis. Example: '-imputation_only'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_recombination": {
                     "type": "boolean",

@@ -12,25 +12,34 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "df_preserveraw": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Preserve raw macsydata files"
-                },
-                "df_nocutga": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use no cut GA"
-                },
                 "df_coverage": {
                     "type": "number",
+                    "description": "Minimal percentage of coverage for each profiles",
                     "default": 0.4,
-                    "description": "Coverage threshold"
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "df_dbtype": {
                     "type": "string",
+                    "description": "The macsyfinder --db-type option",
                     "default": "ordered_replicon",
-                    "description": "Database type to use"
+                    "fa_icon": "fas fa-italic",
+                    "enum": [
+                        "ordered_replicon",
+                        "gembase",
+                        "unordered"
+                    ]
+                },
+                "df_preserveraw": {
+                    "type": "boolean",
+                    "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "df_nocutga": {
+                    "type": "boolean",
+                    "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 }
             }
         }

@@ -5,7 +5,7 @@
     "description": "A module for rapidly aligning against proteins",
     "type": "object",
     "$defs": {
-        "blast_parameters": {
+        "blastx_parameters": {
             "title": "BLASTX Parameters",
             "type": "object",
             "description": "",
@@ -13,36 +13,40 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "blastx_query": {
-                    "type": ["string", "null"],
-                    "description": "Query sequence(s) for BLASTX",
-                    "default": null
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "blastx_outfmt": {
                     "type": "string",
-                    "description": "Output format specification",
-                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastx_opts": {
                     "type": "string",
-                    "description": "Additional BLASTX options",
-                    "default": ""
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastx_qcov_hsp_perc": {
                     "type": "integer",
                     "description": "Percent query coverage per hsp",
-                    "default": 50
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastx_max_target_seqs": {
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
-                    "default": 2000
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up"
                 }
             }
         }
     },
     "allOf": [
         {
-            "$ref": "#/$defs/blast_parameters"
+            "$ref": "#/$defs/blastx_parameters"
         }
     ]
 }

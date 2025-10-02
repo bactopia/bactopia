@@ -1,6 +1,6 @@
 process ASSEMBLER {
     tag "${prefix}"
-    label (task.ext.use_unicycler ? "process_medium" : "process_low")
+    label "process_low"
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
@@ -9,9 +9,10 @@ process ASSEMBLER {
     tuple val(_meta), path(fq), path(extra)
 
     output:
-    tuple val(meta), path("results/${prefix}.{fna,fna.gz}"), emit: fna, optional: true
-    tuple val(meta), path("results/${prefix}.tsv")         , emit: tsv, optional: true
-    path "${prefix}-assembly-error.txt"                    , emit: error, optional: true
+    tuple val(meta), path("${prefix}.{fna,fna.gz}")      , emit: fna, optional: true
+    tuple val(meta), path("${prefix}.tsv")               , emit: tsv, optional: true
+    tuple val(meta), path("supplemental/*")              , emit: supplemental
+    tuple val(meta), path("${prefix}-assembly-error.txt"), emit: error, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -32,6 +33,10 @@ process ASSEMBLER {
     meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+    meta.runtype = _meta.runtype
+    meta.genome_size = _meta.genome_size
+    meta.species = _meta.species
+    meta.single_end = _meta.single_end
 
     // Determine input reads
     r1 = null
@@ -70,25 +75,25 @@ process ASSEMBLER {
     echo "SE ${se}"
 
     if [ "${use_original_assembly}" == "true" ]; then
-        mkdir results
-        gzip -cd ${extra} > results/${prefix}.fna
+        mkdir supplemental
+        gzip -cd ${extra} > supplemental/${prefix}.fna
     elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
         # Unicycler
         unicycler \\
             -1 ${r1} -2 ${r2} \\
             ${task.ext.args3} \\
             ${is_hybrid} \\
-            -o results/ \\
+            -o supplemental/ \\
             --threads ${task.cpus}
-        sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' results/assembly.fasta > results/${prefix}.fna
-        mv results/assembly.fasta results/unicycler-unpolished.fasta
-        mv results/assembly.gfa results/unicycler-unpolished.gfa
+        sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' supplemental/assembly.fasta > supplemental/${prefix}.fna
+        mv supplemental/assembly.fasta supplemental/unicycler-unpolished.fasta
+        mv supplemental/assembly.gfa supplemental/unicycler-unpolished.gfa
     elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" ]]; then
         # Dragonflye
         if ! dragonflye \\
             ${dragonflye_fastq} \\
             --gsize ${meta.genome_size} \\
-            --outdir results \\
+            --outdir supplemental \\
             ${task.ext.args2} \\
             --namefmt "${contig_namefmt}" \\
             --cpus ${task.cpus} \\
@@ -96,65 +101,65 @@ process ASSEMBLER {
             --noreorient; then
 
             # Check if error is due to no contigs
-            if grep "has zero contigs" results/dragonflye.log; then
-                touch results/contigs.fa
+            if grep "has zero contigs" supplemental/dragonflye.log; then
+                touch supplemental/contigs.fa
             else
                 exit 1
             fi
         fi
-        mv results/contigs.fa results/${prefix}.fna
+        mv supplemental/contigs.fa supplemental/${prefix}.fna
     else
         # Shovill
         if ! ${shovill_mode} \\
             --gsize ${meta.genome_size} \\
-            --outdir results \\
+            --outdir supplemental \\
             ${task.ext.args} \\
             --namefmt "${contig_namefmt}" \\
             --cpus ${task.cpus} \\
             --ram ${shovill_ram}; then
 
             # Check if error is due to no contigs
-            if grep "has zero contigs" results/shovill.log; then
-                touch results/contigs.fa
+            if grep "has zero contigs" supplemental/shovill.log; then
+                touch supplemental/contigs.fa
             else
                 exit 1
             fi
         fi
-        mv results/contigs.fa results/${prefix}.fna
+        mv supplemental/contigs.fa supplemental/${prefix}.fna
 
         # Rename Graphs
-        if [ -f "results/contigs.gfa" ]; then
-            mv results/contigs.gfa results/${task.ext.shovill_assembler}-unpolished.gfa
-        elif [ -f "results/contigs.fastg" ]; then
-            mv results/contigs.fastg results/${task.ext.shovill_assembler}-unpolished.gfa
-        elif [ -f "results/contigs.LastGraph" ]; then
-            mv results/contigs.LastGraph results/${task.ext.shovill_assembler}-unpolished.gfa
+        if [ -f "supplemental/contigs.gfa" ]; then
+            mv supplemental/contigs.gfa supplemental/${task.ext.shovill_assembler}-unpolished.gfa
+        elif [ -f "supplemental/contigs.fastg" ]; then
+            mv supplemental/contigs.fastg supplemental/${task.ext.shovill_assembler}-unpolished.gfa
+        elif [ -f "supplemental/contigs.LastGraph" ]; then
+            mv supplemental/contigs.LastGraph supplemental/${task.ext.shovill_assembler}-unpolished.gfa
         fi
 
-        if [ -f "results/flye-info.txt" ]; then
-            mv results/flye-info.txt results/flye.log
+        if [ -f "supplemental/flye-info.txt" ]; then
+            mv supplemental/flye-info.txt supplemental/flye.log
         fi
     fi
 
     # Check quality of assembly
-    TOTAL_CONTIGS=`grep -c "^>" results/${prefix}.fna || true`
+    TOTAL_CONTIGS=`grep -c "^>" supplemental/${prefix}.fna || true`
     if [ "\${TOTAL_CONTIGS}" -gt 0 ]; then
-        assembly-scan results/${prefix}.fna --prefix ${prefix} > results/${prefix}.tsv
-        TOTAL_CONTIG_SIZE=\$(cut -f 3 results/${prefix}.tsv | tail -n 1)
+        assembly-scan supplemental/${prefix}.fna --prefix ${prefix} > supplemental/${prefix}.tsv
+        TOTAL_CONTIG_SIZE=\$(cut -f 3 supplemental/${prefix}.tsv | tail -n 1)
         if [ "\${TOTAL_CONTIG_SIZE}" -lt ${task.ext.min_genome_size} ]; then
-            mv results/${prefix}.fna results/${prefix}-error.fna
-            mv results/${prefix}.tsv results/${prefix}-error.tsv
-            echo "${prefix} assembled size (\${TOTAL_CONTIG_SIZE} bp) is less than the minimum allowed genome
-                    size (${task.ext.min_genome_size} bp). If this is unexpected, please investigate ${prefix} to
-                    determine a cause (e.g. metagenomic, contaminants, etc...) for the poor assembly.
+            mv supplemental/${prefix}.fna supplemental/${prefix}-error.fna
+            mv supplemental/${prefix}.tsv supplemental/${prefix}-error.tsv
+            echo "${prefix} assembled size [\${TOTAL_CONTIG_SIZE} bp] is less than the minimum allowed genome
+                    size [${task.ext.min_genome_size} bp]. If this is unexpected, please investigate ${prefix} to
+                    determine a cause [e.g. metagenomic, contaminants, etc...] for the poor assembly.
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of ${prefix} will be discontinued." | \
             sed 's/^\\s*//' > ${prefix}-assembly-error.txt
         fi
     else
-        mv results/${prefix}.fna results/${prefix}-error.fna
+        mv supplemental/${prefix}.fna supplemental/${prefix}-error.fna
         echo "${prefix} assembled successfully, but 0 contigs were formed. Please investigate
-                ${prefix} to determine a cause (e.g. metagenomic, contaminants, etc...) for this
+                ${prefix} to determine a cause [e.g. metagenomic, contaminants, etc...] for this
                 outcome. Further assembly-based analysis of ${prefix} will be discontinued." | \
         sed 's/^\\s*//' > ${prefix}-assembly-error.txt
     fi
@@ -162,36 +167,48 @@ process ASSEMBLER {
     # Cleanup and compress
     if [ "${task.ext.keep_all_files}" == "false" ]; then
         # Remove intermediate files
-        rm -rfv results/shovill.bam* \\
-                results/shovill-se.bam* \\
-                results/flash.extendedFrags* \\
-                results/flash.notCombined* \\
-                results/skesa.fasta* \\
-                results/*.fq.gz \\
-                results/00*.gfa \\
-                results/pilon_polish* \\
-                results/flye/ \\
-                results/flye.fasta* \\
-                results/raven/ \\
-                results/raven.fasta* \\
-                results/raven.cereal \\
-                results/miniasm/ \\
-                results/miniasm.fasta* \\
-                results/spades/ \\
-                results/spades.fasta* \\
-                results/megahit/ \\
-                results/megahit.fasta* \\
-                results/velvet.fasta* \\
-                results/velvet/
+        rm -rfv supplemental/shovill.bam* \\
+                supplemental/shovill-se.bam* \\
+                supplemental/flash.extendedFrags* \\
+                supplemental/flash.notCombined* \\
+                supplemental/skesa.fasta* \\
+                supplemental/*.fq.gz \\
+                supplemental/00*.gfa \\
+                supplemental/pilon_polish* \\
+                supplemental/flye/ \\
+                supplemental/flye.fasta* \\
+                supplemental/raven/ \\
+                supplemental/raven.fasta* \\
+                supplemental/raven.cereal \\
+                supplemental/miniasm/ \\
+                supplemental/miniasm.fasta* \\
+                supplemental/spades/ \\
+                supplemental/spades.fasta* \\
+                supplemental/megahit/ \\
+                supplemental/megahit.fasta* \\
+                supplemental/velvet.fasta* \\
+                supplemental/velvet/
     fi
 
-    if [[ ${task.ext.skip_compression} == "false" ]]; then
+    if [[ "${task.ext.skip_compression}" == "false" ]]; then
         # Compress based on matched extensions
-        find results/ -type f | \
+        find supplemental/ -type f | \
             grep -E "\\.fna\$|\\.fasta\$|\\.fa\$|\\.gfa\$" | \
             xargs -I {} pigz -n --best -p ${task.cpus} {}
     fi
-    find results -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
+    find supplemental/ -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
+
+    if [ -f "supplemental/${prefix}.tsv" ]; then
+        mv supplemental/${prefix}.tsv ./
+    fi
+
+    if [ -f "supplemental/${prefix}.fna" ]; then
+        mv supplemental/${prefix}.fna ./
+    fi
+
+    if [ -f "supplemental/${prefix}.fna.gz" ]; then
+        mv supplemental/${prefix}.fna.gz ./
+    fi
 
     # Capture versions
     if [[ "\$OSTYPE" == "darwin"* ]]; then

@@ -16,53 +16,76 @@
                     "type": "string",
                     "default": "strict",
                     "description": "The stringency mode at which to run panaroo",
-                    "enum": ["strict", "moderate", "sensitive"]
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "strict",
+                        "moderate",
+                        "sensitive"
+                    ],
+                    "hidden": true
                 },
                 "panaroo_alignment": {
                     "type": "string",
                     "default": "core",
-                    "description": "Output alignment of core genes or all genes",
-                    "enum": ["core", "pan"]
+                    "description": "Output alignments of core genes or all genes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "core",
+                        "pan"
+                    ],
+                    "hidden": true
                 },
                 "panaroo_aligner": {
                     "type": "string",
                     "default": "mafft",
-                    "description": "Aligner to use for multiple sequence alignment",
-                    "enum": ["prank", "mafft", "clustal"]
+                    "description": "Aligner to use for core/pan genome alignment",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "mafft",
+                        "prank",
+                        "clustal"
+                    ],
+                    "hidden": true
                 },
                 "panaroo_core_threshold": {
                     "type": "number",
                     "default": 0.95,
                     "description": "Core-genome sample threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "panaroo_threshold": {
                     "type": "number",
                     "default": 0.98,
                     "description": "Sequence identity threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "panaroo_family_threshold": {
                     "type": "number",
                     "default": 0.7,
-                    "description": "Minimum family support threshold",
+                    "description": "Protein family sequence identity threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "len_dif_percent": {
                     "type": "number",
                     "default": 0.98,
                     "description": "Length difference cutoff",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "merge_paralogs": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Don't split paralogs"
+                    "description": "Do not split paralogs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "panaroo_opts": {
                     "type": "string",
                     "default": "",
-                    "description": "Extra Panaroo options"
+                    "description": "Additional options to pass to panaroo",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

@@ -19,9 +19,12 @@ workflows:
     description: "Bactopia is a flexible pipeline for complete analysis of bacterial genomes"
     includes:
       - amrfinderplus
+      - bakta
       - mlst
+      - merlin
     is_workflow: true
     modules:
+      - prokka
       - bactopia_datasets
       - bactopia_gather
       - bactopia_qc

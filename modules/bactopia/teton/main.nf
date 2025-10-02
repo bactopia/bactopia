@@ -47,7 +47,7 @@ process BACTOPIA_SAMPLESHEET {
         ${prefix}-sizemeup.txt \\
         ${meta.runtype} \\
         ${meta.teton_reads} \\
-        ${params.outdir}
+        ${task.ext.outdir}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

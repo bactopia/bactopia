@@ -14,126 +14,47 @@
             "properties": {
                 "proteins": {
                     "type": "string",
-                    "description": "FASTA file of trusted proteins to first annotate from"
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "prodigal_tf": {
                     "type": "string",
-                    "description": "Training file to use for Prodigal"
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "compliant": {
                     "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
-                    "description": "Force Genbank/ENA/DDJB compliance"
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
                 },
                 "centre": {
                     "type": "string",
                     "default": "Bactopia",
-                    "description": "Sequencing centre ID"
-                },
-                "addgenes": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Add 'gene' features for each 'CDS' feature"
-                },
-                "addmrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Add 'mRNA' features for each 'CDS' feature"
-                },
-                "cdsrnaolap": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Allow [tr]RNA to overlap CDS"
-                },
-                "genus": {
-                    "type": "string",
-                    "default": "Genus",
-                    "description": "Genus name"
-                },
-                "species": {
-                    "type": "string",
-                    "default": "species",
-                    "description": "Species name"
-                },
-                "strain": {
-                    "type": "string",
-                    "default": "strain",
-                    "description": "Strain name"
-                },
-                "plasmid": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Plasmid name or identifier"
-                },
-                "kingdom": {
-                    "type": "string",
-                    "default": "Bacteria",
-                    "description": "Annotation mode"
-                },
-                "gcode": {
-                    "type": "integer",
-                    "default": 11,
-                    "description": "Genetic code / Translation table (set if --kingdom is set)"
-                },
-                "usegenus": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use genus-specific BLAST databases (needs --genus)"
-                },
-                "mincontiglen": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Minimum contig size [NCBI needs 200]"
-                },
-                "prokka_evalue": {
-                    "type": "string",
-                    "default": "1e-09",
-                    "description": "Similarity e-value cut-off"
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
+                    "hidden": true
                 },
                 "prokka_coverage": {
                     "type": "integer",
+                    "description": "Minimum coverage on query protein",
                     "default": 80,
-                    "description": "Minimum coverage on query protein"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "noanno": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "For CDS just set /product=\"unannotated protein\""
-                },
-                "fast": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Fast mode - only use basic BLASTP databases"
-                },
-                "norrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run rRNA search"
-                },
-                "notrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run tRNA search"
-                },
-                "rnammer": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use RNAmmer for rRNA prediction"
-                },
-                "rfam": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable searching for ncRNAs with Infernal+Rfam"
-                },
-                "skip_prokka": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Skip Prokka genome annotation"
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "prokka_opts": {
                     "type": "string",
+                    "description": "Extra Prokka options in quotes.",
                     "default": "",
-                    "description": "Extra Prokka options in quotes"
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         }

@@ -1,9 +1,0 @@
-- name: gtdb-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf gtdb -c nextflow.config --help > gtdb-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - gtdb
-  files:
-    - path: gtdb-help.txt
-      contains: ['gtdb', 'bactopia', 'version', 'dependencies']

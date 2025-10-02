@@ -32,14 +32,16 @@ process AMRFINDERPLUS_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
+    // WF specific parameters
     def fna_is_compressed = genes.getName().endsWith(".gz") ? true : false
     def faa_is_compressed = proteins.getName().endsWith(".gz") ? true : false
     def gff_is_compressed = gff.getName().endsWith(".gz") ? true : false
-    def organism_param = meta.containsKey("organism") ? "--organism ${meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
-    def fna_name = genes.getName().replace(".gz", "")
-    def faa_name = proteins.getName().replace(".gz", "")
-    def gff_name = gff.getName().replace(".gz", "")
-    def annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
+    organism_param = meta.containsKey("organism") ? "--organism ${meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
+    fna_name = genes.getName().replace(".gz", "")
+    faa_name = proteins.getName().replace(".gz", "")
+    gff_name = gff.getName().replace(".gz", "")
+    annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "$fna_is_compressed" == "true" ]; then

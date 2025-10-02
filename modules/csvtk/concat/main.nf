@@ -25,7 +25,7 @@ process CSVTK_CONCAT {
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     subdir = _meta.subdir ? "${_meta.subdir}/" : ''
-    prefix = task.ext.prefix ?: "${_meta.id}"
+    prefix = _meta.id
 
     // Create a new meta variable
     meta = [:]

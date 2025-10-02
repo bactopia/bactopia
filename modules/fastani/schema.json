@@ -37,10 +37,10 @@
                     "description": "fragment length",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "fastani_pairwise": {
+                "skip_pairwise": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Conduct All-vs-All pairwise ANI calculations",
+                    "description": "Only use RefSeq or local assemblies for ANI calculations",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }

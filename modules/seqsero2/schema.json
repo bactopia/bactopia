@@ -16,13 +16,23 @@
                     "type": "string",
                     "default": "k",
                     "description": "Workflow to run. 'a' allele mode, or 'k' k-mer mode",
-                    "enum": ["a", "k"]
+                    "enum": ["a", "k"],
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "input_type": {
+                    "type": "string",
+                    "default": "assembly",
+                    "description": "Input format to analyze. 'assembly' or 'fastq'",
+                    "enum": ["assembly", "fastq"],
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "bwa_mode": {
                     "type": "string",
                     "default": "mem",
                     "description": "Algorithms for bwa mapping for allele mode",
-                    "enum": ["mem", "sam"]
+                    "enum": ["mem", "sam"],
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         }

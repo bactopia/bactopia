@@ -7,9 +7,10 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow MYKROBE {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    mykrobe_species
 
     main:
-    MYKROBE_PREDICT(reads, params.mykrobe_species)
+    MYKROBE_PREDICT(reads, mykrobe_species)
     
     // Merge results
     MYKROBE_PREDICT.out.csv.collect{_meta, csv -> csv}.map{ csv -> [[id:'mykrobe'], csv]}.set{ ch_merge_mykrobe }

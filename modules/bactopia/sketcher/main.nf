@@ -3,9 +3,7 @@ process SKETCHER {
     label "process_low"
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}${task.ext.singularity_version}" :
-        "${task.ext.docker}${task.ext.docker_version}" }"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(_meta), path(fasta)

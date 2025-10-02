@@ -1,9 +1,0 @@
-- name: tbprofiler-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf tbprofiler -c nextflow.config --help > tbprofiler-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - tbprofiler
-  files:
-    - path: tbprofiler-help.txt
-      contains: ['tbprofiler', 'bactopia', 'version', 'dependencies']

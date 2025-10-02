@@ -6,23 +6,23 @@ process PROKKA {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(_meta), path(fasta)
+    tuple val(_meta), path(fasta, stageAs: "input/*")
     path proteins
     path prodigal_tf
 
     output:
-    tuple val(meta), path("results/*.{fna,fna.gz}"), path("results/*.{faa,faa.gz}"), path("results/*.{gff,gff.gz}"), emit: annotations
-    tuple val(meta), path("results/*.{gff,gff.gz}"), emit: gff
-    tuple val(meta), path("results/*.{gbk,gbk.gz}"), emit: gbk
-    tuple val(meta), path("results/*.{fna,fna.gz}"), emit: fna
-    tuple val(meta), path("results/*.{faa,faa.gz}"), emit: faa
-    tuple val(meta), path("results/*.{ffn,ffn.gz}"), emit: ffn
-    tuple val(meta), path("results/*.{sqn,sqn.gz}"), emit: sqn
-    tuple val(meta), path("results/*.{fsa,fsa.gz}"), emit: fsa
-    tuple val(meta), path("results/*.{tbl,tbl.gz}"), emit: tbl
-    tuple val(meta), path("results/*.txt")         , emit: txt
-    tuple val(meta), path("results/*.tsv")         , emit: tsv
-    tuple val(meta), path("results/${prefix}-blastdb.tar.gz"), emit: blastdb
+    tuple val(meta), path("${prefix}.{fna,fna.gz}"), path("${prefix}.{faa,faa.gz}"), path("${prefix}.{gff,gff.gz}"), emit: annotations
+    tuple val(meta), path("${prefix}.{gff,gff.gz}"), emit: gff
+    tuple val(meta), path("${prefix}.{gbk,gbk.gz}"), emit: gbk
+    tuple val(meta), path("${prefix}.{fna,fna.gz}"), emit: fna
+    tuple val(meta), path("${prefix}.{faa,faa.gz}"), emit: faa
+    tuple val(meta), path("${prefix}.{ffn,ffn.gz}"), emit: ffn
+    tuple val(meta), path("${prefix}.{sqn,sqn.gz}"), emit: sqn
+    tuple val(meta), path("${prefix}.{fsa,fsa.gz}"), emit: fsa
+    tuple val(meta), path("${prefix}.{tbl,tbl.gz}"), emit: tbl
+    tuple val(meta), path("${prefix}.txt")         , emit: txt
+    tuple val(meta), path("${prefix}.tsv")         , emit: tsv
+    tuple val(meta), path("${prefix}-blastdb.tar.gz"), emit: blastdb
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -48,8 +48,8 @@ process PROKKA {
         meta.output_dir = "${task.ext.rundir}/prokka/${prefix}"
         meta.logs_dir = "${task.ext.rundir}/prokka/${prefix}/logs"
     } else {
-        meta.output_dir = "${prefix}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}"
-        meta.logs_dir = "${prefix}/main/annotator/prokka/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+        meta.output_dir = "${prefix}/main/annotator/prokka/"
+        meta.logs_dir = "${prefix}/main/annotator/prokka/logs/"
     }
     meta.process_name = task.ext.process_name
 
@@ -109,12 +109,10 @@ process PROKKA {
         gzip ${prefix}/*.tbl
     fi
 
-    mv ${prefix}/${prefix}.err ./
-    mv ${prefix}/${prefix}.log ./
-    mv ${prefix}/ results/
+    mv ${prefix}/* ./
 
     # Cleanup intermediate files
-    rm -rf ${fasta_name} blastdb/ results/*.pdb results/*.pjs results/*.pot results/*.ptf results/*.pto
+    rm -rf ${fasta_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

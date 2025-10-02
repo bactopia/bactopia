@@ -11,6 +11,7 @@ conf/aws.config
 work/
 trace.txt*
 *.simg
+**/.nf-test/*
 
 # temp v4 folders
 modules-old/

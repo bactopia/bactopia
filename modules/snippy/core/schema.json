@@ -18,15 +18,15 @@
                     "default": 100,
                     "fa_icon": "fas fa-angle-double-down"
                 },
+                "snippy_core_mask": {
+                    "type": "string",
+                    "description": "BED file of sites to mask",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
                 "mask_char": {
                     "type": "string",
                     "description": "Masking character",
                     "default": "X",
-                    "fa_icon": "fas fa-angle-double-down"
-                },
-                "snippy_core_mask": {
-                    "type": "string",
-                    "description": "BED file of sites to mask",
                     "fa_icon": "fas fa-angle-double-down"
                 },
                 "snippy_core_opts": {

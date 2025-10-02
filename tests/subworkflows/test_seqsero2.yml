@@ -1,9 +1,0 @@
-- name: seqsero2-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf seqsero2 -c nextflow.config --help > seqsero2-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - seqsero2
-  files:
-    - path: seqsero2-help.txt
-      contains: ['seqsero2', 'bactopia', 'version', 'dependencies']

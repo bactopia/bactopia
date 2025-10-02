@@ -15,27 +15,40 @@
                 "opid": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Minimum percent identity for O-antigen allele match"
-                },
-                "hpid": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent identity for H-antigen allele match"
+                    "description": "Percent identity required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "opcov": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Minimum percent coverage for O-antigen allele"
+                    "description": "Minumum percent coverage required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "hpid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Percent identity required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "hpcov": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Minimum percent coverage for H-antigen allele"
+                    "description": "Minumum percent coverage required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "verify": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Enable/disable verification of O and H antigen predictions"
+                    "description": "Enable E. coli species verification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "print_alleles": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Prints the allele sequences if enabled as the final column",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         }

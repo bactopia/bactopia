@@ -1,9 +1,0 @@
-- name: meningotype-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf meningotype -c nextflow.config --help > meningotype-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - meningotype
-  files:
-    - path: meningotype-help.txt
-      contains: ['meningotype', 'bactopia', 'version', 'dependencies']

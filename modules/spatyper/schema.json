@@ -14,16 +14,21 @@
             "properties": {
                 "repeats": {
                     "type": "string",
-                    "description": "List of spa repeats"
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
                 "repeat_order": {
                     "type": "string",
-                    "description": "List spa types and order of repeats"
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
                 "do_enrich": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Do PCR product enrichment"
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

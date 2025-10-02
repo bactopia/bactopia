@@ -13,34 +13,34 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "checkm2_lowmem": {
-                    "type": ["boolean", "null"],
-                    "description": "Enable low memory mode",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Low memory mode. Reduces DIAMOND blocksize to significantly reduce RAM usage at the expense of longer runtime",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "checkm2_general": {
-                    "type": ["boolean", "null"],
-                    "description": "Use general model",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Force the use of the general quality prediction model (gradient boost)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "checkm2_specific": {
-                    "type": ["boolean", "null"],
-                    "description": "Use specific model",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Force the use of the specific quality prediction model (neural network)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "checkm2_allmodels": {
-                    "type": ["boolean", "null"],
-                    "description": "Use all models",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Output quality prediction for both models for each genome.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "checkm2_genes": {
-                    "type": ["boolean", "null"],
-                    "description": "Process genes instead of genomes",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Treat input files as protein files. [Default: False]",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "checkm2_opts": {
                     "type": "string",
-                    "description": "Additional CheckM2 options",
-                    "default": ""
+                    "description": "Additional options to pass to CheckM2",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

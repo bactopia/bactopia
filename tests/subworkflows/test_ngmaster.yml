@@ -1,9 +1,0 @@
-- name: ngmaster-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf ngmaster -c nextflow.config --help > ngmaster-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - ngmaster
-  files:
-    - path: ngmaster-help.txt
-      contains: ['ngmaster', 'bactopia', 'version', 'dependencies']

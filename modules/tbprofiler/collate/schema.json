@@ -15,22 +15,26 @@
                 "itol": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Generate iTOL files"
+                    "description": "Generate itol config files",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "full": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Generate full output"
+                    "description": "Output mutations in main result file",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "all_variants": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Include all variants in output"
+                    "description": "Output all variants in variant matrix",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "mark_missing": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Mark missing data"
+                    "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

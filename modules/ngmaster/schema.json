@@ -15,7 +15,8 @@
                 "csv": {
                     "type": "boolean",
                     "default": false,
-                    "description": "output comma-separated format (CSV) rather than tab-separated"
+                    "description": "output comma-separated format (CSV) rather than tab-separated",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

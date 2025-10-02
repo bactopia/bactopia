@@ -14,33 +14,40 @@
             "properties": {
                 "iqtree_model": {
                     "type": "string",
+                    "description": "Substitution model name",
                     "default": "HKY",
-                    "description": "Substitution model name"
+                    "fa_icon": "fas fa-italic"
                 },
                 "bb": {
                     "type": "integer",
+                    "description": "Ultrafast bootstrap replicates",
                     "default": 1000,
-                    "description": "Ultrafast bootstrap replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "alrt": {
                     "type": "integer",
+                    "description": "SH-like approximate likelihood ratio test replicates",
                     "default": 1000,
-                    "description": "SH-like approximate likelihood ratio test replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "asr": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Ancestral state reconstruction by empirical Bayes"
+                    "description": "Ancestral state reconstruction by empirical Bayes",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "iqtree_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra IQ-TREE options in quotes."
+                    "description": "Extra IQ-TREE options in quotes.",
+                    "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_phylogeny": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip IQ-TREE execution in subworkflows"
+                    "description": "Skip IQ-TREE execution in subworkflows",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

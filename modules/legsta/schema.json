@@ -15,7 +15,8 @@
                 "noheader": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Don't print header row"
+                    "description": "Don't print header row",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

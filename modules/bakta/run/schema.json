@@ -12,130 +12,119 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "min_contig_length": {
-                    "type": "integer",
-                    "description": "Minimum contig size (--min-contig-length)",
-                    "default": 1
-                },
-                "skip_compression": {
-                    "type": "boolean",
-                    "description": "Skip gzip compression of output files",
-                    "default": false
-                },
-                "compliant": {
-                    "type": "boolean",
-                    "description": "Force Genbank/ENA/DDJB compliance (--compliant)",
-                    "default": false
-                },
-                "complete": {
-                    "type": "boolean",
-                    "description": "All sequences are complete replicons (--complete)",
-                    "default": false
+                "proteins": {
+                    "type": "string",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "prodigal_tf": {
                     "type": "string",
-                    "description": "Training file to use for CDS prediction (--prodigal-tf)",
-                    "default": ""
-                },
-                "prodigal_translation_table": {
-                    "type": "integer",
-                    "description": "Translation table to use for CDS prediction (--translation-table)",
-                    "default": 11
-                },
-                "proteins": {
-                    "type": "string",
-                    "description": "FASTA file of trusted proteins to use for annotation (--proteins)",
-                    "default": ""
-                },
-                "genus": {
-                    "type": "string",
-                    "description": "Genus name (--genus)",
-                    "default": ""
-                },
-                "species": {
-                    "type": "string",
-                    "description": "Species name (--species)",
-                    "default": ""
-                },
-                "strain": {
-                    "type": "string",
-                    "description": "Strain name (--strain)",
-                    "default": ""
-                },
-                "plasmid": {
-                    "type": "string",
-                    "description": "Plasmid name (--plasmid)",
-                    "default": ""
-                },
-                "gram": {
-                    "type": "string",
-                    "description": "Gram type: [+, -] (--gram)",
-                    "default": ""
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "replicons": {
                     "type": "string",
-                    "description": "Replicon table (--replicons)",
-                    "default": ""
+                    "description": "Replicon information table (tsv/csv)",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "skip_amr": {
-                    "type": "boolean",
-                    "description": "Skip AMR detection (--skip-amr)",
-                    "default": false
+                "min_contig_length": {
+                    "type": "integer",
+                    "description": "Minimum contig size to annotate",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "skip_crispr": {
+                "keep_contig_headers": {
                     "type": "boolean",
-                    "description": "Skip CRISPRs detection (--skip-crispr)",
-                    "default": false
+                    "description": "Keep original contig headers",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
-                "skip_cds": {
+                "compliant": {
                     "type": "boolean",
-                    "description": "Skip CDS detection (--skip-cds)",
-                    "default": false
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_trna": {
                     "type": "boolean",
-                    "description": "Skip tRNA detection (--skip-trna)",
-                    "default": false
+                    "description": "Skip tRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "skip_tmrna": {
+                    "type": "boolean",
+                    "description": "Skip tmRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_rrna": {
                     "type": "boolean",
-                    "description": "Skip rRNA detection (--skip-rrna)",
-                    "default": false
+                    "description": "Skip rRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_ncrna": {
                     "type": "boolean",
-                    "description": "Skip ncRNA detection (--skip-ncrna)",
-                    "default": false
+                    "description": "Skip ncRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_ncrna_region": {
                     "type": "boolean",
-                    "description": "Skip ncRNA region detection (--skip-ncrna-region)",
-                    "default": false
+                    "description": "Skip ncRNA region detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
-                "skip_gap": {
+                "skip_crispr": {
                     "type": "boolean",
-                    "description": "Skip gap detection (--skip-gap)",
-                    "default": false
+                    "description": "Skip CRISPR array detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
-                "skip_ori": {
+                "skip_cds": {
                     "type": "boolean",
-                    "description": "Skip oriC/oriV detection (--skip-ori)",
-                    "default": false
-                },
-                "skip_plot": {
-                    "type": "boolean",
-                    "description": "Skip plot generation (--skip-plot)",
-                    "default": false
+                    "description": "Skip CDS detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_sorf": {
                     "type": "boolean",
-                    "description": "Skip sORF detection (--skip-sorf)",
-                    "default": false
+                    "description": "Skip sORF detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
-                "use_bakta": {
+                "skip_gap": {
                     "type": "boolean",
-                    "description": "Use Bakta for annotation",
-                    "default": false
+                    "description": "Skip gap detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "skip_ori": {
+                    "type": "boolean",
+                    "description": "Skip oriC/oriT detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_opts": {
+                    "type": "string",
+                    "description": "Extra Backa options in quotes. Example: '--gram +'",
+                    "help": "Useful if you would like to fine tune your Bakta analysis.",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         }

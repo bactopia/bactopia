@@ -1,9 +1,0 @@
-- name: kleborate-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf kleborate -c nextflow.config --help > kleborate-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - kleborate
-  files:
-    - path: kleborate-help.txt
-      contains: ['kleborate', 'bactopia', 'version', 'dependencies']

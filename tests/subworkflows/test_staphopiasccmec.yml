@@ -1,9 +1,0 @@
-- name: staphopiasccmec-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf staphopiasccmec -c nextflow.config --help > staphopiasccmec-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - staphopiasccmec
-  files:
-    - path: staphopiasccmec-help.txt
-      contains: ['staphopiasccmec', 'bactopia', 'version', 'dependencies']

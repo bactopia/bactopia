@@ -15,32 +15,40 @@
                 "use_pirate": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow"
+                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "steps": {
                     "type": "string",
                     "default": "50,60,70,80,90,95,98",
-                    "description": "Percent identity thresholds to use for pangenome construction"
+                    "description": "Percent identity thresholds to use for pangenome construction",
+                    "fa_icon": "fas fa-italic"
                 },
                 "features": {
                     "type": "string",
                     "default": "CDS",
-                    "description": "Comma-delimited features to use for pangenome construction"
+                    "description": "Comma-delimited features to use for pangenome construction",
+                    "fa_icon": "fas fa-italic"
                 },
                 "para_off": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Switch off paralog identification"
+                    "description": "Switch off paralog identification",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "z": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Retain all PIRATE intermediate files"
+                    "description": "Retain all PIRATE intermediate files",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "pan_opt": {
                     "type": "string",
-                    "default": "",
-                    "description": "Additional arguments to pass to pangenome contruction."
+                    "description": "Additional arguments to pass to pangenome contruction.",
+                    "help": "PLease see https://github.com/SionBayliss/PIRATE#advanced-examples for more details",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         }

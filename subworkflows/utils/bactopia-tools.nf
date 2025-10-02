@@ -10,7 +10,7 @@
 include { bactopiaToolInputs } from 'plugin/nf-bactopia'
 include { paramsSummaryLog   } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'
-include { workflowSummary   } from 'plugin/nf-bactopia'
+include { workflowSummary    } from 'plugin/nf-bactopia'
 
 
 /*

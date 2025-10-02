@@ -14,22 +14,27 @@
             "properties": {
                 "gtdb": {
                     "type": "string",
-                    "description": "Path to GTDB database directory"
-                },
-                "gtdb_save_as_tarball": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Save the GTDB database as a tarball"
+                    "description": "Tarball or path of a GTDB database. If a database is not found, you must use '--download_gtdb'",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "download_gtdb": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Download the GTDB database"
+                    "description": "Download the latest GTDB database, even it exists",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "gtdb_save_as_tarball": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, and save it in a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_check": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip GTDB database installation check"
+                    "description": "Do not check the installation of GTDB database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

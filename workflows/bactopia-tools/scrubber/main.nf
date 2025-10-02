@@ -27,7 +27,7 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    SCRUBBER(BACTOPIATOOL_INIT.out.samples)
+    SCRUBBER(BACTOPIATOOL_INIT.out.samples, params.use_srascrubber)
 
     workflow.onComplete {
         log.info workflowSummary()

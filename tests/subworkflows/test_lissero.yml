@@ -1,9 +1,0 @@
-- name: lissero-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf lissero -c nextflow.config --help > lissero-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - lissero
-  files:
-    - path: lissero-help.txt
-      contains: ['lissero', 'bactopia', 'version', 'dependencies']

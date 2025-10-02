@@ -15,7 +15,8 @@
                 "use_srascrubber": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use SRA Human Scrubber to remove human reads"
+                    "description": "Use SRAHumanScrubber for scrubbing human reads",
+                    "fa_icon": "fas fa-file-alt"
                 }
             }
         }

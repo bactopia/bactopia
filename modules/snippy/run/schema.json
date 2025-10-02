@@ -13,80 +13,73 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "reference": {
-                    "title": "Reference genome in GenBank format",
                     "type": "string",
-                    "description": "Path to reference genome in GenBank format",
-                    "fa_icon": "fas fa-file-alt",
+                    "description": "Reference genome in GenBank format",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "is_required": true
                 },
                 "mapqual": {
-                    "title": "Minimum read mapping quality",
                     "type": "integer",
                     "description": "Minimum read mapping quality to consider",
                     "default": 60,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "basequal": {
-                    "title": "Minimum base quality",
                     "type": "integer",
                     "description": "Minimum base quality to consider",
                     "default": 13,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "mincov": {
-                    "title": "Minimum coverage",
                     "type": "integer",
-                    "description": "Minimum coverage of variant site",
+                    "description": "Minimum site depth to for calling alleles",
                     "default": 10,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
                 "minfrac": {
-                    "title": "Minimum proportion for variant",
-                    "type": "number",
+                    "type": "integer",
                     "description": "Minimum proportion for variant evidence (0=AUTO)",
                     "default": 0,
-                    "fa_icon": "fas fa-percent"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
                 "minqual": {
-                    "title": "Minimum QUAL score",
                     "type": "integer",
-                    "description": "Minimum QUAL score to accept in VCF",
+                    "description": "Minimum QUALITY in VCF column 6",
                     "default": 100,
-                    "fa_icon": "fas fa-medal"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
                 "maxsoft": {
-                    "title": "Maximum soft clipping",
                     "type": "integer",
                     "description": "Maximum soft clipping to allow",
                     "default": 10,
-                    "fa_icon": "fas fa-cut"
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
                 },
                 "bwaopt": {
-                    "title": "Extra BWA MEM options",
                     "type": "string",
                     "description": "Extra BWA MEM options, eg. -x pacbio",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "fa_icon": "fas fa-italic"
                 },
                 "fbopt": {
-                    "title": "Extra Freebayes options",
                     "type": "string",
-                    "description": "Extra Freebayes options, eg. --ploidy 1",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
+                    "fa_icon": "fas fa-italic"
                 },
                 "snippy_remove_bam": {
-                    "title": "Remove BAM files",
                     "type": "boolean",
-                    "description": "Remove BAM files after processing",
                     "default": false,
-                    "fa_icon": "fas fa-trash"
+                    "description": "Delete BAM files after variant calling",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "snippy_opts": {
-                    "title": "Extra Snippy options",
                     "type": "string",
-                    "description": "Extra options to pass to Snippy",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "description": "Extra options in quotes for Snippy",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         }

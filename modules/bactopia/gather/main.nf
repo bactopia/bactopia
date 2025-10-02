@@ -35,6 +35,10 @@ process GATHER {
     meta.process_name = task.ext.process_name
     meta.single_end = _meta.single_end
     meta.original_runtype = _meta.runtype
+    meta.genome_size = _meta.genome_size
+    meta.species = _meta.species
+
+    // WF specific parameters
     runtype = meta.original_runtype
     is_assembly = runtype.startsWith('assembly') ? true : false
     is_compressed = extra ? (extra.getName().endsWith('gz') ? true : false) : false
@@ -52,6 +56,8 @@ process GATHER {
         meta.runtype = 'single-end'
     } else if (runtype == 'sra_accession_ont') {
         meta.runtype = 'ont'
+    } else {
+        meta.runtype = runtype
     }
     meta.is_compressed = task.ext.skip_compression ? false : true
     qin = is_assembly ? 'qin=33' : 'qin=auto'
@@ -164,7 +170,7 @@ process GATHER {
 
         # Simulate reads from assembly, reads are 250bp without errors
         art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${task.ext.sampleseed}\
-                        -na -qL 33 -qU 40 -o ${prefix}_R --id ${prefix} -i ${prefix}-art.fna
+                     -na -qL 33 -qU 40 -o ${prefix}_R --id ${prefix} -i ${prefix}-art.fna
 
         mv ${prefix}_R1.fq fastqs/${prefix}_R1.fastq
         mv ${prefix}_R2.fq fastqs/${prefix}_R2.fastq
@@ -270,7 +276,7 @@ process GATHER {
 
     # Dump meta values to a TSV
     echo "sample<TAB>runtype<TAB>original_runtype<TAB>is_paired<TAB>is_compressed<TAB>species<TAB>genome_size" | sed 's/<TAB>/\t/g' > ${prefix}-meta.tsv
-    echo "${meta.id}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>\$IS_PAIRED<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
+    echo "${meta.name}<TAB>${meta.runtype}<TAB>${meta.original_runtype}<TAB>\$IS_PAIRED<TAB>${meta.is_compressed}<TAB>${meta.species}<TAB>${meta.genome_size}" | sed 's/<TAB>/\t/g' >> ${prefix}-meta.tsv
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml

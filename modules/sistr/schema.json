@@ -15,7 +15,8 @@
                 "full_cgmlst": {
                     "type": "boolean",
                     "default": false,
-                    "description": " Use the full set of cgMLST alleles which can include highly similar alleles"
+                    "description": " Use the full set of cgMLST alleles which can include highly similar alleles",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

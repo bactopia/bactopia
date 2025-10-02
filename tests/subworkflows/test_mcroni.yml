@@ -1,8 +1,0 @@
-- name: mcroni-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf mcroni -c nextflow.config --help > mcroni-help.txt'
-  tags:
-    - bactopia_help
-    - mcroni
-  files:
-    - path: mcroni-help.txt
-      contains: ['mcroni', 'bactopia', 'version', 'dependencies']

@@ -14,23 +14,29 @@
             "properties": {
                 "mb_max_contig_size": {
                     "type": "integer",
+                    "description": "Maximum size of a contig to be considered a plasmid",
                     "default": 310000,
-                    "description": "Maximum size of a contig to be considered a plasmid"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mb_min_contig_size": {
                     "type": "integer",
+                    "description": "Minimum length of contigs to classify",
                     "default": 1000,
-                    "description": "Minimum length of contigs to classify"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mb_max_plasmid_size": {
                     "type": "integer",
+                    "description": "Maximum size of a reconstructed plasmid",
                     "default": 350000,
-                    "description": "Maximum size of a reconstructed plasmid"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mobsuite_opts": {
                     "type": "string",
+                    "description": "Extra MOB-suite options in quotes. Example: '--min_mob_evalue 0.001'",
+                    "help": "Useful if you would like to fine tune your MOB-suite analysis.",
                     "default": "",
-                    "description": "Extra MOB-suite options in quotes. Example: '--min_mob_evalue 0.001'"
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         }

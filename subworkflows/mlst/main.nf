@@ -10,11 +10,7 @@ workflow MLST {
     db // channel: [ mlst_db ]
 
     main:
-    if (params.mlst_db) {
-        MLST_MODULE(fasta, file(params.mlst_db))
-    } else {
-        MLST_MODULE(fasta, db)
-    }
+    MLST_MODULE(fasta, db)
 
     // Merge results
     MLST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mlst'], tsv]}.set{ ch_merge_mlst }

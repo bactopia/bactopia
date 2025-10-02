@@ -28,8 +28,7 @@ workflow PROKKA {
     tbl = PROKKA_MODULE.out.tbl
 
     // Generic aggregate outputs
-    results = PROKKA_MODULE.out.annotations.mix(
-        PROKKA_MODULE.out.blastdb,
+    results = PROKKA_MODULE.out.blastdb.mix(
         PROKKA_MODULE.out.faa,
         PROKKA_MODULE.out.ffn,
         PROKKA_MODULE.out.fna,

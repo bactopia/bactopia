@@ -11,13 +11,7 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "datasets_cache": {
-                    "type": "string",
-                    "description": "Directory where downloaded databases will be stored",
-                    "default": ""
-                }
-            }
+            "properties": {}
         }
     },
     "allOf": [

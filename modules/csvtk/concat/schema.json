@@ -12,6 +12,13 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
             }
         }
     },

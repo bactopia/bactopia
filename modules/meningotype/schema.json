@@ -15,27 +15,32 @@
                 "finetype": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform porA and fetA fine typing"
+                    "description": "perform porA and fetA fine typing",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "porB": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform porB sequence typing (NEIS2020)"
+                    "description": "perform porB sequence typing (NEIS2020)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "bast": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform Bexsero antigen sequence typing (BAST)"
+                    "description": "perform Bexsero antigen sequence typing (BAST)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "mlst": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform MLST"
+                    "description": "perform MLST",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "all": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform MLST, porA, fetA, porB, BAST typing"
+                    "description": "perform MLST, porA, fetA, porB, BAST typing",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

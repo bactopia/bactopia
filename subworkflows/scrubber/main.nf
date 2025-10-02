@@ -8,6 +8,7 @@ include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
 workflow SCRUBBER {
     take:
     reads // channel: [ val(meta), [ reads ] ]
+    use_srascrubber
 
     main:
     ch_results = Channel.empty()
@@ -18,7 +19,7 @@ workflow SCRUBBER {
     ch_scrubbed = Channel.empty()
     ch_scrubbed_extra = Channel.empty()
 
-    if (params.use_srascrubber) {
+    if (use_srascrubber) {
         SRAHUMANSCRUBBER(reads)
         ch_results = ch_results.mix(SRAHUMANSCRUBBER.out.results)
         ch_logs = ch_logs.mix(SRAHUMANSCRUBBER.out.logs)

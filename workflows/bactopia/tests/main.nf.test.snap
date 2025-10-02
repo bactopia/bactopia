@@ -1,0 +1,23 @@
+{
+    "Bactopia - SRR2838702|portiera|compressed_fastq": {
+        "content": [
+            0,
+            [
+                "bactopia-runs",
+                "bactopia-runs/bactopia",
+                "bactopia-runs/bactopia/nf-reports",
+                "bactopia-runs/bactopia/nf-reports/bactopia-dag.dot",
+                "bactopia-runs/bactopia/nf-reports/bactopia-report.html",
+                "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
+            ],
+            [
+                
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.08.0"
+        },
+        "timestamp": "2025-10-01T18:19:11.578010891"
+    }
+}

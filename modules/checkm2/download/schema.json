@@ -15,14 +15,15 @@
                 "checkm2_db": {
                     "type": "string",
                     "description": "Path to a folder containing CheckM2 database (or where it should be downloaded to).",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "download_checkm2": {
                     "type": "boolean",
                     "description": "Download the CheckM2 database to the path given by --checkm2_db",
                     "default": false,
                     "fa_icon": "fas fa-italic"
-                }   
+                }
             }
         }
     },

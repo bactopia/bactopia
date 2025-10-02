@@ -15,22 +15,29 @@
                 "a": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Count all differences not just [AGTC]"
+                    "description": "Count all differences not just [AGTC]",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "b": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep top left corner cell"
+                    "description": "Keep top left corner cell",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "csv": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Output CSV instead of TSV"
+                    "description": "Output CSV instead of TSV",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "k": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep case, don't uppercase all letters"
+                    "description": "Keep case, don't uppercase all letters",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         }

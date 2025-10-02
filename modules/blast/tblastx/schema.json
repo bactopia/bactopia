@@ -5,49 +5,55 @@
     "description": "A module for rapidly aligning against contigs and genes",
     "type": "object",
     "$defs": {
-        "blast_parameters": {
+        "tblastx_parameters": {
             "title": "TBLASTX Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-        "tblastx_query": {
-            "type": ["string", "null"],
-            "description": "Query sequence(s) for TBLASTX",
-            "default": null
-        },
-        "tblastx_outfmt": {
-            "type": "string",
-            "description": "Output format specification",
-            "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
-        },
-        "tblastx_opts": {
-            "type": "string",
-            "description": "Additional TBLASTX options",
-            "default": ""
-        },
-        "tblastx_qcov_hsp_perc": {
-            "type": "integer",
-            "description": "Percent query coverage per hsp",
-            "default": 50
-        },
-        "tblastx_max_target_seqs": {
-            "type": "integer",
-            "description": "Maximum number of aligned sequences to keep",
-            "default": 2000
-        },
-        "tblastx_use_genes": {
-            "type": "boolean",
-            "description": "Use genes (ffn) instead of contigs (fna) for database",
-            "default": false
-        }
+                "tblastx_query": {
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "tblastx_outfmt": {
+                    "type": "string",
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_opts": {
+                    "type": "string",
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_qcov_hsp_perc": {
+                    "type": "integer",
+                    "description": "Percent query coverage per hsp",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "tblastx_max_target_seqs": {
+                    "type": "integer",
+                    "description": "Maximum number of aligned sequences to keep",
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up"
+                },
+                "tblastx_use_genes": {
+                    "type": "boolean",
+                    "description": "Blast against genes sequences instead of contigs",
+                    "default": false,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                }
             }
         }
     },
     "allOf": [
         {
-            "$ref": "#/$defs/blast_parameters"
+            "$ref": "#/$defs/tblastx_parameters"
         }
     ]
 }

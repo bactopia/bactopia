@@ -14,33 +14,42 @@
             "properties": {
                 "bt_virulence_identity": {
                     "type": "integer",
-                    "description": "Minimum percent identity for virulence factors",
-                    "default": 70
+                    "default": 70,
+                    "description": "Minimum percent amino acid/nucleotide identity threshold for a virulence gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "bt_virulence_coverage": {
                     "type": "integer",
-                    "description": "Minimum percent coverage for virulence factors",
-                    "default": 80
+                    "default": 80,
+                    "description": "Minimum percent coverage threshold for a virulence gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "bt_identity": {
                     "type": "integer",
-                    "description": "Minimum percent identity for general genes",
-                    "default": 50
+                    "default": 50,
+                    "description": "Minimum percent amino acid identity threshold for a Bt toxin gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "bt_coverage": {
                     "type": "integer",
-                    "description": "Minimum percent coverage for general genes",
-                    "default": 70
+                    "default": 70,
+                    "description": "Minimum percent coverage threshold for a Bt toxin gene to be considered present",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "bt_overlap": {
-                    "type": "number",
-                    "description": "Minimum percent overlap",
-                    "default": 0.7
+                    "type": "integer",
+                    "default": 0.7,
+                    "description": "Specify maximum proportion of overlap for overlapping Bt toxin genes to be considered separate genes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "bt_opts": {
                     "type": "string",
-                    "description": "Additional BTyper3 options",
-                    "default": ""
+                    "default": "",
+                    "description": "Additional options to pass to BTyper3",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

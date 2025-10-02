@@ -1,9 +1,0 @@
-- name: spatyper-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf spatyper -c nextflow.config --help > spatyper-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - spatyper
-  files:
-    - path: spatyper-help.txt
-      contains: ['spatyper', 'bactopia', 'version', 'dependencies']

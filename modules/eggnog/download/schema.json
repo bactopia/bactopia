@@ -14,42 +14,50 @@
             "properties": {
                 "eggnog_db": {
                     "type": "string",
-                    "description": "Path to eggNOG database directory"
-                },
-                "eggnog_save_as_tarball": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Save the eggNOG database as a tarball"
+                    "description": "Tarball or path to eggNOG databases",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "download_eggnog": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Download eggNOG database"
+                    "description": "Required if downloading latest eggNOG database, will overwrite existing databases.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "eggnog_save_as_tarball": {
+                    "type": "string",
+                    "description": "Save the eggNOG database as a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_diamond": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip diamond database download"
-                },
-                "install_hmm": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Install HMM profiles"
+                    "description": "Do not install the diamond database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "install_mmseq": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Install MMseqs2 database"
+                    "description": "Install the MMseqs2 database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "install_pfam": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Install PFAM profiles"
+                    "description": "Install the Pfam database, required for de novo annotation or realignment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "install_hmm": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Install the HMMER database specified with --hmmer_taxid",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "hmmer_taxid": {
                     "type": "integer",
                     "default": 2,
-                    "description": "NCBI taxonomy ID for HMMER database"
+                    "description": "Tax ID of eggNOG HMM database to download",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }
