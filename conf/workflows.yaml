@@ -35,20 +35,29 @@ workflows:
   cleanyerreads:
     description: "Use Bactopia's read QC steps to Clean-Yer-Reads"
     includes:
-      - kraken2
+      - scrubber
     is_workflow: true
     modules:
       - bactopia_gather
       - bactopia_qc
-      - scrubber
       - csvtk_concat
     path: workflows/cleanyerreads
   staphopia:
     description: "Staphopia is a pipeline for the analysis of Staphylococcus aureus genomes"
     includes:
-      - bactopia
+      - amrfinderplus
+      - bakta
+      - mlst
       - staphtyper
     is_workflow: true
+    modules:
+      - prokka
+      - bactopia_datasets
+      - bactopia_gather
+      - bactopia_qc
+      - bactopia_assembler
+      - bactopia_sketcher
+      - csvtk_concat
     path: workflows/staphopia
   teton:
     description: "Host removal and taxon classification with estimated abundances"
@@ -456,8 +465,6 @@ workflows:
   scrubber:
     description: "Scrub human reads from FASTQ files"
     ext: "fastq"
-    includes:
-      - workflows/bactopia-tools/scrubber
     modules:
       - kraken2
       - srahumanscrubber_initdb

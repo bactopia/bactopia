@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/mixed/reads"
                 test_dataset = ""
                 test_dataset2 = "/datasets/generic/GCF_000292685.gbk"
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
                 min_window_size = 5000
@@ -47,6 +52,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/mixed/reads"
                 test_dataset = "/datasets/generic/GCF_000292685.bed"
                 test_dataset2 = "/datasets/generic/GCF_000292685.gbk"
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
                 min_window_size = 5000

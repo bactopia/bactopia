@@ -11,6 +11,7 @@ process BRACKEN {
 
     output:
     tuple val(meta), path("${prefix}.bracken.tsv")                    , emit: tsv
+    tuple val(special_meta), path("${prefix}.bracken.tsv")            , emit: special_tsv
     tuple val(meta), path('*classified*')                             , emit: classified, optional: true
     tuple val(meta), path('*unclassified*')                           , emit: unclassified, optional: true
     tuple val(meta), path("${prefix}.kraken2.report.txt")             , emit: kraken2_report
@@ -37,9 +38,17 @@ process BRACKEN {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.runtype = _meta.runtype
+    if (task.ext.wf == "teton") {
+        meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
+        meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    } else {
+        meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+        meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    }
     meta.process_name = task.ext.process_name
+    special_meta = [:]
+    special_meta.id = prefix
     def paired = meta.single_end ? "" : "--paired"
     classified = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
     unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"

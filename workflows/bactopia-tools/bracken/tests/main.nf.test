@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "/datasets/kraken2/"
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -41,6 +46,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "/datasets/kraken2/kraken2.tar.gz"
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

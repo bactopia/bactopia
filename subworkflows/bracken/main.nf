@@ -24,6 +24,7 @@ workflow BRACKEN {
     emit:
     // Individual outputs
     tsv = BRACKEN_MODULE.out.tsv
+    special_tsv = BRACKEN_MODULE.out.special_tsv
     classified = BRACKEN_MODULE.out.classified
     unclassified = BRACKEN_MODULE.out.unclassified
     kraken2_report = BRACKEN_MODULE.out.kraken2_report
@@ -61,7 +62,21 @@ workflow BRACKEN {
         BRACKEN_MODULE.out.nf_out,
         BRACKEN_MODULE.out.nf_run,
         BRACKEN_MODULE.out.nf_sh,
-        BRACKEN_MODULE.out.nf_trace
+        BRACKEN_MODULE.out.nf_trace,
+        CSVTK_CONCAT_TSV.out.nf_begin,
+        CSVTK_CONCAT_TSV.out.nf_err,
+        CSVTK_CONCAT_TSV.out.nf_log,
+        CSVTK_CONCAT_TSV.out.nf_out,
+        CSVTK_CONCAT_TSV.out.nf_run,
+        CSVTK_CONCAT_TSV.out.nf_sh,
+        CSVTK_CONCAT_TSV.out.nf_trace,
+        CSVTK_CONCAT_ADJUSTED.out.nf_begin,
+        CSVTK_CONCAT_ADJUSTED.out.nf_err,
+        CSVTK_CONCAT_ADJUSTED.out.nf_log,
+        CSVTK_CONCAT_ADJUSTED.out.nf_out,
+        CSVTK_CONCAT_ADJUSTED.out.nf_run,
+        CSVTK_CONCAT_ADJUSTED.out.nf_sh,
+        CSVTK_CONCAT_ADJUSTED.out.nf_trace
     )
     versions = BRACKEN_MODULE.out.versions.mix(
         CSVTK_CONCAT_TSV.out.versions,

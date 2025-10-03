@@ -17,6 +17,7 @@ workflow SRAHUMANSCRUBBER {
     scrubbed = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
     scrubbed_extra = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
     scrub_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
+    scrub_special_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_special_report
 
     // Generic aggregate outputs
     results = SRAHUMANSCRUBBER_SCRUB.out.scrubbed.mix(

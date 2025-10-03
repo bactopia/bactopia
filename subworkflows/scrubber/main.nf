@@ -16,6 +16,7 @@ workflow SCRUBBER {
     ch_nf_logs = Channel.empty()
     ch_versions = Channel.empty()
     ch_scrub_report = Channel.empty()
+    ch_special_report = Channel.empty()
     ch_scrubbed = Channel.empty()
     ch_scrubbed_extra = Channel.empty()
 
@@ -26,6 +27,7 @@ workflow SCRUBBER {
         ch_nf_logs = ch_nf_logs.mix(SRAHUMANSCRUBBER.out.nf_logs)
         ch_versions = ch_versions.mix(SRAHUMANSCRUBBER.out.versions)
         ch_scrub_report = ch_scrub_report.mix(SRAHUMANSCRUBBER.out.scrub_report)
+        ch_special_report = ch_special_report.mix(SRAHUMANSCRUBBER.out.scrub_special_report)
         ch_scrubbed = ch_scrubbed.mix(SRAHUMANSCRUBBER.out.scrubbed)
         ch_scrubbed_extra = ch_scrubbed_extra.mix(SRAHUMANSCRUBBER.out.scrubbed_extra)
     } else {
@@ -35,6 +37,7 @@ workflow SCRUBBER {
         ch_nf_logs = ch_nf_logs.mix(K2SCRUBBER.out.nf_logs)
         ch_versions = ch_versions.mix(K2SCRUBBER.out.versions)
         ch_scrub_report = ch_scrub_report.mix(K2SCRUBBER.out.scrub_report)
+        ch_special_report = ch_special_report.mix(K2SCRUBBER.out.scrub_special_report)
         ch_scrubbed = ch_scrubbed.mix(K2SCRUBBER.out.scrubbed)
         ch_scrubbed_extra = ch_scrubbed_extra.mix(K2SCRUBBER.out.scrubbed_extra)
     }
@@ -46,6 +49,7 @@ workflow SCRUBBER {
     emit:
     // Individual outputs
     tsv = ch_scrub_report
+    special_tsv = ch_special_report
     merged_tsv = CSVTK_CONCAT.out.csv
     scrubbed = ch_scrubbed
     scrubbed_extra = ch_scrubbed_extra

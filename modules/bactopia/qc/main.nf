@@ -6,7 +6,7 @@ process QC {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
-    tuple val(_meta), path(fq, stageAs: 'inputs/*'), path(extra)
+    tuple val(_meta), path(fq, stageAs: 'inputs/*'), path(extra, stageAs: 'extras/*')
     path adapters
     path phix
 
@@ -34,16 +34,18 @@ process QC {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "${prefix}/main/${task.ext.process_name}/"
+    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
-    meta.single_end = fq[1] == null ? true : false
+    meta.single_end = (fq.getClass() == nextflow.util.BlankSeparatedList) ? false : true
     meta.genome_size = _meta.genome_size ?: 0
+    meta.species = _meta.species ?: null
     meta.runtype = _meta.runtype
 
     // WF specific parameters
-    meta.single_end = fq[1] == null ? true : false
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
+    fq1 = meta.single_end ? fq : fq[0]
+    fq2 = meta.single_end ? null : fq[1]
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters
     phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix
@@ -51,15 +53,14 @@ process QC {
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
     reformat_opts = meta.single_end ? "" : "in2=filt-r2.fq out2=subsample-r2.fq"
-    fastp_fqs = meta.single_end ? "" : "--in2 ${fq[1]} --out2 filt-r2.fq --detect_adapter_for_pe"
-    ont_fq = meta.runtype == 'ont' ? fq[0] : extra[0]
+    fastp_fqs = meta.single_end ? "" : "--in2 ${fq2} --out2 filt-r2.fq --detect_adapter_for_pe"
+    ont_fq = meta.runtype == 'ont' ? fq1 : extra
     meta.single_end = meta.runtype == 'short_polish' ? true : meta.single_end
 
     // set Xmx to 95% of what was allocated, to avoid going over
     xmx = Math.round(task.memory.toBytes()*0.95)
     """
     mkdir -p supplemental
-    touch supplemental/.${meta.runtype}
     ERROR=0
     MIN_COVERAGE=\$(( ${task.ext.min_coverage}*${meta.genome_size} ))
     TOTAL_BP=\$(( ${task.ext.coverage}*${meta.genome_size} ))
@@ -80,7 +81,7 @@ process QC {
     mkdir extra/
     if [[ "${is_assembly}" == "true" ]]; then
         # Copy the assembly over to extra
-        cp ${extra[0]} extra/
+        cp ${extra} extra/
     else
         touch extra/EMPTY_EXTRA
     fi
@@ -89,16 +90,16 @@ process QC {
         echo "Sequence QC was skipped for ${prefix}" > ${prefix}-qc-skipped.txt
         if [ "\${IS_HYBRID}" -eq "1" ]; then
             # Illumina Paired-End Reads and Nanopore Reads
-            cp ${fq[0]} ${prefix}_R1.fastq.gz
-            cp ${fq[1]} ${prefix}_R2.fastq.gz
-            cp ${extra[0]} ${prefix}.fastq.gz
+            cp ${fq1} ${prefix}_R1.fastq.gz
+            cp ${fq2} ${prefix}_R2.fastq.gz
+            cp ${extra} ${prefix}.fastq.gz
         elif [ "${meta.single_end}" == "false" ]; then
             # Paired-End Reads
-            cp ${fq[0]} ${prefix}_R1.fastq.gz
-            cp ${fq[1]} ${prefix}_R2.fastq.gz
+            cp ${fq1} ${prefix}_R1.fastq.gz
+            cp ${fq2} ${prefix}_R2.fastq.gz
         else
             # Single-End Reads
-            cp ${fq[0]} ${prefix}.fastq.gz
+            cp ${fq} ${prefix}.fastq.gz
         fi
     else
         if [ "\${ENABLE_ONT}" -eq "1" ]; then
@@ -129,8 +130,8 @@ process QC {
                 if [[ "${meta.single_end}" == "false" || "\${IS_HYBRID}" -eq "1" ]]; then
                     # Make sure paired-end reads have matching IDs
                     repair.sh \
-                        in=${fq[0]} \
-                        in2=${fq[1]} \
+                        in=${fq1} \
+                        in2=${fq2} \
                         out=repair-r1.fq \
                         out2=repair-r2.fq \
                         outs=repair-singles.fq \
@@ -143,7 +144,7 @@ process QC {
                         sed 's/^\\s*//' >> ${prefix}-paired-match-error.txt
                     fi
                 else
-                    gunzip -c ${fq[0]} > repair-r1.fq 
+                    gunzip -c ${fq1} > repair-r1.fq 
                 fi
 
                 if [ "\${ERROR}" -eq "0" ]; then
@@ -196,12 +197,11 @@ process QC {
                 fi
             else
                 # QC with fastp
-                mkdir -p supplemental/summary/
                 fastp \
-                    --in1 ${fq[0]} --out1 filt-r1.fq ${fastp_fqs} \
+                    --in1 ${fq1} --out1 filt-r1.fq ${fastp_fqs} \
                     --thread ${task.cpus} \
-                    --json supplemental/summary/${prefix}.fastp.json \
-                    --html supplemental/summary/${prefix}.fastp.html ${task.ext.fastp_opts} 2> ${prefix}-fastp.log
+                    --json supplemental/${prefix}.fastp.json \
+                    --html supplemental/${prefix}.fastp.html ${task.ext.fastp_opts} 2> ${prefix}-fastp.log
             fi
         fi
 
@@ -292,51 +292,51 @@ process QC {
 
     # Quality stats before and after QC
     if [ "\${ERROR}" -eq "0" ]; then
-        mkdir -p supplemental/summary/
+        mkdir -p supplemental/
         # fastq-scan
         if [ "\${IS_HYBRID}" -eq "1" ]; then
             # Illumina Paired-End Reads
-            gzip -cd ${fq[0]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R1-original.json
-            gzip -cd ${fq[1]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R2-original.json
-            gzip -cd ${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R1-final.json
-            gzip -cd ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R2-final.json
+            gzip -cd ${fq1} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-original.json
+            gzip -cd ${fq2} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R2-original.json
+            gzip -cd ${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-final.json
+            gzip -cd ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R2-final.json
 
             # Nanopore Reads
-            gzip -cd ${extra[0]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}-original.json
-            gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}-final.json
+            gzip -cd ${extra} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-original.json
+            gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-final.json
         elif [[ "${meta.single_end}" == "false" ]]; then
             # Paired-End Reads
-            gzip -cd ${fq[0]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R1-original.json
-            gzip -cd ${fq[1]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R2-original.json
-            gzip -cd ${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R1-final.json
-            gzip -cd ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}_R2-final.json
+            gzip -cd ${fq1} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-original.json
+            gzip -cd ${fq2} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R2-original.json
+            gzip -cd ${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-final.json
+            gzip -cd ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R2-final.json
         else
             # Single-End Reads
-            gzip -cd ${fq[0]} | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}-original.json
-            gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/summary/${prefix}-final.json
+            gzip -cd ${fq1} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-original.json
+            gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-final.json
         fi
 
         # FastQC and NanoPlot
         if [[ "${task.ext.skip_qc_plots}" == "false" ]]; then
             if [ "\${ENABLE_ONT}" -eq "1" ]; then
                 # Nanopore Plots
-                mkdir supplemental/summary/${prefix}-original supplemental/summary/${prefix}-final
+                mkdir supplemental/${prefix}-original supplemental/${prefix}-final
                 NanoPlot ${task.ext.nanoplot_opts} \
                     --threads ${task.cpus} \
                     --fastq ${ont_fq} \
-                    --outdir supplemental/summary/${prefix}-original/ \
+                    --outdir supplemental/${prefix}-original/ \
                     --prefix ${prefix}-original_
-                cp supplemental/summary/${prefix}-original/${prefix}-original_NanoPlot-report.html supplemental/summary/${prefix}-original_NanoPlot-report.html
-                tar -cvf - supplemental/summary/${prefix}-original/ | pigz --best -p ${task.cpus} > supplemental/summary/${prefix}-original_NanoPlot.tar.gz
+                cp supplemental/${prefix}-original/${prefix}-original_NanoPlot-report.html supplemental/${prefix}-original_NanoPlot-report.html
+                tar -cvf - supplemental/${prefix}-original/ | pigz --best -p ${task.cpus} > supplemental/${prefix}-original_NanoPlot.tar.gz
 
                 NanoPlot ${task.ext.nanoplot_opts} \
                     --threads ${task.cpus} \
                     --fastq ${prefix}.fastq.gz \
-                    --outdir supplemental/summary/${prefix}-final/ \
+                    --outdir supplemental/${prefix}-final/ \
                     --prefix ${prefix}-final_
-                cp supplemental/summary/${prefix}-final/${prefix}-final_NanoPlot-report.html supplemental/summary/${prefix}-final_NanoPlot-report.html
-                tar -cvf - supplemental/summary/${prefix}-final/ | pigz --best -p ${task.cpus} > supplemental/summary/${prefix}-final_NanoPlot.tar.gz
-                rm -rf supplemental/summary/${prefix}-original/ supplemental/summary/${prefix}-final/
+                cp supplemental/${prefix}-final/${prefix}-final_NanoPlot-report.html supplemental/${prefix}-final_NanoPlot-report.html
+                tar -cvf - supplemental/${prefix}-final/ | pigz --best -p ${task.cpus} > supplemental/${prefix}-final_NanoPlot.tar.gz
+                rm -rf supplemental/${prefix}-original/ supplemental/${prefix}-final/
             fi
 
             if [ "\${ENABLE_ILLUMINA}" -eq "1" ]; then
@@ -344,8 +344,8 @@ process QC {
                 mkdir -p ./tmp
                 if [[ "${meta.single_end}" == "false" || "\${IS_HYBRID}" -eq "1" ]]; then
                     # Paired-End Reads
-                    ln -s ${fq[0]} ${prefix}_R1-original.fastq.gz
-                    ln -s ${fq[1]} ${prefix}_R2-original.fastq.gz
+                    ln -s ${fq1} ${prefix}_R1-original.fastq.gz
+                    ln -s ${fq2} ${prefix}_R2-original.fastq.gz
                     ln -s ${prefix}_R1.fastq.gz ${prefix}_R1-final.fastq.gz
                     ln -s ${prefix}_R2.fastq.gz ${prefix}_R2-final.fastq.gz
                     fastqc \
@@ -356,7 +356,7 @@ process QC {
                         ${prefix}_R1-original.fastq.gz ${prefix}_R2-original.fastq.gz ${prefix}_R1-final.fastq.gz ${prefix}_R2-final.fastq.gz
                 else
                     # Single-End Reads
-                    ln -s ${fq[0]} ${prefix}-original.fastq.gz
+                    ln -s ${fq1} ${prefix}-original.fastq.gz
                     ln -s ${prefix}.fastq.gz ${prefix}-final.fastq.gz
                     fastqc \
                         --noextract \
@@ -365,7 +365,7 @@ process QC {
                         -t ${task.cpus} \
                         ${prefix}-original.fastq.gz ${prefix}-final.fastq.gz
                 fi
-                mv *_fastqc.html *_fastqc.zip supplemental/summary/
+                mv *_fastqc.html *_fastqc.zip supplemental/
                 rm -rf tmp/ *-original.fastq.gz *-final.fastq.gz
             fi
         fi
@@ -459,20 +459,20 @@ process QC {
 
     if [ "\${ERROR}" -eq "1" ]; then
         if [ "\${IS_HYBRID}" -eq "1" ]; then
-            cp ${fq[0]} supplemental/${prefix}_R1.error-fastq.gz
-            cp ${fq[1]} supplemental/${prefix}_R2.error-fastq.gz
-            cp ${extra[0]} supplemental/${prefix}.error-fastq.gz
+            cp ${fq1} supplemental/${prefix}_R1.error-fastq.gz
+            cp ${fq2} supplemental/${prefix}_R2.error-fastq.gz
+            cp ${extra} supplemental/${prefix}.error-fastq.gz
             if [ ! -s repair-singles.fq ]; then
                 pigz -p ${task.cpus} -c -n repair-singles.fq > supplemental/${prefix}.error-fastq.gz
             fi
         elif [ "${meta.single_end}" == "false" ]; then
-            cp ${fq[0]} supplemental/${prefix}_R1.error-fastq.gz
-            cp ${fq[1]} supplemental/${prefix}_R2.error-fastq.gz
+            cp ${fq1} supplemental/${prefix}_R1.error-fastq.gz
+            cp ${fq2} supplemental/${prefix}_R2.error-fastq.gz
             if [ ! -s repair-singles.fq ]; then
                 pigz -p ${task.cpus} -c -n repair-singles.fq > supplemental/${prefix}.singles-fastq.gz
             fi
         else
-            cp ${fq[0]} supplemental/${prefix}.error-fastq.gz
+            cp ${fq1} supplemental/${prefix}.error-fastq.gz
         fi
     elif [ "\${ERROR}" -eq "2" ]; then
         if [ -f ${prefix}_R1.fastq.gz ]; then

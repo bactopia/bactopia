@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/cleanyerreads.json",
     "title": "Clean-Yer-Reads pipeline parameters",
     "description": "Use Bactopia's read QC steps to Clean-Yer-Reads",

@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-protein.faa.gz"
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -42,6 +47,11 @@ nextflow_pipeline {
                 test_dataset = "datasets/blast/single-protein.faa.gz"
                 blastp_use_genes = true
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -72,6 +82,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-protein.faa"
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

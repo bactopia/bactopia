@@ -12,6 +12,7 @@ process GATHER {
     tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), path("extra/*.gz"), emit: raw_fastq, optional: true
     tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), emit: fastq_only, optional: true
     tuple val(meta), path("${prefix}-meta.tsv")        , emit: tsv
+    tuple val(meta), path("*-{error,merged}.txt")      , emit: error, optional: true
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
@@ -21,7 +22,6 @@ process GATHER {
     tuple val(meta), path(".command.sh")   , emit: nf_sh
     tuple val(meta), path(".command.trace"), emit: nf_trace
     tuple val(meta), path("versions.yml")  , emit: versions
-    tuple val(meta), path("*-{error,merged}.txt"), optional: true
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -30,10 +30,14 @@ process GATHER {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    if ( task.ext.wf == "teton" ) {
+        meta.output_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}"
+        meta.logs_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    } else {
+        meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
+        meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    }
     meta.process_name = task.ext.process_name
-    meta.single_end = _meta.single_end
     meta.original_runtype = _meta.runtype
     meta.genome_size = _meta.genome_size
     meta.species = _meta.species

@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/haemophilus_influenzae"
                 test_dataset = "/species/haemophilus_influenzae/GCA_000027305/main/assembler/GCA_000027305.fna.gz"
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }
@@ -41,6 +46,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/haemophilus_influenzae"
                 test_dataset = ""
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
                 fastani_pairwise = true
@@ -72,6 +82,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/haemophilus_influenzae"
                 test_dataset = ""
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
                 accession = "GCF_020736045.1"

@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "/datasets/ismapper/is1016.fasta"
                 test_dataset2 = "/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz"
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

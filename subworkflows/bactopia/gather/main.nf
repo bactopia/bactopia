@@ -21,9 +21,11 @@ workflow GATHER {
     merged_tsv = CSVTK_CONCAT.out.csv
     fastq_only = GATHER_MODULE.out.fastq_only
     raw_fastq = GATHER_MODULE.out.raw_fastq
+    error = GATHER_MODULE.out.error
 
     // Generic aggregate outputs
     results = GATHER_MODULE.out.tsv.mix(
+        GATHER_MODULE.out.error,
         CSVTK_CONCAT.out.csv
     )
     logs = GATHER_MODULE.out.logs.mix(

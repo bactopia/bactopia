@@ -3,9 +3,7 @@ process BACTOPIA_SAMPLESHEET {
     label 'process_single'
 
     conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        "${task.ext.singularity}${task.ext.singularity_version}" :
-        "${task.ext.docker}${task.ext.docker_version}" }"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
 
     input:
     tuple val(_meta), path(classification)
@@ -23,7 +21,6 @@ process BACTOPIA_SAMPLESHEET {
     tuple val(meta), path(".command.run")  , emit: nf_run, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path("versions.yml")  , emit: versions
-    tuple val(meta), path("*-{error,merged}.txt"), optional: true
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -32,9 +29,11 @@ process BACTOPIA_SAMPLESHEET {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${meta.id}/teton/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${meta.id}/teton/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+    meta.runtype = _meta.runtype
+    meta.teton_reads = _meta.teton_reads
     """
     # determine genome size and create sample sheet
     sizemeup \\

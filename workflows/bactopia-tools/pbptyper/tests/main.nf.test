@@ -11,6 +11,11 @@ nextflow_pipeline {
                 bactopia_test = "/species/streptococcus_pneumoniae/assembly"
                 test_dataset = ""
                 test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
             }

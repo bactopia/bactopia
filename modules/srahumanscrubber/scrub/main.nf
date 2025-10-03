@@ -10,9 +10,10 @@ process SRAHUMANSCRUBBER_SCRUB {
     path db
 
     output:
-    tuple val(meta), path("*.scrubbed.fastq.gz"), emit: scrubbed
+    tuple val(meta), path("*.scrubbed.fastq.gz")                     , emit: scrubbed
     tuple val(meta), path("*.scrubbed.fastq.gz"), path("EMPTY_EXTRA"), emit: scrubbed_extra
-    tuple val(meta), path('*.scrub.report.tsv') , emit: scrub_report, optional: true
+    tuple val(meta), path('*.scrub.report.tsv')                      , emit: scrub_report, optional: true
+    tuple val(special_meta), path('*.scrub.report.tsv')              , emit: scrub_special_report, optional: true
     tuple val(meta), path("*.{log,err}")        , emit: logs, optional: true
     tuple val(meta), path(".command.begin")     , emit: nf_begin
     tuple val(meta), path(".command.err")       , emit: nf_err
@@ -26,7 +27,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     script:
     def VERSION = '2.2.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
-    output_folder = task.ext.wf == "scrubber" ? "scrubber/${task.ext.process_name}" : "${task.ext.process_name}"
+    output_folder = task.ext.wf == "scrubber" || task.ext.wf == "teton" ? "scrubber" : "${task.ext.process_name}"
 
     // Create a new meta variable
     meta = [:]
@@ -37,6 +38,9 @@ process SRAHUMANSCRUBBER_SCRUB {
     meta.process_name = task.ext.process_name
     meta.single_end = reads[1] == null ? true : false
     meta.is_paired = reads[1] == null ? false : true
+    meta.runtype = _meta.runtype
+    special_meta = [:]
+    special_meta.id = prefix
     if (meta.single_end) {
         """
         # Scrub human reads

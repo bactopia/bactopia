@@ -12,6 +12,7 @@ process KRAKEN2 {
     output:
     tuple val(meta), path('*.kraken2.report.txt')              , emit: kraken2_report
     tuple val(meta), path('*.scrub.report.tsv')                , emit: scrub_report, optional: true
+    tuple val(special_meta), path('*.scrub.report.tsv')        , emit: scrub_special_report, optional: true
     tuple val(meta), path("*.${classified_naming}*.fastq.gz")  , emit: classified, optional: true
     tuple val(meta), path("*.${unclassified_naming}*.fastq.gz"), emit: unclassified, optional: true
     tuple val(meta), path("*.${classified_naming}*.fastq.gz")  , path("EMPTY_EXTRA"), emit: classified_extra, optional: true
@@ -28,17 +29,26 @@ process KRAKEN2 {
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
-    output_folder = task.ext.wf == "scrubber" ? "scrubber/${task.ext.process_name}" : "${task.ext.process_name}"
+    output_folder = task.ext.wf == "scrubber" || task.ext.wf == "teton" ? "scrubber" : "${task.ext.process_name}"
 
     // Create a new meta variable
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${prefix}/tools/${output_folder}"
-    meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
+
+    if (task.ext.wf == "teton") {
+        meta.output_dir = "${prefix}/teton/tools/${output_folder}"
+        meta.logs_dir = "${prefix}/teton/tools/${output_folder}/logs/${task.ext.logs_subdir}"
+    } else {
+        meta.output_dir = "${prefix}/tools/${output_folder}"
+        meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
+    }
     meta.process_name = task.ext.process_name
     meta.single_end = reads[1] == null ? true : false
     meta.is_paired = reads[1] == null ? false : true
+    meta.runtype = _meta.runtype
+    special_meta = [:]
+    special_meta.id = prefix
     def paired = meta.single_end ? "" : "--paired"
     classified_naming = task.ext.wf != "kraken2" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq"   : "${prefix}.${classified_naming}#.fastq"
@@ -87,7 +97,7 @@ process KRAKEN2 {
         rm -rf database
     fi
 
-    if [[ "${task.ext.keep_filtered_reads}" == "true" || "${task.ext.wf}" == "scrubber" ]]; then
+    if [[ "${task.ext.keep_filtered_reads}" == "true" || "${task.ext.wf}" == "scrubber" || "${task.ext.wf}" == "teton" ]]; then
         # Compress Kraken FASTQs
         pigz -p $task.cpus *.fastq
     else
