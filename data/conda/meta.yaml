@@ -21,11 +21,10 @@ requirements:
     - coreutils
     - mamba >=2
     - nextflow >=25
+    - nf-test
     - python >=3.9
     - sed
     - wget
-    - pytest
-    - pytest-workflow
     - importlib-metadata <5
     - openpyxl
 
