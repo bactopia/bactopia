@@ -10,4 +10,4 @@ chmod 775 bin/bactopia/*
 cp bin/bactopia/* ${PREFIX}/bin
 
 # Move bactopia nextflow
-mv bin/ conf/ data/ lib/ modules/ subworkflows/ tests/ workflows/ main.nf citations.yml nextflow.config ${BACTOPIA}
+mv bin/ conf/ data/ modules/ subworkflows/ tests/ workflows/ main.nf citations.yml nextflow.config nextflow_schema.json ${BACTOPIA}

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION=3.2.0
+VERSION=4.0.0
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
@@ -77,13 +77,13 @@ else
     # Check if Conda environments need to be built
     PREBUILD=1
     BUILD_TYPE="conda"
-    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"slurm"* ]] || [[ "$*" == *"sge"* ]] || [[ "$*" == *"arcc"* ]]; then
+    if [[ "$*" == *"singularity"* ]] || [[ "$*" == *"apptainer"* ]] || [[ "$*" == *"arcc"* ]]; then
         BUILD_TYPE="singularity"
     elif  [[ "$*" == *"docker"* ]] || [[ "$*" == *"arm"* ]]; then
         BUILD_TYPE="docker"
     fi
 
-    # If these are used, skip prebuild
+    # If these are used, skip pre-build
     CHECKS=("help" "help_all" "nfconfig" "list_wfs") 
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
@@ -105,24 +105,27 @@ else
     # Create custom work dir
     WORK_DIR=""
     WORK_ARG=""
-    CAN_CLEAN_UP=1
+    WORK_DIR_IS_DEFAULT=1
     if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-w \|-work-dir" > /dev/null; then
         # User specified a work directory
-        CAN_CLEAN_UP=0
+        WORK_DIR_IS_DEFAULT=0
     else
         # User did not specify a work directory, we'll use custom one based on workflow name
-        WORK_DIR="$(pwd)/work/${WF}"
+        WORK_DIR="$(pwd)/work/"
         WORK_ARG="-w ${WORK_DIR}"
     fi
 
+    # Get path to workflow
+    WF_PATH=$(bactopia-workflows --bactopia-path "${BACTOPIA_NF}" "${@:1}")
+
     # Execute Bactopia Nextflow pipeline
     OPTS="${WORK_ARG}"
-    if nextflow run "${BACTOPIA_NF}/main.nf" ${OPTS} "${@:1}"; then
+    if nextflow run ${WF_PATH} ${OPTS} "${@:1}"; then
         # bactopia finished successfully
-        if [[ "$*" == *"--cleanup_workdir"* ]] && [[ "${CAN_CLEAN_UP}" -eq 1 ]]; then
+        if [[ "${WORK_DIR_IS_DEFAULT}" -eq 1 ]]; then
             # user asked for work dir to be cleaned up
-            echo "Bactopia finished successfully! Found '--cleanup_workdir' removing '${WORK_DIR}'"
-            rm -rf "${WORK_DIR}"
+            WORK_DIR_SIZE=$(du -h -s "${WORK_DIR}" | cut -f 1)
+            echo "The work directory (${WORK_DIR}) is currently ${WORK_DIR_SIZE}, and can be removed if no longer needed"
         fi
     else
         exit $?

@@ -31,7 +31,7 @@ workflows:
       - bactopia_assembler
       - bactopia_sketcher
       - csvtk_concat
-    path: workflows/bactopia
+    path: ""
   cleanyerreads:
     description: "Use Bactopia's read QC steps to Clean-Yer-Reads"
     includes:
@@ -70,13 +70,6 @@ workflows:
       - csvtk_concat
       - csvtk_join
     path: workflows/teton
-  updater:
-    description: "Update database builds for new Bactopia version"
-    includes:
-      - amrfinderplus
-      - mlst
-    is_workflow: true
-    path: workflows/updater
   #============================================================================================
   # Bactopia Tools
   # 
@@ -243,7 +236,7 @@ workflows:
     description: "Identify marker genes and assign taxonomic classifications"
     ext: "fna"
     modules:
-      - gtdbtk_setupdb
+      - gtdbtk_download
       - gtdbtk_classifywf
       - csvtk_concat
     path: workflows/bactopia-tools/gtdb
@@ -636,7 +629,7 @@ modules:
   - genotyphi
   - genotyphi_parse
   - gtdbtk_classifywf
-  - gtdbtk_setupdb
+  - gtdbtk_download
   - gubbins
   - hicap
   - hpsuissero
