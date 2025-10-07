@@ -44,8 +44,8 @@ workflow {
         NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
         PROKKA(
             NCBIGENOMEDOWNLOAD.out.bactopia_tools,
-            params.proteins ? file(params.proteins) : [],
-            params.prodigal_tf ? file(params.prodigal_tf) : []
+            params.prokka_proteins ? file(params.prokka_proteins) : [],
+            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf) : []
         )
         ch_samples = ch_samples.mix(PROKKA.out.gff)
     }

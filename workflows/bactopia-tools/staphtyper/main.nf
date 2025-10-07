@@ -29,8 +29,8 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     STAPHTYPER(
         BACTOPIATOOL_INIT.out.samples,
-        params.repeats ? file(params.repeats, checkIfExists: true) : [],
-        params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
+        params.spatyper_repeats ? file(params.spatyper_repeats, checkIfExists: true) : [],
+        params.spatyper_repeat_order ? file(params.spatyper_repeat_order, checkIfExists: true) : []
     )
 
     workflow.onComplete {

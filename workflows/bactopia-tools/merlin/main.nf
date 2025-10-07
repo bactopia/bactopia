@@ -35,11 +35,11 @@ workflow {
         // emmtyper
         params.emmtyper_blastdb ? file(params.emmtyper_blastdb, checkIfExists: true) : [],
         // hicap
-        params.database_dir ? file(params.database_dir, checkIfExists: true) : [],
-        params.model_fp ? file(params.model_fp, checkIfExists: true) : [],
+        params.hicap_database_dir ? file(params.hicap_database_dir, checkIfExists: true) : [],
+        params.hicap_model_fp ? file(params.hicap_model_fp, checkIfExists: true) : [],
         // staphtyper
-        params.repeats ? file(params.repeats, checkIfExists: true) : [],
-        params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
+        params.spatyper_repeats ? file(params.spatyper_repeats, checkIfExists: true) : [],
+        params.spatyper_repeat_order ? file(params.spatyper_repeat_order, checkIfExists: true) : []
     )
 
     workflow.onComplete {
