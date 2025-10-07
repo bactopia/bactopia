@@ -58,7 +58,7 @@ workflow {
     ch_merge_vcf.join( ch_merge_aligned_fa ).set{ ch_snippy_core }
 
     // Identify core SNPs
-    SNIPPY_CORE(ch_snippy_core, ch_reference, params.snippy_core_mask ? file(params.snippy_core_mask) : [])
+    SNIPPY_CORE(ch_snippy_core, ch_reference, params.snippy_core_mask ? file(params.snippy_core_mask, checkIfExists: true) : [])
     ch_results = ch_results.mix(SNIPPY_CORE.out.results)
     ch_logs = ch_logs.mix(SNIPPY_CORE.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SNIPPY_CORE.out.nf_logs)

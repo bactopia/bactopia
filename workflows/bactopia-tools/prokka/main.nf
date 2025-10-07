@@ -29,8 +29,8 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     PROKKA(
         BACTOPIATOOL_INIT.out.samples,
-        params.prokka_proteins ? file(params.prokka_proteins) : [],
-        params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf) : []
+        params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
+        params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
     )
 
     workflow.onComplete {

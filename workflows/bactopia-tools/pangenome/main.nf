@@ -44,8 +44,8 @@ workflow {
         NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
         PROKKA(
             NCBIGENOMEDOWNLOAD.out.bactopia_tools,
-            params.prokka_proteins ? file(params.prokka_proteins) : [],
-            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf) : []
+            params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
+            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
         )
         ch_samples = ch_samples.mix(PROKKA.out.gff)
     }
@@ -85,7 +85,7 @@ workflow {
 
     // Pan-genome GWAS
     if (params.scoary_traits) {
-        SCOARY(PANGENOME.out.csv, file(params.scoary_traits))
+        SCOARY(PANGENOME.out.csv, file(params.scoary_traits, checkIfExists: true))
         ch_results = ch_results.mix(SCOARY.out.csv)
         ch_logs = ch_logs.mix(SCOARY.out.logs)
         ch_nf_logs = ch_nf_logs.mix(SCOARY.out.nf_logs)

@@ -29,7 +29,7 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     EMMTYPER(
         BACTOPIATOOL_INIT.out.samples,
-        params.emmtyper_blastdb ? file(params.emmtyper_blastdb) : []
+        params.emmtyper_blastdb ? file(params.emmtyper_blastdb, checkIfExists: true) : []
     )
 
     workflow.onComplete {

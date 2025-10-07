@@ -54,15 +54,15 @@ workflow {
         // Clean up scrubbed reads
         QC(
             SCRUBBER.out.scrubbed_extra,
-            params.adapters ? file(params.adapters) : [],
-            params.phix ? file(params.phix) : []
+            params.adapters ? file(params.adapters, checkIfExists: true) : [],
+            params.phix ? file(params.phix, checkIfExists: true) : []
         )
     } else {
         // Clean up raw reads
         QC(
             GATHER.out.raw_fastq,
-            params.adapters ? file(params.adapters) : [],
-            params.phix ? file(params.phix) : []
+            params.adapters ? file(params.adapters, checkIfExists: true) : [],
+            params.phix ? file(params.phix, checkIfExists: true) : []
         )
     }
     ch_results = ch_results.mix(QC.out.results)

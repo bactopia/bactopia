@@ -29,7 +29,7 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     TBLASTN(
         BACTOPIATOOL_INIT.out.samples,
-        params.tblastn_query ? file(params.tblastn_query) : []
+        params.tblastn_query ? file(params.tblastn_query, checkIfExists: true) : []
     )
 
     workflow.onComplete {

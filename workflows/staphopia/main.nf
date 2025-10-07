@@ -60,8 +60,8 @@ workflow {
     // QC samples
     QC(
         GATHER.out.raw_fastq,
-        params.adapters ? file(params.adapters) : [],
-        params.phix ? file(params.phix) : []
+        params.adapters ? file(params.adapters, checkIfExists: true) : [],
+        params.phix ? file(params.phix, checkIfExists: true) : []
     )
     ch_results = ch_results.mix(QC.out.results)
     ch_logs = ch_logs.mix(QC.out.logs)
@@ -90,9 +90,9 @@ workflow {
             params.bakta_db ? file(params.bakta_db) : [],
             params.download_bakta,
             params.bakta_save_as_tarball,
-            params.proteins ? file(params.proteins) : [],
-            params.prodigal_tf ? file(params.prodigal_tf) : [],
-            params.replicons ? file(params.replicons) : []
+            params.bakta_proteins ? file(params.bakta_proteins, checkIfExists: true) : [],
+            params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf, checkIfExists: true) : [],
+            params.bakta_replicons ? file(params.bakta_replicons, checkIfExists: true) : []
         )
         ch_results = ch_results.mix(BAKTA.out.results)
         ch_logs = ch_logs.mix(BAKTA.out.logs)
@@ -102,8 +102,8 @@ workflow {
     } else {
         PROKKA(
             ASSEMBLER.out.fna,
-            params.proteins ? file(params.proteins) : [],
-            params.prodigal_tf ? file(params.prodigal_tf) : []
+            params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
+            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
         )
         ch_results = ch_results.mix(PROKKA.out.results)
         ch_logs = ch_logs.mix(PROKKA.out.logs)
@@ -129,8 +129,8 @@ workflow {
     // Staphtyper
     STAPHTYPER(
         ASSEMBLER.out.fna,
-        params.repeats ? file(params.repeats, checkIfExists: true) : [],
-        params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
+        params.spatyper_repeats ? file(params.spatyper_repeats, checkIfExists: true) : [],
+        params.spatyper_repeat_order ? file(params.spatyper_repeat_order, checkIfExists: true) : []
     )
     ch_results = ch_results.mix(STAPHTYPER.out.results)
     ch_logs = ch_logs.mix(STAPHTYPER.out.logs)

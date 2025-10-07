@@ -29,7 +29,7 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     MIDAS(
         BACTOPIATOOL_INIT.out.samples,
-        file(params.midas_db)
+        file(params.midas_db, checkIfExists: true)
     )
 
     workflow.onComplete {

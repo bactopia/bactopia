@@ -29,8 +29,8 @@ workflow {
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     HICAP(
         BACTOPIATOOL_INIT.out.samples,
-        params.hicap_database_dir ? file(params.hicap_database_dir) : [],
-        params.hicap_model_fp ? file(params.hicap_model_fp) : []
+        params.hicap_database_dir ? file(params.hicap_database_dir, checkIfExists: true) : [],
+        params.hicap_model_fp ? file(params.hicap_model_fp, checkIfExists: true) : []
     ) 
 
     workflow.onComplete {

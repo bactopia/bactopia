@@ -32,9 +32,9 @@ workflow {
         params.bakta_db ? file(params.bakta_db) : [],
         params.download_bakta,
         params.bakta_save_as_tarball,
-        params.bakta_proteins ? file(params.bakta_proteins) : [],
-        params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf) : [],
-        params.replicons ? file(params.replicons) : []
+        params.bakta_proteins ? file(params.bakta_proteins, checkIfExists: true) : [],
+        params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf, checkIfExists: true) : [],
+        params.replicons ? file(params.replicons, checkIfExists: true) : []
     )
 
     workflow.onComplete {

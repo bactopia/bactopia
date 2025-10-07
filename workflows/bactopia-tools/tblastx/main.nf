@@ -31,7 +31,7 @@ workflow {
     // Set up query file
     TBLASTX(
         BACTOPIATOOL_INIT.out.samples,
-        params.tblastx_query ? file(params.tblastx_query) : []
+        params.tblastx_query ? file(params.tblastx_query, checkIfExists: true) : []
     )
 
     workflow.onComplete {

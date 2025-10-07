@@ -27,7 +27,7 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    SYLPH(BACTOPIATOOL_INIT.out.samples, file(params.sylph_db))
+    SYLPH(BACTOPIATOOL_INIT.out.samples, file(params.sylph_db, checkIfExists: true))
 
     workflow.onComplete {
         log.info workflowSummary()

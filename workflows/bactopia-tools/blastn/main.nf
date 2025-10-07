@@ -31,7 +31,7 @@ workflow {
     // Set up query file
     BLASTN(
         BACTOPIATOOL_INIT.out.samples,
-        params.blastn_query ? file(params.blastn_query) : []
+        params.blastn_query ? file(params.blastn_query, checkIfExists: true) : []
     )
 
     workflow.onComplete {
