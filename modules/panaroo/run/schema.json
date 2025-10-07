@@ -68,14 +68,14 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "len_dif_percent": {
+                "panaroo_len_dif_percent": {
                     "type": "number",
                     "default": 0.98,
                     "description": "Length difference cutoff",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "merge_paralogs": {
+                "panaroo_merge_paralogs": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do not split paralogs",

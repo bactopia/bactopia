@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "typing_only": {
+                "agrvate_typing_only": {
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",

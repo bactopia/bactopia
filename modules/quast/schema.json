@@ -12,13 +12,13 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "contig_thresholds": {
+                "quast_contig_thresholds": {
                     "type": "string",
                     "default": "0,1000,10000,100000,250000,1000000",
                     "description": "Comma-separated list of contig length thresholds",
                     "fa_icon": "fas fa-align-justify"
                 },
-                "plots_format": {
+                "quast_plots_format": {
                     "type": "string",
                     "default": "pdf",
                     "description": "Save plots in specified format",

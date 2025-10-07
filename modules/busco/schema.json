@@ -30,42 +30,42 @@
                     "description": "Total candidate regions to consider per BUSCO",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "metaeuk_parameters": {
+                "busco_metaeuk_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Metaeuk first-pass arguments contained within a single pair of quotation marks, separated by commas",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "metaeuk_rerun_parameters": {
+                "busco_metaeuk_rerun_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Metaeuk second-pass arguments contained within a single pair of quotation marks, separated by commas",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "use_augustus": {
+                "busco_use_augustus": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use augustus gene predictor for eukaryote runs",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "augustus_parameters": {
+                "busco_augustus_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Augustus arguments contained within a single pair of quotation marks, separated by commas",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "augustus_species": {
+                "busco_augustus_species": {
                     "type": "string",
                     "default": "",
                     "description": "Specify a species for Augustus training",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "augustus_long": {
+                "busco_augustus_long": {
                     "type": "boolean",
                     "default": false,
                     "description": "Optimization Augustus self-training mode",

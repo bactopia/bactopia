@@ -46,14 +46,14 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "max_p": {
+                "mash_max_p": {
                     "type": "number",
                     "default": 1.0,
                     "description": "Maximum p-value to report.",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "max_dist": {
+                "mash_max_dist": {
                     "type": "number",
                     "default": 1.0,
                     "description": "Maximum distance to report.",

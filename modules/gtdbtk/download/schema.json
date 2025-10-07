@@ -29,12 +29,6 @@
                     "default": false,
                     "description": "Download the latest GTDB database, and save it in a single tarball",
                     "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "skip_check": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Do not check the installation of GTDB database",
-                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         }

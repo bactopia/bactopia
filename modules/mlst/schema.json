@@ -12,31 +12,31 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "scheme": {
+                "mlst_scheme": {
                     "type": "string",
                     "default": "",
                     "description": "Don't autodetect, force this scheme on all inputs",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "minid": {
+                "mlst_minid": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mincov": {
+                "mlst_mincov": {
                     "type": "integer",
                     "default": 10,
                     "description": "Minimum DNA percent coverage to report partial allele at all",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "minscore": {
+                "mlst_minscore": {
                     "type": "integer",
                     "default": 50,
                     "description": "Minimum score out of 100 to match a scheme",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "nopath": {
+                "mlst_nopath": {
                     "type": "boolean",
                     "default": false,
                     "description": "Strip filename paths from FILE column",

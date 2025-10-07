@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "emsim": {
+                "clonal_emsim": {
                     "type": "integer",
                     "description": "Number of simulations to estimate uncertainty in the EM results",
                     "default": 100,

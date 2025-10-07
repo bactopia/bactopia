@@ -12,14 +12,14 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "genepred": {
+                "eggnog_genepred": {
                     "type": "string",
                     "default": "search",
                     "description": "Method to use for gene prediction",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": ["search", "prodigal"]
                 },
-                "mode": {
+                "eggnog_mode": {
                     "type": "string",
                     "default": "diamond",
                     "description": "Method to search against eggNOG sequences",

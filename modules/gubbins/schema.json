@@ -12,41 +12,41 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "iterations": {
+                "gubbins_iterations": {
                     "type": "integer",
                     "description": "Maximum number of iterations",
                     "default": 5,
                     "fa_icon": "fas fa-hashtag"
                 },
-                "min_snps": {
+                "gubbins_min_snps": {
                     "type": "integer",
                     "description": "Min SNPs to identify a recombination block",
                     "default": 3,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "min_window_size": {
+                "gubbins_min_window_size": {
                     "type": "integer",
                     "description": "Minimum window size",
                     "default": 100,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "max_window_size": {
+                "gubbins_max_window_size": {
                     "type": "integer",
                     "description": "Maximum window size",
                     "default": 10000,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "filter_percentage": {
+                "gubbins_filter_percentage": {
                     "type": "number",
                     "description": "Filter out taxa with more than this percentage of gaps",
                     "default": 25.0,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "remove_identical_sequences": {
+                "gubbins_remove_identical_sequences": {
                     "type": "boolean",
                     "description": "Remove identical sequences",
                     "default": false,

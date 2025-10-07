@@ -36,13 +36,14 @@ process CSVTK_CONCAT {
     meta.process_name = task.ext.process_name
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
+    extra_args = _meta.args ?: ''
     """
     # Create a file of files for csvtk
     ls inputs/ | awk '{ print "inputs/"\$1 }' > fofn.txt
 
     csvtk \\
         concat \\
-        $task.ext.args \\
+        $task.ext.args $extra_args \\
         --num-cpus $task.cpus \\
         ${delimiter}  \\
         ${out_delimiter} \\

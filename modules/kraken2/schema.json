@@ -18,67 +18,67 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "is_required": true
                 },
-                "quick_mode": {
+                "kraken2_quick_mode": {
                     "type": "boolean",
                     "default": false,
                     "description": "Quick operation (use first hit or hits)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "confidence": {
+                "kraken2_confidence": {
                     "type": "number",
                     "default": 0.0,
                     "description": "Confidence score threshold between 0 and 1",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "minimum_base_quality": {
+                "kraken2_minimum_base_quality": {
                     "type": "integer",
                     "default": 0,
                     "description": "Minimum base quality used in classification",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "use_mpa_style": {
+                "kraken2_use_mpa_style": {
                     "type": "boolean",
                     "default": false,
                     "description": "Format report output like Kraken 1's kraken-mpa-report",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "report_zero_counts": {
+                "kraken2_report_zero_counts": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report counts for ALL taxa, even if counts are zero",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "report_minimizer_data": {
+                "kraken2_report_minimizer_data": {
                     "type": "boolean",
                     "default": false,
                     "description": "Include minimizer and distinct minimizer count information in report",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "use_names": {
+                "kraken2_use_names": {
                     "type": "boolean",
                     "default": false,
                     "description": "Print scientific names instead of just taxids",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "memory_mapping": {
+                "kraken2_memory_mapping": {
                     "type": "boolean",
                     "default": false,
                     "description": "Avoid loading database into RAM",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "minimum_hit_groups": {
+                "kraken2_minimum_hit_groups": {
                     "type": "integer",
                     "default": 2,
                     "description": "Minimum number of hit groups needed to make a call",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "keep_filtered_reads": {
+                "kraken2_keep_filtered_reads": {
                     "type": "boolean",
                     "default": false,
                     "description": "Keep the classified and unclassified FASTQs produced by Kraken2",

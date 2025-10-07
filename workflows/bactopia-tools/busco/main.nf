@@ -27,7 +27,7 @@ workflow {
 
     // Initialize and execute the workflow
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    BUSCO(BACTOPIATOOL_INIT.out.samples)
+    BUSCO(BACTOPIATOOL_INIT.out.samples, params.busco_lineage)
 
     workflow.onComplete {
         log.info workflowSummary()

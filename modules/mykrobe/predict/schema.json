@@ -25,21 +25,21 @@
                         "typhi"
                     ]
                 },
-                "kmer": {
+                "mykrobe_kmer": {
                     "type": "integer",
                     "default": 21,
                     "description": "K-mer length",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "min_depth": {
+                "mykrobe_min_depth": {
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum depth",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "model": {
+                "mykrobe_model": {
                     "type": "string",
                     "default": "kmer_count",
                     "description": "Genotype model used.",
@@ -50,7 +50,7 @@
                         "median_depth"
                     ]
                 },
-                "report_all_calls": {
+                "mykrobe_report_all_calls": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report all calls",

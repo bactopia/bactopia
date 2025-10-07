@@ -12,24 +12,24 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "proteins": {
+                "prokka_proteins": {
                     "type": "string",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-file-alt"
                 },
-                "prodigal_tf": {
+                "prokka_prodigal_tf": {
                     "type": "string",
                     "description": "Training file to use for Prodigal",
                     "fa_icon": "fas fa-file-alt"
                 },
-                "compliant": {
+                "prokka_compliant": {
                     "type": "boolean",
                     "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
                     "fa_icon": "fas fa-check",
                     "hidden": true
                 },
-                "centre": {
+                "prokka_centre": {
                     "type": "string",
                     "default": "Bactopia",
                     "description": "Sequencing centre ID",

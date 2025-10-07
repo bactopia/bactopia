@@ -12,38 +12,38 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "opid": {
+                "ectyper_opid": {
                     "type": "integer",
                     "default": 90,
                     "description": "Percent identity required for an O antigen allele match",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "opcov": {
+                "ectyper_opcov": {
                     "type": "integer",
                     "default": 90,
                     "description": "Minumum percent coverage required for an O antigen allele match",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "hpid": {
+                "ectyper_hpid": {
                     "type": "integer",
                     "default": 95,
                     "description": "Percent identity required for an H antigen allele match",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "hpcov": {
+                "ectyper_hpcov": {
                     "type": "integer",
                     "default": 50,
                     "description": "Minumum percent coverage required for an H antigen allele match",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "verify": {
+                "ectyper_verify": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable E. coli species verification",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "print_alleles": {
+                "ectyper_print_alleles": {
                     "type": "boolean",
                     "default": false,
                     "description": "Prints the allele sequences if enabled as the final column",

@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "maxhap": {
+                "snippy_core_maxhap": {
                     "type": "integer",
                     "description": "Largest haplotype to decompose",
                     "default": 100,
@@ -23,7 +23,7 @@
                     "description": "BED file of sites to mask",
                     "fa_icon": "fas fa-angle-double-down"
                 },
-                "mask_char": {
+                "snippy_core_mask_char": {
                     "type": "string",
                     "description": "Masking character",
                     "default": "X",

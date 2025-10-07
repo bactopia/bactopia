@@ -17,10 +17,10 @@ workflow ARIBA {
     ARIBA_RUN(reads, ARIBA_GETREF.out.db)
 
     // Merge results
-    ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${db}-report"], report]}.set{ ch_merge_report }
+    ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${db}-report", args:'-C "$" --lazy-quotes'], report]}.set{ ch_merge_report }
     CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
 
-    ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${db}-summary"], summary]}.set{ ch_merge_summary }
+    ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${db}-summary", args:'--lazy-quotes'], summary]}.set{ ch_merge_summary }
     CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
 
     emit:

@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "allow_multiple_16s": {
+                "phyloflash_allow_multiple_16s": {
                     "type": "boolean",
                     "default": false,
                     "description": "Allow multiple 16S sequences"

@@ -12,20 +12,20 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "use_diamond": {
+                "rgi_use_diamond": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use DIAMOND for alignments instead of BLAST",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "include_loose": {
+                "rgi_include_loose": {
                     "type": "boolean",
                     "default": false,
                     "description": "Include loose hits in addition to strict and perfect hits",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "exclude_nudge": {
+                "rgi_exclude_nudge": {
                     "type": "boolean",
                     "default": false,
                     "description": "Exclude hits nudged from loose to strict hits",

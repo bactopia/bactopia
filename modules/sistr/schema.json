@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "full_cgmlst": {
+                "sistr_full_cgmlst": {
                     "type": "boolean",
                     "default": false,
                     "description": " Use the full set of cgMLST alleles which can include highly similar alleles",

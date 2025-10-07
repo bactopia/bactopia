@@ -12,19 +12,19 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "repeats": {
+                "spatyper_repeats": {
                     "type": "string",
                     "description": "List of spa repeats",
                     "fa_icon": "fas fa-file-archive",
                     "hidden": true
                 },
-                "repeat_order": {
+                "spatyper_repeat_order": {
                     "type": "string",
                     "description": "List spa types and order of repeats",
                     "fa_icon": "fas fa-file-archive",
                     "hidden": true
                 },
-                "do_enrich": {
+                "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do PCR product enrichment",

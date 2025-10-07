@@ -96,7 +96,7 @@
                     "description": "Skip gzip compression of output files",
                     "default": false
                 },
-                "compliant": {
+                "bakta_compliant": {
                     "type": "boolean",
                     "description": "Force Genbank/ENA/DDJB compliance (--compliant)",
                     "default": false
@@ -106,7 +106,7 @@
                     "description": "All sequences are complete replicons (--complete)",
                     "default": false
                 },
-                "prodigal_tf": {
+                "bakta_prodigal_tf": {
                     "type": "string",
                     "description": "Training file to use for CDS prediction (--prodigal-tf)",
                     "default": ""
@@ -116,7 +116,7 @@
                     "description": "Translation table to use for CDS prediction (--translation-table)",
                     "default": 11
                 },
-                "proteins": {
+                "bakta_proteins": {
                     "type": "string",
                     "description": "FASTA file of trusted proteins to use for annotation (--proteins)",
                     "default": ""

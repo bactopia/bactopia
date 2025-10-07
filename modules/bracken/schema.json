@@ -120,7 +120,7 @@
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "skip_krona": {
+                "bracken_skip_krona": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip the creation of a Krona report",

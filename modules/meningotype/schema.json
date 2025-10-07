@@ -12,31 +12,31 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "finetype": {
+                "meningotype_finetype": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform porA and fetA fine typing",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "porB": {
+                "meningotype_porB": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform porB sequence typing (NEIS2020)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "bast": {
+                "meningotype_bast": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform Bexsero antigen sequence typing (BAST)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mlst": {
+                "meningotype_mlst": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform MLST",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "all": {
+                "meningotype_all": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform MLST, porA, fetA, porB, BAST typing",

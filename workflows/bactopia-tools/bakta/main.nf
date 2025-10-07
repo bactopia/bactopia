@@ -32,8 +32,8 @@ workflow {
         params.bakta_db ? file(params.bakta_db) : [],
         params.download_bakta,
         params.bakta_save_as_tarball,
-        params.proteins ? file(params.proteins) : [],
-        params.prodigal_tf ? file(params.prodigal_tf) : [],
+        params.bakta_proteins ? file(params.bakta_proteins) : [],
+        params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf) : [],
         params.replicons ? file(params.replicons) : []
     )
 

@@ -12,13 +12,13 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "min_af": {
+                "gtdb_min_af": {
                     "type": "number",
                     "default": 0.65,
                     "description": "Minimum alignment fraction to consider closest genome",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "min_perc_aa": {
+                "gtdb_min_perc_aa": {
                     "type": "integer",
                     "default": 10,
                     "description": "Filter genomes with an insufficient percentage of AA in the MSA",

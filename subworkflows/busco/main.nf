@@ -7,12 +7,13 @@ include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 workflow BUSCO {
     take:
     fasta // channel: [ val(meta), [ assemblies ] ]
+    busco_lineage
 
     main:
     BUSCO_MODULE(fasta)
 
     // Merge the results
-    BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'busco'], tsv]}.set{ ch_merge_busco }
+    BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:"busco-${busco_lineage}"], tsv]}.set{ ch_merge_busco }
     CSVTK_CONCAT(ch_merge_busco, 'tsv', 'tsv')
 
     emit:

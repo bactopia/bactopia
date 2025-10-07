@@ -18,19 +18,19 @@
                     "default": "HKY",
                     "fa_icon": "fas fa-italic"
                 },
-                "bb": {
+                "iqtree_bb": {
                     "type": "integer",
                     "description": "Ultrafast bootstrap replicates",
                     "default": 1000,
                     "fa_icon": "fas fa-hashtag"
                 },
-                "alrt": {
+                "iqtree_alrt": {
                     "type": "integer",
                     "description": "SH-like approximate likelihood ratio test replicates",
                     "default": 1000,
                     "fa_icon": "fas fa-hashtag"
                 },
-                "asr": {
+                "iqtree_asr": {
                     "type": "boolean",
                     "default": false,
                     "description": "Ancestral state reconstruction by empirical Bayes",

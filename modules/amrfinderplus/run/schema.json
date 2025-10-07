@@ -12,26 +12,26 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "ident_min": {
+                "amrfinder_ident_min": {
                     "type": "number",
                     "default": -1,
                     "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "coverage_min": {
+                "amrfinder_coverage_min": {
                     "type": "number",
                     "default": 0.5,
                     "description": "Minimum coverage of the reference protein (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "organism": {
+                "amrfinder_organism": {
                     "type": "string",
                     "description": "Taxonomy group to run additional screens against",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "translation_table": {
+                "amrfinder_translation_table": {
                     "type": "integer",
                     "default": 11,
                     "description": "NCBI genetic code for translated BLAST",
@@ -44,14 +44,14 @@
                     "description": "Disable running AMRFinder+ with the --plus option",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "report_common": {
+                "amrfinder_report_common": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report proteins common to a taxonomy group",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "report_all_equal": {
+                "amrfinder_report_all_equal": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report all equally-scoring BLAST and HMM matches",
