@@ -13,6 +13,12 @@ trace.txt*
 *.simg
 **/.nf-test/*
 
+# Conda Build
+data/conda/channeldata.json
+data/conda/index.html
+data/conda/linux-64/
+data/conda/noarch/
+
 # temp v4 folders
 modules-old/
 subworkflows-old/
