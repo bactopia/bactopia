@@ -51,95 +51,81 @@
             "properties": {
                 "checkm_unique": {
                     "type": "integer",
-                    "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set",
-                    "default": 10
+                    "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "checkm_multi": {
                     "type": "integer",
-                    "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set",
-                    "default": 10
+                    "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-up"
                 },
-                "aai_strain": {
+                "checkm_aai_strain": {
                     "type": "number",
-                    "description": "Threshold used to identify strain heterogeneity",
-                    "default": 0.9
+                    "description": "AAI threshold used to identify strain heterogeneity",
+                    "default": 0.9,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "checkm_length": {
                     "type": "number",
-                    "description": "Fraction of marker sequence required to be aligned for inclusion",
-                    "default": 0.7
+                    "description": "Percent overlap between target and query",
+                    "default": 0.7,
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "full_tree": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Use the full reference tree",
-                    "default": null
+                "checkm_full_tree": {
+                    "type": "boolean",
+                    "description": "Use the full tree (requires ~40GB of memory) for determining lineage of each bin.",
+                    "fa_icon": "fas fa-tree",
+                    "hidden": true
                 },
-                "ignore_thresholds": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
+                "checkm_ignore_thresholds": {
+                    "type": "boolean",
                     "description": "Ignore model-specific score thresholds",
-                    "default": null
+                    "fa_icon": "fas fa-eye-slash",
+                    "hidden": true
                 },
                 "checkm_ali": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Generate HMMER alignment file for markers",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Generate HMMER alignment file for each bin",
+                    "fa_icon": "fas fa-hard-hat",
+                    "hidden": true
                 },
                 "checkm_nt": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Generate nucleotide gene sequences for markers",
-                    "default": null
+                    "type": "boolean",
+                    "description": "Generate nucleotide gene sequences for each bin",
+                    "fa_icon": "fas fa-hard-hat",
+                    "hidden": true
                 },
-                "force_domain": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Use domain-level marker set",
-                    "default": null
+                "checkm_force_domain": {
+                    "type": "boolean",
+                    "description": "Use domain-level sets for all bins",
+                    "fa_icon": "fas fa-hammer",
+                    "hidden": true
                 },
-                "no_refinement": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
+                "checkm_no_refinement": {
+                    "type": "boolean",
                     "description": "Do not perform lineage-specific marker set refinement",
-                    "default": null
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
-                "individual_markers": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Treat each marker as an independent measure of genome quality",
-                    "default": null
+                "checkm_individual_markers": {
+                    "type": "boolean",
+                    "description": "Treat marker as independent",
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
                 },
-                "skip_adj_correction": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Skip adjacent marker correction",
-                    "default": null
+                "checkm_skip_adj_correction": {
+                    "type": "boolean",
+                    "description": "Do not exclude adjacent marker genes when estimating contamination",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
-                "skip_pseudogene_correction": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Skip pseudogene correction",
-                    "default": null
+                "checkm_skip_pseudogene_correction": {
+                    "type": "boolean",
+                    "description": "Skip identification and filtering of pseudogene",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 }
             }
         },
@@ -149,7 +135,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

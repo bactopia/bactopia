@@ -49,11 +49,11 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "typing_only": {
+                "agrvate_typing_only": {
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fa-solid fa-toggle-on"
                 }
             }
         },
@@ -63,7 +63,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

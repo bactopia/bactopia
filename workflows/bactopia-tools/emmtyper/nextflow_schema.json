@@ -52,60 +52,78 @@
                 "emmtyper_wf": {
                     "type": "string",
                     "default": "blast",
-                    "description": "Workflow to use for typing (blast or pcr)"
+                    "description": "Workflow for emmtyper to use.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "blast",
+                        "pcr"
+                    ]
                 },
                 "emmtyper_blastdb": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Path to custom BLAST database"
+                    "type": "string",
+                    "description": "Path to custom EMM BLAST DB.",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "cluster_distance": {
+                "emmtyper_cluster_distance": {
                     "type": "integer",
                     "default": 500,
-                    "description": "Distance between cluster members"
+                    "description": "Distance between cluster of matches to consider as different clusters",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "percid": {
+                "emmtyper_percid": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percent identity"
+                    "description": "Minimal percent identity of sequence",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "culling_limit": {
+                "emmtyper_culling_limit": {
                     "type": "integer",
                     "default": 5,
-                    "description": "BLAST culling limit"
+                    "description": "Total hits to return in a position",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "mismatch": {
+                "emmtyper_mismatch": {
                     "type": "integer",
                     "default": 5,
-                    "description": "Maximum number of mismatches"
+                    "description": "Threshold for number of mismatch to allow in BLAST hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "align_diff": {
+                "emmtyper_align_diff": {
                     "type": "integer",
                     "default": 5,
-                    "description": "Maximum difference in alignment length"
+                    "description": "Threshold for difference between alignment length and subject length in BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "gap": {
+                "emmtyper_gap": {
                     "type": "integer",
                     "default": 2,
-                    "description": "Gap penalty"
+                    "description": "Threshold gap to allow in BLAST hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_perfect": {
+                "emmtyper_min_perfect": {
                     "type": "integer",
                     "default": 15,
-                    "description": "Minimum number of perfect matches"
+                    "description": "Minimum size of perfect match at 3 primer end",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_good": {
+                "emmtyper_min_good": {
                     "type": "integer",
                     "default": 15,
-                    "description": "Minimum number of good matches"
+                    "description": "Minimum size where there must be 2 matches for each mismatch",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "max_size": {
+                "emmtyper_max_size": {
                     "type": "integer",
                     "default": 2000,
-                    "description": "Maximum amplicon size"
+                    "description": "Maximum size of PCR product",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -115,7 +133,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

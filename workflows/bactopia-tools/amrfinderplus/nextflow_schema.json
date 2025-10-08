@@ -49,68 +49,65 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "ident_min": {
-                    "title": "Minimum identity for a blast-based hit",
+                "amrfinder_ident_min": {
                     "type": "number",
-                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
                     "default": -1,
-                    "fa_icon": "fas fa-percent"
+                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "coverage_min": {
-                    "title": "Minimum coverage of reference protein",
+                "amrfinder_coverage_min": {
                     "type": "number",
-                    "description": "Minimum coverage of the reference protein (0..1)",
                     "default": 0.5,
-                    "fa_icon": "fas fa-chart-area"
+                    "description": "Minimum coverage of the reference protein (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "organism": {
-                    "title": "Taxon for point mutation identification",
+                "amrfinder_organism": {
                     "type": "string",
-                    "description": "Taxon for point mutation identification",
-                    "default": "",
-                    "fa_icon": "fas fa-bacterium"
+                    "description": "Taxonomy group to run additional screens against",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_translation_table": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "NCBI genetic code for translated BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "amrfinder_noplus": {
-                    "title": "Disable running AMRFinderPlus with the --plus flag",
                     "type": "boolean",
-                    "description": "Disables running AMRFinderPlus with the --plus flag",
                     "default": false,
-                    "fa_icon": "fas fa-toggle-off"
+                    "description": "Disable running AMRFinder+ with the --plus option",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "translation_table": {
-                    "title": "NCBI genetic code",
-                    "type": "integer",
-                    "description": "NCBI translation table number",
-                    "default": 11,
-                    "fa_icon": "fas fa-language"
-                },
-                "report_common": {
-                    "title": "Report proteins common to a taxonomy group",
+                "amrfinder_report_common": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Report proteins common to a taxonomy group",
-                    "default": false,
-                    "fa_icon": "fas fa-toggle-off"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "report_all_equal": {
-                    "title": "Report all equally-scoring BLAST and HMM matches",
+                "amrfinder_report_all_equal": {
                     "type": "boolean",
-                    "description": "Report all equally-scoring BLAST and HMM matches",
                     "default": false,
-                    "fa_icon": "fas fa-toggle-off"
+                    "description": "Report all equally-scoring BLAST and HMM matches",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "amrfinder_opts": {
-                    "title": "Extra AMRFinderPlus options",
                     "type": "string",
-                    "description": "Extra options to pass to AMRFinderPlus",
-                    "default": "",
-                    "fa_icon": "fas fa-cog"
+                    "description": "Extra AMRFinder+ options in quotes.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "amrfinder_db": {
-                    "title": "AMRFinderPlus database",
                     "type": "string",
-                    "description": "Path to AMRFinderPlus database",
                     "default": "",
-                    "fa_icon": "fas fa-database"
+                    "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -120,7 +117,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

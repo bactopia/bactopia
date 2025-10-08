@@ -42,7 +42,7 @@
                 }
             }
         },
-        "blast_parameters": {
+        "blastp_parameters": {
             "title": "BLASTP Parameters",
             "type": "object",
             "description": "",
@@ -50,32 +50,33 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "blastp_query": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Query sequence(s) for BLASTP",
-                    "default": null
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "blastp_outfmt": {
                     "type": "string",
-                    "description": "Output format specification",
-                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastp_opts": {
                     "type": "string",
-                    "description": "Additional BLASTP options",
-                    "default": ""
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastp_qcov_hsp_perc": {
                     "type": "integer",
                     "description": "Percent query coverage per hsp",
-                    "default": 50
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastp_max_target_seqs": {
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
-                    "default": 2000
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up"
                 }
             }
         },
@@ -85,7 +86,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",
@@ -437,7 +446,7 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/blast_parameters"
+            "$ref": "#/$defs/blastp_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"

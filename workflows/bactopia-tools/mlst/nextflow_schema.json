@@ -49,35 +49,41 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "scheme": {
+                "mlst_scheme": {
                     "type": "string",
                     "default": "",
-                    "description": "Don't autodetect, force this scheme on all inputs"
+                    "description": "Don't autodetect, force this scheme on all inputs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "minid": {
+                "mlst_minid": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'"
+                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mincov": {
+                "mlst_mincov": {
                     "type": "integer",
                     "default": 10,
-                    "description": "Minimum DNA percent coverage to report partial allele at all"
+                    "description": "Minimum DNA percent coverage to report partial allele at all",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "minscore": {
+                "mlst_minscore": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Minimum score out of 100 to match a scheme"
+                    "description": "Minimum score out of 100 to match a scheme",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "nopath": {
+                "mlst_nopath": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Strip filename paths from FILE column"
+                    "description": "Strip filename paths from FILE column",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "mlst_db": {
                     "type": "string",
                     "default": "",
-                    "description": "A custom MLST database to use, either a tarball or a directory"
+                    "description": "A custom MLST database to use, either a tarball or a directory",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -87,7 +93,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

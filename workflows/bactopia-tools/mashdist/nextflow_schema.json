@@ -51,52 +51,71 @@
             "properties": {
                 "mash_sketch": {
                     "type": "string",
-                    "description": "The reference sequence as a Mash Sketch (.msh file)"
+                    "description": "The reference sequence as a Mash Sketch (.msh file)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "mash_seed": {
                     "type": "integer",
                     "default": 42,
-                    "description": "Seed to provide to the hash function"
+                    "description": "Seed to provide to the hash function",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "mash_table": {
                     "type": "boolean",
                     "default": false,
-                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)"
+                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "mash_m": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Minimum copies of each k-mer required to pass noise filter for reads"
+                    "description": "Minimum copies of each k-mer required to pass noise filter for reads",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "mash_w": {
                     "type": "number",
                     "default": 0.01,
-                    "description": "Probability threshold for warning about low k-mer size."
+                    "description": "Probability threshold for warning about low k-mer size.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "max_p": {
+                "mash_max_p": {
                     "type": "number",
                     "default": 1.0,
-                    "description": "Maximum p-value to report."
+                    "description": "Maximum p-value to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "max_dist": {
+                "mash_max_dist": {
                     "type": "number",
                     "default": 1.0,
-                    "description": "Maximum distance to report."
+                    "description": "Maximum distance to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "merlin_dist": {
                     "type": "number",
                     "default": 0.1,
-                    "description": "Maximum distance to report when using Merlin ."
+                    "description": "Maximum distance to report when using Merlin .",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "full_merlin": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance"
+                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "use_fastqs": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Query with FASTQs instead of the assemblies"
+                    "description": "Query with FASTQs instead of the assemblies",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -106,7 +125,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

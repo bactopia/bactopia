@@ -49,15 +49,17 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "min_id": {
+                "lissero_min_id": {
                     "type": "number",
                     "default": 95.0,
-                    "description": "Minimum percent identity to accept a match"
+                    "description": "Minimum percent identity to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "min_cov": {
+                "lissero_min_cov": {
                     "type": "number",
                     "default": 95.0,
-                    "description": "Minimum coverage of the gene to accept a match"
+                    "description": "Minimum coverage of the gene to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -67,7 +69,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

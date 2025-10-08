@@ -42,32 +42,34 @@
                 }
             }
         },
-        "sccmec_parameters": {
-            "title": "sccmec Parameters",
+        "agrvate_parameters": {
+            "title": "AgrVATE Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "sccmec_min_targets_pident": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent identity to count a target hit"
-                },
-                "sccmec_min_targets_coverage": {
-                    "type": "integer",
-                    "default": 80,
-                    "description": "Minimum percent coverage to count a target hit"
-                },
-                "sccmec_min_regions_pident": {
-                    "type": "integer",
-                    "default": 85,
-                    "description": "Minimum percent identity to count a region hit"
-                },
-                "sccmec_min_regions_coverage": {
-                    "type": "integer",
-                    "default": 93,
-                    "description": "Minimum percent coverage to count a region hit"
+                "agrvate_typing_only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "fa_icon": "fa-solid fa-toggle-on"
+                }
+            }
+        },
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
@@ -78,32 +80,55 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "repeats": {
+                "spatyper_repeats": {
                     "type": "string",
-                    "description": "List of spa repeats"
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
-                "repeat_order": {
+                "spatyper_repeat_order": {
                     "type": "string",
-                    "description": "List spa types and order of repeats"
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
-                "do_enrich": {
+                "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Do PCR product enrichment"
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
-        "agrvate_parameters": {
-            "title": "AgrVATE Parameters",
+        "sccmec_parameters": {
+            "title": "sccmec Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "typing_only": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                "sccmec_min_targets_pident": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent identity to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_targets_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_pident": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum percent identity to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_coverage": {
+                    "type": "integer",
+                    "default": 93,
+                    "description": "Minimum percent coverage to count a region hit",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
@@ -458,13 +483,16 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/sccmec_parameters"
+            "$ref": "#/$defs/agrvate_parameters"
+        },
+        {
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
             "$ref": "#/$defs/spatyper_parameters"
         },
         {
-            "$ref": "#/$defs/agrvate_parameters"
+            "$ref": "#/$defs/sccmec_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

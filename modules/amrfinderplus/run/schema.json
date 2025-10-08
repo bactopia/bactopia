@@ -29,7 +29,8 @@
                 "amrfinder_organism": {
                     "type": "string",
                     "description": "Taxonomy group to run additional screens against",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "amrfinder_translation_table": {
                     "type": "integer",
@@ -42,7 +43,8 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Disable running AMRFinder+ with the --plus option",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "amrfinder_report_common": {
                     "type": "boolean",
@@ -67,7 +69,8 @@
                     "type": "string",
                     "default": "",
                     "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         }

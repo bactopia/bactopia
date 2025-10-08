@@ -51,48 +51,57 @@
             "properties": {
                 "species": {
                     "type": "string",
-                    "default": "",
-                    "description": "Name of the species to download assemblies"
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accession": {
                     "type": "string",
-                    "default": "",
-                    "description": "An NCBI Assembly accession to be downloaded"
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accessions": {
                     "type": "string",
-                    "default": "",
-                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded"
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "format": {
                     "type": "string",
                     "default": "fasta",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic"
                 },
                 "section": {
                     "type": "string",
                     "default": "refseq",
-                    "description": "NCBI section to download"
+                    "description": "NCBI section to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "assembly_level": {
                     "type": "string",
                     "default": "complete",
-                    "description": "Comma separated list of assembly levels to download"
+                    "description": "Comma separated list of assembly levels to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "kingdom": {
                     "type": "string",
                     "default": "bacteria",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "limit": {
                     "type": "string",
-                    "default": "",
-                    "description": "Limit the number of assemblies to download"
+                    "description": "Limit the number of assemblies to download",
+                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
+                    "fa_icon": "fas fa-italic"
                 },
                 "keep_downloads": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Save downloaded files into the bactopia-runs folder"
+                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
@@ -103,130 +112,49 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "proteins": {
+                "prokka_proteins": {
                     "type": "string",
-                    "default": "",
-                    "description": "FASTA file of trusted proteins to first annotate from"
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "prodigal_tf": {
+                "prokka_prodigal_tf": {
                     "type": "string",
-                    "default": "",
-                    "description": "Training file to use for Prodigal"
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "compliant": {
+                "prokka_compliant": {
                     "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
-                    "description": "Force Genbank/ENA/DDJB compliance"
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
                 },
-                "centre": {
+                "prokka_centre": {
                     "type": "string",
                     "default": "Bactopia",
-                    "description": "Sequencing centre ID"
-                },
-                "addgenes": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Add 'gene' features for each 'CDS' feature"
-                },
-                "addmrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Add 'mRNA' features for each 'CDS' feature"
-                },
-                "cdsrnaolap": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Allow [tr]RNA to overlap CDS"
-                },
-                "genus": {
-                    "type": "string",
-                    "default": "Genus",
-                    "description": "Genus name"
-                },
-                "species": {
-                    "type": "string",
-                    "default": "species",
-                    "description": "Species name"
-                },
-                "strain": {
-                    "type": "string",
-                    "default": "strain",
-                    "description": "Strain name"
-                },
-                "plasmid": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Plasmid name or identifier"
-                },
-                "kingdom": {
-                    "type": "string",
-                    "default": "Bacteria",
-                    "description": "Annotation mode"
-                },
-                "gcode": {
-                    "type": "integer",
-                    "default": 11,
-                    "description": "Genetic code / Translation table (set if --kingdom is set)"
-                },
-                "usegenus": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use genus-specific BLAST databases (needs --genus)"
-                },
-                "mincontiglen": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Minimum contig size [NCBI needs 200]"
-                },
-                "prokka_evalue": {
-                    "type": "string",
-                    "default": "1e-09",
-                    "description": "Similarity e-value cut-off"
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
+                    "hidden": true
                 },
                 "prokka_coverage": {
                     "type": "integer",
+                    "description": "Minimum coverage on query protein",
                     "default": 80,
-                    "description": "Minimum coverage on query protein"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "noanno": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "For CDS just set /product=\"unannotated protein\""
-                },
-                "fast": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Fast mode - only use basic BLASTP databases"
-                },
-                "norrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run rRNA search"
-                },
-                "notrna": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run tRNA search"
-                },
-                "rnammer": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use RNAmmer for rRNA prediction"
-                },
-                "rfam": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable searching for ncRNAs with Infernal+Rfam"
-                },
-                "skip_prokka": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Skip Prokka genome annotation"
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "prokka_opts": {
                     "type": "string",
+                    "description": "Extra Prokka options in quotes.",
                     "default": "",
-                    "description": "Extra Prokka options in quotes"
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
@@ -240,32 +168,40 @@
                 "use_pirate": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow"
+                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "steps": {
+                "pirate_steps": {
                     "type": "string",
                     "default": "50,60,70,80,90,95,98",
-                    "description": "Percent identity thresholds to use for pangenome construction"
+                    "description": "Percent identity thresholds to use for pangenome construction",
+                    "fa_icon": "fas fa-italic"
                 },
-                "features": {
+                "pirate_features": {
                     "type": "string",
                     "default": "CDS",
-                    "description": "Comma-delimited features to use for pangenome construction"
+                    "description": "Comma-delimited features to use for pangenome construction",
+                    "fa_icon": "fas fa-italic"
                 },
-                "para_off": {
+                "pirate_para_off": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Switch off paralog identification"
+                    "description": "Switch off paralog identification",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "z": {
+                "pirate_z": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Retain all PIRATE intermediate files"
+                    "description": "Retain all PIRATE intermediate files",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "pan_opt": {
+                "pirate_pan_opt": {
                     "type": "string",
-                    "default": "",
-                    "description": "Additional arguments to pass to pangenome contruction."
+                    "description": "Additional arguments to pass to pangenome contruction.",
+                    "help": "PLease see https://github.com/SionBayliss/PIRATE#advanced-examples for more details",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
@@ -276,45 +212,57 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "use_prank": {
+                "roary_use_prank": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use PRANK instead of MAFFT for core gene"
+                    "description": "Use PRANK instead of MAFFT for core gene",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "use_roary": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow"
+                    "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "i": {
+                "roary_i": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percentage identity for blastp"
+                    "description": "Minimum percentage identity for blastp",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "cd": {
+                "roary_cd": {
                     "type": "integer",
                     "default": 99,
-                    "description": "Percentage of isolates a gene must be in to be core"
+                    "description": "Percentage of isolates a gene must be in to be core",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "g": {
+                "roary_g": {
                     "type": "integer",
                     "default": 50000,
-                    "description": "Maximum number of clusters"
+                    "description": "Maximum number of clusters",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "s": {
+                "roary_s": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Do not split paralogs"
+                    "description": "Do not split paralogs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "ap": {
+                "roary_ap": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Allow paralogs in core alignment"
+                    "description": "Allow paralogs in core alignment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "iv": {
+                "roary_iv": {
                     "type": "number",
                     "default": 1.5,
-                    "description": "MCL inflation value"
+                    "description": "MCL inflation value",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -329,64 +277,76 @@
                     "type": "string",
                     "default": "strict",
                     "description": "The stringency mode at which to run panaroo",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
                         "strict",
                         "moderate",
                         "sensitive"
-                    ]
+                    ],
+                    "hidden": true
                 },
                 "panaroo_alignment": {
                     "type": "string",
                     "default": "core",
-                    "description": "Output alignment of core genes or all genes",
+                    "description": "Output alignments of core genes or all genes",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
                         "core",
                         "pan"
-                    ]
+                    ],
+                    "hidden": true
                 },
                 "panaroo_aligner": {
                     "type": "string",
                     "default": "mafft",
-                    "description": "Aligner to use for multiple sequence alignment",
+                    "description": "Aligner to use for core/pan genome alignment",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
-                        "prank",
                         "mafft",
+                        "prank",
                         "clustal"
-                    ]
+                    ],
+                    "hidden": true
                 },
                 "panaroo_core_threshold": {
                     "type": "number",
                     "default": 0.95,
                     "description": "Core-genome sample threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "panaroo_threshold": {
                     "type": "number",
                     "default": 0.98,
                     "description": "Sequence identity threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
                 "panaroo_family_threshold": {
                     "type": "number",
                     "default": 0.7,
-                    "description": "Minimum family support threshold",
+                    "description": "Protein family sequence identity threshold",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "len_dif_percent": {
+                "panaroo_len_dif_percent": {
                     "type": "number",
                     "default": 0.98,
                     "description": "Length difference cutoff",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "merge_paralogs": {
+                "panaroo_merge_paralogs": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Don't split paralogs"
+                    "description": "Do not split paralogs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "panaroo_opts": {
                     "type": "string",
                     "default": "",
-                    "description": "Extra Panaroo options"
+                    "description": "Additional options to pass to panaroo",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -399,33 +359,40 @@
             "properties": {
                 "iqtree_model": {
                     "type": "string",
+                    "description": "Substitution model name",
                     "default": "HKY",
-                    "description": "Substitution model name"
+                    "fa_icon": "fas fa-italic"
                 },
-                "bb": {
+                "iqtree_bb": {
                     "type": "integer",
+                    "description": "Ultrafast bootstrap replicates",
                     "default": 1000,
-                    "description": "Ultrafast bootstrap replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "alrt": {
+                "iqtree_alrt": {
                     "type": "integer",
+                    "description": "SH-like approximate likelihood ratio test replicates",
                     "default": 1000,
-                    "description": "SH-like approximate likelihood ratio test replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "asr": {
+                "iqtree_asr": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Ancestral state reconstruction by empirical Bayes"
+                    "description": "Ancestral state reconstruction by empirical Bayes",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "iqtree_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra IQ-TREE options in quotes."
+                    "description": "Extra IQ-TREE options in quotes.",
+                    "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_phylogeny": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip IQ-TREE execution in subworkflows"
+                    "description": "Skip IQ-TREE execution in subworkflows",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -436,7 +403,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "emsim": {
+                "clonal_emsim": {
                     "type": "integer",
                     "description": "Number of simulations to estimate uncertainty in the EM results",
                     "default": 100,
@@ -445,7 +412,9 @@
                 "clonal_opts": {
                     "type": "string",
                     "description": "Extra ClonalFrameML options in quotes",
-                    "fa_icon": "fas fa-italic"
+                    "help": "Useful if you would like to fine tune your ClonalFrameML analysis. Example: '-imputation_only'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_recombination": {
                     "type": "boolean",
@@ -462,25 +431,32 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "a": {
+                "snpdists_a": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Count all differences not just [AGTC]"
+                    "description": "Count all differences not just [AGTC]",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "b": {
+                "snpdists_b": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep top left corner cell"
+                    "description": "Keep top left corner cell",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "csv": {
+                "snpdists_csv": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Output CSV instead of TSV"
+                    "description": "Output CSV instead of TSV",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "k": {
+                "snpdists_k": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep case, don't uppercase all letters"
+                    "description": "Keep case, don't uppercase all letters",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -493,18 +469,22 @@
             "properties": {
                 "scoary_traits": {
                     "type": "string",
-                    "description": "Input trait table (CSV) to test for associations"
+                    "description": "Input trait table (CSV) to test for associations",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "p_value_cutoff": {
+                "scoary_p_value_cutoff": {
                     "type": "number",
                     "default": 0.05,
-                    "description": "For statistical tests, genes with higher p-values will not be reported"
+                    "description": "For statistical tests, genes with higher p-values will not be reported",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "correction": {
+                "scoary_correction": {
                     "type": "string",
                     "default": "I",
                     "description": "Apply the indicated filtration measure.",
                     "help": "I=Individual (naive) p-value. B=Bonferroni adjusted p-value. BH=Benjamini-Hochberg adjusted p. PW=Best (lowest) pairwise comparison. EPW=Entire range of pairwise comparison p-values. P=Empirical p-value from permutations",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
                         "I",
                         "B",
@@ -512,17 +492,21 @@
                         "PW",
                         "EPW",
                         "P"
-                    ]
+                    ],
+                    "hidden": true
                 },
-                "permute": {
+                "scoary_permute": {
                     "type": "integer",
                     "default": 0,
-                    "description": "Perform N number of permutations of the significant results post-analysis"
+                    "description": "Perform N number of permutations of the significant results post-analysis",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "start_col": {
+                "scoary_start_col": {
                     "type": "integer",
                     "default": 15,
-                    "description": "On which column in the gene presence/absence file do individual strain info start"
+                    "description": "On which column in the gene presence/absence file do individual strain info start",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },

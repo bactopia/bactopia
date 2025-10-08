@@ -49,40 +49,68 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "use_diamond": {
+                "rgi_use_diamond": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use DIAMOND alignment tool instead of BLAST"
+                    "description": "Use DIAMOND for alignments instead of BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "include_loose": {
+                "rgi_include_loose": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Include loose hits in addition to strict hits"
+                    "description": "Include loose hits in addition to strict and perfect hits",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "exclude_nudge": {
+                "rgi_exclude_nudge": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Exclude nudged hits from results"
-                },
-                "rgi_category": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Specify a category"
+                    "description": "Exclude hits nudged from loose to strict hits",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "rgi_frequency": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Include frequency data"
+                    "description": "Represent samples based on resistance profile",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "rgi_category": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Organize resistance genes based on a category",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "drug_class",
+                        "resistance_mechanism",
+                        "gene_family"
+                    ],
+                    "hidden": true
                 },
                 "rgi_cluster": {
                     "type": "string",
                     "default": "",
-                    "description": "Clustering option"
+                    "description": "Use SciPy's hiearchical clustering algorithm to cluster rows (AMR genes) or columns (samples)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "samples",
+                        "genes",
+                        "both"
+                    ],
+                    "hidden": true
                 },
                 "rgi_display": {
                     "type": "string",
                     "default": "plain",
-                    "description": "Display format for results"
+                    "description": "Specify display options for categories",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "plain",
+                        "fill",
+                        "text"
+                    ],
+                    "hidden": true
                 }
             }
         },
@@ -92,7 +120,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "tblastx",
-    "description": "Search against translated nucleotide databases using a translated nucleotide query",
+    "description": "Search against translated nucleotide BLAST databases using translated nucleotide queries",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -42,50 +42,48 @@
                 }
             }
         },
-        "blast_parameters": {
-            "title": "tblastx Parameters",
+        "tblastx_parameters": {
+            "title": "TBLASTX Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "tblastx_query": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Query sequence(s) for tblastx",
-                    "default": null
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "tblastx_outfmt": {
                     "type": "string",
-                    "description": "Output format specification",
-                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "tblastx_opts": {
                     "type": "string",
-                    "description": "Additional tblastx options",
-                    "default": ""
-                },
-                "tblastx_perc_identity": {
-                    "type": "integer",
-                    "description": "Percent identity threshold",
-                    "default": 50
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "tblastx_qcov_hsp_perc": {
                     "type": "integer",
                     "description": "Percent query coverage per hsp",
-                    "default": 50
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "tblastx_max_target_seqs": {
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
-                    "default": 2000
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up"
                 },
                 "tblastx_use_genes": {
                     "type": "boolean",
-                    "description": "Query against genes (.ffn) instead of contigs (.fna)",
-                    "default": false
+                    "description": "Blast against genes sequences instead of contigs",
+                    "default": false,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
                 }
             }
         },
@@ -95,7 +93,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",
@@ -447,7 +453,7 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/blast_parameters"
+            "$ref": "#/$defs/tblastx_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"

@@ -51,13 +51,15 @@
             "properties": {
                 "pf_mincov": {
                     "type": "number",
+                    "description": "Minimum percent coverage to be considered a hit",
                     "default": 0.6,
-                    "description": "Minimum percent coverage to be considered a hit"
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "pf_threshold": {
                     "type": "number",
+                    "description": "Minimum threshold for identity",
                     "default": 0.9,
-                    "description": "Minimum threshold for identity"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },
@@ -67,7 +69,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

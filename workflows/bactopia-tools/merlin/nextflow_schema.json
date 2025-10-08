@@ -42,78 +42,96 @@
                 }
             }
         },
-        "sistr_parameters": {
-            "title": "SISTR Parameters",
+        "mash_dist_parameters": {
+            "title": "mashdist Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "full_cgmlst": {
+                "mash_sketch": {
+                    "type": "string",
+                    "description": "The reference sequence as a Mash Sketch (.msh file)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "mash_seed": {
+                    "type": "integer",
+                    "default": 42,
+                    "description": "Seed to provide to the hash function",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_table": {
                     "type": "boolean",
                     "default": false,
-                    "description": " Use the full set of cgMLST alleles which can include highly similar alleles"
+                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_m": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum copies of each k-mer required to pass noise filter for reads",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_w": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Probability threshold for warning about low k-mer size.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_max_p": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum p-value to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mash_max_dist": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Maximum distance to report.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "merlin_dist": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum distance to report when using Merlin .",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "full_merlin": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "use_fastqs": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Query with FASTQs instead of the assemblies",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
-        "tbprofiler_profile_parameters": {
-            "title": "TB-Profiler Profile Parameters",
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "call_whole_genome": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Call variants across the whole genome"
-                },
-                "mapper": {
+                "csvtk_concat_opts": {
                     "type": "string",
-                    "default": "bwa",
-                    "description": "Mapping tool to use",
-                    "enum": [
-                        "bwa",
-                        "minimap2",
-                        "bowtie2",
-                        "bwa-mem2"
-                    ]
-                },
-                "caller": {
-                    "type": "string",
-                    "default": "freebayes",
-                    "description": "Variant calling tool to use",
-                    "enum": [
-                        "freebayes",
-                        "bcftools",
-                        "gatk",
-                        "lofreq"
-                    ]
-                },
-                "calling_params": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Additional parameters for variant caller"
-                },
-                "suspect": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use the suspect suite of tools"
-                },
-                "no_flagstat": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run flagstat"
-                },
-                "no_delly": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't run delly"
-                },
-                "tbprofiler_opts": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Additional TB-Profiler options"
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
@@ -124,44 +142,11 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "typing_only": {
+                "agrvate_typing_only": {
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                }
-            }
-        },
-        "legsta_parameters": {
-            "title": "legsta Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "noheader": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't print header row"
-                }
-            }
-        },
-        "pbptyper_parameters": {
-            "title": "pbptyper Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "pbptyper_min_pident": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent identity to count a hit"
-                },
-                "pbptyper_min_coverage": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent coverage to count a hit"
+                    "fa_icon": "fa-solid fa-toggle-on"
                 }
             }
         },
@@ -180,30 +165,50 @@
                 }
             }
         },
-        "seqsero2_parameters": {
-            "title": "SeqSero2 Parameters",
+        "ectyper_parameters": {
+            "title": "ECTyper Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "run_mode": {
-                    "type": "string",
-                    "default": "k",
-                    "description": "Workflow to run. 'a' allele mode, or 'k' k-mer mode",
-                    "enum": [
-                        "a",
-                        "k"
-                    ]
+                "ectyper_opid": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Percent identity required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "bwa_mode": {
-                    "type": "string",
-                    "default": "mem",
-                    "description": "Algorithms for bwa mapping for allele mode",
-                    "enum": [
-                        "mem",
-                        "sam"
-                    ]
+                "ectyper_opcov": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minumum percent coverage required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "ectyper_hpid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Percent identity required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "ectyper_hpcov": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minumum percent coverage required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "ectyper_verify": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable E. coli species verification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "ectyper_print_alleles": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Prints the allele sequences if enabled as the final column",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -217,326 +222,78 @@
                 "emmtyper_wf": {
                     "type": "string",
                     "default": "blast",
-                    "description": "Workflow to use for typing (blast or pcr)"
+                    "description": "Workflow for emmtyper to use.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "blast",
+                        "pcr"
+                    ]
                 },
                 "emmtyper_blastdb": {
                     "type": "string",
-                    "description": "Path to custom BLAST database"
+                    "description": "Path to custom EMM BLAST DB.",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "cluster_distance": {
+                "emmtyper_cluster_distance": {
                     "type": "integer",
                     "default": 500,
-                    "description": "Distance between cluster members"
+                    "description": "Distance between cluster of matches to consider as different clusters",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "percid": {
+                "emmtyper_percid": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percent identity"
+                    "description": "Minimal percent identity of sequence",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "culling_limit": {
+                "emmtyper_culling_limit": {
                     "type": "integer",
                     "default": 5,
-                    "description": "BLAST culling limit"
+                    "description": "Total hits to return in a position",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "mismatch": {
+                "emmtyper_mismatch": {
                     "type": "integer",
                     "default": 5,
-                    "description": "Maximum number of mismatches"
+                    "description": "Threshold for number of mismatch to allow in BLAST hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "align_diff": {
+                "emmtyper_align_diff": {
                     "type": "integer",
                     "default": 5,
-                    "description": "Maximum difference in alignment length"
+                    "description": "Threshold for difference between alignment length and subject length in BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "gap": {
+                "emmtyper_gap": {
                     "type": "integer",
                     "default": 2,
-                    "description": "Gap penalty"
+                    "description": "Threshold gap to allow in BLAST hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_perfect": {
+                "emmtyper_min_perfect": {
                     "type": "integer",
                     "default": 15,
-                    "description": "Minimum number of perfect matches"
+                    "description": "Minimum size of perfect match at 3 primer end",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_good": {
+                "emmtyper_min_good": {
                     "type": "integer",
                     "default": 15,
-                    "description": "Minimum number of good matches"
+                    "description": "Minimum size where there must be 2 matches for each mismatch",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "max_size": {
+                "emmtyper_max_size": {
                     "type": "integer",
                     "default": 2000,
-                    "description": "Maximum amplicon size"
-                }
-            }
-        },
-        "tbprofiler_collate_parameters": {
-            "title": "TB-Profiler Collate Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "itol": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Generate iTOL files"
-                },
-                "full": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Generate full output"
-                },
-                "all_variants": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Include all variants in output"
-                },
-                "mark_missing": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Mark missing data"
-                }
-            }
-        },
-        "lissero_parameters": {
-            "title": "LisSero Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "min_id": {
-                    "type": "number",
-                    "default": 95.0,
-                    "description": "Minimum percent identity to accept a match"
-                },
-                "min_cov": {
-                    "type": "number",
-                    "default": 95.0,
-                    "description": "Minimum coverage of the gene to accept a match"
-                }
-            }
-        },
-        "sccmec_parameters": {
-            "title": "sccmec Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "sccmec_min_targets_pident": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent identity to count a target hit"
-                },
-                "sccmec_min_targets_coverage": {
-                    "type": "integer",
-                    "default": 80,
-                    "description": "Minimum percent coverage to count a target hit"
-                },
-                "sccmec_min_regions_pident": {
-                    "type": "integer",
-                    "default": 85,
-                    "description": "Minimum percent identity to count a region hit"
-                },
-                "sccmec_min_regions_coverage": {
-                    "type": "integer",
-                    "default": 93,
-                    "description": "Minimum percent coverage to count a region hit"
-                }
-            }
-        },
-        "pasty_parameters": {
-            "title": "pasty Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "pasty_min_pident": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent identity to count a hit"
-                },
-                "pasty_min_coverage": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent coverage to count a hit"
-                }
-            }
-        },
-        "stecfinder_parameters": {
-            "title": "STECFinder Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "stecfinder_use_reads": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use reads instead of assembly"
-                },
-                "stecfinder_hits": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report all blast hits"
-                },
-                "stecfinder_cutoff": {
-                    "type": "number",
-                    "default": 10.0,
-                    "description": "Cutoff for average depth to report a gene"
-                },
-                "stecfinder_length": {
-                    "type": "number",
-                    "default": 50.0,
-                    "description": "Length threshold for all matches"
-                },
-                "stecfinder_ipah_length": {
-                    "type": "number",
-                    "default": 10.0,
-                    "description": "Length threshold for ipaH gene"
-                },
-                "stecfinder_ipah_depth": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Depth threshold for ipaH gene"
-                },
-                "stecfinder_stx_length": {
-                    "type": "number",
-                    "default": 10.0,
-                    "description": "Length threshold for stx genes"
-                },
-                "stecfinder_stx_depth": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Depth threshold for stx genes"
-                },
-                "stecfinder_o_length": {
-                    "type": "number",
-                    "default": 60.0,
-                    "description": "Length threshold for O antigen genes"
-                },
-                "stecfinder_o_depth": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Depth threshold for O antigen genes"
-                },
-                "stecfinder_h_length": {
-                    "type": "number",
-                    "default": 60.0,
-                    "description": "Length threshold for H antigen genes"
-                },
-                "stecfinder_h_depth": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Depth threshold for H antigen genes"
-                }
-            }
-        },
-        "mash_dist_parameters": {
-            "title": "mashdist Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "mash_sketch": {
-                    "type": "string",
-                    "description": "The reference sequence as a Mash Sketch (.msh file)"
-                },
-                "mash_seed": {
-                    "type": "integer",
-                    "default": 42,
-                    "description": "Seed to provide to the hash function"
-                },
-                "mash_table": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": " Table output (fields will be blank if they do not meet the p-value threshold)"
-                },
-                "mash_m": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Minimum copies of each k-mer required to pass noise filter for reads"
-                },
-                "mash_w": {
-                    "type": "number",
-                    "default": 0.01,
-                    "description": "Probability threshold for warning about low k-mer size."
-                },
-                "max_p": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Maximum p-value to report."
-                },
-                "max_dist": {
-                    "type": "number",
-                    "default": 1.0,
-                    "description": "Maximum distance to report."
-                },
-                "merlin_dist": {
-                    "type": "number",
-                    "default": 0.1,
-                    "description": "Maximum distance to report when using Merlin ."
-                },
-                "full_merlin": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Go full Merlin and run all species-specific tools, no matter the Mash distance"
-                },
-                "use_fastqs": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Query with FASTQs instead of the assemblies"
-                }
-            }
-        },
-        "hicap_parameters": {
-            "title": "hicap Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "database_dir": {
-                    "type": "string",
-                    "description": "Directory containing locus database"
-                },
-                "model_fp": {
-                    "type": "string",
-                    "description": "Path to prodigal model"
-                },
-                "full_sequence": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Write the full input sequence out to the genbank file rather than just the region surrounding and including the locus"
-                },
-                "hicap_debug": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "hicap will print debug messages"
-                },
-                "gene_coverage": {
-                    "type": "number",
-                    "default": 0.8,
-                    "description": "Minimum percentage coverage to consider a single gene complete"
-                },
-                "gene_identity": {
-                    "type": "number",
-                    "default": 0.7,
-                    "description": "Minimum percentage identity to consider a single gene complete"
-                },
-                "broken_gene_length": {
-                    "type": "integer",
-                    "default": 60,
-                    "description": "Minimum length to consider a broken gene"
-                },
-                "broken_gene_identity": {
-                    "type": "number",
-                    "default": 0.8,
-                    "description": "Minimum percentage identity to consider a broken gene"
+                    "description": "Maximum size of PCR product",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -547,89 +304,102 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "kmer": {
+                "genotyphi_kmer": {
                     "type": "integer",
                     "default": 21,
-                    "description": "K-mer length"
+                    "description": "K-mer length",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_depth": {
+                "genotyphi_min_depth": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Minimum depth"
+                    "description": "Minimum depth",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "model": {
+                "genotyphi_model": {
                     "type": "string",
                     "default": "kmer_count",
                     "description": "Genotype model used.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true,
                     "enum": [
                         "kmer_count",
                         "median_depth"
                     ]
                 },
-                "report_all_calls": {
+                "genotyphi_report_all_calls": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Report all calls"
+                    "description": "Report all calls",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "mykrobe_opts": {
+                "genotyphi_mykrobe_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra Mykrobe options in quotes"
+                    "description": "Extra Mykrobe options in quotes",
+                    "help": "Useful if you would like to fine tune your Mykrobe analysis.",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
-        "ngmaster_parameters": {
-            "title": "ngmaster Parameters",
+        "hicap_parameters": {
+            "title": "hicap Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "csv": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "output comma-separated format (CSV) rather than tab-separated"
-                }
-            }
-        },
-        "seroba_parameters": {
-            "title": "SeroBA Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "seroba_noclean": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Do not clean up intermediate files"
+                "hicap_database_dir": {
+                    "type": "string",
+                    "description": "Directory containing locus database",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true
                 },
-                "seroba_coverage": {
+                "hicap_model_fp": {
+                    "type": "string",
+                    "description": "Path to prodigal model",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true
+                },
+                "hicap_full_sequence": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Write the full input sequence out to the genbank file rather than just the region surrounding and including the locus",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "hicap_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "hicap will print debug messages",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "hicap_gene_coverage": {
+                    "type": "number",
+                    "description": "Minimum percentage coverage to consider a single gene complete",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "hicap_gene_identity": {
+                    "type": "number",
+                    "description": "Minimum percentage identity to consider a single gene complete",
+                    "default": 0.7,
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "hicap_broken_gene_length": {
                     "type": "integer",
-                    "default": 20,
-                    "description": "Minimum coverage required"
-                }
-            }
-        },
-        "spatyper_parameters": {
-            "title": "spaTyper Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "repeats": {
-                    "type": "string",
-                    "description": "List of spa repeats"
+                    "description": "Minimum length to consider a broken gene",
+                    "default": 60,
+                    "fa_icon": "fas fa-angle-double-down"
                 },
-                "repeat_order": {
-                    "type": "string",
-                    "description": "List spa types and order of repeats"
-                },
-                "do_enrich": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Do PCR product enrichment"
+                "hicap_broken_gene_identity": {
+                    "type": "number",
+                    "description": "Minimum percentage identity to consider a broken gene",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-angle-double-down"
                 }
             }
         },
@@ -644,6 +414,8 @@
                     "type": "string",
                     "default": "kpsc",
                     "description": "Preset module to use for Kleborate",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": false,
                     "enum": [
                         "kpsc",
                         "kosc",
@@ -652,42 +424,45 @@
                 },
                 "kleborate_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra options in quotes for Kleborate"
+                    "description": "Extra options in quotes for Kleborate",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         },
-        "ectyper_parameters": {
-            "title": "ECTyper Parameters",
+        "legsta_parameters": {
+            "title": "legsta Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "opid": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent identity for O-antigen allele match"
-                },
-                "hpid": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum percent identity for H-antigen allele match"
-                },
-                "opcov": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent coverage for O-antigen allele"
-                },
-                "hpcov": {
-                    "type": "integer",
-                    "default": 50,
-                    "description": "Minimum percent coverage for H-antigen allele"
-                },
-                "verify": {
+                "legsta_noheader": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Enable/disable verification of O and H antigen predictions"
+                    "description": "Don't print header row",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "lissero_parameters": {
+            "title": "LisSero Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "lissero_min_id": {
+                    "type": "number",
+                    "default": 95.0,
+                    "description": "Minimum percent identity to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "lissero_min_cov": {
+                    "type": "number",
+                    "default": 95.0,
+                    "description": "Minimum coverage of the gene to accept a match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -698,30 +473,423 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "finetype": {
+                "meningotype_finetype": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform porA and fetA fine typing"
+                    "description": "perform porA and fetA fine typing",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "porB": {
+                "meningotype_porB": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform porB sequence typing (NEIS2020)"
+                    "description": "perform porB sequence typing (NEIS2020)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "bast": {
+                "meningotype_bast": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform Bexsero antigen sequence typing (BAST)"
+                    "description": "perform Bexsero antigen sequence typing (BAST)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mlst": {
+                "meningotype_mlst": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform MLST"
+                    "description": "perform MLST",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "all": {
+                "meningotype_all": {
                     "type": "boolean",
                     "default": false,
-                    "description": "perform MLST, porA, fetA, porB, BAST typing"
+                    "description": "perform MLST, porA, fetA, porB, BAST typing",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "ngmaster_parameters": {
+            "title": "ngmaster Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "ngm_csv": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "output comma-separated format (CSV) rather than tab-separated",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "pasty_parameters": {
+            "title": "pasty Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "pasty_min_pident": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent identity to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "pasty_min_coverage": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent coverage to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "pbptyper_parameters": {
+            "title": "pbptyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "pbptyper_min_pident": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent identity to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "pbptyper_min_coverage": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent coverage to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "seqsero2_parameters": {
+            "title": "SeqSero2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "seqsero2_run_mode": {
+                    "type": "string",
+                    "default": "k",
+                    "description": "Workflow to run. 'a' allele mode, or 'k' k-mer mode",
+                    "enum": [
+                        "a",
+                        "k"
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "seqsero2_input_type": {
+                    "type": "string",
+                    "default": "assembly",
+                    "description": "Input format to analyze. 'assembly' or 'fastq'",
+                    "enum": [
+                        "assembly",
+                        "fastq"
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "seqsero2_bwa_mode": {
+                    "type": "string",
+                    "default": "mem",
+                    "description": "Algorithms for bwa mapping for allele mode",
+                    "enum": [
+                        "mem",
+                        "sam"
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "seroba_parameters": {
+            "title": "SeroBA Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "seroba_noclean": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do not clean up intermediate files",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "seroba_coverage": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "Threshold for k-mer coverage of the reference sequence",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "sistr_parameters": {
+            "title": "SISTR Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "sistr_full_cgmlst": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": " Use the full set of cgMLST alleles which can include highly similar alleles",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "spatyper_parameters": {
+            "title": "spaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "spatyper_repeats": {
+                    "type": "string",
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "spatyper_repeat_order": {
+                    "type": "string",
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
+                },
+                "spatyper_do_enrich": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "sccmec_parameters": {
+            "title": "sccmec Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "sccmec_min_targets_pident": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum percent identity to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_targets_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_pident": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum percent identity to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "sccmec_min_regions_coverage": {
+                    "type": "integer",
+                    "default": 93,
+                    "description": "Minimum percent coverage to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        },
+        "stecfinder_parameters": {
+            "title": "STECFinder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "stecfinder_use_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Paired-end Illumina reads will be used instead of assemblies",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_hits": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show detailed gene search results",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_cutoff": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Minimum read coverage for gene to be called",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_length": {
+                    "type": "number",
+                    "default": 50.0,
+                    "description": "Percentage of gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "stecfinder_ipah_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Percentage of ipaH gene length needed for positive gene call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_ipah_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive ipaH gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_stx_length": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Percentage of stx gene length needed for positive gene call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_stx_depth": {
+                    "type": "number",
+                    "default": 10.0,
+                    "description": "Minimum depth for positive stx gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_o_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Percentage of wz_ gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_o_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive qz_ gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_h_length": {
+                    "type": "number",
+                    "default": 60.0,
+                    "description": "Percentage of fliC gene length needed for positive call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "stecfinder_h_depth": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "Minimum depth for positive fliC gene call (requires --stecfinder_use_reads)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "tbprofiler_profile_parameters": {
+            "title": "TB-Profiler Profile Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "tb_call_whole_genome": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Call whole genome",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "tb_mapper": {
+                    "type": "string",
+                    "default": "bwa",
+                    "description": "Mapping tool to use. If you are using nanopore data it will default to minimap2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "bwa",
+                        "minimap2",
+                        "bowtie2",
+                        "bwa-mem2"
+                    ]
+                },
+                "tb_caller": {
+                    "type": "string",
+                    "default": "freebayes",
+                    "description": "Variant calling tool to use",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "bcftools",
+                        "gatk",
+                        "freebayes"
+                    ]
+                },
+                "tb_calling_params": {
+                    "type": "string",
+                    "description": "Extra variant caller options in quotes",
+                    "help": "Useful if you would like to fine tune your variant calling analysis.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "tb_suspect": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use the suspect suite of tools to add ML predictions",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "tb_no_flagstat": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't collect flagstats",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "tb_no_delly": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't run delly",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "tb_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for TBProfiler",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
+                }
+            }
+        },
+        "tbprofiler_collate_parameters": {
+            "title": "TB-Profiler Collate Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "tb_itol": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Generate itol config files",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "tb_full": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output mutations in main result file",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "tb_all_variants": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output all variants in variant matrix",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "tb_mark_missing": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -1075,70 +1243,73 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/sistr_parameters"
+            "$ref": "#/$defs/mash_dist_parameters"
         },
         {
-            "$ref": "#/$defs/tbprofiler_profile_parameters"
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
             "$ref": "#/$defs/agrvate_parameters"
         },
         {
-            "$ref": "#/$defs/legsta_parameters"
-        },
-        {
-            "$ref": "#/$defs/pbptyper_parameters"
-        },
-        {
             "$ref": "#/$defs/clermontyping_parameters"
-        },
-        {
-            "$ref": "#/$defs/seqsero2_parameters"
-        },
-        {
-            "$ref": "#/$defs/emmtyper_parameters"
-        },
-        {
-            "$ref": "#/$defs/tbprofiler_collate_parameters"
-        },
-        {
-            "$ref": "#/$defs/lissero_parameters"
-        },
-        {
-            "$ref": "#/$defs/sccmec_parameters"
-        },
-        {
-            "$ref": "#/$defs/pasty_parameters"
-        },
-        {
-            "$ref": "#/$defs/stecfinder_parameters"
-        },
-        {
-            "$ref": "#/$defs/mash_dist_parameters"
-        },
-        {
-            "$ref": "#/$defs/hicap_parameters"
-        },
-        {
-            "$ref": "#/$defs/genotyphi_parameters"
-        },
-        {
-            "$ref": "#/$defs/ngmaster_parameters"
-        },
-        {
-            "$ref": "#/$defs/seroba_parameters"
-        },
-        {
-            "$ref": "#/$defs/spatyper_parameters"
-        },
-        {
-            "$ref": "#/$defs/kleborate_parameters"
         },
         {
             "$ref": "#/$defs/ectyper_parameters"
         },
         {
+            "$ref": "#/$defs/emmtyper_parameters"
+        },
+        {
+            "$ref": "#/$defs/genotyphi_parameters"
+        },
+        {
+            "$ref": "#/$defs/hicap_parameters"
+        },
+        {
+            "$ref": "#/$defs/kleborate_parameters"
+        },
+        {
+            "$ref": "#/$defs/legsta_parameters"
+        },
+        {
+            "$ref": "#/$defs/lissero_parameters"
+        },
+        {
             "$ref": "#/$defs/meningotype_parameters"
+        },
+        {
+            "$ref": "#/$defs/ngmaster_parameters"
+        },
+        {
+            "$ref": "#/$defs/pasty_parameters"
+        },
+        {
+            "$ref": "#/$defs/pbptyper_parameters"
+        },
+        {
+            "$ref": "#/$defs/seqsero2_parameters"
+        },
+        {
+            "$ref": "#/$defs/seroba_parameters"
+        },
+        {
+            "$ref": "#/$defs/sistr_parameters"
+        },
+        {
+            "$ref": "#/$defs/spatyper_parameters"
+        },
+        {
+            "$ref": "#/$defs/sccmec_parameters"
+        },
+        {
+            "$ref": "#/$defs/stecfinder_parameters"
+        },
+        {
+            "$ref": "#/$defs/tbprofiler_profile_parameters"
+        },
+        {
+            "$ref": "#/$defs/tbprofiler_collate_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

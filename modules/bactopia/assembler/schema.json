@@ -140,7 +140,8 @@
                     "type": "boolean",
                     "default": false,
                     "description": "For Flye, use '--nano-hq' instead of --nano-raw",
-                    "fa_icon": "fas fa-redo"
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true
                 },
                 "medaka_model": {
                     "type": "string",

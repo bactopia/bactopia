@@ -69,6 +69,130 @@
                 }
             }
         },
+        "kraken2_parameters": {
+            "title": "Kraken2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kraken2_db": {
+                    "type": "string",
+                    "description": "The a single tarball or path to a Kraken2 formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true,
+                    "hidden": true
+                },
+                "kraken2_quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_keep_filtered_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "srahumanscrubber_parameters": {
+            "title": "SRA Human Scrubber Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_srascrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use SRAHumanScrubber for scrubbing human reads",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "wget_parameters": {
+            "title": "Wget Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "no_check_certificate": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't validate the server's certificate",
+                    "fa_icon": "fas fa-shield-alt",
+                    "hidden": true
+                },
+                "wget_opts": {
+                    "type": "string",
+                    "description": "Additional wget options",
+                    "default": "",
+                    "hidden": true
+                }
+            }
+        },
         "csvtk_concat_parameters": {
             "title": "csvtk concat Parameters",
             "type": "object",
@@ -81,6 +205,134 @@
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
                     "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        },
+        "kraken2_bracken_parameters": {
+            "title": "Kraken2 and Bracken Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kraken2_db": {
+                    "type": "string",
+                    "description": "The a single tarball or path to a Kraken2 formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true,
+                    "hidden": true
+                },
+                "kraken2_quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_keep_filtered_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_keep_raw_output": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the STDOUT file produced from Kraken2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_read_length": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Read length to get all classifications for (0 = determine at runtime)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_level": {
+                    "type": "string",
+                    "default": "S",
+                    "description": "Level to estimate abundance at",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_threshold": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Reads required PRIOR to abundance estimation to perform re-estimation",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_max_secondary_percent": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "The maximum percent abundance for the secondary species, if exceeded, sample will remain unclassified",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "bracken_skip_krona": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip the creation of a Krona report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 }
             }
@@ -163,130 +415,6 @@
                 }
             }
         },
-        "kraken2_bracken_parameters": {
-            "title": "Kraken2 and Bracken Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "kraken2_db": {
-                    "type": "string",
-                    "description": "The a single tarball or path to a Kraken2 formatted database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "is_required": true
-                },
-                "kraken2_quick_mode": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Quick operation (use first hit or hits)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_confidence": {
-                    "type": "number",
-                    "default": 0.0,
-                    "description": "Confidence score threshold between 0 and 1",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "kraken2_minimum_base_quality": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Minimum base quality used in classification",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_use_mpa_style": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Format report output like Kraken 1's kraken-mpa-report",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "kraken2_report_zero_counts": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report counts for ALL taxa, even if counts are zero",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "kraken2_report_minimizer_data": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Include minimizer and distinct minimizer count information in report",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_use_names": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Print scientific names instead of just taxids",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_memory_mapping": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Avoid loading database into RAM",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_minimum_hit_groups": {
-                    "type": "integer",
-                    "default": 2,
-                    "description": "Minimum number of hit groups needed to make a call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_keep_filtered_reads": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_keep_raw_output": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep the STDOUT file produced from Kraken2",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "bracken_read_length": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Read length to get all classifications for (0 = determine at runtime)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "bracken_level": {
-                    "type": "string",
-                    "default": "S",
-                    "description": "Level to estimate abundance at",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "bracken_threshold": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Reads required PRIOR to abundance estimation to perform re-estimation",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "bracken_max_secondary_percent": {
-                    "type": "number",
-                    "default": 0.01,
-                    "description": "The maximum percent abundance for the secondary species, if exceeded, sample will remain unclassified",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "skip_krona": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Skip the creation of a Krona report",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                }
-            }
-        },
         "csvtk_join_parameters": {
             "title": "csvtk join Parameters",
             "type": "object",
@@ -300,123 +428,6 @@
                     "help": "",
                     "fa_icon": "fas fa-italic",
                     "hidden": true
-                }
-            }
-        },
-        "wget_parameters": {
-            "title": "Wget Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "no_check_certificate": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't validate the server's certificate",
-                    "fa_icon": "fas fa-shield-alt"
-                },
-                "wget_opts": {
-                    "type": "string",
-                    "description": "Additional wget options",
-                    "default": ""
-                }
-            }
-        },
-        "kraken2_parameters": {
-            "title": "Kraken2 Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "kraken2_db": {
-                    "type": "string",
-                    "description": "The a single tarball or path to a Kraken2 formatted database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "is_required": true
-                },
-                "quick_mode": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Quick operation (use first hit or hits)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "confidence": {
-                    "type": "number",
-                    "default": 0.0,
-                    "description": "Confidence score threshold between 0 and 1",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "minimum_base_quality": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Minimum base quality used in classification",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "use_mpa_style": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Format report output like Kraken 1's kraken-mpa-report",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "report_zero_counts": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report counts for ALL taxa, even if counts are zero",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "report_minimizer_data": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Include minimizer and distinct minimizer count information in report",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "use_names": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Print scientific names instead of just taxids",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "memory_mapping": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Avoid loading database into RAM",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "minimum_hit_groups": {
-                    "type": "integer",
-                    "default": 2,
-                    "description": "Minimum number of hit groups needed to make a call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "keep_filtered_reads": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                }
-            }
-        },
-        "srahumanscrubber_parameters": {
-            "title": "SRA Human Scrubber Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "use_srascrubber": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use SRAHumanScrubber for scrubbing human reads",
-                    "fa_icon": "fas fa-file-alt"
                 }
             }
         },
@@ -767,25 +778,25 @@
             "$ref": "#/$defs/input_parameters"
         },
         {
-            "$ref": "#/$defs/csvtk_concat_parameters"
+            "$ref": "#/$defs/kraken2_parameters"
         },
         {
-            "$ref": "#/$defs/gather_parameters"
-        },
-        {
-            "$ref": "#/$defs/kraken2_bracken_parameters"
-        },
-        {
-            "$ref": "#/$defs/csvtk_join_parameters"
+            "$ref": "#/$defs/srahumanscrubber_parameters"
         },
         {
             "$ref": "#/$defs/wget_parameters"
         },
         {
-            "$ref": "#/$defs/kraken2_parameters"
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
-            "$ref": "#/$defs/srahumanscrubber_parameters"
+            "$ref": "#/$defs/kraken2_bracken_parameters"
+        },
+        {
+            "$ref": "#/$defs/gather_parameters"
+        },
+        {
+            "$ref": "#/$defs/csvtk_join_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

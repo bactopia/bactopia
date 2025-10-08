@@ -49,30 +49,43 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "opid": {
+                "ectyper_opid": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Minimum percent identity for O-antigen allele match"
+                    "description": "Percent identity required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "hpid": {
+                "ectyper_opcov": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minumum percent coverage required for an O antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "ectyper_hpid": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percent identity for H-antigen allele match"
+                    "description": "Percent identity required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "opcov": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent coverage for O-antigen allele"
-                },
-                "hpcov": {
+                "ectyper_hpcov": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Minimum percent coverage for H-antigen allele"
+                    "description": "Minumum percent coverage required for an H antigen allele match",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "verify": {
+                "ectyper_verify": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Enable/disable verification of O and H antigen predictions"
+                    "description": "Enable E. coli species verification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "ectyper_print_alleles": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Prints the allele sequences if enabled as the final column",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -82,7 +95,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

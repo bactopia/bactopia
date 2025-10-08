@@ -51,48 +51,57 @@
             "properties": {
                 "species": {
                     "type": "string",
-                    "default": "",
-                    "description": "Name of the species to download assemblies"
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accession": {
                     "type": "string",
-                    "default": "",
-                    "description": "An NCBI Assembly accession to be downloaded"
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accessions": {
                     "type": "string",
-                    "default": "",
-                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded"
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "format": {
                     "type": "string",
                     "default": "fasta",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic"
                 },
                 "section": {
                     "type": "string",
                     "default": "refseq",
-                    "description": "NCBI section to download"
+                    "description": "NCBI section to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "assembly_level": {
                     "type": "string",
                     "default": "complete",
-                    "description": "Comma separated list of assembly levels to download"
+                    "description": "Comma separated list of assembly levels to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "kingdom": {
                     "type": "string",
                     "default": "bacteria",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "limit": {
                     "type": "string",
-                    "default": "",
-                    "description": "Limit the number of assemblies to download"
+                    "description": "Limit the number of assemblies to download",
+                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
+                    "fa_icon": "fas fa-italic"
                 },
                 "keep_downloads": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Save downloaded files into the bactopia-runs folder"
+                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
@@ -104,81 +113,73 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "reference": {
-                    "title": "Reference genome in GenBank format",
                     "type": "string",
-                    "description": "Path to reference genome in GenBank format",
-                    "fa_icon": "fas fa-file-alt",
-                    "default": null
+                    "description": "Reference genome in GenBank format",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "is_required": true
                 },
-                "mapqual": {
-                    "title": "Minimum read mapping quality",
+                "snippy_mapqual": {
                     "type": "integer",
                     "description": "Minimum read mapping quality to consider",
                     "default": 60,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down"
                 },
-                "basequal": {
-                    "title": "Minimum base quality",
+                "snippy_basequal": {
                     "type": "integer",
                     "description": "Minimum base quality to consider",
                     "default": 13,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down"
                 },
-                "mincov": {
-                    "title": "Minimum coverage",
+                "snippy_mincov": {
                     "type": "integer",
-                    "description": "Minimum coverage of variant site",
+                    "description": "Minimum site depth to for calling alleles",
                     "default": 10,
-                    "fa_icon": "fas fa-chart-line"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
-                "minfrac": {
-                    "title": "Minimum proportion for variant",
-                    "type": "number",
+                "snippy_minfrac": {
+                    "type": "integer",
                     "description": "Minimum proportion for variant evidence (0=AUTO)",
                     "default": 0,
-                    "fa_icon": "fas fa-percent"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
-                "minqual": {
-                    "title": "Minimum QUAL score",
+                "snippy_minqual": {
                     "type": "integer",
-                    "description": "Minimum QUAL score to accept in VCF",
+                    "description": "Minimum QUALITY in VCF column 6",
                     "default": 100,
-                    "fa_icon": "fas fa-medal"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
-                "maxsoft": {
-                    "title": "Maximum soft clipping",
+                "snippy_maxsoft": {
                     "type": "integer",
                     "description": "Maximum soft clipping to allow",
                     "default": 10,
-                    "fa_icon": "fas fa-cut"
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
                 },
-                "bwaopt": {
-                    "title": "Extra BWA MEM options",
+                "snippy_bwaopt": {
                     "type": "string",
                     "description": "Extra BWA MEM options, eg. -x pacbio",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "fa_icon": "fas fa-italic"
                 },
-                "fbopt": {
-                    "title": "Extra Freebayes options",
+                "snippy_fbopt": {
                     "type": "string",
-                    "description": "Extra Freebayes options, eg. --ploidy 1",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
+                    "fa_icon": "fas fa-italic"
                 },
                 "snippy_remove_bam": {
-                    "title": "Remove BAM files",
                     "type": "boolean",
-                    "description": "Remove BAM files after processing",
                     "default": false,
-                    "fa_icon": "fas fa-trash"
+                    "description": "Delete BAM files after variant calling",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "snippy_opts": {
-                    "title": "Extra Snippy options",
                     "type": "string",
-                    "description": "Extra options to pass to Snippy",
-                    "fa_icon": "fas fa-cog",
-                    "default": null
+                    "description": "Extra options in quotes for Snippy",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         },
@@ -189,21 +190,21 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "maxhap": {
+                "snippy_core_maxhap": {
                     "type": "integer",
                     "description": "Largest haplotype to decompose",
                     "default": 100,
                     "fa_icon": "fas fa-angle-double-down"
                 },
-                "mask_char": {
-                    "type": "string",
-                    "description": "Masking character",
-                    "default": "X",
-                    "fa_icon": "fas fa-angle-double-down"
-                },
                 "snippy_core_mask": {
                     "type": "string",
                     "description": "BED file of sites to mask",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "snippy_core_mask_char": {
+                    "type": "string",
+                    "description": "Masking character",
+                    "default": "X",
                     "fa_icon": "fas fa-angle-double-down"
                 },
                 "snippy_core_opts": {
@@ -220,45 +221,58 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "iterations": {
+                "gubbins_iterations": {
                     "type": "integer",
+                    "description": "Maximum number of iterations",
                     "default": 5,
-                    "description": "Maximum number of iterations"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "min_snps": {
+                "gubbins_min_snps": {
                     "type": "integer",
+                    "description": "Min SNPs to identify a recombination block",
                     "default": 3,
-                    "description": "Min SNPs to identify a recombination block"
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "min_window_size": {
+                "gubbins_min_window_size": {
                     "type": "integer",
+                    "description": "Minimum window size",
                     "default": 100,
-                    "description": "Minimum window size"
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "max_window_size": {
+                "gubbins_max_window_size": {
                     "type": "integer",
+                    "description": "Maximum window size",
                     "default": 10000,
-                    "description": "Maximum window size"
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "filter_percentage": {
+                "gubbins_filter_percentage": {
                     "type": "number",
+                    "description": "Filter out taxa with more than this percentage of gaps",
                     "default": 25.0,
-                    "description": "Filter out taxa with more than this percentage of gaps"
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "remove_identical_sequences": {
+                "gubbins_remove_identical_sequences": {
                     "type": "boolean",
+                    "description": "Remove identical sequences",
                     "default": false,
-                    "description": "Remove identical sequences"
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
                 "gubbin_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra Gubbins options in quotes"
+                    "description": "Extra Gubbins options in quotes",
+                    "help": "Useful if you would like to fine tune your Gubbins analysis. Example: '--bootstrap 100'",
+                    "fa_icon": "fas fa-italic"
                 },
                 "skip_recombination": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip Gubbins execution in subworkflows"
+                    "description": "Skip Gubbins execution in subworkflows",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -271,33 +285,40 @@
             "properties": {
                 "iqtree_model": {
                     "type": "string",
+                    "description": "Substitution model name",
                     "default": "HKY",
-                    "description": "Substitution model name"
+                    "fa_icon": "fas fa-italic"
                 },
-                "bb": {
+                "iqtree_bb": {
                     "type": "integer",
+                    "description": "Ultrafast bootstrap replicates",
                     "default": 1000,
-                    "description": "Ultrafast bootstrap replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "alrt": {
+                "iqtree_alrt": {
                     "type": "integer",
+                    "description": "SH-like approximate likelihood ratio test replicates",
                     "default": 1000,
-                    "description": "SH-like approximate likelihood ratio test replicates"
+                    "fa_icon": "fas fa-hashtag"
                 },
-                "asr": {
+                "iqtree_asr": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Ancestral state reconstruction by empirical Bayes"
+                    "description": "Ancestral state reconstruction by empirical Bayes",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "iqtree_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra IQ-TREE options in quotes."
+                    "description": "Extra IQ-TREE options in quotes.",
+                    "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "skip_phylogeny": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip IQ-TREE execution in subworkflows"
+                    "description": "Skip IQ-TREE execution in subworkflows",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -308,25 +329,32 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "a": {
+                "snpdists_a": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Count all differences not just [AGTC]"
+                    "description": "Count all differences not just [AGTC]",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "b": {
+                "snpdists_b": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep top left corner cell"
+                    "description": "Keep top left corner cell",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "csv": {
+                "snpdists_csv": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Output CSV instead of TSV"
+                    "description": "Output CSV instead of TSV",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "k": {
+                "snpdists_k": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Keep case, don't uppercase all letters"
+                    "description": "Keep case, don't uppercase all letters",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },

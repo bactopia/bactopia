@@ -52,22 +52,26 @@
                 "sccmec_min_targets_pident": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Minimum percent identity to count a target hit"
+                    "description": "Minimum percent identity to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "sccmec_min_targets_coverage": {
                     "type": "integer",
                     "default": 80,
-                    "description": "Minimum percent coverage to count a target hit"
+                    "description": "Minimum percent coverage to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "sccmec_min_regions_pident": {
                     "type": "integer",
                     "default": 85,
-                    "description": "Minimum percent identity to count a region hit"
+                    "description": "Minimum percent identity to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "sccmec_min_regions_coverage": {
                     "type": "integer",
                     "default": 93,
-                    "description": "Minimum percent coverage to count a region hit"
+                    "description": "Minimum percent coverage to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -77,7 +81,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

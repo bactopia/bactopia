@@ -49,15 +49,18 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "contig_thresholds": {
+                "quast_contig_thresholds": {
                     "type": "string",
                     "default": "0,1000,10000,100000,250000,1000000",
-                    "description": "Comma-separated list of contig length thresholds"
+                    "description": "Comma-separated list of contig length thresholds",
+                    "fa_icon": "fas fa-align-justify"
                 },
-                "plots_format": {
+                "quast_plots_format": {
                     "type": "string",
                     "default": "pdf",
                     "description": "Save plots in specified format",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
                     "enum": [
                         "emf",
                         "eps",
@@ -78,7 +81,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

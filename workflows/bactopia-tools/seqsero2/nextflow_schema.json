@@ -49,23 +49,36 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "run_mode": {
+                "seqsero2_run_mode": {
                     "type": "string",
                     "default": "k",
                     "description": "Workflow to run. 'a' allele mode, or 'k' k-mer mode",
                     "enum": [
                         "a",
                         "k"
-                    ]
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "bwa_mode": {
+                "seqsero2_input_type": {
+                    "type": "string",
+                    "default": "assembly",
+                    "description": "Input format to analyze. 'assembly' or 'fastq'",
+                    "enum": [
+                        "assembly",
+                        "fastq"
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "seqsero2_bwa_mode": {
                     "type": "string",
                     "default": "mem",
                     "description": "Algorithms for bwa mapping for allele mode",
                     "enum": [
                         "mem",
                         "sam"
-                    ]
+                    ],
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
@@ -75,7 +88,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

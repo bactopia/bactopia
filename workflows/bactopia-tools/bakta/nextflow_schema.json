@@ -49,33 +49,33 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "download_bakta": {
-                    "title": "Download Bakta database",
-                    "type": "boolean",
-                    "description": "Download the Bakta database",
-                    "default": false,
-                    "fa_icon": "fas fa-download"
-                },
                 "bakta_db": {
-                    "title": "Bakta database path",
                     "type": "string",
-                    "description": "Path to existing Bakta database or where to download",
-                    "default": null,
-                    "fa_icon": "fas fa-database"
+                    "description": "Tarball or path to the Bakta database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "bakta_db_type": {
-                    "title": "Bakta database type",
                     "type": "string",
-                    "description": "Type of Bakta database to download (light or full)",
                     "default": "full",
-                    "fa_icon": "fas fa-database"
+                    "description": "Which Bakta DB to download 'full' (~30GB) or 'light' (~2GB)",
+                    "fa_icon": "fas fa-file-alt",
+                    "enum": [
+                        "full",
+                        "light"
+                    ]
                 },
                 "bakta_save_as_tarball": {
-                    "title": "Save database as tarball",
                     "type": "boolean",
-                    "description": "Save the downloaded database as a tarball",
+                    "description": "Save the Bakta database as a tarball",
                     "default": false,
-                    "fa_icon": "fas fa-archive"
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "download_bakta": {
+                    "type": "boolean",
+                    "description": "Download the Bakta database to the path given by --bakta_db",
+                    "default": false,
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
@@ -86,130 +86,119 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "min_contig_length": {
-                    "type": "integer",
-                    "description": "Minimum contig size (--min-contig-length)",
-                    "default": 1
-                },
-                "skip_compression": {
-                    "type": "boolean",
-                    "description": "Skip gzip compression of output files",
-                    "default": false
-                },
-                "bakta_compliant": {
-                    "type": "boolean",
-                    "description": "Force Genbank/ENA/DDJB compliance (--compliant)",
-                    "default": false
-                },
-                "complete": {
-                    "type": "boolean",
-                    "description": "All sequences are complete replicons (--complete)",
-                    "default": false
+                "bakta_proteins": {
+                    "type": "string",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "bakta_prodigal_tf": {
                     "type": "string",
-                    "description": "Training file to use for CDS prediction (--prodigal-tf)",
-                    "default": ""
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "prodigal_translation_table": {
+                "bakta_replicons": {
+                    "type": "string",
+                    "description": "Replicon information table (tsv/csv)",
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "bakta_min_contig_length": {
                     "type": "integer",
-                    "description": "Translation table to use for CDS prediction (--translation-table)",
-                    "default": 11
+                    "description": "Minimum contig size to annotate",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
                 },
-                "bakta_proteins": {
+                "bakta_keep_contig_headers": {
+                    "type": "boolean",
+                    "description": "Keep original contig headers",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_trna": {
+                    "type": "boolean",
+                    "description": "Skip tRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_tmrna": {
+                    "type": "boolean",
+                    "description": "Skip tmRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_rrna": {
+                    "type": "boolean",
+                    "description": "Skip rRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ncrna": {
+                    "type": "boolean",
+                    "description": "Skip ncRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ncrna_region": {
+                    "type": "boolean",
+                    "description": "Skip ncRNA region detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_crispr": {
+                    "type": "boolean",
+                    "description": "Skip CRISPR array detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_cds": {
+                    "type": "boolean",
+                    "description": "Skip CDS detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_sorf": {
+                    "type": "boolean",
+                    "description": "Skip sORF detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_gap": {
+                    "type": "boolean",
+                    "description": "Skip gap detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ori": {
+                    "type": "boolean",
+                    "description": "Skip oriC/oriT detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_opts": {
                     "type": "string",
-                    "description": "FASTA file of trusted proteins to use for annotation (--proteins)",
-                    "default": ""
-                },
-                "genus": {
-                    "type": "string",
-                    "description": "Genus name (--genus)",
-                    "default": ""
-                },
-                "species": {
-                    "type": "string",
-                    "description": "Species name (--species)",
-                    "default": ""
-                },
-                "strain": {
-                    "type": "string",
-                    "description": "Strain name (--strain)",
-                    "default": ""
-                },
-                "plasmid": {
-                    "type": "string",
-                    "description": "Plasmid name (--plasmid)",
-                    "default": ""
-                },
-                "gram": {
-                    "type": "string",
-                    "description": "Gram type: [+, -] (--gram)",
-                    "default": ""
-                },
-                "replicons": {
-                    "type": "string",
-                    "description": "Replicon table (--replicons)",
-                    "default": ""
-                },
-                "skip_amr": {
-                    "type": "boolean",
-                    "description": "Skip AMR detection (--skip-amr)",
-                    "default": false
-                },
-                "skip_crispr": {
-                    "type": "boolean",
-                    "description": "Skip CRISPRs detection (--skip-crispr)",
-                    "default": false
-                },
-                "skip_cds": {
-                    "type": "boolean",
-                    "description": "Skip CDS detection (--skip-cds)",
-                    "default": false
-                },
-                "skip_trna": {
-                    "type": "boolean",
-                    "description": "Skip tRNA detection (--skip-trna)",
-                    "default": false
-                },
-                "skip_rrna": {
-                    "type": "boolean",
-                    "description": "Skip rRNA detection (--skip-rrna)",
-                    "default": false
-                },
-                "skip_ncrna": {
-                    "type": "boolean",
-                    "description": "Skip ncRNA detection (--skip-ncrna)",
-                    "default": false
-                },
-                "skip_ncrna_region": {
-                    "type": "boolean",
-                    "description": "Skip ncRNA region detection (--skip-ncrna-region)",
-                    "default": false
-                },
-                "skip_gap": {
-                    "type": "boolean",
-                    "description": "Skip gap detection (--skip-gap)",
-                    "default": false
-                },
-                "skip_ori": {
-                    "type": "boolean",
-                    "description": "Skip oriC/oriV detection (--skip-ori)",
-                    "default": false
-                },
-                "skip_plot": {
-                    "type": "boolean",
-                    "description": "Skip plot generation (--skip-plot)",
-                    "default": false
-                },
-                "skip_sorf": {
-                    "type": "boolean",
-                    "description": "Skip sORF detection (--skip-sorf)",
-                    "default": false
-                },
-                "use_bakta": {
-                    "type": "boolean",
-                    "description": "Use Bakta for annotation",
-                    "default": false
+                    "description": "Extra Backa options in quotes. Example: '--gram +'",
+                    "help": "Useful if you would like to fine tune your Bakta analysis.",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },

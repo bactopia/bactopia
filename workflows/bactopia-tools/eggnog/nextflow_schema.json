@@ -50,47 +50,51 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "eggnog_db": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Path to eggNOG database directory"
-                },
-                "eggnog_save_as_tarball": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Save the eggNOG database as a tarball"
+                    "type": "string",
+                    "description": "Tarball or path to eggNOG databases",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
                 },
                 "download_eggnog": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Download eggNOG database"
+                    "description": "Required if downloading latest eggNOG database, will overwrite existing databases.",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "eggnog_save_as_tarball": {
+                    "type": "string",
+                    "description": "Save the eggNOG database as a single tarball",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "skip_diamond": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Skip diamond database download"
-                },
-                "install_hmm": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Install HMM profiles"
+                    "description": "Do not install the diamond database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "install_mmseq": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Install MMseqs2 database"
+                    "description": "Install the MMseqs2 database",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "install_pfam": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Install PFAM profiles"
+                    "description": "Install the Pfam database, required for de novo annotation or realignment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "install_hmm": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Install the HMMER database specified with --hmmer_taxid",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "hmmer_taxid": {
                     "type": "integer",
                     "default": 2,
-                    "description": "NCBI taxonomy ID for HMMER database"
+                    "description": "Tax ID of eggNOG HMM database to download",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -101,22 +105,35 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "genepred": {
+                "eggnog_genepred": {
                     "type": "string",
                     "default": "search",
                     "description": "Method to use for gene prediction",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "search",
+                        "prodigal"
+                    ]
                 },
-                "mode": {
+                "eggnog_mode": {
                     "type": "string",
                     "default": "diamond",
                     "description": "Method to search against eggNOG sequences",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "enum": [
+                        "diamond",
+                        "hmmer",
+                        "mmseqs",
+                        "cache",
+                        "no_search"
+                    ]
                 },
                 "eggnog_opts": {
                     "type": "string",
                     "description": "Extra eggNOG Mapper options in quotes",
-                    "fa_icon": "fas fa-italic"
+                    "help": "Useful if you would like to fine tune your eggnog-mapper analysis. Example: '--dmnd_algo 1 --pident 99'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },

@@ -53,6 +53,8 @@
                     "type": "string",
                     "default": "",
                     "description": "Species panel to use",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true,
                     "enum": [
                         "sonnei",
                         "staph",
@@ -60,34 +62,43 @@
                         "typhi"
                     ]
                 },
-                "kmer": {
+                "mykrobe_kmer": {
                     "type": "integer",
                     "default": 21,
-                    "description": "K-mer length"
+                    "description": "K-mer length",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "min_depth": {
+                "mykrobe_min_depth": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Minimum depth"
+                    "description": "Minimum depth",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "model": {
+                "mykrobe_model": {
                     "type": "string",
                     "default": "kmer_count",
                     "description": "Genotype model used.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true,
                     "enum": [
                         "kmer_count",
                         "median_depth"
                     ]
                 },
-                "report_all_calls": {
+                "mykrobe_report_all_calls": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Report all calls"
+                    "description": "Report all calls",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
                 "mykrobe_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Extra Mykrobe options in quotes"
+                    "description": "Extra Mykrobe options in quotes",
+                    "help": "Useful if you would like to fine tune your Mykrobe analysis.",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
@@ -97,7 +108,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

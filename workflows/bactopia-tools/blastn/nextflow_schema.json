@@ -42,7 +42,7 @@
                 }
             }
         },
-        "blast_parameters": {
+        "blastn_parameters": {
             "title": "BLASTN Parameters",
             "type": "object",
             "description": "",
@@ -50,42 +50,46 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "blastn_query": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Query sequence(s) for BLASTN",
-                    "default": null
+                    "type": "string",
+                    "description": "A fasta file containing the query sequences to BLAST against the database",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
                 },
                 "blastn_outfmt": {
                     "type": "string",
-                    "description": "Output format specification",
-                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore"
+                    "description": "The columns to include with -outfmt 6",
+                    "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastn_opts": {
                     "type": "string",
-                    "description": "Additional BLASTN options",
-                    "default": ""
+                    "description": "Additional options to pass to BLASTN",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastn_perc_identity": {
                     "type": "integer",
-                    "description": "Percent identity threshold",
-                    "default": 50
+                    "description": "Percent identity",
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastn_qcov_hsp_perc": {
                     "type": "integer",
                     "description": "Percent query coverage per hsp",
-                    "default": 50
+                    "default": 50,
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastn_max_target_seqs": {
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
-                    "default": 2000
+                    "default": 2000,
+                    "fa_icon": "fas fa-angle-double-up"
                 },
                 "blastn_use_genes": {
                     "type": "boolean",
-                    "description": "Query against genes (.ffn) instead of contigs (.fna)",
-                    "default": false
+                    "description": "Blast against genes sequences instead of contigs",
+                    "default": false,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
                 }
             }
         },
@@ -95,7 +99,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",
@@ -447,7 +459,7 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/blast_parameters"
+            "$ref": "#/$defs/blastn_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"

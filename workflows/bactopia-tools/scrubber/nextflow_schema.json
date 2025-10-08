@@ -42,6 +42,88 @@
                 }
             }
         },
+        "kraken2_parameters": {
+            "title": "Kraken2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kraken2_db": {
+                    "type": "string",
+                    "description": "The a single tarball or path to a Kraken2 formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "kraken2_quick_mode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Quick operation (use first hit or hits)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Confidence score threshold between 0 and 1",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_minimum_base_quality": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum base quality used in classification",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_mpa_style": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_report_zero_counts": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "kraken2_report_minimizer_data": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include minimizer and distinct minimizer count information in report",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_use_names": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Print scientific names instead of just taxids",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_memory_mapping": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Avoid loading database into RAM",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_minimum_hit_groups": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum number of hit groups needed to make a call",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "kraken2_keep_filtered_reads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
         "srahumanscrubber_parameters": {
             "title": "SRA Human Scrubber Parameters",
             "type": "object",
@@ -52,70 +134,8 @@
                 "use_srascrubber": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use SRA Human Scrubber to remove human reads"
-                }
-            }
-        },
-        "kraken2_parameters": {
-            "title": "Kraken2 Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "kraken2_db": {
-                    "type": "string",
-                    "description": "The a single tarball or path to a Kraken2 formatted database"
-                },
-                "quick_mode": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Quick operation (use first hit or hits)"
-                },
-                "confidence": {
-                    "type": "number",
-                    "default": 0.0,
-                    "description": "Confidence score threshold between 0 and 1"
-                },
-                "minimum_base_quality": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Minimum base quality used in classification"
-                },
-                "use_mpa_style": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Format report output like Kraken 1's kraken-mpa-report"
-                },
-                "report_zero_counts": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report counts for ALL taxa, even if counts are zero"
-                },
-                "report_minimizer_data": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Include minimizer and distinct minimizer count information in report"
-                },
-                "use_names": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Print scientific names instead of just taxids"
-                },
-                "memory_mapping": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Avoid loading database into RAM"
-                },
-                "minimum_hit_groups": {
-                    "type": "integer",
-                    "default": 2,
-                    "description": "Minimum number of hit groups needed to make a call"
-                },
-                "keep_filtered_reads": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2"
+                    "description": "Use SRAHumanScrubber for scrubbing human reads",
+                    "fa_icon": "fas fa-file-alt"
                 }
             }
         },
@@ -136,6 +156,22 @@
                     "type": "string",
                     "description": "Additional wget options",
                     "default": ""
+                }
+            }
+        },
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 }
             }
         },
@@ -489,13 +525,16 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/srahumanscrubber_parameters"
-        },
-        {
             "$ref": "#/$defs/kraken2_parameters"
         },
         {
+            "$ref": "#/$defs/srahumanscrubber_parameters"
+        },
+        {
             "$ref": "#/$defs/wget_parameters"
+        },
+        {
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

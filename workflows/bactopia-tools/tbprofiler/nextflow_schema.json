@@ -49,15 +49,17 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "call_whole_genome": {
+                "tb_call_whole_genome": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Call variants across the whole genome"
+                    "description": "Call whole genome",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mapper": {
+                "tb_mapper": {
                     "type": "string",
                     "default": "bwa",
-                    "description": "Mapping tool to use",
+                    "description": "Mapping tool to use. If you are using nanopore data it will default to minimap2",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
                         "bwa",
                         "minimap2",
@@ -65,41 +67,50 @@
                         "bwa-mem2"
                     ]
                 },
-                "caller": {
+                "tb_caller": {
                     "type": "string",
                     "default": "freebayes",
                     "description": "Variant calling tool to use",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "enum": [
-                        "freebayes",
                         "bcftools",
                         "gatk",
-                        "lofreq"
+                        "freebayes"
                     ]
                 },
-                "calling_params": {
+                "tb_calling_params": {
                     "type": "string",
-                    "default": "",
-                    "description": "Additional parameters for variant caller"
+                    "description": "Extra variant caller options in quotes",
+                    "help": "Useful if you would like to fine tune your variant calling analysis.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "suspect": {
+                "tb_suspect": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use the suspect suite of tools"
+                    "description": "Use the suspect suite of tools to add ML predictions",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "no_flagstat": {
+                "tb_no_flagstat": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Don't run flagstat"
+                    "description": "Don't collect flagstats",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "no_delly": {
+                "tb_no_delly": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Don't run delly"
+                    "description": "Don't run delly",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 },
-                "tbprofiler_opts": {
+                "tb_opts": {
                     "type": "string",
-                    "default": "",
-                    "description": "Additional TB-Profiler options"
+                    "description": "Extra options in quotes for TBProfiler",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": false
                 }
             }
         },
@@ -110,25 +121,29 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "itol": {
+                "tb_itol": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Generate iTOL files"
+                    "description": "Generate itol config files",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "full": {
+                "tb_full": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Generate full output"
+                    "description": "Output mutations in main result file",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "all_variants": {
+                "tb_all_variants": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Include all variants in output"
+                    "description": "Output all variants in variant matrix",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "mark_missing": {
+                "tb_mark_missing": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Mark missing data"
+                    "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },

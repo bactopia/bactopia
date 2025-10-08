@@ -16,14 +16,16 @@
                     "type": "boolean",
                     "description": "Illumina reads will be QC'd using BBMap",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward"
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
                 "use_porechop": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use Porechop to remove adapters from ONT reads",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward"
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
                 "skip_qc": {
                     "type": "boolean",

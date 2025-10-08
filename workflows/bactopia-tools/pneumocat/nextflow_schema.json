@@ -42,14 +42,6 @@
                 }
             }
         },
-        "pneumocat_parameters": {
-            "title": "PneumoCaT Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
-        },
         "optional_parameters": {
             "title": "Optional Parameters",
             "type": "object",
@@ -398,9 +390,6 @@
         },
         {
             "$ref": "#/$defs/filter_parameters"
-        },
-        {
-            "$ref": "#/$defs/pneumocat_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

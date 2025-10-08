@@ -120,40 +120,88 @@
                 }
             }
         },
-        "sketcher_parameters": {
-            "title": "Sketcher Parameters",
+        "amrfinderplus_parameters": {
+            "title": "AMRFinder+ Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "sketch_size": {
-                    "type": "integer",
-                    "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
-                    "default": 10000,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
-                "sourmash_scale": {
-                    "type": "integer",
-                    "description": "Choose number of hashes as 1 in FRACTION of input k-mers",
-                    "default": 10000,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
-                "no_winner_take_all": {
-                    "type": "boolean",
-                    "description": "Disable winner-takes-all strategy for identity estimates",
-                    "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "screen_i": {
+                "amrfinder_ident_min": {
                     "type": "number",
-                    "description": "Minimum identity to report.",
-                    "help": "Inclusive unless set to zero, in which case only identities greater than zero (i.e. with at least one shared hash) will be reported. Set to -1 to output everything.",
-                    "default": 0.8,
-                    "fa_icon": "fas fa-hashtag",
+                    "default": -1,
+                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_coverage_min": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Minimum coverage of the reference protein (0..1)",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_organism": {
+                    "type": "string",
+                    "description": "Taxonomy group to run additional screens against",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_translation_table": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "NCBI genetic code for translated BLAST",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_noplus": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disable running AMRFinder+ with the --plus option",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_report_common": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report proteins common to a taxonomy group",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_report_all_equal": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report all equally-scoring BLAST and HMM matches",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_opts": {
+                    "type": "string",
+                    "description": "Extra AMRFinder+ options in quotes.",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "amrfinder_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
                     "hidden": true
                 }
             }
@@ -169,7 +217,8 @@
                     "type": "string",
                     "description": "Tarball or path to the Bakta database",
                     "fa_icon": "fas fa-file-alt",
-                    "is_required": true
+                    "is_required": true,
+                    "hidden": true
                 },
                 "bakta_db_type": {
                     "type": "string",
@@ -179,19 +228,215 @@
                     "enum": [
                         "full",
                         "light"
-                    ]
+                    ],
+                    "hidden": true
                 },
                 "bakta_save_as_tarball": {
                     "type": "boolean",
                     "description": "Save the Bakta database as a tarball",
                     "default": false,
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
                 },
                 "download_bakta": {
                     "type": "boolean",
                     "description": "Download the Bakta database to the path given by --bakta_db",
                     "default": false,
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        },
+        "bakta_parameters": {
+            "title": "Bakta Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "bakta_proteins": {
+                    "type": "string",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "bakta_prodigal_tf": {
+                    "type": "string",
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "bakta_replicons": {
+                    "type": "string",
+                    "description": "Replicon information table (tsv/csv)",
+                    "fa_icon": "fas fa-file-alt",
+                    "hidden": true
+                },
+                "bakta_min_contig_length": {
+                    "type": "integer",
+                    "description": "Minimum contig size to annotate",
+                    "default": 1,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "bakta_keep_contig_headers": {
+                    "type": "boolean",
+                    "description": "Keep original contig headers",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_trna": {
+                    "type": "boolean",
+                    "description": "Skip tRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_tmrna": {
+                    "type": "boolean",
+                    "description": "Skip tmRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_rrna": {
+                    "type": "boolean",
+                    "description": "Skip rRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ncrna": {
+                    "type": "boolean",
+                    "description": "Skip ncRNA detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ncrna_region": {
+                    "type": "boolean",
+                    "description": "Skip ncRNA region detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_crispr": {
+                    "type": "boolean",
+                    "description": "Skip CRISPR array detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_cds": {
+                    "type": "boolean",
+                    "description": "Skip CDS detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_sorf": {
+                    "type": "boolean",
+                    "description": "Skip sORF detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_gap": {
+                    "type": "boolean",
+                    "description": "Skip gap detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_skip_ori": {
+                    "type": "boolean",
+                    "description": "Skip oriC/oriT detection & annotation",
+                    "default": false,
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "bakta_opts": {
+                    "type": "string",
+                    "description": "Extra Backa options in quotes. Example: '--gram +'",
+                    "help": "Useful if you would like to fine tune your Bakta analysis.",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        },
+        "mlst_parameters": {
+            "title": "MLST Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "mlst_scheme": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Don't autodetect, force this scheme on all inputs",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mlst_minid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mlst_mincov": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Minimum DNA percent coverage to report partial allele at all",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mlst_minscore": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum score out of 100 to match a scheme",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mlst_nopath": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Strip filename paths from FILE column",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "mlst_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A custom MLST database to use, either a tarball or a directory",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "agrvate_parameters": {
+            "title": "AgrVATE Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "agrvate_typing_only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "fa_icon": "fa-solid fa-toggle-on",
+                    "hidden": true
                 }
             }
         },
@@ -202,221 +447,194 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "repeats": {
+                "spatyper_repeats": {
                     "type": "string",
                     "description": "List of spa repeats",
                     "fa_icon": "fas fa-file-archive",
                     "hidden": true
                 },
-                "repeat_order": {
+                "spatyper_repeat_order": {
                     "type": "string",
                     "description": "List spa types and order of repeats",
                     "fa_icon": "fas fa-file-archive",
                     "hidden": true
                 },
-                "do_enrich": {
+                "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do PCR product enrichment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
                 }
             }
         },
-        "assembler_parameters": {
-            "title": "Assembler Parameters",
+        "sccmec_parameters": {
+            "title": "sccmec Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "shovill_assembler": {
-                    "type": "string",
-                    "default": "skesa",
-                    "description": "Assembler to be used by Shovill",
-                    "fa_icon": "fas fa-boxes",
-                    "hidden": true,
-                    "enum": [
-                        "skesa",
-                        "megahit",
-                        "spades",
-                        "velvet"
-                    ]
-                },
-                "dragonflye_assembler": {
-                    "type": "string",
-                    "default": "flye",
-                    "description": "Assembler to be used by Dragonflye",
-                    "fa_icon": "fas fa-boxes",
-                    "hidden": true,
-                    "enum": [
-                        "flye",
-                        "miniasm",
-                        "raven"
-                    ]
-                },
-                "use_unicycler": {
-                    "type": "boolean",
-                    "description": "Use unicycler for paired end assembly",
-                    "fa_icon": "fas fa-cut",
-                    "hidden": true
-                },
-                "min_contig_len": {
+                "sccmec_min_targets_pident": {
                     "type": "integer",
-                    "description": "Minimum contig length <0=AUTO>",
-                    "default": 500,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "default": 90,
+                    "description": "Minimum percent identity to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "min_contig_cov": {
+                "sccmec_min_targets_coverage": {
                     "type": "integer",
-                    "description": "Minimum contig coverage <0=AUTO>",
-                    "default": 2,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "default": 80,
+                    "description": "Minimum percent coverage to count a target hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "contig_namefmt": {
-                    "type": "string",
-                    "description": "Format of contig FASTA IDs in 'printf' style",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "shovill_opts": {
-                    "type": "string",
-                    "description": "Extra assembler options in quotes for Shovill",
-                    "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "shovill_kmers": {
-                    "type": "string",
-                    "description": "K-mers to use <blank=AUTO>",
-                    "help": "This would allow you to specify the kmer lengths to be used",
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
-                "dragonflye_opts": {
-                    "type": "string",
-                    "description": "Extra assembler options in quotes for Dragonflye",
-                    "help": "Example for Medaka would be: '--nanohq'",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "trim": {
-                    "type": "boolean",
-                    "description": "Enable adaptor trimming",
-                    "fa_icon": "fas fa-cut",
-                    "hidden": true
-                },
-                "no_stitch": {
-                    "type": "boolean",
-                    "description": "Disable read stitching for paired-end reads",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "no_corr": {
-                    "type": "boolean",
-                    "description": "Disable post-assembly correction",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "unicycler_mode": {
-                    "type": "string",
-                    "default": "normal",
-                    "description": "Bridging mode used by Unicycler",
-                    "help": "Choices are:\n\n\tconservative = smaller contigs, lowest misassembly rate\n\tnormal = moderate contig size and misassembly rate (Default)\n\tbold = longest contigs, higher misassembly rate",
-                    "fa_icon": "fas fa-boxes",
-                    "hidden": true,
-                    "enum": [
-                        "conservative",
-                        "normal",
-                        "bold"
-                    ]
-                },
-                "min_polish_size": {
+                "sccmec_min_regions_pident": {
                     "type": "integer",
-                    "description": "Contigs shorter than this value (bp) will not be polished using Pilon",
-                    "default": 10000,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "default": 85,
+                    "description": "Minimum percent identity to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "min_component_size": {
+                "sccmec_min_regions_coverage": {
                     "type": "integer",
-                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
-                    "default": 1000,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "default": 93,
+                    "description": "Minimum percent coverage to count a region hit",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "prokka_parameters": {
+            "title": "Prokka Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "prokka_proteins": {
+                    "type": "string",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-file-alt",
                     "hidden": true
                 },
-                "min_dead_end_size": {
-                    "type": "integer",
-                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
-                    "default": 1000,
-                    "fa_icon": "fas fa-angle-double-down",
+                "prokka_prodigal_tf": {
+                    "type": "string",
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-file-alt",
                     "hidden": true
                 },
-                "nanohq": {
+                "prokka_compliant": {
                     "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
-                    "description": "For Flye, use '--nano-hq' instead of --nano-raw",
-                    "fa_icon": "fas fa-redo"
+                    "fa_icon": "fas fa-check",
+                    "hidden": true
                 },
-                "medaka_model": {
+                "prokka_centre": {
                     "type": "string",
-                    "description": "The model to use for Medaka polishing",
-                    "help": "This should be the same model used for base calling",
-                    "fa_icon": "fas fa-font",
+                    "default": "Bactopia",
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-school",
                     "hidden": true
                 },
-                "medaka_rounds": {
+                "prokka_coverage": {
                     "type": "integer",
-                    "description": "The number of Medaka polishing rounds to conduct",
-                    "default": 0,
+                    "description": "Minimum coverage on query protein",
+                    "default": 80,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "racon_rounds": {
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "prokka_opts": {
+                    "type": "string",
+                    "description": "Extra Prokka options in quotes.",
+                    "default": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
+        },
+        "gather_parameters": {
+            "title": "Gather Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "skip_fastq_check": {
+                    "type": "boolean",
+                    "description": "Skip minimum requirement checks for input FASTQs",
+                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "min_basepairs": {
                     "type": "integer",
-                    "description": "The number of Racon polishing rounds to conduct",
-                    "default": 1,
-                    "fa_icon": "fas fa-hashtag",
-                    "hidden": true
-                },
-                "no_polish": {
-                    "type": "boolean",
-                    "description": "Skip the assembly polishing step",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "no_miniasm": {
-                    "type": "boolean",
-                    "description": "Skip miniasm+Racon bridging",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "no_rotate": {
-                    "type": "boolean",
-                    "description": "Do not rotate completed replicons to start at a standard gene",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "reassemble": {
-                    "type": "boolean",
-                    "default": false,
-                    "hidden": true,
-                    "description": "If reads were simulated, they will be used to create a new assembly.",
-                    "fa_icon": "fas fa-redo"
-                },
-                "polypolish_rounds": {
-                    "type": "integer",
-                    "description": "Number of polishing rounds to conduct with Polypolish for short read polishing",
-                    "default": 1,
+                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
+                    "default": 2241820,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "pilon_rounds": {
+                "min_reads": {
                     "type": "integer",
-                    "description": "Number of polishing rounds to conduct with Pilon for short read polishing",
-                    "default": 0,
+                    "description": "The minimum amount of reads required to continue downstream analyses.",
+                    "default": 7472,
                     "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_coverage": {
+                    "type": "integer",
+                    "description": "The minimum amount of coverage required to continue downstream analyses.",
+                    "default": 10,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "min_proportion": {
+                    "type": "number",
+                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
+                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-balance-scale-left",
+                    "hidden": true
+                },
+                "min_genome_size": {
+                    "type": "integer",
+                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 100000,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
+                },
+                "max_genome_size": {
+                    "type": "integer",
+                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 18040666,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true
+                },
+                "attempts": {
+                    "type": "integer",
+                    "description": "Maximum times to attempt downloads",
+                    "default": 3,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true
+                },
+                "use_ena": {
+                    "type": "boolean",
+                    "description": "Download FASTQs from ENA",
+                    "fa_icon": "fas fa-globe-europe",
+                    "hidden": true
+                },
+                "no_cache": {
+                    "type": "boolean",
+                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
+                    "fa_icon": "fas fa-save",
                     "hidden": true
                 }
             }
@@ -432,14 +650,16 @@
                     "type": "boolean",
                     "description": "Illumina reads will be QC'd using BBMap",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward"
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
                 "use_porechop": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use Porechop to remove adapters from ONT reads",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward"
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
                 },
                 "skip_qc": {
                     "type": "boolean",
@@ -682,432 +902,241 @@
                 }
             }
         },
-        "agrvate_parameters": {
-            "title": "AgrVATE Parameters",
+        "assembler_parameters": {
+            "title": "Assembler Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "typing_only": {
+                "shovill_assembler": {
+                    "type": "string",
+                    "default": "skesa",
+                    "description": "Assembler to be used by Shovill",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "skesa",
+                        "megahit",
+                        "spades",
+                        "velvet"
+                    ]
+                },
+                "dragonflye_assembler": {
+                    "type": "string",
+                    "default": "flye",
+                    "description": "Assembler to be used by Dragonflye",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "flye",
+                        "miniasm",
+                        "raven"
+                    ]
+                },
+                "use_unicycler": {
                     "type": "boolean",
-                    "default": false,
-                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fa-solid fa-toggle-on"
-                }
-            }
-        },
-        "sccmec_parameters": {
-            "title": "sccmec Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "sccmec_min_targets_pident": {
-                    "type": "integer",
-                    "default": 90,
-                    "description": "Minimum percent identity to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Use unicycler for paired end assembly",
+                    "fa_icon": "fas fa-cut",
+                    "hidden": true
                 },
-                "sccmec_min_targets_coverage": {
+                "min_contig_len": {
                     "type": "integer",
-                    "default": 80,
-                    "description": "Minimum percent coverage to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Minimum contig length <0=AUTO>",
+                    "default": 500,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
-                "sccmec_min_regions_pident": {
+                "min_contig_cov": {
                     "type": "integer",
-                    "default": 85,
-                    "description": "Minimum percent identity to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Minimum contig coverage <0=AUTO>",
+                    "default": 2,
+                    "fa_icon": "fas fa-angle-double-down",
+                    "hidden": true
                 },
-                "sccmec_min_regions_coverage": {
-                    "type": "integer",
-                    "default": 93,
-                    "description": "Minimum percent coverage to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                }
-            }
-        },
-        "gather_parameters": {
-            "title": "Gather Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "skip_fastq_check": {
+                "contig_namefmt": {
+                    "type": "string",
+                    "description": "Format of contig FASTA IDs in 'printf' style",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Shovill",
+                    "help": "Example for SPAdes would be: '--untrusted-contigs locus.fna'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "shovill_kmers": {
+                    "type": "string",
+                    "description": "K-mers to use <blank=AUTO>",
+                    "help": "This would allow you to specify the kmer lengths to be used",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "dragonflye_opts": {
+                    "type": "string",
+                    "description": "Extra assembler options in quotes for Dragonflye",
+                    "help": "Example for Medaka would be: '--nanohq'",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                },
+                "trim": {
                     "type": "boolean",
-                    "description": "Skip minimum requirement checks for input FASTQs",
-                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
+                    "description": "Enable adaptor trimming",
+                    "fa_icon": "fas fa-cut",
+                    "hidden": true
+                },
+                "no_stitch": {
+                    "type": "boolean",
+                    "description": "Disable read stitching for paired-end reads",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "min_basepairs": {
+                "no_corr": {
+                    "type": "boolean",
+                    "description": "Disable post-assembly correction",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "unicycler_mode": {
+                    "type": "string",
+                    "default": "normal",
+                    "description": "Bridging mode used by Unicycler",
+                    "help": "Choices are:\n\n\tconservative = smaller contigs, lowest misassembly rate\n\tnormal = moderate contig size and misassembly rate (Default)\n\tbold = longest contigs, higher misassembly rate",
+                    "fa_icon": "fas fa-boxes",
+                    "hidden": true,
+                    "enum": [
+                        "conservative",
+                        "normal",
+                        "bold"
+                    ]
+                },
+                "min_polish_size": {
                     "type": "integer",
-                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
-                    "default": 2241820,
+                    "description": "Contigs shorter than this value (bp) will not be polished using Pilon",
+                    "default": 10000,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "min_reads": {
+                "min_component_size": {
                     "type": "integer",
-                    "description": "The minimum amount of reads required to continue downstream analyses.",
-                    "default": 7472,
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "min_coverage": {
+                "min_dead_end_size": {
                     "type": "integer",
-                    "description": "The minimum amount of coverage required to continue downstream analyses.",
-                    "default": 10,
+                    "description": "Graph dead ends smaller than this size (bp) will be removed from the final graph",
+                    "default": 1000,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "min_proportion": {
-                    "type": "number",
-                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
-                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
-                    "default": 0.5,
-                    "fa_icon": "fas fa-balance-scale-left",
-                    "hidden": true
-                },
-                "min_genome_size": {
-                    "type": "integer",
-                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
-                    "default": 100000,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "max_genome_size": {
-                    "type": "integer",
-                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
-                    "default": 18040666,
-                    "fa_icon": "fas fa-angle-double-up",
-                    "hidden": true
-                },
-                "attempts": {
-                    "type": "integer",
-                    "description": "Maximum times to attempt downloads",
-                    "default": 3,
+                "nanohq": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "For Flye, use '--nano-hq' instead of --nano-raw",
                     "fa_icon": "fas fa-redo",
                     "hidden": true
                 },
-                "use_ena": {
-                    "type": "boolean",
-                    "description": "Download FASTQs from ENA",
-                    "fa_icon": "fas fa-globe-europe",
-                    "hidden": true
-                },
-                "no_cache": {
-                    "type": "boolean",
-                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
-                    "fa_icon": "fas fa-save",
-                    "hidden": true
-                }
-            }
-        },
-        "csvtk_concat_parameters": {
-            "title": "csvtk concat Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "csvtk_concat_opts": {
+                "medaka_model": {
                     "type": "string",
-                    "description": "Extra csvtk concat options in quotes",
-                    "help": "",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                }
-            }
-        },
-        "prokka_parameters": {
-            "title": "Prokka Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "proteins": {
-                    "type": "string",
-                    "description": "FASTA file of trusted proteins to first annotate from",
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "prodigal_tf": {
-                    "type": "string",
-                    "description": "Training file to use for Prodigal",
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "compliant": {
-                    "type": "boolean",
-                    "description": "Force Genbank/ENA/DDJB compliance",
-                    "default": false,
-                    "fa_icon": "fas fa-check",
+                    "description": "The model to use for Medaka polishing",
+                    "help": "This should be the same model used for base calling",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
-                "centre": {
-                    "type": "string",
-                    "default": "Bactopia",
-                    "description": "Sequencing centre ID",
-                    "fa_icon": "fas fa-school",
-                    "hidden": true
-                },
-                "prokka_coverage": {
+                "medaka_rounds": {
                     "type": "integer",
-                    "description": "Minimum coverage on query protein",
-                    "default": 80,
-                    "fa_icon": "fas fa-hashtag"
-                },
-                "prokka_evalue": {
-                    "type": "string",
-                    "description": "Similarity e-value cut-off",
-                    "default": "1e-09",
-                    "fa_icon": "fas fa-italic",
+                    "description": "The number of Medaka polishing rounds to conduct",
+                    "default": 0,
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "prokka_opts": {
-                    "type": "string",
-                    "description": "Extra Prokka options in quotes.",
-                    "default": "",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                }
-            }
-        },
-        "bakta_parameters": {
-            "title": "Bakta Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "proteins": {
-                    "type": "string",
-                    "description": "FASTA file of trusted proteins to first annotate from",
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "prodigal_tf": {
-                    "type": "string",
-                    "description": "Training file to use for Prodigal",
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "replicons": {
-                    "type": "string",
-                    "description": "Replicon information table (tsv/csv)",
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "min_contig_length": {
+                "racon_rounds": {
                     "type": "integer",
-                    "description": "Minimum contig size to annotate",
+                    "description": "The number of Racon polishing rounds to conduct",
                     "default": 1,
                     "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "keep_contig_headers": {
+                "no_polish": {
                     "type": "boolean",
-                    "description": "Keep original contig headers",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "description": "Skip the assembly polishing step",
+                    "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "compliant": {
+                "no_miniasm": {
                     "type": "boolean",
-                    "description": "Force Genbank/ENA/DDJB compliance",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "description": "Skip miniasm+Racon bridging",
+                    "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "skip_trna": {
+                "no_rotate": {
                     "type": "boolean",
-                    "description": "Skip tRNA detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "description": "Do not rotate completed replicons to start at a standard gene",
+                    "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "skip_tmrna": {
+                "reassemble": {
                     "type": "boolean",
-                    "description": "Skip tmRNA detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "hidden": true,
+                    "description": "If reads were simulated, they will be used to create a new assembly.",
+                    "fa_icon": "fas fa-redo"
+                },
+                "polypolish_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Polypolish for short read polishing",
+                    "default": 1,
+                    "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "skip_rrna": {
-                    "type": "boolean",
-                    "description": "Skip rRNA detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_ncrna": {
-                    "type": "boolean",
-                    "description": "Skip ncRNA detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_ncrna_region": {
-                    "type": "boolean",
-                    "description": "Skip ncRNA region detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_crispr": {
-                    "type": "boolean",
-                    "description": "Skip CRISPR array detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_cds": {
-                    "type": "boolean",
-                    "description": "Skip CDS detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_sorf": {
-                    "type": "boolean",
-                    "description": "Skip sORF detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_gap": {
-                    "type": "boolean",
-                    "description": "Skip gap detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "skip_ori": {
-                    "type": "boolean",
-                    "description": "Skip oriC/oriT detection & annotation",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                },
-                "bakta_opts": {
-                    "type": "string",
-                    "description": "Extra Backa options in quotes. Example: '--gram +'",
-                    "help": "Useful if you would like to fine tune your Bakta analysis.",
-                    "default": "",
-                    "fa_icon": "fas fa-italic",
+                "pilon_rounds": {
+                    "type": "integer",
+                    "description": "Number of polishing rounds to conduct with Pilon for short read polishing",
+                    "default": 0,
+                    "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 }
             }
         },
-        "amrfinderplus_parameters": {
-            "title": "AMRFinder+ Parameters",
+        "sketcher_parameters": {
+            "title": "Sketcher Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "ident_min": {
+                "sketch_size": {
+                    "type": "integer",
+                    "description": "Sketch size. Each sketch will have at most this many non-redundant min-hashes.",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "sourmash_scale": {
+                    "type": "integer",
+                    "description": "Choose number of hashes as 1 in FRACTION of input k-mers",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "no_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Disable winner-takes-all strategy for identity estimates",
+                    "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
+                    "fa_icon": "fas fa-fast-forward",
+                    "hidden": true
+                },
+                "screen_i": {
                     "type": "number",
-                    "default": -1,
-                    "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "description": "Minimum identity to report.",
+                    "help": "Inclusive unless set to zero, in which case only identities greater than zero (i.e. with at least one shared hash) will be reported. Set to -1 to output everything.",
+                    "default": 0.8,
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
-                },
-                "coverage_min": {
-                    "type": "number",
-                    "default": 0.5,
-                    "description": "Minimum coverage of the reference protein (0..1)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "organism": {
-                    "type": "string",
-                    "description": "Taxonomy group to run additional screens against",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "translation_table": {
-                    "type": "integer",
-                    "default": 11,
-                    "description": "NCBI genetic code for translated BLAST",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "amrfinder_noplus": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Disable running AMRFinder+ with the --plus option",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "report_common": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report proteins common to a taxonomy group",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "report_all_equal": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Report all equally-scoring BLAST and HMM matches",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "amrfinder_opts": {
-                    "type": "string",
-                    "description": "Extra AMRFinder+ options in quotes.",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "amrfinder_db": {
-                    "type": "string",
-                    "default": "",
-                    "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                }
-            }
-        },
-        "mlst_parameters": {
-            "title": "MLST Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "scheme": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Don't autodetect, force this scheme on all inputs",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "minid": {
-                    "type": "integer",
-                    "default": 95,
-                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "mincov": {
-                    "type": "integer",
-                    "default": 10,
-                    "description": "Minimum DNA percent coverage to report partial allele at all",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "minscore": {
-                    "type": "integer",
-                    "default": 50,
-                    "description": "Minimum score out of 100 to match a scheme",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "nopath": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Strip filename paths from FILE column",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "mlst_db": {
-                    "type": "string",
-                    "default": "",
-                    "description": "A custom MLST database to use, either a tarball or a directory",
-                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -1461,43 +1490,43 @@
             "$ref": "#/$defs/dataset_parameters"
         },
         {
-            "$ref": "#/$defs/sketcher_parameters"
-        },
-        {
-            "$ref": "#/$defs/bakta_download_parameters"
-        },
-        {
-            "$ref": "#/$defs/spatyper_parameters"
-        },
-        {
-            "$ref": "#/$defs/assembler_parameters"
-        },
-        {
-            "$ref": "#/$defs/qc_parameters"
-        },
-        {
-            "$ref": "#/$defs/agrvate_parameters"
-        },
-        {
-            "$ref": "#/$defs/sccmec_parameters"
-        },
-        {
-            "$ref": "#/$defs/gather_parameters"
+            "$ref": "#/$defs/amrfinderplus_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
-            "$ref": "#/$defs/prokka_parameters"
+            "$ref": "#/$defs/bakta_download_parameters"
         },
         {
             "$ref": "#/$defs/bakta_parameters"
         },
         {
-            "$ref": "#/$defs/amrfinderplus_parameters"
+            "$ref": "#/$defs/mlst_parameters"
         },
         {
-            "$ref": "#/$defs/mlst_parameters"
+            "$ref": "#/$defs/agrvate_parameters"
+        },
+        {
+            "$ref": "#/$defs/spatyper_parameters"
+        },
+        {
+            "$ref": "#/$defs/sccmec_parameters"
+        },
+        {
+            "$ref": "#/$defs/prokka_parameters"
+        },
+        {
+            "$ref": "#/$defs/gather_parameters"
+        },
+        {
+            "$ref": "#/$defs/qc_parameters"
+        },
+        {
+            "$ref": "#/$defs/assembler_parameters"
+        },
+        {
+            "$ref": "#/$defs/sketcher_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

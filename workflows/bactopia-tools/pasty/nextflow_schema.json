@@ -52,12 +52,14 @@
                 "pasty_min_pident": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percent identity to count a hit"
+                    "description": "Minimum percent identity to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "pasty_min_coverage": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum percent coverage to count a hit"
+                    "description": "Minimum percent coverage to count a hit",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -67,7 +69,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

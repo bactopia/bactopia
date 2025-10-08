@@ -49,18 +49,23 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "repeats": {
+                "spatyper_repeats": {
                     "type": "string",
-                    "description": "List of spa repeats"
+                    "description": "List of spa repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
-                "repeat_order": {
+                "spatyper_repeat_order": {
                     "type": "string",
-                    "description": "List spa types and order of repeats"
+                    "description": "List spa types and order of repeats",
+                    "fa_icon": "fas fa-file-archive",
+                    "hidden": true
                 },
-                "do_enrich": {
+                "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Do PCR product enrichment"
+                    "description": "Do PCR product enrichment",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
         },
@@ -70,7 +75,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",
