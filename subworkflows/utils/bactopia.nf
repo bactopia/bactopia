@@ -43,7 +43,6 @@ workflow BACTOPIA_INIT {
     } else {
         log.info collectedInputs.logs
     }
-    log.info "${collectedInputs}"
 
     collectedInputs.samples.each { sample ->
         def meta = sample[0]
