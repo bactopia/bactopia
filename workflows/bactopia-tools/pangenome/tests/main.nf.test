@@ -152,7 +152,7 @@ nextflow_pipeline {
         }
     }
 
-    test("pangenome (roary, --traits) - multiple|portiera|compressed_gff") {
+    test("pangenome (roary, --scoary_traits) - multiple|portiera|compressed_gff") {
         when {
             params {
                 bactopia_test = "/species/mixed/gffs"

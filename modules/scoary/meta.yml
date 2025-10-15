@@ -23,7 +23,7 @@ input:
       type: file
       description: Gene presence/absence file from Roary
       pattern: "*.csv"
-  - traits:
+  - scoary_traits:
       type: file
       description: Trait presence/absence file
       pattern: "*.csv"
