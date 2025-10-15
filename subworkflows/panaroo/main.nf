@@ -14,12 +14,14 @@ workflow PANAROO {
     // Individual outputs
     csv = PANAROO_RUN.out.csv
     aln = PANAROO_RUN.out.aln
+    filtered_aln = PANAROO_RUN.out.filtered_aln
     panaroo_csv = PANAROO_RUN.out.panaroo_csv
 
     // Generic aggregate outputs
     results = PANAROO_RUN.out.supplemental.mix(
         PANAROO_RUN.out.csv,
         PANAROO_RUN.out.aln,
+        PANAROO_RUN.out.filtered_aln,
         PANAROO_RUN.out.panaroo_csv
     )
     logs = PANAROO_RUN.out.logs

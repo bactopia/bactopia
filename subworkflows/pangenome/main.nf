@@ -39,7 +39,7 @@ workflow PANGENOME {
         ch_versions = ROARY.out.versions
     } else {
         PANAROO(gff)
-        ch_aln = PANAROO.out.aln
+        ch_aln = PANAROO.out.filtered_aln
         ch_csv = PANAROO.out.csv
         ch_results = PANAROO.out.results
         ch_logs = PANAROO.out.logs

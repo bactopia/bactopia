@@ -144,9 +144,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
+            "nextflow": "25.09.1"
         },
-        "timestamp": "2025-09-30T13:01:46.776614922"
+        "timestamp": "2025-10-15T11:22:46.923485164"
     },
     "pangenome (pirate) - multiple|portiera|compressed_gff": {
         "content": [
@@ -863,9 +863,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
+            "nextflow": "25.09.1"
         },
-        "timestamp": "2025-09-26T22:29:57.148997489"
+        "timestamp": "2025-10-15T11:19:11.779917713"
     },
     "pangenome (roary) - multiple|portiera|compressed_gff": {
         "content": [
@@ -996,9 +996,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
+            "nextflow": "25.09.1"
         },
-        "timestamp": "2025-09-26T22:31:40.47875406"
+        "timestamp": "2025-10-15T11:20:56.184040898"
     },
     "pangenome (panaroo) - multiple|portiera|compressed_gff": {
         "content": [
@@ -1024,6 +1024,7 @@
                 "bactopia-runs/pangenome/clonalframeml/logs/versions.yml",
                 "bactopia-runs/pangenome/core-genome.aln.gz",
                 "bactopia-runs/pangenome/core-genome.distance.tsv",
+                "bactopia-runs/pangenome/core-genome.filtered.aln.gz",
                 "bactopia-runs/pangenome/core-genome.masked.aln.gz",
                 "bactopia-runs/pangenome/core-genome.masked.distance.tsv",
                 "bactopia-runs/pangenome/core-genome.treefile",
@@ -1328,8 +1329,6 @@
                 "bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt.clstr",
                 "bactopia-runs/pangenome/panaroo/core_alignment_filtered_header.embl",
                 "bactopia-runs/pangenome/panaroo/core_alignment_header.embl",
-                "bactopia-runs/pangenome/panaroo/core_gene_alignment.aln.gz",
-                "bactopia-runs/pangenome/panaroo/core_gene_alignment_filtered.aln.gz",
                 "bactopia-runs/pangenome/panaroo/final_graph.gml.gz",
                 "bactopia-runs/pangenome/panaroo/gene_data.csv.gz",
                 "bactopia-runs/pangenome/panaroo/gene_presence_absence.Rtab",
@@ -1381,9 +1380,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
+            "nextflow": "25.09.1"
         },
-        "timestamp": "2025-09-26T22:26:45.744379487"
+        "timestamp": "2025-10-15T11:15:56.394767815"
     },
     "pangenome (panaroo --skip_recombination) - multiple|portiera|compressed_gff": {
         "content": [
@@ -1393,6 +1392,7 @@
                 "bactopia-runs/pangenome",
                 "bactopia-runs/pangenome/core-genome.aln.gz",
                 "bactopia-runs/pangenome/core-genome.distance.tsv",
+                "bactopia-runs/pangenome/core-genome.filtered.aln.gz",
                 "bactopia-runs/pangenome/core-genome.treefile",
                 "bactopia-runs/pangenome/iqtree",
                 "bactopia-runs/pangenome/iqtree/core-genome.alninfo.gz",
@@ -1678,8 +1678,6 @@
                 "bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt.clstr",
                 "bactopia-runs/pangenome/panaroo/core_alignment_filtered_header.embl",
                 "bactopia-runs/pangenome/panaroo/core_alignment_header.embl",
-                "bactopia-runs/pangenome/panaroo/core_gene_alignment.aln.gz",
-                "bactopia-runs/pangenome/panaroo/core_gene_alignment_filtered.aln.gz",
                 "bactopia-runs/pangenome/panaroo/final_graph.gml.gz",
                 "bactopia-runs/pangenome/panaroo/gene_data.csv.gz",
                 "bactopia-runs/pangenome/panaroo/gene_presence_absence.Rtab",
@@ -1718,8 +1716,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
+            "nextflow": "25.09.1"
         },
-        "timestamp": "2025-09-26T22:28:08.609123556"
+        "timestamp": "2025-10-15T11:17:24.912444247"
     }
 }

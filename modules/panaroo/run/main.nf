@@ -12,6 +12,7 @@ process PANAROO_RUN {
     output:
     tuple val(meta), path("panaroo/*")                              , emit: supplemental
     tuple val(meta), path("core-genome.aln.gz")                     , optional: true, emit: aln
+    tuple val(meta), path("core-genome.filtered.aln.gz")            , optional: true, emit: filtered_aln
     tuple val(meta), path("panaroo/gene_presence_absence_roary.csv"), optional: true, emit: csv
     tuple val(meta), path("panaroo/gene_presence_absence.csv")      , optional: true, emit: panaroo_csv
     tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
@@ -56,7 +57,11 @@ process PANAROO_RUN {
     find . -name "*.gml" | xargs -I {} -P $task.cpus -n 1 gzip {}
 
     if [[ -f "supplemental/core_gene_alignment.aln.gz" ]]; then
-        cp supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
+        mv supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
+    fi
+
+    if [[ -f "supplemental/core_gene_alignment_filtered.aln.gz" ]]; then
+        mv supplemental/core_gene_alignment_filtered.aln.gz ./core-genome.filtered.aln.gz
     fi
 
     if [[ -f "supplemental/gene_data.csv" ]]; then
