@@ -67,6 +67,7 @@ workflows:
     is_workflow: true
     modules:
       - bactopia_gather
+      - bactopia_teton
       - csvtk_concat
       - csvtk_join
     path: workflows/teton
