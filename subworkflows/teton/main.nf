@@ -42,7 +42,7 @@ workflow TETON {
     ch_versions = ch_versions.mix(BACTOPIA_SAMPLESHEET.out.versions)
 
     // Join Scrubber and Bracken results
-    SCRUBBER.out.special_tsv.join(BRACKEN.out.special_tsv, by:[0]).map{ _meta, csv1, csv2 -> [[id:'teton-report'], csv1, csv2] }.set{ ch_join_teton }
+    SCRUBBER.out.special_tsv.join(BRACKEN.out.special_tsv, by:[0]).map{ meta, csv1, csv2 -> [meta, csv1, csv2] }.set{ ch_join_teton }
     CSVTK_JOIN(ch_join_teton, 'tsv', 'tsv', 'sample')
     ch_logs = ch_logs.mix(CSVTK_JOIN.out.logs)
     ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
