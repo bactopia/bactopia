@@ -42,7 +42,7 @@ workflow {
     // Run Teton
     TETON(
         GATHER.out.fastq_only,
-        params.kraken2_db,
+        file(params.kraken2_db, checkIfExists: true),
         params.use_srascrubber
     )
     ch_results = ch_results.mix(TETON.out.results)
