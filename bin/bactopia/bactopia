@@ -84,7 +84,7 @@ else
     fi
 
     # If these are used, skip pre-build
-    CHECKS=("help" "help_all" "nfconfig" "list_wfs") 
+    CHECKS=("help" "help_all" "nfconfig" "list_wfs")
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             PREBUILD=0
@@ -116,7 +116,26 @@ else
     fi
 
     # Get path to workflow
-    WF_PATH=$(bactopia-workflows --bactopia-path "${BACTOPIA_NF}" "${@:1}")
+    WF_ARG="bactopia"
+    WF_NEXT=0
+    for arg in "$@"; do
+        if [[ "${arg}" == "--wf" ]]; then
+            # take the next argument as the workflow name
+            WF_NEXT=1
+        elif [[ "${WF_NEXT}" -eq 1 ]]; then
+            WF_ARG="${arg}"
+            break
+        elif [[ "${arg}" == --wf=* ]]; then
+            WF_ARG=$(echo "${arg}" | sed 's/--wf=//')
+            break
+        fi
+    done
+    WF_PATH=$(bactopia-workflows --bactopia-path "${BACTOPIA_NF}" --wf "${WF_ARG}")
+
+    # if WF_PATH is empty, exit with error
+    if [[ -z "${WF_PATH}" ]]; then
+        exit 1
+    fi
 
     # Execute Bactopia Nextflow pipeline
     OPTS="${WORK_ARG}"
