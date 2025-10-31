@@ -16,7 +16,7 @@ workflows:
   # Below are named Workflows (e.g. bactopia, staphopia, teton) available from Bactopia
   #============================================================================================
   bactopia:
-    description: "Bactopia is a flexible pipeline for complete analysis of bacterial genomes"
+    description: "The main end-to-end Bactopia pipeline for bacterial genomes"
     includes:
       - amrfinderplus
       - bakta
@@ -43,7 +43,7 @@ workflows:
       - csvtk_concat
     path: workflows/cleanyerreads
   staphopia:
-    description: "Staphopia is a pipeline for the analysis of Staphylococcus aureus genomes"
+    description: "A pipeline for the analysis of Staphylococcus aureus genomes"
     includes:
       - amrfinderplus
       - bakta
@@ -84,14 +84,14 @@ workflows:
       - abricate_run
     path: workflows/bactopia-tools/abricate
   abritamr:
-    description: "A NATA accredited tool for reporting the presence of antimicrobial resistance genes"
+    description: "A NATA accredited tool for reporting AMR genes"
     ext: "fna"
     modules:
       - abritamr_run
       - csvtk_concat
     path: workflows/bactopia-tools/abritamr
   agrvate:
-    description: "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants"
+    description: "Rapid ID of S. aureus agr locus type and agr operon variants"
     ext: "fna"
     modules:
       - agrvate
@@ -120,28 +120,28 @@ workflows:
       - bakta_run
     path: workflows/bactopia-tools/bakta
   blastn:
-    description: "Search against nucleotide BLAST databases using nucleotide queries"
+    description: "Search nucleotide databases using nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_blastn
       - csvtk_concat
     path: workflows/bactopia-tools/blastn
   blastp:
-    description: "Search against protein BLAST databases using protein queries"
+    description: "Search protein databases using protein queries"
     ext: "blastdb"
     modules:
       - blast_blastp
       - csvtk_concat
     path: workflows/bactopia-tools/blastp
   blastx:
-    description: "Search against protein BLAST databases using translated nucleotide queries"
+    description: "Search protein databases using translated nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_blastx
       - csvtk_concat
     path: workflows/bactopia-tools/blastx
   bracken:
-    description: "Taxonomic classification and species abundance estimation of sequence reads"
+    description: "Taxonomic classification and abundance estimation of reads"
     ext: "fastq"
     modules:
       - bracken
@@ -155,7 +155,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/btyper3
   busco:
-    description: "Assembly completeness based on evolutionarily informed expectations"
+    description: "Assembly completeness based on evolutionarily expectations"
     ext: "fna"
     modules:
       - busco
@@ -198,7 +198,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/ectyper
   eggnog:
-    description: "Functional annotation of proteins using orthologous groups and phylogenies"
+    description: "Functional annotation using orthologous groups and phylogenies"
     ext: "faa"
     modules:
       - eggnog_download
@@ -212,7 +212,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/emmtyper
   fastani:
-    description: "Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)"
+    description: "Alignment-free computation of whole-genome ANI"
     ext: "fna"
     modules:
       - ncbigenomedownload
@@ -220,7 +220,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/fastani
   gamma:
-    description: "Identification, classification, and annotation of translated gene matches"
+    description: "Identification, classification, and annotation of gene matches"
     ext: "fna"
     modules:
       - gamma
@@ -242,7 +242,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/gtdb
   hicap:
-    description: "Identify cap locus serotype and structure in your Haemophilus influenzae assemblies"
+    description: "cap locus serotype and structure of Haemophilus influenzae"
     ext: "fna"
     modules:
       - hicap
@@ -262,7 +262,7 @@ workflows:
       - ismapper
     path: workflows/bactopia-tools/ismapper
   kleborate:
-    description: "Screen for MLST, sub-species, and other Klebsiella related genes of interest"
+    description: "Screen Klebsiella for MLST, sub-species, and genes of interest"
     ext: "fna"
     modules:
       - kleborate
@@ -303,7 +303,7 @@ workflows:
       - mashtree
     path: workflows/bactopia-tools/mashtree
   mcroni:
-    description: "Sequence variation in mobilized colistin resistance (mcr-1) genes"
+    description: "Sequence variation in colistin resistance (mcr-1) genes"
     ext: "fna"
     modules:
       - mcroni
@@ -409,7 +409,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/pasty
   pbptyper:
-    description: "Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae"
+    description: "Penicillin Binding Protein (PBP) typer for S. pneumoniae"
     ext: "fna"
     modules:
       - pbptyper
@@ -430,7 +430,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/plasmidfinder
   pneumocat:
-    description: "Assign capsular type to Streptococcus pneumoniae from sequence reads"
+    description: "Assign capsular type to Streptococcus pneumoniae from reads"
     ext: "illumina_pe_fastq"
     modules:
       - pneumocat
@@ -481,7 +481,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/seroba
   shigapass:
-    description: "Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC"
+    description: "Shigella serotypes and determine EIEC and non-Shigella/EIEC"
     ext: "fna"
     modules:
       - shigapass
@@ -509,7 +509,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/sistr
   snippy:
-    description: "Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny"
+    description: "Variant calling from Illumina reads with core-SNP phylogeny"
     ext: "illumina_fastq"
     modules:
       - ncbigenomedownload
@@ -520,7 +520,7 @@ workflows:
       - snpdists
     path: workflows/bactopia-tools/snippy
   spatyper:
-    description: "Computational method for finding spa types in Staphylococcus aureus"
+    description: "Method for finding spa types in Staphylococcus aureus"
     ext: "fna"
     modules:
       - spatyper
@@ -541,7 +541,7 @@ workflows:
       - csvtk_concat
     path: workflows/bactopia-tools/staphopiasccmec
   staphtyper:
-    description: "Includes AgrVATE, SpaTyper and sccmec for Staphylococcus aureus"
+    description: "Includes AgrVATE, SpaTyper and sccmec for S. aureus"
     ext: "fna"
     includes:
       - agrvate
@@ -564,21 +564,21 @@ workflows:
       - sylph_profile
     path: workflows/bactopia-tools/sylph
   tblastn:
-    description: "Search against translated nucleotide BLAST databases using protein queries"
+    description: "Search translated nucleotide databases using protein queries"
     ext: "blastdb"
     modules:
       - blast_tblastn
       - csvtk_concat
     path: workflows/bactopia-tools/tblastn
   tblastx:
-    description: "Search against translated nucleotide BLAST databases using translated nucleotide queries"
+    description: "Search translated nucleotide with translated nucleotide queries"
     ext: "blastdb"
     modules:
       - blast_tblastx
       - csvtk_concat
     path: workflows/bactopia-tools/tblastx
   tbprofiler:
-    description: "Detect resistance and lineages of Mycobacterium tuberculosis genomes"
+    description: "Resistance and lineages of Mycobacterium tuberculosis genomes"
     ext: "fastq"
     modules:
       - tbprofiler_profile
