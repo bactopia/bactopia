@@ -33,8 +33,9 @@ process CLONALFRAMEML {
     meta = [:]
     meta.id = "${prefix}-${task.process_name}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/"
-    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs/"
+    meta.scope = task.ext.scope
+    meta.output_dir = ""
+    meta.logs_dir = "${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")

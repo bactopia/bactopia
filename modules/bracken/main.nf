@@ -38,6 +38,7 @@ process BRACKEN {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.runtype = _meta.runtype
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"

@@ -8,9 +8,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { bactopiaToolInputs } from 'plugin/nf-bactopia'
-include { paramsSummaryLog   } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'
-include { workflowSummary    } from 'plugin/nf-bactopia'
 
 
 /*
@@ -29,11 +27,9 @@ workflow BACTOPIATOOL_INIT {
 
     main:
     // Handle parameters
-    log.info paramsSummaryLog(workflow)
     def validation = validateParameters(null, true)
     if (validation.hasErrors) {
         log.info validation.error
-        log.info workflowSummary()
         error(" ")
     } else {
         log.info validation.logs
@@ -44,7 +40,6 @@ workflow BACTOPIATOOL_INIT {
     def collectedInputs = bactopiaToolInputs(bactopia_path, workflow_ext, include_path, exclude_path)
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
-        log.info workflowSummary()
         error(" ")
     } else {
         log.info collectedInputs.logs

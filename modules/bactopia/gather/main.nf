@@ -30,6 +30,7 @@ process GATHER {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     if ( task.ext.wf == "teton" ) {
         meta.output_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"

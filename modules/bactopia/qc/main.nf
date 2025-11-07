@@ -34,10 +34,11 @@ process QC {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.output_dir = "${prefix}/main/${task.ext.process_name}/"
     meta.logs_dir = "${prefix}/main/${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
-    meta.single_end = (fq.getClass() == nextflow.util.BlankSeparatedList) ? false : true
+    meta.single_end = "${fq[1]}" == "${prefix}.fastq.gz" ? true : false
     meta.genome_size = _meta.genome_size ?: 0
     meta.species = _meta.species ?: null
     meta.runtype = _meta.runtype
@@ -60,6 +61,9 @@ process QC {
     // set Xmx to 95% of what was allocated, to avoid going over
     xmx = Math.round(task.memory.toBytes()*0.95)
     """
+    echo ${fq[1]}
+    echo ${prefix}.fastq.gz
+    echo ${meta.single_end}
     mkdir -p supplemental
     ERROR=0
     MIN_COVERAGE=\$(( ${task.ext.min_coverage}*${meta.genome_size} ))
@@ -180,7 +184,7 @@ process QC {
                         tpe=${task.ext.tpe} \
                         tbo=${task.ext.tbo} \
                         qtrim=${task.ext.qtrim} \
-                        trimq=${task.trimq} \
+                        trimq=${task.ext.trimq} \
                         minlength=${task.ext.minlength} \
                         minavgquality=${task.ext.maq} \
                         ${qin} qout=${task.ext.qout} \

@@ -29,6 +29,7 @@ process MYKROBE_PREDICT {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name

@@ -44,9 +44,11 @@ process PROKKA {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     if (task.ext.wf == "pangenome") {
-        meta.output_dir = "${task.ext.rundir}/prokka/${prefix}"
-        meta.logs_dir = "${task.ext.rundir}/prokka/${prefix}/logs"
+        meta.scope = "run"
+        meta.output_dir = "prokka/${prefix}"
+        meta.logs_dir = "prokka/${prefix}/logs"
     } else {
         meta.output_dir = "${prefix}/main/annotator/prokka/"
         meta.logs_dir = "${prefix}/main/annotator/prokka/logs/"

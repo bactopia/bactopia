@@ -31,8 +31,9 @@ process FASTANI {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/"
-    meta.logs_dir = "${task.ext.rundir}/fastani/logs/${prefix}"
+    meta.scope = task.ext.scope
+    meta.output_dir = ""
+    meta.logs_dir = "fastani/logs/${prefix}"
     meta.process_name = task.ext.process_name
     """
     if [ "$is_compressed" == "true" ]; then

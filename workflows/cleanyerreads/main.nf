@@ -22,12 +22,6 @@ include { SCRUBBER        } from '../../subworkflows/scrubber/main'
 */
 workflow {
     main:
-    // Check if help is requested
-    if (params.help || params.help_all) {
-        log.info paramsHelp()
-        exit 0
-    }
-
     // Initialize and execute the workflow
     ch_results = Channel.empty()
     ch_logs = Channel.empty()
@@ -69,30 +63,68 @@ workflow {
     ch_nf_logs = ch_nf_logs.mix(QC.out.nf_logs)
     ch_versions = ch_versions.mix(QC.out.versions)
 
-    workflow.onComplete {
-        log.info workflowSummary()
+    // Branch the based on scope (sample or run)
+    ch_final_results = ch_results.branch{ meta, _file ->
+        run: meta.scope == 'run'
+        sample: meta.scope == 'sample'
+    }
+
+    ch_final_logs = ch_logs.branch{ meta, _file ->
+        run: meta.scope == 'run'
+        sample: meta.scope == 'sample'
+    }
+
+    ch_final_nf_logs = ch_nf_logs.branch{ meta, _file ->
+        run: meta.scope == 'run'
+        sample: meta.scope == 'sample'
+    }
+
+    ch_final_versions = ch_versions.branch{ meta, _file ->
+        run: meta.scope == 'run'
+        sample: meta.scope == 'sample'
     }
 
     publish:
-    results = ch_results
-    logs = ch_logs
-    nf_logs = ch_nf_logs
-    versions = ch_versions
+    run_results = ch_final_results.run
+    run_logs = ch_final_logs.run
+    run_nf_logs = ch_final_nf_logs.run
+    run_versions = ch_final_versions.run
+    sample_results = ch_final_results.sample
+    sample_logs = ch_final_logs.sample
+    sample_nf_logs = ch_final_nf_logs.sample
+    sample_versions = ch_final_versions.sample
 }
 
 output {
-    results {
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_results {
+        path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
+    }
+    run_logs {
+        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
+    }
+    run_nf_logs {
+        path { meta, file -> {
+            file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
+        } }
+    }
+    run_versions {
+        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
+    }
+
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_results {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    logs {
+    sample_logs {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    nf_logs {
+    sample_nf_logs {
         path { meta, file -> {
             file >> "${meta.logs_dir}/nf${file.name}"
         } }
     }
-    versions {
+    sample_versions {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

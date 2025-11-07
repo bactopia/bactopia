@@ -30,9 +30,10 @@ process TBPROFILER_COLLATE {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/merged-results"
-    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${task.ext.process_name}"
+    meta.scope = task.ext.scope
     meta.process_name = task.ext.process_name
+    meta.output_dir = "merged-results"
+    meta.logs_dir = "merged-results/logs/${meta.process_name}"
     """
     # Copy database to working directory
     mkdir -p database

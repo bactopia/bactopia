@@ -32,8 +32,9 @@ process CSVTK_JOIN {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/merged-results"
-    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${prefix}-concat/${subdir}"
+    meta.scope = task.ext.scope
+    meta.output_dir = "merged-results"
+    meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
     meta.process_name = task.ext.process_name
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")

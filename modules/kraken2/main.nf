@@ -35,6 +35,7 @@ process KRAKEN2 {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
 
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${output_folder}"

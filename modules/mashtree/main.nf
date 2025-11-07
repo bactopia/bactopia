@@ -29,8 +29,9 @@ process MASHTREE {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/"
-    meta.logs_dir = "${task.ext.rundir}/logs/"
+    meta.scope = task.ext.scope
+    meta.output_dir = ""
+    meta.logs_dir = "logs/"
     meta.process_name = task.ext.process_name
     """
     mkdir mashtree-tmp

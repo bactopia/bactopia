@@ -49,6 +49,7 @@ process SNIPPY_RUN {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name

@@ -27,8 +27,9 @@ process RGI_HEATMAP {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/merged-results/"
-    meta.logs_dir = "${task.ext.rundir}/merged-results/logs/${task.ext.logs_subdir}"
+    meta.scope = task.ext.scope
+    meta.output_dir = "merged-results/"
+    meta.logs_dir = "merged-results/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     NUM_SAMPLES=\$(ls json/ | wc -l)

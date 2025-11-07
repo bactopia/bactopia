@@ -42,6 +42,7 @@ process BAKTA_RUN {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.output_dir = "${prefix}/main/annotator/bakta/"
     meta.logs_dir = "${prefix}/main/annotator/bakta/logs/"
     meta.process_name = task.ext.process_name

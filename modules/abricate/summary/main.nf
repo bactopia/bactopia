@@ -9,8 +9,8 @@ process ABRICATE_SUMMARY {
     tuple val(_meta), path(reports)
 
     output:
-    tuple val(meta), path("*.tsv")       , emit: report
-    tuple val(meta), path("*.{log,err}") , emit: logs, optional: true
+    tuple val(meta), path("*.tsv")         , emit: report
+    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
     tuple val(meta), path(".command.begin"), emit: nf_begin
     tuple val(meta), path(".command.err")  , emit: nf_err
     tuple val(meta), path(".command.log")  , emit: nf_log
@@ -18,7 +18,7 @@ process ABRICATE_SUMMARY {
     tuple val(meta), path(".command.run")  , emit: nf_run
     tuple val(meta), path(".command.sh")   , emit: nf_sh
     tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml"), emit: versions
+    tuple val(meta), path("versions.yml")  , emit: versions
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"
@@ -27,8 +27,9 @@ process ABRICATE_SUMMARY {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/${task.ext.process_name}"
-    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
+    meta.scope = task.ext.scope
+    meta.output_dir = "${task.ext.process_name}"
+    meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
     meta.process_name = task.ext.process_name
     """
     abricate \\

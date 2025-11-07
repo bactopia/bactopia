@@ -37,9 +37,10 @@ process SNIPPY_CORE {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}/"
-    meta.logs_dir = "${task.ext.rundir}/${task.ext.process_name}/logs"
+    meta.scope = task.ext.scope
     meta.process_name = task.ext.process_name
+    meta.output_dir = ""
+    meta.logs_dir = "${meta.process_name}/logs"
     def mask_opt = mask ? "--mask ${mask[0]}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")

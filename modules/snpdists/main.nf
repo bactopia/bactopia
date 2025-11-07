@@ -28,8 +28,9 @@ process SNPDISTS {
     meta = [:]
     meta.id = "${prefix}-${task.process_name}"
     meta.name = prefix
-    meta.output_dir = "${task.ext.rundir}"
-    meta.logs_dir = "${task.ext.rundir}/${process_name}/logs/"
+    meta.scope = task.ext.scope
+    meta.output_dir = ""
+    meta.logs_dir = "${process_name}/logs/"
     meta.process_name = process_name
     """
     snp-dists \\

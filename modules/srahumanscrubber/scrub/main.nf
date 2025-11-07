@@ -33,6 +33,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.output_dir = "${prefix}/tools/${output_folder}"
     meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
