@@ -1,34 +1,36 @@
+nextflow.preview.types = true
+
 process GUBBINS {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(msa)
+    (_meta, msa) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("*.masked.aln.gz")                             , emit: masked_aln
-    tuple val(meta), path("gubbins/*.fasta.gz")                          , emit: fasta
-    tuple val(meta), path("gubbins/*.gff.gz")                            , emit: gff
-    tuple val(meta), path("gubbins/*.vcf.gz")                            , emit: vcf
-    tuple val(meta), path("gubbins/*.csv")                               , emit: stats
-    tuple val(meta), path("gubbins/*.phylip")                            , emit: phylip
-    tuple val(meta), path("gubbins/*.recombination_predictions.embl.gz") , emit: embl_predicted
-    tuple val(meta), path("gubbins/*.branch_base_reconstruction.embl.gz"), emit: embl_branch
-    tuple val(meta), path("gubbins/*.final_tree.tre")                    , emit: tree
-    tuple val(meta), path("gubbins/*.node_labelled.final_tree.tre")      , emit: tree_labelled
-    tuple val(meta), path("gubbins/*.final_bootstrapped_tree.tre")       , emit: bootstrap_tree, optional: true
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    masked_aln     = tuple(meta, file("*.masked.aln.gz"))
+    fasta          = tuple(meta, file("gubbins/*.fasta.gz"))
+    gff            = tuple(meta, file("gubbins/*.gff.gz"))
+    vcf            = tuple(meta, file("gubbins/*.vcf.gz"))
+    stats          = tuple(meta, file("gubbins/*.csv"))
+    phylip         = tuple(meta, file("gubbins/*.phylip"))
+    embl_predicted = tuple(meta, file("gubbins/*.recombination_predictions.embl.gz"))
+    embl_branch    = tuple(meta, file("gubbins/*.branch_base_reconstruction.embl.gz"))
+    tree           = tuple(meta, file("gubbins/*.final_tree.tre"))
+    tree_labelled  = tuple(meta, file("gubbins/*.node_labelled.final_tree.tre"))
+    bootstrap_tree = tuple(meta, file("gubbins/*.final_bootstrapped_tree.tre", optional: true))
+    logs           = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin       = tuple(meta, file(".command.begin"))
+    nf_err         = tuple(meta, file(".command.err"))
+    nf_log         = tuple(meta, file(".command.log"))
+    nf_out         = tuple(meta, file(".command.out"))
+    nf_run         = tuple(meta, file(".command.run"))
+    nf_sh          = tuple(meta, file(".command.sh"))
+    nf_trace       = tuple(meta, file(".command.trace"))
+    versions       = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -44,19 +46,19 @@ process GUBBINS {
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $msa > $msa_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${msa} > ${msa_name}
     fi
 
     run_gubbins.py \\
-        --threads $task.cpus \\
-        --prefix $prefix \\
+        --threads ${task.cpus} \\
+        --prefix ${prefix} \\
         ${task.ext.args} \\
-        $msa_name
+        ${msa_name}
 
     # Create masked alignment
     mask_gubbins_aln.py \\
-        --aln $msa_name \\
+        --aln ${msa_name} \\
         --gff ${prefix}.recombination_predictions.gff \\
         --out ${prefix}.masked.aln
 

@@ -20,10 +20,10 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
 
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     ch_samples = BACTOPIATOOL_INIT.out.samples

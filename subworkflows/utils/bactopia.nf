@@ -30,7 +30,7 @@ workflow BACTOPIA_INIT {
     }
 
     // Collect inputs, and create appropriate tuples for 'samples' channel
-    def ch_samples = Channel.empty()
+    def ch_samples = channel.empty()
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error

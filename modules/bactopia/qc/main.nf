@@ -1,31 +1,37 @@
+nextflow.preview.types = true
+
 process QC {
     tag "${prefix}"
     label "process_low"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fq, stageAs: 'inputs/*'), path(extra, stageAs: 'extras/*')
-    path adapters
-    path phix
+    (_meta, fq, extra) : Tuple<Map, Path, Path>
+    adapters           : Path
+    phix               : Path
+
+    stage:
+    stageAs 'inputs/*', fq
+    stageAs 'extras/*', extra
 
     output:
-    tuple val(meta), path("${prefix}*.fastq.gz"), path("extra/*"), emit: fastq, optional: true
-    tuple val(meta), path("${prefix}*.fastq.gz")                 , emit: fastq_only, optional: true
-    tuple val(meta), path("${prefix}*-fastq.gz")                 , emit: error_fastq, optional: true
-    tuple val(meta), path("${prefix}.txt") , emit: txt, optional: true
-    tuple val(meta), path("supplemental/*"), emit: supplemental, optional: true
-    tuple val(meta), path("*-error.txt")   , emit: error, optional: true
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    fastq        = tuple(meta, file("${prefix}*.fastq.gz", optional: true), file("extra/*", optional: true))
+    fastq_only   = tuple(meta, file("${prefix}*.fastq.gz", optional: true))
+    error_fastq  = tuple(meta, file("${prefix}*-fastq.gz", optional: true))
+    txt          = tuple(meta, file("${prefix}.txt", optional: true))
+    supplemental = tuple(meta, file("supplemental/*", optional: true))
+    error        = tuple(meta, file("*-error.txt", optional: true))
+    logs         = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin     = tuple(meta, file(".command.begin"))
+    nf_err       = tuple(meta, file(".command.err"))
+    nf_log       = tuple(meta, file(".command.log"))
+    nf_out       = tuple(meta, file(".command.out"))
+    nf_run       = tuple(meta, file(".command.run"))
+    nf_sh        = tuple(meta, file(".command.sh"))
+    nf_trace     = tuple(meta, file(".command.trace"))
+    versions     = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -59,7 +65,7 @@ process QC {
     meta.single_end = meta.runtype == 'short_polish' ? true : meta.single_end
 
     // set Xmx to 95% of what was allocated, to avoid going over
-    xmx = Math.round(task.memory.toBytes()*0.95)
+    xmx = Math.round(task.memory.toBytes() * 0.95)
     """
     echo ${fq[1]}
     echo ${prefix}.fastq.gz

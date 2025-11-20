@@ -1,27 +1,29 @@
+nextflow.preview.types = true
+
 process CSVTK_JOIN {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(csv1), path(csv2)
-    val in_format
-    val out_format
-    val key
+    (_meta, csv1, csv2) : Tuple<Map, Path, Path>
+    in_format           : String
+    out_format          : String
+    key                 : String
 
     output:
-    tuple val(meta), path("${prefix}.${out_extension}"), emit: csv
-    tuple val(meta), path("*.{log,err}")               , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")            , emit: nf_begin
-    tuple val(meta), path(".command.err")              , emit: nf_err
-    tuple val(meta), path(".command.log")              , emit: nf_log
-    tuple val(meta), path(".command.out")              , emit: nf_out
-    tuple val(meta), path(".command.run")              , emit: nf_run
-    tuple val(meta), path(".command.sh")               , emit: nf_sh
-    tuple val(meta), path(".command.trace")            , emit: nf_trace
-    tuple val(meta), path("versions.yml")              , emit: versions
+    csv      = tuple(meta, file("${prefix}.${out_extension}"))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
@@ -41,13 +43,13 @@ process CSVTK_JOIN {
     """
     csvtk \\
         join \\
-        $task.ext.args \\
-        --fields $key \\
-        --num-cpus $task.cpus \\
+        ${task.ext.args} \\
+        --fields ${key} \\
+        --num-cpus ${task.cpus} \\
         ${delimiter}  \\
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
-        $csv1 $csv2
+        ${csv1} ${csv2}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

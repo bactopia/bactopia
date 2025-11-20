@@ -1,25 +1,28 @@
+nextflow.preview.types = true
+
 process CHECKM2_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "checkm2_db_v${db_version}.dmnd"  , emit: db
-    path "contents.json"                   , emit: json
-    path "logs/*", emit: logs, optional: true
+    db   = file("checkm2_db_v${db_version}.dmnd")
+    json = file("contents.json")
+    logs = file("logs/*", optional: true)
 
     script:
-    zenodo_id  = 5571251  // Default to latest version 
-    api_data   = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
+    zenodo_id = 5571251
+    // Default to latest version 
+    api_data = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
     db_version = api_data.metadata.version
-    checksum   = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
+    checksum = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
     """
     # Automatic download is broken when using singularity/apptainer (https://github.com/chklovski/CheckM2/issues/73)
     # So it's necessary to download the database manually
     aria2c \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         --checksum ${checksum} \\
         https://zenodo.org/records/${zenodo_id}/files/checkm2_database.tar.gz
 

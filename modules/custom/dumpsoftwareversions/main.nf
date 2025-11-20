@@ -1,25 +1,27 @@
+nextflow.preview.types = true
+
 process CUSTOM_DUMPSOFTWAREVERSIONS {
     label 'process_low'
 
     // Requires `pyyaml` which does not have a dedicated container but is in the MultiQC container
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    path versions
+    versions : Path
 
     output:
-    path "software_versions.yml"           , emit: yml
-    path "software_versions_mqc.yml"       , emit: mqc_yml
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    yml      = file("software_versions.yml")
+    mqc_yml  = file("software_versions_mqc.yml")
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     prefix = "software_versions"
@@ -83,13 +85,13 @@ process CUSTOM_DUMPSOFTWAREVERSIONS {
         'yaml': yaml.__version__
     }
 
-    with open("$versions") as f:
+    with open("${versions}") as f:
         workflow_versions = yaml.load(f, Loader=yaml.BaseLoader) | module_versions
 
     workflow_versions["Workflow"] = {
-        "Nextflow": "$workflow.nextflow.version",
-        "$workflow.manifest.name": "$workflow.manifest.version",
-        "command": "$workflow.commandLine",
+        "Nextflow": "${workflow.nextflow.version}",
+        "${workflow.manifest.name}": "${workflow.manifest.version}",
+        "command": "${workflow.commandLine}",
         "date": datetime.datetime.now()
     }
 

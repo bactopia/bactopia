@@ -17,10 +17,10 @@ workflow TETON {
     use_srascrubber
 
     main:
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
 
     // Remove host reads
     SCRUBBER(reads, use_srascrubber)

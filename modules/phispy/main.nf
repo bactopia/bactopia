@@ -1,32 +1,34 @@
+nextflow.preview.types = true
+
 process PHISPY {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(gbk)
+    (_meta, gbk) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("${prefix}.tsv")                                                 , emit: tsv
-    tuple val(meta), path("supplemental/${prefix}_prophage_information.tsv"), optional:true, emit: information
-    tuple val(meta), path("supplemental/${prefix}_bacteria.fasta")          , optional:true, emit: bacteria_fasta
-    tuple val(meta), path("supplemental/${prefix}_bacteria.gbk")            , optional:true, emit: bacteria_gbk
-    tuple val(meta), path("supplemental/${prefix}_phage.fasta")             , optional:true, emit: phage_fasta
-    tuple val(meta), path("supplemental/${prefix}_phage.gbk")               , optional:true, emit: phage_gbk
-    tuple val(meta), path("supplemental/${prefix}_prophage.gff3")           , optional:true, emit: prophage_gff
-    tuple val(meta), path("supplemental/${prefix}_prophage.tbl")            , optional:true, emit: prophage_tbl
-    tuple val(meta), path("supplemental/${prefix}_prophage.tsv")            , optional:true, emit: prophage_tsv
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv            = tuple(meta, file("${prefix}.tsv"))
+    information    = tuple(meta, file("supplemental/${prefix}_prophage_information.tsv", optional: true))
+    bacteria_fasta = tuple(meta, file("supplemental/${prefix}_bacteria.fasta", optional: true))
+    bacteria_gbk   = tuple(meta, file("supplemental/${prefix}_bacteria.gbk", optional: true))
+    phage_fasta    = tuple(meta, file("supplemental/${prefix}_phage.fasta", optional: true))
+    phage_gbk      = tuple(meta, file("supplemental/${prefix}_phage.gbk", optional: true))
+    prophage_gff   = tuple(meta, file("supplemental/${prefix}_prophage.gff3", optional: true))
+    prophage_tbl   = tuple(meta, file("supplemental/${prefix}_prophage.tbl", optional: true))
+    prophage_tsv   = tuple(meta, file("supplemental/${prefix}_prophage.tsv", optional: true))
+    logs           = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin       = tuple(meta, file(".command.begin"))
+    nf_err         = tuple(meta, file(".command.err"))
+    nf_log         = tuple(meta, file(".command.log"))
+    nf_out         = tuple(meta, file(".command.out"))
+    nf_run         = tuple(meta, file(".command.run"))
+    nf_sh          = tuple(meta, file(".command.sh"))
+    nf_trace       = tuple(meta, file(".command.trace"))
+    versions       = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -43,10 +45,10 @@ process PHISPY {
     mkdir supplemental/
     PhiSpy.py \\
         ${task.ext.args} \\
-        --threads $task.cpus \\
-        -p $prefix \\
+        --threads ${task.cpus} \\
+        -p ${prefix} \\
         -o supplemental \\
-        $gbk
+        ${gbk}
 
     mv supplemental/${prefix}_prophage_coordinates.tsv ${prefix}.tsv
     mv supplemental/${prefix}_phispy.log ${prefix}.log

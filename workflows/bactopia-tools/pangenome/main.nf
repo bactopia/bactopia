@@ -24,10 +24,10 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
 
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
     ch_samples = BACTOPIATOOL_INIT.out.samples
@@ -63,7 +63,7 @@ workflow {
 
     // (optional) Create core-genome phylogeny
     if (!params.skip_phylogeny) {
-        ch_final_aln = Channel.empty()
+        ch_final_aln = channel.empty()
         if (params.skip_recombination) {
             PANGENOME.out.aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome", process_name: "iqtree"], aln]}.set{ ch_final_aln }
         } else {

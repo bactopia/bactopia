@@ -1,30 +1,32 @@
+nextflow.preview.types = true
+
 process DEFENSEFINDER_RUN {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
-    each path(db)
+    (_meta, fasta) : Tuple<Map, Path>
+    db             : Path
 
     output:
-    tuple val(meta), path("*_defense_finder_genes.tsv")  , emit: genes_tsv
-    tuple val(meta), path("*_defense_finder_hmmer.tsv")  , emit: hmmer_tsv
-    tuple val(meta), path("*_defense_finder_systems.tsv"), emit: systems_tsv
-    tuple val(meta), path("*.prt")                       , emit: proteins
-    tuple val(meta), path("*.prt.idx")                   , emit: proteins_index
-    tuple val(meta), path("${prefix}.macsydata.tar.gz")  , emit: macsydata_raw, optional: true
-    tuple val(meta), path("*.{log,err}")                 , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")              , emit: nf_begin
-    tuple val(meta), path(".command.err")                , emit: nf_err
-    tuple val(meta), path(".command.log")                , emit: nf_log
-    tuple val(meta), path(".command.out")                , emit: nf_out
-    tuple val(meta), path(".command.run")                , emit: nf_run
-    tuple val(meta), path(".command.sh")                 , emit: nf_sh
-    tuple val(meta), path(".command.trace")              , emit: nf_trace
-    tuple val(meta), path("versions.yml")                , emit: versions
+    genes_tsv      = tuple(meta, file("*_defense_finder_genes.tsv"))
+    hmmer_tsv      = tuple(meta, file("*_defense_finder_hmmer.tsv"))
+    systems_tsv    = tuple(meta, file("*_defense_finder_systems.tsv"))
+    proteins       = tuple(meta, file("*.prt"))
+    proteins_index = tuple(meta, file("*.prt.idx"))
+    macsydata_raw  = tuple(meta, file("${prefix}.macsydata.tar.gz", optional: true))
+    logs           = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin       = tuple(meta, file(".command.begin"))
+    nf_err         = tuple(meta, file(".command.err"))
+    nf_log         = tuple(meta, file(".command.log"))
+    nf_out         = tuple(meta, file(".command.out"))
+    nf_run         = tuple(meta, file(".command.run"))
+    nf_sh          = tuple(meta, file(".command.sh"))
+    nf_trace       = tuple(meta, file(".command.trace"))
+    versions       = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -40,7 +42,7 @@ process DEFENSEFINDER_RUN {
     """
     # Extract database
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
-    tar -xf $db
+    tar -xf ${db}
     mkdir -p df-tmp/df
     TMPDIR=df-tmp/df HOME=df-tmp/ macsydata \\
         install \\
@@ -56,9 +58,9 @@ process DEFENSEFINDER_RUN {
     TMPDIR=df-tmp/ HOME=df-tmp/ defense-finder \\
         run \\
         ${task.ext.args} \\
-        --workers $task.cpus \\
+        --workers ${task.cpus} \\
         --models-dir defense-finder/ \\
-        $fasta
+        ${fasta}
 
     if [ "${task.ext.df_preserveraw}" == "true" ]; then
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/

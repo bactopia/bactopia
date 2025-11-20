@@ -1,20 +1,22 @@
+nextflow.preview.types = true
+
 process EGGNOG_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "eggnog/eggnog*", emit: db
-    path "eggnog/logs/*" , emit: logs
+    db   = file("eggnog/eggnog*")
+    logs = file("eggnog/logs/*")
 
     script:
     def args = task.ext.args ?: ''
     """
     mkdir eggnog
     download_eggnog_data.py \\
-        $args \\
+        ${args} \\
         -y \\
         --data_dir eggnog/
 

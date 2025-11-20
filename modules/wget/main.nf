@@ -1,21 +1,23 @@
+nextflow.preview.types = true
+
 process WGET {
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    val _meta
+    _meta : Map
 
     output:
-    path "${prefix}/${filename}", emit: download
-    path "${prefix}/logs/*"     , emit: logs, optional: true
+    download = file("${prefix}/${filename}")
+    logs     = file("${prefix}/logs/*", optional: true)
 
     script:
     prefix = _meta.name
     filename = _meta.save_as
     """
-    wget $task.ext.args -O ${filename} ${_meta.url}
+    wget ${task.ext.args} -O ${filename} ${_meta.url}
 
     # Move outputs to tool specific folder
     mkdir -p ${prefix}/logs

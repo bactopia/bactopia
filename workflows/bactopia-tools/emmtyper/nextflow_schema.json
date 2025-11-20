@@ -159,7 +159,7 @@
                 "skip_compression": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Ouput files will not be compressed",
+                    "description": "Output files will not be compressed",
                     "help": "Using this parameter can lead to a significant increase in the size of the outputs",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
@@ -401,7 +401,7 @@
                 "container_opts": {
                     "type": "string",
                     "default": "",
-                    "description": "Additional options to pass to Apptainer, Docker, or Singularityu. (e.g. Singularity: '-D `pwd`'",
+                    "description": "Additional options to pass to Apptainer, Docker, or Singularity. (e.g. Singularity: '-D `pwd`'",
                     "fa_icon": "fas fa-clipboard-list",
                     "hidden": true
                 },

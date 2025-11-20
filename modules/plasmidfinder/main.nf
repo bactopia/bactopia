@@ -1,31 +1,34 @@
+nextflow.preview.types = true
+
 process PLASMIDFINDER {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
+    (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("*.json")                    , emit: json
-    tuple val(meta), path("*.txt")                     , emit: txt
-    tuple val(meta), path("${prefix}.tsv")             , emit: tsv
-    tuple val(meta), path("*-hit_in_genome_seq.fsa.gz"), emit: genome_seq
-    tuple val(meta), path("*-plasmid_seqs.fsa.gz")     , emit: plasmid_seq
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    json        = tuple(meta, file("*.json"))
+    txt         = tuple(meta, file("*.txt"))
+    tsv         = tuple(meta, file("${prefix}.tsv"))
+    genome_seq  = tuple(meta, file("*-hit_in_genome_seq.fsa.gz"))
+    plasmid_seq = tuple(meta, file("*-plasmid_seqs.fsa.gz"))
+    logs        = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin    = tuple(meta, file(".command.begin"))
+    nf_err      = tuple(meta, file(".command.err"))
+    nf_log      = tuple(meta, file(".command.log"))
+    nf_out      = tuple(meta, file(".command.out"))
+    nf_run      = tuple(meta, file(".command.run"))
+    nf_sh       = tuple(meta, file(".command.sh"))
+    nf_trace    = tuple(meta, file(".command.trace"))
+    versions    = tuple(meta, file("versions.yml"))
 
     script:
-    def VERSION = '2.1.6' // Version information not provided by tool on CLI
+    def VERSION = '2.1.6'
+    // Version information not provided by tool on CLI
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -39,13 +42,13 @@ process PLASMIDFINDER {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     plasmidfinder.py \\
         ${task.ext.args} \\
-        -i $fasta_name \\
+        -i ${fasta_name} \\
         -o ./ \\
         -x
 
@@ -65,7 +68,7 @@ process PLASMIDFINDER {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        plasmidfinder: $VERSION
+        plasmidfinder: ${VERSION}
     END_VERSIONS
     """
 }

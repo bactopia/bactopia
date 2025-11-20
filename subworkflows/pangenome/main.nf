@@ -13,12 +13,12 @@ workflow PANGENOME {
     use_roary
 
     main:
-    ch_aln = Channel.empty()
-    ch_csv = Channel.empty()
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_aln = channel.empty()
+    ch_csv = channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
 
     // Choose pangenome tool based on params
     if (use_pirate) {

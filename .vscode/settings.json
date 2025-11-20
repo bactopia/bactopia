@@ -40,6 +40,7 @@
         "CLONALFRAME",
         "CLONALFRAMEML",
         "colistin",
+        "colourful",
         "Colours",
         "contree",
         "crispr",
@@ -155,6 +156,7 @@
         "Neisseria",
         "newick",
         "nfconfig",
+        "nfdir",
         "nftignore",
         "ngmaster",
         "noarch",
@@ -214,6 +216,7 @@
         "realpath",
         "reclustered",
         "refseq",
+        "rellink",
         "REPLICONS",
         "ROARY",
         "ropeproject",
@@ -234,6 +237,7 @@
         "shigapass",
         "shigatyper",
         "SHIGEIFINDER",
+        "shuf",
         "simg",
         "SISTR",
         "sizemeup",
@@ -273,6 +277,7 @@
         "venv",
         "vmem",
         "webassets",
+        "wgsmaster",
         "xzvf",
         "zcvf",
         "zenodo"
@@ -284,8 +289,13 @@
         "work",
         ".skeleton"
     ],
-    "nextflow.telemetry.enabled": true,
+    "nextflow.telemetry.enabled": false,
     "yaml.schemas": {
         "https://www.schemastore.org/eslintrc.json": "file:///home/rpetit3/repos/bactopia/conf/workflows.yaml"
-    }
+    },
+    "nextflow.typeChecking": true,
+    "nextflow.errorReportingMode": "paranoid",
+    "nextflow.completion.extended": true,
+    "nextflow.debug": true,
+    "nextflow.formatting.harshilAlignment": true
 }

@@ -1,37 +1,42 @@
+nextflow.preview.types = true
+
 process PROKKA {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta, stageAs: "input/*")
-    path proteins
-    path prodigal_tf
+    (_meta, fasta) : Tuple<Map, Path>
+    proteins       : Path
+    prodigal_tf    : Path
+
+    stage:
+    stageAs "input/*", fasta
 
     output:
-    tuple val(meta), path("${prefix}.{fna,fna.gz}"), path("${prefix}.{faa,faa.gz}"), path("${prefix}.{gff,gff.gz}"), emit: annotations
-    tuple val(meta), path("${prefix}.{gff,gff.gz}"), emit: gff
-    tuple val(meta), path("${prefix}.{gbk,gbk.gz}"), emit: gbk
-    tuple val(meta), path("${prefix}.{fna,fna.gz}"), emit: fna
-    tuple val(meta), path("${prefix}.{faa,faa.gz}"), emit: faa
-    tuple val(meta), path("${prefix}.{ffn,ffn.gz}"), emit: ffn
-    tuple val(meta), path("${prefix}.{sqn,sqn.gz}"), emit: sqn
-    tuple val(meta), path("${prefix}.{fsa,fsa.gz}"), emit: fsa
-    tuple val(meta), path("${prefix}.{tbl,tbl.gz}"), emit: tbl
-    tuple val(meta), path("${prefix}.txt")         , emit: txt
-    tuple val(meta), path("${prefix}.tsv")         , emit: tsv
-    tuple val(meta), path("${prefix}-blastdb.tar.gz"), emit: blastdb
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    annotations = tuple(meta, file("${prefix}.{fna,fna.gz}"), file("${prefix}.{faa,faa.gz}"), file("${prefix}.{gff,gff.gz}"))
+    gff         = tuple(meta, file("${prefix}.{gff,gff.gz}"))
+    gbk         = tuple(meta, file("${prefix}.{gbk,gbk.gz}"))
+    fna         = tuple(meta, file("${prefix}.{fna,fna.gz}"))
+    faa         = tuple(meta, file("${prefix}.{faa,faa.gz}"))
+    ffn         = tuple(meta, file("${prefix}.{ffn,ffn.gz}"))
+    sqn         = tuple(meta, file("${prefix}.{sqn,sqn.gz}"))
+    fsa         = tuple(meta, file("${prefix}.{fsa,fsa.gz}"))
+    tbl         = tuple(meta, file("${prefix}.{tbl,tbl.gz}"))
+    txt         = tuple(meta, file("${prefix}.txt"))
+    tsv         = tuple(meta, file("${prefix}.tsv"))
+    blastdb     = tuple(meta, file("${prefix}-blastdb.tar.gz"))
+    logs        = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin    = tuple(meta, file(".command.begin"))
+    nf_err      = tuple(meta, file(".command.err"))
+    nf_log      = tuple(meta, file(".command.log"))
+    nf_out      = tuple(meta, file(".command.out"))
+    nf_run      = tuple(meta, file(".command.run"))
+    nf_sh       = tuple(meta, file(".command.sh"))
+    nf_trace    = tuple(meta, file(".command.trace"))
+    versions    = tuple(meta, file("versions.yml"))
 
     script:
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
@@ -49,7 +54,8 @@ process PROKKA {
         meta.scope = "run"
         meta.output_dir = "prokka/${prefix}"
         meta.logs_dir = "prokka/${prefix}/logs"
-    } else {
+    }
+    else {
         meta.output_dir = "${prefix}/main/annotator/prokka/"
         meta.logs_dir = "${prefix}/main/annotator/prokka/logs/"
     }
@@ -63,34 +69,34 @@ process PROKKA {
         compliant = "--compliant"
     }
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
-    if [ "$task.ext.prokka_debug" == "true" ]; then
+    if [ "${task.ext.prokka_debug}" == "true" ]; then
         export PROKKA_DBDIR=\$(echo "\$(which prokka | sed "s=/prokka==")/../db")
         env
         mkdir tmp_prokka/
         TMPDIR=tmp_prokka/ bactopia-prokka \\
             ${task.ext.args} \\
-            --cpus $task.cpus \\
-            --prefix $prefix \\
+            --cpus ${task.cpus} \\
+            --prefix ${prefix} \\
             ${compliant} \\
             ${locustag} \\
-            $proteins_opt \\
-            $prodigal_opt \\
-            $fasta_name
+            ${proteins_opt} \\
+            ${prodigal_opt} \\
+            ${fasta_name}
         rm -rf tmp_prokka/
     else
         prokka \\
             ${task.ext.args} \\
-            --cpus $task.cpus \\
-            --prefix $prefix \\
+            --cpus ${task.cpus} \\
+            --prefix ${prefix} \\
             ${compliant} \\
             ${locustag} \\
-            $proteins_opt \\
-            $prodigal_opt \\
-            $fasta_name
+            ${proteins_opt} \\
+            ${prodigal_opt} \\
+            ${fasta_name}
     fi
 
     # Make blastdb of contigs, genes, proteins

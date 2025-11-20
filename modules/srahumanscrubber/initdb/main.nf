@@ -1,12 +1,14 @@
+nextflow.preview.types = true
+
 process SRAHUMANSCRUBBER_INITDB {
     label 'process_single'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "${prefix}/*human_filter.db*", emit: db
-    path "${prefix}/logs/*"           , emit: logs, optional: true
+    db   = file("${prefix}/*human_filter.db*")
+    logs = file("${prefix}/logs/*", optional: true)
 
     script:
     prefix = task.ext.process_name

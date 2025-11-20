@@ -1,25 +1,27 @@
+nextflow.preview.types = true
+
 process BLAST_BLASTP {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(blastdb)
-    path query
+    (_meta, blastdb) : Tuple<Map, Path>
+    query            : Path
 
     output:
-    tuple val(meta), path('*.blastp.tsv')  , emit: tsv
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv      = tuple(meta, file('*.blastp.tsv'))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -35,19 +37,19 @@ process BLAST_BLASTP {
     def which_cat = query.getName().endsWith(".gz") ? "zcat" : "cat"
     def outcols = "sample ${task.ext.outfmt}".replace(" ", "<TAB>")
     """
-    tar -xzf $blastdb
+    tar -xzf ${blastdb}
     
-    ${which_cat} $query | \\
+    ${which_cat} ${query} | \\
     blastp \\
-        -num_threads $task.cpus \\
+        -num_threads ${task.cpus} \\
         -mt_mode 1 \\
         -db blastdb/${prefix}.faa \\
         -query - \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         -out ${prefix}.txt
 
     # Add column names, include column for sample name
-    echo "$outcols" | sed 's/<TAB>/\t/g' > ${prefix}.blastp.tsv
+    echo "${outcols}" | sed 's/<TAB>/\t/g' > ${prefix}.blastp.tsv
     sed 's/^/${prefix}\t/' ${prefix}.txt >> ${prefix}.blastp.tsv
 
     # Cleanup

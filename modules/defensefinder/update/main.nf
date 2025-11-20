@@ -1,13 +1,15 @@
+nextflow.preview.types = true
+
 process DEFENSEFINDER_UPDATE {
     tag "update"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "defense-finder/defense-finder-models-${task.ext.df_models_version}.tar", emit: db
-    path "defense-finder/logs/*", emit: logs, optional: true
+    db   = file("defense-finder/defense-finder-models-${task.ext.df_models_version}.tar")
+    logs = file("defense-finder/logs/*", optional: true)
 
     script:
     """

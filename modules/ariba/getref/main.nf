@@ -1,16 +1,18 @@
+nextflow.preview.types = true
+
 process ARIBA_GETREF {
-    tag "$db_name"
+    tag "${db_name}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    val(db_name)
+    db_name : String
 
     output:
-    path "ariba/ariba-${db_name}.tar.gz", emit: db
-    path "ariba/logs/*", emit: logs, optional: true
+    db   = file("ariba/ariba-${db_name}.tar.gz")
+    logs = file("ariba/logs/*", optional: true)
 
     script:
     """

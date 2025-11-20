@@ -1,28 +1,30 @@
+nextflow.preview.types = true
+
 process ABRITAMR_RUN {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
+    (_meta, fasta): Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("${prefix}.summary_matches.txt")  , emit: matches
-    tuple val(meta), path("${prefix}.summary_partials.txt") , emit: partials
-    tuple val(meta), path("${prefix}.summary_virulence.txt"), emit: virulence
-    tuple val(meta), path("${prefix}.amrfinder.out")        , emit: amrfinder
-    tuple val(meta), path("${prefix}.abritamr.txt")         , emit: summary, optional: true
-    tuple val(meta), path("*.{log,err}")                    , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                 , emit: nf_begin
-    tuple val(meta), path(".command.err")                   , emit: nf_err
-    tuple val(meta), path(".command.log")                   , emit: nf_log
-    tuple val(meta), path(".command.out")                   , emit: nf_out
-    tuple val(meta), path(".command.run")                   , emit: nf_run
-    tuple val(meta), path(".command.sh")                    , emit: nf_sh
-    tuple val(meta), path(".command.trace")                 , emit: nf_trace
-    tuple val(meta), path("versions.yml")                   , emit: versions
+    matches   = tuple(meta, file("${prefix}.summary_matches.txt"))
+    partials  = tuple(meta, file("${prefix}.summary_partials.txt"))
+    virulence = tuple(meta, file("${prefix}.summary_virulence.txt"))
+    amrfinder = tuple(meta, file("${prefix}.amrfinder.out"))
+    summary   = tuple(meta, file("${prefix}.abritamr.txt", optional: true))
+    logs      = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin  = tuple(meta, file(".command.begin"))
+    nf_err    = tuple(meta, file(".command.err"))
+    nf_log    = tuple(meta, file(".command.log"))
+    nf_out    = tuple(meta, file(".command.out"))
+    nf_run    = tuple(meta, file(".command.run"))
+    nf_sh     = tuple(meta, file(".command.sh"))
+    nf_trace  = tuple(meta, file(".command.trace"))
+    versions  = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -38,15 +40,15 @@ process ABRITAMR_RUN {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     abritamr run \\
-        --contigs $fasta_name \\
-        --prefix $prefix \\
-        $task.ext.args \\
-        --jobs $task.cpus
+        --contigs ${fasta_name} \\
+        --prefix ${prefix} \\
+        ${task.ext.args} \\
+        --jobs ${task.cpus}
 
     # Rename output files to prevent name collisions
     mv ${prefix}/summary_matches.txt ./${prefix}.summary_matches.txt

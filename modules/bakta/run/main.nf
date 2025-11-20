@@ -1,39 +1,41 @@
+nextflow.preview.types = true
+
 process BAKTA_RUN {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
-    path db
-    path proteins
-    path prodigal_tf
-    path replicons
+    (_meta, fasta) : Tuple<Map, Path>
+    db             : Path
+    proteins       : Path
+    prodigal_tf    : Path
+    replicons      : Path
 
     output:
-    tuple val(meta), path("bakta/${prefix}.{fna,fna.gz}"), path("bakta/${prefix}.{faa,faa.gz}"), path("bakta/${prefix}.{gff3,gff3.gz}"), emit: annotations
-    tuple val(meta), path("bakta/${prefix}.{embl,embl.gz}")            , emit: embl
-    tuple val(meta), path("bakta/${prefix}.{faa,faa.gz}")              , emit: faa
-    tuple val(meta), path("bakta/${prefix}.{ffn,ffn.gz}")              , emit: ffn
-    tuple val(meta), path("bakta/${prefix}.{fna,fna.gz}")              , emit: fna
-    tuple val(meta), path("bakta/${prefix}.{gbff,gbff.gz}")            , emit: gbff
-    tuple val(meta), path("bakta/${prefix}.{gff3,gff3.gz}")            , emit: gff
-    tuple val(meta), path("bakta/${prefix}.hypotheticals.tsv")         , emit: hypotheticals_tsv
-    tuple val(meta), path("bakta/${prefix}.hypotheticals.{faa,faa.gz}"), emit: hypotheticals_faa
-    tuple val(meta), path("bakta/${prefix}.tsv")                       , emit: tsv
-    tuple val(meta), path("bakta/${prefix}.txt")                       , emit: txt
-    tuple val(meta), path("bakta/${prefix}-blastdb.tar.gz")            , emit: blastdb
-    tuple val(meta), path("*.{log,err}")                               , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                            , emit: nf_begin
-    tuple val(meta), path(".command.err")                              , emit: nf_err
-    tuple val(meta), path(".command.log")                              , emit: nf_log
-    tuple val(meta), path(".command.out")                              , emit: nf_out
-    tuple val(meta), path(".command.run")                              , emit: nf_run
-    tuple val(meta), path(".command.sh")                               , emit: nf_sh
-    tuple val(meta), path(".command.trace")                            , emit: nf_trace
-    tuple val(meta), path("versions.yml")                              , emit: versions
+    annotations       = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}"))
+    embl              = tuple(meta, file("bakta/${prefix}.{embl,embl.gz}"))
+    faa               = tuple(meta, file("bakta/${prefix}.{faa,faa.gz}"))
+    ffn               = tuple(meta, file("bakta/${prefix}.{ffn,ffn.gz}"))
+    fna               = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"))
+    gbff              = tuple(meta, file("bakta/${prefix}.{gbff,gbff.gz}"))
+    gff               = tuple(meta, file("bakta/${prefix}.{gff3,gff3.gz}"))
+    hypotheticals_tsv = tuple(meta, file("bakta/${prefix}.hypotheticals.tsv"))
+    hypotheticals_faa = tuple(meta, file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"))
+    tsv               = tuple(meta, file("bakta/${prefix}.tsv"))
+    txt               = tuple(meta, file("bakta/${prefix}.txt"))
+    blastdb           = tuple(meta, file("bakta/${prefix}-blastdb.tar.gz"))
+    logs              = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin          = tuple(meta, file(".command.begin"))
+    nf_err            = tuple(meta, file(".command.err"))
+    nf_log            = tuple(meta, file(".command.log"))
+    nf_out            = tuple(meta, file(".command.out"))
+    nf_run            = tuple(meta, file(".command.run"))
+    nf_sh             = tuple(meta, file(".command.sh"))
+    nf_trace          = tuple(meta, file(".command.trace"))
+    versions          = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -51,24 +53,24 @@ process BAKTA_RUN {
     def replicons_opt = replicons ? "--replicons ${replicons[0]}" : ""
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         mkdir database
-        tar -xzf $db -C database
+        tar -xzf ${db} -C database
         BAKTA_DB=\$(find database/ -name "bakta.db" | sed 's=bakta\\.db==')
     else
-        BAKTA_DB=\$(find $db/ -name "bakta.db" | sed 's=bakta\\.db==')
+        BAKTA_DB=\$(find ${db}/ -name "bakta.db" | sed 's=bakta\\.db==')
     fi
 
     bakta \\
         --output bakta \\
-        $task.ext.args \\
-        --threads $task.cpus \\
+        ${task.ext.args} \\
+        --threads ${task.cpus} \\
         --prefix ${prefix} \\
         --db \$BAKTA_DB \\
-        $proteins_opt \\
-        $prodigal_opt \\
-        $replicons_opt \\
-        $fasta
+        ${proteins_opt} \\
+        ${prodigal_opt} \\
+        ${replicons_opt} \\
+        ${fasta}
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb
@@ -88,7 +90,7 @@ process BAKTA_RUN {
     fi
 
     # Clean up
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         rm -rf database
     fi
     rm -rf blastdb/

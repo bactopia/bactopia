@@ -10,10 +10,10 @@ workflow CLONALFRAMEML {
     alignment // channel: [ val(meta), [ aln ] ]
 
     main:
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
     
     // Create a quick start tree
     alignment.collect{_meta, aln -> aln}.map{ aln -> [[name: "iqtree-fast", process_name: "iqtree-fast"], aln]}.set{ ch_aln }

@@ -10,7 +10,7 @@ workflow NCBIGENOMEDOWNLOAD {
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
-    NCBIGENOMEDOWNLOAD_MODULE.out.all.map{ [[id: file(it).getSimpleName()], file(it)]}.set{ ch_to_bactopia_tools }
+    NCBIGENOMEDOWNLOAD_MODULE.out.all.map { path -> [[id: file(path).getSimpleName()], file(path)] }.set{ ch_to_bactopia_tools }
 
     emit:
     // Individual outputs

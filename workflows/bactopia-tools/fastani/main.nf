@@ -20,15 +20,15 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
 
     BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
 
     // Reference if applicable
-    ch_reference = Channel.empty()
+    ch_reference = channel.empty()
     if (params.fastani_reference) {
         ch_reference << tuple([id:file(params.fastani_reference).getSimpleName()], file(params.fastani_reference))
     }

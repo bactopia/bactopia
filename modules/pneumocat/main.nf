@@ -1,28 +1,31 @@
+nextflow.preview.types = true
+
 process PNEUMOCAT {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
+    (_meta, _reads) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("*.xml")                      , emit: xml, optional: true
-    tuple val(meta), path("*.coverage_summary.txt")     , emit: txt, optional: true
-    tuple val(meta), path("*.{log,err}")                , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")             , emit: nf_begin
-    tuple val(meta), path(".command.err")               , emit: nf_err
-    tuple val(meta), path(".command.log")               , emit: nf_log
-    tuple val(meta), path(".command.out")               , emit: nf_out
-    tuple val(meta), path(".command.run")               , emit: nf_run
-    tuple val(meta), path(".command.sh")                , emit: nf_sh
-    tuple val(meta), path(".command.trace")             , emit: nf_trace
-    tuple val(meta), path("versions.yml")               , emit: versions
+    xml      = tuple(meta, file("*.xml", optional: true))
+    txt      = tuple(meta, file("*.coverage_summary.txt", optional: true))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
-    def VERSION = '1.2.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.2.1'
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -36,7 +39,7 @@ process PNEUMOCAT {
     """
     PneumoCaT.py \\
         --input_directory ./ \\
-        --threads $task.cpus \\
+        --threads ${task.cpus} \\
         --output_dir ./
 
     # clean up
@@ -53,7 +56,7 @@ process PNEUMOCAT {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        pneumocat: $VERSION
+        pneumocat: ${VERSION}
     END_VERSIONS
     """
 }

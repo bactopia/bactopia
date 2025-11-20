@@ -1,33 +1,35 @@
+nextflow.preview.types = true
+
 process SNIPPY_CORE {
     tag "${prefix}"
     label "process_medium"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(vcf), path(aligned_fa)
-    tuple val(ref_meta), path(reference)
-    path mask
+    (_meta, _vcf, _aligned_fa) : Tuple<Map, Path, Path>
+    (_ref_meta, reference)   : Tuple<Map, Path>
+    mask                     : Path
 
     output:
-    tuple val(meta), path("snippy-core/*")                          , emit: supplemental
-    tuple val(meta), path("snippy-core/${prefix}.aln.gz")           , emit: aln
-    tuple val(meta), path("${prefix}.full.aln.gz")       , emit: full_aln
-    tuple val(meta), path("${prefix}-clean.full.aln.gz") , emit: clean_full_aln
-    tuple val(meta), path("snippy-core/${prefix}.tab.gz")           , emit: tab
-    tuple val(meta), path("snippy-core/${prefix}.vcf.gz")           , emit: vcf
-    tuple val(meta), path("snippy-core/${prefix}.txt")              , emit: txt
-    tuple val(meta), path("${reference_name}.samples.txt")     , emit: samples
-    tuple val(meta), path("*.{log,err}")                        , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                     , emit: nf_begin
-    tuple val(meta), path(".command.err")                       , emit: nf_err
-    tuple val(meta), path(".command.log")                       , emit: nf_log
-    tuple val(meta), path(".command.out")                       , emit: nf_out
-    tuple val(meta), path(".command.run")                       , emit: nf_run
-    tuple val(meta), path(".command.sh")                        , emit: nf_sh
-    tuple val(meta), path(".command.trace")                     , emit: nf_trace
-    tuple val(meta), path("versions.yml")                       , emit: versions
+    supplemental   = tuple(meta, file("snippy-core/*"))
+    aln            = tuple(meta, file("snippy-core/${prefix}.aln.gz"))
+    full_aln       = tuple(meta, file("${prefix}.full.aln.gz"))
+    clean_full_aln = tuple(meta, file("${prefix}-clean.full.aln.gz"))
+    tab            = tuple(meta, file("snippy-core/${prefix}.tab.gz"))
+    vcf            = tuple(meta, file("snippy-core/${prefix}.vcf.gz"))
+    txt            = tuple(meta, file("snippy-core/${prefix}.txt"))
+    samples        = tuple(meta, file("${reference_name}.samples.txt"))
+    logs           = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin       = tuple(meta, file(".command.begin"))
+    nf_err         = tuple(meta, file(".command.err"))
+    nf_log         = tuple(meta, file(".command.log"))
+    nf_out         = tuple(meta, file(".command.out"))
+    nf_run         = tuple(meta, file(".command.run"))
+    nf_sh          = tuple(meta, file(".command.sh"))
+    nf_trace       = tuple(meta, file(".command.trace"))
+    versions       = tuple(meta, file("versions.yml"))
 
     script:
     reference_name = reference.getSimpleName()
@@ -45,8 +47,8 @@ process SNIPPY_CORE {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $reference > $final_reference
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${reference} > ${final_reference}
     fi
 
     # Collect samples into necessary folders
@@ -58,10 +60,10 @@ process SNIPPY_CORE {
 
     # Run snippy-core
     snippy-core \\
-        $task.ext.args \\
-        --ref $final_reference \\
-        --prefix $prefix \\
-        $mask_opt \\
+        ${task.ext.args} \\
+        --ref ${final_reference} \\
+        --prefix ${prefix} \\
+        ${mask_opt} \\
         samples/*
 
     # Cleanup the alignment

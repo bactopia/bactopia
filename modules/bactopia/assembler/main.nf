@@ -1,27 +1,29 @@
+nextflow.preview.types = true
+
 process ASSEMBLER {
     tag "${prefix}"
     label "process_low"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fq), path(extra)
+    (_meta, fq, extra) : Tuple<Map, Path, Path>
 
     output:
-    tuple val(meta), path("${prefix}.{fna,fna.gz}")      , emit: fna, optional: true
-    tuple val(meta), path("${prefix}.tsv")               , emit: tsv, optional: true
-    tuple val(meta), path("supplemental/*")              , emit: supplemental
-    tuple val(meta), path("${prefix}-assembly-error.txt"), emit: error, optional: true
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    fna          = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true))
+    tsv          = tuple(meta, file("${prefix}.tsv", optional: true))
+    supplemental = tuple(meta, file("supplemental/*"))
+    error        = tuple(meta, file("${prefix}-assembly-error.txt", optional: true))
+    logs         = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin     = tuple(meta, file(".command.begin"))
+    nf_err       = tuple(meta, file(".command.err"))
+    nf_log       = tuple(meta, file(".command.log"))
+    nf_out       = tuple(meta, file(".command.out"))
+    nf_run       = tuple(meta, file(".command.run"))
+    nf_sh        = tuple(meta, file(".command.sh"))
+    nf_trace     = tuple(meta, file(".command.trace"))
+    versions     = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -47,10 +49,12 @@ process ASSEMBLER {
         r1 = fq[0].getName().endsWith('_R1.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R1.fastq.gz') ? fq[1] : fq[2]
         r2 = fq[0].getName().endsWith('_R2.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R2.fastq.gz') ? fq[1] : fq[2]
         se = !fq[0].getName().matches('.*_R[12].fastq.gz') ? fq[0] : !fq[1].getName().matches('.*_R[12].fastq.gz') ? fq[1] : fq[2]
-    } else if (fq[1]) {
+    }
+    else if (fq[1]) {
         r1 = fq[0]
         r2 = fq[1]
-    } else {
+    }
+    else {
         se = fq[0]
     }
 
@@ -59,7 +63,7 @@ process ASSEMBLER {
 
     // Shovill
     contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
-    shovill_ram = task.memory.toString().split(' ')[0].toInteger()-1
+    shovill_ram = task.memory.toString().split(' ')[0].toInteger() - 1
     shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
     // Dragonflye

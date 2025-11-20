@@ -1,27 +1,33 @@
+nextflow.preview.types = true
+
 process GATHER {
     tag "${prefix}"
     label "process_low"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(r1, stageAs: '*???-r1'), path(r2, stageAs: '*???-r2'), path(extra)
+    (_meta, r1, r2, extra) : Tuple<Map, Set<Path>, Set<Path>, Path>
+
+    stage:
+    stageAs '*???-r1', r1
+    stageAs '*???-r2', r2
 
     output:
-    tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), path("extra/*.gz"), emit: raw_fastq, optional: true
-    tuple val(meta), path("fastqs/${prefix}*.fastq.gz"), emit: fastq_only, optional: true
-    tuple val(meta), path("${prefix}-meta.tsv")        , emit: tsv
-    tuple val(meta), path("*-{error,merged}.txt")      , emit: error, optional: true
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    raw_fastq  = tuple(meta, file("fastqs/${prefix}*.fastq.gz", optional: true), file("extra/*.gz", optional: true))
+    fastq_only = tuple(meta, file("fastqs/${prefix}*.fastq.gz", optional: true))
+    tsv        = tuple(meta, file("${prefix}-meta.tsv"))
+    error      = tuple(meta, file("*-{error,merged}.txt", optional: true))
+    logs       = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin   = tuple(meta, file(".command.begin"))
+    nf_err     = tuple(meta, file(".command.err"))
+    nf_log     = tuple(meta, file(".command.log"))
+    nf_out     = tuple(meta, file(".command.out"))
+    nf_run     = tuple(meta, file(".command.run"))
+    nf_sh      = tuple(meta, file(".command.sh"))
+    nf_trace   = tuple(meta, file(".command.trace"))
+    versions   = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -31,10 +37,11 @@ process GATHER {
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
     meta.scope = task.ext.scope
-    if ( task.ext.wf == "teton" ) {
+    if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/teton/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    } else {
+    }
+    else {
         meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     }
@@ -53,15 +60,20 @@ process GATHER {
     fcov = task.ext.coverage.toInteger() == 0 ? 150 : Math.round(task.ext.coverage.toInteger() * 1.5)
     if (runtype == 'hybrid-merge-pe') {
         meta.runtype = 'hybrid'
-    } else if (runtype == 'short_polish-merge-pe') {
+    }
+    else if (runtype == 'short_polish-merge-pe') {
         meta.runtype = 'short_polish'
-    } else if (runtype == 'merge-pe') {
+    }
+    else if (runtype == 'merge-pe') {
         meta.runtype = 'paired-end'
-    } else if (runtype == 'merge-se') {
+    }
+    else if (runtype == 'merge-se') {
         meta.runtype = 'single-end'
-    } else if (runtype == 'sra_accession_ont') {
+    }
+    else if (runtype == 'sra_accession_ont') {
         meta.runtype = 'ont'
-    } else {
+    }
+    else {
         meta.runtype = runtype
     }
     meta.is_compressed = task.ext.skip_compression ? false : true

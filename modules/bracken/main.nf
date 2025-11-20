@@ -1,35 +1,37 @@
+nextflow.preview.types = true
+
 process BRACKEN {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
-    path db
+    (_meta, reads) : Tuple<Map, Path>
+    db             : Path
 
     output:
-    tuple val(meta), path("${prefix}.bracken.tsv")                    , emit: tsv
-    tuple val(special_meta), path("${prefix}.bracken.tsv")            , emit: special_tsv
-    tuple val(meta), path('*classified*')                             , emit: classified, optional: true
-    tuple val(meta), path('*unclassified*')                           , emit: unclassified, optional: true
-    tuple val(meta), path("${prefix}.kraken2.report.txt")             , emit: kraken2_report
-    tuple val(meta), path("${prefix}.kraken2.output.txt")             , emit: kraken2_output, optional: true
-    tuple val(meta), path("${prefix}.bracken.report.txt")             , emit: bracken_report
-    tuple val(meta), path("*.krona.html")                             , emit: krona, optional: true
-    tuple val(meta), path("${prefix}.bracken.abundances.txt")         , emit: abundances
-    tuple val(meta), path("${prefix}.bracken.classification.txt")     , emit: classification
-    tuple val(meta), path("${prefix}.bracken.adjusted.abundances.txt"), emit: adjusted_abundances
-    tuple val(meta), path("*.{log,err}" )  , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv                 = tuple(meta, file("${prefix}.bracken.tsv"))
+    special_tsv         = tuple(special_meta, file("${prefix}.bracken.tsv"))
+    classified          = tuple(meta, file('*classified*', optional: true))
+    unclassified        = tuple(meta, file('*unclassified*', optional: true))
+    kraken2_report      = tuple(meta, file("${prefix}.kraken2.report.txt"))
+    kraken2_output      = tuple(meta, file("${prefix}.kraken2.output.txt", optional: true))
+    bracken_report      = tuple(meta, file("${prefix}.bracken.report.txt"))
+    krona               = tuple(meta, file("*.krona.html", optional: true))
+    abundances          = tuple(meta, file("${prefix}.bracken.abundances.txt"))
+    classification      = tuple(meta, file("${prefix}.bracken.classification.txt"))
+    adjusted_abundances = tuple(meta, file("${prefix}.bracken.adjusted.abundances.txt"))
+    logs                = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin            = tuple(meta, file(".command.begin"))
+    nf_err              = tuple(meta, file(".command.err"))
+    nf_log              = tuple(meta, file(".command.log"))
+    nf_out              = tuple(meta, file(".command.out"))
+    nf_run              = tuple(meta, file(".command.run"))
+    nf_sh               = tuple(meta, file(".command.sh"))
+    nf_trace            = tuple(meta, file(".command.trace"))
+    versions            = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -43,7 +45,8 @@ process BRACKEN {
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    } else {
+    }
+    else {
         meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     }
@@ -51,31 +54,31 @@ process BRACKEN {
     special_meta = [:]
     special_meta.id = prefix
     def paired = meta.single_end ? "" : "--paired"
-    classified = meta.single_end ? "${prefix}.classified.fastq"   : "${prefix}.classified#.fastq"
+    classified = meta.single_end ? "${prefix}.classified.fastq" : "${prefix}.classified#.fastq"
     unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
     meta.teton_reads = reads.join(",")
     """
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         mkdir database
-        tar -xzf $db -C database
+        tar -xzf ${db} -C database
         KRAKEN_DB=\$(find database/ -name "hash.k2d" | sed 's=hash.k2d==')
     else
-        KRAKEN_DB=\$(find $db/ -name "hash.k2d" | sed 's=hash.k2d==')
+        KRAKEN_DB=\$(find ${db}/ -name "hash.k2d" | sed 's=hash.k2d==')
     fi
 
     kraken2 \\
         --db \$KRAKEN_DB \\
-        --threads $task.cpus \\
-        --unclassified-out $unclassified \\
-        --classified-out $classified \\
+        --threads ${task.cpus} \\
+        --unclassified-out ${unclassified} \\
+        --classified-out ${classified} \\
         --report ${prefix}.kraken2.report.txt \\
         --gzip-compressed \\
-        $paired \\
-        $task.ext.args \\
-        $reads > ${prefix}.kraken2.output.txt
+        ${paired} \\
+        ${task.ext.args} \\
+        ${reads} > ${prefix}.kraken2.output.txt
 
     # Get read length
     if [ "${task.ext.bracken_read_length}" == "0" ]; then
@@ -103,7 +106,7 @@ process BRACKEN {
     fi
 
     bracken \\
-        $task.ext.args2 \\
+        ${task.ext.args2} \\
         -d \$KRAKEN_DB \\
         -r \$READ_LENGTH \\
         -i ${prefix}.kraken2.report.txt \\
@@ -146,13 +149,13 @@ process BRACKEN {
 
     if [ "${task.ext.kraken2_keep_filtered_reads}" == "true" ]; then
         # Compress Kraken FASTQs
-        pigz -p $task.cpus *.fastq
+        pigz -p ${task.cpus} *.fastq
     else
         # Remove filtered FASTQs
         rm *.fastq
     fi
 
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         rm -rf database
     fi
 

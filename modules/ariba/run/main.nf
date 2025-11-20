@@ -1,27 +1,29 @@
+nextflow.preview.types = true
+
 process ARIBA_RUN {
-    tag "${prefix} - $db_name"
+    tag "${prefix} - ${db_name}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
-    path(db)
+    (_meta, reads) : Tuple<Map, Path>
+    db             : Path
 
     output:
-    tuple val(meta), path("${prefix}-report.tsv") , emit: report
-    tuple val(meta), path("${prefix}-summary.csv"), emit: summary
-    tuple val(meta), path("supplemental/*")       , emit: supplemental
-    tuple val(meta), path("*.{log,err}")          , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")       , emit: nf_begin
-    tuple val(meta), path(".command.err")         , emit: nf_err
-    tuple val(meta), path(".command.log")         , emit: nf_log
-    tuple val(meta), path(".command.out")         , emit: nf_out
-    tuple val(meta), path(".command.run")         , emit: nf_run
-    tuple val(meta), path(".command.sh")          , emit: nf_sh
-    tuple val(meta), path(".command.trace")       , emit: nf_trace
-    tuple val(meta), path("versions.yml")         , emit: versions
+    report       = tuple(meta, file("${prefix}-report.tsv"))
+    summary      = tuple(meta, file("${prefix}-summary.csv"))
+    supplemental = tuple(meta, file("supplemental/*"))
+    logs         = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin     = tuple(meta, file(".command.begin"))
+    nf_err       = tuple(meta, file(".command.err"))
+    nf_log       = tuple(meta, file(".command.log"))
+    nf_out       = tuple(meta, file(".command.out"))
+    nf_run       = tuple(meta, file(".command.run"))
+    nf_sh        = tuple(meta, file(".command.sh"))
+    nf_trace     = tuple(meta, file(".command.trace"))
+    versions     = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -43,8 +45,8 @@ process ARIBA_RUN {
         ${db_name}db/ \\
         ${reads} \\
         ${db_name} \\
-        $task.ext.args \\
-        --threads $task.cpus
+        ${task.ext.args} \\
+        --threads ${task.cpus}
 
     ariba \\
         summary \\

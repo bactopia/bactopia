@@ -1,37 +1,39 @@
+nextflow.preview.types = true
+
 process CLONALFRAMEML {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(msa), path(newick)
+    (_meta, msa, newick) : Tuple<Map, Path, Path>
 
     output:
-    tuple val(meta), path("${task.ext.process_name}/*.emsim.txt")                      , emit: emsim, optional: true
-    tuple val(meta), path("${task.ext.process_name}/*.em.txt")                         , emit: em
-    tuple val(meta), path("${task.ext.process_name}/*.importation_status.txt")         , emit: status
-    tuple val(meta), path("${task.ext.process_name}/*.labelled_tree.newick")           , emit: newick
-    tuple val(meta), path("${task.ext.process_name}/*.ML_sequence.fasta.gz")           , emit: fasta
-    tuple val(meta), path("${task.ext.process_name}/*.position_cross_reference.txt.gz"), emit: pos_ref
-    tuple val(meta), path("*.masked.aln.gz"), emit: masked_aln
-    tuple val(meta), path("*.{log,err}")    , emit: logs, optional: true
-    tuple val(meta), path(".command.begin") , emit: nf_begin
-    tuple val(meta), path(".command.err")   , emit: nf_err
-    tuple val(meta), path(".command.log")   , emit: nf_log
-    tuple val(meta), path(".command.out")   , emit: nf_out
-    tuple val(meta), path(".command.run")   , emit: nf_run
-    tuple val(meta), path(".command.sh")    , emit: nf_sh
-    tuple val(meta), path(".command.trace") , emit: nf_trace
-    tuple val(meta), path("versions.yml")   , emit: versions
+    emsim      = tuple(meta, file("${task.ext.process_name}/*.emsim.txt", optional: true))
+    em         = tuple(meta, file("${task.ext.process_name}/*.em.txt"))
+    status     = tuple(meta, file("${task.ext.process_name}/*.importation_status.txt"))
+    newick     = tuple(meta, file("${task.ext.process_name}/*.labelled_tree.newick"))
+    fasta      = tuple(meta, file("${task.ext.process_name}/*.ML_sequence.fasta.gz"))
+    pos_ref    = tuple(meta, file("${task.ext.process_name}/*.position_cross_reference.txt.gz"))
+    masked_aln = tuple(meta, file("*.masked.aln.gz"))
+    logs       = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin   = tuple(meta, file(".command.begin"))
+    nf_err     = tuple(meta, file(".command.err"))
+    nf_log     = tuple(meta, file(".command.log"))
+    nf_out     = tuple(meta, file(".command.out"))
+    nf_run     = tuple(meta, file(".command.run"))
+    nf_sh      = tuple(meta, file(".command.sh"))
+    nf_trace   = tuple(meta, file(".command.trace"))
+    versions   = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
     meta = [:]
-    meta.id = "${prefix}-${task.process_name}"
+    meta.id = "${prefix}-${task.ext.process_name}"
     meta.name = prefix
     meta.scope = task.ext.scope
     meta.output_dir = ""
@@ -40,17 +42,17 @@ process CLONALFRAMEML {
     def is_compressed = msa.getName().endsWith(".gz") ? true : false
     def msa_name = msa.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $msa > $msa_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${msa} > ${msa_name}
     fi
 
     ClonalFrameML \\
-        $newick \\
-        $msa_name \\
-        $prefix \\
-        $task.ext.args
+        ${newick} \\
+        ${msa_name} \\
+        ${prefix} \\
+        ${task.ext.args}
 
-    maskrc-svg.py $prefix --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
+    maskrc-svg.py ${prefix} --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
     gzip ${prefix}.masked.aln
 
     # Cleanup

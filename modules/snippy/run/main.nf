@@ -1,45 +1,47 @@
+nextflow.preview.types = true
+
 process SNIPPY_RUN {
     tag "${prefix} - ${reference_name}"
     label "process_low"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
-    tuple val(ref_meta), path(reference)
+    (_meta, reads)        : Tuple<Map, Path>
+    (_ref_meta, reference) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("${prefix}.aligned.fa.gz")              , emit: aligned_fa, optional: true
-    tuple val(meta), path("${prefix}.vcf.gz")                     , emit: vcf, optional: true
-    tuple val(meta), path("${prefix}.error.aligned.fa.gz")        , emit: aligned_fa_error, optional: true
-    tuple val(meta), path("${prefix}.error.vcf.gz")               , emit: vcf_error, optional: true
-    tuple val(meta), path("${prefix}.error.txt")                  , emit: error, optional: true
-    tuple val(meta), path("${prefix}.annotated.vcf.gz")           , emit: annotated_vcf
-    tuple val(meta), path("${prefix}.bam")                        , emit: bam, optional: true
-    tuple val(meta), path("${prefix}.bam.bai")                    , emit: bai, optional: true
-    tuple val(meta), path("${prefix}.bed.gz")                     , emit: bed
-    tuple val(meta), path("${prefix}.consensus.fa.gz")            , emit: consensus_fa
-    tuple val(meta), path("${prefix}.consensus.subs.fa.gz")       , emit: consensus_subs_fa
-    tuple val(meta), path("${prefix}.consensus.subs.masked.fa.gz"), emit: consensus_subs_masked_fa
-    tuple val(meta), path("${prefix}.coverage.txt.gz")            , emit: coverage
-    tuple val(meta), path("${prefix}.csv.gz")                     , emit: csv
-    tuple val(meta), path("${prefix}.filt.vcf.gz")                , emit: filt_vcf
-    tuple val(meta), path("${prefix}.gff.gz")                     , emit: gff
-    tuple val(meta), path("${prefix}.html")                       , emit: html
-    tuple val(meta), path("${prefix}.raw.vcf.gz")                 , emit: raw_vcf
-    tuple val(meta), path("${prefix}.subs.vcf.gz")                , emit: subs_vcf
-    tuple val(meta), path("${prefix}.tab")                        , emit: tab
-    tuple val(meta), path("${prefix}.txt")                        , emit: txt
-    tuple val(meta), path("*.{log,err}")                          , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")                       , emit: nf_begin
-    tuple val(meta), path(".command.err")                         , emit: nf_err
-    tuple val(meta), path(".command.log")                         , emit: nf_log
-    tuple val(meta), path(".command.out")                         , emit: nf_out
-    tuple val(meta), path(".command.run")                         , emit: nf_run
-    tuple val(meta), path(".command.sh")                          , emit: nf_sh
-    tuple val(meta), path(".command.trace")                       , emit: nf_trace
-    tuple val(meta), path("versions.yml")                         , emit: versions
+    aligned_fa               = tuple(meta, file("${prefix}.aligned.fa.gz", optional: true))
+    vcf                      = tuple(meta, file("${prefix}.vcf.gz", optional: true))
+    aligned_fa_error         = tuple(meta, file("${prefix}.error.aligned.fa.gz", optional: true))
+    vcf_error                = tuple(meta, file("${prefix}.error.vcf.gz", optional: true))
+    error                    = tuple(meta, file("${prefix}.error.txt", optional: true))
+    annotated_vcf            = tuple(meta, file("${prefix}.annotated.vcf.gz"))
+    bam                      = tuple(meta, file("${prefix}.bam", optional: true))
+    bai                      = tuple(meta, file("${prefix}.bam.bai", optional: true))
+    bed                      = tuple(meta, file("${prefix}.bed.gz"))
+    consensus_fa             = tuple(meta, file("${prefix}.consensus.fa.gz"))
+    consensus_subs_fa        = tuple(meta, file("${prefix}.consensus.subs.fa.gz"))
+    consensus_subs_masked_fa = tuple(meta, file("${prefix}.consensus.subs.masked.fa.gz"))
+    coverage                 = tuple(meta, file("${prefix}.coverage.txt.gz"))
+    csv                      = tuple(meta, file("${prefix}.csv.gz"))
+    filt_vcf                 = tuple(meta, file("${prefix}.filt.vcf.gz"))
+    gff                      = tuple(meta, file("${prefix}.gff.gz"))
+    html                     = tuple(meta, file("${prefix}.html"))
+    raw_vcf                  = tuple(meta, file("${prefix}.raw.vcf.gz"))
+    subs_vcf                 = tuple(meta, file("${prefix}.subs.vcf.gz"))
+    tab                      = tuple(meta, file("${prefix}.tab"))
+    txt                      = tuple(meta, file("${prefix}.txt"))
+    logs                     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin                 = tuple(meta, file(".command.begin"))
+    nf_err                   = tuple(meta, file(".command.err"))
+    nf_log                   = tuple(meta, file(".command.log"))
+    nf_out                   = tuple(meta, file(".command.out"))
+    nf_run                   = tuple(meta, file(".command.run"))
+    nf_sh                    = tuple(meta, file(".command.sh"))
+    nf_trace                 = tuple(meta, file(".command.trace"))
+    versions                 = tuple(meta, file("versions.yml"))
 
     script:
     reference_name = reference.getSimpleName()
@@ -57,24 +59,24 @@ process SNIPPY_RUN {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $reference > $final_reference
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${reference} > ${final_reference}
     fi
 
-    if ! head -n 1 $final_reference | grep "^LOCUS"; then
+    if ! head -n 1 ${final_reference} | grep "^LOCUS"; then
         echo "ERROR: Reference file (${reference}) does not appear to be a GenBank file"
         exit 1
     fi
 
     mkdir tmp_snippy/
     snippy \\
-        $task.ext.args \\
-        --cpus $task.cpus \\
-        --outdir $prefix \\
-        --reference $final_reference \\
-        --prefix $prefix \\
+        ${task.ext.args} \\
+        --cpus ${task.cpus} \\
+        --outdir ${prefix} \\
+        --reference ${final_reference} \\
+        --prefix ${prefix} \\
         --tmpdir tmp_snippy/ \\
-        $read_inputs
+        ${read_inputs}
 
     # Add GenBank annotations
     vcf-annotator ${prefix}/${prefix}.vcf ${final_reference} > ${prefix}/${prefix}.annotated.vcf

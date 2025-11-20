@@ -1,29 +1,32 @@
+nextflow.preview.types = true
+
 process MIDAS_SPECIES {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
-    path db
+    (_meta, reads) : Tuple<Map, Path>
+    db             : Path
 
     output:
-    tuple val(meta), path("${prefix}.midas.tsv"), emit: tsv
-    tuple val(meta), path("*.abundances.txt")   , emit: abundances
-    tuple val(meta), path("*.{log,err}")        , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")     , emit: nf_begin
-    tuple val(meta), path(".command.err")       , emit: nf_err
-    tuple val(meta), path(".command.log")       , emit: nf_log
-    tuple val(meta), path(".command.out")       , emit: nf_out
-    tuple val(meta), path(".command.run")       , emit: nf_run
-    tuple val(meta), path(".command.sh")        , emit: nf_sh
-    tuple val(meta), path(".command.trace")     , emit: nf_trace
-    tuple val(meta), path("versions.yml")       , emit: versions
+    tsv        = tuple(meta, file("${prefix}.midas.tsv"))
+    abundances = tuple(meta, file("*.abundances.txt"))
+    logs       = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin   = tuple(meta, file(".command.begin"))
+    nf_err     = tuple(meta, file(".command.err"))
+    nf_log     = tuple(meta, file(".command.log"))
+    nf_out     = tuple(meta, file(".command.out"))
+    nf_run     = tuple(meta, file(".command.run"))
+    nf_sh      = tuple(meta, file(".command.sh"))
+    nf_trace   = tuple(meta, file(".command.trace"))
+    versions   = tuple(meta, file("versions.yml"))
 
     script:
-    def VERSION = '1.3.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.3.2'
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -37,34 +40,34 @@ process MIDAS_SPECIES {
     def read_opts = meta.single_end ? "-1 ${reads[0]}" : "-1 ${reads[0]} -2 ${reads[1]}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         mkdir database
-        tar -xzf $db -C database
+        tar -xzf ${db} -C database
         MIDAS_DB=\$(find database/ -name "genome_info.txt" | sed 's=genome_info.txt==')
     else
-        MIDAS_DB=\$(find $db/ -name "genome_info.txt" | sed 's=genome_info.txt==')
+        MIDAS_DB=\$(find ${db}/ -name "genome_info.txt" | sed 's=genome_info.txt==')
     fi
 
     run_midas.py \\
         species \\
         results \\
-        $read_opts \\
+        ${read_opts} \\
         ${task.ext.args} \\
         -d \${MIDAS_DB} \\
-        -t $task.cpus
+        -t ${task.cpus}
 
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
     midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
 
     # Cleanup
     rm -rf results/
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         rm -rf database
     fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        midas: $VERSION
+        midas: ${VERSION}
     END_VERSIONS
     """
 }

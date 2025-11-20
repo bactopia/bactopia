@@ -1,24 +1,26 @@
+nextflow.preview.types = true
+
 process MENINGOTYPE {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
+    (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("*.tsv")         , emit: tsv
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv      = tuple(meta, file("*.tsv"))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -34,13 +36,13 @@ process MENINGOTYPE {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     meningotype \\
         ${task.ext.args} \\
-        $fasta_name \\
+        ${fasta_name} \\
         > ${prefix}.tsv
 
     # Cleanup

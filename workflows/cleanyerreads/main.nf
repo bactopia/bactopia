@@ -23,10 +23,10 @@ include { SCRUBBER        } from '../../subworkflows/scrubber/main'
 workflow {
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
     BACTOPIA_INIT()
 
     // Gather samples in one place

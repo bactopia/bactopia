@@ -1,26 +1,28 @@
+nextflow.preview.types = true
+
 process CHECKM2_PREDICT {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
-    path db
+    (_meta, fasta) : Tuple<Map, Path>
+    db             : Path
 
     output:
-    tuple val(meta), path("${prefix}.tsv") , emit: tsv
-    tuple val(meta), path("supplemental/*"), emit: supplemental
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv          = tuple(meta, file("${prefix}.tsv"))
+    supplemental = tuple(meta, file("supplemental/*"))
+    logs         = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin     = tuple(meta, file(".command.begin"))
+    nf_err       = tuple(meta, file(".command.err"))
+    nf_log       = tuple(meta, file(".command.log"))
+    nf_out       = tuple(meta, file(".command.out"))
+    nf_run       = tuple(meta, file(".command.run"))
+    nf_sh        = tuple(meta, file(".command.sh"))
+    nf_trace     = tuple(meta, file(".command.trace"))
+    versions     = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -37,15 +39,15 @@ process CHECKM2_PREDICT {
     def fasta_name = fasta.getName().replace(".gz", "")
     """    
     # Decompress fasta file if compressed
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     # Check if db is a directory - if so, find the diamond database
-    if [ -d "$db" ]; then
+    if [ -d "${db}" ]; then
         CHECKM2_DB=\$(find ${db}/ -name "*.dmnd")
     else
-        CHECKM2_DB=$db
+        CHECKM2_DB=${db}
     fi
 
     checkm2 \\
@@ -53,7 +55,7 @@ process CHECKM2_PREDICT {
         --output-directory supplemental \\
         --threads ${task.cpus} \\
         --database_path \$CHECKM2_DB \\
-        $task.ext.args \\
+        ${task.ext.args} \\
         --input ${fasta}
 
     mv supplemental/checkm2.log ./

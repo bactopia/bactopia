@@ -1,26 +1,28 @@
+nextflow.preview.types = true
+
 process AMRFINDERPLUS_RUN {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(genes), path(proteins), path(gff)
-    each path(db)
+    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path, Path>
+    db                            : Path
 
     output:
-    tuple val(meta), path("${prefix}.tsv")          , emit: report
-    tuple val(meta), path("${prefix}-mutations.tsv"), emit: mutation_report, optional: true
-    tuple val(meta), path("*.{log,err}")            , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")         , emit: nf_begin
-    tuple val(meta), path(".command.err")           , emit: nf_err
-    tuple val(meta), path(".command.log")           , emit: nf_log
-    tuple val(meta), path(".command.out")           , emit: nf_out
-    tuple val(meta), path(".command.run")           , emit: nf_run
-    tuple val(meta), path(".command.sh")            , emit: nf_sh
-    tuple val(meta), path(".command.trace")         , emit: nf_trace
-    tuple val(meta), path("versions.yml")           , emit: versions
+    report          = tuple(meta, file("${prefix}.tsv"))
+    mutation_report = tuple(meta, file("${prefix}-mutations.tsv", optional: true))
+    logs            = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin        = tuple(meta, file(".command.begin"))
+    nf_err          = tuple(meta, file(".command.err"))
+    nf_log          = tuple(meta, file(".command.log"))
+    nf_out          = tuple(meta, file(".command.out"))
+    nf_run          = tuple(meta, file(".command.run"))
+    nf_sh           = tuple(meta, file(".command.sh"))
+    nf_trace        = tuple(meta, file(".command.trace"))
+    versions        = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -45,38 +47,38 @@ process AMRFINDERPLUS_RUN {
     annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
-    if [ "$fna_is_compressed" == "true" ]; then
-        gzip -c -d $genes > $fna_name
+    if [ "${fna_is_compressed}" == "true" ]; then
+        gzip -c -d ${genes} > ${fna_name}
     fi
 
-    if [ "$faa_is_compressed" == "true" ]; then
-        gzip -c -d $proteins > $faa_name
+    if [ "${faa_is_compressed}" == "true" ]; then
+        gzip -c -d ${proteins} > ${faa_name}
     fi
 
-    if [ "$gff_is_compressed" == "true" ]; then
-        gzip -c -d $gff > $gff_name
+    if [ "${gff_is_compressed}" == "true" ]; then
+        gzip -c -d ${gff} > ${gff_name}
     fi
 
     # Extract database
-    if [ "$is_tarball" == "true" ]; then
+    if [ "${is_tarball}" == "true" ]; then
         mkdir database
-        tar -xzf $db -C database
+        tar -xzf ${db} -C database
         AMRFINDER_DB=\$(find database/ -name "AMR.LIB" | sed 's=AMR.LIB==')
     else
-        AMRFINDER_DB=\$(find $db/ -name "AMR.LIB" | sed 's=AMR.LIB==')
+        AMRFINDER_DB=\$(find ${db}/ -name "AMR.LIB" | sed 's=AMR.LIB==')
     fi
 
     # Full AMRFinderPlus search combining results
     amrfinder \\
-        --nucleotide $fna_name \\
-        --protein $faa_name \\
-        --gff $gff_name \\
-        --annotation_format $annotation_format \\
-        $organism_param \\
-        $task.ext.args \\
+        --nucleotide ${fna_name} \\
+        --protein ${faa_name} \\
+        --gff ${gff_name} \\
+        --annotation_format ${annotation_format} \\
+        ${organism_param} \\
+        ${task.ext.args} \\
         --database \$AMRFINDER_DB \\
-        --threads $task.cpus \\
-        --name $prefix > ${prefix}.tsv
+        --threads ${task.cpus} \\
+        --name ${prefix} > ${prefix}.tsv
 
     # Clean up
     DB_VERSION=\$(echo \$(echo \$(amrfinder --database amrfinderplus --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))

@@ -31,10 +31,10 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty()
+    ch_logs = channel.empty()
+    ch_nf_logs = channel.empty()
+    ch_versions = channel.empty()
     BACTOPIA_INIT()
 
     // Core steps
@@ -73,7 +73,7 @@ workflow {
     ch_versions = ch_versions.mix(SKETCHER.out.versions)
 
     // Annotate samples
-    ch_annotations = Channel.empty()
+    ch_annotations = channel.empty()
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,

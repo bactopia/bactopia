@@ -1,29 +1,31 @@
+nextflow.preview.types = true
+
 process SKETCHER {
     tag "${prefix}"
     label "process_low"
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
-    path mash_db
-    path sourmash_db
+    (_meta, fasta) : Tuple<Map, Path>
+    mash_db        : Path
+    sourmash_db    : Path
 
     output:
-    tuple val(meta), path("${prefix}.sig")                        , emit: sig
-    tuple val(meta), path("${prefix}-k*.msh")                     , emit: msh
-    tuple val(meta), path("${prefix}-mash-refseq88-k21.txt")      , emit: mash
-    tuple val(meta), path("${prefix}-sourmash-gtdb-rs207-k31.txt"), emit: sourmash
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path(".command.run")  , emit: nf_run, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path("versions.yml")  , emit: versions
+    sig      = tuple(meta, file("${prefix}.sig"))
+    msh      = tuple(meta, file("${prefix}-k*.msh"))
+    mash     = tuple(meta, file("${prefix}-mash-refseq88-k21.txt"))
+    sourmash = tuple(meta, file("${prefix}-sourmash-gtdb-rs207-k31.txt"))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    nf_run   = tuple(meta, file(".command.run", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -39,8 +41,8 @@ process SKETCHER {
     def is_compressed = mash_db.getName().endsWith(".xz") ? true : false
     def mash_name = mash_db.getName().replace(".xz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        xz -c -d $mash_db > $mash_name
+    if [ "${is_compressed}" == "true" ]; then
+        xz -c -d ${mash_db} > ${mash_name}
     fi
 
     gzip -cd ${fasta} | mash sketch -o ${prefix}-k21 -k 21 ${task.ext.args} -I ${prefix} -

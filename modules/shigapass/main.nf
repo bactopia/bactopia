@@ -1,25 +1,27 @@
+nextflow.preview.types = true
+
 process SHIGAPASS {
     tag "${prefix}"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
+    (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("${prefix}.tsv"), emit: tsv
-    tuple val(meta), path("${prefix}_Flex_summary.tsv"), optional: true, emit: flex_tsv
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    tsv      = tuple(meta, file("${prefix}.tsv"))
+    flex_tsv = tuple(meta, file("${prefix}_Flex_summary.tsv", optional: true))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     def SHIGAPASS_VERSION = "1.5.0"
@@ -37,19 +39,19 @@ process SHIGAPASS {
     def fasta_name = fasta.getName().replace(".gz", "")
     """
     # ShigaPass does not accept compressed FASTA files
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     # Convert our genome path to a file with a path in it
-    ls $fasta_name > ${fasta_name}_tmp.txt
+    ls ${fasta_name} > ${fasta_name}_tmp.txt
 
     # Run ShigaPass
     ShigaPass.sh \\
         -l ${fasta_name}_tmp.txt \\
         ${task.ext.args} \\
         -p "\$(dirname \$(which ShigaPass.sh))/../share/shigapass-${SHIGAPASS_VERSION}/db" \\
-        -t $task.cpus \\
+        -t ${task.cpus} \\
         -o ${prefix}
 
     # Remove the temporary file from above

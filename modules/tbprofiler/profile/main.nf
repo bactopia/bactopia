@@ -1,28 +1,30 @@
+nextflow.preview.types = true
+
 process TBPROFILER_PROFILE {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(reads)
+    (_meta, reads) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("bam/*.bam")        , emit: bam
-    tuple val(meta), path("supplemental/*.csv")    , emit: csv, optional: true
-    tuple val(meta), path("supplemental/*.json.gz"), emit: json
-    tuple val(meta), path("supplemental/*.txt")    , emit: txt, optional: true
-    tuple val(meta), path("vcf/*.vcf.gz")     , emit: vcf
-    tuple val(meta), path("*.{log,err}")      , emit: logs, optional: true
-    tuple val(meta), path(".command.begin")   , emit: nf_begin
-    tuple val(meta), path(".command.err")     , emit: nf_err
-    tuple val(meta), path(".command.log")     , emit: nf_log
-    tuple val(meta), path(".command.out")     , emit: nf_out
-    tuple val(meta), path(".command.run")     , emit: nf_run
-    tuple val(meta), path(".command.sh")      , emit: nf_sh
-    tuple val(meta), path(".command.trace")   , emit: nf_trace
-    tuple val(meta), path("versions.yml")     , emit: versions
+    bam      = tuple(meta, file("bam/*.bam"))
+    csv      = tuple(meta, file("supplemental/*.csv", optional: true))
+    json     = tuple(meta, file("supplemental/*.json.gz"))
+    txt      = tuple(meta, file("supplemental/*.txt", optional: true))
+    vcf      = tuple(meta, file("vcf/*.vcf.gz"))
+    logs     = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin = tuple(meta, file(".command.begin"))
+    nf_err   = tuple(meta, file(".command.err"))
+    nf_log   = tuple(meta, file(".command.log"))
+    nf_out   = tuple(meta, file(".command.out"))
+    nf_run   = tuple(meta, file(".command.run"))
+    nf_sh    = tuple(meta, file(".command.sh"))
+    nf_trace = tuple(meta, file(".command.trace"))
+    versions = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -35,7 +37,7 @@ process TBPROFILER_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def input_reads = meta.single_end ? "--read1 $reads" : "--read1 ${reads[0]} --read2 ${reads[1]}"
+    def input_reads = meta.single_end ? "--read1 ${reads}" : "--read1 ${reads[0]} --read2 ${reads[1]}"
     def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """
     # Copy database to working directory
@@ -45,14 +47,14 @@ process TBPROFILER_PROFILE {
     tb-profiler \\
         profile \\
         ${task.ext.args} \\
-        $platform \\
+        ${platform} \\
         --csv \\
         --txt \\
         --prefix ${prefix} \\
-        --threads $task.cpus \\
+        --threads ${task.cpus} \\
         --no_trim \\
         --db_dir database/ \\
-        $input_reads
+        ${input_reads}
 
     # Cleanup
     mv results/ supplemental/

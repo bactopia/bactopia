@@ -1,4 +1,18 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    bactopia : String
+    includes : String
+    excludes : String
+    workflow : Map
+    rundir   : String
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,16 +27,17 @@ include { ABRICATE          } from '../../../subworkflows/abricate/main'
     RUN MAIN WORKFLOW
 ========================================================================================
 */
+
 workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = Channel.empty()
-    ch_logs = Channel.empty()
-    ch_nf_logs = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map,Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map,Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map,Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map,Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.includes, params.excludes)
     ABRICATE(BACTOPIATOOL_INIT.out.samples)
 
     // Collect outputs

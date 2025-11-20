@@ -1,14 +1,16 @@
+nextflow.preview.types = true
+
 process BAKTA_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "bakta-${task.ext.bakta_db_type}/*", emit: db, optional: true
-    path "bakta-${task.ext.bakta_db_type}.tar.gz", emit: db_tarball, optional: true
-    path "logs/*", emit: logs, optional: true
+    db         = file("bakta-${task.ext.bakta_db_type}/*", optional: true)
+    db_tarball = file("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true)
+    logs       = file("logs/*", optional: true)
 
     script:
     """

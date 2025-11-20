@@ -1,13 +1,15 @@
+nextflow.preview.types = true
+
 process AMRFINDERPLUS_UPDATE {
     tag "amrfinderplus-update"
     label 'process_low'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    path "updater/amrfinderplus.tar.gz", emit: db
-    path "updater/logs/*", emit: logs, optional: true
+    db   = file("updater/amrfinderplus.tar.gz")
+    logs = file("updater/logs/*", optional: true)
 
     script:
     """

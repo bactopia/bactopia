@@ -1,27 +1,29 @@
+nextflow.preview.types = true
+
 process MOBSUITE_RECON {
     tag "${prefix}"
     label 'process_medium'
 
-    conda "${task.ext.env.condaDir}/${task.ext.env.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.env.image : task.ext.env.docker }"
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    tuple val(_meta), path(fasta)
+    (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    tuple val(meta), path("${prefix}-chromosome.fasta.gz"), emit: chromosome
-    tuple val(meta), path("${prefix}-contig_report.txt")  , emit: contig_report
-    tuple val(meta), path("plasmid_*.fasta.gz")           , emit: plasmids, optional: true
-    tuple val(meta), path("${prefix}-mobtyper.txt")       , emit: txt, optional: true
-    tuple val(meta), path("*.{log,err}")   , emit: logs, optional: true
-    tuple val(meta), path(".command.begin"), emit: nf_begin
-    tuple val(meta), path(".command.err")  , emit: nf_err
-    tuple val(meta), path(".command.log")  , emit: nf_log
-    tuple val(meta), path(".command.out")  , emit: nf_out
-    tuple val(meta), path(".command.run")  , emit: nf_run
-    tuple val(meta), path(".command.sh")   , emit: nf_sh
-    tuple val(meta), path(".command.trace"), emit: nf_trace
-    tuple val(meta), path("versions.yml")  , emit: versions
+    chromosome    = tuple(meta, file("${prefix}-chromosome.fasta.gz"))
+    contig_report = tuple(meta, file("${prefix}-contig_report.txt"))
+    plasmids      = tuple(meta, file("plasmid_*.fasta.gz", optional: true))
+    txt           = tuple(meta, file("${prefix}-mobtyper.txt", optional: true))
+    logs          = tuple(meta, file("*.{log,err}", optional: true))
+    nf_begin      = tuple(meta, file(".command.begin"))
+    nf_err        = tuple(meta, file(".command.err"))
+    nf_log        = tuple(meta, file(".command.log"))
+    nf_out        = tuple(meta, file(".command.out"))
+    nf_run        = tuple(meta, file(".command.run"))
+    nf_sh         = tuple(meta, file(".command.sh"))
+    nf_trace      = tuple(meta, file(".command.trace"))
+    versions      = tuple(meta, file("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -37,16 +39,16 @@ process MOBSUITE_RECON {
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     """
-    if [ "$is_compressed" == "true" ]; then
-        gzip -c -d $fasta > $fasta_name
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
     fi
 
     mob_recon \\
-        --infile $fasta_name \\
+        --infile ${fasta_name} \\
         ${task.ext.args} \\
-        --num_threads $task.cpus \\
+        --num_threads ${task.cpus} \\
         --outdir supplemental \\
-        --sample_id $prefix
+        --sample_id ${prefix}
 
     if [[ -f "supplemental/mobtyper_results.txt" ]]; then
         mv supplemental/mobtyper_results.txt ${prefix}-mobtyper.txt
